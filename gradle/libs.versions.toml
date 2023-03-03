@@ -26,6 +26,6 @@ xmlutil = ["xmlutil-core", "xmlutil-serialization"]
 
 [plugins]
 gradledoctor = { id = "com.osacky.doctor", version = "0.8.1" }
-kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
