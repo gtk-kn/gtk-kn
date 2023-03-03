@@ -1,0 +1,13 @@
+build
+.gradle
+maven.properties
+signing.properties
+.~lock*
+out
+
+# Intellij
+*.iml
+.idea/*
+!.idea/codeStyles/
+!.idea/copyright/
+!.idea/detekt.xml
