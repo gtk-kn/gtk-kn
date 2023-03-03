@@ -1,0 +1,27 @@
+image: openjdk:11-jdk
+
+before_script:
+  - GRADLE_USER_HOME="$(pwd)/.gradle"
+  - export GRADLE_USER_HOME
+
+stages:
+  - build
+  - test
+
+assemble-gir:
+  interruptible: true
+  stage: build
+  script:
+    - ./gradlew :gir:assemble
+
+assemble-samples:
+  interruptible: true
+  stage: build
+  script:
+    - ./gradlew :samples:gtk:hello-world:assemble
+
+
+check:
+  stage: test
+  script:
+    - ./gradlew check
