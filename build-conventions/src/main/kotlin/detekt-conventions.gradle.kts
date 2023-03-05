@@ -19,7 +19,13 @@ dependencies {
 
 afterEvaluate {
     tasks.named("check").configure {
-        dependsOn(tasks.named("detektMain"))
-        dependsOn(tasks.named("detektTest"))
+        tasks.findByName("detektMain")?.let { dependsOn(it) }
+        tasks.findByName("detektTest")?.let { dependsOn(it) }
+        tasks.findByName("detektJsMain")?.let { dependsOn(it) }
+        tasks.findByName("detektJsTest")?.let { dependsOn(it) }
+        tasks.findByName("detektJvmMain")?.let { dependsOn(it) }
+        tasks.findByName("detektJvmTest")?.let { dependsOn(it) }
+        tasks.findByName("detektNativeMain")?.let { dependsOn(it) }
+        tasks.findByName("detektNativeTest")?.let { dependsOn(it) }
     }
 }
