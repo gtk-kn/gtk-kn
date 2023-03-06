@@ -3,9 +3,21 @@ package org.gtkkn.gir.parser
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
 
-fun Node.attributeValue(attributeName: String): String = this.attributeValueOrNull(attributeName)!!
+/**
+ * Get the value of attribute with name [attributeName].
+ *
+ * @throws IllegalStateException when the attribute does not exist.
+ * @return the atttribute value
+ */
+fun Node.attributeValue(attributeName: String): String =
+    attributeValueOrNull(attributeName) ?: throw MissingNodeAttributeError(nodeName, attributeName)
 
-fun Node.attributeValueOrNull(attributeName: String): String? = this.attributes.getNamedItem(attributeName)?.nodeValue
+/**
+ * Get the value of attribute with name [attributeName] or null.
+ *
+ * @return the attribute value or null when the attribute does not exist.
+ */
+fun Node.attributeValueOrNull(attributeName: String): String? = attributes.getNamedItem(attributeName)?.nodeValue
 
 /**
  * Convert all nodes in the [NodeList] to a List.
@@ -67,3 +79,8 @@ class MultipleChildNodesError(
 class ChildNodeNotFoundError(nodeName: String) : Error(
     "Expected single child node with name $nodeName but node has none",
 )
+
+class MissingNodeAttributeError(
+    nodeName: String,
+    attributeName: String
+) : Error("Expected attribute with name '$attributeName' on node '$nodeName but the attribute does not exist.")

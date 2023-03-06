@@ -169,26 +169,26 @@ private fun parseGirClass(node: Node): GirClass = GirClass(
 )
 
 private fun parseGirDocVersion(node: Node): GirDocVersion = GirDocVersion(
-    preserveSpace = node.attributeValueOrNull("xml:space")?.let { it == "preserve" } ?: false,
-    preserveWhitespace = node.attributeValueOrNull("xml:whitespace")?.let { it == "preserve" } ?: false,
+    preserveSpace = node.attributeValueOrNull("xml:space")?.let { it == "preserve" } == true,
+    preserveWhitespace = node.attributeValueOrNull("xml:whitespace")?.let { it == "preserve" } == true,
     text = node.textContent,
 )
 
 private fun parseGirDocStability(node: Node): GirDocStability = GirDocStability(
-    preserveSpace = node.attributeValueOrNull("xml:space")?.let { it == "preserve" } ?: false,
-    preserveWhitespace = node.attributeValueOrNull("xml:whitespace")?.let { it == "preserve" } ?: false,
+    preserveSpace = node.attributeValueOrNull("xml:space")?.let { it == "preserve" } == true,
+    preserveWhitespace = node.attributeValueOrNull("xml:whitespace")?.let { it == "preserve" } == true,
     text = node.textContent,
 )
 
 private fun parseGirDocDeprecated(node: Node): GirDocDeprecated = GirDocDeprecated(
-    preserveSpace = node.attributeValueOrNull("xml:space")?.let { it == "preserve" } ?: false,
-    preserveWhitespace = node.attributeValueOrNull("xml:whitespace")?.let { it == "preserve" } ?: false,
+    preserveSpace = node.attributeValueOrNull("xml:space")?.let { it == "preserve" } == true,
+    preserveWhitespace = node.attributeValueOrNull("xml:whitespace")?.let { it == "preserve" } == true,
     text = node.textContent,
 )
 
 private fun parseGirDoc(node: Node): GirDoc = GirDoc(
-    preserveSpace = node.attributeValueOrNull("xml:space")?.let { it == "preserve" } ?: false,
-    preserveWhitespace = node.attributeValueOrNull("xml:whitespace")?.let { it == "preserve" } ?: false,
+    preserveSpace = node.attributeValueOrNull("xml:space")?.let { it == "preserve" } == true,
+    preserveWhitespace = node.attributeValueOrNull("xml:whitespace")?.let { it == "preserve" } == true,
     text = node.textContent,
     filename = node.attributeValue("filename"),
     line = node.attributeValue("line"),
@@ -215,7 +215,7 @@ private fun parseGirFunction(node: Node): GirFunction = GirFunction(
     cIdentifier = node.attributeValueOrNull("c:identifier"),
     shadowedBy = node.attributeValueOrNull("shadowed-by"),
     shadows = node.attributeValueOrNull("shadows"),
-    throws = node.attributeValueOrNull("throws")?.let { it == "1" } ?: false,
+    throws = node.attributeValueOrNull("throws")?.let { it == "1" } == true,
     movedTo = node.attributeValueOrNull("moved-to"),
     parameters = node.singleChildWithNameOrNull("parameters")?.let { parseGirParameters(it) },
     returnValue = node.singleChildWithNameOrNull("return-value")?.let { parseGirReturnValue(it) },
@@ -228,7 +228,7 @@ private fun parseGirConstructor(node: Node): GirConstructor = GirConstructor(
     cIdentifier = node.attributeValueOrNull("c:identifier"),
     shadowedBy = node.attributeValueOrNull("shadowed-by"),
     shadows = node.attributeValueOrNull("shadows"),
-    throws = node.attributeValueOrNull("throws")?.let { it == "1" } ?: false,
+    throws = node.attributeValueOrNull("throws")?.let { it == "1" } == true,
     movedTo = node.attributeValueOrNull("moved-to"),
     parameters = node.singleChildWithNameOrNull("parameters")?.let { parseGirParameters(it) },
     returnValue = node.singleChildWithNameOrNull("return-value")?.let { parseGirReturnValue(it) },
@@ -240,7 +240,7 @@ private fun parseGirMethod(node: Node): GirMethod = GirMethod(
     cIdentifier = node.attributeValueOrNull("c:identifier"),
     shadowedBy = node.attributeValueOrNull("shadowed-by"),
     shadows = node.attributeValueOrNull("shadows"),
-    throws = node.attributeValueOrNull("throws")?.let { it == "1" } ?: false,
+    throws = node.attributeValueOrNull("throws")?.let { it == "1" } == true,
     movedTo = node.attributeValueOrNull("moved-to"),
     parameters = node.singleChildWithNameOrNull("parameters")?.let { parseGirParameters(it) },
     glibGetProperty = node.attributeValueOrNull("glib:get-property"),
@@ -254,7 +254,7 @@ private fun parseGirVirtualMethod(node: Node): GirVirtualMethod = GirVirtualMeth
     cIdentifier = node.attributeValueOrNull("c:identifier"),
     shadowedBy = node.attributeValueOrNull("shadowed-by"),
     shadows = node.attributeValueOrNull("shadows"),
-    throws = node.attributeValueOrNull("throws")?.let { it == "1" } ?: false,
+    throws = node.attributeValueOrNull("throws")?.let { it == "1" } == true,
     movedTo = node.attributeValueOrNull("moved-to"),
     parameters = node.singleChildWithNameOrNull("parameters")?.let { parseGirParameters(it) },
     invoker = node.attributeValueOrNull("invokeder"),
@@ -458,9 +458,9 @@ private fun parseGirReturnValue(node: Node): GirReturnValue {
     return GirReturnValue(
         introspectable = node.attributeValueOrNull("introspectable")?.requireBoolean(),
         nullable = node.attributeValueOrNull("nullable")?.requireBoolean(),
-        closure = node.attributeValueOrNull("closure")?.let { it.toInt() },
-        scope = node.attributeValueOrNull("scope")?.let { GirScope.fromString(it) },
-        destroy = node.attributeValueOrNull("destroy")?.let { it.toInt() },
+        closure = node.attributeValueOrNull("closure")?.toInt(),
+        scope = node.attributeValueOrNull("scope")?.run { GirScope.fromString(this) },
+        destroy = node.attributeValueOrNull("destroy")?.toInt(),
         skip = node.attributeValueOrNull("skip")?.requireBoolean(),
         allowNone = node.attributeValueOrNull("allow-none")?.requireBoolean(),
         transferOwnership = node.attributeValueOrNull("transfer-ownership")
@@ -507,7 +507,7 @@ private fun parseGirArrayType(node: Node): GirArrayType {
         zeroTerminated = node.attributeValueOrNull("zero-terminated")?.requireBoolean(),
         fixedSize = node.attributeValueOrNull("fixed-size")?.toInt(),
         introspectable = node.attributeValueOrNull("introspectable")?.requireBoolean(),
-        length = node.attributeValueOrNull("length")?.let { it.toInt() },
+        length = node.attributeValueOrNull("length")?.toInt(),
         cType = node.attributeValueOrNull("c:type"),
         type = childTypes.first(),
     )
