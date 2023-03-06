@@ -1,7 +1,7 @@
 # Contributing to gtk-kn
 
 Thank you for considering contributing to our project! We welcome any contributions that help make our project better.
-Whether it's fixing a bug, adding a new feature, or improving documentation, your help is appreciated.
+Whether it is fixing a bug, adding a new feature, or improving documentation, your help is appreciated.
 
 Before you start, please read this guide on how to contribute to our project.
 
@@ -9,12 +9,12 @@ Before you start, please read this guide on how to contribute to our project.
 
 If you find a bug or have a feature request, please submit an issue on
 our [issue tracker](https://gitlab.com/gtk-kn/gtk-kn/-/issues). Before submitting an issue, please make sure that
-it hasn't already been reported by searching the existing issues. When submitting an issue, please provide as much
+it has not already been reported by searching the existing issues. When submitting an issue, please provide as much
 information as possible, such as:
 
 - A clear and concise title that summarizes the issue.
 - A detailed description of the issue, including steps to reproduce it.
-- The version of the project you're using.
+- The version of the project you are using.
 - Any relevant logs or error messages.
 - Any screenshots or videos that help illustrate the issue.
 
