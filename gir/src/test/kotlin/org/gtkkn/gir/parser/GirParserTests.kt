@@ -1,10 +1,10 @@
 package org.gtkkn.gir.parser
 
 import org.gtkkn.gir.model.GirTransferOwnership
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Test
 import java.io.File
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 private const val GTK_GIR_RESOURCE_NAME = "/girfiles/Gtk-4.0.gir"
 
@@ -12,7 +12,7 @@ class GirParserTests {
 
     private val gtkRepository by lazy {
         val girParser = GirParser()
-        val file = File(javaClass.getResource(GTK_GIR_RESOURCE_NAME).toURI())
+        val file = File(checkNotNull(javaClass.getResource(GTK_GIR_RESOURCE_NAME)).toURI())
         girParser.parse(file)
     }
 
@@ -33,11 +33,11 @@ class GirParserTests {
 
         val gdkInclude = gtkRepository.includes.firstOrNull { it.name == "Gdk" }
         assertNotNull(gdkInclude)
-        assertEquals("4.0", gdkInclude?.version)
+        assertEquals("4.0", gdkInclude.version)
 
         val gskInclude = gtkRepository.includes.firstOrNull { it.name == "Gsk" }
         assertNotNull(gskInclude)
-        assertEquals("4.0", gskInclude?.version)
+        assertEquals("4.0", gskInclude.version)
     }
 
     @Test
@@ -115,9 +115,9 @@ class GirParserTests {
         val method = clazz.methods.first { it.name == "get_accessible" }
         val instanceParameter = method.parameters?.instanceParameter
         assertNotNull(instanceParameter)
-        assertEquals("a `GtkATContext`", instanceParameter?.docs?.doc?.text)
-        assertEquals("ATContext", instanceParameter?.type?.name)
-        assertEquals("GtkATContext*", instanceParameter?.type?.cType)
-        assertEquals(GirTransferOwnership.None, instanceParameter?.transferOwnership)
+        assertEquals("a `GtkATContext`", instanceParameter.docs.doc?.text)
+        assertEquals("ATContext", instanceParameter.type.name)
+        assertEquals("GtkATContext*", instanceParameter.type.cType)
+        assertEquals(GirTransferOwnership.None, instanceParameter.transferOwnership)
     }
 }
