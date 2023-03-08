@@ -480,7 +480,7 @@ private fun parseGirAnyType(node: Node): GirAnyType =
     when (node.nodeName) {
         "type" -> parseGirType(node)
         "array" -> parseGirArrayType(node)
-        else -> throw IllegalArgumentException("AnyType is not a Type or ArrayType")
+        else -> error("AnyType is not a Type or ArrayType")
     }
 
 private fun parseGirCallbackOrAnyType(node: Node): GirCallbackOrAnyType =
@@ -533,5 +533,5 @@ private fun parseGirDocElements(node: Node): GirDocElements = GirDocElements(
 private fun String.requireBoolean(): Boolean = when (this) {
     "0" -> false
     "1" -> true
-    else -> throw IllegalArgumentException("String '$this' is not a valid boolean value")
+    else -> error("String '$this' is not a valid boolean value")
 }

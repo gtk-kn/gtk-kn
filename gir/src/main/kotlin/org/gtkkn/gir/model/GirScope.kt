@@ -32,7 +32,7 @@ enum class GirScope {
             "async" -> Async
             "call" -> Call
             "forever" -> Forever
-            else -> throw IllegalArgumentException("String '$str' is not a valid Scope value")
+            else -> error("String '$str' is not a valid Scope value")
         }
     }
 }

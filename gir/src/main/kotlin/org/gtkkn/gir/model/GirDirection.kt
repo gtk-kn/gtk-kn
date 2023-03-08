@@ -24,7 +24,7 @@ enum class GirDirection {
             "in" -> In
             "out" -> Out
             "inout" -> InOut
-            else -> throw IllegalArgumentException("String '$str' is not a valid Direction value")
+            else -> error("String '$str' is not a valid Direction value")
         }
     }
 }
