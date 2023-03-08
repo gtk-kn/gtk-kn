@@ -517,7 +517,7 @@ private fun parseGirInfo(node: Node): GirInfo = GirInfo(
     deprecated = node.attributeValueOrNull("deprecated")?.let { it == "1" },
     deprecatedVersion = node.attributeValueOrNull("deprecated-version"),
     version = node.attributeValueOrNull("version"),
-    stability = node.attributeValueOrNull("stability"),
+    stability = node.attributeValueOrNull("stability")?.let { GirInfo.Stability.fromString(it) },
     annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
     docs = parseGirDocElements(node),
 )

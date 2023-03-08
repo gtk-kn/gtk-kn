@@ -17,7 +17,22 @@ data class GirInfo(
     val deprecated: Boolean?,
     val deprecatedVersion: String?,
     val version: String?,
-    val stability: String?, // Stable, Unstable, Private // TODO enum?
+    val stability: Stability?,
     val annotations: List<GirAnnotation>,
     val docs: GirDocElements,
-)
+) {
+    enum class Stability {
+        STABLE,
+        UNSTABLE,
+        PRIVATE;
+
+        companion object {
+            fun fromString(str: String): Stability = when (str) {
+                "Stable" -> STABLE
+                "Unstable" -> UNSTABLE
+                "Private" -> PRIVATE
+                else -> error("String '$str' is not a valid Stability value")
+            }
+        }
+    }
+}
