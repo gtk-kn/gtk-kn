@@ -40,7 +40,6 @@ import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.model.GirReturnValue
 import org.gtkkn.gir.model.GirScope
 import org.gtkkn.gir.model.GirSignal
-import org.gtkkn.gir.model.GirSignalWhen
 import org.gtkkn.gir.model.GirSourcePosition
 import org.gtkkn.gir.model.GirTransferOwnership
 import org.gtkkn.gir.model.GirType
@@ -340,7 +339,7 @@ private fun parseGirSignal(node: Node): GirSignal = GirSignal(
     info = parseGirInfo(node),
     name = node.attributeValue("name"),
     detailed = node.attributeValueOrNull("detailed")?.requireBoolean(),
-    `when` = node.attributeValueOrNull("when")?.let { GirSignalWhen.fromString(it) },
+    `when` = node.attributeValueOrNull("when")?.let { GirSignal.When.fromString(it) },
     action = node.attributeValueOrNull("action")?.requireBoolean(),
     noHooks = node.attributeValueOrNull("no-hooks")?.requireBoolean(),
     noRecurse = node.attributeValueOrNull("no-recurse")?.requireBoolean(),
