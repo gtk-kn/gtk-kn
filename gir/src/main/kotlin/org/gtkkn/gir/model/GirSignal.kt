@@ -24,11 +24,26 @@ data class GirSignal(
     val info: GirInfo,
     val name: String,
     val detailed: Boolean?,
-    val `when`: GirSignalWhen?,
+    val `when`: When?,
     val action: Boolean?,
     val noHooks: Boolean?,
     val noRecurse: Boolean?,
     val emitter: String?,
     val parameters: GirParameters?,
     val returnValue: GirReturnValue?,
-)
+) {
+    enum class When {
+        FIRST,
+        LAST,
+        CLEANUP;
+
+        companion object {
+            fun fromString(str: String): When = when (str) {
+                "first" -> FIRST
+                "last" -> LAST
+                "cleanup" -> CLEANUP
+                else -> error("String '$str' is not a valid Signal When value")
+            }
+        }
+    }
+}
