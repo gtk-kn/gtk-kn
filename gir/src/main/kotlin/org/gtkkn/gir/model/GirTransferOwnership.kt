@@ -25,7 +25,7 @@ enum class GirTransferOwnership {
             "none" -> None
             "container" -> Container
             "full" -> Full
-            else -> throw IllegalArgumentException("String '$str' is not a valid TransferOwnership value")
+            else -> error("String '$str' is not a valid TransferOwnership value")
         }
     }
 }
