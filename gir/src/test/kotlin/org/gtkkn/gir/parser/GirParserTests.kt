@@ -3,7 +3,6 @@ package org.gtkkn.gir.parser
 import org.gtkkn.gir.model.GirTransferOwnership
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.io.File
 
@@ -74,7 +73,7 @@ class GirParserTests {
         assertEquals("gtk/gtkatcontext.c", doc?.filename)
         assertEquals(true, doc?.preserveSpace)
         assertEquals("21", doc?.line)
-        assertTrue(doc!!.text.contains("is an abstract class provided by GTK to communicate"))
+        assertEquals(true, doc?.text?.contains("is an abstract class provided by GTK to communicate"))
     }
 
     @Test
@@ -93,10 +92,10 @@ class GirParserTests {
     @Test
     fun parseReturnValue() {
         val clazz = gtkRepository.namespace.classes.first { it.name == "ATContext" }
-        val returnValue = clazz.constructors.first().returnValue!!
+        val returnValue = clazz.constructors.first().returnValue
 
-        assertEquals(GirTransferOwnership.Full, returnValue.transferOwnership)
-        assertEquals(true, returnValue.nullable)
+        assertEquals(GirTransferOwnership.Full, returnValue?.transferOwnership)
+        assertEquals(true, returnValue?.nullable)
     }
 
     @Test
