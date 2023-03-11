@@ -3,6 +3,7 @@ package org.gtkkn.gir
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.default
+import org.gtkkn.gir.parser.GirParser
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -24,4 +25,11 @@ fun main(args: Array<String>) {
     }
 
     println("==> girBaseDir = $girBaseDir")
+
+    val girParser = GirParser()
+    val repositories = girBaseDir.listFiles().orEmpty()
+        .filter { it.extension == "gir" }
+        .map { girParser.parse(it) }
+
+    println("Parsed ${repositories.count()} gir files")
 }
