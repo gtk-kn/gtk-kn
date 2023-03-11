@@ -2,6 +2,19 @@ headers = "glib.h"
 package = native.glib
 headerFilter = "glib/*"
 
+strictEnums = GDateDMY \
+GDateMonth \
+GDateWeekday \
+GLogWriterOutput \
+GRegexError \
+GNormalizeMode \
+GSliceConfig \
+GSpawnError \
+GTokenType \
+GUnicodeBreakType \
+GUnicodeScript \
+GVariantClass
+
 # compiler opts
 
 compilerOpts.linux = \

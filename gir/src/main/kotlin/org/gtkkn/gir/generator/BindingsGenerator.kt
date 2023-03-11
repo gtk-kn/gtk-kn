@@ -9,6 +9,11 @@ import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ClassBlueprint
+import org.gtkkn.gir.blueprints.ConversionType.ENUMERATION
+import org.gtkkn.gir.blueprints.ConversionType.OBJECT
+import org.gtkkn.gir.blueprints.ConversionType.SAME_TYPE
+import org.gtkkn.gir.blueprints.ConversionType.UNKNOWN
+import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
@@ -41,7 +46,7 @@ class BindingsGenerator(
             val created = repositoryOutputDir.mkdirs()
             if (!created) {
                 println(
-                    "Skipping repository ${repository.name} because output dir ${repositoryOutputDir.path} does not exist"
+                    "Skipping repository ${repository.name} because output dir ${repositoryOutputDir.path} does not exist",
                 )
                 return
             }
@@ -55,6 +60,9 @@ class BindingsGenerator(
 
         // write interfaces
         repository.interfaceBlueprints.forEach { writeInterface(repository, it) }
+
+        // write enums
+        repository.enumBlueprints.forEach { writeEnum(repository, it) }
     }
 
     private fun writeRepositorySkipFile(repository: RepositoryBlueprint) {
@@ -185,10 +193,77 @@ class BindingsGenerator(
             // arguments
 
             // implementation
-            if (method.returnTypeInfo.isSameType) {
-                addStatement("return %M($instancePointerName.%M())", method.nativeMemberName, REINTERPRET_FUNC)
-            } else {
-                addStatement("""TODO("type conversion is not implemented")""")
+            when (method.returnTypeInfo.conversionType) {
+                SAME_TYPE -> addStatement(
+                    "return %M($instancePointerName.%M())",
+                    method.nativeMemberName,
+                    REINTERPRET_FUNC,
+                )
+
+                ENUMERATION ->
+                    addStatement(
+//                        "return %T.fromNativeValue(%M($instancePointerName.%M()))",
+                        "return %M($instancePointerName.%M()).let({ %T.fromNativeValue(it)})",
+                        // instanceparam
+                        method.nativeMemberName,
+                        REINTERPRET_FUNC,
+                        // return conversion
+                        method.returnTypeInfo.kotlinTypeName,
+                    )
+
+                OBJECT ->
+                    addStatement("""TODO("object type conversion is not implemented")""")
+
+                UNKNOWN ->
+                    addStatement("""TODO("unknown type conversion is not implemented")""")
             }
         }.build()
+
+    private fun writeEnum(repository: RepositoryBlueprint, enum: EnumBlueprint) {
+        println("Writing enum: ${enum.kotlinName}")
+
+        val enumTypeSpec = TypeSpec.enumBuilder(enum.kotlinTypeName).apply {
+
+            addProperty(PropertySpec.builder("nativeValue", enum.nativeTypeName, KModifier.PRIVATE)
+                .initializer("nativeValue")
+                .build())
+
+            primaryConstructor(
+                FunSpec.constructorBuilder()
+                    .addParameter("nativeValue", enum.nativeTypeName)
+                    .build(),
+            )
+
+            enum.memberBlueprints.forEach { member ->
+                addEnumConstant(
+                    member.kotlinName,
+                    TypeSpec.anonymousClassBuilder()
+                        .addSuperclassConstructorParameter("%T.byValue(%L)", enum.nativeTypeName, member.nativeValue)
+                        .build(),
+                )
+            }
+
+            val fromNativeValueFuncSpec = FunSpec.builder("fromNativeValue")
+                .addParameter("nativeValue", enum.nativeTypeName)
+                .returns(enum.kotlinTypeName)
+                .addStatement(
+                    "return %T.values().asList().first({ it.nativeValue == nativeValue })",
+                    enum.kotlinTypeName,
+                )
+                .build()
+            val companionSpec = TypeSpec.companionObjectBuilder()
+                .addFunction(fromNativeValueFuncSpec)
+                .build()
+
+            addType(companionSpec)
+
+        }.build()
+
+        val fileSpec = FileSpec
+            .builder(enum.kotlinTypeName.packageName, enum.kotlinTypeName.simpleName)
+            .addType(enumTypeSpec)
+            .build()
+
+        fileSpec.writeTo(repositoryBuildSrcDir(repository))
+    }
 }
