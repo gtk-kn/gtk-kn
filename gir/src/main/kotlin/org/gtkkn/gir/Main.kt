@@ -4,6 +4,7 @@ import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.default
 import org.gtkkn.gir.blueprints.prettyPrint
+import org.gtkkn.gir.generator.BindingsGenerator
 import org.gtkkn.gir.parser.GirParser
 import org.gtkkn.gir.processor.Phase2Processor
 import java.io.File
@@ -46,4 +47,7 @@ fun main(args: Array<String>) {
     repositoryBlueprints.forEach { repo ->
         repo.prettyPrint()
     }
+
+    val generator = BindingsGenerator(File("bindings"))
+    generator.generate(repositoryBlueprints)
 }
