@@ -1,6 +1,8 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.TypeName
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirMethod
@@ -57,6 +59,9 @@ class ClassBlueprintBuilder(
         val kotlinClassName = context.kotlinizeClassName(girClass.name)
         val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
 
+        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girClass.name}Pointer"
+        val objectPointerTypeName = context.resolveClassObjectPointerTypeName(girNamespace, girClass)
+
         return ok(
             ClassBlueprint(
                 kotlinName = kotlinClassName,
@@ -65,7 +70,9 @@ class ClassBlueprintBuilder(
                 methods = methodBluePrints,
                 skippedObjects = skippedObjects,
                 implementsInterfaces = implementsInterfaces,
-                parentTypeName = parentTypeName
+                parentTypeName = parentTypeName,
+                objectPointerName = objectPointerName,
+                objectPointerTypeName = objectPointerTypeName
             ),
         )
     }

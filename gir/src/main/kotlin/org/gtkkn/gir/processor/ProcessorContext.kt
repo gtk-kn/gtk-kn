@@ -16,6 +16,7 @@ import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.TypeNamePair
+import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.model.GirType
@@ -38,6 +39,19 @@ class ProcessorContext(
     fun kotlinizeInterfaceName(nativeInterfaceName: String): String = nativeInterfaceName.snakeToCamelCase()
 
     fun kotlinizePackageName(nativePackageName: String): String = "bindings.${nativePackageName.lowercase()}"
+
+    fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()
+    fun namespaceNativePackageName(namespace: GirNamespace): String = "native.${namespace.name.lowercase()}"
+
+    /**
+     * Resolve the [TypeName] for the objectPointer we have in all classes.
+     *
+     * For example, for Widget, this will return kotlinx.cinterop.CPointer<native.gtk.Widget>.
+     */
+    fun resolveClassObjectPointerTypeName(namespace: GirNamespace, clazz: GirClass): TypeName =
+        ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(
+            ClassName(namespaceNativePackageName(namespace), clazz.name),
+        )
 
     /**
      * Resolve a native interface name to a [TypeName] object.
@@ -181,8 +195,11 @@ class ProcessorContext(
         try {
             val interfaceTypeName = resolveInterfaceTypeName(girNamespace, type.name)
             return TypeNamePair(
-                ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(STAR), // TODO proper type info of interface pointer
-                interfaceTypeName
+                ClassName(
+                    "kotlinx.cinterop",
+                    "CPointer",
+                ).parameterizedBy(STAR), // TODO proper type info of interface pointer
+                interfaceTypeName,
             )
         } catch (ex: UnresolvableTypeException) {
             // fallthrough
