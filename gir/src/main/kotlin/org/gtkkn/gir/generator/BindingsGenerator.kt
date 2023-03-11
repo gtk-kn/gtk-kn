@@ -1,6 +1,5 @@
 package org.gtkkn.gir.generator
 
-import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
@@ -15,20 +14,38 @@ import java.io.File
  * Temporary generator for prototyping purposes.
  */
 class BindingsGenerator(
-    private val outputDir: File
+    private val outputDir: File // currently assumed to be bindings
 ) {
+
+    fun repositoryBuildDir(repository: RepositoryBlueprint): File =
+        File(outputDir, "${repository.kotlinModuleName}/build")
+
+    fun repositoryBuildSrcDir(repository: RepositoryBlueprint): File =
+        File(repositoryBuildDir(repository), "gir-generated")
+
     fun generate(repositoryBlueprints: List<RepositoryBlueprint>) {
         repositoryBlueprints.forEach { writeRepository(it) }
     }
 
     private fun writeRepository(repository: RepositoryBlueprint) {
+
+        val repositoryOutputDir = repositoryBuildDir(repository)
+        if (!repositoryOutputDir.exists()) {
+            println("Creating output dir ${repositoryOutputDir.path}")
+            val created = repositoryOutputDir.mkdirs()
+            if (!created) {
+                println("Skipping repository ${repository.name} because output dir ${repositoryOutputDir.path} does not exist")
+                return
+            }
+        }
+
         println("Writing repository ${repository.name}")
         writeRepositorySkipFile(repository)
         repository.classBlueprints.forEach { writeClass(repository, it) }
     }
 
     private fun writeRepositorySkipFile(repository: RepositoryBlueprint) {
-        val skipFile = File(outputDir, "${repository.name}-skips.txt")
+        val skipFile = File(repositoryBuildDir(repository), "${repository.name}-skips.txt")
         skipFile.createNewFile()
 
         val skipWriter = skipFile.printWriter()
@@ -71,7 +88,7 @@ class BindingsGenerator(
             .addType(classTypeSpec)
             .build()
 
-        fileSpec.writeTo(outputDir)
+        fileSpec.writeTo(repositoryBuildSrcDir(repository))
     }
 
     private fun buildClassKDoc(clazz: ClassBlueprint): CodeBlock {

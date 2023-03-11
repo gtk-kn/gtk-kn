@@ -45,6 +45,6 @@ fun main(args: Array<String>) {
         repo.prettyPrint()
     }
 
-    val generator = BindingsGenerator(File("build"))
+    val generator = BindingsGenerator(File("bindings"))
     generator.generate(repositoryBlueprints)
 }

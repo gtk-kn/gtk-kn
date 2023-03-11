@@ -20,4 +20,9 @@ rootProject.name = "gtk-kn"
 includeBuild("build-conventions")
 
 include("gir")
+
+include("bindings:common")
+include("bindings:glib")
+include("bindings:gobject")
+
 include("samples:gtk:hello-world")

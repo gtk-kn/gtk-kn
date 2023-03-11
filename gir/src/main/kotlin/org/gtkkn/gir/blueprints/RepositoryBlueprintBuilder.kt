@@ -30,6 +30,15 @@ class RepositoryBlueprintBuilder(
             addClass(clazz)
         }
 
-        return BlueprintResult.Ok(RepositoryBlueprint(girRepository.namespace.name, classBlueprints, skippedObjects))
+        val kotlinModuleName = girRepository.namespace.name.lowercase()
+
+        return BlueprintResult.Ok(
+            RepositoryBlueprint(
+                name = girRepository.namespace.name,
+                kotlinModuleName = kotlinModuleName,
+                classBlueprints = classBlueprints,
+                skippedObjects = skippedObjects,
+            ),
+        )
     }
 }
