@@ -41,7 +41,9 @@ class ProcessorContext(
     fun kotlinizePackageName(nativePackageName: String): String = "bindings.${nativePackageName.lowercase()}"
 
     fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()
-    fun namespaceNativePackageName(namespace: GirNamespace): String = "native.${namespace.name.lowercase()}"
+
+    fun namespaceNativePackageName(namespace: GirNamespace): String = "native.${namespacePrefix(namespace)}"
+    fun namespaceBindingsPackageName(namespace: GirNamespace): String = "bindings.${namespacePrefix(namespace)}"
 
     /**
      * Resolve the [TypeName] for the objectPointer we have in all classes.
@@ -50,7 +52,7 @@ class ProcessorContext(
      */
     fun resolveClassObjectPointerTypeName(namespace: GirNamespace, clazz: GirClass): TypeName =
         ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(
-            ClassName(namespaceNativePackageName(namespace), clazz.glibTypeName),
+            ClassName(namespaceNativePackageName(namespace), clazz.cType ?: error("No cType for class ${clazz.name}")),
         )
 
     /**
@@ -68,18 +70,19 @@ class ProcessorContext(
     @Throws(UnresolvableTypeException::class)
     fun resolveInterfaceTypeName(targetNamespace: GirNamespace, nativeInterfaceName: String): TypeName {
         val parts = nativeInterfaceName.split(".")
-        return when (parts.count()) {
-            1 -> ClassName(kotlinizePackageName(targetNamespace.name), kotlinizeInterfaceName(nativeInterfaceName))
-            2 -> {
-                val namespace = findNamespaceByName(parts.first())
-                if (namespace != null) {
-                    ClassName(kotlinizePackageName(namespace.name), kotlinizeInterfaceName(parts.last()))
-                } else {
-                    throw UnresolvableTypeException(nativeInterfaceName)
-                }
-            }
 
+        val namespace = when (parts.count()) {
+            1 -> targetNamespace
+            2 -> findNamespaceByName(parts.first())
+                ?: throw UnresolvableTypeException("namespace ${parts.first()} does not exist")
             else -> throw UnresolvableTypeException(nativeInterfaceName)
+        }
+        val ifaceName = parts.last()
+        val iface = namespace.interfaces.find { it.name == ifaceName }
+        if (iface != null) {
+            return ClassName(namespaceBindingsPackageName(namespace), kotlinizeInterfaceName(ifaceName))
+        } else {
+            throw UnresolvableTypeException(nativeInterfaceName)
         }
     }
 
@@ -98,18 +101,19 @@ class ProcessorContext(
     @Throws(UnresolvableTypeException::class)
     fun resolveClassTypeName(targetNamespace: GirNamespace, nativeClassName: String): TypeName {
         val parts = nativeClassName.split(".")
-        return when (parts.count()) {
-            1 -> ClassName(kotlinizePackageName(targetNamespace.name), kotlinizeClassName(nativeClassName))
-            2 -> {
-                val namespace = findNamespaceByName(parts.first())
-                if (namespace != null) {
-                    ClassName(kotlinizePackageName(namespace.name), kotlinizeClassName(parts.last()))
-                } else {
-                    throw UnresolvableTypeException(nativeClassName)
-                }
-            }
 
+        val namespace = when (parts.count()) {
+            1 -> targetNamespace
+            2 -> findNamespaceByName(parts.first())
+                ?: throw UnresolvableTypeException("namespace ${parts.first()} does not exist")
             else -> throw UnresolvableTypeException(nativeClassName)
+        }
+        val className = parts.last()
+        val clazz = namespace.classes.find { it.name == className }
+        if (clazz != null) {
+            return ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(className))
+        } else {
+            throw UnresolvableTypeException(nativeClassName)
         }
     }
 

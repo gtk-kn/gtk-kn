@@ -131,8 +131,6 @@ class BindingsGenerator(
                     .addStatement("return gPointer.%M()", REINTERPRET_FUNC)
                     .build(),
             )
-        } else {
-            // if class has no parent, it is likely Object and we need to initialize the pointer
         }
 
         return propertyBuilder.build()
@@ -161,7 +159,11 @@ class BindingsGenerator(
             // arguments
 
             // implementation
-            addStatement("return %M()", method.nativeMemberName)
+            if (method.returnTypeInfo.isSameType) {
+                addStatement("return %M(gPointer.%M())", method.nativeMemberName, REINTERPRET_FUNC)
+            } else {
+                addStatement("""TODO("type conversion is not implemented")""")
+            }
 
         }.build()
 }
