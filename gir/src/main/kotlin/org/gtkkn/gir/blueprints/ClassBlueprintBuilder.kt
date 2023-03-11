@@ -1,10 +1,12 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.TypeName
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class ClassBlueprintBuilder(
     context: ProcessorContext,
@@ -17,6 +19,8 @@ class ClassBlueprintBuilder(
     private val skippedObjects = mutableListOf<SkippedObject>()
 
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
+    private val implementsInterfaces = mutableListOf<TypeName>()
+    private var parentTypeName: TypeName? = null
 
     override fun blueprintObjectType(): String = "class"
     override fun blueprintObjectName(): String = girClass.name
@@ -30,11 +34,22 @@ class ClassBlueprintBuilder(
 
     override fun build(): BlueprintResult<ClassBlueprint> {
         if (girClass.parent != null) {
-            return skip("Unsupported class with parents")
+            try {
+                parentTypeName = context.resolveClassTypeName(girNamespace, girClass.parent)
+            } catch (ex: UnresolvableTypeException) {
+                return skip("Parent type ${girClass.parent} could not be resolved.")
+            }
         }
 
-        if (girClass.implements.isNotEmpty()) {
-            return skip("Unsupported class with interfaces")
+        // process interfaces
+        girClass.implements.forEach { iface ->
+            // TODO filter because implements property contains all interfaces in the hierarchy
+            try {
+                val ifaceTypeName = context.resolveInterfaceTypeName(girNamespace, iface.name)
+                implementsInterfaces.add(ifaceTypeName)
+            } catch (ex: UnresolvableTypeException) {
+                return skip("Interface type ${iface.name} could not be resolved.")
+            }
         }
 
         girClass.methods.forEach { addMethod(it) }
@@ -48,7 +63,9 @@ class ClassBlueprintBuilder(
                 nativeName = girClass.name,
                 typeName = ClassName(kotlinPackageName, kotlinClassName),
                 methods = methodBluePrints,
-                skippedObjects = skippedObjects
+                skippedObjects = skippedObjects,
+                implementsInterfaces = implementsInterfaces,
+                parentTypeName = parentTypeName
             ),
         )
     }

@@ -12,6 +12,9 @@ fun ClassBlueprint.prettyPrint(prefix: String = "\t") {
     println("${prefix}\ttypeName: $typeName")
     println("${prefix}\tkotlinName: $kotlinName")
     println("${prefix}\tnativeName: $nativeName")
+    println("${prefix}\tparent: $parentTypeName")
+    println("${prefix}\timplements:")
+    implementsInterfaces.forEach { println("$prefix\t\t$it") }
     println("${prefix}\tmethods:")
     methods.forEach { it.prettyPrint("$prefix\t\t") }
 }
