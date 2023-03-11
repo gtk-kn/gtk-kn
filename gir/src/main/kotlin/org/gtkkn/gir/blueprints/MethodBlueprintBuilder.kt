@@ -42,6 +42,18 @@ class MethodBlueprintBuilder(
             return skip("to_string method conflicts with Object.toString")
         }
 
+        if (girMethod.name == "get_direction") {
+            return skip("get_direction method conflicts in multiple classes")
+        }
+
+        if (girMethod.name == "get_settings") {
+            return skip("get_settings method conflicts in multiple classes")
+        }
+
+        if (girMethod.name == "get_media_stream") {
+            return skip("get_media_stream method conflicts in multiple classes")
+        }
+
         // parameters
 
         for (param in girMethod.parameters.parameters) {

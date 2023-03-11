@@ -42,6 +42,21 @@ class ClassBlueprintBuilder(
                 }
             }
 
+            if (girClass.name == "MediaStream") {
+                return skip("MediaStream class is not supported")
+            }
+            if (girClass.name == "MediaControls") {
+                return skip("MediaControls class is not supported")
+            }
+
+            if (girClass.parent != null) {
+                try {
+                    parentTypeName = context.resolveClassTypeName(girNamespace, girClass.parent)
+                } catch (ex: UnresolvableTypeException) {
+                    return skip("Parent type ${girClass.parent} could not be resolved.")
+                }
+            }
+
             // process interfaces
             girClass.implements.forEach { iface ->
                 // TODO filter because implements property contains all interfaces in the hierarchy

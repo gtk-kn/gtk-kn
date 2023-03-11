@@ -25,5 +25,6 @@ include("bindings:common")
 include("bindings:glib")
 include("bindings:gobject")
 include("bindings:gio")
+include("bindings:gtk")
 
 include("samples:gtk:hello-world")
