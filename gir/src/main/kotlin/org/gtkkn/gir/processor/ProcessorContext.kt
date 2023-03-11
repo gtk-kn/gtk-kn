@@ -17,6 +17,7 @@ import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.TypeNamePair
 import org.gtkkn.gir.model.GirClass
+import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.model.GirType
@@ -53,6 +54,14 @@ class ProcessorContext(
     fun resolveClassObjectPointerTypeName(namespace: GirNamespace, clazz: GirClass): TypeName =
         ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(
             ClassName(namespaceNativePackageName(namespace), clazz.cType ?: error("No cType for class ${clazz.name}")),
+        )
+
+    /**
+     * Resolve the [TypeName] for the objectPointer we have in all interfaces.
+     */
+    fun resolveInterfaceObjectPointerTypeName(namespace: GirNamespace, iface: GirInterface): TypeName =
+        ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(
+            ClassName(namespaceNativePackageName(namespace), iface.cType ?: error("No cType for class ${iface.name}")),
         )
 
     /**

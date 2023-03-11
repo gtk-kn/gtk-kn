@@ -1,8 +1,6 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.TypeName
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirMethod
@@ -28,7 +26,7 @@ class ClassBlueprintBuilder(
     override fun blueprintObjectName(): String = girClass.name
 
     private fun addMethod(method: GirMethod) {
-        when (val result = MethodBlueprintBuilder(context, girNamespace, girClass, method).build()) {
+        when (val result = MethodBlueprintBuilder(context, girNamespace, method).build()) {
             is BlueprintResult.Ok -> methodBluePrints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }

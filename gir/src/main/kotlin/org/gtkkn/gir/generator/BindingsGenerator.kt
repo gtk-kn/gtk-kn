@@ -9,10 +9,10 @@ import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ClassBlueprint
+import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import java.io.File
-
 
 // some member utils
 private val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
@@ -35,20 +35,26 @@ class BindingsGenerator(
     }
 
     private fun writeRepository(repository: RepositoryBlueprint) {
-
         val repositoryOutputDir = repositoryBuildDir(repository)
         if (!repositoryOutputDir.exists()) {
             println("Creating output dir ${repositoryOutputDir.path}")
             val created = repositoryOutputDir.mkdirs()
             if (!created) {
-                println("Skipping repository ${repository.name} because output dir ${repositoryOutputDir.path} does not exist")
+                println(
+                    "Skipping repository ${repository.name} because output dir ${repositoryOutputDir.path} does not exist"
+                )
                 return
             }
         }
 
         println("Writing repository ${repository.name}")
         writeRepositorySkipFile(repository)
+
+        // write classes
         repository.classBlueprints.forEach { writeClass(repository, it) }
+
+        // write interfaces
+        repository.interfaceBlueprints.forEach { writeInterface(repository, it) }
     }
 
     private fun writeRepositorySkipFile(repository: RepositoryBlueprint) {
@@ -74,7 +80,7 @@ class BindingsGenerator(
             }
 
             // interfaces
-            addSuperinterfaces(clazz.implementsInterfaces)
+//            addSuperinterfaces(clazz.implementsInterfaces)
 
             // pointer constructor
             addFunction(buildPointerConstructor(clazz))
@@ -83,7 +89,7 @@ class BindingsGenerator(
             addProperty(buildObjectPointerProperty(clazz))
 
             // methods
-            addFunctions(clazz.methods.map { buildMethodSpec(clazz, it) })
+            addFunctions(clazz.methods.map { buildMethodSpec(it, clazz.objectPointerName) })
 
             // kdoc
             addKdoc(buildClassKDoc(clazz))
@@ -100,6 +106,26 @@ class BindingsGenerator(
 
         fileSpec.writeTo(repositoryBuildSrcDir(repository))
     }
+
+    private fun writeInterface(repository: RepositoryBlueprint, iface: InterfaceBlueprint) {
+        println("Writing interface: ${iface.typeName}")
+
+        val ifaceTypeSpec = TypeSpec.interfaceBuilder(iface.typeName).apply {
+            addProperty(buildInterfacePointerProperty(iface))
+            addFunctions(iface.methods.map { buildMethodSpec(it, iface.objectPointerName) })
+        }.build()
+
+        val fileSpec = FileSpec
+            .builder(iface.typeName.packageName, iface.typeName.simpleName)
+            .addType(ifaceTypeSpec)
+            .build()
+
+        fileSpec.writeTo(repositoryBuildSrcDir(repository))
+    }
+
+    private fun buildInterfacePointerProperty(iface: InterfaceBlueprint): PropertySpec =
+        PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName)
+            .build()
 
     /**
      * Build the constructor for pointer wrapping.
@@ -151,7 +177,7 @@ class BindingsGenerator(
     /**
      * Build a [FunSpec] from a [MethodBlueprint].
      */
-    private fun buildMethodSpec(clazz: ClassBlueprint, method: MethodBlueprint): FunSpec =
+    private fun buildMethodSpec(method: MethodBlueprint, instancePointerName: String): FunSpec =
         FunSpec.builder(method.kotlinName).apply {
             // return type
             returns(method.returnTypeInfo.kotlinTypeName)
@@ -160,10 +186,9 @@ class BindingsGenerator(
 
             // implementation
             if (method.returnTypeInfo.isSameType) {
-                addStatement("return %M(gPointer.%M())", method.nativeMemberName, REINTERPRET_FUNC)
+                addStatement("return %M($instancePointerName.%M())", method.nativeMemberName, REINTERPRET_FUNC)
             } else {
                 addStatement("""TODO("type conversion is not implemented")""")
             }
-
         }.build()
 }

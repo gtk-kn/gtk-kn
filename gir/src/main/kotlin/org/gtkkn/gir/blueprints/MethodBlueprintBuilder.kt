@@ -2,7 +2,6 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.MemberName
 import org.gtkkn.gir.model.GirArrayType
-import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirType
@@ -12,7 +11,6 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class MethodBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girClass: GirClass,
     private val girMethod: GirMethod
 ) : BlueprintBuilder<MethodBlueprint>(context) {
     override fun blueprintObjectType(): String = "method"
