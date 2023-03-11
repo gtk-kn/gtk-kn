@@ -34,6 +34,14 @@ class MethodBlueprintBuilder(
             return skip("Method has no instance parameter")
         }
 
+        if (girMethod.throws) {
+            return skip("Throwing methods are not supported")
+        }
+
+        if (girMethod.name == "to_string") {
+            return skip("to_string method conflicts with Object.toString")
+        }
+
         // parameters
 
         for (param in girMethod.parameters.parameters) {
