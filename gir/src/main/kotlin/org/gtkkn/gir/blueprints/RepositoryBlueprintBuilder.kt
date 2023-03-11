@@ -16,7 +16,7 @@ class RepositoryBlueprintBuilder(
     private val skippedObjects = mutableListOf<SkippedObject>()
 
     private fun addClass(girClass: GirClass) {
-        when (val classResult = ClassBlueprintBuilder(context, girClass).build()) {
+        when (val classResult = ClassBlueprintBuilder(context, namespace, girClass).build()) {
             is BlueprintResult.Ok -> classBlueprints.add(classResult.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(classResult.skippedObject)
         }
