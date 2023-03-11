@@ -4,6 +4,7 @@ import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.default
 import org.gtkkn.gir.parser.GirParser
+import org.gtkkn.gir.processor.Phase2Processor
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -32,4 +33,13 @@ fun main(args: Array<String>) {
         .map { girParser.parse(it) }
 
     println("Parsed ${repositories.count()} gir files")
+
+    val phase2 = Phase2Processor()
+    val repositoryBlueprints = phase2.process(repositories)
+
+    println("Processed ${repositoryBlueprints.count()} blueprints")
+
+    repositoryBlueprints.forEach { repo ->
+        println(repo)
+    }
 }
