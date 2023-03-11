@@ -9,10 +9,9 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.kxml2)
     implementation(libs.kotlinpoet)
     implementation(libs.kotlinx.cli)
-    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotlin.test.junit5)
 }
 
 tasks.withType<KotlinCompile> {

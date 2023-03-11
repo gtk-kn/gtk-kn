@@ -860,7 +860,7 @@ style:
     values:
       - 'FIXME'
       - 'STOPSHIP'
-      # - 'TODO'# Custom
+      - 'TODO'
     allowedPatterns: ''
     customMessage: ''
   ForbiddenImport:
