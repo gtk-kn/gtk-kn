@@ -3,12 +3,19 @@ package org.gtkkn.gir.generator
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ClassBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import java.io.File
+
+
+// some member utils
+private val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
 
 /**
  * Temporary generator for prototyping purposes.
@@ -69,18 +76,21 @@ class BindingsGenerator(
             // interfaces
             addSuperinterfaces(clazz.implementsInterfaces)
 
+            // pointer constructor
+            addFunction(buildPointerConstructor(clazz))
+
             // object pointer
-            val objectPointerGetter = FunSpec.getterBuilder().addStatement("return gPointer.reinterpret()").build()
-            val objectPointerProperty = PropertySpec.builder(clazz.objectPointerName, clazz.objectPointerTypeName)
-                .getter(objectPointerGetter)
-                .build()
-            addProperty(objectPointerProperty)
+            addProperty(buildObjectPointerProperty(clazz))
 
             // methods
             addFunctions(clazz.methods.map { buildMethodSpec(clazz, it) })
 
             // kdoc
             addKdoc(buildClassKDoc(clazz))
+
+            // modifiers
+            // TODO check if class is final before opening
+            addModifiers(KModifier.OPEN)
         }.build()
 
         val fileSpec = FileSpec
@@ -89,6 +99,43 @@ class BindingsGenerator(
             .build()
 
         fileSpec.writeTo(repositoryBuildSrcDir(repository))
+    }
+
+    /**
+     * Build the constructor for pointer wrapping.
+     */
+    private fun buildPointerConstructor(clazz: ClassBlueprint): FunSpec {
+        val constructorSpecBuilder = FunSpec.constructorBuilder()
+
+        val pointerParamSpec = ParameterSpec.builder("pointer", clazz.objectPointerTypeName).build()
+        constructorSpecBuilder.addParameter(pointerParamSpec)
+
+        if (clazz.hasParent) {
+            // call through to super
+            constructorSpecBuilder.callSuperConstructor(CodeBlock.of("pointer.%M()", REINTERPRET_FUNC))
+        } else {
+            // init pointer property
+            constructorSpecBuilder.addStatement("gPointer = pointer.%M()", REINTERPRET_FUNC)
+        }
+
+        return constructorSpecBuilder.build()
+    }
+
+    private fun buildObjectPointerProperty(clazz: ClassBlueprint): PropertySpec {
+        val propertyBuilder = PropertySpec.builder(clazz.objectPointerName, clazz.objectPointerTypeName)
+
+        if (clazz.hasParent) {
+            // if class has a parent, we can downcast the gPointer from parent, using a getter
+            propertyBuilder.getter(
+                FunSpec.getterBuilder()
+                    .addStatement("return gPointer.%M()", REINTERPRET_FUNC)
+                    .build(),
+            )
+        } else {
+            // if class has no parent, it is likely Object and we need to initialize the pointer
+        }
+
+        return propertyBuilder.build()
     }
 
     private fun buildClassKDoc(clazz: ClassBlueprint): CodeBlock {
@@ -114,7 +161,7 @@ class BindingsGenerator(
             // arguments
 
             // implementation
-            addStatement("return ${method.nativeName}()")
+            addStatement("return %M()", method.nativeMemberName)
 
         }.build()
 }

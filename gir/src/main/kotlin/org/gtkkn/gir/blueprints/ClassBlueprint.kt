@@ -13,4 +13,6 @@ data class ClassBlueprint(
     val skippedObjects: List<SkippedObject>,
     val objectPointerName: String,
     val objectPointerTypeName: TypeName,
-)
+) {
+    val hasParent: Boolean get() = parentTypeName != null
+}

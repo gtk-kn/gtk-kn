@@ -1,5 +1,6 @@
 package org.gtkkn.gir.blueprints
 
+import com.squareup.kotlinpoet.MemberName
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirMethod
@@ -46,10 +47,13 @@ class MethodBlueprintBuilder(
         val nativeMethodName = girMethod.cIdentifier
             ?: return skip("native method ${girMethod.name} does not have cIdentifier")
 
+        val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)
+
         return ok(
             MethodBlueprint(
                 kotlinName = kotlinName,
                 nativeName = nativeMethodName,
+                nativeMemberName = nativeMemberName,
                 returnTypeInfo = returnTypeInfo,
             ),
         )

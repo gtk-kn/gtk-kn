@@ -50,7 +50,7 @@ class ProcessorContext(
      */
     fun resolveClassObjectPointerTypeName(namespace: GirNamespace, clazz: GirClass): TypeName =
         ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(
-            ClassName(namespaceNativePackageName(namespace), clazz.name),
+            ClassName(namespaceNativePackageName(namespace), clazz.glibTypeName),
         )
 
     /**

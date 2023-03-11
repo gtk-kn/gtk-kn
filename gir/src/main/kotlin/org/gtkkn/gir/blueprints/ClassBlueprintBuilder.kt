@@ -59,7 +59,11 @@ class ClassBlueprintBuilder(
         val kotlinClassName = context.kotlinizeClassName(girClass.name)
         val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
 
-        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girClass.name}Pointer"
+        val objectPointerName = if (girClass.parent != null) {
+            "${context.namespacePrefix(girNamespace)}${girClass.name}Pointer"
+        } else {
+            "gPointer"
+        }
         val objectPointerTypeName = context.resolveClassObjectPointerTypeName(girNamespace, girClass)
 
         return ok(
