@@ -15,6 +15,7 @@ import com.squareup.kotlinpoet.UNIT
 import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
+import org.gtkkn.gir.blueprints.ConversionType
 import org.gtkkn.gir.blueprints.TypeNamePair
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirInterface
@@ -38,6 +39,10 @@ class ProcessorContext(
     fun kotlinizeClassName(nativeClassName: String): String = nativeClassName
 
     fun kotlinizeInterfaceName(nativeInterfaceName: String): String = nativeInterfaceName.snakeToCamelCase()
+
+    fun kotlinizeEnumName(nativeEnumName: String): String = nativeEnumName.snakeToCamelCase()
+
+    fun kotlinzeEnumMemberName(nativeEnumMemberName: String): String = nativeEnumMemberName.uppercase()
 
     fun kotlinizePackageName(nativePackageName: String): String = "bindings.${nativePackageName.lowercase()}"
 
@@ -84,6 +89,7 @@ class ProcessorContext(
             1 -> targetNamespace
             2 -> findNamespaceByName(parts.first())
                 ?: throw UnresolvableTypeException("namespace ${parts.first()} does not exist")
+
             else -> throw UnresolvableTypeException(nativeInterfaceName)
         }
         val ifaceName = parts.last()
@@ -115,6 +121,7 @@ class ProcessorContext(
             1 -> targetNamespace
             2 -> findNamespaceByName(parts.first())
                 ?: throw UnresolvableTypeException("namespace ${parts.first()} does not exist")
+
             else -> throw UnresolvableTypeException(nativeClassName)
         }
         val className = parts.last()
@@ -126,55 +133,75 @@ class ProcessorContext(
         }
     }
 
+    fun resolveEnumTypeName(targetNamespace: GirNamespace, nativeEnumName: String): TypeName {
+        val parts = nativeEnumName.split(".")
+
+        val namespace = when (parts.count()) {
+            1 -> targetNamespace
+            2 -> findNamespaceByName(parts.first())
+                ?: throw UnresolvableTypeException("namespace ${parts.first()} does not exist")
+
+            else -> throw UnresolvableTypeException(nativeEnumName)
+        }
+        val enumName = parts.last()
+        val enum = namespace.enums.find { it.name == enumName }
+        if (enum != null) {
+            return ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(enumName))
+        } else {
+            throw UnresolvableTypeException(nativeEnumName)
+        }
+    }
+
     /**
      * Resolve a [TypeNamePair] for the given [GirType].
      */
     fun resolveTypeNamePair(girNamespace: GirNamespace, type: GirType): TypeNamePair {
         // first basic types
         if (type.name == "none") {
-            return TypeNamePair(UNIT, UNIT)
+            return TypeNamePair(UNIT, UNIT, ConversionType.SAME_TYPE)
         }
         if (type.name == "gboolean") {
-            return TypeNamePair(INT, BOOLEAN)
+            return TypeNamePair(INT, BOOLEAN, ConversionType.UNKNOWN) // TODO
         }
         if (type.name == "gint") {
-            return TypeNamePair(INT, INT)
+            return TypeNamePair(INT, INT, ConversionType.SAME_TYPE)
         }
         if (type.name == "gint32") {
-            return TypeNamePair(INT, INT)
+            return TypeNamePair(INT, INT, ConversionType.SAME_TYPE)
         }
         if (type.name == "gint64") {
-            return TypeNamePair(LONG, LONG)
+            return TypeNamePair(LONG, LONG, ConversionType.SAME_TYPE)
         }
         if (type.name == "gfloat") {
-            return TypeNamePair(FLOAT, FLOAT)
+            return TypeNamePair(FLOAT, FLOAT, ConversionType.SAME_TYPE)
         }
         if (type.name == "gdouble") {
-            return TypeNamePair(DOUBLE, DOUBLE)
+            return TypeNamePair(DOUBLE, DOUBLE, ConversionType.SAME_TYPE)
         }
         if (type.name == "guint") {
-            return TypeNamePair(U_INT, U_INT)
+            return TypeNamePair(U_INT, U_INT, ConversionType.SAME_TYPE)
         }
         if (type.name == "guint16") {
-            return TypeNamePair(U_SHORT, U_SHORT)
+            return TypeNamePair(U_SHORT, U_SHORT, ConversionType.SAME_TYPE)
         }
         if (type.name == "guint32") {
-            return TypeNamePair(U_INT, U_INT)
+            return TypeNamePair(U_INT, U_INT, ConversionType.SAME_TYPE)
         }
         if (type.name == "guint64") {
-            return TypeNamePair(U_LONG, U_LONG)
+            return TypeNamePair(U_LONG, U_LONG, ConversionType.SAME_TYPE)
         }
         if (type.name == "gsize") {
-            return TypeNamePair(U_LONG, U_LONG)
+            return TypeNamePair(U_LONG, U_LONG, ConversionType.SAME_TYPE)
         }
         if (type.name == "gssize") {
-            return TypeNamePair(LONG, LONG)
+            return TypeNamePair(LONG, LONG, ConversionType.SAME_TYPE)
         }
 
         if (type.name == "gpointer") {
             return TypeNamePair(
                 ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(STAR),
                 ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(STAR),
+                ConversionType.UNKNOWN
             )
         }
 
@@ -183,6 +210,7 @@ class ProcessorContext(
             return TypeNamePair(
                 ClassName("kotlinx.cinterop", "CPointer").plusParameter(ClassName("kotlinx.cinterop", "ByteVar")),
                 STRING,
+                ConversionType.UNKNOWN
             )
         }
 
@@ -199,6 +227,7 @@ class ProcessorContext(
                     "CPointer",
                 ).parameterizedBy(STAR), // TODO proper type info of class pointer
                 classTypeName,
+                ConversionType.OBJECT // TODO
             )
         } catch (ex: UnresolvableTypeException) {
             // fallthrough
@@ -213,6 +242,7 @@ class ProcessorContext(
                     "CPointer",
                 ).parameterizedBy(STAR), // TODO proper type info of interface pointer
                 interfaceTypeName,
+                ConversionType.OBJECT // TODO
             )
         } catch (ex: UnresolvableTypeException) {
             // fallthrough
@@ -220,6 +250,12 @@ class ProcessorContext(
 
         // enums
         // TODO
+        try {
+            val enumTypeName = resolveEnumTypeName(girNamespace, type.name)
+            return TypeNamePair(U_INT, enumTypeName, ConversionType.ENUMERATION)
+        } catch (ex: UnresolvableTypeException) {
+            // fallthrough
+        }
 
         println("Resolving return type with name: ${type.name}, cType: ${type.cType}")
         throw UnresolvableTypeException(type.name)

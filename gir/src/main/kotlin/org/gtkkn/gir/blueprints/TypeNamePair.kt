@@ -8,9 +8,17 @@ import com.squareup.kotlinpoet.TypeName
 data class TypeNamePair(
     val nativeTypeName: TypeName,
     val kotlinTypeName: TypeName,
+    val conversionType: ConversionType,
 ) {
     /**
      * True if the native type is the same as the kotlin type and no conversion is needed.
      */
-    val isSameType: Boolean = nativeTypeName == kotlinTypeName
+    val isSameType: Boolean = conversionType == ConversionType.SAME_TYPE
+}
+
+enum class ConversionType {
+    SAME_TYPE,
+    ENUMERATION,
+    OBJECT,
+    UNKNOWN
 }

@@ -5,5 +5,6 @@ data class RepositoryBlueprint(
     val kotlinModuleName: String,
     val classBlueprints: List<ClassBlueprint>,
     val interfaceBlueprints: List<InterfaceBlueprint>,
+    val enumBlueprints: List<EnumBlueprint>,
     val skippedObjects: List<SkippedObject>,
 )
