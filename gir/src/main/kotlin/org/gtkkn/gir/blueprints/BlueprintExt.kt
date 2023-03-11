@@ -23,4 +23,6 @@ fun MethodBlueprint.prettyPrint(prefix: String = "\t\t") {
     println("${prefix}method:")
     println("${prefix}\tkotlinName: $kotlinName")
     println("${prefix}\tnativeName: $nativeName")
+    println("${prefix}\tkotlinReturnType: ${returnTypeInfo.kotlinTypeName}")
+    println("${prefix}\tnativeReturnType: ${returnTypeInfo.nativeTypeName}")
 }
