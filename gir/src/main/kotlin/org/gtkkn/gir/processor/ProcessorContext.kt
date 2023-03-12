@@ -14,7 +14,7 @@ import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.ConversionType
-import org.gtkkn.gir.blueprints.TypeNamePair
+import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
@@ -157,52 +157,52 @@ class ProcessorContext(
     }
 
     /**
-     * Resolve a [TypeNamePair] for the given [GirType].
+     * Resolve a [TypeInfo] for the given [GirType].
      */
-    fun resolveTypeNamePair(girNamespace: GirNamespace, type: GirType): TypeNamePair {
+    fun resolveTypeNamePair(girNamespace: GirNamespace, type: GirType): TypeInfo {
         // first basic types
         if (type.name == "none") {
-            return TypeNamePair(UNIT, UNIT, ConversionType.SAME_TYPE)
+            return TypeInfo(UNIT, UNIT, ConversionType.NO_CONVERSION)
         }
         if (type.name == "gboolean") {
-            return TypeNamePair(INT, BOOLEAN, ConversionType.UNKNOWN)
+            return TypeInfo(INT, BOOLEAN, ConversionType.UNKNOWN)
         }
         if (type.name == "gint") {
-            return TypeNamePair(INT, INT, ConversionType.SAME_TYPE)
+            return TypeInfo(INT, INT, ConversionType.NO_CONVERSION)
         }
         if (type.name == "gint32") {
-            return TypeNamePair(INT, INT, ConversionType.SAME_TYPE)
+            return TypeInfo(INT, INT, ConversionType.NO_CONVERSION)
         }
         if (type.name == "gint64") {
-            return TypeNamePair(LONG, LONG, ConversionType.SAME_TYPE)
+            return TypeInfo(LONG, LONG, ConversionType.NO_CONVERSION)
         }
         if (type.name == "gfloat") {
-            return TypeNamePair(FLOAT, FLOAT, ConversionType.SAME_TYPE)
+            return TypeInfo(FLOAT, FLOAT, ConversionType.NO_CONVERSION)
         }
         if (type.name == "gdouble") {
-            return TypeNamePair(DOUBLE, DOUBLE, ConversionType.SAME_TYPE)
+            return TypeInfo(DOUBLE, DOUBLE, ConversionType.NO_CONVERSION)
         }
         if (type.name == "guint") {
-            return TypeNamePair(U_INT, U_INT, ConversionType.SAME_TYPE)
+            return TypeInfo(U_INT, U_INT, ConversionType.NO_CONVERSION)
         }
         if (type.name == "guint16") {
-            return TypeNamePair(U_SHORT, U_SHORT, ConversionType.SAME_TYPE)
+            return TypeInfo(U_SHORT, U_SHORT, ConversionType.NO_CONVERSION)
         }
         if (type.name == "guint32") {
-            return TypeNamePair(U_INT, U_INT, ConversionType.SAME_TYPE)
+            return TypeInfo(U_INT, U_INT, ConversionType.NO_CONVERSION)
         }
         if (type.name == "guint64") {
-            return TypeNamePair(U_LONG, U_LONG, ConversionType.SAME_TYPE)
+            return TypeInfo(U_LONG, U_LONG, ConversionType.NO_CONVERSION)
         }
         if (type.name == "gsize") {
-            return TypeNamePair(U_LONG, U_LONG, ConversionType.SAME_TYPE)
+            return TypeInfo(U_LONG, U_LONG, ConversionType.NO_CONVERSION)
         }
         if (type.name == "gssize") {
-            return TypeNamePair(LONG, LONG, ConversionType.SAME_TYPE)
+            return TypeInfo(LONG, LONG, ConversionType.NO_CONVERSION)
         }
 
         if (type.name == "gpointer") {
-            return TypeNamePair(
+            return TypeInfo(
                 NativeTypes.cpointerOf(STAR),
                 NativeTypes.cpointerOf(STAR),
                 ConversionType.UNKNOWN,
@@ -211,7 +211,7 @@ class ProcessorContext(
 
         // strings
         if (type.name == "utf8") {
-            return TypeNamePair(
+            return TypeInfo(
                 NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR),
                 STRING,
                 ConversionType.UNKNOWN,
@@ -225,10 +225,10 @@ class ProcessorContext(
         // classes
         try {
             val classTypeName = resolveClassTypeName(girNamespace, type.name)
-            return TypeNamePair(
+            return TypeInfo(
                 NativeTypes.cpointerOf(STAR),
                 classTypeName,
-                ConversionType.OBJECT,
+                ConversionType.OBJECT_POINTER,
             )
         } catch (ex: UnresolvableTypeException) {
             // fallthrough
@@ -237,10 +237,10 @@ class ProcessorContext(
         // interfaces
         try {
             val interfaceTypeName = resolveInterfaceTypeName(girNamespace, type.name)
-            return TypeNamePair(
+            return TypeInfo(
                 NativeTypes.cpointerOf(STAR),
                 interfaceTypeName,
-                ConversionType.OBJECT,
+                ConversionType.OBJECT_POINTER,
             )
         } catch (ex: UnresolvableTypeException) {
             // fallthrough
@@ -249,7 +249,7 @@ class ProcessorContext(
         // enums
         try {
             val enumTypeName = resolveEnumTypeName(girNamespace, type.name)
-            return TypeNamePair(U_INT, enumTypeName, ConversionType.ENUMERATION)
+            return TypeInfo(U_INT, enumTypeName, ConversionType.ENUMERATION)
         } catch (ex: UnresolvableTypeException) {
             // fallthrough
         }
