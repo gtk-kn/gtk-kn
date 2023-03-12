@@ -70,7 +70,7 @@ class RepositoryBlueprintBuilder(
         namespace.callbacks.forEach { cb -> addCallback(cb) }
 
         girRepository.includes.forEach { include ->
-            if (context.findRepositoryByName(include.name) == null) {
+            if (context.findRepositoryByNameOrNull(include.name) == null) {
                 skippedObjects.add(SkippedObject("include", include.name, "Missing dependant repository"))
             }
         }
