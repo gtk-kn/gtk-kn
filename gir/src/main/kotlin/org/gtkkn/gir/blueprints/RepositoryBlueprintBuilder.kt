@@ -1,5 +1,6 @@
 package org.gtkkn.gir.blueprints
 
+import org.gtkkn.gir.model.GirCallback
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirEnum
 import org.gtkkn.gir.model.GirFunction
@@ -19,6 +20,7 @@ class RepositoryBlueprintBuilder(
     private val interfaceBlueprints = mutableListOf<InterfaceBlueprint>()
     private val enumBlueprints = mutableListOf<EnumBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
+    private val callbackBlueprints = mutableListOf<CallbackBlueprint>()
 
     private val skippedObjects = mutableListOf<SkippedObject>()
 
@@ -50,6 +52,13 @@ class RepositoryBlueprintBuilder(
         }
     }
 
+    private fun addCallback(girCallback: GirCallback) {
+        when (val result = CallbackBlueprintBuilder(context, namespace, girCallback).build()) {
+            is BlueprintResult.Ok -> callbackBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun blueprintObjectType(): String = "repository"
     override fun blueprintObjectName(): String = girRepository.namespace.name
 
@@ -58,6 +67,7 @@ class RepositoryBlueprintBuilder(
         namespace.interfaces.forEach { iface -> addInterface(iface) }
         namespace.enums.forEach { enum -> addEnum(enum) }
         namespace.functions.forEach { func -> addFunction(func) }
+        namespace.callbacks.forEach { cb -> addCallback(cb) }
 
         val kotlinModuleName = girRepository.namespace.name.lowercase()
 
@@ -69,6 +79,7 @@ class RepositoryBlueprintBuilder(
                 interfaceBlueprints = interfaceBlueprints,
                 enumBlueprints = enumBlueprints,
                 functionBlueprints = functionBlueprints,
+                callbackBlueprints = callbackBlueprints,
                 skippedObjects = skippedObjects,
             ),
         )

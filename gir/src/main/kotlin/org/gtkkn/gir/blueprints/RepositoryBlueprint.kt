@@ -7,5 +7,6 @@ data class RepositoryBlueprint(
     val interfaceBlueprints: List<InterfaceBlueprint>,
     val enumBlueprints: List<EnumBlueprint>,
     val functionBlueprints: List<FunctionBlueprint>,
+    val callbackBlueprints: List<CallbackBlueprint>,
     val skippedObjects: List<SkippedObject>,
 )
