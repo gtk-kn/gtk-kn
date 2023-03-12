@@ -69,9 +69,9 @@ class RepositoryBlueprintBuilder(
         namespace.functions.forEach { func -> addFunction(func) }
         namespace.callbacks.forEach { cb -> addCallback(cb) }
 
-        girRepository.includes.forEach {
-            if (context.findRepositoryByName(it.name) == null) {
-                skippedObjects.add(SkippedObject("include", it.name, "Missing dependant repository"))
+        girRepository.includes.forEach { include ->
+            if (context.findRepositoryByName(include.name) == null) {
+                skippedObjects.add(SkippedObject("include", include.name, "Missing dependant repository"))
             }
         }
 

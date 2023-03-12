@@ -3,7 +3,7 @@ package org.gtkkn.gir.blueprints
 /**
  * Result type that for Blueprint builders.
  *
- * A blueprint build can either return a succesfully built blueprint
+ * A blueprint build can either return a successfully built blueprint
  * or a [SkippedObject] encapsulating the object and the reason why it was skipped.
  */
 sealed class BlueprintResult<T : Any> {

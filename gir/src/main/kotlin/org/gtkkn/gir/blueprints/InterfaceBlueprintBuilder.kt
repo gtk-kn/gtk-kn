@@ -5,6 +5,7 @@ import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class InterfaceBlueprintBuilder(
     context: ProcessorContext,
@@ -16,6 +17,7 @@ class InterfaceBlueprintBuilder(
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
 
     override fun blueprintObjectType(): String = "interface"
+
     override fun blueprintObjectName(): String = girInterface.name
 
     private fun addMethod(method: GirMethod) {
@@ -46,7 +48,7 @@ class InterfaceBlueprintBuilder(
                     objectPointerTypeName = objectPointerTypeName,
                 ),
             )
-        } catch (ex: Exception) {
+        } catch (ex: UnresolvableTypeException) {
             return skip("Error building blueprint: ${ex.message}")
         }
     }
