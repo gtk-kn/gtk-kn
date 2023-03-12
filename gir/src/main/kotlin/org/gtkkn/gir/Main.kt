@@ -9,7 +9,7 @@ import org.gtkkn.gir.processor.Phase2Processor
 import java.io.File
 import kotlin.system.exitProcess
 
-private val GIR_PREFIX_WHITELIST = arrayOf("Gtk-4", "GObject-", "GLib-", "Gio-")
+private val GIR_PREFIX_WHITELIST = arrayOf("Gtk-4", "GObject-", "GLib-", "Gio-", "Gdk-4")
 
 fun main(args: Array<String>) {
     val parser = ArgParser("generator")
