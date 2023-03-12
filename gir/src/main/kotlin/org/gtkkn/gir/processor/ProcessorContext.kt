@@ -53,6 +53,8 @@ class ProcessorContext(
 
     fun kotlinizePackageName(nativePackageName: String): String = "bindings.${nativePackageName.lowercase()}"
 
+    fun kotlinizeParameterName(nativeParameterName: String): String = nativeParameterName.snakeToCamelCase()
+
     // namespace naming
 
     fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()

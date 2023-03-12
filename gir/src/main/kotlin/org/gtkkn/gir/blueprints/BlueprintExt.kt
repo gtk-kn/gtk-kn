@@ -21,12 +21,18 @@ fun ClassBlueprint.prettyPrint(prefix: String = "\t") {
     implementsInterfaces.forEach { println("$prefix\t\t$it") }
     println("${prefix}\tmethods:")
     methods.forEach { it.prettyPrint("$prefix\t\t") }
+    val typeLength = skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
+    val nameLength = skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
+    skippedObjects.forEach { println("${prefix}\t${it.fullMessage(nameLength, typeLength)}") }
 }
 
 fun MethodBlueprint.prettyPrint(prefix: String = "\t\t") {
     println("${prefix}method:")
     println("${prefix}\tkotlinName: $kotlinName")
     println("${prefix}\tnativeName: $nativeName")
-    println("${prefix}\tkotlinReturnType: ${returnTypeInfo.kotlinTypeName}")
-    println("${prefix}\tnativeReturnType: ${returnTypeInfo.nativeTypeName}")
+    println("${prefix}\treturns: ${returnTypeInfo.nativeTypeName} -> ${returnTypeInfo.kotlinTypeName}")
+    println("${prefix}\tparameters:")
+    parameterBlueprints.forEach { param ->
+        println("${prefix}\t\t${param.nativeName}: ${param.typeInfo.nativeTypeName} -> ${param.kotlinName}: ${param.typeInfo.kotlinTypeName}")
+    }
 }
