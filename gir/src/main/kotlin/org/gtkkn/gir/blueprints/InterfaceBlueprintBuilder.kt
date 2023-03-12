@@ -26,24 +26,28 @@ class InterfaceBlueprintBuilder(
     }
 
     override fun build(): BlueprintResult<InterfaceBlueprint> {
-        girInterface.methods.forEach { addMethod(it) }
+        try {
+            girInterface.methods.forEach { addMethod(it) }
 
-        val kotlinInterfaceName = context.kotlinizeClassName(girInterface.name)
-        val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
+            val kotlinInterfaceName = context.kotlinizeClassName(girInterface.name)
+            val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
 
-        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girInterface.name}Pointer"
-        val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(girNamespace, girInterface)
+            val objectPointerName = "${context.namespacePrefix(girNamespace)}${girInterface.name}Pointer"
+            val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(girNamespace, girInterface)
 
-        return ok(
-            InterfaceBlueprint(
-                kotlinName = kotlinInterfaceName,
-                nativeName = girInterface.name,
-                typeName = ClassName(kotlinPackageName, kotlinInterfaceName),
-                methods = methodBluePrints,
-                skippedObjects = skippedObjects,
-                objectPointerName = objectPointerName,
-                objectPointerTypeName = objectPointerTypeName,
-            ),
-        )
+            return ok(
+                InterfaceBlueprint(
+                    kotlinName = kotlinInterfaceName,
+                    nativeName = girInterface.name,
+                    typeName = ClassName(kotlinPackageName, kotlinInterfaceName),
+                    methods = methodBluePrints,
+                    skippedObjects = skippedObjects,
+                    objectPointerName = objectPointerName,
+                    objectPointerTypeName = objectPointerTypeName,
+                ),
+            )
+        } catch (ex: Exception) {
+            return skip("Error building blueprint: ${ex.message}")
+        }
     }
 }
