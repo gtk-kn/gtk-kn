@@ -2,6 +2,7 @@ package org.gtkkn.gir.blueprints
 
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirEnum
+import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirRepository
@@ -17,6 +18,7 @@ class RepositoryBlueprintBuilder(
     private val classBlueprints = mutableListOf<ClassBlueprint>()
     private val interfaceBlueprints = mutableListOf<InterfaceBlueprint>()
     private val enumBlueprints = mutableListOf<EnumBlueprint>()
+    private val functionBlueprints = mutableListOf<FunctionBlueprint>()
 
     private val skippedObjects = mutableListOf<SkippedObject>()
 
@@ -41,6 +43,13 @@ class RepositoryBlueprintBuilder(
         }
     }
 
+    private fun addFunction(girFunction: GirFunction) {
+        when (val result = FunctionBlueprintBuilder(context, namespace, girFunction).build()) {
+            is BlueprintResult.Ok -> functionBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun blueprintObjectType(): String = "repository"
     override fun blueprintObjectName(): String = girRepository.namespace.name
 
@@ -48,6 +57,7 @@ class RepositoryBlueprintBuilder(
         namespace.classes.forEach { clazz -> addClass(clazz) }
         namespace.interfaces.forEach { iface -> addInterface(iface) }
         namespace.enums.forEach { enum -> addEnum(enum) }
+        namespace.functions.forEach { func -> addFunction(func) }
 
         val kotlinModuleName = girRepository.namespace.name.lowercase()
 
@@ -58,6 +68,7 @@ class RepositoryBlueprintBuilder(
                 classBlueprints = classBlueprints,
                 interfaceBlueprints = interfaceBlueprints,
                 enumBlueprints = enumBlueprints,
+                functionBlueprints = functionBlueprints,
                 skippedObjects = skippedObjects,
             ),
         )
