@@ -6,7 +6,6 @@ import com.squareup.kotlinpoet.DOUBLE
 import com.squareup.kotlinpoet.FLOAT
 import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.LONG
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
@@ -30,9 +29,13 @@ import org.gtkkn.gir.util.snakeToCamelCase
 class ProcessorContext(
     private val repositories: List<GirRepository>
 ) {
+    // object lookups methods
+
     fun findRepositoryByName(name: String): GirRepository? = repositories.find { it.namespace.name == name }
 
     fun findNamespaceByName(name: String) = findRepositoryByName(name)?.namespace
+
+    // kotlin names
 
     fun kotlinizeMethodName(nativeMethodName: String): String = nativeMethodName.snakeToCamelCase()
 
@@ -45,6 +48,8 @@ class ProcessorContext(
     fun kotlinzeEnumMemberName(nativeEnumMemberName: String): String = nativeEnumMemberName.uppercase()
 
     fun kotlinizePackageName(nativePackageName: String): String = "bindings.${nativePackageName.lowercase()}"
+
+    // namespace naming
 
     fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()
 
@@ -59,7 +64,7 @@ class ProcessorContext(
      */
     @Throws(UnresolvableTypeException::class)
     fun resolveClassObjectPointerTypeName(namespace: GirNamespace, clazz: GirClass): TypeName =
-        ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(
+        NativeTypes.cpointerOf(
             ClassName(
                 namespaceNativePackageName(namespace),
                 clazz.cType
@@ -72,7 +77,7 @@ class ProcessorContext(
      */
     @Throws(UnresolvableTypeException::class)
     fun resolveInterfaceObjectPointerTypeName(namespace: GirNamespace, iface: GirInterface): TypeName =
-        ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(
+        NativeTypes.cpointerOf(
             ClassName(
                 namespaceNativePackageName(namespace),
                 iface.cType ?: throw UnresolvableTypeException("Missing cType on interface"),
@@ -143,6 +148,7 @@ class ProcessorContext(
         }
     }
 
+    @Throws(UnresolvableTypeException::class)
     fun resolveEnumTypeName(targetNamespace: GirNamespace, nativeEnumName: String): TypeName {
         val parts = nativeEnumName.split(".")
 
@@ -209,8 +215,8 @@ class ProcessorContext(
 
         if (type.name == "gpointer") {
             return TypeNamePair(
-                ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(STAR),
-                ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(STAR),
+                NativeTypes.cpointerOf(STAR),
+                NativeTypes.cpointerOf(STAR),
                 ConversionType.UNKNOWN,
             )
         }
@@ -218,24 +224,21 @@ class ProcessorContext(
         // strings
         if (type.name == "utf8") {
             return TypeNamePair(
-                ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(ClassName("kotlinx.cinterop", "ByteVar")),
+                NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR),
                 STRING,
                 ConversionType.UNKNOWN,
             )
         }
 
         if (type.name == null) {
-            throw UnresolvableTypeException("<empty>")
+            throw UnresolvableTypeException("type name is null")
         }
 
         // classes
         try {
             val classTypeName = resolveClassTypeName(girNamespace, type.name)
             return TypeNamePair(
-                ClassName(
-                    "kotlinx.cinterop",
-                    "CPointer",
-                ).parameterizedBy(STAR),
+                NativeTypes.cpointerOf(STAR),
                 classTypeName,
                 ConversionType.OBJECT,
             )
@@ -247,10 +250,7 @@ class ProcessorContext(
         try {
             val interfaceTypeName = resolveInterfaceTypeName(girNamespace, type.name)
             return TypeNamePair(
-                ClassName(
-                    "kotlinx.cinterop",
-                    "CPointer",
-                ).parameterizedBy(STAR),
+                NativeTypes.cpointerOf(STAR),
                 interfaceTypeName,
                 ConversionType.OBJECT,
             )
