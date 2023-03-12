@@ -49,7 +49,7 @@ class InterfaceBlueprintBuilder(
                 ),
             )
         } catch (ex: UnresolvableTypeException) {
-            return skip("Error building blueprint: ${ex.message}")
+            return skip(ex.message)
         }
     }
 }
