@@ -5,6 +5,10 @@ fun RepositoryBlueprint.prettyPrint() {
     println("\tname: $name")
     println("\tclasses:")
     classBlueprints.forEach { it.prettyPrint("\t") }
+    println("\tskipped objects:")
+    val typeLength = skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
+    val nameLength = skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
+    skippedObjects.forEach { println(it.fullMessage(nameLength, typeLength)) }
 }
 
 fun ClassBlueprint.prettyPrint(prefix: String = "\t") {
@@ -26,3 +30,4 @@ fun MethodBlueprint.prettyPrint(prefix: String = "\t\t") {
     println("${prefix}\tkotlinReturnType: ${returnTypeInfo.kotlinTypeName}")
     println("${prefix}\tnativeReturnType: ${returnTypeInfo.nativeTypeName}")
 }
+
