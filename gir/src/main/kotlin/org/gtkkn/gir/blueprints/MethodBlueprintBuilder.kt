@@ -1,5 +1,6 @@
 package org.gtkkn.gir.blueprints
 
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirDirection
@@ -54,6 +55,14 @@ class MethodBlueprintBuilder(
             return skip("get_media_stream method conflicts in multiple classes")
         }
 
+        if (girMethod.name == "set_media_stream") {
+            return skip("set_media_stream method conflicts in multiple classes")
+        }
+
+        if (girMethod.name == "snapshot_child") {
+            return skip("set_media_stream method conflicts in multiple classes")
+        }
+
         if (girMethod.name == "get_data") {
             return skip("memory_output_stream_get_data method conflicts in multiple classes")
         }
@@ -103,11 +112,15 @@ class MethodBlueprintBuilder(
         val returnTypeInfo = try {
             when (val type = returnValue.type) {
                 is GirArrayType -> return skip("Methods with array return types are unsupported")
-                is GirType -> context.resolveTypeNamePair(girNamespace, type)
+                is GirType -> {
+                    context.resolveTypeNamePair(girNamespace, type)
+                }
             }
+
         } catch (ex: UnresolvableTypeException) {
             return skip("Method return type ${returnValue.type} could not be resolved")
         }
+
 
         // method name
 

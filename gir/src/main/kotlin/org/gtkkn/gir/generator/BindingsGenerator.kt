@@ -190,6 +190,10 @@ class BindingsGenerator(
             // return type
             returns(method.returnTypeInfo.kotlinTypeName)
 
+            method.parameterBlueprints.forEach { param ->
+                addParameter(ParameterSpec.builder(param.kotlinName, param.typeInfo.kotlinTypeName).build())
+            }
+
             // arguments
             if (method.parameterBlueprints.isNotEmpty()) {
                 addStatement("""TODO("methods with parameters not supported")""")
