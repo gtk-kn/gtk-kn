@@ -46,8 +46,6 @@ class EnumBlueprintBuilder(
     }
 
     override fun build(): BlueprintResult<EnumBlueprint> {
-        println("Building enum")
-
         girEnum.members.forEach { addMember(it) }
 
         val kotlinName = context.kotlinizeEnumName(girEnum.name)

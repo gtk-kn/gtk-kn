@@ -254,7 +254,6 @@ class ProcessorContext(
             // fallthrough
         }
 
-        println("Resolving return type with name: ${type.name}, cType: ${type.cType}")
         throw UnresolvableTypeException(type.name)
     }
 }
