@@ -69,6 +69,12 @@ class RepositoryBlueprintBuilder(
         namespace.functions.forEach { func -> addFunction(func) }
         namespace.callbacks.forEach { cb -> addCallback(cb) }
 
+        girRepository.includes.forEach {
+            if (context.findRepositoryByName(it.name) == null) {
+                skippedObjects.add(SkippedObject("include", it.name, "Missing dependant repository"))
+            }
+        }
+
         val kotlinModuleName = girRepository.namespace.name.lowercase()
 
         return BlueprintResult.Ok(
