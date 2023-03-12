@@ -54,6 +54,18 @@ class MethodBlueprintBuilder(
             return skip("get_media_stream method conflicts in multiple classes")
         }
 
+        if (girMethod.name == "get_data") {
+            return skip("memory_output_stream_get_data method conflicts in multiple classes")
+        }
+
+        if (girMethod.name == "steal_data") {
+            return skip("memory_output_stream_steal_data method conflicts in multiple classes")
+        }
+
+        if (girMethod.name == "set_direction") {
+            return skip("memory_output_stream_steal_data method conflicts in multiple classes")
+        }
+
         // parameters
 
         for (param in girMethod.parameters.parameters) {
@@ -64,20 +76,24 @@ class MethodBlueprintBuilder(
 
             val kotlinName = context.kotlinizeParameterName(param.name)
 
-            val typeInfo = when (param.type) {
-                is GirArrayType -> return skip("Array parameter is not supported")
-                is GirType -> context.resolveTypeNamePair(girNamespace, param.type)
-                GirVarArgs -> return skip("Varargs parameter is not supported")
+            try {
+                val typeInfo = when (param.type) {
+                    is GirArrayType -> return skip("Array parameter is not supported")
+                    is GirType -> context.resolveTypeNamePair(girNamespace, param.type)
+                    GirVarArgs -> return skip("Varargs parameter is not supported")
+                }
+
+                // build parameter
+                val paramBlueprint = MethodParameterBlueprint(
+                    kotlinName = kotlinName,
+                    nativeName = param.name,
+                    typeInfo,
+                )
+
+                methodParameters.add(paramBlueprint)
+            } catch (ex: UnresolvableTypeException) {
+                return skip(ex.message)
             }
-
-            // build parameter
-            val paramBlueprint = MethodParameterBlueprint(
-                kotlinName = kotlinName,
-                nativeName = param.name,
-                typeInfo,
-            )
-
-            methodParameters.add(paramBlueprint)
         }
 
         // return value

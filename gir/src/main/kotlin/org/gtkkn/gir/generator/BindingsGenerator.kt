@@ -10,8 +10,8 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ClassBlueprint
 import org.gtkkn.gir.blueprints.ConversionType.ENUMERATION
-import org.gtkkn.gir.blueprints.ConversionType.OBJECT
-import org.gtkkn.gir.blueprints.ConversionType.SAME_TYPE
+import org.gtkkn.gir.blueprints.ConversionType.NO_CONVERSION
+import org.gtkkn.gir.blueprints.ConversionType.OBJECT_POINTER
 import org.gtkkn.gir.blueprints.ConversionType.UNKNOWN
 import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
@@ -191,10 +191,14 @@ class BindingsGenerator(
             returns(method.returnTypeInfo.kotlinTypeName)
 
             // arguments
+            if (method.parameterBlueprints.isNotEmpty()) {
+                addStatement("""TODO("methods with parameters not supported")""")
+                return@apply
+            }
 
             // implementation
             when (method.returnTypeInfo.conversionType) {
-                SAME_TYPE -> addStatement(
+                NO_CONVERSION -> addStatement(
                     "return %M($instancePointerName.%M())",
                     method.nativeMemberName,
                     REINTERPRET_FUNC,
@@ -211,7 +215,7 @@ class BindingsGenerator(
                         method.returnTypeInfo.kotlinTypeName,
                     )
 
-                OBJECT ->
+                OBJECT_POINTER ->
                     addStatement("""TODO("object type conversion is not implemented")""")
 
                 UNKNOWN ->

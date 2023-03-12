@@ -130,25 +130,6 @@ class ProcessorContext(
         return ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(clazz.name))
     }
 
-    fun resolveEnumTypeName(targetNamespace: GirNamespace, nativeEnumName: String): TypeName {
-        val parts = nativeEnumName.split(".")
-
-        val namespace = when (parts.count()) {
-            1 -> targetNamespace
-            2 -> findNamespaceByName(parts.first())
-                ?: throw UnresolvableTypeException("namespace ${parts.first()} does not exist")
-
-            else -> throw UnresolvableTypeException(nativeEnumName)
-        }
-        val enumName = parts.last()
-        val enum = namespace.enums.find { it.name == enumName }
-        if (enum != null) {
-            return ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(enumName))
-        } else {
-            throw UnresolvableTypeException(nativeEnumName)
-        }
-    }
-
     /**
      * Resolve a native interface name to a [TypeName] object.
      *
