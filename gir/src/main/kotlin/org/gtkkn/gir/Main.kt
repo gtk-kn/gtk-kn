@@ -9,6 +9,8 @@ import org.gtkkn.gir.processor.Phase2Processor
 import java.io.File
 import kotlin.system.exitProcess
 
+private val GIR_PREFIX_WHITELIST = arrayOf("Gtk-4", "GObject-", "GLib-", "Gio-")
+
 fun main(args: Array<String>) {
     val parser = ArgParser("generator")
     val girPath by parser
@@ -31,6 +33,7 @@ fun main(args: Array<String>) {
     val girParser = GirParser()
     val repositories = girBaseDir.listFiles().orEmpty()
         .filter { it.extension == "gir" }
+        .filter { file -> GIR_PREFIX_WHITELIST.any { file.name.startsWith(it) } }
         .map { girParser.parse(it) }
 
     println("Parsed ${repositories.count()} gir files")
