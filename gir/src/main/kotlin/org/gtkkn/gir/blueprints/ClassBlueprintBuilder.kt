@@ -15,7 +15,6 @@ class ClassBlueprintBuilder(
 ) : BlueprintBuilder<ClassBlueprint>(
     context,
 ) {
-
     private val skippedObjects = mutableListOf<SkippedObject>()
 
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
@@ -23,6 +22,7 @@ class ClassBlueprintBuilder(
     private var parentTypeName: TypeName? = null
 
     override fun blueprintObjectType(): String = "class"
+
     override fun blueprintObjectName(): String = girClass.name
 
     private fun addMethod(method: GirMethod) {
@@ -75,10 +75,10 @@ class ClassBlueprintBuilder(
                     implementsInterfaces = implementsInterfaces,
                     parentTypeName = parentTypeName,
                     objectPointerName = objectPointerName,
-                    objectPointerTypeName = objectPointerTypeName
+                    objectPointerTypeName = objectPointerTypeName,
                 ),
             )
-        } catch (ex: Exception) {
+        } catch (ex: UnresolvableTypeException) {
             return skip("Error building blueprint: ${ex.message}")
         }
     }

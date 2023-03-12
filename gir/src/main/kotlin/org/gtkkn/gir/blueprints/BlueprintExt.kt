@@ -30,4 +30,3 @@ fun MethodBlueprint.prettyPrint(prefix: String = "\t\t") {
     println("${prefix}\tkotlinReturnType: ${returnTypeInfo.kotlinTypeName}")
     println("${prefix}\tnativeReturnType: ${returnTypeInfo.nativeTypeName}")
 }
-

@@ -13,5 +13,4 @@ class FunctionBlueprintBuilder(
     override fun blueprintObjectName(): String = girFunction.name
 
     override fun build(): BlueprintResult<FunctionBlueprint> = skip("Functions not supported")
-
 }

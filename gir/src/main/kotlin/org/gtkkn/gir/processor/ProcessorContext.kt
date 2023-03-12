@@ -7,7 +7,6 @@ import com.squareup.kotlinpoet.FLOAT
 import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.LONG
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.plusParameter
 import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
@@ -32,7 +31,8 @@ class ProcessorContext(
     private val repositories: List<GirRepository>
 ) {
     fun findRepositoryByName(name: String): GirRepository? = repositories.find { it.namespace.name == name }
-    fun findNamespaceByName(name: String) = repositories.map { it.namespace }.find { it.name == name }
+
+    fun findNamespaceByName(name: String) = findRepositoryByName(name)?.namespace
 
     fun kotlinizeMethodName(nativeMethodName: String): String = nativeMethodName.snakeToCamelCase()
 
@@ -49,6 +49,7 @@ class ProcessorContext(
     fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()
 
     fun namespaceNativePackageName(namespace: GirNamespace): String = "native.${namespacePrefix(namespace)}"
+
     fun namespaceBindingsPackageName(namespace: GirNamespace): String = "bindings.${namespacePrefix(namespace)}"
 
     /**
@@ -56,17 +57,26 @@ class ProcessorContext(
      *
      * For example, for Widget, this will return kotlinx.cinterop.CPointer<native.gtk.Widget>.
      */
+    @Throws(UnresolvableTypeException::class)
     fun resolveClassObjectPointerTypeName(namespace: GirNamespace, clazz: GirClass): TypeName =
         ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(
-            ClassName(namespaceNativePackageName(namespace), clazz.cType ?: error("No cType for class ${clazz.name}")),
+            ClassName(
+                namespaceNativePackageName(namespace),
+                clazz.cType
+                    ?: throw UnresolvableTypeException("Missing cType on class"),
+            ),
         )
 
     /**
      * Resolve the [TypeName] for the objectPointer we have in all interfaces.
      */
+    @Throws(UnresolvableTypeException::class)
     fun resolveInterfaceObjectPointerTypeName(namespace: GirNamespace, iface: GirInterface): TypeName =
         ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(
-            ClassName(namespaceNativePackageName(namespace), iface.cType ?: error("No cType for class ${iface.name}")),
+            ClassName(
+                namespaceNativePackageName(namespace),
+                iface.cType ?: throw UnresolvableTypeException("Missing cType on interface"),
+            ),
         )
 
     /**
@@ -161,7 +171,7 @@ class ProcessorContext(
             return TypeNamePair(UNIT, UNIT, ConversionType.SAME_TYPE)
         }
         if (type.name == "gboolean") {
-            return TypeNamePair(INT, BOOLEAN, ConversionType.UNKNOWN) // TODO
+            return TypeNamePair(INT, BOOLEAN, ConversionType.UNKNOWN)
         }
         if (type.name == "gint") {
             return TypeNamePair(INT, INT, ConversionType.SAME_TYPE)
@@ -201,16 +211,16 @@ class ProcessorContext(
             return TypeNamePair(
                 ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(STAR),
                 ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(STAR),
-                ConversionType.UNKNOWN
+                ConversionType.UNKNOWN,
             )
         }
 
         // strings
         if (type.name == "utf8") {
             return TypeNamePair(
-                ClassName("kotlinx.cinterop", "CPointer").plusParameter(ClassName("kotlinx.cinterop", "ByteVar")),
+                ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(ClassName("kotlinx.cinterop", "ByteVar")),
                 STRING,
-                ConversionType.UNKNOWN
+                ConversionType.UNKNOWN,
             )
         }
 
@@ -225,9 +235,9 @@ class ProcessorContext(
                 ClassName(
                     "kotlinx.cinterop",
                     "CPointer",
-                ).parameterizedBy(STAR), // TODO proper type info of class pointer
+                ).parameterizedBy(STAR),
                 classTypeName,
-                ConversionType.OBJECT // TODO
+                ConversionType.OBJECT,
             )
         } catch (ex: UnresolvableTypeException) {
             // fallthrough
@@ -240,16 +250,15 @@ class ProcessorContext(
                 ClassName(
                     "kotlinx.cinterop",
                     "CPointer",
-                ).parameterizedBy(STAR), // TODO proper type info of interface pointer
+                ).parameterizedBy(STAR),
                 interfaceTypeName,
-                ConversionType.OBJECT // TODO
+                ConversionType.OBJECT,
             )
         } catch (ex: UnresolvableTypeException) {
             // fallthrough
         }
 
         // enums
-        // TODO
         try {
             val enumTypeName = resolveEnumTypeName(girNamespace, type.name)
             return TypeNamePair(U_INT, enumTypeName, ConversionType.ENUMERATION)
@@ -262,6 +271,6 @@ class ProcessorContext(
     }
 }
 
-class UnresolvableTypeException(val type: String) : Exception() {
-    override val message: String = "Could not resolve type $type"
+class UnresolvableTypeException(private val reason: String) : Exception() {
+    override val message: String = "Unresolvable type: $reason"
 }

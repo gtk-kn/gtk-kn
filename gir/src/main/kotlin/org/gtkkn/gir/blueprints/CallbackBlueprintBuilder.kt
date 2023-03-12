@@ -13,8 +13,5 @@ class CallbackBlueprintBuilder(
 
     override fun blueprintObjectName(): String = girCallback.name
 
-    override fun build(): BlueprintResult<CallbackBlueprint> {
-        return skip("Callbacks are not supported")
-    }
-
+    override fun build(): BlueprintResult<CallbackBlueprint> = skip("Callbacks are not supported")
 }
