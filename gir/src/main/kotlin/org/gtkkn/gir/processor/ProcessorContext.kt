@@ -31,9 +31,13 @@ class ProcessorContext(
 ) {
     // object lookups methods
 
-    fun findRepositoryByName(name: String): GirRepository? = repositories.find { it.namespace.name == name }
+    fun findRepositoryByNameOrNull(name: String): GirRepository? = repositories.find { it.namespace.name == name }
 
-    fun findNamespaceByName(name: String) = findRepositoryByName(name)?.namespace
+    fun findNamespaceByNameOrNull(name: String) = findRepositoryByNameOrNull(name)?.namespace
+
+    @Throws(UnresolvableTypeException::class)
+    fun findNamespaceByName(name: String) =
+        findRepositoryByNameOrNull(name)?.namespace ?: throw UnresolvableTypeException("Namespace $name not found")
 
     // kotlin names
 
@@ -84,35 +88,23 @@ class ProcessorContext(
             ),
         )
 
+
     /**
-     * Resolve a native interface name to a [TypeName] object.
-     *
-     * If the given [nativeInterfaceName] contains a separator dot, the prefix is used to resolve the interface
-     * from another namespace.
-     * Otherwise the [targetNamespace] is used.
-     *
-     * @param targetNamespace target namespace for which we are resolving.
-     * @param nativeInterfaceName name of the interface.
-     * @throws UnresolvableTypeException if the type cannot be resolved
-     * @return fully qualified [TypeName] for the interface
+     * Convert an objectName which can be either simple (no dots) or fully qualified (with dot separator)
+     * into a pair of namespace and simple object name.
      */
     @Throws(UnresolvableTypeException::class)
-    fun resolveInterfaceTypeName(targetNamespace: GirNamespace, nativeInterfaceName: String): TypeName {
-        val parts = nativeInterfaceName.split(".")
-
-        val namespace = when (parts.count()) {
-            1 -> targetNamespace
-            2 -> findNamespaceByName(parts.first())
-                ?: throw UnresolvableTypeException("namespace ${parts.first()} does not exist")
-
-            else -> throw UnresolvableTypeException(nativeInterfaceName)
-        }
-        val ifaceName = parts.last()
-        val iface = namespace.interfaces.find { it.name == ifaceName }
-        if (iface != null) {
-            return ClassName(namespaceBindingsPackageName(namespace), kotlinizeInterfaceName(ifaceName))
-        } else {
-            throw UnresolvableTypeException(nativeInterfaceName)
+    private fun extractFullyQualifiedName(
+        targetNamespace: GirNamespace,
+        objectName: String
+    ): Pair<GirNamespace, String> {
+        val parts = objectName.split(".")
+        return when (parts.count()) {
+            1 -> Pair(targetNamespace, objectName)
+            2 -> Pair(findNamespaceByName(parts.first()), parts.last())
+            else -> throw UnresolvableTypeException(
+                "objectName $objectName is not a valid simple or fully qualified name",
+            )
         }
     }
 
@@ -130,42 +122,38 @@ class ProcessorContext(
      */
     @Throws(UnresolvableTypeException::class)
     fun resolveClassTypeName(targetNamespace: GirNamespace, nativeClassName: String): TypeName {
-        val parts = nativeClassName.split(".")
+        val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeClassName)
+        val clazz = namespace.classes.find { it.name == simpleName }
+            ?: throw UnresolvableTypeException("class $nativeClassName not found")
+        return ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(clazz.name))
+    }
 
-        val namespace = when (parts.count()) {
-            1 -> targetNamespace
-            2 -> findNamespaceByName(parts.first())
-                ?: throw UnresolvableTypeException("namespace ${parts.first()} does not exist")
-
-            else -> throw UnresolvableTypeException(nativeClassName)
-        }
-        val className = parts.last()
-        val clazz = namespace.classes.find { it.name == className }
-        if (clazz != null) {
-            return ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(className))
-        } else {
-            throw UnresolvableTypeException(nativeClassName)
-        }
+    /**
+     * Resolve a native interface name to a [TypeName] object.
+     *
+     * If the given [nativeInterfaceName] contains a separator dot, the prefix is used to resolve the interface
+     * from another namespace.
+     * Otherwise the [targetNamespace] is used.
+     *
+     * @param targetNamespace target namespace for which we are resolving.
+     * @param nativeInterfaceName name of the interface.
+     * @throws UnresolvableTypeException if the type cannot be resolved
+     * @return fully qualified [TypeName] for the interface
+     */
+    @Throws(UnresolvableTypeException::class)
+    fun resolveInterfaceTypeName(targetNamespace: GirNamespace, nativeInterfaceName: String): TypeName {
+        val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeInterfaceName)
+        val iface = namespace.interfaces.find { it.name == simpleName }
+            ?: throw UnresolvableTypeException("interface $nativeInterfaceName not found")
+        return ClassName(namespaceBindingsPackageName(namespace), kotlinizeInterfaceName(iface.name))
     }
 
     @Throws(UnresolvableTypeException::class)
     fun resolveEnumTypeName(targetNamespace: GirNamespace, nativeEnumName: String): TypeName {
-        val parts = nativeEnumName.split(".")
-
-        val namespace = when (parts.count()) {
-            1 -> targetNamespace
-            2 -> findNamespaceByName(parts.first())
-                ?: throw UnresolvableTypeException("namespace ${parts.first()} does not exist")
-
-            else -> throw UnresolvableTypeException(nativeEnumName)
-        }
-        val enumName = parts.last()
-        val enum = namespace.enums.find { it.name == enumName }
-        if (enum != null) {
-            return ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(enumName))
-        } else {
-            throw UnresolvableTypeException(nativeEnumName)
-        }
+        val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeEnumName)
+        val enum = namespace.enums.find { it.name == simpleName }
+            ?: throw UnresolvableTypeException("enum $nativeEnumName not found")
+        return ClassName(namespaceBindingsPackageName(namespace), kotlinizeEnumName(enum.name))
     }
 
     /**
