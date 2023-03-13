@@ -229,7 +229,7 @@ class ProcessorContext(
                 classTypeName,
                 ConversionType.OBJECT_POINTER,
             )
-        } catch (ex: UnresolvableTypeException) {
+        } catch (ignored: UnresolvableTypeException) {
             // fallthrough
         }
 
@@ -241,7 +241,7 @@ class ProcessorContext(
                 interfaceTypeName,
                 ConversionType.OBJECT_POINTER,
             )
-        } catch (ex: UnresolvableTypeException) {
+        } catch (ignored: UnresolvableTypeException) {
             // fallthrough
         }
 
@@ -249,7 +249,7 @@ class ProcessorContext(
         try {
             val enumTypeName = resolveEnumTypeName(girNamespace, type.name)
             return TypeInfo(U_INT, enumTypeName, ConversionType.ENUMERATION)
-        } catch (ex: UnresolvableTypeException) {
+        } catch (ignored: UnresolvableTypeException) {
             // fallthrough
         }
 
