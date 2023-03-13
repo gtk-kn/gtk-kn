@@ -30,12 +30,11 @@ fun MethodBlueprint.prettyPrint(prefix: String = "\t\t") {
     println("${prefix}method:")
     println("${prefix}\tkotlinName: $kotlinName")
     println("${prefix}\tnativeName: $nativeName")
-    println("${prefix}\treturns: ${returnTypeInfo.nativeTypeName} -> ${returnTypeInfo.kotlinTypeName}")
+    println("${prefix}\treturns: $returnTypeInfo")
     println("${prefix}\tparameters:")
     parameterBlueprints.forEach { param ->
         println(
-            "${prefix}\t\t${param.nativeName}: ${param.typeInfo.nativeTypeName} -> " +
-                "${param.kotlinName}: ${param.typeInfo.kotlinTypeName}"
+            "${prefix}\t\t${param.nativeName}: ${param.typeInfo} -> ${param.kotlinName}: ${param.typeInfo}",
         )
     }
 }

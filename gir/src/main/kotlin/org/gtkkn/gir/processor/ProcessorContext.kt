@@ -6,6 +6,7 @@ import com.squareup.kotlinpoet.DOUBLE
 import com.squareup.kotlinpoet.FLOAT
 import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.LONG
+import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
@@ -13,7 +14,6 @@ import com.squareup.kotlinpoet.UNIT
 import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
-import org.gtkkn.gir.blueprints.ConversionType
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirInterface
@@ -30,30 +30,24 @@ class ProcessorContext(
     private val repositories: List<GirRepository>
 ) {
     private val typeInfoTable: Map<String, TypeInfo> = mapOf(
-        "none" to TypeInfo(UNIT, UNIT, ConversionType.NO_CONVERSION),
-        "gboolean" to TypeInfo(INT, BOOLEAN, ConversionType.UNKNOWN),
-        "gint" to TypeInfo(INT, INT, ConversionType.NO_CONVERSION),
-        "gint32" to TypeInfo(INT, INT, ConversionType.NO_CONVERSION),
-        "gint64" to TypeInfo(LONG, LONG, ConversionType.NO_CONVERSION),
-        "gfloat" to TypeInfo(FLOAT, FLOAT, ConversionType.NO_CONVERSION),
-        "gdouble" to TypeInfo(DOUBLE, DOUBLE, ConversionType.NO_CONVERSION),
-        "guint" to TypeInfo(U_INT, U_INT, ConversionType.NO_CONVERSION),
-        "guint16" to TypeInfo(U_SHORT, U_SHORT, ConversionType.NO_CONVERSION),
-        "guint32" to TypeInfo(U_INT, U_INT, ConversionType.NO_CONVERSION),
-        "guint64" to TypeInfo(U_LONG, U_LONG, ConversionType.NO_CONVERSION),
-        "gsize" to TypeInfo(U_LONG, U_LONG, ConversionType.NO_CONVERSION),
-        "gssize" to TypeInfo(LONG, LONG, ConversionType.NO_CONVERSION),
-        "gpointer" to TypeInfo(
-            NativeTypes.cpointerOf(STAR),
-            NativeTypes.cpointerOf(STAR),
-            ConversionType.UNKNOWN,
-        ),
+        "none" to TypeInfo.Primitive(UNIT),
+        "gboolean" to TypeInfo.Unknown(INT, BOOLEAN),
+        "gdouble" to TypeInfo.Primitive(DOUBLE),
+        "gfloat" to TypeInfo.Primitive(FLOAT),
+        "gint" to TypeInfo.Primitive(INT),
+        "gint16" to TypeInfo.Primitive(SHORT),
+        "gint32" to TypeInfo.Primitive(INT),
+        "gint64" to TypeInfo.Primitive(LONG),
+        "gsize" to TypeInfo.Primitive(U_LONG),
+        "gssize" to TypeInfo.Primitive(LONG),
+        "guint" to TypeInfo.Primitive(U_INT),
+        "guint16" to TypeInfo.Primitive(U_SHORT),
+        "guint32" to TypeInfo.Primitive(U_INT),
+        "guint64" to TypeInfo.Primitive(U_LONG),
+        "gunichar" to TypeInfo.Primitive(U_INT),
+        "gpointer" to TypeInfo.Unknown(NativeTypes.cpointerOf(STAR), NativeTypes.cpointerOf(STAR)),
         // strings
-        "utf8" to TypeInfo(
-            NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR),
-            STRING,
-            ConversionType.UNKNOWN,
-        ),
+        "utf8" to TypeInfo.Unknown(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
     )
 
     // object lookups methods
@@ -194,10 +188,9 @@ class ProcessorContext(
         // classes
         try {
             val classTypeName = resolveClassTypeName(girNamespace, type.name)
-            return TypeInfo(
+            return TypeInfo.ObjectPointer(
                 NativeTypes.cpointerOf(STAR),
                 classTypeName,
-                ConversionType.OBJECT_POINTER,
             )
         } catch (ignored: UnresolvableTypeException) {
             // fallthrough
@@ -206,10 +199,9 @@ class ProcessorContext(
         // interfaces
         try {
             val interfaceTypeName = resolveInterfaceTypeName(girNamespace, type.name)
-            return TypeInfo(
+            return TypeInfo.ObjectPointer(
                 NativeTypes.cpointerOf(STAR),
                 interfaceTypeName,
-                ConversionType.OBJECT_POINTER,
             )
         } catch (ignored: UnresolvableTypeException) {
             // fallthrough
@@ -218,7 +210,7 @@ class ProcessorContext(
         // enums
         try {
             val enumTypeName = resolveEnumTypeName(girNamespace, type.name)
-            return TypeInfo(U_INT, enumTypeName, ConversionType.ENUMERATION)
+            return TypeInfo.Enumeration(U_INT, enumTypeName)
         } catch (ignored: UnresolvableTypeException) {
             // fallthrough
         }
@@ -227,6 +219,6 @@ class ProcessorContext(
     }
 }
 
-class UnresolvableTypeException(private val reason: String) : Exception() {
+class UnresolvableTypeException(reason: String) : Exception() {
     override val message: String = "Unresolvable type: $reason"
 }
