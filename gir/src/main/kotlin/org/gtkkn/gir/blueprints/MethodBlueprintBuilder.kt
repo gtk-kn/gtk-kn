@@ -46,7 +46,7 @@ class MethodBlueprintBuilder(
 
             val typeInfo = when (param.type) {
                 is GirArrayType -> return skip("Array parameter is not supported")
-                is GirType -> context.resolveTypeNamePair(girNamespace, param.type)
+                is GirType -> context.resolveTypeInfo(girNamespace, param.type)
                 GirVarArgs -> return skip("Varargs parameter is not supported")
             }
 
@@ -67,7 +67,7 @@ class MethodBlueprintBuilder(
         val returnTypeInfo = try {
             when (val type = returnValue.type) {
                 is GirArrayType -> return skip("Methods with array return types are unsupported")
-                is GirType -> context.resolveTypeNamePair(girNamespace, type)
+                is GirType -> context.resolveTypeInfo(girNamespace, type)
             }
         } catch (ex: UnresolvableTypeException) {
             return skip("Method return type ${returnValue.type} could not be resolved")
@@ -104,4 +104,3 @@ class MethodBlueprintBuilder(
         else -> null
     }
 }
-

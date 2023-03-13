@@ -1,7 +1,6 @@
 package org.gtkkn.gir.processor
 
 import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import org.gtkkn.gir.parser.GirParser
 import java.io.File
 import kotlin.test.Test
@@ -10,7 +9,6 @@ import kotlin.test.assertEquals
 private const val GTK_GIR_RESOURCE_NAME = "/girfiles/Gtk-4.0.gir"
 
 class ProcessingTests {
-
     private val gtkBlueprint by lazy {
         val girParser = GirParser()
         val file = File(checkNotNull(javaClass.getResource(GTK_GIR_RESOURCE_NAME)).toURI())
@@ -19,7 +17,6 @@ class ProcessingTests {
         val processor = Phase2Processor()
         processor.process(listOf(gtkRepository)).first()
     }
-
 
     @Test
     fun processRepository() {
@@ -42,7 +39,7 @@ class ProcessingTests {
         assertEquals(ClassName("bindings.gtk", "Window"), clazz.parentTypeName)
         assertEquals("gtkAboutDialogPointer", clazz.objectPointerName)
         assertEquals(
-            ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(
+            NativeTypes.cpointerOf(
                 ClassName("native.gtk", "GtkAboutDialog"),
             ),
             clazz.objectPointerTypeName,
