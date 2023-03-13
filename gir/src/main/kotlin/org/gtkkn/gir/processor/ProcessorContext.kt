@@ -30,7 +30,6 @@ class ProcessorContext(
     private val repositories: List<GirRepository>
 ) {
     // object lookups methods
-
     fun findRepositoryByNameOrNull(name: String): GirRepository? = repositories.find { it.namespace.name == name }
 
     fun findNamespaceByNameOrNull(name: String) = findRepositoryByNameOrNull(name)?.namespace
@@ -40,7 +39,6 @@ class ProcessorContext(
         findRepositoryByNameOrNull(name)?.namespace ?: throw UnresolvableTypeException("Namespace $name not found")
 
     // kotlin names
-
     fun kotlinizeMethodName(nativeMethodName: String): String = nativeMethodName.snakeToCamelCase()
 
     fun kotlinizeClassName(nativeClassName: String): String = nativeClassName
@@ -56,7 +54,6 @@ class ProcessorContext(
     fun kotlinizeParameterName(nativeParameterName: String): String = nativeParameterName.snakeToCamelCase()
 
     // namespace naming
-
     fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()
 
     fun namespaceNativePackageName(namespace: GirNamespace): String = "native.${namespacePrefix(namespace)}"
