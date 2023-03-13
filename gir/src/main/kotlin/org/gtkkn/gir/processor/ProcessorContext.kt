@@ -29,6 +29,33 @@ import org.gtkkn.gir.util.snakeToCamelCase
 class ProcessorContext(
     private val repositories: List<GirRepository>
 ) {
+    private val typeInfoTable: Map<String, TypeInfo> = mapOf(
+        "none" to TypeInfo(UNIT, UNIT, ConversionType.NO_CONVERSION),
+        "gboolean" to TypeInfo(INT, BOOLEAN, ConversionType.UNKNOWN),
+        "gint" to TypeInfo(INT, INT, ConversionType.NO_CONVERSION),
+        "gint32" to TypeInfo(INT, INT, ConversionType.NO_CONVERSION),
+        "gint64" to TypeInfo(LONG, LONG, ConversionType.NO_CONVERSION),
+        "gfloat" to TypeInfo(FLOAT, FLOAT, ConversionType.NO_CONVERSION),
+        "gdouble" to TypeInfo(DOUBLE, DOUBLE, ConversionType.NO_CONVERSION),
+        "guint" to TypeInfo(U_INT, U_INT, ConversionType.NO_CONVERSION),
+        "guint16" to TypeInfo(U_SHORT, U_SHORT, ConversionType.NO_CONVERSION),
+        "guint32" to TypeInfo(U_INT, U_INT, ConversionType.NO_CONVERSION),
+        "guint64" to TypeInfo(U_LONG, U_LONG, ConversionType.NO_CONVERSION),
+        "gsize" to TypeInfo(U_LONG, U_LONG, ConversionType.NO_CONVERSION),
+        "gssize" to TypeInfo(LONG, LONG, ConversionType.NO_CONVERSION),
+        "gpointer" to TypeInfo(
+            NativeTypes.cpointerOf(STAR),
+            NativeTypes.cpointerOf(STAR),
+            ConversionType.UNKNOWN,
+        ),
+        // strings
+        "utf8" to TypeInfo(
+            NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR),
+            STRING,
+            ConversionType.UNKNOWN,
+        ),
+    )
+
     // object lookups methods
     fun findRepositoryByNameOrNull(name: String): GirRepository? = repositories.find { it.namespace.name == name }
 
@@ -86,7 +113,6 @@ class ProcessorContext(
                 iface.cType ?: throw UnresolvableTypeException("Missing cType on interface"),
             ),
         )
-
 
     /**
      * Convert an objectName which can be either simple (no dots) or fully qualified (with dot separator)
@@ -158,68 +184,12 @@ class ProcessorContext(
     /**
      * Resolve a [TypeInfo] for the given [GirType].
      */
-    fun resolveTypeNamePair(girNamespace: GirNamespace, type: GirType): TypeInfo {
-        // first basic types
-        if (type.name == "none") {
-            return TypeInfo(UNIT, UNIT, ConversionType.NO_CONVERSION)
-        }
-        if (type.name == "gboolean") {
-            return TypeInfo(INT, BOOLEAN, ConversionType.UNKNOWN)
-        }
-        if (type.name == "gint") {
-            return TypeInfo(INT, INT, ConversionType.NO_CONVERSION)
-        }
-        if (type.name == "gint32") {
-            return TypeInfo(INT, INT, ConversionType.NO_CONVERSION)
-        }
-        if (type.name == "gint64") {
-            return TypeInfo(LONG, LONG, ConversionType.NO_CONVERSION)
-        }
-        if (type.name == "gfloat") {
-            return TypeInfo(FLOAT, FLOAT, ConversionType.NO_CONVERSION)
-        }
-        if (type.name == "gdouble") {
-            return TypeInfo(DOUBLE, DOUBLE, ConversionType.NO_CONVERSION)
-        }
-        if (type.name == "guint") {
-            return TypeInfo(U_INT, U_INT, ConversionType.NO_CONVERSION)
-        }
-        if (type.name == "guint16") {
-            return TypeInfo(U_SHORT, U_SHORT, ConversionType.NO_CONVERSION)
-        }
-        if (type.name == "guint32") {
-            return TypeInfo(U_INT, U_INT, ConversionType.NO_CONVERSION)
-        }
-        if (type.name == "guint64") {
-            return TypeInfo(U_LONG, U_LONG, ConversionType.NO_CONVERSION)
-        }
-        if (type.name == "gsize") {
-            return TypeInfo(U_LONG, U_LONG, ConversionType.NO_CONVERSION)
-        }
-        if (type.name == "gssize") {
-            return TypeInfo(LONG, LONG, ConversionType.NO_CONVERSION)
-        }
-
-        if (type.name == "gpointer") {
-            return TypeInfo(
-                NativeTypes.cpointerOf(STAR),
-                NativeTypes.cpointerOf(STAR),
-                ConversionType.UNKNOWN,
-            )
-        }
-
-        // strings
-        if (type.name == "utf8") {
-            return TypeInfo(
-                NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR),
-                STRING,
-                ConversionType.UNKNOWN,
-            )
-        }
-
+    fun resolveTypeInfo(girNamespace: GirNamespace, type: GirType): TypeInfo {
         if (type.name == null) {
             throw UnresolvableTypeException("type name is null")
         }
+        // first basic types
+        typeInfoTable[type.name]?.let { return it }
 
         // classes
         try {

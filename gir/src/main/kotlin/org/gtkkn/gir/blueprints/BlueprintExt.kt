@@ -33,6 +33,9 @@ fun MethodBlueprint.prettyPrint(prefix: String = "\t\t") {
     println("${prefix}\treturns: ${returnTypeInfo.nativeTypeName} -> ${returnTypeInfo.kotlinTypeName}")
     println("${prefix}\tparameters:")
     parameterBlueprints.forEach { param ->
-        println("${prefix}\t\t${param.nativeName}: ${param.typeInfo.nativeTypeName} -> ${param.kotlinName}: ${param.typeInfo.kotlinTypeName}")
+        println(
+            "${prefix}\t\t${param.nativeName}: ${param.typeInfo.nativeTypeName} -> " +
+                "${param.kotlinName}: ${param.typeInfo.kotlinTypeName}"
+        )
     }
 }
