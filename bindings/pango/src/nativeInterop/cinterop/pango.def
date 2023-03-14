@@ -1,0 +1,35 @@
+headers = pango/pango.h
+package = native.pango
+headerFilter = pango/*
+
+# pkg-config --cflags pango
+compilerOpts.linux =\
+    -I/usr/include/pango-1.0 \
+    -I/usr/include/glib-2.0 \
+    -I/usr/lib/glib-2.0/include \
+    -I/usr/include/sysprof-4 \
+    -I/usr/include/harfbuzz \
+    -I/usr/include/freetype2 \
+    -I/usr/include/libpng16 \
+    -I/usr/include/libmount \
+    -I/usr/include/blkid \
+    -I/usr/include/fribidi \
+    -I/usr/include/cairo \
+    -pthread \
+    -I/usr/include/pixman-1
+
+
+compilerOpts.linux_x64 = \
+    -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+    -I/usr/lib64/glib-2.0/include \
+
+# pkg-config --libs pango
+linkerOpts.linux = \
+    -L/usr/local/lib \
+    -lpango-1.0 \
+    -lgobject-2.0 \
+    -lglib-2.0 \
+    -lharfbuzz
+
+linkerOpts.linux_x64 = \
+    -L/usr/lib/x86_64-linux-gnu
