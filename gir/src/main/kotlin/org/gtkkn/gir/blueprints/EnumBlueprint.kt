@@ -45,18 +45,16 @@ class EnumBlueprintBuilder(
         )
     }
 
-    override fun build(): BlueprintResult<EnumBlueprint> {
+    override fun buildInternal(): EnumBlueprint {
         girEnum.members.forEach { addMember(it) }
 
         val kotlinName = context.kotlinizeEnumName(girEnum.name)
 
-        return ok(
-            EnumBlueprint(
-                kotlinName = context.kotlinizeEnumName(girEnum.name),
-                kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
-                nativeTypeName = ClassName(context.namespaceNativePackageName(girNamespace), girEnum.cType),
-                memberBlueprints = members,
-            ),
+        return EnumBlueprint(
+            kotlinName = context.kotlinizeEnumName(girEnum.name),
+            kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
+            nativeTypeName = ClassName(context.namespaceNativePackageName(girNamespace), girEnum.cType),
+            memberBlueprints = members,
         )
     }
 }

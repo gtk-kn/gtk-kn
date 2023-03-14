@@ -5,15 +5,12 @@ import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.ProcessorContext
-import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class InterfaceBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
     private val girInterface: GirInterface,
 ) : BlueprintBuilder<InterfaceBlueprint>(context) {
-    private val skippedObjects = mutableListOf<SkippedObject>()
-
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
 
     override fun blueprintObjectType(): String = "interface"
@@ -27,7 +24,7 @@ class InterfaceBlueprintBuilder(
         }
     }
 
-    override fun build(): BlueprintResult<InterfaceBlueprint> = try {
+    override fun buildInternal(): InterfaceBlueprint {
         girInterface.methods.forEach { addMethod(it) }
 
         val kotlinInterfaceName = context.kotlinizeClassName(girInterface.name)
@@ -36,18 +33,14 @@ class InterfaceBlueprintBuilder(
         val objectPointerName = "${context.namespacePrefix(girNamespace)}${girInterface.name}Pointer"
         val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(girNamespace, girInterface)
 
-        ok(
-            InterfaceBlueprint(
-                kotlinName = kotlinInterfaceName,
-                nativeName = girInterface.name,
-                typeName = ClassName(kotlinPackageName, kotlinInterfaceName),
-                methods = methodBluePrints,
-                skippedObjects = skippedObjects,
-                objectPointerName = objectPointerName,
-                objectPointerTypeName = objectPointerTypeName,
-            ),
+        return InterfaceBlueprint(
+            kotlinName = kotlinInterfaceName,
+            nativeName = girInterface.name,
+            typeName = ClassName(kotlinPackageName, kotlinInterfaceName),
+            methods = methodBluePrints,
+            skippedObjects = skippedObjects,
+            objectPointerName = objectPointerName,
+            objectPointerTypeName = objectPointerTypeName,
         )
-    } catch (ex: UnresolvableTypeException) {
-        skip(ex.message)
     }
 }

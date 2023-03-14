@@ -13,7 +13,6 @@ class RepositoryBlueprintBuilder(
     context: ProcessorContext,
     private val girRepository: GirRepository
 ) : BlueprintBuilder<RepositoryBlueprint>(context) {
-
     private val namespace: GirNamespace get() = girRepository.namespace
 
     private val classBlueprints = mutableListOf<ClassBlueprint>()
@@ -21,8 +20,6 @@ class RepositoryBlueprintBuilder(
     private val enumBlueprints = mutableListOf<EnumBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
     private val callbackBlueprints = mutableListOf<CallbackBlueprint>()
-
-    private val skippedObjects = mutableListOf<SkippedObject>()
 
     private fun addClass(girClass: GirClass) {
         when (val result = ClassBlueprintBuilder(context, namespace, girClass).build()) {
@@ -62,7 +59,7 @@ class RepositoryBlueprintBuilder(
     override fun blueprintObjectType(): String = "repository"
     override fun blueprintObjectName(): String = girRepository.namespace.name
 
-    override fun build(): BlueprintResult<RepositoryBlueprint> {
+    override fun buildInternal(): RepositoryBlueprint {
         namespace.classes.forEach { clazz -> addClass(clazz) }
         namespace.interfaces.forEach { iface -> addInterface(iface) }
         namespace.enums.forEach { enum -> addEnum(enum) }
@@ -77,17 +74,15 @@ class RepositoryBlueprintBuilder(
 
         val kotlinModuleName = girRepository.namespace.name.lowercase()
 
-        return BlueprintResult.Ok(
-            RepositoryBlueprint(
-                name = girRepository.namespace.name,
-                kotlinModuleName = kotlinModuleName,
-                classBlueprints = classBlueprints,
-                interfaceBlueprints = interfaceBlueprints,
-                enumBlueprints = enumBlueprints,
-                functionBlueprints = functionBlueprints,
-                callbackBlueprints = callbackBlueprints,
-                skippedObjects = skippedObjects,
-            ),
+        return RepositoryBlueprint(
+            name = girRepository.namespace.name,
+            kotlinModuleName = kotlinModuleName,
+            classBlueprints = classBlueprints,
+            interfaceBlueprints = interfaceBlueprints,
+            enumBlueprints = enumBlueprints,
+            functionBlueprints = functionBlueprints,
+            callbackBlueprints = callbackBlueprints,
+            skippedObjects = skippedObjects,
         )
     }
 }

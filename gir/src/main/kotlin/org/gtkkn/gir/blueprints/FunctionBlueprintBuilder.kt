@@ -3,6 +3,7 @@ package org.gtkkn.gir.blueprints
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class FunctionBlueprintBuilder(
     context: ProcessorContext,
@@ -12,5 +13,7 @@ class FunctionBlueprintBuilder(
     override fun blueprintObjectType(): String = "function"
     override fun blueprintObjectName(): String = girFunction.name
 
-    override fun build(): BlueprintResult<FunctionBlueprint> = skip("Functions not supported")
+    override fun buildInternal(): FunctionBlueprint {
+        girNamespace.also { throw UnresolvableTypeException("Functions not supported") }
+    }
 }
