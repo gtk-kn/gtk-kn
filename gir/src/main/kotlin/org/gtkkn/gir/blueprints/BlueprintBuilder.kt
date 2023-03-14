@@ -1,5 +1,6 @@
 package org.gtkkn.gir.blueprints
 
+import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
@@ -25,7 +26,7 @@ abstract class BlueprintBuilder<T : Any>(val context: ProcessorContext) {
      */
     fun build(): BlueprintResult<T> = try {
         ok(buildInternal())
-    } catch (ex: UnresolvableTypeException) {
+    } catch (ex: BlueprintException) {
         skip(ex.message)
     }
 
