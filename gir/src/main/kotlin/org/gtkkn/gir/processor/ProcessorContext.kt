@@ -241,7 +241,3 @@ class ProcessorContext(
         return Pair(namespace, clazz)
     }
 }
-
-class UnresolvableTypeException(reason: String) : Exception() {
-    override val message: String = "Unresolvable type: $reason"
-}
