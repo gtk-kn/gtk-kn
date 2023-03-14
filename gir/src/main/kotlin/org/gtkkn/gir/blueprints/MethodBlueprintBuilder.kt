@@ -44,20 +44,25 @@ class MethodBlueprintBuilder(
 
             val kotlinName = context.kotlinizeParameterName(param.name)
 
-            val typeInfo = when (param.type) {
-                is GirArrayType -> return skip("Array parameter is not supported")
-                is GirType -> context.resolveTypeInfo(girNamespace, param.type)
-                GirVarArgs -> return skip("Varargs parameter is not supported")
+            try {
+                val typeInfo = when (param.type) {
+                    is GirArrayType -> return skip("Array parameter is not supported")
+                    is GirType -> context.resolveTypeInfo(girNamespace, param.type)
+                    GirVarArgs -> return skip("Varargs parameter is not supported")
+                }
+
+                // build parameter
+                val paramBlueprint = MethodParameterBlueprint(
+                    kotlinName = kotlinName,
+                    nativeName = param.name,
+                    typeInfo,
+                )
+
+                methodParameters.add(paramBlueprint)
+            } catch (ex: UnresolvableTypeException) {
+                // when any param type fails to resolve, skip the whole method
+                return skip(ex.message)
             }
-
-            // build parameter
-            val paramBlueprint = MethodParameterBlueprint(
-                kotlinName = kotlinName,
-                nativeName = param.name,
-                typeInfo,
-            )
-
-            methodParameters.add(paramBlueprint)
         }
 
         // return value
