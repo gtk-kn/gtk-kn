@@ -46,6 +46,7 @@ fun main(args: Array<String>) {
 
     val girParser = GirParser()
     val repositories = girBaseDir.listFiles().orEmpty()
+        .asSequence()
         .filter { it.extension == "gir" }
         .filter { file -> GIR_PREFIX_WHITELIST.any { file.name.startsWith(it) } }
         .map { girParser.parse(it) }
@@ -53,7 +54,7 @@ fun main(args: Array<String>) {
     println("Parsed ${repositories.count()} gir files")
 
     val phase2 = Phase2Processor()
-    val repositoryBlueprints = phase2.process(repositories)
+    val repositoryBlueprints = phase2.process(repositories.toList())
 
     println("Processed ${repositoryBlueprints.count()} blueprints")
 

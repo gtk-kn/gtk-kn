@@ -21,78 +21,67 @@ class MethodBlueprintBuilder(
     override fun blueprintObjectType(): String = "method"
     override fun blueprintObjectName(): String = girMethod.name
 
-    override fun build(): BlueprintResult<MethodBlueprint> {
+    override fun buildInternal(): MethodBlueprint {
         val kotlinName = context.kotlinizeMethodName(girMethod.name)
 
         // early skips for unsupported methods
-
         if (girMethod.parameters == null) {
-            return skip("Method has no parameters object")
+            throw UnresolvableTypeException("Method has no parameters object")
         }
 
         if (girMethod.parameters.instanceParameter == null) {
-            return skip("Method has no instance parameter")
+            throw UnresolvableTypeException("Method has no instance parameter")
         }
 
         // parameters
-
         for (param in girMethod.parameters.parameters) {
             // skip method if parameter is not supported
             skipParameterForReason(param)?.let { reason ->
-                return skip(reason)
+                throw UnresolvableTypeException(reason)
             }
 
-            val kotlinName = context.kotlinizeParameterName(param.name)
+            val paramKotlinName = context.kotlinizeParameterName(param.name)
 
-            try {
-                val typeInfo = when (param.type) {
-                    is GirArrayType -> return skip("Array parameter is not supported")
-                    is GirType -> context.resolveTypeInfo(girNamespace, param.type)
-                    GirVarArgs -> return skip("Varargs parameter is not supported")
-                }
-
-                // build parameter
-                val paramBlueprint = MethodParameterBlueprint(
-                    kotlinName = kotlinName,
-                    nativeName = param.name,
-                    typeInfo,
-                )
-
-                methodParameters.add(paramBlueprint)
-            } catch (ex: UnresolvableTypeException) {
-                // when any param type fails to resolve, skip the whole method
-                return skip(ex.message)
+            val typeInfo = when (param.type) {
+                is GirArrayType -> throw UnresolvableTypeException("Array parameter is not supported")
+                is GirType -> context.resolveTypeInfo(girNamespace, param.type)
+                GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
             }
+
+            // build parameter
+            val paramBlueprint = MethodParameterBlueprint(
+                kotlinName = paramKotlinName,
+                nativeName = param.name,
+                typeInfo,
+            )
+
+            methodParameters.add(paramBlueprint)
         }
 
         // return value
-
-        val returnValue = girMethod.returnValue ?: return skip("Method has no return value")
+        val returnValue = girMethod.returnValue ?: throw UnresolvableTypeException("Method has no return value")
 
         val returnTypeInfo = try {
             when (val type = returnValue.type) {
-                is GirArrayType -> return skip("Methods with array return types are unsupported")
+                is GirArrayType -> throw UnresolvableTypeException("Methods with array return types are unsupported")
                 is GirType -> context.resolveTypeInfo(girNamespace, type)
             }
         } catch (ex: UnresolvableTypeException) {
-            return skip("Method return type ${returnValue.type} could not be resolved")
+            throw UnresolvableTypeException("Method return type ${returnValue.type} could not be resolved")
         }
 
         // method name
-
         val nativeMethodName = girMethod.cIdentifier
-            ?: return skip("native method ${girMethod.name} does not have cIdentifier")
+            ?: throw UnresolvableTypeException("native method ${girMethod.name} does not have cIdentifier")
 
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)
 
-        return ok(
-            MethodBlueprint(
-                kotlinName = kotlinName,
-                nativeName = nativeMethodName,
-                nativeMemberName = nativeMemberName,
-                parameterBlueprints = methodParameters,
-                returnTypeInfo = returnTypeInfo,
-            ),
+        return MethodBlueprint(
+            kotlinName = kotlinName,
+            nativeName = nativeMethodName,
+            nativeMemberName = nativeMemberName,
+            parameterBlueprints = methodParameters,
+            returnTypeInfo = returnTypeInfo,
         )
     }
 

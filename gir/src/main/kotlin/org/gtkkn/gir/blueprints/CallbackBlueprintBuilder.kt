@@ -3,6 +3,7 @@ package org.gtkkn.gir.blueprints
 import org.gtkkn.gir.model.GirCallback
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class CallbackBlueprintBuilder(
     context: ProcessorContext,
@@ -13,5 +14,7 @@ class CallbackBlueprintBuilder(
 
     override fun blueprintObjectName(): String = girCallback.name
 
-    override fun build(): BlueprintResult<CallbackBlueprint> = skip("Callbacks are not supported")
+    override fun buildInternal(): CallbackBlueprint {
+        girNamespace.also { throw UnresolvableTypeException("Callbacks are not supported") }
+    }
 }

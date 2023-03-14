@@ -1,12 +1,14 @@
 package org.gtkkn.gir.blueprints
 
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.UnresolvableTypeException
 
 /**
  * Abstract class for Blueprint builders that provides helper methods
  * and general structure.
  */
 abstract class BlueprintBuilder<T : Any>(val context: ProcessorContext) {
+    protected val skippedObjects = mutableListOf<SkippedObject>()
 
     /**
      * Return the type of object this blueprint is for.
@@ -20,10 +22,18 @@ abstract class BlueprintBuilder<T : Any>(val context: ProcessorContext) {
 
     /**
      * Main build method.
-     *
-     * Implementations of this method should have all the resolution and skip logic.
      */
-    abstract fun build(): BlueprintResult<T>
+    fun build(): BlueprintResult<T> = try {
+        ok(buildInternal())
+    } catch (ex: UnresolvableTypeException) {
+        skip(ex.message)
+    }
+
+    /**
+     * Implementations of this method should have all the resolution and throw [UnresolvableTypeException] logic.
+     */
+    @Throws(UnresolvableTypeException::class)
+    protected abstract fun buildInternal(): T
 
     /**
      * Utility method for returning a SkippedObject.
