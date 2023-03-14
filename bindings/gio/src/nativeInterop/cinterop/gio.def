@@ -1,0 +1,60 @@
+headers = "gio/gio.h" \
+"gio/gdesktopappinfo.h" \
+"gio/gfiledescriptorbased.h" \
+"gio/gunixfdmessage.h" \
+"gio/gunixinputstream.h" \
+"gio/gunixmounts.h" \
+"gio/gunixoutputstream.h" \
+"gio/gsettingsbackend.h" \
+"gio/gunixconnection.h" \
+"gio/gunixsocketaddress.h"
+
+package = native.gio
+headerFilter = "gio/*"
+
+strictEnums = GBusType \
+GConverterResult \
+GCredentials \
+GDBusMessageByteOrder \
+GFileAttributeStatus \
+GFileAttributeType \
+GFileType \
+GFilesystemPreviewType \
+GIOErrorEnum \
+GMemoryMonitorWarningLevel \
+GNetworkConnectivity \
+GPollableReturn \
+GResolverRecordType \
+GSocketFamily \
+GSocketProtocol \
+GTlsCertificateRequestFlags \
+GTlsDatabaseLookupFlags \
+GTlsProtocolVersion
+
+# compiler opts
+
+compilerOpts.linux = \
+    -I/usr/include/glib-2.0 \
+    -I/usr/lib/glib-2.0/include \
+    -I/usr/include/gio-unix-2.0 \
+    -I/usr/include/sysprof-4 \
+    -I/usr/include/libmount \
+    -I/usr/include/blkid \
+    -DG_SETTINGS_ENABLE_BACKEND \
+    -pthread
+
+compilerOpts.linux_x64 = \
+    -I/usr/lib64/glib-2.0/include \
+    -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+
+# linker opts
+
+linkerOpts.linux = \
+    -L/usr/local/lib \
+    -lgio-2.0 \
+    -lgobject-2.0 \
+    -lglib-2.0
+
+linkerOpts.linux_x64 = \
+    -L/usr/lib64 \
+    -L/usr/lib/x86_64-linux-gnu

@@ -1,7 +1,6 @@
 @Suppress("DSL_SCOPE_VIOLATION") //https://github.com/gradle/gradle/issues/22797
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    id("detekt-conventions")
 }
 
 kotlin {
@@ -10,19 +9,24 @@ kotlin {
         hostOs == "Linux" -> linuxX64("native")
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
+
     sourceSets {
         val nativeMain by getting {
             dependencies {
-                implementation(project(":bindings:gtk"))
+                api(project(":bindings:common"))
+                api(project(":bindings:gio"))
+//                api(project(":bindings:gmodule")) // fails build because of glibc version
+                // transitive
+                api(project(":bindings:gobject"))
+                api(project(":bindings:glib"))
             }
         }
+        val nativeTest by getting
     }
 
+    // native main for testing
     nativeTarget.apply {
-        binaries {
-            executable {
-                entryPoint = "org.gtkkn.samples.gtk.helloworld.main"
-            }
-        }
+        val main by compilations.getting
+        val gdkpixbuf by main.cinterops.creating
     }
 }
