@@ -94,7 +94,7 @@ class GirParserTests {
         val returnValue = clazz.constructors.first().returnValue
 
         assertEquals(GirTransferOwnership.Full, returnValue?.transferOwnership)
-        assertEquals(true, returnValue?.nullable)
+        assertEquals(true, returnValue?.isNullable())
     }
 
     @Test

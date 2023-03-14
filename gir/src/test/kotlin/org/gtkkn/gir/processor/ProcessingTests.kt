@@ -1,10 +1,13 @@
 package org.gtkkn.gir.processor
 
 import com.squareup.kotlinpoet.ClassName
+import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.parser.GirParser
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 private const val GTK_GIR_RESOURCE_NAME = "/girfiles/Gtk-4.0.gir"
 
@@ -33,6 +36,12 @@ class ProcessingTests {
     @Test
     fun processAboutDialogClass() {
         val clazz = gtkBlueprint.classBlueprints.first { it.kotlinName == "AboutDialog" }
+        val notNullableReturnTypeInfo = clazz.methods
+            .first { it.nativeName == "gtk_about_dialog_set_comments" }
+            .returnTypeInfo as TypeInfo.Primitive
+        val nullableReturnTypeInfo = clazz.methods
+            .first { it.nativeName == "gtk_about_dialog_get_comments" }
+            .returnTypeInfo as TypeInfo.Unknown
         assertEquals("AboutDialog", clazz.kotlinName)
         assertEquals("AboutDialog", clazz.nativeName)
         assertEquals(ClassName("bindings.gtk", "AboutDialog"), clazz.typeName)
@@ -44,5 +53,7 @@ class ProcessingTests {
             ),
             clazz.objectPointerTypeName,
         )
+        assertFalse(notNullableReturnTypeInfo.typeName.isNullable)
+        assertTrue(nullableReturnTypeInfo.kotlinTypeName.isNullable)
     }
 }

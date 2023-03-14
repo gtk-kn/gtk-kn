@@ -177,12 +177,12 @@ class ProcessorContext(
     /**
      * Resolve a [TypeInfo] for the given [GirType].
      */
-    fun resolveTypeInfo(girNamespace: GirNamespace, type: GirType): TypeInfo {
+    fun resolveTypeInfo(girNamespace: GirNamespace, type: GirType, nullable: Boolean): TypeInfo {
         if (type.name == null) {
             throw UnresolvableTypeException("type name is null")
         }
         // first basic types
-        typeInfoTable[type.name]?.let { return it }
+        typeInfoTable[type.name]?.let { return it.withNullable(nullable) }
 
         // classes
         try {
@@ -190,7 +190,7 @@ class ProcessorContext(
             return TypeInfo.ObjectPointer(
                 NativeTypes.KP_WILDCARD_CPOINTER,
                 classTypeName,
-            )
+            ).withNullable(nullable)
         } catch (ignored: UnresolvableTypeException) {
             // fallthrough
         }
@@ -201,7 +201,7 @@ class ProcessorContext(
             return TypeInfo.ObjectPointer(
                 NativeTypes.KP_WILDCARD_CPOINTER,
                 interfaceTypeName,
-            )
+            ).withNullable(nullable)
         } catch (ignored: UnresolvableTypeException) {
             // fallthrough
         }
@@ -209,7 +209,7 @@ class ProcessorContext(
         // enums
         try {
             val enumTypeName = resolveEnumTypeName(girNamespace, type.name)
-            return TypeInfo.Enumeration(U_INT, enumTypeName)
+            return TypeInfo.Enumeration(U_INT, enumTypeName).withNullable(nullable)
         } catch (ignored: UnresolvableTypeException) {
             // fallthrough
         }
