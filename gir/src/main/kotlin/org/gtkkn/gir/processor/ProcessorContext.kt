@@ -216,6 +216,30 @@ class ProcessorContext(
 
         throw UnresolvableTypeException(type.name)
     }
+
+    @Throws(UnresolvableTypeException::class)
+    fun findClassByName(
+        targetNamespace: GirNamespace,
+        fullyQualifiedName: String
+    ): Pair<GirNamespace, GirClass> {
+        val (namespace, simpleClassName) = extractFullyQualifiedName(targetNamespace, fullyQualifiedName)
+        val clazz = namespace.classes.find { it.name == simpleClassName }
+            ?: throw UnresolvableTypeException("Class $simpleClassName does not exist in namespace ${namespace.name}")
+        return Pair(namespace, clazz)
+    }
+
+    @Throws(UnresolvableTypeException::class)
+    fun findInterfaceByName(
+        targetNamespace: GirNamespace,
+        fullyQualifiedName: String
+    ): Pair<GirNamespace, GirInterface> {
+        val (namespace, simpleIfaceName) = extractFullyQualifiedName(targetNamespace, fullyQualifiedName)
+        val clazz = namespace.interfaces.find { it.name == simpleIfaceName }
+            ?: throw UnresolvableTypeException(
+                "Interface $simpleIfaceName does not exist in namespace ${namespace.name}",
+            )
+        return Pair(namespace, clazz)
+    }
 }
 
 class UnresolvableTypeException(reason: String) : Exception() {

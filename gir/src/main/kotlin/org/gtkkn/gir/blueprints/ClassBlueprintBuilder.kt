@@ -39,16 +39,7 @@ class ClassBlueprintBuilder(
             }
         }
 
-        // process interfaces
-        girClass.implements.forEach { iface ->
-            // TODO filter because implements property contains all interfaces in the hierarchy
-            try {
-                val ifaceTypeName = context.resolveInterfaceTypeName(girNamespace, iface.name)
-                implementsInterfaces.add(ifaceTypeName)
-            } catch (ex: UnresolvableTypeException) {
-                throw UnresolvableTypeException("Interface type ${iface.name} could not be resolved.")
-            }
-        }
+        addInterfaces()
 
         girClass.methods.forEach { addMethod(it) }
 
@@ -73,5 +64,33 @@ class ClassBlueprintBuilder(
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
         )
+    }
+
+    private fun addInterfaces() {
+        val parentInterfacePairs = if (girClass.parent != null) {
+            val (parentNamespace, parentClass) = context.findClassByName(girNamespace, girClass.parent)
+            parentClass.implements.map { context.findInterfaceByName(parentNamespace, it.name) }
+        } else {
+            emptyList()
+        }
+
+        val implementsInterfacePairs = girClass.implements.map { context.findInterfaceByName(girNamespace, it.name) }
+
+        // exclude interfaces implemented by parent
+        val classUniqueInterfaces = implementsInterfacePairs.filterNot { parentInterfacePairs.contains(it) }
+
+        // exclude interfaces that are parents of other interfaces in the list
+        val remainingInterfaces = classUniqueInterfaces.filterNot { pair ->
+            val simpleName = pair.second.name
+            val fullyQualifiedName = "${pair.first.name}.${pair.second.name}"
+            val allParentNames = implementsInterfacePairs.flatMap { ifacePair ->
+                ifacePair.second.prerequisites.map { iface -> iface.name }
+            }
+            allParentNames.contains(simpleName) || allParentNames.contains(fullyQualifiedName)
+        }
+
+        remainingInterfaces.forEach {
+            implementsInterfaces.add(context.resolveInterfaceTypeName(it.first, it.second.name))
+        }
     }
 }

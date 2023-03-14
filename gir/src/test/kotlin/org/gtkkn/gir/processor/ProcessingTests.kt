@@ -10,15 +10,21 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 private const val GTK_GIR_RESOURCE_NAME = "/girfiles/Gtk-4.0.gir"
+private const val GIO_GIR_RESOURCE_NAME = "/girfiles/Gio-2.0.gir"
+private const val GOBJECT_GIR_RESOURCE_NAME = "/girfiles/GObject-2.0.gir"
 
 class ProcessingTests {
     private val gtkBlueprint by lazy {
         val girParser = GirParser()
-        val file = File(checkNotNull(javaClass.getResource(GTK_GIR_RESOURCE_NAME)).toURI())
-        val gtkRepository = girParser.parse(file)
+        val gtkFile = File(checkNotNull(javaClass.getResource(GTK_GIR_RESOURCE_NAME)).toURI())
+        val gioFile = File(checkNotNull(javaClass.getResource(GIO_GIR_RESOURCE_NAME)).toURI())
+        val gobjectFile = File(checkNotNull(javaClass.getResource(GOBJECT_GIR_RESOURCE_NAME)).toURI())
+        val gtkRepository = girParser.parse(gtkFile)
+        val gioRepository = girParser.parse(gioFile)
+        val gobjectRepository = girParser.parse(gobjectFile)
 
         val processor = Phase2Processor()
-        processor.process(listOf(gtkRepository)).first()
+        processor.process(listOf(gtkRepository, gioRepository, gobjectRepository)).first()
     }
 
     @Test
@@ -55,5 +61,42 @@ class ProcessingTests {
         )
         assertFalse(notNullableReturnTypeInfo.typeName.isNullable)
         assertTrue(nullableReturnTypeInfo.kotlinTypeName.isNullable)
+    }
+
+    @Test
+    fun testInterfaceFilteringWidget() {
+        val clazz = gtkBlueprint.classBlueprints.first { it.kotlinName == "Widget" }
+        // should not have any interfaces filtered
+        assertEquals(3, clazz.implementsInterfaces.size)
+    }
+
+    @Test
+    fun testInterfaceFilteringDragIcon() {
+        val clazz = gtkBlueprint.classBlueprints.first { it.kotlinName == "DragIcon" }
+        // should not contain any of the Widget interfaces
+        // only keep Gtk.Root, filter Gtk.Native
+        assertEquals(1, clazz.implementsInterfaces.size)
+        assertEquals(ClassName("bindings.gtk", "Root"), clazz.implementsInterfaces.first())
+    }
+
+    @Test
+    fun testInterfaceFilteringWindowHandle() {
+        val clazz = gtkBlueprint.classBlueprints.first { it.kotlinName == "WindowHandle" }
+        assertEquals(0, clazz.implementsInterfaces.size)
+    }
+
+    @Test
+    fun testInterfaceFilteringFilterListModel() {
+        val clazz = gtkBlueprint.classBlueprints.first { it.kotlinName == "FilterListModel" }
+        // should only contain 1 interface from another package (gio)
+        assertEquals(1, clazz.implementsInterfaces.size)
+        assertEquals(ClassName("bindings.gio", "ListModel"), clazz.implementsInterfaces.first())
+    }
+
+    @Test
+    fun testInterfaceFilteringAnyFilter() {
+        val clazz = gtkBlueprint.classBlueprints.first { it.kotlinName == "AnyFilter" }
+        // should not have any interfaces, as it extends from FilterListModel
+        assertEquals(0, clazz.implementsInterfaces.size)
     }
 }
