@@ -7,7 +7,6 @@ import com.squareup.kotlinpoet.FLOAT
 import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.LONG
 import com.squareup.kotlinpoet.SHORT
-import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.UNIT
@@ -45,7 +44,7 @@ class ProcessorContext(
         "guint32" to TypeInfo.Primitive(U_INT),
         "guint64" to TypeInfo.Primitive(U_LONG),
         "gunichar" to TypeInfo.Primitive(U_INT),
-        "gpointer" to TypeInfo.Unknown(NativeTypes.cpointerOf(STAR), NativeTypes.cpointerOf(STAR)),
+        "gpointer" to TypeInfo.Unknown(NativeTypes.KP_WILDCARD_CPOINTER, NativeTypes.KP_WILDCARD_CPOINTER),
         // strings
         "utf8" to TypeInfo.Unknown(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
     )
@@ -189,7 +188,7 @@ class ProcessorContext(
         try {
             val classTypeName = resolveClassTypeName(girNamespace, type.name)
             return TypeInfo.ObjectPointer(
-                NativeTypes.cpointerOf(STAR),
+                NativeTypes.KP_WILDCARD_CPOINTER,
                 classTypeName,
             )
         } catch (ignored: UnresolvableTypeException) {
@@ -200,7 +199,7 @@ class ProcessorContext(
         try {
             val interfaceTypeName = resolveInterfaceTypeName(girNamespace, type.name)
             return TypeInfo.ObjectPointer(
-                NativeTypes.cpointerOf(STAR),
+                NativeTypes.KP_WILDCARD_CPOINTER,
                 interfaceTypeName,
             )
         } catch (ignored: UnresolvableTypeException) {
