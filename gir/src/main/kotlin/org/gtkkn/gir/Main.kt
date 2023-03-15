@@ -3,9 +3,27 @@ package org.gtkkn.gir
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.default
+import org.gtkkn.gir.blueprints.prettyPrint
 import org.gtkkn.gir.parser.GirParser
+import org.gtkkn.gir.processor.Phase2Processor
 import java.io.File
 import kotlin.system.exitProcess
+
+private val GIR_PREFIX_WHITELIST = arrayOf(
+    "cairo-",
+    "Gdk-4",
+    "GdkPixbuf-",
+    "Gio-",
+    "GLib-",
+    "GModule-",
+    "GObject-",
+    "Graphene-",
+    "Gsk-",
+    "Gtk-4",
+    "HarfBuzz-",
+    "Pango-",
+    "PangoCairo-",
+)
 
 fun main(args: Array<String>) {
     val parser = ArgParser("generator")
@@ -28,8 +46,19 @@ fun main(args: Array<String>) {
 
     val girParser = GirParser()
     val repositories = girBaseDir.listFiles().orEmpty()
+        .asSequence()
         .filter { it.extension == "gir" }
+        .filter { file -> GIR_PREFIX_WHITELIST.any { file.name.startsWith(it) } }
         .map { girParser.parse(it) }
 
     println("Parsed ${repositories.count()} gir files")
+
+    val phase2 = Phase2Processor()
+    val repositoryBlueprints = phase2.process(repositories.toList())
+
+    println("Processed ${repositoryBlueprints.count()} blueprints")
+
+    repositoryBlueprints.forEach { repo ->
+        repo.prettyPrint()
+    }
 }

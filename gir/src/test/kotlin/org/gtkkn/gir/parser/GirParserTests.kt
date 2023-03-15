@@ -9,7 +9,6 @@ import kotlin.test.assertNotNull
 private const val GTK_GIR_RESOURCE_NAME = "/girfiles/Gtk-4.0.gir"
 
 class GirParserTests {
-
     private val gtkRepository by lazy {
         val girParser = GirParser()
         val file = File(checkNotNull(javaClass.getResource(GTK_GIR_RESOURCE_NAME)).toURI())
@@ -95,7 +94,7 @@ class GirParserTests {
         val returnValue = clazz.constructors.first().returnValue
 
         assertEquals(GirTransferOwnership.Full, returnValue?.transferOwnership)
-        assertEquals(true, returnValue?.nullable)
+        assertEquals(true, returnValue?.isNullable())
     }
 
     @Test
