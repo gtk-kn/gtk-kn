@@ -8,7 +8,7 @@ data class ClassBlueprint(
     val nativeName: String,
     val typeName: ClassName,
     val parentTypeName: TypeName?,
-    val implementsInterfaces: List<TypeName>,
+    val implementsInterfaces: List<ImplementsInterfaceBlueprint>,
     val methods: List<MethodBlueprint>,
     val skippedObjects: List<SkippedObject>,
     val objectPointerName: String,

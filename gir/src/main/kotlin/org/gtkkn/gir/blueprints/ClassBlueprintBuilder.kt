@@ -16,7 +16,7 @@ class ClassBlueprintBuilder(
     context,
 ) {
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
-    private val implementsInterfaces = mutableListOf<TypeName>()
+    private val implementsInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
     private var parentTypeName: TypeName? = null
 
     override fun blueprintObjectType(): String = "class"
@@ -89,8 +89,18 @@ class ClassBlueprintBuilder(
             allParentNames.contains(simpleName) || allParentNames.contains(fullyQualifiedName)
         }
 
-        remainingInterfaces.forEach {
-            implementsInterfaces.add(context.resolveInterfaceTypeName(it.first, it.second.name))
+        remainingInterfaces.forEach { ifacePair ->
+            val interfacePointerName = "${context.namespacePrefix(ifacePair.first)}${ifacePair.second.name}Pointer"
+            val interfaceTypeName = context.resolveInterfaceTypeName(ifacePair.first, ifacePair.second.name)
+            val interfacePointerTypeName =
+                context.resolveInterfaceObjectPointerTypeName(ifacePair.first, ifacePair.second)
+            implementsInterfaces.add(
+                ImplementsInterfaceBlueprint(
+                    interfaceTypeName,
+                    interfacePointerTypeName,
+                    interfacePointerName,
+                )
+            )
         }
     }
 }

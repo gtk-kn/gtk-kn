@@ -76,7 +76,7 @@ class ProcessingTests {
         // should not contain any of the Widget interfaces
         // only keep Gtk.Root, filter Gtk.Native
         assertEquals(1, clazz.implementsInterfaces.size)
-        assertEquals(ClassName("bindings.gtk", "Root"), clazz.implementsInterfaces.first())
+        assertEquals(ClassName("bindings.gtk", "Root"), clazz.implementsInterfaces.first().interfaceTypeName)
     }
 
     @Test
@@ -90,7 +90,8 @@ class ProcessingTests {
         val clazz = gtkBlueprint.classBlueprints.first { it.kotlinName == "FilterListModel" }
         // should only contain 1 interface from another package (gio)
         assertEquals(1, clazz.implementsInterfaces.size)
-        assertEquals(ClassName("bindings.gio", "ListModel"), clazz.implementsInterfaces.first())
+        assertEquals(ClassName("bindings.gio", "ListModel"), clazz.implementsInterfaces.first().interfaceTypeName)
+        assertEquals("gioListModelPointer", clazz.implementsInterfaces.first().interfacePointerName)
     }
 
     @Test
