@@ -16,6 +16,8 @@ class ConstructorBlueprintBuilder(
     private val girConstructor: GirConstructor,
 ) : BlueprintBuilder<ConstructorBlueprint>(context) {
 
+    private val parameters = mutableListOf<MethodParameterBlueprint>()
+
     override fun blueprintObjectType(): String = "constructor"
 
     override fun blueprintObjectName(): String = girConstructor.name
@@ -34,8 +36,9 @@ class ConstructorBlueprintBuilder(
         val returnTypeInfo = try {
             when (val type = returnValue.type) {
                 is GirArrayType -> throw UnresolvableTypeException(
-                    "Constructors with array return types are unsupported"
+                    "Constructors with array return types are unsupported",
                 )
+
                 is GirType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             }
         } catch (ex: UnresolvableTypeException) {
@@ -54,6 +57,7 @@ class ConstructorBlueprintBuilder(
             nativeName = nativeMethodName,
             nativeMemberName = nativeMemberName,
             returnTypeInfo = returnTypeInfo,
+            parameters = parameters,
         )
     }
 }
