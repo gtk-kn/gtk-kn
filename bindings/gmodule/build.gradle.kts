@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
 }
 
+apply(from = "$rootDir/bindings/cleanBindings.gradle.kts")
+
 kotlin {
     val hostOs = System.getProperty("os.name")
     val nativeTarget = when {
