@@ -19,6 +19,7 @@ class MethodBlueprintBuilder(
     private val methodParameters = mutableListOf<MethodParameterBlueprint>()
 
     override fun blueprintObjectType(): String = "method"
+
     override fun blueprintObjectName(): String = girMethod.name
 
     override fun buildInternal(): MethodBlueprint {
