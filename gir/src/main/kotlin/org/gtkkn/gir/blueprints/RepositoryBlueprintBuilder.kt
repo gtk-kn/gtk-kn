@@ -1,5 +1,6 @@
 package org.gtkkn.gir.blueprints
 
+import org.gtkkn.gir.model.GirBitField
 import org.gtkkn.gir.model.GirCallback
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirEnum
@@ -20,6 +21,7 @@ class RepositoryBlueprintBuilder(
     private val enumBlueprints = mutableListOf<EnumBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
     private val callbackBlueprints = mutableListOf<CallbackBlueprint>()
+    private val bitfieldBlueprints = mutableListOf<BitfieldBlueprint>()
 
     private fun addClass(girClass: GirClass) {
         when (val result = ClassBlueprintBuilder(context, namespace, girClass).build()) {
@@ -56,6 +58,13 @@ class RepositoryBlueprintBuilder(
         }
     }
 
+    private fun addBitfield(girBitfield: GirBitField) {
+        when (val result = BitfieldBlueprintBuilder(context, namespace, girBitfield).build()) {
+            is BlueprintResult.Ok -> bitfieldBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun blueprintObjectType(): String = "repository"
     override fun blueprintObjectName(): String = girRepository.namespace.name
 
@@ -65,6 +74,7 @@ class RepositoryBlueprintBuilder(
         namespace.enums.forEach { enum -> addEnum(enum) }
         namespace.functions.forEach { func -> addFunction(func) }
         namespace.callbacks.forEach { cb -> addCallback(cb) }
+        namespace.bitfields.forEach { bf -> addBitfield(bf) }
 
         girRepository.includes.forEach { include ->
             if (context.findRepositoryByNameOrNull(include.name) == null) {
@@ -82,6 +92,7 @@ class RepositoryBlueprintBuilder(
             enumBlueprints = enumBlueprints,
             functionBlueprints = functionBlueprints,
             callbackBlueprints = callbackBlueprints,
+            bitfieldBlueprints = bitfieldBlueprints,
             skippedObjects = skippedObjects,
         )
     }
