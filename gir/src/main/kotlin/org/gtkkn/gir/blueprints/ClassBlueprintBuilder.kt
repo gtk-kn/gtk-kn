@@ -110,7 +110,7 @@ class ClassBlueprintBuilder(
                     interfaceTypeName,
                     interfacePointerTypeName,
                     interfacePointerName,
-                )
+                ),
             )
         }
     }
