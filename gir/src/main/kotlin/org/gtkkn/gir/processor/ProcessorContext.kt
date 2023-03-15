@@ -53,7 +53,10 @@ class ProcessorContext(
      * A set of C identifiers for gir objects that should not be generated.
      */
     private val ignoredTypes = hashSetOf(
-        "GskBroadwayRenderer" // not available on older ubuntu versions
+        // not available on older ubuntu versions
+        "GskBroadwayRenderer",
+        // bitfield members not found through cinterop
+        "GdkPixbufFormatFlags",
     )
 
     // object lookups methods
@@ -79,6 +82,10 @@ class ProcessorContext(
     fun kotlinizePackageName(nativePackageName: String): String = "bindings.${nativePackageName.lowercase()}"
 
     fun kotlinizeParameterName(nativeParameterName: String): String = nativeParameterName.snakeToCamelCase()
+
+    fun kotlinizeBitfieldName(nativeBitfieldName: String): String = nativeBitfieldName
+
+    fun kotlinizeBitfieldMemberName(nativeMemberName: String): String = nativeMemberName.uppercase()
 
     // namespace naming
     fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()

@@ -9,6 +9,7 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import org.gtkkn.gir.blueprints.BitfieldBlueprint
 import org.gtkkn.gir.blueprints.ClassBlueprint
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
@@ -60,6 +61,15 @@ class BindingsGenerator {
             writeType(
                 iface.typeName,
                 buildInterface(iface),
+                repositorySrcDir(repository, outputDir),
+            )
+        }
+
+        // write bitfields
+        repository.bitfieldBlueprints.forEach { bf ->
+            writeType(
+                bf.kotlinTypeName,
+                buildBitfield(bf),
                 repositorySrcDir(repository, outputDir),
             )
         }
@@ -256,6 +266,41 @@ class BindingsGenerator {
     private fun buildInterfacePointerProperty(iface: InterfaceBlueprint): PropertySpec =
         PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName)
             .build()
+
+    private fun buildBitfield(bitfield: BitfieldBlueprint): TypeSpec {
+        val companionSpecBuilder = TypeSpec.companionObjectBuilder()
+
+        bitfield.members.forEach { member ->
+            companionSpecBuilder.addProperty(
+                PropertySpec.builder(member.kotlinName, bitfield.kotlinTypeName)
+                    .initializer("%T(%M)", bitfield.kotlinTypeName, member.nativeMemberName)
+                    .build(),
+            )
+        }
+
+        val constructorSpec = FunSpec.constructorBuilder()
+            .addParameter("mask", bitfield.nativeValueTypeName)
+            .build()
+
+        val orFuncSpec = FunSpec.builder("or")
+            .addModifiers(KModifier.INFIX)
+            .addParameter("other", bitfield.kotlinTypeName)
+            .returns(bitfield.kotlinTypeName)
+            .addStatement("return %T(mask or other.mask)", bitfield.kotlinTypeName)
+            .build()
+
+        val bitfieldSpec = TypeSpec.classBuilder(bitfield.kotlinName)
+            .primaryConstructor(constructorSpec)
+            .addProperty(
+                PropertySpec.builder("mask", bitfield.nativeValueTypeName)
+                    .initializer("mask")
+                    .build(),
+            )
+            .addFunction(orFuncSpec)
+            .addType(companionSpecBuilder.build())
+
+        return bitfieldSpec.build()
+    }
 
     companion object {
         // some member utils
