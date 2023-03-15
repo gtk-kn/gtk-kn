@@ -189,8 +189,8 @@ private fun parseGirDoc(node: Node): GirDoc = GirDoc(
     preserveSpace = node.attributeValueOrNull("xml:space")?.let { it == "preserve" } == true,
     preserveWhitespace = node.attributeValueOrNull("xml:whitespace")?.let { it == "preserve" } == true,
     text = node.textContent,
-    filename = node.attributeValue("filename"),
-    line = node.attributeValue("line"),
+    filename = node.attributeValueOrNull("filename"),
+    line = node.attributeValueOrNull("line"),
     column = node.attributeValueOrNull("column"),
 )
 
