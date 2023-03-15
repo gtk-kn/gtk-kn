@@ -9,6 +9,7 @@ import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ClassBlueprint
+import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import java.io.File
@@ -82,13 +83,18 @@ class BindingsGenerator(
             }
 
             // interfaces
-            addSuperinterfaces(clazz.implementsInterfaces)
+            addSuperinterfaces(clazz.implementsInterfaces.map { it.interfaceTypeName })
 
             // pointer constructor
             addFunction(buildPointerConstructor(clazz))
 
             // object pointer
-            addProperty(buildObjectPointerProperty(clazz))
+            addProperty(buildClassObjectPointerProperty(clazz))
+
+            // interface pointers
+            clazz.implementsInterfaces.forEach {
+                addProperty(buildClassInterfacePointerProperty(it))
+            }
 
             // kdoc
             addKdoc(buildClassKDoc(clazz))
@@ -126,7 +132,10 @@ class BindingsGenerator(
         return constructorSpecBuilder.build()
     }
 
-    private fun buildObjectPointerProperty(clazz: ClassBlueprint): PropertySpec {
+    /**
+     * Build the pointer property for a class.
+     */
+    private fun buildClassObjectPointerProperty(clazz: ClassBlueprint): PropertySpec {
         val propertyBuilder = PropertySpec.builder(clazz.objectPointerName, clazz.objectPointerTypeName)
 
         if (clazz.hasParent) {
@@ -137,6 +146,24 @@ class BindingsGenerator(
                     .build(),
             )
         }
+
+        return propertyBuilder.build()
+    }
+
+    /**
+     * Build the interface pointer property for classes implementing an interface.
+     *
+     * This is the pointer that needs to be overridden to conform to the interface.
+     */
+    private fun buildClassInterfacePointerProperty(iface: ImplementsInterfaceBlueprint): PropertySpec {
+        val propertyBuilder = PropertySpec.builder(iface.interfacePointerName, iface.interfacePointerTypeName)
+            .addModifiers(KModifier.OVERRIDE)
+
+        propertyBuilder.getter(
+            FunSpec.getterBuilder()
+                .addStatement("return gPointer.%M()", REINTERPRET_FUNC)
+                .build(),
+        )
 
         return propertyBuilder.build()
     }
@@ -157,7 +184,7 @@ class BindingsGenerator(
         println("Writing interface: ${iface.typeName}")
 
         val ifaceTypeSpec = TypeSpec.interfaceBuilder(iface.typeName).apply {
-//            addProperty(buildInterfacePointerProperty(iface))
+            addProperty(buildInterfacePointerProperty(iface))
         }.build()
 
         val fileSpec = FileSpec
@@ -167,7 +194,6 @@ class BindingsGenerator(
 
         fileSpec.writeTo(repositorySrcDir(repository))
     }
-
 
     private fun buildInterfacePointerProperty(iface: InterfaceBlueprint): PropertySpec =
         PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName)
