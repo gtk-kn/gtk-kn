@@ -35,6 +35,14 @@ fun main(args: Array<String>) {
             description = "Path to the GIR directory",
         )
         .default("/usr/share/gir-1.0/")
+    val outputPath by parser
+        .option(
+            ArgType.String,
+            shortName = "o",
+            description = "Output directory",
+        )
+        .default(File(System.getProperty("user.dir")).parentFile.resolve("bindings").absolutePath)
+
     parser.parse(args)
 
     val girBaseDir = File(girPath)
@@ -63,6 +71,6 @@ fun main(args: Array<String>) {
         repo.prettyPrint()
     }
 
-    val generator = BindingsGenerator(File("bindings"))
+    val generator = BindingsGenerator(File(outputPath))
     generator.generate(repositoryBlueprints)
 }
