@@ -13,16 +13,5 @@ out
 !.idea/detekt.xml
 
 # temporary excludes of binding src dirs
-bindings/cairo/src/nativeMain
-bindings/gdk/src/nativeMain
-bindings/gdkpixbuf/src/nativeMain
-bindings/gio/src/nativeMain
-bindings/glib/src/nativeMain
-bindings/gmodule/src/nativeMain
-bindings/gobject/src/nativeMain
-bindings/graphene/src/nativeMain
-bindings/gsk/src/nativeMain
-bindings/gtk/src/nativeMain
-bindings/harfbuzz/src/nativeMain
-bindings/pango/src/nativeMain
-bindings/pangocairo/src/nativeMain
+bindings/*/src/nativeMain/
+!bindings/common/src/nativeMain/
