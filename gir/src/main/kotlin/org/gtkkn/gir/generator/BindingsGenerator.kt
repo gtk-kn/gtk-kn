@@ -9,9 +9,11 @@ import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ClassBlueprint
+import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
+import org.gtkkn.gir.blueprints.TypeInfo
 import java.io.File
 
 // some member utils
@@ -88,6 +90,23 @@ class BindingsGenerator(
             // pointer constructor
             addFunction(buildPointerConstructor(clazz))
 
+            // constructors
+
+            // some classes have multiple no-arg constructors which would have conflicting overloads
+            // if we generate all of them as Kotlin constructors, so we only generate the first no-arg constructor
+            val noArgConstructors = clazz.constructors.filter { it.parameters.isEmpty() }
+            val argumentConstructors = clazz.constructors.filter { it.parameters.isNotEmpty() }
+
+            // in case of multiple no-arg constructors, pick the shorted method name
+            noArgConstructors.minByOrNull { it.nativeName.length }?.let {
+                addFunction(buildClassConstructor(it))
+            }
+
+            // argument constructors
+            argumentConstructors.forEach { constructor ->
+                addFunction(buildClassConstructor(constructor))
+            }
+
             // object pointer
             addProperty(buildClassObjectPointerProperty(clazz))
 
@@ -128,6 +147,21 @@ class BindingsGenerator(
             // init pointer property
             constructorSpecBuilder.addStatement("gPointer = pointer.%M()", REINTERPRET_FUNC)
         }
+
+        return constructorSpecBuilder.build()
+    }
+
+    /**
+     * Build a class constructor based on a [ConstructorBlueprint].
+     */
+    private fun buildClassConstructor(constructor: ConstructorBlueprint): FunSpec {
+        val constructorSpecBuilder = FunSpec.constructorBuilder()
+
+        if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
+            error("Invalid constructor return type")
+        }
+
+        constructorSpecBuilder.callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
 
         return constructorSpecBuilder.build()
     }
