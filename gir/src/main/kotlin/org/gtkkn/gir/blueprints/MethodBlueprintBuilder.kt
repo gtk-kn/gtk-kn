@@ -8,6 +8,7 @@ import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirParameter
 import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.model.GirVarArgs
+import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
@@ -62,13 +63,15 @@ class MethodBlueprintBuilder(
         // return value
         val returnValue = girMethod.returnValue ?: throw UnresolvableTypeException("Method has no return value")
 
-        val returnTypeInfo = try {
-            when (val type = returnValue.type) {
-                is GirArrayType -> throw UnresolvableTypeException("Methods with array return types are unsupported")
-                is GirType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
+        val returnTypeInfo = when (val type = returnValue.type) {
+            is GirArrayType -> throw UnresolvableTypeException("Methods with array return types are unsupported")
+            is GirType -> {
+                try {
+                    context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
+                } catch (ex: BlueprintException) {
+                    throw UnresolvableTypeException("Return type ${type.name} is unsupported")
+                }
             }
-        } catch (ex: UnresolvableTypeException) {
-            throw UnresolvableTypeException("Method return type ${returnValue.type} could not be resolved")
         }
 
         // method name
