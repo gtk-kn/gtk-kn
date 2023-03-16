@@ -75,6 +75,8 @@ publishing {
             }
 
             scm {
+                connection.set("scm:git:git://gitlab.com/gtk-kn/gtk-kn.git")
+                developerConnection.set("scm:git:git@gitlab.com:gtk-kn/gtk-kn.git")
                 url.set("https://gitlab.com/gtk-kn/gtk-kn.git")
             }
         }
