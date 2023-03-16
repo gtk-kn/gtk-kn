@@ -2,21 +2,7 @@ headers = "glib.h"
 package = native.glib
 headerFilter = "glib/*"
 
-strictEnums = GDateDMY \
-GDateMonth \
-GDateWeekday \
-GLogWriterOutput \
-GRegexError \
-GNormalizeMode \
-GSliceConfig \
-GSpawnError \
-GTokenType \
-GUnicodeBreakType \
-GUnicodeScript \
-GVariantClass
-
 # compiler opts
-
 compilerOpts.linux = \
     -I/usr/include/glib-2.0 \
     -I/usr/lib/glib-2.0/include \
@@ -30,7 +16,6 @@ compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 
 # linker opts
-
 linkerOpts.linux = \
     -L/usr/local/lib \
     -lglib-2.0
