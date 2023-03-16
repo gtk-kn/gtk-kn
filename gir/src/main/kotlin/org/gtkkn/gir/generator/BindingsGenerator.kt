@@ -23,13 +23,13 @@ class BindingsGenerator(
     /**
      * bindings build dir
      */
-    fun repositoryBuildDir(repository: RepositoryBlueprint): File =
+    private fun repositoryBuildDir(repository: RepositoryBlueprint): File =
         File(outputDir, "${repository.kotlinModuleName}/build")
 
     /**
      * bindings src output dir
      */
-    fun repositorySrcDir(repository: RepositoryBlueprint): File =
+    private fun repositorySrcDir(repository: RepositoryBlueprint): File =
         File(outputDir, "${repository.kotlinModuleName}/src/nativeMain/kotlin")
 
     fun generate(repositoryBlueprints: List<RepositoryBlueprint>) {
