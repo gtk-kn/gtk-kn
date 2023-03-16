@@ -1,5 +1,6 @@
 package org.gtkkn.gir.parser
 
+import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirAlias
 import org.gtkkn.gir.model.GirAnnotation
 import org.gtkkn.gir.model.GirAnyType
@@ -54,7 +55,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 class GirParser {
     fun parse(file: File): GirRepository {
-        println("Parsing GIR file ${file.name}")
+        logger.info("Parsing GIR file ${file.name}")
 
         val dbFactory = DocumentBuilderFactory.newInstance()
         val dBuilder = dbFactory.newDocumentBuilder()

@@ -14,12 +14,12 @@ import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
+import org.gtkkn.gir.log.logger
 import java.io.File
 
 class BindingsGenerator(
     private val outputDir: File // currently assumed to be bindings
 ) {
-
     /**
      * bindings build dir
      */
@@ -39,14 +39,14 @@ class BindingsGenerator(
     private fun writeRepository(repository: RepositoryBlueprint) {
         val repositoryOutputDir = repositoryBuildDir(repository)
         if (!repositoryOutputDir.exists()) {
-            println("Creating output dir ${repositoryOutputDir.path}")
+            logger.info("Creating output dir ${repositoryOutputDir.path}")
             if (!repositoryOutputDir.mkdirs()) {
-                println("Cannot create output path ${repositoryOutputDir.path}")
+                logger.error("Cannot create output path ${repositoryOutputDir.path}")
                 return
             }
         }
 
-        println("Writing repository ${repository.name}")
+        logger.info("Writing repository ${repository.name}")
 
         // write skip file
         writeRepositorySkipFile(repository)
@@ -72,7 +72,7 @@ class BindingsGenerator(
     }
 
     private fun writeClass(repository: RepositoryBlueprint, clazz: ClassBlueprint) {
-        println("Writing class ${clazz.typeName}")
+        logger.debug("Writing class ${clazz.typeName}")
 
         val classTypeSpec = TypeSpec.classBuilder(clazz.typeName).apply {
             // kdoc
@@ -210,7 +210,7 @@ class BindingsGenerator(
     }
 
     private fun writeInterface(repository: RepositoryBlueprint, iface: InterfaceBlueprint) {
-        println("Writing interface: ${iface.typeName}")
+        logger.debug("Writing interface: ${iface.typeName}")
 
         val ifaceTypeSpec = TypeSpec.interfaceBuilder(iface.typeName).apply {
             addProperty(buildInterfacePointerProperty(iface))

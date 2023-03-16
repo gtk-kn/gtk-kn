@@ -14,6 +14,7 @@ kotlin {
         val nativeMain by getting {
             dependencies {
                 implementation(project(":bindings:gtk"))
+                implementation(libs.kotlin.logging.linux.x64)
             }
         }
     }

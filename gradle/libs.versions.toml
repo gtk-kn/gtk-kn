@@ -5,12 +5,23 @@
 detekt = "1.22.0"
 gradle = "7.6"
 kotlin = "1.8.10"
+kotlin-logging = "4.0.0-beta-23"
+log4j = "2.20.0"
 xmlutil = "0.84.3"
 
 [libraries]
 detekt = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+kotlin-logging-jvm = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "kotlin-logging" }
+kotlin-logging-linux-arm64 = { module = "io.github.oshai:kotlin-logging-mingwx64", version.ref = "kotlin-logging" }
+kotlin-logging-linux-x64 = { module = "io.github.oshai:kotlin-logging-linuxx64", version.ref = "kotlin-logging" }
+kotlin-logging-macos-arm64 = { module = "io.github.oshai:kotlin-logging-mingwx64", version.ref = "kotlin-logging" }
+kotlin-logging-macos-x64 = { module = "io.github.oshai:kotlin-logging-mingwx64", version.ref = "kotlin-logging" }
+kotlin-logging-mingw-x64 = { module = "io.github.oshai:kotlin-logging-mingwx64", version.ref = "kotlin-logging" }
 kotlinpoet = { module = "com.squareup:kotlinpoet", version = "1.12.0" }
 kotlinx-cli = { module = "org.jetbrains.kotlinx:kotlinx-cli", version = "0.3.5" }
+log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j" }
+log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j" }
+log4j-slf4j-impl = { module = "org.apache.logging.log4j:log4j-slf4j-impl", version.ref = "log4j" }
 
 
 # plugins
@@ -19,6 +30,9 @@ plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
 kotlin-test-annotations = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
+
+[bundles]
+kotlin-logging-jvm = ["kotlin-logging-jvm", "log4j-api", "log4j-core", "log4j-slf4j-impl"]
 
 [plugins]
 gradledoctor = { id = "com.osacky.doctor", version = "0.8.1" }
