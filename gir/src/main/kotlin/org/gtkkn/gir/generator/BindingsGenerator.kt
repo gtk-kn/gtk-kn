@@ -16,9 +16,6 @@ import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 import java.io.File
 
-// some member utils
-private val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
-
 class BindingsGenerator(
     private val outputDir: File // currently assumed to be bindings
 ) {
@@ -43,8 +40,7 @@ class BindingsGenerator(
         val repositoryOutputDir = repositoryBuildDir(repository)
         if (!repositoryOutputDir.exists()) {
             println("Creating output dir ${repositoryOutputDir.path}")
-            val created = repositoryOutputDir.mkdirs()
-            if (!created) {
+            if (!repositoryOutputDir.mkdirs()) {
                 println("Cannot create output path ${repositoryOutputDir.path}")
                 return
             }
@@ -79,6 +75,12 @@ class BindingsGenerator(
         println("Writing class ${clazz.typeName}")
 
         val classTypeSpec = TypeSpec.classBuilder(clazz.typeName).apply {
+            // kdoc
+            addKdoc(buildClassKDoc(clazz))
+
+            // modifiers
+            addModifiers(KModifier.OPEN)  // currently marking all classes as open to make it compile
+
             // parent class
             if (clazz.parentTypeName != null) {
                 superclass(clazz.parentTypeName)
@@ -114,21 +116,14 @@ class BindingsGenerator(
             clazz.implementsInterfaces.forEach {
                 addProperty(buildClassInterfacePointerProperty(it))
             }
-
-            // kdoc
-            addKdoc(buildClassKDoc(clazz))
-
-            // modifiers
-            // currently marking all classes as open to make it compile
-            addModifiers(KModifier.OPEN)
         }.build()
 
-        val fileSpec = FileSpec
+        FileSpec
             .builder(clazz.typeName.packageName, clazz.typeName.simpleName)
+            .addFileComment("This is a generated file. Do not modify.")
             .addType(classTypeSpec)
             .build()
-
-        fileSpec.writeTo(repositorySrcDir(repository))
+            .writeTo(repositorySrcDir(repository))
     }
 
     /**
@@ -221,15 +216,20 @@ class BindingsGenerator(
             addProperty(buildInterfacePointerProperty(iface))
         }.build()
 
-        val fileSpec = FileSpec
+        FileSpec
             .builder(iface.typeName.packageName, iface.typeName.simpleName)
+            .addFileComment("This is a generated file. Do not modify.")
             .addType(ifaceTypeSpec)
             .build()
-
-        fileSpec.writeTo(repositorySrcDir(repository))
+            .writeTo(repositorySrcDir(repository))
     }
 
     private fun buildInterfacePointerProperty(iface: InterfaceBlueprint): PropertySpec =
         PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName)
             .build()
+
+    companion object {
+        // some member utils
+        private val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
+    }
 }

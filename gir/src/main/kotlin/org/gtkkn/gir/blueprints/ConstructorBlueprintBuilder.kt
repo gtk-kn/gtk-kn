@@ -23,11 +23,9 @@ class ConstructorBlueprintBuilder(
     override fun blueprintObjectName(): String = girConstructor.name
 
     override fun buildInternal(): ConstructorBlueprint {
-        if (girConstructor.parameters != null && girConstructor.parameters.parameters.isNotEmpty()) {
+        if (!girConstructor.parameters?.parameters.isNullOrEmpty()) {
             throw UnresolvableTypeException("Constructor with arguments is not supported")
-        } else {
-            // no parameters object means the default noArg constructor
-        }
+        }  // else no parameters object means the default noArg constructor
 
         // return value
         val returnValue = girConstructor.returnValue
@@ -38,7 +36,6 @@ class ConstructorBlueprintBuilder(
                 is GirArrayType -> throw UnresolvableTypeException(
                     "Constructors with array return types are unsupported",
                 )
-
                 is GirType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             }
         } catch (ex: UnresolvableTypeException) {
