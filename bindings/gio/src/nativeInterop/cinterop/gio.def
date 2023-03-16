@@ -1,18 +1,19 @@
-headers = "gio/gio.h" \
-"gio/gdesktopappinfo.h" \
-"gio/gfiledescriptorbased.h" \
-"gio/gunixfdmessage.h" \
-"gio/gunixinputstream.h" \
-"gio/gunixmounts.h" \
-"gio/gunixoutputstream.h" \
-"gio/gsettingsbackend.h" \
-"gio/gunixconnection.h" \
-"gio/gunixsocketaddress.h"
+headers = gio/gio.h \
+    gio/gdesktopappinfo.h \
+    gio/gfiledescriptorbased.h \
+    gio/gsettingsbackend.h \
+    gio/gunixconnection.h \
+    gio/gunixcredentialsmessage.h \
+    gio/gunixfdmessage.h \
+    gio/gunixinputstream.h \
+    gio/gunixmounts.h \
+    gio/gunixoutputstream.h \
+    gio/gunixsocketaddress.h
 
 package = native.gio
-headerFilter = "gio/*"
+headerFilter = gio/*
 
-# compiler opts
+# pkg-config --cflags gio-unix-2.0
 compilerOpts.linux = \
     -I/usr/include/glib-2.0 \
     -I/usr/lib/glib-2.0/include \
@@ -27,7 +28,7 @@ compilerOpts.linux_x64 = \
     -I/usr/lib64/glib-2.0/include \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 
-# linker opts
+# pkg-config --libs gio-unix-2.0
 linkerOpts.linux = \
     -L/usr/local/lib \
     -lgio-2.0 \

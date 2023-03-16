@@ -2,6 +2,7 @@ headers = graphene.h
 package = native.graphene
 headerFilter = graphene-1.0/*
 
+# pkg-config --cflags graphene-1.0
 compilerOpts.linux =\
     -I/usr/include/graphene-1.0 \
     -I/usr/lib/graphene-1.0/include \
@@ -19,6 +20,7 @@ compilerOpts.linux_x64 =\
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
 
+# pkg-config --libs graphene-1.0
 linkerOpts.linux = \
     -L/usr/local/lib \
     -lgraphene-1.0

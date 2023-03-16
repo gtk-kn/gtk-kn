@@ -1,8 +1,8 @@
-headers = "glib.h"
+headers = glib.h
 package = native.glib
 headerFilter = "glib/*"
 
-# compiler opts
+# pkg-config --cflags glib-2.0
 compilerOpts.linux = \
     -I/usr/include/glib-2.0 \
     -I/usr/lib/glib-2.0/include \
@@ -15,7 +15,7 @@ compilerOpts.linux_x64 = \
     -I/usr/lib64/glib-2.0/include \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 
-# linker opts
+# pkg-config --libs glib-2.0
 linkerOpts.linux = \
     -L/usr/local/lib \
     -lglib-2.0
