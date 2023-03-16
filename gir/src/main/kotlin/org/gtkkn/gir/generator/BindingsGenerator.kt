@@ -120,6 +120,7 @@ class BindingsGenerator(
 
         FileSpec
             .builder(clazz.typeName.packageName, clazz.typeName.simpleName)
+            .indent("    ")
             .addFileComment("This is a generated file. Do not modify.")
             .addType(classTypeSpec)
             .build()
@@ -218,6 +219,7 @@ class BindingsGenerator(
 
         FileSpec
             .builder(iface.typeName.packageName, iface.typeName.simpleName)
+            .indent("    ")
             .addFileComment("This is a generated file. Do not modify.")
             .addType(ifaceTypeSpec)
             .build()
