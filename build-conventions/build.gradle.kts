@@ -5,8 +5,8 @@ plugins {
     `kotlin-dsl`
 }
 
-
 dependencies {
+    implementation(libs.plugin.kotlin)
     implementation(libs.plugin.detekt)
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 }
