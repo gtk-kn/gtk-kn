@@ -18,7 +18,7 @@ import org.gtkkn.gir.log.logger
 import java.io.File
 
 class BindingsGenerator(
-    private val outputDir: File // currently assumed to be bindings
+    private val outputDir: File
 ) {
     /**
      * bindings build dir
