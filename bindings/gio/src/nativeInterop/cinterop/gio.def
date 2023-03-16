@@ -12,27 +12,7 @@ headers = "gio/gio.h" \
 package = native.gio
 headerFilter = "gio/*"
 
-strictEnums = GBusType \
-GConverterResult \
-GCredentials \
-GDBusMessageByteOrder \
-GFileAttributeStatus \
-GFileAttributeType \
-GFileType \
-GFilesystemPreviewType \
-GIOErrorEnum \
-GMemoryMonitorWarningLevel \
-GNetworkConnectivity \
-GPollableReturn \
-GResolverRecordType \
-GSocketFamily \
-GSocketProtocol \
-GTlsCertificateRequestFlags \
-GTlsDatabaseLookupFlags \
-GTlsProtocolVersion
-
 # compiler opts
-
 compilerOpts.linux = \
     -I/usr/include/glib-2.0 \
     -I/usr/lib/glib-2.0/include \
@@ -48,7 +28,6 @@ compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 
 # linker opts
-
 linkerOpts.linux = \
     -L/usr/local/lib \
     -lgio-2.0 \
