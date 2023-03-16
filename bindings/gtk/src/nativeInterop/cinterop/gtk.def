@@ -2,8 +2,7 @@ headers = gtk/gtk.h gtk/gtkunixprint.h gtk/gtkmediastream.h
 package = native.gtk
 headerFilter = gtk/* gtk/deprecated/* gtk/css/*
 
-
-# compiler
+# pkg-config --cflags gtk4
 compilerOpts.linux = \
     -I/usr/include \
     -I/usr/include/gtk-4.0 \
@@ -35,7 +34,7 @@ compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
 
-# linker
+# pkg-config --libs gtk4
 linkerOpts.linux = \
     -L/usr/lib \
     -lgtk-4 \
