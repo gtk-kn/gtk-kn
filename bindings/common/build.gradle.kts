@@ -1,6 +1,6 @@
 @Suppress("DSL_SCOPE_VIOLATION") //https://github.com/gradle/gradle/issues/22797
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
+    id("native-library-convention")
 }
 
 kotlin {

@@ -1,4 +1,8 @@
-// Find a way to do this with build-conventions
+plugins {
+    id("native-library-convention")
+    id("publishing-conventions")
+}
+
 tasks.register("cleanBindings") {
     group = BasePlugin.BUILD_GROUP
     doLast {
