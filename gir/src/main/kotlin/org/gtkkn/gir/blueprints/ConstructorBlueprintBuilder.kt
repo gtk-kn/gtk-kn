@@ -1,6 +1,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.MemberName
+import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
@@ -29,13 +30,17 @@ class ConstructorBlueprintBuilder(
 
         // return value
         val returnValue = girConstructor.returnValue
-            ?: throw UnresolvableTypeException("Constructor has no return value")
+        if (returnValue == null) {
+            logger.error("Constructor ${girNamespace.name}.${girClass.name}.${girConstructor.name} has no return value")
+            throw UnresolvableTypeException("Constructor has no return value")
+        }
 
         val returnTypeInfo = try {
             when (val type = returnValue.type) {
                 is GirArrayType -> throw UnresolvableTypeException(
                     "Constructors with array return types are unsupported",
                 )
+
                 is GirType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             }
         } catch (ex: UnresolvableTypeException) {
