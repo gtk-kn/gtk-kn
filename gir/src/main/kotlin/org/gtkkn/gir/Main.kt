@@ -88,8 +88,11 @@ fun main(args: Array<String>) {
     generator.generate(repositoryBlueprints)
 }
 
-private fun getDefaultLogLevel() = try {
-    Level.valueOf(System.getenv("GTK_KN_LOG_LEVEL").uppercase(Locale.ROOT))
-} catch (e: IllegalArgumentException) {
-    Level.INFO
+private fun getDefaultLogLevel(): Level {
+    val defaultLogLevel = Level.INFO
+    return try {
+        System.getenv("GTK_KN_LOG_LEVEL")?.let { Level.valueOf(it.uppercase(Locale.ROOT)) } ?: defaultLogLevel
+    } catch (e: IllegalArgumentException) {
+        defaultLogLevel
+    }
 }
