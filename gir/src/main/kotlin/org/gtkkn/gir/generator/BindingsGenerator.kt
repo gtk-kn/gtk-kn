@@ -75,6 +75,9 @@ class BindingsGenerator(
         logger.debug("Writing class ${clazz.typeName}")
 
         val classTypeSpec = TypeSpec.classBuilder(clazz.typeName).apply {
+            // companion object
+            val companionSpecBuilder = TypeSpec.companionObjectBuilder()
+
             // kdoc
             addKdoc(buildClassKDoc(clazz))
 
@@ -96,12 +99,17 @@ class BindingsGenerator(
 
             // some classes have multiple no-arg constructors which would have conflicting overloads
             // if we generate all of them as Kotlin constructors, so we only generate the first no-arg constructor
-            val noArgConstructors = clazz.constructors.filter { it.parameters.isEmpty() }
+            val noArgConstructors =
+                clazz.constructors.filter { it.parameters.isEmpty() }.sortedBy { it.nativeName.length }
             val argumentConstructors = clazz.constructors.filter { it.parameters.isNotEmpty() }
 
             // in case of multiple no-arg constructors, pick the shorted method name
-            noArgConstructors.minByOrNull { it.nativeName.length }?.let {
-                addFunction(buildClassConstructor(it))
+            noArgConstructors.forEachIndexed { index, constructor ->
+                if (index == 0) {
+                    addFunction(buildClassConstructor(constructor))
+                } else {
+                    companionSpecBuilder.addFunction(buildClassConstructorFactoryMethod(clazz, constructor))
+                }
             }
 
             // argument constructors
@@ -116,6 +124,8 @@ class BindingsGenerator(
             clazz.implementsInterfaces.forEach {
                 addProperty(buildClassInterfacePointerProperty(it))
             }
+
+            addType(companionSpecBuilder.build())
         }.build()
 
         FileSpec
@@ -160,6 +170,22 @@ class BindingsGenerator(
         constructorSpecBuilder.callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
 
         return constructorSpecBuilder.build()
+    }
+
+    /**
+     * Build a constructor factory method based on a [ConstructorBlueprint].
+     */
+    private fun buildClassConstructorFactoryMethod(clazz: ClassBlueprint, constructor: ConstructorBlueprint): FunSpec {
+        val funSpecBuilder = FunSpec.builder(constructor.kotlinName)
+            .returns(clazz.typeName)
+
+        if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
+            error("Invalid constructor return type")
+        }
+
+        funSpecBuilder.addStatement("return %T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
+
+        return funSpecBuilder.build()
     }
 
     /**
