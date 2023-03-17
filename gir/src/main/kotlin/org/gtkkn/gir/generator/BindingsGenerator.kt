@@ -12,6 +12,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.BitfieldBlueprint
 import org.gtkkn.gir.blueprints.ClassBlueprint
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
+import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
@@ -47,6 +48,9 @@ class BindingsGenerator {
         // write skip file
         writeRepositorySkipFile(repository, outputDir)
 
+        // write strict enum file
+        writeStrictEnumFile(repository, outputDir)
+
         // write classes
         repository.classBlueprints.forEach { clazz ->
             writeType(
@@ -70,6 +74,15 @@ class BindingsGenerator {
             writeType(
                 bf.kotlinTypeName,
                 buildBitfield(bf),
+                repositorySrcDir(repository, outputDir),
+            )
+        }
+
+        // write enums
+        repository.enumBlueprints.forEach { enum ->
+            writeType(
+                enum.kotlinTypeName,
+                buildEnum(enum),
                 repositorySrcDir(repository, outputDir),
             )
         }
@@ -101,6 +114,18 @@ class BindingsGenerator {
             skipWriter.println(it.fullMessage(longestObjectName, longestTypeName))
         }
         skipWriter.close()
+    }
+
+    private fun writeStrictEnumFile(repository: RepositoryBlueprint, outputDir: File) {
+        val enumsFile = File(repositoryBuildDir(repository, outputDir), "${repository.name}-enums.txt")
+        enumsFile.createNewFile()
+
+        enumsFile.printWriter().use { writer ->
+            writer.write("strictEnums = \\")
+            repository.enumBlueprints.forEach { enum ->
+                writer.println("${(enum.nativeValueTypeName as ClassName).simpleName} \\")
+            }
+        }
     }
 
     private fun buildClass(clazz: ClassBlueprint): TypeSpec =
@@ -300,6 +325,59 @@ class BindingsGenerator {
             .addType(companionSpecBuilder.build())
 
         return bitfieldSpec.build()
+    }
+
+    private fun buildEnum(enum: EnumBlueprint): TypeSpec {
+        // primary constructor
+        val constructorSpec = FunSpec.constructorBuilder()
+            .addParameter("nativeValue", enum.nativeValueTypeName)
+            .build()
+
+        // enum spec
+        val enumSpec = TypeSpec.enumBuilder(enum.kotlinTypeName)
+            .primaryConstructor(constructorSpec)
+            .addProperty(
+                PropertySpec.builder("nativeValue", enum.nativeValueTypeName)
+                    .initializer("nativeValue")
+                    .build(),
+            )
+
+        // add enum members
+        enum.memberBlueprints.forEach { member ->
+            enumSpec.addEnumConstant(
+                member.kotlinName,
+                TypeSpec.anonymousClassBuilder()
+                    .addSuperclassConstructorParameter("%M", member.nativeMemberName)
+                    .build(),
+            )
+        }
+
+        // companion
+        enumSpec.addType(buildEnumCompanion(enum))
+
+        return enumSpec.build()
+    }
+
+    private fun buildEnumCompanion(enum: EnumBlueprint): TypeSpec {
+        val fromNativeFunc = FunSpec.builder("fromNativeValue")
+            .addParameter("nativeValue", enum.nativeValueTypeName)
+            .returns(enum.kotlinTypeName)
+
+        fromNativeFunc.beginControlFlow("return when (nativeValue)") // begin when
+
+        // add a case for each member
+        for (member in enum.memberBlueprints) {
+            fromNativeFunc.addStatement("%M -> %N", member.nativeMemberName, member.kotlinName)
+        }
+
+        // most enums can be exhaustive but some exceptions still need an else case due to cinterop member handling
+        fromNativeFunc.addStatement("""else -> error("invalid nativeValue")""")
+
+        fromNativeFunc.endControlFlow() // end when
+
+        return TypeSpec.companionObjectBuilder()
+            .addFunction(fromNativeFunc.build())
+            .build()
     }
 
     companion object {

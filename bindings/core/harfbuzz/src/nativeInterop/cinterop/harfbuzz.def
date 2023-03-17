@@ -1,4 +1,4 @@
-headers = hb.h hb-ot.h
+headers = hb.h hb-ot.h hb-aat.h
 package = native.harfbuzz
 headerFilter = hb.h hb-*.h
 
@@ -23,3 +23,25 @@ linkerOpts.linux = \
 
 linkerOpts.linux_x64 = \
     -L/usr/lib/x86_64-linux-gnu
+
+strictEnums = \
+hb_aat_layout_feature_selector_t \
+hb_aat_layout_feature_type_t \
+hb_buffer_cluster_level_t \
+hb_buffer_content_type_t \
+hb_buffer_serialize_format_t \
+hb_direction_t \
+hb_memory_mode_t \
+hb_ot_layout_baseline_tag_t \
+hb_ot_layout_glyph_class_t \
+hb_ot_math_constant_t \
+hb_ot_math_kern_t \
+hb_ot_meta_tag_t \
+hb_ot_metrics_tag_t \
+hb_ot_name_id_predefined_t \
+hb_paint_composite_mode_t \
+hb_paint_extend_t \
+hb_script_t \
+hb_style_tag_t \
+hb_unicode_combining_class_t \
+hb_unicode_general_category_t

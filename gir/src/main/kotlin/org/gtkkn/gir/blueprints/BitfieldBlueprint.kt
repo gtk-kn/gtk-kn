@@ -9,4 +9,3 @@ data class BitfieldBlueprint(
     val members: List<BitfieldMemberBlueprint>,
     val nativeValueTypeName: TypeName,
 )
-
