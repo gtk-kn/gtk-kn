@@ -1,5 +1,6 @@
 package org.gtkkn.gir.generator
 
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
@@ -52,10 +53,37 @@ class BindingsGenerator(
         writeRepositorySkipFile(repository)
 
         // write classes
-        repository.classBlueprints.forEach { writeClass(repository, it) }
+        repository.classBlueprints.forEach { clazz ->
+            writeType(
+                clazz.typeName,
+                buildClass(clazz),
+                repositorySrcDir(repository),
+            )
+        }
 
         // write interfaces
-        repository.interfaceBlueprints.forEach { writeInterface(repository, it) }
+        repository.interfaceBlueprints.forEach { iface ->
+            writeType(
+                iface.typeName,
+                buildInterface(iface),
+                repositorySrcDir(repository),
+            )
+        }
+    }
+
+    private fun writeType(
+        className: ClassName,
+        typeSpec: TypeSpec,
+        outputDirectory: File,
+    ) {
+        logger.debug("Writing ${className.canonicalName}")
+        FileSpec
+            .builder(className.packageName, className.simpleName)
+            .indent("    ")
+            .addFileComment("This is a generated file. Do not modify.")
+            .addType(typeSpec)
+            .build()
+            .writeTo(outputDirectory)
     }
 
     private fun writeRepositorySkipFile(repository: RepositoryBlueprint) {
@@ -71,10 +99,8 @@ class BindingsGenerator(
         skipWriter.close()
     }
 
-    private fun writeClass(repository: RepositoryBlueprint, clazz: ClassBlueprint) {
-        logger.debug("Writing class ${clazz.typeName}")
-
-        val classTypeSpec = TypeSpec.classBuilder(clazz.typeName).apply {
+    private fun buildClass(clazz: ClassBlueprint): TypeSpec =
+        TypeSpec.classBuilder(clazz.typeName).apply {
             // companion object
             val companionSpecBuilder = TypeSpec.companionObjectBuilder()
 
@@ -97,20 +123,21 @@ class BindingsGenerator(
 
             // constructors
 
-            // some classes have multiple no-arg constructors which would have conflicting overloads
-            // if we generate all of them as Kotlin constructors, so we only generate the first no-arg constructor
-            val noArgConstructors =
-                clazz.constructors.filter { it.parameters.isEmpty() }.sortedBy { it.nativeName.length }
-            val argumentConstructors = clazz.constructors.filter { it.parameters.isNotEmpty() }
+            // some classes have multiple no-arg constructors which would have conflicting overloads if we generate all
+            // of them as Kotlin constructors, so we only generate constructors for the non-conflicting ones, and we add
+            // the others to the companion object as static functions
+            val (noArgConstructors, argumentConstructors) = clazz.constructors.partition { it.parameters.isEmpty() }
 
-            // in case of multiple no-arg constructors, pick the shorted method name
-            noArgConstructors.forEachIndexed { index, constructor ->
-                if (index == 0) {
-                    addFunction(buildClassConstructor(constructor))
-                } else {
-                    companionSpecBuilder.addFunction(buildClassConstructorFactoryMethod(clazz, constructor))
+            // in case of multiple no-arg constructors, we pick the shorted method name to be the constructor
+            noArgConstructors
+                .sortedBy { it.nativeName.length }
+                .forEachIndexed { index, constructor ->
+                    if (index == 0) {
+                        addFunction(buildClassConstructor(constructor))
+                    } else {
+                        companionSpecBuilder.addFunction(buildClassConstructorFactoryMethod(clazz, constructor))
+                    }
                 }
-            }
 
             // argument constructors
             argumentConstructors.forEach { constructor ->
@@ -127,15 +154,6 @@ class BindingsGenerator(
 
             addType(companionSpecBuilder.build())
         }.build()
-
-        FileSpec
-            .builder(clazz.typeName.packageName, clazz.typeName.simpleName)
-            .indent("    ")
-            .addFileComment("This is a generated file. Do not modify.")
-            .addType(classTypeSpec)
-            .build()
-            .writeTo(repositorySrcDir(repository))
-    }
 
     /**
      * Build the constructor for pointer wrapping.
@@ -180,7 +198,7 @@ class BindingsGenerator(
             .returns(clazz.typeName)
 
         if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
-            error("Invalid constructor return type")
+            error("Invalid constructor return type for ${constructor.nativeName}")
         }
 
         funSpecBuilder.addStatement("return %T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
@@ -236,21 +254,10 @@ class BindingsGenerator(
         }.build()
     }
 
-    private fun writeInterface(repository: RepositoryBlueprint, iface: InterfaceBlueprint) {
-        logger.debug("Writing interface: ${iface.typeName}")
-
-        val ifaceTypeSpec = TypeSpec.interfaceBuilder(iface.typeName).apply {
-            addProperty(buildInterfacePointerProperty(iface))
-        }.build()
-
-        FileSpec
-            .builder(iface.typeName.packageName, iface.typeName.simpleName)
-            .indent("    ")
-            .addFileComment("This is a generated file. Do not modify.")
-            .addType(ifaceTypeSpec)
+    private fun buildInterface(iface: InterfaceBlueprint): TypeSpec =
+        TypeSpec.interfaceBuilder(iface.typeName)
+            .addProperty(buildInterfacePointerProperty(iface))
             .build()
-            .writeTo(repositorySrcDir(repository))
-    }
 
     private fun buildInterfacePointerProperty(iface: InterfaceBlueprint): PropertySpec =
         PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName)
