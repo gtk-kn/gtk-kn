@@ -1,7 +1,10 @@
 @Suppress("DSL_SCOPE_VIOLATION") //https://github.com/gradle/gradle/issues/22797
 plugins {
-    id("bindings-library-convention")
+    id("bindings-library-conventions")
 }
+
+val bindingsGtk4Version: String by extra
+version = bindingsGtk4Version
 
 kotlin {
     val hostOs = System.getProperty("os.name")

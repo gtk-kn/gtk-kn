@@ -1,16 +1,10 @@
-import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.api.tasks.bundling.Jar
-import org.gradle.kotlin.dsl.`maven-publish`
-import org.gradle.kotlin.dsl.signing
 import java.util.Properties
 
 plugins {
+    id("config-conventions")
     `maven-publish`
     signing
 }
-
-group = "org.gtkkn"
-version = "0.0.1"
 
 val localProperties = project.rootProject.file("local.properties")
     .takeIf { it.exists() }

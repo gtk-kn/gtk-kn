@@ -1,5 +1,5 @@
 plugins {
-    id("native-library-convention")
+    id("native-library-conventions")
     id("publishing-conventions")
 }
 
