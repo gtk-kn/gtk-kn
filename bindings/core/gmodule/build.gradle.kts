@@ -17,9 +17,7 @@ kotlin {
         val nativeMain by getting {
             dependencies {
                 api(project(":bindings:common"))
-                api(project(":bindings:gobject"))
-                // transitive
-                api(project(":bindings:glib"))
+                api(project(":bindings:core:glib"))
             }
         }
         val nativeTest by getting
@@ -28,6 +26,6 @@ kotlin {
     // native main for testing
     nativeTarget.apply {
         val main by compilations.getting
-        val gio by main.cinterops.creating
+        val gmodule by main.cinterops.creating
     }
 }

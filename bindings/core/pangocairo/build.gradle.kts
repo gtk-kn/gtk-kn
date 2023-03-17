@@ -17,11 +17,12 @@ kotlin {
         val nativeMain by getting {
             dependencies {
                 api(project(":bindings:common"))
-                api(project(":bindings:gio"))
-//                api(project(":bindings:gmodule")) // fails build because of glibc version
+                api(project(":bindings:core:gobject"))
+                api(project(":bindings:core:pango"))
+                api(project(":bindings:core:cairo"))
                 // transitive
-                api(project(":bindings:gobject"))
-                api(project(":bindings:glib"))
+                api(project(":bindings:core:glib"))
+                api(project(":bindings:core:harfbuzz"))
             }
         }
         val nativeTest by getting
@@ -30,6 +31,6 @@ kotlin {
     // native main for testing
     nativeTarget.apply {
         val main by compilations.getting
-        val gdkpixbuf by main.cinterops.creating
+        val pangocairo by main.cinterops.creating
     }
 }

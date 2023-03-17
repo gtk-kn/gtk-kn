@@ -13,7 +13,7 @@ kotlin {
     sourceSets {
         val nativeMain by getting {
             dependencies {
-                implementation(project(":bindings:gtk"))
+                implementation(project(":bindings:gtk4:gtk"))
 //                implementation("org.gtkkn:gtk:0.0.1")
                 implementation(libs.kotlin.logging.linux.x64)
             }

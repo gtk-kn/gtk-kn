@@ -18,27 +18,21 @@ import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.log.logger
 import java.io.File
 
-class BindingsGenerator(
-    private val outputDir: File
-) {
+class BindingsGenerator {
     /**
      * bindings build dir
      */
-    private fun repositoryBuildDir(repository: RepositoryBlueprint): File =
+    private fun repositoryBuildDir(repository: RepositoryBlueprint, outputDir: File): File =
         File(outputDir, "${repository.kotlinModuleName}/build")
 
     /**
      * bindings src output dir
      */
-    private fun repositorySrcDir(repository: RepositoryBlueprint): File =
+    private fun repositorySrcDir(repository: RepositoryBlueprint, outputDir: File): File =
         File(outputDir, "${repository.kotlinModuleName}/src/nativeMain/kotlin")
 
-    fun generate(repositoryBlueprints: List<RepositoryBlueprint>) {
-        repositoryBlueprints.forEach { writeRepository(it) }
-    }
-
-    private fun writeRepository(repository: RepositoryBlueprint) {
-        val repositoryOutputDir = repositoryBuildDir(repository)
+    fun generate(repository: RepositoryBlueprint, outputDir: File) {
+        val repositoryOutputDir = repositoryBuildDir(repository, outputDir)
         if (!repositoryOutputDir.exists()) {
             logger.info("Creating output dir ${repositoryOutputDir.path}")
             if (!repositoryOutputDir.mkdirs()) {
@@ -50,14 +44,14 @@ class BindingsGenerator(
         logger.info("Writing repository ${repository.name}")
 
         // write skip file
-        writeRepositorySkipFile(repository)
+        writeRepositorySkipFile(repository, outputDir)
 
         // write classes
         repository.classBlueprints.forEach { clazz ->
             writeType(
                 clazz.typeName,
                 buildClass(clazz),
-                repositorySrcDir(repository),
+                repositorySrcDir(repository, outputDir),
             )
         }
 
@@ -66,7 +60,7 @@ class BindingsGenerator(
             writeType(
                 iface.typeName,
                 buildInterface(iface),
-                repositorySrcDir(repository),
+                repositorySrcDir(repository, outputDir),
             )
         }
     }
@@ -86,8 +80,8 @@ class BindingsGenerator(
             .writeTo(outputDirectory)
     }
 
-    private fun writeRepositorySkipFile(repository: RepositoryBlueprint) {
-        val skipFile = File(repositoryBuildDir(repository), "${repository.name}-skips.txt")
+    private fun writeRepositorySkipFile(repository: RepositoryBlueprint, outputDir: File) {
+        val skipFile = File(repositoryBuildDir(repository, outputDir), "${repository.name}-skips.txt")
         skipFile.createNewFile()
 
         val skipWriter = skipFile.printWriter()
