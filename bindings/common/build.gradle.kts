@@ -1,8 +1,10 @@
 @Suppress("DSL_SCOPE_VIOLATION") //https://github.com/gradle/gradle/issues/22797
 plugins {
-    id("native-library-convention")
+    id("native-library-conventions")
     id("publishing-conventions")
 }
+
+version = "0.0.1-SNAPSHOT"
 
 kotlin {
     val hostOs = System.getProperty("os.name")
