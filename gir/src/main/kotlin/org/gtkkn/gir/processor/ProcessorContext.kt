@@ -49,6 +49,13 @@ class ProcessorContext(
         "utf8" to TypeInfo.Unknown(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
     )
 
+    /**
+     * A set of C identifiers for gir objects that should not be generated.
+     */
+    private val ignoredTypes = hashSetOf(
+        "GskBroadwayRenderer" // not available on older ubuntu versions
+    )
+
     // object lookups methods
     fun findRepositoryByNameOrNull(name: String): GirRepository? = repositories.find { it.namespace.name == name }
 
@@ -239,5 +246,17 @@ class ProcessorContext(
                 "Interface $simpleIfaceName does not exist in namespace ${namespace.name}",
             )
         return Pair(namespace, clazz)
+    }
+
+    /**
+     * Utility method for checking whether a cType is supported or should be skipped.
+     *
+     * This method returns successfully when the given [cType] is not present in any of the skipped lists
+     * or configuration.
+     */
+    fun checkIgnoredType(cType: String) {
+        if (ignoredTypes.contains(cType)) {
+            throw IgnoredTypeException(cType)
+        }
     }
 }

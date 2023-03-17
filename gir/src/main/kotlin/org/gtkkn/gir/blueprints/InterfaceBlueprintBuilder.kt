@@ -25,6 +25,8 @@ class InterfaceBlueprintBuilder(
     }
 
     override fun buildInternal(): InterfaceBlueprint {
+        girInterface.cType?.let { context.checkIgnoredType(it) }
+
         girInterface.methods.forEach { addMethod(it) }
 
         val kotlinInterfaceName = context.kotlinizeClassName(girInterface.name)
