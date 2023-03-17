@@ -3,8 +3,8 @@ plugins {
     id("bindings-library-conventions")
 }
 
-val bindingsGtk4Version: String by extra
-version = bindingsGtk4Version
+val bindingsCoreVersion: String by extra
+version = bindingsCoreVersion
 
 kotlin {
     val hostOs = System.getProperty("os.name")
@@ -17,16 +17,7 @@ kotlin {
         val nativeMain by getting {
             dependencies {
                 api(project(":bindings:common"))
-                api(project(":bindings:gdk"))
-                api(project(":bindings:gsk"))
-                // transitive
-                api(project(":bindings:gobject"))
-                api(project(":bindings:glib"))
-                api(project(":bindings:gio"))
-                api(project(":bindings:gdkpixbuf"))
-                api(project(":bindings:cairo"))
-                api(project(":bindings:pango"))
-                api(project(":bindings:harfbuzz"))
+                api(project(":bindings:core:glib"))
             }
         }
         val nativeTest by getting
@@ -35,6 +26,6 @@ kotlin {
     // native main for testing
     nativeTarget.apply {
         val main by compilations.getting
-        val gtk by main.cinterops.creating
+        val gobject by main.cinterops.creating
     }
 }

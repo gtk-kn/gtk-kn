@@ -30,6 +30,26 @@ private val GIR_PREFIX_WHITELIST = arrayOf(
     "PangoCairo-",
 )
 
+private val GROUPED_REPO_MAP = mapOf(
+    "core" to arrayOf(
+        "cairo",
+        "gdkpixbuf",
+        "gio",
+        "glib",
+        "gmodule",
+        "gobject",
+        "graphene",
+        "harfbuzz",
+        "pango",
+        "pangocairo",
+    ),
+    "gtk4" to arrayOf(
+        "gdk",
+        "gsk",
+        "gtk",
+    ),
+)
+
 fun main(args: Array<String>) {
     val parser = ArgParser("generator")
     val girPath by parser
@@ -84,8 +104,19 @@ fun main(args: Array<String>) {
         repo.prettyPrint()
     }
 
-    val generator = BindingsGenerator(File(outputPath))
-    generator.generate(repositoryBlueprints)
+    val generator = BindingsGenerator()
+    repositoryBlueprints.forEach {
+        generator.generate(it, getRepositoryOutputPath(it.kotlinModuleName, File(outputPath)))
+    }
+}
+
+fun getRepositoryOutputPath(repositoryName: String, outputPath: File): File {
+    GROUPED_REPO_MAP.entries.forEach { entry ->
+        if (repositoryName in entry.value) {
+            return outputPath.resolve(entry.key)
+        }
+    }
+    return outputPath
 }
 
 private fun getDefaultLogLevel(): Level {
