@@ -46,6 +46,8 @@ class EnumBlueprintBuilder(
     }
 
     override fun buildInternal(): EnumBlueprint {
+        context.checkIgnoredType(girEnum.cType)
+
         girEnum.members.forEach { addMember(it) }
 
         val kotlinName = context.kotlinizeEnumName(girEnum.name)

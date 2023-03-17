@@ -40,6 +40,8 @@ class ClassBlueprintBuilder(
     }
 
     override fun buildInternal(): ClassBlueprint {
+        girClass.cType?.let { context.checkIgnoredType(it) }
+
         if (girClass.parent != null) {
             try {
                 parentTypeName = context.resolveClassTypeName(girNamespace, girClass.parent)
