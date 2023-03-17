@@ -15,6 +15,7 @@ import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.model.GirClass
+import org.gtkkn.gir.model.GirEnum
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirRepository
@@ -57,6 +58,21 @@ class ProcessorContext(
         "GskBroadwayRenderer",
         // bitfield members not found through cinterop
         "GdkPixbufFormatFlags",
+        // cinterop fails to map these graphene enums
+        "graphene_ray_intersection_kind_t",
+        "graphene_euler_order_t",
+    )
+
+    /**
+     * A set of C identifiers for enum that cinterop cannot map using `strictEnums`
+     * and need their native members imported directly in the package.
+     */
+    private val enumsWithDirectImportOverride = hashSetOf(
+        "cairo_format_t",
+        "cairo_content_t",
+        "cairo_device_type_t",
+        "cairo_status_t",
+        "cairo_text_cluster_flags_t",
     )
 
     // object lookups methods
@@ -266,4 +282,13 @@ class ProcessorContext(
             throw IgnoredTypeException(cType)
         }
     }
+
+    /**
+     * Utility method for checking when an enum cannot import its members using
+     * `native.<package>.<enumname>.<membername>` syntax and instead has to use
+     * `native.<package>.<membername>.
+     *
+     * @return true when the package import needs to be applied, false otherwise.
+     */
+    fun needsEnumMemberPackageImport(girEnum: GirEnum): Boolean = enumsWithDirectImportOverride.contains(girEnum.cType)
 }
