@@ -1,4 +1,4 @@
-headers = gsk/gsk.h gsk/broadway/gskbroadwayrenderer.h gsk/gl/gskglrenderer.h
+headers = gsk/gsk.h gsk/gl/gskglrenderer.h
 package = native.gsk
 headerFilter = gsk/* gsk/broadway/* gsk/gl/*
 
