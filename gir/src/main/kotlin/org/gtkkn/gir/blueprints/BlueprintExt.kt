@@ -1,39 +1,39 @@
 package org.gtkkn.gir.blueprints
 
+import org.gtkkn.gir.log.logger
+
 fun RepositoryBlueprint.prettyPrint() {
-    println("Repository: ")
-    println("\tname: $name")
-    println("\tclasses:")
+    logger.debug("Repository: \n\tname: $name\n\tclasses:")
     classBlueprints.forEach { it.prettyPrint("\t") }
-    println("\tskipped objects:")
+    logger.debug("\tskipped objects:")
     val typeLength = skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
     val nameLength = skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
-    skippedObjects.forEach { println(it.fullMessage(nameLength, typeLength)) }
+    skippedObjects.forEach { logger.debug(it.fullMessage(nameLength, typeLength)) }
 }
 
 fun ClassBlueprint.prettyPrint(prefix: String = "\t") {
-    println("${prefix}class:")
-    println("${prefix}\ttypeName: $typeName")
-    println("${prefix}\tkotlinName: $kotlinName")
-    println("${prefix}\tnativeName: $nativeName")
-    println("${prefix}\tparent: $parentTypeName")
-    println("${prefix}\timplements:")
-    implementsInterfaces.forEach { println("$prefix\t\t$it") }
-    println("${prefix}\tmethods:")
+    logger.debug("${prefix}class:")
+    logger.debug("${prefix}\ttypeName: $typeName")
+    logger.debug("${prefix}\tkotlinName: $kotlinName")
+    logger.debug("${prefix}\tnativeName: $nativeName")
+    logger.debug("${prefix}\tparent: $parentTypeName")
+    logger.debug("${prefix}\timplements:")
+    implementsInterfaces.forEach { logger.debug("$prefix\t\t$it") }
+    logger.debug("${prefix}\tmethods:")
     methods.forEach { it.prettyPrint("$prefix\t\t") }
     val typeLength = skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
     val nameLength = skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
-    skippedObjects.forEach { println("${prefix}\t${it.fullMessage(nameLength, typeLength)}") }
+    skippedObjects.forEach { logger.debug("${prefix}\t${it.fullMessage(nameLength, typeLength)}") }
 }
 
 fun MethodBlueprint.prettyPrint(prefix: String = "\t\t") {
-    println("${prefix}method:")
-    println("${prefix}\tkotlinName: $kotlinName")
-    println("${prefix}\tnativeName: $nativeName")
-    println("${prefix}\treturns: $returnTypeInfo")
-    println("${prefix}\tparameters:")
+    logger.debug("${prefix}method:")
+    logger.debug("${prefix}\tkotlinName: $kotlinName")
+    logger.debug("${prefix}\tnativeName: $nativeName")
+    logger.debug("${prefix}\treturns: $returnTypeInfo")
+    logger.debug("${prefix}\tparameters:")
     parameterBlueprints.forEach { param ->
-        println(
+        logger.debug(
             "${prefix}\t\t${param.nativeName}: ${param.typeInfo} -> ${param.kotlinName}: ${param.typeInfo}",
         )
     }

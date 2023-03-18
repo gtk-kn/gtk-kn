@@ -11,6 +11,7 @@ plugins {
 dependencies {
     implementation(libs.kotlinpoet)
     implementation(libs.kotlinx.cli)
+    implementation(libs.bundles.kotlin.logging.jvm)
     testImplementation(libs.kotlin.test.junit5)
 }
 
