@@ -24,6 +24,7 @@ class MethodBlueprintBuilder(
     override fun blueprintObjectName(): String = girMethod.name
 
     override fun buildInternal(): MethodBlueprint {
+        girMethod.cIdentifier?.let { context.checkIgnoredFunction(it) }
         val kotlinName = context.kotlinizeMethodName(girMethod.name)
 
         // early skips for unsupported methods
@@ -35,9 +36,19 @@ class MethodBlueprintBuilder(
             throw UnresolvableTypeException("Method has no instance parameter")
         }
 
+        if (girMethod.throws) {
+            throw UnresolvableTypeException("Throwing methods are not supported")
+        }
+
         // parameters
         for (param in girMethod.parameters.parameters) {
             // skip method if parameter is not supported
+            val paramCType = when (param.type) {
+                is GirArrayType -> param.type.cType
+                is GirType -> param.type.cType
+                GirVarArgs -> null
+            }
+            if (paramCType != null) context.checkIgnoredType(paramCType)
             skipParameterForReason(param)?.let { reason ->
                 throw UnresolvableTypeException(reason)
             }
