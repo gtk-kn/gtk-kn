@@ -15,6 +15,8 @@ import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
+import org.gtkkn.gir.blueprints.MethodBlueprint
+import org.gtkkn.gir.blueprints.MethodParameterBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.log.logger
@@ -169,8 +171,23 @@ class BindingsGenerator {
                 }
 
             // argument constructors
-            argumentConstructors.forEach { constructor ->
-                addFunction(buildClassConstructor(constructor))
+            // argument constructors can also be conflicting
+            val groupBySignature = argumentConstructors.groupBy { constructor ->
+                constructor.parameters.map { it.typeInfo.kotlinTypeName.toString() }.joinToString(",")
+            }
+            groupBySignature.values.forEach { group ->
+                when (group.size) {
+                    0 -> error("Should not happen")
+                    1 -> {
+                        // non conflicting constructor
+                        addFunction(buildClassConstructor(group.first()))
+                    }
+
+                    else -> {
+                        // conflicting constructors
+                        // TODO generate as factory functions
+                    }
+                }
             }
 
             // object pointer
@@ -179,6 +196,11 @@ class BindingsGenerator {
             // interface pointers
             clazz.implementsInterfaces.forEach {
                 addProperty(buildClassInterfacePointerProperty(it))
+            }
+
+            // methods
+            clazz.methods.forEach { method ->
+                addFunction(buildMethod(method, clazz.objectPointerName))
             }
 
             addType(companionSpecBuilder.build())
@@ -214,7 +236,31 @@ class BindingsGenerator {
             error("Invalid constructor return type")
         }
 
-        constructorSpecBuilder.callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
+        if (constructor.parameters.isEmpty()) {
+            // no arg constructor
+            constructorSpecBuilder
+                .callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
+        } else {
+            // constructor with arguments
+            constructorSpecBuilder.appendSignatureParameters(constructor.parameters)
+            val cb = CodeBlock.builder()
+
+            cb.add("%M(", constructor.nativeMemberName) // open native func paren
+
+            var needsComma = false
+            constructor.parameters.forEach { param ->
+                if (needsComma) {
+                    cb.add(", ")
+                }
+                cb.add(buildParameterConversionBlock(param))
+                needsComma = true
+            }
+
+            cb.add(")") // close native func paren
+            cb.add("!!.reinterpret()")
+
+            constructorSpecBuilder.callThisConstructor(cb.build())
+        }
 
         return constructorSpecBuilder.build()
     }
@@ -283,10 +329,45 @@ class BindingsGenerator {
         }.build()
     }
 
-    private fun buildInterface(iface: InterfaceBlueprint): TypeSpec =
-        TypeSpec.interfaceBuilder(iface.typeName)
+    private fun buildInterface(iface: InterfaceBlueprint): TypeSpec {
+        val ifaceBuilder = TypeSpec.interfaceBuilder(iface.typeName)
             .addProperty(buildInterfacePointerProperty(iface))
+
+        // TODO re-enable when overrides are fixed
+//        iface.methods.forEach { method ->
+//            ifaceBuilder.addFunction(buildMethod(method, iface.objectPointerName))
+//        }
+
+        val wrapperClass = TypeSpec.classBuilder("Wrapper")
+            .addModifiers(KModifier.PRIVATE)
+            .addSuperinterface(iface.typeName)
+            .primaryConstructor(
+                FunSpec.constructorBuilder()
+                    .addParameter("pointer", iface.objectPointerTypeName)
+                    .build(),
+            )
+            .addProperty(
+                PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName, KModifier.OVERRIDE)
+                    .initializer("pointer")
+                    .build(),
+            )
             .build()
+
+        ifaceBuilder.addType(wrapperClass)
+
+        // Add companion with factory wrapper function
+        val companionBuilder = TypeSpec.companionObjectBuilder()
+        val factoryFunc = FunSpec.builder("wrap")
+            .addParameter("pointer", iface.objectPointerTypeName)
+            .returns(iface.typeName)
+            .addStatement("return %T.Wrapper(pointer)", iface.typeName)
+
+        companionBuilder.addFunction(factoryFunc.build())
+
+        ifaceBuilder.addType(companionBuilder.build())
+
+        return ifaceBuilder.build()
+    }
 
     private fun buildInterfacePointerProperty(iface: InterfaceBlueprint): PropertySpec =
         PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName)
@@ -380,8 +461,175 @@ class BindingsGenerator {
             .build()
     }
 
+    private fun buildMethod(method: MethodBlueprint, instancePointer: String?): FunSpec {
+        val returnTypeName = method.returnTypeInfo.kotlinTypeName
+
+        val funBuilder = FunSpec.builder(method.kotlinName)
+            .returns(returnTypeName)
+
+        funBuilder.appendSignatureParameters(method.parameterBlueprints)
+
+        var needsComma = false
+        funBuilder.addCode("return %M(", method.nativeMemberName) // open native function paren
+        if (instancePointer != null) {
+            // adding reinterpret() here because sometimes the instancePointer has a different type
+            funBuilder.addCode("%N.%M()", instancePointer, REINTERPRET_FUNC)
+            needsComma = true
+        }
+
+        method.parameterBlueprints.forEach { param ->
+            if (needsComma) {
+                funBuilder.addCode(", ")
+            }
+
+            funBuilder.addCode(buildParameterConversionBlock(param))
+        }
+
+        funBuilder.addCode(")") // close native function paren
+
+        // return value conversion
+        funBuilder.addCode(buildReturnValueConversionBlock(method.returnTypeInfo))
+
+        return funBuilder.build()
+    }
+
     companion object {
         // some member utils
-        private val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
+        internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
+        internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.common", "asBoolean")
+        internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.common", "asGBoolean")
+        internal val TO_KSTRING_FUNC = MemberName("kotlinx.cinterop", "toKString")
     }
+}
+
+fun FunSpec.Builder.appendSignatureParameters(parameters: List<MethodParameterBlueprint>) {
+    // add arguments to signature
+    parameters.forEach { param ->
+        val kotlinParamType = param.typeInfo.kotlinTypeName
+        addParameter(param.kotlinName, kotlinParamType)
+    }
+}
+
+fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
+    val cb = CodeBlock.builder()
+    val isNullable = returnTypeInfo.kotlinTypeName.isNullable
+    val nullableString = if (isNullable) "?" else ""
+
+    when (returnTypeInfo) {
+        is TypeInfo.Enumeration -> cb.add(
+            ".let(%T::fromNativeValue)",
+            returnTypeInfo.kotlinTypeName,
+        )
+
+        is TypeInfo.ObjectPointer -> {
+            if (returnTypeInfo.kotlinTypeName.isNullable) {
+                cb.add(
+                    "?.let({%T(it.%M())})",
+                    returnTypeInfo.withNullable(false).kotlinTypeName,
+                    BindingsGenerator.REINTERPRET_FUNC,
+                )
+            } else {
+                // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
+                // nullable type, so we use force !! here
+                cb.add(
+                    "!!.let({ %T(it.%M()) })",
+                    returnTypeInfo.withNullable(false).kotlinTypeName,
+                    BindingsGenerator.REINTERPRET_FUNC,
+                )
+            }
+        }
+
+        is TypeInfo.InterfacePointer -> {
+            if (isNullable) {
+                cb.add(
+                    "?.let({ %T.wrap(it.%M()) })",
+                    returnTypeInfo.withNullable(false).kotlinTypeName,
+                    BindingsGenerator.REINTERPRET_FUNC,
+                )
+            } else {
+                // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
+                // nullable type, so we use force !! here
+                cb.add(
+                    "!!.let({ %T.wrap(it.%M()) })",
+                    returnTypeInfo.withNullable(false).kotlinTypeName,
+                    BindingsGenerator.REINTERPRET_FUNC,
+                )
+            }
+        }
+
+        is TypeInfo.Primitive -> Unit
+        is TypeInfo.Unknown -> cb.add(".let({ TODO() })")
+        is TypeInfo.GBoolean -> cb.add(".%M()", BindingsGenerator.AS_BOOLEAN_FUNC)
+        is TypeInfo.KString -> {
+            // TODO REVIEW: cinterop seems to map all string returning functions as nullable
+            //              so here we return a nullable string if the gir says nullable
+            //              or error() when we encounter an unexpected null when the gir says non-null
+            if (isNullable) {
+                cb.add("?.%M()", BindingsGenerator.TO_KSTRING_FUNC)
+            } else {
+                cb.add(
+                    "?.%M() ?: error(%S)",
+                    BindingsGenerator.TO_KSTRING_FUNC,
+                    "Expected not null string",
+                )
+            }
+        }
+
+        is TypeInfo.Bitfield -> {
+            // use mask constructor for conversion
+            cb.add("$nullableString.let({ %T(it) })", returnTypeInfo.kotlinTypeName)
+        }
+    }
+    return cb.build()
+}
+
+/**
+ * Build a [CodeBlock] that converts a Kotlin parameter into a native parameter.
+ *
+ * The resulting codeblock can be passed as an argument in a call to a native function.
+ *
+ * For example, given a `button: Button` Kotlin param with a `CPointer<GtkButton>` native type,
+ * this method will output something like `button.gtkButtonPointer`.
+ *
+ * Nullability is handled.
+ */
+fun buildParameterConversionBlock(param: MethodParameterBlueprint): CodeBlock {
+    val cb = CodeBlock.builder()
+    val isParamNullable = param.typeInfo.kotlinTypeName.isNullable
+    val nullableString = if (isParamNullable) "?" else ""
+
+    when (param.typeInfo) {
+        is TypeInfo.Enumeration -> cb.add("%N$nullableString.nativeValue", param.kotlinName)
+        is TypeInfo.ObjectPointer -> {
+            cb.add(
+                "%N$nullableString.%N$nullableString.%M()",
+                param.kotlinName,
+                param.typeInfo.objectPointerName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+        }
+
+        is TypeInfo.InterfacePointer -> {
+            cb.add(
+                "%N$nullableString.%N$nullableString.%M()",
+                param.kotlinName,
+                param.typeInfo.objectPointerName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+        }
+
+        is TypeInfo.Primitive -> cb.add("%N", param.kotlinName)
+        is TypeInfo.Unknown -> cb.add("/* UNKNOWN */ %N", param.kotlinName)
+        is TypeInfo.GBoolean -> cb.add(
+            "%N$nullableString.%M()",
+            param.kotlinName,
+            BindingsGenerator.AS_GBOOLEAN_FUNC,
+        )
+
+        is TypeInfo.KString -> cb.add("%N", param.kotlinName)
+        is TypeInfo.Bitfield -> {
+            cb.add("%N$nullableString.mask", param.kotlinName)
+        }
+    }
+    return cb.build()
 }

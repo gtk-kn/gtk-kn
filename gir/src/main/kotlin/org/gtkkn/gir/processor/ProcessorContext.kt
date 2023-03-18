@@ -14,6 +14,7 @@ import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.TypeInfo
+import org.gtkkn.gir.model.GirBitField
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirEnum
 import org.gtkkn.gir.model.GirInterface
@@ -32,7 +33,7 @@ class ProcessorContext(
 ) {
     private val typeInfoTable: Map<String, TypeInfo> = mapOf(
         "none" to TypeInfo.Primitive(UNIT),
-        "gboolean" to TypeInfo.Unknown(INT, BOOLEAN),
+        "gboolean" to TypeInfo.GBoolean(INT, BOOLEAN),
         "gdouble" to TypeInfo.Primitive(DOUBLE),
         "gfloat" to TypeInfo.Primitive(FLOAT),
         "gint" to TypeInfo.Primitive(INT),
@@ -48,7 +49,7 @@ class ProcessorContext(
         "gunichar" to TypeInfo.Primitive(U_INT),
         "gpointer" to TypeInfo.Unknown(NativeTypes.KP_WILDCARD_CPOINTER, NativeTypes.KP_WILDCARD_CPOINTER),
         // strings
-        "utf8" to TypeInfo.Unknown(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
+        "utf8" to TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
     )
 
     /**
@@ -62,6 +63,36 @@ class ProcessorContext(
         // cinterop fails to map these graphene enums
         "graphene_ray_intersection_kind_t",
         "graphene_euler_order_t",
+    )
+
+    /**
+     * A set of C functions that should not be generated.
+     */
+    private val ignoredFunctions = hashSetOf(
+        "g_memory_output_stream_get_data",
+        "g_memory_output_stream_steal_data",
+        "gdk_pixbuf_ref",
+        "gdk_pixbuf_unref",
+        "gdk_pixbuf_animation_ref",
+        "gdk_pixbuf_animation_unref",
+        "pango_coverage_ref",
+        "pango_coverage_unref",
+        "gdk_gl_context_get_display",
+        "gdk_gl_context_get_surface",
+        "gtk_menu_button_get_direction",
+        "gtk_menu_button_set_direction",
+        "gtk_print_unix_dialog_get_settings",
+        "gtk_widget_snapshot_child", // problems with Snapshot class
+        "gtk_string_list_take", // problems with string argument conversion
+        "gsk_debug_node_new", // problems with string argument conversion
+        "g_type_module_use",
+        "g_type_module_unuse",
+        "g_unix_input_stream_get_fd",
+        "g_unix_output_stream_get_fd",
+        "g_socket_condition_check",
+        "g_task_get_source_object",
+        "gdk_content_deserializer_get_user_data",
+        "gdk_content_serializer_get_user_data",
     )
 
     /**
@@ -213,16 +244,33 @@ class ProcessorContext(
     }
 
     @Throws(UnresolvableTypeException::class)
-    fun resolveEnumTypeName(targetNamespace: GirNamespace, nativeEnumName: String): TypeName {
+    fun resolveEnumTypeNames(targetNamespace: GirNamespace, nativeEnumName: String): Pair<TypeName, TypeName> {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeEnumName)
         val enum = namespace.enums.find { it.name == simpleName }
             ?: throw UnresolvableTypeException("enum $nativeEnumName not found")
-        return ClassName(namespaceBindingsPackageName(namespace), kotlinizeEnumName(enum.name))
+
+        return Pair(
+            ClassName(namespaceNativePackageName(namespace), enum.name),
+            ClassName(namespaceBindingsPackageName(namespace), kotlinizeEnumName(enum.name)),
+        )
+    }
+
+    @Throws(UnresolvableTypeException::class)
+    fun resolveBitfieldTypeNames(targetNamespace: GirNamespace, nativeBitfieldName: String): Pair<TypeName, TypeName> {
+        val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeBitfieldName)
+        val bitfield = namespace.bitfields.find { it.name == simpleName }
+            ?: throw UnresolvableTypeException("enum $nativeBitfieldName not found")
+
+        return Pair(
+            ClassName(namespaceNativePackageName(namespace), bitfield.name),
+            ClassName(namespaceBindingsPackageName(namespace), kotlinizeBitfieldName(bitfield.name)),
+        )
     }
 
     /**
      * Resolve a [TypeInfo] for the given [GirType].
      */
+    @Throws(UnresolvableTypeException::class)
     fun resolveTypeInfo(girNamespace: GirNamespace, type: GirType, nullable: Boolean): TypeInfo {
         if (type.name == null) {
             throw UnresolvableTypeException("type name is null")
@@ -232,10 +280,17 @@ class ProcessorContext(
 
         // classes
         try {
-            val classTypeName = resolveClassTypeName(girNamespace, type.name)
+            val kotlinClassTypeName = resolveClassTypeName(girNamespace, type.name)
+            val (namespace, girClass) = findClassByName(girNamespace, type.name)
+            val objectPointerName = if (girClass.parent != null) {
+                "${namespacePrefix(namespace)}${girClass.name}Pointer"
+            } else {
+                "gPointer"
+            }
             return TypeInfo.ObjectPointer(
                 NativeTypes.KP_WILDCARD_CPOINTER,
-                classTypeName,
+                kotlinClassTypeName,
+                objectPointerName,
             ).withNullable(nullable)
         } catch (ignored: UnresolvableTypeException) {
             // fallthrough
@@ -243,10 +298,13 @@ class ProcessorContext(
 
         // interfaces
         try {
-            val interfaceTypeName = resolveInterfaceTypeName(girNamespace, type.name)
-            return TypeInfo.ObjectPointer(
+            val kotlinInterfaceTypeName = resolveInterfaceTypeName(girNamespace, type.name)
+            val (namespace, girInterface) = findInterfaceByName(girNamespace, type.name)
+            val objectPointerName = "${namespacePrefix(namespace)}${girInterface.name}Pointer"
+            return TypeInfo.InterfacePointer(
                 NativeTypes.KP_WILDCARD_CPOINTER,
-                interfaceTypeName,
+                kotlinInterfaceTypeName,
+                objectPointerName,
             ).withNullable(nullable)
         } catch (ignored: UnresolvableTypeException) {
             // fallthrough
@@ -254,8 +312,24 @@ class ProcessorContext(
 
         // enums
         try {
-            val enumTypeName = resolveEnumTypeName(girNamespace, type.name)
-            return TypeInfo.Enumeration(U_INT, enumTypeName).withNullable(nullable)
+            val (nativeTypeName, kotlinTypeName) = resolveEnumTypeNames(girNamespace, type.name)
+            return TypeInfo.Enumeration(
+                nativeTypeName = nativeTypeName,
+                kotlinTypeName = kotlinTypeName,
+            ).withNullable(nullable)
+        } catch (ignored: UnresolvableTypeException) {
+            // fallthrough
+        }
+
+        // bitfields
+        try {
+            val (nativeBitfieldTypeName, kotlinBitfieldTypeName) = resolveBitfieldTypeNames(girNamespace, type.name)
+            val (namespace, bitfield) = findBitfieldByName(girNamespace, type.name)
+
+            return TypeInfo.Bitfield(
+                nativeTypeName = nativeBitfieldTypeName,
+                kotlinTypeName = kotlinBitfieldTypeName,
+            ).withNullable(nullable)
         } catch (ignored: UnresolvableTypeException) {
             // fallthrough
         }
@@ -287,15 +361,46 @@ class ProcessorContext(
         return Pair(namespace, clazz)
     }
 
+    @Throws(UnresolvableTypeException::class)
+    fun findBitfieldByName(
+        targetNamespace: GirNamespace,
+        fullyQualifiedName: String
+    ): Pair<GirNamespace, GirBitField> {
+        val (namespace, simpleBitfieldName) = extractFullyQualifiedName(targetNamespace, fullyQualifiedName)
+        val clazz = namespace.bitfields.find { it.name == simpleBitfieldName }
+            ?: throw UnresolvableTypeException(
+                "Bitfield $simpleBitfieldName does not exist in namespace ${namespace.name}",
+            )
+        return Pair(namespace, clazz)
+    }
+
     /**
      * Utility method for checking whether a cType is supported or should be skipped.
      *
      * This method returns successfully when the given [cType] is not present in any of the skipped lists
      * or configuration.
+     * @throws IgnoredTypeException if the type should be ignored.
      */
     fun checkIgnoredType(cType: String) {
         if (ignoredTypes.contains(cType)) {
             throw IgnoredTypeException(cType)
+        }
+    }
+
+    /**
+     * Utility method for checking whether a C function is supported or should be skipped.
+     *
+     * This method returns succesfully when the given [cFunctionName] is not present in any of the skipped lists
+     * or configuration.
+     * @throws IgnoredTypeException if the function should be ignored.
+     */
+    fun checkIgnoredFunction(cFunctionName: String) {
+        if (ignoredFunctions.contains(cFunctionName)) {
+            throw IgnoredFunctionException(cFunctionName)
+        }
+
+        if (cFunctionName.endsWith("to_string")) {
+            throw IgnoredFunctionException(cFunctionName)
         }
     }
 
