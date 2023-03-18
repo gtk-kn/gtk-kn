@@ -5,6 +5,9 @@ plugins {
 
 val bindingsGtk4Version: String by extra
 version = bindingsGtk4Version
+publishing.publications.withType<MavenPublication> {
+    artifactId = "gtk4"
+}
 
 kotlin {
     val hostOs = System.getProperty("os.name")
@@ -19,7 +22,7 @@ kotlin {
                 api(project(":bindings:common"))
                 api(project(":bindings:gtk4:gdk"))
                 api(project(":bindings:gtk4:gsk"))
-                // transitive
+// transitive
                 api(project(":bindings:core:gobject"))
                 api(project(":bindings:core:glib"))
                 api(project(":bindings:core:gio"))
@@ -32,7 +35,7 @@ kotlin {
         val nativeTest by getting
     }
 
-    // native main for testing
+// native main for testing
     nativeTarget.apply {
         val main by compilations.getting
         val gtk by main.cinterops.creating
