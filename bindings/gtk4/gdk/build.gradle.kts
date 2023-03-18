@@ -5,6 +5,9 @@ plugins {
 
 val bindingsGtk4Version: String by extra
 version = bindingsGtk4Version
+publishing.publications.withType<MavenPublication> {
+    artifactId = "gdk4"
+}
 
 kotlin {
     val hostOs = System.getProperty("os.name")
