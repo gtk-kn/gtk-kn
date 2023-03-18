@@ -113,7 +113,7 @@ class BindingsGenerator {
             addSuperinterfaces(clazz.implementsInterfaces.map { it.interfaceTypeName })
 
             // pointer constructor
-            addFunction(buildPointerConstructor(clazz))
+            buildPointerConstructor(this, clazz)
 
             // constructors
 
@@ -152,21 +152,21 @@ class BindingsGenerator {
     /**
      * Build the constructor for pointer wrapping.
      */
-    private fun buildPointerConstructor(clazz: ClassBlueprint): FunSpec {
+    private fun buildPointerConstructor(builder: TypeSpec.Builder, clazz: ClassBlueprint) {
         val constructorSpecBuilder = FunSpec.constructorBuilder()
 
         val pointerParamSpec = ParameterSpec.builder("pointer", clazz.objectPointerTypeName).build()
         constructorSpecBuilder.addParameter(pointerParamSpec)
 
         if (clazz.hasParent) {
-            // call through to super
-            constructorSpecBuilder.callSuperConstructor(CodeBlock.of("pointer.%M()", REINTERPRET_FUNC))
+            // call superclass constructor
+            builder.addSuperclassConstructorParameter(CodeBlock.of("pointer.%M()", REINTERPRET_FUNC))
         } else {
             // init pointer property
             constructorSpecBuilder.addStatement("gPointer = pointer.%M()", REINTERPRET_FUNC)
         }
 
-        return constructorSpecBuilder.build()
+        builder.primaryConstructor(constructorSpecBuilder.build())
     }
 
     /**
