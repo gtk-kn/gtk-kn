@@ -12,6 +12,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
     }
 }
 
@@ -20,4 +21,21 @@ rootProject.name = "gtk-kn"
 includeBuild("build-conventions")
 
 include("gir")
+
+include("bindings:common")
+
+include("bindings:core:cairo")
+include("bindings:core:gdkpixbuf")
+include("bindings:core:gio")
+include("bindings:core:glib")
+include("bindings:core:gmodule")
+include("bindings:core:gobject")
+include("bindings:core:graphene")
+include("bindings:core:harfbuzz")
+include("bindings:core:pango")
+include("bindings:core:pangocairo")
+include("bindings:gtk4:gdk")
+include("bindings:gtk4:gsk")
+include("bindings:gtk4:gtk")
+
 include("samples:gtk:hello-world")

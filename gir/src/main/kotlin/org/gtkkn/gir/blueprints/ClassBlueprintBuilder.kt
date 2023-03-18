@@ -3,6 +3,7 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
 import org.gtkkn.gir.model.GirClass
+import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.ProcessorContext
@@ -15,8 +16,9 @@ class ClassBlueprintBuilder(
 ) : BlueprintBuilder<ClassBlueprint>(
     context,
 ) {
+    private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
-    private val implementsInterfaces = mutableListOf<TypeName>()
+    private val implementsInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
     private var parentTypeName: TypeName? = null
 
     override fun blueprintObjectType(): String = "class"
@@ -30,7 +32,16 @@ class ClassBlueprintBuilder(
         }
     }
 
+    private fun addConstructor(constructor: GirConstructor) {
+        when (val result = ConstructorBlueprintBuilder(context, girNamespace, girClass, constructor).build()) {
+            is BlueprintResult.Ok -> constructorBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun buildInternal(): ClassBlueprint {
+        girClass.cType?.let { context.checkIgnoredType(it) }
+
         if (girClass.parent != null) {
             try {
                 parentTypeName = context.resolveClassTypeName(girNamespace, girClass.parent)
@@ -42,6 +53,7 @@ class ClassBlueprintBuilder(
         addInterfaces()
 
         girClass.methods.forEach { addMethod(it) }
+        girClass.constructors.forEach { addConstructor(it) }
 
         val kotlinClassName = context.kotlinizeClassName(girClass.name)
         val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
@@ -58,6 +70,7 @@ class ClassBlueprintBuilder(
             nativeName = girClass.name,
             typeName = ClassName(kotlinPackageName, kotlinClassName),
             methods = methodBluePrints,
+            constructors = constructorBlueprints,
             skippedObjects = skippedObjects,
             implementsInterfaces = implementsInterfaces,
             parentTypeName = parentTypeName,
@@ -89,8 +102,18 @@ class ClassBlueprintBuilder(
             allParentNames.contains(simpleName) || allParentNames.contains(fullyQualifiedName)
         }
 
-        remainingInterfaces.forEach {
-            implementsInterfaces.add(context.resolveInterfaceTypeName(it.first, it.second.name))
+        remainingInterfaces.forEach { ifacePair ->
+            val interfacePointerName = "${context.namespacePrefix(ifacePair.first)}${ifacePair.second.name}Pointer"
+            val interfaceTypeName = context.resolveInterfaceTypeName(ifacePair.first, ifacePair.second.name)
+            val interfacePointerTypeName =
+                context.resolveInterfaceObjectPointerTypeName(ifacePair.first, ifacePair.second)
+            implementsInterfaces.add(
+                ImplementsInterfaceBlueprint(
+                    interfaceTypeName,
+                    interfacePointerTypeName,
+                    interfacePointerName,
+                ),
+            )
         }
     }
 }

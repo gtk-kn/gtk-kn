@@ -11,3 +11,7 @@ out
 !.idea/codeStyles/
 !.idea/copyright/
 !.idea/detekt.xml
+
+# temporary excludes of binding src dirs
+bindings/**/src/nativeMain/
+!bindings/common/src/nativeMain/

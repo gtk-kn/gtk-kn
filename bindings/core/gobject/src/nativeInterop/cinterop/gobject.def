@@ -1,0 +1,23 @@
+headers = glib-object.h
+package = native.gobject
+headerFilter = gobject/* glib/*
+
+# pkg-config --cflags gobject-2.0
+compilerOpts.linux = \
+    -I/usr/include/glib-2.0 \
+    -I/usr/include/sysprof-4 \
+    -pthread
+
+compilerOpts.linux_x64 = \
+    -I/usr/lib64/glib-2.0/include \
+    -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+
+# pkg-config --libs gobject-2.0
+linkerOpts.linux = \
+    -L/usr/local/lib \
+    -lgobject-2.0 \
+    -lglib-2.0
+
+linkerOpts.linux_x64 = \
+    -L/usr/lib64 \
+    -L/usr/lib/x86_64-linux-gnu
