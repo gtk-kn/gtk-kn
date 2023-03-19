@@ -335,10 +335,9 @@ class BindingsGenerator {
         val ifaceBuilder = TypeSpec.interfaceBuilder(iface.typeName)
             .addProperty(buildInterfacePointerProperty(iface))
 
-        // TODO re-enable when overrides are fixed
-//        iface.methods.forEach { method ->
-//            ifaceBuilder.addFunction(buildMethod(method, iface.objectPointerName))
-//        }
+        iface.methods.forEach { method ->
+            ifaceBuilder.addFunction(buildMethod(method, iface.objectPointerName))
+        }
 
         val wrapperClass = TypeSpec.classBuilder("Wrapper")
             .addModifiers(KModifier.PRIVATE)
@@ -468,6 +467,10 @@ class BindingsGenerator {
 
         val funBuilder = FunSpec.builder(method.kotlinName)
             .returns(returnTypeName)
+
+        if (method.isOverride) {
+            funBuilder.addModifiers(KModifier.OVERRIDE)
+        }
 
         funBuilder.appendSignatureParameters(method.parameterBlueprints)
 

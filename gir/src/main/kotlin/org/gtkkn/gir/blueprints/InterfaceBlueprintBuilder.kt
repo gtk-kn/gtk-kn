@@ -19,7 +19,7 @@ class InterfaceBlueprintBuilder(
     override fun blueprintObjectName(): String = girInterface.name
 
     private fun addMethod(method: GirMethod) {
-        when (val result = MethodBlueprintBuilder(context, girNamespace, method).build()) {
+        when (val result = MethodBlueprintBuilder(context, girNamespace, method, emptyList(), emptyList()).build()) {
             is BlueprintResult.Ok -> methodBluePrints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }

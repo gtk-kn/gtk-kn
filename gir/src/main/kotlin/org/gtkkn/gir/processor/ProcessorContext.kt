@@ -70,31 +70,38 @@ class ProcessorContext(
     /**
      * A set of C functions that should not be generated.
      */
-    private val ignoredFunctions = hashSetOf(
-        "g_memory_output_stream_get_data",
-        "g_memory_output_stream_steal_data",
-        "gdk_pixbuf_ref",
-        "gdk_pixbuf_unref",
-        "gdk_pixbuf_animation_ref",
-        "gdk_pixbuf_animation_unref",
+    private val ignoredFunctions = hashSetOf<String>(
+        // ignore because they clash with Object.ref/unref
         "pango_coverage_ref",
         "pango_coverage_unref",
+        // ignore because they clash with DrawContext
         "gdk_gl_context_get_display",
         "gdk_gl_context_get_surface",
+
+        // ignore because they clash with Widget.get/set_direction
         "gtk_menu_button_get_direction",
         "gtk_menu_button_set_direction",
+
+        // ignore because it clashes with Dialog.get_settings
         "gtk_print_unix_dialog_get_settings",
-        "gtk_widget_snapshot_child", // problems with Snapshot class
-        "gtk_string_list_take", // problems with string argument conversion
-        "gsk_debug_node_new", // problems with string argument conversion
+
+        // problems with Snapshot class
+        "gtk_widget_snapshot_child",
+
+        // problems with string argument conversion
+        "gtk_string_list_take",
+        "gsk_debug_node_new",
+
+        // ignore because the return types do not match
         "g_type_module_use",
         "g_type_module_unuse",
-        "g_unix_input_stream_get_fd",
-        "g_unix_output_stream_get_fd",
-        "g_socket_condition_check",
-        "g_task_get_source_object",
-        "gdk_content_deserializer_get_user_data",
-        "gdk_content_serializer_get_user_data",
+
+        // the following are ignore because of clashes between interface and superclass
+        "gtk_widget_get_display",
+        "gtk_widget_get_font_map",
+        "gtk_widget_set_font_map",
+        "gtk_widget_realize",
+        "gtk_widget_unrealize",
     )
 
     /**

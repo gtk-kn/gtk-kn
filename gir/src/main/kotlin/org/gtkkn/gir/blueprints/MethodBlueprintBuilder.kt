@@ -1,8 +1,12 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.MemberName
+import org.gtkkn.gir.log.logger
+import org.gtkkn.gir.model.GirAnyTypeOrVarargs
 import org.gtkkn.gir.model.GirArrayType
+import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirDirection
+import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirParameter
@@ -17,6 +21,8 @@ class MethodBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
     private val girMethod: GirMethod,
+    private val superClasses: List<GirClass>,
+    private val superInterfaces: List<GirInterface>,
 ) : BlueprintBuilder<MethodBlueprint>(context) {
     private val methodParameters = mutableListOf<MethodParameterBlueprint>()
 
@@ -90,6 +96,20 @@ class MethodBlueprintBuilder(
             }
         }
 
+        // check for overrides
+
+        val superMethods = superClasses.flatMap { it.methods } + superInterfaces.flatMap { it.methods }
+        val nameMatchingSuperMethods = superMethods
+            .filterNot { it.info.introspectable == false }
+            .filter { it.name == girMethod.name }
+
+        val isOverride = nameMatchingSuperMethods.any {
+            it.debugParameterSignature() == girMethod.debugParameterSignature()
+        }
+        if (isOverride) {
+            logger.warn("Detected method override: ${girMethod.name}")
+        }
+
         // method name
         val nativeMethodName = girMethod.cIdentifier
             ?: throw UnresolvableTypeException("native method ${girMethod.name} does not have cIdentifier")
@@ -102,6 +122,7 @@ class MethodBlueprintBuilder(
             nativeMemberName = nativeMemberName,
             parameterBlueprints = methodParameters,
             returnTypeInfo = returnTypeInfo,
+            isOverride = isOverride,
         )
     }
 
@@ -117,4 +138,22 @@ class MethodBlueprintBuilder(
         param.type is GirArrayType -> "Array parameter is not supported"
         else -> null
     }
+}
+
+/**
+ * A debug string containing parameter details for comparing methods for override purposes.
+ */
+private fun GirMethod.debugParameterSignature(): String =
+    parameters?.parameters.orEmpty().map { it.debugSignature() }.joinToString { "," }
+
+private fun GirParameter.debugSignature(): String = when (type) {
+    is GirArrayType -> "array[${type.debugSignature()}]"
+    is GirType -> type.debugSignature()
+    GirVarArgs -> "varargs"
+}
+
+private fun GirAnyTypeOrVarargs.debugSignature(): String = when (this) {
+    is GirArrayType -> "array[${type.debugSignature()}]"
+    is GirType -> this.name ?: "unknown"
+    GirVarArgs -> "varargs"
 }
