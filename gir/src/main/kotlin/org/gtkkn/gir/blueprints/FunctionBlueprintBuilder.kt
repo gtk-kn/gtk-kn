@@ -8,7 +8,7 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class FunctionBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girFunction: GirFunction
+    private val girFunction: GirFunction,
 ) : BlueprintBuilder<FunctionBlueprint>(context) {
     override fun blueprintObjectType(): String = "function"
     override fun blueprintObjectName(): String = girFunction.name

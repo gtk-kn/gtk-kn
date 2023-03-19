@@ -16,5 +16,5 @@ data class GirMember(
     val value: String,
     val cIdentifier: String,
     val glibNick: String?,
-    val glibName: String?
+    val glibName: String?,
 )

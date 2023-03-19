@@ -24,7 +24,8 @@ data class GirInfo(
     enum class Stability {
         STABLE,
         UNSTABLE,
-        PRIVATE;
+        PRIVATE,
+        ;
 
         companion object {
             fun fromString(str: String): Stability = when (str) {

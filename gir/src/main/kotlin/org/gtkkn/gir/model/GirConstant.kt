@@ -16,5 +16,5 @@ data class GirConstant(
     val value: String,
     val cType: String?,
     val cIdentifier: String?,
-    val type: GirAnyType?
+    val type: GirAnyType?,
 )

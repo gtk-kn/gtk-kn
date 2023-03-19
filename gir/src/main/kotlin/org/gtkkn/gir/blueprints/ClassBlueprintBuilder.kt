@@ -12,7 +12,7 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class ClassBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girClass: GirClass
+    private val girClass: GirClass,
 ) : BlueprintBuilder<ClassBlueprint>(
     context,
 ) {

@@ -26,7 +26,7 @@ class ConstructorBlueprintBuilder(
     override fun buildInternal(): ConstructorBlueprint {
         if (!girConstructor.parameters?.parameters.isNullOrEmpty()) {
             throw UnresolvableTypeException("Constructor with arguments is not supported")
-        }  // else no parameters object means the default noArg constructor
+        } // else no parameters object means the default noArg constructor
 
         // return value
         val returnValue = girConstructor.returnValue
