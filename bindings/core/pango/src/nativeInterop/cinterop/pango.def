@@ -33,3 +33,27 @@ linkerOpts.linux = \
 
 linkerOpts.linux_x64 = \
     -L/usr/lib/x86_64-linux-gnu
+
+strictEnums = \
+PangoAlignment \
+PangoAttrType \
+PangoBaselineShift \
+PangoBidiType \
+PangoCoverageLevel \
+PangoDirection \
+PangoEllipsizeMode \
+PangoFontScale \
+PangoGravity \
+PangoGravityHint \
+PangoLayoutDeserializeError \
+PangoOverline \
+PangoRenderPart \
+PangoScript \
+PangoStretch \
+PangoStyle \
+PangoTabAlign \
+PangoTextTransform \
+PangoUnderline \
+PangoVariant \
+PangoWeight \
+PangoWrapMode \

@@ -9,8 +9,10 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import org.gtkkn.gir.blueprints.BitfieldBlueprint
 import org.gtkkn.gir.blueprints.ClassBlueprint
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
+import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
@@ -46,6 +48,9 @@ class BindingsGenerator {
         // write skip file
         writeRepositorySkipFile(repository, outputDir)
 
+        // write strict enum file
+        writeStrictEnumFile(repository, outputDir)
+
         // write classes
         repository.classBlueprints.forEach { clazz ->
             writeType(
@@ -60,6 +65,24 @@ class BindingsGenerator {
             writeType(
                 iface.typeName,
                 buildInterface(iface),
+                repositorySrcDir(repository, outputDir),
+            )
+        }
+
+        // write bitfields
+        repository.bitfieldBlueprints.forEach { bitfield ->
+            writeType(
+                bitfield.kotlinTypeName,
+                buildBitfield(bitfield),
+                repositorySrcDir(repository, outputDir),
+            )
+        }
+
+        // write enums
+        repository.enumBlueprints.forEach { enum ->
+            writeType(
+                enum.kotlinTypeName,
+                buildEnum(enum),
                 repositorySrcDir(repository, outputDir),
             )
         }
@@ -91,6 +114,18 @@ class BindingsGenerator {
             skipWriter.println(it.fullMessage(longestObjectName, longestTypeName))
         }
         skipWriter.close()
+    }
+
+    private fun writeStrictEnumFile(repository: RepositoryBlueprint, outputDir: File) {
+        val enumsFile = File(repositoryBuildDir(repository, outputDir), "${repository.name}-enums.txt")
+        enumsFile.createNewFile()
+
+        enumsFile.printWriter().use { writer ->
+            writer.write("strictEnums = \\")
+            repository.enumBlueprints.forEach { enum ->
+                writer.println("${(enum.nativeValueTypeName as ClassName).simpleName} \\")
+            }
+        }
     }
 
     private fun buildClass(clazz: ClassBlueprint): TypeSpec =
@@ -256,6 +291,94 @@ class BindingsGenerator {
     private fun buildInterfacePointerProperty(iface: InterfaceBlueprint): PropertySpec =
         PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName)
             .build()
+
+    private fun buildBitfield(bitfield: BitfieldBlueprint): TypeSpec {
+        val companionSpecBuilder = TypeSpec.companionObjectBuilder()
+
+        bitfield.members.forEach { member ->
+            companionSpecBuilder.addProperty(
+                PropertySpec.builder(member.kotlinName, bitfield.kotlinTypeName)
+                    .initializer("%T(%M)", bitfield.kotlinTypeName, member.nativeMemberName)
+                    .build(),
+            )
+        }
+
+        val constructorSpec = FunSpec.constructorBuilder()
+            .addParameter("mask", bitfield.nativeValueTypeName)
+            .build()
+
+        val orFuncSpec = FunSpec.builder("or")
+            .addModifiers(KModifier.INFIX)
+            .addParameter("other", bitfield.kotlinTypeName)
+            .returns(bitfield.kotlinTypeName)
+            .addStatement("return %T(mask or other.mask)", bitfield.kotlinTypeName)
+            .build()
+
+        val bitfieldSpec = TypeSpec.classBuilder(bitfield.kotlinName)
+            .primaryConstructor(constructorSpec)
+            .addProperty(
+                PropertySpec.builder("mask", bitfield.nativeValueTypeName)
+                    .initializer("mask")
+                    .build(),
+            )
+            .addFunction(orFuncSpec)
+            .addType(companionSpecBuilder.build())
+
+        return bitfieldSpec.build()
+    }
+
+    private fun buildEnum(enum: EnumBlueprint): TypeSpec {
+        // primary constructor
+        val constructorSpec = FunSpec.constructorBuilder()
+            .addParameter("nativeValue", enum.nativeValueTypeName)
+            .build()
+
+        // enum spec
+        val enumSpec = TypeSpec.enumBuilder(enum.kotlinTypeName)
+            .primaryConstructor(constructorSpec)
+            .addProperty(
+                PropertySpec.builder("nativeValue", enum.nativeValueTypeName)
+                    .initializer("nativeValue")
+                    .build(),
+            )
+
+        // add enum members
+        enum.memberBlueprints.forEach { member ->
+            enumSpec.addEnumConstant(
+                member.kotlinName,
+                TypeSpec.anonymousClassBuilder()
+                    .addSuperclassConstructorParameter("%M", member.nativeMemberName)
+                    .build(),
+            )
+        }
+
+        // companion
+        enumSpec.addType(buildEnumCompanion(enum))
+
+        return enumSpec.build()
+    }
+
+    private fun buildEnumCompanion(enum: EnumBlueprint): TypeSpec {
+        val fromNativeFunc = FunSpec.builder("fromNativeValue")
+            .addParameter("nativeValue", enum.nativeValueTypeName)
+            .returns(enum.kotlinTypeName)
+
+        fromNativeFunc.beginControlFlow("return when (nativeValue)") // begin when
+
+        // add a case for each member
+        for (member in enum.memberBlueprints) {
+            fromNativeFunc.addStatement("%M -> %N", member.nativeMemberName, member.kotlinName)
+        }
+
+        // most enums can be exhaustive but some exceptions still need an else case due to cinterop member handling
+        fromNativeFunc.addStatement("""else -> error("invalid nativeValue")""")
+
+        fromNativeFunc.endControlFlow() // end when
+
+        return TypeSpec.companionObjectBuilder()
+            .addFunction(fromNativeFunc.build())
+            .build()
+    }
 
     companion object {
         // some member utils
