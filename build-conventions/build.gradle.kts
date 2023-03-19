@@ -8,5 +8,6 @@ plugins {
 dependencies {
     implementation(libs.plugin.kotlin)
     implementation(libs.plugin.detekt)
+    implementation(libs.plugin.spotless)
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 }

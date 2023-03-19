@@ -7,5 +7,5 @@ data class MethodBlueprint(
     val nativeName: String,
     val nativeMemberName: MemberName, // not enum member, but the KP reference to the native function name
     val parameterBlueprints: List<MethodParameterBlueprint>,
-    val returnTypeInfo: TypeInfo
+    val returnTypeInfo: TypeInfo,
 )

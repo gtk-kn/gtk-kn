@@ -9,7 +9,7 @@ import org.gtkkn.gir.processor.ProcessorContext
 class BitfieldBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girBitfield: GirBitField
+    private val girBitfield: GirBitField,
 ) : BlueprintBuilder<BitfieldBlueprint>(context) {
 
     private val members = mutableListOf<BitfieldMemberBlueprint>()

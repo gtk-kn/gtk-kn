@@ -137,7 +137,7 @@ class BindingsGenerator {
             addKdoc(buildClassKDoc(clazz))
 
             // modifiers
-            addModifiers(KModifier.OPEN)  // currently marking all classes as open to make it compile
+            addModifiers(KModifier.OPEN) // currently marking all classes as open to make it compile
 
             // parent class
             if (clazz.parentTypeName != null) {

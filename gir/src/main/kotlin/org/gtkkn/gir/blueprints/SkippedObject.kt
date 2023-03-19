@@ -6,7 +6,7 @@ package org.gtkkn.gir.blueprints
 data class SkippedObject(
     val objectType: String,
     val objectName: String,
-    val reason: String
+    val reason: String,
 ) {
     /**
      * Build a user readable message with support for overriding the length of the object and type names
