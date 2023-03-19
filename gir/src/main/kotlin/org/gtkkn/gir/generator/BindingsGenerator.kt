@@ -174,7 +174,7 @@ class BindingsGenerator {
             // argument constructors
             // argument constructors can also be conflicting
             val groupBySignature = argumentConstructors.groupBy { constructor ->
-                constructor.parameters.map { it.typeInfo.kotlinTypeName.toString() }.joinToString(",")
+                constructor.parameters.joinToString(",") { it.typeInfo.kotlinTypeName.toString() }
             }
             groupBySignature.values.forEach { group ->
                 when (group.size) {
@@ -185,8 +185,17 @@ class BindingsGenerator {
                     }
 
                     else -> {
-                        // conflicting constructors
-                        // TODO generate as factory functions
+                        // conflicting constructors with same signature
+                        group.sortedBy { it.nativeName.length }.forEachIndexed { idx, constructor ->
+                            if (idx == 0) {
+                                // add the shortest conflicting method name as an actual constructor
+                                // this isn't the best heuristic but it works for most use cases
+                                addFunction(buildClassConstructor(constructor))
+                            }
+                            // add all conflicting as constructors as factory functions
+                            // this helps with developer discoverability (for example Gtk4 Button)
+                            companionSpecBuilder.addFunction(buildClassConstructorFactoryMethod(clazz, constructor))
+                        }
                     }
                 }
             }
@@ -248,13 +257,11 @@ class BindingsGenerator {
 
             cb.add("%M(", constructor.nativeMemberName) // open native func paren
 
-            var needsComma = false
-            constructor.parameters.forEach { param ->
-                if (needsComma) {
+            constructor.parameters.forEachIndexed { idx, param ->
+                if (idx > 0) {
                     cb.add(", ")
                 }
                 cb.add(buildParameterConversionBlock(param))
-                needsComma = true
             }
 
             cb.add(")") // close native func paren
@@ -277,7 +284,24 @@ class BindingsGenerator {
             error("Invalid constructor return type for ${constructor.nativeName}")
         }
 
-        funSpecBuilder.addStatement("return %T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
+        if (constructor.parameters.isEmpty()) {
+            // no-arg factory method
+            funSpecBuilder.addStatement("return %T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
+        } else {
+            funSpecBuilder.appendSignatureParameters(constructor.parameters)
+
+            // open native function paren
+            funSpecBuilder.addCode("return %T(%M(", clazz.typeName, constructor.nativeMemberName)
+
+            constructor.parameters.forEachIndexed { idx, param ->
+                if (idx > 0) {
+                    funSpecBuilder.addCode(", ")
+                }
+                funSpecBuilder.addCode(buildParameterConversionBlock(param))
+            }
+
+            funSpecBuilder.addCode(")!!.%M())", REINTERPRET_FUNC) // close native function paren
+        }
 
         return funSpecBuilder.build()
     }
