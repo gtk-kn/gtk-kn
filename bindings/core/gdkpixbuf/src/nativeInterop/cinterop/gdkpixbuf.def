@@ -1,8 +1,6 @@
-headers = gdk-pixbuf/gdk-pixbuf.h gdk-pixbuf/gdk-pixbuf-features.h gdk-pixbuf/gdk-pixbuf-enum-types.h gdk-pixbuf/gdk-pixbuf-io.h gdk-pixbuf/gdk-pixdata.h
+headers = gdk-pixbuf/gdk-pixbuf.h
 package = native.gdkpixbuf
 headerFilter = gdk-pixbuf/*
-
-strictEnums = GdkPixbufFormatFlags
 
 # pkg-config --cflags gdk-pixbuf-2.0
 compilerOpts.linux = \
