@@ -12,7 +12,7 @@ import org.gtkkn.gir.processor.ProcessorContext
 
 class RepositoryBlueprintBuilder(
     context: ProcessorContext,
-    private val girRepository: GirRepository
+    private val girRepository: GirRepository,
 ) : BlueprintBuilder<RepositoryBlueprint>(context) {
     private val namespace: GirNamespace get() = girRepository.namespace
 

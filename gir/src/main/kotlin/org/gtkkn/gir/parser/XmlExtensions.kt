@@ -73,7 +73,7 @@ fun Node.childNodesWithNames(vararg nodeNames: String): List<Node> = this.childN
 
 class MultipleChildNodesError(
     nodeName: String,
-    count: Int
+    count: Int,
 ) : Error("Expected single child with name $nodeName but node has $count child nodes with this name")
 
 class ChildNodeNotFoundError(nodeName: String) : Error(
@@ -82,5 +82,5 @@ class ChildNodeNotFoundError(nodeName: String) : Error(
 
 class MissingNodeAttributeError(
     nodeName: String,
-    attributeName: String
+    attributeName: String,
 ) : Error("Expected attribute with name '$attributeName' on node '$nodeName but the attribute does not exist.")

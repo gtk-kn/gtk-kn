@@ -15,7 +15,7 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class MethodBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girMethod: GirMethod
+    private val girMethod: GirMethod,
 ) : BlueprintBuilder<MethodBlueprint>(context) {
     private val methodParameters = mutableListOf<MethodParameterBlueprint>()
 
@@ -95,8 +95,8 @@ class MethodBlueprintBuilder(
      * @return null if the parameter is supported, and skip reason if unsupported.
      */
     private fun skipParameterForReason(param: GirParameter): String? = when {
-        param.direction == GirDirection.Out -> "Out parameter is not supported"
-        param.direction == GirDirection.InOut -> "InOut parameter is not supported"
+        param.direction == GirDirection.OUT -> "Out parameter is not supported"
+        param.direction == GirDirection.IN_OUT -> "InOut parameter is not supported"
         param.type is GirVarArgs -> "Varargs parameter is not supported"
         param.type is GirArrayType -> "Array parameter is not supported"
         else -> null
