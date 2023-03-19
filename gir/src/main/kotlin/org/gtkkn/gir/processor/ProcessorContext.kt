@@ -14,6 +14,7 @@ import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.TypeInfo
+import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirBitField
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirEnum
@@ -47,7 +48,7 @@ class ProcessorContext(
         "guint32" to TypeInfo.Primitive(U_INT),
         "guint64" to TypeInfo.Primitive(U_LONG),
         "gunichar" to TypeInfo.Primitive(U_INT),
-        "gpointer" to TypeInfo.Unknown(NativeTypes.KP_WILDCARD_CPOINTER, NativeTypes.KP_WILDCARD_CPOINTER),
+        "gpointer" to TypeInfo.Primitive(NativeTypes.KP_OPAQUE_POINTER),
         // strings
         "utf8" to TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
     )
@@ -334,6 +335,7 @@ class ProcessorContext(
             // fallthrough
         }
 
+        logger.warn("Could not resolve type for type with name: ${type.name} and cType: ${type.cType}")
         throw UnresolvableTypeException(type.name)
     }
 

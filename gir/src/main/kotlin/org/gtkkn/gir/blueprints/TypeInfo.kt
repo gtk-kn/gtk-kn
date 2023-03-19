@@ -118,17 +118,4 @@ sealed class TypeInfo {
             kotlinTypeName = kotlinTypeName.copy(nullable),
         )
     }
-
-    /**
-     * Temporary Pokemon case until we have all conversions handled.
-     */
-    data class Unknown(
-        override val nativeTypeName: TypeName,
-        override val kotlinTypeName: TypeName,
-    ) : TypeInfo() {
-        override fun withNullable(nullable: Boolean): Unknown = copy(
-            nativeTypeName = nativeTypeName.copy(nullable),
-            kotlinTypeName = kotlinTypeName.copy(nullable),
-        )
-    }
 }
