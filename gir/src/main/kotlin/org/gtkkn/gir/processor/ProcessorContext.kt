@@ -151,6 +151,14 @@ class ProcessorContext(
 
     fun kotlinizeBitfieldMemberName(nativeMemberName: String): String = nativeMemberName.uppercase()
 
+    fun kotlinizeSignalConnectName(nativeSignalName: String): String {
+        try {
+            return "connect${nativeSignalName.replace("-", "_").toPascalCase()}"
+        } catch (ex: Exception) {
+            error("OOPS")
+        }
+    }
+
     // namespace naming
     fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()
 

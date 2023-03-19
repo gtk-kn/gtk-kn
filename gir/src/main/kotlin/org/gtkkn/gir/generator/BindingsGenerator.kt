@@ -5,10 +5,13 @@ import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.LambdaTypeName
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.UNIT
 import org.gtkkn.gir.blueprints.BitfieldBlueprint
 import org.gtkkn.gir.blueprints.ClassBlueprint
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
@@ -18,8 +21,10 @@ import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
 import org.gtkkn.gir.blueprints.MethodParameterBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
+import org.gtkkn.gir.blueprints.SignalBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.log.logger
+import org.gtkkn.gir.processor.NativeTypes
 import java.io.File
 
 class BindingsGenerator {
@@ -59,6 +64,7 @@ class BindingsGenerator {
                 clazz.typeName,
                 buildClass(clazz),
                 repositorySrcDir(repository, outputDir),
+                clazz.signals.map { buildStaticSignalCallback(it) },
             )
         }
 
@@ -94,6 +100,7 @@ class BindingsGenerator {
         className: ClassName,
         typeSpec: TypeSpec,
         outputDirectory: File,
+        additionalProperties: List<PropertySpec> = emptyList(),
     ) {
         logger.debug("Writing ${className.canonicalName}")
         FileSpec
@@ -101,6 +108,7 @@ class BindingsGenerator {
             .indent("    ")
             .addFileComment("This is a generated file. Do not modify.")
             .addType(typeSpec)
+            .apply { additionalProperties.forEach { addProperty(it) } }
             .build()
             .writeTo(outputDirectory)
     }
@@ -124,7 +132,7 @@ class BindingsGenerator {
         enumsFile.createNewFile()
 
         enumsFile.printWriter().use { writer ->
-            writer.write("strictEnums = \\")
+            writer.println("strictEnums = \\")
             repository.enumBlueprints.forEach { enum ->
                 writer.println("${(enum.nativeValueTypeName as ClassName).simpleName} \\")
             }
@@ -211,6 +219,10 @@ class BindingsGenerator {
             // methods
             clazz.methods.forEach { method ->
                 addFunction(buildMethod(method, clazz.objectPointerName))
+            }
+
+            clazz.signals.forEach { signal ->
+                addFunction(buildSignalConnectFunction(signal))
             }
 
             addType(companionSpecBuilder.build())
@@ -527,12 +539,92 @@ class BindingsGenerator {
         return funBuilder.build()
     }
 
+    private fun buildSignalConnectFunction(signal: SignalBlueprint): FunSpec {
+        val funSpec = FunSpec.builder(signal.kotlinConnectName)
+            .addParameter(
+                "handler",
+                LambdaTypeName.get(returnType = UNIT), // TODO handle returnValue
+            )
+
+        // add implementation
+        // TODO add default for connect flags?
+
+        funSpec.addCode("%M(", G_SIGNAL_CONNECT_DATA)
+        funSpec.addCode("gPointer.%M()", REINTERPRET_FUNC)
+        funSpec.addCode(", %S", signal.signalName)
+        funSpec.addCode(", %NFunc", signal.kotlinConnectName)
+        funSpec.addCode(", %T.create(handler).asCPointer()", STABLEREF)
+        funSpec.addCode(", %M", STATIC_STABLEREF_DESTROY)
+        funSpec.addCode(", 0") // TODO connect flags
+
+        funSpec.addCode(")")
+
+        // TODO return binding handle
+
+        // callback type
+        return funSpec.build()
+    }
+
+    private fun buildStaticSignalCallback(signal: SignalBlueprint): PropertySpec {
+        val staticCallbackVal = PropertySpec.builder(
+            "${signal.kotlinConnectName}Func",
+            G_CALLBACK,
+            KModifier.PRIVATE,
+        ).initializer(buildStaticSignalCallbackInitializer(signal))
+        return staticCallbackVal.build()
+    }
+
+    private fun buildStaticSignalCallbackInitializer(signal: SignalBlueprint): CodeBlock {
+        val codeBlockBuilder = CodeBlock.builder()
+        codeBlockBuilder.add("%M({", STATIC_C_FUNCTION)
+
+        // lambda signature
+        codeBlockBuilder.add("_: %T, ", NativeTypes.KP_OPAQUE_POINTER)
+        codeBlockBuilder.add("data: %T", NativeTypes.KP_OPAQUE_POINTER)
+        codeBlockBuilder.add(" -> ")
+
+        // implementation
+        // TODO handle params
+        // TODO handle return type
+        codeBlockBuilder.addStatement("data.%M<%T>().get().%M()", AS_STABLE_REF, NO_ARGS_CALLBACK_TYPE, INVOKE)
+
+        // return from the lambda
+        codeBlockBuilder.addStatement("%T", UNIT)
+
+        codeBlockBuilder.add("}).%M()", REINTERPRET_FUNC)
+        return codeBlockBuilder.build()
+    }
+
     companion object {
         // some member utils
         internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
         internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.common", "asBoolean")
         internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.common", "asGBoolean")
         internal val TO_KSTRING_FUNC = MemberName("kotlinx.cinterop", "toKString")
+
+        internal val G_CALLBACK = ClassName("native.gobject", "GCallback")
+
+        // TODO move
+        internal val NO_ARGS_CALLBACK_POINTER = NativeTypes.KP_CPOINTER.parameterizedBy(
+            ClassName("kotlinx.cinterop", "CFunction").parameterizedBy(
+                LambdaTypeName.get(
+                    // paramaters = emptyList()
+                    returnType = UNIT,
+                ),
+            ),
+        )
+        internal val NO_ARGS_CALLBACK_TYPE = LambdaTypeName.get(
+            // paramaters = emptyList()
+            returnType = UNIT,
+        )
+        internal val STATIC_C_FUNCTION = MemberName("kotlinx.cinterop", "staticCFunction")
+        internal val AS_STABLE_REF = MemberName("kotlinx.cinterop", "asStableRef")
+        internal val INVOKE = MemberName("kotlinx.cinterop", "invoke")
+
+        internal val G_SIGNAL_CONNECT_DATA = MemberName("native.gobject", "g_signal_connect_data")
+        internal val STABLEREF = ClassName("kotlinx.cinterop", "StableRef")
+
+        internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.common", "staticStableRefDestroy")
     }
 }
 

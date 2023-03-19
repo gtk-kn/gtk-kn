@@ -11,6 +11,7 @@ data class ClassBlueprint(
     val implementsInterfaces: List<ImplementsInterfaceBlueprint>,
     val methods: List<MethodBlueprint>,
     val constructors: List<ConstructorBlueprint>,
+    val signals: List<SignalBlueprint>,
     val skippedObjects: List<SkippedObject>,
     val objectPointerName: String,
     val objectPointerTypeName: TypeName,

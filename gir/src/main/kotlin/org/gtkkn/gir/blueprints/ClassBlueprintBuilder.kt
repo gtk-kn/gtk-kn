@@ -7,6 +7,7 @@ import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
+import org.gtkkn.gir.model.GirSignal
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
@@ -20,6 +21,7 @@ class ClassBlueprintBuilder(
 ) {
     private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
+    private val signalBluePrints = mutableListOf<SignalBlueprint>()
     private val implementsInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
     private var parentTypeName: TypeName? = null
 
@@ -64,6 +66,13 @@ class ClassBlueprintBuilder(
         }
     }
 
+    private fun addSignal(signal: GirSignal) {
+        when (val result = SignalBlueprintBuilder(context, girNamespace, signal).build()) {
+            is BlueprintResult.Ok -> signalBluePrints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun buildInternal(): ClassBlueprint {
         if (girClass.info.introspectable == false) {
             throw NotIntrospectableException(girClass.cType ?: girClass.name)
@@ -83,6 +92,7 @@ class ClassBlueprintBuilder(
 
         girClass.methods.forEach { addMethod(it) }
         girClass.constructors.forEach { addConstructor(it) }
+        girClass.signals.forEach { addSignal(it) }
 
         val kotlinClassName = context.kotlinizeClassName(girClass.name)
         val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
@@ -100,6 +110,7 @@ class ClassBlueprintBuilder(
             typeName = ClassName(kotlinPackageName, kotlinClassName),
             methods = methodBluePrints,
             constructors = constructorBlueprints,
+            signals = signalBluePrints,
             skippedObjects = skippedObjects,
             implementsInterfaces = implementsInterfaces,
             parentTypeName = parentTypeName,
