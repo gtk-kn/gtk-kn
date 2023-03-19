@@ -9,29 +9,30 @@ enum class GirScope {
     /**
      * Valid until a GDestroyNotify argument is called.
      */
-    Notified,
+    NOTIFIED,
 
     /**
      * Only valid for the duration of the first callback invocation (can only be called once).
      */
-    Async,
+    ASYNC,
 
     /**
      * Only valid for the duration of the call, can be called multiple times during the call.
      */
-    Call,
+    CALL,
 
     /**
      * Valid until the process terminates.
      */
-    Forever;
+    FOREVER,
+    ;
 
     companion object {
         fun fromString(str: String): GirScope = when (str) {
-            "notified" -> Notified
-            "async" -> Async
-            "call" -> Call
-            "forever" -> Forever
+            "notified" -> NOTIFIED
+            "async" -> ASYNC
+            "call" -> CALL
+            "forever" -> FOREVER
             else -> error("String '$str' is not a valid Scope value")
         }
     }

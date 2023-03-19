@@ -10,7 +10,7 @@ import org.gtkkn.gir.processor.ProcessorContext
 class EnumBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girEnum: GirEnum
+    private val girEnum: GirEnum,
 ) : BlueprintBuilder<EnumBlueprint>(context) {
     private val members = mutableListOf<EnumMemberBlueprint>()
 

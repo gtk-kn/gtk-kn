@@ -28,7 +28,7 @@ import org.gtkkn.gir.util.toPascalCase
  * can resolve types or objects for dependencies
  */
 class ProcessorContext(
-    private val repositories: List<GirRepository>
+    private val repositories: List<GirRepository>,
 ) {
     private val typeInfoTable: Map<String, TypeInfo> = mapOf(
         "none" to TypeInfo.Primitive(UNIT),
@@ -160,7 +160,7 @@ class ProcessorContext(
     @Throws(UnresolvableTypeException::class)
     private fun extractFullyQualifiedName(
         targetNamespace: GirNamespace,
-        objectName: String
+        objectName: String,
     ): Pair<GirNamespace, String> {
         val parts = objectName.split(".")
         return when (parts.count()) {
@@ -266,7 +266,7 @@ class ProcessorContext(
     @Throws(UnresolvableTypeException::class)
     fun findClassByName(
         targetNamespace: GirNamespace,
-        fullyQualifiedName: String
+        fullyQualifiedName: String,
     ): Pair<GirNamespace, GirClass> {
         val (namespace, simpleClassName) = extractFullyQualifiedName(targetNamespace, fullyQualifiedName)
         val clazz = namespace.classes.find { it.name == simpleClassName }
@@ -277,7 +277,7 @@ class ProcessorContext(
     @Throws(UnresolvableTypeException::class)
     fun findInterfaceByName(
         targetNamespace: GirNamespace,
-        fullyQualifiedName: String
+        fullyQualifiedName: String,
     ): Pair<GirNamespace, GirInterface> {
         val (namespace, simpleIfaceName) = extractFullyQualifiedName(targetNamespace, fullyQualifiedName)
         val clazz = namespace.interfaces.find { it.name == simpleIfaceName }

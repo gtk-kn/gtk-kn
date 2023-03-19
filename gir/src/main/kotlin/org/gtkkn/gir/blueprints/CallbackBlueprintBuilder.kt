@@ -8,7 +8,7 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class CallbackBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girCallback: GirCallback
+    private val girCallback: GirCallback,
 ) : BlueprintBuilder<CallbackBlueprint>(context) {
     override fun blueprintObjectType(): String = "callback"
 

@@ -7,23 +7,24 @@ enum class GirDirection {
     /**
      * Goes into the callable.
      */
-    In,
+    IN,
 
     /**
      * For output parameters from the callable (reference in C++, var in Pascal, etc...).
      */
-    Out,
+    OUT,
 
     /**
      * For both (like a pre-allocated structure which will be filled-in by the callable).
      */
-    InOut;
+    IN_OUT,
+    ;
 
     companion object {
         fun fromString(str: String): GirDirection = when (str) {
-            "in" -> In
-            "out" -> Out
-            "inout" -> InOut
+            "in" -> IN
+            "out" -> OUT
+            "inout" -> IN_OUT
             else -> error("String '$str' is not a valid Direction value")
         }
     }

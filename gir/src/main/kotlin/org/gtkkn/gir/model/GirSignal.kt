@@ -35,7 +35,8 @@ data class GirSignal(
     enum class When {
         FIRST,
         LAST,
-        CLEANUP;
+        CLEANUP,
+        ;
 
         companion object {
             fun fromString(str: String): When = when (str) {

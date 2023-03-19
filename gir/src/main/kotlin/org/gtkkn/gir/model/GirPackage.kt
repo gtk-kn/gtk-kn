@@ -6,5 +6,5 @@ package org.gtkkn.gir.model
  * @property name name of the package.
  */
 data class GirPackage(
-    val name: String
+    val name: String,
 )

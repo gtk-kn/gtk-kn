@@ -93,7 +93,7 @@ class GirParserTests {
         val clazz = gtkRepository.namespace.classes.first { it.name == "ATContext" }
         val returnValue = clazz.constructors.first().returnValue
 
-        assertEquals(GirTransferOwnership.Full, returnValue?.transferOwnership)
+        assertEquals(GirTransferOwnership.FULL, returnValue?.transferOwnership)
         assertEquals(true, returnValue?.isNullable())
     }
 
@@ -117,6 +117,6 @@ class GirParserTests {
         assertEquals("a `GtkATContext`", instanceParameter.docs.doc?.text)
         assertEquals("ATContext", instanceParameter.type.name)
         assertEquals("GtkATContext*", instanceParameter.type.cType)
-        assertEquals(GirTransferOwnership.None, instanceParameter.transferOwnership)
+        assertEquals(GirTransferOwnership.NONE, instanceParameter.transferOwnership)
     }
 }
