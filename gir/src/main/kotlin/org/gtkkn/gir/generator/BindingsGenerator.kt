@@ -253,21 +253,21 @@ class BindingsGenerator {
         } else {
             // constructor with arguments
             constructorSpecBuilder.appendSignatureParameters(constructor.parameters)
-            val cb = CodeBlock.builder()
+            val codeBlockBuilder = CodeBlock.builder()
 
-            cb.add("%M(", constructor.nativeMemberName) // open native func paren
+            codeBlockBuilder.add("%M(", constructor.nativeMemberName) // open native func paren
 
             constructor.parameters.forEachIndexed { idx, param ->
                 if (idx > 0) {
-                    cb.add(", ")
+                    codeBlockBuilder.add(", ")
                 }
-                cb.add(buildParameterConversionBlock(param))
+                codeBlockBuilder.add(buildParameterConversionBlock(param))
             }
 
-            cb.add(")") // close native func paren
-            cb.add("!!.reinterpret()")
+            codeBlockBuilder.add(")") // close native func paren
+            codeBlockBuilder.add("!!.reinterpret()")
 
-            constructorSpecBuilder.callThisConstructor(cb.build())
+            constructorSpecBuilder.callThisConstructor(codeBlockBuilder.build())
         }
 
         return constructorSpecBuilder.build()
@@ -540,28 +540,28 @@ fun FunSpec.Builder.appendSignatureParameters(parameters: List<MethodParameterBl
 }
 
 fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
-    val cb = CodeBlock.builder()
+    val codeBlockBuilder = CodeBlock.builder()
     val isNullable = returnTypeInfo.kotlinTypeName.isNullable
     val nullableString = if (isNullable) "?" else ""
 
     when (returnTypeInfo) {
-        is TypeInfo.Enumeration -> cb.add(
-            ".let(%T::fromNativeValue)",
+        is TypeInfo.Enumeration -> codeBlockBuilder.add(
+            ".let{ %T.fromNativeValue(it) }",
             returnTypeInfo.kotlinTypeName,
         )
 
         is TypeInfo.ObjectPointer -> {
             if (returnTypeInfo.kotlinTypeName.isNullable) {
-                cb.add(
-                    "?.let({%T(it.%M())})",
+                codeBlockBuilder.add(
+                    "?.let{ %T(it.%M()) }",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
             } else {
                 // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
                 // nullable type, so we use force !! here
-                cb.add(
-                    "!!.let({ %T(it.%M()) })",
+                codeBlockBuilder.add(
+                    "!!.let{ %T(it.%M()) }",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -570,16 +570,16 @@ fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
 
         is TypeInfo.InterfacePointer -> {
             if (isNullable) {
-                cb.add(
-                    "?.let({ %T.wrap(it.%M()) })",
+                codeBlockBuilder.add(
+                    "?.let{ %T.wrap(it.%M()) }",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
             } else {
                 // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
                 // nullable type, so we use force !! here
-                cb.add(
-                    "!!.let({ %T.wrap(it.%M()) })",
+                codeBlockBuilder.add(
+                    "!!.let{ %T.wrap(it.%M()) }",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -587,15 +587,15 @@ fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
         }
 
         is TypeInfo.Primitive -> Unit
-        is TypeInfo.GBoolean -> cb.add(".%M()", BindingsGenerator.AS_BOOLEAN_FUNC)
+        is TypeInfo.GBoolean -> codeBlockBuilder.add(".%M()", BindingsGenerator.AS_BOOLEAN_FUNC)
         is TypeInfo.KString -> {
             // TODO REVIEW: cinterop seems to map all string returning functions as nullable
             //              so here we return a nullable string if the gir says nullable
             //              or error() when we encounter an unexpected null when the gir says non-null
             if (isNullable) {
-                cb.add("?.%M()", BindingsGenerator.TO_KSTRING_FUNC)
+                codeBlockBuilder.add("?.%M()", BindingsGenerator.TO_KSTRING_FUNC)
             } else {
-                cb.add(
+                codeBlockBuilder.add(
                     "?.%M() ?: error(%S)",
                     BindingsGenerator.TO_KSTRING_FUNC,
                     "Expected not null string",
@@ -605,10 +605,10 @@ fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
 
         is TypeInfo.Bitfield -> {
             // use mask constructor for conversion
-            cb.add("$nullableString.let({ %T(it) })", returnTypeInfo.kotlinTypeName)
+            codeBlockBuilder.add("$nullableString.let{ %T(it) }", returnTypeInfo.kotlinTypeName)
         }
     }
-    return cb.build()
+    return codeBlockBuilder.build()
 }
 
 /**
@@ -622,14 +622,14 @@ fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
  * Nullability is handled.
  */
 fun buildParameterConversionBlock(param: MethodParameterBlueprint): CodeBlock {
-    val cb = CodeBlock.builder()
+    val codeBlockBuilder = CodeBlock.builder()
     val isParamNullable = param.typeInfo.kotlinTypeName.isNullable
     val nullableString = if (isParamNullable) "?" else ""
 
     when (param.typeInfo) {
-        is TypeInfo.Enumeration -> cb.add("%N$nullableString.nativeValue", param.kotlinName)
+        is TypeInfo.Enumeration -> codeBlockBuilder.add("%N$nullableString.nativeValue", param.kotlinName)
         is TypeInfo.ObjectPointer -> {
-            cb.add(
+            codeBlockBuilder.add(
                 "%N$nullableString.%N$nullableString.%M()",
                 param.kotlinName,
                 param.typeInfo.objectPointerName,
@@ -638,7 +638,7 @@ fun buildParameterConversionBlock(param: MethodParameterBlueprint): CodeBlock {
         }
 
         is TypeInfo.InterfacePointer -> {
-            cb.add(
+            codeBlockBuilder.add(
                 "%N$nullableString.%N$nullableString.%M()",
                 param.kotlinName,
                 param.typeInfo.objectPointerName,
@@ -646,17 +646,17 @@ fun buildParameterConversionBlock(param: MethodParameterBlueprint): CodeBlock {
             )
         }
 
-        is TypeInfo.Primitive -> cb.add("%N", param.kotlinName)
-        is TypeInfo.GBoolean -> cb.add(
+        is TypeInfo.Primitive -> codeBlockBuilder.add("%N", param.kotlinName)
+        is TypeInfo.GBoolean -> codeBlockBuilder.add(
             "%N$nullableString.%M()",
             param.kotlinName,
             BindingsGenerator.AS_GBOOLEAN_FUNC,
         )
 
-        is TypeInfo.KString -> cb.add("%N", param.kotlinName)
+        is TypeInfo.KString -> codeBlockBuilder.add("%N", param.kotlinName)
         is TypeInfo.Bitfield -> {
-            cb.add("%N$nullableString.mask", param.kotlinName)
+            codeBlockBuilder.add("%N$nullableString.mask", param.kotlinName)
         }
     }
-    return cb.build()
+    return codeBlockBuilder.build()
 }

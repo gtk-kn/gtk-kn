@@ -1,4 +1,5 @@
 root = true
+
 [*]
 charset = utf-8
 indent_style = space
@@ -17,6 +18,8 @@ ij_wrap_on_typing = false
 indent_size = 4
 tab_width = 4
 ktlint_standard_enum-entry-name-case = disabled
+ktlint_standard_max-line-length = disabled
+ktlint_standard_trailing-comma-on-call-site = disabled
 ij_kotlin_align_in_columns_case_branch = false
 ij_kotlin_align_multiline_binary_operation = false
 ij_kotlin_align_multiline_extends_list = false
