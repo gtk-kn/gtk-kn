@@ -69,12 +69,12 @@ class RepositoryBlueprintBuilder(
     override fun blueprintObjectName(): String = girRepository.namespace.name
 
     override fun buildInternal(): RepositoryBlueprint {
-        namespace.classes.forEach { clazz -> addClass(clazz) }
-        namespace.interfaces.forEach { iface -> addInterface(iface) }
-        namespace.enums.forEach { enum -> addEnum(enum) }
-        namespace.functions.forEach { func -> addFunction(func) }
-        namespace.callbacks.forEach { cb -> addCallback(cb) }
-        namespace.bitfields.forEach { bf -> addBitfield(bf) }
+        namespace.classes.forEach { addClass(it) }
+        namespace.interfaces.forEach { addInterface(it) }
+        namespace.enums.forEach { addEnum(it) }
+        namespace.functions.forEach { addFunction(it) }
+        namespace.callbacks.forEach { addCallback(it) }
+        namespace.bitfields.forEach { addBitfield(it) }
 
         girRepository.includes.forEach { include ->
             if (context.findRepositoryByNameOrNull(include.name) == null) {

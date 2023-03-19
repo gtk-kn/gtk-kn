@@ -28,13 +28,13 @@ class BitfieldBlueprintBuilder(
         val nativePackageName = context.namespaceNativePackageName(girNamespace)
         val nativeValueTypeName = ClassName(nativePackageName, girBitfield.cType)
 
-        girBitfield.members.forEach { m ->
-            val memberKotlinName = context.kotlinizeBitfieldMemberName(m.name)
+        girBitfield.members.forEach { member ->
+            val memberKotlinName = context.kotlinizeBitfieldMemberName(member.name)
             members.add(
                 BitfieldMemberBlueprint(
                     kotlinName = memberKotlinName,
-                    nativeValue = m.value.toLong(),
-                    nativeMemberName = MemberName(nativePackageName, m.cIdentifier),
+                    nativeValue = member.value.toLong(),
+                    nativeMemberName = MemberName(nativePackageName, member.cIdentifier),
                 ),
             )
         }

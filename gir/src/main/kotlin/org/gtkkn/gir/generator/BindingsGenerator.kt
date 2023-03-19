@@ -70,10 +70,10 @@ class BindingsGenerator {
         }
 
         // write bitfields
-        repository.bitfieldBlueprints.forEach { bf ->
+        repository.bitfieldBlueprints.forEach { bitfield ->
             writeType(
-                bf.kotlinTypeName,
-                buildBitfield(bf),
+                bitfield.kotlinTypeName,
+                buildBitfield(bitfield),
                 repositorySrcDir(repository, outputDir),
             )
         }
