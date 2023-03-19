@@ -22,6 +22,8 @@ object NativeTypes {
      */
     val KP_OPAQUE_POINTER = ClassName("kotlinx.cinterop", "COpaquePointer")
 
+    val KP_CFUNCTION = ClassName("kotlinx.cinterop", "CFunction")
+
     /**
      * A [TypeName] for kotlinx.cinterop.CPointer pointing to [typeName]
      */

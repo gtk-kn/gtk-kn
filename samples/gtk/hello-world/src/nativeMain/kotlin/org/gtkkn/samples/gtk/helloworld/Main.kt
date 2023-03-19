@@ -1,23 +1,19 @@
 package org.gtkkn.samples.gtk.helloworld
 
 import bindings.gio.ApplicationFlags
+import bindings.gobject.ConnectFlags
 import bindings.gtk.Application
 import bindings.gtk.ApplicationWindow
 import bindings.gtk.Box
 import bindings.gtk.Button
+import bindings.gtk.Entry
+import bindings.gtk.EntryBuffer
+import bindings.gtk.Label
 import bindings.gtk.Orientation
 import io.github.oshai.KotlinLogging
 import io.github.oshai.KotlinLoggingConfiguration
 import io.github.oshai.Level
-import kotlinx.cinterop.StableRef
-import kotlinx.cinterop.asStableRef
-import kotlinx.cinterop.reinterpret
-import kotlinx.cinterop.staticCFunction
 import native.gio.g_application_run
-import native.glib.gpointer
-import native.gobject.GCallback
-import native.gobject.GClosureNotify
-import native.gobject.g_signal_connect_data
 
 private val logger = KotlinLogging.logger("main")
 
@@ -26,18 +22,43 @@ fun main() {
     logger.trace { "Hello World!" }
 
     val app = Application("org.gtkkn.samples.gtk.helloworld", ApplicationFlags.FLAGS_NONE)
-    app.onActivate {
-        logger.info { "Application onActivate" }
+    app.connectActivate {
+        logger.info { "Application activate" }
 
         val window = ApplicationWindow(app)
-        window.setTitle("Window Title")
+        window.setTitle("Signals")
 
-        val box = Box(Orientation.HORIZONTAL, 0)
-        repeat(5) { i ->
-            val button = Button()
-            button.setLabel("Button $i")
-            box.append(button)
+        var counter = 0
+
+        val button = Button("Click me")
+        button.connectClicked {
+            button.setLabel("Clicked: ${counter++}")
         }
+
+        val entryBuffer = EntryBuffer(null, 0)
+        val entry = Entry(entryBuffer)
+
+        entryBuffer.connectInsertedText(ConnectFlags.AFTER) { position, chars, nChars ->
+            logger.info { "Inserted text at position: $position, nChars: $nChars, text: $chars" }
+        }
+
+        entry.connectChanged {
+            logger.info { "Entry changed: ${entry.getText()}" }
+        }
+
+        val label = Label("")
+        label.setMarkup("label with link: <a href=\"https://gtk-kn.org\">https://gtk-kn.org</a>")
+        label.connectActivateLink { link ->
+            logger.info { "activating link: $link" }
+            true
+        }
+
+        val box = Box(Orientation.VERTICAL, 10)
+
+        box.append(button)
+        box.append(entry)
+        box.append(label)
+
         window.setChild(box)
 
         window.show()
@@ -48,26 +69,3 @@ fun main() {
 fun Application.run() {
     g_application_run(gioApplicationPointer, 0, null)
 }
-
-fun Application.onActivate(func: () -> Unit) {
-    g_signal_connect_data(
-        gPointer.reinterpret(),
-        "activate",
-        onActivateCallbackFunc,
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy,
-        0,
-    )
-}
-
-private val onActivateCallbackFunc: GCallback =
-    staticCFunction { _: gpointer?, data: gpointer? ->
-        data?.asStableRef<() -> bindings.gtk.Unit>()?.get()?.invoke()
-        Unit
-    }.reinterpret()
-
-internal val staticStableRefDestroy: GClosureNotify =
-    staticCFunction { data: gpointer?, _: gpointer? ->
-        data?.asStableRef<Any>()?.dispose()
-        Unit
-    }.reinterpret()

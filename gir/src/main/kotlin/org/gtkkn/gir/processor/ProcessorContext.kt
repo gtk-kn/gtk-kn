@@ -99,6 +99,14 @@ class ProcessorContext(
     )
 
     /**
+     * A set of signals that should not be generated.
+     */
+    private val ignoredSignals = hashSetOf<String>(
+        // problems with string conversion in signal handler
+        "format-entry-text",
+    )
+
+    /**
      * A set of C identifiers for enum that cinterop cannot map using `strictEnums`
      * and need their native members imported directly in the package.
      */
@@ -152,6 +160,9 @@ class ProcessorContext(
             .toPascalCase()
 
     fun kotlinizeBitfieldMemberName(nativeMemberName: String): String = nativeMemberName.uppercase()
+
+    fun kotlinizeSignalConnectName(nativeSignalName: String): String =
+        "connect${nativeSignalName.replace("-", "_").toPascalCase()}"
 
     // namespace naming
     fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()
@@ -253,7 +264,10 @@ class ProcessorContext(
             ?: throw UnresolvableTypeException("enum $nativeEnumName not found")
 
         return Pair(
-            ClassName(namespaceNativePackageName(namespace), enum.name),
+            ClassName(
+                namespaceNativePackageName(namespace),
+                enum.cType,
+            ),
             ClassName(namespaceBindingsPackageName(namespace), kotlinizeEnumName(enum.name)),
         )
     }
@@ -265,7 +279,10 @@ class ProcessorContext(
             ?: throw UnresolvableTypeException("enum $nativeBitfieldName not found")
 
         return Pair(
-            ClassName(namespaceNativePackageName(namespace), bitfield.name),
+            ClassName(
+                namespaceNativePackageName(namespace),
+                bitfield.cType,
+            ),
             ClassName(namespaceBindingsPackageName(namespace), kotlinizeBitfieldName(bitfield.name)),
         )
     }
@@ -384,6 +401,7 @@ class ProcessorContext(
      * or configuration.
      * @throws IgnoredTypeException if the type should be ignored.
      */
+    @Throws(IgnoredTypeException::class)
     fun checkIgnoredType(cType: String) {
         if (ignoredTypes.contains(cType)) {
             throw IgnoredTypeException(cType)
@@ -393,10 +411,11 @@ class ProcessorContext(
     /**
      * Utility method for checking whether a C function is supported or should be skipped.
      *
-     * This method returns succesfully when the given [cFunctionName] is not present in any of the skipped lists
+     * This method returns successfully when the given [cFunctionName] is not present in any of the skipped lists
      * or configuration.
-     * @throws IgnoredTypeException if the function should be ignored.
+     * @throws IgnoredFunctionException if the function should be ignored.
      */
+    @Throws(IgnoredFunctionException::class)
     fun checkIgnoredFunction(cFunctionName: String) {
         if (ignoredFunctions.contains(cFunctionName)) {
             throw IgnoredFunctionException(cFunctionName)
@@ -404,6 +423,20 @@ class ProcessorContext(
 
         if (cFunctionName.endsWith("to_string")) {
             throw IgnoredFunctionException(cFunctionName)
+        }
+    }
+
+    /**
+     * Utility method for checking whether a C function is supported or should be skipped.
+     *
+     * This method returns successfully when the given [cFunctionName] is not present in any of the skipped lists
+     * or configuration.
+     * @throws IgnoredSignalException if the function should be ignored.
+     */
+    @Throws(IgnoredSignalException::class)
+    fun checkIgnoredSignal(signalName: String) {
+        if (ignoredSignals.contains(signalName)) {
+            throw IgnoredSignalException(signalName)
         }
     }
 
