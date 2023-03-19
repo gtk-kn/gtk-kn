@@ -4,6 +4,7 @@ import com.squareup.kotlinpoet.ClassName
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
+import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 
 class InterfaceBlueprintBuilder(
@@ -25,6 +26,10 @@ class InterfaceBlueprintBuilder(
     }
 
     override fun buildInternal(): InterfaceBlueprint {
+        if (girInterface.info.introspectable == false) {
+            throw NotIntrospectableException(girInterface.cType ?: girInterface.name)
+        }
+
         girInterface.cType?.let { context.checkIgnoredType(it) }
 
         girInterface.methods.forEach { addMethod(it) }

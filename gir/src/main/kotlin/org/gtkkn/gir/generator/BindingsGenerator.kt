@@ -108,11 +108,12 @@ class BindingsGenerator {
     private fun writeRepositorySkipFile(repository: RepositoryBlueprint, outputDir: File) {
         val skipFile = File(repositoryBuildDir(repository, outputDir), "${repository.name}-skips.txt")
         skipFile.createNewFile()
+        val skippedObjects = repository.skippedObjects.filter { it.documented }
 
         val skipWriter = skipFile.printWriter()
-        val longestObjectName = repository.skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
-        val longestTypeName = repository.skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
-        repository.skippedObjects.forEach {
+        val longestObjectName = skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
+        val longestTypeName = skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
+        skippedObjects.forEach {
             skipWriter.println(it.fullMessage(longestObjectName, longestTypeName))
         }
         skipWriter.close()
@@ -318,12 +319,13 @@ class BindingsGenerator {
     }
 
     private fun buildClassKDoc(clazz: ClassBlueprint): CodeBlock {
+        val skippedObjects = clazz.skippedObjects.filter { it.documented }
         // nicely format skipped objects
-        val longestObjectName = clazz.skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
-        val longestTypeName = clazz.skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
+        val longestObjectName = skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
+        val longestTypeName = skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
 
         return CodeBlock.builder().apply {
-            for (skip in clazz.skippedObjects) {
+            for (skip in skippedObjects) {
                 addStatement(skip.fullMessage(longestObjectName, longestTypeName))
             }
         }.build()

@@ -10,6 +10,7 @@ import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirParameter
 import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.model.GirVarArgs
+import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
@@ -28,6 +29,11 @@ class ConstructorBlueprintBuilder(
 
     override fun buildInternal(): ConstructorBlueprint {
         girConstructor.cIdentifier?.let { context.checkIgnoredFunction(it) }
+
+        if (girConstructor.info.introspectable == false) {
+            throw NotIntrospectableException(girConstructor.cIdentifier ?: girConstructor.name)
+        }
+
         if (girConstructor.throws == true) {
             throw UnresolvableTypeException("Throwing constructors are not supported")
         }
