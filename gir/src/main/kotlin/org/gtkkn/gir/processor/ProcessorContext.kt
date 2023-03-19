@@ -51,6 +51,7 @@ class ProcessorContext(
         "gpointer" to TypeInfo.Primitive(NativeTypes.KP_OPAQUE_POINTER),
         // strings
         "utf8" to TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
+        "filename" to TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
     )
 
     /**
