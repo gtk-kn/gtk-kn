@@ -366,7 +366,7 @@ class ProcessorContext(
     @Throws(UnresolvableTypeException::class)
     fun findBitfieldByName(
         targetNamespace: GirNamespace,
-        fullyQualifiedName: String
+        fullyQualifiedName: String,
     ): Pair<GirNamespace, GirBitField> {
         val (namespace, simpleBitfieldName) = extractFullyQualifiedName(targetNamespace, fullyQualifiedName)
         val clazz = namespace.bitfields.find { it.name == simpleBitfieldName }

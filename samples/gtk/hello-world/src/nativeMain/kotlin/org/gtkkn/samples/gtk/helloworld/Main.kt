@@ -67,8 +67,7 @@ private val onActivateCallbackFunc: GCallback =
     }.reinterpret()
 
 internal val staticStableRefDestroy: GClosureNotify =
-    staticCFunction { data: gpointer?,
-        _: gpointer? ->
+    staticCFunction { data: gpointer?, _: gpointer? ->
         data?.asStableRef<Any>()?.dispose()
         Unit
     }.reinterpret()
