@@ -5,6 +5,7 @@ import com.squareup.kotlinpoet.MemberName
 import org.gtkkn.gir.model.GirEnum
 import org.gtkkn.gir.model.GirMember
 import org.gtkkn.gir.model.GirNamespace
+import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 
 class EnumBlueprintBuilder(
@@ -52,6 +53,10 @@ class EnumBlueprintBuilder(
     }
 
     override fun buildInternal(): EnumBlueprint {
+        if (girEnum.info.introspectable == false) {
+            throw NotIntrospectableException(girEnum.cType)
+        }
+
         context.checkIgnoredType(girEnum.cType)
 
         girEnum.members.forEach { addMember(it) }

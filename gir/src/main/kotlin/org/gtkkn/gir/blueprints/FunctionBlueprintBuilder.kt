@@ -2,6 +2,7 @@ package org.gtkkn.gir.blueprints
 
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirNamespace
+import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
@@ -14,6 +15,10 @@ class FunctionBlueprintBuilder(
     override fun blueprintObjectName(): String = girFunction.name
 
     override fun buildInternal(): FunctionBlueprint {
+        if (girFunction.info.introspectable == false) {
+            throw NotIntrospectableException(girFunction.cIdentifier ?: girFunction.name)
+        }
+
         girNamespace.also { throw UnresolvableTypeException("Functions not supported") }
     }
 }

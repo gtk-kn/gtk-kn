@@ -6,6 +6,7 @@ import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
+import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
@@ -40,6 +41,10 @@ class ClassBlueprintBuilder(
     }
 
     override fun buildInternal(): ClassBlueprint {
+        if (girClass.info.introspectable == false) {
+            throw NotIntrospectableException(girClass.cType ?: girClass.name)
+        }
+
         girClass.cType?.let { context.checkIgnoredType(it) }
 
         if (girClass.parent != null) {

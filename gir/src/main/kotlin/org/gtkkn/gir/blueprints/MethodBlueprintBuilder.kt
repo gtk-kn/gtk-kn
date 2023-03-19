@@ -9,6 +9,7 @@ import org.gtkkn.gir.model.GirParameter
 import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.model.GirVarArgs
 import org.gtkkn.gir.processor.BlueprintException
+import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
@@ -24,6 +25,10 @@ class MethodBlueprintBuilder(
     override fun blueprintObjectName(): String = girMethod.name
 
     override fun buildInternal(): MethodBlueprint {
+        if (girMethod.info.introspectable == false) {
+            throw NotIntrospectableException(girMethod.cIdentifier ?: girMethod.name)
+        }
+
         girMethod.cIdentifier?.let { context.checkIgnoredFunction(it) }
         val kotlinName = context.kotlinizeMethodName(girMethod.name)
 

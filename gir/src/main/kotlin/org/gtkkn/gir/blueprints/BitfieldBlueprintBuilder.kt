@@ -4,6 +4,7 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
 import org.gtkkn.gir.model.GirBitField
 import org.gtkkn.gir.model.GirNamespace
+import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 
 class BitfieldBlueprintBuilder(
@@ -20,6 +21,10 @@ class BitfieldBlueprintBuilder(
 
     override fun buildInternal(): BitfieldBlueprint {
         context.checkIgnoredType(girBitfield.cType)
+
+        if (girBitfield.info.introspectable == false) {
+            throw NotIntrospectableException(girBitfield.cType)
+        }
 
         val kotlinName = context.kotlinizeBitfieldName(girBitfield.name)
         val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
