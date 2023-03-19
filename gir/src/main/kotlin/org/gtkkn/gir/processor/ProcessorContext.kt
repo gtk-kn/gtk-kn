@@ -78,10 +78,6 @@ class ProcessorContext(
         "gdk_gl_context_get_display",
         "gdk_gl_context_get_surface",
 
-        // ignore because they clash with Widget.get/set_direction
-        "gtk_menu_button_get_direction",
-        "gtk_menu_button_set_direction",
-
         // ignore because it clashes with Dialog.get_settings
         "gtk_print_unix_dialog_get_settings",
 
@@ -91,10 +87,6 @@ class ProcessorContext(
         // problems with string argument conversion
         "gtk_string_list_take",
         "gsk_debug_node_new",
-
-        // ignore because the return types do not match
-        "g_type_module_use",
-        "g_type_module_unuse",
 
         // the following are ignore because of clashes between interface and superclass
         "gtk_widget_get_display",

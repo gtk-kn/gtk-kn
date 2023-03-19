@@ -110,6 +110,10 @@ class MethodBlueprintBuilder(
             logger.warn("Detected method override: ${girMethod.name}")
         }
 
+        val isNameClash = nameMatchingSuperMethods.any {
+            it.debugParameterSignature() != girMethod.debugParameterSignature()
+        }
+
         // method name
         val nativeMethodName = girMethod.cIdentifier
             ?: throw UnresolvableTypeException("native method ${girMethod.name} does not have cIdentifier")
@@ -117,13 +121,23 @@ class MethodBlueprintBuilder(
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)
 
         return MethodBlueprint(
-            kotlinName = kotlinName,
+            kotlinName = if (isNameClash) {
+                resolveNameClash(kotlinName)
+            } else {
+                kotlinName
+            },
             nativeName = nativeMethodName,
             nativeMemberName = nativeMemberName,
             parameterBlueprints = methodParameters,
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
         )
+    }
+
+    private fun resolveNameClash(originalName: String): String {
+        val result = "${originalName}_"
+        logger.error("Renaming method $originalName to $result")
+        return result
     }
 
     /**
@@ -143,8 +157,11 @@ class MethodBlueprintBuilder(
 /**
  * A debug string containing parameter details for comparing methods for override purposes.
  */
-private fun GirMethod.debugParameterSignature(): String =
-    parameters?.parameters.orEmpty().map { it.debugSignature() }.joinToString { "," }
+private fun GirMethod.debugParameterSignature(): String {
+    val paramsSignature = parameters?.parameters.orEmpty().map { it.debugSignature() }.joinToString(",")
+    val returnSignature = checkNotNull(returnValue).type.debugSignature()
+    return "$paramsSignature -> $returnSignature"
+}
 
 private fun GirParameter.debugSignature(): String = when (type) {
     is GirArrayType -> "array[${type.debugSignature()}]"
@@ -154,6 +171,6 @@ private fun GirParameter.debugSignature(): String = when (type) {
 
 private fun GirAnyTypeOrVarargs.debugSignature(): String = when (this) {
     is GirArrayType -> "array[${type.debugSignature()}]"
-    is GirType -> this.name ?: "unknown"
+    is GirType -> this.cType ?: "unknown"
     GirVarArgs -> "varargs"
 }
