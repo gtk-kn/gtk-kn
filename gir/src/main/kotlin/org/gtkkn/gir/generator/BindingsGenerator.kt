@@ -560,7 +560,6 @@ fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
         }
 
         is TypeInfo.Primitive -> Unit
-        is TypeInfo.Unknown -> cb.add(".let({ TODO() })")
         is TypeInfo.GBoolean -> cb.add(".%M()", BindingsGenerator.AS_BOOLEAN_FUNC)
         is TypeInfo.KString -> {
             // TODO REVIEW: cinterop seems to map all string returning functions as nullable
@@ -621,7 +620,6 @@ fun buildParameterConversionBlock(param: MethodParameterBlueprint): CodeBlock {
         }
 
         is TypeInfo.Primitive -> cb.add("%N", param.kotlinName)
-        is TypeInfo.Unknown -> cb.add("/* UNKNOWN */ %N", param.kotlinName)
         is TypeInfo.GBoolean -> cb.add(
             "%N$nullableString.%M()",
             param.kotlinName,

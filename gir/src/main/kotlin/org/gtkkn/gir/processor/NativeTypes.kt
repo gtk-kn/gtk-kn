@@ -18,6 +18,11 @@ object NativeTypes {
     val KP_BYTEVAR = ClassName("kotlinx.cinterop", "ByteVar")
 
     /**
+     * A [TypeName] for a kotlinx.cinterop.COpaquePointer.
+     */
+    val KP_OPAQUE_POINTER = ClassName("kotlinx.cinterop", "COpaquePointer")
+
+    /**
      * A [TypeName] for kotlinx.cinterop.CPointer pointing to [typeName]
      */
     fun cpointerOf(typeName: TypeName): TypeName = KP_CPOINTER.parameterizedBy(typeName)

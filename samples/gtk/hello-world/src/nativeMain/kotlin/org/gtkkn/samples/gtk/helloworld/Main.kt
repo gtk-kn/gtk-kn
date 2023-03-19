@@ -72,5 +72,3 @@ internal val staticStableRefDestroy: GClosureNotify =
         data?.asStableRef<Any>()?.dispose()
         Unit
     }.reinterpret()
-
-
