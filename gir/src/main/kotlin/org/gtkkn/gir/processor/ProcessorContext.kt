@@ -20,7 +20,8 @@ import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.model.GirType
-import org.gtkkn.gir.util.snakeToCamelCase
+import org.gtkkn.gir.util.toCamelCase
+import org.gtkkn.gir.util.toPascalCase
 
 /**
  * A context object that has all the Gir information available so any phase 2 processing
@@ -85,21 +86,36 @@ class ProcessorContext(
         findRepositoryByNameOrNull(name)?.namespace ?: throw UnresolvableTypeException("Namespace $name not found")
 
     // kotlin names
-    fun kotlinizeMethodName(nativeMethodName: String): String = nativeMethodName.snakeToCamelCase()
+    fun kotlinizeMethodName(nativeMethodName: String): String =
+        nativeMethodName
+            .removePrefix("_")
+            .toCamelCase()
 
-    fun kotlinizeClassName(nativeClassName: String): String = nativeClassName
+    fun kotlinizeClassName(nativeClassName: String): String =
+        nativeClassName
+            .removeSuffix("_t")
+            .toPascalCase()
 
-    fun kotlinizeInterfaceName(nativeInterfaceName: String): String = nativeInterfaceName.snakeToCamelCase()
+    fun kotlinizeInterfaceName(nativeInterfaceName: String): String = nativeInterfaceName.toPascalCase()
 
-    fun kotlinizeEnumName(nativeEnumName: String): String = nativeEnumName.snakeToCamelCase()
+    fun kotlinizeEnumName(nativeEnumName: String): String =
+        nativeEnumName
+            .removeSuffix("_t")
+            .toPascalCase()
 
     fun kotlinzeEnumMemberName(nativeEnumMemberName: String): String = nativeEnumMemberName.uppercase()
 
     fun kotlinizePackageName(nativePackageName: String): String = "bindings.${nativePackageName.lowercase()}"
 
-    fun kotlinizeParameterName(nativeParameterName: String): String = nativeParameterName.snakeToCamelCase()
+    fun kotlinizeParameterName(nativeParameterName: String): String =
+        nativeParameterName
+            .removeSuffix("_")
+            .toCamelCase()
 
-    fun kotlinizeBitfieldName(nativeBitfieldName: String): String = nativeBitfieldName
+    fun kotlinizeBitfieldName(nativeBitfieldName: String): String =
+        nativeBitfieldName
+            .removeSuffix("_t")
+            .toPascalCase()
 
     fun kotlinizeBitfieldMemberName(nativeMemberName: String): String = nativeMemberName.uppercase()
 
