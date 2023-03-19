@@ -55,3 +55,26 @@ linkerOpts.linux =\
 linkerOpts.linux_x64 = \
     -L/usr/lib/x86_64-linux-gnu \
     -L/usr/lib64
+
+strictEnums = \
+GdkAxisUse \
+GdkCrossingMode \
+GdkDevicePadFeature \
+GdkDeviceToolType \
+GdkDragCancelReason \
+GdkEventType \
+GdkFullscreenMode \
+GdkGLError \
+GdkGravity \
+GdkInputSource \
+GdkKeyMatch \
+GdkMemoryFormat \
+GdkNotifyType \
+GdkScrollDirection \
+GdkScrollUnit \
+GdkSubpixelLayout \
+GdkSurfaceEdge \
+GdkTextureError \
+GdkTitlebarGesture \
+GdkTouchpadGesturePhase \
+GdkVulkanError

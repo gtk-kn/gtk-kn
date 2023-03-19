@@ -8,5 +8,6 @@ data class RepositoryBlueprint(
     val enumBlueprints: List<EnumBlueprint>,
     val functionBlueprints: List<FunctionBlueprint>,
     val callbackBlueprints: List<CallbackBlueprint>,
+    val bitfieldBlueprints: List<BitfieldBlueprint>,
     val skippedObjects: List<SkippedObject>,
 )

@@ -1,5 +1,6 @@
 package org.gtkkn.gir.blueprints
 
+import org.gtkkn.gir.model.GirBitField
 import org.gtkkn.gir.model.GirCallback
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirEnum
@@ -20,6 +21,7 @@ class RepositoryBlueprintBuilder(
     private val enumBlueprints = mutableListOf<EnumBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
     private val callbackBlueprints = mutableListOf<CallbackBlueprint>()
+    private val bitfieldBlueprints = mutableListOf<BitfieldBlueprint>()
 
     private fun addClass(girClass: GirClass) {
         when (val result = ClassBlueprintBuilder(context, namespace, girClass).build()) {
@@ -56,15 +58,23 @@ class RepositoryBlueprintBuilder(
         }
     }
 
+    private fun addBitfield(girBitfield: GirBitField) {
+        when (val result = BitfieldBlueprintBuilder(context, namespace, girBitfield).build()) {
+            is BlueprintResult.Ok -> bitfieldBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun blueprintObjectType(): String = "repository"
     override fun blueprintObjectName(): String = girRepository.namespace.name
 
     override fun buildInternal(): RepositoryBlueprint {
-        namespace.classes.forEach { clazz -> addClass(clazz) }
-        namespace.interfaces.forEach { iface -> addInterface(iface) }
-        namespace.enums.forEach { enum -> addEnum(enum) }
-        namespace.functions.forEach { func -> addFunction(func) }
-        namespace.callbacks.forEach { cb -> addCallback(cb) }
+        namespace.classes.forEach { addClass(it) }
+        namespace.interfaces.forEach { addInterface(it) }
+        namespace.enums.forEach { addEnum(it) }
+        namespace.functions.forEach { addFunction(it) }
+        namespace.callbacks.forEach { addCallback(it) }
+        namespace.bitfields.forEach { addBitfield(it) }
 
         girRepository.includes.forEach { include ->
             if (context.findRepositoryByNameOrNull(include.name) == null) {
@@ -82,6 +92,7 @@ class RepositoryBlueprintBuilder(
             enumBlueprints = enumBlueprints,
             functionBlueprints = functionBlueprints,
             callbackBlueprints = callbackBlueprints,
+            bitfieldBlueprints = bitfieldBlueprints,
             skippedObjects = skippedObjects,
         )
     }

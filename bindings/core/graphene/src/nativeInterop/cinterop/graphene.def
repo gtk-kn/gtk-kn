@@ -1,4 +1,4 @@
-headers = graphene.h
+headers = graphene.h graphene-gobject.h
 package = native.graphene
 headerFilter = graphene-1.0/*
 
@@ -16,8 +16,10 @@ compilerOpts.linux =\
 
 compilerOpts.linux_x64 =\
     -I/usr/lib64/glib-2.0/include \
+    -I/usr/lib64/graphene-1.0 \
     -I/usr/lib64/graphene-1.0/include \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+    -I/usr/lib/x86_64-linux-gnu/graphene-1.0 \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
 
 # pkg-config --libs graphene-1.0
@@ -28,3 +30,7 @@ linkerOpts.linux = \
 linkerOpts.linux_x64 = \
     -L/usr/lib64 \
     -L/usr/lib/x86_64-linux-gnu
+
+strictEnums = \
+graphene_euler_order_t \
+graphene_ray_intersection_kind_t \

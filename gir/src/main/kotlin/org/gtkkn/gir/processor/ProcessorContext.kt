@@ -15,11 +15,13 @@ import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.model.GirClass
+import org.gtkkn.gir.model.GirEnum
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.model.GirType
-import org.gtkkn.gir.util.snakeToCamelCase
+import org.gtkkn.gir.util.toCamelCase
+import org.gtkkn.gir.util.toPascalCase
 
 /**
  * A context object that has all the Gir information available so any phase 2 processing
@@ -53,7 +55,25 @@ class ProcessorContext(
      * A set of C identifiers for gir objects that should not be generated.
      */
     private val ignoredTypes = hashSetOf(
-        "GskBroadwayRenderer" // not available on older ubuntu versions
+        // not available on older ubuntu versions
+        "GskBroadwayRenderer",
+        // bitfield members not found through cinterop
+        "GdkPixbufFormatFlags",
+        // cinterop fails to map these graphene enums
+        "graphene_ray_intersection_kind_t",
+        "graphene_euler_order_t",
+    )
+
+    /**
+     * A set of C identifiers for enum that cinterop cannot map using `strictEnums`
+     * and need their native members imported directly in the package.
+     */
+    private val enumsWithDirectImportOverride = hashSetOf(
+        "cairo_format_t",
+        "cairo_content_t",
+        "cairo_device_type_t",
+        "cairo_status_t",
+        "cairo_text_cluster_flags_t",
     )
 
     // object lookups methods
@@ -66,19 +86,38 @@ class ProcessorContext(
         findRepositoryByNameOrNull(name)?.namespace ?: throw UnresolvableTypeException("Namespace $name not found")
 
     // kotlin names
-    fun kotlinizeMethodName(nativeMethodName: String): String = nativeMethodName.snakeToCamelCase()
+    fun kotlinizeMethodName(nativeMethodName: String): String =
+        nativeMethodName
+            .removePrefix("_")
+            .toCamelCase()
 
-    fun kotlinizeClassName(nativeClassName: String): String = nativeClassName
+    fun kotlinizeClassName(nativeClassName: String): String =
+        nativeClassName
+            .removeSuffix("_t")
+            .toPascalCase()
 
-    fun kotlinizeInterfaceName(nativeInterfaceName: String): String = nativeInterfaceName.snakeToCamelCase()
+    fun kotlinizeInterfaceName(nativeInterfaceName: String): String = nativeInterfaceName.toPascalCase()
 
-    fun kotlinizeEnumName(nativeEnumName: String): String = nativeEnumName.snakeToCamelCase()
+    fun kotlinizeEnumName(nativeEnumName: String): String =
+        nativeEnumName
+            .removeSuffix("_t")
+            .toPascalCase()
 
     fun kotlinzeEnumMemberName(nativeEnumMemberName: String): String = nativeEnumMemberName.uppercase()
 
     fun kotlinizePackageName(nativePackageName: String): String = "bindings.${nativePackageName.lowercase()}"
 
-    fun kotlinizeParameterName(nativeParameterName: String): String = nativeParameterName.snakeToCamelCase()
+    fun kotlinizeParameterName(nativeParameterName: String): String =
+        nativeParameterName
+            .removeSuffix("_")
+            .toCamelCase()
+
+    fun kotlinizeBitfieldName(nativeBitfieldName: String): String =
+        nativeBitfieldName
+            .removeSuffix("_t")
+            .toPascalCase()
+
+    fun kotlinizeBitfieldMemberName(nativeMemberName: String): String = nativeMemberName.uppercase()
 
     // namespace naming
     fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()
@@ -259,4 +298,13 @@ class ProcessorContext(
             throw IgnoredTypeException(cType)
         }
     }
+
+    /**
+     * Utility method for checking when an enum cannot import its members using
+     * `native.<package>.<enumname>.<membername>` syntax and instead has to use
+     * `native.<package>.<membername>.
+     *
+     * @return true when the package import needs to be applied, false otherwise.
+     */
+    fun needsEnumMemberPackageImport(girEnum: GirEnum): Boolean = enumsWithDirectImportOverride.contains(girEnum.cType)
 }
