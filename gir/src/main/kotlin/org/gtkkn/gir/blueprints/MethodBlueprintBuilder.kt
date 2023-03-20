@@ -10,6 +10,7 @@ import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirParameter
+import org.gtkkn.gir.model.GirParameters
 import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.model.GirVarArgs
 import org.gtkkn.gir.processor.BlueprintException
@@ -52,35 +53,7 @@ class MethodBlueprintBuilder(
         }
 
         // parameters
-        for (param in girMethod.parameters.parameters) {
-            // skip method if parameter is not supported
-            val paramCType = when (param.type) {
-                is GirArrayType -> param.type.cType
-                is GirType -> param.type.cType
-                GirVarArgs -> null
-            }
-            if (paramCType != null) context.checkIgnoredType(paramCType)
-            skipParameterForReason(param)?.let { reason ->
-                throw UnresolvableTypeException(reason)
-            }
-
-            val paramKotlinName = context.kotlinizeParameterName(param.name)
-
-            val typeInfo = when (param.type) {
-                is GirArrayType -> throw UnresolvableTypeException("Array parameter is not supported")
-                is GirType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
-                GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
-            }
-
-            // build parameter
-            val paramBlueprint = MethodParameterBlueprint(
-                kotlinName = paramKotlinName,
-                nativeName = param.name,
-                typeInfo,
-            )
-
-            methodParameters.add(paramBlueprint)
-        }
+        addParams(girMethod.parameters)
 
         // return value
         val returnValue = girMethod.returnValue ?: throw UnresolvableTypeException("Method has no return value")
@@ -131,6 +104,38 @@ class MethodBlueprintBuilder(
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
         )
+    }
+
+    private fun addParams(parameters: GirParameters) {
+        for (param in parameters.parameters) {
+            // skip method if parameter is not supported
+            val paramCType = when (param.type) {
+                is GirArrayType -> param.type.cType
+                is GirType -> param.type.cType
+                GirVarArgs -> null
+            }
+            if (paramCType != null) context.checkIgnoredType(paramCType)
+            skipParameterForReason(param)?.let { reason ->
+                throw UnresolvableTypeException(reason)
+            }
+
+            val paramKotlinName = context.kotlinizeParameterName(param.name)
+
+            val typeInfo = when (param.type) {
+                is GirArrayType -> throw UnresolvableTypeException("Array parameter is not supported")
+                is GirType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
+                GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
+            }
+
+            // build parameter
+            val paramBlueprint = MethodParameterBlueprint(
+                kotlinName = paramKotlinName,
+                nativeName = param.name,
+                typeInfo,
+            )
+
+            methodParameters.add(paramBlueprint)
+        }
     }
 
     private fun resolveNameClash(originalName: String): String {

@@ -550,86 +550,112 @@ fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
     val nullableString = if (isNullable) "?" else ""
 
     when (returnTypeInfo) {
-        is TypeInfo.Enumeration ->
-            codeBlockBuilder
-                .beginControlFlow(".let")
-                .add("%T.fromNativeValue(it)", returnTypeInfo.kotlinTypeName)
-                .endControlFlow()
-
-        is TypeInfo.ObjectPointer -> {
-            if (returnTypeInfo.kotlinTypeName.isNullable) {
-                codeBlockBuilder
-                    .beginControlFlow("?.let")
-                    .add(
-                        "%T(it.%M())",
-                        returnTypeInfo.withNullable(false).kotlinTypeName,
-                        BindingsGenerator.REINTERPRET_FUNC,
-                    )
-                    .endControlFlow()
-            } else {
-                // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
-                // nullable type, so we use force !! here
-                codeBlockBuilder
-                    .beginControlFlow("!!.let")
-                    .add(
-                        "%T(it.%M())",
-                        returnTypeInfo.withNullable(false).kotlinTypeName,
-                        BindingsGenerator.REINTERPRET_FUNC,
-                    )
-                    .endControlFlow()
-            }
-        }
-
-        is TypeInfo.InterfacePointer -> {
-            if (isNullable) {
-                codeBlockBuilder
-                    .beginControlFlow("?.let")
-                    .add(
-                        "%T.wrap(it.%M())",
-                        returnTypeInfo.withNullable(false).kotlinTypeName,
-                        BindingsGenerator.REINTERPRET_FUNC,
-                    )
-                    .endControlFlow()
-            } else {
-                // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
-                // nullable type, so we use force !! here
-                codeBlockBuilder
-                    .beginControlFlow("!!.let")
-                    .add(
-                        "%T.wrap(it.%M())",
-                        returnTypeInfo.withNullable(false).kotlinTypeName,
-                        BindingsGenerator.REINTERPRET_FUNC,
-                    )
-                    .endControlFlow()
-            }
-        }
+        is TypeInfo.Enumeration -> buildEnumerationConversionBlock(codeBlockBuilder, returnTypeInfo)
+        is TypeInfo.ObjectPointer -> buildObjectPointerConversionBlock(returnTypeInfo, codeBlockBuilder)
+        is TypeInfo.InterfacePointer -> buildInterfacePointerConversionBlock(
+            isNullable,
+            codeBlockBuilder,
+            returnTypeInfo,
+        )
 
         is TypeInfo.Primitive -> Unit
         is TypeInfo.GBoolean -> codeBlockBuilder.add(".%M()", BindingsGenerator.AS_BOOLEAN_FUNC)
-        is TypeInfo.KString -> {
-            // cinterop seems to map all string returning functions as nullable  so here we return a nullable string
-            // if the gir says nullable or error() when we encounter an unexpected null when the gir says non-null
-            if (isNullable) {
-                codeBlockBuilder.add("?.%M()", BindingsGenerator.TO_KSTRING_FUNC)
-            } else {
-                codeBlockBuilder.add(
-                    "?.%M() ?: error(%S)",
-                    BindingsGenerator.TO_KSTRING_FUNC,
-                    "Expected not null string",
-                )
-            }
-        }
-
-        is TypeInfo.Bitfield -> {
-            // use mask constructor for conversion
-            codeBlockBuilder
-                .add(nullableString)
-                .beginControlFlow(".let")
-                .add("%T(it)", returnTypeInfo.kotlinTypeName)
-                .endControlFlow()
-        }
+        is TypeInfo.KString -> buildKStringConversionBlock(isNullable, codeBlockBuilder)
+        is TypeInfo.Bitfield -> buildBitfieldConversionBlock(codeBlockBuilder, nullableString, returnTypeInfo)
     }
     return codeBlockBuilder.build()
+}
+
+private fun buildEnumerationConversionBlock(
+    codeBlockBuilder: CodeBlock.Builder,
+    returnTypeInfo: TypeInfo,
+) {
+    codeBlockBuilder
+        .beginControlFlow(".let")
+        .add("%T.fromNativeValue(it)", returnTypeInfo.kotlinTypeName)
+        .endControlFlow()
+}
+
+private fun buildObjectPointerConversionBlock(
+    returnTypeInfo: TypeInfo.ObjectPointer,
+    codeBlockBuilder: CodeBlock.Builder,
+) {
+    if (returnTypeInfo.kotlinTypeName.isNullable) {
+        codeBlockBuilder
+            .beginControlFlow("?.let")
+            .add(
+                "%T(it.%M())",
+                returnTypeInfo.withNullable(false).kotlinTypeName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+            .endControlFlow()
+    } else {
+        // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
+        // nullable type, so we use force !! here
+        codeBlockBuilder
+            .beginControlFlow("!!.let")
+            .add(
+                "%T(it.%M())",
+                returnTypeInfo.withNullable(false).kotlinTypeName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+            .endControlFlow()
+    }
+}
+
+private fun buildInterfacePointerConversionBlock(
+    isNullable: Boolean,
+    codeBlockBuilder: CodeBlock.Builder,
+    returnTypeInfo: TypeInfo.InterfacePointer,
+) {
+    if (isNullable) {
+        codeBlockBuilder
+            .beginControlFlow("?.let")
+            .add(
+                "%T.wrap(it.%M())",
+                returnTypeInfo.withNullable(false).kotlinTypeName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+            .endControlFlow()
+    } else {
+        // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
+        // nullable type, so we use force !! here
+        codeBlockBuilder
+            .beginControlFlow("!!.let")
+            .add(
+                "%T.wrap(it.%M())",
+                returnTypeInfo.withNullable(false).kotlinTypeName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+            .endControlFlow()
+    }
+}
+
+private fun buildKStringConversionBlock(isNullable: Boolean, codeBlockBuilder: CodeBlock.Builder) {
+    // cinterop seems to map all string returning functions as nullable  so here we return a nullable string
+    // if the gir says nullable or error() when we encounter an unexpected null when the gir says non-null
+    if (isNullable) {
+        codeBlockBuilder.add("?.%M()", BindingsGenerator.TO_KSTRING_FUNC)
+    } else {
+        codeBlockBuilder.add(
+            "?.%M() ?: error(%S)",
+            BindingsGenerator.TO_KSTRING_FUNC,
+            "Expected not null string",
+        )
+    }
+}
+
+private fun buildBitfieldConversionBlock(
+    codeBlockBuilder: CodeBlock.Builder,
+    nullableString: String,
+    returnTypeInfo: TypeInfo,
+) {
+    // use mask constructor for conversion
+    codeBlockBuilder
+        .add(nullableString)
+        .beginControlFlow(".let")
+        .add("%T(it)", returnTypeInfo.kotlinTypeName)
+        .endControlFlow()
 }
 
 /**
