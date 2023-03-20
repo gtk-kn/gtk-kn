@@ -223,6 +223,8 @@ class BindingsGenerator {
             }
 
             clazz.signals.forEach { signal ->
+                // TODO Should we add 2 overloads for each signal? one without the self argument and one with self as
+                //      first argument in the handle lambda?
                 addFunction(buildSignalConnectFunction(signal))
             }
 
@@ -375,6 +377,8 @@ class BindingsGenerator {
         iface.methods.forEach { method ->
             ifaceBuilder.addFunction(buildMethod(method, iface.objectPointerName))
         }
+
+        // TODO add signals for interfaces
 
         val wrapperClass = TypeSpec.classBuilder("Wrapper")
             .addModifiers(KModifier.PRIVATE, KModifier.DATA)
@@ -541,15 +545,17 @@ class BindingsGenerator {
     }
 
     private fun buildSignalConnectFunction(signal: SignalBlueprint): FunSpec {
+
         val funSpec = FunSpec.builder(signal.kotlinConnectName)
             .addParameter(
                 "handler",
-                LambdaTypeName.get(returnType = signal.returnTypeInfo.kotlinTypeName)
+                LambdaTypeName.get(
+                    parameters = signal.parameters.map { param ->
+                        ParameterSpec.builder(param.kotlinName, param.typeInfo.kotlinTypeName).build()
+                    },
+                    returnType = signal.returnTypeInfo.kotlinTypeName,
+                ),
             )
-
-//        if (signal.returnTypeInfo.kotlinTypeName != UNIT) {
-//            error("OTHER RETURN VALUE: ${signal.returnTypeInfo.kotlinTypeName} for signal: ${signal.signalName}")
-//        }
 
         // add implementation
         // TODO add default for connect flags?
@@ -572,11 +578,12 @@ class BindingsGenerator {
     private fun buildStaticSignalCallback(signal: SignalBlueprint): PropertySpec {
         val staticCallbackVal = PropertySpec.builder(
             "${signal.kotlinConnectName}Func",
-//            G_CALLBACK,
             callbackPointerFunction(
                 signal.returnTypeInfo.nativeTypeName,
-                emptyList() // TODO native arguments converted to ParameterSpec
-                ),
+                signal.parameters.map { param ->
+                    ParameterSpec.builder("", param.typeInfo.nativeTypeName).build()
+                },
+            ),
             KModifier.PRIVATE,
         ).initializer(buildStaticSignalCallbackInitializer(signal))
         return staticCallbackVal.build()
@@ -586,20 +593,35 @@ class BindingsGenerator {
 
         // TODO this is duplicated in [buildSignalConnectFunction]
         val lambdaTypeName = LambdaTypeName.get(
-            returnType = signal.returnTypeInfo.kotlinTypeName
+            returnType = signal.returnTypeInfo.kotlinTypeName,
+            parameters = signal.parameters.map { param ->
+                ParameterSpec.builder("", param.typeInfo.kotlinTypeName).build()
+            },
         )
 
         val codeBlockBuilder = CodeBlock.builder()
-        codeBlockBuilder.beginControlFlow("%M {", STATIC_C_FUNCTION)
+        codeBlockBuilder.beginControlFlow("%M", STATIC_C_FUNCTION)
 
         // lambda signature
-        codeBlockBuilder.add("_: %T, ", NativeTypes.KP_OPAQUE_POINTER)
-        codeBlockBuilder.add("data: %T", NativeTypes.KP_OPAQUE_POINTER)
+        codeBlockBuilder.add("_: %T", NativeTypes.KP_OPAQUE_POINTER)
+        signal.parameters.forEach { param ->
+            codeBlockBuilder.add(", %N: %T", param.kotlinName, param.typeInfo.nativeTypeName)
+        }
+        codeBlockBuilder.add(", data: %T", NativeTypes.KP_OPAQUE_POINTER)
+
         codeBlockBuilder.add(" -> ")
 
         // implementation
         // TODO handle params
-        codeBlockBuilder.addStatement("data.%M<%T>().get().%M()", AS_STABLE_REF, lambdaTypeName, INVOKE)
+        codeBlockBuilder.add("data.%M<%T>().get().%M(", AS_STABLE_REF, lambdaTypeName, INVOKE) // open invoke
+        signal.parameters.forEachIndexed { index, param ->
+            if (index > 0) {
+                codeBlockBuilder.add(", ")
+            }
+            codeBlockBuilder.add("%N", param.kotlinName)
+            codeBlockBuilder.add(buildReturnValueConversionBlock(param.typeInfo))
+        }
+        codeBlockBuilder.add(")")// close invoke
 
         // convert the return type and return from the lambda
         codeBlockBuilder.add(buildKotlinToNativeTypeConversionBlock(signal.returnTypeInfo))
@@ -644,14 +666,15 @@ class BindingsGenerator {
 
         // TODO rename, this the equivalent of a native.gobject.GCallback typealias, that should point
         //      to a CPointer<CFunction<(T) -> R>> where T = arguments and R = result
-        internal fun callbackPointerFunction(resultTypeName: TypeName, parameters: List<ParameterSpec> = emptyList()) = NativeTypes.KP_CPOINTER.parameterizedBy(
-            NativeTypes.KP_CFUNCTION.parameterizedBy(
-                LambdaTypeName.get(
-                    returnType = resultTypeName,
-                    parameters = parameters,
-                )
+        internal fun callbackPointerFunction(resultTypeName: TypeName, parameters: List<ParameterSpec> = emptyList()) =
+            NativeTypes.KP_CPOINTER.parameterizedBy(
+                NativeTypes.KP_CFUNCTION.parameterizedBy(
+                    LambdaTypeName.get(
+                        returnType = resultTypeName,
+                        parameters = parameters,
+                    ),
+                ),
             )
-        )
     }
 }
 

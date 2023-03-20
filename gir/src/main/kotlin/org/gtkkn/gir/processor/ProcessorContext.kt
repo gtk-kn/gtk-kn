@@ -97,6 +97,14 @@ class ProcessorContext(
     )
 
     /**
+     * A set of signals that should not be generated.
+     */
+    private val ignoredSignals = hashSetOf<String>(
+        // problems with string conversion in signal handler
+        "format-entry-text"
+    )
+
+    /**
      * A set of C identifiers for enum that cinterop cannot map using `strictEnums`
      * and need their native members imported directly in the package.
      */
@@ -259,7 +267,7 @@ class ProcessorContext(
             ?: throw UnresolvableTypeException("enum $nativeEnumName not found")
 
         return Pair(
-            ClassName(namespaceNativePackageName(namespace), enum.name),
+            ClassName(namespaceNativePackageName(namespace), enum.cType), // TODO check if the change from name to cType is correct?
             ClassName(namespaceBindingsPackageName(namespace), kotlinizeEnumName(enum.name)),
         )
     }
@@ -271,7 +279,7 @@ class ProcessorContext(
             ?: throw UnresolvableTypeException("enum $nativeBitfieldName not found")
 
         return Pair(
-            ClassName(namespaceNativePackageName(namespace), bitfield.name),
+            ClassName(namespaceNativePackageName(namespace), bitfield.cType), // TODO check if the change from name to cTYpe is correct?
             ClassName(namespaceBindingsPackageName(namespace), kotlinizeBitfieldName(bitfield.name)),
         )
     }
@@ -402,7 +410,7 @@ class ProcessorContext(
      *
      * This method returns succesfully when the given [cFunctionName] is not present in any of the skipped lists
      * or configuration.
-     * @throws IgnoredTypeException if the function should be ignored.
+     * @throws IgnoredFunctionException if the function should be ignored.
      */
     fun checkIgnoredFunction(cFunctionName: String) {
         if (ignoredFunctions.contains(cFunctionName)) {
@@ -411,6 +419,19 @@ class ProcessorContext(
 
         if (cFunctionName.endsWith("to_string")) {
             throw IgnoredFunctionException(cFunctionName)
+        }
+    }
+
+    /**
+     * Utility method for checking whether a C function is supported or should be skipped.
+     *
+     * This method returns succesfully when the given [cFunctionName] is not present in any of the skipped lists
+     * or configuration.
+     * @throws IgnoredSignalException if the function should be ignored.
+     */
+    fun checkIgnoredSignal(signalName: String) {
+        if (ignoredSignals.contains(signalName)) {
+            throw IgnoredSignalException(signalName)
         }
     }
 
