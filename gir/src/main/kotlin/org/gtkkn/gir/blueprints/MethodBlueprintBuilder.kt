@@ -97,7 +97,6 @@ class MethodBlueprintBuilder(
         }
 
         // check for overrides
-
         val superMethods = superClasses.flatMap { it.methods } + superInterfaces.flatMap { it.methods }
         val nameMatchingSuperMethods = superMethods
             .filterNot { it.info.introspectable == false }
@@ -136,7 +135,7 @@ class MethodBlueprintBuilder(
 
     private fun resolveNameClash(originalName: String): String {
         val result = "${originalName}_"
-        logger.error("Renaming method $originalName to $result")
+        logger.error("Name clash: renaming method $originalName to $result")
         return result
     }
 
