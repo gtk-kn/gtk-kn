@@ -183,11 +183,10 @@ class BindingsGenerator {
                         // non conflicting constructor
                         addFunction(buildClassConstructor(group.first()))
                     }
-
                     else -> {
                         // conflicting constructors with same signature
-                        group.sortedBy { it.nativeName.length }.forEachIndexed { idx, constructor ->
-                            if (idx == 0) {
+                        group.sortedBy { it.nativeName.length }.forEachIndexed { index, constructor ->
+                            if (index == 0) {
                                 // add the shortest conflicting method name as an actual constructor
                                 // this isn't the best heuristic but it works for most use cases
                                 addFunction(buildClassConstructor(constructor))
@@ -257,8 +256,8 @@ class BindingsGenerator {
 
             codeBlockBuilder.add("%M(", constructor.nativeMemberName) // open native func paren
 
-            constructor.parameters.forEachIndexed { idx, param ->
-                if (idx > 0) {
+            constructor.parameters.forEachIndexed { index, param ->
+                if (index > 0) {
                     codeBlockBuilder.add(", ")
                 }
                 codeBlockBuilder.add(buildParameterConversionBlock(param))
@@ -293,8 +292,8 @@ class BindingsGenerator {
             // open native function paren
             funSpecBuilder.addCode("return %T(%M(", clazz.typeName, constructor.nativeMemberName)
 
-            constructor.parameters.forEachIndexed { idx, param ->
-                if (idx > 0) {
+            constructor.parameters.forEachIndexed { index, param ->
+                if (index > 0) {
                     funSpecBuilder.addCode(", ")
                 }
                 funSpecBuilder.addCode(buildParameterConversionBlock(param))

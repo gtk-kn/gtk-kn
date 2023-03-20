@@ -23,10 +23,8 @@ sealed class TypeInfo {
     data class Primitive(
         val typeName: TypeName,
     ) : TypeInfo() {
-        override val nativeTypeName: TypeName
-            get() = typeName
-        override val kotlinTypeName: TypeName
-            get() = typeName
+        override val nativeTypeName = typeName
+        override val kotlinTypeName = typeName
 
         override fun withNullable(nullable: Boolean): Primitive = copy(
             typeName = typeName.copy(nullable),
