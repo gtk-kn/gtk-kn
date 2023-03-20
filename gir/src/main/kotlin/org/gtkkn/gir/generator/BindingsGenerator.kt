@@ -183,6 +183,7 @@ class BindingsGenerator {
                         // non conflicting constructor
                         addFunction(buildClassConstructor(group.first()))
                     }
+
                     else -> {
                         // conflicting constructors with same signature
                         group.sortedBy { it.nativeName.length }.forEachIndexed { index, constructor ->
@@ -363,11 +364,16 @@ class BindingsGenerator {
         }
 
         val wrapperClass = TypeSpec.classBuilder("Wrapper")
-            .addModifiers(KModifier.PRIVATE)
+            .addModifiers(KModifier.PRIVATE, KModifier.DATA)
             .addSuperinterface(iface.typeName)
             .primaryConstructor(
                 FunSpec.constructorBuilder()
                     .addParameter("pointer", iface.objectPointerTypeName)
+                    .build(),
+            )
+            .addProperty(
+                PropertySpec.builder("pointer", iface.objectPointerTypeName, KModifier.PRIVATE)
+                    .initializer("pointer")
                     .build(),
             )
             .addProperty(
@@ -544,10 +550,11 @@ fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
     val nullableString = if (isNullable) "?" else ""
 
     when (returnTypeInfo) {
-        is TypeInfo.Enumeration -> codeBlockBuilder
-            .beginControlFlow(".let")
-            .add("%T.fromNativeValue(it)", returnTypeInfo.kotlinTypeName)
-            .endControlFlow()
+        is TypeInfo.Enumeration ->
+            codeBlockBuilder
+                .beginControlFlow(".let")
+                .add("%T.fromNativeValue(it)", returnTypeInfo.kotlinTypeName)
+                .endControlFlow()
 
         is TypeInfo.ObjectPointer -> {
             if (returnTypeInfo.kotlinTypeName.isNullable) {
