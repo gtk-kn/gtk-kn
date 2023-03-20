@@ -43,11 +43,13 @@ fun main() {
             logger.info { "Inserted text at position: $position, nChars: $nChars, text: $chars" }
         }
 
-        entry.connectHide { }
+        entry.connectChanged {
+            logger.info { "Entry changed: ${entry.getText()}" }
+        }
 
         val label = Label("")
         label.setMarkup("label with link: <a href=\"https://gtk-kn.org\">https://gtk-kn.org</a>")
-        label.connectActivateLink {link ->
+        label.connectActivateLink { link ->
             logger.info { "activating link: $link" }
             true
         }

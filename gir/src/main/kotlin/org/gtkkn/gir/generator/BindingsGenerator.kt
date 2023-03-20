@@ -75,6 +75,7 @@ class BindingsGenerator {
                 iface.typeName,
                 buildInterface(iface),
                 repositorySrcDir(repository, outputDir),
+                iface.signals.map { buildStaticSignalCallback(it) },
             )
         }
 
@@ -225,7 +226,7 @@ class BindingsGenerator {
             clazz.signals.forEach { signal ->
                 // TODO Should we add 2 overloads for each signal? one without the self argument and one with self as
                 //      first argument in the handle lambda?
-                addFunction(buildSignalConnectFunction(signal))
+                addFunction(buildSignalConnectFunction(signal, "gPointer"))
             }
 
             addType(companionSpecBuilder.build())
@@ -378,7 +379,11 @@ class BindingsGenerator {
             ifaceBuilder.addFunction(buildMethod(method, iface.objectPointerName))
         }
 
-        // TODO add signals for interfaces
+        iface.signals.forEach { signal ->
+            // TODO Should we add 2 overloads for each signal? one without the self argument and one with self as
+            //      first argument in the handle lambda?
+            ifaceBuilder.addFunction(buildSignalConnectFunction(signal, iface.objectPointerName))
+        }
 
         val wrapperClass = TypeSpec.classBuilder("Wrapper")
             .addModifiers(KModifier.PRIVATE, KModifier.DATA)
@@ -544,7 +549,7 @@ class BindingsGenerator {
         return funBuilder.build()
     }
 
-    private fun buildSignalConnectFunction(signal: SignalBlueprint): FunSpec {
+    private fun buildSignalConnectFunction(signal: SignalBlueprint, objectPointerName: String): FunSpec {
 
         val funSpec = FunSpec.builder(signal.kotlinConnectName)
             .addParameter(
@@ -561,7 +566,7 @@ class BindingsGenerator {
         // TODO add default for connect flags?
 
         funSpec.addCode("%M(", G_SIGNAL_CONNECT_DATA)
-        funSpec.addCode("gPointer.%M()", REINTERPRET_FUNC)
+        funSpec.addCode("%N.%M()", objectPointerName, REINTERPRET_FUNC)
         funSpec.addCode(", %S", signal.signalName)
         funSpec.addCode(", %NFunc.%M()", signal.kotlinConnectName, REINTERPRET_FUNC)
         funSpec.addCode(", %T.create(handler).asCPointer()", STABLEREF)
