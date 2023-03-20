@@ -30,7 +30,7 @@ abstract class BlueprintBuilder<T : Any>(val context: ProcessorContext) {
         ok(buildInternal())
     } catch (ex: NotIntrospectableException) {
         logger.debug("Skipping not introspectable object: ${ex.objectName}")
-        skipUndocumented(ex.message)
+        skip(ex.message, documented = false)
     } catch (ex: BlueprintException) {
         skip(ex.message)
     }
@@ -44,14 +44,15 @@ abstract class BlueprintBuilder<T : Any>(val context: ProcessorContext) {
     /**
      * Utility method for returning a SkippedObject.
      */
-    private fun skip(reason: String): BlueprintResult.Skip<T> =
-        BlueprintResult.Skip(SkippedObject(blueprintObjectType(), blueprintObjectName(), reason))
-
-    /**
-     * Utility method for returning a SkippedObject that should not be documented.
-     */
-    private fun skipUndocumented(reason: String): BlueprintResult.Skip<T> =
-        BlueprintResult.Skip(SkippedObject(blueprintObjectType(), blueprintObjectName(), reason, documented = false))
+    private fun skip(reason: String, documented: Boolean = false): BlueprintResult.Skip<T> =
+        BlueprintResult.Skip(
+            SkippedObject(
+                objectType = blueprintObjectType(),
+                objectName = blueprintObjectName(),
+                reason = reason,
+                documented = documented,
+            ),
+        )
 
     /**
      * Utility method for returning a successful blueprint.
