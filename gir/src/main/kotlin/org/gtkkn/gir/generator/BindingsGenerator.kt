@@ -601,9 +601,8 @@ fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
         is TypeInfo.Primitive -> Unit
         is TypeInfo.GBoolean -> codeBlockBuilder.add(".%M()", BindingsGenerator.AS_BOOLEAN_FUNC)
         is TypeInfo.KString -> {
-            // TODO REVIEW: cinterop seems to map all string returning functions as nullable
-            //              so here we return a nullable string if the gir says nullable
-            //              or error() when we encounter an unexpected null when the gir says non-null
+            // cinterop seems to map all string returning functions as nullable  so here we return a nullable string
+            // if the gir says nullable or error() when we encounter an unexpected null when the gir says non-null
             if (isNullable) {
                 codeBlockBuilder.add("?.%M()", BindingsGenerator.TO_KSTRING_FUNC)
             } else {
