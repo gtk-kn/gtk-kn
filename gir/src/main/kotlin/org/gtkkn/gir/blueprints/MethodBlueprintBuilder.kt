@@ -21,8 +21,8 @@ class MethodBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
     private val girMethod: GirMethod,
-    private val superClasses: List<GirClass>,
-    private val superInterfaces: List<GirInterface>,
+    private val superClasses: List<GirClass> = emptyList(),
+    private val superInterfaces: List<GirInterface> = emptyList(),
 ) : BlueprintBuilder<MethodBlueprint>(context) {
     private val methodParameters = mutableListOf<MethodParameterBlueprint>()
 
