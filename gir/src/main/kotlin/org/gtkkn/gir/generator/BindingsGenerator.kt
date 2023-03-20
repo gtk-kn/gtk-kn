@@ -10,6 +10,7 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.UNIT
 import org.gtkkn.gir.blueprints.BitfieldBlueprint
@@ -543,8 +544,12 @@ class BindingsGenerator {
         val funSpec = FunSpec.builder(signal.kotlinConnectName)
             .addParameter(
                 "handler",
-                LambdaTypeName.get(returnType = UNIT), // TODO handle returnValue
+                LambdaTypeName.get(returnType = signal.returnTypeInfo.kotlinTypeName)
             )
+
+//        if (signal.returnTypeInfo.kotlinTypeName != UNIT) {
+//            error("OTHER RETURN VALUE: ${signal.returnTypeInfo.kotlinTypeName} for signal: ${signal.signalName}")
+//        }
 
         // add implementation
         // TODO add default for connect flags?
@@ -552,14 +557,13 @@ class BindingsGenerator {
         funSpec.addCode("%M(", G_SIGNAL_CONNECT_DATA)
         funSpec.addCode("gPointer.%M()", REINTERPRET_FUNC)
         funSpec.addCode(", %S", signal.signalName)
-        funSpec.addCode(", %NFunc", signal.kotlinConnectName)
+        funSpec.addCode(", %NFunc.%M()", signal.kotlinConnectName, REINTERPRET_FUNC)
         funSpec.addCode(", %T.create(handler).asCPointer()", STABLEREF)
         funSpec.addCode(", %M", STATIC_STABLEREF_DESTROY)
         funSpec.addCode(", 0") // TODO connect flags
 
         funSpec.addCode(")")
 
-        // TODO return binding handle
 
         // callback type
         return funSpec.build()
@@ -568,15 +572,25 @@ class BindingsGenerator {
     private fun buildStaticSignalCallback(signal: SignalBlueprint): PropertySpec {
         val staticCallbackVal = PropertySpec.builder(
             "${signal.kotlinConnectName}Func",
-            G_CALLBACK,
+//            G_CALLBACK,
+            callbackPointerFunction(
+                signal.returnTypeInfo.nativeTypeName,
+                emptyList() // TODO native arguments converted to ParameterSpec
+                ),
             KModifier.PRIVATE,
         ).initializer(buildStaticSignalCallbackInitializer(signal))
         return staticCallbackVal.build()
     }
 
     private fun buildStaticSignalCallbackInitializer(signal: SignalBlueprint): CodeBlock {
+
+        // TODO this is duplicated in [buildSignalConnectFunction]
+        val lambdaTypeName = LambdaTypeName.get(
+            returnType = signal.returnTypeInfo.kotlinTypeName
+        )
+
         val codeBlockBuilder = CodeBlock.builder()
-        codeBlockBuilder.add("%M({", STATIC_C_FUNCTION)
+        codeBlockBuilder.beginControlFlow("%M {", STATIC_C_FUNCTION)
 
         // lambda signature
         codeBlockBuilder.add("_: %T, ", NativeTypes.KP_OPAQUE_POINTER)
@@ -585,13 +599,15 @@ class BindingsGenerator {
 
         // implementation
         // TODO handle params
-        // TODO handle return type
-        codeBlockBuilder.addStatement("data.%M<%T>().get().%M()", AS_STABLE_REF, NO_ARGS_CALLBACK_TYPE, INVOKE)
+        codeBlockBuilder.addStatement("data.%M<%T>().get().%M()", AS_STABLE_REF, lambdaTypeName, INVOKE)
 
-        // return from the lambda
-        codeBlockBuilder.addStatement("%T", UNIT)
+        // convert the return type and return from the lambda
+        codeBlockBuilder.add(buildKotlinToNativeTypeConversionBlock(signal.returnTypeInfo))
+//        // return from the lambda
+//        codeBlockBuilder.addStatement("%T", UNIT)
 
-        codeBlockBuilder.add("}).%M()", REINTERPRET_FUNC)
+        codeBlockBuilder.endControlFlow()
+        codeBlockBuilder.add(".%M()", REINTERPRET_FUNC) // TODO maybe we can get rid of reinterpret() ?
         return codeBlockBuilder.build()
     }
 
@@ -625,6 +641,17 @@ class BindingsGenerator {
         internal val STABLEREF = ClassName("kotlinx.cinterop", "StableRef")
 
         internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.common", "staticStableRefDestroy")
+
+        // TODO rename, this the equivalent of a native.gobject.GCallback typealias, that should point
+        //      to a CPointer<CFunction<(T) -> R>> where T = arguments and R = result
+        internal fun callbackPointerFunction(resultTypeName: TypeName, parameters: List<ParameterSpec> = emptyList()) = NativeTypes.KP_CPOINTER.parameterizedBy(
+            NativeTypes.KP_CFUNCTION.parameterizedBy(
+                LambdaTypeName.get(
+                    returnType = resultTypeName,
+                    parameters = parameters,
+                )
+            )
+        )
     }
 }
 
@@ -795,6 +822,55 @@ fun buildParameterConversionBlock(param: MethodParameterBlueprint): CodeBlock {
         is TypeInfo.KString -> codeBlockBuilder.add("%N", param.kotlinName)
         is TypeInfo.Bitfield -> {
             codeBlockBuilder.add("%N$nullableString.mask", param.kotlinName)
+        }
+    }
+    return codeBlockBuilder.build()
+}
+
+/**
+ * Build a [CodeBlock] that converts a Kotlin value into its native counterpart.
+ *
+ * The resulting codeblock should be placed right after the value to be converted.
+ *
+ * Nullability is handled.
+ */
+fun buildKotlinToNativeTypeConversionBlock(typeInfo: TypeInfo): CodeBlock {
+    val codeBlockBuilder = CodeBlock.builder()
+    val isParamNullable = typeInfo.kotlinTypeName.isNullable
+    val nullableString = if (isParamNullable) "?" else ""
+
+    when (typeInfo) {
+        is TypeInfo.Enumeration -> codeBlockBuilder.add("$nullableString.nativeValue")
+        is TypeInfo.ObjectPointer -> {
+//            codeBlockBuilder.add(
+//                "$nullableString.%N$nullableString.%M()",
+//                typeInfo.objectPointerName,
+//                BindingsGenerator.REINTERPRET_FUNC,
+//            )
+            // TODO check if we need to do the reinterpret?
+            codeBlockBuilder.add(
+                "$nullableString.%N",
+                typeInfo.objectPointerName,
+            )
+        }
+
+        is TypeInfo.InterfacePointer -> {
+            codeBlockBuilder.add(
+                "$nullableString.%N$nullableString.%M()",
+                typeInfo.objectPointerName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+        }
+
+        is TypeInfo.Primitive -> Unit
+        is TypeInfo.GBoolean -> codeBlockBuilder.add(
+            "$nullableString.%M()",
+            BindingsGenerator.AS_GBOOLEAN_FUNC,
+        )
+
+        is TypeInfo.KString -> Unit
+        is TypeInfo.Bitfield -> {
+            codeBlockBuilder.add("$nullableString.mask")
         }
     }
     return codeBlockBuilder.build()
