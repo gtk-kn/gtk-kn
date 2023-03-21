@@ -12,6 +12,9 @@ import com.squareup.kotlinpoet.TypeName
  * method implementations.
  */
 sealed class TypeInfo {
+    abstract val nativeTypeName: TypeName
+    abstract val kotlinTypeName: TypeName
+
     abstract fun withNullable(nullable: Boolean): TypeInfo
 
     /**
@@ -20,6 +23,9 @@ sealed class TypeInfo {
     data class Primitive(
         val typeName: TypeName,
     ) : TypeInfo() {
+        override val nativeTypeName = typeName
+        override val kotlinTypeName = typeName
+
         override fun withNullable(nullable: Boolean): Primitive = copy(
             typeName = typeName.copy(nullable),
         )
@@ -30,8 +36,8 @@ sealed class TypeInfo {
      * a generated enum class.
      */
     data class Enumeration(
-        val nativeTypeName: TypeName,
-        val kotlinTypeName: TypeName,
+        override val nativeTypeName: TypeName,
+        override val kotlinTypeName: TypeName,
     ) : TypeInfo() {
         override fun withNullable(nullable: Boolean): Enumeration = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
@@ -44,10 +50,15 @@ sealed class TypeInfo {
      *
      * native to kotlin conversion: wrap the pointer
      * kotlin to native conversion: extract the objectPointer
+     *
+     * @property nativeTypeName TypeName for the native side
+     * @property kotlinTypeName TypeName for the kotlin side
+     * @property objectPointerName name for the pointer to be used as instancePointer
      */
     data class ObjectPointer(
-        val nativeTypeName: TypeName,
-        val kotlinTypeName: TypeName,
+        override val nativeTypeName: TypeName,
+        override val kotlinTypeName: TypeName,
+        val objectPointerName: String,
     ) : TypeInfo() {
         override fun withNullable(nullable: Boolean): ObjectPointer = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
@@ -56,13 +67,51 @@ sealed class TypeInfo {
     }
 
     /**
-     * Temporary Pokemon case until we have all conversions handled.
+     * Native type is a CPointer and kotlin type is a generated wrapper class.
+     *
+     * native to kotlin conversion: wrap the pointer
+     * kotlin to native conversion: extract the objectPointer
+     *
+     * @property nativeTypeName TypeName for the native side
+     * @property kotlinTypeName TypeName for the kotlin side
+     * @property objectPointerName name for the pointer to be used as instancePointer
      */
-    data class Unknown(
-        val nativeTypeName: TypeName,
-        val kotlinTypeName: TypeName,
+    data class InterfacePointer(
+        override val nativeTypeName: TypeName,
+        override val kotlinTypeName: TypeName,
+        val objectPointerName: String,
     ) : TypeInfo() {
-        override fun withNullable(nullable: Boolean): Unknown = copy(
+        override fun withNullable(nullable: Boolean): InterfacePointer = copy(
+            nativeTypeName = nativeTypeName.copy(nullable),
+            kotlinTypeName = kotlinTypeName.copy(nullable),
+        )
+    }
+
+    data class GBoolean(
+        override val nativeTypeName: TypeName,
+        override val kotlinTypeName: TypeName,
+    ) : TypeInfo() {
+        override fun withNullable(nullable: Boolean): TypeInfo = copy(
+            nativeTypeName = nativeTypeName.copy(nullable),
+            kotlinTypeName = kotlinTypeName.copy(nullable),
+        )
+    }
+
+    data class KString(
+        override val nativeTypeName: TypeName,
+        override val kotlinTypeName: TypeName,
+    ) : TypeInfo() {
+        override fun withNullable(nullable: Boolean): TypeInfo = copy(
+            nativeTypeName = nativeTypeName.copy(nullable),
+            kotlinTypeName = kotlinTypeName.copy(nullable),
+        )
+    }
+
+    data class Bitfield(
+        override val nativeTypeName: TypeName,
+        override val kotlinTypeName: TypeName,
+    ) : TypeInfo() {
+        override fun withNullable(nullable: Boolean): TypeInfo = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
         )

@@ -4,8 +4,10 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
+import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
+import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
@@ -21,12 +23,35 @@ class ClassBlueprintBuilder(
     private val implementsInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
     private var parentTypeName: TypeName? = null
 
+    /**
+     * Lazily build the list of superclasses for method override resolution
+     */
+    private val superClasses: List<GirClass> by lazy {
+        buildList {
+            var currentClass = girClass
+            var currentNamespace = girNamespace
+            while (currentClass.parent != null) {
+                val (namespace, clazz) = context.findClassByName(currentNamespace, checkNotNull(currentClass.parent))
+                add(clazz)
+                currentClass = clazz
+                currentNamespace = namespace
+            }
+        }
+    }
+
+    /**
+     * Lazily build the list of interfaces for method override resolution
+     */
+    private val interfaces: List<GirInterface> by lazy {
+        girClass.implements.map { context.findInterfaceByName(girNamespace, it.name).second }
+    }
+
     override fun blueprintObjectType(): String = "class"
 
     override fun blueprintObjectName(): String = girClass.name
 
     private fun addMethod(method: GirMethod) {
-        when (val result = MethodBlueprintBuilder(context, girNamespace, method).build()) {
+        when (val result = MethodBlueprintBuilder(context, girNamespace, method, superClasses, interfaces).build()) {
             is BlueprintResult.Ok -> methodBluePrints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
@@ -40,6 +65,10 @@ class ClassBlueprintBuilder(
     }
 
     override fun buildInternal(): ClassBlueprint {
+        if (girClass.info.introspectable == false) {
+            throw NotIntrospectableException(girClass.cType ?: girClass.name)
+        }
+
         girClass.cType?.let { context.checkIgnoredType(it) }
 
         if (girClass.parent != null) {

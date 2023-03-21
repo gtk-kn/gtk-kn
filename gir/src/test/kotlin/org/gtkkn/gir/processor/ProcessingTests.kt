@@ -47,7 +47,7 @@ class ProcessingTests {
             .returnTypeInfo as TypeInfo.Primitive
         val nullableReturnTypeInfo = clazz.methods
             .first { it.nativeName == "gtk_about_dialog_get_comments" }
-            .returnTypeInfo as TypeInfo.Unknown
+            .returnTypeInfo as TypeInfo.KString
         assertEquals("AboutDialog", clazz.kotlinName)
         assertEquals("AboutDialog", clazz.nativeName)
         assertEquals(ClassName("bindings.gtk", "AboutDialog"), clazz.typeName)

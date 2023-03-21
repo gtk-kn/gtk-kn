@@ -15,6 +15,8 @@ import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
+import org.gtkkn.gir.blueprints.MethodBlueprint
+import org.gtkkn.gir.blueprints.MethodParameterBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.log.logger
@@ -106,11 +108,12 @@ class BindingsGenerator {
     private fun writeRepositorySkipFile(repository: RepositoryBlueprint, outputDir: File) {
         val skipFile = File(repositoryBuildDir(repository, outputDir), "${repository.name}-skips.txt")
         skipFile.createNewFile()
+        val skippedObjects = repository.skippedObjects.filter { it.documented }
 
         val skipWriter = skipFile.printWriter()
-        val longestObjectName = repository.skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
-        val longestTypeName = repository.skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
-        repository.skippedObjects.forEach {
+        val longestObjectName = skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
+        val longestTypeName = skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
+        skippedObjects.forEach {
             skipWriter.println(it.fullMessage(longestObjectName, longestTypeName))
         }
         skipWriter.close()
@@ -169,8 +172,32 @@ class BindingsGenerator {
                 }
 
             // argument constructors
-            argumentConstructors.forEach { constructor ->
-                addFunction(buildClassConstructor(constructor))
+            // argument constructors can also be conflicting
+            val groupBySignature = argumentConstructors.groupBy { constructor ->
+                constructor.parameters.joinToString(",") { it.typeInfo.kotlinTypeName.toString() }
+            }
+            groupBySignature.values.forEach { group ->
+                when (group.size) {
+                    0 -> error("Should not happen")
+                    1 -> {
+                        // non conflicting constructor
+                        addFunction(buildClassConstructor(group.first()))
+                    }
+
+                    else -> {
+                        // conflicting constructors with same signature
+                        group.sortedBy { it.nativeName.length }.forEachIndexed { index, constructor ->
+                            if (index == 0) {
+                                // add the shortest conflicting method name as an actual constructor
+                                // this isn't the best heuristic but it works for most use cases
+                                addFunction(buildClassConstructor(constructor))
+                            }
+                            // add all conflicting as constructors as factory functions
+                            // this helps with developer discoverability (for example Gtk4 Button)
+                            companionSpecBuilder.addFunction(buildClassConstructorFactoryMethod(clazz, constructor))
+                        }
+                    }
+                }
             }
 
             // object pointer
@@ -179,6 +206,11 @@ class BindingsGenerator {
             // interface pointers
             clazz.implementsInterfaces.forEach {
                 addProperty(buildClassInterfacePointerProperty(it))
+            }
+
+            // methods
+            clazz.methods.forEach { method ->
+                addFunction(buildMethod(method, clazz.objectPointerName))
             }
 
             addType(companionSpecBuilder.build())
@@ -214,7 +246,29 @@ class BindingsGenerator {
             error("Invalid constructor return type")
         }
 
-        constructorSpecBuilder.callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
+        if (constructor.parameters.isEmpty()) {
+            // no arg constructor
+            constructorSpecBuilder
+                .callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
+        } else {
+            // constructor with arguments
+            constructorSpecBuilder.appendSignatureParameters(constructor.parameters)
+            val codeBlockBuilder = CodeBlock.builder()
+
+            codeBlockBuilder.add("%M(", constructor.nativeMemberName) // open native func paren
+
+            constructor.parameters.forEachIndexed { index, param ->
+                if (index > 0) {
+                    codeBlockBuilder.add(", ")
+                }
+                codeBlockBuilder.add(buildParameterConversionBlock(param))
+            }
+
+            codeBlockBuilder.add(")") // close native func paren
+            codeBlockBuilder.add("!!.reinterpret()")
+
+            constructorSpecBuilder.callThisConstructor(codeBlockBuilder.build())
+        }
 
         return constructorSpecBuilder.build()
     }
@@ -230,7 +284,24 @@ class BindingsGenerator {
             error("Invalid constructor return type for ${constructor.nativeName}")
         }
 
-        funSpecBuilder.addStatement("return %T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
+        if (constructor.parameters.isEmpty()) {
+            // no-arg factory method
+            funSpecBuilder.addStatement("return %T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
+        } else {
+            funSpecBuilder.appendSignatureParameters(constructor.parameters)
+
+            // open native function paren
+            funSpecBuilder.addCode("return %T(%M(", clazz.typeName, constructor.nativeMemberName)
+
+            constructor.parameters.forEachIndexed { index, param ->
+                if (index > 0) {
+                    funSpecBuilder.addCode(", ")
+                }
+                funSpecBuilder.addCode(buildParameterConversionBlock(param))
+            }
+
+            funSpecBuilder.addCode(")!!.%M())", REINTERPRET_FUNC) // close native function paren
+        }
 
         return funSpecBuilder.build()
     }
@@ -272,21 +343,61 @@ class BindingsGenerator {
     }
 
     private fun buildClassKDoc(clazz: ClassBlueprint): CodeBlock {
+        val skippedObjects = clazz.skippedObjects.filter { it.documented }
         // nicely format skipped objects
-        val longestObjectName = clazz.skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
-        val longestTypeName = clazz.skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
+        val longestObjectName = skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
+        val longestTypeName = skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
 
         return CodeBlock.builder().apply {
-            for (skip in clazz.skippedObjects) {
+            for (skip in skippedObjects) {
                 addStatement(skip.fullMessage(longestObjectName, longestTypeName))
             }
         }.build()
     }
 
-    private fun buildInterface(iface: InterfaceBlueprint): TypeSpec =
-        TypeSpec.interfaceBuilder(iface.typeName)
+    private fun buildInterface(iface: InterfaceBlueprint): TypeSpec {
+        val ifaceBuilder = TypeSpec.interfaceBuilder(iface.typeName)
             .addProperty(buildInterfacePointerProperty(iface))
+
+        iface.methods.forEach { method ->
+            ifaceBuilder.addFunction(buildMethod(method, iface.objectPointerName))
+        }
+
+        val wrapperClass = TypeSpec.classBuilder("Wrapper")
+            .addModifiers(KModifier.PRIVATE, KModifier.DATA)
+            .addSuperinterface(iface.typeName)
+            .primaryConstructor(
+                FunSpec.constructorBuilder()
+                    .addParameter("pointer", iface.objectPointerTypeName)
+                    .build(),
+            )
+            .addProperty(
+                PropertySpec.builder("pointer", iface.objectPointerTypeName, KModifier.PRIVATE)
+                    .initializer("pointer")
+                    .build(),
+            )
+            .addProperty(
+                PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName, KModifier.OVERRIDE)
+                    .initializer("pointer")
+                    .build(),
+            )
             .build()
+
+        ifaceBuilder.addType(wrapperClass)
+
+        // Add companion with factory wrapper function
+        val companionBuilder = TypeSpec.companionObjectBuilder()
+        val factoryFunc = FunSpec.builder("wrap")
+            .addParameter("pointer", iface.objectPointerTypeName)
+            .returns(iface.typeName)
+            .addStatement("return Wrapper(pointer)")
+
+        companionBuilder.addFunction(factoryFunc.build())
+
+        ifaceBuilder.addType(companionBuilder.build())
+
+        return ifaceBuilder.build()
+    }
 
     private fun buildInterfacePointerProperty(iface: InterfaceBlueprint): PropertySpec =
         PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName)
@@ -380,8 +491,225 @@ class BindingsGenerator {
             .build()
     }
 
+    private fun buildMethod(method: MethodBlueprint, instancePointer: String?): FunSpec {
+        val returnTypeName = method.returnTypeInfo.kotlinTypeName
+
+        val funBuilder = FunSpec.builder(method.kotlinName)
+            .returns(returnTypeName)
+
+        if (method.isOverride) {
+            funBuilder.addModifiers(KModifier.OVERRIDE)
+        }
+
+        funBuilder.appendSignatureParameters(method.parameterBlueprints)
+
+        var needsComma = false
+        funBuilder.addCode("return %M(", method.nativeMemberName) // open native function paren
+        if (instancePointer != null) {
+            // adding reinterpret() here because sometimes the instancePointer has a different type
+            funBuilder.addCode("%N.%M()", instancePointer, REINTERPRET_FUNC)
+            needsComma = true
+        }
+
+        method.parameterBlueprints.forEach { param ->
+            if (needsComma) {
+                funBuilder.addCode(", ")
+            }
+
+            funBuilder.addCode(buildParameterConversionBlock(param))
+        }
+
+        funBuilder.addCode(")") // close native function paren
+
+        // return value conversion
+        funBuilder.addCode(buildReturnValueConversionBlock(method.returnTypeInfo))
+
+        return funBuilder.build()
+    }
+
     companion object {
         // some member utils
-        private val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
+        internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
+        internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.common", "asBoolean")
+        internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.common", "asGBoolean")
+        internal val TO_KSTRING_FUNC = MemberName("kotlinx.cinterop", "toKString")
+    }
+}
+
+fun FunSpec.Builder.appendSignatureParameters(parameters: List<MethodParameterBlueprint>) {
+    // add arguments to signature
+    parameters.forEach { param ->
+        val kotlinParamType = param.typeInfo.kotlinTypeName
+        addParameter(param.kotlinName, kotlinParamType)
+    }
+}
+
+fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
+    val codeBlockBuilder = CodeBlock.builder()
+    val isNullable = returnTypeInfo.kotlinTypeName.isNullable
+    val nullableString = if (isNullable) "?" else ""
+
+    when (returnTypeInfo) {
+        is TypeInfo.Enumeration -> ReturnValueConversions.buildEnumeration(codeBlockBuilder, returnTypeInfo)
+        is TypeInfo.ObjectPointer -> ReturnValueConversions.buildObjectPointer(returnTypeInfo, codeBlockBuilder)
+        is TypeInfo.InterfacePointer -> ReturnValueConversions.buildInterfacePointer(
+            isNullable,
+            codeBlockBuilder,
+            returnTypeInfo,
+        )
+
+        is TypeInfo.Primitive -> Unit
+        is TypeInfo.GBoolean -> ReturnValueConversions.buildGBoolean(codeBlockBuilder)
+        is TypeInfo.KString -> ReturnValueConversions.buildKString(isNullable, codeBlockBuilder)
+        is TypeInfo.Bitfield -> ReturnValueConversions.buildBitfield(codeBlockBuilder, nullableString, returnTypeInfo)
+    }
+    return codeBlockBuilder.build()
+}
+
+/**
+ * Build a [CodeBlock] that converts a Kotlin parameter into a native parameter.
+ *
+ * The resulting codeblock can be passed as an argument in a call to a native function.
+ *
+ * For example, given a `button: Button` Kotlin param with a `CPointer<GtkButton>` native type,
+ * this method will output something like `button.gtkButtonPointer`.
+ *
+ * Nullability is handled.
+ */
+fun buildParameterConversionBlock(param: MethodParameterBlueprint): CodeBlock {
+    val codeBlockBuilder = CodeBlock.builder()
+    val isParamNullable = param.typeInfo.kotlinTypeName.isNullable
+    val nullableString = if (isParamNullable) "?" else ""
+
+    when (param.typeInfo) {
+        is TypeInfo.Enumeration -> codeBlockBuilder.add("%N$nullableString.nativeValue", param.kotlinName)
+        is TypeInfo.ObjectPointer -> {
+            codeBlockBuilder.add(
+                "%N$nullableString.%N$nullableString.%M()",
+                param.kotlinName,
+                param.typeInfo.objectPointerName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+        }
+
+        is TypeInfo.InterfacePointer -> {
+            codeBlockBuilder.add(
+                "%N$nullableString.%N$nullableString.%M()",
+                param.kotlinName,
+                param.typeInfo.objectPointerName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+        }
+
+        is TypeInfo.Primitive -> codeBlockBuilder.add("%N", param.kotlinName)
+        is TypeInfo.GBoolean -> codeBlockBuilder.add(
+            "%N$nullableString.%M()",
+            param.kotlinName,
+            BindingsGenerator.AS_GBOOLEAN_FUNC,
+        )
+
+        is TypeInfo.KString -> codeBlockBuilder.add("%N", param.kotlinName)
+        is TypeInfo.Bitfield -> {
+            codeBlockBuilder.add("%N$nullableString.mask", param.kotlinName)
+        }
+    }
+    return codeBlockBuilder.build()
+}
+
+private object ReturnValueConversions {
+    fun buildEnumeration(
+        codeBlockBuilder: CodeBlock.Builder,
+        returnTypeInfo: TypeInfo,
+    ) {
+        codeBlockBuilder
+            .beginControlFlow(".let")
+            .add("%T.fromNativeValue(it)", returnTypeInfo.kotlinTypeName)
+            .endControlFlow()
+    }
+
+    fun buildObjectPointer(
+        returnTypeInfo: TypeInfo.ObjectPointer,
+        codeBlockBuilder: CodeBlock.Builder,
+    ) {
+        if (returnTypeInfo.kotlinTypeName.isNullable) {
+            codeBlockBuilder
+                .beginControlFlow("?.let")
+                .add(
+                    "%T(it.%M())",
+                    returnTypeInfo.withNullable(false).kotlinTypeName,
+                    BindingsGenerator.REINTERPRET_FUNC,
+                )
+                .endControlFlow()
+        } else {
+            // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
+            // nullable type, so we use force !! here
+            codeBlockBuilder
+                .beginControlFlow("!!.let")
+                .add(
+                    "%T(it.%M())",
+                    returnTypeInfo.withNullable(false).kotlinTypeName,
+                    BindingsGenerator.REINTERPRET_FUNC,
+                )
+                .endControlFlow()
+        }
+    }
+
+    fun buildInterfacePointer(
+        isNullable: Boolean,
+        codeBlockBuilder: CodeBlock.Builder,
+        returnTypeInfo: TypeInfo.InterfacePointer,
+    ) {
+        if (isNullable) {
+            codeBlockBuilder
+                .beginControlFlow("?.let")
+                .add(
+                    "%T.wrap(it.%M())",
+                    returnTypeInfo.withNullable(false).kotlinTypeName,
+                    BindingsGenerator.REINTERPRET_FUNC,
+                )
+                .endControlFlow()
+        } else {
+            // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
+            // nullable type, so we use force !! here
+            codeBlockBuilder
+                .beginControlFlow("!!.let")
+                .add(
+                    "%T.wrap(it.%M())",
+                    returnTypeInfo.withNullable(false).kotlinTypeName,
+                    BindingsGenerator.REINTERPRET_FUNC,
+                )
+                .endControlFlow()
+        }
+    }
+
+    fun buildGBoolean(codeBlockBuilder: CodeBlock.Builder) {
+        codeBlockBuilder.add(".%M()", BindingsGenerator.AS_BOOLEAN_FUNC)
+    }
+
+    fun buildKString(isNullable: Boolean, codeBlockBuilder: CodeBlock.Builder) {
+        // cinterop seems to map all string returning functions as nullable  so here we return a nullable string
+        // if the gir says nullable or error() when we encounter an unexpected null when the gir says non-null
+        if (isNullable) {
+            codeBlockBuilder.add("?.%M()", BindingsGenerator.TO_KSTRING_FUNC)
+        } else {
+            codeBlockBuilder.add(
+                "?.%M() ?: error(%S)",
+                BindingsGenerator.TO_KSTRING_FUNC,
+                "Expected not null string",
+            )
+        }
+    }
+
+    fun buildBitfield(
+        codeBlockBuilder: CodeBlock.Builder,
+        nullableString: String,
+        returnTypeInfo: TypeInfo,
+    ) {
+        // use mask constructor for conversion
+        codeBlockBuilder
+            .add(nullableString)
+            .beginControlFlow(".let")
+            .add("%T(it)", returnTypeInfo.kotlinTypeName)
+            .endControlFlow()
     }
 }
