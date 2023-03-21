@@ -44,7 +44,7 @@ abstract class BlueprintBuilder<T : Any>(val context: ProcessorContext) {
     /**
      * Utility method for returning a SkippedObject.
      */
-    private fun skip(reason: String, documented: Boolean = false): BlueprintResult.Skip<T> =
+    private fun skip(reason: String, documented: Boolean = true): BlueprintResult.Skip<T> =
         BlueprintResult.Skip(
             SkippedObject(
                 objectType = blueprintObjectType(),
