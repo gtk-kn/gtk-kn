@@ -10,7 +10,6 @@ spotless {
     kotlin {
         target("**/*.kt")
         targetExclude("$buildDir/**/*.kt", "build-conventions/build/**/*.kt")
-        ktlint(libs.versions.ktlint.get())
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()

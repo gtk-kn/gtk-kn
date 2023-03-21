@@ -6,6 +6,7 @@ import kotlinx.cli.ArgType
 import kotlinx.cli.default
 import org.gtkkn.gir.blueprints.prettyPrint
 import org.gtkkn.gir.generator.BindingsGenerator
+import org.gtkkn.gir.generator.KtLintFormatter
 import org.gtkkn.gir.log.configureLog4j
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.parser.GirParser
@@ -68,6 +69,13 @@ fun main(args: Array<String>) {
         )
         .default(File(System.getProperty("user.dir")).parentFile.resolve("bindings").absolutePath)
 
+    val skipFormat by parser
+        .option(
+            ArgType.Boolean,
+            description = "Do not format the generated code with KtLint",
+        )
+        .default(getDefaultSkipFormat())
+
     val logLevel by parser
         .option(
             ArgType.Choice<Level>(),
@@ -104,9 +112,10 @@ fun main(args: Array<String>) {
         repo.prettyPrint()
     }
 
-    val generator = BindingsGenerator()
+    val outputDir = File(outputPath)
+    val generator = BindingsGenerator(skipFormat,  KtLintFormatter(outputDir))
     repositoryBlueprints.forEach {
-        generator.generate(it, getRepositoryOutputPath(it.kotlinModuleName, File(outputPath)))
+        generator.generate(it, getRepositoryOutputPath(it.kotlinModuleName, outputDir))
     }
 }
 
@@ -120,10 +129,12 @@ fun getRepositoryOutputPath(repositoryName: String, outputPath: File): File {
 }
 
 private fun getDefaultLogLevel(): Level {
-    val defaultLogLevel = Level.INFO
+    val default = Level.INFO
     return try {
-        System.getenv("GTK_KN_LOG_LEVEL")?.let { Level.valueOf(it.uppercase(Locale.ROOT)) } ?: defaultLogLevel
+        System.getenv("GTK_KN_LOG_LEVEL")?.let { Level.valueOf(it.uppercase(Locale.ROOT)) } ?: default
     } catch (e: IllegalArgumentException) {
-        defaultLogLevel
+        default
     }
 }
+
+private fun getDefaultSkipFormat(): Boolean = System.getenv("GTK_KN_SKIP_FORMAT")?.lowercase() == "true"

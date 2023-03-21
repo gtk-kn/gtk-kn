@@ -325,7 +325,6 @@ class ProcessorContext(
         // bitfields
         try {
             val (nativeBitfieldTypeName, kotlinBitfieldTypeName) = resolveBitfieldTypeNames(girNamespace, type.name)
-            val (namespace, bitfield) = findBitfieldByName(girNamespace, type.name)
 
             return TypeInfo.Bitfield(
                 nativeTypeName = nativeBitfieldTypeName,

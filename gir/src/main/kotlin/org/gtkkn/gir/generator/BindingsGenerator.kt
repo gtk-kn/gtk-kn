@@ -22,7 +22,10 @@ import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.log.logger
 import java.io.File
 
-class BindingsGenerator {
+class BindingsGenerator(
+    private val skipFormat: Boolean,
+    private val ktLintFormatter: KtLintFormatter
+) {
     /**
      * bindings build dir
      */
@@ -96,13 +99,27 @@ class BindingsGenerator {
         outputDirectory: File,
     ) {
         logger.debug("Writing ${className.canonicalName}")
+
         FileSpec
             .builder(className.packageName, className.simpleName)
-            .indent("    ")
             .addFileComment("This is a generated file. Do not modify.")
             .addType(typeSpec)
             .build()
-            .writeTo(outputDirectory)
+            .apply {
+                if (skipFormat) {
+                    writeTo(outputDirectory)
+                } else {
+                    val stringBuilder = StringBuilder()
+                    writeTo(stringBuilder)
+
+                    ktLintFormatter.formatAndWriteKotlinFile(
+                        outputDirectory,
+                        className.packageName,
+                        className.simpleName,
+                        stringBuilder.toString(),
+                    )
+                }
+            }
     }
 
     private fun writeRepositorySkipFile(repository: RepositoryBlueprint, outputDir: File) {

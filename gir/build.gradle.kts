@@ -9,9 +9,10 @@ plugins {
 }
 
 dependencies {
+    implementation(libs.bundles.kotlin.logging.jvm)
+    implementation(libs.bundles.ktlint)
     implementation(libs.kotlinpoet)
     implementation(libs.kotlinx.cli)
-    implementation(libs.bundles.kotlin.logging.jvm)
     testImplementation(libs.kotlin.test.junit5)
 }
 
