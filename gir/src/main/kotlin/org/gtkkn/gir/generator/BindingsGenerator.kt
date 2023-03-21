@@ -849,8 +849,8 @@ private object ReturnValueConversions {
         returnTypeInfo: TypeInfo,
     ) {
         codeBlockBuilder
-            .beginControlFlow(".let")
-            .add("%T.fromNativeValue(it)", returnTypeInfo.kotlinTypeName)
+            .beginControlFlow(".run")
+            .add("%T.fromNativeValue(this)", returnTypeInfo.kotlinTypeName)
             .endControlFlow()
     }
 
@@ -860,9 +860,9 @@ private object ReturnValueConversions {
     ) {
         if (returnTypeInfo.kotlinTypeName.isNullable) {
             codeBlockBuilder
-                .beginControlFlow("?.let")
+                .beginControlFlow("?.run")
                 .add(
-                    "%T(it.%M())",
+                    "%T(%M())",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -871,9 +871,9 @@ private object ReturnValueConversions {
             // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
             // nullable type, so we use force !! here
             codeBlockBuilder
-                .beginControlFlow("!!.let")
+                .beginControlFlow("!!.run")
                 .add(
-                    "%T(it.%M())",
+                    "%T(%M())",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -888,9 +888,9 @@ private object ReturnValueConversions {
     ) {
         if (isNullable) {
             codeBlockBuilder
-                .beginControlFlow("?.let")
+                .beginControlFlow("?.run")
                 .add(
-                    "%T.wrap(it.%M())",
+                    "%T.wrap(%M())",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -899,9 +899,9 @@ private object ReturnValueConversions {
             // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
             // nullable type, so we use force !! here
             codeBlockBuilder
-                .beginControlFlow("!!.let")
+                .beginControlFlow("!!.run")
                 .add(
-                    "%T.wrap(it.%M())",
+                    "%T.wrap(%M())",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -935,8 +935,8 @@ private object ReturnValueConversions {
         // use mask constructor for conversion
         codeBlockBuilder
             .add(nullableString)
-            .beginControlFlow(".let")
-            .add("%T(it)", returnTypeInfo.kotlinTypeName)
+            .beginControlFlow(".run")
+            .add("%T(this)", returnTypeInfo.kotlinTypeName)
             .endControlFlow()
     }
 }
