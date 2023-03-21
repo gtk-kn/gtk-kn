@@ -6,6 +6,6 @@ data class SignalBlueprint(
     val kotlinConnectName: String,
     val signalName: String,
     val returnTypeInfo: TypeInfo,
-    val parameters: List<MethodParameterBlueprint>,
+    val parameters: List<ParameterBlueprint>,
     val handlerLambdaTypeName: LambdaTypeName,
 )

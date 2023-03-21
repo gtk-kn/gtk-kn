@@ -21,7 +21,7 @@ class ConstructorBlueprintBuilder(
     private val girConstructor: GirConstructor,
 ) : BlueprintBuilder<ConstructorBlueprint>(context) {
 
-    private val parameters = mutableListOf<MethodParameterBlueprint>()
+    private val parameters = mutableListOf<ParameterBlueprint>()
 
     override fun blueprintObjectType(): String = "constructor"
 
@@ -38,7 +38,6 @@ class ConstructorBlueprintBuilder(
             throw UnresolvableTypeException("Throwing constructors are not supported")
         }
 
-        // parameters
         addParameters()
 
         // return value

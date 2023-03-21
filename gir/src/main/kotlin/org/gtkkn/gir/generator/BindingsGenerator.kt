@@ -20,7 +20,7 @@ import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
-import org.gtkkn.gir.blueprints.MethodParameterBlueprint
+import org.gtkkn.gir.blueprints.ParameterBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.SignalBlueprint
 import org.gtkkn.gir.blueprints.SkippedObject
@@ -594,7 +594,6 @@ class BindingsGenerator(
         }.build()
 
     private fun buildSignalConnectFunction(signal: SignalBlueprint, objectPointerName: String): FunSpec {
-
         val connectFlagsTypeName = ClassName("bindings.gobject", "ConnectFlags")
         val connectFlagsDefaultMemberName = MemberName("bindings.gobject.ConnectFlags.Companion", "DEFAULT")
         val funSpec = FunSpec.builder(signal.kotlinConnectName)
@@ -667,7 +666,7 @@ class BindingsGenerator(
             codeBlockBuilder.add("%N", param.kotlinName)
             codeBlockBuilder.add(buildReturnValueConversionBlock(param.typeInfo))
         }
-        codeBlockBuilder.add(")")// close invoke
+        codeBlockBuilder.add(")") // close invoke
 
         // convert the return type and return from the lambda
         codeBlockBuilder.add(buildKotlinToNativeTypeConversionBlock(signal.returnTypeInfo))
@@ -715,7 +714,7 @@ private fun nativeCallbackCFunctionTypeName(
         ),
     )
 
-fun FunSpec.Builder.appendSignatureParameters(parameters: List<MethodParameterBlueprint>) {
+fun FunSpec.Builder.appendSignatureParameters(parameters: List<ParameterBlueprint>) {
     // add arguments to signature
     parameters.forEach { param ->
         val kotlinParamType = param.typeInfo.kotlinTypeName
@@ -755,7 +754,7 @@ fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
  *
  * Nullability is handled.
  */
-fun buildParameterConversionBlock(param: MethodParameterBlueprint): CodeBlock {
+fun buildParameterConversionBlock(param: ParameterBlueprint): CodeBlock {
     val codeBlockBuilder = CodeBlock.builder()
     val isParamNullable = param.typeInfo.kotlinTypeName.isNullable
     val nullableString = if (isParamNullable) "?" else ""
