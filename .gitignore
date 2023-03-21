@@ -13,5 +13,5 @@ out
 !.idea/detekt.xml
 
 # temporary excludes of binding src dirs
-bindings/**/src/nativeMain/
+bindings/**/src/nativeMain/kotlin/bindings/
 !bindings/common/src/nativeMain/
