@@ -21,10 +21,12 @@ kotlin-logging-macos-x64 = { module = "io.github.oshai:kotlin-logging-mingwx64",
 kotlin-logging-mingw-x64 = { module = "io.github.oshai:kotlin-logging-mingwx64", version.ref = "kotlin-logging" }
 kotlinpoet = { module = "com.squareup:kotlinpoet", version = "1.12.0" }
 kotlinx-cli = { module = "org.jetbrains.kotlinx:kotlinx-cli", version = "0.3.5" }
+ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktlint" }
+ktlint-ruleset-experimental = { module = "com.pinterest.ktlint:ktlint-ruleset-experimental", version.ref = "ktlint" }
+ktlint-ruleset-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlint" }
 log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j" }
 log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j" }
 log4j-slf4j-impl = { module = "org.apache.logging.log4j:log4j-slf4j-impl", version.ref = "log4j" }
-
 
 # plugins
 plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
@@ -36,6 +38,7 @@ kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", versi
 
 [bundles]
 kotlin-logging-jvm = ["kotlin-logging-jvm", "log4j-api", "log4j-core", "log4j-slf4j-impl"]
+ktlint = ["ktlint-core", "ktlint-ruleset-experimental", "ktlint-ruleset-standard"]
 
 [plugins]
 dokka = { id = "org.jetbrains.dokka", version.ref = "kotlin" }
