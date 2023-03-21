@@ -169,7 +169,9 @@ class BindingsGenerator(
             addKdoc(buildTypeKDoc(clazz.kdoc, clazz.skippedObjects))
 
             // modifiers
-            addModifiers(KModifier.OPEN) // currently marking all classes as open to make it compile
+            if (!clazz.isFinal) {
+                addModifiers(KModifier.OPEN)
+            }
 
             // parent class
             if (clazz.parentTypeName != null) {
@@ -396,7 +398,7 @@ class BindingsGenerator(
 
     private fun buildMethodKDoc(
         kdoc: String?,
-        parameters: List<MethodParameterBlueprint>,
+        parameters: List<ParameterBlueprint>,
         returnTypeKDoc: String?,
     ): CodeBlock = CodeBlock.builder().apply {
         kdoc?.let { add("%L", it) }
@@ -567,6 +569,10 @@ class BindingsGenerator(
 
             if (method.isOverride) {
                 addModifiers(KModifier.OVERRIDE)
+            }
+
+            if (method.isOpen) {
+                addModifiers(KModifier.OPEN)
             }
 
             appendSignatureParameters(method.parameterBlueprints)

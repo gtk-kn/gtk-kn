@@ -23,6 +23,7 @@ class MethodBlueprintBuilder(
     private val girMethod: GirMethod,
     private val superClasses: List<GirClass> = emptyList(),
     private val superInterfaces: List<GirInterface> = emptyList(),
+    private val isOpen: Boolean = false,
 ) : BlueprintBuilder<MethodBlueprint>(context) {
     private val methodParameters = mutableListOf<ParameterBlueprint>()
 
@@ -109,6 +110,7 @@ class MethodBlueprintBuilder(
             parameterBlueprints = methodParameters,
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
+            isOpen = isOpen,
             kdoc = context.processKdoc(girMethod.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girMethod.returnValue.docs.doc?.text),
         )

@@ -53,7 +53,8 @@ class ClassBlueprintBuilder(
     override fun blueprintObjectName(): String = girClass.name
 
     private fun addMethod(method: GirMethod) {
-        when (val result = MethodBlueprintBuilder(context, girNamespace, method, superClasses, interfaces).build()) {
+        when (val result =
+            MethodBlueprintBuilder(context, girNamespace, method, superClasses, interfaces, isOpen = true).build()) {
             is BlueprintResult.Ok -> methodBluePrints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
@@ -116,6 +117,7 @@ class ClassBlueprintBuilder(
             parentTypeName = parentTypeName,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
+            isFinal = girClass.final == true,
             kdoc = context.processKdoc(girClass.info.docs.doc?.text),
         )
     }

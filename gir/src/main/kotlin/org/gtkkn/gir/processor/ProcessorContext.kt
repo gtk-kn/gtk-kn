@@ -73,16 +73,6 @@ class ProcessorContext(
      * A set of C functions that should not be generated.
      */
     private val ignoredFunctions = hashSetOf<String>(
-        // ignore because they clash with Object.ref/unref
-        "pango_coverage_ref",
-        "pango_coverage_unref",
-        // ignore because they clash with DrawContext
-        "gdk_gl_context_get_display",
-        "gdk_gl_context_get_surface",
-
-        // ignore because it clashes with Dialog.get_settings
-        "gtk_print_unix_dialog_get_settings",
-
         // problems with Snapshot class
         "gtk_widget_snapshot_child",
 
