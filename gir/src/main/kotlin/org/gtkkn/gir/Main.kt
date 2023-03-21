@@ -6,6 +6,7 @@ import kotlinx.cli.ArgType
 import kotlinx.cli.default
 import org.gtkkn.gir.blueprints.prettyPrint
 import org.gtkkn.gir.generator.BindingsGenerator
+import org.gtkkn.gir.generator.KtLintFormatter
 import org.gtkkn.gir.log.configureLog4j
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.parser.GirParser
@@ -111,9 +112,10 @@ fun main(args: Array<String>) {
         repo.prettyPrint()
     }
 
-    val generator = BindingsGenerator(skipFormat)
+    val outputDir = File(outputPath)
+    val generator = BindingsGenerator(skipFormat,  KtLintFormatter(outputDir))
     repositoryBlueprints.forEach {
-        generator.generate(it, getRepositoryOutputPath(it.kotlinModuleName, File(outputPath)))
+        generator.generate(it, getRepositoryOutputPath(it.kotlinModuleName, outputDir))
     }
 }
 

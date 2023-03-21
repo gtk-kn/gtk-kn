@@ -24,7 +24,7 @@ import java.io.File
 
 class BindingsGenerator(
     private val skipFormat: Boolean,
-    private val ktLintFormatter: KtLintFormatter = KtLintFormatter()
+    private val ktLintFormatter: KtLintFormatter
 ) {
     /**
      * bindings build dir
