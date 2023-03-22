@@ -8,6 +8,10 @@ import org.gtkkn.gir.config.Config
 import java.io.File
 import java.util.Locale
 
+private const val DEFAULT_GIR_PATH = "/usr/share/gir-1.0/"
+private const val ENV_GTK_KN_LOG_LEVEL = "GTK_KN_LOG_LEVEL"
+private const val ENV_GTK_KN_LICENSE = "GTK_KN_LICENSE"
+
 fun parseConfig(args: Array<String>): Config {
     val parser = ArgParser("generator")
     val girPath by parser
@@ -16,7 +20,7 @@ fun parseConfig(args: Array<String>): Config {
             shortName = "g",
             description = "Path to the GIR directory",
         )
-        .default("/usr/share/gir-1.0/")
+        .default(DEFAULT_GIR_PATH)
 
     val outputPath by parser
         .option(
@@ -58,10 +62,11 @@ fun parseConfig(args: Array<String>): Config {
         skipFormat = skipFormat,
     )
 }
+
 private fun getDefaultLogLevel(): Level {
     val default = Level.INFO
     return try {
-        System.getenv("GTK_KN_LOG_LEVEL")?.let { Level.valueOf(it.uppercase(Locale.ROOT)) } ?: default
+        System.getenv(ENV_GTK_KN_LOG_LEVEL)?.let { Level.valueOf(it.uppercase(Locale.ROOT)) } ?: default
     } catch (e: IllegalArgumentException) {
         default
     }
@@ -70,7 +75,7 @@ private fun getDefaultLogLevel(): Level {
 private fun getDefaultLicense(): Config.License {
     val default = Config.License.LGPL
     return try {
-        System.getenv("GTK_KN_LICENSE")?.let { Config.License.valueOf(it.uppercase(Locale.ROOT)) } ?: default
+        System.getenv(ENV_GTK_KN_LICENSE)?.let { Config.License.valueOf(it.uppercase(Locale.ROOT)) } ?: default
     } catch (e: IllegalArgumentException) {
         default
     }
