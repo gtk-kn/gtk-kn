@@ -4,6 +4,7 @@ import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.SkippedObjectException
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
 /**
@@ -28,6 +29,9 @@ abstract class BlueprintBuilder<T : Any>(val context: ProcessorContext) {
      */
     fun build(): BlueprintResult<T> = try {
         ok(buildInternal())
+    } catch (ex: SkippedObjectException) {
+        // propagate skipped object
+        BlueprintResult.Skip(ex.skippedObject)
     } catch (ex: NotIntrospectableException) {
         logger.debug("Skipping not introspectable object: ${ex.objectName}")
         skip(ex.message, documented = false)

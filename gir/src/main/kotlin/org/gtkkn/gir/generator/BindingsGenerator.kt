@@ -5,10 +5,14 @@ import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.LambdaTypeName
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.U_LONG
 import org.gtkkn.gir.blueprints.BitfieldBlueprint
 import org.gtkkn.gir.blueprints.ClassBlueprint
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
@@ -16,12 +20,14 @@ import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
-import org.gtkkn.gir.blueprints.MethodParameterBlueprint
+import org.gtkkn.gir.blueprints.ParameterBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
+import org.gtkkn.gir.blueprints.SignalBlueprint
 import org.gtkkn.gir.blueprints.SkippedObject
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.log.logger
+import org.gtkkn.gir.processor.NativeTypes
 import java.io.File
 
 class BindingsGenerator(
@@ -64,6 +70,7 @@ class BindingsGenerator(
                 clazz.typeName,
                 buildClass(clazz),
                 repositorySrcDir(repository, outputDir),
+                clazz.signals.map { buildStaticSignalCallback(it) },
             )
         }
 
@@ -73,6 +80,7 @@ class BindingsGenerator(
                 iface.typeName,
                 buildInterface(iface),
                 repositorySrcDir(repository, outputDir),
+                iface.signals.map { buildStaticSignalCallback(it) },
             )
         }
 
@@ -99,6 +107,7 @@ class BindingsGenerator(
         className: ClassName,
         typeSpec: TypeSpec,
         outputDirectory: File,
+        additionalProperties: List<PropertySpec> = emptyList(),
     ) {
         logger.debug("Writing ${className.canonicalName}")
 
@@ -106,6 +115,7 @@ class BindingsGenerator(
             .builder(className.packageName, className.simpleName)
             .addFileComment("This is a generated file. Do not modify.")
             .addType(typeSpec)
+            .apply { additionalProperties.forEach { addProperty(it) } }
             .build()
             .apply {
                 if (config.skipFormat) {
@@ -143,7 +153,7 @@ class BindingsGenerator(
         enumsFile.createNewFile()
 
         enumsFile.printWriter().use { writer ->
-            writer.write("strictEnums = \\")
+            writer.println("strictEnums = \\")
             repository.enumBlueprints.forEach { enum ->
                 writer.println("${(enum.nativeValueTypeName as ClassName).simpleName} \\")
             }
@@ -159,7 +169,9 @@ class BindingsGenerator(
             addKdoc(buildTypeKDoc(clazz.kdoc, clazz.skippedObjects))
 
             // modifiers
-            addModifiers(KModifier.OPEN) // currently marking all classes as open to make it compile
+            if (!clazz.isFinal) {
+                addModifiers(KModifier.OPEN)
+            }
 
             // parent class
             if (clazz.parentTypeName != null) {
@@ -230,6 +242,11 @@ class BindingsGenerator(
             // methods
             clazz.methods.forEach { method ->
                 addFunction(buildMethod(method, clazz.objectPointerName))
+            }
+
+            // signal connect methods
+            clazz.signals.forEach { signal ->
+                addFunction(buildSignalConnectFunction(signal, "gPointer"))
             }
 
             addType(companionSpecBuilder.build())
@@ -381,7 +398,7 @@ class BindingsGenerator(
 
     private fun buildMethodKDoc(
         kdoc: String?,
-        parameters: List<MethodParameterBlueprint>,
+        parameters: List<ParameterBlueprint>,
         returnTypeKDoc: String?,
     ): CodeBlock = CodeBlock.builder().apply {
         kdoc?.let { add("%L", it) }
@@ -401,8 +418,14 @@ class BindingsGenerator(
         // kdoc
         ifaceBuilder.addKdoc(buildTypeKDoc(iface.kdoc, iface.skippedObjects))
 
+        // methods
         iface.methods.forEach { method ->
             ifaceBuilder.addFunction(buildMethod(method, iface.objectPointerName))
+        }
+
+        // signal connect methods
+        iface.signals.forEach { signal ->
+            ifaceBuilder.addFunction(buildSignalConnectFunction(signal, iface.objectPointerName))
         }
 
         val wrapperClass = TypeSpec.classBuilder("Wrapper")
@@ -548,6 +571,10 @@ class BindingsGenerator(
                 addModifiers(KModifier.OVERRIDE)
             }
 
+            if (method.isOpen) {
+                addModifiers(KModifier.OPEN)
+            }
+
             appendSignatureParameters(method.parameterBlueprints)
 
             var needsComma = false
@@ -572,16 +599,138 @@ class BindingsGenerator(
             addCode(buildReturnValueConversionBlock(method.returnTypeInfo))
         }.build()
 
+    private fun buildSignalConnectFunction(signal: SignalBlueprint, objectPointerName: String): FunSpec {
+        val connectFlagsTypeName = ClassName("bindings.gobject", "ConnectFlags")
+        val connectFlagsDefaultMemberName = MemberName("bindings.gobject.ConnectFlags.Companion", "DEFAULT")
+        val funSpec = FunSpec.builder(signal.kotlinConnectName).apply {
+            // connect flags
+            addParameter(
+                ParameterSpec.builder("connectFlags", connectFlagsTypeName)
+                    .defaultValue("%M", connectFlagsDefaultMemberName)
+                    .build(),
+            )
+            // trailing lambda for handler
+            addParameter(
+                "handler",
+                signal.handlerLambdaTypeName,
+            )
+            returns(U_LONG)
+
+            // add implementation
+            addCode("return %M(", G_SIGNAL_CONNECT_DATA)
+            addCode("%N.%M()", objectPointerName, REINTERPRET_FUNC)
+            addCode(", %S", signal.signalName)
+            addCode(", %NFunc.%M()", signal.kotlinConnectName, REINTERPRET_FUNC)
+            addCode(", %T.create(handler).asCPointer()", STABLEREF)
+            addCode(", %M", STATIC_STABLEREF_DESTROY)
+            addCode(", connectFlags.mask")
+
+            addCode(")")
+        }
+
+        // callback type
+        return funSpec.build()
+    }
+
+    /**
+     * Build the private property that holds the static C callback functions that we use for implementing
+     * the connect<signal-name>() methods.
+     */
+    private fun buildStaticSignalCallback(signal: SignalBlueprint): PropertySpec {
+        val staticCallbackVal = PropertySpec.builder(
+            "${signal.kotlinConnectName}Func",
+            nativeCallbackCFunctionTypeName(
+                signal.returnTypeInfo.nativeTypeName,
+                signal.parameters.map { param ->
+                    ParameterSpec.builder("", param.typeInfo.nativeTypeName).build()
+                },
+            ),
+            KModifier.PRIVATE,
+        ).initializer(buildStaticSignalCallbackImplementation(signal))
+        return staticCallbackVal.build()
+    }
+
+    /**
+     * Build the [staticCFunction] implementation for signal connect handlers.
+     */
+    private fun buildStaticSignalCallbackImplementation(signal: SignalBlueprint) = CodeBlock.builder().apply {
+        beginControlFlow("%M", STATIC_C_FUNC)
+
+        // lambda signature
+        addStatement("_: %T,", NativeTypes.KP_OPAQUE_POINTER)
+        signal.parameters.forEach { param ->
+            // cinterop maps methods return values with pointer types as nullable
+            // so we do the same thing here for the staticCFunction pointer arguments
+            // we have to check for gir-based nullability first because otherwise we get double `??`
+            val forceNullable = if (!param.typeInfo.kotlinTypeName.isNullable && param.typeInfo.isCinteropNullable) {
+                "?"
+            } else {
+                ""
+            }
+            addStatement("%N: %T$forceNullable,", param.kotlinName, param.typeInfo.nativeTypeName)
+        }
+        addStatement("data: %T ->", NativeTypes.KP_OPAQUE_POINTER)
+
+        // implementation
+        add(
+            "data.%M<%T>().get().invoke(",
+            AS_STABLE_REF_FUNC,
+            signal.handlerLambdaTypeName,
+        ) // open invoke
+        signal.parameters.forEachIndexed { index, param ->
+            if (index > 0) {
+                add(", ")
+            }
+            add("%N", param.kotlinName)
+            add(buildReturnValueConversionBlock(param.typeInfo))
+        }
+        add(")") // close invoke
+
+        // convert the return type and return from the lambda
+        add(buildKotlinToNativeTypeConversionBlock(signal.returnTypeInfo))
+
+        endControlFlow()
+        add(".%M()", REINTERPRET_FUNC)
+    }.build()
+
     companion object {
-        // some member utils
-        internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
+        // gtk-kn common function members
         internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.common", "asBoolean")
         internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.common", "asGBoolean")
+        internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.common", "staticStableRefDestroy")
+
+        // cinterop helper function members
+        internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
         internal val TO_KSTRING_FUNC = MemberName("kotlinx.cinterop", "toKString")
+        internal val STATIC_C_FUNC = MemberName("kotlinx.cinterop", "staticCFunction")
+        internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
+        internal val STABLEREF = ClassName("kotlinx.cinterop", "StableRef")
+
+        // gobject members
+        internal val G_SIGNAL_CONNECT_DATA = MemberName("native.gobject", "g_signal_connect_data")
     }
 }
 
-fun FunSpec.Builder.appendSignatureParameters(parameters: List<MethodParameterBlueprint>) {
+/**
+ * Build a signature for the staticCFunction implementation for connect signal callbacks.
+ *
+ * This the equivalent of a native.gobject.GCallback typealias, that should point
+ *      to a CPointer<CFunction<(T) -> R>> where T = arguments and R = result
+ */
+private fun nativeCallbackCFunctionTypeName(
+    resultTypeName: TypeName,
+    parameters: List<ParameterSpec> = emptyList()
+) =
+    NativeTypes.KP_CPOINTER.parameterizedBy(
+        NativeTypes.KP_CFUNCTION.parameterizedBy(
+            LambdaTypeName.get(
+                returnType = resultTypeName,
+                parameters = parameters,
+            ),
+        ),
+    )
+
+fun FunSpec.Builder.appendSignatureParameters(parameters: List<ParameterBlueprint>) {
     // add arguments to signature
     parameters.forEach { param ->
         val kotlinParamType = param.typeInfo.kotlinTypeName
@@ -592,7 +741,7 @@ fun FunSpec.Builder.appendSignatureParameters(parameters: List<MethodParameterBl
 fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
     val codeBlockBuilder = CodeBlock.builder()
     val isNullable = returnTypeInfo.kotlinTypeName.isNullable
-    val nullableString = if (isNullable) "?" else ""
+    val safeCall = if (isNullable) "?" else ""
 
     when (returnTypeInfo) {
         is TypeInfo.Enumeration -> ReturnValueConversions.buildEnumeration(codeBlockBuilder, returnTypeInfo)
@@ -606,7 +755,7 @@ fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
         is TypeInfo.Primitive -> Unit
         is TypeInfo.GBoolean -> ReturnValueConversions.buildGBoolean(codeBlockBuilder)
         is TypeInfo.KString -> ReturnValueConversions.buildKString(isNullable, codeBlockBuilder)
-        is TypeInfo.Bitfield -> ReturnValueConversions.buildBitfield(codeBlockBuilder, nullableString, returnTypeInfo)
+        is TypeInfo.Bitfield -> ReturnValueConversions.buildBitfield(codeBlockBuilder, safeCall, returnTypeInfo)
     }
     return codeBlockBuilder.build()
 }
@@ -621,16 +770,16 @@ fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
  *
  * Nullability is handled.
  */
-fun buildParameterConversionBlock(param: MethodParameterBlueprint): CodeBlock {
+fun buildParameterConversionBlock(param: ParameterBlueprint): CodeBlock {
     val codeBlockBuilder = CodeBlock.builder()
     val isParamNullable = param.typeInfo.kotlinTypeName.isNullable
-    val nullableString = if (isParamNullable) "?" else ""
+    val safeCall = if (isParamNullable) "?" else ""
 
     when (param.typeInfo) {
-        is TypeInfo.Enumeration -> codeBlockBuilder.add("%N$nullableString.nativeValue", param.kotlinName)
+        is TypeInfo.Enumeration -> codeBlockBuilder.add("%N$safeCall.nativeValue", param.kotlinName)
         is TypeInfo.ObjectPointer -> {
             codeBlockBuilder.add(
-                "%N$nullableString.%N$nullableString.%M()",
+                "%N$safeCall.%N$safeCall.%M()",
                 param.kotlinName,
                 param.typeInfo.objectPointerName,
                 BindingsGenerator.REINTERPRET_FUNC,
@@ -639,7 +788,7 @@ fun buildParameterConversionBlock(param: MethodParameterBlueprint): CodeBlock {
 
         is TypeInfo.InterfacePointer -> {
             codeBlockBuilder.add(
-                "%N$nullableString.%N$nullableString.%M()",
+                "%N$safeCall.%N$safeCall.%M()",
                 param.kotlinName,
                 param.typeInfo.objectPointerName,
                 BindingsGenerator.REINTERPRET_FUNC,
@@ -648,14 +797,57 @@ fun buildParameterConversionBlock(param: MethodParameterBlueprint): CodeBlock {
 
         is TypeInfo.Primitive -> codeBlockBuilder.add("%N", param.kotlinName)
         is TypeInfo.GBoolean -> codeBlockBuilder.add(
-            "%N$nullableString.%M()",
+            "%N$safeCall.%M()",
             param.kotlinName,
             BindingsGenerator.AS_GBOOLEAN_FUNC,
         )
 
         is TypeInfo.KString -> codeBlockBuilder.add("%N", param.kotlinName)
         is TypeInfo.Bitfield -> {
-            codeBlockBuilder.add("%N$nullableString.mask", param.kotlinName)
+            codeBlockBuilder.add("%N$safeCall.mask", param.kotlinName)
+        }
+    }
+    return codeBlockBuilder.build()
+}
+
+/**
+ * Build a [CodeBlock] that converts a Kotlin value into its native counterpart.
+ *
+ * The resulting codeblock should be placed right after the value to be converted.
+ *
+ * Nullability is handled.
+ */
+fun buildKotlinToNativeTypeConversionBlock(typeInfo: TypeInfo): CodeBlock {
+    val codeBlockBuilder = CodeBlock.builder()
+    val isParamNullable = typeInfo.kotlinTypeName.isNullable
+    val safeCall = if (isParamNullable) "?" else ""
+
+    when (typeInfo) {
+        is TypeInfo.Primitive -> Unit
+        is TypeInfo.KString -> Unit
+        is TypeInfo.Enumeration -> codeBlockBuilder.add("$safeCall.nativeValue")
+        is TypeInfo.ObjectPointer -> {
+            codeBlockBuilder.add(
+                "$safeCall.%N",
+                typeInfo.objectPointerName,
+            )
+        }
+
+        is TypeInfo.InterfacePointer -> {
+            codeBlockBuilder.add(
+                "$safeCall.%N$safeCall.%M()",
+                typeInfo.objectPointerName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+        }
+
+        is TypeInfo.GBoolean -> codeBlockBuilder.add(
+            "$safeCall.%M()",
+            BindingsGenerator.AS_GBOOLEAN_FUNC,
+        )
+
+        is TypeInfo.Bitfield -> {
+            codeBlockBuilder.add("$safeCall.mask")
         }
     }
     return codeBlockBuilder.build()
@@ -667,8 +859,8 @@ private object ReturnValueConversions {
         returnTypeInfo: TypeInfo,
     ) {
         codeBlockBuilder
-            .beginControlFlow(".let")
-            .add("%T.fromNativeValue(it)", returnTypeInfo.kotlinTypeName)
+            .beginControlFlow(".run")
+            .add("%T.fromNativeValue(this)", returnTypeInfo.kotlinTypeName)
             .endControlFlow()
     }
 
@@ -678,9 +870,9 @@ private object ReturnValueConversions {
     ) {
         if (returnTypeInfo.kotlinTypeName.isNullable) {
             codeBlockBuilder
-                .beginControlFlow("?.let")
+                .beginControlFlow("?.run")
                 .add(
-                    "%T(it.%M())",
+                    "%T(%M())",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -689,9 +881,9 @@ private object ReturnValueConversions {
             // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
             // nullable type, so we use force !! here
             codeBlockBuilder
-                .beginControlFlow("!!.let")
+                .beginControlFlow("!!.run")
                 .add(
-                    "%T(it.%M())",
+                    "%T(%M())",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -706,9 +898,9 @@ private object ReturnValueConversions {
     ) {
         if (isNullable) {
             codeBlockBuilder
-                .beginControlFlow("?.let")
+                .beginControlFlow("?.run")
                 .add(
-                    "%T.wrap(it.%M())",
+                    "%T.wrap(%M())",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -717,9 +909,9 @@ private object ReturnValueConversions {
             // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
             // nullable type, so we use force !! here
             codeBlockBuilder
-                .beginControlFlow("!!.let")
+                .beginControlFlow("!!.run")
                 .add(
-                    "%T.wrap(it.%M())",
+                    "%T.wrap(%M())",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -753,8 +945,8 @@ private object ReturnValueConversions {
         // use mask constructor for conversion
         codeBlockBuilder
             .add(nullableString)
-            .beginControlFlow(".let")
-            .add("%T(it)", returnTypeInfo.kotlinTypeName)
+            .beginControlFlow(".run")
+            .add("%T(this)", returnTypeInfo.kotlinTypeName)
             .endControlFlow()
     }
 }

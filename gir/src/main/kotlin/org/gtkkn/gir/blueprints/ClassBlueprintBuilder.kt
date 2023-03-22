@@ -7,6 +7,7 @@ import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
+import org.gtkkn.gir.model.GirSignal
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
@@ -20,6 +21,7 @@ class ClassBlueprintBuilder(
 ) {
     private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
+    private val signalBluePrints = mutableListOf<SignalBlueprint>()
     private val implementsInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
     private var parentTypeName: TypeName? = null
 
@@ -51,7 +53,8 @@ class ClassBlueprintBuilder(
     override fun blueprintObjectName(): String = girClass.name
 
     private fun addMethod(method: GirMethod) {
-        when (val result = MethodBlueprintBuilder(context, girNamespace, method, superClasses, interfaces).build()) {
+        when (val result =
+            MethodBlueprintBuilder(context, girNamespace, method, superClasses, interfaces, isOpen = true).build()) {
             is BlueprintResult.Ok -> methodBluePrints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
@@ -60,6 +63,13 @@ class ClassBlueprintBuilder(
     private fun addConstructor(constructor: GirConstructor) {
         when (val result = ConstructorBlueprintBuilder(context, girNamespace, girClass, constructor).build()) {
             is BlueprintResult.Ok -> constructorBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
+    private fun addSignal(signal: GirSignal) {
+        when (val result = SignalBlueprintBuilder(context, girNamespace, signal).build()) {
+            is BlueprintResult.Ok -> signalBluePrints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
     }
@@ -83,6 +93,7 @@ class ClassBlueprintBuilder(
 
         girClass.methods.forEach { addMethod(it) }
         girClass.constructors.forEach { addConstructor(it) }
+        girClass.signals.forEach { addSignal(it) }
 
         val kotlinClassName = context.kotlinizeClassName(girClass.name)
         val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
@@ -100,11 +111,13 @@ class ClassBlueprintBuilder(
             typeName = ClassName(kotlinPackageName, kotlinClassName),
             methods = methodBluePrints,
             constructors = constructorBlueprints,
+            signals = signalBluePrints,
             skippedObjects = skippedObjects,
             implementsInterfaces = implementsInterfaces,
             parentTypeName = parentTypeName,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
+            isFinal = girClass.final == true,
             kdoc = context.processKdoc(girClass.info.docs.doc?.text),
         )
     }

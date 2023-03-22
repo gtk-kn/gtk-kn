@@ -5,17 +5,16 @@ import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirAnyTypeOrVarargs
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirClass
-import org.gtkkn.gir.model.GirDirection
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirParameter
-import org.gtkkn.gir.model.GirParameters
 import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.model.GirVarArgs
 import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.SkippedObjectException
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class MethodBlueprintBuilder(
@@ -24,12 +23,20 @@ class MethodBlueprintBuilder(
     private val girMethod: GirMethod,
     private val superClasses: List<GirClass> = emptyList(),
     private val superInterfaces: List<GirInterface> = emptyList(),
+    private val isOpen: Boolean = false,
 ) : BlueprintBuilder<MethodBlueprint>(context) {
-    private val methodParameters = mutableListOf<MethodParameterBlueprint>()
+    private val methodParameters = mutableListOf<ParameterBlueprint>()
 
     override fun blueprintObjectType(): String = "method"
 
     override fun blueprintObjectName(): String = girMethod.name
+
+    private fun addParameter(param: GirParameter) {
+        when (val result = ParameterBlueprintBuilder(context, girNamespace, param).build()) {
+            is BlueprintResult.Ok -> methodParameters.add(result.blueprint)
+            is BlueprintResult.Skip -> throw SkippedObjectException(result.skippedObject)
+        }
+    }
 
     override fun buildInternal(): MethodBlueprint {
         if (girMethod.info.introspectable == false) {
@@ -53,7 +60,7 @@ class MethodBlueprintBuilder(
         }
 
         // parameters
-        addParams(girMethod.parameters)
+        girMethod.parameters.parameters.forEach { addParameter(it) }
 
         // return value
         val returnValue = girMethod.returnValue ?: throw UnresolvableTypeException("Method has no return value")
@@ -103,61 +110,16 @@ class MethodBlueprintBuilder(
             parameterBlueprints = methodParameters,
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
+            isOpen = isOpen,
             kdoc = context.processKdoc(girMethod.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girMethod.returnValue.docs.doc?.text),
         )
-    }
-
-    private fun addParams(parameters: GirParameters) {
-        for (param in parameters.parameters) {
-            // skip method if parameter is not supported
-            val paramCType = when (param.type) {
-                is GirArrayType -> param.type.cType
-                is GirType -> param.type.cType
-                GirVarArgs -> null
-            }
-            if (paramCType != null) context.checkIgnoredType(paramCType)
-            skipParameterForReason(param)?.let { reason ->
-                throw UnresolvableTypeException(reason)
-            }
-
-            val paramKotlinName = context.kotlinizeParameterName(param.name)
-
-            val typeInfo = when (param.type) {
-                is GirArrayType -> throw UnresolvableTypeException("Array parameter is not supported")
-                is GirType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
-                GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
-            }
-
-            // build parameter
-            val paramBlueprint = MethodParameterBlueprint(
-                kotlinName = paramKotlinName,
-                nativeName = param.name,
-                typeInfo = typeInfo,
-                kdoc = context.processKdoc(param.docs.doc?.text),
-            )
-
-            methodParameters.add(paramBlueprint)
-        }
     }
 
     private fun resolveNameClash(originalName: String): String {
         val result = "${originalName}_"
         logger.error("Name clash: renaming method $originalName to $result")
         return result
-    }
-
-    /**
-     * Check if the parameter is supported.
-     *
-     * @return null if the parameter is supported, and skip reason if unsupported.
-     */
-    private fun skipParameterForReason(param: GirParameter): String? = when {
-        param.direction == GirDirection.OUT -> "Out parameter is not supported"
-        param.direction == GirDirection.IN_OUT -> "InOut parameter is not supported"
-        param.type is GirVarArgs -> "Varargs parameter is not supported"
-        param.type is GirArrayType -> "Array parameter is not supported"
-        else -> null
     }
 }
 

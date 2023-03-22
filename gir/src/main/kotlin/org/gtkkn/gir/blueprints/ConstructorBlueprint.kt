@@ -21,7 +21,7 @@ data class ConstructorBlueprint(
     val nativeName: String,
     val nativeMemberName: MemberName, // not enum member, but the KP reference to the native function name
     val returnTypeInfo: TypeInfo,
-    val parameters: List<MethodParameterBlueprint>,
+    val parameters: List<ParameterBlueprint>,
     val kdoc: String?,
     val returnTypeKDoc: String?,
 )

@@ -6,6 +6,7 @@ import com.squareup.kotlinpoet.DOUBLE
 import com.squareup.kotlinpoet.FLOAT
 import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.LONG
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
@@ -73,16 +74,6 @@ class ProcessorContext(
      * A set of C functions that should not be generated.
      */
     private val ignoredFunctions = hashSetOf<String>(
-        // ignore because they clash with Object.ref/unref
-        "pango_coverage_ref",
-        "pango_coverage_unref",
-        // ignore because they clash with DrawContext
-        "gdk_gl_context_get_display",
-        "gdk_gl_context_get_surface",
-
-        // ignore because it clashes with Dialog.get_settings
-        "gtk_print_unix_dialog_get_settings",
-
         // problems with Snapshot class
         "gtk_widget_snapshot_child",
 
@@ -96,6 +87,14 @@ class ProcessorContext(
         "gtk_widget_set_font_map",
         "gtk_widget_realize",
         "gtk_widget_unrealize",
+    )
+
+    /**
+     * A set of signals that should not be generated.
+     */
+    private val ignoredSignals = hashSetOf<String>(
+        // problems with string conversion in signal handler
+        "format-entry-text",
     )
 
     /**
@@ -152,6 +151,9 @@ class ProcessorContext(
             .toPascalCase()
 
     fun kotlinizeBitfieldMemberName(nativeMemberName: String): String = nativeMemberName.uppercase()
+
+    fun kotlinizeSignalConnectName(nativeSignalName: String): String =
+        "connect${nativeSignalName.replace("-", "_").toPascalCase()}"
 
     // namespace naming
     fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()
@@ -253,7 +255,10 @@ class ProcessorContext(
             ?: throw UnresolvableTypeException("enum $nativeEnumName not found")
 
         return Pair(
-            ClassName(namespaceNativePackageName(namespace), enum.name),
+            ClassName(
+                namespaceNativePackageName(namespace),
+                enum.cType,
+            ),
             ClassName(namespaceBindingsPackageName(namespace), kotlinizeEnumName(enum.name)),
         )
     }
@@ -265,7 +270,10 @@ class ProcessorContext(
             ?: throw UnresolvableTypeException("enum $nativeBitfieldName not found")
 
         return Pair(
-            ClassName(namespaceNativePackageName(namespace), bitfield.name),
+            ClassName(
+                namespaceNativePackageName(namespace),
+                bitfield.cType,
+            ),
             ClassName(namespaceBindingsPackageName(namespace), kotlinizeBitfieldName(bitfield.name)),
         )
     }
@@ -291,7 +299,7 @@ class ProcessorContext(
                 "gPointer"
             }
             return TypeInfo.ObjectPointer(
-                NativeTypes.KP_WILDCARD_CPOINTER,
+                NativeTypes.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girClass)),
                 kotlinClassTypeName,
                 objectPointerName,
             ).withNullable(nullable)
@@ -305,7 +313,7 @@ class ProcessorContext(
             val (namespace, girInterface) = findInterfaceByName(girNamespace, type.name)
             val objectPointerName = "${namespacePrefix(namespace)}${girInterface.name}Pointer"
             return TypeInfo.InterfacePointer(
-                NativeTypes.KP_WILDCARD_CPOINTER,
+                NativeTypes.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girInterface)),
                 kotlinInterfaceTypeName,
                 objectPointerName,
             ).withNullable(nullable)
@@ -339,6 +347,20 @@ class ProcessorContext(
         logger.warn("Could not resolve type for type with name: ${type.name} and cType: ${type.cType}")
         throw UnresolvableTypeException(type.name)
     }
+
+    private fun buildNativeClassName(girNamespace: GirNamespace, girClass: GirClass) =
+        ClassName(
+            namespaceNativePackageName(girNamespace),
+            girClass.cType
+                ?: throw UnresolvableTypeException("missing cType for class ${girClass.name}"),
+        )
+
+    private fun buildNativeClassName(girNamespace: GirNamespace, girInterface: GirInterface) =
+        ClassName(
+            namespaceNativePackageName(girNamespace),
+            girInterface.cType
+                ?: throw UnresolvableTypeException("missing cType for interface ${girInterface.name}"),
+        )
 
     @Throws(UnresolvableTypeException::class)
     fun findClassByName(
@@ -384,6 +406,7 @@ class ProcessorContext(
      * or configuration.
      * @throws IgnoredTypeException if the type should be ignored.
      */
+    @Throws(IgnoredTypeException::class)
     fun checkIgnoredType(cType: String) {
         if (ignoredTypes.contains(cType)) {
             throw IgnoredTypeException(cType)
@@ -393,10 +416,11 @@ class ProcessorContext(
     /**
      * Utility method for checking whether a C function is supported or should be skipped.
      *
-     * This method returns succesfully when the given [cFunctionName] is not present in any of the skipped lists
+     * This method returns successfully when the given [cFunctionName] is not present in any of the skipped lists
      * or configuration.
-     * @throws IgnoredTypeException if the function should be ignored.
+     * @throws IgnoredFunctionException if the function should be ignored.
      */
+    @Throws(IgnoredFunctionException::class)
     fun checkIgnoredFunction(cFunctionName: String) {
         if (ignoredFunctions.contains(cFunctionName)) {
             throw IgnoredFunctionException(cFunctionName)
@@ -404,6 +428,20 @@ class ProcessorContext(
 
         if (cFunctionName.endsWith("to_string")) {
             throw IgnoredFunctionException(cFunctionName)
+        }
+    }
+
+    /**
+     * Utility method for checking whether a C function is supported or should be skipped.
+     *
+     * This method returns successfully when the given [cFunctionName] is not present in any of the skipped lists
+     * or configuration.
+     * @throws IgnoredSignalException if the function should be ignored.
+     */
+    @Throws(IgnoredSignalException::class)
+    fun checkIgnoredSignal(signalName: String) {
+        if (ignoredSignals.contains(signalName)) {
+            throw IgnoredSignalException(signalName)
         }
     }
 
