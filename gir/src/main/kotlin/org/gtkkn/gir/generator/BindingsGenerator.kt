@@ -660,10 +660,9 @@ class BindingsGenerator(
 
         // implementation
         codeBlockBuilder.add(
-            "data.%M<%T>().get().%M(",
+            "data.%M<%T>().get().invoke(",
             AS_STABLE_REF_FUNC,
             signal.handlerLambdaTypeName,
-            INVOKE_FUNC,
         ) // open invoke
         signal.parameters.forEachIndexed { index, param ->
             if (index > 0) {
@@ -693,7 +692,6 @@ class BindingsGenerator(
         internal val TO_KSTRING_FUNC = MemberName("kotlinx.cinterop", "toKString")
         internal val STATIC_C_FUNC = MemberName("kotlinx.cinterop", "staticCFunction")
         internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
-        internal val INVOKE_FUNC = MemberName("kotlinx.cinterop", "invoke")
         internal val STABLEREF = ClassName("kotlinx.cinterop", "StableRef")
 
         // gobject members
