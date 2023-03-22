@@ -653,7 +653,7 @@ class BindingsGenerator(
     /**
      * Build the [staticCFunction] implementation for signal connect handlers.
      */
-    private fun buildStaticSignalCallbackImplementation(signal: SignalBlueprint): CodeBlock = CodeBlock.builder().apply {
+    private fun buildStaticSignalCallbackImplementation(signal: SignalBlueprint) = CodeBlock.builder().apply {
         beginControlFlow("%M", STATIC_C_FUNC)
 
         // lambda signature
@@ -664,7 +664,9 @@ class BindingsGenerator(
             // we have to check for gir-based nullability first because otherwise we get double `??`
             val forceNullable = if (!param.typeInfo.kotlinTypeName.isNullable && param.typeInfo.isCinteropNullable) {
                 "?"
-            } else ""
+            } else {
+                ""
+            }
             addStatement(", %N: %T$forceNullable", param.kotlinName, param.typeInfo.nativeTypeName)
         }
         addStatement(", data: %T", NativeTypes.KP_OPAQUE_POINTER)

@@ -299,13 +299,7 @@ class ProcessorContext(
                 "gPointer"
             }
             return TypeInfo.ObjectPointer(
-                NativeTypes.KP_CPOINTER.parameterizedBy(
-                    ClassName(
-                        namespaceNativePackageName(namespace),
-                        girClass.cType
-                            ?: throw UnresolvableTypeException("missing cType for class ${girClass.name}"),
-                    ),
-                ),
+                NativeTypes.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girClass)),
                 kotlinClassTypeName,
                 objectPointerName,
             ).withNullable(nullable)
@@ -319,13 +313,7 @@ class ProcessorContext(
             val (namespace, girInterface) = findInterfaceByName(girNamespace, type.name)
             val objectPointerName = "${namespacePrefix(namespace)}${girInterface.name}Pointer"
             return TypeInfo.InterfacePointer(
-                NativeTypes.KP_CPOINTER.parameterizedBy(
-                    ClassName(
-                        namespaceNativePackageName(namespace),
-                        girInterface.cType
-                            ?: throw UnresolvableTypeException("missing cType for interface ${girInterface.name}"),
-                    ),
-                ),
+                NativeTypes.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girInterface)),
                 kotlinInterfaceTypeName,
                 objectPointerName,
             ).withNullable(nullable)
@@ -359,6 +347,20 @@ class ProcessorContext(
         logger.warn("Could not resolve type for type with name: ${type.name} and cType: ${type.cType}")
         throw UnresolvableTypeException(type.name)
     }
+
+    private fun buildNativeClassName(girNamespace: GirNamespace, girClass: GirClass) =
+        ClassName(
+            namespaceNativePackageName(girNamespace),
+            girClass.cType
+                ?: throw UnresolvableTypeException("missing cType for class ${girClass.name}"),
+        )
+
+    private fun buildNativeClassName(girNamespace: GirNamespace, girInterface: GirInterface) =
+        ClassName(
+            namespaceNativePackageName(girNamespace),
+            girInterface.cType
+                ?: throw UnresolvableTypeException("missing cType for interface ${girInterface.name}"),
+        )
 
     @Throws(UnresolvableTypeException::class)
     fun findClassByName(
