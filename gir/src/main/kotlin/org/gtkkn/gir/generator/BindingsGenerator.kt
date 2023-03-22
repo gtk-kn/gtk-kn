@@ -657,7 +657,7 @@ class BindingsGenerator(
         beginControlFlow("%M", STATIC_C_FUNC)
 
         // lambda signature
-        addStatement("_: %T", NativeTypes.KP_OPAQUE_POINTER)
+        addStatement("_: %T,", NativeTypes.KP_OPAQUE_POINTER)
         signal.parameters.forEach { param ->
             // cinterop maps methods return values with pointer types as nullable
             // so we do the same thing here for the staticCFunction pointer arguments
@@ -667,9 +667,9 @@ class BindingsGenerator(
             } else {
                 ""
             }
-            addStatement(", %N: %T$forceNullable", param.kotlinName, param.typeInfo.nativeTypeName)
+            addStatement("%N: %T$forceNullable,", param.kotlinName, param.typeInfo.nativeTypeName)
         }
-        addStatement(", data: %T ->", NativeTypes.KP_OPAQUE_POINTER)
+        addStatement("data: %T ->", NativeTypes.KP_OPAQUE_POINTER)
 
         // implementation
         add(
