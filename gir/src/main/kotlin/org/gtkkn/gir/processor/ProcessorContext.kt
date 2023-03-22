@@ -14,6 +14,7 @@ import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.TypeInfo
+import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirBitField
 import org.gtkkn.gir.model.GirClass
@@ -31,6 +32,7 @@ import org.gtkkn.gir.util.toPascalCase
  */
 class ProcessorContext(
     private val repositories: List<GirRepository>,
+    private val config: Config,
 ) {
     private val typeInfoTable: Map<String, TypeInfo> = mapOf(
         "none" to TypeInfo.Primitive(UNIT),
@@ -413,4 +415,12 @@ class ProcessorContext(
      * @return true when the package import needs to be applied, false otherwise.
      */
     fun needsEnumMemberPackageImport(girEnum: GirEnum): Boolean = enumsWithDirectImportOverride.contains(girEnum.cType)
+
+    fun processKdoc(doc: String?): String? = if (config.bindingLicense == Config.License.LGPL) {
+        doc.sanitizeKDoc()
+    } else {
+        null
+    }
+
+    private fun String?.sanitizeKDoc(): String? = this?.replace("...]", "]")
 }

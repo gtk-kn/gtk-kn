@@ -13,6 +13,8 @@ import com.squareup.kotlinpoet.MemberName
  * @property nativeMemberName KP MemberName for the native function.
  * @property returnTypeInfo typeInfo of the return type.
  * @property parameters list of parameter blueprints
+ * @property kdoc the KDoc of the constructor
+ * @property returnTypeKDoc the KDoc of the return type
  */
 data class ConstructorBlueprint(
     val kotlinName: String,
@@ -20,4 +22,6 @@ data class ConstructorBlueprint(
     val nativeMemberName: MemberName, // not enum member, but the KP reference to the native function name
     val returnTypeInfo: TypeInfo,
     val parameters: List<MethodParameterBlueprint>,
+    val kdoc: String?,
+    val returnTypeKDoc: String?,
 )

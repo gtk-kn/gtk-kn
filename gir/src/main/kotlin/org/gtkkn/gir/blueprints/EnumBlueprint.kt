@@ -9,4 +9,5 @@ data class EnumBlueprint(
     val nativeTypeName: ClassName,
     val nativeValueTypeName: TypeName,
     val memberBlueprints: List<EnumMemberBlueprint>,
+    val kdoc: String?,
 )

@@ -35,6 +35,7 @@ class EnumBlueprintBuilder(
             nativeName = girMember.name,
             nativeValue = nativeValue,
             nativeMemberName = nativeMemberName,
+            kdoc = context.processKdoc(girMember.info.docs.doc?.text),
         )
 
         if (members.any { it.nativeValue == nativeValue }) {
@@ -71,6 +72,7 @@ class EnumBlueprintBuilder(
             nativeTypeName = ClassName(context.namespaceNativePackageName(girNamespace), girEnum.cType),
             nativeValueTypeName = nativeValueTypeName,
             memberBlueprints = members,
+            kdoc = context.processKdoc(girEnum.info.docs.doc?.text),
         )
     }
 }

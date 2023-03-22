@@ -18,12 +18,14 @@ import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
 import org.gtkkn.gir.blueprints.MethodParameterBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
+import org.gtkkn.gir.blueprints.SkippedObject
 import org.gtkkn.gir.blueprints.TypeInfo
+import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.log.logger
 import java.io.File
 
 class BindingsGenerator(
-    private val skipFormat: Boolean,
+    private val config: Config,
     private val ktLintFormatter: KtLintFormatter
 ) {
     /**
@@ -106,7 +108,7 @@ class BindingsGenerator(
             .addType(typeSpec)
             .build()
             .apply {
-                if (skipFormat) {
+                if (config.skipFormat) {
                     writeTo(outputDirectory)
                 } else {
                     val stringBuilder = StringBuilder()
@@ -154,7 +156,7 @@ class BindingsGenerator(
             val companionSpecBuilder = TypeSpec.companionObjectBuilder()
 
             // kdoc
-            addKdoc(buildClassKDoc(clazz))
+            addKdoc(buildTypeKDoc(clazz.kdoc, clazz.skippedObjects))
 
             // modifiers
             addModifiers(KModifier.OPEN) // currently marking all classes as open to make it compile
@@ -256,72 +258,70 @@ class BindingsGenerator(
     /**
      * Build a class constructor based on a [ConstructorBlueprint].
      */
-    private fun buildClassConstructor(constructor: ConstructorBlueprint): FunSpec {
-        val constructorSpecBuilder = FunSpec.constructorBuilder()
-
-        if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
-            error("Invalid constructor return type")
-        }
-
-        if (constructor.parameters.isEmpty()) {
-            // no arg constructor
-            constructorSpecBuilder
-                .callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
-        } else {
-            // constructor with arguments
-            constructorSpecBuilder.appendSignatureParameters(constructor.parameters)
-            val codeBlockBuilder = CodeBlock.builder()
-
-            codeBlockBuilder.add("%M(", constructor.nativeMemberName) // open native func paren
-
-            constructor.parameters.forEachIndexed { index, param ->
-                if (index > 0) {
-                    codeBlockBuilder.add(", ")
-                }
-                codeBlockBuilder.add(buildParameterConversionBlock(param))
+    private fun buildClassConstructor(constructor: ConstructorBlueprint): FunSpec =
+        FunSpec.constructorBuilder().apply {
+            if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
+                error("Invalid constructor return type")
             }
 
-            codeBlockBuilder.add(")") // close native func paren
-            codeBlockBuilder.add("!!.reinterpret()")
+            addKdoc(buildMethodKDoc(constructor.kdoc, constructor.parameters, constructor.returnTypeKDoc))
 
-            constructorSpecBuilder.callThisConstructor(codeBlockBuilder.build())
-        }
+            if (constructor.parameters.isEmpty()) {
+                // no arg constructor
+                callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
+            } else {
+                // constructor with arguments
+                appendSignatureParameters(constructor.parameters)
+                val codeBlockBuilder = CodeBlock.builder()
 
-        return constructorSpecBuilder.build()
-    }
+                codeBlockBuilder.add("%M(", constructor.nativeMemberName) // open native func paren
+
+                constructor.parameters.forEachIndexed { index, param ->
+                    if (index > 0) {
+                        codeBlockBuilder.add(", ")
+                    }
+                    codeBlockBuilder.add(buildParameterConversionBlock(param))
+                }
+
+                codeBlockBuilder.add(")") // close native func paren
+                codeBlockBuilder.add("!!.reinterpret()")
+
+                callThisConstructor(codeBlockBuilder.build())
+            }
+        }.build()
 
     /**
      * Build a constructor factory method based on a [ConstructorBlueprint].
      */
-    private fun buildClassConstructorFactoryMethod(clazz: ClassBlueprint, constructor: ConstructorBlueprint): FunSpec {
-        val funSpecBuilder = FunSpec.builder(constructor.kotlinName)
-            .returns(clazz.typeName)
+    private fun buildClassConstructorFactoryMethod(clazz: ClassBlueprint, constructor: ConstructorBlueprint): FunSpec =
+        FunSpec.builder(constructor.kotlinName).apply {
+            returns(clazz.typeName)
 
-        if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
-            error("Invalid constructor return type for ${constructor.nativeName}")
-        }
-
-        if (constructor.parameters.isEmpty()) {
-            // no-arg factory method
-            funSpecBuilder.addStatement("return %T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
-        } else {
-            funSpecBuilder.appendSignatureParameters(constructor.parameters)
-
-            // open native function paren
-            funSpecBuilder.addCode("return %T(%M(", clazz.typeName, constructor.nativeMemberName)
-
-            constructor.parameters.forEachIndexed { index, param ->
-                if (index > 0) {
-                    funSpecBuilder.addCode(", ")
-                }
-                funSpecBuilder.addCode(buildParameterConversionBlock(param))
+            if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
+                error("Invalid constructor return type for ${constructor.nativeName}")
             }
 
-            funSpecBuilder.addCode(")!!.%M())", REINTERPRET_FUNC) // close native function paren
-        }
+            addKdoc(buildMethodKDoc(constructor.kdoc, constructor.parameters, constructor.returnTypeKDoc))
 
-        return funSpecBuilder.build()
-    }
+            if (constructor.parameters.isEmpty()) {
+                // no-arg factory method
+                addStatement("return %T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
+            } else {
+                appendSignatureParameters(constructor.parameters)
+
+                // open native function paren
+                addCode("return %T(%M(", clazz.typeName, constructor.nativeMemberName)
+
+                constructor.parameters.forEachIndexed { index, param ->
+                    if (index > 0) {
+                        addCode(", ")
+                    }
+                    addCode(buildParameterConversionBlock(param))
+                }
+
+                addCode(")!!.%M())", REINTERPRET_FUNC) // close native function paren
+            }
+        }.build()
 
     /**
      * Build the pointer property for a class.
@@ -359,22 +359,47 @@ class BindingsGenerator(
         return propertyBuilder.build()
     }
 
-    private fun buildClassKDoc(clazz: ClassBlueprint): CodeBlock {
-        val skippedObjects = clazz.skippedObjects.filter { it.documented }
+    private fun buildTypeKDoc(kdoc: String?, skippedObjects: List<SkippedObject> = emptyList()): CodeBlock {
+        val documentedSkippedObjects = skippedObjects.filter { it.documented }
         // nicely format skipped objects
-        val longestObjectName = skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
-        val longestTypeName = skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
+        val longestObjectName = documentedSkippedObjects.maxOfOrNull { it.objectName.length } ?: 0
+        val longestTypeName = documentedSkippedObjects.maxOfOrNull { it.objectType.length } ?: 0
 
         return CodeBlock.builder().apply {
-            for (skip in skippedObjects) {
+            kdoc?.let { add("%L", it) }
+            if (documentedSkippedObjects.isNotEmpty()) {
+                if (kdoc != null) {
+                    add("\n\n")
+                }
+                add("## Skipped during bindings generation\n\n")
+            }
+            for (skip in documentedSkippedObjects) {
                 addStatement(skip.fullMessage(longestObjectName, longestTypeName))
             }
         }.build()
     }
 
+    private fun buildMethodKDoc(
+        kdoc: String?,
+        parameters: List<MethodParameterBlueprint>,
+        returnTypeKDoc: String?,
+    ): CodeBlock = CodeBlock.builder().apply {
+        kdoc?.let { add("%L", it) }
+        if (parameters.isNotEmpty()) {
+            add("\n")
+            parameters.forEach { param ->
+                add("\n@param %L %L", param.kotlinName, param.kdoc.orEmpty())
+            }
+        }
+        returnTypeKDoc?.let { add("\n@return %L", it) }
+    }.build()
+
     private fun buildInterface(iface: InterfaceBlueprint): TypeSpec {
         val ifaceBuilder = TypeSpec.interfaceBuilder(iface.typeName)
             .addProperty(buildInterfacePointerProperty(iface))
+
+        // kdoc
+        ifaceBuilder.addKdoc(buildTypeKDoc(iface.kdoc, iface.skippedObjects))
 
         iface.methods.forEach { method ->
             ifaceBuilder.addFunction(buildMethod(method, iface.objectPointerName))
@@ -426,6 +451,7 @@ class BindingsGenerator(
         bitfield.members.forEach { member ->
             companionSpecBuilder.addProperty(
                 PropertySpec.builder(member.kotlinName, bitfield.kotlinTypeName)
+                    .addKdoc(buildTypeKDoc(member.kdoc))
                     .initializer("%T(%M)", bitfield.kotlinTypeName, member.nativeMemberName)
                     .build(),
             )
@@ -443,6 +469,7 @@ class BindingsGenerator(
             .build()
 
         val bitfieldSpec = TypeSpec.classBuilder(bitfield.kotlinName)
+            .addKdoc(buildTypeKDoc(bitfield.kdoc))
             .primaryConstructor(constructorSpec)
             .addProperty(
                 PropertySpec.builder("mask", bitfield.nativeValueTypeName)
@@ -463,6 +490,7 @@ class BindingsGenerator(
 
         // enum spec
         val enumSpec = TypeSpec.enumBuilder(enum.kotlinTypeName)
+            .addKdoc(buildTypeKDoc(enum.kdoc))
             .primaryConstructor(constructorSpec)
             .addProperty(
                 PropertySpec.builder("nativeValue", enum.nativeValueTypeName)
@@ -475,6 +503,7 @@ class BindingsGenerator(
             enumSpec.addEnumConstant(
                 member.kotlinName,
                 TypeSpec.anonymousClassBuilder()
+                    .addKdoc(buildTypeKDoc(member.kdoc))
                     .addSuperclassConstructorParameter("%M", member.nativeMemberName)
                     .build(),
             )
@@ -508,41 +537,40 @@ class BindingsGenerator(
             .build()
     }
 
-    private fun buildMethod(method: MethodBlueprint, instancePointer: String?): FunSpec {
-        val returnTypeName = method.returnTypeInfo.kotlinTypeName
+    private fun buildMethod(method: MethodBlueprint, instancePointer: String?): FunSpec =
+        FunSpec.builder(method.kotlinName).apply {
+            addKdoc(buildMethodKDoc(method.kdoc, method.parameterBlueprints, method.returnTypeKDoc))
+            val returnTypeName = method.returnTypeInfo.kotlinTypeName
 
-        val funBuilder = FunSpec.builder(method.kotlinName)
-            .returns(returnTypeName)
+            returns(returnTypeName)
 
-        if (method.isOverride) {
-            funBuilder.addModifiers(KModifier.OVERRIDE)
-        }
-
-        funBuilder.appendSignatureParameters(method.parameterBlueprints)
-
-        var needsComma = false
-        funBuilder.addCode("return %M(", method.nativeMemberName) // open native function paren
-        if (instancePointer != null) {
-            // adding reinterpret() here because sometimes the instancePointer has a different type
-            funBuilder.addCode("%N.%M()", instancePointer, REINTERPRET_FUNC)
-            needsComma = true
-        }
-
-        method.parameterBlueprints.forEach { param ->
-            if (needsComma) {
-                funBuilder.addCode(", ")
+            if (method.isOverride) {
+                addModifiers(KModifier.OVERRIDE)
             }
 
-            funBuilder.addCode(buildParameterConversionBlock(param))
-        }
+            appendSignatureParameters(method.parameterBlueprints)
 
-        funBuilder.addCode(")") // close native function paren
+            var needsComma = false
+            addCode("return %M(", method.nativeMemberName) // open native function paren
+            if (instancePointer != null) {
+                // adding reinterpret() here because sometimes the instancePointer has a different type
+                addCode("%N.%M()", instancePointer, REINTERPRET_FUNC)
+                needsComma = true
+            }
 
-        // return value conversion
-        funBuilder.addCode(buildReturnValueConversionBlock(method.returnTypeInfo))
+            method.parameterBlueprints.forEach { param ->
+                if (needsComma) {
+                    addCode(", ")
+                }
 
-        return funBuilder.build()
-    }
+                addCode(buildParameterConversionBlock(param))
+            }
+
+            addCode(")") // close native function paren
+
+            // return value conversion
+            addCode(buildReturnValueConversionBlock(method.returnTypeInfo))
+        }.build()
 
     companion object {
         // some member utils

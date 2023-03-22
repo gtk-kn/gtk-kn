@@ -48,6 +48,7 @@ class InterfaceBlueprintBuilder(
             skippedObjects = skippedObjects,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
+            kdoc = context.processKdoc(girInterface.info.docs.doc?.text),
         )
     }
 }
