@@ -646,24 +646,30 @@ class BindingsGenerator(
                 },
             ),
             KModifier.PRIVATE,
-        ).initializer(buildStaticSignalCallbackInitializer(signal))
+        ).initializer(buildStaticSignalCallbackImplementation(signal))
         return staticCallbackVal.build()
     }
 
     /**
      * Build the [staticCFunction] implementation for signal connect handlers.
      */
-    private fun buildStaticSignalCallbackInitializer(signal: SignalBlueprint): CodeBlock = CodeBlock.builder().apply {
+    private fun buildStaticSignalCallbackImplementation(signal: SignalBlueprint): CodeBlock = CodeBlock.builder().apply {
         beginControlFlow("%M", STATIC_C_FUNC)
 
         // lambda signature
-        add("_: %T", NativeTypes.KP_OPAQUE_POINTER)
+        addStatement("_: %T", NativeTypes.KP_OPAQUE_POINTER)
         signal.parameters.forEach { param ->
-            add(", %N: %T", param.kotlinName, param.typeInfo.nativeTypeName)
+            // cinterop maps methods return values with pointer types as nullable
+            // so we do the same thing here for the staticCFunction pointer arguments
+            // we have to check for gir-based nullability first because otherwise we get double `??`
+            val forceNullable = if (!param.typeInfo.kotlinTypeName.isNullable && param.typeInfo.isCinteropNullable) {
+                "?"
+            } else ""
+            addStatement(", %N: %T$forceNullable", param.kotlinName, param.typeInfo.nativeTypeName)
         }
-        add(", data: %T", NativeTypes.KP_OPAQUE_POINTER)
+        addStatement(", data: %T", NativeTypes.KP_OPAQUE_POINTER)
 
-        add(" -> ")
+        addStatement(" -> ")
 
         // implementation
         add(

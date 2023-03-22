@@ -14,6 +14,7 @@ import com.squareup.kotlinpoet.TypeName
 sealed class TypeInfo {
     abstract val nativeTypeName: TypeName
     abstract val kotlinTypeName: TypeName
+    abstract val isCinteropNullable: Boolean
 
     abstract fun withNullable(nullable: Boolean): TypeInfo
 
@@ -25,6 +26,7 @@ sealed class TypeInfo {
     ) : TypeInfo() {
         override val nativeTypeName = typeName
         override val kotlinTypeName = typeName
+        override val isCinteropNullable = false
 
         override fun withNullable(nullable: Boolean): Primitive = copy(
             typeName = typeName.copy(nullable),
@@ -39,6 +41,8 @@ sealed class TypeInfo {
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
     ) : TypeInfo() {
+        override val isCinteropNullable = false
+
         override fun withNullable(nullable: Boolean): Enumeration = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
@@ -60,6 +64,8 @@ sealed class TypeInfo {
         override val kotlinTypeName: TypeName,
         val objectPointerName: String,
     ) : TypeInfo() {
+        override val isCinteropNullable = true
+
         override fun withNullable(nullable: Boolean): ObjectPointer = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
@@ -81,6 +87,8 @@ sealed class TypeInfo {
         override val kotlinTypeName: TypeName,
         val objectPointerName: String,
     ) : TypeInfo() {
+        override val isCinteropNullable = true
+
         override fun withNullable(nullable: Boolean): InterfacePointer = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
@@ -91,6 +99,8 @@ sealed class TypeInfo {
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
     ) : TypeInfo() {
+        override val isCinteropNullable = false
+
         override fun withNullable(nullable: Boolean): TypeInfo = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
@@ -101,6 +111,8 @@ sealed class TypeInfo {
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
     ) : TypeInfo() {
+        override val isCinteropNullable = true
+
         override fun withNullable(nullable: Boolean): TypeInfo = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
@@ -111,6 +123,8 @@ sealed class TypeInfo {
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
     ) : TypeInfo() {
+        override val isCinteropNullable = false
+
         override fun withNullable(nullable: Boolean): TypeInfo = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
