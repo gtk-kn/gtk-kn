@@ -669,9 +669,7 @@ class BindingsGenerator(
             }
             addStatement(", %N: %T$forceNullable", param.kotlinName, param.typeInfo.nativeTypeName)
         }
-        addStatement(", data: %T", NativeTypes.KP_OPAQUE_POINTER)
-
-        addStatement(" -> ")
+        addStatement(", data: %T ->", NativeTypes.KP_OPAQUE_POINTER)
 
         // implementation
         add(
