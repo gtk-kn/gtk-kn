@@ -6,6 +6,7 @@ import com.squareup.kotlinpoet.DOUBLE
 import com.squareup.kotlinpoet.FLOAT
 import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.LONG
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
@@ -298,7 +299,13 @@ class ProcessorContext(
                 "gPointer"
             }
             return TypeInfo.ObjectPointer(
-                NativeTypes.KP_WILDCARD_CPOINTER,
+                NativeTypes.KP_CPOINTER.parameterizedBy(
+                    ClassName(
+                        namespaceNativePackageName(namespace),
+                        girClass.cType
+                            ?: throw UnresolvableTypeException("missing cType for class ${girClass.name}"),
+                    ),
+                ),
                 kotlinClassTypeName,
                 objectPointerName,
             ).withNullable(nullable)
@@ -312,7 +319,13 @@ class ProcessorContext(
             val (namespace, girInterface) = findInterfaceByName(girNamespace, type.name)
             val objectPointerName = "${namespacePrefix(namespace)}${girInterface.name}Pointer"
             return TypeInfo.InterfacePointer(
-                NativeTypes.KP_WILDCARD_CPOINTER,
+                NativeTypes.KP_CPOINTER.parameterizedBy(
+                    ClassName(
+                        namespaceNativePackageName(namespace),
+                        girInterface.cType
+                            ?: throw UnresolvableTypeException("missing cType for interface ${girInterface.name}"),
+                    ),
+                ),
                 kotlinInterfaceTypeName,
                 objectPointerName,
             ).withNullable(nullable)
