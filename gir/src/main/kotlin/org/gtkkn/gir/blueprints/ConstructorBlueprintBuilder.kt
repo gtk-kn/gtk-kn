@@ -39,35 +39,7 @@ class ConstructorBlueprintBuilder(
         }
 
         // parameters
-        for (param in girConstructor.parameters?.parameters.orEmpty()) {
-            // skip method if parameter is not supported
-            val paramCType = when (param.type) {
-                is GirArrayType -> param.type.cType
-                is GirType -> param.type.cType
-                GirVarArgs -> null
-            }
-            if (paramCType != null) context.checkIgnoredType(paramCType)
-            skipParameterForReason(param)?.let { reason ->
-                throw UnresolvableTypeException(reason)
-            }
-
-            val paramKotlinName = context.kotlinizeParameterName(param.name)
-
-            val typeInfo = when (param.type) {
-                is GirArrayType -> throw UnresolvableTypeException("Array parameter is not supported")
-                is GirType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
-                GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
-            }
-
-            // build parameter
-            val paramBlueprint = MethodParameterBlueprint(
-                kotlinName = paramKotlinName,
-                nativeName = param.name,
-                typeInfo,
-            )
-
-            parameters.add(paramBlueprint)
-        }
+        addParameters()
 
         // return value
         val returnValue = girConstructor.returnValue
@@ -101,7 +73,42 @@ class ConstructorBlueprintBuilder(
             nativeMemberName = nativeMemberName,
             returnTypeInfo = returnTypeInfo,
             parameters = parameters,
+            kdoc = context.processKdoc(girConstructor.info.docs.doc?.text),
+            returnTypeKDoc = context.processKdoc(girConstructor.returnValue?.docs?.doc?.text),
         )
+    }
+
+    private fun addParameters() {
+        for (param in girConstructor.parameters?.parameters.orEmpty()) {
+            // skip method if parameter is not supported
+            val paramCType = when (param.type) {
+                is GirArrayType -> param.type.cType
+                is GirType -> param.type.cType
+                GirVarArgs -> null
+            }
+            if (paramCType != null) context.checkIgnoredType(paramCType)
+            skipParameterForReason(param)?.let { reason ->
+                throw UnresolvableTypeException(reason)
+            }
+
+            val paramKotlinName = context.kotlinizeParameterName(param.name)
+
+            val typeInfo = when (param.type) {
+                is GirArrayType -> throw UnresolvableTypeException("Array parameter is not supported")
+                is GirType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
+                GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
+            }
+
+            // build parameter
+            val paramBlueprint = MethodParameterBlueprint(
+                kotlinName = paramKotlinName,
+                nativeName = param.name,
+                typeInfo = typeInfo,
+                kdoc = context.processKdoc(param.docs.doc?.text),
+            )
+
+            parameters.add(paramBlueprint)
+        }
     }
 
     /**

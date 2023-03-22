@@ -9,4 +9,6 @@ data class MethodBlueprint(
     val parameterBlueprints: List<MethodParameterBlueprint>,
     val returnTypeInfo: TypeInfo,
     val isOverride: Boolean,
+    val kdoc: String?,
+    val returnTypeKDoc: String?,
 )

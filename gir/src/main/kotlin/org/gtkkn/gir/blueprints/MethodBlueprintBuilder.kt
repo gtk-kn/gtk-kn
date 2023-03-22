@@ -58,7 +58,7 @@ class MethodBlueprintBuilder(
         // return value
         val returnValue = girMethod.returnValue ?: throw UnresolvableTypeException("Method has no return value")
 
-        val returnTypeInfo = when (val type = returnValue.type) {
+        val returnTypeInfo: TypeInfo = when (val type = returnValue.type) {
             is GirArrayType -> throw UnresolvableTypeException("Methods with array return types are unsupported")
             is GirType -> {
                 try {
@@ -103,6 +103,8 @@ class MethodBlueprintBuilder(
             parameterBlueprints = methodParameters,
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
+            kdoc = context.processKdoc(girMethod.info.docs.doc?.text),
+            returnTypeKDoc = context.processKdoc(girMethod.returnValue.docs.doc?.text),
         )
     }
 
@@ -131,7 +133,8 @@ class MethodBlueprintBuilder(
             val paramBlueprint = MethodParameterBlueprint(
                 kotlinName = paramKotlinName,
                 nativeName = param.name,
-                typeInfo,
+                typeInfo = typeInfo,
+                kdoc = context.processKdoc(param.docs.doc?.text),
             )
 
             methodParameters.add(paramBlueprint)

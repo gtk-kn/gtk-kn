@@ -105,6 +105,7 @@ class ClassBlueprintBuilder(
             parentTypeName = parentTypeName,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
+            kdoc = context.processKdoc(girClass.info.docs.doc?.text),
         )
     }
 

@@ -11,4 +11,5 @@ data class InterfaceBlueprint(
     val skippedObjects: List<SkippedObject>,
     val objectPointerName: String,
     val objectPointerTypeName: TypeName,
+    val kdoc: String?,
 )

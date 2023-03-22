@@ -40,6 +40,7 @@ class BitfieldBlueprintBuilder(
                     kotlinName = memberKotlinName,
                     nativeValue = member.value.toLong(),
                     nativeMemberName = MemberName(nativePackageName, member.cIdentifier),
+                    kdoc = context.processKdoc(member.info.docs.doc?.text),
                 ),
             )
         }
@@ -49,6 +50,7 @@ class BitfieldBlueprintBuilder(
             members = members,
             kotlinTypeName = kotlinTypeName,
             nativeValueTypeName = nativeValueTypeName,
+            kdoc = context.processKdoc(girBitfield.info.docs.doc?.text),
         )
     }
 }

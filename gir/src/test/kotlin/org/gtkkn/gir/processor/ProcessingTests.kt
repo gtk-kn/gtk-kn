@@ -1,7 +1,9 @@
 package org.gtkkn.gir.processor
 
 import com.squareup.kotlinpoet.ClassName
+import io.github.oshai.Level
 import org.gtkkn.gir.blueprints.TypeInfo
+import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.parser.GirParser
 import java.io.File
 import kotlin.test.Test
@@ -22,9 +24,10 @@ class ProcessingTests {
         val gtkRepository = girParser.parse(gtkFile)
         val gioRepository = girParser.parse(gioFile)
         val gobjectRepository = girParser.parse(gobjectFile)
+        val config = Config(gtkFile, gtkFile, Level.WARN, true, Config.License.MIT)
 
         val processor = Phase2Processor()
-        processor.process(listOf(gtkRepository, gioRepository, gobjectRepository)).first()
+        processor.process(listOf(gtkRepository, gioRepository, gobjectRepository), config).first()
     }
 
     @Test

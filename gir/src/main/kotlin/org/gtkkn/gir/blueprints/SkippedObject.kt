@@ -22,5 +22,5 @@ data class SkippedObject(
         objectNameLength: Int = objectName.length,
         objectTypeLength: Int = objectType.length,
     ): String =
-        "Skipped ${objectType.padEnd(objectTypeLength, ' ')}\t${objectName.padEnd(objectNameLength, ' ')}\t($reason)"
+        "- ${objectType.padEnd(objectTypeLength, ' ')}\t${objectName.padEnd(objectNameLength, ' ')}:\t$reason"
 }
