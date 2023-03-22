@@ -1,6 +1,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
@@ -15,6 +16,7 @@ class InterfaceBlueprintBuilder(
 ) : BlueprintBuilder<InterfaceBlueprint>(context) {
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
     private val signalBluePrints = mutableListOf<SignalBlueprint>()
+    private val functionBlueprints = mutableListOf<FunctionBlueprint>()
 
     override fun blueprintObjectType(): String = "interface"
 
@@ -34,6 +36,13 @@ class InterfaceBlueprintBuilder(
         }
     }
 
+    private fun addFunction(function: GirFunction) {
+        when (val result = FunctionBlueprintBuilder(context, girNamespace, function).build()) {
+            is BlueprintResult.Ok -> functionBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun buildInternal(): InterfaceBlueprint {
         if (girInterface.info.introspectable == false) {
             throw NotIntrospectableException(girInterface.cType ?: girInterface.name)
@@ -43,6 +52,7 @@ class InterfaceBlueprintBuilder(
 
         girInterface.methods.forEach { addMethod(it) }
         girInterface.signals.forEach { addSignal(it) }
+        girInterface.functions.forEach { addFunction(it) }
 
         val kotlinInterfaceName = context.kotlinizeClassName(girInterface.name)
         val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
@@ -59,6 +69,7 @@ class InterfaceBlueprintBuilder(
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
             signals = signalBluePrints,
+            functions = functionBlueprints,
             kdoc = context.processKdoc(girInterface.info.docs.doc?.text),
         )
     }

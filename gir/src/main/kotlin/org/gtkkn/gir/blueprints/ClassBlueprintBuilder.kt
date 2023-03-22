@@ -4,6 +4,7 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
+import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
@@ -22,6 +23,7 @@ class ClassBlueprintBuilder(
     private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
     private val signalBluePrints = mutableListOf<SignalBlueprint>()
+    private val functionBlueprints = mutableListOf<FunctionBlueprint>()
     private val implementsInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
     private var parentTypeName: TypeName? = null
 
@@ -74,6 +76,13 @@ class ClassBlueprintBuilder(
         }
     }
 
+    private fun addFunction(function: GirFunction) {
+        when (val result = FunctionBlueprintBuilder(context, girNamespace, function).build()) {
+            is BlueprintResult.Ok -> functionBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun buildInternal(): ClassBlueprint {
         if (girClass.info.introspectable == false) {
             throw NotIntrospectableException(girClass.cType ?: girClass.name)
@@ -94,6 +103,7 @@ class ClassBlueprintBuilder(
         girClass.methods.forEach { addMethod(it) }
         girClass.constructors.forEach { addConstructor(it) }
         girClass.signals.forEach { addSignal(it) }
+        girClass.functions.forEach { addFunction(it) }
 
         val kotlinClassName = context.kotlinizeClassName(girClass.name)
         val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
@@ -112,6 +122,7 @@ class ClassBlueprintBuilder(
             methods = methodBluePrints,
             constructors = constructorBlueprints,
             signals = signalBluePrints,
+            functions = functionBlueprints,
             skippedObjects = skippedObjects,
             implementsInterfaces = implementsInterfaces,
             parentTypeName = parentTypeName,

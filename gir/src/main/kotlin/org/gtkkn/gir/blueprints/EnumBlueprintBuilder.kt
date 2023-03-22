@@ -3,6 +3,7 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
 import org.gtkkn.gir.model.GirEnum
+import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirMember
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.NotIntrospectableException
@@ -14,6 +15,7 @@ class EnumBlueprintBuilder(
     private val girEnum: GirEnum,
 ) : BlueprintBuilder<EnumBlueprint>(context) {
     private val members = mutableListOf<EnumMemberBlueprint>()
+    private val functionBlueprints = mutableListOf<FunctionBlueprint>()
 
     override fun blueprintObjectType() = "enum"
 
@@ -53,6 +55,13 @@ class EnumBlueprintBuilder(
         )
     }
 
+    private fun addFunction(function: GirFunction) {
+        when (val result = FunctionBlueprintBuilder(context, girNamespace, function).build()) {
+            is BlueprintResult.Ok -> functionBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun buildInternal(): EnumBlueprint {
         if (girEnum.info.introspectable == false) {
             throw NotIntrospectableException(girEnum.cType)
@@ -61,6 +70,7 @@ class EnumBlueprintBuilder(
         context.checkIgnoredType(girEnum.cType)
 
         girEnum.members.forEach { addMember(it) }
+        girEnum.functions.forEach { addFunction(it) }
 
         val kotlinName = context.kotlinizeEnumName(girEnum.name)
         val nativePackageName = context.namespaceNativePackageName(girNamespace)
@@ -72,6 +82,7 @@ class EnumBlueprintBuilder(
             nativeTypeName = ClassName(context.namespaceNativePackageName(girNamespace), girEnum.cType),
             nativeValueTypeName = nativeValueTypeName,
             memberBlueprints = members,
+            functionBlueprints = functionBlueprints,
             kdoc = context.processKdoc(girEnum.info.docs.doc?.text),
         )
     }
