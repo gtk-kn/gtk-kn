@@ -87,6 +87,10 @@ class ProcessorContext(
         "gtk_widget_set_font_map",
         "gtk_widget_realize",
         "gtk_widget_unrealize",
+
+        // ignored because the overridden return value is not a subtype of the parent
+        "adw_preferences_page_get_name",
+        "adw_preferences_page_set_name",
     )
 
     /**
