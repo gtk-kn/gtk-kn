@@ -602,35 +602,40 @@ class BindingsGenerator(
     private fun buildSignalConnectFunction(signal: SignalBlueprint, objectPointerName: String): FunSpec {
         val connectFlagsTypeName = ClassName("bindings.gobject", "ConnectFlags")
         val connectFlagsDefaultMemberName = MemberName("bindings.gobject.ConnectFlags.Companion", "DEFAULT")
-        val funSpec = FunSpec.builder(signal.kotlinConnectName)
+        val funSpec = FunSpec.builder(signal.kotlinConnectName).apply {
             // connect flags
-            .addParameter(
+            addParameter(
                 ParameterSpec.builder("connectFlags", connectFlagsTypeName)
                     .defaultValue("%M", connectFlagsDefaultMemberName)
                     .build(),
             )
             // trailing lambda for handler
-            .addParameter(
+            addParameter(
                 "handler",
                 signal.handlerLambdaTypeName,
             )
-            .returns(U_LONG)
+            returns(U_LONG)
 
-        // add implementation
-        funSpec.addCode("return %M(", G_SIGNAL_CONNECT_DATA)
-        funSpec.addCode("%N.%M()", objectPointerName, REINTERPRET_FUNC)
-        funSpec.addCode(", %S", signal.signalName)
-        funSpec.addCode(", %NFunc.%M()", signal.kotlinConnectName, REINTERPRET_FUNC)
-        funSpec.addCode(", %T.create(handler).asCPointer()", STABLEREF)
-        funSpec.addCode(", %M", STATIC_STABLEREF_DESTROY)
-        funSpec.addCode(", connectFlags.mask")
+            // add implementation
+            addCode("return %M(", G_SIGNAL_CONNECT_DATA)
+            addCode("%N.%M()", objectPointerName, REINTERPRET_FUNC)
+            addCode(", %S", signal.signalName)
+            addCode(", %NFunc.%M()", signal.kotlinConnectName, REINTERPRET_FUNC)
+            addCode(", %T.create(handler).asCPointer()", STABLEREF)
+            addCode(", %M", STATIC_STABLEREF_DESTROY)
+            addCode(", connectFlags.mask")
 
-        funSpec.addCode(")")
+            addCode(")")
+        }
 
         // callback type
         return funSpec.build()
     }
 
+    /**
+     * Build the private property that holds the static C callback functions that we use for implementing
+     * the connect<signal-name>() methods.
+     */
     private fun buildStaticSignalCallback(signal: SignalBlueprint): PropertySpec {
         val staticCallbackVal = PropertySpec.builder(
             "${signal.kotlinConnectName}Func",
@@ -645,41 +650,42 @@ class BindingsGenerator(
         return staticCallbackVal.build()
     }
 
-    private fun buildStaticSignalCallbackInitializer(signal: SignalBlueprint): CodeBlock {
-        val codeBlockBuilder = CodeBlock.builder()
-        codeBlockBuilder.beginControlFlow("%M", STATIC_C_FUNC)
+    /**
+     * Build the [staticCFunction] implementation for signal connect handlers.
+     */
+    private fun buildStaticSignalCallbackInitializer(signal: SignalBlueprint): CodeBlock = CodeBlock.builder().apply {
+        beginControlFlow("%M", STATIC_C_FUNC)
 
         // lambda signature
-        codeBlockBuilder.add("_: %T", NativeTypes.KP_OPAQUE_POINTER)
+        add("_: %T", NativeTypes.KP_OPAQUE_POINTER)
         signal.parameters.forEach { param ->
-            codeBlockBuilder.add(", %N: %T", param.kotlinName, param.typeInfo.nativeTypeName)
+            add(", %N: %T", param.kotlinName, param.typeInfo.nativeTypeName)
         }
-        codeBlockBuilder.add(", data: %T", NativeTypes.KP_OPAQUE_POINTER)
+        add(", data: %T", NativeTypes.KP_OPAQUE_POINTER)
 
-        codeBlockBuilder.add(" -> ")
+        add(" -> ")
 
         // implementation
-        codeBlockBuilder.add(
+        add(
             "data.%M<%T>().get().invoke(",
             AS_STABLE_REF_FUNC,
             signal.handlerLambdaTypeName,
         ) // open invoke
         signal.parameters.forEachIndexed { index, param ->
             if (index > 0) {
-                codeBlockBuilder.add(", ")
+                add(", ")
             }
-            codeBlockBuilder.add("%N", param.kotlinName)
-            codeBlockBuilder.add(buildReturnValueConversionBlock(param.typeInfo))
+            add("%N", param.kotlinName)
+            add(buildReturnValueConversionBlock(param.typeInfo))
         }
-        codeBlockBuilder.add(")") // close invoke
+        add(")") // close invoke
 
         // convert the return type and return from the lambda
-        codeBlockBuilder.add(buildKotlinToNativeTypeConversionBlock(signal.returnTypeInfo))
+        add(buildKotlinToNativeTypeConversionBlock(signal.returnTypeInfo))
 
-        codeBlockBuilder.endControlFlow()
-        codeBlockBuilder.add(".%M()", REINTERPRET_FUNC)
-        return codeBlockBuilder.build()
-    }
+        endControlFlow()
+        add(".%M()", REINTERPRET_FUNC)
+    }.build()
 
     companion object {
         // gtk-kn common function members
