@@ -9,6 +9,7 @@ data class InterfaceBlueprint(
     val typeName: ClassName,
     val methods: List<MethodBlueprint>,
     val signals: List<SignalBlueprint>,
+    val functions: List<FunctionBlueprint>,
     val skippedObjects: List<SkippedObject>,
     val objectPointerName: String,
     val objectPointerTypeName: TypeName,

@@ -3,6 +3,7 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
 import org.gtkkn.gir.model.GirBitField
+import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
@@ -14,10 +15,18 @@ class BitfieldBlueprintBuilder(
 ) : BlueprintBuilder<BitfieldBlueprint>(context) {
 
     private val members = mutableListOf<BitfieldMemberBlueprint>()
+    private val functionBlueprints = mutableListOf<FunctionBlueprint>()
 
     override fun blueprintObjectType(): String = "bitfield"
 
     override fun blueprintObjectName(): String = girBitfield.name
+
+    private fun addFunction(function: GirFunction) {
+        when (val result = FunctionBlueprintBuilder(context, girNamespace, function).build()) {
+            is BlueprintResult.Ok -> functionBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
 
     override fun buildInternal(): BitfieldBlueprint {
         context.checkIgnoredType(girBitfield.cType)
@@ -45,9 +54,12 @@ class BitfieldBlueprintBuilder(
             )
         }
 
+        girBitfield.functions.forEach { addFunction(it) }
+
         return BitfieldBlueprint(
             kotlinName = context.kotlinizeClassName(girBitfield.name),
             members = members,
+            functionBlueprints = functionBlueprints,
             kotlinTypeName = kotlinTypeName,
             nativeValueTypeName = nativeValueTypeName,
             kdoc = context.processKdoc(girBitfield.info.docs.doc?.text),

@@ -7,6 +7,7 @@ data class BitfieldBlueprint(
     val kotlinName: String,
     val kotlinTypeName: ClassName,
     val members: List<BitfieldMemberBlueprint>,
+    val functionBlueprints: List<FunctionBlueprint>,
     val nativeValueTypeName: TypeName,
     val kdoc: String?,
 )
