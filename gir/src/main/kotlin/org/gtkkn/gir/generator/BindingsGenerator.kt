@@ -17,6 +17,7 @@ import org.gtkkn.gir.blueprints.BitfieldBlueprint
 import org.gtkkn.gir.blueprints.ClassBlueprint
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.EnumBlueprint
+import org.gtkkn.gir.blueprints.FunctionBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
@@ -249,6 +250,9 @@ class BindingsGenerator(
                 addFunction(buildSignalConnectFunction(signal, "gPointer"))
             }
 
+            // add companion functions
+            clazz.functions.forEach { companionSpecBuilder.addFunction(buildFunction(it)) }
+
             addType(companionSpecBuilder.build())
         }.build()
 
@@ -452,12 +456,15 @@ class BindingsGenerator(
 
         // Add companion with factory wrapper function
         val companionBuilder = TypeSpec.companionObjectBuilder()
+
+        // wrap factory function
         val factoryFunc = FunSpec.builder("wrap")
             .addParameter("pointer", iface.objectPointerTypeName)
             .returns(iface.typeName)
             .addStatement("return Wrapper(pointer)")
-
         companionBuilder.addFunction(factoryFunc.build())
+
+        iface.functions.forEach { companionBuilder.addFunction(buildFunction(it)) }
 
         ifaceBuilder.addType(companionBuilder.build())
 
@@ -501,6 +508,9 @@ class BindingsGenerator(
             )
             .addFunction(orFuncSpec)
             .addType(companionSpecBuilder.build())
+
+        // add functions
+        bitfield.functionBlueprints.forEach { companionSpecBuilder.addFunction(buildFunction(it)) }
 
         return bitfieldSpec.build()
     }
@@ -555,9 +565,13 @@ class BindingsGenerator(
 
         fromNativeFunc.endControlFlow() // end when
 
-        return TypeSpec.companionObjectBuilder()
-            .addFunction(fromNativeFunc.build())
-            .build()
+        return TypeSpec.companionObjectBuilder().apply {
+            // from native function
+            addFunction(fromNativeFunc.build())
+
+            // other functions
+            enum.functionBlueprints.forEach { addFunction(buildFunction(it)) }
+        }.build()
     }
 
     private fun buildMethod(method: MethodBlueprint, instancePointer: String?): FunSpec =
@@ -598,6 +612,29 @@ class BindingsGenerator(
             // return value conversion
             addCode(buildReturnValueConversionBlock(method.returnTypeInfo))
         }.build()
+
+    /**
+     * Build a function implementation for standalone functions (not methods with an instance parameter.
+     */
+    private fun buildFunction(func: FunctionBlueprint): FunSpec = FunSpec.builder(func.kotlinName).apply {
+        // add return value to signature
+        returns(func.returnTypeInfo.kotlinTypeName)
+
+        // add paramaters to signature
+        appendSignatureParameters(func.parameterBlueprints)
+
+        addCode("return %M(", func.nativeMemberName) // open native function paren
+        func.parameterBlueprints.forEachIndexed { index, param ->
+            if (index > 0) {
+                addCode(", ")
+            }
+            addCode(buildParameterConversionBlock(param))
+        }
+        addCode(")") // close native function paren
+
+        // convert return type
+        addCode(buildReturnValueConversionBlock(func.returnTypeInfo))
+    }.build()
 
     private fun buildSignalConnectFunction(signal: SignalBlueprint, objectPointerName: String): FunSpec {
         val connectFlagsTypeName = ClassName("bindings.gobject", "ConnectFlags")
