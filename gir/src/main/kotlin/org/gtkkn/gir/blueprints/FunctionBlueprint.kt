@@ -8,4 +8,6 @@ data class FunctionBlueprint(
     val nativeMemberName: MemberName,
     val parameterBlueprints: List<ParameterBlueprint>,
     val returnTypeInfo: TypeInfo,
+    val kdoc: String?,
+    val returnTypeKDoc: String?,
 )

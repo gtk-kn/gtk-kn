@@ -67,6 +67,8 @@ class FunctionBlueprintBuilder(
             nativeMemberName = nativeMemberName,
             parameterBlueprints = parameterBlueprints,
             returnTypeInfo = returnTypeInfo,
+            kdoc = context.processKdoc(girFunction.info.docs.doc?.text),
+            returnTypeKDoc = context.processKdoc(girFunction.returnValue.docs.doc?.text),
         )
     }
 }

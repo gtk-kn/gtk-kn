@@ -406,11 +406,11 @@ class BindingsGenerator(
         returnTypeKDoc: String?,
     ): CodeBlock = CodeBlock.builder().apply {
         kdoc?.let { add("%L", it) }
-        if (parameters.isNotEmpty()) {
+        if (parameters.isNotEmpty() || returnTypeKDoc != null) {
             add("\n")
-            parameters.forEach { param ->
-                add("\n@param %L %L", param.kotlinName, param.kdoc.orEmpty())
-            }
+        }
+        parameters.forEach { param ->
+            add("\n@param %L %L", param.kotlinName, param.kdoc.orEmpty())
         }
         returnTypeKDoc?.let { add("\n@return %L", it) }
     }.build()
@@ -617,10 +617,11 @@ class BindingsGenerator(
      * Build a function implementation for standalone functions (not methods with an instance parameter.
      */
     private fun buildFunction(func: FunctionBlueprint): FunSpec = FunSpec.builder(func.kotlinName).apply {
+        addKdoc(buildMethodKDoc(func.kdoc, func.parameterBlueprints, func.returnTypeKDoc))
         // add return value to signature
         returns(func.returnTypeInfo.kotlinTypeName)
 
-        // add paramaters to signature
+        // add parameters to signature
         appendSignatureParameters(func.parameterBlueprints)
 
         addCode("return %M(", func.nativeMemberName) // open native function paren
