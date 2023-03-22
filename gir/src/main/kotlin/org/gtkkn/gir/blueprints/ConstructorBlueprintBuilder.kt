@@ -99,7 +99,7 @@ class ConstructorBlueprintBuilder(
             }
 
             // build parameter
-            val paramBlueprint = MethodParameterBlueprint(
+            val paramBlueprint = ParameterBlueprint(
                 kotlinName = paramKotlinName,
                 nativeName = param.name,
                 typeInfo = typeInfo,
