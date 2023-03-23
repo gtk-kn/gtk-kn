@@ -7,7 +7,6 @@ import bindings.gtk.Button
 import io.github.oshai.KotlinLogging
 import io.github.oshai.KotlinLoggingConfiguration
 import io.github.oshai.Level
-import native.gio.g_application_run
 
 private val logger = KotlinLogging.logger("main")
 
@@ -32,9 +31,5 @@ fun main() {
         window.setChild(button)
         window.show()
     }
-    app.run()
-}
-
-fun Application.run() {
-    g_application_run(gioApplicationPointer, 0, null)
+    app.run(0, emptyList())
 }
