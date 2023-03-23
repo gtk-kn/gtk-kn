@@ -18,9 +18,11 @@ data class SkippedObject(
      * Build a user readable message with support for overriding the length of the object and type names
      * so they can be nicely formatted when printing a list of these objects
      */
-    fun fullMessage(
+    fun textMessage(
         objectNameLength: Int = objectName.length,
         objectTypeLength: Int = objectType.length,
     ): String =
-        "- ${objectType.padEnd(objectTypeLength, ' ')}\t${objectName.padEnd(objectNameLength, ' ')}:\t$reason"
+        "Skipped ${objectType.padEnd(objectTypeLength, ' ')}\t${objectName.padEnd(objectNameLength, ' ')}\t($reason)"
+
+    fun kDocMessage(): String = "- $objectType `$objectName`: $reason"
 }

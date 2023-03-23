@@ -54,104 +54,104 @@ linkerOpts.linux_x64 = \
     -L/usr/lib/x86_64-linux-gnu
 
 strictEnums = \
-GtkAccessibleAutocomplete \
-GtkAccessibleInvalidState \
-GtkAccessiblePlatformState \
-GtkAccessibleProperty \
-GtkAccessibleRelation \
-GtkAccessibleRole \
-GtkAccessibleSort \
-GtkAccessibleState \
-GtkAccessibleTristate \
-GtkAlign \
-GtkArrowType \
-GtkAssistantPageType \
-GtkBaselinePosition \
-GtkBorderStyle \
-GtkBuilderError \
-GtkButtonsType \
-GtkCellRendererAccelMode \
-GtkCellRendererMode \
-GtkCollation \
-GtkConstraintAttribute \
-GtkConstraintRelation \
-GtkConstraintStrength \
-GtkConstraintVflParserError \
-GtkContentFit \
-GtkCornerType \
-GtkCssParserError \
-GtkCssParserWarning \
-GtkDeleteType \
-GtkDialogError \
-GtkDirectionType \
-GtkEditableProperties \
-GtkEntryIconPosition \
-GtkEventSequenceState \
-GtkFileChooserAction \
-GtkFileChooserError \
-GtkFilterChange \
-GtkFilterMatch \
-GtkFontLevel \
-GtkIconSize \
-GtkIconThemeError \
-GtkIconViewDropPosition \
-GtkImageType \
-GtkInputPurpose \
-GtkInscriptionOverflow \
-GtkJustification \
-GtkLevelBarMode \
-GtkLicense \
-GtkMessageType \
-GtkMovementStep \
-GtkNaturalWrapMode \
-GtkNotebookTab \
-GtkNumberUpLayout \
-GtkOrdering \
-GtkOrientation \
-GtkOverflow \
-GtkPackType \
-GtkPadActionType \
-GtkPageOrientation \
-GtkPageSet \
-GtkPanDirection \
-GtkPolicyType \
-GtkPositionType \
-GtkPrintDuplex \
-GtkPrintError \
-GtkPrintOperationAction \
-GtkPrintOperationResult \
-GtkPrintPages \
-GtkPrintQuality \
-GtkPrintStatus \
-GtkPropagationLimit \
-GtkPropagationPhase \
-GtkRecentManagerError \
-GtkResponseType \
-GtkRevealerTransitionType \
-GtkScrollStep \
-GtkScrollType \
-GtkScrollablePolicy \
-GtkSelectionMode \
-GtkSensitivityType \
-GtkShortcutScope \
-GtkShortcutType \
-GtkSizeGroupMode \
-GtkSizeRequestMode \
-GtkSortType \
-GtkSorterChange \
-GtkSorterOrder \
-GtkSpinButtonUpdatePolicy \
-GtkSpinType \
-GtkStackTransitionType \
-GtkStringFilterMatchMode \
-GtkSymbolicColor \
-GtkSystemSetting \
-GtkTextDirection \
-GtkTextExtendSelection \
-GtkTextViewLayer \
-GtkTextWindowType \
-GtkTreeViewColumnSizing \
-GtkTreeViewDropPosition \
-GtkTreeViewGridLines \
-GtkUnit \
-GtkWrapMode
+    GtkAccessibleAutocomplete \
+    GtkAccessibleInvalidState \
+    GtkAccessiblePlatformState \
+    GtkAccessibleProperty \
+    GtkAccessibleRelation \
+    GtkAccessibleRole \
+    GtkAccessibleSort \
+    GtkAccessibleState \
+    GtkAccessibleTristate \
+    GtkAlign \
+    GtkArrowType \
+    GtkAssistantPageType \
+    GtkBaselinePosition \
+    GtkBorderStyle \
+    GtkBuilderError \
+    GtkButtonsType \
+    GtkCellRendererAccelMode \
+    GtkCellRendererMode \
+    GtkCollation \
+    GtkConstraintAttribute \
+    GtkConstraintRelation \
+    GtkConstraintStrength \
+    GtkConstraintVflParserError \
+    GtkContentFit \
+    GtkCornerType \
+    GtkCssParserError \
+    GtkCssParserWarning \
+    GtkDeleteType \
+    GtkDialogError \
+    GtkDirectionType \
+    GtkEditableProperties \
+    GtkEntryIconPosition \
+    GtkEventSequenceState \
+    GtkFileChooserAction \
+    GtkFileChooserError \
+    GtkFilterChange \
+    GtkFilterMatch \
+    GtkFontLevel \
+    GtkIconSize \
+    GtkIconThemeError \
+    GtkIconViewDropPosition \
+    GtkImageType \
+    GtkInputPurpose \
+    GtkInscriptionOverflow \
+    GtkJustification \
+    GtkLevelBarMode \
+    GtkLicense \
+    GtkMessageType \
+    GtkMovementStep \
+    GtkNaturalWrapMode \
+    GtkNotebookTab \
+    GtkNumberUpLayout \
+    GtkOrdering \
+    GtkOrientation \
+    GtkOverflow \
+    GtkPackType \
+    GtkPadActionType \
+    GtkPageOrientation \
+    GtkPageSet \
+    GtkPanDirection \
+    GtkPolicyType \
+    GtkPositionType \
+    GtkPrintDuplex \
+    GtkPrintError \
+    GtkPrintOperationAction \
+    GtkPrintOperationResult \
+    GtkPrintPages \
+    GtkPrintQuality \
+    GtkPrintStatus \
+    GtkPropagationLimit \
+    GtkPropagationPhase \
+    GtkRecentManagerError \
+    GtkResponseType \
+    GtkRevealerTransitionType \
+    GtkScrollStep \
+    GtkScrollType \
+    GtkScrollablePolicy \
+    GtkSelectionMode \
+    GtkSensitivityType \
+    GtkShortcutScope \
+    GtkShortcutType \
+    GtkSizeGroupMode \
+    GtkSizeRequestMode \
+    GtkSortType \
+    GtkSorterChange \
+    GtkSorterOrder \
+    GtkSpinButtonUpdatePolicy \
+    GtkSpinType \
+    GtkStackTransitionType \
+    GtkStringFilterMatchMode \
+    GtkSymbolicColor \
+    GtkSystemSetting \
+    GtkTextDirection \
+    GtkTextExtendSelection \
+    GtkTextViewLayer \
+    GtkTextWindowType \
+    GtkTreeViewColumnSizing \
+    GtkTreeViewDropPosition \
+    GtkTreeViewGridLines \
+    GtkUnit \
+    GtkWrapMode

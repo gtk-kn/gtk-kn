@@ -54,7 +54,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode(")") // close native function paren
 
             // return value conversion
-            addCode(buildReturnValueConversionBlock(method.returnTypeInfo))
+            addCode(buildNativeToKotlinConversionsBlock(method.returnTypeInfo))
         }.build()
 
     /**
@@ -78,7 +78,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         addCode(")") // close native function paren
 
         // convert return type
-        addCode(buildReturnValueConversionBlock(func.returnTypeInfo))
+        addCode(buildNativeToKotlinConversionsBlock(func.returnTypeInfo))
     }.build()
 
     fun buildSignalConnectFunction(signal: SignalBlueprint, objectPointerName: String): FunSpec =
@@ -163,7 +163,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
                 add(", ")
             }
             add("%N", param.kotlinName)
-            add(buildReturnValueConversionBlock(param.typeInfo))
+            add(buildNativeToKotlinConversionsBlock(param.typeInfo))
         }
         add(")") // close invoke
 

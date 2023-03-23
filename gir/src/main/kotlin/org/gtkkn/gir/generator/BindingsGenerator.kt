@@ -124,7 +124,7 @@ class BindingsGenerator(
         val longestObjectName = skippedObjects.maxOfOrNull { it.objectName.length } ?: 0
         val longestTypeName = skippedObjects.maxOfOrNull { it.objectType.length } ?: 0
         skippedObjects.forEach {
-            skipWriter.println(it.fullMessage(longestObjectName, longestTypeName))
+            skipWriter.println(it.textMessage(longestObjectName, longestTypeName))
         }
         skipWriter.close()
     }
@@ -136,7 +136,7 @@ class BindingsGenerator(
         enumsFile.printWriter().use { writer ->
             writer.println("strictEnums = \\")
             repository.enumBlueprints.forEach { enum ->
-                writer.println("${(enum.nativeValueTypeName as ClassName).simpleName} \\")
+                writer.println("    ${(enum.nativeValueTypeName as ClassName).simpleName} \\")
             }
         }
     }

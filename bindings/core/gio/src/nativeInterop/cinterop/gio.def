@@ -40,46 +40,46 @@ linkerOpts.linux_x64 = \
     -L/usr/lib/x86_64-linux-gnu
 
 strictEnums = \
-GBusType \
-GConverterResult \
-GCredentialsType \
-GDBusError \
-GDBusMessageByteOrder \
-GDBusMessageHeaderField \
-GDBusMessageType \
-GDataStreamByteOrder \
-GDataStreamNewlineType \
-GDriveStartStopType \
-GEmblemOrigin \
-GFileAttributeStatus \
-GFileAttributeType \
-GFileMonitorEvent \
-GFileType \
-GFilesystemPreviewType \
-GIOErrorEnum \
-GIOModuleScopeFlags \
-GMemoryMonitorWarningLevel \
-GMountOperationResult \
-GNetworkConnectivity \
-GNotificationPriority \
-GPasswordSave \
-GPollableReturn \
-GResolverError \
-GResolverRecordType \
-GResourceError \
-GSocketClientEvent \
-GSocketFamily \
-GSocketListenerEvent \
-GSocketProtocol \
-GSocketType \
-GTlsAuthenticationMode \
-GTlsCertificateRequestFlags \
-GTlsChannelBindingError \
-GTlsChannelBindingType \
-GTlsDatabaseLookupFlags \
-GTlsError \
-GTlsInteractionResult \
-GTlsProtocolVersion \
-GTlsRehandshakeMode \
-GUnixSocketAddressType \
-GZlibCompressorFormat
+    GBusType \
+    GConverterResult \
+    GCredentialsType \
+    GDBusError \
+    GDBusMessageByteOrder \
+    GDBusMessageHeaderField \
+    GDBusMessageType \
+    GDataStreamByteOrder \
+    GDataStreamNewlineType \
+    GDriveStartStopType \
+    GEmblemOrigin \
+    GFileAttributeStatus \
+    GFileAttributeType \
+    GFileMonitorEvent \
+    GFileType \
+    GFilesystemPreviewType \
+    GIOErrorEnum \
+    GIOModuleScopeFlags \
+    GMemoryMonitorWarningLevel \
+    GMountOperationResult \
+    GNetworkConnectivity \
+    GNotificationPriority \
+    GPasswordSave \
+    GPollableReturn \
+    GResolverError \
+    GResolverRecordType \
+    GResourceError \
+    GSocketClientEvent \
+    GSocketFamily \
+    GSocketListenerEvent \
+    GSocketProtocol \
+    GSocketType \
+    GTlsAuthenticationMode \
+    GTlsCertificateRequestFlags \
+    GTlsChannelBindingError \
+    GTlsChannelBindingType \
+    GTlsDatabaseLookupFlags \
+    GTlsError \
+    GTlsInteractionResult \
+    GTlsProtocolVersion \
+    GTlsRehandshakeMode \
+    GUnixSocketAddressType \
+    GZlibCompressorFormat

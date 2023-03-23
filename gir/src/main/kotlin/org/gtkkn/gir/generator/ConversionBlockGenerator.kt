@@ -15,45 +15,37 @@ interface ConversionBlockGenerator {
      *
      * Nullability is handled.
      */
-    fun buildParameterConversionBlock(param: ParameterBlueprint): CodeBlock {
-        val codeBlockBuilder = CodeBlock.builder()
-        val isParamNullable = param.typeInfo.kotlinTypeName.isNullable
-        val safeCall = if (isParamNullable) "?" else ""
+    fun buildParameterConversionBlock(param: ParameterBlueprint): CodeBlock =
+        CodeBlock.builder().apply {
+            val isParamNullable = param.typeInfo.kotlinTypeName.isNullable
+            val safeCall = if (isParamNullable) "?" else ""
 
-        when (param.typeInfo) {
-            is TypeInfo.Enumeration -> codeBlockBuilder.add("%N$safeCall.nativeValue", param.kotlinName)
-            is TypeInfo.ObjectPointer -> {
-                codeBlockBuilder.add(
-                    "%N$safeCall.%N$safeCall.%M()",
-                    param.kotlinName,
-                    param.typeInfo.objectPointerName,
-                    BindingsGenerator.REINTERPRET_FUNC,
-                )
+            when (param.typeInfo) {
+                is TypeInfo.Enumeration -> add("%N$safeCall.nativeValue", param.kotlinName)
+                is TypeInfo.ObjectPointer -> {
+                    add(
+                        "%N$safeCall.%N$safeCall.%M()",
+                        param.kotlinName,
+                        param.typeInfo.objectPointerName,
+                        BindingsGenerator.REINTERPRET_FUNC,
+                    )
+                }
+
+                is TypeInfo.InterfacePointer -> {
+                    add(
+                        "%N$safeCall.%N$safeCall.%M()",
+                        param.kotlinName,
+                        param.typeInfo.objectPointerName,
+                        BindingsGenerator.REINTERPRET_FUNC,
+                    )
+                }
+
+                is TypeInfo.Primitive -> add("%N", param.kotlinName)
+                is TypeInfo.GBoolean -> add("%N$safeCall.%M()", param.kotlinName, BindingsGenerator.AS_GBOOLEAN_FUNC)
+                is TypeInfo.KString -> add("%N", param.kotlinName)
+                is TypeInfo.Bitfield -> add("%N$safeCall.mask", param.kotlinName)
             }
-
-            is TypeInfo.InterfacePointer -> {
-                codeBlockBuilder.add(
-                    "%N$safeCall.%N$safeCall.%M()",
-                    param.kotlinName,
-                    param.typeInfo.objectPointerName,
-                    BindingsGenerator.REINTERPRET_FUNC,
-                )
-            }
-
-            is TypeInfo.Primitive -> codeBlockBuilder.add("%N", param.kotlinName)
-            is TypeInfo.GBoolean -> codeBlockBuilder.add(
-                "%N$safeCall.%M()",
-                param.kotlinName,
-                BindingsGenerator.AS_GBOOLEAN_FUNC,
-            )
-
-            is TypeInfo.KString -> codeBlockBuilder.add("%N", param.kotlinName)
-            is TypeInfo.Bitfield -> {
-                codeBlockBuilder.add("%N$safeCall.mask", param.kotlinName)
-            }
-        }
-        return codeBlockBuilder.build()
-    }
+        }.build()
 
     /**
      * Build a [CodeBlock] that converts a Kotlin value into its native counterpart.
@@ -62,66 +54,52 @@ interface ConversionBlockGenerator {
      *
      * Nullability is handled.
      */
-    fun buildKotlinToNativeTypeConversionBlock(typeInfo: TypeInfo): CodeBlock {
-        val codeBlockBuilder = CodeBlock.builder()
-        val isParamNullable = typeInfo.kotlinTypeName.isNullable
-        val safeCall = if (isParamNullable) "?" else ""
+    fun buildKotlinToNativeTypeConversionBlock(typeInfo: TypeInfo): CodeBlock =
+        CodeBlock.builder().apply {
+            val isParamNullable = typeInfo.kotlinTypeName.isNullable
+            val safeCall = if (isParamNullable) "?" else ""
 
-        when (typeInfo) {
-            is TypeInfo.Primitive -> Unit
-            is TypeInfo.KString -> Unit
-            is TypeInfo.Enumeration -> codeBlockBuilder.add("$safeCall.nativeValue")
-            is TypeInfo.ObjectPointer -> {
-                codeBlockBuilder.add(
-                    "$safeCall.%N",
-                    typeInfo.objectPointerName,
+            when (typeInfo) {
+                is TypeInfo.Enumeration -> add("$safeCall.nativeValue")
+                is TypeInfo.ObjectPointer -> add("$safeCall.%N", typeInfo.objectPointerName)
+                is TypeInfo.InterfacePointer -> {
+                    add(
+                        "$safeCall.%N$safeCall.%M()",
+                        typeInfo.objectPointerName,
+                        BindingsGenerator.REINTERPRET_FUNC,
+                    )
+                }
+
+                is TypeInfo.Primitive -> Unit
+                is TypeInfo.GBoolean -> add("$safeCall.%M()", BindingsGenerator.AS_GBOOLEAN_FUNC)
+                is TypeInfo.KString -> Unit
+                is TypeInfo.Bitfield -> add("$safeCall.mask")
+            }
+        }.build()
+
+    fun buildNativeToKotlinConversionsBlock(returnTypeInfo: TypeInfo): CodeBlock =
+        CodeBlock.builder().apply {
+            val isNullable = returnTypeInfo.kotlinTypeName.isNullable
+            val safeCall = if (isNullable) "?" else ""
+
+            when (returnTypeInfo) {
+                is TypeInfo.Enumeration -> NativeToKotlinConversions.buildEnumeration(this, returnTypeInfo)
+                is TypeInfo.ObjectPointer -> NativeToKotlinConversions.buildObjectPointer(returnTypeInfo, this)
+                is TypeInfo.InterfacePointer -> NativeToKotlinConversions.buildInterfacePointer(
+                    isNullable,
+                    this,
+                    returnTypeInfo,
                 )
+
+                is TypeInfo.Primitive -> Unit
+                is TypeInfo.GBoolean -> NativeToKotlinConversions.buildGBoolean(this)
+                is TypeInfo.KString -> NativeToKotlinConversions.buildKString(isNullable, this)
+                is TypeInfo.Bitfield -> NativeToKotlinConversions.buildBitfield(this, safeCall, returnTypeInfo)
             }
-
-            is TypeInfo.InterfacePointer -> {
-                codeBlockBuilder.add(
-                    "$safeCall.%N$safeCall.%M()",
-                    typeInfo.objectPointerName,
-                    BindingsGenerator.REINTERPRET_FUNC,
-                )
-            }
-
-            is TypeInfo.GBoolean -> codeBlockBuilder.add(
-                "$safeCall.%M()",
-                BindingsGenerator.AS_GBOOLEAN_FUNC,
-            )
-
-            is TypeInfo.Bitfield -> {
-                codeBlockBuilder.add("$safeCall.mask")
-            }
-        }
-        return codeBlockBuilder.build()
-    }
-
-    fun buildReturnValueConversionBlock(returnTypeInfo: TypeInfo): CodeBlock {
-        val codeBlockBuilder = CodeBlock.builder()
-        val isNullable = returnTypeInfo.kotlinTypeName.isNullable
-        val safeCall = if (isNullable) "?" else ""
-
-        when (returnTypeInfo) {
-            is TypeInfo.Enumeration -> ReturnValueConversions.buildEnumeration(codeBlockBuilder, returnTypeInfo)
-            is TypeInfo.ObjectPointer -> ReturnValueConversions.buildObjectPointer(returnTypeInfo, codeBlockBuilder)
-            is TypeInfo.InterfacePointer -> ReturnValueConversions.buildInterfacePointer(
-                isNullable,
-                codeBlockBuilder,
-                returnTypeInfo,
-            )
-
-            is TypeInfo.Primitive -> Unit
-            is TypeInfo.GBoolean -> ReturnValueConversions.buildGBoolean(codeBlockBuilder)
-            is TypeInfo.KString -> ReturnValueConversions.buildKString(isNullable, codeBlockBuilder)
-            is TypeInfo.Bitfield -> ReturnValueConversions.buildBitfield(codeBlockBuilder, safeCall, returnTypeInfo)
-        }
-        return codeBlockBuilder.build()
-    }
+        }.build()
 }
 
-private object ReturnValueConversions {
+private object NativeToKotlinConversions {
     fun buildEnumeration(
         codeBlockBuilder: CodeBlock.Builder,
         returnTypeInfo: TypeInfo,
