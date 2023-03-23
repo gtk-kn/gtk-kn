@@ -39,4 +39,18 @@ interface KDocGenerator {
         }
         returnTypeKDoc?.let { add("\n@return %L", it) }
     }.build()
+
+    fun buildSignalKDoc(
+        kdoc: String?,
+        parameters: List<ParameterBlueprint>,
+        returnTypeKDoc: String?,
+    ): CodeBlock = CodeBlock.builder().apply {
+        kdoc?.let { add("%L", it) }
+        add("\n\n@param connectFlags A combination of [ConnectFlags]")
+        add("\n@param handler the Callback to connect")
+        if (parameters.isNotEmpty()) {
+            add(". Takes: %L", parameters.joinToString(separator = "; ") { "*${it.kotlinName}* ${it.kdoc.orEmpty()}" })
+        }
+        returnTypeKDoc?.let { add(". Returns %L", it) }
+    }.build()
 }

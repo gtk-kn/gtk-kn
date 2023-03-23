@@ -20,7 +20,7 @@ import org.gtkkn.gir.processor.NativeTypes
 interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
     fun buildMethod(method: MethodBlueprint, instancePointer: String?): FunSpec =
         FunSpec.builder(method.kotlinName).apply {
-            addKdoc(buildMethodKDoc(method.kdoc, method.parameterBlueprints, method.returnTypeKDoc))
+            addKdoc(buildMethodKDoc(method.kdoc, method.parameters, method.returnTypeKDoc))
             val returnTypeName = method.returnTypeInfo.kotlinTypeName
 
             returns(returnTypeName)
@@ -33,7 +33,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
                 addModifiers(KModifier.OPEN)
             }
 
-            appendSignatureParameters(method.parameterBlueprints)
+            appendSignatureParameters(method.parameters)
 
             var needsComma = false
             addCode("return %M(", method.nativeMemberName) // open native function paren
@@ -43,7 +43,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
                 needsComma = true
             }
 
-            method.parameterBlueprints.forEach { param ->
+            method.parameters.forEach { param ->
                 if (needsComma) {
                     addCode(", ")
                 }
@@ -61,15 +61,15 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
      * Build a function implementation for standalone functions (not methods with an instance parameter).
      */
     fun buildFunction(func: FunctionBlueprint): FunSpec = FunSpec.builder(func.kotlinName).apply {
-        addKdoc(buildMethodKDoc(func.kdoc, func.parameterBlueprints, func.returnTypeKDoc))
+        addKdoc(buildMethodKDoc(func.kdoc, func.parameters, func.returnTypeKDoc))
         // add return value to signature
         returns(func.returnTypeInfo.kotlinTypeName)
 
         // add parameters to signature
-        appendSignatureParameters(func.parameterBlueprints)
+        appendSignatureParameters(func.parameters)
 
         addCode("return %M(", func.nativeMemberName) // open native function paren
-        func.parameterBlueprints.forEachIndexed { index, param ->
+        func.parameters.forEachIndexed { index, param ->
             if (index > 0) {
                 addCode(", ")
             }
@@ -81,10 +81,13 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         addCode(buildReturnValueConversionBlock(func.returnTypeInfo))
     }.build()
 
-    fun buildSignalConnectFunction(signal: SignalBlueprint, objectPointerName: String): FunSpec {
-        val connectFlagsTypeName = ClassName("bindings.gobject", "ConnectFlags")
-        val connectFlagsDefaultMemberName = MemberName("bindings.gobject.ConnectFlags.Companion", "DEFAULT")
-        val funSpec = FunSpec.builder(signal.kotlinConnectName).apply {
+    fun buildSignalConnectFunction(signal: SignalBlueprint, objectPointerName: String): FunSpec =
+        FunSpec.builder(signal.kotlinConnectName).apply {
+            val connectFlagsTypeName = ClassName("bindings.gobject", "ConnectFlags")
+            val connectFlagsDefaultMemberName = MemberName("bindings.gobject.ConnectFlags.Companion", "DEFAULT")
+
+            addKdoc(buildSignalKDoc(signal.kdoc, signal.parameters, signal.returnTypeKDoc))
+
             // connect flags
             addParameter(
                 ParameterSpec.builder("connectFlags", connectFlagsTypeName)
@@ -108,11 +111,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode(", connectFlags.mask")
 
             addCode(")")
-        }
-
-        // callback type
-        return funSpec.build()
-    }
+        }.build()
 
     /**
      * Build the private property that holds the static C callback functions that we use for implementing

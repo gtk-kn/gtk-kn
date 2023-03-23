@@ -65,7 +65,7 @@ class FunctionBlueprintBuilder(
             kotlinName = kotlinName,
             nativeName = nativeName,
             nativeMemberName = nativeMemberName,
-            parameterBlueprints = parameterBlueprints,
+            parameters = parameterBlueprints,
             returnTypeInfo = returnTypeInfo,
             kdoc = context.processKdoc(girFunction.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girFunction.returnValue.docs.doc?.text),
