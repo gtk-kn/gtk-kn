@@ -32,5 +32,5 @@ linkerOpts.linux_x64 = \
     -L/usr/lib/x86_64-linux-gnu
 
 strictEnums = \
-graphene_euler_order_t \
-graphene_ray_intersection_kind_t \
+    graphene_euler_order_t \
+    graphene_ray_intersection_kind_t

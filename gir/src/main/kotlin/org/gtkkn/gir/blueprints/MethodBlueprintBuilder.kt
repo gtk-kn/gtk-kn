@@ -107,7 +107,7 @@ class MethodBlueprintBuilder(
             },
             nativeName = nativeMethodName,
             nativeMemberName = nativeMemberName,
-            parameterBlueprints = methodParameters,
+            parameters = methodParameters,
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
             isOpen = isOpen,

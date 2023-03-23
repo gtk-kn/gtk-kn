@@ -25,41 +25,41 @@ linkerOpts.linux_x64 = \
     -L/usr/lib/x86_64-linux-gnu
 
 strictEnums = \
-GBookmarkFileError \
-GChecksumType \
-GConvertError \
-GDateDMY \
-GDateMonth \
-GDateWeekday \
-GErrorType \
-GFileError \
-GIOChannelError \
-GIOError \
-GIOStatus \
-GKeyFileError \
-GLogWriterOutput \
-GMarkupError \
-GNormalizeMode \
-GNumberParserError \
-GOnceStatus \
-GOptionArg \
-GOptionError \
-GRegexError \
-GSeekType \
-GShellError \
-GSliceConfig \
-GSpawnError \
-GTestFileType \
-GTestLogType \
-GTestResult \
-GThreadError \
-GTimeType \
-GTokenType \
-GTraverseType \
-GUnicodeBreakType \
-GUnicodeScript \
-GUnicodeType \
-GUriError \
-GUserDirectory \
-GVariantClass \
-GVariantParseError
+    GBookmarkFileError \
+    GChecksumType \
+    GConvertError \
+    GDateDMY \
+    GDateMonth \
+    GDateWeekday \
+    GErrorType \
+    GFileError \
+    GIOChannelError \
+    GIOError \
+    GIOStatus \
+    GKeyFileError \
+    GLogWriterOutput \
+    GMarkupError \
+    GNormalizeMode \
+    GNumberParserError \
+    GOnceStatus \
+    GOptionArg \
+    GOptionError \
+    GRegexError \
+    GSeekType \
+    GShellError \
+    GSliceConfig \
+    GSpawnError \
+    GTestFileType \
+    GTestLogType \
+    GTestResult \
+    GThreadError \
+    GTimeType \
+    GTokenType \
+    GTraverseType \
+    GUnicodeBreakType \
+    GUnicodeScript \
+    GUnicodeType \
+    GUriError \
+    GUserDirectory \
+    GVariantClass \
+    GVariantParseError

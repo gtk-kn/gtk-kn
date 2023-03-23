@@ -54,11 +54,11 @@ linkerOpts.linux_x64 = \
     -L/usr/lib/x86_64-linux-gnu
 
 strictEnums = \
-GskBlendMode \
-GskCorner \
-GskGLUniformType \
-GskMaskMode \
-GskRenderNodeType \
-GskScalingFilter \
-GskSerializationError \
-GskTransformCategory
+    GskBlendMode \
+    GskCorner \
+    GskGLUniformType \
+    GskMaskMode \
+    GskRenderNodeType \
+    GskScalingFilter \
+    GskSerializationError \
+    GskTransformCategory

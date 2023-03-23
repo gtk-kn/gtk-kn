@@ -8,4 +8,6 @@ data class SignalBlueprint(
     val returnTypeInfo: TypeInfo,
     val parameters: List<ParameterBlueprint>,
     val handlerLambdaTypeName: LambdaTypeName,
+    val kdoc: String?,
+    val returnTypeKDoc: String?,
 )

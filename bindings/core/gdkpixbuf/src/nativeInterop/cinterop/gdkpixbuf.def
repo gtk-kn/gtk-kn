@@ -36,8 +36,8 @@ linkerOpts.linux_x64 = \
     -L/usr/lib64
 
 strictEnums = \
-GdkColorspace \
-GdkInterpType \
-GdkPixbufAlphaMode \
-GdkPixbufError \
-GdkPixbufRotation
+    GdkColorspace \
+    GdkInterpType \
+    GdkPixbufAlphaMode \
+    GdkPixbufError \
+    GdkPixbufRotation
