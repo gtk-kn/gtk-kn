@@ -24,6 +24,7 @@ include("gir")
 
 include("bindings:common")
 
+include("bindings:adw")
 include("bindings:core:cairo")
 include("bindings:core:gdkpixbuf")
 include("bindings:core:gio")

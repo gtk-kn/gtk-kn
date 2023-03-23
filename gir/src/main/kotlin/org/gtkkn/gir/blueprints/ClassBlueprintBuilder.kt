@@ -56,7 +56,14 @@ class ClassBlueprintBuilder(
 
     private fun addMethod(method: GirMethod) {
         when (val result =
-            MethodBlueprintBuilder(context, girNamespace, method, superClasses, interfaces, isOpen = true).build()) {
+            MethodBlueprintBuilder(
+                context,
+                girNamespace,
+                method,
+                superClasses,
+                interfaces,
+                isOpen = girClass.final != true,
+            ).build()) {
             is BlueprintResult.Ok -> methodBluePrints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }

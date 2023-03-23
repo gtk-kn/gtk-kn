@@ -10,6 +10,7 @@ data class Config(
     val skipFormat: Boolean,
     val bindingLicense: License,
     val girPrefixWhitelist: Set<String> = setOf(
+        "Adw-1",
         "cairo-",
         "Gdk-4",
         "GdkPixbuf-",

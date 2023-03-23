@@ -1,0 +1,70 @@
+headers = libadwaita-1/adwaita.h
+package = native.adw
+headerFilter = libadwaita-1/*
+
+# pkg-config --cflags libadwaita-1
+compilerOpts.linux = \
+    -I/usr/include \
+    -I/usr/include/libadwaita-1 \
+    -I/usr/include/gtk-4.0 \
+    -I/usr/include/pango-1.0 \
+    -I/usr/include/glib-2.0 \
+    -I/usr/lib/glib-2.0/include \
+    -I/usr/include/sysprof-4 \
+    -I/usr/include/harfbuzz \
+    -I/usr/include/freetype2 \
+    -I/usr/include/libpng16 \
+    -I/usr/include/libmount \
+    -I/usr/include/blkid \
+    -I/usr/include/fribidi \
+    -I/usr/include/cairo \
+    -I/usr/include/lzo \
+    -I/usr/include/pixman-1 \
+    -I/usr/include/gdk-pixbuf-2.0 \
+    -I/usr/include/graphene-1.0 \
+    -I/usr/lib/graphene-1.0/include \
+    -mfpmath=sse \
+    -msse \
+    -msse2 \
+    -pthread
+
+compilerOpts.linux_x64 = \
+    -I/usr/lib64/glib-2.0/include \
+    -I/usr/lib64/graphene-1.0/include \
+    -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+    -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
+
+# pkg-config --libs libadwaita-1
+linkerOpts.linux = \
+    -L/usr/lib \
+    -ladwaita-1 \
+    -lgtk-4 \
+    -lpangocairo-1.0 \
+    -lpango-1.0 \
+    -lharfbuzz \
+    -lgdk_pixbuf-2.0 \
+    -lcairo-gobject \
+    -lcairo \
+    -lgraphene-1.0 \
+    -lgio-2.0 \
+    -lgobject-2.0 \
+    -lglib-2.0
+
+linkerOpts.linux_x64 = \
+    -L/usr/lib64 \
+    -L/usr/lib/x86_64-linux-gnu
+
+strictEnums = \
+    AdwAnimationState \
+    AdwCenteringPolicy \
+    AdwColorScheme \
+    AdwEasing \
+    AdwFlapFoldPolicy \
+    AdwFlapTransitionType \
+    AdwFoldThresholdPolicy \
+    AdwLeafletTransitionType \
+    AdwNavigationDirection \
+    AdwResponseAppearance \
+    AdwSqueezerTransitionType \
+    AdwToastPriority \
+    AdwViewSwitcherPolicy
