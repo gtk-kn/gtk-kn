@@ -25,6 +25,10 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
             returns(returnTypeName)
 
+            if (method.needsMemscoped) {
+                beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
+            }
+
             if (method.isOverride) {
                 addModifiers(KModifier.OVERRIDE)
             }
@@ -55,6 +59,10 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
             // return value conversion
             addCode(buildNativeToKotlinConversionsBlock(method.returnTypeInfo))
+
+            if (method.needsMemscoped) {
+                endControlFlow()
+            }
         }.build()
 
     /**
@@ -68,6 +76,10 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         // add parameters to signature
         appendSignatureParameters(func.parameters)
 
+        if (func.needsMemscoped) {
+            beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
+        }
+
         addCode("return %M(", func.nativeMemberName) // open native function paren
         func.parameters.forEachIndexed { index, param ->
             if (index > 0) {
@@ -79,6 +91,10 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
         // convert return type
         addCode(buildNativeToKotlinConversionsBlock(func.returnTypeInfo))
+
+        if (func.needsMemscoped) {
+            endControlFlow()
+        }
     }.build()
 
     fun buildSignalConnectFunction(signal: SignalBlueprint, objectPointerName: String): FunSpec =
@@ -152,6 +168,10 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         }
         addStatement("data: %T ->", NativeTypes.KP_OPAQUE_POINTER)
 
+        if (signal.needsMemscoped) {
+            beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
+        }
+
         // implementation
         add(
             "data.%M<%T>().get().invoke(",
@@ -169,6 +189,9 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
         // convert the return type and return from the lambda
         add(buildKotlinToNativeTypeConversionBlock(signal.returnTypeInfo))
+        if (signal.needsMemscoped) {
+            endControlFlow()
+        }
 
         endControlFlow()
         add(".%M()", BindingsGenerator.REINTERPRET_FUNC)

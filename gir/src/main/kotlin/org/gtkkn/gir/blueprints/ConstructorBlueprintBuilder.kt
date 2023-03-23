@@ -49,10 +49,7 @@ class ConstructorBlueprintBuilder(
 
         val returnTypeInfo = try {
             when (val type = returnValue.type) {
-                is GirArrayType -> throw UnresolvableTypeException(
-                    "Constructors with array return types are unsupported",
-                )
-
+                is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
                 is GirType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             }
         } catch (ex: UnresolvableTypeException) {
@@ -93,7 +90,7 @@ class ConstructorBlueprintBuilder(
             val paramKotlinName = context.kotlinizeParameterName(param.name)
 
             val typeInfo = when (param.type) {
-                is GirArrayType -> throw UnresolvableTypeException("Array parameter is not supported")
+                is GirArrayType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
                 is GirType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
                 GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
             }
@@ -119,7 +116,6 @@ class ConstructorBlueprintBuilder(
         param.direction == GirDirection.OUT -> "Out parameter is not supported"
         param.direction == GirDirection.IN_OUT -> "InOut parameter is not supported"
         param.type is GirVarArgs -> "Varargs parameter is not supported"
-        param.type is GirArrayType -> "Array parameter is not supported"
         else -> null
     }
 }

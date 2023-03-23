@@ -24,6 +24,10 @@ object NativeTypes {
 
     val KP_CFUNCTION = ClassName("kotlinx.cinterop", "CFunction")
 
+    val KP_STRING_ARRAY = ClassName("kotlinx.cinterop", "CArrayPointer").parameterizedBy(
+        ClassName("kotlinx.cinterop", "CPointerVarOf").parameterizedBy(cpointerOf(KP_BYTEVAR)),
+    )
+
     /**
      * A [TypeName] for kotlinx.cinterop.CPointer pointing to [typeName]
      */

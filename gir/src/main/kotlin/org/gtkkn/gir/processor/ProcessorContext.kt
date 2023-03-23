@@ -5,6 +5,7 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.DOUBLE
 import com.squareup.kotlinpoet.FLOAT
 import com.squareup.kotlinpoet.INT
+import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.LONG
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.SHORT
@@ -17,6 +18,7 @@ import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.log.logger
+import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirBitField
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirEnum
@@ -352,6 +354,26 @@ class ProcessorContext(
         logger.warn("Could not resolve type for type with name: ${type.name} and cType: ${type.cType}")
         throw UnresolvableTypeException(type.name)
     }
+
+    /**
+     * Resolve a [TypeInfo] for the given [GirArrayType].
+     */
+    @Throws(UnresolvableTypeException::class)
+    fun resolveTypeInfo(girNamespace: GirNamespace, array: GirArrayType, nullable: Boolean): TypeInfo =
+        when (array.type) {
+            is GirArrayType -> throw UnresolvableTypeException("Nested array types are not supported")
+            is GirType -> {
+                val arrayTypeInfo = resolveTypeInfo(girNamespace, array.type, false)
+                if (arrayTypeInfo is TypeInfo.KString) {
+                    TypeInfo.StringList(
+                        nativeTypeName = NativeTypes.KP_STRING_ARRAY,
+                        kotlinTypeName = LIST.parameterizedBy(STRING),
+                    ).withNullable(nullable)
+                } else {
+                    throw UnresolvableTypeException("Array parameter of type ${array.type.name} is not supported")
+                }
+            }
+        }
 
     private fun buildNativeClassName(girNamespace: GirNamespace, girClass: GirClass) =
         ClassName(

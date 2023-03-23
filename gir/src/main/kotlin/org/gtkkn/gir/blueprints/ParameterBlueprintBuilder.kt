@@ -39,16 +39,12 @@ class ParameterBlueprintBuilder(
             girParam.type is GirVarArgs -> {
                 throw UnresolvableTypeException("${girParam.name}: Varargs parameter is not supported")
             }
-
-            girParam.type is GirArrayType -> {
-                throw UnresolvableTypeException("${girParam.name}: Array parameter is not supported")
-            }
         }
 
         val paramKotlinName = context.kotlinizeParameterName(girParam.name)
 
         val typeInfo = when (girParam.type) {
-            is GirArrayType -> throw UnresolvableTypeException("Array parameter is not supported")
+            is GirArrayType -> context.resolveTypeInfo(girNamespace, girParam.type, girParam.isNullable())
             is GirType -> context.resolveTypeInfo(girNamespace, girParam.type, girParam.isNullable())
             GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
         }

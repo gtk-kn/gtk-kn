@@ -12,4 +12,11 @@ data class MethodBlueprint(
     val isOpen: Boolean,
     val kdoc: String?,
     val returnTypeKDoc: String?,
-)
+) {
+    /**
+     * Determine if this methods implementation needs to be wrapped in a memscoped block.
+     */
+    val needsMemscoped: Boolean get() {
+        return parameters.any { it.typeInfo is TypeInfo.StringList }
+    }
+}

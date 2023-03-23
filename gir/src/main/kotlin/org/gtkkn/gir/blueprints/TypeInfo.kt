@@ -130,4 +130,16 @@ sealed class TypeInfo {
             kotlinTypeName = kotlinTypeName.copy(nullable),
         )
     }
+
+    data class StringList(
+        override val nativeTypeName: TypeName,
+        override val kotlinTypeName: TypeName,
+    ) : TypeInfo() {
+        override val isCinteropNullable = true
+
+        override fun withNullable(nullable: Boolean): TypeInfo = copy(
+            nativeTypeName = nativeTypeName.copy(nullable),
+            kotlinTypeName = kotlinTypeName.copy(nullable),
+        )
+    }
 }

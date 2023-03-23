@@ -44,6 +44,11 @@ interface ConversionBlockGenerator {
                 is TypeInfo.GBoolean -> add("%N$safeCall.%M()", param.kotlinName, BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.KString -> add("%N", param.kotlinName)
                 is TypeInfo.Bitfield -> add("%N$safeCall.mask", param.kotlinName)
+                is TypeInfo.StringList -> add(
+                    "%N$safeCall.%M(this)",
+                    param.kotlinName,
+                    BindingsGenerator.TO_C_STRING_LIST,
+                )
             }
         }.build()
 
@@ -74,6 +79,10 @@ interface ConversionBlockGenerator {
                 is TypeInfo.GBoolean -> add("$safeCall.%M()", BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.KString -> Unit
                 is TypeInfo.Bitfield -> add("$safeCall.mask")
+                is TypeInfo.StringList -> add(
+                    "$safeCall.%M(this)",
+                    BindingsGenerator.TO_C_STRING_LIST,
+                )
             }
         }.build()
 
@@ -95,6 +104,7 @@ interface ConversionBlockGenerator {
                 is TypeInfo.GBoolean -> NativeToKotlinConversions.buildGBoolean(this)
                 is TypeInfo.KString -> NativeToKotlinConversions.buildKString(isNullable, this)
                 is TypeInfo.Bitfield -> NativeToKotlinConversions.buildBitfield(this, safeCall, returnTypeInfo)
+                is TypeInfo.StringList -> NativeToKotlinConversions.buildKStringList(isNullable, this)
             }
         }.build()
 }
@@ -194,5 +204,19 @@ private object NativeToKotlinConversions {
             .beginControlFlow(".run")
             .add("%T(this)", returnTypeInfo.kotlinTypeName)
             .endControlFlow()
+    }
+
+    fun buildKStringList(isNullable: Boolean, codeBlockBuilder: CodeBlock.Builder) {
+        // cinterop seems to map all string returning functions as nullable  so here we return a nullable string
+        // if the gir says nullable or error() when we encounter an unexpected null when the gir says non-null
+        if (isNullable) {
+            codeBlockBuilder.add("?.%M()", BindingsGenerator.TO_K_STRING_LIST)
+        } else {
+            codeBlockBuilder.add(
+                "?.%M() ?: error(%S)",
+                BindingsGenerator.TO_K_STRING_LIST,
+                "Expected not null string array",
+            )
+        }
     }
 }

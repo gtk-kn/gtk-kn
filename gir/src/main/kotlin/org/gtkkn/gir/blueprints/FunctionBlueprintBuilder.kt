@@ -47,7 +47,7 @@ class FunctionBlueprintBuilder(
         val returnValue = girFunction.returnValue ?: throw UnresolvableTypeException("Method has no return value")
 
         val returnTypeInfo = when (val type = returnValue.type) {
-            is GirArrayType -> throw UnresolvableTypeException("Methods with array return types are unsupported")
+            is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             is GirType -> {
                 try {
                     context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())

@@ -146,6 +146,10 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 appendSignatureParameters(constructor.parameters)
                 val codeBlockBuilder = CodeBlock.builder()
 
+                if (constructor.needsMemscoped) {
+                    codeBlockBuilder.beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
+                }
+
                 codeBlockBuilder.add("%M(", constructor.nativeMemberName) // open native func paren
 
                 constructor.parameters.forEachIndexed { index, param ->
@@ -157,6 +161,10 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
 
                 codeBlockBuilder.add(")") // close native func paren
                 codeBlockBuilder.add("!!.reinterpret()")
+
+                if (constructor.needsMemscoped) {
+                    codeBlockBuilder.endControlFlow()
+                }
 
                 callThisConstructor(codeBlockBuilder.build())
             }
