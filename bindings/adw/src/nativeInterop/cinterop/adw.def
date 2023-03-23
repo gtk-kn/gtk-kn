@@ -2,8 +2,7 @@ headers = libadwaita-1/adwaita.h
 package = native.adw
 headerFilter = libadwaita-1/*
 
-# compiler
-
+# pkg-config --cflags libadwaita-1
 compilerOpts.linux = \
     -I/usr/include \
     -I/usr/include/libadwaita-1 \
@@ -35,9 +34,7 @@ compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
 
-
-# linker
-
+# pkg-config --libs libadwaita-1
 linkerOpts.linux = \
     -L/usr/lib \
     -ladwaita-1 \
@@ -56,3 +53,18 @@ linkerOpts.linux = \
 linkerOpts.linux_x64 = \
     -L/usr/lib64 \
     -L/usr/lib/x86_64-linux-gnu
+
+strictEnums = \
+    AdwAnimationState \
+    AdwCenteringPolicy \
+    AdwColorScheme \
+    AdwEasing \
+    AdwFlapFoldPolicy \
+    AdwFlapTransitionType \
+    AdwFoldThresholdPolicy \
+    AdwLeafletTransitionType \
+    AdwNavigationDirection \
+    AdwResponseAppearance \
+    AdwSqueezerTransitionType \
+    AdwToastPriority \
+    AdwViewSwitcherPolicy

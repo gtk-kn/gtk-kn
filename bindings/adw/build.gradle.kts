@@ -3,8 +3,7 @@ plugins {
     id("bindings-library-conventions")
 }
 
-val bindingsGtk4Version: String by extra
-version = bindingsGtk4Version
+version = "0.0.1-SNAPSHOT"
 publishing.publications.withType<MavenPublication> {
     artifactId = "adwaita"
 }
@@ -21,7 +20,7 @@ kotlin {
             dependencies {
                 api(project(":bindings:common"))
                 api(project(":bindings:gtk4:gtk"))
-// transitive
+                // transitive
                 api(project(":bindings:gtk4:gdk"))
                 api(project(":bindings:gtk4:gsk"))
                 api(project(":bindings:core:gobject"))
@@ -36,7 +35,7 @@ kotlin {
         val nativeTest by getting
     }
 
-// native main for testing
+    // native main for testing
     nativeTarget.apply {
         val main by compilations.getting
         val adw by main.cinterops.creating
