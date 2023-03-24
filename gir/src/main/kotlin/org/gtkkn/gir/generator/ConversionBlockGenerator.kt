@@ -42,6 +42,7 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.Primitive -> add("%N", param.kotlinName)
                 is TypeInfo.GBoolean -> add("%N$safeCall.%M()", param.kotlinName, BindingsGenerator.AS_GBOOLEAN_FUNC)
+                is TypeInfo.GChar -> add("%N$safeCall.code.toByte()", param.kotlinName)
                 is TypeInfo.KString -> add("%N", param.kotlinName)
                 is TypeInfo.Bitfield -> add("%N$safeCall.mask", param.kotlinName)
                 is TypeInfo.StringList -> add(
@@ -77,6 +78,7 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.Primitive -> Unit
                 is TypeInfo.GBoolean -> add("$safeCall.%M()", BindingsGenerator.AS_GBOOLEAN_FUNC)
+                is TypeInfo.GChar -> add("$safeCall.code.toByte()")
                 is TypeInfo.KString -> Unit
                 is TypeInfo.Bitfield -> add("$safeCall.mask")
                 is TypeInfo.StringList -> add(
@@ -102,6 +104,7 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.Primitive -> Unit
                 is TypeInfo.GBoolean -> NativeToKotlinConversions.buildGBoolean(this)
+                is TypeInfo.GChar -> NativeToKotlinConversions.buildGChar(this)
                 is TypeInfo.KString -> NativeToKotlinConversions.buildKString(isNullable, this)
                 is TypeInfo.Bitfield -> NativeToKotlinConversions.buildBitfield(this, safeCall, returnTypeInfo)
                 is TypeInfo.StringList -> NativeToKotlinConversions.buildKStringList(isNullable, this)
@@ -177,6 +180,10 @@ private object NativeToKotlinConversions {
 
     fun buildGBoolean(codeBlockBuilder: CodeBlock.Builder) {
         codeBlockBuilder.add(".%M()", BindingsGenerator.AS_BOOLEAN_FUNC)
+    }
+
+    fun buildGChar(codeBlockBuilder: CodeBlock.Builder) {
+        codeBlockBuilder.add(".toInt().toChar()")
     }
 
     fun buildKString(isNullable: Boolean, codeBlockBuilder: CodeBlock.Builder) {

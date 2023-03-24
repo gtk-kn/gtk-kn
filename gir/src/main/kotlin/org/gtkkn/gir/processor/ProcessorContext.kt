@@ -1,6 +1,8 @@
 package org.gtkkn.gir.processor
 
 import com.squareup.kotlinpoet.BOOLEAN
+import com.squareup.kotlinpoet.BYTE
+import com.squareup.kotlinpoet.CHAR
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.DOUBLE
 import com.squareup.kotlinpoet.FLOAT
@@ -40,6 +42,7 @@ class ProcessorContext(
     private val typeInfoTable: Map<String, TypeInfo> = mapOf(
         "none" to TypeInfo.Primitive(UNIT),
         "gboolean" to TypeInfo.GBoolean(INT, BOOLEAN),
+        "gchar" to TypeInfo.GChar(BYTE, CHAR),
         "gdouble" to TypeInfo.Primitive(DOUBLE),
         "gfloat" to TypeInfo.Primitive(FLOAT),
         "gint" to TypeInfo.Primitive(INT),

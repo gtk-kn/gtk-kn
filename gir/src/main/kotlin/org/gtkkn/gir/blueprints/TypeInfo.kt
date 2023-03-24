@@ -107,6 +107,18 @@ sealed class TypeInfo {
         )
     }
 
+    data class GChar(
+        override val nativeTypeName: TypeName,
+        override val kotlinTypeName: TypeName,
+    ) : TypeInfo() {
+        override val isCinteropNullable = false
+
+        override fun withNullable(nullable: Boolean): TypeInfo = copy(
+            nativeTypeName = nativeTypeName.copy(nullable),
+            kotlinTypeName = kotlinTypeName.copy(nullable),
+        )
+    }
+
     data class KString(
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
