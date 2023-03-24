@@ -45,7 +45,7 @@ class MethodBlueprintBuilder(
         val kotlinName = context.kotlinizeMethodName(girMethod.name)
 
         // parameters
-        girMethod.parameters?.parameters.orEmpty().forEach { addParameter(it) }
+        girMethod.parameters?.parameters?.forEach { addParameter(it) }
 
         // return value
         val returnValue = girMethod.returnValue ?: throw UnresolvableTypeException("Method has no return value")
