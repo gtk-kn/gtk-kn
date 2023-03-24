@@ -1,5 +1,6 @@
 package org.gtkkn.samples.gtk.helloworld
 
+import bindings.adw.AboutWindow
 import bindings.gio.ApplicationFlags
 import bindings.gtk.Application
 import bindings.gtk.ApplicationWindow

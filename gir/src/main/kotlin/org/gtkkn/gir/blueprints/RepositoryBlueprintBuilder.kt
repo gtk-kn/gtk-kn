@@ -85,7 +85,10 @@ class RepositoryBlueprintBuilder(
         }
 
         val kotlinModuleName = girRepository.namespace.name.lowercase()
-        val repositoryObjectName = ClassName(context.namespaceBindingsPackageName(namespace), kotlinModuleName.capitalizeAsciiOnly())
+        val repositoryObjectName = ClassName(
+            context.namespaceBindingsPackageName(namespace),
+            kotlinModuleName.capitalizeAsciiOnly()
+        )
 
         return RepositoryBlueprint(
             name = girRepository.namespace.name,

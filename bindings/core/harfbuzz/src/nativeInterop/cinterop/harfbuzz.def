@@ -1,4 +1,4 @@
-headers = hb.h hb-ot.h hb-aat.h
+headers = hb.h hb-ot.h hb-aat.h hb-glib.h
 package = native.harfbuzz
 headerFilter = hb.h hb-*.h
 

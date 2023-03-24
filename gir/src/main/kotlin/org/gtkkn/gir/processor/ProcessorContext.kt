@@ -49,8 +49,8 @@ class ProcessorContext(
         "gint16" to TypeInfo.Primitive(SHORT),
         "gint32" to TypeInfo.Primitive(INT),
         "gint64" to TypeInfo.Primitive(LONG),
-        "glong" to  TypeInfo.Primitive(LONG),
-        "gpointer" to TypeInfo.Primitive(NativeTypes.KP_OPAQUE_POINTER),
+        "glong" to TypeInfo.Primitive(LONG),
+//        "gpointer" to TypeInfo.Primitive(NativeTypes.KP_OPAQUE_POINTER),
         "gsize" to TypeInfo.Primitive(U_LONG),
         "gssize" to TypeInfo.Primitive(LONG),
         "guint" to TypeInfo.Primitive(U_INT),
@@ -60,8 +60,6 @@ class ProcessorContext(
         "gulong" to TypeInfo.Primitive(U_LONG),
         "gunichar" to TypeInfo.Primitive(U_INT),
         // strings
-        "utf8" to TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
-        "filename" to TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
     )
 
     /**
@@ -98,6 +96,16 @@ class ProcessorContext(
         // ignored because the overridden return value is not a subtype of the parent
         "adw_preferences_page_get_name",
         "adw_preferences_page_set_name",
+
+        // problems with mismatched return type
+        "cairo_image_surface_create",
+
+        // problems with enum conversion (might be strictEnum?)
+        "hb_glib_script_from_script",
+        "hb_glib_script_to_script",
+
+        // which def file should include this (gio or glib)?
+        "g_networking_init",
     )
 
     /**
@@ -294,12 +302,45 @@ class ProcessorContext(
      * Resolve a [TypeInfo] for the given [GirType].
      */
     @Throws(UnresolvableTypeException::class)
-    fun resolveTypeInfo(girNamespace: GirNamespace, type: GirType, nullable: Boolean): TypeInfo {
+    fun resolveTypeInfo(
+        girNamespace: GirNamespace,
+        type: GirType,
+        nullable: Boolean,
+        isArray: Boolean = false
+    ): TypeInfo {
         if (type.name == null) {
             throw UnresolvableTypeException("type name is null")
         }
+
         // first basic types
-        typeInfoTable[type.name]?.let { return it.withNullable(nullable) }
+        typeInfoTable[type.name]?.let { typeInfo ->
+            if (type.cType != null && type.cType.endsWith("*")) {
+                logger.error("Skipping primitive with pointer type")
+                throw UnresolvableTypeException("Unsupported pointer to primitive type")
+            }
+            return typeInfo.withNullable(nullable)
+        }
+
+        // strings
+        if (type.name == "utf8" || type.name == "filename") {
+            when (type.cType) {
+                "const char*" -> return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
+                "const gchar*" -> return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
+                "char*" -> {
+                    if (isArray) {
+                        return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
+                    } else {
+                        throw UnresolvableTypeException("Unsupported string type with cType: ${type.cType}")
+                    }
+                }
+
+                null -> return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
+                else -> {
+                    logger.error("Skipping string type with cType: ${type.cType}")
+                    throw UnresolvableTypeException("Unsupported string with cType ${type.cType}")
+                }
+            }
+        }
 
         // classes
         try {
@@ -368,7 +409,7 @@ class ProcessorContext(
         when (array.type) {
             is GirArrayType -> throw UnresolvableTypeException("Nested array types are not supported")
             is GirType -> {
-                val arrayTypeInfo = resolveTypeInfo(girNamespace, array.type, false)
+                val arrayTypeInfo = resolveTypeInfo(girNamespace, array.type, false, true)
                 if (arrayTypeInfo is TypeInfo.KString) {
                     val nullTerminated = array.zeroTerminated == null || array.zeroTerminated == true
                     TypeInfo.StringList(
