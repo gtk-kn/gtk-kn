@@ -13,7 +13,7 @@ import java.io.File
 class BindingsGenerator(
     private val config: Config,
     private val ktLintFormatter: KtLintFormatter
-) : ClassGenerator, InterfaceGenerator, EnumGenerator, BitfieldGenerator {
+) : ClassGenerator, InterfaceGenerator, EnumGenerator, BitfieldGenerator, RepositoryObjectGenerator {
     fun generate(repository: RepositoryBlueprint, outputDir: File) {
         val repositoryOutputDir = repositoryBuildDir(repository, outputDir)
         if (!repositoryOutputDir.exists()) {
@@ -69,6 +69,13 @@ class BindingsGenerator(
                 repositorySrcDir(repository, outputDir),
             )
         }
+
+        // write repository object
+        writeType(
+            repository.repositoryObjectName,
+            buildRepositoryObject(repository),
+            repositorySrcDir(repository, outputDir)
+        )
     }
 
     /**

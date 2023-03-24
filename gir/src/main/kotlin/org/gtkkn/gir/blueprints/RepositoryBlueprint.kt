@@ -1,5 +1,7 @@
 package org.gtkkn.gir.blueprints
 
+import com.squareup.kotlinpoet.ClassName
+
 data class RepositoryBlueprint(
     val name: String,
     val kotlinModuleName: String,
@@ -10,4 +12,5 @@ data class RepositoryBlueprint(
     val callbackBlueprints: List<CallbackBlueprint>,
     val bitfieldBlueprints: List<BitfieldBlueprint>,
     val skippedObjects: List<SkippedObject>,
+    val repositoryObjectName: ClassName,
 )

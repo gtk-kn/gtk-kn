@@ -1,5 +1,6 @@
 package org.gtkkn.gir.blueprints
 
+import com.squareup.kotlinpoet.ClassName
 import org.gtkkn.gir.model.GirBitField
 import org.gtkkn.gir.model.GirCallback
 import org.gtkkn.gir.model.GirClass
@@ -9,6 +10,7 @@ import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.processor.ProcessorContext
+import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
 class RepositoryBlueprintBuilder(
     context: ProcessorContext,
@@ -83,6 +85,7 @@ class RepositoryBlueprintBuilder(
         }
 
         val kotlinModuleName = girRepository.namespace.name.lowercase()
+        val repositoryObjectName = ClassName(context.namespaceBindingsPackageName(namespace), kotlinModuleName.capitalizeAsciiOnly())
 
         return RepositoryBlueprint(
             name = girRepository.namespace.name,
@@ -94,6 +97,7 @@ class RepositoryBlueprintBuilder(
             callbackBlueprints = callbackBlueprints,
             bitfieldBlueprints = bitfieldBlueprints,
             skippedObjects = skippedObjects,
+            repositoryObjectName = repositoryObjectName,
         )
     }
 }

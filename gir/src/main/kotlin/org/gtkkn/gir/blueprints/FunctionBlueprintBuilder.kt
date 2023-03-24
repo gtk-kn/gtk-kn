@@ -43,6 +43,8 @@ class FunctionBlueprintBuilder(
             throw UnresolvableTypeException("Function ${girFunction.name} does not have cIdentifier")
         }
 
+        context.checkIgnoredFunction(girFunction.cIdentifier)
+
         if (girFunction.throws) {
             throw UnresolvableTypeException("Functions that throw are not supported")
         }
