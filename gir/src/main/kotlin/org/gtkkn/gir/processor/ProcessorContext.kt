@@ -50,7 +50,6 @@ class ProcessorContext(
         "gint32" to TypeInfo.Primitive(INT),
         "gint64" to TypeInfo.Primitive(LONG),
         "glong" to TypeInfo.Primitive(LONG),
-//        "gpointer" to TypeInfo.Primitive(NativeTypes.KP_OPAQUE_POINTER),
         "gsize" to TypeInfo.Primitive(U_LONG),
         "gssize" to TypeInfo.Primitive(LONG),
         "guint" to TypeInfo.Primitive(U_INT),
