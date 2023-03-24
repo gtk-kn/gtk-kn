@@ -146,6 +146,8 @@ class BindingsGenerator(
         internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.common", "asBoolean")
         internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.common", "asGBoolean")
         internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.common", "staticStableRefDestroy")
+        internal val TO_C_STRING_LIST = MemberName("org.gtkkn.common", "toCStringList")
+        internal val TO_K_STRING_LIST = MemberName("org.gtkkn.common", "toKStringList")
 
         // cinterop helper function members
         internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
@@ -153,6 +155,7 @@ class BindingsGenerator(
         internal val STATIC_C_FUNC = MemberName("kotlinx.cinterop", "staticCFunction")
         internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
         internal val STABLEREF = ClassName("kotlinx.cinterop", "StableRef")
+        internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
 
         // gobject members
         internal val G_SIGNAL_CONNECT_DATA = MemberName("native.gobject", "g_signal_connect_data")

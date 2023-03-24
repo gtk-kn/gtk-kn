@@ -6,10 +6,10 @@ data class MethodBlueprint(
     val kotlinName: String,
     val nativeName: String,
     val nativeMemberName: MemberName, // not enum member, but the KP reference to the native function name
-    val parameters: List<ParameterBlueprint>,
-    val returnTypeInfo: TypeInfo,
+    override val parameters: List<ParameterBlueprint>,
+    override val returnTypeInfo: TypeInfo,
     val isOverride: Boolean,
     val isOpen: Boolean,
     val kdoc: String?,
     val returnTypeKDoc: String?,
-)
+) : CallableBlueprint

@@ -42,8 +42,14 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.Primitive -> add("%N", param.kotlinName)
                 is TypeInfo.GBoolean -> add("%N$safeCall.%M()", param.kotlinName, BindingsGenerator.AS_GBOOLEAN_FUNC)
+                is TypeInfo.GChar -> add("%N$safeCall.code.toByte()", param.kotlinName)
                 is TypeInfo.KString -> add("%N", param.kotlinName)
                 is TypeInfo.Bitfield -> add("%N$safeCall.mask", param.kotlinName)
+                is TypeInfo.StringList -> add(
+                    "%N$safeCall.%M(this)",
+                    param.kotlinName,
+                    BindingsGenerator.TO_C_STRING_LIST,
+                )
             }
         }.build()
 
@@ -72,8 +78,13 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.Primitive -> Unit
                 is TypeInfo.GBoolean -> add("$safeCall.%M()", BindingsGenerator.AS_GBOOLEAN_FUNC)
+                is TypeInfo.GChar -> add("$safeCall.code.toByte()")
                 is TypeInfo.KString -> Unit
                 is TypeInfo.Bitfield -> add("$safeCall.mask")
+                is TypeInfo.StringList -> add(
+                    "$safeCall.%M(this)",
+                    BindingsGenerator.TO_C_STRING_LIST,
+                )
             }
         }.build()
 
@@ -93,8 +104,18 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.Primitive -> Unit
                 is TypeInfo.GBoolean -> NativeToKotlinConversions.buildGBoolean(this)
+                is TypeInfo.GChar -> NativeToKotlinConversions.buildGChar(this)
                 is TypeInfo.KString -> NativeToKotlinConversions.buildKString(isNullable, this)
                 is TypeInfo.Bitfield -> NativeToKotlinConversions.buildBitfield(this, safeCall, returnTypeInfo)
+                is TypeInfo.StringList -> {
+                    if (returnTypeInfo.fixedSize != null) {
+                        error("Unsupported native to kotlin conversion because string array is fixed size")
+                    }
+                    if (!returnTypeInfo.nullTerminated) {
+                        error("Unsupported native to kotlin conversion because string array is not null terminated")
+                    }
+                    NativeToKotlinConversions.buildKStringList(isNullable, this)
+                }
             }
         }.build()
 }
@@ -169,6 +190,10 @@ private object NativeToKotlinConversions {
         codeBlockBuilder.add(".%M()", BindingsGenerator.AS_BOOLEAN_FUNC)
     }
 
+    fun buildGChar(codeBlockBuilder: CodeBlock.Builder) {
+        codeBlockBuilder.add(".toInt().toChar()")
+    }
+
     fun buildKString(isNullable: Boolean, codeBlockBuilder: CodeBlock.Builder) {
         // cinterop seems to map all string returning functions as nullable  so here we return a nullable string
         // if the gir says nullable or error() when we encounter an unexpected null when the gir says non-null
@@ -194,5 +219,19 @@ private object NativeToKotlinConversions {
             .beginControlFlow(".run")
             .add("%T(this)", returnTypeInfo.kotlinTypeName)
             .endControlFlow()
+    }
+
+    fun buildKStringList(isNullable: Boolean, codeBlockBuilder: CodeBlock.Builder) {
+        // cinterop seems to map all string returning functions as nullable  so here we return a nullable string
+        // if the gir says nullable or error() when we encounter an unexpected null when the gir says non-null
+        if (isNullable) {
+            codeBlockBuilder.add("?.%M()", BindingsGenerator.TO_K_STRING_LIST)
+        } else {
+            codeBlockBuilder.add(
+                "?.%M() ?: error(%S)",
+                BindingsGenerator.TO_K_STRING_LIST,
+                "Expected not null string array",
+            )
+        }
     }
 }

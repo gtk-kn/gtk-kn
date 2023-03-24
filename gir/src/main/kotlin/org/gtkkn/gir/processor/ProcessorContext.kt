@@ -1,10 +1,13 @@
 package org.gtkkn.gir.processor
 
 import com.squareup.kotlinpoet.BOOLEAN
+import com.squareup.kotlinpoet.BYTE
+import com.squareup.kotlinpoet.CHAR
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.DOUBLE
 import com.squareup.kotlinpoet.FLOAT
 import com.squareup.kotlinpoet.INT
+import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.LONG
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.SHORT
@@ -17,6 +20,7 @@ import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.log.logger
+import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirBitField
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirEnum
@@ -38,20 +42,23 @@ class ProcessorContext(
     private val typeInfoTable: Map<String, TypeInfo> = mapOf(
         "none" to TypeInfo.Primitive(UNIT),
         "gboolean" to TypeInfo.GBoolean(INT, BOOLEAN),
+        "gchar" to TypeInfo.GChar(BYTE, CHAR),
         "gdouble" to TypeInfo.Primitive(DOUBLE),
         "gfloat" to TypeInfo.Primitive(FLOAT),
         "gint" to TypeInfo.Primitive(INT),
         "gint16" to TypeInfo.Primitive(SHORT),
         "gint32" to TypeInfo.Primitive(INT),
         "gint64" to TypeInfo.Primitive(LONG),
+        "glong" to  TypeInfo.Primitive(LONG),
+        "gpointer" to TypeInfo.Primitive(NativeTypes.KP_OPAQUE_POINTER),
         "gsize" to TypeInfo.Primitive(U_LONG),
         "gssize" to TypeInfo.Primitive(LONG),
         "guint" to TypeInfo.Primitive(U_INT),
         "guint16" to TypeInfo.Primitive(U_SHORT),
         "guint32" to TypeInfo.Primitive(U_INT),
         "guint64" to TypeInfo.Primitive(U_LONG),
+        "gulong" to TypeInfo.Primitive(U_LONG),
         "gunichar" to TypeInfo.Primitive(U_INT),
-        "gpointer" to TypeInfo.Primitive(NativeTypes.KP_OPAQUE_POINTER),
         // strings
         "utf8" to TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
         "filename" to TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING),
@@ -352,6 +359,29 @@ class ProcessorContext(
         logger.warn("Could not resolve type for type with name: ${type.name} and cType: ${type.cType}")
         throw UnresolvableTypeException(type.name)
     }
+
+    /**
+     * Resolve a [TypeInfo] for the given [GirArrayType].
+     */
+    @Throws(UnresolvableTypeException::class)
+    fun resolveTypeInfo(girNamespace: GirNamespace, array: GirArrayType, nullable: Boolean): TypeInfo =
+        when (array.type) {
+            is GirArrayType -> throw UnresolvableTypeException("Nested array types are not supported")
+            is GirType -> {
+                val arrayTypeInfo = resolveTypeInfo(girNamespace, array.type, false)
+                if (arrayTypeInfo is TypeInfo.KString) {
+                    val nullTerminated = array.zeroTerminated == null || array.zeroTerminated == true
+                    TypeInfo.StringList(
+                        nativeTypeName = NativeTypes.KP_STRING_ARRAY,
+                        kotlinTypeName = LIST.parameterizedBy(STRING),
+                        nullTerminated,
+                        array.fixedSize,
+                    ).withNullable(nullable)
+                } else {
+                    throw UnresolvableTypeException("Array parameter of type ${array.type.name} is not supported")
+                }
+            }
+        }
 
     private fun buildNativeClassName(girNamespace: GirNamespace, girClass: GirClass) =
         ClassName(

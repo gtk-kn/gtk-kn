@@ -14,6 +14,7 @@ import org.gtkkn.gir.model.GirVarArgs
 import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.ShadowedFunctionException
 import org.gtkkn.gir.processor.SkippedObjectException
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
@@ -39,34 +40,18 @@ class MethodBlueprintBuilder(
     }
 
     override fun buildInternal(): MethodBlueprint {
-        if (girMethod.info.introspectable == false) {
-            throw NotIntrospectableException(girMethod.cIdentifier ?: girMethod.name)
-        }
+        checkSkippedMethod()
 
-        girMethod.cIdentifier?.let { context.checkIgnoredFunction(it) }
         val kotlinName = context.kotlinizeMethodName(girMethod.name)
 
-        // early skips for unsupported methods
-        if (girMethod.parameters == null) {
-            throw UnresolvableTypeException("Method has no parameters object")
-        }
-
-        if (girMethod.parameters.instanceParameter == null) {
-            throw UnresolvableTypeException("Method has no instance parameter")
-        }
-
-        if (girMethod.throws) {
-            throw UnresolvableTypeException("Throwing methods are not supported")
-        }
-
         // parameters
-        girMethod.parameters.parameters.forEach { addParameter(it) }
+        girMethod.parameters?.parameters?.forEach { addParameter(it) }
 
         // return value
         val returnValue = girMethod.returnValue ?: throw UnresolvableTypeException("Method has no return value")
 
         val returnTypeInfo: TypeInfo = when (val type = returnValue.type) {
-            is GirArrayType -> throw UnresolvableTypeException("Methods with array return types are unsupported")
+            is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             is GirType -> {
                 try {
                     context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
@@ -120,6 +105,30 @@ class MethodBlueprintBuilder(
         val result = "${originalName}_"
         logger.error("Name clash: renaming method $originalName to $result")
         return result
+    }
+
+    private fun checkSkippedMethod() {
+        if (girMethod.info.introspectable == false) {
+            throw NotIntrospectableException(girMethod.cIdentifier ?: girMethod.name)
+        }
+
+        if (girMethod.shadowedBy != null) {
+            throw ShadowedFunctionException(girMethod.cIdentifier ?: girMethod.name, girMethod.shadowedBy)
+        }
+
+        girMethod.cIdentifier?.let { context.checkIgnoredFunction(it) }
+
+        if (girMethod.parameters == null) {
+            throw UnresolvableTypeException("Method has no parameters object")
+        }
+
+        if (girMethod.parameters.instanceParameter == null) {
+            throw UnresolvableTypeException("Method has no instance parameter")
+        }
+
+        if (girMethod.throws) {
+            throw UnresolvableTypeException("Throwing methods are not supported")
+        }
     }
 }
 
