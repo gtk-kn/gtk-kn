@@ -15,3 +15,7 @@ out
 # temporary excludes of binding src dirs
 bindings/**/src/nativeMain/kotlin/bindings/
 !bindings/common/src/nativeMain/
+
+# envrc
+.env/
+.envrc.local
