@@ -107,7 +107,15 @@ interface ConversionBlockGenerator {
                 is TypeInfo.GChar -> NativeToKotlinConversions.buildGChar(this)
                 is TypeInfo.KString -> NativeToKotlinConversions.buildKString(isNullable, this)
                 is TypeInfo.Bitfield -> NativeToKotlinConversions.buildBitfield(this, safeCall, returnTypeInfo)
-                is TypeInfo.StringList -> NativeToKotlinConversions.buildKStringList(isNullable, this)
+                is TypeInfo.StringList -> {
+                    if (returnTypeInfo.fixedSize != null) {
+                        error("Unsupported native to kotlin conversion because string array is fixed size")
+                    }
+                    if (!returnTypeInfo.nullTerminated) {
+                        error("Unsupported native to kotlin conversion because string array is not null terminated")
+                    }
+                    NativeToKotlinConversions.buildKStringList(isNullable, this)
+                }
             }
         }.build()
 }

@@ -12,6 +12,7 @@ import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.model.GirVarArgs
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.ShadowedFunctionException
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class ConstructorBlueprintBuilder(
@@ -32,6 +33,13 @@ class ConstructorBlueprintBuilder(
 
         if (girConstructor.info.introspectable == false) {
             throw NotIntrospectableException(girConstructor.cIdentifier ?: girConstructor.name)
+        }
+
+        if (girConstructor.shadowedBy != null) {
+            throw ShadowedFunctionException(
+                girConstructor.cIdentifier ?: girConstructor.name,
+                girConstructor.shadowedBy,
+            )
         }
 
         if (girConstructor.throws == true) {

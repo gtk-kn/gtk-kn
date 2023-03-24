@@ -370,9 +370,12 @@ class ProcessorContext(
             is GirType -> {
                 val arrayTypeInfo = resolveTypeInfo(girNamespace, array.type, false)
                 if (arrayTypeInfo is TypeInfo.KString) {
+                    val nullTerminated = array.zeroTerminated == null || array.zeroTerminated == true
                     TypeInfo.StringList(
                         nativeTypeName = NativeTypes.KP_STRING_ARRAY,
                         kotlinTypeName = LIST.parameterizedBy(STRING),
+                        nullTerminated,
+                        array.fixedSize,
                     ).withNullable(nullable)
                 } else {
                     throw UnresolvableTypeException("Array parameter of type ${array.type.name} is not supported")

@@ -146,6 +146,8 @@ sealed class TypeInfo {
     data class StringList(
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
+        val nullTerminated: Boolean,
+        val fixedSize: Int?
     ) : TypeInfo() {
         override val isCinteropNullable = true
 

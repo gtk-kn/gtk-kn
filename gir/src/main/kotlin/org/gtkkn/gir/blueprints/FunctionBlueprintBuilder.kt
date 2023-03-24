@@ -9,6 +9,7 @@ import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.ShadowedFunctionException
 import org.gtkkn.gir.processor.SkippedObjectException
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
@@ -32,6 +33,10 @@ class FunctionBlueprintBuilder(
     override fun buildInternal(): FunctionBlueprint {
         if (girFunction.info.introspectable == false) {
             throw NotIntrospectableException(girFunction.cIdentifier ?: girFunction.name)
+        }
+
+        if (girFunction.shadowedBy != null) {
+            throw ShadowedFunctionException(girFunction.cIdentifier ?: girFunction.name, girFunction.shadowedBy)
         }
 
         if (girFunction.cIdentifier == null) {
