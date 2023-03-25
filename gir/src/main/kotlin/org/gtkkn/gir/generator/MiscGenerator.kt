@@ -9,8 +9,10 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeAliasSpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.U_LONG
+import org.gtkkn.gir.blueprints.CallbackBlueprint
 import org.gtkkn.gir.blueprints.FunctionBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
 import org.gtkkn.gir.blueprints.ParameterBlueprint
@@ -254,4 +256,9 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addParameter(param.kotlinName, kotlinParamType)
         }
     }
+
+
+    // TODO maybe find a better place for this?
+    fun buildCallbackTypeAlias(callback: CallbackBlueprint) =
+        TypeAliasSpec.builder(callback.kotlinName, callback.callbackLambdaTypeName).build()
 }

@@ -4,6 +4,7 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeAliasSpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.config.Config
@@ -74,7 +75,8 @@ class BindingsGenerator(
         writeType(
             repository.repositoryObjectName,
             buildRepositoryObject(repository),
-            repositorySrcDir(repository, outputDir)
+            repositorySrcDir(repository, outputDir),
+            additionalTypeAliases = repository.callbackBlueprints.map { buildCallbackTypeAlias(it) }
         )
     }
 
@@ -95,6 +97,7 @@ class BindingsGenerator(
         typeSpec: TypeSpec,
         outputDirectory: File,
         additionalProperties: List<PropertySpec> = emptyList(),
+        additionalTypeAliases: List<TypeAliasSpec> = emptyList(),
     ) {
         logger.debug("Writing ${className.canonicalName}")
 
@@ -104,6 +107,7 @@ class BindingsGenerator(
             .addFileComment("This is a generated file. Do not modify.")
             .addType(typeSpec)
             .apply { additionalProperties.forEach { addProperty(it) } }
+            .apply { additionalTypeAliases.forEach { addTypeAlias(it) } }
             .build()
             .apply {
                 if (config.skipFormat) {

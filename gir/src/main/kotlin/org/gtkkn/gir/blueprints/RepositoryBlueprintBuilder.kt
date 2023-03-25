@@ -99,6 +99,10 @@ class RepositoryBlueprintBuilder(
             context.namespaceBindingsPackageName(namespace),
             kotlinModuleName.capitalizeAsciiOnly(),
         )
+        val repositoryCallbacksName = ClassName(
+            context.namespaceBindingsPackageName(namespace),
+            "Callbacks"
+        )
 
         return RepositoryBlueprint(
             name = girRepository.namespace.name,
@@ -112,6 +116,7 @@ class RepositoryBlueprintBuilder(
             constantBlueprints = constantBlueprints,
             skippedObjects = skippedObjects,
             repositoryObjectName = repositoryObjectName,
+            repositoryCallbacksName = repositoryCallbacksName
         )
     }
 }

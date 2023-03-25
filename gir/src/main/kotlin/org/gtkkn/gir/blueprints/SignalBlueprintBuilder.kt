@@ -36,7 +36,7 @@ class SignalBlueprintBuilder(
         girSignal.parameters?.parameters.orEmpty().forEach { addParameter(it) }
 
         // return value
-        val returnValue = girSignal.returnValue ?: throw UnresolvableTypeException("Signal has no return value")
+        val returnValue = girSignal.returnValue ?: error("Signal has no return value")
 
         val returnTypeInfo = when (val type = returnValue.type) {
             is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
