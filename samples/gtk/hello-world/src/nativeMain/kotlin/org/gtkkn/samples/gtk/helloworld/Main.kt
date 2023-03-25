@@ -1,7 +1,9 @@
 package org.gtkkn.samples.gtk.helloworld
 
 import bindings.adw.AboutWindow
+import bindings.gdk.Gdk
 import bindings.gio.ApplicationFlags
+import bindings.glib.Glib
 import bindings.gtk.Application
 import bindings.gtk.ApplicationWindow
 import bindings.gtk.Button
@@ -31,6 +33,15 @@ fun main() {
 
         window.setChild(button)
         window.show()
+
+        println("###### max value of Int: ${Int.MAX_VALUE}")
+        println("###### min value of Int: ${Int.MIN_VALUE}")
+        println("###### max value of UInt: ${UInt.MAX_VALUE}")
+        println("###### min value of UInt: ${UInt.MIN_VALUE}")
+        println("###### max value of Long: ${Long.MAX_VALUE}")
+        println("###### min value of Long: ${Long.MIN_VALUE}")
+        println("###### max value of ULong: ${ULong.MAX_VALUE}")
+        println("###### min value of ULong: ${ULong.MIN_VALUE}")
     }
     app.run(0, emptyList())
 }
