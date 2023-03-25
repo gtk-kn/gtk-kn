@@ -3,7 +3,12 @@ plugins {
     // Prevent loading the Kotlin Gradle plugin multiple times
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.dokka)
     id("spotless-conventions")
+}
+
+tasks.dokkaHtmlMultiModule.configure {
+    outputDirectory.set(rootDir.resolve("docs/dokka"))
 }
 
 tasks.register("generateBindings") {

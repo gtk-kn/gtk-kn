@@ -1,4 +1,4 @@
-package org.gtkkn.samples.gtk.helloworld
+package org.gtkkn.samples.gtk.playground
 
 import bindings.gio.ApplicationFlags
 import bindings.gtk.Application
@@ -14,7 +14,7 @@ fun main() {
     KotlinLoggingConfiguration.logLevel = Level.TRACE
     logger.trace { "Hello World!" }
 
-    val app = Application("org.gtkkn.samples.gtk.helloworld", ApplicationFlags.FLAGS_NONE)
+    val app = Application("org.gtkkn.samples.gtk.playground", ApplicationFlags.FLAGS_NONE)
     app.connectActivate {
         logger.info { "Application activate" }
 

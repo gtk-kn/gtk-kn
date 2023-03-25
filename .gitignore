@@ -19,3 +19,7 @@ bindings/**/src/nativeMain/kotlin/bindings/
 # envrc
 .env/
 .envrc.local
+
+# mkdocs
+docs/dokka/
+site/
