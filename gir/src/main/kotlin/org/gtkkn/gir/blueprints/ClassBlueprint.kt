@@ -18,6 +18,7 @@ data class ClassBlueprint(
     val objectPointerName: String,
     val objectPointerTypeName: TypeName,
     val isFinal: Boolean,
+    val version: String?,
     val kdoc: String?,
 ) {
     val hasParent: Boolean get() = parentTypeName != null

@@ -37,4 +37,3 @@ fun main() {
     // Run the application
     app.run(0, emptyList())
 }
-

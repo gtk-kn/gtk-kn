@@ -7,5 +7,6 @@ data class EnumMemberBlueprint(
     val nativeName: String,
     val nativeValue: Long,
     val nativeMemberName: MemberName,
+    val version: String?,
     val kdoc: String?,
 )

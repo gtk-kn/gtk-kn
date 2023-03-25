@@ -10,6 +10,7 @@ data class MethodBlueprint(
     override val returnTypeInfo: TypeInfo,
     val isOverride: Boolean,
     val isOpen: Boolean,
+    val version: String?,
     val kdoc: String?,
     val returnTypeKDoc: String?,
 ) : CallableBlueprint

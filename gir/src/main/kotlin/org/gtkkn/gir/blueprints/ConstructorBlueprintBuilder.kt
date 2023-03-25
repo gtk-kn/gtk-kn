@@ -77,6 +77,7 @@ class ConstructorBlueprintBuilder(
             nativeMemberName = nativeMemberName,
             returnTypeInfo = returnTypeInfo,
             parameters = parameters,
+            version = girConstructor.info.version,
             kdoc = context.processKdoc(girConstructor.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girConstructor.returnValue?.docs?.doc?.text),
         )

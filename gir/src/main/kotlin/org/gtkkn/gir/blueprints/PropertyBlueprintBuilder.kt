@@ -48,6 +48,7 @@ class PropertyBlueprintBuilder(
             setter = setter,
             isOverride = isOverride,
             isOpen = isOpen,
+            version = girProperty.info.version,
             kdoc = context.processKdoc(girProperty.info.docs.doc?.text),
         )
     }

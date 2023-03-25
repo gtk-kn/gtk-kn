@@ -8,6 +8,7 @@ data class SignalBlueprint(
     override val returnTypeInfo: TypeInfo,
     override val parameters: List<ParameterBlueprint>,
     val handlerLambdaTypeName: LambdaTypeName,
+    val version: String?,
     val kdoc: String?,
     val returnTypeKDoc: String?,
 ) : CallableBlueprint

@@ -40,6 +40,7 @@ class ConstantBlueprintBuilder(
             kotlinName = kotlinName,
             typeInfo = typeInfo,
             constantValue = girConstant.value,
+            version = girConstant.info.version,
             kdoc = context.processKdoc(girConstant.info.docs.doc?.text),
         )
     }

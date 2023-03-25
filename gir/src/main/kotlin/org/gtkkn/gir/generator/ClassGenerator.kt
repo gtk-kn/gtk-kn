@@ -18,7 +18,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             val companionSpecBuilder = TypeSpec.companionObjectBuilder()
 
             // kdoc
-            addKdoc(buildTypeKDoc(clazz.kdoc, clazz.skippedObjects))
+            addKdoc(buildTypeKDoc(clazz.kdoc, clazz.version, clazz.skippedObjects))
 
             // modifiers
             if (!clazz.isFinal) {
@@ -143,7 +143,14 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 error("Invalid constructor return type")
             }
 
-            addKdoc(buildMethodKDoc(constructor.kdoc, constructor.parameters, constructor.returnTypeKDoc))
+            addKdoc(
+                buildMethodKDoc(
+                    kdoc = constructor.kdoc,
+                    parameters = constructor.parameters,
+                    version = constructor.version,
+                    returnTypeKDoc = constructor.returnTypeKDoc,
+                ),
+            )
 
             if (constructor.parameters.isEmpty()) {
                 // no arg constructor
@@ -188,7 +195,14 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 error("Invalid constructor return type for ${constructor.nativeName}")
             }
 
-            addKdoc(buildMethodKDoc(constructor.kdoc, constructor.parameters, constructor.returnTypeKDoc))
+            addKdoc(
+                buildMethodKDoc(
+                    kdoc = constructor.kdoc,
+                    parameters = constructor.parameters,
+                    version = constructor.version,
+                    returnTypeKDoc = constructor.returnTypeKDoc,
+                ),
+            )
 
             if (constructor.parameters.isEmpty()) {
                 // no-arg factory method

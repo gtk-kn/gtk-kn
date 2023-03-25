@@ -14,7 +14,7 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
 
         // enum spec
         val enumSpec = TypeSpec.enumBuilder(enum.kotlinTypeName)
-            .addKdoc(buildTypeKDoc(enum.kdoc))
+            .addKdoc(buildTypeKDoc(enum.kdoc, enum.version))
             .primaryConstructor(constructorSpec)
             .addProperty(
                 PropertySpec.builder("nativeValue", enum.nativeValueTypeName)
@@ -27,7 +27,7 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
             enumSpec.addEnumConstant(
                 member.kotlinName,
                 TypeSpec.anonymousClassBuilder()
-                    .addKdoc(buildTypeKDoc(member.kdoc))
+                    .addKdoc(buildTypeKDoc(member.kdoc, member.version))
                     .addSuperclassConstructorParameter("%M", member.nativeMemberName)
                     .build(),
             )

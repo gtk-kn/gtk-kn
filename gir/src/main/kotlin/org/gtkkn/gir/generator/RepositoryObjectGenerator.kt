@@ -44,7 +44,7 @@ interface RepositoryObjectGenerator : MiscGenerator {
             else -> error("Mapping for constant with type $type missing!")
         }
         return PropertySpec.builder(constant.kotlinName, type, KModifier.CONST).apply {
-            constant.kdoc?.let { addKdoc("%L", it) }
+            addKdoc(buildPropertyKDoc(constant.kdoc, constant.version))
             initializer(format, value)
         }.build()
     }
