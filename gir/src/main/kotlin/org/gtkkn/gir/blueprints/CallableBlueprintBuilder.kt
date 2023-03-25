@@ -23,26 +23,23 @@ abstract class CallableBlueprintBuilder<T : Any>(
 
     protected fun addParameters(parameters: GirParameters) {
         val processedParams = processParameters(parameters)
-        processedParams.forEach {
-            when (it) {
-                is SimpleParam -> addParameter(it.param)
+        processedParams.forEach { callbackParam ->
+            when (callbackParam) {
+                is SimpleParam -> addParameter(callbackParam.param)
                 is CallbackParamWithDestroy -> {
-                    // TODO construct the Callback TypeInfo somewhere else
                     val cbTypeInfo = TypeInfo.CallbackWithDestroy(
-                        it,
-                        context.resolveCallbackTypeName(girNamespace, it.callbackType.name ?: error("unknown callback type name")),
-//                        ClassName("bindings.glib", "SourceFunc"), // TODO proper resolving
-                        ClassName("native.glib", "SourceFunc"), // TODO proper resolving, this is not right?
+                        context.resolveCallbackTypeName(
+                            girNamespace,
+                            callbackParam.callbackType.name ?: error("unknown callback type name"),
+                        ),
                     )
                     val cbParamBluePrint = ParameterBlueprint(
-                        kotlinName = it.callbackParam.name, // TODO kotlinize
-                        nativeName = it.callbackParam.name,
+                        kotlinName = callbackParam.callbackParam.name,
+                        nativeName = callbackParam.callbackParam.name,
                         typeInfo = cbTypeInfo,
-                        kdoc = "TODO KDOC for callback arguments",
+                        kdoc = context.processKdoc(callbackParam.callbackParam.docs.doc?.text)
                     )
                     parameterBlueprints.add(cbParamBluePrint)
-//                        throw UnresolvableTypeException("Callback params not supported")
-//                        error("Callback params not supported")
                 }
             }
         }

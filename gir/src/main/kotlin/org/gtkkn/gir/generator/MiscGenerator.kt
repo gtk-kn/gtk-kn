@@ -157,7 +157,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode(", %S", signal.signalName)
             addCode(", %NFunc.%M()", signal.kotlinConnectName, BindingsGenerator.REINTERPRET_FUNC)
             addCode(", %T.create(handler).asCPointer()", BindingsGenerator.STABLEREF)
-            addCode(", %M", BindingsGenerator.STATIC_STABLEREF_DESTROY)
+            addCode(", %M.%M()", BindingsGenerator.STATIC_STABLEREF_DESTROY, BindingsGenerator.REINTERPRET_FUNC)
             addCode(", connectFlags.mask")
 
             addCode(")")
@@ -261,10 +261,10 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         }
     }
 
-
-    // TODO maybe find a better place for this?
     fun buildCallbackTypeAlias(callback: CallbackBlueprint) =
-        TypeAliasSpec.builder(callback.kotlinName, callback.lambdaTypeName).build()
+        TypeAliasSpec.builder(callback.kotlinName, callback.lambdaTypeName)
+            .addKdoc(buildTypeKDoc(callback.kdoc))
+            .build()
 
     /**
      * Build the private property that holds the static C callback functions that we use for implementing

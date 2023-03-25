@@ -160,15 +160,19 @@ sealed class TypeInfo {
     }
 
     data class CallbackWithDestroy(
-        private val callbackParamWithDestroy: CallbackParamWithDestroy,
         override val kotlinTypeName: ClassName,
-        override val nativeTypeName: TypeName,
-        val staticPropertyMemberName: MemberName = MemberName(kotlinTypeName.packageName, "${kotlinTypeName.simpleName}Func")
     ) : TypeInfo() {
-        override val isCinteropNullable: Boolean = true // TODO check this
+        val staticPropertyMemberName: MemberName = MemberName(
+            kotlinTypeName.packageName,
+            "${kotlinTypeName.simpleName}Func",
+        )
+        override val isCinteropNullable: Boolean = true
 
-        override fun withNullable(nullable: Boolean): TypeInfo {
-            TODO("Not yet implemented")
-        }
+        override val nativeTypeName: TypeName
+            get() = error("nativeTypeName of CallbackWithDestroy should not be called")
+
+        override fun withNullable(nullable: Boolean): TypeInfo = copy(
+            kotlinTypeName = kotlinTypeName.copy(nullable) as ClassName,
+        )
     }
 }

@@ -56,7 +56,6 @@ class CallbackBlueprintBuilder(
         }
 
         if (returnTypeInfo is TypeInfo.KString) {
-            // FIXME
             logger.warn("Skipping callback with String return value")
             throw UnresolvableTypeException("Callback with String return value is not supported")
         }
@@ -72,10 +71,11 @@ class CallbackBlueprintBuilder(
             )
 
         return CallbackBlueprint(
-            kotlinName = girCallback.name, // TODO proper name
+            kotlinName = girCallback.name,
             returnTypeInfo = returnTypeInfo,
             lambdaTypeName = callbackLambdaTypeName,
             parameters = callbackParameters,
+            kdoc = context.processKdoc(girCallback.info.docs.doc?.text)
         )
     }
 }
