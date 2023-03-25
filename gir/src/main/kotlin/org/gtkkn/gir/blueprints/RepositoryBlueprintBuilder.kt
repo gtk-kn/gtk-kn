@@ -9,6 +9,7 @@ import org.gtkkn.gir.model.GirEnum
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
+import org.gtkkn.gir.model.GirRecord
 import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.processor.ProcessorContext
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
@@ -26,6 +27,7 @@ class RepositoryBlueprintBuilder(
     private val callbackBlueprints = mutableListOf<CallbackBlueprint>()
     private val bitfieldBlueprints = mutableListOf<BitfieldBlueprint>()
     private val constantBlueprints = mutableListOf<ConstantBlueprint>()
+    private val recordBlueprints = mutableListOf<RecordBlueprint>()
 
     private fun addClass(girClass: GirClass) {
         when (val result = ClassBlueprintBuilder(context, namespace, girClass).build()) {
@@ -76,6 +78,13 @@ class RepositoryBlueprintBuilder(
         }
     }
 
+    private fun addRecord(girRecord: GirRecord) {
+        when (val result = RecordBlueprintBuilder(context, namespace, girRecord).build()) {
+            is BlueprintResult.Ok -> recordBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun blueprintObjectType(): String = "repository"
     override fun blueprintObjectName(): String = girRepository.namespace.name
 
@@ -87,6 +96,7 @@ class RepositoryBlueprintBuilder(
         namespace.callbacks.forEach { addCallback(it) }
         namespace.bitfields.forEach { addBitfield(it) }
         namespace.constants.forEach { addConstant(it) }
+        namespace.records.forEach { addRecord(it) }
 
         girRepository.includes.forEach { include ->
             if (context.findRepositoryByNameOrNull(include.name) == null) {
@@ -114,6 +124,7 @@ class RepositoryBlueprintBuilder(
             callbackBlueprints = callbackBlueprints,
             bitfieldBlueprints = bitfieldBlueprints,
             constantBlueprints = constantBlueprints,
+            recordBlueprints = recordBlueprints,
             skippedObjects = skippedObjects,
             repositoryObjectName = repositoryObjectName,
             repositoryCallbacksName = repositoryCallbacksName,

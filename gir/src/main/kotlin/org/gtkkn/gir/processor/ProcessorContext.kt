@@ -26,6 +26,7 @@ import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirEnum
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
+import org.gtkkn.gir.model.GirRecord
 import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.util.toCamelCase
@@ -74,6 +75,21 @@ class ProcessorContext(
 
         // callback returning a String
         "GtkScaleFormatValueFunc",
+
+        // issues with records?
+        "GdkPixbufAnimationIterClass",
+        "GdkPixbufAnimationClass",
+        "GskBroadwayRendererClass",
+        "GdkPixbufModule",
+        "GdkPixbufModulePattern",
+        // Issues with Context being defined in pango, but used in pangocairo callbacks?
+        "PangoContext",
+        "Context",
+        "Region",
+        "CairoRegion",
+        "cairo_t",
+        "cairo_region_t",
+        "const cairo_region_t",
     )
 
     /**
@@ -111,6 +127,72 @@ class ProcessorContext(
         // might be missing unix-related headers?
         "g_unix_fd_add_full",
         "g_unix_signal_add_full",
+        "g_unix_fd_source_new",
+        "g_unix_signal_source_new",
+
+        // error pointer argument
+        "g_prefix_error_literal",
+        "g_trash_stack_height",
+
+        // record issues?
+        "hb_ft_font_changed",
+        "hb_ft_font_get_load_flags",
+        "hb_ft_font_set_funcs",
+        "hb_ft_font_set_load_flags",
+        "pango_cairo_font_get_scaled_font",
+        "pango_cairo_context_get_font_options",
+        "pango_cairo_context_set_font_options",
+        "pango_cairo_create_context",
+        "pango_cairo_create_layout",
+        // all issues with pango_cairo Context
+        "pango_cairo_error_underline_path",
+        "pango_cairo_glyph_string_path",
+        "pango_cairo_layout_line_path",
+        "pango_cairo_layout_path",
+        "pango_cairo_layout_line_path",
+        "pango_cairo_show_error_underline",
+        "pango_cairo_show_glyph_item",
+        "pango_cairo_show_glyph_string",
+        "pango_cairo_show_layout",
+        "pango_cairo_show_layout_line",
+        "pango_cairo_update_context",
+        "pango_cairo_update_layout",
+
+        "pango_font_map_create_context",
+        "gdk_cairo_context_cairo_create",
+        "gdk_draw_context_begin_frame",
+        "pango_layout_get_context",
+        "pango_layout_get_context",
+        "gdk_draw_context_get_frame_region",
+
+        "gdk_pixbuf_get_from_surface",
+        "gdk_cairo_region_create_from_surface",
+        "gdk_surface_create_similar_surface",
+        "gsk_cairo_node_get_surface",
+        "gsk_cairo_node_get_draw_context",
+        "gsk_cairo_node_new",
+        "gsk_clip_node_new",
+        "gsk_clip_node_get_clip",
+        "gsk_color_matrix_node_new",
+        "gsk_color_matrix_node_new",
+        "gsk_color_matrix_node_get_color_matrix",
+
+        "gtk_print_context_create_pango_context",
+        "gtk_print_context_get_cairo_context",
+        "gtk_text_view_get_ltr_context",
+        "gtk_text_view_get_rtl_context",
+        "gtk_widget_create_pango_context",
+        "gtk_widget_get_font_options",
+        "gtk_widget_get_pango_context",
+        "gtk_widget_set_font_options",
+
+        "g_thread_new",
+
+        // problem because it needs a GObjectClass struct
+        "gtk_editable_install_properties",
+
+        // problem because it uses a callback with a string return value
+        "g_option_group_set_translate_func"
     )
 
     /**
@@ -119,6 +201,8 @@ class ProcessorContext(
     private val ignoredSignals = hashSetOf<String>(
         // problems with string conversion in signal handler
         "format-entry-text",
+        // problems with pango/cairo region
+        "render", // Surface
     )
 
     /**
@@ -200,6 +284,19 @@ class ProcessorContext(
                 namespaceNativePackageName(namespace),
                 clazz.cType
                     ?: throw UnresolvableTypeException("Missing cType on class"),
+            ),
+        )
+
+    /**
+     * Resolve the [TypeName] for the objectPointer we have in all records.
+     */
+    @Throws(UnresolvableTypeException::class)
+    fun resolveRecordObjectPointerTypeName(namespace: GirNamespace, record: GirRecord): TypeName =
+        NativeTypes.cpointerOf(
+            ClassName(
+                namespaceNativePackageName(namespace),
+                record.cType
+                    ?: throw UnresolvableTypeException("Missing cType on record"),
             ),
         )
 
@@ -312,6 +409,17 @@ class ProcessorContext(
         )
     }
 
+    @Throws(UnresolvableTypeException::class)
+    fun resolveRecordTypeName(targetNamespace: GirNamespace, nativeRecordName: String): TypeName {
+        val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeRecordName)
+        val clazz = namespace.records.find { it.name == simpleName }
+            ?: throw UnresolvableTypeException("record $nativeRecordName not found")
+        return ClassName(
+            namespaceBindingsPackageName(namespace),
+            kotlinizeClassName(clazz.name),
+        ) // TODO kotlinize Record Name
+    }
+
     /**
      * Resolve a [TypeInfo] for the given [GirType].
      */
@@ -412,6 +520,24 @@ class ProcessorContext(
             // fallthrough
         }
 
+        // records
+        try {
+            val kotlinRecordTypeName = resolveRecordTypeName(girNamespace, type.name)
+            val (namespace, girRecord) = findRecordByName(girNamespace, type.name)
+            // TODO find a better way to ignore these
+            if (girRecord.disguised == true) throw UnresolvableTypeException("Diguised record ${girRecord.name} is ignored")
+
+            val objectPointerName = "${namespacePrefix(namespace)}${girRecord.name}Pointer"
+            return TypeInfo.RecordPointer(
+                kotlinTypeName = kotlinRecordTypeName,
+                nativeTypeName = NativeTypes.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girRecord)),
+                objectPointerName,
+            ).withNullable(nullable)
+        } catch (ignored: UnresolvableTypeException) {
+            // fallthrough
+        }
+
+
         logger.warn("Could not resolve type for type with name: ${type.name} and cType: ${type.cType}")
         throw UnresolvableTypeException(type.name)
     }
@@ -453,6 +579,13 @@ class ProcessorContext(
                 ?: throw UnresolvableTypeException("missing cType for interface ${girInterface.name}"),
         )
 
+    private fun buildNativeClassName(girNamespace: GirNamespace, girRecord: GirRecord) =
+        ClassName(
+            namespaceNativePackageName(girNamespace),
+            girRecord.cType
+                ?: throw UnresolvableTypeException("missing cType for interface ${girRecord.name}"),
+        )
+
     @Throws(UnresolvableTypeException::class)
     fun findClassByName(
         targetNamespace: GirNamespace,
@@ -473,6 +606,19 @@ class ProcessorContext(
         val clazz = namespace.interfaces.find { it.name == simpleIfaceName }
             ?: throw UnresolvableTypeException(
                 "Interface $simpleIfaceName does not exist in namespace ${namespace.name}",
+            )
+        return Pair(namespace, clazz)
+    }
+
+    @Throws(UnresolvableTypeException::class)
+    fun findRecordByName(
+        targetNamespace: GirNamespace,
+        fullyQualifiedName: String,
+    ): Pair<GirNamespace, GirRecord> {
+        val (namespace, simpleRecordName) = extractFullyQualifiedName(targetNamespace, fullyQualifiedName)
+        val clazz = namespace.records.find { it.name == simpleRecordName }
+            ?: throw UnresolvableTypeException(
+                "Record $simpleRecordName does not exist in namespace ${namespace.name}",
             )
         return Pair(namespace, clazz)
     }
@@ -502,6 +648,10 @@ class ProcessorContext(
         if (ignoredTypes.contains(cType)) {
             throw IgnoredTypeException(cType)
         }
+        // FIXME graphene_*_t are posing problems with cinterop
+        if (cType.startsWith("graphene_") && cType.endsWith("_t")) {
+            throw IgnoredTypeException(cType)
+        }
     }
 
     /**
@@ -518,6 +668,14 @@ class ProcessorContext(
         }
 
         if (cFunctionName.endsWith("to_string")) {
+            throw IgnoredFunctionException(cFunctionName)
+        }
+        // FIXME ignore graphene functions for same reason as ignored types above
+        if (cFunctionName.startsWith("graphene_")) {
+            throw IgnoredFunctionException(cFunctionName)
+        }
+        // FIXME same for gsk
+        if (cFunctionName.startsWith("gsk_")) {
             throw IgnoredFunctionException(cFunctionName)
         }
     }
