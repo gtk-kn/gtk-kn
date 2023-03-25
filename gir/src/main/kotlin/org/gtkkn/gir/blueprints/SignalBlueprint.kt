@@ -7,8 +7,10 @@ data class SignalBlueprint(
     val signalName: String,
     override val returnTypeInfo: TypeInfo,
     override val parameters: List<ParameterBlueprint>,
-    val handlerLambdaTypeName: LambdaTypeName,
+    override val lambdaTypeName: LambdaTypeName,
     val version: String?,
     val kdoc: String?,
     val returnTypeKDoc: String?,
-) : CallableBlueprint
+) : ClosureBlueprint {
+    override val hasInstanceParameter: Boolean = true
+}

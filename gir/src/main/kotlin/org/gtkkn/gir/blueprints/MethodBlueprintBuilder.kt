@@ -9,6 +9,7 @@ import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirParameter
+import org.gtkkn.gir.model.GirParameters
 import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.model.GirVarArgs
 import org.gtkkn.gir.processor.BlueprintException
@@ -131,6 +132,7 @@ class MethodBlueprintBuilder(
             throw UnresolvableTypeException("Throwing methods are not supported")
         }
     }
+
 }
 
 /**
@@ -153,3 +155,4 @@ private fun GirAnyTypeOrVarargs.debugSignature(): String = when (this) {
     is GirType -> this.cType ?: "unknown"
     GirVarArgs -> "varargs"
 }
+

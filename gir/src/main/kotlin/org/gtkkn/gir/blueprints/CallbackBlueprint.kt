@@ -4,6 +4,9 @@ import com.squareup.kotlinpoet.LambdaTypeName
 
 data class CallbackBlueprint(
     val kotlinName: String,
-    val returnTypeInfo: TypeInfo,
-    val callbackLambdaTypeName: LambdaTypeName,
-)
+    override val returnTypeInfo: TypeInfo,
+    override val parameters: List<ParameterBlueprint>,
+    override val lambdaTypeName: LambdaTypeName,
+) : ClosureBlueprint {
+    override val hasInstanceParameter: Boolean = false
+}

@@ -61,7 +61,7 @@ class SignalBlueprintBuilder(
             kotlinConnectName = kotlinConnectName,
             returnTypeInfo = returnTypeInfo,
             parameters = signalParameters,
-            handlerLambdaTypeName = handlerLambdaTypeName,
+            lambdaTypeName = handlerLambdaTypeName,
             version = girSignal.info.version,
             kdoc = context.processKdoc(girSignal.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girSignal.returnValue.docs.doc?.text),

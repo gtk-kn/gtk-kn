@@ -104,6 +104,10 @@ class ProcessorContext(
 
         // which def file should include this (gio or glib)?
         "g_networking_init",
+
+        // might be missing unix-related headers?
+        "g_unix_fd_add_full",
+        "g_unix_signal_add_full",
     )
 
     /**

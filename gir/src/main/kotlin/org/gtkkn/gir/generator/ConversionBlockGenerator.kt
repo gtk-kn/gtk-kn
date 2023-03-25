@@ -50,6 +50,16 @@ interface ConversionBlockGenerator {
                     param.kotlinName,
                     BindingsGenerator.TO_C_STRING_LIST,
                 )
+
+                is TypeInfo.CallbackWithDestroy -> {
+                    add(
+                        "%M.%M(), %T.create(%L).asCPointer(), null /* TODO destroy */",
+                        param.typeInfo.staticPropertyMemberName,
+                        BindingsGenerator.REINTERPRET_FUNC,
+                        BindingsGenerator.STABLEREF,
+                        param.nativeName,
+                    )
+                }
             }
         }.build()
 
@@ -79,12 +89,14 @@ interface ConversionBlockGenerator {
                 is TypeInfo.Primitive -> Unit
                 is TypeInfo.GBoolean -> add("$safeCall.%M()", BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.GChar -> add("$safeCall.code.toByte()")
-                is TypeInfo.KString -> Unit
+                is TypeInfo.KString -> add("$safeCall.cstr")
                 is TypeInfo.Bitfield -> add("$safeCall.mask")
                 is TypeInfo.StringList -> add(
                     "$safeCall.%M(this)",
                     BindingsGenerator.TO_C_STRING_LIST,
                 )
+
+                is TypeInfo.CallbackWithDestroy -> error("CallbackWithDestroy conversion not supported")
             }
         }.build()
 
@@ -115,6 +127,10 @@ interface ConversionBlockGenerator {
                         error("Unsupported native to kotlin conversion because string array is not null terminated")
                     }
                     NativeToKotlinConversions.buildKStringList(isNullable, this)
+                }
+
+                is TypeInfo.CallbackWithDestroy -> {
+                    error("CallbackWithDestroy unsupported for native to Kotlin conversion")
                 }
             }
         }.build()

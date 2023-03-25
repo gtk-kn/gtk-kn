@@ -2,6 +2,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.LambdaTypeName
 import com.squareup.kotlinpoet.ParameterSpec
+import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirCallback
 import org.gtkkn.gir.model.GirNamespace
@@ -54,6 +55,12 @@ class CallbackBlueprintBuilder(
             }
         }
 
+        if (returnTypeInfo is TypeInfo.KString) {
+            // FIXME
+            logger.warn("Skipping callback with String return value")
+            throw UnresolvableTypeException("Callback with String return value is not supported")
+        }
+
         girCallback.parameters?.parameters.orEmpty().forEach { addParameter(it) }
 
         val callbackLambdaTypeName =
@@ -61,13 +68,14 @@ class CallbackBlueprintBuilder(
                 parameters = callbackParameters.map { param ->
                     ParameterSpec.builder(param.kotlinName, param.typeInfo.kotlinTypeName).build()
                 },
-                returnType = returnTypeInfo.kotlinTypeName
+                returnType = returnTypeInfo.kotlinTypeName,
             )
 
         return CallbackBlueprint(
             kotlinName = girCallback.name, // TODO proper name
             returnTypeInfo = returnTypeInfo,
-            callbackLambdaTypeName = callbackLambdaTypeName,
+            lambdaTypeName = callbackLambdaTypeName,
+            parameters = callbackParameters,
         )
     }
 }
