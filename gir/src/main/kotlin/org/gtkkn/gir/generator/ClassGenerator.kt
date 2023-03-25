@@ -91,6 +91,11 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 addProperty(buildClassInterfacePointerProperty(it))
             }
 
+            // properties
+            clazz.properties.forEach { property ->
+                addProperty(buildProperty(property, clazz.objectPointerName))
+            }
+
             // methods
             clazz.methods.forEach { method ->
                 addFunction(buildMethod(method, clazz.objectPointerName))

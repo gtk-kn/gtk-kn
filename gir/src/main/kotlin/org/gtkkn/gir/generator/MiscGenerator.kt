@@ -14,20 +14,46 @@ import com.squareup.kotlinpoet.U_LONG
 import org.gtkkn.gir.blueprints.FunctionBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
 import org.gtkkn.gir.blueprints.ParameterBlueprint
+import org.gtkkn.gir.blueprints.PropertyBlueprint
 import org.gtkkn.gir.blueprints.SignalBlueprint
 import org.gtkkn.gir.processor.NativeTypes
 
 interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
-    fun buildMethod(method: MethodBlueprint, instancePointer: String?): FunSpec =
-        FunSpec.builder(method.kotlinName).apply {
-            addKdoc(buildMethodKDoc(method.kdoc, method.parameters, method.returnTypeKDoc))
+
+    fun buildProperty(property: PropertyBlueprint, instancePointer: String?): PropertySpec =
+        PropertySpec.builder(property.kotlinName, property.typeInfo.kotlinTypeName, KModifier.PUBLIC).apply {
+            property.kdoc?.let { addKdoc("%L", it) }
+
+            if (property.isOverride) {
+                addModifiers(KModifier.OVERRIDE)
+            }
+
+            if (property.isOpen) {
+                addModifiers(KModifier.OPEN)
+            }
+
+            getter(buildMethod(property.getter, instancePointer, FunSpecBuilderType.GETTER))
+
+            property.setter?.let { setter ->
+                mutable(true)
+                setter(buildMethod(setter, instancePointer, FunSpecBuilderType.SETTER))
+            }
+        }.build()
+
+    fun buildMethod(
+        method: MethodBlueprint,
+        instancePointer: String?,
+        builderType: FunSpecBuilderType = FunSpecBuilderType.DEFAULT
+    ): FunSpec = when (builderType) {
+        FunSpecBuilderType.DEFAULT -> FunSpec.builder(method.kotlinName)
+        FunSpecBuilderType.GETTER -> FunSpec.getterBuilder()
+        FunSpecBuilderType.SETTER -> FunSpec.setterBuilder()
+    }.apply {
+        addKdoc(buildMethodKDoc(method.kdoc, method.parameters, method.returnTypeKDoc))
+        if (builderType == FunSpecBuilderType.DEFAULT) {
             val returnTypeName = method.returnTypeInfo.kotlinTypeName
 
             returns(returnTypeName)
-
-            if (method.needsMemscoped) {
-                beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
-            }
 
             if (method.isOverride) {
                 addModifiers(KModifier.OVERRIDE)
@@ -36,34 +62,39 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             if (method.isOpen) {
                 addModifiers(KModifier.OPEN)
             }
+        }
 
-            appendSignatureParameters(method.parameters)
+        if (method.needsMemscoped) {
+            beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
+        }
 
-            var needsComma = false
-            addCode("return %M(", method.nativeMemberName) // open native function paren
-            if (instancePointer != null) {
-                // adding reinterpret() here because sometimes the instancePointer has a different type
-                addCode("%N.%M()", instancePointer, BindingsGenerator.REINTERPRET_FUNC)
-                needsComma = true
+        appendSignatureParameters(method.parameters)
+
+        var needsComma = false
+        addCode("return %M(", method.nativeMemberName) // open native function paren
+        if (instancePointer != null) {
+            // adding reinterpret() here because sometimes the instancePointer has a different type
+            addCode("%N.%M()", instancePointer, BindingsGenerator.REINTERPRET_FUNC)
+            needsComma = true
+        }
+
+        method.parameters.forEach { param ->
+            if (needsComma) {
+                addCode(", ")
             }
 
-            method.parameters.forEach { param ->
-                if (needsComma) {
-                    addCode(", ")
-                }
+            addCode(buildParameterConversionBlock(param))
+        }
 
-                addCode(buildParameterConversionBlock(param))
-            }
+        addCode(")") // close native function paren
 
-            addCode(")") // close native function paren
+        // return value conversion
+        addCode(buildNativeToKotlinConversionsBlock(method.returnTypeInfo))
 
-            // return value conversion
-            addCode(buildNativeToKotlinConversionsBlock(method.returnTypeInfo))
-
-            if (method.needsMemscoped) {
-                endControlFlow()
-            }
-        }.build()
+        if (method.needsMemscoped) {
+            endControlFlow()
+        }
+    }.build()
 
     /**
      * Build a function implementation for standalone functions (not methods with an instance parameter).

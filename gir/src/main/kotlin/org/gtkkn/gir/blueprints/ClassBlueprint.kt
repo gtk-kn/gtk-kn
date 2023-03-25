@@ -10,6 +10,7 @@ data class ClassBlueprint(
     val parentTypeName: TypeName?,
     val implementsInterfaces: List<ImplementsInterfaceBlueprint>,
     val methods: List<MethodBlueprint>,
+    val properties: List<PropertyBlueprint>,
     val constructors: List<ConstructorBlueprint>,
     val signals: List<SignalBlueprint>,
     val functions: List<FunctionBlueprint>,
