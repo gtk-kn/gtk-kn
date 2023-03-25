@@ -1,14 +1,17 @@
 package org.gtkkn.gir.blueprints
 
+import com.squareup.kotlinpoet.ClassName
 import org.gtkkn.gir.model.GirBitField
 import org.gtkkn.gir.model.GirCallback
 import org.gtkkn.gir.model.GirClass
+import org.gtkkn.gir.model.GirConstant
 import org.gtkkn.gir.model.GirEnum
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.processor.ProcessorContext
+import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
 class RepositoryBlueprintBuilder(
     context: ProcessorContext,
@@ -22,6 +25,7 @@ class RepositoryBlueprintBuilder(
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
     private val callbackBlueprints = mutableListOf<CallbackBlueprint>()
     private val bitfieldBlueprints = mutableListOf<BitfieldBlueprint>()
+    private val constantBlueprints = mutableListOf<ConstantBlueprint>()
 
     private fun addClass(girClass: GirClass) {
         when (val result = ClassBlueprintBuilder(context, namespace, girClass).build()) {
@@ -65,6 +69,13 @@ class RepositoryBlueprintBuilder(
         }
     }
 
+    private fun addConstant(girConstant: GirConstant) {
+        when (val result = ConstantBlueprintBuilder(context, namespace, girConstant).build()) {
+            is BlueprintResult.Ok -> constantBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun blueprintObjectType(): String = "repository"
     override fun blueprintObjectName(): String = girRepository.namespace.name
 
@@ -75,6 +86,7 @@ class RepositoryBlueprintBuilder(
         namespace.functions.forEach { addFunction(it) }
         namespace.callbacks.forEach { addCallback(it) }
         namespace.bitfields.forEach { addBitfield(it) }
+        namespace.constants.forEach { addConstant(it) }
 
         girRepository.includes.forEach { include ->
             if (context.findRepositoryByNameOrNull(include.name) == null) {
@@ -83,6 +95,10 @@ class RepositoryBlueprintBuilder(
         }
 
         val kotlinModuleName = girRepository.namespace.name.lowercase()
+        val repositoryObjectName = ClassName(
+            context.namespaceBindingsPackageName(namespace),
+            kotlinModuleName.capitalizeAsciiOnly(),
+        )
 
         return RepositoryBlueprint(
             name = girRepository.namespace.name,
@@ -93,7 +109,9 @@ class RepositoryBlueprintBuilder(
             functionBlueprints = functionBlueprints,
             callbackBlueprints = callbackBlueprints,
             bitfieldBlueprints = bitfieldBlueprints,
+            constantBlueprints = constantBlueprints,
             skippedObjects = skippedObjects,
+            repositoryObjectName = repositoryObjectName,
         )
     }
 }

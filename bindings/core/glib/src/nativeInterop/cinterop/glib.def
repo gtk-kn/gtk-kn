@@ -1,4 +1,4 @@
-headers = glib.h
+headers = glib.h glib/gstdio.h
 package = native.glib
 headerFilter = "glib/*"
 
