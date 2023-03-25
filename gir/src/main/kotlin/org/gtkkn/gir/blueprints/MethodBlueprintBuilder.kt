@@ -121,7 +121,6 @@ class MethodBlueprintBuilder(
             throw UnresolvableTypeException("Throwing methods are not supported")
         }
     }
-
 }
 
 /**
@@ -144,4 +143,3 @@ private fun GirAnyTypeOrVarargs.debugSignature(): String = when (this) {
     is GirType -> this.cType ?: "unknown"
     GirVarArgs -> "varargs"
 }
-

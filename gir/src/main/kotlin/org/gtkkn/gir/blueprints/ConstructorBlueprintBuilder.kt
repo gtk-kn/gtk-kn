@@ -5,11 +5,8 @@ import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
-import org.gtkkn.gir.model.GirDirection
 import org.gtkkn.gir.model.GirNamespace
-import org.gtkkn.gir.model.GirParameter
 import org.gtkkn.gir.model.GirType
-import org.gtkkn.gir.model.GirVarArgs
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.ShadowedFunctionException
@@ -79,50 +76,5 @@ class ConstructorBlueprintBuilder(
             kdoc = context.processKdoc(girConstructor.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girConstructor.returnValue?.docs?.doc?.text),
         )
-    }
-
-//    private fun addParameters() {
-//        for (param in girConstructor.parameters?.parameters.orEmpty()) {
-//            // skip method if parameter is not supported
-//            val paramCType = when (param.type) {
-//                is GirArrayType -> param.type.cType
-//                is GirType -> param.type.cType
-//                GirVarArgs -> null
-//            }
-//            if (paramCType != null) context.checkIgnoredType(paramCType)
-//            skipParameterForReason(param)?.let { reason ->
-//                throw UnresolvableTypeException(reason)
-//            }
-//
-//            val paramKotlinName = context.kotlinizeParameterName(param.name)
-//
-//            val typeInfo = when (param.type) {
-//                is GirArrayType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
-//                is GirType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
-//                GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
-//            }
-//
-//            // build parameter
-//            val paramBlueprint = ParameterBlueprint(
-//                kotlinName = paramKotlinName,
-//                nativeName = param.name,
-//                typeInfo = typeInfo,
-//                kdoc = context.processKdoc(param.docs.doc?.text),
-//            )
-//
-//            parameters.add(paramBlueprint)
-//        }
-//    }
-
-    /**
-     * Check if the parameter is supported.
-     *
-     * @return null if the parameter is supported, and skip reason if unsupported.
-     */
-    private fun skipParameterForReason(param: GirParameter): String? = when {
-        param.direction == GirDirection.OUT -> "Out parameter is not supported"
-        param.direction == GirDirection.IN_OUT -> "InOut parameter is not supported"
-        param.type is GirVarArgs -> "Varargs parameter is not supported"
-        else -> null
     }
 }

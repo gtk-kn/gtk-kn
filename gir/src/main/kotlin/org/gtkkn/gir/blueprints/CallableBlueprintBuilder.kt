@@ -1,11 +1,12 @@
 package org.gtkkn.gir.blueprints
 
-import com.squareup.kotlinpoet.ClassName
 import org.gtkkn.gir.log.logger
+import org.gtkkn.gir.model.GirDirection
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirParameter
 import org.gtkkn.gir.model.GirParameters
 import org.gtkkn.gir.model.GirType
+import org.gtkkn.gir.model.GirVarArgs
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.SkippedObjectException
 import org.gtkkn.gir.processor.UnresolvableTypeException
@@ -22,6 +23,8 @@ abstract class CallableBlueprintBuilder<T : Any>(
     protected val parameterBlueprints = mutableListOf<ParameterBlueprint>()
 
     protected fun addParameters(parameters: GirParameters) {
+        parameters.parameters.forEach { checkSupportedParam(it) }
+
         val processedParams = processParameters(parameters)
         processedParams.forEach { callbackParam ->
             when (callbackParam) {
@@ -37,11 +40,18 @@ abstract class CallableBlueprintBuilder<T : Any>(
                         kotlinName = callbackParam.callbackParam.name,
                         nativeName = callbackParam.callbackParam.name,
                         typeInfo = cbTypeInfo,
-                        kdoc = context.processKdoc(callbackParam.callbackParam.docs.doc?.text)
+                        kdoc = context.processKdoc(callbackParam.callbackParam.docs.doc?.text),
                     )
                     parameterBlueprints.add(cbParamBluePrint)
                 }
             }
+        }
+    }
+
+    private fun addParameter(param: GirParameter) {
+        when (val result = ParameterBlueprintBuilder(context, girNamespace, param).build()) {
+            is BlueprintResult.Ok -> parameterBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> throw SkippedObjectException(result.skippedObject)
         }
     }
 
@@ -58,39 +68,40 @@ abstract class CallableBlueprintBuilder<T : Any>(
         }
 
         if (parameters.parameters.count { it.closure != null } > 1) {
-            val closureParams = parameters.parameters.filter { it.closure != null }.map { it.name }.joinToString(", ")
+            val closureParams = parameters.parameters
+                .filter { it.closure != null }
+                .map { it.name }
+                .joinToString(", ")
             throw UnresolvableTypeException(
-                "function ${blueprintObjectName()} has multiple closure params: ${closureParams}",
+                "function ${blueprintObjectName()} has multiple closure params: $closureParams",
             )
         }
 
         // we have 1 closure param, find its user data and destroy function
         val closureParam = parameters.parameters.first { it.closure != null }
-        logger.warn("Found function ${blueprintObjectName()} with closure/callback: ${closureParam.name}")
+        logger.debug("Found ${blueprintObjectType()} ${blueprintObjectName()} with closure: ${closureParam.name}")
 
         if (closureParam.type !is GirType) error("Callback type is not a GirType")
         closureParam.type.cType?.let { context.checkIgnoredType(it) }
 
         val closureParamIndex = parameters.parameters.indexOf(closureParam)
         val remainingParams = parameters.parameters.drop(closureParamIndex + 1)
-        val remainingParamNames = remainingParams.map { it.name }.joinToString(", ")
-        logger.warn("REMAINING PARAMS for Found function ${blueprintObjectName()} :: $remainingParamNames")
 
         // currently assumed to be the first gpointer param after the closure param
-        val userDataParam = remainingParams.firstOrNull() {
+        val userDataParam = remainingParams.firstOrNull {
             it.type is GirType && it.type.name == "gpointer"
         }
         if (userDataParam == null) {
-            logger.error("!!!!!!! DID NOT FIND user data param for Found function ${blueprintObjectName()}")
+            logger.warn("No user_data param for ${blueprintObjectType()} ${blueprintObjectName()}")
             throw UnresolvableTypeException("Could not resolve user_data param")
         }
 
-        val destroyDataParam = remainingParams.firstOrNull() {
+        val destroyDataParam = remainingParams.firstOrNull {
             it.type is GirType && it.type.cType == "GDestroyNotify"
         }
         if (destroyDataParam == null) {
-            logger.error("!!!!!!! DID NOT FIND destroy data param for Found function ${blueprintObjectName()}")
-            throw UnresolvableTypeException("Could not resolve destroy data param")
+            logger.warn("No destroy notify param found for ${blueprintObjectType()} ${blueprintObjectName()}")
+            throw UnresolvableTypeException("Could not resolve destroy notify param")
         }
 
         return parameters.parameters.mapNotNull {
@@ -103,10 +114,13 @@ abstract class CallableBlueprintBuilder<T : Any>(
         }
     }
 
-    protected fun addParameter(param: GirParameter) {
-        when (val result = ParameterBlueprintBuilder(context, girNamespace, param).build()) {
-            is BlueprintResult.Ok -> parameterBlueprints.add(result.blueprint)
-            is BlueprintResult.Skip -> throw SkippedObjectException(result.skippedObject)
+    private fun checkSupportedParam(param: GirParameter) {
+        when {
+            param.type is GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
+            param.direction == GirDirection.OUT -> throw UnresolvableTypeException("Out parameter is not supported")
+            param.direction == GirDirection.IN_OUT -> {
+                throw UnresolvableTypeException("In/Out parameter is not supported")
+            }
         }
     }
 }
@@ -121,4 +135,3 @@ data class CallbackParamWithDestroy(
     val userDataParam: GirParameter,
     val destroyParam: GirParameter
 ) : ProcessedParam()
-

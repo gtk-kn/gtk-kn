@@ -43,7 +43,6 @@ class CallbackBlueprintBuilder(
 
         if (girCallback.parameters?.instanceParameter != null) error("Callback with instance parameter")
 
-
         val returnValue = girCallback.returnValue ?: error("Callback has no return value")
 
         val returnTypeInfo = when (val type = returnValue.type) {
