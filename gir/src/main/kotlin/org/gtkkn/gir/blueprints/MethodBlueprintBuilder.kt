@@ -9,36 +9,25 @@ import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirParameter
-import org.gtkkn.gir.model.GirParameters
 import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.model.GirVarArgs
 import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.ShadowedFunctionException
-import org.gtkkn.gir.processor.SkippedObjectException
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class MethodBlueprintBuilder(
     context: ProcessorContext,
-    private val girNamespace: GirNamespace,
+    girNamespace: GirNamespace,
     private val girMethod: GirMethod,
     private val superClasses: List<GirClass> = emptyList(),
     private val superInterfaces: List<GirInterface> = emptyList(),
     private val isOpen: Boolean = false,
-) : BlueprintBuilder<MethodBlueprint>(context) {
-    private val methodParameters = mutableListOf<ParameterBlueprint>()
-
+) : CallableBlueprintBuilder<MethodBlueprint>(context, girNamespace) {
     override fun blueprintObjectType(): String = "method"
 
     override fun blueprintObjectName(): String = girMethod.name
-
-    private fun addParameter(param: GirParameter) {
-        when (val result = ParameterBlueprintBuilder(context, girNamespace, param).build()) {
-            is BlueprintResult.Ok -> methodParameters.add(result.blueprint)
-            is BlueprintResult.Skip -> throw SkippedObjectException(result.skippedObject)
-        }
-    }
 
     override fun buildInternal(): MethodBlueprint {
         checkSkippedMethod()
@@ -46,7 +35,7 @@ class MethodBlueprintBuilder(
         val kotlinName = context.kotlinizeMethodName(girMethod.name)
 
         // parameters
-        girMethod.parameters?.parameters?.forEach { addParameter(it) }
+        girMethod.parameters?.let { addParameters(it) }
 
         // return value
         val returnValue = girMethod.returnValue ?: throw UnresolvableTypeException("Method has no return value")
@@ -93,7 +82,7 @@ class MethodBlueprintBuilder(
             },
             nativeName = nativeMethodName,
             nativeMemberName = nativeMemberName,
-            parameters = methodParameters,
+            parameters = parameterBlueprints,
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
             isOpen = isOpen,

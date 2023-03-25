@@ -2,6 +2,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
+import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirFunction

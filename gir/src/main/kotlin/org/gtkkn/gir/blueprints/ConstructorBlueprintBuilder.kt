@@ -17,12 +17,10 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class ConstructorBlueprintBuilder(
     context: ProcessorContext,
-    private val girNamespace: GirNamespace,
+    girNamespace: GirNamespace,
     private val girClass: GirClass,
     private val girConstructor: GirConstructor,
-) : BlueprintBuilder<ConstructorBlueprint>(context) {
-
-    private val parameters = mutableListOf<ParameterBlueprint>()
+) : CallableBlueprintBuilder<ConstructorBlueprint>(context, girNamespace) {
 
     override fun blueprintObjectType(): String = "constructor"
 
@@ -46,7 +44,7 @@ class ConstructorBlueprintBuilder(
             throw UnresolvableTypeException("Throwing constructors are not supported")
         }
 
-        addParameters()
+        girConstructor.parameters?.let { addParameters(it) }
 
         // return value
         val returnValue = girConstructor.returnValue
@@ -76,45 +74,45 @@ class ConstructorBlueprintBuilder(
             nativeName = nativeMethodName,
             nativeMemberName = nativeMemberName,
             returnTypeInfo = returnTypeInfo,
-            parameters = parameters,
+            parameters = parameterBlueprints,
             version = girConstructor.info.version,
             kdoc = context.processKdoc(girConstructor.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girConstructor.returnValue?.docs?.doc?.text),
         )
     }
 
-    private fun addParameters() {
-        for (param in girConstructor.parameters?.parameters.orEmpty()) {
-            // skip method if parameter is not supported
-            val paramCType = when (param.type) {
-                is GirArrayType -> param.type.cType
-                is GirType -> param.type.cType
-                GirVarArgs -> null
-            }
-            if (paramCType != null) context.checkIgnoredType(paramCType)
-            skipParameterForReason(param)?.let { reason ->
-                throw UnresolvableTypeException(reason)
-            }
-
-            val paramKotlinName = context.kotlinizeParameterName(param.name)
-
-            val typeInfo = when (param.type) {
-                is GirArrayType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
-                is GirType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
-                GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
-            }
-
-            // build parameter
-            val paramBlueprint = ParameterBlueprint(
-                kotlinName = paramKotlinName,
-                nativeName = param.name,
-                typeInfo = typeInfo,
-                kdoc = context.processKdoc(param.docs.doc?.text),
-            )
-
-            parameters.add(paramBlueprint)
-        }
-    }
+//    private fun addParameters() {
+//        for (param in girConstructor.parameters?.parameters.orEmpty()) {
+//            // skip method if parameter is not supported
+//            val paramCType = when (param.type) {
+//                is GirArrayType -> param.type.cType
+//                is GirType -> param.type.cType
+//                GirVarArgs -> null
+//            }
+//            if (paramCType != null) context.checkIgnoredType(paramCType)
+//            skipParameterForReason(param)?.let { reason ->
+//                throw UnresolvableTypeException(reason)
+//            }
+//
+//            val paramKotlinName = context.kotlinizeParameterName(param.name)
+//
+//            val typeInfo = when (param.type) {
+//                is GirArrayType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
+//                is GirType -> context.resolveTypeInfo(girNamespace, param.type, param.isNullable())
+//                GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
+//            }
+//
+//            // build parameter
+//            val paramBlueprint = ParameterBlueprint(
+//                kotlinName = paramKotlinName,
+//                nativeName = param.name,
+//                typeInfo = typeInfo,
+//                kdoc = context.processKdoc(param.docs.doc?.text),
+//            )
+//
+//            parameters.add(paramBlueprint)
+//        }
+//    }
 
     /**
      * Check if the parameter is supported.

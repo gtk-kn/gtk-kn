@@ -39,33 +39,32 @@ fun main() {
         button.connectClicked {
             button.setLabel("Clicked: ${counter++}")
         }
-
-        Glib.timeoutAddSecondsFull(0, 1.toUInt()) {
-            logger.info { "Timeout fired" }
-            button.setLabel("Timeout fired: ${counter++} times")
-            true
-        }
-
-
-
-
-//        val listModel = StringList(listOf("item 1", "item 2", "item 3", "item 4"))
+//        window.setChild(button)
 //
-//
-//        val filterListModel = FilterListModel(listModel, null) // TODO filter
-//
-//        val factory = SignalListItemFactory()
-//        factory.connectBind { o ->
-//            val listItem = ListItem(o.gPointer.reinterpret())
-//
-//            val item = StringObject(listItem.getItem()!!.gPointer.reinterpret())
-//
-//            val label = Label(item.getString())
-//            listItem.setChild(label)
+//        Glib.timeoutAddSecondsFull(0, 1.toUInt()) {
+//            logger.info { "Timeout fired" }
+//            button.setLabel("Timeout fired: ${counter++} times")
+//            true
 //        }
-//        val listView = ListView(SingleSelection(filterListModel), factory)
-//        window.setChild(listView)
-        window.setChild(button)
+
+
+
+
+        val listModel = StringList(listOf("item 1", "item 2", "item 3", "item 4"))
+
+        val filterListModel = FilterListModel(listModel, null) // TODO filter
+
+        val factory = SignalListItemFactory()
+        factory.connectBind { o ->
+            val listItem = ListItem(o.gPointer.reinterpret())
+
+            val item = StringObject(listItem.getItem()!!.gPointer.reinterpret())
+
+            val label = Label(item.getString())
+            listItem.setChild(label)
+        }
+        val listView = ListView(SingleSelection(filterListModel), factory)
+        window.setChild(listView)
         window.show()
     }
     app.run(0, emptyList())
