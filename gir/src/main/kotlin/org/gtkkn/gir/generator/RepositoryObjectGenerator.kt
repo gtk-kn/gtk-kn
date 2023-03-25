@@ -10,6 +10,7 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.U_INT
+import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.ConstantBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
@@ -37,8 +38,8 @@ interface RepositoryObjectGenerator : MiscGenerator {
             }
 
             type == CHAR -> format = "'$format'"
-            type == INT || type == DOUBLE || type == SHORT || type == LONG -> Unit
-            type == U_SHORT || type == U_INT -> format = "${format}u"
+            type == SHORT || type == INT || type == LONG || type == DOUBLE -> Unit
+            type == U_SHORT || type == U_INT || type == U_LONG -> format = "${format}u"
             type == BOOLEAN -> value = value.toString().toBoolean()
             else -> error("Mapping for constant with type $type missing!")
         }
