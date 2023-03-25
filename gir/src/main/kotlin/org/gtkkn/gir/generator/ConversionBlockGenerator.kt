@@ -33,10 +33,9 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.InterfacePointer -> {
                     add(
-                        "%N$safeCall.%N$safeCall.%M()",
+                        "%N$safeCall.%N",
                         param.kotlinName,
                         param.typeInfo.objectPointerName,
-                        BindingsGenerator.REINTERPRET_FUNC,
                     )
                 }
 
@@ -80,9 +79,8 @@ interface ConversionBlockGenerator {
                 is TypeInfo.ObjectPointer -> add("$safeCall.%N", typeInfo.objectPointerName)
                 is TypeInfo.InterfacePointer -> {
                     add(
-                        "$safeCall.%N$safeCall.%M()",
+                        "$safeCall.%N",
                         typeInfo.objectPointerName,
-                        BindingsGenerator.REINTERPRET_FUNC,
                     )
                 }
 
