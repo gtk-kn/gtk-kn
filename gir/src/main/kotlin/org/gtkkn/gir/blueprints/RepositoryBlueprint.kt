@@ -11,6 +11,7 @@ data class RepositoryBlueprint(
     val functionBlueprints: List<FunctionBlueprint>,
     val callbackBlueprints: List<CallbackBlueprint>,
     val bitfieldBlueprints: List<BitfieldBlueprint>,
+    val constantBlueprints: List<ConstantBlueprint>,
     val skippedObjects: List<SkippedObject>,
     val repositoryObjectName: ClassName,
 )
