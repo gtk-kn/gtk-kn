@@ -58,7 +58,6 @@ class ProcessorContext(
         "guint64" to TypeInfo.Primitive(U_LONG),
         "gulong" to TypeInfo.Primitive(U_LONG),
         "gunichar" to TypeInfo.Primitive(U_INT),
-        // strings
     )
 
     /**
