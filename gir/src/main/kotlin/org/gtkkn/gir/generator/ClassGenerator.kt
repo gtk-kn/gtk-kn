@@ -104,7 +104,9 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             // add companion functions
             clazz.functions.forEach { companionSpecBuilder.addFunction(buildFunction(it)) }
 
-            addType(companionSpecBuilder.build())
+            if (companionSpecBuilder.propertySpecs.isNotEmpty() || companionSpecBuilder.funSpecs.isNotEmpty()) {
+                addType(companionSpecBuilder.build())
+            }
         }.build()
 
     /**
