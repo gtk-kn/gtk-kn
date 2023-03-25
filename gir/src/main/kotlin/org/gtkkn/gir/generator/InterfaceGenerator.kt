@@ -7,61 +7,64 @@ import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 
 interface InterfaceGenerator : KDocGenerator, MiscGenerator {
-    fun buildInterface(iface: InterfaceBlueprint): TypeSpec {
-        val ifaceBuilder = TypeSpec.interfaceBuilder(iface.typeName)
-            .addProperty(buildInterfacePointerProperty(iface))
+    fun buildInterface(iface: InterfaceBlueprint): TypeSpec =
+        TypeSpec.interfaceBuilder(iface.typeName).apply {
+            addProperty(buildInterfacePointerProperty(iface))
 
-        // kdoc
-        ifaceBuilder.addKdoc(buildTypeKDoc(iface.kdoc, iface.skippedObjects))
+            // kdoc
+            addKdoc(buildTypeKDoc(iface.kdoc, iface.skippedObjects))
 
-        // methods
-        iface.methods.forEach { method ->
-            ifaceBuilder.addFunction(buildMethod(method, iface.objectPointerName))
-        }
+            // properties
+            iface.properties.forEach { property ->
+                addProperty(buildProperty(property, iface.objectPointerName))
+            }
 
-        // signal connect methods
-        iface.signals.forEach { signal ->
-            ifaceBuilder.addFunction(buildSignalConnectFunction(signal, iface.objectPointerName))
-        }
+            // methods
+            iface.methods.forEach { method ->
+                addFunction(buildMethod(method, iface.objectPointerName))
+            }
 
-        val wrapperClass = TypeSpec.classBuilder("Wrapper")
-            .addModifiers(KModifier.PRIVATE, KModifier.DATA)
-            .addSuperinterface(iface.typeName)
-            .primaryConstructor(
-                FunSpec.constructorBuilder()
-                    .addParameter("pointer", iface.objectPointerTypeName)
-                    .build(),
-            )
-            .addProperty(
-                PropertySpec.builder("pointer", iface.objectPointerTypeName, KModifier.PRIVATE)
-                    .initializer("pointer")
-                    .build(),
-            )
-            .addProperty(
-                PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName, KModifier.OVERRIDE)
-                    .initializer("pointer")
-                    .build(),
-            )
-            .build()
+            // signal connect methods
+            iface.signals.forEach { signal ->
+                addFunction(buildSignalConnectFunction(signal, iface.objectPointerName))
+            }
 
-        ifaceBuilder.addType(wrapperClass)
+            val wrapperClass = TypeSpec.classBuilder("Wrapper")
+                .addModifiers(KModifier.PRIVATE, KModifier.DATA)
+                .addSuperinterface(iface.typeName)
+                .primaryConstructor(
+                    FunSpec.constructorBuilder()
+                        .addParameter("pointer", iface.objectPointerTypeName)
+                        .build(),
+                )
+                .addProperty(
+                    PropertySpec.builder("pointer", iface.objectPointerTypeName, KModifier.PRIVATE)
+                        .initializer("pointer")
+                        .build(),
+                )
+                .addProperty(
+                    PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName, KModifier.OVERRIDE)
+                        .initializer("pointer")
+                        .build(),
+                )
+                .build()
 
-        // Add companion with factory wrapper function
-        val companionBuilder = TypeSpec.companionObjectBuilder()
+            addType(wrapperClass)
 
-        // wrap factory function
-        val factoryFunc = FunSpec.builder("wrap")
-            .addParameter("pointer", iface.objectPointerTypeName)
-            .returns(iface.typeName)
-            .addStatement("return Wrapper(pointer)")
-        companionBuilder.addFunction(factoryFunc.build())
+            // Add companion with factory wrapper function
+            val companionBuilder = TypeSpec.companionObjectBuilder()
 
-        iface.functions.forEach { companionBuilder.addFunction(buildFunction(it)) }
+            // wrap factory function
+            val factoryFunc = FunSpec.builder("wrap")
+                .addParameter("pointer", iface.objectPointerTypeName)
+                .returns(iface.typeName)
+                .addStatement("return Wrapper(pointer)")
+            companionBuilder.addFunction(factoryFunc.build())
 
-        ifaceBuilder.addType(companionBuilder.build())
+            iface.functions.forEach { companionBuilder.addFunction(buildFunction(it)) }
 
-        return ifaceBuilder.build()
-    }
+            addType(companionBuilder.build())
+        }.build()
 
     private fun buildInterfacePointerProperty(iface: InterfaceBlueprint): PropertySpec =
         PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName)

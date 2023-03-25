@@ -132,6 +132,7 @@ class ProcessorContext(
     // kotlin names
     fun kotlinizeMethodName(nativeMethodName: String): String =
         nativeMethodName
+            .replace("-", "_")
             .removeSuffix("_")
             .removePrefix("_")
             .toCamelCase()

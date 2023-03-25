@@ -8,6 +8,7 @@ import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
+import org.gtkkn.gir.model.GirProperty
 import org.gtkkn.gir.model.GirSignal
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
@@ -22,9 +23,11 @@ class ClassBlueprintBuilder(
 ) {
     private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
+    private val propertyBluePrints = mutableListOf<PropertyBlueprint>()
     private val signalBluePrints = mutableListOf<SignalBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
     private val implementsInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
+    private val propertyMethodBluePrintMap = hashMapOf<String, MethodBlueprint>()
     private var parentTypeName: TypeName? = null
 
     /**
@@ -54,6 +57,22 @@ class ClassBlueprintBuilder(
 
     override fun blueprintObjectName(): String = girClass.name
 
+    private fun addProperty(property: GirProperty) {
+        when (val result =
+            PropertyBlueprintBuilder(
+                context,
+                property,
+                propertyMethodBluePrintMap,
+                superClasses,
+                interfaces,
+                isOpen = girClass.final != true,
+            ).build()
+        ) {
+            is BlueprintResult.Ok -> propertyBluePrints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     private fun addMethod(method: GirMethod) {
         when (val result =
             MethodBlueprintBuilder(
@@ -64,7 +83,15 @@ class ClassBlueprintBuilder(
                 interfaces,
                 isOpen = girClass.final != true,
             ).build()) {
-            is BlueprintResult.Ok -> methodBluePrints.add(result.blueprint)
+            is BlueprintResult.Ok -> {
+                methodBluePrints.add(result.blueprint)
+                if (method.name.startsWith("get") && result.blueprint.parameters.isEmpty() ||
+                    method.name.startsWith("set") && result.blueprint.parameters.size == 1
+                ) {
+                    propertyMethodBluePrintMap[method.name] = result.blueprint
+                }
+            }
+
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
     }
@@ -108,6 +135,7 @@ class ClassBlueprintBuilder(
         addInterfaces()
 
         girClass.methods.forEach { addMethod(it) }
+        girClass.properties.forEach { addProperty(it) }
         girClass.constructors.forEach { addConstructor(it) }
         girClass.signals.forEach { addSignal(it) }
         girClass.functions.forEach { addFunction(it) }
@@ -127,6 +155,7 @@ class ClassBlueprintBuilder(
             nativeName = girClass.name,
             typeName = ClassName(kotlinPackageName, kotlinClassName),
             methods = methodBluePrints,
+            properties = propertyBluePrints,
             constructors = constructorBlueprints,
             signals = signalBluePrints,
             functions = functionBlueprints,

@@ -22,8 +22,8 @@ interface KDocGenerator {
 
     fun buildMethodKDoc(
         kdoc: String?,
-        parameters: List<ParameterBlueprint>,
-        returnTypeKDoc: String?,
+        parameters: List<ParameterBlueprint> = emptyList(),
+        returnTypeKDoc: String? = null,
     ): CodeBlock = CodeBlock.builder().apply {
         kdoc?.let { add("%L", it) }
         if (parameters.isNotEmpty() || returnTypeKDoc != null) {
