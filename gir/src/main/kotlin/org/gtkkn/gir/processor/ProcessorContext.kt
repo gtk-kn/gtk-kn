@@ -300,6 +300,7 @@ class ProcessorContext(
     /**
      * Resolve a [TypeInfo] for the given [GirType].
      */
+    @Suppress("LongMethod", "ReturnCount")
     @Throws(UnresolvableTypeException::class)
     fun resolveTypeInfo(
         girNamespace: GirNamespace,
@@ -322,23 +323,23 @@ class ProcessorContext(
 
         // strings
         if (type.name == "utf8" || type.name == "filename") {
-            when (type.cType) {
-                "const char*" -> return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
-                "const gchar*" -> return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
+            return when (type.cType) {
+                "const char*" -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
+                "const gchar*" -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
                 "char*" -> {
                     if (isArray) {
-                        return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
+                        TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
                     } else {
                         throw UnresolvableTypeException("Unsupported string type with cType: ${type.cType}")
                     }
                 }
 
-                null -> return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
+                null -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
                 else -> {
                     logger.error("Skipping string type with cType: ${type.cType}")
                     throw UnresolvableTypeException("Unsupported string with cType ${type.cType}")
                 }
-            }
+            }.withNullable(nullable)
         }
 
         // classes
