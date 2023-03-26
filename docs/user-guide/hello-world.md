@@ -67,7 +67,7 @@ That is better!
 That's much better! Now we have a working window. But, of course, we want to do more than just display an empty window.
 Let's add a button to our app:
 
-```kotlin title="samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt"
+``` kotlin title="samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt"
 --8<-- "samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt"
 ```
 

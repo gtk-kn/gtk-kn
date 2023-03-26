@@ -28,7 +28,7 @@ this tutorial covers how to create them manually to provide a better understandi
         sourceSets {
             val nativeMain by getting {
                 dependencies {
-                    // Dependencies goes here
+                    // Dependencies go here
                 }
             }
         }
