@@ -53,6 +53,8 @@ plugins:
   - search
 
 # Customization
+extra_css:
+  - stylesheets/extra.css
 extra:
   social:
     - icon: simple/matrix
@@ -95,7 +97,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.magiclink
   - pymdownx.smartsymbols
-  - pymdownx.snippets
+  - pymdownx.snippets:
+      base_path: '.'
   - pymdownx.superfences
   - smarty
   - tables
