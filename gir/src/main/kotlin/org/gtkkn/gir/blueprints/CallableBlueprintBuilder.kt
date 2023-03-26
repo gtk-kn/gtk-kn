@@ -29,12 +29,13 @@ abstract class CallableBlueprintBuilder<T : Any>(
         processedParams.forEach { callbackParam ->
             when (callbackParam) {
                 is SimpleParam -> addParameter(callbackParam.param)
-                is CallbackParamWithDestroy -> {
+                is CallbackParam -> {
                     val cbTypeInfo = TypeInfo.CallbackWithDestroy(
-                        context.resolveCallbackTypeName(
+                        kotlinTypeName = context.resolveCallbackTypeName(
                             girNamespace,
                             callbackParam.callbackType.name ?: error("unknown callback type name"),
                         ),
+                        hasDestroyParam = callbackParam.destroyParam != null
                     )
                     val cbParamBluePrint = ParameterBlueprint(
                         kotlinName = callbackParam.callbackParam.name,
@@ -67,16 +68,6 @@ abstract class CallableBlueprintBuilder<T : Any>(
             return parameters.parameters.map { SimpleParam(it) }
         }
 
-        if (parameters.parameters.count { it.closure != null } > 1) {
-            val closureParams = parameters.parameters
-                .filter { it.closure != null }
-                .map { it.name }
-                .joinToString(", ")
-            throw UnresolvableTypeException(
-                "function ${blueprintObjectName()} has multiple closure params: $closureParams",
-            )
-        }
-
         // we have 1 closure param, find its user data and destroy function
         val closureParam = parameters.parameters.first { it.closure != null }
         logger.debug("Found ${blueprintObjectType()} ${blueprintObjectName()} with closure: ${closureParam.name}")
@@ -100,15 +91,16 @@ abstract class CallableBlueprintBuilder<T : Any>(
             it.type is GirType && it.type.cType == "GDestroyNotify"
         }
         if (destroyDataParam == null) {
-            logger.warn("No destroy notify param found for ${blueprintObjectType()} ${blueprintObjectName()}")
-            throw UnresolvableTypeException("Could not resolve destroy notify param")
+            logger.debug("No destroy notify param found for ${blueprintObjectType()} ${blueprintObjectName()}")
+        } else {
+            logger.debug("Found destroy notify param for ${blueprintObjectType()} ${blueprintObjectName()}")
         }
 
         return parameters.parameters.mapNotNull {
             when (it) {
                 destroyDataParam -> null // bundled into callback param
                 userDataParam -> null  // bundled into callback param
-                closureParam -> CallbackParamWithDestroy(closureParam.type, it, userDataParam, closureParam)
+                closureParam -> CallbackParam(closureParam.type, it, userDataParam, destroyDataParam)
                 else -> SimpleParam(it)
             }
         }
@@ -129,9 +121,9 @@ sealed class ProcessedParam
 
 data class SimpleParam(val param: GirParameter) : ProcessedParam()
 
-data class CallbackParamWithDestroy(
+data class CallbackParam(
     val callbackType: GirType,
     val callbackParam: GirParameter,
     val userDataParam: GirParameter,
-    val destroyParam: GirParameter
+    val destroyParam: GirParameter?
 ) : ProcessedParam()

@@ -161,6 +161,7 @@ sealed class TypeInfo {
 
     data class CallbackWithDestroy(
         override val kotlinTypeName: ClassName,
+        val hasDestroyParam: Boolean,
     ) : TypeInfo() {
         val staticPropertyMemberName: MemberName = MemberName(
             kotlinTypeName.packageName,

@@ -52,14 +52,19 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.CallbackWithDestroy -> {
                     add(
-                        "%M.%M(), %T.create(%L).asCPointer(), %M.%M()",
+                        "%M.%M(), %T.create(%L).asCPointer()",
                         param.typeInfo.staticPropertyMemberName,
                         BindingsGenerator.REINTERPRET_FUNC,
                         BindingsGenerator.STABLEREF,
                         param.nativeName,
-                        BindingsGenerator.STATIC_STABLEREF_DESTROY,
-                        BindingsGenerator.REINTERPRET_FUNC,
                     )
+                    if (param.typeInfo.hasDestroyParam) {
+                        add(
+                            ", %M.%M()",
+                            BindingsGenerator.STATIC_STABLEREF_DESTROY,
+                            BindingsGenerator.REINTERPRET_FUNC,
+                        )
+                    }
                 }
             }
         }.build()
