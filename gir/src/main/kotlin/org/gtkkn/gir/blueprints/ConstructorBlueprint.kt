@@ -23,7 +23,8 @@ data class ConstructorBlueprint(
     val nativeMemberName: MemberName, // not enum member, but the KP reference to the native function name
     override val returnTypeInfo: TypeInfo,
     override val parameters: List<ParameterBlueprint>,
-    val version: String?,
+    override val throws: Boolean = false, // TODO throws for constructors
     val kdoc: String?,
+    val version: String?,
     val returnTypeKDoc: String?,
 ) : CallableBlueprint

@@ -145,7 +145,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                         }.build(),
                     )
                 } else {
-                    addKdoc("Note: this property is writeable but the setter binding is not supported yet.")
+                    addKdoc("\nNote: this property is writeable but the setter binding is not supported yet.")
                 }
             }
         }.build()

@@ -169,18 +169,29 @@ class BindingsGenerator(
         internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.extensions.glib", "staticStableRefDestroy")
         internal val TO_C_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toCStringList")
         internal val TO_K_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toKStringList")
+        internal val GLIB_EXCEPTION_TYPE = ClassName("org.gtkkn.extensions.glib", "GlibException")
+        internal val GLIB_ERROR_TYPE = ClassName("org.gtkkn.bindings.glib", "Error")
 
         // cinterop helper function members
         internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
         internal val TO_KSTRING_FUNC = MemberName("kotlinx.cinterop", "toKString")
         internal val STATIC_C_FUNC = MemberName("kotlinx.cinterop", "staticCFunction")
         internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
+        internal val POINTED_FUNC = MemberName("kotlinx.cinterop", "pointed")
+        internal val PTR_FUNC = MemberName("kotlinx.cinterop", "ptr")
         internal val STABLEREF = ClassName("kotlinx.cinterop", "StableRef")
         internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
         internal val POINTED = MemberName("kotlinx.cinterop", "pointed")
         internal val PTR = MemberName("kotlinx.cinterop", "ptr")
+        internal val ALLOC_POINTER_TO = MemberName("kotlinx.cinterop", "allocPointerTo")
+
+        // kotlin helpers
+        internal val RESULT_TYPE = ClassName("kotlin", "Result")
 
         // gobject members
         internal val G_SIGNAL_CONNECT_DATA = MemberName("org.gtkkn.native.gobject", "g_signal_connect_data")
+
+        // glib members
+        internal val G_ERROR_MEMBER = MemberName("org.gtkkn.native.glib", "GError")
     }
 }

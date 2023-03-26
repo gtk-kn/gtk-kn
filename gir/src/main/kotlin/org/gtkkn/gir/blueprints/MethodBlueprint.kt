@@ -8,6 +8,7 @@ data class MethodBlueprint(
     val nativeMemberName: MemberName, // not enum member, but the KP reference to the native function name
     override val parameters: List<ParameterBlueprint>,
     override val returnTypeInfo: TypeInfo,
+    override val throws: Boolean,
     val isOverride: Boolean,
     val isOpen: Boolean,
     val version: String?,

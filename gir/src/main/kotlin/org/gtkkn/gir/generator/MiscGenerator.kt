@@ -43,6 +43,8 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             }
         }.build()
 
+
+    @Suppress("LongMethod")
     fun buildMethod(
         method: MethodBlueprint,
         instancePointer: String?,
@@ -54,7 +56,11 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
     }.apply {
         addKdoc(buildMethodKDoc(method.kdoc, method.parameters, method.version, method.returnTypeKDoc))
         if (builderType == FunSpecBuilderType.DEFAULT) {
-            val returnTypeName = method.returnTypeInfo.kotlinTypeName
+            val returnTypeName = if (method.throws) {
+                BindingsGenerator.RESULT_TYPE.parameterizedBy(method.returnTypeInfo.kotlinTypeName)
+            } else {
+                method.returnTypeInfo.kotlinTypeName
+            }
 
             returns(returnTypeName)
 
@@ -67,14 +73,25 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             }
         }
 
+        appendSignatureParameters(method.parameters)
+
+        // begin implementation
+
         if (method.needsMemscoped) {
             beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
         }
 
-        appendSignatureParameters(method.parameters)
+        if (method.throws) {
+            // prepare error pointer
+            addStatement("val _err = %M<%M>()", BindingsGenerator.ALLOC_POINTER_TO, BindingsGenerator.G_ERROR_MEMBER)
+            // open native method call into intermediate val
+            addCode("val _res = %M(", method.nativeMemberName) // open native function paren
+        } else {
+            // if not throws, we can return directly without intermediate
+            addCode("return %M(", method.nativeMemberName) // open native function paren
+        }
 
         var needsComma = false
-        addCode("return %M(", method.nativeMemberName) // open native function paren
         if (instancePointer != null) {
             // adding reinterpret() here because sometimes the instancePointer has a different type
             addCode("%N.%M()", instancePointer, BindingsGenerator.REINTERPRET_FUNC)
@@ -89,10 +106,35 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode(buildParameterConversionBlock(param))
         }
 
+        if (method.throws) {
+            addCode(", _err.%M", BindingsGenerator.PTR_FUNC)
+        }
+
         addCode(")") // close native function paren
 
-        // return value conversion
+        // native function return value conversion
         addCode(buildNativeToKotlinConversionsBlock(method.returnTypeInfo))
+
+        if (method.throws) {
+            addStatement("")
+            // check errors and wrap in Result
+            beginControlFlow("return if (_err.%M != null)", BindingsGenerator.POINTED_FUNC)
+            addStatement(
+                "%T.failure(%T(%T(_err.%M!!.%M.%M())))",
+                BindingsGenerator.RESULT_TYPE,
+                BindingsGenerator.GLIB_EXCEPTION_TYPE,
+                BindingsGenerator.GLIB_ERROR_TYPE,
+                BindingsGenerator.POINTED_FUNC,
+                BindingsGenerator.PTR_FUNC,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+            endControlFlow()
+            beginControlFlow("else")
+            addStatement("%T.success(_res)", BindingsGenerator.RESULT_TYPE)
+            endControlFlow()
+        } else {
+            // return is already handled
+        }
 
         if (method.needsMemscoped) {
             endControlFlow()
