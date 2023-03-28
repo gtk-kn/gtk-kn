@@ -552,4 +552,7 @@ class ProcessorContext(
     }
 
     private fun String?.sanitizeKDoc(): String? = this?.replace("...]", "]")
+        ?.replace("%TRUE", "true")
+        ?.replace("%FALSE", "false")
+        ?.replace("%NULL", "null")
 }

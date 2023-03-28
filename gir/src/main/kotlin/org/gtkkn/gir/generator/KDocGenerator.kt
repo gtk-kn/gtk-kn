@@ -62,7 +62,6 @@ interface KDocGenerator {
         version?.let { add("\n\n@since %L", it) }
     }.build()
 
-
     fun buildCallbackKDoc(
         kdoc: String?,
         parameters: List<ParameterBlueprint>,
