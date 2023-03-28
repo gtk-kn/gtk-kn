@@ -35,7 +35,7 @@ abstract class CallableBlueprintBuilder<T : Any>(
                             girNamespace,
                             callbackParam.callbackType.name ?: error("unknown callback type name"),
                         ),
-                        hasDestroyParam = callbackParam.destroyParam != null
+                        hasDestroyParam = callbackParam.destroyParam != null,
                     )
                     val cbParamBluePrint = ParameterBlueprint(
                         kotlinName = callbackParam.callbackParam.name,

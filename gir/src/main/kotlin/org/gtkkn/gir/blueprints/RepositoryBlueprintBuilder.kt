@@ -101,7 +101,7 @@ class RepositoryBlueprintBuilder(
         )
         val repositoryCallbacksName = ClassName(
             context.namespaceBindingsPackageName(namespace),
-            "Callbacks"
+            "Callbacks",
         )
 
         return RepositoryBlueprint(
@@ -116,7 +116,7 @@ class RepositoryBlueprintBuilder(
             constantBlueprints = constantBlueprints,
             skippedObjects = skippedObjects,
             repositoryObjectName = repositoryObjectName,
-            repositoryCallbacksName = repositoryCallbacksName
+            repositoryCallbacksName = repositoryCallbacksName,
         )
     }
 }

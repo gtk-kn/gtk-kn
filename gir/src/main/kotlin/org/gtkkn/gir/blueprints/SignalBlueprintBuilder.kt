@@ -33,7 +33,7 @@ class SignalBlueprintBuilder(
     override fun buildInternal(): SignalBlueprint {
         context.checkIgnoredSignal(girSignal.name)
 
-        girSignal.parameters?.parameters.orEmpty().forEach { addParameter(it) }
+        girSignal.parameters?.parameters?.forEach { addParameter(it) }
 
         // return value
         val returnValue = girSignal.returnValue ?: error("Signal has no return value")

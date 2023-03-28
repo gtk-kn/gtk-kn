@@ -41,7 +41,9 @@ class CallbackBlueprintBuilder(
             throw UnresolvableTypeException("Callbacks that throw are not supported")
         }
 
-        if (girCallback.parameters?.instanceParameter != null) error("Callback with instance parameter")
+        if (girCallback.parameters?.instanceParameter != null) {
+            error("Callback with instance parameter")
+        }
 
         val returnValue = girCallback.returnValue ?: error("Callback has no return value")
 
@@ -59,7 +61,7 @@ class CallbackBlueprintBuilder(
             throw UnresolvableTypeException("Callback with String return value is not supported")
         }
 
-        girCallback.parameters?.parameters.orEmpty().forEach { addParameter(it) }
+        girCallback.parameters?.parameters?.forEach { addParameter(it) }
 
         val callbackLambdaTypeName =
             LambdaTypeName.get(
@@ -75,7 +77,7 @@ class CallbackBlueprintBuilder(
             lambdaTypeName = callbackLambdaTypeName,
             parameters = callbackParameters,
             kdoc = context.processKdoc(girCallback.info.docs.doc?.text),
-            returnTypeKDoc = context.processKdoc(girCallback.returnValue.docs.doc?.text)
+            returnTypeKDoc = context.processKdoc(girCallback.returnValue.docs.doc?.text),
         )
     }
 }

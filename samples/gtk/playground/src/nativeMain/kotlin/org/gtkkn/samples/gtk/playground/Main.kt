@@ -1,12 +1,9 @@
 package org.gtkkn.samples.gtk.playground
 
 import bindings.gio.ApplicationFlags
-import bindings.glib.Glib
 import bindings.gtk.Application
 import bindings.gtk.ApplicationWindow
 import bindings.gtk.Button
-import bindings.gtk.CustomFilter
-import bindings.gtk.Filter
 import bindings.gtk.FilterListModel
 import bindings.gtk.Label
 import bindings.gtk.ListItem
@@ -46,9 +43,6 @@ fun main() {
 //            button.setLabel("Timeout fired: ${counter++} times")
 //            true
 //        }
-
-
-
 
         val listModel = StringList(listOf("item 1", "item 2", "item 3", "item 4"))
 

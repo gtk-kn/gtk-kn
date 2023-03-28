@@ -77,7 +77,7 @@ class BindingsGenerator(
             buildRepositoryObject(repository),
             repositorySrcDir(repository, outputDir),
             additionalTypeAliases = repository.callbackBlueprints.map { buildCallbackTypeAlias(it) },
-            additionalProperties = repository.callbackBlueprints.map { buildStaticCallbackProperty(it) }
+            additionalProperties = repository.callbackBlueprints.map { buildStaticCallbackProperty(it) },
         )
     }
 
