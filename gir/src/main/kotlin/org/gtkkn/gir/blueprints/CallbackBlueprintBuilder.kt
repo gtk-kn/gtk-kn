@@ -74,7 +74,8 @@ class CallbackBlueprintBuilder(
             returnTypeInfo = returnTypeInfo,
             lambdaTypeName = callbackLambdaTypeName,
             parameters = callbackParameters,
-            kdoc = context.processKdoc(girCallback.info.docs.doc?.text)
+            kdoc = context.processKdoc(girCallback.info.docs.doc?.text),
+            returnTypeKDoc = context.processKdoc(girCallback.returnValue.docs.doc?.text)
         )
     }
 }

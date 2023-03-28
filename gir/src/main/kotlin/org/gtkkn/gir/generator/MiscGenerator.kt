@@ -263,7 +263,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
     fun buildCallbackTypeAlias(callback: CallbackBlueprint) =
         TypeAliasSpec.builder(callback.kotlinName, callback.lambdaTypeName)
-            .addKdoc(buildTypeKDoc(callback.kdoc))
+            .addKdoc(buildCallbackKDoc(callback.kdoc, callback.parameters, callback.returnTypeKDoc))
             .build()
 
     /**

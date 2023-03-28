@@ -8,6 +8,7 @@ data class CallbackBlueprint(
     override val parameters: List<ParameterBlueprint>,
     override val lambdaTypeName: LambdaTypeName,
     val kdoc: String?,
+    val returnTypeKDoc: String?,
 ) : ClosureBlueprint {
     override val hasInstanceParameter: Boolean = false
 }
