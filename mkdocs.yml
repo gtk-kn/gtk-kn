@@ -1,0 +1,148 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+# pip install -r mkdocs-requirements.txt
+# mkdocs serve
+
+# Project information
+site_name: gtk-kn
+site_url: https://gtk-kn.gitlab.io/gtk-kn/
+site_description: "Kotlin Native bindings for the GTK framework"
+site_author: gtk-kn
+
+# Repository
+repo_name: gtk-kn
+repo_url: https://gitlab.com/gtk-kn/gtk-kn
+edit_uri: edit/master/docs/
+
+# Copyright
+copyright: >
+  Copyright &copy; 2023 gtk-kn –
+  <a href="#__consent">Change cookie settings</a>
+
+# Configuration
+theme:
+  name: 'material'
+  logo: 'assets/logo.svg'
+  favicon: 'assets/logo.svg'
+  palette:
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: 'black'
+      accent: 'deep-purple'
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: 'black'
+      accent: 'blue-grey'
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - content.action.edit
+    - content.code.copy
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+
+# Plugins
+plugins:
+  - search
+
+# Customization
+extra_css:
+  - stylesheets/extra.css
+extra:
+  social:
+    - icon: simple/matrix
+      link: https://matrix.to/#/#gtk-kn:matrix.org
+    - icon: fontawesome/brands/gitlab
+      link: https://gitlab.com/gtk-kn/
+    - icon: fontawesome/brands/github
+      link: https://github.com/gtk-kn/
+  consent:
+    title: Cookie consent
+    description: >-
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+    actions:
+      - accept
+      - reject
+
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - attr_list
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - md_in_html
+  - meta
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      base_path: '.'
+  - pymdownx.superfences
+  - smarty
+  - tables
+  - toc:
+      permalink: true
+
+# Page tree
+nav:
+  - Home:
+      - Overview: index.md
+      - Change Log: changelog.md
+      - Contributing: contributing.md
+  - User guide:
+      - Introduction: user-guide/introduction.md
+      - Installation: user-guide/installation.md
+      - K/N project setup: user-guide/project-setup.md
+      - Deploy on MavenLocal: user-guide/deploy-on-mavenlocal.md
+      - Hello World!: user-guide/hello-world.md
+      - GObject concepts: user-guide/gobject-concepts.md
+      - The main event loop: user-guide/the-main-event-loop.md
+      - GTK4:
+          - Introduction: user-guide/gtk4/introduction.md
+          - Widgets:
+              - Display widgets: user-guide/gtk4/widgets/display-widgets.md
+              - Buttons: user-guide/gtk4/widgets/buttons.md
+              - Entries: user-guide/gtk4/widgets/entries.md
+              - Layout containers: user-guide/gtk4/widgets/layout-containers.md
+              - Windows: user-guide/gtk4/widgets/windows.md
+          - Clipboard: user-guide/gtk4/clipboard.md
+          - Drag and Drop: user-guide/gtk4/drag-and-drop.md
+          - Actions: user-guide/gtk4/actions.md
+          - Menus: user-guide/gtk4/menus.md
+      - Gio:
+          - Introduction: user-guide/gio/introduction.md
+          - File operations: user-guide/gio/file-operations.md
+          - Settings: user-guide/gio/settings.md
+      - Adwaita:
+          - Introduction: user-guide/adwaita/introduction.md
+          - Widgets:
+              - Boxed lists: user-guide/adwaita/widgets/boxed-lists.md
+              - Sidebar: user-guide/adwaita/widgets/sidebar.md
+              - Placeholder page: user-guide/adwaita/widgets/placeholder-page.md
+              - Collections: user-guide/adwaita/widgets/collections.md
+              - Window: user-guide/adwaita/widgets/window.md
+              - Leaflet and Dialog: user-guide/adwaita/widgets/leaflet-and-dialog.md
+
+  - API: dokka/index.html

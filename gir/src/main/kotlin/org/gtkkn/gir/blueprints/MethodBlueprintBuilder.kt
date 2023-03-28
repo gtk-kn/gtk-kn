@@ -96,6 +96,7 @@ class MethodBlueprintBuilder(
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
             isOpen = isOpen,
+            version = girMethod.info.version,
             kdoc = context.processKdoc(girMethod.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girMethod.returnValue.docs.doc?.text),
         )

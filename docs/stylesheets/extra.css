@@ -1,0 +1,22 @@
+/* darcula looking style */
+[data-md-color-scheme="slate"] {
+    --md-code-fg-color: rgb(169, 183, 198); /* normal */
+    --md-code-bg-color: rgb(43, 43, 43); /* background */
+    --md-code-hl-color: var(--md-default-bg-color--light);
+    --md-code-hl-operator-color: var(--md-code-fg-color); /* +-=/ */
+    --md-code-hl-operator-word-color: var(--md-code-hl-keyword-color); /* not and or */
+    --md-code-hl-punctuation-color: var(--md-code-fg-color);
+    --md-code-hl-string-color: rgb(98, 151, 85); /*str*/
+    --md-code-hl-special-color: var(--md-code-hl-keyword-color); /* "some\nthing"*/
+    --md-code-hl-number-color: rgb(104, 151, 187); /*num*/
+    --md-code-hl-keyword-color: rgb(204, 120, 50); /* def/if/for */
+    --md-code-hl-name-color: var(--md-code-fg-color); /* variables */
+    --md-code-hl-constant-color: rgb(136, 136, 198); /* builtins, not constants... */
+    --md-code-hl-pseudo-color: rgb(148, 85, 141); /* self */
+    --md-code-hl-function-color: rgb(255, 198, 109); /* foo() */
+    --md-code-hl-decorator-color: rgb(187, 181, 41); /* @something */
+    --md-code-hl-comment-color: rgb(128, 128, 128); /*  # comment */
+    --md-code-hl-variable-color: var(--md-code-fg-color);
+    --md-code-hl-generic-color: var(--md-code-fg-color);
+    --md-code-hl-dunder-color: rgb(178, 0, 178); /* ADD */
+}

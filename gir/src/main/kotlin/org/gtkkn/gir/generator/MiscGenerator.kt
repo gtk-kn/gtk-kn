@@ -22,7 +22,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
     fun buildProperty(property: PropertyBlueprint, instancePointer: String?): PropertySpec =
         PropertySpec.builder(property.kotlinName, property.typeInfo.kotlinTypeName, KModifier.PUBLIC).apply {
-            property.kdoc?.let { addKdoc("%L", it) }
+            addKdoc(buildPropertyKDoc(property.kdoc, property.version))
 
             if (property.isOverride) {
                 addModifiers(KModifier.OVERRIDE)
@@ -49,7 +49,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         FunSpecBuilderType.GETTER -> FunSpec.getterBuilder()
         FunSpecBuilderType.SETTER -> FunSpec.setterBuilder()
     }.apply {
-        addKdoc(buildMethodKDoc(method.kdoc, method.parameters, method.returnTypeKDoc))
+        addKdoc(buildMethodKDoc(method.kdoc, method.parameters, method.version, method.returnTypeKDoc))
         if (builderType == FunSpecBuilderType.DEFAULT) {
             val returnTypeName = method.returnTypeInfo.kotlinTypeName
 
@@ -100,7 +100,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
      * Build a function implementation for standalone functions (not methods with an instance parameter).
      */
     fun buildFunction(func: FunctionBlueprint): FunSpec = FunSpec.builder(func.kotlinName).apply {
-        addKdoc(buildMethodKDoc(func.kdoc, func.parameters, func.returnTypeKDoc))
+        addKdoc(buildMethodKDoc(func.kdoc, func.parameters, func.version, func.returnTypeKDoc))
         // add return value to signature
         returns(func.returnTypeInfo.kotlinTypeName)
 
@@ -133,7 +133,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             val connectFlagsTypeName = ClassName("bindings.gobject", "ConnectFlags")
             val connectFlagsDefaultMemberName = MemberName("bindings.gobject.ConnectFlags.Companion", "DEFAULT")
 
-            addKdoc(buildSignalKDoc(signal.kdoc, signal.parameters, signal.returnTypeKDoc))
+            addKdoc(buildSignalKDoc(signal.kdoc, signal.parameters, signal.version, signal.returnTypeKDoc))
 
             // connect flags
             addParameter(

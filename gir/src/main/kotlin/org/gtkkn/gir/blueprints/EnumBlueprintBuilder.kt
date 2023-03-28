@@ -37,6 +37,7 @@ class EnumBlueprintBuilder(
             nativeName = girMember.name,
             nativeValue = nativeValue,
             nativeMemberName = nativeMemberName,
+            version = girMember.info.version,
             kdoc = context.processKdoc(girMember.info.docs.doc?.text),
         )
 
@@ -83,6 +84,7 @@ class EnumBlueprintBuilder(
             nativeValueTypeName = nativeValueTypeName,
             memberBlueprints = members,
             functionBlueprints = functionBlueprints,
+            version = girEnum.info.version,
             kdoc = context.processKdoc(girEnum.info.docs.doc?.text),
         )
     }

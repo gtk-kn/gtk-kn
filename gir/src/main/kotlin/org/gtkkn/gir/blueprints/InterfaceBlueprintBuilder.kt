@@ -96,6 +96,7 @@ class InterfaceBlueprintBuilder(
             objectPointerTypeName = objectPointerTypeName,
             signals = signalBluePrints,
             functions = functionBlueprints,
+            version = girInterface.info.version,
             kdoc = context.processKdoc(girInterface.info.docs.doc?.text),
         )
     }

@@ -12,7 +12,7 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             addProperty(buildInterfacePointerProperty(iface))
 
             // kdoc
-            addKdoc(buildTypeKDoc(iface.kdoc, iface.skippedObjects))
+            addKdoc(buildTypeKDoc(iface.kdoc, iface.version, iface.skippedObjects))
 
             // properties
             iface.properties.forEach { property ->

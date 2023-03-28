@@ -165,6 +165,7 @@ class ClassBlueprintBuilder(
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
             isFinal = girClass.final == true,
+            version = girClass.info.version,
             kdoc = context.processKdoc(girClass.info.docs.doc?.text),
         )
     }

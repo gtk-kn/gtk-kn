@@ -7,5 +7,6 @@ data class PropertyBlueprint(
     val setter: MethodBlueprint?,
     val isOverride: Boolean,
     val isOpen: Boolean,
+    val version: String?,
     val kdoc: String?,
 )
