@@ -71,6 +71,9 @@ class ProcessorContext(
         // cinterop fails to map these graphene enums
         "graphene_ray_intersection_kind_t",
         "graphene_euler_order_t",
+
+        // callback returning a String
+        "GtkScaleFormatValueFunc",
     )
 
     /**
@@ -104,6 +107,10 @@ class ProcessorContext(
 
         // which def file should include this (gio or glib)?
         "g_networking_init",
+
+        // might be missing unix-related headers?
+        "g_unix_fd_add_full",
+        "g_unix_signal_add_full",
     )
 
     /**
@@ -244,6 +251,14 @@ class ProcessorContext(
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeClassName)
         val clazz = namespace.classes.find { it.name == simpleName }
             ?: throw UnresolvableTypeException("class $nativeClassName not found")
+        return ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(clazz.name))
+    }
+
+    @Throws(UnresolvableTypeException::class)
+    fun resolveCallbackTypeName(targetNamespace: GirNamespace, nativeCallbackName: String): ClassName {
+        val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeCallbackName)
+        val clazz = namespace.callbacks.find { it.name == simpleName }
+            ?: throw UnresolvableTypeException("callback $nativeCallbackName not found")
         return ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(clazz.name))
     }
 
@@ -537,4 +552,7 @@ class ProcessorContext(
     }
 
     private fun String?.sanitizeKDoc(): String? = this?.replace("...]", "]")
+        ?.replace("%TRUE", "true")
+        ?.replace("%FALSE", "false")
+        ?.replace("%NULL", "null")
 }

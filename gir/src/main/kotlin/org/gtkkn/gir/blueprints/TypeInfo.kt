@@ -1,5 +1,7 @@
 package org.gtkkn.gir.blueprints
 
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeName
 
 /**
@@ -154,6 +156,24 @@ sealed class TypeInfo {
         override fun withNullable(nullable: Boolean): TypeInfo = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
+        )
+    }
+
+    data class CallbackWithDestroy(
+        override val kotlinTypeName: ClassName,
+        val hasDestroyParam: Boolean,
+    ) : TypeInfo() {
+        val staticPropertyMemberName: MemberName = MemberName(
+            kotlinTypeName.packageName,
+            "${kotlinTypeName.simpleName}Func",
+        )
+        override val isCinteropNullable: Boolean = true
+
+        override val nativeTypeName: TypeName
+            get() = error("nativeTypeName of CallbackWithDestroy should not be called")
+
+        override fun withNullable(nullable: Boolean): TypeInfo = copy(
+            kotlinTypeName = kotlinTypeName.copy(nullable) as ClassName,
         )
     }
 }

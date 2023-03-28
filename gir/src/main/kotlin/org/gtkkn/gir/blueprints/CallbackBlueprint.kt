@@ -1,6 +1,14 @@
 package org.gtkkn.gir.blueprints
 
+import com.squareup.kotlinpoet.LambdaTypeName
+
 data class CallbackBlueprint(
     val kotlinName: String,
-    val nativeName: String,
-)
+    override val returnTypeInfo: TypeInfo,
+    override val parameters: List<ParameterBlueprint>,
+    override val lambdaTypeName: LambdaTypeName,
+    val kdoc: String?,
+    val returnTypeKDoc: String?,
+) : ClosureBlueprint {
+    override val hasInstanceParameter: Boolean = false
+}

@@ -9,8 +9,11 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeAliasSpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.U_LONG
+import org.gtkkn.gir.blueprints.CallbackBlueprint
+import org.gtkkn.gir.blueprints.ClosureBlueprint
 import org.gtkkn.gir.blueprints.FunctionBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
 import org.gtkkn.gir.blueprints.ParameterBlueprint
@@ -144,7 +147,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             // trailing lambda for handler
             addParameter(
                 "handler",
-                signal.handlerLambdaTypeName,
+                signal.lambdaTypeName,
             )
             returns(U_LONG)
 
@@ -154,7 +157,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode(", %S", signal.signalName)
             addCode(", %NFunc.%M()", signal.kotlinConnectName, BindingsGenerator.REINTERPRET_FUNC)
             addCode(", %T.create(handler).asCPointer()", BindingsGenerator.STABLEREF)
-            addCode(", %M", BindingsGenerator.STATIC_STABLEREF_DESTROY)
+            addCode(", %M.%M()", BindingsGenerator.STATIC_STABLEREF_DESTROY, BindingsGenerator.REINTERPRET_FUNC)
             addCode(", connectFlags.mask")
 
             addCode(")")
@@ -174,19 +177,21 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
                 },
             ),
             KModifier.PRIVATE,
-        ).initializer(buildStaticSignalCallbackImplementation(signal))
+        ).initializer(buildStaticClosureImplementation(signal))
         return staticCallbackVal.build()
     }
 
     /**
-     * Build the [staticCFunction] implementation for signal connect handlers.
+     * Build the [staticCFunction] implementation for closures like signal connect handlers and callbacks.
      */
-    private fun buildStaticSignalCallbackImplementation(signal: SignalBlueprint) = CodeBlock.builder().apply {
+    private fun buildStaticClosureImplementation(closure: ClosureBlueprint) = CodeBlock.builder().apply {
         beginControlFlow("%M", BindingsGenerator.STATIC_C_FUNC)
 
         // lambda signature
-        addStatement("_: %T,", NativeTypes.KP_OPAQUE_POINTER)
-        signal.parameters.forEach { param ->
+        if (closure.hasInstanceParameter) {
+            addStatement("_: %T,", NativeTypes.KP_OPAQUE_POINTER)
+        }
+        closure.parameters.forEach { param ->
             // cinterop maps methods return values with pointer types as nullable
             // so we do the same thing here for the staticCFunction pointer arguments
             // we have to check for gir-based nullability first because otherwise we get double `??`
@@ -197,19 +202,19 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             }
             addStatement("%N: %T$forceNullable,", param.kotlinName, param.typeInfo.nativeTypeName)
         }
-        addStatement("data: %T ->", NativeTypes.KP_OPAQUE_POINTER)
+        addStatement("user_data: %T ->", NativeTypes.KP_OPAQUE_POINTER)
 
-        if (signal.needsMemscoped) {
+        if (closure.needsMemscoped || closure.needsMemscopedReturnValue) {
             beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
         }
 
         // implementation
         add(
-            "data.%M<%T>().get().invoke(",
+            "user_data.%M<%T>().get().invoke(",
             BindingsGenerator.AS_STABLE_REF_FUNC,
-            signal.handlerLambdaTypeName,
+            closure.lambdaTypeName,
         ) // open invoke
-        signal.parameters.forEachIndexed { index, param ->
+        closure.parameters.forEachIndexed { index, param ->
             if (index > 0) {
                 add(", ")
             }
@@ -219,8 +224,9 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         add(")") // close invoke
 
         // convert the return type and return from the lambda
-        add(buildKotlinToNativeTypeConversionBlock(signal.returnTypeInfo))
-        if (signal.needsMemscoped) {
+        add(buildKotlinToNativeTypeConversionBlock(closure.returnTypeInfo))
+
+        if (closure.needsMemscoped || closure.needsMemscopedReturnValue) {
             endControlFlow()
         }
 
@@ -253,5 +259,27 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             val kotlinParamType = param.typeInfo.kotlinTypeName
             addParameter(param.kotlinName, kotlinParamType)
         }
+    }
+
+    fun buildCallbackTypeAlias(callback: CallbackBlueprint) =
+        TypeAliasSpec.builder(callback.kotlinName, callback.lambdaTypeName)
+            .addKdoc(buildCallbackKDoc(callback.kdoc, callback.parameters, callback.returnTypeKDoc))
+            .build()
+
+    /**
+     * Build the private property that holds the static C callback functions that we use for implementing
+     * callbacks methods.
+     */
+    fun buildStaticCallbackProperty(callback: CallbackBlueprint): PropertySpec {
+        val staticCallbackVal = PropertySpec.builder(
+            "${callback.kotlinName}Func",
+            nativeCallbackCFunctionTypeName(
+                callback.returnTypeInfo.nativeTypeName,
+                callback.parameters.map { param ->
+                    ParameterSpec.builder("", param.typeInfo.nativeTypeName).build()
+                },
+            ),
+        ).initializer(buildStaticClosureImplementation(callback))
+        return staticCallbackVal.build()
     }
 }

@@ -61,4 +61,19 @@ interface KDocGenerator {
         kdoc?.let { add("%L", it) }
         version?.let { add("\n\n@since %L", it) }
     }.build()
+
+    fun buildCallbackKDoc(
+        kdoc: String?,
+        parameters: List<ParameterBlueprint>,
+        returnTypeKDoc: String?,
+    ): CodeBlock = CodeBlock.builder().apply {
+        kdoc?.let { add("%L", it) }
+        if (parameters.isNotEmpty() || returnTypeKDoc != null) {
+            add("\n")
+        }
+        parameters.forEach {
+            add("\n- param %L", "`${it.kotlinName}` ${it.kdoc.orEmpty()}")
+        }
+        returnTypeKDoc?.let { add("\n- return %L", it) }
+    }.build()
 }

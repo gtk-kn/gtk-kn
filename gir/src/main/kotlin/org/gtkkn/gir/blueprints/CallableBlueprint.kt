@@ -9,4 +9,7 @@ interface CallableBlueprint {
      */
     val needsMemscoped: Boolean
         get() = parameters.any { it.typeInfo is TypeInfo.StringList }
+
+    val needsMemscopedReturnValue: Boolean
+        get() = returnTypeInfo is TypeInfo.StringList
 }

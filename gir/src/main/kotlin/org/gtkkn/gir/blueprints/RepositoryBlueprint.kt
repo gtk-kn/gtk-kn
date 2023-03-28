@@ -14,4 +14,5 @@ data class RepositoryBlueprint(
     val constantBlueprints: List<ConstantBlueprint>,
     val skippedObjects: List<SkippedObject>,
     val repositoryObjectName: ClassName,
+    val repositoryCallbacksName: ClassName,
 )
