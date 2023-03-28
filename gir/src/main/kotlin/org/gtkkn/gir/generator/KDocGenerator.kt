@@ -72,8 +72,8 @@ interface KDocGenerator {
             add("\n")
         }
         parameters.forEach {
-            add("\n@param %L", "${it.kotlinName} ${it.kdoc.orEmpty()}")
+            add("\n- param %L", "`${it.kotlinName}` ${it.kdoc.orEmpty()}")
         }
-        returnTypeKDoc?.let { add("\n@return %L", it) }
+        returnTypeKDoc?.let { add("\n- return %L", it) }
     }.build()
 }

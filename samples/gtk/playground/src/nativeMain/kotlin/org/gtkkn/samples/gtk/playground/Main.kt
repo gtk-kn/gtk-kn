@@ -3,7 +3,6 @@ package org.gtkkn.samples.gtk.playground
 import bindings.gio.ApplicationFlags
 import bindings.gtk.Application
 import bindings.gtk.ApplicationWindow
-import bindings.gtk.Button
 import bindings.gtk.FilterListModel
 import bindings.gtk.Label
 import bindings.gtk.ListItem
@@ -30,23 +29,9 @@ fun main() {
         val window = ApplicationWindow(app)
         window.setTitle("Hello gtk-kn")
 
-        var counter = 0
-
-        val button = Button("Click me")
-        button.connectClicked {
-            button.setLabel("Clicked: ${counter++}")
-        }
-//        window.setChild(button)
-//
-//        Glib.timeoutAddSecondsFull(0, 1.toUInt()) {
-//            logger.info { "Timeout fired" }
-//            button.setLabel("Timeout fired: ${counter++} times")
-//            true
-//        }
-
         val listModel = StringList(listOf("item 1", "item 2", "item 3", "item 4"))
 
-        val filterListModel = FilterListModel(listModel, null) // TODO filter
+        val filterListModel = FilterListModel(listModel, null)
 
         val factory = SignalListItemFactory()
         factory.connectBind { o ->
