@@ -22,10 +22,3 @@ reference for a certain topic, you might find it useful to just jump into it.
 The guide strives to explain essential GTK concepts paired with practical examples. However, if a concept can be better
 conveyed with a less practical example, we took this path most of the time. If you are interested in contained and
 useful examples, we refer you to the corresponding section of `gtk-kn`'s repository.
-
-## License
-
-The guide itself is licensed under
-the [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by/4.0/). The only
-exception are the code snippets, which are licensed under
-the [MIT license](https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/README.md).

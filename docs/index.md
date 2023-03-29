@@ -7,7 +7,7 @@ you to create high-quality applications with ease.
 
 ## From Setup to Deployment
 
-The `gtk-kn` [User Guide](user-guide/introduction.md) is an essential resource for developers looking to explore the
+The `gtk-kn` [User Guide](user-guide/index.md) is an essential resource for developers looking to explore the
 capabilities of our project. The guide is designed to provide step-by-step instructions for integrating `gtk-kn` into
 your Kotlin/Native project, along with detailed explanations of the various features and functionalities that our
 project provides. From basic setup instructions to more advanced use cases, the `gtk-kn` User Guide offers a
@@ -30,3 +30,10 @@ In addition, the following projects and resources have been invaluable in creati
 
 Without the help of these projects and resources, this documentation would not have been possible. Their hard work and
 dedication to the GTK ecosystem are greatly appreciated.
+
+## License
+
+The guide itself is licensed under
+the [Creative Commons Attribution-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).
+The only exception are the code snippets, which are licensed under
+the [MIT license](https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/README.md).

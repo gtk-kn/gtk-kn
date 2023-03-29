@@ -21,8 +21,16 @@ copyright: >
 # Configuration
 theme:
   name: 'material'
-  logo: 'assets/logo.svg'
-  favicon: 'assets/logo.svg'
+  features:
+    - content.action.edit
+    - content.code.copy
+    - navigation.indexes
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
   palette:
     - media: '(prefers-color-scheme: light)'
       scheme: default
@@ -38,15 +46,8 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
-  features:
-    - content.action.edit
-    - content.code.copy
-    - navigation.tabs
-    - navigation.top
-    - search.highlight
-    - search.share
-    - search.suggest
-    - toc.follow
+  logo: 'assets/logo.svg'
+  favicon: 'assets/logo.svg'
 
 # Plugins
 plugins:
@@ -108,11 +109,11 @@ markdown_extensions:
 # Page tree
 nav:
   - Home:
-      - Overview: index.md
+      - index.md
       - Change Log: changelog.md
       - Contributing: contributing.md
   - User guide:
-      - Introduction: user-guide/introduction.md
+      - user-guide/index.md
       - Installation: user-guide/installation.md
       - K/N project setup: user-guide/project-setup.md
       - Deploy on MavenLocal: user-guide/deploy-on-mavenlocal.md
@@ -120,23 +121,25 @@ nav:
       - GObject concepts: user-guide/gobject-concepts.md
       - The main event loop: user-guide/the-main-event-loop.md
       - GTK4:
-          - Introduction: user-guide/gtk4/introduction.md
+          - user-guide/gtk4/index.md
           - Widgets:
-              - Display widgets: user-guide/gtk4/widgets/display-widgets.md
-              - Buttons: user-guide/gtk4/widgets/buttons.md
-              - Entries: user-guide/gtk4/widgets/entries.md
-              - Layout containers: user-guide/gtk4/widgets/layout-containers.md
-              - Windows: user-guide/gtk4/widgets/windows.md
+              - user-guide/gtk4/widgets/index.md
+              - Gallery: user-guide/gtk4/widgets/visual-index.md
+              - Examples:
+                  - Label: user-guide/gtk4/widgets/examples/label.md
+                  - ProgressBar: user-guide/gtk4/widgets/examples/progress-bar.md
+                  - Spinner: user-guide/gtk4/widgets/examples/spinner.md
           - Clipboard: user-guide/gtk4/clipboard.md
           - Drag and Drop: user-guide/gtk4/drag-and-drop.md
           - Actions: user-guide/gtk4/actions.md
           - Menus: user-guide/gtk4/menus.md
-      - Gio:
-          - Introduction: user-guide/gio/introduction.md
+      - GIO:
+          - user-guide/gio/index.md
           - File operations: user-guide/gio/file-operations.md
+          - Notifications: user-guide/gio/notifications.md
           - Settings: user-guide/gio/settings.md
       - Adwaita:
-          - Introduction: user-guide/adwaita/introduction.md
+          - user-guide/adwaita/index.md
           - Widgets:
               - Boxed lists: user-guide/adwaita/widgets/boxed-lists.md
               - Sidebar: user-guide/adwaita/widgets/sidebar.md
@@ -144,5 +147,6 @@ nav:
               - Collections: user-guide/adwaita/widgets/collections.md
               - Window: user-guide/adwaita/widgets/window.md
               - Leaflet and Dialog: user-guide/adwaita/widgets/leaflet-and-dialog.md
-
+      - Tutorials:
+          - Text viewer: user-guide/tutorials/text-viewer.md
   - API: dokka/index.html
