@@ -17,7 +17,7 @@ fun label() {
             title = "Label Example"
         }
 
-        val hbox = Box(orientation = Orientation.HORIZONTAL, spacing = 10).apply {
+        val hbox = Box(Orientation.HORIZONTAL, spacing = 10).apply {
             homogeneous = false
             marginStart = 16
             marginTop = 16
@@ -38,16 +38,19 @@ fun label() {
         hbox.append(vboxLeft)
         hbox.append(vboxRight)
 
-        vboxLeft.append(getNormalLabel())
-        vboxLeft.append(getLeftJustifiedLabel())
-        vboxLeft.append(getRightJustifiedLabel())
-        vboxRight.append(getLineWrappedLabel())
-        vboxRight.append(getLineWrappedFilledLabel())
-        vboxLeft.append(getMarkupLabel())
-
         val button = getButton()
-        vboxLeft.append(getLabelWithMnemonic(button))
-        vboxRight.append(button)
+        vboxLeft.apply {
+            append(getNormalLabel())
+            append(getLeftJustifiedLabel())
+            append(getRightJustifiedLabel())
+            append(getMarkupLabel())
+            append(getLabelWithMnemonic(button))
+        }
+        vboxRight.apply {
+            append(getLineWrappedLabel())
+            append(getLineWrappedFilledLabel())
+            append(button)
+        }
 
         window.setChild(hbox)
         window.show()

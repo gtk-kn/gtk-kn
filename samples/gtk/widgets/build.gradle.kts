@@ -24,7 +24,7 @@ kotlin {
     nativeTarget.apply {
         binaries {
             executable {
-                entryPoint = "org.gtkkn.samples.gtk.widgets.progressBar"
+                entryPoint = "org.gtkkn.samples.gtk.widgets.label"
             }
         }
     }
