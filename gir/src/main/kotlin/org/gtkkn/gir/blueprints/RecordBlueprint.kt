@@ -11,4 +11,7 @@ data class RecordBlueprint(
     val constructors: List<ConstructorBlueprint>,
     val functions: List<FunctionBlueprint>,
     val methods: List<MethodBlueprint>,
+    val kdoc: String?,
+    val version: String?,
+    val skippedObjects: List<SkippedObject>,
 )

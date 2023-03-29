@@ -11,9 +11,11 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
 
     fun buildRecord(record: RecordBlueprint): TypeSpec =
         TypeSpec.classBuilder(record.kotlinTypeName).apply {
+            // kdoc
+            addKdoc(buildTypeKDoc(record.kdoc, record.version, record.skippedObjects))
+
             // companion object
             val companionSpecBuilder = TypeSpec.companionObjectBuilder()
-            // TODO kdoc
 
             // object pointer
             addProperty(buildRecordObjectPointerProperty(record))

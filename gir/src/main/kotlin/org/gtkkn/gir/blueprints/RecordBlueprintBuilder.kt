@@ -76,6 +76,9 @@ class RecordBlueprintBuilder(
             methods = methodBluePrints,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
+            kdoc = context.processKdoc(girRecord.info.docs.doc?.text),
+            version = girRecord.info.version,
+            skippedObjects = skippedObjects,
         )
     }
 
