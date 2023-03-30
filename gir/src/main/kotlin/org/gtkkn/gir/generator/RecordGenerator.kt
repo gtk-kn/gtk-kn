@@ -1,7 +1,6 @@
 package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.FunSpec
-import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
@@ -116,7 +115,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                     addCode(
                         "return %L.%M.%L",
                         record.objectPointerName,
-                        MemberName("kotlinx.cinterop", "pointed"), // TODO move
+                        BindingsGenerator.POINTED,
                         field.nativeName,
                     )
                     addCode(buildNativeToKotlinConversionsBlock(field.typeInfo))

@@ -14,19 +14,13 @@ import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.ConstantBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
-import org.gtkkn.gir.log.logger
 
 interface RepositoryObjectGenerator : MiscGenerator {
     fun buildRepositoryObject(repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.objectBuilder(repository.repositoryObjectName.simpleName).apply {
             repository.functionBlueprints.forEach { addFunction(buildFunction(it)) }
             repository.constantBlueprints.forEach {
-                // TODO tmp try catch because of struct constants (hb_language_t)
-                try {
-                    addProperty(buildConstant(it))
-                } catch (ex: Throwable) {
-                    logger.error(ex) { ex.message }
-                }
+                addProperty(buildConstant(it))
             }
         }.build()
 

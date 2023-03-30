@@ -33,7 +33,7 @@ class FieldBlueprintBuilder(
         }
 
         return FieldBlueprint(
-            kotlinName = girField.name, // TODO kotlinize context.kotlinizeParameterName(girField.name),
+            kotlinName = context.kotlinizeFieldName(girField.name),
             nativeName = girField.name,
             typeInfo = typeInfo,
             kdoc = context.processKdoc(girField.info.docs.doc?.text),

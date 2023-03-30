@@ -177,6 +177,7 @@ class BindingsGenerator(
         internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
         internal val STABLEREF = ClassName("kotlinx.cinterop", "StableRef")
         internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
+        internal val POINTED = MemberName("kotlinx.cinterop", "pointed")
 
         // gobject members
         internal val G_SIGNAL_CONNECT_DATA = MemberName("native.gobject", "g_signal_connect_data")

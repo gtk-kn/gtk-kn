@@ -128,10 +128,6 @@ class ProcessorContext(
         "g_trash_stack_height",
 
         // record issues?
-        "hb_ft_font_changed",
-        "hb_ft_font_get_load_flags",
-        "hb_ft_font_set_funcs",
-        "hb_ft_font_set_load_flags",
         "pango_cairo_font_get_scaled_font",
         "pango_cairo_context_get_font_options",
         "pango_cairo_context_set_font_options",
@@ -234,6 +230,11 @@ class ProcessorContext(
 
     fun kotlinizeInterfaceName(nativeInterfaceName: String): String = nativeInterfaceName.toPascalCase()
 
+    fun kotlinizeRecordName(nativeClassName: String): String =
+        nativeClassName
+            .removeSuffix("_t")
+            .toPascalCase()
+
     fun kotlinizeEnumName(nativeEnumName: String): String =
         nativeEnumName
             .removeSuffix("_t")
@@ -245,6 +246,12 @@ class ProcessorContext(
 
     fun kotlinizeParameterName(nativeParameterName: String): String =
         nativeParameterName
+            .removeSuffix("_")
+            .toCamelCase()
+
+    fun kotlinizeFieldName(nativeParameterName: String): String =
+        nativeParameterName
+            .replace("NULL", "null")
             .removeSuffix("_")
             .toCamelCase()
 
@@ -409,8 +416,8 @@ class ProcessorContext(
             ?: throw UnresolvableTypeException("record $nativeRecordName not found")
         return ClassName(
             namespaceBindingsPackageName(namespace),
-            kotlinizeClassName(clazz.name),
-        ) // TODO kotlinize Record Name
+            kotlinizeRecordName(clazz.name),
+        )
     }
 
     /**
@@ -528,11 +535,11 @@ class ProcessorContext(
         try {
             val kotlinRecordTypeName = resolveRecordTypeName(girNamespace, type.name)
             val (namespace, girRecord) = findRecordByName(girNamespace, type.name)
-            // TODO find a better way to ignore these
+            if (girRecord.foreign == true) {
+                throw UnresolvableTypeException("Foreidn record ${girRecord.name} is ignored")
+            }
             if (girRecord.disguised == true) {
-                throw UnresolvableTypeException(
-                    "Diguised record ${girRecord.name} is ignored"
-                )
+                throw UnresolvableTypeException("Diguised record ${girRecord.name} is ignored")
             }
 
             val objectPointerName = "${namespacePrefix(namespace)}${girRecord.name}Pointer"

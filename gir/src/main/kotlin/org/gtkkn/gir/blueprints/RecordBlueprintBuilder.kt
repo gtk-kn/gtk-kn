@@ -79,7 +79,7 @@ class RecordBlueprintBuilder(
         val objectPointerName = "${context.namespacePrefix(girNamespace)}${girRecord.name}Pointer"
         val objectPointerTypeName = context.resolveRecordObjectPointerTypeName(girNamespace, girRecord)
 
-        val kotlinName = context.kotlinizeClassName(girRecord.name) // todo Record name
+        val kotlinName = context.kotlinizeRecordName(girRecord.name)
         return RecordBlueprint(
             kotlinName = kotlinName,
             kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
