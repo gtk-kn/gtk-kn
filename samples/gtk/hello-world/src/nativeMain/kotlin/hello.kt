@@ -12,13 +12,12 @@ fun main() {
     // Connect to "activate" signal of `app`
     app.connectActivate {
         // Create a button with label and margins
-        val button = Button().apply {
-            setLabel("Press me!")
-            marginStart = 12
-            marginTop = 12
-            marginEnd = 12
-            marginBottom = 12
-        }
+        val button = Button()
+        button.setLabel("Click me!")
+        button.marginStart = 12
+        button.marginTop = 12
+        button.marginEnd = 12
+        button.marginBottom = 12
 
         // Connect to "clicked" signal of `button`
         button.connectClicked {
