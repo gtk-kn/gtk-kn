@@ -1,10 +1,12 @@
 package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
+import org.gtkkn.gir.blueprints.FieldBlueprint
 import org.gtkkn.gir.blueprints.RecordBlueprint
 
 interface RecordGenerator : MiscGenerator, KDocGenerator {
@@ -31,6 +33,9 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
 
             // methods
             record.methods.forEach { addFunction(buildMethod(it, record.objectPointerName)) }
+
+            // fields
+            record.fields.forEach { addProperty(buildRecordFieldProperty(record, it)) }
 
             addType(companionSpecBuilder.build())
 
@@ -104,4 +109,21 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             }
 
         }.build()
+
+    private fun buildRecordFieldProperty(record: RecordBlueprint, field: FieldBlueprint): PropertySpec =
+        // TODO check writeable for setter
+        PropertySpec.builder(field.kotlinName, field.typeInfo.kotlinTypeName)
+            .getter(
+                FunSpec.getterBuilder().apply {
+                    addCode(
+                        "return %L.%M.%L",
+                        record.objectPointerName,
+                        MemberName("kotlinx.cinterop", "pointed"), // TODO move
+                        field.nativeName,
+                    )
+                    addCode(buildNativeToKotlinConversionsBlock(field.typeInfo))
+                }.build(),
+            )
+            .addKdoc(buildPropertyKDoc(field.kdoc, field.version))
+            .build()
 }

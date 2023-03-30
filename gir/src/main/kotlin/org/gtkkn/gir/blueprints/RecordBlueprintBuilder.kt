@@ -2,6 +2,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
 import org.gtkkn.gir.model.GirConstructor
+import org.gtkkn.gir.model.GirField
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
@@ -19,6 +20,7 @@ class RecordBlueprintBuilder(
     private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
+    private val fieldBlueprints = mutableListOf<FieldBlueprint>()
 
     override fun blueprintObjectType(): String = "record"
 
@@ -50,6 +52,14 @@ class RecordBlueprintBuilder(
         }
     }
 
+    private fun addField(field: GirField) {
+        when (val result = FieldBlueprintBuilder(context, girNamespace, field).build()) {
+            is BlueprintResult.Ok -> fieldBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
+
     override fun buildInternal(): RecordBlueprint {
         if (girRecord.info.introspectable == false) throw NotIntrospectableException(girRecord.name)
 
@@ -63,6 +73,7 @@ class RecordBlueprintBuilder(
         girRecord.methods.forEach { addMethod(it) }
         girRecord.constructors.forEach { addConstructor(it) }
         girRecord.functions.forEach { addFunction(it) }
+        girRecord.fields.forEach { addField(it) }
 
         val objectPointerName = "${context.namespacePrefix(girNamespace)}${girRecord.name}Pointer"
         val objectPointerTypeName = context.resolveRecordObjectPointerTypeName(girNamespace, girRecord)
@@ -74,6 +85,7 @@ class RecordBlueprintBuilder(
             constructors = constructorBlueprints,
             functions = functionBlueprints,
             methods = methodBluePrints,
+            fields = fieldBlueprints,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
             kdoc = context.processKdoc(girRecord.info.docs.doc?.text),
