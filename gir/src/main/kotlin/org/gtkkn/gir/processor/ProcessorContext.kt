@@ -76,12 +76,6 @@ class ProcessorContext(
         // callback returning a String
         "GtkScaleFormatValueFunc",
 
-        // issues with records?
-        "GdkPixbufAnimationIterClass",
-        "GdkPixbufAnimationClass",
-        "GskBroadwayRendererClass",
-        "GdkPixbufModule",
-        "GdkPixbufModulePattern",
         // Issues with Context being defined in pango, but used in pangocairo callbacks?
         "PangoContext",
         "Context",
