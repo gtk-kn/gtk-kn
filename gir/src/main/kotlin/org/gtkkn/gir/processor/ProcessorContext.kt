@@ -529,9 +529,11 @@ class ProcessorContext(
             val kotlinRecordTypeName = resolveRecordTypeName(girNamespace, type.name)
             val (namespace, girRecord) = findRecordByName(girNamespace, type.name)
             // TODO find a better way to ignore these
-            if (girRecord.disguised == true) throw UnresolvableTypeException(
+            if (girRecord.disguised == true) {
+                throw UnresolvableTypeException(
                     "Diguised record ${girRecord.name} is ignored"
                 )
+            }
 
             val objectPointerName = "${namespacePrefix(namespace)}${girRecord.name}Pointer"
             return TypeInfo.RecordPointer(

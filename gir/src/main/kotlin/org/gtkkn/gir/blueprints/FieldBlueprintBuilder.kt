@@ -22,6 +22,9 @@ class FieldBlueprintBuilder(
         if (girField.private == true) {
             throw IgnoredFieldException(girField.name, "private")
         }
+        if (girField.readable == false) {
+            throw IgnoredFieldException(girField.name, "not readable")
+        }
 
         val typeInfo = when (girField.type) {
             is GirArrayType -> context.resolveTypeInfo(girNamespace, girField.type, true) // TODO check nullable?
