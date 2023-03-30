@@ -140,13 +140,13 @@ nav:
           - Settings: user-guide/gio/settings.md
       - Adwaita:
           - user-guide/adwaita/index.md
-          - Widgets:
-              - Boxed lists: user-guide/adwaita/widgets/boxed-lists.md
-              - Sidebar: user-guide/adwaita/widgets/sidebar.md
-              - Placeholder page: user-guide/adwaita/widgets/placeholder-page.md
-              - Collections: user-guide/adwaita/widgets/collections.md
-              - Window: user-guide/adwaita/widgets/window.md
-              - Leaflet and Dialog: user-guide/adwaita/widgets/leaflet-and-dialog.md
+          - Examples:
+              - Boxed lists: user-guide/adwaita/examples/boxed-lists.md
+              - Sidebar: user-guide/adwaita/examples/sidebar.md
+              - Placeholder page: user-guide/adwaita/examples/placeholder-page.md
+              - Collections: user-guide/adwaita/examples/collections.md
+              - Window: user-guide/adwaita/examples/window.md
+              - Leaflet and Dialog: user-guide/adwaita/examples/leaflet-and-dialog.md
       - Tutorials:
           - Text viewer: user-guide/tutorials/text-viewer.md
   - API: dokka/index.html
