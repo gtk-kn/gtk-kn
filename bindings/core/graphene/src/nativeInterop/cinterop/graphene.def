@@ -1,6 +1,6 @@
 headers = graphene.h graphene-gobject.h
 package = native.graphene
-headerFilter = graphene-1.0/*
+headerFilter = graphene-*
 
 # pkg-config --cflags graphene-1.0
 compilerOpts.linux =\

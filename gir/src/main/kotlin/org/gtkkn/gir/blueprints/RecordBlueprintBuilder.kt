@@ -59,7 +59,6 @@ class RecordBlueprintBuilder(
         }
     }
 
-
     override fun buildInternal(): RecordBlueprint {
         if (girRecord.info.introspectable == false) throw NotIntrospectableException(girRecord.name)
 
@@ -67,7 +66,9 @@ class RecordBlueprintBuilder(
 
         if (girRecord.foreign == true) throw UnresolvableTypeException("foreign records are ignored")
         if (girRecord.foreign == true) throw UnresolvableTypeException("foreign records are ignored")
-        if (girRecord.glibIsGtypeStructFor != null && girRecord.glibIsGtypeStructFor != "Object") throw UnresolvableTypeException("glib type struct are ignored")
+        if (girRecord.glibIsGtypeStructFor != null && girRecord.glibIsGtypeStructFor != "Object") throw UnresolvableTypeException(
+                "glib type struct are ignored"
+            )
         if (girRecord.disguised == true) throw UnresolvableTypeException("Disguised records are ignored")
 
         girRecord.methods.forEach { addMethod(it) }
@@ -93,5 +94,4 @@ class RecordBlueprintBuilder(
             skippedObjects = skippedObjects,
         )
     }
-
 }

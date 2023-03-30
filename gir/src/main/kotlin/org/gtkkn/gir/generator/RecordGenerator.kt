@@ -38,7 +38,6 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             record.fields.forEach { addProperty(buildRecordFieldProperty(record, it)) }
 
             addType(companionSpecBuilder.build())
-
         }.build()
 
     /**
@@ -107,7 +106,6 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             if (constructor.needsMemscoped) {
                 endControlFlow()
             }
-
         }.build()
 
     private fun buildRecordFieldProperty(record: RecordBlueprint, field: FieldBlueprint): PropertySpec =

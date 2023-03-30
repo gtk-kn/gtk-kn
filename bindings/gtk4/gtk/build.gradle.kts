@@ -30,6 +30,7 @@ kotlin {
                 api(project(":bindings:core:cairo"))
                 api(project(":bindings:core:pango"))
                 api(project(":bindings:core:harfbuzz"))
+                api(project(":bindings:core:graphene"))
             }
         }
         val nativeTest by getting

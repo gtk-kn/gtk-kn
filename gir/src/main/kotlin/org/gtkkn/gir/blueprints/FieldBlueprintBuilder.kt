@@ -5,6 +5,7 @@ import org.gtkkn.gir.model.GirCallback
 import org.gtkkn.gir.model.GirField
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirType
+import org.gtkkn.gir.processor.IgnoredFieldException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
 
@@ -18,6 +19,9 @@ class FieldBlueprintBuilder(
     override fun blueprintObjectName(): String = girField.name
 
     override fun buildInternal(): FieldBlueprint {
+        if (girField.private == true) {
+            throw IgnoredFieldException(girField.name, "private")
+        }
 
         val typeInfo = when (girField.type) {
             is GirArrayType -> context.resolveTypeInfo(girNamespace, girField.type, true) // TODO check nullable?
@@ -30,8 +34,7 @@ class FieldBlueprintBuilder(
             nativeName = girField.name,
             typeInfo = typeInfo,
             kdoc = context.processKdoc(girField.info.docs.doc?.text),
-            version = girField.info.version
+            version = girField.info.version,
         )
-
     }
 }

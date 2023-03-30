@@ -42,7 +42,6 @@ class ProcessorContext(
 ) {
     private val typeInfoTable: Map<String, TypeInfo> = mapOf(
         "none" to TypeInfo.Primitive(UNIT),
-        "gboolean" to TypeInfo.GBoolean(INT, BOOLEAN),
         "gchar" to TypeInfo.GChar(BYTE, CHAR),
         "gdouble" to TypeInfo.Primitive(DOUBLE),
         "gfloat" to TypeInfo.Primitive(FLOAT),
@@ -69,9 +68,6 @@ class ProcessorContext(
         "GskBroadwayRenderer",
         // bitfield members not found through cinterop
         "GdkPixbufFormatFlags",
-        // cinterop fails to map these graphene enums
-        "graphene_ray_intersection_kind_t",
-        "graphene_euler_order_t",
 
         // callback returning a String
         "GtkScaleFormatValueFunc",
@@ -84,6 +80,9 @@ class ProcessorContext(
         "cairo_t",
         "cairo_region_t",
         "const cairo_region_t",
+
+        // not a pointed type, simd vector?
+        "graphene_simd4f_t"
     )
 
     /**
@@ -459,6 +458,17 @@ class ProcessorContext(
             }.withNullable(nullable)
         }
 
+        // booleans
+        if (type.name == "gboolean") {
+            return when (type.cType) {
+                null -> error("gboolean with null cType")
+                "gboolean" -> TypeInfo.GBoolean(INT, BOOLEAN)
+                "const gboolean" -> TypeInfo.GBoolean(INT, BOOLEAN)
+                "_Bool" -> TypeInfo.Primitive(BOOLEAN)
+                else -> throw UnresolvableTypeException("Unsupported gboolean with cType: ${type.cType}")
+            }
+        }
+
         // classes
         try {
             val kotlinClassTypeName = resolveClassTypeName(girNamespace, type.name)
@@ -519,7 +529,9 @@ class ProcessorContext(
             val kotlinRecordTypeName = resolveRecordTypeName(girNamespace, type.name)
             val (namespace, girRecord) = findRecordByName(girNamespace, type.name)
             // TODO find a better way to ignore these
-            if (girRecord.disguised == true) throw UnresolvableTypeException("Diguised record ${girRecord.name} is ignored")
+            if (girRecord.disguised == true) throw UnresolvableTypeException(
+                    "Diguised record ${girRecord.name} is ignored"
+                )
 
             val objectPointerName = "${namespacePrefix(namespace)}${girRecord.name}Pointer"
             return TypeInfo.RecordPointer(
@@ -530,7 +542,6 @@ class ProcessorContext(
         } catch (ignored: UnresolvableTypeException) {
             // fallthrough
         }
-
 
         logger.warn("Could not resolve type for type with name: ${type.name} and cType: ${type.cType}")
         throw UnresolvableTypeException(type.name)
@@ -642,10 +653,6 @@ class ProcessorContext(
         if (ignoredTypes.contains(cType)) {
             throw IgnoredTypeException(cType)
         }
-        // FIXME graphene_*_t are posing problems with cinterop
-        if (cType.startsWith("graphene_") && cType.endsWith("_t")) {
-            throw IgnoredTypeException(cType)
-        }
     }
 
     /**
@@ -662,14 +669,6 @@ class ProcessorContext(
         }
 
         if (cFunctionName.endsWith("to_string")) {
-            throw IgnoredFunctionException(cFunctionName)
-        }
-        // FIXME ignore graphene functions for same reason as ignored types above
-        if (cFunctionName.startsWith("graphene_")) {
-            throw IgnoredFunctionException(cFunctionName)
-        }
-        // FIXME same for gsk
-        if (cFunctionName.startsWith("gsk_")) {
             throw IgnoredFunctionException(cFunctionName)
         }
     }
