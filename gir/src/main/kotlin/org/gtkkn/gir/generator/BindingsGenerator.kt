@@ -14,7 +14,7 @@ import java.io.File
 class BindingsGenerator(
     private val config: Config,
     private val ktLintFormatter: KtLintFormatter
-) : ClassGenerator, InterfaceGenerator, EnumGenerator, BitfieldGenerator, RepositoryObjectGenerator {
+) : ClassGenerator, InterfaceGenerator, EnumGenerator, BitfieldGenerator, RepositoryObjectGenerator, RecordGenerator {
     fun generate(repository: RepositoryBlueprint, outputDir: File) {
         val repositoryOutputDir = repositoryBuildDir(repository, outputDir)
         if (!repositoryOutputDir.exists()) {
@@ -67,6 +67,15 @@ class BindingsGenerator(
             writeType(
                 enum.kotlinTypeName,
                 buildEnum(enum),
+                repositorySrcDir(repository, outputDir),
+            )
+        }
+
+        // write records
+        repository.recordBlueprints.forEach { record ->
+            writeType(
+                record.kotlinTypeName,
+                buildRecord(record),
                 repositorySrcDir(repository, outputDir),
             )
         }
@@ -168,6 +177,8 @@ class BindingsGenerator(
         internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
         internal val STABLEREF = ClassName("kotlinx.cinterop", "StableRef")
         internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
+        internal val POINTED = MemberName("kotlinx.cinterop", "pointed")
+        internal val PTR = MemberName("kotlinx.cinterop", "ptr")
 
         // gobject members
         internal val G_SIGNAL_CONNECT_DATA = MemberName("native.gobject", "g_signal_connect_data")

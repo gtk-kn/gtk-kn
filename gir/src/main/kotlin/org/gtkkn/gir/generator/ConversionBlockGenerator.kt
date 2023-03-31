@@ -39,6 +39,14 @@ interface ConversionBlockGenerator {
                     )
                 }
 
+                is TypeInfo.RecordPointer -> {
+                    add(
+                        "%N$safeCall.%N",
+                        param.kotlinName,
+                        param.typeInfo.objectPointerName,
+                    )
+                }
+
                 is TypeInfo.Primitive -> add("%N", param.kotlinName)
                 is TypeInfo.GBoolean -> add("%N$safeCall.%M()", param.kotlinName, BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.GChar -> add("%N$safeCall.code.toByte()", param.kotlinName)
@@ -91,6 +99,13 @@ interface ConversionBlockGenerator {
                     )
                 }
 
+                is TypeInfo.RecordPointer -> {
+                    add(
+                        "$safeCall.%N",
+                        typeInfo.objectPointerName,
+                    )
+                }
+
                 is TypeInfo.Primitive -> Unit
                 is TypeInfo.GBoolean -> add("$safeCall.%M()", BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.GChar -> add("$safeCall.code.toByte()")
@@ -114,6 +129,12 @@ interface ConversionBlockGenerator {
                 is TypeInfo.Enumeration -> NativeToKotlinConversions.buildEnumeration(this, returnTypeInfo)
                 is TypeInfo.ObjectPointer -> NativeToKotlinConversions.buildObjectPointer(returnTypeInfo, this)
                 is TypeInfo.InterfacePointer -> NativeToKotlinConversions.buildInterfacePointer(
+                    isNullable,
+                    this,
+                    returnTypeInfo,
+                )
+
+                is TypeInfo.RecordPointer -> NativeToKotlinConversions.buildRecordPointer(
                     isNullable,
                     this,
                     returnTypeInfo,
@@ -205,6 +226,23 @@ private object NativeToKotlinConversions {
                 )
                 .endControlFlow()
         }
+    }
+
+    fun buildRecordPointer(
+        isNullable: Boolean,
+        codeBlockBuilder: CodeBlock.Builder,
+        returnTypeInfo: TypeInfo.RecordPointer,
+    ) {
+        // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
+        // nullable type, so we use force !! here
+        codeBlockBuilder
+            .beginControlFlow("%L.run", if (isNullable) "?" else "!!")
+            .add(
+                "%T(%M())",
+                returnTypeInfo.withNullable(false).kotlinTypeName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+            .endControlFlow()
     }
 
     fun buildGBoolean(codeBlockBuilder: CodeBlock.Builder) {

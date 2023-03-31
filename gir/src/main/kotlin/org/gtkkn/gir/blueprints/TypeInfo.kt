@@ -97,6 +97,19 @@ sealed class TypeInfo {
         )
     }
 
+    data class RecordPointer(
+        override val kotlinTypeName: TypeName,
+        override val nativeTypeName: TypeName,
+        val objectPointerName: String,
+    ) : TypeInfo() {
+        override val isCinteropNullable: Boolean = true
+
+        override fun withNullable(nullable: Boolean): TypeInfo = copy(
+            nativeTypeName = nativeTypeName.copy(nullable),
+            kotlinTypeName = kotlinTypeName.copy(nullable),
+        )
+    }
+
     data class GBoolean(
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,

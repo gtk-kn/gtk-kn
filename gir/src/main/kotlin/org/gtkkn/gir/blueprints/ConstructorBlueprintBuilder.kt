@@ -3,7 +3,6 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.MemberName
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirArrayType
-import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirType
@@ -15,7 +14,6 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class ConstructorBlueprintBuilder(
     context: ProcessorContext,
     girNamespace: GirNamespace,
-    private val girClass: GirClass,
     private val girConstructor: GirConstructor,
 ) : CallableBlueprintBuilder<ConstructorBlueprint>(context, girNamespace) {
 
@@ -46,7 +44,9 @@ class ConstructorBlueprintBuilder(
         // return value
         val returnValue = girConstructor.returnValue
         if (returnValue == null) {
-            logger.error("Constructor ${girNamespace.name}.${girClass.name}.${girConstructor.name} has no return value")
+            logger.error(
+                "Constructor ${girNamespace.name}.${blueprintObjectName()}.${girConstructor.name} has no return value"
+            )
             throw UnresolvableTypeException("Constructor has no return value")
         }
 
@@ -61,7 +61,7 @@ class ConstructorBlueprintBuilder(
 
         // method name
         val nativeMethodName = girConstructor.cIdentifier ?: throw UnresolvableTypeException(
-            "Constructor ${girConstructor.name} for ${girClass.name} does not have cIdentifier",
+            "Constructor ${girConstructor.name} for ${blueprintObjectName()} does not have cIdentifier",
         )
 
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)

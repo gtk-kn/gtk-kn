@@ -8,6 +8,7 @@ import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.LONG
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.SHORT
+import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
@@ -41,6 +42,7 @@ interface RepositoryObjectGenerator : MiscGenerator {
             type == SHORT || type == INT || type == LONG || type == DOUBLE -> Unit
             type == U_SHORT || type == U_INT || type == U_LONG -> format = "${format}u"
             type == BOOLEAN -> value = value.toString().toBoolean()
+            type == STRING -> format = "%S"
             else -> error("Mapping for constant with type $type missing!")
         }
         return PropertySpec.builder(constant.kotlinName, type, KModifier.CONST).apply {

@@ -97,7 +97,7 @@ class ClassBlueprintBuilder(
     }
 
     private fun addConstructor(constructor: GirConstructor) {
-        when (val result = ConstructorBlueprintBuilder(context, girNamespace, girClass, constructor).build()) {
+        when (val result = ConstructorBlueprintBuilder(context, girNamespace, constructor).build()) {
             is BlueprintResult.Ok -> constructorBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
