@@ -1,5 +1,5 @@
 headers = hb.h hb-aat.h hb-ft.h hb-glib.h hb-ot.h
-package = native.harfbuzz
+package = org.gtkkn.native.harfbuzz
 headerFilter = hb.h hb-*.h
 
 # pkg-config --cflags harfbuzz

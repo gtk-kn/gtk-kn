@@ -1,5 +1,5 @@
 headers = cairo.h
-package = native.cairo
+package = org.gtkkn.native.cairo
 headerFilter = cairo.h
 
 # pkg-config --cflags cairo

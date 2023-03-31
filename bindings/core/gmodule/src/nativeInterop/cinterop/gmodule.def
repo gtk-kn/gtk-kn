@@ -1,5 +1,5 @@
 headers = gmodule.h
-package = native.gmodule
+package = org.gtkkn.native.gmodule
 headerFilter = gmodule.h
 
 # pkg-config --cflags gmodule-2.0

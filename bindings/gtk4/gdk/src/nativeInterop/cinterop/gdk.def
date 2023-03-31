@@ -1,5 +1,5 @@
 headers = gdk/gdk.h
-package = native.gdk
+package = org.gtkkn.native.gdk
 headerFilter = gdk/*
 
 # pkg-config --cflags gtk4

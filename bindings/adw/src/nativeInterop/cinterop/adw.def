@@ -1,5 +1,5 @@
 headers = libadwaita-1/adwaita.h
-package = native.adw
+package = org.gtkkn.native.adw
 headerFilter = libadwaita-1/*
 
 # pkg-config --cflags libadwaita-1

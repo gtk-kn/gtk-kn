@@ -248,7 +248,7 @@ class ProcessorContext(
 
     fun kotlinzeEnumMemberName(nativeEnumMemberName: String): String = nativeEnumMemberName.uppercase()
 
-    fun kotlinizePackageName(nativePackageName: String): String = "bindings.${nativePackageName.lowercase()}"
+    fun kotlinizePackageName(nativePackageName: String): String = "org.gtkkn.bindings.${nativePackageName.lowercase()}"
 
     fun kotlinizeParameterName(nativeParameterName: String): String =
         nativeParameterName
@@ -274,9 +274,10 @@ class ProcessorContext(
     // namespace naming
     fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()
 
-    fun namespaceNativePackageName(namespace: GirNamespace): String = "native.${namespacePrefix(namespace)}"
+    fun namespaceNativePackageName(namespace: GirNamespace): String = "org.gtkkn.native.${namespacePrefix(namespace)}"
 
-    fun namespaceBindingsPackageName(namespace: GirNamespace): String = "bindings.${namespacePrefix(namespace)}"
+    fun namespaceBindingsPackageName(namespace: GirNamespace): String =
+        "org.gtkkn.bindings.${namespacePrefix(namespace)}"
 
     /**
      * Resolve the [TypeName] for the objectPointer we have in all classes.
@@ -462,6 +463,7 @@ class ProcessorContext(
                         throw UnresolvableTypeException("Unsupported string type with cType: ${type.cType}")
                     }
                 }
+
                 "gchar*" -> return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
 
                 null -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)

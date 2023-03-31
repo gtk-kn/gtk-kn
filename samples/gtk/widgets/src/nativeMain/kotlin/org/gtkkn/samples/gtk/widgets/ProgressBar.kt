@@ -1,13 +1,13 @@
 package org.gtkkn.samples.gtk.widgets
 
-import bindings.gio.ApplicationFlags
-import bindings.glib.Glib
-import bindings.gtk.Application
-import bindings.gtk.ApplicationWindow
-import bindings.gtk.Box
-import bindings.gtk.CheckButton
-import bindings.gtk.Orientation
-import bindings.gtk.ProgressBar
+import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.glib.Glib
+import org.gtkkn.bindings.gtk.Application
+import org.gtkkn.bindings.gtk.ApplicationWindow
+import org.gtkkn.bindings.gtk.Box
+import org.gtkkn.bindings.gtk.CheckButton
+import org.gtkkn.bindings.gtk.Orientation
+import org.gtkkn.bindings.gtk.ProgressBar
 
 private var activityMode: Boolean = false
 

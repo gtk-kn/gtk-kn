@@ -164,11 +164,11 @@ class BindingsGenerator(
 
     companion object {
         // gtk-kn common function members
-        internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.common", "asBoolean")
-        internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.common", "asGBoolean")
-        internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.common", "staticStableRefDestroy")
-        internal val TO_C_STRING_LIST = MemberName("org.gtkkn.common", "toCStringList")
-        internal val TO_K_STRING_LIST = MemberName("org.gtkkn.common", "toKStringList")
+        internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.extensions.common", "asBoolean")
+        internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.extensions.common", "asGBoolean")
+        internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.extensions.glib", "staticStableRefDestroy")
+        internal val TO_C_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toCStringList")
+        internal val TO_K_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toKStringList")
 
         // cinterop helper function members
         internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
@@ -181,6 +181,6 @@ class BindingsGenerator(
         internal val PTR = MemberName("kotlinx.cinterop", "ptr")
 
         // gobject members
-        internal val G_SIGNAL_CONNECT_DATA = MemberName("native.gobject", "g_signal_connect_data")
+        internal val G_SIGNAL_CONNECT_DATA = MemberName("org.gtkkn.native.gobject", "g_signal_connect_data")
     }
 }

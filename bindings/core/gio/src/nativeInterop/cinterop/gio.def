@@ -10,7 +10,7 @@ headers = gio/gio.h \
     gio/gunixoutputstream.h \
     gio/gunixsocketaddress.h
 
-package = native.gio
+package = org.gtkkn.native.gio
 headerFilter = gio/*
 
 # pkg-config --cflags gio-unix-2.0

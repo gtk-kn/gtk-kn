@@ -53,12 +53,12 @@ class ProcessingTests {
             .returnTypeInfo as TypeInfo.KString
         assertEquals("AboutDialog", clazz.kotlinName)
         assertEquals("AboutDialog", clazz.nativeName)
-        assertEquals(ClassName("bindings.gtk", "AboutDialog"), clazz.typeName)
-        assertEquals(ClassName("bindings.gtk", "Window"), clazz.parentTypeName)
+        assertEquals(ClassName("org.gtkkn.bindings.gtk", "AboutDialog"), clazz.typeName)
+        assertEquals(ClassName("org.gtkkn.bindings.gtk", "Window"), clazz.parentTypeName)
         assertEquals("gtkAboutDialogPointer", clazz.objectPointerName)
         assertEquals(
             NativeTypes.cpointerOf(
-                ClassName("native.gtk", "GtkAboutDialog"),
+                ClassName("org.gtkkn.native.gtk", "GtkAboutDialog"),
             ),
             clazz.objectPointerTypeName,
         )
@@ -79,7 +79,7 @@ class ProcessingTests {
         // should not contain any of the Widget interfaces
         // only keep Gtk.Root, filter Gtk.Native
         assertEquals(1, clazz.implementsInterfaces.size)
-        assertEquals(ClassName("bindings.gtk", "Root"), clazz.implementsInterfaces.first().interfaceTypeName)
+        assertEquals(ClassName("org.gtkkn.bindings.gtk", "Root"), clazz.implementsInterfaces.first().interfaceTypeName)
     }
 
     @Test
@@ -93,7 +93,10 @@ class ProcessingTests {
         val clazz = gtkBlueprint.classBlueprints.first { it.kotlinName == "FilterListModel" }
         // should only contain 1 interface from another package (gio)
         assertEquals(1, clazz.implementsInterfaces.size)
-        assertEquals(ClassName("bindings.gio", "ListModel"), clazz.implementsInterfaces.first().interfaceTypeName)
+        assertEquals(
+            ClassName("org.gtkkn.bindings.gio", "ListModel"),
+            clazz.implementsInterfaces.first().interfaceTypeName,
+        )
         assertEquals("gioListModelPointer", clazz.implementsInterfaces.first().interfacePointerName)
     }
 

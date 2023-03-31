@@ -1,5 +1,5 @@
 headers = pango/pango.h
-package = native.pango
+package = org.gtkkn.native.pango
 headerFilter = pango/*
 
 # pkg-config --cflags pango
