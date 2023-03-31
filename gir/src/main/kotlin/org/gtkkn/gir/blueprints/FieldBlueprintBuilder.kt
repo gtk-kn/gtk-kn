@@ -27,9 +27,13 @@ class FieldBlueprintBuilder(
         }
 
         val typeInfo = when (girField.type) {
-            is GirArrayType -> context.resolveTypeInfo(girNamespace, girField.type, true) // TODO check nullable?
-            is GirType -> context.resolveTypeInfo(girNamespace, girField.type, false, false) // TODO check nullable?
-            is GirCallback -> throw UnresolvableTypeException("Fields with callbacks are not supported") // TODO
+            is GirType -> {
+                // assuming not nullable here, we might need to revisit this when adding array, callback and
+                // embedded structs
+                context.resolveTypeInfo(girNamespace, girField.type, false)
+            }
+            is GirArrayType -> throw UnresolvableTypeException("Fields with arrays are not supported")
+            is GirCallback -> throw UnresolvableTypeException("Fields with callbacks are not supported")
         }
 
         return FieldBlueprint(

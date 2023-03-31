@@ -38,6 +38,7 @@ interface ConversionBlockGenerator {
                         param.typeInfo.objectPointerName,
                     )
                 }
+
                 is TypeInfo.RecordPointer -> {
                     add(
                         "%N$safeCall.%N",
@@ -97,6 +98,7 @@ interface ConversionBlockGenerator {
                         typeInfo.objectPointerName,
                     )
                 }
+
                 is TypeInfo.RecordPointer -> {
                     add(
                         "$safeCall.%N",
@@ -131,6 +133,7 @@ interface ConversionBlockGenerator {
                     this,
                     returnTypeInfo,
                 )
+
                 is TypeInfo.RecordPointer -> NativeToKotlinConversions.buildRecordPointer(
                     isNullable,
                     this,

@@ -82,7 +82,7 @@ class ProcessorContext(
         "const cairo_region_t",
 
         // not a pointed type, simd vector?
-        "graphene_simd4f_t"
+        "graphene_simd4f_t",
     )
 
     /**
@@ -181,7 +181,7 @@ class ProcessorContext(
         "gtk_editable_install_properties",
 
         // problem because it uses a callback with a string return value
-        "g_option_group_set_translate_func"
+        "g_option_group_set_translate_func",
     )
 
     /**
@@ -423,7 +423,7 @@ class ProcessorContext(
     /**
      * Resolve a [TypeInfo] for the given [GirType].
      */
-    @Suppress("LongMethod", "ReturnCount")
+    @Suppress("LongMethod", "ReturnCount", "CyclomaticComplexMethod")
     @Throws(UnresolvableTypeException::class)
     fun resolveTypeInfo(
         girNamespace: GirNamespace,
@@ -542,12 +542,20 @@ class ProcessorContext(
                 throw UnresolvableTypeException("Diguised record ${girRecord.name} is ignored")
             }
 
-            val objectPointerName = "${namespacePrefix(namespace)}${girRecord.name}Pointer"
-            return TypeInfo.RecordPointer(
-                kotlinTypeName = kotlinRecordTypeName,
-                nativeTypeName = NativeTypes.KP_CPOINTER.parameterizedBy(buildNativeClassName(namespace, girRecord)),
-                objectPointerName,
-            ).withNullable(nullable)
+            // only use RecordPointer for actual pointers
+            if (type.cType == "gpointer" || type.cType.orEmpty().endsWith("*")) {
+                val objectPointerName = "${namespacePrefix(namespace)}${girRecord.name}Pointer"
+                return TypeInfo.RecordPointer(
+                    kotlinTypeName = kotlinRecordTypeName,
+                    nativeTypeName = NativeTypes.KP_CPOINTER.parameterizedBy(
+                        buildNativeClassName(
+                            namespace,
+                            girRecord,
+                        ),
+                    ),
+                    objectPointerName,
+                ).withNullable(nullable)
+            }
         } catch (ignored: UnresolvableTypeException) {
             // fallthrough
         }
