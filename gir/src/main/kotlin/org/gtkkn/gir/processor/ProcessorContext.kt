@@ -182,6 +182,12 @@ class ProcessorContext(
 
         // problem because it uses a callback with a string return value
         "g_option_group_set_translate_func",
+
+        // some string pointer functions
+        "g_date_strftime",
+        "g_stpcpy",
+        "g_value_set_string_take_ownership",
+        "g_value_take_string",
     )
 
     /**
@@ -456,6 +462,7 @@ class ProcessorContext(
                         throw UnresolvableTypeException("Unsupported string type with cType: ${type.cType}")
                     }
                 }
+                "gchar*" -> return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
 
                 null -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
                 else -> {
@@ -686,6 +693,17 @@ class ProcessorContext(
         }
 
         if (cFunctionName.endsWith("to_string")) {
+            throw IgnoredFunctionException(cFunctionName)
+        }
+
+        // ignore functions that use a string pointer argument
+        if (cFunctionName.startsWith("g_str")) {
+            throw IgnoredFunctionException(cFunctionName)
+        }
+        if (cFunctionName.startsWith("g_ascii")) {
+            throw IgnoredFunctionException(cFunctionName)
+        }
+        if (cFunctionName.startsWith("g_utf8")) {
             throw IgnoredFunctionException(cFunctionName)
         }
     }
