@@ -65,7 +65,6 @@ class RecordBlueprintBuilder(
         girRecord.cType?.let { context.checkIgnoredType(it) }
 
         if (girRecord.foreign == true) throw UnresolvableTypeException("foreign records are ignored")
-        if (girRecord.foreign == true) throw UnresolvableTypeException("foreign records are ignored")
         if (girRecord.glibIsGtypeStructFor != null && girRecord.glibIsGtypeStructFor != "Object") {
             throw UnresolvableTypeException("glib type struct are ignored")
         }

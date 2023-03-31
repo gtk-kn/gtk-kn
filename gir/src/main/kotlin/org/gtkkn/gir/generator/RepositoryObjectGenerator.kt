@@ -20,9 +20,7 @@ interface RepositoryObjectGenerator : MiscGenerator {
     fun buildRepositoryObject(repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.objectBuilder(repository.repositoryObjectName.simpleName).apply {
             repository.functionBlueprints.forEach { addFunction(buildFunction(it)) }
-            repository.constantBlueprints.forEach {
-                addProperty(buildConstant(it))
-            }
+            repository.constantBlueprints.forEach { addProperty(buildConstant(it)) }
         }.build()
 
     private fun buildConstant(constant: ConstantBlueprint): PropertySpec {

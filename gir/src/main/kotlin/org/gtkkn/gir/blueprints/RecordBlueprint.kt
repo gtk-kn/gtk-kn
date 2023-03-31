@@ -12,7 +12,7 @@ data class RecordBlueprint(
     val functions: List<FunctionBlueprint>,
     val methods: List<MethodBlueprint>,
     val fields: List<FieldBlueprint>,
+    val skippedObjects: List<SkippedObject>,
     val kdoc: String?,
     val version: String?,
-    val skippedObjects: List<SkippedObject>,
 )

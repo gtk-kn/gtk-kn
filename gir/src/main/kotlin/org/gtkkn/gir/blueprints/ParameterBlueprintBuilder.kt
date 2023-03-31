@@ -30,9 +30,6 @@ class ParameterBlueprintBuilder(
             context.checkIgnoredType(paramCType.removeSuffix("*"))
             context.checkIgnoredType(paramCType.removeSuffix("**"))
         }
-//        if (paramCType == "GdkPixbufModule") {
-//            error("OOPS")
-//        }
 
         when {
             girParam.direction == GirDirection.OUT -> {

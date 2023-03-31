@@ -543,10 +543,10 @@ class ProcessorContext(
             val kotlinRecordTypeName = resolveRecordTypeName(girNamespace, type.name)
             val (namespace, girRecord) = findRecordByName(girNamespace, type.name)
             if (girRecord.foreign == true) {
-                throw UnresolvableTypeException("Foreidn record ${girRecord.name} is ignored")
+                throw UnresolvableTypeException("Foreign record ${girRecord.name} is ignored")
             }
             if (girRecord.disguised == true) {
-                throw UnresolvableTypeException("Diguised record ${girRecord.name} is ignored")
+                throw UnresolvableTypeException("Disguised record ${girRecord.name} is ignored")
             }
 
             // only use RecordPointer for actual pointers

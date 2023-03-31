@@ -233,27 +233,16 @@ private object NativeToKotlinConversions {
         codeBlockBuilder: CodeBlock.Builder,
         returnTypeInfo: TypeInfo.RecordPointer,
     ) {
-        if (isNullable) {
-            codeBlockBuilder
-                .beginControlFlow("?.run")
-                .add(
-                    "%T(%M())",
-                    returnTypeInfo.withNullable(false).kotlinTypeName,
-                    BindingsGenerator.REINTERPRET_FUNC,
-                )
-                .endControlFlow()
-        } else {
-            // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
-            // nullable type, so we use force !! here
-            codeBlockBuilder
-                .beginControlFlow("!!.run")
-                .add(
-                    "%T(%M())",
-                    returnTypeInfo.withNullable(false).kotlinTypeName,
-                    BindingsGenerator.REINTERPRET_FUNC,
-                )
-                .endControlFlow()
-        }
+        // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
+        // nullable type, so we use force !! here
+        codeBlockBuilder
+            .beginControlFlow("%L.run", if (isNullable) "?" else "!!")
+            .add(
+                "%T(%M())",
+                returnTypeInfo.withNullable(false).kotlinTypeName,
+                BindingsGenerator.REINTERPRET_FUNC,
+            )
+            .endControlFlow()
     }
 
     fun buildGBoolean(codeBlockBuilder: CodeBlock.Builder) {

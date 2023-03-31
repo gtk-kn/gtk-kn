@@ -37,7 +37,9 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             // fields
             record.fields.forEach { addProperty(buildRecordFieldProperty(record, it)) }
 
-            addType(companionSpecBuilder.build())
+            if (companionSpecBuilder.propertySpecs.isNotEmpty() || companionSpecBuilder.funSpecs.isNotEmpty()) {
+                addType(companionSpecBuilder.build())
+            }
         }.build()
 
     /**
@@ -154,16 +156,17 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
      * so we do the additional filtering here.
      */
     private fun isFieldSetterSupported(field: FieldBlueprint): Boolean = when (field.typeInfo) {
-        is TypeInfo.Bitfield -> true
-        is TypeInfo.CallbackWithDestroy -> false
-        is TypeInfo.Enumeration -> true
-        is TypeInfo.GBoolean -> true
-        is TypeInfo.GChar -> true
-        is TypeInfo.InterfacePointer -> false
-        is TypeInfo.KString -> false
-        is TypeInfo.ObjectPointer -> false
+        is TypeInfo.Bitfield,
+        is TypeInfo.Enumeration,
+        is TypeInfo.GBoolean,
+        is TypeInfo.GChar,
         is TypeInfo.Primitive -> true
-        is TypeInfo.RecordPointer -> false
+
+        is TypeInfo.CallbackWithDestroy,
+        is TypeInfo.InterfacePointer,
+        is TypeInfo.KString,
+        is TypeInfo.ObjectPointer,
+        is TypeInfo.RecordPointer,
         is TypeInfo.StringList -> false
     }
 }
