@@ -19,7 +19,11 @@ kotlin {
                 api(project(":bindings:common"))
             }
         }
-        val nativeTest by getting
+        val nativeTest by getting{
+            dependencies {
+                implementation(libs.kotlinx.datetime)
+            }
+        }
     }
 
     // native main for testing
