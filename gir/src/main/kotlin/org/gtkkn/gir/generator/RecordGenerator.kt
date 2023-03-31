@@ -7,6 +7,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.FieldBlueprint
 import org.gtkkn.gir.blueprints.RecordBlueprint
+import org.gtkkn.gir.blueprints.TypeInfo
 
 interface RecordGenerator : MiscGenerator, KDocGenerator {
 
@@ -108,9 +109,12 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
         }.build()
 
     private fun buildRecordFieldProperty(record: RecordBlueprint, field: FieldBlueprint): PropertySpec =
-        // TODO check writeable for setter
-        PropertySpec.builder(field.kotlinName, field.typeInfo.kotlinTypeName)
-            .getter(
+        PropertySpec.builder(field.kotlinName, field.typeInfo.kotlinTypeName).apply {
+            // kdoc
+            addKdoc(buildPropertyKDoc(field.kdoc, field.version))
+
+            // getter
+            getter(
                 FunSpec.getterBuilder().apply {
                     addCode(
                         "return %L.%M.%L",
@@ -121,6 +125,45 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                     addCode(buildNativeToKotlinConversionsBlock(field.typeInfo))
                 }.build(),
             )
-            .addKdoc(buildPropertyKDoc(field.kdoc, field.version))
-            .build()
+
+            // setter
+            if (field.writeable) {
+                if (isFieldSetterSupported(field)) {
+                    mutable(true)
+                    setter(
+                        FunSpec.setterBuilder().apply {
+                            addParameter("value", field.typeInfo.kotlinTypeName)
+                            addCode(
+                                "%L.%M.%L = value",
+                                record.objectPointerName,
+                                BindingsGenerator.POINTED,
+                                field.nativeName,
+                            )
+                            addCode(buildKotlinToNativeTypeConversionBlock(field.typeInfo))
+                        }.build(),
+                    )
+                } else {
+                    addKdoc("Note: this property is writeable but the setter binding is not supported yet.")
+                }
+            }
+        }.build()
+
+    /**
+     * Check if we can generate a setter for the field type.
+     * Not all field types are supported yet, but we cannot filter them out in Phase 2,
+     * so we do the additional filtering here.
+     */
+    private fun isFieldSetterSupported(field: FieldBlueprint): Boolean = when (field.typeInfo) {
+        is TypeInfo.Bitfield -> true
+        is TypeInfo.CallbackWithDestroy -> false
+        is TypeInfo.Enumeration -> true
+        is TypeInfo.GBoolean -> true
+        is TypeInfo.GChar -> true
+        is TypeInfo.InterfacePointer -> false
+        is TypeInfo.KString -> false
+        is TypeInfo.ObjectPointer -> false
+        is TypeInfo.Primitive -> true
+        is TypeInfo.RecordPointer -> false
+        is TypeInfo.StringList -> false
+    }
 }

@@ -40,6 +40,7 @@ class FieldBlueprintBuilder(
             kotlinName = context.kotlinizeFieldName(girField.name),
             nativeName = girField.name,
             typeInfo = typeInfo,
+            writeable = girField.writable == true,
             kdoc = context.processKdoc(girField.info.docs.doc?.text),
             version = girField.info.version,
         )
