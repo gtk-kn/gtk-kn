@@ -64,7 +64,7 @@ interface ConversionBlockGenerator {
                         param.typeInfo.staticPropertyMemberName,
                         BindingsGenerator.REINTERPRET_FUNC,
                         BindingsGenerator.STABLEREF,
-                        param.nativeName,
+                        param.kotlinName,
                     )
                     if (param.typeInfo.hasDestroyParam) {
                         add(

@@ -38,7 +38,7 @@ abstract class CallableBlueprintBuilder<T : Any>(
                         hasDestroyParam = callbackParam.destroyParam != null,
                     )
                     val cbParamBluePrint = ParameterBlueprint(
-                        kotlinName = callbackParam.callbackParam.name,
+                        kotlinName = context.kotlinizeParameterName(callbackParam.callbackParam.name),
                         nativeName = callbackParam.callbackParam.name,
                         typeInfo = cbTypeInfo,
                         kdoc = context.processKdoc(callbackParam.callbackParam.docs.doc?.text),
