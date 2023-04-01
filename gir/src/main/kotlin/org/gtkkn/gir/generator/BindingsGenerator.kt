@@ -193,5 +193,6 @@ class BindingsGenerator(
 
         // glib members
         internal val G_ERROR_MEMBER = MemberName("org.gtkkn.native.glib", "GError")
+        internal val G_QUARK_FROM_STRING_FUNC = MemberName("org.gtkkn.native.glib", "g_quark_from_string")
     }
 }

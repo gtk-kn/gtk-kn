@@ -84,6 +84,7 @@ class EnumBlueprintBuilder(
             nativeValueTypeName = nativeValueTypeName,
             memberBlueprints = members,
             functionBlueprints = functionBlueprints,
+            errorDomain = girEnum.glibErrorDomain,
             version = girEnum.info.version,
             kdoc = context.processKdoc(girEnum.info.docs.doc?.text),
         )
