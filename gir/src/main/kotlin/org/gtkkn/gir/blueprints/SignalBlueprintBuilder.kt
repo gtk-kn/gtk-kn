@@ -26,7 +26,11 @@ class SignalBlueprintBuilder(
     private fun addParameter(param: GirParameter) {
         when (val result = ParameterBlueprintBuilder(context, girNamespace, param).build()) {
             is BlueprintResult.Ok -> signalParameters.add(result.blueprint)
-            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+            is BlueprintResult.Skip -> {
+                throw UnresolvableTypeException(
+                    "Unsupported parameter `${param.name}` : ${result.skippedObject.reason}",
+                )
+            }
         }
     }
 
