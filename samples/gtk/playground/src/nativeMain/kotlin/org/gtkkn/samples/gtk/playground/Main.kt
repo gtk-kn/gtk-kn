@@ -1,20 +1,20 @@
 package org.gtkkn.samples.gtk.playground
 
-import bindings.gio.ApplicationFlags
-import bindings.gtk.Application
-import bindings.gtk.ApplicationWindow
-import bindings.gtk.FilterListModel
-import bindings.gtk.Label
-import bindings.gtk.ListItem
-import bindings.gtk.ListView
-import bindings.gtk.SignalListItemFactory
-import bindings.gtk.SingleSelection
-import bindings.gtk.StringList
-import bindings.gtk.StringObject
 import io.github.oshai.KotlinLogging
 import io.github.oshai.KotlinLoggingConfiguration
 import io.github.oshai.Level
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.gtk.Application
+import org.gtkkn.bindings.gtk.ApplicationWindow
+import org.gtkkn.bindings.gtk.FilterListModel
+import org.gtkkn.bindings.gtk.Label
+import org.gtkkn.bindings.gtk.ListItem
+import org.gtkkn.bindings.gtk.ListView
+import org.gtkkn.bindings.gtk.SignalListItemFactory
+import org.gtkkn.bindings.gtk.SingleSelection
+import org.gtkkn.bindings.gtk.StringList
+import org.gtkkn.bindings.gtk.StringObject
 
 private val logger = KotlinLogging.logger("main")
 

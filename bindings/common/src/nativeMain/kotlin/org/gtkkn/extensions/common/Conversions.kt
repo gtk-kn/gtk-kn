@@ -1,4 +1,4 @@
-package org.gtkkn.common
+package org.gtkkn.extensions.common
 
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CArrayPointer

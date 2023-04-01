@@ -1,5 +1,5 @@
 headers = graphene.h graphene-gobject.h
-package = native.graphene
+package = org.gtkkn.native.graphene
 headerFilter = graphene-*
 
 # pkg-config --cflags graphene-1.0

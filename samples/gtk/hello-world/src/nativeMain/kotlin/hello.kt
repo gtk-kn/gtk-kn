@@ -1,7 +1,7 @@
-import bindings.gio.ApplicationFlags
-import bindings.gtk.Application
-import bindings.gtk.ApplicationWindow
-import bindings.gtk.Button
+import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.gtk.Application
+import org.gtkkn.bindings.gtk.ApplicationWindow
+import org.gtkkn.bindings.gtk.Button
 
 private const val APP_ID = "org.gtkkn.samples.gtk.helloworld"
 

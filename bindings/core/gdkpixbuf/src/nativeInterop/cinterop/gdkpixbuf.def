@@ -1,5 +1,5 @@
 headers = gdk-pixbuf/gdk-pixbuf.h gdk-pixbuf/gdk-pixbuf-io.h
-package = native.gdkpixbuf
+package = org.gtkkn.native.gdkpixbuf
 headerFilter = gdk-pixbuf/*
 
 # pkg-config --cflags gdk-pixbuf-2.0

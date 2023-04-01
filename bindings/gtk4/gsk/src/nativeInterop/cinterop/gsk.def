@@ -1,5 +1,5 @@
 headers = gsk/gsk.h gsk/gl/gskglrenderer.h
-package = native.gsk
+package = org.gtkkn.native.gsk
 headerFilter = gsk/* gsk/broadway/* gsk/gl/*
 
 # pkg-config --cflags gtk4

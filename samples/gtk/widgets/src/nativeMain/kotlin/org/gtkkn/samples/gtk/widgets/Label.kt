@@ -1,14 +1,14 @@
 package org.gtkkn.samples.gtk.widgets
 
-import bindings.gio.ApplicationFlags
-import bindings.gtk.Application
-import bindings.gtk.ApplicationWindow
-import bindings.gtk.Box
-import bindings.gtk.Button
-import bindings.gtk.Justification
-import bindings.gtk.Label
-import bindings.gtk.Orientation
-import bindings.gtk.Widget
+import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.gtk.Application
+import org.gtkkn.bindings.gtk.ApplicationWindow
+import org.gtkkn.bindings.gtk.Box
+import org.gtkkn.bindings.gtk.Button
+import org.gtkkn.bindings.gtk.Justification
+import org.gtkkn.bindings.gtk.Label
+import org.gtkkn.bindings.gtk.Orientation
+import org.gtkkn.bindings.gtk.Widget
 
 fun label() {
     val app = Application("org.gtkkn.samples.gtk.widgets.label", ApplicationFlags.FLAGS_NONE)

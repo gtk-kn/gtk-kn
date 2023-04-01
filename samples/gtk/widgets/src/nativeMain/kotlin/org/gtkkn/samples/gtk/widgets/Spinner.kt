@@ -1,12 +1,12 @@
 package org.gtkkn.samples.gtk.widgets
 
-import bindings.gio.ApplicationFlags
-import bindings.gtk.Application
-import bindings.gtk.ApplicationWindow
-import bindings.gtk.Grid
-import bindings.gtk.PositionType
-import bindings.gtk.Spinner
-import bindings.gtk.ToggleButton
+import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.gtk.Application
+import org.gtkkn.bindings.gtk.ApplicationWindow
+import org.gtkkn.bindings.gtk.Grid
+import org.gtkkn.bindings.gtk.PositionType
+import org.gtkkn.bindings.gtk.Spinner
+import org.gtkkn.bindings.gtk.ToggleButton
 
 fun spinner() {
     val app = Application("org.gtkkn.samples.gtk.widgets.label", ApplicationFlags.FLAGS_NONE)

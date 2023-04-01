@@ -1,5 +1,5 @@
 headers = glib.h glib-unix.h glib/gstdio.h
-package = native.glib
+package = org.gtkkn.native.glib
 headerFilter = glib.h glib-*.h glib/*
 
 # pkg-config --cflags glib-2.0

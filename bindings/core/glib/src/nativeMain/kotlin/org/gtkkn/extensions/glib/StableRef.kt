@@ -1,4 +1,4 @@
-package org.gtkkn.common
+package org.gtkkn.extensions.glib
 
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -7,7 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
-import native.glib.gpointer
+import org.gtkkn.native.glib.gpointer
 
 /**
  * Helper function that can be used as a destroy_data handler

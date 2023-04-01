@@ -8,8 +8,8 @@ Next, we need to edit the `hello.kt` file and replace its contents with the foll
 
 ```kotlin
 // hello.kt
-import bindings.gio.ApplicationFlags
-import bindings.gtk.Application
+import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.gtk.Application
 
 private const val APP_ID = "org.gtkkn.samples.gtk.playground"
 
@@ -36,9 +36,9 @@ GTK tells us that something should be called in its activate step. So let's crea
 
 ```kotlin
 // hello.kt
-import bindings.gio.ApplicationFlags
-import bindings.gtk.Application
-import bindings.gtk.ApplicationWindow
+import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.gtk.Application
+import org.gtkkn.bindings.gtk.ApplicationWindow
 
 private const val APP_ID = "org.gtkkn.samples.gtk.playground"
 

@@ -1,5 +1,5 @@
 headers = glib-object.h
-package = native.gobject
+package = org.gtkkn.native.gobject
 headerFilter = gobject/* glib/*
 
 # pkg-config --cflags gobject-2.0
