@@ -740,6 +740,7 @@ class ProcessorContext(
     }
 
     private fun String?.sanitizeKDoc(): String? = this?.replace("...]", "]")
+        ?.replace(Regex("&[#0-9a-zA-Z]+;")) { "`${it.value}`" }
         ?.replace("%TRUE", "true")
         ?.replace("%FALSE", "false")
         ?.replace("%NULL", "null")
