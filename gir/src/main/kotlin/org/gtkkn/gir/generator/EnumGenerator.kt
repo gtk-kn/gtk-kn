@@ -95,4 +95,23 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
             endControlFlow()
 
         }.build()
+
+    fun buildErrorDomainExceptionClass(enum: EnumBlueprint) =
+        TypeSpec.classBuilder(checkNotNull(enum.errorExceptionTypeName)).apply {
+            superclass(BindingsGenerator.GLIB_EXCEPTION_TYPE)
+
+            primaryConstructor(
+                FunSpec.constructorBuilder()
+                    .addParameter("error", BindingsGenerator.GLIB_ERROR_TYPE)
+                    .addParameter("code", enum.kotlinTypeName)
+                    .build(),
+            )
+            addSuperclassConstructorParameter("error")
+
+            addProperty(
+                PropertySpec.builder("code", enum.kotlinTypeName)
+                    .initializer("code")
+                    .build(),
+            )
+        }.build()
 }

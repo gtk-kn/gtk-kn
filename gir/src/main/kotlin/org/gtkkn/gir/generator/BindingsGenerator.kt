@@ -69,6 +69,14 @@ class BindingsGenerator(
                 buildEnum(enum),
                 repositorySrcDir(repository, outputDir),
             )
+
+            enum.errorExceptionTypeName?.let {
+                writeType(
+                    it,
+                    buildErrorDomainExceptionClass(enum),
+                    repositorySrcDir(repository, outputDir),
+                )
+            }
         }
 
         // write records
