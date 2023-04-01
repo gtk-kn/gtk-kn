@@ -550,7 +550,7 @@ class ProcessorContext(
             }
 
             // only use RecordPointer for actual pointers
-            if (type.cType == "gpointer" || type.cType.orEmpty().endsWith("*")) {
+            if (type.cType == null || type.cType == "gpointer" || type.cType.endsWith("*")) {
                 val objectPointerName = "${namespacePrefix(namespace)}${girRecord.name}Pointer"
                 return TypeInfo.RecordPointer(
                     kotlinTypeName = kotlinRecordTypeName,
