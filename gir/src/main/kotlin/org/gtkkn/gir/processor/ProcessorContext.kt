@@ -451,6 +451,11 @@ class ProcessorContext(
             return typeInfo.withNullable(nullable)
         }
 
+        // quarks
+        if (type.cType == "GQuark") {
+            return TypeInfo.Primitive(U_INT)
+        }
+
         // strings
         if (type.name == "utf8" || type.name == "filename") {
             return when (type.cType) {
