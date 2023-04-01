@@ -183,17 +183,7 @@ class ClassBlueprintBuilder(
         // exclude interfaces implemented by parent
         val classUniqueInterfaces = implementsInterfacePairs.filterNot { parentInterfacePairs.contains(it) }
 
-        // exclude interfaces that are parents of other interfaces in the list
-        val remainingInterfaces = classUniqueInterfaces.filterNot { pair ->
-            val simpleName = pair.second.name
-            val fullyQualifiedName = "${pair.first.name}.${pair.second.name}"
-            val allParentNames = implementsInterfacePairs.flatMap { ifacePair ->
-                ifacePair.second.prerequisites.map { iface -> iface.name }
-            }
-            allParentNames.contains(simpleName) || allParentNames.contains(fullyQualifiedName)
-        }
-
-        remainingInterfaces.forEach { ifacePair ->
+        classUniqueInterfaces.forEach { ifacePair ->
             val interfacePointerName = "${context.namespacePrefix(ifacePair.first)}${ifacePair.second.name}Pointer"
             val interfaceTypeName = context.resolveInterfaceTypeName(ifacePair.first, ifacePair.second.name)
             val interfacePointerTypeName =
