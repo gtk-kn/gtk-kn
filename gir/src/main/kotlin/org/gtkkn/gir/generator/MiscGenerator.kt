@@ -120,13 +120,12 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             // check errors and wrap in Result
             beginControlFlow("return if (_err.%M != null)", BindingsGenerator.POINTED_FUNC)
             addStatement(
-                "%T.failure(%T(%T(_err.%M!!.%M.%M())))",
+                "%T.failure(%M(%T(_err.%M!!.%M)))",
                 BindingsGenerator.RESULT_TYPE,
-                BindingsGenerator.GLIB_EXCEPTION_TYPE,
+                method.exceptionResolvingFunctionMember,
                 BindingsGenerator.GLIB_ERROR_TYPE,
                 BindingsGenerator.POINTED_FUNC,
                 BindingsGenerator.PTR_FUNC,
-                BindingsGenerator.REINTERPRET_FUNC,
             )
             endControlFlow()
             beginControlFlow("else")
