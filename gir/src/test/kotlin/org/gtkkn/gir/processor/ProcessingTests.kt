@@ -77,9 +77,16 @@ class ProcessingTests {
     fun testInterfaceFilteringDragIcon() {
         val clazz = gtkBlueprint.classBlueprints.first { it.kotlinName == "DragIcon" }
         // should not contain any of the Widget interfaces
-        // only keep Gtk.Root, filter Gtk.Native
-        assertEquals(1, clazz.implementsInterfaces.size)
-        assertEquals(ClassName("org.gtkkn.bindings.gtk", "Root"), clazz.implementsInterfaces.first().interfaceTypeName)
+        // only keep Gtk.Root and Gtk.Native
+        assertEquals(2, clazz.implementsInterfaces.size)
+        assertEquals(
+            ClassName("org.gtkkn.bindings.gtk", "Native"),
+            clazz.implementsInterfaces.first().interfaceTypeName,
+        )
+        assertEquals(
+            ClassName("org.gtkkn.bindings.gtk", "Root"),
+            clazz.implementsInterfaces.last().interfaceTypeName,
+        )
     }
 
     @Test
