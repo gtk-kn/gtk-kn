@@ -188,6 +188,12 @@ class ProcessorContext(
         "g_stpcpy",
         "g_value_set_string_take_ownership",
         "g_value_take_string",
+
+        // ThreadFunc is not supported yet
+        "g_thread_try_new",
+        // DBusProxyTypeFunc is not supported yet
+        "g_dbus_object_manager_client_new_for_bus_sync",
+        "g_dbus_object_manager_client_new_sync",
     )
 
     /**

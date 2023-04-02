@@ -43,7 +43,6 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             }
         }.build()
 
-
     @Suppress("LongMethod")
     fun buildMethod(
         method: MethodBlueprint,
@@ -110,7 +109,6 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         }
 
         addCode(")") // close native function call
-
 
         if (method.throws) {
             // native function return value conversion

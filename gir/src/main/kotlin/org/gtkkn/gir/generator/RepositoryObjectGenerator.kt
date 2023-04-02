@@ -26,7 +26,7 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
 
             val errorDomainEnums = repository.errorDomainEnums()
             if (errorDomainEnums.isNotEmpty()) {
-                addFunction(buildExceptionResolverFunction(repository, errorDomainEnums))
+                addFunction(buildExceptionResolverFunction(errorDomainEnums))
             }
             addKdoc(buildTypeKDoc(null, null, repository.skippedObjects))
         }.build()
@@ -60,15 +60,14 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
     }
 
     private fun buildExceptionResolverFunction(
-        repository: RepositoryBlueprint,
         errorDomainEnums: List<EnumBlueprint>
     ): FunSpec = FunSpec.builder("resolveException").apply {
         addParameter("error", BindingsGenerator.GLIB_ERROR_TYPE)
         returns(BindingsGenerator.GLIB_EXCEPTION_TYPE)
 
         beginControlFlow("val ex = when (error.domain)")
+        // this currently resolves only errorDomains from the same module
         for (enum in errorDomainEnums) {
-            // TODO add dependency repositories errors as well
             addStatement(
                 "%T.quark() -> %T.fromErrorOrNull(error)",
                 enum.kotlinTypeName,

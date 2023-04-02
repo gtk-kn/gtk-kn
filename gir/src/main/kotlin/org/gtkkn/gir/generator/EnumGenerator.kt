@@ -93,7 +93,6 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
                 enum.kotlinTypeName,
             )
             endControlFlow()
-
         }.build()
 
     fun buildErrorDomainExceptionClass(enum: EnumBlueprint) =

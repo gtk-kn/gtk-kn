@@ -9,7 +9,7 @@ data class MethodBlueprint(
     override val parameters: List<ParameterBlueprint>,
     override val returnTypeInfo: TypeInfo,
     override val throws: Boolean,
-    val exceptionResolvingFunctionMember: MemberName, // TODO move to CallableBlueprint
+    override val exceptionResolvingFunctionMember: MemberName,
     val isOverride: Boolean,
     val isOpen: Boolean,
     val version: String?,

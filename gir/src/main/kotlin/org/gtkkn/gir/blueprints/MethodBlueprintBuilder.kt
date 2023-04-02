@@ -16,7 +16,6 @@ import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.ShadowedFunctionException
 import org.gtkkn.gir.processor.UnresolvableTypeException
-import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
 class MethodBlueprintBuilder(
     context: ProcessorContext,
@@ -75,13 +74,6 @@ class MethodBlueprintBuilder(
 
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)
 
-        val exceptionResolvingFunction =
-            MemberName(
-                context.namespaceBindingsPackageName(girNamespace) + "." + girNamespace.name.lowercase()
-                    .capitalizeAsciiOnly(),
-                "resolveException",
-            )
-
         return MethodBlueprint(
             kotlinName = if (isNameClash) {
                 resolveNameClash(kotlinName)
@@ -94,11 +86,11 @@ class MethodBlueprintBuilder(
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
             isOpen = isOpen,
+            throws = girMethod.throws,
+            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
             version = girMethod.info.version,
             kdoc = context.processKdoc(girMethod.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girMethod.returnValue.docs.doc?.text),
-            throws = girMethod.throws,
-            exceptionResolvingFunctionMember = exceptionResolvingFunction,
         )
     }
 

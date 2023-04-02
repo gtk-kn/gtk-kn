@@ -13,9 +13,9 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class SignalBlueprintBuilder(
     context: ProcessorContext,
-    private val girNamespace: GirNamespace,
+    girNamespace: GirNamespace,
     private val girSignal: GirSignal,
-) : BlueprintBuilder<SignalBlueprint>(context) {
+) : CallableBlueprintBuilder<SignalBlueprint>(context, girNamespace) {
 
     private val signalParameters = mutableListOf<ParameterBlueprint>()
 
@@ -66,6 +66,8 @@ class SignalBlueprintBuilder(
             returnTypeInfo = returnTypeInfo,
             parameters = signalParameters,
             lambdaTypeName = handlerLambdaTypeName,
+            throws = false, // signals cannot throw
+            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
             version = girSignal.info.version,
             kdoc = context.processKdoc(girSignal.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girSignal.returnValue.docs.doc?.text),

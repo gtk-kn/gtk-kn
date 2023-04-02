@@ -15,6 +15,8 @@ class BindingsGenerator(
     private val config: Config,
     private val ktLintFormatter: KtLintFormatter
 ) : ClassGenerator, InterfaceGenerator, EnumGenerator, BitfieldGenerator, RepositoryObjectGenerator, RecordGenerator {
+
+    @Suppress("LongMethod")
     fun generate(repository: RepositoryBlueprint, outputDir: File) {
         val repositoryOutputDir = repositoryBuildDir(repository, outputDir)
         if (!repositoryOutputDir.exists()) {
@@ -195,6 +197,7 @@ class BindingsGenerator(
 
         // kotlin helpers
         internal val RESULT_TYPE = ClassName("kotlin", "Result")
+        internal val THROWS_TYPE = ClassName("kotlin", "Throws")
 
         // gobject members
         internal val G_SIGNAL_CONNECT_DATA = MemberName("org.gtkkn.native.gobject", "g_signal_connect_data")
