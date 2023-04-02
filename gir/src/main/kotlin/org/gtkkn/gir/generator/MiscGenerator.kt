@@ -112,10 +112,12 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
         addCode(")") // close native function paren
 
-        // native function return value conversion
-        addCode(buildNativeToKotlinConversionsBlock(method.returnTypeInfo))
 
         if (method.throws) {
+            // native function return value conversion
+            // in case the method throws, we force the returnValue conversion to be nullable so we can do
+            // error checking first
+            addCode(buildNativeToKotlinConversionsBlock(method.returnTypeInfo.withNullable(true)))
             addStatement("")
             // check errors and wrap in Result
             beginControlFlow("return if (_err.%M != null)", BindingsGenerator.POINTED_FUNC)
@@ -129,9 +131,16 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             )
             endControlFlow()
             beginControlFlow("else")
-            addStatement("%T.success(_res)", BindingsGenerator.RESULT_TYPE)
+            if (!method.returnTypeInfo.kotlinTypeName.isNullable) {
+                addStatement("%T.success(checkNotNull(_res))", BindingsGenerator.RESULT_TYPE)
+            } else {
+                addStatement("%T.success(_res)", BindingsGenerator.RESULT_TYPE)
+            }
+
             endControlFlow()
         } else {
+            // native function return value conversion
+            addCode(buildNativeToKotlinConversionsBlock(method.returnTypeInfo))
             // return is already handled
         }
 
