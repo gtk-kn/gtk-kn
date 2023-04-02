@@ -169,7 +169,7 @@ private object NativeToKotlinConversions {
     ) {
         codeBlockBuilder
             .beginControlFlow(".run")
-            .add("%T.fromNativeValue(this)", returnTypeInfo.kotlinTypeName)
+            .add("%T.fromNativeValue(this)", returnTypeInfo.withNullable(false).kotlinTypeName)
             .endControlFlow()
     }
 
@@ -276,7 +276,7 @@ private object NativeToKotlinConversions {
         codeBlockBuilder
             .add(nullableString)
             .beginControlFlow(".run")
-            .add("%T(this)", returnTypeInfo.kotlinTypeName)
+            .add("%T(this)", returnTypeInfo.withNullable(false).kotlinTypeName)
             .endControlFlow()
     }
 
