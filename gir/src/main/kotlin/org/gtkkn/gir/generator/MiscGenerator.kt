@@ -76,19 +76,18 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         appendSignatureParameters(method.parameters)
 
         // begin implementation
-
         if (method.needsMemscoped) {
             beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
         }
 
         if (method.throws) {
             // prepare error pointer
-            addStatement("val _err = %M<%M>()", BindingsGenerator.ALLOC_POINTER_TO, BindingsGenerator.G_ERROR_MEMBER)
+            addStatement("val gError = %M<%M>()", BindingsGenerator.ALLOC_POINTER_TO, BindingsGenerator.G_ERROR_MEMBER)
             // open native method call into intermediate val
-            addCode("val _res = %M(", method.nativeMemberName) // open native function paren
+            addCode("val gResult = %M(", method.nativeMemberName) // open native function call
         } else {
             // if not throws, we can return directly without intermediate
-            addCode("return %M(", method.nativeMemberName) // open native function paren
+            addCode("return %M(", method.nativeMemberName) // open native function call
         }
 
         var needsComma = false
@@ -107,10 +106,10 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         }
 
         if (method.throws) {
-            addCode(", _err.%M", BindingsGenerator.PTR_FUNC)
+            addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
         }
 
-        addCode(")") // close native function paren
+        addCode(")") // close native function call
 
 
         if (method.throws) {
@@ -120,9 +119,9 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode(buildNativeToKotlinConversionsBlock(method.returnTypeInfo.withNullable(true)))
             addStatement("")
             // check errors and wrap in Result
-            beginControlFlow("return if (_err.%M != null)", BindingsGenerator.POINTED_FUNC)
+            beginControlFlow("return if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
             addStatement(
-                "%T.failure(%M(%T(_err.%M!!.%M)))",
+                "%T.failure(%M(%T(gError.%M!!.%M)))",
                 BindingsGenerator.RESULT_TYPE,
                 method.exceptionResolvingFunctionMember,
                 BindingsGenerator.GLIB_ERROR_TYPE,
@@ -132,9 +131,9 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             endControlFlow()
             beginControlFlow("else")
             if (!method.returnTypeInfo.kotlinTypeName.isNullable) {
-                addStatement("%T.success(checkNotNull(_res))", BindingsGenerator.RESULT_TYPE)
+                addStatement("%T.success(checkNotNull(gResult))", BindingsGenerator.RESULT_TYPE)
             } else {
-                addStatement("%T.success(_res)", BindingsGenerator.RESULT_TYPE)
+                addStatement("%T.success(gResult)", BindingsGenerator.RESULT_TYPE)
             }
 
             endControlFlow()
@@ -164,14 +163,14 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
         }
 
-        addCode("return %M(", func.nativeMemberName) // open native function paren
+        addCode("return %M(", func.nativeMemberName) // open native function call
         func.parameters.forEachIndexed { index, param ->
             if (index > 0) {
                 addCode(", ")
             }
             addCode(buildParameterConversionBlock(param))
         }
-        addCode(")") // close native function paren
+        addCode(")") // close native function call
 
         // convert return type
         addCode(buildNativeToKotlinConversionsBlock(func.returnTypeInfo))
@@ -253,7 +252,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             }
             addStatement("%N: %T$forceNullable,", param.kotlinName, param.typeInfo.nativeTypeName)
         }
-        addStatement("user_data: %T ->", NativeTypes.KP_OPAQUE_POINTER)
+        addStatement("userData: %T ->", NativeTypes.KP_OPAQUE_POINTER)
 
         if (closure.needsMemscoped || closure.needsMemscopedReturnValue) {
             beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
@@ -261,7 +260,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
         // implementation
         add(
-            "user_data.%M<%T>().get().invoke(",
+            "userData.%M<%T>().get().invoke(",
             BindingsGenerator.AS_STABLE_REF_FUNC,
             closure.lambdaTypeName,
         ) // open invoke

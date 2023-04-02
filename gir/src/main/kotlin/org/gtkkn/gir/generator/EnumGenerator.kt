@@ -67,14 +67,14 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
             // fromError function
             enum.errorDomain?.let { errorDomain ->
                 if (enum.functionBlueprints.none { it.kotlinName == "quark" }) {
-                    addFunction(buildErrorDomainQuarkFunction(enum, errorDomain))
+                    addFunction(buildErrorDomainQuarkFunction(errorDomain))
                 }
                 addFunction(buildFromErrorFunction(enum))
             }
         }.build()
     }
 
-    private fun buildErrorDomainQuarkFunction(enum: EnumBlueprint, errorDomain: String) =
+    private fun buildErrorDomainQuarkFunction(errorDomain: String) =
         FunSpec.builder("quark").apply {
             returns(U_INT)
             addStatement("return %M(%S)", BindingsGenerator.G_QUARK_FROM_STRING_FUNC, errorDomain)

@@ -92,7 +92,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             } else {
                 appendSignatureParameters(constructor.parameters)
 
-                // open native function paren
+                // open native function call
                 addCode("return %T(%M(", record.kotlinTypeName, constructor.nativeMemberName)
 
                 constructor.parameters.forEachIndexed { index, param ->
@@ -102,7 +102,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                     addCode(buildParameterConversionBlock(param))
                 }
 
-                addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC) // close native function paren
+                addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC) // close native function call
             }
 
             if (constructor.needsMemscoped) {
@@ -145,7 +145,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                         }.build(),
                     )
                 } else {
-                    addKdoc("\nNote: this property is writeable but the setter binding is not supported yet.")
+                    addKdoc("\n\nNote: this property is writeable but the setter binding is not supported yet.")
                 }
             }
         }.build()

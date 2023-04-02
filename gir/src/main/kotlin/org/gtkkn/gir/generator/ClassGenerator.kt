@@ -164,7 +164,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                     codeBlockBuilder.beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
                 }
 
-                codeBlockBuilder.add("%M(", constructor.nativeMemberName) // open native func paren
+                codeBlockBuilder.add("%M(", constructor.nativeMemberName) // open native func call
 
                 constructor.parameters.forEachIndexed { index, param ->
                     if (index > 0) {
@@ -173,7 +173,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                     codeBlockBuilder.add(buildParameterConversionBlock(param))
                 }
 
-                codeBlockBuilder.add(")") // close native func paren
+                codeBlockBuilder.add(")") // close native func call
                 codeBlockBuilder.add("!!.reinterpret()")
 
                 if (constructor.needsMemscoped) {
@@ -210,7 +210,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             } else {
                 appendSignatureParameters(constructor.parameters)
 
-                // open native function paren
+                // open native function call
                 addCode("return %T(%M(", clazz.typeName, constructor.nativeMemberName)
 
                 constructor.parameters.forEachIndexed { index, param ->
@@ -220,7 +220,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                     addCode(buildParameterConversionBlock(param))
                 }
 
-                addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC) // close native function paren
+                addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC) // close native function call
             }
         }.build()
 
