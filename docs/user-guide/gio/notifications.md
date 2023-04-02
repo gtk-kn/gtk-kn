@@ -17,7 +17,7 @@ Interface Guidelines](https://developer.gnome.org/hig/patterns/feedback/notifica
 
 In order to use notifications in GNOME you will need to:
 
-* use a GIO `Application` or a GTK `Application`
+* use a GIO `Application`, or any other class that extends form it, like GTK `Application` or ADW `Application`
 * provide a valid desktop file with the same name as your `application ID`
 * ensure that your application can be activated via D-Bus
 
@@ -61,8 +61,8 @@ To show your notification to the user, use the `Application` function for this p
 app.sendNotification("lunch-is-ready", notification)
 ```
 
-You need to provide an id for your notification here. This can be used if you want to make updates to an existing
-notification: simply send a notification with the same id. Note that the `Notification` object does not have to be kept
+You need to provide an ID for your notification here. This can be used if you want to make updates to an existing
+notification: simply send a notification with the same ID. Note that the `Notification` object does not have to be kept
 around after sending the notification; you can unref it right away. It is not a 'live' object that is associated with
 the visible notification.
 
@@ -91,7 +91,7 @@ to let your application react in a meaningful way.
 As an example, here is how a notification about a newly installed application could provide a launch button:
 
 ``` kotlin
-val title = appname + " is now installed";
+val title = "$appName is now installed";
 val notification = Notification(title);
 
 notification.addButtonWithTargetValue("Launch", "app.launch", Variant.newString(appid))
@@ -99,11 +99,11 @@ notification.addButtonWithTargetValue("Launch", "app.launch", Variant.newString(
 app.sendNotification("app-installed", notification);
 ```
 
-To make this work, your application needs to have a suitable 'launch' action that takes the application id as a string
+To make this work, your application needs to have a suitable 'launch' action that takes the application ID as a string
 parameter:
 
 ``` kotlin
-val action = SimpleAction("launch", null)
+val action = SimpleAction("launch", VariantType.new("s"))
 
 // the "launchApplication()" function is defined elsewhere
 action.connectActivate(handler = launchApplication())
