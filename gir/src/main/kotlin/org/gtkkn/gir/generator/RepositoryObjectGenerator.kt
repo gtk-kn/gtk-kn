@@ -18,7 +18,7 @@ import org.gtkkn.gir.blueprints.ConstantBlueprint
 import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 
-interface RepositoryObjectGenerator : MiscGenerator {
+interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
     fun buildRepositoryObject(repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.objectBuilder(repository.repositoryObjectName.simpleName).apply {
             repository.functionBlueprints.forEach { addFunction(buildFunction(it)) }
@@ -28,6 +28,7 @@ interface RepositoryObjectGenerator : MiscGenerator {
             if (errorDomainEnums.isNotEmpty()) {
                 addFunction(buildExceptionResolverFunction(repository, errorDomainEnums))
             }
+            addKdoc(buildTypeKDoc(null, null, repository.skippedObjects))
         }.build()
 
     private fun buildConstant(constant: ConstantBlueprint): PropertySpec {
