@@ -128,7 +128,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             )
             endControlFlow()
             beginControlFlow("else")
-            if (!method.returnTypeInfo.kotlinTypeName.isNullable) {
+            if (!method.returnTypeInfo.kotlinTypeName.isNullable && method.returnTypeInfo.isCinteropNullable) {
                 addStatement("%T.success(checkNotNull(gResult))", BindingsGenerator.RESULT_TYPE)
             } else {
                 addStatement("%T.success(gResult)", BindingsGenerator.RESULT_TYPE)
