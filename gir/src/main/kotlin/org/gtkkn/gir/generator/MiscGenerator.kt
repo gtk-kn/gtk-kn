@@ -181,15 +181,13 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
     fun buildSignalConnectFunction(signal: SignalBlueprint, objectPointerName: String): FunSpec =
         FunSpec.builder(signal.kotlinConnectName).apply {
             val connectFlagsTypeName = ClassName("org.gtkkn.bindings.gobject", "ConnectFlags")
-            val connectFlagsDefaultMemberName =
-                MemberName("org.gtkkn.bindings.gobject.ConnectFlags.Companion", "DEFAULT")
 
             addKdoc(buildSignalKDoc(signal.kdoc, signal.parameters, signal.version, signal.returnTypeKDoc))
 
             // connect flags
             addParameter(
                 ParameterSpec.builder("connectFlags", connectFlagsTypeName)
-                    .defaultValue("%M", connectFlagsDefaultMemberName)
+                    .defaultValue("%T(0u)", connectFlagsTypeName)
                     .build(),
             )
             // trailing lambda for handler
