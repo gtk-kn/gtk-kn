@@ -77,6 +77,10 @@ class EnumBlueprintBuilder(
         val nativePackageName = context.namespaceNativePackageName(girNamespace)
         val nativeValueTypeName = ClassName(nativePackageName, girEnum.cType)
 
+        val exceptionTypeName = girEnum.glibErrorDomain?.let {
+            ClassName(context.namespaceBindingsPackageName(girNamespace), "${kotlinName}Exception")
+        }
+
         return EnumBlueprint(
             kotlinName = context.kotlinizeEnumName(girEnum.name),
             kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
@@ -84,6 +88,8 @@ class EnumBlueprintBuilder(
             nativeValueTypeName = nativeValueTypeName,
             memberBlueprints = members,
             functionBlueprints = functionBlueprints,
+            errorDomain = girEnum.glibErrorDomain,
+            errorExceptionTypeName = exceptionTypeName,
             version = girEnum.info.version,
             kdoc = context.processKdoc(girEnum.info.docs.doc?.text),
         )

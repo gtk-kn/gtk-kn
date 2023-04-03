@@ -15,9 +15,9 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class CallbackBlueprintBuilder(
     context: ProcessorContext,
-    private val girNamespace: GirNamespace,
+    girNamespace: GirNamespace,
     private val girCallback: GirCallback,
-) : BlueprintBuilder<CallbackBlueprint>(context) {
+) : CallableBlueprintBuilder<CallbackBlueprint>(context, girNamespace) {
 
     private val callbackParameters = mutableListOf<ParameterBlueprint>()
 
@@ -76,6 +76,9 @@ class CallbackBlueprintBuilder(
             returnTypeInfo = returnTypeInfo,
             lambdaTypeName = callbackLambdaTypeName,
             parameters = callbackParameters,
+            throws = girCallback.throws == true,
+            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
+
             kdoc = context.processKdoc(girCallback.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girCallback.returnValue.docs.doc?.text),
         )

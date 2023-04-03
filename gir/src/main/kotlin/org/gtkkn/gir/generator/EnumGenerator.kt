@@ -3,6 +3,7 @@ package org.gtkkn.gir.generator
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.U_INT
 import org.gtkkn.gir.blueprints.EnumBlueprint
 
 interface EnumGenerator : MiscGenerator, KDocGenerator {
@@ -62,6 +63,54 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
 
             // other functions
             enum.functionBlueprints.forEach { addFunction(buildFunction(it)) }
+
+            // fromError function
+            enum.errorDomain?.let { errorDomain ->
+                if (enum.functionBlueprints.none { it.kotlinName == "quark" }) {
+                    addFunction(buildErrorDomainQuarkFunction(errorDomain))
+                }
+                addFunction(buildFromErrorFunction(enum))
+            }
         }.build()
     }
+
+    private fun buildErrorDomainQuarkFunction(errorDomain: String) =
+        FunSpec.builder("quark").apply {
+            returns(U_INT)
+            addStatement("return %M(%S)", BindingsGenerator.G_QUARK_FROM_STRING_FUNC, errorDomain)
+        }.build()
+
+    private fun buildFromErrorFunction(enum: EnumBlueprint) =
+        FunSpec.builder("fromErrorOrNull").apply {
+            addParameter("error", BindingsGenerator.GLIB_ERROR_TYPE)
+            returns(enum.kotlinTypeName.copy(nullable = true))
+
+            beginControlFlow("return if (error.domain != quark())")
+            addStatement("null")
+            nextControlFlow("else")
+            addStatement(
+                "%T.values().find { it.nativeValue.value.toInt() == error.code }",
+                enum.kotlinTypeName,
+            )
+            endControlFlow()
+        }.build()
+
+    fun buildErrorDomainExceptionClass(enum: EnumBlueprint) =
+        TypeSpec.classBuilder(checkNotNull(enum.errorExceptionTypeName)).apply {
+            superclass(BindingsGenerator.GLIB_EXCEPTION_TYPE)
+
+            primaryConstructor(
+                FunSpec.constructorBuilder()
+                    .addParameter("error", BindingsGenerator.GLIB_ERROR_TYPE)
+                    .addParameter("code", enum.kotlinTypeName)
+                    .build(),
+            )
+            addSuperclassConstructorParameter("error")
+
+            addProperty(
+                PropertySpec.builder("code", enum.kotlinTypeName)
+                    .initializer("code")
+                    .build(),
+            )
+        }.build()
 }

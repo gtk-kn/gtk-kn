@@ -86,6 +86,8 @@ class MethodBlueprintBuilder(
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
             isOpen = isOpen,
+            throws = girMethod.throws,
+            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
             version = girMethod.info.version,
             kdoc = context.processKdoc(girMethod.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girMethod.returnValue.docs.doc?.text),
@@ -115,10 +117,6 @@ class MethodBlueprintBuilder(
 
         if (girMethod.parameters.instanceParameter == null) {
             throw UnresolvableTypeException("Method has no instance parameter")
-        }
-
-        if (girMethod.throws) {
-            throw UnresolvableTypeException("Throwing methods are not supported")
         }
     }
 }

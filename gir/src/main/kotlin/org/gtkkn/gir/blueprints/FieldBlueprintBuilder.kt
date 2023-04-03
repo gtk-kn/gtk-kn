@@ -30,7 +30,8 @@ class FieldBlueprintBuilder(
             is GirType -> {
                 // assuming not nullable here, we might need to revisit this when adding array, callback and
                 // embedded structs
-                context.resolveTypeInfo(girNamespace, girField.type, false)
+                val typeInfo = context.resolveTypeInfo(girNamespace, girField.type, false)
+                typeInfo.withNullable(typeInfo.isCinteropNullable)
             }
             is GirArrayType -> throw UnresolvableTypeException("Fields with arrays are not supported")
             is GirCallback -> throw UnresolvableTypeException("Fields with callbacks are not supported")

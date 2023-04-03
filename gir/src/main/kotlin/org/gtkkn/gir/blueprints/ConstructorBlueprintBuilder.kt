@@ -35,17 +35,13 @@ class ConstructorBlueprintBuilder(
             )
         }
 
-        if (girConstructor.throws == true) {
-            throw UnresolvableTypeException("Throwing constructors are not supported")
-        }
-
         girConstructor.parameters?.let { addParameters(it) }
 
         // return value
         val returnValue = girConstructor.returnValue
         if (returnValue == null) {
             logger.error(
-                "Constructor ${girNamespace.name}.${blueprintObjectName()}.${girConstructor.name} has no return value"
+                "Constructor ${girNamespace.name}.${blueprintObjectName()}.${girConstructor.name} has no return value",
             )
             throw UnresolvableTypeException("Constructor has no return value")
         }
@@ -72,6 +68,8 @@ class ConstructorBlueprintBuilder(
             nativeMemberName = nativeMemberName,
             returnTypeInfo = returnTypeInfo,
             parameters = parameterBlueprints,
+            throws = girConstructor.throws == true,
+            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
             version = girConstructor.info.version,
             kdoc = context.processKdoc(girConstructor.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girConstructor.returnValue?.docs?.doc?.text),

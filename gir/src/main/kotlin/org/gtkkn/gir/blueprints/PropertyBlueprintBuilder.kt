@@ -73,5 +73,13 @@ class PropertyBlueprintBuilder(
         if (setter != null && setter.returnTypeInfo.kotlinTypeName != UNIT) {
             throw UnresolvableTypeException("Property setter does not return Unit")
         }
+
+        if (getter.throws) {
+            throw UnresolvableTypeException("Property getter throws")
+        }
+
+        if (setter?.throws == true) {
+            throw UnresolvableTypeException("Property setter throws")
+        }
     }
 }

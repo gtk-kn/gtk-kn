@@ -64,6 +64,8 @@ class FunctionBlueprintBuilder(
             nativeMemberName = nativeMemberName,
             parameters = parameterBlueprints,
             returnTypeInfo = returnTypeInfo,
+            throws = girFunction.throws,
+            exceptionResolvingFunctionMember = exceptionResolvingFunction(),
             version = girFunction.info.version,
             kdoc = context.processKdoc(girFunction.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girFunction.returnValue.docs.doc?.text),

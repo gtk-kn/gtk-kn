@@ -1,9 +1,11 @@
 package org.gtkkn.gir.generator
 
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ClassBlueprint
@@ -137,6 +139,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
     /**
      * Build a class constructor based on a [ConstructorBlueprint].
      */
+    @Suppress("LongMethod")
     private fun buildClassConstructor(constructor: ConstructorBlueprint): FunSpec =
         FunSpec.constructorBuilder().apply {
             if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
@@ -152,7 +155,17 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 ),
             )
 
+            if (constructor.throws) {
+                // add throw annotation
+                addAnnotation(
+                    AnnotationSpec.builder(BindingsGenerator.THROWS_TYPE)
+                        .addMember("%T::class", BindingsGenerator.GLIB_EXCEPTION_TYPE)
+                        .build(),
+                )
+            }
+
             if (constructor.parameters.isEmpty()) {
+                if (constructor.throws) error("Throwing no-argument constructors are not supported")
                 // no arg constructor
                 callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
             } else {
@@ -164,7 +177,19 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                     codeBlockBuilder.beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
                 }
 
-                codeBlockBuilder.add("%M(", constructor.nativeMemberName) // open native func paren
+                if (constructor.throws) {
+                    // prepare error pointer
+                    codeBlockBuilder.addStatement(
+                        "val gError = %M<%M>()",
+                        BindingsGenerator.ALLOC_POINTER_TO,
+                        BindingsGenerator.G_ERROR_MEMBER,
+                    )
+                    // open native method call into intermediate val
+                    codeBlockBuilder.add("val gResult = %M(", constructor.nativeMemberName) // open native function call
+                } else {
+                    // if not throws, we can return directly without intermediate
+                    codeBlockBuilder.add("%M(", constructor.nativeMemberName) // open native func call
+                }
 
                 constructor.parameters.forEachIndexed { index, param ->
                     if (index > 0) {
@@ -173,8 +198,30 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                     codeBlockBuilder.add(buildParameterConversionBlock(param))
                 }
 
-                codeBlockBuilder.add(")") // close native func paren
-                codeBlockBuilder.add("!!.reinterpret()")
+                if (constructor.throws) {
+                    codeBlockBuilder.add(", gError.%M", BindingsGenerator.PTR_FUNC)
+                }
+
+                codeBlockBuilder.add(")") // close native func call
+
+                if (constructor.throws) {
+                    codeBlockBuilder.addStatement("")
+                    // error handling
+                    codeBlockBuilder.beginControlFlow("if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+                    // throw the exception
+                    codeBlockBuilder.addStatement(
+                        "throw %M(%T(gError.%M!!.%M))",
+                        constructor.exceptionResolvingFunctionMember,
+                        BindingsGenerator.GLIB_ERROR_TYPE,
+                        BindingsGenerator.POINTED_FUNC,
+                        BindingsGenerator.PTR_FUNC,
+                    )
+                    codeBlockBuilder.endControlFlow()
+                    // if no error, use the result
+                    codeBlockBuilder.addStatement("gResult!!.reinterpret()")
+                } else {
+                    codeBlockBuilder.add("!!.reinterpret()")
+                }
 
                 if (constructor.needsMemscoped) {
                     codeBlockBuilder.endControlFlow()
@@ -187,9 +234,16 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
     /**
      * Build a constructor factory method based on a [ConstructorBlueprint].
      */
+    @Suppress("LongMethod")
     private fun buildClassConstructorFactoryMethod(clazz: ClassBlueprint, constructor: ConstructorBlueprint): FunSpec =
         FunSpec.builder(constructor.kotlinName).apply {
-            returns(clazz.typeName)
+            // return value
+            val returnTypeName = if (constructor.throws) {
+                BindingsGenerator.RESULT_TYPE.parameterizedBy(clazz.typeName)
+            } else {
+                clazz.typeName
+            }
+            returns(returnTypeName)
 
             if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
                 error("Invalid constructor return type for ${constructor.nativeName}")
@@ -203,15 +257,31 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                     returnTypeKDoc = constructor.returnTypeKDoc,
                 ),
             )
+            if (constructor.needsMemscoped) {
+                beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
+            }
 
             if (constructor.parameters.isEmpty()) {
+                if (constructor.throws) error("Throwing no-argument constructors are not supported")
                 // no-arg factory method
                 addStatement("return %T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
             } else {
                 appendSignatureParameters(constructor.parameters)
 
-                // open native function paren
-                addCode("return %T(%M(", clazz.typeName, constructor.nativeMemberName)
+                if (constructor.throws) {
+                    // prepare error pointer
+                    addStatement(
+                        "val gError = %M<%M>()",
+                        BindingsGenerator.ALLOC_POINTER_TO,
+                        BindingsGenerator.G_ERROR_MEMBER,
+                    )
+                    // open native method call into intermediate val
+                    addCode("val gResult = %M(", constructor.nativeMemberName)
+                } else {
+                    // if not throws, we can return directly without intermediate
+                    // open native function call
+                    addCode("return %T(%M(", clazz.typeName, constructor.nativeMemberName)
+                }
 
                 constructor.parameters.forEachIndexed { index, param ->
                     if (index > 0) {
@@ -219,8 +289,50 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                     }
                     addCode(buildParameterConversionBlock(param))
                 }
+                // add error param
+                if (constructor.throws) {
+                    addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
+                }
 
-                addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC) // close native function paren
+                if (constructor.throws) {
+                    addCode(")") // close native function call
+                    addStatement("")
+
+                    beginControlFlow("return if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+                    addStatement(
+                        "%T.failure(%M(%T(gError.%M!!.%M)))",
+                        BindingsGenerator.RESULT_TYPE,
+                        constructor.exceptionResolvingFunctionMember,
+                        BindingsGenerator.GLIB_ERROR_TYPE,
+                        BindingsGenerator.POINTED_FUNC,
+                        BindingsGenerator.PTR_FUNC,
+                    )
+                    endControlFlow()
+                    beginControlFlow("else")
+                    if (!constructor.returnTypeInfo.kotlinTypeName.isNullable) {
+                        addStatement(
+                            "%T.success(%T(checkNotNull(gResult).%M()))",
+                            BindingsGenerator.RESULT_TYPE,
+                            constructor.returnTypeInfo.kotlinTypeName,
+                            BindingsGenerator.REINTERPRET_FUNC,
+                        )
+                    } else {
+                        addStatement(
+                            "%T.success(%T(checkNotNull(gResult).%M()))",
+                            BindingsGenerator.RESULT_TYPE,
+                            constructor.returnTypeInfo.withNullable(false).kotlinTypeName,
+                            BindingsGenerator.REINTERPRET_FUNC,
+                        )
+                    }
+
+                    endControlFlow()
+                } else {
+                    addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC) // close native function call
+                }
+
+                if (constructor.needsMemscoped) {
+                    endControlFlow()
+                }
             }
         }.build()
 

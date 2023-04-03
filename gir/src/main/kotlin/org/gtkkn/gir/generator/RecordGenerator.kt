@@ -2,6 +2,7 @@ package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
@@ -62,6 +63,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
         builder.primaryConstructor(constructorSpecBuilder.build())
     }
 
+    @Suppress("LongMethod")
     private fun buildRecordConstructor(record: RecordBlueprint, constructor: ConstructorBlueprint): FunSpec =
         FunSpec.builder(constructor.kotlinName).apply {
             // kdoc
@@ -75,13 +77,19 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             )
 
             // return type
-            returns(record.kotlinTypeName)
+            val returnTypeName = if (constructor.throws) {
+                BindingsGenerator.RESULT_TYPE.parameterizedBy(constructor.returnTypeInfo.kotlinTypeName)
+            } else {
+                constructor.returnTypeInfo.kotlinTypeName
+            }
+            returns(returnTypeName)
 
             if (constructor.needsMemscoped) {
                 beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
             }
 
             if (constructor.parameters.isEmpty()) {
+                if (constructor.throws) error("Throwing no-argument constructors are not supported")
                 // no-arg factory method
                 addStatement(
                     "return %T(%M()!!.%M())",
@@ -92,8 +100,18 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             } else {
                 appendSignatureParameters(constructor.parameters)
 
-                // open native function paren
-                addCode("return %T(%M(", record.kotlinTypeName, constructor.nativeMemberName)
+                if (constructor.throws) {
+                    addStatement(
+                        "val gError = %M<%M>()",
+                        BindingsGenerator.ALLOC_POINTER_TO,
+                        BindingsGenerator.G_ERROR_MEMBER,
+                    )
+                    // open native method call into intermediate val
+                    addCode("val gResult = %M(", constructor.nativeMemberName) // open native function call
+                } else {
+                    // open native function call
+                    addCode("return %T(%M(", record.kotlinTypeName, constructor.nativeMemberName)
+                }
 
                 constructor.parameters.forEachIndexed { index, param ->
                     if (index > 0) {
@@ -102,7 +120,44 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                     addCode(buildParameterConversionBlock(param))
                 }
 
-                addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC) // close native function paren
+                // add error param
+                if (constructor.throws) {
+                    addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
+                }
+
+                if (constructor.throws) {
+                    addCode(")") // close native function call
+                    addStatement("")
+
+                    beginControlFlow("return if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+                    addStatement(
+                        "%T.failure(%M(%T(gError.%M!!.%M)))",
+                        BindingsGenerator.RESULT_TYPE,
+                        constructor.exceptionResolvingFunctionMember,
+                        BindingsGenerator.GLIB_ERROR_TYPE,
+                        BindingsGenerator.POINTED_FUNC,
+                        BindingsGenerator.PTR_FUNC,
+                    )
+                    endControlFlow()
+                    beginControlFlow("else")
+                    if (!constructor.returnTypeInfo.kotlinTypeName.isNullable) {
+                        addStatement(
+                            "%T.success(%T(checkNotNull(gResult)))",
+                            BindingsGenerator.RESULT_TYPE,
+                            constructor.returnTypeInfo.kotlinTypeName,
+                        )
+                    } else {
+                        addStatement(
+                            "%T.success(%T(checkNotNull(gResult)))",
+                            BindingsGenerator.RESULT_TYPE,
+                            constructor.returnTypeInfo.withNullable(false).kotlinTypeName,
+                        )
+                    }
+
+                    endControlFlow()
+                } else {
+                    addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC) // close native function call
+                }
             }
 
             if (constructor.needsMemscoped) {
@@ -145,7 +200,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                         }.build(),
                     )
                 } else {
-                    addKdoc("Note: this property is writeable but the setter binding is not supported yet.")
+                    addKdoc("\n\nNote: this property is writeable but the setter binding is not supported yet.")
                 }
             }
         }.build()

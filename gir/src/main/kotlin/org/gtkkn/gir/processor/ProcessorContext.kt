@@ -188,6 +188,12 @@ class ProcessorContext(
         "g_stpcpy",
         "g_value_set_string_take_ownership",
         "g_value_take_string",
+
+        // ThreadFunc is not supported yet
+        "g_thread_try_new",
+        // DBusProxyTypeFunc is not supported yet
+        "g_dbus_object_manager_client_new_for_bus_sync",
+        "g_dbus_object_manager_client_new_sync",
     )
 
     /**
@@ -449,6 +455,11 @@ class ProcessorContext(
                 throw UnresolvableTypeException("Unsupported pointer to primitive type")
             }
             return typeInfo.withNullable(nullable)
+        }
+
+        // quarks
+        if (type.cType == "GQuark") {
+            return TypeInfo.Primitive(U_INT)
         }
 
         // strings
@@ -740,6 +751,7 @@ class ProcessorContext(
     }
 
     private fun String?.sanitizeKDoc(): String? = this?.replace("...]", "]")
+        ?.replace(Regex("&[#0-9a-zA-Z]+;")) { "`${it.value}`" }
         ?.replace("%TRUE", "true")
         ?.replace("%FALSE", "false")
         ?.replace("%NULL", "null")

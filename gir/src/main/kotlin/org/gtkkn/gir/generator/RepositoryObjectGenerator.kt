@@ -3,6 +3,7 @@ package org.gtkkn.gir.generator
 import com.squareup.kotlinpoet.BOOLEAN
 import com.squareup.kotlinpoet.CHAR
 import com.squareup.kotlinpoet.DOUBLE
+import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.LONG
@@ -14,13 +15,20 @@ import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.ConstantBlueprint
+import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 
-interface RepositoryObjectGenerator : MiscGenerator {
+interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
     fun buildRepositoryObject(repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.objectBuilder(repository.repositoryObjectName.simpleName).apply {
             repository.functionBlueprints.forEach { addFunction(buildFunction(it)) }
             repository.constantBlueprints.forEach { addProperty(buildConstant(it)) }
+
+            val errorDomainEnums = repository.errorDomainEnums()
+            if (errorDomainEnums.isNotEmpty()) {
+                addFunction(buildExceptionResolverFunction(errorDomainEnums))
+            }
+            addKdoc(buildTypeKDoc(null, null, repository.skippedObjects))
         }.build()
 
     private fun buildConstant(constant: ConstantBlueprint): PropertySpec {
@@ -50,4 +58,28 @@ interface RepositoryObjectGenerator : MiscGenerator {
             initializer(format, value)
         }.build()
     }
+
+    private fun buildExceptionResolverFunction(
+        errorDomainEnums: List<EnumBlueprint>
+    ): FunSpec = FunSpec.builder("resolveException").apply {
+        addParameter("error", BindingsGenerator.GLIB_ERROR_TYPE)
+        returns(BindingsGenerator.GLIB_EXCEPTION_TYPE)
+
+        beginControlFlow("val ex = when (error.domain)")
+        // this currently resolves only errorDomains from the same module
+        for (enum in errorDomainEnums) {
+            addStatement(
+                "%T.quark() -> %T.fromErrorOrNull(error)",
+                enum.kotlinTypeName,
+                enum.kotlinTypeName,
+            )
+            beginControlFlow("?.let")
+            addStatement("%T(error, it)", checkNotNull(enum.errorExceptionTypeName))
+            endControlFlow()
+        }
+        addStatement("else -> null")
+        endControlFlow() // end when
+
+        addStatement("return ex ?: %T(error)", BindingsGenerator.GLIB_EXCEPTION_TYPE)
+    }.build()
 }
