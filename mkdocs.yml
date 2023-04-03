@@ -115,8 +115,8 @@ nav:
   - User guide:
       - user-guide/index.md
       - Installation: user-guide/installation.md
-      - K/N project setup: user-guide/project-setup.md
       - Deploy on MavenLocal: user-guide/deploy-on-mavenlocal.md
+      - K/N project setup: user-guide/project-setup.md
       - Hello World!: user-guide/hello-world.md
       - GObject concepts: user-guide/gobject-concepts.md
       - The main event loop: user-guide/the-main-event-loop.md

@@ -6,10 +6,16 @@ GIO provides a powerful virtual file system abstraction layer. Its GFile interfa
 the filesystem (such as traversing directories, querying file metadata, and so on) as well as and carrying out file
 operations. GFile can also be used to monitor files and directories for changes.
 
-## Settings: GSettings
+## Settings
 
 GSettings is the GNOME library for reading and writing user settings. It allows storing a variety of settings types,
 including integers and arrays of strings.
+
+## Notifications
+
+GIO includes the GNotification interface which provides a way for applications to send notifications to users. Users can
+interact with the notifications by clicking on them or taking other actions, and GNotification allows customization of
+notification appearance and behavior, such as the icon and urgency level.
 
 ## Networking
 
