@@ -123,7 +123,6 @@ interface ConversionBlockGenerator {
     fun buildNativeToKotlinConversionsBlock(returnTypeInfo: TypeInfo): CodeBlock =
         CodeBlock.builder().apply {
             val isNullable = returnTypeInfo.kotlinTypeName.isNullable
-            val safeCall = if (isNullable) "?" else ""
 
             when (returnTypeInfo) {
                 is TypeInfo.Enumeration -> NativeToKotlinConversions.buildEnumeration(this, returnTypeInfo)
@@ -144,7 +143,7 @@ interface ConversionBlockGenerator {
                 is TypeInfo.GBoolean -> NativeToKotlinConversions.buildGBoolean(this)
                 is TypeInfo.GChar -> NativeToKotlinConversions.buildGChar(this)
                 is TypeInfo.KString -> NativeToKotlinConversions.buildKString(isNullable, this)
-                is TypeInfo.Bitfield -> NativeToKotlinConversions.buildBitfield(this, safeCall, returnTypeInfo)
+                is TypeInfo.Bitfield -> NativeToKotlinConversions.buildBitfield(this, returnTypeInfo)
                 is TypeInfo.StringList -> {
                     if (returnTypeInfo.fixedSize != null) {
                         error("Unsupported native to kotlin conversion because string array is fixed size")
@@ -269,12 +268,10 @@ private object NativeToKotlinConversions {
 
     fun buildBitfield(
         codeBlockBuilder: CodeBlock.Builder,
-        nullableString: String,
         returnTypeInfo: TypeInfo,
     ) {
         // use mask constructor for conversion
         codeBlockBuilder
-            .add(nullableString)
             .beginControlFlow(".run")
             .add("%T(this)", returnTypeInfo.withNullable(false).kotlinTypeName)
             .endControlFlow()
