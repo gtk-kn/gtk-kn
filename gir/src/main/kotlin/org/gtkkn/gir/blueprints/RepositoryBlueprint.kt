@@ -16,6 +16,7 @@ data class RepositoryBlueprint(
     val skippedObjects: List<SkippedObject>,
     val repositoryObjectName: ClassName,
     val repositoryCallbacksName: ClassName,
+    val versions: List<VersionBlueprint>,
 ) {
     /**
      * Get all enum blueprints that represent an GError error domain.

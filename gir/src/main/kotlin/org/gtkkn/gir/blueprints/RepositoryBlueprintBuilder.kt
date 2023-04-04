@@ -128,6 +128,32 @@ class RepositoryBlueprintBuilder(
             skippedObjects = skippedObjects,
             repositoryObjectName = repositoryObjectName,
             repositoryCallbacksName = repositoryCallbacksName,
+            versions = extractVersions(),
         )
+    }
+
+    private fun extractVersions(): List<VersionBlueprint> {
+        val versionNames = buildSet {
+            add(girRepository.namespace.version)
+
+            addAll(girRepository.namespace.classes.mapNotNull { it.info.version }.distinct())
+            addAll(girRepository.namespace.interfaces.mapNotNull { it.info.version }.distinct())
+            addAll(girRepository.namespace.functions.mapNotNull { it.info.version }.distinct())
+            addAll(girRepository.namespace.bitfields.mapNotNull { it.info.version }.distinct())
+            addAll(girRepository.namespace.enums.mapNotNull { it.info.version }.distinct())
+            addAll(girRepository.namespace.records.mapNotNull { it.info.version }.distinct())
+            addAll(girRepository.namespace.unions.mapNotNull { it.info.version }.distinct())
+            addAll(girRepository.namespace.aliases.mapNotNull { it.info.version }.distinct())
+        }
+
+        return versionNames.map { name ->
+            VersionBlueprint(
+                name = name,
+                annotationTypeName = ClassName(
+                    context.namespaceBindingsPackageName(girRepository.namespace) + ".versions",
+                    girRepository.namespace.name.capitalizeAsciiOnly() + "_" + name.replace(".", "_")
+                ),
+            )
+        }
     }
 }

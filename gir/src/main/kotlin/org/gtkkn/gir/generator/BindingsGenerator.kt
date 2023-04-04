@@ -14,7 +14,8 @@ import java.io.File
 class BindingsGenerator(
     private val config: Config,
     private val ktLintFormatter: KtLintFormatter
-) : ClassGenerator, InterfaceGenerator, EnumGenerator, BitfieldGenerator, RepositoryObjectGenerator, RecordGenerator {
+) : ClassGenerator, InterfaceGenerator, EnumGenerator, BitfieldGenerator,
+    RepositoryObjectGenerator, RecordGenerator, VersionsGenerator {
 
     @Suppress("LongMethod")
     fun generate(repository: RepositoryBlueprint, outputDir: File) {
@@ -98,6 +99,15 @@ class BindingsGenerator(
             additionalTypeAliases = repository.callbackBlueprints.map { buildCallbackTypeAlias(it) },
             additionalProperties = repository.callbackBlueprints.map { buildStaticCallbackProperty(it) },
         )
+
+        // write versions
+        repository.versions.forEach { version ->
+            writeType(
+                version.annotationTypeName,
+                buildVersionAnnotation(repository, version),
+                repositorySrcDir(repository, outputDir),
+            )
+        }
     }
 
     /**
