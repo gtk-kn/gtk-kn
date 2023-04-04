@@ -10,6 +10,7 @@ out
 .idea/*
 !.idea/codeStyles/
 !.idea/copyright/
+!.idea/scopes/
 !.idea/detekt.xml
 
 # temporary excludes of binding src dirs
