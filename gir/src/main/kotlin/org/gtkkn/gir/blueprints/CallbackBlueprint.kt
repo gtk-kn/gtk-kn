@@ -10,6 +10,8 @@ data class CallbackBlueprint(
     override val throws: Boolean,
     override val exceptionResolvingFunctionMember: MemberName,
     override val lambdaTypeName: LambdaTypeName,
+    val packageName: String,
+    val version: String?,
     val kdoc: String?,
     val returnTypeKDoc: String?,
 ) : ClosureBlueprint {

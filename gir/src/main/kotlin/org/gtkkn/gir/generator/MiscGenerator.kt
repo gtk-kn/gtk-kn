@@ -1,5 +1,6 @@
 package org.gtkkn.gir.generator
 
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
@@ -21,7 +22,7 @@ import org.gtkkn.gir.blueprints.PropertyBlueprint
 import org.gtkkn.gir.blueprints.SignalBlueprint
 import org.gtkkn.gir.processor.NativeTypes
 
-interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
+interface MiscGenerator : ConversionBlockGenerator, KDocGenerator, ContextGenerator {
 
     fun buildProperty(property: PropertyBlueprint, instancePointer: String?): PropertySpec =
         PropertySpec.builder(property.kotlinName, property.typeInfo.kotlinTypeName, KModifier.PUBLIC).apply {
@@ -53,6 +54,13 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         FunSpecBuilderType.GETTER -> FunSpec.getterBuilder()
         FunSpecBuilderType.SETTER -> FunSpec.setterBuilder()
     }.apply {
+
+        if (method.version != null && builderType == FunSpecBuilderType.DEFAULT) {
+            context.findVersion(method.version)?.let {
+                addAnnotation(AnnotationSpec.builder(it.annotationTypeName).build())
+            }
+        }
+
         addKdoc(buildMethodKDoc(method.kdoc, method.parameters, method.version, method.returnTypeKDoc))
         if (builderType == FunSpecBuilderType.DEFAULT) {
             val returnTypeName = if (method.throws) {
@@ -150,6 +158,11 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
      * Build a function implementation for standalone functions (not methods with an instance parameter).
      */
     fun buildFunction(func: FunctionBlueprint): FunSpec = FunSpec.builder(func.kotlinName).apply {
+        if (func.version != null) {
+            context.findVersion(func.version)?.let {
+                addAnnotation(AnnotationSpec.builder(it.annotationTypeName).build())
+            }
+        }
         addKdoc(buildMethodKDoc(func.kdoc, func.parameters, func.version, func.returnTypeKDoc))
         // add return value to signature
         returns(func.returnTypeInfo.kotlinTypeName)
@@ -180,6 +193,12 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
     fun buildSignalConnectFunction(signal: SignalBlueprint, objectPointerName: String): FunSpec =
         FunSpec.builder(signal.kotlinConnectName).apply {
+            if (signal.version != null) {
+                context.findVersion(signal.packageName, signal.version)?.let {
+                    addAnnotation(AnnotationSpec.builder(it.annotationTypeName).build())
+                }
+            }
+
             val connectFlagsTypeName = ClassName("org.gtkkn.bindings.gobject", "ConnectFlags")
 
             addKdoc(buildSignalKDoc(signal.kdoc, signal.parameters, signal.version, signal.returnTypeKDoc))
@@ -224,6 +243,13 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             ),
             KModifier.PRIVATE,
         ).initializer(buildStaticClosureImplementation(signal))
+
+        if (signal.version != null) {
+            context.findVersion(signal.packageName, signal.version)?.let {
+                staticCallbackVal.addAnnotation(AnnotationSpec.builder(it.annotationTypeName).build())
+            }
+        }
+
         return staticCallbackVal.build()
     }
 
@@ -307,10 +333,18 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         }
     }
 
-    fun buildCallbackTypeAlias(callback: CallbackBlueprint) =
-        TypeAliasSpec.builder(callback.kotlinName, callback.lambdaTypeName)
+    fun buildCallbackTypeAlias(callback: CallbackBlueprint): TypeAliasSpec {
+        val builder = TypeAliasSpec.builder(callback.kotlinName, callback.lambdaTypeName)
             .addKdoc(buildCallbackKDoc(callback.kdoc, callback.parameters, callback.returnTypeKDoc))
-            .build()
+
+        if (callback.version != null) {
+            context.findVersion(callback.packageName, callback.version)?.let {
+                builder.addAnnotation(AnnotationSpec.builder(it.annotationTypeName).build())
+            }
+        }
+
+        return builder.build()
+    }
 
     /**
      * Build the private property that holds the static C callback functions that we use for implementing
@@ -326,6 +360,13 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
                 },
             ),
         ).initializer(buildStaticClosureImplementation(callback))
+
+        if (callback.version != null) {
+            context.findVersion(callback.packageName, callback.version)?.let {
+                staticCallbackVal.addAnnotation(AnnotationSpec.builder(it.annotationTypeName).build())
+            }
+        }
+
         return staticCallbackVal.build()
     }
 }

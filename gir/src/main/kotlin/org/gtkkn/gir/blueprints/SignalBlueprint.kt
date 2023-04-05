@@ -2,6 +2,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.LambdaTypeName
 import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.TypeName
 
 data class SignalBlueprint(
     val kotlinConnectName: String,
@@ -11,6 +12,7 @@ data class SignalBlueprint(
     override val throws: Boolean,
     override val exceptionResolvingFunctionMember: MemberName,
     override val lambdaTypeName: LambdaTypeName,
+    val packageName: String,
     val version: String?,
     val kdoc: String?,
     val returnTypeKDoc: String?,

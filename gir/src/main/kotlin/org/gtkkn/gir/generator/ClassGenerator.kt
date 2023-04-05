@@ -1,6 +1,7 @@
 package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.AnnotationSpec
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
@@ -13,9 +14,16 @@ import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 
-interface ClassGenerator : MiscGenerator, KDocGenerator {
+interface ClassGenerator : MiscGenerator, KDocGenerator, ContextGenerator {
     fun buildClass(clazz: ClassBlueprint): TypeSpec =
         TypeSpec.classBuilder(clazz.typeName).apply {
+            // version annotation
+            if (clazz.version != null) {
+                context.findVersion(clazz.typeName, clazz.version)?.let { version ->
+                    addAnnotation(AnnotationSpec.builder(version.annotationTypeName).build())
+                } ?: error("Missing version name: ${clazz.version}")
+            }
+
             // companion object
             val companionSpecBuilder = TypeSpec.companionObjectBuilder()
 

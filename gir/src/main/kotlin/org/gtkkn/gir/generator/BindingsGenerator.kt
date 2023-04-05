@@ -13,12 +13,15 @@ import java.io.File
 
 class BindingsGenerator(
     private val config: Config,
-    private val ktLintFormatter: KtLintFormatter
+    private val ktLintFormatter: KtLintFormatter,
+    override val context: GeneratorContext,
 ) : ClassGenerator, InterfaceGenerator, EnumGenerator, BitfieldGenerator,
     RepositoryObjectGenerator, RecordGenerator, VersionsGenerator {
 
     @Suppress("LongMethod")
     fun generate(repository: RepositoryBlueprint, outputDir: File) {
+        context.currentRepository = repository
+
         val repositoryOutputDir = repositoryBuildDir(repository, outputDir)
         if (!repositoryOutputDir.exists()) {
             logger.info("Creating output dir ${repositoryOutputDir.path}")
@@ -108,6 +111,8 @@ class BindingsGenerator(
                 repositorySrcDir(repository, outputDir),
             )
         }
+
+        context.currentRepository = null
     }
 
     /**

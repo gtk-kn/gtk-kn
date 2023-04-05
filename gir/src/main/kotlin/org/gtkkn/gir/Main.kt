@@ -3,6 +3,7 @@ package org.gtkkn.gir
 import org.gtkkn.gir.cli.parseConfig
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.generator.BindingsGenerator
+import org.gtkkn.gir.generator.GeneratorContext
 import org.gtkkn.gir.generator.KtLintFormatter
 import org.gtkkn.gir.log.configureLog4j
 import org.gtkkn.gir.log.logger
@@ -35,7 +36,9 @@ fun main(args: Array<String>) {
 
     logger.info("Processed ${repositoryBlueprints.count()} blueprints")
 
-    val generator = BindingsGenerator(config, KtLintFormatter(config.outputDir))
+    val context = GeneratorContext(repositoryBlueprints)
+
+    val generator = BindingsGenerator(config, KtLintFormatter(config.outputDir), context)
     repositoryBlueprints.forEach {
         generator.generate(it, getRepositoryOutputPath(it.kotlinModuleName, config))
     }

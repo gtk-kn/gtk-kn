@@ -20,7 +20,13 @@ kotlin {
                 // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
                 implementation(libs.kotlin.logging.linux.x64)
             }
+
+            languageSettings.optIn("org.gtkkn.bindings.gtk.versions.Gtk_4_4")
+            languageSettings.optIn("org.gtkkn.bindings.gtk.versions.Gtk_4_6")
+            languageSettings.optIn("org.gtkkn.bindings.gtk.versions.Gtk_4_8")
+            languageSettings.optIn("org.gtkkn.bindings.gtk.versions.Gtk_4_10")
         }
+
     }
 
     nativeTarget.apply {

@@ -1,5 +1,6 @@
 package org.gtkkn.gir.generator
 
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
@@ -9,6 +10,12 @@ import org.gtkkn.gir.blueprints.InterfaceBlueprint
 interface InterfaceGenerator : KDocGenerator, MiscGenerator {
     fun buildInterface(iface: InterfaceBlueprint): TypeSpec =
         TypeSpec.interfaceBuilder(iface.typeName).apply {
+            if (iface.version != null) {
+                context.findVersion(iface.typeName, iface.version)?.let { version ->
+                    addAnnotation(AnnotationSpec.builder(version.annotationTypeName).build())
+                } ?: error("Missing version name: ${iface.version}")
+            }
+
             addProperty(buildInterfacePointerProperty(iface))
 
             // kdoc

@@ -79,6 +79,8 @@ class CallbackBlueprintBuilder(
             throws = girCallback.throws == true,
             exceptionResolvingFunctionMember = exceptionResolvingFunction(),
 
+            packageName = context.namespaceBindingsPackageName(girNamespace),
+            version = girCallback.info.version,
             kdoc = context.processKdoc(girCallback.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girCallback.returnValue.docs.doc?.text),
         )
