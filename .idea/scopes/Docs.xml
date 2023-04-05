@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Docs" pattern="file[gtk-kn]:docs//*" />
+</component>

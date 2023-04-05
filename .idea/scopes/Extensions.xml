@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Extensions" pattern="file:kotlin/org/gtkkn/extensions//*" />
+</component>
