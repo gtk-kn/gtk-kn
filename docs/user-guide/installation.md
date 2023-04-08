@@ -13,7 +13,7 @@ will provide installation guidelines for each operating system in the upcoming c
 You first have to install the following dependencies:
 
 ```bash
-sudo apt install build-essentials libgtk-4-dev
+sudo apt install build-essentials gcc-multilib libgirepository1.0-dev libadwaita-1-dev
 ```
 
 ### macOS

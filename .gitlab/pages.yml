@@ -1,0 +1,13 @@
+pages:
+  extends: .build-base
+  stage: deploy
+  script:
+    - pip install -r mkdocs-requirements.txt
+    - ./gradlew :gir:run
+    - ./gradlew dokkaHtmlMultiModule
+    - mkdocs build --strict --verbose
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
