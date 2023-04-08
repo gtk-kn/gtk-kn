@@ -93,9 +93,6 @@ class ProcessorContext(
         "Context",
         "Region",
         "CairoRegion",
-        "cairo_t",
-        "cairo_region_t",
-        "const cairo_region_t",
 
         // not a pointed type, simd vector?
         "graphene_simd4f_t",
@@ -120,6 +117,8 @@ class ProcessorContext(
         "gtk_widget_unrealize",
 
         // ignored because the overridden return value is not a subtype of the parent
+        // widget get_name is not nullable (according to gir)
+        // while preferences_page_get_name is nullable
         "adw_preferences_page_get_name",
         "adw_preferences_page_set_name",
 
@@ -133,65 +132,19 @@ class ProcessorContext(
         // which def file should include this (gio or glib)?
         "g_networking_init",
 
-        // might be missing unix-related headers?
-        "g_unix_fd_add_full",
-        "g_unix_signal_add_full",
-        "g_unix_fd_source_new",
-        "g_unix_signal_source_new",
-
         // error pointer argument
         "g_prefix_error_literal",
         "g_trash_stack_height",
 
-        // record issues?
-        "pango_cairo_font_get_scaled_font",
-        "pango_cairo_context_get_font_options",
-        "pango_cairo_context_set_font_options",
-        "pango_cairo_create_context",
-        "pango_cairo_create_layout",
-        // all issues with pango_cairo Context
-        "pango_cairo_error_underline_path",
-        "pango_cairo_glyph_string_path",
-        "pango_cairo_layout_line_path",
-        "pango_cairo_layout_path",
-        "pango_cairo_layout_line_path",
-        "pango_cairo_show_error_underline",
-        "pango_cairo_show_glyph_item",
-        "pango_cairo_show_glyph_string",
-        "pango_cairo_show_layout",
-        "pango_cairo_show_layout_line",
-        "pango_cairo_update_context",
-        "pango_cairo_update_layout",
-
         "pango_font_map_create_context",
-        "gdk_cairo_context_cairo_create",
-        "gdk_draw_context_begin_frame",
         "pango_layout_get_context",
-        "pango_layout_get_context",
-        "gdk_draw_context_get_frame_region",
-
-        "gdk_pixbuf_get_from_surface",
-        "gdk_cairo_region_create_from_surface",
-        "gdk_surface_create_similar_surface",
-        "gsk_cairo_node_get_surface",
-        "gsk_cairo_node_get_draw_context",
-        "gsk_cairo_node_new",
-        "gsk_clip_node_new",
-        "gsk_clip_node_get_clip",
-        "gsk_color_matrix_node_new",
-        "gsk_color_matrix_node_new",
-        "gsk_color_matrix_node_get_color_matrix",
 
         "gtk_print_context_create_pango_context",
         "gtk_print_context_get_cairo_context",
         "gtk_text_view_get_ltr_context",
         "gtk_text_view_get_rtl_context",
         "gtk_widget_create_pango_context",
-        "gtk_widget_get_font_options",
         "gtk_widget_get_pango_context",
-        "gtk_widget_set_font_options",
-
-        "g_thread_new",
 
         // problem because it needs a GObjectClass struct
         "gtk_editable_install_properties",
@@ -207,6 +160,7 @@ class ProcessorContext(
 
         // ThreadFunc is not supported yet
         "g_thread_try_new",
+        "g_thread_new",
         // DBusProxyTypeFunc is not supported yet
         "g_dbus_object_manager_client_new_for_bus_sync",
         "g_dbus_object_manager_client_new_sync",

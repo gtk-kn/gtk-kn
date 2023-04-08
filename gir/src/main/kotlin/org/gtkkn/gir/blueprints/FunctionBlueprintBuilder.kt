@@ -51,10 +51,6 @@ class FunctionBlueprintBuilder(
 
         context.checkIgnoredFunction(girFunction.cIdentifier)
 
-        if (girFunction.throws) {
-            throw UnresolvableTypeException("Functions that throw are not supported")
-        }
-
         girFunction.parameters?.let { addParameters(it) }
 
         val returnValue = girFunction.returnValue ?: throw UnresolvableTypeException("Method has no return value")

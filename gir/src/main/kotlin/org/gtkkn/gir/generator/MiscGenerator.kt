@@ -165,9 +165,16 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
      * Build a function implementation for standalone functions (not methods with an instance parameter).
      */
     fun buildFunction(func: FunctionBlueprint): FunSpec = FunSpec.builder(func.kotlinName).apply {
+        // kdoc
         addKdoc(buildMethodKDoc(func.kdoc, func.parameters, func.version, func.returnTypeKDoc))
+
         // add return value to signature
-        returns(func.returnTypeInfo.kotlinTypeName)
+        val returnType = if (func.throws) {
+            BindingsGenerator.RESULT_TYPE.parameterizedBy(func.returnTypeInfo.kotlinTypeName)
+        } else {
+            func.returnTypeInfo.kotlinTypeName
+        }
+        returns(returnType)
 
         // add parameters to signature
         appendSignatureParameters(func.parameters)
@@ -176,17 +183,60 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
         }
 
-        addCode("return %M(", func.nativeMemberName) // open native function call
+        if (func.throws) {
+            // prepare error pointer
+            addStatement("val gError = %M<%M>()", BindingsGenerator.ALLOC_POINTER_TO, BindingsGenerator.G_ERROR_MEMBER)
+            // open native method call into intermediate val
+            addCode("val gResult = %M(", func.nativeMemberName) // open native function call
+        } else {
+            addCode("return %M(", func.nativeMemberName) // open native function call
+        }
+
         func.parameters.forEachIndexed { index, param ->
             if (index > 0) {
                 addCode(", ")
             }
             addCode(buildParameterConversionBlock(param))
         }
+
+        if (func.throws) {
+            if (func.parameters.isNotEmpty()) {
+                addCode(", ")
+            }
+            addCode("gError.%M", BindingsGenerator.PTR_FUNC)
+        }
+
         addCode(")") // close native function call
 
-        // convert return type
-        addCode(buildNativeToKotlinConversionsBlock(func.returnTypeInfo))
+        if (func.throws) {
+            // native function return value conversion
+            // in case the method throws, we force the returnValue conversion to be nullable so we can do
+            // error checking first
+            addCode(buildNativeToKotlinConversionsBlock(func.returnTypeInfo.withNullable(true)))
+            addStatement("")
+            // check errors and wrap in Result
+            beginControlFlow("return if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+            addStatement(
+                "%T.failure(%M(%T(gError.%M!!.%M)))",
+                BindingsGenerator.RESULT_TYPE,
+                func.exceptionResolvingFunctionMember,
+                BindingsGenerator.GLIB_ERROR_TYPE,
+                BindingsGenerator.POINTED_FUNC,
+                BindingsGenerator.PTR_FUNC,
+            )
+            endControlFlow()
+            beginControlFlow("else")
+            if (!func.returnTypeInfo.kotlinTypeName.isNullable && func.returnTypeInfo.isCinteropNullable) {
+                addStatement("%T.success(checkNotNull(gResult))", BindingsGenerator.RESULT_TYPE)
+            } else {
+                addStatement("%T.success(gResult)", BindingsGenerator.RESULT_TYPE)
+            }
+
+            endControlFlow()
+        } else {
+            // native function return value conversion
+            addCode(buildNativeToKotlinConversionsBlock(func.returnTypeInfo))
+        }
 
         if (func.needsMemscoped) {
             endControlFlow()
