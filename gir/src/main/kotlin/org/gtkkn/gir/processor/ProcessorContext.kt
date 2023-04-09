@@ -69,11 +69,13 @@ class ProcessorContext(
         "gsize" to TypeInfo.Primitive(U_LONG),
         "gssize" to TypeInfo.Primitive(LONG),
         "guint" to TypeInfo.Primitive(U_INT),
+        "guint8" to TypeInfo.Primitive(CHAR),
         "guint16" to TypeInfo.Primitive(U_SHORT),
         "guint32" to TypeInfo.Primitive(U_INT),
         "guint64" to TypeInfo.Primitive(U_LONG),
         "gulong" to TypeInfo.Primitive(U_LONG),
         "gunichar" to TypeInfo.Primitive(U_INT),
+        "GType" to TypeInfo.Primitive(U_LONG)
     )
 
     /**
@@ -164,6 +166,8 @@ class ProcessorContext(
         // DBusProxyTypeFunc is not supported yet
         "g_dbus_object_manager_client_new_for_bus_sync",
         "g_dbus_object_manager_client_new_sync",
+
+        "g_variant_get_gtype",
     )
 
     /**
