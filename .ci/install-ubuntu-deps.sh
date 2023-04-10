@@ -23,3 +23,11 @@ apt-get --quiet install --yes \
   libgirepository1.0-dev \
   libadwaita-1-dev \
   libgtksourceview-5-dev
+# libhelium
+apt-get --quiet install --yes npm meson libgee-0.8-dev valac valadoc
+npm i -g sass
+git clone --branch 1.5.16 https://github.com/tau-OS/libhelium.git
+cd libhelium || return $?
+meson _build --prefix=/usr
+ninja -v -C _build install
+cd ..

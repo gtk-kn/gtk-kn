@@ -81,6 +81,11 @@
       "name": "gtksource",
       "module": "gtksource",
       "girPrefix": "GtkSource-5"
+    },
+    {
+      "name": "he",
+      "module": "he",
+      "girPrefix": "He-"
     }
   ]
 }

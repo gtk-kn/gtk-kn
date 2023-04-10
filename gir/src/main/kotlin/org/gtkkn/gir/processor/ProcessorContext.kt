@@ -169,6 +169,12 @@ class ProcessorContext(
         "g_variant_get_gtype",
         // GtkSource, problem with enum parameter value
         "gtk_source_view_get_gutter",
+
+        // libhelium
+        "he_badge_get_child",
+        "he_badge_set_child",
+        "he_overlay_button_get_child",
+        "he_overlay_button_set_child",
     )
 
     /**
