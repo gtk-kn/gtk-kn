@@ -3,5 +3,5 @@
   before_script:
     - GRADLE_USER_HOME="$(pwd)/.gradle"
     - export GRADLE_USER_HOME
-    - apt --quiet update --yes
-    - apt --quiet install --yes openjdk-11-jdk python3-pip gcc-multilib libgirepository1.0-dev libadwaita-1-dev
+    - apt-get --quiet update --yes
+    - apt-get --quiet install --yes openjdk-11-jdk python3-pip gcc-multilib libgirepository1.0-dev libadwaita-1-dev

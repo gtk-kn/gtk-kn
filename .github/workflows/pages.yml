@@ -34,7 +34,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt --quiet install --yes gcc-multilib libgirepository1.0-dev libadwaita-1-dev
+          sudo apt-get --quiet install --yes gcc-multilib libgirepository1.0-dev libadwaita-1-dev
           pip install -r mkdocs-requirements.txt
 
       - name: Generate bindings
