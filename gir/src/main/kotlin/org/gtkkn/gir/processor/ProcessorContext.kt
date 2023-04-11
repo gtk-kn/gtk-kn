@@ -69,13 +69,12 @@ class ProcessorContext(
         "gsize" to TypeInfo.Primitive(U_LONG),
         "gssize" to TypeInfo.Primitive(LONG),
         "guint" to TypeInfo.Primitive(U_INT),
-        "guint8" to TypeInfo.Primitive(CHAR),
         "guint16" to TypeInfo.Primitive(U_SHORT),
         "guint32" to TypeInfo.Primitive(U_INT),
         "guint64" to TypeInfo.Primitive(U_LONG),
         "gulong" to TypeInfo.Primitive(U_LONG),
         "gunichar" to TypeInfo.Primitive(U_INT),
-        "GType" to TypeInfo.Primitive(U_LONG)
+        "GType" to TypeInfo.Primitive(U_LONG),
     )
 
     /**
@@ -168,6 +167,8 @@ class ProcessorContext(
         "g_dbus_object_manager_client_new_sync",
 
         "g_variant_get_gtype",
+        // GtkSource, problem with enum parameter value
+        "gtk_source_view_get_gutter",
     )
 
     /**
@@ -178,6 +179,9 @@ class ProcessorContext(
         "format-entry-text",
         // problems with pango/cairo region
         "render", // Surface
+
+        "query-tooltip-markup",
+        "query-tooltip-text",
     )
 
     /**
@@ -185,11 +189,16 @@ class ProcessorContext(
      * and need their native members imported directly in the package.
      */
     private val enumsWithDirectImportOverride = hashSetOf(
+        // cairo
         "cairo_format_t",
         "cairo_content_t",
         "cairo_device_type_t",
         "cairo_status_t",
         "cairo_text_cluster_flags_t",
+        // GtkSource-5
+        "GtkSourceCompletionActivation",
+        "GtkSourceCompletionColumn",
+        "GtkSourceViewGutterPosition",
     )
 
     // object lookups methods
@@ -232,6 +241,7 @@ class ProcessorContext(
 
     fun kotlinizeParameterName(nativeParameterName: String): String =
         nativeParameterName
+            .removePrefix("_")
             .removeSuffix("_")
             .toCamelCase()
 

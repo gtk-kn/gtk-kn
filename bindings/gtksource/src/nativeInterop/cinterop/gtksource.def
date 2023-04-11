@@ -1,0 +1,55 @@
+headers = gtksourceview/gtksource.h
+package = org.gtkkn.native.gtksource
+headerFilter = "gtksourceview/*" "gtksourceview/completion-providers/words/*" "gtksourceview/completion-providers/snippets/*"
+
+compilerOpts.linux = \
+    -I/usr/include \
+    -I/usr/include/gtksourceview-5 \
+    -I/usr/include/gtk-4.0 \
+    -I/usr/include/glib-2.0 \
+    -I/usr/lib/glib-2.0/include \
+    -I/usr/include/cairo \
+    -I/usr/include/pango-1.0 \
+    -I/usr/include/harfbuzz \
+    -I/usr/include/gdk-pixbuf-2.0 \
+    -I/usr/include/graphene-1.0 \
+    -I/usr/lib/graphene-1.0/include
+
+compilerOpts.linux_x64 = \
+    -I/usr/lib64/glib-2.0/include \
+    -I/usr/lib64/graphene-1.0/include \
+    -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+    -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
+
+linkerOpts.linux = \
+    -L/usr/local/lib \
+    -lgtksourceview-5 \
+    -lgtk-4 \
+    -lpangocairo-1.0 \
+    -lpango-1.0 \
+    -lharfbuzz \
+    -lgdk_pixbuf-2.0 \
+    -lcairo-gobject \
+    -lcairo \
+    -lgraphene-1.0 \
+    -lgio-2.0 \
+    -lgobject-2.0 \
+    -lglib-2.0
+
+linkerOpts.linux_x64 = \
+    -L/usr/lib/x86_64-linux-gnu \
+    -L/usr/lib64
+
+strictEnums = \
+    GtkSourceBackgroundPatternType \
+    GtkSourceBracketMatchType \
+    GtkSourceChangeCaseType \
+    GtkSourceCompletionActivation \
+    GtkSourceCompletionColumn \
+    GtkSourceCompressionType \
+    GtkSourceFileLoaderError \
+    GtkSourceFileSaverError \
+    GtkSourceGutterRendererAlignmentMode \
+    GtkSourceNewlineType \
+    GtkSourceSmartHomeEndType \
+    GtkSourceViewGutterPosition \

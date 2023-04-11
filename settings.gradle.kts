@@ -54,6 +54,7 @@ include("bindings:core:pangocairo")
 include("bindings:gtk4:gdk")
 include("bindings:gtk4:gsk")
 include("bindings:gtk4:gtk")
+include("bindings:gtksource")
 
 include("samples:gtk:hello-world")
 include("samples:playground")

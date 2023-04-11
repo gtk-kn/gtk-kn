@@ -28,7 +28,7 @@ fun String.toCamelCase(): String {
     if (isPascalCase()) {
         return replaceFirstChar { it.lowercase(Locale.ROOT) }
     }
-    error("Unrecognized case")
+    error("Unrecognized case $this")
 }
 
 fun String.toPascalCase(): String {

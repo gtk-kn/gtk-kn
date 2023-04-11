@@ -37,6 +37,7 @@ data class Config(
         "Graphene-",
         "Gsk-",
         "Gtk-4",
+        "GtkSource-5",
         "HarfBuzz-",
         "Pango-",
         "PangoCairo-",

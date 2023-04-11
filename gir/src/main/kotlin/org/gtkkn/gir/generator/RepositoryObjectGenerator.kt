@@ -27,6 +27,7 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.U_BYTE
 import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
@@ -47,6 +48,7 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
             addKdoc(buildTypeKDoc(null, null, repository.skippedObjects))
         }.build()
 
+    @Suppress("CyclomaticComplexMethod")
     private fun buildConstant(constant: ConstantBlueprint): PropertySpec {
         var format = "%L"
         var value: Any = constant.constantValue
@@ -62,6 +64,7 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
                 type = U_INT
             }
 
+            type == U_BYTE -> format = "%L.toUByte()"
             type == CHAR -> format = "'$format'"
             type == SHORT || type == INT || type == LONG || type == DOUBLE -> Unit
             type == U_SHORT || type == U_INT || type == U_LONG -> format = "${format}u"
