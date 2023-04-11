@@ -1,0 +1,56 @@
+name: Pages
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 11.0.17
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Validate gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          apt --quiet install --yes gcc-multilib libgirepository1.0-dev libadwaita-1-dev
+          pip install -r mkdocs-requirements.txt
+
+      - name: Generate bindings
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: gir:run
+
+      - name: Run Dokka
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: dokkaHtmlMultiModule
+
+      - uses: actions/cache@v3
+        with:
+          key: ${{ github.ref }}
+          path: .cache
+
+      - name: Build and deploy Pages
+        run: mkdocs gh-deploy --force --strict --verbose
