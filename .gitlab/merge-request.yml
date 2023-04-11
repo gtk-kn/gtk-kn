@@ -1,0 +1,9 @@
+generate-and-check:
+  extends: .build-base
+  interruptible: true
+  stage: build
+  script:
+    - ./gradlew :gir:run
+    - ./gradlew check
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"

@@ -22,4 +22,4 @@ bindings/**/src/nativeMain/kotlin/org/gtkkn/bindings/
 
 # mkdocs
 docs/dokka/
-site/
+public/
