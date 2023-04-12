@@ -112,7 +112,7 @@ nav:
   - Home:
       - index.md
 #      - Change Log: changelog.md
-#      - Contributing: contributing.md
+      - Contributing: contributing.md
   - User guide:
       - user-guide/index.md
       - Installation: user-guide/installation.md
