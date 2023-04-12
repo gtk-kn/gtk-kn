@@ -56,5 +56,5 @@ include("bindings:gtk4:gsk")
 include("bindings:gtk4:gtk")
 
 include("samples:gtk:hello-world")
-include("samples:gtk:playground")
+include("samples:playground")
 include("samples:gtk:widgets")
