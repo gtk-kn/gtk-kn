@@ -22,59 +22,56 @@
 
 package org.gtkkn.samples.gtk.widgets
 
+import org.gtkkn.bindings.gdk.ContentProvider
 import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.gio.AsyncReadyCallback
+import org.gtkkn.bindings.gio.AsyncResult
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
-import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.Button
+import org.gtkkn.bindings.gtk.Entry
+import org.gtkkn.bindings.gtk.Grid
+import org.gtkkn.bindings.gtk.Image
 import org.gtkkn.bindings.gtk.Justification
 import org.gtkkn.bindings.gtk.Label
-import org.gtkkn.bindings.gtk.Orientation
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.gdk.setText
 
 fun label() {
     val app = Application("org.gtkkn.samples.gtk.widgets.label", ApplicationFlags.FLAGS_NONE)
     app.connectActivate {
         val window = ApplicationWindow(app).apply {
-            title = "Label Example"
+            title = "Clipboard Example"
         }
 
-        val hbox = Box(Orientation.HORIZONTAL, spacing = 10).apply {
-            homogeneous = false
-            marginStart = 16
-            marginTop = 16
-            marginEnd = 16
-            marginBottom = 16
-        }
-        val vboxLeft = Box(orientation = Orientation.VERTICAL, spacing = 10).apply {
-            homogeneous = false
-            vexpand = true
-            hexpand = true
-        }
-        val vboxRight = Box(orientation = Orientation.VERTICAL, spacing = 10).apply {
-            homogeneous = false
-            vexpand = true
-            hexpand = true
-        }
+        val grid = Grid()
 
-        hbox.append(vboxLeft)
-        hbox.append(vboxRight)
+        val clipboard = grid.getClipboard()
+        val entry = Entry()
+        val image = Image(iconName = "process-stop")
 
-        val button = getButton()
-        vboxLeft.apply {
-            append(getNormalLabel())
-            append(getLeftJustifiedLabel())
-            append(getRightJustifiedLabel())
-            append(getMarkupLabel())
-            append(getLabelWithMnemonic(button))
+        val buttonCopyText = Button(label = "Copy Text").apply {
+            connectClicked {
+                clipboard.setText(entry.getText())
+            }
         }
-        vboxRight.apply {
-            append(getLineWrappedLabel())
-            append(getLineWrappedFilledLabel())
-            append(button)
+        val buttonPasteText = Button(label = "Paste Text").apply {
+            connectClicked {
+               clipboard.content // method `get_value`: Out parameter is not supported
+            }
         }
+        val buttonCopyImage = Button(label = "Copy Image")
+        val buttonPasteImage = Button(label = "Paste Image")
 
-        window.setChild(hbox)
+        grid.attach(entry, 0, 0, 1, 1)
+        grid.attach(image, 0, 1, 1, 1)
+        grid.attach(buttonCopyText, 1, 0, 1, 1)
+        grid.attach(buttonPasteText, 2, 0, 1, 1)
+        grid.attach(buttonCopyImage, 1, 1, 1, 1)
+        grid.attach(buttonPasteImage, 2, 1, 1, 1)
+
+        window.setChild(grid)
         window.show()
     }
     app.run(0, emptyList())
