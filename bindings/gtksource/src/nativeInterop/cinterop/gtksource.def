@@ -2,6 +2,7 @@ headers = gtksourceview/gtksource.h
 package = org.gtkkn.native.gtksource
 headerFilter = "gtksourceview/*" "gtksourceview/completion-providers/words/*" "gtksourceview/completion-providers/snippets/*"
 
+# pkg-config --cflags gtksourceview-5
 compilerOpts.linux = \
     -I/usr/include \
     -I/usr/include/gtksourceview-5 \
@@ -21,6 +22,7 @@ compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
 
+# pkg-config --libs gtksourceview-5
 linkerOpts.linux = \
     -L/usr/local/lib \
     -lgtksourceview-5 \
