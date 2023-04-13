@@ -28,7 +28,7 @@ fun String.toCamelCase(): String {
     if (isPascalCase()) {
         return replaceFirstChar { it.lowercase(Locale.ROOT) }
     }
-    error("Unrecognized case $this")
+    error("Unrecognized case '$this'")
 }
 
 fun String.toPascalCase(): String {
@@ -41,7 +41,7 @@ fun String.toPascalCase(): String {
     if (isCamelCase()) {
         return replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
     }
-    error("Unrecognized case")
+    error("Unrecognized case '$this'")
 }
 
 fun String.isCamelCase(): Boolean = matches(Regex("^[a-z]+(?:[A-Z][a-z0-9]*)*\$"))
