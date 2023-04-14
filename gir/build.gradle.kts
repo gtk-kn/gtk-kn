@@ -45,9 +45,12 @@ application {
     mainClass.set("org.gtkkn.gir.MainKt")
 }
 
-tasks.named("run") {
+tasks.named<JavaExec>("run") {
     description = "Generate source code from introspective files"
+    // https://github.com/pinterest/ktlint/issues/1391#issuecomment-1336221448
+    jvmArgs = mutableListOf("--add-opens=java.base/java.lang=ALL-UNNAMED")
 }
+
 
 tasks.compileJava {
     options.compilerArgs.add("-Xlint:deprecation")
