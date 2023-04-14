@@ -33,7 +33,7 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = JvmTarget.JVM_11.description
+    kotlinOptions.jvmTarget = JvmTarget.JVM_17.description
 }
 
 
