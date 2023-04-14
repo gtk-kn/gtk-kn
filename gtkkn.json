@@ -1,0 +1,91 @@
+{
+  "girBaseDir": "/usr/share/gir-1.0",
+  "outputDir": "bindings",
+  "logLevel": "INFO",
+  "skipFormat": true,
+  "bindingLicense": "MIT",
+  "libraries": [
+    {
+      "name": "cairo",
+      "module": "core:cairo",
+      "girPrefix": "cairo-"
+    },
+    {
+      "name": "gdkpixbuf",
+      "module": "core:gdkpixbuf",
+      "girPrefix": "GdkPixbuf-"
+    },
+    {
+      "name": "gio",
+      "module": "core:gio",
+      "girPrefix": "Gio-"
+    },
+    {
+      "name": "glib",
+      "module": "core:glib",
+      "girPrefix": "GLib-"
+    },
+    {
+      "name": "gmodule",
+      "module": "core:gmodule",
+      "girPrefix": "GModule-"
+    },
+    {
+      "name": "gobject",
+      "module": "core:gobject",
+      "girPrefix": "GObject-"
+    },
+    {
+      "name": "graphene",
+      "module": "core:graphene",
+      "girPrefix": "Graphene-"
+    },
+    {
+      "name": "harfbuzz",
+      "module": "core:harfbuzz",
+      "girPrefix": "HarfBuzz-"
+    },
+    {
+      "name": "pango",
+      "module": "core:pango",
+      "girPrefix": "Pango-"
+    },
+    {
+      "name": "pangocairo",
+      "module": "core:pangocairo",
+      "girPrefix": "PangoCairo-"
+    },
+    {
+      "name": "gdk",
+      "module": "gtk4:gdk",
+      "girPrefix": "Gdk-4"
+    },
+    {
+      "name": "gsk",
+      "module": "gtk4:gsk",
+      "girPrefix": "Gsk-"
+    },
+    {
+      "name": "gtk",
+      "module": "gtk4:gtk",
+      "girPrefix": "Gtk-4"
+    },
+    {
+      "name": "adw",
+      "module": "adw",
+      "girPrefix": "Adw-1"
+    }
+  ],
+  "ignoredLibraries": [
+    {
+      "name": "gtksource",
+      "module": "gtksource",
+      "girPrefix": "GtkSource-5"
+    },
+    {
+      "name": "libhelium",
+      "module": "he",
+      "girPrefix": "He-"
+    }
+  ]
+}

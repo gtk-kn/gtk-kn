@@ -40,7 +40,7 @@ class ProcessingTests {
         val gtkRepository = girParser.parse(gtkFile)
         val gioRepository = girParser.parse(gioFile)
         val gobjectRepository = girParser.parse(gobjectFile)
-        val config = Config(gtkFile, gtkFile, Level.WARN, true, Config.License.MIT)
+        val config = Config(gtkFile, gtkFile, Level.WARN, true, Config.License.MIT, emptyList())
 
         val processor = Phase2Processor()
         processor.process(listOf(gtkRepository, gioRepository, gobjectRepository), config).first()

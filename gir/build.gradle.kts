@@ -30,6 +30,7 @@ dependencies {
     implementation(libs.kotlinpoet)
     implementation(libs.kotlinx.cli)
     testImplementation(libs.kotlin.test.junit5)
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
 }
 
 tasks.withType<KotlinCompile> {
@@ -49,6 +50,9 @@ tasks.named<JavaExec>("run") {
     description = "Generate source code from introspective files"
     // https://github.com/pinterest/ktlint/issues/1391#issuecomment-1336221448
     jvmArgs = mutableListOf("--add-opens=java.base/java.lang=ALL-UNNAMED")
+}
+repositories {
+    mavenCentral()
 }
 
 

@@ -32,7 +32,7 @@ kotlin {
                 // Import from project
                 implementation(project(":bindings:gtk4:gtk"))
                 implementation(project(":bindings:adw"))
-                implementation(project(":bindings:gtksource"))
+//                implementation(project(":bindings:gtksource"))
                 // Import from mavenLocal
                 // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
                 implementation(libs.kotlin.logging.linux.x64)
