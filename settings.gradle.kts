@@ -42,7 +42,8 @@ include("gir")
 
 include("bindings:common")
 
-val config = JsonSlurper().parse(File("gtkkn.json")) as Map<String, Any>
+val configFile: String = extra.get("org.gtkkn.configFile") as? String ?: "gtkkn.json"
+val config = JsonSlurper().parse(File(configFile)) as Map<String, Any>
 val libraries = config["libraries"] as List<Map<String, String>>
 
 libraries.forEach { library ->
