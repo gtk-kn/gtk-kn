@@ -17,6 +17,7 @@
 package org.gtkkn.gir.config
 
 import io.github.oshai.Level
+import kotlinx.serialization.Serializable
 import java.io.File
 
 data class Config(
@@ -25,44 +26,34 @@ data class Config(
     val logLevel: Level,
     val skipFormat: Boolean,
     val bindingLicense: License,
-    val girPrefixWhitelist: Set<String> = setOf(
-        "Adw-1",
-        "cairo-",
-        "Gdk-4",
-        "GdkPixbuf-",
-        "Gio-",
-        "GLib-",
-        "GModule-",
-        "GObject-",
-        "Graphene-",
-        "Gsk-",
-        "Gtk-4",
-        "HarfBuzz-",
-        "Pango-",
-        "PangoCairo-",
-    ),
-    val groupedRepoMap: Map<String, Array<String>> = mapOf(
-        "core" to arrayOf(
-            "cairo",
-            "gdkpixbuf",
-            "gio",
-            "glib",
-            "gmodule",
-            "gobject",
-            "graphene",
-            "harfbuzz",
-            "pango",
-            "pangocairo",
-        ),
-        "gtk4" to arrayOf(
-            "gdk",
-            "gsk",
-            "gtk",
-        ),
-    )
+    val libraries: List<Library>
 ) {
     enum class License {
         LGPL,
         MIT
     }
+
+    @Serializable
+    data class Library(
+        val name: String,
+        val module: String,
+        val girPrefix: String,
+    )
+
+    fun matchesGirFile(file: File): Boolean =
+        file.extension == "gir" && libraries.any { file.name.startsWith(it.girPrefix) }
 }
+
+/**
+ * Json representation of the gtkkn.json config file.
+ */
+@Serializable
+data class GtkKnJsonConfig(
+    val girBaseDir: String,
+    val outputDir: String,
+    val logLevel: String,
+    val skipFormat: Boolean,
+    val bindingLicense: String,
+    val libraries: List<Config.Library>,
+    val ignoredLibraries: List<Config.Library> = emptyList(),
+)

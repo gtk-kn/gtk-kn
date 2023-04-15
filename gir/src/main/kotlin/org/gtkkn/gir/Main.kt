@@ -41,7 +41,7 @@ fun main(args: Array<String>) {
 
     val girParser = GirParser()
     val repositories = config.girBaseDir.listFiles().orEmpty()
-        .filter { file -> file.extension == "gir" && config.girPrefixWhitelist.any { file.name.startsWith(it) } }
+        .filter { file -> config.matchesGirFile(file) }
         .map { girParser.parse(it) }
 
     logger.info("Parsed ${repositories.count()} gir files")
@@ -58,10 +58,8 @@ fun main(args: Array<String>) {
 }
 
 private fun getRepositoryOutputPath(repositoryName: String, config: Config): File {
-    config.groupedRepoMap.entries.forEach { entry ->
-        if (repositoryName in entry.value) {
-            return config.outputDir.resolve(entry.key)
-        }
-    }
-    return config.outputDir
+    val library = config.libraries.find { it.name == repositoryName }
+        ?: error("Library $repositoryName is not present in configuration")
+    val modulePath = library.module.replace(":", "/")
+    return config.outputDir.resolve(modulePath)
 }

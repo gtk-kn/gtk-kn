@@ -148,7 +148,7 @@ private fun GirMethod.debugParameterSignature(): String {
 
 private fun GirParameter.debugSignature(): String = when (type) {
     is GirArrayType -> "array[${type.debugSignature()}]"
-    is GirType -> type.debugSignature()
+    is GirType -> type.debugSignature() + if (this.isNullable()) "?" else ""
     GirVarArgs -> "varargs"
 }
 

@@ -33,8 +33,8 @@ class BindingsGenerator(
 ) : ClassGenerator, InterfaceGenerator, EnumGenerator, BitfieldGenerator, RepositoryObjectGenerator, RecordGenerator {
 
     @Suppress("LongMethod")
-    fun generate(repository: RepositoryBlueprint, outputDir: File) {
-        val repositoryOutputDir = repositoryBuildDir(repository, outputDir)
+    fun generate(repository: RepositoryBlueprint, moduleOutputDir: File) {
+        val repositoryOutputDir = repositoryBuildDir(moduleOutputDir)
         if (!repositoryOutputDir.exists()) {
             logger.info("Creating output dir ${repositoryOutputDir.path}")
             if (!repositoryOutputDir.mkdirs()) {
@@ -46,17 +46,17 @@ class BindingsGenerator(
         logger.info("Writing repository ${repository.name}")
 
         // write skip file
-        writeRepositorySkipFile(repository, outputDir)
+        writeRepositorySkipFile(repository, moduleOutputDir)
 
         // write strict enum file
-        writeStrictEnumFile(repository, outputDir)
+        writeStrictEnumFile(repository, moduleOutputDir)
 
         // write classes
         repository.classBlueprints.forEach { clazz ->
             writeType(
                 clazz.typeName,
                 buildClass(clazz),
-                repositorySrcDir(repository, outputDir),
+                repositorySrcDir(moduleOutputDir),
                 clazz.signals.map { buildStaticSignalCallback(it) },
             )
         }
@@ -66,7 +66,7 @@ class BindingsGenerator(
             writeType(
                 iface.typeName,
                 buildInterface(iface),
-                repositorySrcDir(repository, outputDir),
+                repositorySrcDir(moduleOutputDir),
                 iface.signals.map { buildStaticSignalCallback(it) },
             )
         }
@@ -76,7 +76,7 @@ class BindingsGenerator(
             writeType(
                 bitfield.kotlinTypeName,
                 buildBitfield(bitfield),
-                repositorySrcDir(repository, outputDir),
+                repositorySrcDir(moduleOutputDir),
             )
         }
 
@@ -85,14 +85,14 @@ class BindingsGenerator(
             writeType(
                 enum.kotlinTypeName,
                 buildEnum(enum),
-                repositorySrcDir(repository, outputDir),
+                repositorySrcDir(moduleOutputDir),
             )
 
             enum.errorExceptionTypeName?.let {
                 writeType(
                     it,
                     buildErrorDomainExceptionClass(enum),
-                    repositorySrcDir(repository, outputDir),
+                    repositorySrcDir(moduleOutputDir),
                 )
             }
         }
@@ -102,7 +102,7 @@ class BindingsGenerator(
             writeType(
                 record.kotlinTypeName,
                 buildRecord(record),
-                repositorySrcDir(repository, outputDir),
+                repositorySrcDir(moduleOutputDir),
             )
         }
 
@@ -110,7 +110,7 @@ class BindingsGenerator(
         writeType(
             repository.repositoryObjectName,
             buildRepositoryObject(repository),
-            repositorySrcDir(repository, outputDir),
+            repositorySrcDir(moduleOutputDir),
             additionalTypeAliases = repository.callbackBlueprints.map { buildCallbackTypeAlias(it) },
             additionalProperties = repository.callbackBlueprints.map { buildStaticCallbackProperty(it) },
         )
@@ -119,14 +119,12 @@ class BindingsGenerator(
     /**
      * bindings build dir
      */
-    private fun repositoryBuildDir(repository: RepositoryBlueprint, outputDir: File): File =
-        File(outputDir, "${repository.kotlinModuleName}/build")
+    private fun repositoryBuildDir(outputDir: File): File = outputDir.resolve("build")
 
     /**
      * bindings src output dir
      */
-    private fun repositorySrcDir(repository: RepositoryBlueprint, outputDir: File): File =
-        File(outputDir, "${repository.kotlinModuleName}/src/nativeMain/kotlin")
+    private fun repositorySrcDir(outputDir: File): File = outputDir.resolve("src/nativeMain/kotlin")
 
     private fun writeType(
         className: ClassName,
@@ -163,7 +161,7 @@ class BindingsGenerator(
     }
 
     private fun writeRepositorySkipFile(repository: RepositoryBlueprint, outputDir: File) {
-        val skipFile = File(repositoryBuildDir(repository, outputDir), "${repository.name}-skips.txt")
+        val skipFile = File(repositoryBuildDir(outputDir), "${repository.name}-skips.txt")
         skipFile.createNewFile()
         val skippedObjects = repository.skippedObjects.filter { it.documented }
 
@@ -177,7 +175,7 @@ class BindingsGenerator(
     }
 
     private fun writeStrictEnumFile(repository: RepositoryBlueprint, outputDir: File) {
-        val enumsFile = File(repositoryBuildDir(repository, outputDir), "${repository.name}-enums.txt")
+        val enumsFile = File(repositoryBuildDir(outputDir), "${repository.name}-enums.txt")
         enumsFile.createNewFile()
 
         enumsFile.printWriter().use { writer ->
