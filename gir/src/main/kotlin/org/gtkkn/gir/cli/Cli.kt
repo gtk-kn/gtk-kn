@@ -16,13 +16,13 @@
 
 package org.gtkkn.gir.cli
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import io.github.oshai.Level
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import org.gtkkn.gir.config.Config
-import org.gtkkn.gir.config.GtkknJsonConfig
+import org.gtkkn.gir.config.GtkKnJsonConfig
 import org.gtkkn.gir.log.logger
 import java.io.File
 import java.util.Locale
@@ -130,8 +130,7 @@ private fun resolveDefaultConfigFilePath(): String {
 }
 
 private fun loadConfigFromFile(file: File): Config {
-    val objectMapper = ObjectMapper().findAndRegisterModules()
-    val jsonConfig = objectMapper.readValue<GtkknJsonConfig>(file.readText())
+    val jsonConfig = Json.decodeFromString<GtkKnJsonConfig>(file.readText())
 
     return Config(
         file.parentFile.resolve(jsonConfig.girBaseDir),

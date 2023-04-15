@@ -17,6 +17,7 @@
 package org.gtkkn.gir.config
 
 import io.github.oshai.Level
+import kotlinx.serialization.Serializable
 import java.io.File
 
 data class Config(
@@ -32,6 +33,7 @@ data class Config(
         MIT
     }
 
+    @Serializable
     data class Library(
         val name: String,
         val module: String,
@@ -45,7 +47,8 @@ data class Config(
 /**
  * Json representation of the gtkkn.json config file.
  */
-data class GtkknJsonConfig(
+@Serializable
+data class GtkKnJsonConfig(
     val girBaseDir: String,
     val outputDir: String,
     val logLevel: String,

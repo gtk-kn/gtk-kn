@@ -21,6 +21,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     alias(libs.plugins.kotlin.jvm)
     application
+    alias(libs.plugins.kotlinx.serialization)
     id("detekt-conventions")
 }
 
@@ -29,8 +30,8 @@ dependencies {
     implementation(libs.bundles.ktlint)
     implementation(libs.kotlinpoet)
     implementation(libs.kotlinx.cli)
+    implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.kotlin.test.junit5)
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
 }
 
 tasks.withType<KotlinCompile> {
