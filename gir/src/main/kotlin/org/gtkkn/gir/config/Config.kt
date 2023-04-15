@@ -55,5 +55,5 @@ data class GtkKnJsonConfig(
     val skipFormat: Boolean,
     val bindingLicense: String,
     val libraries: List<Config.Library>,
-    val ignoredLibraries: List<Config.Library>,
+    val ignoredLibraries: List<Config.Library> = emptyList(),
 )

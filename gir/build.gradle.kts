@@ -53,7 +53,10 @@ tasks.named<JavaExec>("run") {
     jvmArgs = mutableListOf("--add-opens=java.base/java.lang=ALL-UNNAMED")
     args = mutableListOf<String>().apply {
         if (project.extra.has("org.gtkkn.configFile")) {
-            val configFile = project.extra.get("org.gtkkn.configFile") as String
+            var configFile = project.extra.get("org.gtkkn.configFile") as String
+            if (!configFile.startsWith("/")) {
+                configFile = "$rootDir/$configFile"
+            }
             add("--configFile")
             add(configFile)
         }

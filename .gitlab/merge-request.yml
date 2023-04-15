@@ -3,7 +3,7 @@ generate-and-check:
   interruptible: true
   stage: build
   script:
-    - ./gradlew :gir:run
+    - ./gradlew :gir:run -Porg.gtkkn.configFile=gtkkn-ci.json
     - ./gradlew check
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"

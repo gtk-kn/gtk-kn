@@ -42,10 +42,13 @@ include("gir")
 
 include("bindings:common")
 
-val configFile: String = if (extra.has("org.gtkkn.configFile")) {
+var configFile: String = if (extra.has("org.gtkkn.configFile")) {
     checkNotNull(extra.get("org.gtkkn.configFile") as? String)
 } else {
-    "${rootDir}/gtkkn.json"
+    "$rootDir/gtkkn.json"
+}
+if (!configFile.startsWith("/")) {
+    configFile = "$rootDir/$configFile"
 }
 val config = JsonSlurper().parse(File(configFile)) as Map<String, Any>
 val libraries = config["libraries"] as List<Map<String, String>>
