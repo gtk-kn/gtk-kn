@@ -101,7 +101,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode("val gResult = %M(", method.nativeMemberName) // open native function call
         } else {
             // if not throws, we can return directly without intermediate
-            addCode("return %M(", method.nativeMemberName) // open native function call
+            addCode("return %M(\n", method.nativeMemberName) // open native function call
         }
 
         var needsComma = false
@@ -123,7 +123,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
         }
 
-        addCode(")") // close native function call
+        addCode("\n)") // close native function call
 
         if (method.throws) {
             // native function return value conversion
