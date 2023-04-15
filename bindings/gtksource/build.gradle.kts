@@ -20,9 +20,6 @@ plugins {
 }
 
 version = "0.0.1-SNAPSHOT"
-publishing.publications.withType<MavenPublication> {
-    artifactId = "gtksource"
-}
 
 kotlin {
     val hostOs = System.getProperty("os.name")
