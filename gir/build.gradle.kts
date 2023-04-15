@@ -47,12 +47,12 @@ application {
 }
 
 tasks.named<JavaExec>("run") {
-    val configFile: String? = project.extra.get("org.gtkkn.configFile") as? String
     description = "Generate source code from introspective files"
     // https://github.com/pinterest/ktlint/issues/1391#issuecomment-1336221448
     jvmArgs = mutableListOf("--add-opens=java.base/java.lang=ALL-UNNAMED")
     args = mutableListOf<String>().apply {
-        if (configFile != null) {
+        if (project.extra.has("org.gtkkn.configFile")) {
+            val configFile = project.extra.get("org.gtkkn.configFile") as String
             add("--configFile")
             add(configFile)
         }

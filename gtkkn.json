@@ -81,11 +81,6 @@
       "name": "gtksource",
       "module": "gtksource",
       "girPrefix": "GtkSource-5"
-    },
-    {
-      "name": "libhelium",
-      "module": "he",
-      "girPrefix": "He-"
     }
   ]
 }
