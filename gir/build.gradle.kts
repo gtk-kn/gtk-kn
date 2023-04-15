@@ -53,16 +53,11 @@ tasks.named<JavaExec>("run") {
     jvmArgs = mutableListOf("--add-opens=java.base/java.lang=ALL-UNNAMED")
     args = mutableListOf<String>().apply {
         if (configFile != null) {
-            add("-c")
+            add("--configFile")
             add(configFile)
         }
     }
 }
-
-repositories {
-    mavenCentral()
-}
-
 
 tasks.compileJava {
     options.compilerArgs.add("-Xlint:deprecation")

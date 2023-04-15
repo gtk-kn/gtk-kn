@@ -2,8 +2,8 @@
   "girBaseDir": "/usr/share/gir-1.0",
   "outputDir": "bindings",
   "logLevel": "INFO",
-  "skipFormat": true,
-  "bindingLicense": "MIT",
+  "skipFormat": false,
+  "bindingLicense": "LGPL",
   "libraries": [
     {
       "name": "cairo",

@@ -47,7 +47,7 @@ val config = JsonSlurper().parse(File(configFile)) as Map<String, Any>
 val libraries = config["libraries"] as List<Map<String, String>>
 
 libraries.forEach { library ->
-    include("bindings:" + library["module"])
+    include("bindings:${library["module"]}")
 }
 
 include("samples:gtk:hello-world")
