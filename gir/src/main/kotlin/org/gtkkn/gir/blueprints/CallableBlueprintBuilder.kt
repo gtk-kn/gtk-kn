@@ -127,7 +127,6 @@ abstract class CallableBlueprintBuilder<T : Any>(
     private fun checkSupportedParam(param: GirParameter) {
         when {
             param.type is GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
-            param.direction == GirDirection.OUT -> throw UnresolvableTypeException("Out parameter is not supported")
             param.direction == GirDirection.IN_OUT -> {
                 throw UnresolvableTypeException("In/Out parameter is not supported")
             }

@@ -650,6 +650,15 @@ class ProcessorContext(
         return Pair(namespace, clazz)
     }
 
+    fun findRecordByNameOrNull(
+        targetNamespace: GirNamespace,
+        fullyQualifiedName: String,
+    ): Pair<GirNamespace, GirRecord>? = try {
+        findRecordByName(targetNamespace, fullyQualifiedName)
+    } catch (ex: UnresolvableTypeException) {
+        null
+    }
+
     @Throws(UnresolvableTypeException::class)
     fun findBitfieldByName(
         targetNamespace: GirNamespace,
