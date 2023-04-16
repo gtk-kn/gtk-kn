@@ -152,10 +152,12 @@ nav:
 #              - Leaflet and Dialog: user-guide/adwaita/examples/leaflet-and-dialog.md
 #      - Tutorials:
 #          - Text viewer: user-guide/tutorials/text-viewer.md
-      - GtkSourceView:
-          - user-guide/gtksource/index.md
-      - libhelium:
-          - user-guide/libhelium/index.md
+      - Optional bindings:
+          - user-guide/optional-bindings/index.md
+          - GtkSourceView:
+              - user-guide/optional-bindings/gtksource/index.md
+          - libhelium:
+              - user-guide/optional-bindings/libhelium/index.md
 #      - Tutorials:
 #          - Text viewer: user-guide/tutorials/text-viewer.md
   - API: dokka/index.html
