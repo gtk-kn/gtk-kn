@@ -33,6 +33,7 @@ kotlin {
         val nativeMain by getting {
             dependencies {
                 api(project(":bindings:common"))
+                api(project(":bindings:core:glib"))
             }
         }
         val nativeTest by getting
