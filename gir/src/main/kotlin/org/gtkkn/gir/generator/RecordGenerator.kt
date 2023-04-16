@@ -16,10 +16,13 @@
 
 package org.gtkkn.gir.generator
 
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.FieldBlueprint
@@ -34,7 +37,9 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             addKdoc(buildTypeKDoc(record.kdoc, record.version, record.skippedObjects))
 
             // add marker interface
-            addSuperinterface(BindingsGenerator.GLIB_RECORD_MARKER_TYPE)
+            val recordMarkerInterfaceType =
+                BindingsGenerator.GLIB_RECORD_MARKER_TYPE
+            addSuperinterface(recordMarkerInterfaceType)
 
             // companion object
             val companionSpecBuilder = TypeSpec.companionObjectBuilder()
@@ -57,9 +62,22 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             // fields
             record.fields.forEach { addProperty(buildRecordFieldProperty(record, it)) }
 
-            if (companionSpecBuilder.propertySpecs.isNotEmpty() || companionSpecBuilder.funSpecs.isNotEmpty()) {
-                addType(companionSpecBuilder.build())
-            }
+            // prepare record companion
+            companionSpecBuilder.addSuperinterface(
+                BindingsGenerator.GLIB_RECORD_COMPANION_TYPE.parameterizedBy(record.kotlinTypeName)
+                    .plusParameter(record.cStructTypeName),
+            )
+
+            companionSpecBuilder.addFunction(
+                FunSpec.builder("wrapRecordPointer")
+                    .addModifiers(KModifier.OVERRIDE)
+                    .returns(record.kotlinTypeName)
+                    .addParameter("pointer", ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(STAR))
+                    .addStatement("return %T(pointer.%M())", record.kotlinTypeName, BindingsGenerator.REINTERPRET_FUNC)
+                    .build(),
+            )
+
+            addType(companionSpecBuilder.build())
         }.build()
 
     /**

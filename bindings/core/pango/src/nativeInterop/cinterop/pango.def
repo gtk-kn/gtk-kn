@@ -1,4 +1,4 @@
-headers = pango/pango.h
+headers = pango/pango.h pango/pango-types.h
 package = org.gtkkn.native.pango
 headerFilter = pango/*
 
