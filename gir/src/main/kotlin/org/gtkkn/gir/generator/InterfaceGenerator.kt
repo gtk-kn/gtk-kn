@@ -19,16 +19,29 @@ package org.gtkkn.gir.generator
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 
 interface InterfaceGenerator : KDocGenerator, MiscGenerator {
     fun buildInterface(iface: InterfaceBlueprint): TypeSpec =
         TypeSpec.interfaceBuilder(iface.typeName).apply {
-            addProperty(buildInterfacePointerProperty(iface))
+            addProperty(buildAbstractInterfacePointerProperty(iface.objectPointerName, iface.objectPointerTypeName))
 
             // kdoc
             addKdoc(buildTypeKDoc(iface.kdoc, iface.version, iface.skippedObjects))
+
+            // parent interfaces
+            iface.parentInterfaces.forEach { parent ->
+                addSuperinterface(parent.interfaceTypeName)
+                addProperty(
+                    buildOverrideInterfacePointerProperty(
+                        iface.objectPointerName,
+                        parent.interfacePointerName,
+                        parent.interfacePointerTypeName,
+                    ),
+                )
+            }
 
             // properties
             iface.properties.forEach { property ->
@@ -82,7 +95,24 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             addType(companionBuilder.build())
         }.build()
 
-    private fun buildInterfacePointerProperty(iface: InterfaceBlueprint): PropertySpec =
-        PropertySpec.builder(iface.objectPointerName, iface.objectPointerTypeName)
+    private fun buildAbstractInterfacePointerProperty(pointerName: String, pointerTypeName: TypeName): PropertySpec =
+        PropertySpec.builder(pointerName, pointerTypeName)
+            .build()
+
+    private fun buildOverrideInterfacePointerProperty(
+        objectPointerName: String,
+        pointerName: String,
+        pointerTypeName: TypeName
+    ): PropertySpec =
+        PropertySpec.builder(pointerName, pointerTypeName, KModifier.OVERRIDE)
+            .getter(
+                FunSpec.getterBuilder()
+                    .addStatement(
+                        "return %L.%M()",
+                        objectPointerName,
+                        BindingsGenerator.REINTERPRET_FUNC,
+                    )
+                    .build(),
+            )
             .build()
 }

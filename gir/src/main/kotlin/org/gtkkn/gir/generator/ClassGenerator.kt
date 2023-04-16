@@ -30,6 +30,7 @@ import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 
 interface ClassGenerator : MiscGenerator, KDocGenerator {
+    @Suppress("LongMethod")
     fun buildClass(clazz: ClassBlueprint): TypeSpec =
         TypeSpec.classBuilder(clazz.typeName).apply {
             // companion object
@@ -72,7 +73,6 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                     }
                 }
 
-            // argument constructors
             // argument constructors can also be conflicting
             val groupBySignature = argumentConstructors.groupBy { constructor ->
                 constructor.parameters.joinToString(",") { it.typeInfo.kotlinTypeName.toString() }
@@ -106,6 +106,11 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
 
             // interface pointers
             clazz.implementsInterfaces.forEach {
+                addProperty(buildClassInterfacePointerProperty(it))
+            }
+
+            // override pointers
+            clazz.interfacePointerOverrides.forEach {
                 addProperty(buildClassInterfacePointerProperty(it))
             }
 

@@ -33,6 +33,7 @@ data class ClassBlueprint(
     val skippedObjects: List<SkippedObject>,
     val objectPointerName: String,
     val objectPointerTypeName: TypeName,
+    val interfacePointerOverrides: List<ImplementsInterfaceBlueprint>,
     val isFinal: Boolean,
     val version: String?,
     val kdoc: String?,
