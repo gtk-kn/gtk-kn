@@ -3,7 +3,7 @@ pages:
   stage: deploy
   script:
     - pip install -r mkdocs-requirements.txt
-    - ./gradlew :gir:run -Porg.gtkkn.configFile=gtkkn-ci.json
+    - ./gradlew :gir:run
     - ./gradlew dokkaHtmlMultiModule
     - mkdocs build --strict --verbose
   artifacts:
