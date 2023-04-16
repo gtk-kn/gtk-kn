@@ -25,6 +25,7 @@ import org.gtkkn.gir.model.GirProperty
 import org.gtkkn.gir.model.GirSignal
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class InterfaceBlueprintBuilder(
     context: ProcessorContext,
@@ -36,6 +37,7 @@ class InterfaceBlueprintBuilder(
     private val signalBluePrints = mutableListOf<SignalBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
     private val propertyMethodBluePrintMap = hashMapOf<String, MethodBlueprint>()
+    private val parentInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
 
     override fun blueprintObjectType(): String = "interface"
 
@@ -101,6 +103,8 @@ class InterfaceBlueprintBuilder(
         val objectPointerName = "${context.namespacePrefix(girNamespace)}${girInterface.name}Pointer"
         val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(girNamespace, girInterface)
 
+        addParentInterfaces()
+
         return InterfaceBlueprint(
             kotlinName = kotlinInterfaceName,
             nativeName = girInterface.name,
@@ -112,8 +116,28 @@ class InterfaceBlueprintBuilder(
             objectPointerTypeName = objectPointerTypeName,
             signals = signalBluePrints,
             functions = functionBlueprints,
+            parentInterfaces = parentInterfaces,
             version = girInterface.info.version,
             kdoc = context.processKdoc(girInterface.info.docs.doc?.text),
         )
+    }
+
+    private fun addParentInterfaces() {
+        val ifaces = girInterface.prerequisites.mapNotNull { prereq ->
+            try {
+                context.findInterfaceByName(girNamespace, prereq.name)
+            } catch (ex: UnresolvableTypeException) {
+                null
+            }
+        }.map { (namespace, iface) ->
+            val kotlinInterfaceName = context.kotlinizeClassName(iface.name)
+            val kotlinPackageName = context.kotlinizePackageName(namespace.name)
+
+            val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
+            val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name}Pointer"
+            val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(namespace, iface)
+            ImplementsInterfaceBlueprint(typeName, objectPointerTypeName, objectPointerName)
+        }
+        parentInterfaces.addAll(ifaces)
     }
 }

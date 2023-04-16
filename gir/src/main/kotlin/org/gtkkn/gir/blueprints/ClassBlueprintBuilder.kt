@@ -45,6 +45,7 @@ class ClassBlueprintBuilder(
     private val implementsInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
     private val propertyMethodBluePrintMap = hashMapOf<String, MethodBlueprint>()
     private var parentTypeName: TypeName? = null
+    private val interfacePointerOverrides = mutableListOf<ImplementsInterfaceBlueprint>()
 
     /**
      * Lazily build the list of superclasses for method override resolution
@@ -149,6 +150,7 @@ class ClassBlueprintBuilder(
         }
 
         addInterfaces()
+        addInterfaceOverrides()
 
         girClass.methods.forEach { addMethod(it) }
         girClass.properties.forEach { addProperty(it) }
@@ -181,11 +183,15 @@ class ClassBlueprintBuilder(
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
             isFinal = girClass.final == true,
+            interfacePointerOverrides = interfacePointerOverrides,
             version = girClass.info.version,
             kdoc = context.processKdoc(girClass.info.docs.doc?.text),
         )
     }
 
+    /**
+     * Add regular interfaces that this class implements.
+     */
     private fun addInterfaces() {
         val parentInterfacePairs = if (girClass.parent != null) {
             val (parentNamespace, parentClass) = context.findClassByName(girNamespace, girClass.parent)
@@ -212,5 +218,47 @@ class ClassBlueprintBuilder(
                 ),
             )
         }
+    }
+
+    /**
+     * Add interfaces that are implemented because they are a parent interface of an already implemented interface.
+     *
+     * The pointer properties for these can clash with the pointer properties from the parent interface so
+     * we add them here for the generator to generate overridden pointer properties.
+     */
+    private fun addInterfaceOverrides() {
+        val allImplementingInterfaces = girClass.implements.flatMap {
+            resolveInterfacesRecursively(girNamespace, it.name)
+        }
+
+        allImplementingInterfaces.forEach { pair ->
+            val namespace = pair.first
+            val iface = pair.second
+            val kotlinInterfaceName = context.kotlinizeClassName(iface.name)
+            val kotlinPackageName = context.kotlinizePackageName(namespace.name)
+
+            val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
+            val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name}Pointer"
+            val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(namespace, iface)
+            val parentIfaceBlueprint = ImplementsInterfaceBlueprint(typeName, objectPointerTypeName, objectPointerName)
+            if (!implementsInterfaces.contains(parentIfaceBlueprint)) {
+                interfacePointerOverrides.add(parentIfaceBlueprint)
+            }
+        }
+    }
+
+    private fun resolveInterfacesRecursively(
+        namespace: GirNamespace,
+        name: String
+    ): Set<Pair<GirNamespace, GirInterface>> {
+        val iface = resolveInterfaceOrNull(namespace, name) ?: return emptySet()
+        val parentIfaces = iface.second.implements.flatMap { resolveInterfacesRecursively(iface.first, it.name) }
+        return setOf(iface) + parentIfaces
+    }
+
+    private fun resolveInterfaceOrNull(namespace: GirNamespace, name: String): Pair<GirNamespace, GirInterface>? = try {
+        context.findInterfaceByName(namespace, name)
+    } catch (ex: UnresolvableTypeException) {
+        null
     }
 }
