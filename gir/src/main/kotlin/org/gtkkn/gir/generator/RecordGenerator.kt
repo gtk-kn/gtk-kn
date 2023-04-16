@@ -16,18 +16,17 @@
 
 package org.gtkkn.gir.generator
 
-import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
-import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.FieldBlueprint
 import org.gtkkn.gir.blueprints.RecordBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
+import org.gtkkn.gir.processor.NativeTypes.KP_WILDCARD_CPOINTER
 
 interface RecordGenerator : MiscGenerator, KDocGenerator {
 
@@ -37,8 +36,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             addKdoc(buildTypeKDoc(record.kdoc, record.version, record.skippedObjects))
 
             // add marker interface
-            val recordMarkerInterfaceType =
-                BindingsGenerator.GLIB_RECORD_MARKER_TYPE
+            val recordMarkerInterfaceType = BindingsGenerator.GLIB_RECORD_MARKER_TYPE
             addSuperinterface(recordMarkerInterfaceType)
 
             // companion object
@@ -72,7 +70,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                 FunSpec.builder("wrapRecordPointer")
                     .addModifiers(KModifier.OVERRIDE)
                     .returns(record.kotlinTypeName)
-                    .addParameter("pointer", ClassName("kotlinx.cinterop", "CPointer").parameterizedBy(STAR))
+                    .addParameter("pointer", KP_WILDCARD_CPOINTER)
                     .addStatement("return %T(pointer.%M())", record.kotlinTypeName, BindingsGenerator.REINTERPRET_FUNC)
                     .build(),
             )

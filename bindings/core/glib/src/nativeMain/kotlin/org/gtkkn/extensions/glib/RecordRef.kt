@@ -52,12 +52,9 @@ public class RecordRef<TYPE : Record>(
      */
     public fun free() {
         val ptr = nativePtr
-        if (ptr != null) {
-            nativeHeap.free(ptr)
-            nativePtr = null
-        } else {
-            error("Double free on RecordRef")
-        }
+        checkNotNull(ptr) { "Double free on RecordRef" }
+        nativeHeap.free(ptr)
+        nativePtr = null
     }
 
     /**

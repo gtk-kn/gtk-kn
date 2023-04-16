@@ -87,7 +87,6 @@ fun main() {
         }
         // value1Ref is automatically freed after use()
 
-
         /*
          * Heap allocation with manual free
          */
@@ -100,7 +99,6 @@ fun main() {
         // have to free manually
         value2Ref.free()
 
-
         /*
          * Allocation within MemScope
          */
@@ -112,9 +110,6 @@ fun main() {
             logger.info { "Result3 is $result3" }
         }
         // value3 is automatically freed after memScoped block
-
     }
     app.run(0, emptyList())
-
 }
-
