@@ -22,7 +22,7 @@ jobs:
           java-version: 17.0.6
 
       - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+        run: mkdir -p ~/.gradle ; cp .ci/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Validate gradle wrapper
         uses: gradle/wrapper-validation-action@v1
@@ -34,7 +34,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get --quiet install --yes gcc-multilib libgirepository1.0-dev libadwaita-1-dev
+          sudo .ci/install-ubuntu-deps.sh
           pip install -r mkdocs-requirements.txt
 
       - name: Generate bindings
