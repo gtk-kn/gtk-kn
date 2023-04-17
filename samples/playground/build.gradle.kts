@@ -31,7 +31,7 @@ kotlin {
             dependencies {
                 // Import from project
                 implementation(project(":bindings:gtk4:gtk"))
-                implementation(project(":bindings:adw"))
+                implementation(project(":bindings:adwaita"))
 //                implementation(project(":bindings:gtksource"))
                 // Import from mavenLocal
                 // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")

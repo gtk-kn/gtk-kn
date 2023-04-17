@@ -20,9 +20,6 @@ plugins {
 }
 
 version = "0.0.1-SNAPSHOT"
-publishing.publications.withType<MavenPublication> {
-    artifactId = "adwaita"
-}
 
 kotlin {
     val hostOs = System.getProperty("os.name")
@@ -55,6 +52,6 @@ kotlin {
     // native main for testing
     nativeTarget.apply {
         val main by compilations.getting
-        val adw by main.cinterops.creating
+        val libhelium by main.cinterops.creating
     }
 }
