@@ -89,7 +89,6 @@ internal object TypeRegistry {
         }
 
         TYPE_MAP[gType] = customTypeInfo
-        println("Registered type $typeName with gType: $gType")
         return gType
     }
 
@@ -142,14 +141,11 @@ private val staticObjectClassInit: GClassInitFunc =
 private val staticObjectInstanceInit: GInstanceInitFunc =
     staticCFunction { instance: CPointer<GTypeInstance>,
         gClass: CPointer<GTypeClass> ->
-        println("Object instance init for gType: ${instance.gType()}")
     }.reinterpret()
 
 private val staticObjectDispose = staticCFunction { instance: CPointer<GObject> ->
     val gType = instance.gType()
-    println("Disposing for gType: $gType")
     val typeInfo = checkNotNull(TypeRegistry.TYPE_MAP[gType])
-    println("Disposing for typeInfo: $typeInfo")
     val instanceProperties = instance.getCustomPropertiesPointer(typeInfo)
     if (instanceProperties.pointed.dispose_has_run > 0) {
         // already disposed
