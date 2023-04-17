@@ -25,8 +25,10 @@ package org.gtkkn.samples.gtk.playground
 import io.github.oshai.KotlinLogging
 import io.github.oshai.KotlinLoggingConfiguration
 import io.github.oshai.Level
+import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
 import org.gtkkn.bindings.gtk.FilterListModel
@@ -37,6 +39,9 @@ import org.gtkkn.bindings.gtk.SignalListItemFactory
 import org.gtkkn.bindings.gtk.SingleSelection
 import org.gtkkn.bindings.gtk.StringList
 import org.gtkkn.bindings.gtk.StringObject
+import org.gtkkn.extensions.glib.allocateHeap
+import org.gtkkn.extensions.glib.allocateScoped
+import org.gtkkn.native.gobject.G_TYPE_STRING
 
 private val logger = KotlinLogging.logger("main")
 
@@ -67,6 +72,44 @@ fun main() {
         val listView = ListView(SingleSelection(filterListModel), factory)
         window.setChild(listView)
         window.show()
+
+        logger.info { "#### Record test" }
+
+        /*
+         * Heap allocation with use
+         */
+        val value1Ref = Value.allocateHeap()
+        value1Ref.use { v ->
+            v.init(G_TYPE_STRING)
+            v.setString("Hello Value")
+            val result = v.getString()
+            logger.info { "Result is: $result" }
+        }
+        // value1Ref is automatically freed after use()
+
+        /*
+         * Heap allocation with manual free
+         */
+        val value2Ref = Value.allocateHeap()
+        val value2 = value2Ref.get()
+        value2.init(G_TYPE_STRING)
+        value2.setString("Hello Value2")
+        val result2 = value2.getString()
+        logger.info { "Result2 is $result2" }
+        // have to free manually
+        value2Ref.free()
+
+        /*
+         * Allocation within MemScope
+         */
+        memScoped {
+            val value3 = Value.allocateScoped(this)
+            value3.init(G_TYPE_STRING)
+            value3.setString("Hello Value3")
+            val result3 = value3.getString()
+            logger.info { "Result3 is $result3" }
+        }
+        // value3 is automatically freed after memScoped block
     }
     app.run(0, emptyList())
 }

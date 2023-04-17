@@ -28,7 +28,9 @@ data class RecordBlueprint(
     val functions: List<FunctionBlueprint>,
     val methods: List<MethodBlueprint>,
     val fields: List<FieldBlueprint>,
+    val cStructTypeName: ClassName,
     val skippedObjects: List<SkippedObject>,
+    val isOpaque: Boolean,
     val kdoc: String?,
     val version: String?,
 )

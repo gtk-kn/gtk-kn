@@ -103,6 +103,7 @@ class BindingsGenerator(
                 record.kotlinTypeName,
                 buildRecord(record),
                 repositorySrcDir(moduleOutputDir),
+                isRecord = true,
             )
         }
 
@@ -132,6 +133,7 @@ class BindingsGenerator(
         outputDirectory: File,
         additionalProperties: List<PropertySpec> = emptyList(),
         additionalTypeAliases: List<TypeAliasSpec> = emptyList(),
+        isRecord: Boolean = false
     ) {
         logger.debug("Writing ${className.canonicalName}")
 
@@ -142,6 +144,11 @@ class BindingsGenerator(
             .addType(typeSpec)
             .apply { additionalProperties.forEach { addProperty(it) } }
             .apply { additionalTypeAliases.forEach { addTypeAlias(it) } }
+            .apply {
+                if (isRecord) {
+                    addAliasedImport(NATIVE_PLACEMENT_ALLOC, "nativePlacementAlloc")
+                }
+            }
             .build()
             .apply {
                 if (config.skipFormat) {
@@ -195,6 +202,8 @@ class BindingsGenerator(
         internal val TO_K_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toKStringList")
         internal val GLIB_EXCEPTION_TYPE = ClassName("org.gtkkn.extensions.glib", "GlibException")
         internal val GLIB_ERROR_TYPE = ClassName("org.gtkkn.bindings.glib", "Error")
+        internal val GLIB_RECORD_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Record")
+        internal val GLIB_RECORD_COMPANION_TYPE = ClassName("org.gtkkn.extensions.glib", "RecordCompanion")
 
         // cinterop helper function members
         internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
@@ -203,10 +212,11 @@ class BindingsGenerator(
         internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
         internal val POINTED_FUNC = MemberName("kotlinx.cinterop", "pointed")
         internal val PTR_FUNC = MemberName("kotlinx.cinterop", "ptr")
+        internal val NATIVE_HEAP_OBJECT = ClassName("kotlinx.cinterop", "nativeHeap")
+        internal val NATIVE_PLACEMENT_ALLOC = ClassName("kotlinx.cinterop", "alloc")
         internal val STABLEREF = ClassName("kotlinx.cinterop", "StableRef")
         internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
         internal val POINTED = MemberName("kotlinx.cinterop", "pointed")
-        internal val PTR = MemberName("kotlinx.cinterop", "ptr")
         internal val ALLOC_POINTER_TO = MemberName("kotlinx.cinterop", "allocPointerTo")
 
         // kotlin helpers

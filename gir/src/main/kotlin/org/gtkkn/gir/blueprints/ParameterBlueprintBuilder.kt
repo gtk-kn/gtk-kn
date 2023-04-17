@@ -49,7 +49,15 @@ class ParameterBlueprintBuilder(
 
         when {
             girParam.direction == GirDirection.OUT -> {
-                throw UnresolvableTypeException("${girParam.name}: Out parameter is not supported")
+                // support OUT parameters if the param is a record and callerAllocates
+                val record = if (girParam.type is GirType) {
+                        context.findRecordByNameOrNull(girNamespace, girParam.type.name ?: error("unknown type name"))
+                } else {
+                    null
+                }
+                if (record == null || girParam.callerAllocates != true) {
+                    throw UnresolvableTypeException("${girParam.name}: Out parameter is not supported")
+                }
             }
 
             girParam.direction == GirDirection.IN_OUT -> {

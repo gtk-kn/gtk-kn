@@ -65,7 +65,7 @@ class ConstructorBlueprintBuilder(
         val returnTypeInfo = try {
             when (val type = returnValue.type) {
                 is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
-                is GirType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
+                is GirType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable(), isReturnType = true)
             }
         } catch (ex: UnresolvableTypeException) {
             throw UnresolvableTypeException("Constructor return type ${returnValue.type} could not be resolved")

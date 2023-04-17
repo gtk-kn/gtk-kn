@@ -426,7 +426,8 @@ class ProcessorContext(
         girNamespace: GirNamespace,
         type: GirType,
         nullable: Boolean,
-        isArray: Boolean = false
+        isArray: Boolean = false,
+        isReturnType: Boolean = false,
     ): TypeInfo {
         if (type.name == null) {
             throw UnresolvableTypeException("type name is null")
@@ -452,7 +453,7 @@ class ProcessorContext(
                 "const char*" -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
                 "const gchar*" -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
                 "char*" -> {
-                    if (isArray) {
+                    if (isArray || isReturnType) {
                         TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
                     } else {
                         throw UnresolvableTypeException("Unsupported string type with cType: ${type.cType}")
@@ -647,6 +648,15 @@ class ProcessorContext(
                 "Record $simpleRecordName does not exist in namespace ${namespace.name}",
             )
         return Pair(namespace, clazz)
+    }
+
+    fun findRecordByNameOrNull(
+        targetNamespace: GirNamespace,
+        fullyQualifiedName: String,
+    ): Pair<GirNamespace, GirRecord>? = try {
+        findRecordByName(targetNamespace, fullyQualifiedName)
+    } catch (ex: UnresolvableTypeException) {
+        null
     }
 
     @Throws(UnresolvableTypeException::class)

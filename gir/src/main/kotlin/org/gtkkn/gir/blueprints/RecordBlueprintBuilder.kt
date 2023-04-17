@@ -104,6 +104,11 @@ class RecordBlueprintBuilder(
             fields = fieldBlueprints,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
+            cStructTypeName = ClassName(
+                context.namespaceNativePackageName(girNamespace),
+                girRecord.cType ?: error("unknown cType"),
+            ),
+            isOpaque = girRecord.opaque == true,
             kdoc = context.processKdoc(girRecord.info.docs.doc?.text),
             version = girRecord.info.version,
             skippedObjects = skippedObjects,
