@@ -48,12 +48,14 @@ import org.gtkkn.native.gobject.g_type_check_instance_is_a
  */
 public open class ObjectSubclassCompanion<T : Object>(
     private val typeName: String,
-    private val parentType: GeneratedClassKGType,
+    private val parentType: GeneratedClassKGType<Object>,
 ) {
     /**
      * Type information of the registered class.
      */
-    public val type: UserDefinedKGType by lazy { UserDefinedKGType(registerType()) }
+    public val type: UserDefinedKGType<T> by lazy {
+        UserDefinedKGType(registerType()) { instanceFromPointer(it.reinterpret()) }
+    }
 
     /**
      * GType of the registered class.

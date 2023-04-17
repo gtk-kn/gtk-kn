@@ -22,32 +22,39 @@
 
 package org.gtkkn.extensions.gobject
 
+import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.CPointer
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.native.gobject.GType
 
 /**
  * Interface for GObject type information holders.
  */
-public sealed interface KGType {
+public sealed interface KGType<out T : Any> {
     public val gType: GType
+    public val convertPointerFunc: (CPointer<CPointed>) -> T
 }
 
 /**
  * [KGType] implementation for generated classes.
  */
-public data class GeneratedClassKGType(
-    override val gType: GType
-) : KGType
+public data class GeneratedClassKGType<out T : Any>(
+    override val gType: GType,
+    override val convertPointerFunc: (CPointer<CPointed>) -> T
+) : KGType<T>
 
 /**
  * [KGType] implementation for generated interfaces.
  */
-public data class GeneratedInterfaceKGType(
-    override val gType: GType
-) : KGType
+public data class GeneratedInterfaceKGType<out T : Any>(
+    override val gType: GType,
+    override val convertPointerFunc: (CPointer<CPointed>) -> T
+) : KGType<T>
 
 /**
  * [KGType] implementation for user defined types.
  */
-public data class UserDefinedKGType(
-    override val gType: GType
-) : KGType
+public data class UserDefinedKGType<out T : Object>(
+    override val gType: GType,
+    override val convertPointerFunc: (CPointer<CPointed>) -> T
+) : KGType<T>

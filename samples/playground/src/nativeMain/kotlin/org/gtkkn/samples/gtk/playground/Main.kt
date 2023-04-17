@@ -25,7 +25,6 @@ package org.gtkkn.samples.gtk.playground
 import io.github.oshai.KotlinLogging
 import io.github.oshai.KotlinLoggingConfiguration
 import io.github.oshai.Level
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.bindings.gio.ListStore
 import org.gtkkn.bindings.gobject.Object
@@ -37,6 +36,7 @@ import org.gtkkn.bindings.gtk.ListView
 import org.gtkkn.bindings.gtk.SignalListItemFactory
 import org.gtkkn.bindings.gtk.SingleSelection
 import org.gtkkn.extensions.gobject.ObjectSubclassCompanion
+import org.gtkkn.extensions.gobject.downcast
 
 private val logger = KotlinLogging.logger("main")
 
@@ -59,8 +59,8 @@ fun main() {
 
         val factory = SignalListItemFactory()
         factory.connectBind { o ->
-            val listItem = ListItem(o.gPointer.reinterpret())
-            val person = MyPerson.instanceFromPointer(listItem.getItem()!!.gPointer)
+            val listItem = o.downcast(ListItem.type)
+            val person = listItem.getItem()!!.downcast(MyPerson.type)
 
             val label = Label("${person.name} : ${person.age}")
             listItem.setChild(label)
@@ -80,6 +80,6 @@ data class MyPerson(
 
     companion object : ObjectSubclassCompanion<MyPerson>(
         "MyPerson",
-        Object.Type,
+        Object.type,
     )
 }

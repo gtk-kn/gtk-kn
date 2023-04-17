@@ -406,10 +406,13 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
     fun buildKGTypeProperty(clazz: ClassBlueprint): PropertySpec? = if (clazz.glibGetTypeFunc == null) {
         null
     } else {
-        PropertySpec.builder("Type", BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE).initializer(
-            "%T(%M())",
+        val propertyType = BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE.parameterizedBy(clazz.typeName)
+        PropertySpec.builder("type", propertyType).initializer(
+            "%T(%M()) { %T(it.%M()) }",
             BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE,
             clazz.glibGetTypeFunc,
+            clazz.typeName,
+            BindingsGenerator.REINTERPRET_FUNC,
         ).build()
     }
 }

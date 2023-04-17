@@ -22,6 +22,7 @@
 
 package org.gtkkn.extensions.gobject
 
+import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.alloc
@@ -70,11 +71,10 @@ internal object TypeRegistry {
 
         val customTypeInfo = CustomTypeInfo(typeName, parentClassSize, parentInstanceSize)
 
-        val totalClassSize = parentClassSize
         val totalInstanceSize = parentInstanceSize + sizeOf<gtkknObjectProperties>()
 
         val typeInfoStruct = alloc<GTypeInfo>() {
-            class_size = totalClassSize.toUShort()
+            class_size = parentClassSize.toUShort()
             instance_size = totalInstanceSize.toUShort()
             class_init = staticObjectClassInit
             instance_init = staticObjectInstanceInit
@@ -83,7 +83,7 @@ internal object TypeRegistry {
 
         val gType = g_type_register_static(superType, typeName, typeInfoStruct.ptr, 0)
 
-        if (gType <= 0u) {
+        if (gType == 0uL) {
             error("Failed to register type for $typeName")
         }
 
@@ -103,7 +103,7 @@ internal object TypeRegistry {
         }
     }
 
-    fun getInstanceData(pointer: CPointer<*>): InstanceDataHolder {
+    fun getInstanceData(pointer: COpaquePointer): InstanceDataHolder {
         val typeName = g_type_name_from_instance(pointer.reinterpret())?.toKString()
         val gType = g_type_from_name(typeName)
         TYPE_MAP[gType]?.let { typeInfo ->
@@ -119,7 +119,9 @@ internal object TypeRegistry {
     }
 }
 
-private fun CPointer<*>.getCustomPropertiesPointer(typeInfo: CustomTypeInfo): CPointer<gtkknObjectProperties> {
+private fun COpaquePointer.getCustomPropertiesPointer(
+    typeInfo: CustomTypeInfo
+): CPointer<gtkknObjectProperties> {
     val rawPropertiesPointer = this.rawValue.plus(typeInfo.parentInstanceSize)
     return interpretCPointer<gtkknObjectProperties>(rawPropertiesPointer) as CPointer<gtkknObjectProperties>
 }
@@ -129,7 +131,7 @@ private fun CPointer<*>.getCustomPropertiesPointer(typeInfo: CustomTypeInfo): CP
  */
 private val staticObjectClassInit: GClassInitFunc =
     staticCFunction { gClass: CPointer<GObjectClass>,
-        data: CPointer<*> /* stableRef of CustomTypeInfo */ ->
+        _: COpaquePointer /* stableRef of CustomTypeInfo */ ->
         gClass.pointed.dispose = staticObjectDispose.reinterpret()
     }.reinterpret()
 
@@ -138,8 +140,8 @@ private val staticObjectClassInit: GClassInitFunc =
  * Instance initializer.
  */
 private val staticObjectInstanceInit: GInstanceInitFunc =
-    staticCFunction { instance: CPointer<GTypeInstance>,
-        gClass: CPointer<GTypeClass> ->
+    staticCFunction { _: CPointer<GTypeInstance>,
+        _: CPointer<GTypeClass> ->
     }.reinterpret()
 
 private val staticObjectDispose = staticCFunction { instance: CPointer<GObject> ->
@@ -162,7 +164,9 @@ private val staticObjectDispose = staticCFunction { instance: CPointer<GObject> 
     val parentClassPointer =
         g_type_class_peek_parent(instance.pointed.g_type_instance.g_class) as CPointer<GObjectClass>?
     parentClassPointer?.pointed?.dispose?.invoke(instance)
-    null as CPointer<*>?
+
+    @Suppress("USELESS_CAST")
+    null as COpaquePointer?
 }
 
 private fun CPointer<GTypeInstance>.gType(): GType = checkNotNull(pointed.g_class).pointed.g_type
