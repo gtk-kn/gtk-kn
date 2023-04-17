@@ -22,3 +22,9 @@ linkerOpts.linux_x64 = \
     -L/usr/lib64 \
     -L/usr/lib/x86_64-linux-gnu
 
+---
+
+typedef struct {
+  int dispose_has_run;
+  void *internal_obj;
+} gtkknObjectProperties;

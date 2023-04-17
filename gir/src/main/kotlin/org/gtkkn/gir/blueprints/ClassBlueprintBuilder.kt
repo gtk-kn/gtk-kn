@@ -17,6 +17,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeName
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
@@ -168,6 +169,12 @@ class ClassBlueprintBuilder(
         }
         val objectPointerTypeName = context.resolveClassObjectPointerTypeName(girNamespace, girClass)
 
+        val glibGetTypeMember = if (girClass.glibGetType != "intern") {
+            MemberName(context.namespaceNativePackageName(girNamespace), girClass.glibGetType)
+        } else {
+            null
+        }
+
         return ClassBlueprint(
             kotlinName = kotlinClassName,
             nativeName = girClass.name,
@@ -184,6 +191,7 @@ class ClassBlueprintBuilder(
             objectPointerTypeName = objectPointerTypeName,
             isFinal = girClass.final == true,
             interfacePointerOverrides = interfacePointerOverrides,
+            glibGetTypeFunc = glibGetTypeMember,
             version = girClass.info.version,
             kdoc = context.processKdoc(girClass.info.docs.doc?.text),
         )

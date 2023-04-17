@@ -52,6 +52,10 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             // interfaces
             addSuperinterfaces(clazz.implementsInterfaces.map { it.interfaceTypeName })
 
+            buildKGTypeProperty(clazz)?.let {
+                companionSpecBuilder.addProperty(it)
+            }
+
             // pointer constructor
             buildPointerConstructor(this, clazz)
 
@@ -152,6 +156,9 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
         } else {
             // init pointer property
             constructorSpecBuilder.addStatement("gPointer = pointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
+            if (clazz.kotlinName == "Object") {
+                constructorSpecBuilder.addStatement("%M()", BindingsGenerator.GOBJECT_ASSOCIATE_CUSTOM_OBJECT)
+            }
         }
 
         builder.primaryConstructor(constructorSpecBuilder.build())
@@ -391,5 +398,18 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
         )
 
         return propertyBuilder.build()
+    }
+
+    /**
+     * Build the KGType property for a class. If no glibGetType is defined, we skip this property.
+     */
+    fun buildKGTypeProperty(clazz: ClassBlueprint): PropertySpec? = if (clazz.glibGetTypeFunc == null) {
+        null
+    } else {
+        PropertySpec.builder("Type", BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE).initializer(
+            "%T(%M())",
+            BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE,
+            clazz.glibGetTypeFunc,
+        ).build()
     }
 }
