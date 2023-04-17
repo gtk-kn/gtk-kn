@@ -22,7 +22,6 @@
 
 package org.gtkkn.extensions.gobject
 
-import kotlinx.cinterop.COpaquePointerVar
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.alloc
@@ -71,8 +70,8 @@ internal object TypeRegistry {
 
         val customTypeInfo = CustomTypeInfo(typeName, parentClassSize, parentInstanceSize)
 
-        val totalClassSize = parentClassSize + sizeOf<COpaquePointerVar>()
-        val totalInstanceSize = parentInstanceSize + sizeOf<COpaquePointerVar>()
+        val totalClassSize = parentClassSize
+        val totalInstanceSize = parentInstanceSize + sizeOf<gtkknObjectProperties>()
 
         val typeInfoStruct = alloc<GTypeInfo>() {
             class_size = totalClassSize.toUShort()
