@@ -33,6 +33,9 @@ import org.gtkkn.native.gobject.g_type_check_instance_is_a
  * Companion object base class used for declaring Kotlin classes that are registered
  * in the GObject type system.
  *
+ *
+ * ## Subclassing Object and other native types
+ *
  * When defining custom GObject classes:
  * - Extend from [Object] or another non-final class.
  * - Use [newInstancePointer] when calling through to the superclass constructor.
@@ -40,15 +43,61 @@ import org.gtkkn.native.gobject.g_type_check_instance_is_a
  *   your class, typeName and parent type.
  *
  * ```
+ * // MyClass with a no-arg constructor, calling through to Object using newInstancePointer
  * class MyClass() : Object(newInstancePointer()) {
+ *
+ *     // companion object that holds the type information
  *     companion object : ObjectSubclassCompanion<MyClass>("MyClass", Object.type) {
  *     }
  * }
  * ```
+ *
+ * Note that you should always use the pointer constructor from the parent class and not
+ * a utility constructor.
+ *
+ *
+ * ## Subclassing Kotlin types
+ *
+ * When extending from a parent Kotlin class that is already a Kotlin Object subclass,
+ * some extra restrictions apply.
+ *
+ * Simply extending from the parent class and calling its Kotlin constructor is not enough
+ * as this will end up calling [newInstancePointer] from the parent type.
+ *
+ * Instead, the Parent class should have a primary constructor taking a [CPointer] as an argument,
+ * which is passed along to the constructor of its parent native class. And then the child class
+ * can have the same setup as mentioned above where the primary constructor uses its own
+ * [newInstancePointer] method before passing the pointer along to the Parent constructor.
+ *
+ * ```
+ * // Parent class that extends from Object
+ * // primary constructor takes an instance pointer and passes it to the native constructor
+ * open class ParentClass(pointer: CPointer<CPointed>) : Object(pointer.reinterpret()) {
+ *
+ *     // utility no-arg constructor
+ *     constructor() : this(newInstancePointer())
+ *
+ *     companion object : ObjectSubclassCompanion<ParentClass>("ParentClass", Object.type) {
+ *     }
+ * }
+ *
+ * // Child class that extends from Parent
+ * // primary constructor uses newInstancePointer and passes it to Parent primary constructor
+ * class ChildClass() : ParentClass(newInstancePointer()) {
+ *
+ *     companion object : ObjectSubclassCompanion<ChildClass>("ChildClass", ParentClass.type) {
+ *     }
+ * }
+ * ```
+ *
+ * When your Parent class has additional constructor overloads with other arguments, you need
+ * to make sure that each additional constructor that is used by Child classes also has a pointer
+ * argument.
+ *
  */
 public open class ObjectSubclassCompanion<T : Object>(
     private val typeName: String,
-    private val parentType: GeneratedClassKGType<Object>,
+    private val parentType: KGType<Object>,
 ) {
     /**
      * Type information of the registered class.
