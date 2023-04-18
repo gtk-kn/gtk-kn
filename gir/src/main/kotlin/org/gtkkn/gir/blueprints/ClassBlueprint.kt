@@ -17,6 +17,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeName
 
 data class ClassBlueprint(
@@ -35,6 +36,7 @@ data class ClassBlueprint(
     val objectPointerTypeName: TypeName,
     val interfacePointerOverrides: List<ImplementsInterfaceBlueprint>,
     val isFinal: Boolean,
+    val glibGetTypeFunc: MemberName?,
     val version: String?,
     val kdoc: String?,
 ) {

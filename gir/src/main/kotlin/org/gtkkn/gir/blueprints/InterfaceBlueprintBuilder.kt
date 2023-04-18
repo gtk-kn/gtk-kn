@@ -17,6 +17,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.MemberName
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
@@ -105,6 +106,12 @@ class InterfaceBlueprintBuilder(
 
         addParentInterfaces()
 
+        val glibGetTypeMember = if (girInterface.glibGetType != "intern") {
+            MemberName(context.namespaceNativePackageName(girNamespace), girInterface.glibGetType)
+        } else {
+            null
+        }
+
         return InterfaceBlueprint(
             kotlinName = kotlinInterfaceName,
             nativeName = girInterface.name,
@@ -117,6 +124,7 @@ class InterfaceBlueprintBuilder(
             signals = signalBluePrints,
             functions = functionBlueprints,
             parentInterfaces = parentInterfaces,
+            glibGetTypeFunc = glibGetTypeMember,
             version = girInterface.info.version,
             kdoc = context.processKdoc(girInterface.info.docs.doc?.text),
         )

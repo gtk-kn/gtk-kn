@@ -18,6 +18,7 @@ package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
@@ -83,6 +84,10 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             // Add companion with factory wrapper function
             val companionBuilder = TypeSpec.companionObjectBuilder()
 
+            buildKGTypeProperty(iface)?.let {
+                companionBuilder.addProperty(it)
+            }
+
             // wrap factory function
             val factoryFunc = FunSpec.builder("wrap")
                 .addParameter("pointer", iface.objectPointerTypeName)
@@ -115,4 +120,19 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
                     .build(),
             )
             .build()
+
+    /**
+     * Build the KGType property for a class. If no glibGetType is defined, we skip this property.
+     */
+    fun buildKGTypeProperty(iface: InterfaceBlueprint): PropertySpec? = if (iface.glibGetTypeFunc == null) {
+        null
+    } else {
+        val propertyType = BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE.parameterizedBy(iface.typeName)
+        PropertySpec.builder("type", propertyType).initializer(
+            "%T(%M()) { Wrapper(it.%M()) }",
+            BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE,
+            iface.glibGetTypeFunc,
+            BindingsGenerator.REINTERPRET_FUNC,
+        ).build()
+    }
 }

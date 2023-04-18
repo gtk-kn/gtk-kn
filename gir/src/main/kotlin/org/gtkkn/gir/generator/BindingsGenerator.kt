@@ -204,6 +204,10 @@ class BindingsGenerator(
         internal val GLIB_ERROR_TYPE = ClassName("org.gtkkn.bindings.glib", "Error")
         internal val GLIB_RECORD_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Record")
         internal val GLIB_RECORD_COMPANION_TYPE = ClassName("org.gtkkn.extensions.glib", "RecordCompanion")
+        internal val GOBJECT_GEN_CLASS_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "GeneratedClassKGType")
+        internal val GOBJECT_GEN_IFACE_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "GeneratedInterfaceKGType")
+        internal val GOBJECT_ASSOCIATE_CUSTOM_OBJECT =
+            MemberName("org.gtkkn.extensions.gobject", "associateCustomObject")
 
         // cinterop helper function members
         internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
