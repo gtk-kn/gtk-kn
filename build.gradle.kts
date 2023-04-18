@@ -1,3 +1,5 @@
+import com.diffplug.gradle.spotless.SpotlessTask
+
 /*
  * Copyright (c) 2023 gtk-kn
  *
@@ -32,6 +34,9 @@ tasks {
         dependsOn(":gir:run")
         dependsOn("spotlessApply")
         group = BasePlugin.BUILD_GROUP
+    }
+    withType<SpotlessTask> {
+        dependsOn(":gir:run")
     }
     withType<Wrapper> {
         description = "Regenerates the Gradle Wrapper files"
