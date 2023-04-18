@@ -26,18 +26,10 @@ pluginManagement {
 // https://docs.gradle.org/7.0/userguide/declaring_dependencies.html#sec:type-safe-project-accessors
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-@Suppress("UnstableApiUsage")
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-}
-
 rootProject.name = "gtk-kn"
 
 includeBuild("build-conventions")
+includeBuild("gradle-plugin")
 
 include("gir")
 
@@ -61,6 +53,8 @@ libraries.forEach { library ->
     include("bindings:${library["module"]}")
 }
 
-include("samples:gtk:hello-world")
-include("samples:playground")
-include("samples:gtk:widgets")
+include(
+    "samples:gtk:hello-world",
+    "samples:playground",
+    "samples:gtk:widgets",
+)

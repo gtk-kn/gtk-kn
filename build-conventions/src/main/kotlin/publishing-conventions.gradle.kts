@@ -14,7 +14,8 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-import java.util.Properties
+import ext.PublishConfigExt
+import ext.config
 
 plugins {
     id("config-conventions")
@@ -22,17 +23,28 @@ plugins {
     signing
 }
 
-val localProperties = project.rootProject.file("local.properties")
-    .takeIf { it.exists() }
-    ?.reader()
-    ?.use { reader -> Properties().apply { load(reader) } }
-
-extra["ossrhUsername"] = localProperties?.get("ossrhUsername")?.toString() ?: System.getenv("OSSRH_USERNAME")
-extra["ossrhPassword"] = localProperties?.get("ossrhPassword")?.toString() ?: System.getenv("OSSRH_PASSWORD")
-extra["signing.keyId"] = localProperties?.get("signing.keyId")?.toString() ?: System.getenv("SIGNING_KEY_ID")
-extra["signing.password"] = localProperties?.get("signing.password")?.toString() ?: System.getenv("SIGNING_PASSWORD")
-extra["signing.secretKeyRingFile"] = localProperties?.get("signing.secretKeyRingFile")?.toString()
-    ?: System.getenv("SIGNING_SECRET_KEY_RING_FILE")
+val publish = config.extensions.create<PublishConfigExt>("publish").apply {
+    ossrhUsername.convention(
+        providers.gradleProperty("ossrhUsername")
+            .orElse(providers.environmentVariable("OSSRH_USERNAME")),
+    )
+    ossrhPassword.convention(
+        providers.gradleProperty("ossrhPassword")
+            .orElse(providers.environmentVariable("OSSRH_PASSWORD")),
+    )
+    signingKeyId.convention(
+        providers.gradleProperty("signing.keyId")
+            .orElse(providers.environmentVariable("SIGNING_KEY_ID")),
+    )
+    signingPassword.convention(
+        providers.gradleProperty("signing.password")
+            .orElse(providers.environmentVariable("SIGNING_PASSWORD")),
+    )
+    signingSecretKeyRingFile.convention(
+        providers.gradleProperty("signing.secretKeyRingFile")
+            .orElse(providers.environmentVariable("SIGNING_SECRET_KEY_RING_FILE")),
+    )
+}
 
 val javadocJar by tasks.registering(Jar::class) {
     archiveClassifier.set("javadoc")
@@ -45,8 +57,8 @@ publishing {
             name = "Deploy"
             setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username = extra["ossrhUsername"]?.toString()
-                password = extra["ossrhPassword"]?.toString()
+                username = publish.ossrhUsername.orNull
+                password = publish.ossrhPassword.orNull
             }
         }
     }
@@ -59,7 +71,7 @@ publishing {
 
         // Provide artifacts information requited by Maven Central
         pom {
-            name.set("gtk-kn")
+            name.set(project.name)
             description.set("Provides Kotlin Native bindings for the GTK framework")
             url.set("http://gtk-kn.org/")
 
@@ -95,6 +107,6 @@ publishing {
 
 // Signing artifacts. Signing.* extra properties values will be used
 signing {
-    isRequired = extra["signing.password"] != null
+    isRequired = publish.signingPassword.isPresent
     sign(publishing.publications)
 }

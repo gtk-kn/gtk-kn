@@ -19,6 +19,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     application
     alias(libs.plugins.kotlinx.serialization)
+    id("config-conventions")
     id("detekt-conventions")
 }
 

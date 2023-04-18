@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.gtk.playground
+package org.gtkkn.samples.playground
 
 import io.github.oshai.KotlinLogging
 import io.github.oshai.KotlinLoggingConfiguration

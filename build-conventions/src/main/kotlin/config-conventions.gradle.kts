@@ -1,3 +1,5 @@
+import ext.ConfigExt
+
 /*
  * Copyright (c) 2023 gtk-kn
  *
@@ -13,7 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
+plugins {
+    id("local-properties-convention")
+}
 
-extra["libraryGroup"] = "org.gtkkn"
-extra["bindingsCoreVersion"] = "0.0.1-SNAPSHOT"
-extra["bindingsGtk4Version"] = "0.0.1-SNAPSHOT"
+group = "org.gtkkn"
+
+val config = extensions.create<ConfigExt>("config").apply {
+    version.convention("0.0.1-SNAPSHOT")
+    versionBindings.convention(version)
+    versionBindingsCore.convention(versionBindings)
+    versionBindingsGtk4.convention(versionBindingsCore)
+}
+
+repositories {
+    google()
+    mavenCentral()
+    mavenLocal()
+}

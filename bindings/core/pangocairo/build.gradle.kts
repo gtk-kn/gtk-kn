@@ -18,8 +18,7 @@ plugins {
     id("bindings-library-conventions")
 }
 
-val bindingsCoreVersion: String by extra
-version = bindingsCoreVersion
+version = config.versionBindingsCore.get()
 
 kotlin {
     sourceSets {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schemalist>
+    <schema id="org.gtkkn.samples.playground" path="/org/gtkkn/samples/playground/">
+        <key name="is-switch-enabled" type="b">
+            <default>true</default>
+            <summary>Default switch state</summary>
+        </key>
+        <key name="window-width" type="i">
+            <default>-1</default>
+            <summary>Default window width</summary>
+        </key>
+        <key name="window-height" type="i">
+            <default>-1</default>
+            <summary>Default window height</summary>
+        </key>
+        <key name="is-maximised" type="b">
+            <default>false</default>
+            <summary>Default window maximised behaviour</summary>
+        </key>
+        <key name="filter" type="s">
+            <choices>
+                <choice value="All"/>
+                <choice value="Open"/>
+                <choice value="Done"/>
+            </choices>
+            <default>"All"</default>
+            <summary>Filter of the tasks</summary>
+        </key>
+    </schema>
+</schemalist>

@@ -18,7 +18,7 @@ plugins {
     id("bindings-library-conventions")
 }
 
-version = "0.0.1-SNAPSHOT"
+version = config.versionBindings.get()
 
 kotlin {
     sourceSets {

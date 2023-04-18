@@ -20,9 +20,9 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.dokka)
+    id("config-conventions")
     id("spotless-conventions")
 }
-
 
 tasks {
     dokkaHtmlMultiModule.configure {
@@ -32,6 +32,9 @@ tasks {
         dependsOn(":gir:run")
         dependsOn("spotlessApply")
         group = BasePlugin.BUILD_GROUP
+    }
+    withType<SpotlessTask> {
+        dependsOn(":gir:run")
     }
     withType<Wrapper> {
         description = "Regenerates the Gradle Wrapper files"

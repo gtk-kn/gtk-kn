@@ -25,9 +25,6 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
-val libraryGroup: String by extra
-group = libraryGroup
-
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     explicitApi()

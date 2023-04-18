@@ -20,6 +20,11 @@ plugins {
     kotlin("multiplatform") version "1.8.20"
 }
 
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
@@ -40,10 +45,4 @@ kotlin {
             }
         }
     }
-}
-
-tasks.withType<Wrapper> {
-    description = "Regenerates the Gradle Wrapper files"
-    distributionType = Wrapper.DistributionType.ALL
-    gradleVersion = "7.6"
 }
