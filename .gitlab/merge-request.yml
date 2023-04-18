@@ -5,5 +5,6 @@ generate-and-check:
   script:
     - ./gradlew :gir:run
     - ./gradlew check
+    - ./gradlew publishToMavenLocal
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
