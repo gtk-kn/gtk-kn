@@ -6,5 +6,4 @@ stages:
 include:
   - local: ".gitlab/base.yml"
   - local: ".gitlab/merge-request.yml"
-# Disabled because it takes longer than the timeout of the shared runner. We need some self-hosted runner for it.
-#  - local: ".gitlab/pages.yml"
+  - local: ".gitlab/pages.yml"
