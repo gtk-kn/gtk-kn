@@ -10,6 +10,21 @@ Kotlin Native is a technology that allows Kotlin code to be compiled to native c
     Please note that this project is a work in progress and is not yet ready for production use. We welcome contributions
     from anyone who is interested in helping us improve the project.
 
+## Documentation
+
+The documentation for gtk-kn is available at [gtk-kn.org](https://gtk-kn.org/). We highly recommend referring to the
+documentation for any questions related to the usage or implementation of gtk-kn, as it provides detailed information,
+examples, and API reference.
+
+In addition, a mirror of the documentation is also available
+at [gtk-kn.github.io/gtk-kn](https://gtk-kn.github.io/gtk-kn/). If for any reason the primary site is unavailable or you
+prefer to use the mirror, feel free to use this alternative. We aim to keep both sites updated with the latest
+documentation, so you can use either of them with confidence.
+
+If you find any issues with the documentation on either site, please feel free to submit a bug report or a feature
+request via the project's GitLab page. We welcome all feedback and suggestions that can help us improve the
+documentation and the project as a whole.
+
 ## Contributing
 
 If you're interested in contributing to the project, please read our [contributing guidelines](CONTRIBUTING.md) and
@@ -117,8 +132,8 @@ This is on our roadmap and will be added in the near future.
 
 ### GObject and Widget subclassing
 
-User-defined subclassing for GObject types is not supported yet. This is on our roadmap and is one of the next big
-features we want to support.
+User-defined subclassing for GObject types is supported but not fully featured yet. Basic subclass type registration
+works, but no support for properties, signals or interfaces yet.
 
 ## Why the name gtk-kn?
 
