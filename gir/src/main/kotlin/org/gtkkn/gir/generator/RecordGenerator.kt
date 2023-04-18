@@ -71,7 +71,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                     .addModifiers(KModifier.OVERRIDE)
                     .returns(record.kotlinTypeName)
                     .addParameter("pointer", KP_WILDCARD_CPOINTER)
-                    .addStatement("return %T(pointer.%M())", record.kotlinTypeName, BindingsGenerator.REINTERPRET_FUNC)
+                    .addStatement("return·%T(pointer.%M())", record.kotlinTypeName, BindingsGenerator.REINTERPRET_FUNC)
                     .build(),
             )
 
@@ -127,7 +127,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                 if (constructor.throws) error("Throwing no-argument constructors are not supported")
                 // no-arg factory method
                 addStatement(
-                    "return %T(%M()!!.%M())",
+                    "return·%T(%M()!!.%M())",
                     record.kotlinTypeName,
                     constructor.nativeMemberName,
                     BindingsGenerator.REINTERPRET_FUNC,
@@ -145,7 +145,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                     addCode("val gResult = %M(", constructor.nativeMemberName) // open native function call
                 } else {
                     // open native function call
-                    addCode("return %T(%M(", record.kotlinTypeName, constructor.nativeMemberName)
+                    addCode("return·%T(%M(", record.kotlinTypeName, constructor.nativeMemberName)
                 }
 
                 constructor.parameters.forEachIndexed { index, param ->
@@ -164,7 +164,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                     addCode(")") // close native function call
                     addStatement("")
 
-                    beginControlFlow("return if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+                    beginControlFlow("return·if·(gError.%M != null)", BindingsGenerator.POINTED_FUNC)
                     addStatement(
                         "%T.failure(%M(%T(gError.%M!!.%M)))",
                         BindingsGenerator.RESULT_TYPE,
@@ -209,7 +209,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             getter(
                 FunSpec.getterBuilder().apply {
                     addCode(
-                        "return %L.%M.%L",
+                        "return·%L.%M.%L",
                         record.objectPointerName,
                         BindingsGenerator.POINTED,
                         field.nativeName,
@@ -226,7 +226,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                         FunSpec.setterBuilder().apply {
                             addParameter("value", field.typeInfo.kotlinTypeName)
                             addCode(
-                                "%L.%M.%L = value",
+                                "%L.%M.%L·= value",
                                 record.objectPointerName,
                                 BindingsGenerator.POINTED,
                                 field.nativeName,

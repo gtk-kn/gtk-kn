@@ -84,7 +84,7 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
         addParameter("error", BindingsGenerator.GLIB_ERROR_TYPE)
         returns(BindingsGenerator.GLIB_EXCEPTION_TYPE)
 
-        beginControlFlow("val ex = when (error.domain)")
+        beginControlFlow("val ex = when·(error.domain)")
         // this currently resolves only errorDomains from the same module
         for (enum in errorDomainEnums) {
             addStatement(
@@ -99,6 +99,6 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
         addStatement("else -> null")
         endControlFlow() // end when
 
-        addStatement("return ex ?: %T(error)", BindingsGenerator.GLIB_EXCEPTION_TYPE)
+        addStatement("return·ex ?: %T(error)", BindingsGenerator.GLIB_EXCEPTION_TYPE)
     }.build()
 }

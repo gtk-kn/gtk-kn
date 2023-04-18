@@ -91,7 +91,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
 
         // begin implementation
         if (method.needsMemscoped) {
-            beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
+            beginControlFlow("return·%M", BindingsGenerator.MEMSCOPED)
         }
 
         if (method.throws) {
@@ -101,7 +101,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode("val gResult = %M(", method.nativeMemberName) // open native function call
         } else {
             // if not throws, we can return directly without intermediate
-            addCode("return %M(\n", method.nativeMemberName) // open native function call
+            addCode("return·%M(", method.nativeMemberName) // open native function call
         }
 
         var needsComma = false
@@ -123,7 +123,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
         }
 
-        addCode("\n)") // close native function call
+        addCode(")") // close native function call
 
         if (method.throws) {
             // native function return value conversion
@@ -132,7 +132,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode(buildNativeToKotlinConversionsBlock(method.returnTypeInfo.withNullable(true)))
             addStatement("")
             // check errors and wrap in Result
-            beginControlFlow("return if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+            beginControlFlow("return·if·(gError.%M != null)", BindingsGenerator.POINTED_FUNC)
             addStatement(
                 "%T.failure(%M(%T(gError.%M!!.%M)))",
                 BindingsGenerator.RESULT_TYPE,
@@ -180,7 +180,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         appendSignatureParameters(func.parameters)
 
         if (func.needsMemscoped) {
-            beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
+            beginControlFlow("return·%M", BindingsGenerator.MEMSCOPED)
         }
 
         if (func.throws) {
@@ -189,7 +189,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             // open native method call into intermediate val
             addCode("val gResult = %M(", func.nativeMemberName) // open native function call
         } else {
-            addCode("return %M(", func.nativeMemberName) // open native function call
+            addCode("return·%M(", func.nativeMemberName) // open native function call
         }
 
         func.parameters.forEachIndexed { index, param ->
@@ -215,7 +215,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addCode(buildNativeToKotlinConversionsBlock(func.returnTypeInfo.withNullable(true)))
             addStatement("")
             // check errors and wrap in Result
-            beginControlFlow("return if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+            beginControlFlow("return·if·(gError.%M != null)", BindingsGenerator.POINTED_FUNC)
             addStatement(
                 "%T.failure(%M(%T(gError.%M!!.%M)))",
                 BindingsGenerator.RESULT_TYPE,
@@ -263,7 +263,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             returns(U_LONG)
 
             // add implementation
-            addCode("return %M(", BindingsGenerator.G_SIGNAL_CONNECT_DATA)
+            addCode("return·%M(", BindingsGenerator.G_SIGNAL_CONNECT_DATA)
             addCode("%N.%M()", objectPointerName, BindingsGenerator.REINTERPRET_FUNC)
             addCode(", %S", signal.signalName)
             addCode(", %NFunc.%M()", signal.kotlinConnectName, BindingsGenerator.REINTERPRET_FUNC)

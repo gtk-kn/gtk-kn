@@ -43,7 +43,7 @@ interface BitfieldGenerator : MiscGenerator, KDocGenerator {
             .addModifiers(KModifier.INFIX)
             .addParameter("other", bitfield.kotlinTypeName)
             .returns(bitfield.kotlinTypeName)
-            .addStatement("return %T(mask or other.mask)", bitfield.kotlinTypeName)
+            .addStatement("return·%T(mask·or·other.mask)", bitfield.kotlinTypeName)
             .build()
 
         val bitfieldSpec = TypeSpec.classBuilder(bitfield.kotlinName)
