@@ -16,6 +16,13 @@ You first have to install the following dependencies:
 sudo apt install build-essentials gcc-multilib libgirepository1.0-dev libadwaita-1-dev
 ```
 
+A bash script to install all the dependencies for Ubuntu 22.04 , that includes also all the optional bindings, it is
+available here:
+
+``` bash title=".ci/install-ubuntu-deps.sh"
+--8<-- ".ci/install-ubuntu-deps.sh:18"
+```
+
 ### macOS
 
 !!! warning "Support coming soon"
