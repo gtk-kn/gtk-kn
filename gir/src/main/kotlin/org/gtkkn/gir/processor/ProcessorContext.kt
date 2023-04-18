@@ -102,7 +102,7 @@ class ProcessorContext(
     /**
      * A set of C functions that should not be generated.
      */
-    private val ignoredFunctions = hashSetOf<String>(
+    private val ignoredFunctions = hashSetOf(
         // problems with Snapshot class
         "gtk_widget_snapshot_child",
 
@@ -169,12 +169,20 @@ class ProcessorContext(
         "g_variant_get_gtype",
         // GtkSource, problem with enum parameter value
         "gtk_source_view_get_gutter",
+
+        // libhelium
+        // Return type of is not a subtype of the return type of the overridden member
+        "he_badge_get_child",
+        "he_overlay_button_get_child",
+        // https://github.com/tau-OS/libhelium/issues/33
+        "he_application_window_set_modal",
+        "he_window_set_modal",
     )
 
     /**
      * A set of signals that should not be generated.
      */
-    private val ignoredSignals = hashSetOf<String>(
+    private val ignoredSignals = hashSetOf(
         // problems with string conversion in signal handler
         "format-entry-text",
         // problems with pango/cairo region

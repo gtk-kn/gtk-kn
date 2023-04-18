@@ -48,6 +48,9 @@ class FunctionBlueprintBuilder(
         if (girFunction.cIdentifier == null) {
             throw UnresolvableTypeException("Function ${girFunction.name} does not have cIdentifier")
         }
+        if (girFunction.parameters?.instanceParameter != null) {
+            throw UnresolvableTypeException("Function with instance parameter is not supported yet")
+        }
 
         context.checkIgnoredFunction(girFunction.cIdentifier)
 

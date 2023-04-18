@@ -24,7 +24,9 @@ theme:
   name: 'material'
   features:
     - content.action.edit
+    - content.action.view
     - content.code.copy
+    - navigation.expand
     - navigation.indexes
     - navigation.tabs
     - navigation.top
@@ -148,6 +150,14 @@ nav:
 #              - Collections: user-guide/adwaita/examples/collections.md
 #              - Window: user-guide/adwaita/examples/window.md
 #              - Leaflet and Dialog: user-guide/adwaita/examples/leaflet-and-dialog.md
+#      - Tutorials:
+#          - Text viewer: user-guide/tutorials/text-viewer.md
+      - Optional bindings:
+          - user-guide/optional-bindings/index.md
+          - GtkSourceView:
+              - user-guide/optional-bindings/gtksource/index.md
+          - libhelium:
+              - user-guide/optional-bindings/libhelium/index.md
 #      - Tutorials:
 #          - Text viewer: user-guide/tutorials/text-viewer.md
   - API: dokka/index.html

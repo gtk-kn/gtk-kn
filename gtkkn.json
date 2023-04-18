@@ -72,15 +72,20 @@
     },
     {
       "name": "adw",
-      "module": "adw",
+      "module": "adwaita",
       "girPrefix": "Adw-1"
     }
   ],
   "ignoredLibraries": [
     {
       "name": "gtksource",
-      "module": "gtksource",
+      "module": "extra:gtksource",
       "girPrefix": "GtkSource-5"
+    },
+    {
+      "name": "he",
+      "module": "extra:libhelium",
+      "girPrefix": "He-"
     }
   ]
 }
