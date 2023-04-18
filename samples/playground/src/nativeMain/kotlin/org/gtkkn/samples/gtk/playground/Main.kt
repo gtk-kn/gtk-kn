@@ -35,6 +35,7 @@ import org.gtkkn.bindings.gtk.ListItem
 import org.gtkkn.bindings.gtk.ListView
 import org.gtkkn.bindings.gtk.SignalListItemFactory
 import org.gtkkn.bindings.gtk.SingleSelection
+import org.gtkkn.extensions.gio.runApplication
 import org.gtkkn.extensions.gobject.ObjectSubclassCompanion
 import org.gtkkn.extensions.gobject.downcast
 
@@ -70,7 +71,7 @@ fun main() {
         window.show()
     }
 
-    app.run(0, emptyList())
+    app.runApplication()
 }
 
 data class MyPerson(
