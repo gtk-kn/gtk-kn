@@ -14,26 +14,16 @@
  * along with gtk-kt. If not, see https://www.gnu.org/licenses/.
  */
 
-@Suppress("DSL_SCOPE_VIOLATION") //https://github.com/gradle/gradle/issues/22797
 plugins {
     id("bindings-library-conventions")
 }
 
 val bindingsGtk4Version: String by extra
 version = bindingsGtk4Version
-publishing.publications.withType<MavenPublication> {
-    artifactId = "gdk4"
-}
 
 kotlin {
-    val hostOs = System.getProperty("os.name")
-    val nativeTarget = when {
-        hostOs == "Linux" -> linuxX64("native")
-        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
-    }
-
     sourceSets {
-        val nativeMain by getting {
+        nativeMain {
             dependencies {
                 api(project(":bindings:common"))
                 api(project(":bindings:core:gdkpixbuf"))
@@ -47,12 +37,5 @@ kotlin {
                 api(project(":bindings:core:harfbuzz"))
             }
         }
-        val nativeTest by getting
-    }
-
-    // native main for testing
-    nativeTarget.apply {
-        val main by compilations.getting
-        val gdk by main.cinterops.creating
     }
 }

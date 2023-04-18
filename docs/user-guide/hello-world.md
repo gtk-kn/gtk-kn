@@ -22,7 +22,7 @@ fun main() {
 From the root project directory, run the build command:
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableLinuxX64
 ```
 
 It builds fine, but nothing but a warning in our terminal appears:
