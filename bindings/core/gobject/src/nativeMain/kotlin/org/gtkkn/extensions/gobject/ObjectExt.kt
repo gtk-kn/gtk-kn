@@ -22,14 +22,49 @@
 
 package org.gtkkn.extensions.gobject
 
+import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.allocateScoped
+import org.gtkkn.native.gobject.G_TYPE_INT
+import org.gtkkn.native.gobject.G_TYPE_STRING
 
 /**
  * Cast this object to the wrapper class described by [type].
  */
 public inline fun <reified T : Object> Object.downcast(type: KGType<T>): T =
     type.convertPointerFunc(this.gPointer.reinterpret())
+
+public inline fun <reified T : Object> Object.downcast(type: ObjectSubclassCompanion<T>): T =
+    type.type.convertPointerFunc(this.gPointer.reinterpret())
+
+public fun Object.setProperty(propertyName: String, value: Int): Unit = memScoped {
+    val gValue = Value.allocateScoped(this).init(G_TYPE_INT)
+    gValue.setInt(value)
+    setProperty(propertyName, gValue)
+    gValue.unset()
+}
+
+public fun Object.setProperty(propertyName: String, value: String?): Unit = memScoped {
+    val gValue = Value.allocateScoped(this).init(G_TYPE_STRING)
+    gValue.setString(value)
+    setProperty(propertyName, gValue)
+    gValue.unset()
+}
+
+public fun Object.getStringProperty(propertyName: String): String? = memScoped {
+    val gValue = Value.allocateScoped(this)
+    getProperty(propertyName, gValue)
+    return gValue.getString().also { gValue.unset() }
+}
+
+public fun Object.getIntProperty(propertyName: String): Int = memScoped {
+    val gValue = Value.allocateScoped(this)
+    getProperty(propertyName, gValue)
+    return gValue.getInt().also { gValue.unset() }
+}
+
 
 internal fun Object.associateCustomObject() {
     TypeRegistry.associate(this)

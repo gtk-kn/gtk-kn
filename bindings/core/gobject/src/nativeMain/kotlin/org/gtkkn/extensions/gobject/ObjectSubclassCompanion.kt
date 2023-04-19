@@ -28,12 +28,20 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Gobject
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gobject.ParamFlags
 import org.gtkkn.bindings.gobject.TypeQuery
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.allocateScoped
+import org.gtkkn.extensions.gobject.properties.ClassIntPropertyDelegateProvider
+import org.gtkkn.extensions.gobject.properties.ClassStringPropertyDelegateProvider
+import org.gtkkn.native.gobject.GObjectClass
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_object_new
 import org.gtkkn.native.gobject.g_type_check_instance_is_a
+import kotlin.properties.PropertyDelegateProvider
+import kotlin.properties.ReadOnlyProperty
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 /**
  * Companion object base class used for declaring Kotlin classes that are registered
@@ -105,6 +113,9 @@ public open class ObjectSubclassCompanion<T : Object>(
     private val typeName: String,
     private val parentType: KGType<Object>,
 ) {
+
+    internal val classProperties: ClassProperties = ClassProperties()
+
     /**
      * Type information of the registered class.
      */
@@ -120,6 +131,32 @@ public open class ObjectSubclassCompanion<T : Object>(
      * less verbose.
      */
     public val gType: GType get() = type.gType
+
+    public val stringProperty: ClassStringPropertyDelegateProvider<T> = ClassStringPropertyDelegateProvider()
+
+    public val intProperty: ClassIntPropertyDelegateProvider<T> = ClassIntPropertyDelegateProvider()
+
+    public fun stringProperty(
+        name: String? = null,
+        nick: String? = null,
+        blurb: String? = null,
+        defaultValue: String = "",
+        flags: ParamFlags = ParamFlags.READWRITE
+    ): ClassStringPropertyDelegateProvider<T> =
+        ClassStringPropertyDelegateProvider<T>(name, nick, blurb, defaultValue, flags)
+
+
+    public fun intProperty(
+        name: String? = null,
+        nick: String? = null,
+        blurb: String? = null,
+        minimum: Int = Int.MIN_VALUE,
+        maximum: Int = Int.MAX_VALUE,
+        defaultValue: Int = 0,
+        flags: ParamFlags = ParamFlags.READWRITE
+    ): ClassIntPropertyDelegateProvider<T> =
+        ClassIntPropertyDelegateProvider(name, nick, blurb, minimum, maximum, defaultValue, flags)
+
 
     /**
      * Initialize a new g_object with [gType] and return a [CPointer] to it.
@@ -147,6 +184,8 @@ public open class ObjectSubclassCompanion<T : Object>(
         return TypeRegistry.getInstanceData(pointer).data as T
     }
 
+    public open fun classInit(objectClass: CPointer<GObjectClass>): Unit {}
+
     private fun registerType(): GType = memScoped {
         val typeQueryResult = TypeQuery.allocateScoped(this)
         Gobject.typeQuery(parentType.gType, typeQueryResult)
@@ -159,6 +198,7 @@ public open class ObjectSubclassCompanion<T : Object>(
             parentType.gType,
             parentClassSize,
             parentInstanceSize,
+            this@ObjectSubclassCompanion,
         )
     }
 }

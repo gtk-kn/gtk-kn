@@ -24,7 +24,32 @@ linkerOpts.linux_x64 = \
 
 ---
 
+/**
+ * Instance struct for custom types defined in Kotlin.
+ *
+ * Note that this struct is incomplete, normal GObject instance structs contain the full instance struct
+ * of the parent class as the first member, but since we do dynamic registration, we don't know up front
+ * how large the parent struct is.
+ *
+ * When registering custom types we calculate the total instance struct size by adding the parent struct
+ * and this structs sizes, and we access these fields by offsetting the instance pointer with the size
+ * of the parent.
+ */
 typedef struct {
+   // track to avoid double dispose
   int dispose_has_run;
+  // store StableRef of the kotlin instance
   void *internal_obj;
-} gtkknObjectProperties;
+  // store StableRef of the kotlin object properties
+  void *instance_properties;
+} gtkknObjectProperties; // TODO rename to gtkknInstanceStruct;
+
+/**
+ * Class struct for custom types defined in Kotlin.
+ *
+ * Note that this struct is incomplete, the same principle as explained above applies.
+ */
+typedef struct {
+  // store StableRef of the kotlin class properties
+  void *class_property_store;
+} gtkknClassStruct;

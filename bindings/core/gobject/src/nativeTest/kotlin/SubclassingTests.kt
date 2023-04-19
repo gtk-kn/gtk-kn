@@ -48,7 +48,7 @@ class SubclassingTests {
 
 }
 
-open class TestObject1(pointer: CPointer<CPointed>) : Object(pointer.reinterpret()) {
+private open class TestObject1(pointer: CPointer<CPointed>) : Object(pointer.reinterpret()) {
 
     constructor() : this(newInstancePointer())
 
@@ -57,7 +57,7 @@ open class TestObject1(pointer: CPointer<CPointed>) : Object(pointer.reinterpret
     )
 }
 
-class TestObject2 : TestObject1(newInstancePointer()) {
+private class TestObject2 : TestObject1(newInstancePointer()) {
     companion object : ObjectSubclassCompanion<TestObject2>(
         "TestObject2", TestObject1.type,
     )
