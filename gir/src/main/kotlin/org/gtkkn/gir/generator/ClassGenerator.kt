@@ -155,7 +155,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             builder.addSuperclassConstructorParameter(CodeBlock.of("pointer.%M()", BindingsGenerator.REINTERPRET_FUNC))
         } else {
             // init pointer property
-            constructorSpecBuilder.addStatement("gPointer = pointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
+            constructorSpecBuilder.addStatement("gPointer·= pointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
             if (clazz.kotlinName == "Object") {
                 constructorSpecBuilder.addStatement("%M()", BindingsGenerator.GOBJECT_ASSOCIATE_CUSTOM_OBJECT)
             }
@@ -235,10 +235,10 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 if (constructor.throws) {
                     codeBlockBuilder.addStatement("")
                     // error handling
-                    codeBlockBuilder.beginControlFlow("if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+                    codeBlockBuilder.beginControlFlow("if·(gError.%M != null)", BindingsGenerator.POINTED_FUNC)
                     // throw the exception
                     codeBlockBuilder.addStatement(
-                        "throw %M(%T(gError.%M!!.%M))",
+                        "throw·%M(%T(gError.%M!!.%M))",
                         constructor.exceptionResolvingFunctionMember,
                         BindingsGenerator.GLIB_ERROR_TYPE,
                         BindingsGenerator.POINTED_FUNC,
@@ -286,13 +286,13 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 ),
             )
             if (constructor.needsMemscoped) {
-                beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
+                beginControlFlow("return·%M", BindingsGenerator.MEMSCOPED)
             }
 
             if (constructor.parameters.isEmpty()) {
                 if (constructor.throws) error("Throwing no-argument constructors are not supported")
                 // no-arg factory method
-                addStatement("return %T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
+                addStatement("return·%T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
             } else {
                 appendSignatureParameters(constructor.parameters)
 
@@ -308,7 +308,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 } else {
                     // if not throws, we can return directly without intermediate
                     // open native function call
-                    addCode("return %T(%M(", clazz.typeName, constructor.nativeMemberName)
+                    addCode("return·%T(%M(", clazz.typeName, constructor.nativeMemberName)
                 }
 
                 constructor.parameters.forEachIndexed { index, param ->
@@ -326,7 +326,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                     addCode(")") // close native function call
                     addStatement("")
 
-                    beginControlFlow("return if (gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+                    beginControlFlow("return·if·(gError.%M != null)", BindingsGenerator.POINTED_FUNC)
                     addStatement(
                         "%T.failure(%M(%T(gError.%M!!.%M)))",
                         BindingsGenerator.RESULT_TYPE,
@@ -374,7 +374,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             // if class has a parent, we can downcast the gPointer from parent, using a getter
             propertyBuilder.getter(
                 FunSpec.getterBuilder()
-                    .addStatement("return gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
+                    .addStatement("return·gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
                     .build(),
             )
         }
@@ -393,7 +393,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
 
         propertyBuilder.getter(
             FunSpec.getterBuilder()
-                .addStatement("return gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
+                .addStatement("return·gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
                 .build(),
         )
 
@@ -408,7 +408,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
     } else {
         val propertyType = BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE.parameterizedBy(clazz.typeName)
         PropertySpec.builder("type", propertyType).initializer(
-            "%T(%M()) { %T(it.%M()) }",
+            "%T(%M())·{ %T(it.%M()) }",
             BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE,
             clazz.glibGetTypeFunc,
             clazz.typeName,

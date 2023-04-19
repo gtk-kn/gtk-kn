@@ -92,7 +92,7 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             val factoryFunc = FunSpec.builder("wrap")
                 .addParameter("pointer", iface.objectPointerTypeName)
                 .returns(iface.typeName)
-                .addStatement("return Wrapper(pointer)")
+                .addStatement("return·Wrapper(pointer)")
             companionBuilder.addFunction(factoryFunc.build())
 
             iface.functions.forEach { companionBuilder.addFunction(buildFunction(it)) }
@@ -113,7 +113,7 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             .getter(
                 FunSpec.getterBuilder()
                     .addStatement(
-                        "return %L.%M()",
+                        "return·%L.%M()",
                         objectPointerName,
                         BindingsGenerator.REINTERPRET_FUNC,
                     )
@@ -129,7 +129,7 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
     } else {
         val propertyType = BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE.parameterizedBy(iface.typeName)
         PropertySpec.builder("type", propertyType).initializer(
-            "%T(%M()) { Wrapper(it.%M()) }",
+            "%T(%M())·{ Wrapper(it.%M()) }",
             BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE,
             iface.glibGetTypeFunc,
             BindingsGenerator.REINTERPRET_FUNC,

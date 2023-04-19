@@ -61,7 +61,7 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
             .addParameter("nativeValue", enum.nativeValueTypeName)
             .returns(enum.kotlinTypeName)
 
-        fromNativeFunc.beginControlFlow("return when (nativeValue)") // begin when
+        fromNativeFunc.beginControlFlow("return·when·(nativeValue)") // begin when
 
         // add a case for each member
         for (member in enum.memberBlueprints) {
@@ -93,7 +93,7 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
     private fun buildErrorDomainQuarkFunction(errorDomain: String) =
         FunSpec.builder("quark").apply {
             returns(U_INT)
-            addStatement("return %M(%S)", BindingsGenerator.G_QUARK_FROM_STRING_FUNC, errorDomain)
+            addStatement("return·%M(%S)", BindingsGenerator.G_QUARK_FROM_STRING_FUNC, errorDomain)
         }.build()
 
     private fun buildFromErrorFunction(enum: EnumBlueprint) =
@@ -101,11 +101,11 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
             addParameter("error", BindingsGenerator.GLIB_ERROR_TYPE)
             returns(enum.kotlinTypeName.copy(nullable = true))
 
-            beginControlFlow("return if (error.domain != quark())")
+            beginControlFlow("return·if·(error.domain != quark())")
             addStatement("null")
             nextControlFlow("else")
             addStatement(
-                "%T.values().find { it.nativeValue.value.toInt() == error.code }",
+                "%T.values().find·{ it.nativeValue.value.toInt() == error.code }",
                 enum.kotlinTypeName,
             )
             endControlFlow()
