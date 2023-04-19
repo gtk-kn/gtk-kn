@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 /*
  * Copyright (c) 2023 gtk-kt
  *
@@ -19,9 +21,28 @@ plugins {
     id("publishing-conventions")
 }
 
-tasks.register("cleanBindings") {
-    group = BasePlugin.BUILD_GROUP
-    doLast {
-        delete("${projectDir}/src/nativeMain/kotlin/org/gtkkn/bindings")
+val girTask = tasks.getByPath(":gir:run")
+
+kotlin {
+    targets.withType<KotlinNativeTarget> {
+        compilations["main"].apply {
+            cinterops.create(project.name)
+            compileTaskProvider {
+                dependsOn(girTask)
+            }
+        }
+
+        tasks.named("${name}SourcesJar") {
+            dependsOn(girTask)
+        }
     }
+}
+
+tasks {
+    val cleanBindings by registering(Delete::class) {
+        group = BasePlugin.BUILD_GROUP
+        delete("${projectDir}/src/nativeMain/kotlin/org/gtkkn/bindings/*")
+    }
+    clean { dependsOn(cleanBindings) }
+    girTask.outputs.dir("$projectDir/src/nativeMain/kotlin/org/gtkkn/bindings")
 }

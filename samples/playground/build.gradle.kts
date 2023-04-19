@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 /*
  * Copyright (c) 2023 gtk-kt
  *
@@ -20,30 +22,26 @@ plugins {
     id("detekt-conventions")
 }
 
+@OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    val hostOs = System.getProperty("os.name")
-    val nativeTarget = when {
-        hostOs == "Linux" -> linuxX64("native")
-        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
+    targetHierarchy.default()
+    linuxX64 {
+        binaries {
+            executable {
+                entryPoint = "org.gtkkn.samples.gtk.playground.main"
+            }
+        }
     }
     sourceSets {
-        val nativeMain by getting {
+        named("nativeMain") {
             dependencies {
                 // Import from project
-                implementation(project(":bindings:gtk4:gtk"))
+                implementation(project(":bindings:gtk:gtk4"))
                 implementation(project(":bindings:adwaita"))
 //                implementation(project(":bindings:gtksource"))
                 // Import from mavenLocal
                 // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
                 implementation(libs.kotlin.logging.linux.x64)
-            }
-        }
-    }
-
-    nativeTarget.apply {
-        binaries {
-            executable {
-                entryPoint = "org.gtkkn.samples.gtk.playground.main"
             }
         }
     }

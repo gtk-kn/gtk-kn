@@ -1,3 +1,7 @@
+import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 /*
  * Copyright (c) 2023 gtk-kt
  *
@@ -23,4 +27,15 @@ plugins {
 val libraryGroup: String by extra
 group = libraryGroup
 
-kotlin.explicitApi()
+@OptIn(ExperimentalKotlinGradlePluginApi::class)
+kotlin {
+    explicitApi()
+    targetHierarchy.default()
+    linuxX64()
+}
+
+tasks {
+    withType<AbstractDokkaLeafTask> {
+        dependsOn(":gir:run")
+    }
+}

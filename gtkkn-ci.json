@@ -57,17 +57,17 @@
     },
     {
       "name": "gdk",
-      "module": "gtk4:gdk",
+      "module": "gtk:gdk4",
       "girPrefix": "Gdk-4"
     },
     {
       "name": "gsk",
-      "module": "gtk4:gsk",
+      "module": "gtk:gsk4",
       "girPrefix": "Gsk-"
     },
     {
       "name": "gtk",
-      "module": "gtk4:gtk",
+      "module": "gtk:gtk4",
       "girPrefix": "Gtk-4"
     },
     {

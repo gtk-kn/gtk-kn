@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 /*
  * Copyright (c) 2023 gtk-kt
  *
@@ -15,20 +17,24 @@
  */
 
 plugins {
-    kotlin("multiplatform") version "1.8.10"
+    kotlin("multiplatform") version "1.8.20"
 }
 
+@OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    linuxX64("native") {
+    targetHierarchy.default()
+    linuxX64 {
         binaries {
-            executable()
+            executable{
+                entryPoint = "main"
+            }
         }
     }
     sourceSets {
-        val nativeMain by getting {
+        named("nativeMain") {
             dependencies {
                 // Import from project
-                implementation(project(":bindings:gtk4:gtk"))
+                implementation(project(":bindings:gtk:gtk4"))
                 // Import from mavenLocal
                 // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
             }
