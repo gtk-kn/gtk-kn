@@ -67,6 +67,10 @@ internal data class CustomTypeInfo<T : Object>(
 
 internal data class InstanceDataHolder(val data: Any)
 
+// utility funs for getting the gType from various pointers
+internal fun CPointer<GTypeInstance>.gType(): GType = checkNotNull(pointed.g_class).pointed.g_type
+internal fun CPointer<GObject>.gType(): GType = checkNotNull(pointed.g_type_instance.g_class).pointed.g_type
+
 internal object TypeRegistry {
     internal val TYPE_MAP = mutableMapOf<GType, CustomTypeInfo<out Object>>()
 
@@ -96,8 +100,6 @@ internal object TypeRegistry {
         if (gType == 0uL) {
             error("Failed to register type for $typeName")
         }
-
-        println("========== registered type for $typeName :: $gType ==========")
 
         TYPE_MAP[gType] = customTypeInfo
         return gType
@@ -149,7 +151,6 @@ internal object TypeRegistry {
         checkNotNull(TYPE_MAP[gType]) { "gType $gType is not registered" }
 }
 
-// TODO rename
 private fun COpaquePointer.getCustomInstanceStructPointer(
     typeInfo: CustomTypeInfo<out Object>
 ): CPointer<gtkknObjectProperties> {
@@ -191,7 +192,6 @@ private val staticObjectClassInit: GClassInitFunc =
         // run user-defined class init
         typeInfo.objectCompanion.classInit(gClass)
 
-        // TODO dispose in class destroy
         customClassStruct.pointed.class_property_store =
             StableRef.create(classProperties).asCPointer()
 
@@ -226,7 +226,7 @@ private val staticObjectInstanceInit: GInstanceInitFunc =
         // store the instance properties into the instance struct
         val instanceStruct = instance.getCustomInstanceStructPointer(typeInfo)
         instanceStruct.pointed.instance_properties =
-            StableRef.create(instanceProperties).asCPointer() // TODO dispose in instance dispose
+            StableRef.create(instanceProperties).asCPointer()
 
     }.reinterpret()
 
@@ -248,6 +248,10 @@ private val staticObjectDispose = staticCFunction { instance: CPointer<GObject> 
         ?.asStableRef<InstanceDataHolder>()
         ?.dispose()
 
+    instanceProperties.pointed.instance_properties
+        ?.asStableRef<InstanceProperties>()
+        ?.dispose()
+
     // chain up to parent class dispose
     @Suppress("UNCHECKED_CAST")
     val parentClassPointer =
@@ -258,6 +262,3 @@ private val staticObjectDispose = staticCFunction { instance: CPointer<GObject> 
     null as COpaquePointer?
 }
 
-// TODO move these
-internal fun CPointer<GTypeInstance>.gType(): GType = checkNotNull(pointed.g_class).pointed.g_type
-internal fun CPointer<GObject>.gType(): GType = checkNotNull(pointed.g_type_instance.g_class).pointed.g_type
