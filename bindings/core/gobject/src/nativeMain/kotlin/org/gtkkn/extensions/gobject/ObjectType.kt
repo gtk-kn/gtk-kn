@@ -33,6 +33,7 @@ import org.gtkkn.bindings.gobject.TypeQuery
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.allocateScoped
 import org.gtkkn.extensions.gobject.properties.BooleanProperty
+import org.gtkkn.extensions.gobject.properties.ClassProperties
 import org.gtkkn.extensions.gobject.properties.ClassPropertyDelegateProvider
 import org.gtkkn.extensions.gobject.properties.IntProperty
 import org.gtkkn.extensions.gobject.properties.StringProperty

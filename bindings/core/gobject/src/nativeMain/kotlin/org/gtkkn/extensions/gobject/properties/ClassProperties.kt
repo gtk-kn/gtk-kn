@@ -20,12 +20,10 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.extensions.gobject
+package org.gtkkn.extensions.gobject.properties
 
 import kotlinx.cinterop.CValuesRef
 import org.gtkkn.bindings.gobject.ParamSpec
-import org.gtkkn.extensions.gobject.properties.InstanceProperties
-import org.gtkkn.extensions.gobject.properties.Property
 import org.gtkkn.native.gobject.GObjectClass
 import org.gtkkn.native.gobject.g_object_class_install_property
 

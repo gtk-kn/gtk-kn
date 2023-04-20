@@ -38,6 +38,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.gobject.properties.ClassProperties
 import org.gtkkn.extensions.gobject.properties.InstanceProperties
 import org.gtkkn.native.gobject.GClassInitFunc
 import org.gtkkn.native.gobject.GInstanceInitFunc
