@@ -38,10 +38,6 @@ import org.gtkkn.native.gobject.GObjectClass
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_object_new
 import org.gtkkn.native.gobject.g_type_check_instance_is_a
-import kotlin.properties.PropertyDelegateProvider
-import kotlin.properties.ReadOnlyProperty
-import kotlin.properties.ReadWriteProperty
-import kotlin.reflect.KProperty
 
 /**
  * Companion object base class used for declaring Kotlin classes that are registered
@@ -53,7 +49,7 @@ import kotlin.reflect.KProperty
  * When defining custom GObject classes:
  * - Extend from [Object] or another non-final class.
  * - Use [newInstancePointer] when calling through to the superclass constructor.
- * - Add a companion object that extends from [ObjectSubclassCompanion] and pass in
+ * - Add a companion object that extends from [ObjectType] and pass in
  *   your class, typeName and parent type.
  *
  * ```
@@ -61,7 +57,7 @@ import kotlin.reflect.KProperty
  * class MyClass() : Object(newInstancePointer()) {
  *
  *     // companion object that holds the type information
- *     companion object : ObjectSubclassCompanion<MyClass>("MyClass", Object.type) {
+ *     companion object : ObjectType<MyClass>("MyClass", Object.type) {
  *     }
  * }
  * ```
@@ -91,7 +87,7 @@ import kotlin.reflect.KProperty
  *     // utility no-arg constructor
  *     constructor() : this(newInstancePointer())
  *
- *     companion object : ObjectSubclassCompanion<ParentClass>("ParentClass", Object.type) {
+ *     companion object : ObjectType<ParentClass>("ParentClass", Object.type) {
  *     }
  * }
  *
@@ -99,7 +95,7 @@ import kotlin.reflect.KProperty
  * // primary constructor uses newInstancePointer and passes it to Parent primary constructor
  * class ChildClass() : ParentClass(newInstancePointer()) {
  *
- *     companion object : ObjectSubclassCompanion<ChildClass>("ChildClass", ParentClass.type) {
+ *     companion object : ObjectType<ChildClass>("ChildClass", ParentClass.type) {
  *     }
  * }
  * ```
@@ -109,7 +105,7 @@ import kotlin.reflect.KProperty
  * argument.
  *
  */
-public open class ObjectSubclassCompanion<T : Object>(
+public open class ObjectType<T : Object>(
     private val typeName: String,
     private val parentType: KGType<Object>,
 ) {
@@ -165,7 +161,7 @@ public open class ObjectSubclassCompanion<T : Object>(
      * constructor when defining custom GObject-derived classes.
      *
      * @return [CPointer] pointing to the newly create g_object.
-     * @see ObjectSubclassCompanion
+     * @see ObjectType
      */
     public inline fun <reified T : CPointed> newInstancePointer(): CPointer<T> =
         checkNotNull(g_object_new(type.gType, null, null)).reinterpret()
@@ -198,7 +194,7 @@ public open class ObjectSubclassCompanion<T : Object>(
             parentType.gType,
             parentClassSize,
             parentInstanceSize,
-            this@ObjectSubclassCompanion,
+            this@ObjectType,
         )
     }
 }

@@ -18,7 +18,7 @@ import org.gtkkn.bindings.gobject.BindingFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.allocateHeap
-import org.gtkkn.extensions.gobject.ObjectSubclassCompanion
+import org.gtkkn.extensions.gobject.ObjectType
 import org.gtkkn.extensions.gobject.getIntProperty
 import org.gtkkn.extensions.gobject.getStringProperty
 import org.gtkkn.extensions.gobject.setProperty
@@ -140,7 +140,7 @@ private class Person : Object(newInstancePointer()) {
     val myProperty by Type.myProperty
     var age by Type.age
 
-    companion object Type : ObjectSubclassCompanion<Person>("Person", Object.type) {
+    companion object Type : ObjectType<Person>("Person", Object.type) {
         val name by stringProperty
         val company by stringProperty(defaultValue = "self-employed")
         val myProperty by stringProperty(name = "my-property")

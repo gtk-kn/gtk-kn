@@ -60,7 +60,7 @@ internal data class CustomTypeInfo<T : Object>(
     val name: String,
     val parentClassSize: Long,
     val parentInstanceSize: Long,
-    val objectCompanion: ObjectSubclassCompanion<T>,
+    val objectCompanion: ObjectType<T>,
 ) {
     val classProperties: ClassProperties get() = objectCompanion.classProperties
 }
@@ -75,7 +75,7 @@ internal object TypeRegistry {
         superType: GType,
         parentClassSize: Long,
         parentInstanceSize: Long,
-        objectCompanion: ObjectSubclassCompanion<T>,
+        objectCompanion: ObjectType<T>,
     ): GType = memScoped {
 
         val customTypeInfo = CustomTypeInfo<T>(typeName, parentClassSize, parentInstanceSize, objectCompanion)
@@ -201,7 +201,7 @@ private val staticObjectClassSetProperty =
     staticCFunction { instance: CPointer<GObject>,
         propId: UInt,
         value: CPointer<GValue>,
-        paramSpec: CPointer<GParamSpec> ->
+        _: CPointer<GParamSpec> ->
         TypeRegistry.getInstanceProperties(instance).setPropertyValue(propId, Value(value))
     }
 
@@ -209,7 +209,7 @@ private val staticObjectClassGetProperty =
     staticCFunction { instance: CPointer<GObject>,
         propId: UInt,
         value: CPointer<GValue>,
-        paramSpec: CPointer<GParamSpec> ->
+        _: CPointer<GParamSpec> ->
         TypeRegistry.getInstanceProperties(instance).getPropertyValue(propId, Value(value))
     }
 

@@ -25,7 +25,7 @@ package org.gtkkn.extensions.gobject.properties
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamFlags
 import org.gtkkn.bindings.gobject.ParamSpec
-import org.gtkkn.extensions.gobject.ObjectSubclassCompanion
+import org.gtkkn.extensions.gobject.ObjectType
 import kotlin.properties.PropertyDelegateProvider
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
@@ -33,10 +33,10 @@ import kotlin.reflect.KProperty
 public class ClassPropertyDelegate<OBJECT_TYPE : Object, VALUE : Any?> internal constructor(
     private val gProperty: Property<OBJECT_TYPE, VALUE>
 ) :
-    ReadOnlyProperty<ObjectSubclassCompanion<OBJECT_TYPE>, Property<OBJECT_TYPE, VALUE>> {
+    ReadOnlyProperty<ObjectType<OBJECT_TYPE>, Property<OBJECT_TYPE, VALUE>> {
 
     override fun getValue(
-        thisRef: ObjectSubclassCompanion<OBJECT_TYPE>,
+        thisRef: ObjectType<OBJECT_TYPE>,
         property: KProperty<*>
     ): Property<OBJECT_TYPE, VALUE> = gProperty
 }
@@ -49,12 +49,12 @@ public class ClassStringPropertyDelegateProvider<OBJECT_TYPE : Object>(
     private val flags: ParamFlags = ParamFlags.READWRITE
 ) :
     PropertyDelegateProvider<
-        ObjectSubclassCompanion<OBJECT_TYPE>,
+        ObjectType<OBJECT_TYPE>,
         ClassPropertyDelegate<OBJECT_TYPE, String>,
         > {
 
     override fun provideDelegate(
-        thisRef: ObjectSubclassCompanion<OBJECT_TYPE>,
+        thisRef: ObjectType<OBJECT_TYPE>,
         property: KProperty<*>
     ): ClassPropertyDelegate<OBJECT_TYPE, String> {
 
@@ -83,12 +83,12 @@ public class ClassIntPropertyDelegateProvider<OBJECT_TYPE : Object>(
     private val flags: ParamFlags = ParamFlags.READWRITE
 ) :
     PropertyDelegateProvider<
-        ObjectSubclassCompanion<OBJECT_TYPE>,
+        ObjectType<OBJECT_TYPE>,
         ClassPropertyDelegate<OBJECT_TYPE, Int>,
         > {
 
     override fun provideDelegate(
-        thisRef: ObjectSubclassCompanion<OBJECT_TYPE>,
+        thisRef: ObjectType<OBJECT_TYPE>,
         property: KProperty<*>
     ): ClassPropertyDelegate<OBJECT_TYPE, Int> {
 
@@ -113,12 +113,12 @@ public class ClassPropertyDelegateProvider<OBJECT_TYPE : Object, VALUE : Any?>(
     private val gProperty: Property<OBJECT_TYPE, VALUE>
 ) :
     PropertyDelegateProvider<
-        ObjectSubclassCompanion<OBJECT_TYPE>,
+        ObjectType<OBJECT_TYPE>,
         ClassPropertyDelegate<OBJECT_TYPE, VALUE>,
         > {
 
     override fun provideDelegate(
-        thisRef: ObjectSubclassCompanion<OBJECT_TYPE>,
+        thisRef: ObjectType<OBJECT_TYPE>,
         property: KProperty<*>
     ): ClassPropertyDelegate<OBJECT_TYPE, VALUE> {
         // register the property with the class for use in class_init

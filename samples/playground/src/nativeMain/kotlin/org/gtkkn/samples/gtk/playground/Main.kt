@@ -36,7 +36,7 @@ import org.gtkkn.bindings.gtk.ListView
 import org.gtkkn.bindings.gtk.SignalListItemFactory
 import org.gtkkn.bindings.gtk.SingleSelection
 import org.gtkkn.extensions.gio.runApplication
-import org.gtkkn.extensions.gobject.ObjectSubclassCompanion
+import org.gtkkn.extensions.gobject.ObjectType
 import org.gtkkn.extensions.gobject.downcast
 
 private val logger = KotlinLogging.logger("main")
@@ -87,7 +87,7 @@ class MyPerson(
         this.age = age
     }
 
-    companion object Type : ObjectSubclassCompanion<MyPerson>("MyPerson", Object.type) {
+    companion object Type : ObjectType<MyPerson>("MyPerson", Object.type) {
         val name by stringProperty
         val age by intProperty
     }

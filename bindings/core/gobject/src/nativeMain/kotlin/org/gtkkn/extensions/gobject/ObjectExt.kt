@@ -36,7 +36,7 @@ import org.gtkkn.native.gobject.G_TYPE_STRING
 public inline fun <reified T : Object> Object.downcast(type: KGType<T>): T =
     type.convertPointerFunc(this.gPointer.reinterpret())
 
-public inline fun <reified T : Object> Object.downcast(type: ObjectSubclassCompanion<T>): T =
+public inline fun <reified T : Object> Object.downcast(type: ObjectType<T>): T =
     type.type.convertPointerFunc(this.gPointer.reinterpret())
 
 public fun Object.setProperty(propertyName: String, value: Int): Unit = memScoped {
