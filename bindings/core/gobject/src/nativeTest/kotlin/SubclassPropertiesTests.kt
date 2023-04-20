@@ -17,7 +17,7 @@
 import org.gtkkn.bindings.gobject.BindingFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.allocateHeap
+import org.gtkkn.extensions.glib.allocate
 import org.gtkkn.extensions.gobject.ObjectType
 import org.gtkkn.extensions.gobject.getBooleanProperty
 import org.gtkkn.extensions.gobject.getIntProperty
@@ -35,12 +35,12 @@ class SubclassPropertiesTests {
     @Test
     fun testStringProperty() {
         val person = Person()
-        val inputValue = Value.allocateHeap().get().init(G_TYPE_STRING)
+        val inputValue = Value.allocate().get().init(G_TYPE_STRING)
         inputValue.setString("Steven")
 
         person.setProperty("name", inputValue)
 
-        val outValue = Value.allocateHeap().get().init(G_TYPE_STRING)
+        val outValue = Value.allocate().get().init(G_TYPE_STRING)
         person.getProperty("name", outValue)
 
         assertEquals("Steven", outValue.getString())
@@ -52,7 +52,7 @@ class SubclassPropertiesTests {
         val person = Person()
         person.name = "Test"
 
-        val outValue = Value.allocateHeap().get()
+        val outValue = Value.allocate().get()
         person.getProperty("name", outValue)
 
         assertEquals("Test", outValue.getString())
@@ -93,7 +93,7 @@ class SubclassPropertiesTests {
     @Test
     fun testSetPropertyWithOverridenName() {
         val person = Person()
-        val inValue = Value.allocateHeap().get().init(G_TYPE_STRING)
+        val inValue = Value.allocate().get().init(G_TYPE_STRING)
         inValue.setString("testvalue")
 
         person.setProperty("my-property", inValue)
@@ -104,13 +104,13 @@ class SubclassPropertiesTests {
     fun testIntProperty() {
         val person = Person()
 
-        val inValue = Value.allocateHeap().get().init(G_TYPE_INT)
+        val inValue = Value.allocate().get().init(G_TYPE_INT)
         inValue.setInt(42)
         person.setProperty("age", inValue)
 
         assertEquals(42, person.age)
 
-        val outValue = Value.allocateHeap().get()
+        val outValue = Value.allocate().get()
         person.getProperty("age", outValue)
         assertEquals(42, outValue.getInt())
     }

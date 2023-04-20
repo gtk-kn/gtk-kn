@@ -31,7 +31,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamFlags
 import org.gtkkn.bindings.gobject.TypeQuery
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.allocateScoped
+import org.gtkkn.extensions.glib.allocate
 import org.gtkkn.extensions.gobject.properties.BooleanProperty
 import org.gtkkn.extensions.gobject.properties.ClassProperties
 import org.gtkkn.extensions.gobject.properties.ClassPropertyDelegateProvider
@@ -227,7 +227,7 @@ public open class ObjectType<T : Object>(
     public open fun classInit(objectClass: CPointer<GObjectClass>): Unit {}
 
     private fun registerType(): GType = memScoped {
-        val typeQueryResult = TypeQuery.allocateScoped(this)
+        val typeQueryResult = TypeQuery.allocate(this)
         Gobject.typeQuery(parentType.gType, typeQueryResult)
 
         val parentClassSize = typeQueryResult.classSize.toLong()

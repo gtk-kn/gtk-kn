@@ -49,7 +49,7 @@ public interface RecordCompanion<TYPE : Record, STRUCT : CPointed> {
  * once you are done and the memory can be deallocated.
  * @see RecordRef
  */
-public inline fun <reified COMPANION, reified TYPE, reified STRUCT> COMPANION.allocateHeap(): RecordRef<TYPE>
+public inline fun <reified COMPANION, reified TYPE, reified STRUCT> COMPANION.allocate(): RecordRef<TYPE>
     where TYPE : Record,
           STRUCT : CVariable,
           COMPANION : RecordCompanion<TYPE, STRUCT> {
@@ -66,7 +66,7 @@ public inline fun <reified COMPANION, reified TYPE, reified STRUCT> COMPANION.al
  * @see [MemScope]
  */
 public inline fun <reified COMPANION, reified TYPE, reified STRUCT>
-    COMPANION.allocateScoped(scope: MemScope): TYPE
+    COMPANION.allocate(scope: MemScope): TYPE
     where TYPE : Record,
           STRUCT : CVariable,
           COMPANION : RecordCompanion<TYPE, STRUCT> {

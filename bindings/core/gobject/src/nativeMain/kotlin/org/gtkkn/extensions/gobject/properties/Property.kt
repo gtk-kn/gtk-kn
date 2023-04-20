@@ -26,7 +26,7 @@ import kotlinx.cinterop.memScoped
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.allocateScoped
+import org.gtkkn.extensions.glib.allocate
 import org.gtkkn.native.gobject.G_TYPE_BOOLEAN
 import org.gtkkn.native.gobject.G_TYPE_INT
 import org.gtkkn.native.gobject.G_TYPE_STRING
@@ -44,7 +44,7 @@ public open class Property<OBJECT : Object, VALUE : Any?>(
     // called from the Kotlin side when a property val/var is accessed
     public operator fun getValue(arg: OBJECT, property: KProperty<*>): VALUE = memScoped {
         // defer to gobject getProperty
-        val gValue = Value.allocateScoped(this)
+        val gValue = Value.allocate(this)
         arg.getProperty(name(), gValue)
         return extractFromValueFunc(gValue) as VALUE
     }
@@ -52,7 +52,7 @@ public open class Property<OBJECT : Object, VALUE : Any?>(
     // called from the Kotlin side when a property var is written to
     public operator fun setValue(arg: OBJECT, property: KProperty<*>, value: VALUE): Unit = memScoped {
         // defer to gobject setProperty
-        val gValue = Value.allocateScoped(this)
+        val gValue = Value.allocate(this)
         initValueFunc(gValue)
         storeInValueFunc(gValue, value)
         arg.setProperty(name(), gValue)
