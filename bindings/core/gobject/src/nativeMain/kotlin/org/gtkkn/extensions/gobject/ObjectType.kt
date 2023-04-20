@@ -32,8 +32,9 @@ import org.gtkkn.bindings.gobject.ParamFlags
 import org.gtkkn.bindings.gobject.TypeQuery
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.allocateScoped
-import org.gtkkn.extensions.gobject.properties.ClassIntPropertyDelegateProvider
-import org.gtkkn.extensions.gobject.properties.ClassStringPropertyDelegateProvider
+import org.gtkkn.extensions.gobject.properties.ClassPropertyDelegateProvider
+import org.gtkkn.extensions.gobject.properties.IntProperty
+import org.gtkkn.extensions.gobject.properties.StringProperty
 import org.gtkkn.native.gobject.GObjectClass
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_object_new
@@ -128,9 +129,17 @@ public open class ObjectType<T : Object>(
      */
     public val gType: GType get() = type.gType
 
-    public val stringProperty: ClassStringPropertyDelegateProvider<T> = ClassStringPropertyDelegateProvider()
+    public val stringProperty: ClassPropertyDelegateProvider<T, String> =
+        ClassPropertyDelegateProvider { propertyName ->
+            StringProperty(Gobject.paramSpecString(propertyName, null, null, "", ParamFlags.READWRITE))
+        }
 
-    public val intProperty: ClassIntPropertyDelegateProvider<T> = ClassIntPropertyDelegateProvider()
+    public val intProperty: ClassPropertyDelegateProvider<T, Int> =
+        ClassPropertyDelegateProvider { propertyName ->
+            IntProperty(
+                Gobject.paramSpecInt(propertyName, null, null, Int.MIN_VALUE, Int.MAX_VALUE, 0, ParamFlags.READWRITE),
+            )
+        }
 
     public fun stringProperty(
         name: String? = null,
@@ -138,9 +147,14 @@ public open class ObjectType<T : Object>(
         blurb: String? = null,
         defaultValue: String = "",
         flags: ParamFlags = ParamFlags.READWRITE
-    ): ClassStringPropertyDelegateProvider<T> =
-        ClassStringPropertyDelegateProvider<T>(name, nick, blurb, defaultValue, flags)
-
+    ): ClassPropertyDelegateProvider<T, String> = ClassPropertyDelegateProvider { propertyName ->
+        StringProperty(
+            Gobject.paramSpecString(
+                name ?: propertyName,
+                nick, blurb, defaultValue, flags,
+            ),
+        )
+    }
 
     public fun intProperty(
         name: String? = null,
@@ -150,9 +164,14 @@ public open class ObjectType<T : Object>(
         maximum: Int = Int.MAX_VALUE,
         defaultValue: Int = 0,
         flags: ParamFlags = ParamFlags.READWRITE
-    ): ClassIntPropertyDelegateProvider<T> =
-        ClassIntPropertyDelegateProvider(name, nick, blurb, minimum, maximum, defaultValue, flags)
-
+    ): ClassPropertyDelegateProvider<T, Int> = ClassPropertyDelegateProvider { propertyName ->
+        IntProperty(
+            Gobject.paramSpecInt(
+                name ?: propertyName,
+                nick, blurb, minimum, maximum, defaultValue, flags,
+            ),
+        )
+    }
 
     /**
      * Initialize a new g_object with [gType] and return a [CPointer] to it.

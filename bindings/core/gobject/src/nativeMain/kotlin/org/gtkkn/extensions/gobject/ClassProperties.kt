@@ -23,6 +23,7 @@
 package org.gtkkn.extensions.gobject
 
 import kotlinx.cinterop.CValuesRef
+import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.extensions.gobject.properties.InstanceProperties
 import org.gtkkn.extensions.gobject.properties.Property
 import org.gtkkn.native.gobject.GObjectClass
@@ -41,6 +42,11 @@ internal class ClassProperties internal constructor() {
 
     internal fun registerProperty(property: Property<*, *>) {
         if (sealed) error("registerProperty cannot be used after ClassProperties was sealed")
+
+        if (!ParamSpec.isValidName(property.name())) {
+            error("'${property.name()}' is not a valid property name")
+        }
+
         val propId = nProps++
         properties[propId] = property
     }

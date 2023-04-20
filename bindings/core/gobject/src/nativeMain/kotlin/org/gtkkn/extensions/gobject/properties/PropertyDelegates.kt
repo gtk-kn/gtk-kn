@@ -23,8 +23,6 @@
 package org.gtkkn.extensions.gobject.properties
 
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.bindings.gobject.ParamFlags
-import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.extensions.gobject.ObjectType
 import kotlin.properties.PropertyDelegateProvider
 import kotlin.properties.ReadOnlyProperty
@@ -41,75 +39,8 @@ public class ClassPropertyDelegate<OBJECT_TYPE : Object, VALUE : Any?> internal 
     ): Property<OBJECT_TYPE, VALUE> = gProperty
 }
 
-public class ClassStringPropertyDelegateProvider<OBJECT_TYPE : Object>(
-    private val name: String? = null,
-    private val nick: String? = null,
-    private val blurb: String? = null,
-    private val defaultValue: String = "",
-    private val flags: ParamFlags = ParamFlags.READWRITE
-) :
-    PropertyDelegateProvider<
-        ObjectType<OBJECT_TYPE>,
-        ClassPropertyDelegate<OBJECT_TYPE, String>,
-        > {
-
-    override fun provideDelegate(
-        thisRef: ObjectType<OBJECT_TYPE>,
-        property: KProperty<*>
-    ): ClassPropertyDelegate<OBJECT_TYPE, String> {
-
-        // build the StringProperty
-        val propertyName = name ?: property.name
-        if (!ParamSpec.isValidName(propertyName)) {
-            error("'$propertyName' is not a valid property name")
-        }
-        val gProperty = buildStringProperty<OBJECT_TYPE>(propertyName, nick, blurb, defaultValue, flags)
-
-        // register the property with the class for use in class_init
-        thisRef.classProperties.registerProperty(gProperty)
-
-        // return the delegate
-        return ClassPropertyDelegate(gProperty)
-    }
-}
-
-public class ClassIntPropertyDelegateProvider<OBJECT_TYPE : Object>(
-    private val name: String? = null,
-    private val nick: String? = null,
-    private val blurb: String? = null,
-    private val minimum: Int = Int.MIN_VALUE,
-    private val maximum: Int = Int.MAX_VALUE,
-    private val defaultValue: Int = 0,
-    private val flags: ParamFlags = ParamFlags.READWRITE
-) :
-    PropertyDelegateProvider<
-        ObjectType<OBJECT_TYPE>,
-        ClassPropertyDelegate<OBJECT_TYPE, Int>,
-        > {
-
-    override fun provideDelegate(
-        thisRef: ObjectType<OBJECT_TYPE>,
-        property: KProperty<*>
-    ): ClassPropertyDelegate<OBJECT_TYPE, Int> {
-
-        // build the IntProperty
-        val propertyName = name ?: property.name
-
-        if (!ParamSpec.isValidName(propertyName)) {
-            error("'$propertyName' is not a valid property name")
-        }
-        val gProperty = buildIntProperty<OBJECT_TYPE>(propertyName, nick, blurb, minimum, maximum, defaultValue, flags)
-
-        // register the property with the class for use in class_init
-        thisRef.classProperties.registerProperty(gProperty)
-
-        // return the delegate
-        return ClassPropertyDelegate(gProperty)
-    }
-}
-
 public class ClassPropertyDelegateProvider<OBJECT_TYPE : Object, VALUE : Any?>(
-    private val gProperty: Property<OBJECT_TYPE, VALUE>
+    private val buildPropertyFunc: (propertyName: String) -> Property<OBJECT_TYPE, VALUE>,
 ) :
     PropertyDelegateProvider<
         ObjectType<OBJECT_TYPE>,
@@ -120,6 +51,9 @@ public class ClassPropertyDelegateProvider<OBJECT_TYPE : Object, VALUE : Any?>(
         thisRef: ObjectType<OBJECT_TYPE>,
         property: KProperty<*>
     ): ClassPropertyDelegate<OBJECT_TYPE, VALUE> {
+        // build the property
+        val gProperty = buildPropertyFunc(property.name)
+
         // register the property with the class for use in class_init
         thisRef.classProperties.registerProperty(gProperty)
 
