@@ -19,6 +19,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.allocateHeap
 import org.gtkkn.extensions.gobject.ObjectType
+import org.gtkkn.extensions.gobject.getBooleanProperty
 import org.gtkkn.extensions.gobject.getIntProperty
 import org.gtkkn.extensions.gobject.getStringProperty
 import org.gtkkn.extensions.gobject.setProperty
@@ -26,6 +27,7 @@ import org.gtkkn.native.gobject.G_TYPE_INT
 import org.gtkkn.native.gobject.G_TYPE_STRING
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class SubclassPropertiesTests {
@@ -132,6 +134,24 @@ class SubclassPropertiesTests {
         assertEquals("Steven", person.getStringProperty("name"))
         assertEquals(35, person.getIntProperty("age"))
     }
+
+    @Test
+    fun testBooleanProperty() {
+        val person = Person()
+        assertFalse(person.bool)
+        assertFalse(person.getBooleanProperty("bool"))
+
+        person.bool = true
+        assertTrue(person.bool)
+        assertTrue(person.getBooleanProperty("bool"))
+
+        person.setProperty("bool", false)
+        assertFalse(person.bool)
+        assertFalse(person.getBooleanProperty("bool"))
+
+        assertTrue(person.configuredBool)
+        assertTrue(person.getBooleanProperty("configured-bool"))
+    }
 }
 
 private class Person : Object(newInstancePointer()) {
@@ -139,6 +159,9 @@ private class Person : Object(newInstancePointer()) {
     val company by Type.company
     val myProperty by Type.myProperty
     var age by Type.age
+    var bool by Type.bool
+
+    var configuredBool by Type.configuredBool
 
     companion object Type : ObjectType<Person>("Person", Object.type) {
         val name by stringProperty
@@ -146,5 +169,7 @@ private class Person : Object(newInstancePointer()) {
         val myProperty by stringProperty(name = "my-property")
 
         val age by intProperty
+        val bool by booleanProperty
+        val configuredBool by booleanProperty(name = "configured-bool", defaultValue = true)
     }
 }

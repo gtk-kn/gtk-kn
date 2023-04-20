@@ -27,6 +27,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.allocateScoped
+import org.gtkkn.native.gobject.G_TYPE_BOOLEAN
 import org.gtkkn.native.gobject.G_TYPE_INT
 import org.gtkkn.native.gobject.G_TYPE_STRING
 import kotlin.reflect.KProperty
@@ -85,5 +86,20 @@ internal class IntProperty<OBJECT : Object>(
         private fun extractFromValue(value: Value): Int = value.getInt()
 
         private fun initValueFunc(value: Value) = value.init(G_TYPE_INT)
+    }
+}
+
+internal class BooleanProperty<OBJECT : Object>(
+    paramSpec: ParamSpec
+) : Property<OBJECT, Boolean>(paramSpec, ::storeInValue, ::extractFromValue, ::initValueFunc) {
+
+    companion object {
+        private fun storeInValue(value: Value, any: Any?) {
+            value.setBoolean(any as Boolean)
+        }
+
+        private fun extractFromValue(value: Value): Boolean = value.getBoolean()
+
+        private fun initValueFunc(value: Value) = value.init(G_TYPE_BOOLEAN)
     }
 }

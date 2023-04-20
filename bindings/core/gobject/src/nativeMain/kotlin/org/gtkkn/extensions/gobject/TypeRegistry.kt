@@ -264,3 +264,7 @@ private val staticObjectDispose = staticCFunction { instance: CPointer<GObject> 
     @Suppress("USELESS_CAST")
     null as COpaquePointer?
 }
+
+internal fun Object.associateCustomObject() {
+    TypeRegistry.associate(this)
+}

@@ -32,6 +32,7 @@ import org.gtkkn.bindings.gobject.ParamFlags
 import org.gtkkn.bindings.gobject.TypeQuery
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.allocateScoped
+import org.gtkkn.extensions.gobject.properties.BooleanProperty
 import org.gtkkn.extensions.gobject.properties.ClassPropertyDelegateProvider
 import org.gtkkn.extensions.gobject.properties.IntProperty
 import org.gtkkn.extensions.gobject.properties.StringProperty
@@ -106,6 +107,7 @@ import org.gtkkn.native.gobject.g_type_check_instance_is_a
  * argument.
  *
  */
+@Suppress("ClassOrdering")
 public open class ObjectType<T : Object>(
     private val typeName: String,
     private val parentType: KGType<Object>,
@@ -141,6 +143,13 @@ public open class ObjectType<T : Object>(
             )
         }
 
+    public val booleanProperty: ClassPropertyDelegateProvider<T, Boolean> =
+        ClassPropertyDelegateProvider { propertyName ->
+            BooleanProperty(
+                Gobject.paramSpecBoolean(propertyName, null, null, false, ParamFlags.READWRITE),
+            )
+        }
+
     public fun stringProperty(
         name: String? = null,
         nick: String? = null,
@@ -169,6 +178,21 @@ public open class ObjectType<T : Object>(
             Gobject.paramSpecInt(
                 name ?: propertyName,
                 nick, blurb, minimum, maximum, defaultValue, flags,
+            ),
+        )
+    }
+
+    public fun booleanProperty(
+        name: String? = null,
+        nick: String? = null,
+        blurb: String? = null,
+        defaultValue: Boolean = false,
+        flags: ParamFlags = ParamFlags.READWRITE
+    ): ClassPropertyDelegateProvider<T, Boolean> = ClassPropertyDelegateProvider { propertyName ->
+        BooleanProperty(
+            Gobject.paramSpecBoolean(
+                name ?: propertyName,
+                nick, blurb, defaultValue, flags,
             ),
         )
     }

@@ -27,6 +27,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.allocateScoped
+import org.gtkkn.native.gobject.G_TYPE_BOOLEAN
 import org.gtkkn.native.gobject.G_TYPE_INT
 import org.gtkkn.native.gobject.G_TYPE_STRING
 
@@ -53,11 +54,19 @@ public fun Object.setProperty(propertyName: String, value: String?): Unit = memS
     gValue.unset()
 }
 
+public fun Object.setProperty(propertyName: String, value: Boolean): Unit = memScoped {
+    val gValue = Value.allocateScoped(this).init(G_TYPE_BOOLEAN)
+    gValue.setBoolean(value)
+    setProperty(propertyName, gValue)
+    gValue.unset()
+}
+
 public fun Object.getStringProperty(propertyName: String): String? = memScoped {
     val gValue = Value.allocateScoped(this)
     getProperty(propertyName, gValue)
     return gValue.getString().also { gValue.unset() }
 }
+
 
 public fun Object.getIntProperty(propertyName: String): Int = memScoped {
     val gValue = Value.allocateScoped(this)
@@ -65,7 +74,8 @@ public fun Object.getIntProperty(propertyName: String): Int = memScoped {
     return gValue.getInt().also { gValue.unset() }
 }
 
-
-internal fun Object.associateCustomObject() {
-    TypeRegistry.associate(this)
+public fun Object.getBooleanProperty(propertyName: String): Boolean = memScoped {
+    val gValue = Value.allocateScoped(this)
+    getProperty(propertyName, gValue)
+    return gValue.getBoolean().also { gValue.unset() }
 }
