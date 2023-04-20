@@ -23,22 +23,33 @@
 package org.gtkkn.extensions.gobject
 
 import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.allocate
 import org.gtkkn.native.gobject.G_TYPE_BOOLEAN
 import org.gtkkn.native.gobject.G_TYPE_INT
 import org.gtkkn.native.gobject.G_TYPE_STRING
+import kotlin.reflect.KClass
 
 /**
- * Cast this object to the wrapper class described by [type].
+ * Convert object into type [T].
+ *
+ * This method should be used instead of regular Kotlin casting with `as` for converting
+ * between any 2 Object subclasses.
+ *
+ * This method does not do any type checking.
  */
-public inline fun <reified T : Object> Object.downcast(type: KGType<T>): T =
-    type.convertPointerFunc(this.gPointer.reinterpret())
+public inline fun <reified T : Object> Object.asType(): T = asType(this, T::class)
 
-public inline fun <reified T : Object> Object.downcast(type: ObjectType<T>): T =
-    type.type.convertPointerFunc(this.gPointer.reinterpret())
+/**
+ * Convert object into type [T].
+ *
+ * This method should be used instead of regular Kotlin casting with `as` for converting
+ * between any 2 Object subclasses.
+ *
+ * This method does not do any type checking.
+ */
+public fun <T : Object> asType(obj: Object, targetClass: KClass<T>): T = TypeCasting.castObject(obj, targetClass)
 
 public fun Object.setProperty(propertyName: String, value: Int): Unit = memScoped {
     val gValue = Value.allocate(this).init(G_TYPE_INT)

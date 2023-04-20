@@ -41,6 +41,7 @@ import org.gtkkn.native.gobject.GObjectClass
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_object_new
 import org.gtkkn.native.gobject.g_type_check_instance_is_a
+import kotlin.reflect.KClass
 
 /**
  * Companion object base class used for declaring Kotlin classes that are registered
@@ -109,17 +110,19 @@ import org.gtkkn.native.gobject.g_type_check_instance_is_a
  *
  */
 public open class ObjectType<T : Object>(
-    private val typeName: String,
+    private val typeClass: KClass<T>,
     private val parentType: KGType<Object>,
-) {
+) : TypeCompanion<T> {
+    private val typeName: String = checkNotNull(typeClass.simpleName) { "typeClass $typeClass has an invalid name" }
 
     internal val classProperties: ClassProperties = ClassProperties()
 
     /**
      * Type information of the registered class.
      */
-    public val type: UserDefinedKGType<T> by lazy {
+    public override val type: UserDefinedKGType<T> by lazy {
         UserDefinedKGType(registerType()) { instanceFromPointer(it.reinterpret()) }
+            .also { TypeCasting.registerUserDefinedType(typeClass, it) } // make the type available for typecasting
     }
 
     /**

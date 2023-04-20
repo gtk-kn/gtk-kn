@@ -30,7 +30,13 @@ import java.io.File
 class BindingsGenerator(
     private val config: Config,
     private val ktLintFormatter: KtLintFormatter
-) : ClassGenerator, InterfaceGenerator, EnumGenerator, BitfieldGenerator, RepositoryObjectGenerator, RecordGenerator {
+) : ClassGenerator,
+    InterfaceGenerator,
+    EnumGenerator,
+    BitfieldGenerator,
+    RepositoryObjectGenerator,
+    RecordGenerator,
+    TypeProviderGenerator {
 
     @Suppress("LongMethod")
     fun generate(repository: RepositoryBlueprint, moduleOutputDir: File) {
@@ -55,7 +61,7 @@ class BindingsGenerator(
         repository.classBlueprints.forEach { clazz ->
             writeType(
                 clazz.typeName,
-                buildClass(clazz),
+                buildClass(clazz, repository),
                 repositorySrcDir(moduleOutputDir),
                 clazz.signals.map { buildStaticSignalCallback(it) },
             )
@@ -115,7 +121,17 @@ class BindingsGenerator(
             additionalTypeAliases = repository.callbackBlueprints.map { buildCallbackTypeAlias(it) },
             additionalProperties = repository.callbackBlueprints.map { buildStaticCallbackProperty(it) },
         )
+
+        if (repository.hasKGTypes()) {
+            writeType(
+                repository.repositoryTypeProviderTypeName,
+                buildTypeProvider(repository),
+                repositorySrcDir(moduleOutputDir),
+            )
+        }
     }
+
+    private fun RepositoryBlueprint.hasKGTypes(): Boolean = classBlueprints.any { it.glibGetTypeFunc != null }
 
     /**
      * bindings build dir
@@ -204,10 +220,14 @@ class BindingsGenerator(
         internal val GLIB_ERROR_TYPE = ClassName("org.gtkkn.bindings.glib", "Error")
         internal val GLIB_RECORD_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Record")
         internal val GLIB_RECORD_COMPANION_TYPE = ClassName("org.gtkkn.extensions.glib", "RecordCompanion")
+        internal val GLIB_INTERFACE_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Interface")
+        internal val GOBJECT_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGType")
         internal val GOBJECT_GEN_CLASS_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "GeneratedClassKGType")
         internal val GOBJECT_GEN_IFACE_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "GeneratedInterfaceKGType")
         internal val GOBJECT_ASSOCIATE_CUSTOM_OBJECT =
             MemberName("org.gtkkn.extensions.gobject", "associateCustomObject")
+        internal val GOBJECT_TYPE_COMPANION = ClassName("org.gtkkn.extensions.gobject", "TypeCompanion")
+        internal val TYPE_PROVIDER_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "TypeProvider")
 
         // cinterop helper function members
         internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
@@ -226,6 +246,7 @@ class BindingsGenerator(
         // kotlin helpers
         internal val RESULT_TYPE = ClassName("kotlin", "Result")
         internal val THROWS_TYPE = ClassName("kotlin", "Throws")
+        internal val KCLASS_TYPE = ClassName("kotlin.reflect", "KClass")
 
         // gobject members
         internal val G_SIGNAL_CONNECT_DATA = MemberName("org.gtkkn.native.gobject", "g_signal_connect_data")

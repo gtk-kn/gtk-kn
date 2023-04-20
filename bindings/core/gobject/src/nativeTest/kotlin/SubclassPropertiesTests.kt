@@ -151,7 +151,7 @@ private class Person : Object(newInstancePointer()) {
 
     var configuredBool by Type.configuredBool
 
-    companion object Type : ObjectType<Person>("Person", Object.type) {
+    companion object Type : ObjectType<Person>(Person::class, Object.type) {
         val name by stringProperty()
         val company by stringProperty(defaultValue = "self-employed")
         val myProperty by stringProperty(name = "my-property")

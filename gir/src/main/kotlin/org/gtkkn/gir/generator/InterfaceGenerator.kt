@@ -32,6 +32,9 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             // kdoc
             addKdoc(buildTypeKDoc(iface.kdoc, iface.version, iface.skippedObjects))
 
+            // marker interface
+            addSuperinterface(BindingsGenerator.GLIB_INTERFACE_MARKER_TYPE)
+
             // parent interfaces
             iface.parentInterfaces.forEach { parent ->
                 addSuperinterface(parent.interfaceTypeName)
@@ -84,8 +87,12 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             // Add companion with factory wrapper function
             val companionBuilder = TypeSpec.companionObjectBuilder()
 
-            buildKGTypeProperty(iface)?.let {
-                companionBuilder.addProperty(it)
+            buildKGTypeProperty(iface)?.let { property ->
+                companionBuilder.addSuperinterface(
+                    BindingsGenerator.GOBJECT_TYPE_COMPANION
+                        .parameterizedBy(iface.typeName),
+                )
+                companionBuilder.addProperty(property)
             }
 
             // wrap factory function
@@ -128,7 +135,7 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
         null
     } else {
         val propertyType = BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE.parameterizedBy(iface.typeName)
-        PropertySpec.builder("type", propertyType).initializer(
+        PropertySpec.builder("type", propertyType, KModifier.OVERRIDE).initializer(
             "%T(%M())·{ Wrapper(it.%M()) }",
             BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE,
             iface.glibGetTypeFunc,

@@ -27,11 +27,12 @@ import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ClassBlueprint
 import org.gtkkn.gir.blueprints.ConstructorBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
+import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 
 interface ClassGenerator : MiscGenerator, KDocGenerator {
-    @Suppress("LongMethod")
-    fun buildClass(clazz: ClassBlueprint): TypeSpec =
+    @Suppress("LongMethod", "CyclomaticComplexMethod")
+    fun buildClass(clazz: ClassBlueprint, repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.classBuilder(clazz.typeName).apply {
             // companion object
             val companionSpecBuilder = TypeSpec.companionObjectBuilder()
@@ -52,8 +53,21 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             // interfaces
             addSuperinterfaces(clazz.implementsInterfaces.map { it.interfaceTypeName })
 
-            buildKGTypeProperty(clazz)?.let {
-                companionSpecBuilder.addProperty(it)
+            buildKGTypeProperty(clazz)?.let { property ->
+                companionSpecBuilder.addSuperinterface(
+                    BindingsGenerator.GOBJECT_TYPE_COMPANION
+                        .parameterizedBy(clazz.typeName),
+                )
+                // property needs to be added before the init block
+                companionSpecBuilder.addProperty(property)
+
+                if (!clazz.typeName.packageName.contains("bindings.glib")) {
+                    val companionInitializerBlock = CodeBlock.of(
+                        "%T.register()",
+                        repository.repositoryTypeProviderTypeName,
+                    )
+                    companionSpecBuilder.addInitializerBlock(companionInitializerBlock)
+                }
             }
 
             // pointer constructor
@@ -407,7 +421,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
         null
     } else {
         val propertyType = BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE.parameterizedBy(clazz.typeName)
-        PropertySpec.builder("type", propertyType).initializer(
+        PropertySpec.builder("type", propertyType, KModifier.OVERRIDE).initializer(
             "%T(%M())·{ %T(it.%M()) }",
             BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE,
             clazz.glibGetTypeFunc,

@@ -53,12 +53,12 @@ private open class TestObject1(pointer: CPointer<CPointed>) : Object(pointer.rei
     constructor() : this(newInstancePointer())
 
     companion object : ObjectType<TestObject1>(
-        "TestObject1", Object.type,
+        TestObject1::class, Object.type,
     )
 }
 
 private class TestObject2 : TestObject1(newInstancePointer()) {
     companion object : ObjectType<TestObject2>(
-        "TestObject2", TestObject1.type,
+        TestObject2::class, TestObject1.type,
     )
 }
