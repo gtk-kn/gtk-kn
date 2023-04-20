@@ -108,7 +108,6 @@ public class ClassIntPropertyDelegateProvider<OBJECT_TYPE : Object>(
     }
 }
 
-// TODO not used anymore
 public class ClassPropertyDelegateProvider<OBJECT_TYPE : Object, VALUE : Any?>(
     private val gProperty: Property<OBJECT_TYPE, VALUE>
 ) :

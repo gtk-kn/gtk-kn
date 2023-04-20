@@ -42,7 +42,7 @@ typedef struct {
   void *internal_obj;
   // store StableRef of the kotlin object properties
   void *instance_properties;
-} gtkknObjectProperties; // TODO rename to gtkknInstanceStruct;
+} gtkknInstanceStruct;
 
 /**
  * Class struct for custom types defined in Kotlin.

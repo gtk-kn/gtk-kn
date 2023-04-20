@@ -26,7 +26,6 @@ import org.gtkkn.bindings.gobject.Gobject
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamFlags
 
-// TODO these could be inlined in the delegates?
 internal fun <OBJECT : Object> buildStringProperty(
     name: String,
     nick: String? = null,

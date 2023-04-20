@@ -54,7 +54,7 @@ import org.gtkkn.native.gobject.g_type_from_name
 import org.gtkkn.native.gobject.g_type_name_from_instance
 import org.gtkkn.native.gobject.g_type_register_static
 import org.gtkkn.native.gobject.gtkknClassStruct
-import org.gtkkn.native.gobject.gtkknObjectProperties
+import org.gtkkn.native.gobject.gtkknInstanceStruct
 
 internal data class CustomTypeInfo<T : Object>(
     val name: String,
@@ -85,7 +85,7 @@ internal object TypeRegistry {
         val customTypeInfo = CustomTypeInfo<T>(typeName, parentClassSize, parentInstanceSize, objectCompanion)
 
         val totalClassSize = parentClassSize + sizeOf<gtkknClassStruct>()
-        val totalInstanceSize = parentInstanceSize + sizeOf<gtkknObjectProperties>()
+        val totalInstanceSize = parentInstanceSize + sizeOf<gtkknInstanceStruct>()
 
         val typeInfoStruct = alloc<GTypeInfo>() {
             class_size = totalClassSize.toUShort()
@@ -109,11 +109,11 @@ internal object TypeRegistry {
         val typeName = g_type_name_from_instance(obj.gPointer.reinterpret())?.toKString()
         val gType = g_type_from_name(typeName)
         TYPE_MAP[gType]?.let { typeInfo ->
-            val instanceProperties = obj.gPointer.getCustomInstanceStructPointer(typeInfo)
-            if (instanceProperties.pointed.internal_obj == null) {
+            val instanceStruct = obj.gPointer.getCustomInstanceStructPointer(typeInfo)
+            if (instanceStruct.pointed.internal_obj == null) {
                 // associate the instance
                 val dataHolder = InstanceDataHolder(obj)
-                instanceProperties.pointed.internal_obj = StableRef.create(dataHolder).asCPointer()
+                instanceStruct.pointed.internal_obj = StableRef.create(dataHolder).asCPointer()
             } // else already associated
         }
     }
@@ -125,8 +125,8 @@ internal object TypeRegistry {
         val typeName = g_type_name_from_instance(pointer.reinterpret())?.toKString()
         val gType = g_type_from_name(typeName)
         TYPE_MAP[gType]?.let { typeInfo ->
-            val instanceProperties = pointer.getCustomInstanceStructPointer(typeInfo)
-            val internalObject = instanceProperties.pointed.internal_obj
+            val instanceStruct = pointer.getCustomInstanceStructPointer(typeInfo)
+            val internalObject = instanceStruct.pointed.internal_obj
             if (internalObject != null) {
                 return internalObject.asStableRef<InstanceDataHolder>().get()
             } else {
@@ -151,11 +151,14 @@ internal object TypeRegistry {
         checkNotNull(TYPE_MAP[gType]) { "gType $gType is not registered" }
 }
 
+/**
+ * Offset into the full instance struct to get the gtkknInstanceStruct.
+ */
 private fun COpaquePointer.getCustomInstanceStructPointer(
     typeInfo: CustomTypeInfo<out Object>
-): CPointer<gtkknObjectProperties> {
+): CPointer<gtkknInstanceStruct> {
     val rawPointer = this.rawValue.plus(typeInfo.parentInstanceSize)
-    return interpretCPointer<gtkknObjectProperties>(rawPointer) as CPointer<gtkknObjectProperties>
+    return interpretCPointer<gtkknInstanceStruct>(rawPointer) as CPointer<gtkknInstanceStruct>
 }
 
 /**
@@ -261,4 +264,3 @@ private val staticObjectDispose = staticCFunction { instance: CPointer<GObject> 
     @Suppress("USELESS_CAST")
     null as COpaquePointer?
 }
-
