@@ -30,7 +30,7 @@ kotlin {
     linuxX64 {
         binaries {
             executable {
-                entryPoint = "org.gtkkn.samples.playground.main"
+                entryPoint = "org.gtkkn.samples.playground.schemaWindowSize"
             }
         }
     }

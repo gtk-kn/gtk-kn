@@ -1,25 +1,12 @@
 package org.gtkkn.gradle.plugin.config
 
 import org.gradle.api.Project
-import org.gtkkn.gradle.plugin.task.compileGSchemasTask
-import org.gtkkn.gradle.plugin.task.compileGSchemasTaskName
-import org.gtkkn.gradle.plugin.task.copyGSchemasTask
-import org.gtkkn.gradle.plugin.task.copyGSchemasTaskName
+import org.gtkkn.gradle.plugin.task.compileGSchemasTasks
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.konan.target.KonanTarget
 
 internal fun Project.attachKnTarget(target: KotlinNativeTarget) {
-    target.compilations.forEach {
-        copyGSchemasTask(it)
-        compileGSchemasTask(it)
-    }
-}
-
-internal fun Project.detachKnTarget(target: KotlinNativeTarget) {
-    target.compilations.forEach {
-        tasks.remove(tasks.getByName(it.copyGSchemasTaskName))
-        tasks.remove(tasks.getByName(it.compileGSchemasTaskName))
-    }
+    compileGSchemasTasks(target)
 }
 
 internal inline val KotlinNativeTarget.gtkSupported

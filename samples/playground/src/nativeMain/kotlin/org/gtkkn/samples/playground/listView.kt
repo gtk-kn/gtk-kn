@@ -39,41 +39,24 @@ import org.gtkkn.extensions.gio.runApplication
 import org.gtkkn.extensions.gobject.ObjectType
 import org.gtkkn.extensions.gobject.asType
 
-private val logger = KotlinLogging.logger("main")
+fun listView() = Application {
+    val listStore = ListStore(MyPerson.gType)
 
-fun main() {
-    KotlinLoggingConfiguration.logLevel = Level.TRACE
-    logger.trace { "Hello World!" }
+    listStore.append(MyPerson("Steven", 35))
+    listStore.append(MyPerson("Lore", 9))
+    listStore.append(MyPerson("Erika", 36))
 
+    val factory = SignalListItemFactory()
+    factory.connectBind { o ->
+        val listItem: ListItem = o.asType<ListItem>()
 
-    val app = Application("org.gtkkn.samples.gtk.playground", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
-        logger.info { "Application activate" }
+        val person = checkNotNull(listItem.getItem()).asType<MyPerson>()
 
-        val window = ApplicationWindow(app)
-        window.setTitle("Hello gtk-kn")
-
-        val listStore = ListStore(MyPerson.gType)
-
-        listStore.append(MyPerson("Steven", 35))
-        listStore.append(MyPerson("Lore", 9))
-        listStore.append(MyPerson("Erika", 36))
-
-        val factory = SignalListItemFactory()
-        factory.connectBind { o ->
-            val listItem: ListItem = o.asType<ListItem>()
-
-            val person = checkNotNull(listItem.getItem()).asType<MyPerson>()
-
-            val label = Label("${person.name} : ${person.age}")
-            listItem.setChild(label)
-        }
-        val listView = ListView(SingleSelection(listStore), factory)
-        window.setChild(listView)
-        window.show()
+        val label = Label("${person.name} : ${person.age}")
+        listItem.setChild(label)
     }
-
-    app.runApplication()
+    val listView = ListView(SingleSelection(listStore), factory)
+    setChild(listView)
 }
 
 class MyPerson(
