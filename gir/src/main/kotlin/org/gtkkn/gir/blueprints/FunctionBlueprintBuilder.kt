@@ -77,7 +77,7 @@ class FunctionBlueprintBuilder(
             kotlinName = kotlinName,
             nativeName = nativeName,
             nativeMemberName = nativeMemberName,
-            parameters = parameterBlueprints,
+            parameters = sanitizeParameters(parameterBlueprints),
             returnTypeInfo = returnTypeInfo,
             throws = girFunction.throws,
             exceptionResolvingFunctionMember = exceptionResolvingFunction(),
@@ -85,5 +85,33 @@ class FunctionBlueprintBuilder(
             kdoc = context.processKdoc(girFunction.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girFunction.returnValue.docs.doc?.text),
         )
+    }
+
+    /**
+     * Postprocess parameter blueprints for some additional gir fixes.
+     */
+    private fun sanitizeParameters(params: List<ParameterBlueprint>): List<ParameterBlueprint> =
+        if (needsNickBlurbFix(params)) {
+            params.map { nickBlurbFix(it) }
+        } else {
+            params
+        }
+
+    private fun needsNickBlurbFix(params: List<ParameterBlueprint>): Boolean =
+        girFunction.cIdentifier.orEmpty().startsWith("g_param_spec_") &&
+            params.size >= 3 &&
+            params[0].nativeName == "name" &&
+            params[1].nativeName == "nick" &&
+            params[2].nativeName == "blurb"
+
+    /**
+     * Newer versions of the GObject gir have param_spec `nick` and `blurb` parameters annotated as nullable
+     * while older versions do not. Here we force them nullable even for older gir files.
+     * https://github.com/GNOME/glib/commit/79c70d7a362f4b793363275cbe37d3c08f7ea884
+     */
+    private fun nickBlurbFix(param: ParameterBlueprint): ParameterBlueprint = when (param.nativeName) {
+        "nick" -> param.copy(typeInfo = param.typeInfo.withNullable(true))
+        "blurb" -> param.copy(typeInfo = param.typeInfo.withNullable(true))
+        else -> param
     }
 }
