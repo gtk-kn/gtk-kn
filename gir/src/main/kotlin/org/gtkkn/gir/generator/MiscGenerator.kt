@@ -313,7 +313,8 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             }
             addStatement("%N: %T$forceNullable,", param.kotlinName, param.typeInfo.nativeTypeName)
         }
-        addStatement("userData: %T ->", NativeTypes.KP_OPAQUE_POINTER)
+        addStatement("userData: %T", NativeTypes.KP_OPAQUE_POINTER)
+        addStatement("->")
 
         if (closure.needsMemscoped || closure.needsMemscopedReturnValue) {
             beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
