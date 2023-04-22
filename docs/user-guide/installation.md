@@ -1,4 +1,4 @@
-To develop a `gtk-kt` application, two essential components are required on your workstation:
+To develop a `gtk-kn` application, two essential components are required on your workstation:
 
 - the Kotlin Native toolchain
 - the GTK 4 library
