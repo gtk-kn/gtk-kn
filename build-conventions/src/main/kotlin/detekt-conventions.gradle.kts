@@ -14,6 +14,7 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
+import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
@@ -33,15 +34,8 @@ dependencies {
     detektPlugins(libs.detekt)
 }
 
-afterEvaluate {
-    tasks.named("check").configure {
-        tasks.findByName("detektMain")?.let { dependsOn(it) }
-        tasks.findByName("detektTest")?.let { dependsOn(it) }
-        tasks.findByName("detektJsMain")?.let { dependsOn(it) }
-        tasks.findByName("detektJsTest")?.let { dependsOn(it) }
-        tasks.findByName("detektJvmMain")?.let { dependsOn(it) }
-        tasks.findByName("detektJvmTest")?.let { dependsOn(it) }
-        tasks.findByName("detektNativeMain")?.let { dependsOn(it) }
-        tasks.findByName("detektNativeTest")?.let { dependsOn(it) }
+tasks {
+    named("check") {
+        dependsOn(withType<Detekt>())
     }
 }

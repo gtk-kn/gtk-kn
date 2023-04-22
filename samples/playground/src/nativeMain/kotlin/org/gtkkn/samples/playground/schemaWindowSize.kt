@@ -45,9 +45,9 @@ fun ApplicationWindow.saveWindowState(settings: Settings) {
 }
 
 fun ApplicationWindow.loadWindowState(settings: Settings) {
-    val height = settings.getInt("window-width")
-    val width = settings.getInt("window-height")
+    val width = settings.getInt("window-width")
+    val height = settings.getInt("window-height")
     val maximised = settings.getBoolean("is-maximised")
-    setDefaultSize(width, height)
+    setDefaultSize(width = width, height = height)
     if (maximised) maximize()
 }

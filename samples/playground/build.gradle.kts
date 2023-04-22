@@ -30,9 +30,9 @@ kotlin {
     linuxX64 {
         binaries {
             executable {
-                entryPoint = "org.gtkkn.samples.playground.listView"
+//                entryPoint = "org.gtkkn.samples.playground.listView"
 //                entryPoint = "org.gtkkn.samples.playground.logoFromFileResources"; gtk.embedResources.set(false)
-//                entryPoint = "org.gtkkn.samples.playground.logoFromEmbeddedResources"; gtk.embedResources.set(true)
+                entryPoint = "org.gtkkn.samples.playground.logoFromEmbeddedResources"; gtk.embedResources.set(true)
 //                entryPoint = "org.gtkkn.samples.playground.schemaWindowSize"
             }
         }

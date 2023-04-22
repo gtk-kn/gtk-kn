@@ -20,31 +20,36 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.playground
+package org.gtkkn.gradle.plugin
 
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
-import org.gtkkn.bindings.gio.Gio
-import org.gtkkn.bindings.gio.Resource
-import org.gtkkn.bindings.gtk.Image
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.getByType
+import org.gtkkn.gradle.plugin.config.attachTarget
+import org.gtkkn.gradle.plugin.config.dependencyResolutionConfig
+import org.gtkkn.gradle.plugin.config.gtkSupported
+import org.gtkkn.gradle.plugin.ext.GtkExt
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
-fun logoFromEmbeddedResources() = Application {
-    title = "Logo from Embedded Resources"
-    setDefaultSize(420, 420)
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
+@Suppress("unused")
+class GtkPlugin : Plugin<Project> {
+    override fun apply(project: Project) {
+        GtkExt.register(project)
+
+        project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
+            project.afterKmpPlugin(project.extensions.getByType())
+        }
+        project.dependencyResolutionConfig()
     }
-}
 
-fun logoFromFileResources() = Application {
-    title = "Logo from File Resources"
-    setDefaultSize(420, 420)
+    private fun Project.afterKmpPlugin(kmp: KotlinMultiplatformExtension) {
+        kmp.targets.all {
+            if (this is KotlinNativeTarget && gtkSupported) attachTarget(this)
+        }
+    }
 
-    // borked for now: invalid gvdb header error
-    Gio.resourcesRegister(
-        Resource.load("build/gtk/gResource/linuxX64/main/gResource.gresource")
-            .getOrThrow(),
-    )
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
+    companion object {
+        const val TASK_GROUP = "gtk"
     }
 }

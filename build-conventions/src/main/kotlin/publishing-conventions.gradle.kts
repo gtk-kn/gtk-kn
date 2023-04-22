@@ -73,7 +73,7 @@ publishing {
         pom {
             name.set(project.name)
             description.set("Provides Kotlin Native bindings for the GTK framework")
-            url.set("http://gtk-kn.org/")
+            url.set(config.website)
 
             licenses {
                 license {
@@ -99,7 +99,7 @@ publishing {
             scm {
                 connection.set("scm:git:git://gitlab.com/gtk-kn/gtk-kn.git")
                 developerConnection.set("scm:git:git@gitlab.com:gtk-kn/gtk-kn.git")
-                url.set("https://gitlab.com/gtk-kn/gtk-kn.git")
+                url.set(config.vcsUrl)
             }
         }
     }

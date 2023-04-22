@@ -20,11 +20,6 @@ plugins {
     kotlin("multiplatform") version "1.8.20"
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
-
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()

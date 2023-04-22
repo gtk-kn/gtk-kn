@@ -18,7 +18,7 @@ plugins {
     id("bindings-library-conventions")
 }
 
-version = config.versionBindingsGtk4.get()
+version = config.versions.gtk4.get()
 
 kotlin {
     sourceSets {

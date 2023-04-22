@@ -17,14 +17,20 @@
 // https://docs.gradle.org/7.0/userguide/declaring_dependencies.html#sec:type-safe-project-accessors
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-includeBuild("../build-conventions")
-
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        mavenLocal()
+    }
     versionCatalogs {
         create("libs") {
             from(files("../gradle/libs.versions.toml"))
         }
     }
 }
+
+includeBuild("../build-conventions")
 
 rootProject.name = "gradle-plugin"

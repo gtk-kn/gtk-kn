@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="GradlePlugin" pattern="src[gradle-plugin*]:*..*||src[gradle-plugin]:*..*" />
+</component>

@@ -1,10 +1,11 @@
 <component name="CopyrightManager">
-  <settings>
+  <settings default="GPL3">
     <module2copyright>
       <element module="Bindings" copyright="No copyright" />
       <element module="Extensions" copyright="MIT" />
       <element module="Samples" copyright="MIT" />
       <element module="Docs" copyright="CC-BY-SA 4.0" />
+      <element module="GradlePlugin" copyright="MIT" />
       <element module="All" copyright="GPL3" />
     </module2copyright>
   </settings>

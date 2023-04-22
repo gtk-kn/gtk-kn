@@ -18,7 +18,7 @@ plugins {
     id("bindings-library-conventions")
 }
 
-version = config.versionBindings.get()
+version = config.versions.adwaita.get()
 
 kotlin {
     sourceSets {

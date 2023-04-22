@@ -19,7 +19,7 @@ plugins {
     id("publishing-conventions")
 }
 
-version = config.versionBindings.get()
+version = config.versions.common.get()
 
 kotlin {
 }

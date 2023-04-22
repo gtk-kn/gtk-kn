@@ -1,22 +1,39 @@
+import com.diffplug.gradle.spotless.SpotlessTask
+import com.github.gmazzo.gradle.plugins.BuildConfigTask
+import io.gitlab.arturbosch.detekt.Detekt
+
+/*
+ * Copyright (c) 2023 gtk-kn
+ *
+ * This file is part of gtk-kn.
+ * gtk-kn is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * gtk-kn is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
+ */
+
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
+    alias(libs.plugins.gradlePluginPublish)
+    alias(libs.plugins.buildConfig)
     id("publishing-conventions")
+    id("config-conventions")
     id("detekt-conventions")
-    id("com.gradle.plugin-publish") version "0.21.0"
-    id("com.github.johnrengelman.shadow") version "7.0.0"
-    id("com.github.gmazzo.buildconfig") version "3.1.0"
+    id("spotless-conventions")
 }
 
-
-repositories {
-    gradlePluginPortal()
-    mavenCentral()
-}
+version = config.versions.gradlePlugin.get()
 
 pluginBundle {
-    website = "http://gtk-kn.org/"
-    vcsUrl = "https://gitlab.com/gtk-kn/gtk-kn.git"
+    website = config.website.get()
+    vcsUrl = config.vcsUrl.get()
     tags = listOf("ui-framework")
 }
 
@@ -37,8 +54,24 @@ buildConfig {
         internalVisibility = true
     }
     buildConfigField("String", "group", "\"${project.group}\"")
-    buildConfigField("String", "version", "\"${config.version.get()}\"")
-    buildConfigField("String", "versionBindingsGtk4", "\"${config.versionBindingsGtk4.get()}\"")
+    forClass("Versions") {
+        buildConfigField("String", "common", "\"${config.versions.common.get()}\"")
+        buildConfigField("String", "gradlePlugin", "\"${config.versions.gradlePlugin.get()}\"")
+        buildConfigField("String", "gtk4", "\"${config.versions.gtk4.get()}\"")
+    }
+}
+
+detekt {
+    config = files("$rootDir/../config/detekt/detekt.yml")
+}
+
+tasks {
+    val spotlessTasks = withType<SpotlessTask> {
+        mustRunAfter(withType<BuildConfigTask>())
+    }
+    withType<Detekt> {
+        mustRunAfter(spotlessTasks)
+    }
 }
 
 dependencies {

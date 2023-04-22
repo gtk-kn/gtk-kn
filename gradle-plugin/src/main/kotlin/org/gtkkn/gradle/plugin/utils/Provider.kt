@@ -19,32 +19,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.gtkkn.gradle.plugin.utils
 
-package org.gtkkn.samples.playground
+import org.gradle.api.Task
+import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.TaskContainer
+import org.gradle.kotlin.dsl.named
+import org.gradle.kotlin.dsl.register
 
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
-import org.gtkkn.bindings.gio.Gio
-import org.gtkkn.bindings.gio.Resource
-import org.gtkkn.bindings.gtk.Image
+internal inline fun <reified T> Task.provider(noinline fn: () -> T): Provider<T> =
+    project.provider(fn)
 
-fun logoFromEmbeddedResources() = Application {
-    title = "Logo from Embedded Resources"
-    setDefaultSize(420, 420)
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
-    }
-}
-
-fun logoFromFileResources() = Application {
-    title = "Logo from File Resources"
-    setDefaultSize(420, 420)
-
-    // borked for now: invalid gvdb header error
-    Gio.resourcesRegister(
-        Resource.load("build/gtk/gResource/linuxX64/main/gResource.gresource")
-            .getOrThrow(),
-    )
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
-    }
-}
+internal inline fun <reified T : Task> TaskContainer.maybeRegister(name: String, noinline configuration: T.() -> Unit) =
+    if (names.contains(name)) named<T>(name) else register<T>(name, configuration = configuration)

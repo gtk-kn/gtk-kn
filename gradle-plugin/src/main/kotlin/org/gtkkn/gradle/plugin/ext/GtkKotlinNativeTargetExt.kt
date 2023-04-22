@@ -20,31 +20,19 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.playground
+package org.gtkkn.gradle.plugin.ext
 
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
-import org.gtkkn.bindings.gio.Gio
-import org.gtkkn.bindings.gio.Resource
-import org.gtkkn.bindings.gtk.Image
+import org.gradle.api.plugins.ExtensionAware
+import org.gtkkn.gradle.plugin.utils.maybeCreate
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
-fun logoFromEmbeddedResources() = Application {
-    title = "Logo from Embedded Resources"
-    setDefaultSize(420, 420)
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
-    }
-}
+interface GtkKotlinNativeTargetExt : GtkKotlinNativeCompilationExt {
 
-fun logoFromFileResources() = Application {
-    title = "Logo from File Resources"
-    setDefaultSize(420, 420)
-
-    // borked for now: invalid gvdb header error
-    Gio.resourcesRegister(
-        Resource.load("build/gtk/gResource/linuxX64/main/gResource.gresource")
-            .getOrThrow(),
-    )
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
+    companion object {
+        internal fun register(gtk: GtkExt, target: KotlinNativeTarget) =
+            (target as ExtensionAware).extensions.maybeCreate<GtkKotlinNativeTargetExt>("gtk") {
+                gSchemasInstallDir.convention(gtk.gSchemasInstallDir)
+                embedResources.convention(gtk.embedResources)
+            }
     }
 }

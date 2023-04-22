@@ -19,32 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.gtkkn.gradle.plugin.config
 
-package org.gtkkn.samples.playground
+import org.gradle.api.Project
+import org.gtkkn.gradle.plugin.BuildConfig
+import org.gtkkn.gradle.plugin.Versions
 
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
-import org.gtkkn.bindings.gio.Gio
-import org.gtkkn.bindings.gio.Resource
-import org.gtkkn.bindings.gtk.Image
+private val gtk4Modules = setOf("gtk4", "gdk4", "gsk4")
 
-fun logoFromEmbeddedResources() = Application {
-    title = "Logo from Embedded Resources"
-    setDefaultSize(420, 420)
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
-    }
-}
-
-fun logoFromFileResources() = Application {
-    title = "Logo from File Resources"
-    setDefaultSize(420, 420)
-
-    // borked for now: invalid gvdb header error
-    Gio.resourcesRegister(
-        Resource.load("build/gtk/gResource/linuxX64/main/gResource.gresource")
-            .getOrThrow(),
-    )
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
+internal fun Project.dependencyResolutionConfig() {
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            if (requested.version == null && requested.group == BuildConfig.group) {
+                @Suppress("UseIfInsteadOfWhen", "ForbiddenComment")
+                val version = when (requested.name) {
+                    in gtk4Modules -> Versions.gtk4
+                    // TODO This works for now, but will require revisiting once the versions diverge
+                    else -> Versions.common
+                }
+                useVersion(version)
+            }
+        }
     }
 }
