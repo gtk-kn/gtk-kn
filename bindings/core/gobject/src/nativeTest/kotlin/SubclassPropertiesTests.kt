@@ -164,12 +164,12 @@ private class Person : Object(newInstancePointer()) {
     var configuredBool by Type.configuredBool
 
     companion object Type : ObjectType<Person>("Person", Object.type) {
-        val name by stringProperty
+        val name by stringProperty()
         val company by stringProperty(defaultValue = "self-employed")
         val myProperty by stringProperty(name = "my-property")
 
-        val age by intProperty
-        val bool by booleanProperty
+        val age by intProperty()
+        val bool by booleanProperty()
         val configuredBool by booleanProperty(name = "configured-bool", defaultValue = true)
     }
 }

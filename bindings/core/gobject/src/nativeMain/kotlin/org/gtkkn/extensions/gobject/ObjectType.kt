@@ -108,7 +108,6 @@ import org.gtkkn.native.gobject.g_type_check_instance_is_a
  * argument.
  *
  */
-@Suppress("ClassOrdering")
 public open class ObjectType<T : Object>(
     private val typeName: String,
     private val parentType: KGType<Object>,
@@ -132,25 +131,27 @@ public open class ObjectType<T : Object>(
      */
     public val gType: GType get() = type.gType
 
-    public val stringProperty: ClassPropertyDelegateProvider<T, String> =
-        ClassPropertyDelegateProvider { propertyName ->
-            StringProperty(Gobject.paramSpecString(propertyName, null, null, "", ParamFlags.READWRITE))
-        }
-
-    public val intProperty: ClassPropertyDelegateProvider<T, Int> =
-        ClassPropertyDelegateProvider { propertyName ->
-            IntProperty(
-                Gobject.paramSpecInt(propertyName, null, null, Int.MIN_VALUE, Int.MAX_VALUE, 0, ParamFlags.READWRITE),
-            )
-        }
-
-    public val booleanProperty: ClassPropertyDelegateProvider<T, Boolean> =
-        ClassPropertyDelegateProvider { propertyName ->
-            BooleanProperty(
-                Gobject.paramSpecBoolean(propertyName, null, null, false, ParamFlags.READWRITE),
-            )
-        }
-
+    /**
+     * Registers a String property on the type.
+     *
+     * If [name] is left blank, the name of the val or var on the left side of the *by* declaration is used.
+     *
+     * ```
+     * // registers a string property with name "myProperty"
+     * val myProperty by stringProperty()
+     *
+     * // registers a string property with name "my-property"
+     * val myProperty by stringProperty(name = "my-property")
+     *
+     * // registers a string property with name "myProperty" and defaultValue "example"
+     * val myProperty by stringProperty(defaultValue = "example")
+     * ```
+     *
+     * A property name consists of one or more segments consisting of ASCII letters and digits,
+     * separated by either the `-` or `_` character. The first character of a property name must be a letter.
+     *
+     * Note that registering a property with an invalid name will throw during type registration at runtime.
+     */
     public fun stringProperty(
         name: String? = null,
         nick: String? = null,
@@ -166,6 +167,14 @@ public open class ObjectType<T : Object>(
         )
     }
 
+    /**
+     * Registers an Int property on the type.
+     *
+     * If [name] is left blank, the name of the val or var on the left side of the *by* declaration is used.
+     *
+     * See [stringProperty] for more details on naming rules and usage examples.
+     * @see stringProperty
+     */
     public fun intProperty(
         name: String? = null,
         nick: String? = null,
@@ -183,6 +192,14 @@ public open class ObjectType<T : Object>(
         )
     }
 
+    /**
+     * Registers a Boolean property on the type.
+     *
+     * If [name] is left blank, the name of the val or var on the left side of the *by* declaration is used.
+     *
+     * See [stringProperty] for more details on naming rules and usage examples.
+     * @see stringProperty
+     */
     public fun booleanProperty(
         name: String? = null,
         nick: String? = null,

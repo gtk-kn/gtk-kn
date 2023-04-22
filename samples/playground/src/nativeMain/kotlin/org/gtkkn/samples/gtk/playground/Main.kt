@@ -88,7 +88,7 @@ class MyPerson(
     }
 
     companion object Type : ObjectType<MyPerson>("MyPerson", Object.type) {
-        val name by stringProperty
-        val age by intProperty
+        val name by stringProperty()
+        val age by intProperty()
     }
 }
