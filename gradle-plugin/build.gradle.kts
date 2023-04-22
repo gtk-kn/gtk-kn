@@ -3,11 +3,13 @@ plugins {
     `java-gradle-plugin`
     id("publishing-conventions")
     id("detekt-conventions")
+    id("config-conventions")
     id("com.gradle.plugin-publish") version "0.21.0"
     id("com.github.johnrengelman.shadow") version "7.0.0"
     id("com.github.gmazzo.buildconfig") version "3.1.0"
 }
 
+version = config.version.get()
 
 repositories {
     gradlePluginPortal()

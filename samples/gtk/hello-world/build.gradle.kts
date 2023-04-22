@@ -30,7 +30,7 @@ kotlin {
     targetHierarchy.default()
     linuxX64 {
         binaries {
-            executable{
+            executable {
                 entryPoint = "main"
             }
         }

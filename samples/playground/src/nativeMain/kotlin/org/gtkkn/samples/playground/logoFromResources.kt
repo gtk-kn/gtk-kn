@@ -22,32 +22,29 @@
 
 package org.gtkkn.samples.playground
 
-import org.gtkkn.bindings.gio.Settings
-import org.gtkkn.bindings.gtk.ApplicationWindow
-import org.gtkkn.bindings.gtk.Label
+import org.gtkkn.bindings.gdkpixbuf.Pixbuf
+import org.gtkkn.bindings.gio.Gio
+import org.gtkkn.bindings.gio.Resource
+import org.gtkkn.bindings.gtk.Image
 
-fun schemaWindowSize() = Application {
-    title = "Schema Window Size"
-
-    val settings = Settings(application!!.applicationId!!)
-    loadWindowState(settings)
-    connectCloseRequest {
-        saveWindowState(settings)
-        false
+fun logoFromEmbeddedResources() = Application {
+    title = "Logo from Resources"
+    setDefaultSize(420, 420)
+    child = Image().apply {
+        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
     }
-    child = Label("Resize window and then check it's persisted between restarts")
 }
 
-fun ApplicationWindow.saveWindowState(settings: Settings) {
-    settings.setInt("window-width", getWidth())
-    settings.setInt("window-height", getHeight())
-    settings.setBoolean("is-maximised", isMaximized())
-}
+fun logoFromFileResources() = Application {
+    title = "Logo from Resources"
+    setDefaultSize(420, 420)
 
-fun ApplicationWindow.loadWindowState(settings: Settings) {
-    val height = settings.getInt("window-width")
-    val width = settings.getInt("window-height")
-    val maximised = settings.getBoolean("is-maximised")
-    setDefaultSize(width, height)
-    if (maximised) maximize()
+    // borked for now: invalid gvdb header error
+    Gio.resourcesRegister(
+        Resource.load("build/gtk/gResource/linuxX64/main/gResource.gresource")
+            .getOrThrow(),
+    )
+    child = Image().apply {
+        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
+    }
 }

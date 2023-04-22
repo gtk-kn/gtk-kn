@@ -30,7 +30,10 @@ kotlin {
     linuxX64 {
         binaries {
             executable {
-                entryPoint = "org.gtkkn.samples.playground.schemaWindowSize"
+                entryPoint = "org.gtkkn.samples.playground.listView"
+//                entryPoint = "org.gtkkn.samples.playground.logoFromFileResources"; gtk.embedResources.set(false)
+//                entryPoint = "org.gtkkn.samples.playground.logoFromEmbeddedResources"; gtk.embedResources.set(true)
+//                entryPoint = "org.gtkkn.samples.playground.schemaWindowSize"
             }
         }
     }
@@ -39,6 +42,7 @@ kotlin {
             dependencies {
                 // Import from project
                 implementation(project(":bindings:gtk:gtk4"))
+                implementation(project(":bindings:core:gdkpixbuf"))
                 implementation(project(":bindings:adwaita"))
 //                implementation(project(":bindings:gtksource"))
                 // Import from mavenLocal

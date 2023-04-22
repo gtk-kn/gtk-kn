@@ -1,5 +1,4 @@
-import org.gradle.kotlin.dsl.extra
-import java.util.*
+import java.util.Properties
 
 project.rootProject.file("local.properties")
     .takeIf { it.exists() }

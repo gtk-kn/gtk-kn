@@ -33,18 +33,9 @@ tasks {
         dependsOn("spotlessApply")
         group = BasePlugin.BUILD_GROUP
     }
-    withType<SpotlessTask> {
-        dependsOn(":gir:run")
-    }
     withType<Wrapper> {
         description = "Regenerates the Gradle Wrapper files"
         distributionType = Wrapper.DistributionType.ALL
         gradleVersion = libs.versions.gradle.get()
-    }
-}
-
-afterEvaluate {
-    tasks.named("spotlessApply") {
-        mustRunAfter(":gir:run")
     }
 }

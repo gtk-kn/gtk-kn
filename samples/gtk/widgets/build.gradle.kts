@@ -26,7 +26,7 @@ plugins {
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
-    linuxX64{
+    linuxX64 {
         binaries {
             executable {
                 entryPoint = "org.gtkkn.samples.gtk.widgets.label"
