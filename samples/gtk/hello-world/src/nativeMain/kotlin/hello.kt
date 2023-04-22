@@ -24,6 +24,8 @@ import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
 import org.gtkkn.bindings.gtk.Button
+import org.gtkkn.extensions.gio.runApplication
+import org.gtkkn.extensions.gtk.setMargins
 
 private const val APP_ID = "org.gtkkn.samples.gtk.helloworld"
 
@@ -36,10 +38,7 @@ fun main() {
         // Create a button with label and margins
         val button = Button()
         button.setLabel("Click me!")
-        button.marginStart = 12
-        button.marginTop = 12
-        button.marginEnd = 12
-        button.marginBottom = 12
+        button.setMargins(12)
 
         // Connect to "clicked" signal of `button`
         button.connectClicked {
@@ -57,5 +56,5 @@ fun main() {
     }
 
     // Run the application
-    app.run(0, emptyList())
+    app.runApplication()
 }
