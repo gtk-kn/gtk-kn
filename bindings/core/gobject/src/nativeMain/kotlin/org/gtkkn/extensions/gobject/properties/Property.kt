@@ -32,20 +32,20 @@ import org.gtkkn.native.gobject.G_TYPE_INT
 import org.gtkkn.native.gobject.G_TYPE_STRING
 import kotlin.reflect.KProperty
 
-@Suppress("UNCHECKED_CAST")
 public open class Property<OBJECT : Object, VALUE : Any?>(
     internal val paramSpec: ParamSpec,
     internal val storeInValueFunc: (gValue: Value, value: Any?) -> Unit,
     internal val extractFromValueFunc: (gValue: Value) -> Any?,
     internal val initValueFunc: (gValue: Value) -> Unit,
 ) {
-    public fun name(): String = paramSpec.getName()
+    public val name: String get() = paramSpec.getName()
 
     // called from the Kotlin side when a property val/var is accessed
     public operator fun getValue(arg: OBJECT, property: KProperty<*>): VALUE = memScoped {
         // defer to gobject getProperty
         val gValue = Value.allocate(this)
-        arg.getProperty(name(), gValue)
+        arg.getProperty(name, gValue)
+        @Suppress("UNCHECKED_CAST")
         return extractFromValueFunc(gValue) as VALUE
     }
 
@@ -55,7 +55,7 @@ public open class Property<OBJECT : Object, VALUE : Any?>(
         val gValue = Value.allocate(this)
         initValueFunc(gValue)
         storeInValueFunc(gValue, value)
-        arg.setProperty(name(), gValue)
+        arg.setProperty(name, gValue)
     }
 }
 

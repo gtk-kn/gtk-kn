@@ -34,19 +34,14 @@ import org.gtkkn.native.gobject.g_object_class_install_property
  */
 internal class ClassProperties internal constructor() {
 
-    private var nProps: UInt = 1u // GObject properties start at index 1
-    internal val properties = mutableMapOf<UInt, Property<*, *>>()
+    private var nProps: UInt = 1u // property index starts at 1
+    private val properties = mutableMapOf<UInt, Property<*, *>>()
     private var sealed = false
 
     internal fun registerProperty(property: Property<*, *>) {
-        if (sealed) error("registerProperty cannot be used after ClassProperties was sealed")
-
-        if (!ParamSpec.isValidName(property.name())) {
-            error("'${property.name()}' is not a valid property name")
-        }
-
-        val propId = nProps++
-        properties[propId] = property
+        require(!sealed) { "registerProperty cannot be used after ClassProperties was sealed" }
+        require(ParamSpec.isValidName(property.name)) { "'${property.name}' is not a valid property name" }
+        properties[nProps++] = property
     }
 
     /**
@@ -55,7 +50,7 @@ internal class ClassProperties internal constructor() {
      * This happens once on the class_init phase of the type.
      */
     internal fun installIntoClass(objectClass: CValuesRef<GObjectClass>) {
-        if (sealed) error("ClassProperties cannot be installed after it was sealed")
+        require(!sealed) { "ClassProperties cannot be installed after it was sealed" }
         properties.forEach {
             val id = it.key
             val property = it.value
