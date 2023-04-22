@@ -24,7 +24,6 @@ import org.gtkkn.extensions.gobject.getIntProperty
 import org.gtkkn.extensions.gobject.getStringProperty
 import org.gtkkn.extensions.gobject.setProperty
 import org.gtkkn.native.gobject.G_TYPE_INT
-import org.gtkkn.native.gobject.G_TYPE_STRING
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -35,15 +34,8 @@ class SubclassPropertiesTests {
     @Test
     fun testStringProperty() {
         val person = Person()
-        val inputValue = Value.allocate().get().init(G_TYPE_STRING)
-        inputValue.setString("Steven")
-
-        person.setProperty("name", inputValue)
-
-        val outValue = Value.allocate().get().init(G_TYPE_STRING)
-        person.getProperty("name", outValue)
-
-        assertEquals("Steven", outValue.getString())
+        person.setProperty("name", "Steven")
+        assertEquals("Steven", person.getStringProperty("name"))
         assertEquals("Steven", person.name)
     }
 
@@ -51,11 +43,7 @@ class SubclassPropertiesTests {
     fun testStringPropertyKotlinWrite() {
         val person = Person()
         person.name = "Test"
-
-        val outValue = Value.allocate().get()
-        person.getProperty("name", outValue)
-
-        assertEquals("Test", outValue.getString())
+        assertEquals("Test", person.getStringProperty("name"))
     }
 
     @Test
@@ -88,15 +76,13 @@ class SubclassPropertiesTests {
     fun testDefault() {
         val person = Person()
         assertEquals("self-employed", person.company)
+        assertEquals("self-employed", person.getStringProperty("company"))
     }
 
     @Test
-    fun testSetPropertyWithOverridenName() {
+    fun testSetPropertyWithOverriddenName() {
         val person = Person()
-        val inValue = Value.allocate().get().init(G_TYPE_STRING)
-        inValue.setString("testvalue")
-
-        person.setProperty("my-property", inValue)
+        person.setProperty("my-property", "testvalue")
         assertEquals("testvalue", person.myProperty)
     }
 
@@ -130,9 +116,11 @@ class SubclassPropertiesTests {
         val person = Person()
         person.name = "Steven"
         person.age = 35
+        person.bool = true
 
         assertEquals("Steven", person.getStringProperty("name"))
         assertEquals(35, person.getIntProperty("age"))
+        assertTrue(person.getBooleanProperty("bool"))
     }
 
     @Test
