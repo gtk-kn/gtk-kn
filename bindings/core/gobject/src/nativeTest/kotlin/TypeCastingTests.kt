@@ -34,4 +34,3 @@ class TypeCastingTests {
 private class MyObject(val name: String) : Object(newInstancePointer()) {
     companion object Type : ObjectType<MyObject>(MyObject::class, Object.type)
 }
-

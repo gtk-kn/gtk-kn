@@ -16,6 +16,7 @@
 
 package org.gtkkn.gir.generator
 
+import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
@@ -23,9 +24,11 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
+import org.gtkkn.gir.blueprints.RepositoryBlueprint
 
 interface InterfaceGenerator : KDocGenerator, MiscGenerator {
-    fun buildInterface(iface: InterfaceBlueprint): TypeSpec =
+    @Suppress("LongMethod")
+    fun buildInterface(iface: InterfaceBlueprint, repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.interfaceBuilder(iface.typeName).apply {
             addProperty(buildAbstractInterfacePointerProperty(iface.objectPointerName, iface.objectPointerTypeName))
 
@@ -88,11 +91,19 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             val companionBuilder = TypeSpec.companionObjectBuilder()
 
             buildKGTypeProperty(iface)?.let { property ->
+                addSuperinterface(BindingsGenerator.KG_TYPED_INTERFACE_TYPE)
                 companionBuilder.addSuperinterface(
                     BindingsGenerator.GOBJECT_TYPE_COMPANION
                         .parameterizedBy(iface.typeName),
                 )
                 companionBuilder.addProperty(property)
+                if (!iface.typeName.packageName.contains("bindings.glib")) {
+                    val companionInitializerBlock = CodeBlock.of(
+                        "%T.register()",
+                        repository.repositoryTypeProviderTypeName,
+                    )
+                    companionBuilder.addInitializerBlock(companionInitializerBlock)
+                }
             }
 
             // wrap factory function

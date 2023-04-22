@@ -50,6 +50,15 @@ interface TypeProviderGenerator : MiscGenerator {
                         clazz.typeName,
                     )
                 }
+            repository.interfaceBlueprints
+                .filter { it.glibGetTypeFunc != null }
+                .forEach { iface ->
+                    addStatement(
+                        "%T::class to %T.type,",
+                        iface.typeName,
+                        iface.typeName,
+                    )
+                }
             addStatement(")")
         }.build()
 

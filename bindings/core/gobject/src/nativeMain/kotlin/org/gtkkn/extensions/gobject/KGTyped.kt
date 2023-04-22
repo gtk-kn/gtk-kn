@@ -22,36 +22,7 @@
 
 package org.gtkkn.extensions.gobject
 
-import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.gobject.Object
-import kotlin.reflect.KClass
-
-public typealias CastFunc = () -> Unit
-
-internal object TypeCasting {
-
-    private val userDefinedTypeMap = mutableMapOf<KClass<*>, KGType<*>>()
-
-    private val typeProviders = mutableSetOf<TypeProvider>()
-
-    fun registerUserDefinedType(clazz: KClass<*>, type: KGType<*>) {
-        userDefinedTypeMap[clazz] = type
-    }
-
-    fun registerProvider(provider: TypeProvider) {
-        typeProviders.add(provider)
-    }
-
-    fun <T : Any> castObject(obj: Object, targetClass: KClass<T>): T {
-        val kgType = userDefinedTypeMap[targetClass] ?: resolveTypeFromProviders(targetClass)
-
-        @Suppress("UNCHECKED_CAST")
-        return kgType?.convertPointerFunc?.invoke(obj.gPointer.reinterpret()) as? T
-            ?: error("Cannot cast to ${targetClass.simpleName}")
-    }
-
-    private fun resolveTypeFromProviders(targetClass: KClass<*>): KGType<*>? =
-        typeProviders.firstNotNullOfOrNull { it.resolveType(targetClass) }
-
-    private fun TypeProvider.resolveType(targetClass: KClass<*>): KGType<*>? = typeMap[targetClass]
-}
+/**
+ * Marker interface added to all library classes and interfaces that have an associate KGType.
+ */
+public interface KGTyped

@@ -71,7 +71,7 @@ class BindingsGenerator(
         repository.interfaceBlueprints.forEach { iface ->
             writeType(
                 iface.typeName,
-                buildInterface(iface),
+                buildInterface(iface, repository),
                 repositorySrcDir(moduleOutputDir),
                 iface.signals.map { buildStaticSignalCallback(it) },
             )
@@ -131,7 +131,9 @@ class BindingsGenerator(
         }
     }
 
-    private fun RepositoryBlueprint.hasKGTypes(): Boolean = classBlueprints.any { it.glibGetTypeFunc != null }
+    private fun RepositoryBlueprint.hasKGTypes(): Boolean =
+        classBlueprints.any { it.glibGetTypeFunc != null } ||
+            interfaceBlueprints.any { it.glibGetTypeFunc != null }
 
     /**
      * bindings build dir
@@ -228,6 +230,7 @@ class BindingsGenerator(
             MemberName("org.gtkkn.extensions.gobject", "associateCustomObject")
         internal val GOBJECT_TYPE_COMPANION = ClassName("org.gtkkn.extensions.gobject", "TypeCompanion")
         internal val TYPE_PROVIDER_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "TypeProvider")
+        internal val KG_TYPED_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGTyped")
 
         // cinterop helper function members
         internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")

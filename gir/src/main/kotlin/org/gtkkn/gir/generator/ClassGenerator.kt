@@ -54,6 +54,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             addSuperinterfaces(clazz.implementsInterfaces.map { it.interfaceTypeName })
 
             buildKGTypeProperty(clazz)?.let { property ->
+                addSuperinterface(BindingsGenerator.KG_TYPED_INTERFACE_TYPE)
                 companionSpecBuilder.addSuperinterface(
                     BindingsGenerator.GOBJECT_TYPE_COMPANION
                         .parameterizedBy(clazz.typeName),

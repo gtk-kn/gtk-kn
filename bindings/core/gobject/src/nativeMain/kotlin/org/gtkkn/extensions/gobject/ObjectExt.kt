@@ -39,7 +39,7 @@ import kotlin.reflect.KClass
  *
  * This method does not do any type checking.
  */
-public inline fun <reified T : Object> Object.asType(): T = asType(this, T::class)
+public inline fun <reified T : KGTyped> Object.asType(): T = asType(this, T::class)
 
 /**
  * Convert object into type [T].
@@ -49,7 +49,7 @@ public inline fun <reified T : Object> Object.asType(): T = asType(this, T::clas
  *
  * This method does not do any type checking.
  */
-public fun <T : Object> asType(obj: Object, targetClass: KClass<T>): T = TypeCasting.castObject(obj, targetClass)
+public fun <T : KGTyped> asType(obj: Object, targetClass: KClass<T>): T = TypeCasting.castObject(obj, targetClass)
 
 public fun Object.setProperty(propertyName: String, value: Int): Unit = memScoped {
     val gValue = Value.allocate(this).init(G_TYPE_INT)

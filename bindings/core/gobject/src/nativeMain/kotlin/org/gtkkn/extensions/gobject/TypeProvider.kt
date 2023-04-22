@@ -27,7 +27,7 @@ import kotlin.reflect.KClass
 /**
  * Interface used for dynamic type casting.
  *
- * This is only used internally by the type casting system, application developers should never have to use this
+ * This is only used internally by the type casting system, application developers should never have to use this,
  * but it needs to be public because libraries depending on gobject need it so they can register the module-specific
  * TypeProvider.
  */
