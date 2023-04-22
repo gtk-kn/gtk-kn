@@ -19,7 +19,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.gobject.ObjectSubclassCompanion
+import org.gtkkn.extensions.gobject.ObjectType
 import org.gtkkn.native.gobject.g_type_from_name
 import org.gtkkn.native.gobject.g_type_name_from_instance
 import kotlin.test.Test
@@ -48,17 +48,17 @@ class SubclassingTests {
 
 }
 
-open class TestObject1(pointer: CPointer<CPointed>) : Object(pointer.reinterpret()) {
+private open class TestObject1(pointer: CPointer<CPointed>) : Object(pointer.reinterpret()) {
 
     constructor() : this(newInstancePointer())
 
-    companion object : ObjectSubclassCompanion<TestObject1>(
+    companion object : ObjectType<TestObject1>(
         "TestObject1", Object.type,
     )
 }
 
-class TestObject2 : TestObject1(newInstancePointer()) {
-    companion object : ObjectSubclassCompanion<TestObject2>(
+private class TestObject2 : TestObject1(newInstancePointer()) {
+    companion object : ObjectType<TestObject2>(
         "TestObject2", TestObject1.type,
     )
 }

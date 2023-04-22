@@ -28,9 +28,16 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Gobject
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gobject.ParamFlags
 import org.gtkkn.bindings.gobject.TypeQuery
 import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.glib.allocateScoped
+import org.gtkkn.extensions.glib.allocate
+import org.gtkkn.extensions.gobject.properties.BooleanProperty
+import org.gtkkn.extensions.gobject.properties.ClassProperties
+import org.gtkkn.extensions.gobject.properties.ClassPropertyDelegateProvider
+import org.gtkkn.extensions.gobject.properties.IntProperty
+import org.gtkkn.extensions.gobject.properties.StringProperty
+import org.gtkkn.native.gobject.GObjectClass
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_object_new
 import org.gtkkn.native.gobject.g_type_check_instance_is_a
@@ -45,7 +52,7 @@ import org.gtkkn.native.gobject.g_type_check_instance_is_a
  * When defining custom GObject classes:
  * - Extend from [Object] or another non-final class.
  * - Use [newInstancePointer] when calling through to the superclass constructor.
- * - Add a companion object that extends from [ObjectSubclassCompanion] and pass in
+ * - Add a companion object that extends from [ObjectType] and pass in
  *   your class, typeName and parent type.
  *
  * ```
@@ -53,7 +60,7 @@ import org.gtkkn.native.gobject.g_type_check_instance_is_a
  * class MyClass() : Object(newInstancePointer()) {
  *
  *     // companion object that holds the type information
- *     companion object : ObjectSubclassCompanion<MyClass>("MyClass", Object.type) {
+ *     companion object : ObjectType<MyClass>("MyClass", Object.type) {
  *     }
  * }
  * ```
@@ -83,7 +90,7 @@ import org.gtkkn.native.gobject.g_type_check_instance_is_a
  *     // utility no-arg constructor
  *     constructor() : this(newInstancePointer())
  *
- *     companion object : ObjectSubclassCompanion<ParentClass>("ParentClass", Object.type) {
+ *     companion object : ObjectType<ParentClass>("ParentClass", Object.type) {
  *     }
  * }
  *
@@ -91,7 +98,7 @@ import org.gtkkn.native.gobject.g_type_check_instance_is_a
  * // primary constructor uses newInstancePointer and passes it to Parent primary constructor
  * class ChildClass() : ParentClass(newInstancePointer()) {
  *
- *     companion object : ObjectSubclassCompanion<ChildClass>("ChildClass", ParentClass.type) {
+ *     companion object : ObjectType<ChildClass>("ChildClass", ParentClass.type) {
  *     }
  * }
  * ```
@@ -101,10 +108,13 @@ import org.gtkkn.native.gobject.g_type_check_instance_is_a
  * argument.
  *
  */
-public open class ObjectSubclassCompanion<T : Object>(
+public open class ObjectType<T : Object>(
     private val typeName: String,
     private val parentType: KGType<Object>,
 ) {
+
+    internal val classProperties: ClassProperties = ClassProperties()
+
     /**
      * Type information of the registered class.
      */
@@ -122,13 +132,97 @@ public open class ObjectSubclassCompanion<T : Object>(
     public val gType: GType get() = type.gType
 
     /**
+     * Registers a String property on the type.
+     *
+     * If [name] is left blank, the name of the val or var on the left side of the *by* declaration is used.
+     *
+     * ```
+     * // registers a string property with name "myProperty"
+     * val myProperty by stringProperty()
+     *
+     * // registers a string property with name "my-property"
+     * val myProperty by stringProperty(name = "my-property")
+     *
+     * // registers a string property with name "myProperty" and defaultValue "example"
+     * val myProperty by stringProperty(defaultValue = "example")
+     * ```
+     *
+     * A property name consists of one or more segments consisting of ASCII letters and digits,
+     * separated by either the `-` or `_` character. The first character of a property name must be a letter.
+     *
+     * Note that registering a property with an invalid name will throw during type registration at runtime.
+     */
+    public fun stringProperty(
+        name: String? = null,
+        nick: String? = null,
+        blurb: String? = null,
+        defaultValue: String = "",
+        flags: ParamFlags = ParamFlags.READWRITE
+    ): ClassPropertyDelegateProvider<T, String> = ClassPropertyDelegateProvider { propertyName ->
+        StringProperty(
+            Gobject.paramSpecString(
+                name ?: propertyName,
+                nick, blurb, defaultValue, flags,
+            ),
+        )
+    }
+
+    /**
+     * Registers an Int property on the type.
+     *
+     * If [name] is left blank, the name of the val or var on the left side of the *by* declaration is used.
+     *
+     * See [stringProperty] for more details on naming rules and usage examples.
+     * @see stringProperty
+     */
+    public fun intProperty(
+        name: String? = null,
+        nick: String? = null,
+        blurb: String? = null,
+        minimum: Int = Int.MIN_VALUE,
+        maximum: Int = Int.MAX_VALUE,
+        defaultValue: Int = 0,
+        flags: ParamFlags = ParamFlags.READWRITE
+    ): ClassPropertyDelegateProvider<T, Int> = ClassPropertyDelegateProvider { propertyName ->
+        IntProperty(
+            Gobject.paramSpecInt(
+                name ?: propertyName,
+                nick, blurb, minimum, maximum, defaultValue, flags,
+            ),
+        )
+    }
+
+    /**
+     * Registers a Boolean property on the type.
+     *
+     * If [name] is left blank, the name of the val or var on the left side of the *by* declaration is used.
+     *
+     * See [stringProperty] for more details on naming rules and usage examples.
+     * @see stringProperty
+     */
+    public fun booleanProperty(
+        name: String? = null,
+        nick: String? = null,
+        blurb: String? = null,
+        defaultValue: Boolean = false,
+        flags: ParamFlags = ParamFlags.READWRITE
+    ): ClassPropertyDelegateProvider<T, Boolean> = ClassPropertyDelegateProvider { propertyName ->
+        BooleanProperty(
+            Gobject.paramSpecBoolean(
+                name ?: propertyName,
+                nick, blurb, defaultValue, flags,
+            ),
+        )
+    }
+
+    /**
      * Initialize a new g_object with [gType] and return a [CPointer] to it.
      *
      * This method is supposed to be used when calling through to the parent
      * constructor when defining custom GObject-derived classes.
      *
      * @return [CPointer] pointing to the newly create g_object.
-     * @see ObjectSubclassCompanion
+     * @see ObjectType
      */
     public inline fun <reified T : CPointed> newInstancePointer(): CPointer<T> =
         checkNotNull(g_object_new(type.gType, null, null)).reinterpret()
@@ -147,8 +241,10 @@ public open class ObjectSubclassCompanion<T : Object>(
         return TypeRegistry.getInstanceData(pointer).data as T
     }
 
+    public open fun classInit(objectClass: CPointer<GObjectClass>): Unit {}
+
     private fun registerType(): GType = memScoped {
-        val typeQueryResult = TypeQuery.allocateScoped(this)
+        val typeQueryResult = TypeQuery.allocate(this)
         Gobject.typeQuery(parentType.gType, typeQueryResult)
 
         val parentClassSize = typeQueryResult.classSize.toLong()
@@ -159,6 +255,7 @@ public open class ObjectSubclassCompanion<T : Object>(
             parentType.gType,
             parentClassSize,
             parentInstanceSize,
+            this@ObjectType,
         )
     }
 }

@@ -36,7 +36,7 @@ import org.gtkkn.bindings.gtk.ListView
 import org.gtkkn.bindings.gtk.SignalListItemFactory
 import org.gtkkn.bindings.gtk.SingleSelection
 import org.gtkkn.extensions.gio.runApplication
-import org.gtkkn.extensions.gobject.ObjectSubclassCompanion
+import org.gtkkn.extensions.gobject.ObjectType
 import org.gtkkn.extensions.gobject.downcast
 
 private val logger = KotlinLogging.logger("main")
@@ -61,7 +61,7 @@ fun main() {
         val factory = SignalListItemFactory()
         factory.connectBind { o ->
             val listItem = o.downcast(ListItem.type)
-            val person = listItem.getItem()!!.downcast(MyPerson.type)
+            val person = listItem.getItem()!!.downcast(MyPerson)
 
             val label = Label("${person.name} : ${person.age}")
             listItem.setChild(label)
@@ -74,13 +74,21 @@ fun main() {
     app.runApplication()
 }
 
-data class MyPerson(
-    val name: String,
-    val age: Int,
+class MyPerson(
+    name: String,
+    age: Int,
 ) : Object(newInstancePointer()) {
 
-    companion object : ObjectSubclassCompanion<MyPerson>(
-        "MyPerson",
-        Object.type,
-    )
+    var name by Type.name
+    var age by Type.age
+
+    init {
+        this.name = name
+        this.age = age
+    }
+
+    companion object Type : ObjectType<MyPerson>("MyPerson", Object.type) {
+        val name by stringProperty()
+        val age by intProperty()
+    }
 }

@@ -2,7 +2,7 @@ Now that we have a working installation of Kotlin/Native, let's start building o
 
 Firstly, we need to create a GTK `Application` instance with an application ID. To do this, we must add the `gtk-kn`
 library dependencies to our `build.gradle.kts` file. Open the file and replace the comment `// Dependencies goes here`
-with the `gtk-kt` dependency `implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")`.
+with the `gtk-kn` dependency `implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")`.
 
 Next, we need to edit the `hello.kt` file and replace its contents with the following:
 
