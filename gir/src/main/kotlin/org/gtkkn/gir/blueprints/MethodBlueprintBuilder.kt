@@ -65,7 +65,7 @@ class MethodBlueprintBuilder(
                     throw UnresolvableTypeException("Return type ${type.name} is unsupported")
                 }
             }
-        }
+        }.applyMissingReturnValueAnnotations()
 
         // check for overrides
         val superMethods = superClasses.flatMap { it.methods } + superInterfaces.flatMap { it.methods }
@@ -134,6 +134,18 @@ class MethodBlueprintBuilder(
         if (girMethod.parameters.instanceParameter == null) {
             throw UnresolvableTypeException("Method has no instance parameter")
         }
+    }
+
+    private fun TypeInfo.applyMissingReturnValueAnnotations(): TypeInfo = when (girMethod.cIdentifier) {
+        // add missing nullable annotations for g_value in older gobject gir files
+        // https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3301
+        "g_value_get_boxed" -> this.withNullable(true)
+        "g_value_dup_boxed" -> this.withNullable(true)
+        "g_value_get_string" -> this.withNullable(true)
+        "g_value_dup_string" -> this.withNullable(true)
+        "g_value_get_object" -> this.withNullable(true)
+        "g_value_dup_object" -> this.withNullable(true)
+        else -> this
     }
 }
 
