@@ -23,14 +23,19 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
+import org.gtkkn.gir.blueprints.RepositoryBlueprint
 
 interface InterfaceGenerator : KDocGenerator, MiscGenerator {
-    fun buildInterface(iface: InterfaceBlueprint): TypeSpec =
+    @Suppress("LongMethod")
+    fun buildInterface(iface: InterfaceBlueprint, repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.interfaceBuilder(iface.typeName).apply {
             addProperty(buildAbstractInterfacePointerProperty(iface.objectPointerName, iface.objectPointerTypeName))
 
             // kdoc
             addKdoc(buildTypeKDoc(iface.kdoc, iface.version, iface.skippedObjects))
+
+            // marker interface
+            addSuperinterface(BindingsGenerator.GLIB_INTERFACE_MARKER_TYPE)
 
             // parent interfaces
             iface.parentInterfaces.forEach { parent ->
@@ -84,8 +89,9 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             // Add companion with factory wrapper function
             val companionBuilder = TypeSpec.companionObjectBuilder()
 
-            buildKGTypeProperty(iface)?.let {
-                companionBuilder.addProperty(it)
+            buildKGTypeProperty(iface)?.let { property ->
+                addSuperinterface(BindingsGenerator.KG_TYPED_INTERFACE_TYPE)
+                companionBuilder.addKGTypeInit(iface.typeName, property, repository)
             }
 
             // wrap factory function
@@ -128,7 +134,7 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
         null
     } else {
         val propertyType = BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE.parameterizedBy(iface.typeName)
-        PropertySpec.builder("type", propertyType).initializer(
+        PropertySpec.builder("type", propertyType, KModifier.OVERRIDE).initializer(
             "%T(%M())·{ Wrapper(it.%M()) }",
             BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE,
             iface.glibGetTypeFunc,

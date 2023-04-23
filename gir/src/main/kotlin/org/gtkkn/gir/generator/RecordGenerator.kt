@@ -36,8 +36,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
             addKdoc(buildTypeKDoc(record.kdoc, record.version, record.skippedObjects))
 
             // add marker interface
-            val recordMarkerInterfaceType = BindingsGenerator.GLIB_RECORD_MARKER_TYPE
-            addSuperinterface(recordMarkerInterfaceType)
+            addSuperinterface(BindingsGenerator.GLIB_RECORD_MARKER_TYPE)
 
             // companion object
             val companionSpecBuilder = TypeSpec.companionObjectBuilder()

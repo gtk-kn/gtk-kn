@@ -26,6 +26,7 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeAliasSpec
 import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.U_LONG
 import org.gtkkn.gir.blueprints.CallbackBlueprint
 import org.gtkkn.gir.blueprints.ClosureBlueprint
@@ -33,6 +34,7 @@ import org.gtkkn.gir.blueprints.FunctionBlueprint
 import org.gtkkn.gir.blueprints.MethodBlueprint
 import org.gtkkn.gir.blueprints.ParameterBlueprint
 import org.gtkkn.gir.blueprints.PropertyBlueprint
+import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.SignalBlueprint
 import org.gtkkn.gir.processor.NativeTypes
 
@@ -393,5 +395,28 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             ),
         ).initializer(buildStaticClosureImplementation(callback))
         return staticCallbackVal.build()
+    }
+
+    /**
+     * Add the common KGType-related initialization companions for KGType types.
+     */
+    fun TypeSpec.Builder.addKGTypeInit(
+        typeName: ClassName,
+        property: PropertySpec,
+        repository: RepositoryBlueprint
+    ) {
+        addSuperinterface(
+            BindingsGenerator.GOBJECT_TYPE_COMPANION
+                .parameterizedBy(typeName),
+        )
+        // property needs to be added before the init block
+        addProperty(property)
+        if (!typeName.packageName.contains("bindings.glib")) {
+            val companionInitializerBlock = CodeBlock.of(
+                "%T.register()",
+                repository.repositoryTypeProviderTypeName,
+            )
+            addInitializerBlock(companionInitializerBlock)
+        }
     }
 }

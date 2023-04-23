@@ -20,31 +20,11 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.extensions.gtk
-
-import org.gtkkn.bindings.gtk.Widget
+package org.gtkkn.extensions.gobject
 
 /**
- * Set margins.
+ * Interface implemented by all companion objects for types that have a KGType.
  */
-public fun Widget.setMargins(start: Int = 0, top: Int = 0, end: Int = 0, bottom: Int = 0) {
-    marginStart = start
-    marginEnd = end
-    marginTop = top
-    marginBottom = bottom
+public interface TypeCompanion<T : Any> {
+    public val type: KGType<T>
 }
-
-/**
- * Set start and end margin to [horizontal] and top and bottom margin to [vertical]
- */
-public fun Widget.setMargins(horizontal: Int = 0, vertical: Int = 0) {
-    marginStart = horizontal
-    marginEnd = horizontal
-    marginTop = vertical
-    marginBottom = vertical
-}
-
-/**
- * Set all margins to the same value.
- */
-public fun Widget.setMargins(all: Int): Unit = setMargins(all, all, all, all)
