@@ -41,7 +41,7 @@ kotlin {
 tasks {
     val cleanBindings by registering(Delete::class) {
         group = BasePlugin.BUILD_GROUP
-        delete("${projectDir}/src/nativeMain/kotlin/org/gtkkn/bindings/*")
+        delete("${projectDir}/src/nativeMain/kotlin/org/gtkkn/bindings/")
     }
     clean { dependsOn(cleanBindings) }
     girTask.outputs.dir("$projectDir/src/nativeMain/kotlin/org/gtkkn/bindings")
