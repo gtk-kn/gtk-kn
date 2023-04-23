@@ -18,33 +18,32 @@ the `libhelium` library section of the `gtkkn.json` from the `ignoredLibraries` 
     <+>UTF-8
     ===================================================================
     diff --git a/gtkkn.json b/gtkkn.json
-    --- a/gtkkn.json	(revision 733ff5a54987acf65e4e9f3261ecf5b3c361653b)
-    +++ b/gtkkn.json	(date 1681666937084)
+    --- a/gtkkn.json	(revision f3029befd509ed10bcd72900c1a3125356e116dc)
+    +++ b/gtkkn.json	(date 1682245091765)
     @@ -74,6 +74,11 @@
            "name": "adw",
-           "module": "adw",
+           "module": "adwaita",
            "girPrefix": "Adw-1"
     +    },
     +    {
     +      "name": "he",
-    +      "module": "he",
+    +      "module": "extra:libhelium",
     +      "girPrefix": "He-"
          }
        ],
        "ignoredLibraries": [
     @@ -81,11 +86,6 @@
            "name": "gtksource",
-           "module": "gtksource",
+           "module": "extra:gtksource",
            "girPrefix": "GtkSource-5"
     -    },
     -    {
     -      "name": "he",
-    -      "module": "he",
+    -      "module": "extra:libhelium",
     -      "girPrefix": "He-"
          }
        ]
      }
-
     ```
 
 ## Requirements
