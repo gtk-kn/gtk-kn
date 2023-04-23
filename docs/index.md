@@ -5,6 +5,16 @@ Experience the power and versatility of the GNOME stack in Kotlin/Native with ``
 Our project provides secure and dependable bindings to critical libraries like GLib, Pango, Cairo and GTK4, empowering
 you to create high-quality applications with ease.
 
+## Example
+
+A basic hello world example that puts a window on the screen with a button and a signal handler.
+
+``` kotlin title="samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt"
+--8<-- "samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt"
+```
+
+Full step-by-step instructions can be found [here](user-guide/index.md).
+
 ## From Setup to Deployment
 
 The `gtk-kn` [User Guide](user-guide/index.md) is an essential resource for developers looking to explore the

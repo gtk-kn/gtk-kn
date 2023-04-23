@@ -29,6 +29,7 @@ import org.gtkkn.bindings.gtk.Grid
 import org.gtkkn.bindings.gtk.PositionType
 import org.gtkkn.bindings.gtk.Spinner
 import org.gtkkn.bindings.gtk.ToggleButton
+import org.gtkkn.extensions.gio.runApplication
 
 fun spinner() {
     val app = Application("org.gtkkn.samples.gtk.widgets.label", ApplicationFlags.FLAGS_NONE)
@@ -62,5 +63,5 @@ fun spinner() {
         window.setChild(grid)
         window.show()
     }
-    app.run(0, emptyList())
+    app.runApplication()
 }

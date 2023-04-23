@@ -30,6 +30,8 @@ import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.CheckButton
 import org.gtkkn.bindings.gtk.Orientation
 import org.gtkkn.bindings.gtk.ProgressBar
+import org.gtkkn.extensions.gio.runApplication
+import org.gtkkn.extensions.gtk.setMargins
 
 private var activityMode: Boolean = false
 
@@ -41,10 +43,7 @@ fun progressBar() {
         }
 
         val vbox = Box(orientation = Orientation.VERTICAL, spacing = 6).apply {
-            marginStart = 16
-            marginTop = 16
-            marginEnd = 16
-            marginBottom = 16
+            setMargins(16)
         }
 
         val progressBar = ProgressBar().apply {
@@ -72,7 +71,7 @@ fun progressBar() {
         window.setChild(vbox)
         window.show()
     }
-    app.run(0, emptyList())
+    app.runApplication()
 }
 
 private fun onShowTextToggled(button: CheckButton, progressBar: ProgressBar) {

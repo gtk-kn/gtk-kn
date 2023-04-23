@@ -10,6 +10,46 @@ Kotlin Native is a technology that allows Kotlin code to be compiled to native c
     Please note that this project is a work in progress and is not yet ready for production use. We welcome contributions
     from anyone who is interested in helping us improve the project.
 
+## Example
+
+A basic hello world example that puts a window on the screen with a button and a signal handler.
+
+```kotlin
+private const val APP_ID = "org.gtkkn.samples.gtk.helloworld"
+
+fun main() {
+    // Create a new application
+    val app = Application(APP_ID, ApplicationFlags.FLAGS_NONE)
+
+    // Connect to "activate" signal of `app`
+    app.connectActivate {
+        // Create a button with label and margins
+        val button = Button()
+        button.setLabel("Click me!")
+        button.setMargins(12)
+
+        // Connect to "clicked" signal of `button`
+        button.connectClicked {
+            // Set the label to "Hello World!" after the button has been clicked on
+            button.setLabel("Hello World!")
+        }
+
+        // Create a window and set the title
+        val window = ApplicationWindow(app)
+        window.setTitle("My GTK App")
+        window.setChild(button)
+
+        // Present window
+        window.present()
+    }
+
+    // Run the application
+    app.runApplication()
+}
+```
+
+For more details and examples see the [Documentation](#documentation) and [Running the examples](#running-the-examples) sections.
+
 ## Documentation
 
 The documentation for gtk-kn is available at [gtk-kn.org](https://gtk-kn.org/). We highly recommend referring to the
@@ -37,8 +77,8 @@ available [here](docs/user-guide/deploy-on-mavenlocal.md).
 
 ## Running the examples
 
-The `samples` directory contains sample applications that demonstrate how to use the GTK bindings in Kotlin Native. To
-run the examples, please refer to the instructions in the [samples README](samples/README.md) file.
+The [samples](samples) directory contains sample applications that demonstrate how to use the GTK bindings in
+Kotlin Native.
 
 ## Roadmap
 
@@ -91,7 +131,7 @@ and Arch linux. Other Linux distributions should be supported as well.
 
 Windows and macOS support is on our roadmap.
 
-### Supported features
+### Wrapper classes
 
 * GObject's classes are generated as Kotlin classes
 * GObject's interfaces are generated as Kotlin interfaces
@@ -132,8 +172,14 @@ This is on our roadmap and will be added in the near future.
 
 ### GObject and Widget subclassing
 
-User-defined subclassing for GObject types is supported but not fully featured yet. Basic subclass type registration
-works, but no support for properties, signals or interfaces yet.
+User-defined subclassing for GObject and GtkWidget types is supported but not fully featured yet. Basic subclass type
+registration works and supports adding simple properties. More advanced type features like adding signals, actions and
+interfaces is on our roadmap.
+
+### Gradle plugin
+
+A Gradle plugin is planned to help with compiling resources and schemas and handle packaging. On top of this we are
+looking at Meson support to integrate with the rest of the GNOME/GTK ecosystem.
 
 ## Why the name gtk-kn?
 
