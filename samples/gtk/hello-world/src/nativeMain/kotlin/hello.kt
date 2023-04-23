@@ -43,7 +43,7 @@ fun main() {
         // Connect to "clicked" signal of `button`
         button.connectClicked {
             // Set the label to "Hello World!" after the button has been clicked on
-            button.setLabel("Hello World!");
+            button.setLabel("Hello World!")
         }
 
         // Create a window and set the title
