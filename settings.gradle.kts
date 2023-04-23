@@ -51,7 +51,10 @@ var configFile: String = if (extra.has("org.gtkkn.configFile")) {
 if (!configFile.startsWith("/")) {
     configFile = "$rootDir/$configFile"
 }
+
+@Suppress("UNCHECKED_CAST")
 val config = JsonSlurper().parse(File(configFile)) as Map<String, Any>
+@Suppress("UNCHECKED_CAST")
 val libraries = config["libraries"] as List<Map<String, String>>
 
 libraries.forEach { library ->

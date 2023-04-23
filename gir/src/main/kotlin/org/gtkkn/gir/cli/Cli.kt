@@ -27,8 +27,9 @@ import org.gtkkn.gir.log.logger
 import java.io.File
 import java.util.Locale
 
-private const val ENV_GTK_KN_LOG_LEVEL = "GTK_KN_LOG_LEVEL"
 private const val ENV_GTK_KN_LICENSE = "GTK_KN_LICENSE"
+private const val ENV_GTK_KN_LOG_LEVEL = "GTK_KN_LOG_LEVEL"
+private const val ENV_GTK_KN_SKIP_FORMAT = "GTK_KN_SKIP_FORMAT"
 
 fun parseConfig(args: Array<String>): Config {
     val parser = ArgParser("generator")
@@ -105,7 +106,7 @@ private fun getLicenseFromEnv(): Config.License? = try {
     null
 }
 
-private fun getSkipFormatFromEnv(): Boolean? = System.getenv("GTK_KN_SKIP_FORMAT")?.let {
+private fun getSkipFormatFromEnv(): Boolean? = System.getenv(ENV_GTK_KN_SKIP_FORMAT)?.let {
     when {
         it.lowercase() == "true" -> true
         it.lowercase() == "false" -> false

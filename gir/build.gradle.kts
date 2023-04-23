@@ -55,8 +55,16 @@ tasks {
                 }
                 add("--configFile")
                 add(configFile)
+                inputs.file(configFile)
+            } else {
+                inputs.file("$rootDir/gtkkn.json")
             }
         }
+        inputs.properties(
+            "GTK_KN_LICENSE" to System.getenv("GTK_KN_LICENSE").orEmpty(),
+            "GTK_KN_LICENSE" to System.getenv("GTK_KN_LOG_LEVEL").orEmpty(),
+            "GTK_KN_LICENSE" to System.getenv("GTK_KN_SKIP_FORMAT").orEmpty(),
+        )
     }
 
     compileJava {
