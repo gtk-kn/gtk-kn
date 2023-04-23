@@ -55,20 +55,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
 
             buildKGTypeProperty(clazz)?.let { property ->
                 addSuperinterface(BindingsGenerator.KG_TYPED_INTERFACE_TYPE)
-                companionSpecBuilder.addSuperinterface(
-                    BindingsGenerator.GOBJECT_TYPE_COMPANION
-                        .parameterizedBy(clazz.typeName),
-                )
-                // property needs to be added before the init block
-                companionSpecBuilder.addProperty(property)
-
-                if (!clazz.typeName.packageName.contains("bindings.glib")) {
-                    val companionInitializerBlock = CodeBlock.of(
-                        "%T.register()",
-                        repository.repositoryTypeProviderTypeName,
-                    )
-                    companionSpecBuilder.addInitializerBlock(companionInitializerBlock)
-                }
+                companionSpecBuilder.addKGTypeInit(clazz.typeName, property, repository)
             }
 
             // pointer constructor

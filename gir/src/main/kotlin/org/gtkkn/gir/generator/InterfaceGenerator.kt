@@ -16,7 +16,6 @@
 
 package org.gtkkn.gir.generator
 
-import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
@@ -92,18 +91,7 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
 
             buildKGTypeProperty(iface)?.let { property ->
                 addSuperinterface(BindingsGenerator.KG_TYPED_INTERFACE_TYPE)
-                companionBuilder.addSuperinterface(
-                    BindingsGenerator.GOBJECT_TYPE_COMPANION
-                        .parameterizedBy(iface.typeName),
-                )
-                companionBuilder.addProperty(property)
-                if (!iface.typeName.packageName.contains("bindings.glib")) {
-                    val companionInitializerBlock = CodeBlock.of(
-                        "%T.register()",
-                        repository.repositoryTypeProviderTypeName,
-                    )
-                    companionBuilder.addInitializerBlock(companionInitializerBlock)
-                }
+                companionBuilder.addKGTypeInit(iface.typeName, property, repository)
             }
 
             // wrap factory function
