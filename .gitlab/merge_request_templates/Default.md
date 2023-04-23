@@ -17,7 +17,7 @@ misunderstandings or miscommunications.
 -->
 
 - [ ] I have **rebased** this branch on top of the destination branch (usually `master`)
-- [ ] I have executed locally `./gradlew check` *before creating the MR* and it has run successfully
+- [ ] I have executed locally `./gradlew spotlessApply check` *before creating the MR* and it has run successfully
 - [ ] My contribution is fully baked and ready to be merged as is
 - [ ] I have performed a self-review of my own code
 - [ ] There are no `WIP` commits in this PR
