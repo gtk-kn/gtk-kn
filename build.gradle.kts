@@ -23,24 +23,25 @@ plugins {
     id("spotless-conventions")
 }
 
-tasks.dokkaHtmlMultiModule.configure {
-    outputDirectory.set(rootDir.resolve("docs/dokka"))
-}
 
-tasks.register("generateBindings") {
-    dependsOn(":gir:run")
-    dependsOn("spotlessApply")
-    group = BasePlugin.BUILD_GROUP
+tasks {
+    dokkaHtmlMultiModule.configure {
+        outputDirectory.set(rootDir.resolve("docs/dokka"))
+    }
+    register("generateBindings") {
+        dependsOn(":gir:run")
+        dependsOn("spotlessApply")
+        group = BasePlugin.BUILD_GROUP
+    }
+    withType<Wrapper> {
+        description = "Regenerates the Gradle Wrapper files"
+        distributionType = Wrapper.DistributionType.ALL
+        gradleVersion = libs.versions.gradle.get()
+    }
 }
 
 afterEvaluate {
     tasks.named("spotlessApply") {
         mustRunAfter(":gir:run")
     }
-}
-
-tasks.withType<Wrapper> {
-    description = "Regenerates the Gradle Wrapper files"
-    distributionType = Wrapper.DistributionType.ALL
-    gradleVersion = libs.versions.gradle.get()
 }

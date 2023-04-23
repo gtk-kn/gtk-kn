@@ -14,6 +14,7 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
+import com.diffplug.gradle.spotless.SpotlessTask
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
@@ -45,5 +46,11 @@ spotless {
         indentWithSpaces()
         trimTrailingWhitespace()
         endWithNewline()
+    }
+}
+
+tasks {
+    withType<SpotlessTask> {
+        mustRunAfter(":gir:run")
     }
 }
