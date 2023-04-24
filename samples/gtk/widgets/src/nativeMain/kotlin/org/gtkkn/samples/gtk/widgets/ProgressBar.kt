@@ -64,7 +64,7 @@ fun progressBar() {
         rightToLeftButton.connectToggled { onRightToLeftToggled(rightToLeftButton, progressBar) }
         vbox.append(rightToLeftButton)
 
-        Glib.timeoutAddFull(0, 50.toUInt()) {
+        Glib.timeoutAdd(0, 50.toUInt()) {
             onTimeout(progressBar)
         }
 
