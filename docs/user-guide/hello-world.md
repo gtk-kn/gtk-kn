@@ -68,7 +68,7 @@ That's much better! Now we have a working window. But, of course, we want to do 
 Let's add a button to our app:
 
 ``` kotlin title="samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt"
---8<-- "samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt"
+--8<-- "samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt:doc"
 ```
 
 Great! Now we have a button in our app that displays `"Press me!"`. When the button is clicked, it changes its label

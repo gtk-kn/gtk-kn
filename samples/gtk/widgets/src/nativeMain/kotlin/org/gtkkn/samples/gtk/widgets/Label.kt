@@ -32,6 +32,7 @@ import org.gtkkn.bindings.gtk.Label
 import org.gtkkn.bindings.gtk.Orientation
 import org.gtkkn.bindings.gtk.Widget
 
+// --8<-- [start:doc]
 fun label() {
     val app = Application("org.gtkkn.samples.gtk.widgets.label", ApplicationFlags.FLAGS_NONE)
     app.connectActivate {
@@ -147,3 +148,4 @@ private fun getButton() =
         vexpand = true
         hexpand = true
     }
+// --8<-- [end:doc]

@@ -31,6 +31,7 @@ import org.gtkkn.bindings.gtk.Spinner
 import org.gtkkn.bindings.gtk.ToggleButton
 import org.gtkkn.extensions.gio.runApplication
 
+// --8<-- [start:doc]
 fun spinner() {
     val app = Application("org.gtkkn.samples.gtk.widgets.label", ApplicationFlags.FLAGS_NONE)
     app.connectActivate {
@@ -65,3 +66,4 @@ fun spinner() {
     }
     app.runApplication()
 }
+// --8<-- [end:doc]
