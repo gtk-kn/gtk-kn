@@ -48,7 +48,8 @@ class MethodBlueprintBuilder(
     override fun buildInternal(): MethodBlueprint {
         checkSkippedMethod()
 
-        val kotlinName = context.kotlinizeMethodName(girMethod.name)
+        val kotlinName = getFixedKotlinNameOrNull()
+            ?: context.kotlinizeMethodName(girMethod.shadows ?: girMethod.name)
 
         // parameters
         girMethod.parameters?.let { addParameters(it) }
@@ -146,6 +147,27 @@ class MethodBlueprintBuilder(
         "g_value_get_object" -> this.withNullable(true)
         "g_value_dup_object" -> this.withNullable(true)
         else -> this
+    }
+
+    /**
+     * Some methods need special casing logic in order to avoid conflicting methods when multiple implementations
+     * of a similar method name is inherited from interfaces or parent classes.
+     *
+     * For example classes extending Gtk.Widget and implementing Gio.ActionGroup will have a name clash on
+     * `activateAction` since the Widget method `activate_action` is more commonly used, we rename the interface method
+     *
+     * This method applies the renames for those cases.
+     *
+     * @return the fixed kotlinName for the method or null if no special casing applies
+     */
+    private fun getFixedKotlinNameOrNull(): String? = when (girMethod.cIdentifier) {
+        "g_action_group_activate_action" -> "activateAction_"
+        "gtk_root_get_display" -> "getDisplay_"
+        "gtk_native_realize" -> "realize_"
+        "gtk_native_unrealize" -> "unrealize_"
+        "gtk_font_chooser_get_font_map" -> "getFontMap_"
+        "gtk_font_chooser_set_font_map" -> "setFontMap_"
+        else -> null
     }
 }
 

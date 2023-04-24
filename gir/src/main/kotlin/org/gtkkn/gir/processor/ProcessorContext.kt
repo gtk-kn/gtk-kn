@@ -110,13 +110,6 @@ class ProcessorContext(
         "gtk_string_list_take",
         "gsk_debug_node_new",
 
-        // the following are ignore because of clashes between interface and superclass
-        "gtk_widget_get_display",
-        "gtk_widget_get_font_map",
-        "gtk_widget_set_font_map",
-        "gtk_widget_realize",
-        "gtk_widget_unrealize",
-
         // ignored because the overridden return value is not a subtype of the parent
         // widget get_name is not nullable (according to gir)
         // while preferences_page_get_name is nullable
