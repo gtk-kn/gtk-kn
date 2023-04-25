@@ -71,7 +71,7 @@ class FunctionBlueprintBuilder(
 
         val nativeName = girFunction.cIdentifier
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeName)
-        val kotlinName = context.kotlinizeMethodName(girFunction.name)
+        val kotlinName = context.kotlinizeMethodName(girFunction.shadows ?: girFunction.name)
 
         return FunctionBlueprint(
             kotlinName = kotlinName,
