@@ -59,4 +59,5 @@ include(
     "samples:gtk:hello-world",
     "samples:playground",
     "samples:gtk:widgets",
+    "samples:gtk:widget-templates"
 )

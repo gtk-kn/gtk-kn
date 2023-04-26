@@ -1,0 +1,13 @@
+<interface>
+    <template class="ExampleWidget" parent="GtkBox">
+        <child>
+            <object class="GtkEntry" id="entry">
+            </object>
+        </child>
+        <child>
+            <object class="GtkButton" id="button">
+                <property name="label">Hello</property>
+            </object>
+        </child>
+    </template>
+</interface>
