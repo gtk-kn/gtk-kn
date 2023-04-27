@@ -181,12 +181,11 @@ internal fun Project.compileGResourcesTasks(target: KotlinNativeTarget) {
         val compilationGtk = this@compilation.gtk
         val processResources = tasks.named<Copy>(processResourcesTaskName)
 
-        @Suppress("UnnecessaryLet")
         val gResources = processResources
             .map(Copy::getDestinationDir)
             .map(File::listFiles)
             .map { d -> d.singleOrNull { f -> f.name.endsWith("gresource.xml") } as File }
-            .let(layout::file)
+            .run { layout.file(this) }
 
         val baseName = "gResource"
         val baseDir = this@compileGResourcesTasks.gtk.baseOutputDir.dir("gResource/${target.name}/$name")

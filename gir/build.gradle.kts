@@ -48,11 +48,11 @@ tasks {
         // https://github.com/pinterest/ktlint/issues/1391#issuecomment-1336221448
         jvmArgs = mutableListOf("--add-opens=java.base/java.lang=ALL-UNNAMED")
         val configFile = if (project.extra.has("org.gtkkn.configFile")) {
-            var cf = project.extra.get("org.gtkkn.configFile") as String
-            if (!cf.startsWith("/")) {
-                "$rootDir/$cf"
+            val propertyValue = project.extra.get("org.gtkkn.configFile") as String
+            if (!propertyValue.startsWith("/")) {
+                "$rootDir/$propertyValue"
             } else {
-                cf
+                propertyValue
             }
         } else {
             "$rootDir/gtkkn.json"

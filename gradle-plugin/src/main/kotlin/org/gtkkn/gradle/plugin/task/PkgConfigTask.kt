@@ -62,8 +62,7 @@ abstract class PkgConfigTask : NativeTask() {
     init {
         description = "Runs pkg-config on a given library"
         target.convention(
-            @Suppress("UnnecessaryLet")
-            provider { temporaryDir.resolve("pkg-config.txt") }.let(project.layout::file),
+            provider { temporaryDir.resolve("pkg-config.txt") }.run { project.layout.file(this) },
         )
         executable.convention("pkg-config")
         packages.apply {

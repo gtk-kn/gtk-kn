@@ -31,10 +31,10 @@ internal fun Project.dependencyResolutionConfig() {
     configurations.all {
         resolutionStrategy.eachDependency {
             if (requested.version == null && requested.group == BuildConfig.group) {
-                @Suppress("UseIfInsteadOfWhen", "ForbiddenComment")
+                @Suppress("UseIfInsteadOfWhen")
                 val version = when (requested.name) {
                     in gtk4Modules -> Versions.gtk4
-                    // TODO This works for now, but will require revisiting once the versions diverge
+                    // This works for now, but will require revisiting once the versions diverge
                     else -> Versions.common
                 }
                 useVersion(version)

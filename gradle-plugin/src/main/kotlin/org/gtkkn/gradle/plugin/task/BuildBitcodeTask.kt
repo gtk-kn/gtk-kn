@@ -79,16 +79,14 @@ abstract class BuildBitcodeTask : NativeTask() {
                         ?.forEach(::add)
 
                     add("-c")
-                    @Suppress("UnnecessaryLet")
                     input.asFile.get()
-                        .let(File::getAbsolutePath)
+                        .absolutePath
                         .also(::add)
 
                     add("-o")
-                    @Suppress("UnnecessaryLet")
                     output.asFile.get()
                         .also { it.parentFile.mkdirs() }
-                        .let(File::getAbsolutePath)
+                        .absolutePath
                         .also(::add)
                 }
             },
