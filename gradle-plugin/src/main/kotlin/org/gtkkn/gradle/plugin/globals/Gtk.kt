@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-@file:Suppress("PackageDirectoryMismatch", "Filename")
+@file:Suppress("PackageDirectoryMismatch")
 
 import org.gradle.api.Action
 import org.gradle.api.plugins.ExtensionAware
