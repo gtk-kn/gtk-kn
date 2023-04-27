@@ -18,6 +18,7 @@ package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.BitfieldBlueprint
@@ -40,13 +41,17 @@ interface BitfieldGenerator : MiscGenerator, KDocGenerator {
             .build()
 
         val orFuncSpec = FunSpec.builder("or")
-            .addModifiers(KModifier.INFIX)
+            .addModifiers(KModifier.INFIX, KModifier.OVERRIDE)
             .addParameter("other", bitfield.kotlinTypeName)
             .returns(bitfield.kotlinTypeName)
             .addStatement("return·%T(mask·or·other.mask)", bitfield.kotlinTypeName)
             .build()
 
+        val genericMarkerType = BindingsGenerator.GLIB_BITFIELD_MARKER_TYPE
+            .parameterizedBy(bitfield.kotlinTypeName)
+
         val bitfieldSpec = TypeSpec.classBuilder(bitfield.kotlinName)
+            .addSuperinterface(genericMarkerType)
             .addKdoc(buildTypeKDoc(bitfield.kdoc, bitfield.version))
             .primaryConstructor(constructorSpec)
             .addProperty(
