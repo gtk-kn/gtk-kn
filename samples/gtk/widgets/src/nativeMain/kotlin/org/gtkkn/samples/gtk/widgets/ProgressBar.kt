@@ -33,6 +33,7 @@ import org.gtkkn.bindings.gtk.ProgressBar
 import org.gtkkn.extensions.gio.runApplication
 import org.gtkkn.extensions.gtk.setMargins
 
+// --8<-- [start:doc]
 private var activityMode: Boolean = false
 
 fun progressBar() {
@@ -106,3 +107,4 @@ private fun onTimeout(progressBar: ProgressBar): Boolean {
     }
     return true
 }
+// --8<-- [end:doc]

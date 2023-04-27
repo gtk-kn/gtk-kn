@@ -10,7 +10,7 @@ you to create high-quality applications with ease.
 A basic hello world example that puts a window on the screen with a button and a signal handler.
 
 ``` kotlin title="samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt"
---8<-- "samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt:30"
+--8<-- "samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt:doc"
 ```
 
 Full step-by-step instructions can be found [here](user-guide/index.md).

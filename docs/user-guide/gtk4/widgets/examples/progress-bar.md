@@ -20,5 +20,5 @@ and `ProgressBar.showText`.
 **Example**
 
 ``` kotlin title="samples/gtk/widgets/src/nativeMain/kotlin/org/gtkkn/samples/gtk/widgets/ProgressBar.kt"
---8<-- "samples/gtk/widgets/src/nativeMain/kotlin/org/gtkkn/samples/gtk/widgets/ProgressBar.kt"
+--8<-- "samples/gtk/widgets/src/nativeMain/kotlin/org/gtkkn/samples/gtk/widgets/ProgressBar.kt:doc"
 ```

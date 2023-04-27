@@ -34,5 +34,5 @@ inside the mnemonic's target widget, you have to tell the label about the target
 **Example**
 
 ``` kotlin title="samples/gtk/widgets/src/nativeMain/kotlin/org/gtkkn/samples/gtk/widgets/Label.kt"
---8<-- "samples/gtk/widgets/src/nativeMain/kotlin/org/gtkkn/samples/gtk/widgets/Label.kt"
+--8<-- "samples/gtk/widgets/src/nativeMain/kotlin/org/gtkkn/samples/gtk/widgets/Label.kt:doc"
 ```

@@ -27,6 +27,7 @@ import org.gtkkn.bindings.gtk.Button
 import org.gtkkn.extensions.gio.runApplication
 import org.gtkkn.extensions.gtk.setMargins
 
+// --8<-- [start:doc]
 private const val APP_ID = "org.gtkkn.samples.gtk.helloworld"
 
 fun main() {
@@ -58,3 +59,4 @@ fun main() {
     // Run the application
     app.runApplication()
 }
+// --8<-- [start:doc]
