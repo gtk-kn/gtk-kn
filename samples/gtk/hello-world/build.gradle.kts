@@ -25,7 +25,7 @@ kotlin {
     targetHierarchy.default()
     linuxX64 {
         binaries {
-            executable{
+            executable {
                 entryPoint = "main"
             }
         }
@@ -40,10 +40,4 @@ kotlin {
             }
         }
     }
-}
-
-tasks.withType<Wrapper> {
-    description = "Regenerates the Gradle Wrapper files"
-    distributionType = Wrapper.DistributionType.ALL
-    gradleVersion = "7.6"
 }

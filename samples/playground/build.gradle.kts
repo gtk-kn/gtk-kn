@@ -19,7 +19,9 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 @Suppress("DSL_SCOPE_VIOLATION") //https://github.com/gradle/gradle/issues/22797
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
+    id("config-conventions")
     id("detekt-conventions")
+    id("org.gtkkn.gtk")
 }
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -28,7 +30,10 @@ kotlin {
     linuxX64 {
         binaries {
             executable {
-                entryPoint = "org.gtkkn.samples.gtk.playground.main"
+//                entryPoint = "org.gtkkn.samples.playground.listView"
+//                entryPoint = "org.gtkkn.samples.playground.logoFromFileResources"; gtk.embedResources.set(false)
+                entryPoint = "org.gtkkn.samples.playground.logoFromEmbeddedResources"; gtk.embedResources.set(true)
+//                entryPoint = "org.gtkkn.samples.playground.schemaWindowSize"
             }
         }
     }
@@ -37,6 +42,7 @@ kotlin {
             dependencies {
                 // Import from project
                 implementation(project(":bindings:gtk:gtk4"))
+                implementation(project(":bindings:core:gdkpixbuf"))
                 implementation(project(":bindings:adwaita"))
 //                implementation(project(":bindings:gtksource"))
                 // Import from mavenLocal

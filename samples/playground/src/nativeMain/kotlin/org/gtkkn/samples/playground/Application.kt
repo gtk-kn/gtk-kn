@@ -20,77 +20,29 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.gtk.playground
+package org.gtkkn.samples.playground
 
 import io.github.oshai.KotlinLogging
 import io.github.oshai.KotlinLoggingConfiguration
 import io.github.oshai.Level
 import org.gtkkn.bindings.gio.ApplicationFlags
-import org.gtkkn.bindings.gio.ListStore
-import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
-import org.gtkkn.bindings.gtk.Label
-import org.gtkkn.bindings.gtk.ListItem
-import org.gtkkn.bindings.gtk.ListView
-import org.gtkkn.bindings.gtk.SignalListItemFactory
-import org.gtkkn.bindings.gtk.SingleSelection
 import org.gtkkn.extensions.gio.runApplication
-import org.gtkkn.extensions.gobject.ObjectType
-import org.gtkkn.extensions.gobject.asType
 
-private val logger = KotlinLogging.logger("main")
+val logger = KotlinLogging.logger("main")
 
-fun main() {
+@Suppress("FunctionName")
+fun Application(builder: ApplicationWindow.() -> Unit) {
     KotlinLoggingConfiguration.logLevel = Level.TRACE
     logger.trace { "Hello World!" }
-
-
-    val app = Application("org.gtkkn.samples.gtk.playground", ApplicationFlags.FLAGS_NONE)
+    val app = Application("org.gtkkn.samples.playground", ApplicationFlags.FLAGS_NONE)
     app.connectActivate {
         logger.info { "Application activate" }
 
         val window = ApplicationWindow(app)
-        window.setTitle("Hello gtk-kn")
-
-        val listStore = ListStore(MyPerson.gType)
-
-        listStore.append(MyPerson("Steven", 35))
-        listStore.append(MyPerson("Lore", 9))
-        listStore.append(MyPerson("Erika", 36))
-
-        val factory = SignalListItemFactory()
-        factory.connectBind { o ->
-            val listItem: ListItem = o.asType<ListItem>()
-
-            val person = checkNotNull(listItem.getItem()).asType<MyPerson>()
-
-            val label = Label("${person.name} : ${person.age}")
-            listItem.setChild(label)
-        }
-        val listView = ListView(SingleSelection(listStore), factory)
-        window.setChild(listView)
-        window.show()
+        window.builder()
+        window.present()
     }
-
     app.runApplication()
-}
-
-class MyPerson(
-    name: String,
-    age: Int,
-) : Object(newInstancePointer()) {
-
-    var name by Type.name
-    var age by Type.age
-
-    init {
-        this.name = name
-        this.age = age
-    }
-
-    companion object Type : ObjectType<MyPerson>(MyPerson::class, Object.type) {
-        val name by stringProperty()
-        val age by intProperty()
-    }
 }

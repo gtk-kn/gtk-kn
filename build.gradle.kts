@@ -13,19 +13,19 @@
  * You should have received a copy of the GNU General Public License
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
+import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     // Prevent loading the Kotlin Gradle plugin multiple times
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.dokka)
+    id("config-conventions")
     id("spotless-conventions")
 }
 
-
 tasks {
-    dokkaHtmlMultiModule.configure {
+    dokkaHtmlMultiModule {
         outputDirectory.set(rootDir.resolve("docs/dokka"))
     }
     register("generateBindings") {
@@ -33,15 +33,16 @@ tasks {
         dependsOn("spotlessApply")
         group = BasePlugin.BUILD_GROUP
     }
+    register("compile") {
+        description = "Compiles all K/N compilations in subprojects"
+        subprojects
+            .map(Project::getTasks)
+            .map<_, TaskCollection<KotlinNativeCompile>>(TaskContainer::withType)
+            .forEach(::dependsOn)
+    }
     withType<Wrapper> {
         description = "Regenerates the Gradle Wrapper files"
         distributionType = Wrapper.DistributionType.ALL
         gradleVersion = libs.versions.gradle.get()
-    }
-}
-
-afterEvaluate {
-    tasks.named("spotlessApply") {
-        mustRunAfter(":gir:run")
     }
 }

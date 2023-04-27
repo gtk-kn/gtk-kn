@@ -32,7 +32,7 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(libs.versions.java.get().toInt())
 }
 
 application {
@@ -47,23 +47,25 @@ tasks {
         description = "Generate source code from introspective files"
         // https://github.com/pinterest/ktlint/issues/1391#issuecomment-1336221448
         jvmArgs = mutableListOf("--add-opens=java.base/java.lang=ALL-UNNAMED")
-        args = buildList {
-            if (project.extra.has("org.gtkkn.configFile")) {
-                var configFile = project.extra.get("org.gtkkn.configFile") as String
-                if (!configFile.startsWith("/")) {
-                    configFile = "$rootDir/$configFile"
-                }
-                add("--configFile")
-                add(configFile)
-                inputs.file(configFile)
+        val configFile = if (project.extra.has("org.gtkkn.configFile")) {
+            val propertyValue = project.extra.get("org.gtkkn.configFile") as String
+            if (!propertyValue.startsWith("/")) {
+                "$rootDir/$propertyValue"
             } else {
-                inputs.file("$rootDir/gtkkn.json")
+                propertyValue
             }
+        } else {
+            "$rootDir/gtkkn.json"
         }
+        args = listOf(
+            "--configFile",
+            configFile,
+        )
+        inputs.file(configFile)
         inputs.properties(
             "GTK_KN_LICENSE" to System.getenv("GTK_KN_LICENSE").orEmpty(),
-            "GTK_KN_LICENSE" to System.getenv("GTK_KN_LOG_LEVEL").orEmpty(),
-            "GTK_KN_LICENSE" to System.getenv("GTK_KN_SKIP_FORMAT").orEmpty(),
+            "GTK_KN_LOG_LEVEL" to System.getenv("GTK_KN_LOG_LEVEL").orEmpty(),
+            "GTK_KN_SKIP_FORMAT" to System.getenv("GTK_KN_SKIP_FORMAT").orEmpty(),
         )
     }
 
