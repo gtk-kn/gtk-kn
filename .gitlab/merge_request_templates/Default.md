@@ -27,4 +27,4 @@ misunderstandings or miscommunications.
 <!-- template sourced from https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/.gitlab/merge_request_templates/Default.md -->
 
 /assign me
-/assign_reviewer @leinardi @vbsteven
+/assign_reviewer @leinardi @vbsteven @petuska
