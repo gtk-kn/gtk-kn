@@ -21,6 +21,9 @@ kotlin-logging-linux-x64 = { module = "io.github.oshai:kotlin-logging-linuxx64",
 kotlin-logging-macos-arm64 = { module = "io.github.oshai:kotlin-logging-mingwx64", version.ref = "kotlin-logging" }
 kotlin-logging-macos-x64 = { module = "io.github.oshai:kotlin-logging-mingwx64", version.ref = "kotlin-logging" }
 kotlin-logging-mingw-x64 = { module = "io.github.oshai:kotlin-logging-mingwx64", version.ref = "kotlin-logging" }
+kotlin-test-annotations = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
+kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
+kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
 kotlinpoet = { module = "com.squareup:kotlinpoet", version = "1.12.0" }
 kotlinx-cli = { module = "org.jetbrains.kotlinx:kotlinx-cli", version = "0.3.5" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.5.0" }
@@ -36,9 +39,7 @@ plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref
 plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 plugin-spotless = { module = "com.diffplug.spotless:spotless-plugin-gradle", version = "6.17.0" }
-kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
-kotlin-test-annotations = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
-kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
+plugin-versionsgradle = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.45.0" }
 
 [bundles]
 kotlin-logging-jvm = ["kotlin-logging-jvm", "log4j-api", "log4j-core", "log4j-slf4j-impl"]
