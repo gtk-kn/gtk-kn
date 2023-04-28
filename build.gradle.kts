@@ -22,6 +22,7 @@ plugins {
     alias(libs.plugins.dokka)
     id("config-conventions")
     id("spotless-conventions")
+    id("versions-conventions")
 }
 
 tasks {
