@@ -22,22 +22,13 @@
 
 package org.gtkkn.gradle.plugin.task
 
-import gtk
-import org.gradle.api.Project
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
-import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.register
-import org.gtkkn.gradle.plugin.ext.gtk
 import org.gtkkn.gradle.plugin.utils.provider
-import org.gtkkn.gradle.plugin.utils.qualifiedName
-import org.jetbrains.kotlin.gradle.plugin.mpp.AbstractExecutable
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 @Suppress("LeakingThis")
 abstract class CompileGSchemasTask : GtkTask() {
@@ -90,35 +81,5 @@ abstract class CompileGSchemasTask : GtkTask() {
                 }
             },
         )
-    }
-}
-
-internal fun Project.compileGSchemasTasks(target: KotlinNativeTarget) {
-    target.compilations.all compilation@{
-        val compilationGtk = this@compilation.gtk
-        val processResources = tasks.named<Copy>(processResourcesTaskName)
-        val copyTask = tasks.register<Copy>("copyGSchemas$qualifiedName") {
-            description = "Stages all *.gschema.xml from processed resources"
-            dependsOn(processResources)
-            from(processResources)
-            into(temporaryDir)
-            include("**/*.gschema.xml")
-        }
-        val compileTask = tasks.register<CompileGSchemasTask>("compileGSchemas$qualifiedName") {
-            dependsOn(copyTask)
-            sourceDir.convention(layout.dir(copyTask.map(Copy::getDestinationDir)))
-            targetDir.convention(this@compileGSchemasTasks.gtk.baseOutputDir.dir("gSchemas"))
-        }
-        val installTask = tasks.register<CompileGSchemasTask>("installGSchemas$qualifiedName") {
-            dependsOn(copyTask)
-            sourceDir.convention(layout.dir(copyTask.map(Copy::getDestinationDir)))
-            targetDir.convention(compilationGtk.gSchemasInstallDir)
-        }
-        tasks.named(compileKotlinTaskName) { dependsOn(compileTask) }
-        target.binaries.all {
-            if (this is AbstractExecutable && compilation == this@compilation) {
-                linkTaskProvider.configure { dependsOn(installTask) }
-            }
-        }
     }
 }

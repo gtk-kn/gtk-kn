@@ -20,19 +20,29 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.gradle.plugin.ext
+package org.gtkkn.gradle.plugin.domain
 
-import org.gradle.api.plugins.ExtensionAware
-import org.gtkkn.gradle.plugin.utils.maybeCreate
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.gradle.api.Named
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.OutputFile
 
-interface GtkKotlinNativeTargetExt : GtkKotlinNativeCompilationExt {
+interface GSchemaBundle : Named {
+    /**
+     * *.gschema.xml file
+     */
+    val manifest: RegularFileProperty
 
-    companion object {
-        internal fun register(gtk: GtkExt, target: KotlinNativeTarget) =
-            (target as ExtensionAware).extensions.maybeCreate<GtkKotlinNativeTargetExt>("gtk") {
-                schemasInstallDir.convention(gtk.schemasInstallDir)
-                embedResources.convention(gtk.embedResources)
-            }
-    }
+    /**
+     * Where to store the gschemas.compiled file
+     */
+    val targetDir: DirectoryProperty
+
+    /**
+     * Where to install the gschemas.compiled file
+     */
+    val installDir: DirectoryProperty
 }

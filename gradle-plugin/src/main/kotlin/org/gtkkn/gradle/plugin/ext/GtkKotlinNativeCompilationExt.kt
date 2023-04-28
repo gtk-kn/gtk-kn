@@ -22,9 +22,13 @@
 
 package org.gtkkn.gradle.plugin.ext
 
+import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.provider.Property
+import org.gtkkn.gradle.plugin.config.configure
+import org.gtkkn.gradle.plugin.domain.GResourceBundle
+import org.gtkkn.gradle.plugin.domain.GSchemaBundle
 import org.gtkkn.gradle.plugin.utils.maybeCreate
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 
@@ -32,18 +36,24 @@ interface GtkKotlinNativeCompilationExt : ExtensionAware {
     /**
      * Where to install compiled gschema.xml
      */
-    val gSchemasInstallDir: DirectoryProperty
+    val schemasInstallDir: DirectoryProperty
 
     /**
      * Should gresources be compiled and embedded into final executable
      */
     val embedResources: Property<Boolean>
 
+    val resourceBundles: NamedDomainObjectContainer<GResourceBundle>
+    val schemaBundles: NamedDomainObjectContainer<GSchemaBundle>
+
     companion object {
         internal fun register(gtk: GtkKotlinNativeCompilationExt, compilation: KotlinNativeCompilation) =
             (compilation as ExtensionAware).extensions.maybeCreate<GtkKotlinNativeCompilationExt>("gtk") {
-                gSchemasInstallDir.convention(gtk.gSchemasInstallDir)
+                schemasInstallDir.convention(gtk.schemasInstallDir)
                 embedResources.convention(gtk.embedResources)
+
+                resourceBundles.configure(compilation, this)
+                schemaBundles.configure(compilation, this)
             }
     }
 }

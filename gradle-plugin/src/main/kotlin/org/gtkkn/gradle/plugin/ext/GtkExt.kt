@@ -35,7 +35,7 @@ interface GtkExt : GtkKotlinNativeCompilationExt {
 
     companion object {
         internal fun register(project: Project) = project.extensions.maybeCreate<GtkExt>("gtk") {
-            gSchemasInstallDir.convention(
+            schemasInstallDir.convention(
                 project.layout.projectDirectory
                     .dir("${System.getProperty("user.home")}/.local/share/glib-2.0/schemas/"),
             )
@@ -45,5 +45,4 @@ interface GtkExt : GtkKotlinNativeCompilationExt {
     }
 }
 
-internal inline val Project.gtk: GtkExt
-    get() = extensions.getByType()
+internal inline val Project.gtk: GtkExt get() = extensions.getByType()

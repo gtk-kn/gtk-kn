@@ -49,6 +49,7 @@ spotless {
     format("misc") {
         // define the files to apply `misc` to
         target("**/*.md", "**/.gitignore")
+        targetExclude("**/src/nativeMain/kotlin/**")
 
         // define the steps to apply to those files
         indentWithSpaces()

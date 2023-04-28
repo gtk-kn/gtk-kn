@@ -20,19 +20,31 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.gradle.plugin.ext
+package org.gtkkn.gradle.plugin.domain
 
-import org.gradle.api.plugins.ExtensionAware
-import org.gtkkn.gradle.plugin.utils.maybeCreate
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.gradle.api.Named
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.OutputFile
 
-interface GtkKotlinNativeTargetExt : GtkKotlinNativeCompilationExt {
+interface GResourceBundle : Named {
+    /**
+     * *.gresource.xml file
+     */
+    val manifest: RegularFileProperty
 
-    companion object {
-        internal fun register(gtk: GtkExt, target: KotlinNativeTarget) =
-            (target as ExtensionAware).extensions.maybeCreate<GtkKotlinNativeTargetExt>("gtk") {
-                schemasInstallDir.convention(gtk.schemasInstallDir)
-                embedResources.convention(gtk.embedResources)
-            }
-    }
+    /**
+     * Should gresources be compiled and embedded into final executable
+     */
+    val embed: Property<Boolean>
+
+    /**
+     * Name of the output file
+     */
+    val targetDir: DirectoryProperty
 }

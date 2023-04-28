@@ -22,6 +22,13 @@
 
 @file:Suppress("PackageDirectoryMismatch")
 
+/*
+ * Due to the way gradle resolves script context,
+ * anything placed in a global package will be available in buildscripts without requiring imports.
+ *
+ * BE EXTRA CAREFUL of what you put here as it will pollute the buildscript context for the consumers.
+ * This file should be reserved for gradle accessors that it cannot generate
+ */
 import org.gradle.api.Action
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.findByType
@@ -32,13 +39,6 @@ import org.gtkkn.gradle.plugin.utils.qualifiedName
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
-/*
- * Due to the way gradle resolves script context,
- * anything placed in a global package will be available in buildscripts without requiring imports.
- *
- * BE EXTRA CAREFUL of what you put here as it will pollute the buildscript context for the consumers.
- * This file should be reserved for gradle accessors that it cannot generate
- */
 val KotlinNativeTarget.gtk: GtkKotlinNativeTargetExt
     get() = (this as ExtensionAware).extensions.findByType() ?: error(
         if (gtkSupported) {
@@ -48,7 +48,8 @@ val KotlinNativeTarget.gtk: GtkKotlinNativeTargetExt
         },
     )
 
-fun KotlinNativeTarget.gtk(configure: Action<GtkKotlinNativeTargetExt>): Unit = configure.execute(gtk)
+fun KotlinNativeTarget.gtk(configure: Action<GtkKotlinNativeTargetExt>): GtkKotlinNativeTargetExt =
+    gtk.apply(configure::execute)
 
 val KotlinNativeCompilation.gtk: GtkKotlinNativeCompilationExt
     get() = (this as ExtensionAware).extensions.findByType() ?: error(
@@ -59,4 +60,5 @@ val KotlinNativeCompilation.gtk: GtkKotlinNativeCompilationExt
         },
     )
 
-fun KotlinNativeCompilation.gtk(configure: Action<GtkKotlinNativeCompilationExt>): Unit = configure.execute(gtk)
+fun KotlinNativeCompilation.gtk(configure: Action<GtkKotlinNativeCompilationExt>): GtkKotlinNativeCompilationExt =
+    gtk.apply(configure::execute)

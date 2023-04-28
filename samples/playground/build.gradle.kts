@@ -20,6 +20,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     id("detekt-conventions")
     id("org.gtkkn.gtk")
+    idea
 }
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -29,6 +30,13 @@ kotlin {
         binaries {
             executable {
                 entryPoint = "org.gtkkn.samples.playground.main"
+            }
+        }
+        compilations["main"].apply {
+            gtk {
+                resourceBundles.register("custom") {
+                    manifest.set(layout.projectDirectory.file("src/nativeMain/custom/custom.gresource.xml"))
+                }
             }
         }
     }

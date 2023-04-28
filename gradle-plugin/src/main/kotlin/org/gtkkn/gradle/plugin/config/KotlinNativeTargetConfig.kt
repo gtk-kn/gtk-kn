@@ -22,21 +22,42 @@
 package org.gtkkn.gradle.plugin.config
 
 import org.gradle.api.Project
+import org.gradle.api.tasks.Copy
+import org.gradle.kotlin.dsl.named
 import org.gtkkn.gradle.plugin.ext.GtkKotlinNativeCompilationExt
 import org.gtkkn.gradle.plugin.ext.GtkKotlinNativeTargetExt
 import org.gtkkn.gradle.plugin.ext.gtk
-import org.gtkkn.gradle.plugin.task.compileGResourcesTasks
-import org.gtkkn.gradle.plugin.task.compileGSchemasTasks
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.konan.target.KonanTarget
+import java.io.File
 
 internal fun Project.attachTarget(target: KotlinNativeTarget) {
     val targetGtk = GtkKotlinNativeTargetExt.register(gtk, target)
     target.compilations.all {
-        GtkKotlinNativeCompilationExt.register(targetGtk, this)
+        GtkKotlinNativeCompilationExt.register(targetGtk, this).apply {
+            val processResources = tasks.named<Copy>(processResourcesTaskName)
+
+            val defaultGResourceManifest = processResources
+                .map(Copy::getDestinationDir)
+                .map(File::listFiles)
+                .map { d -> d.singleOrNull { f -> f.name.endsWith("gresource.xml") } as File }
+                .run { layout.file(this) }
+
+            resourceBundles.register("default") {
+                manifest.convention(defaultGResourceManifest)
+            }
+
+            val defaultGSchemaManifest = processResources
+                .map(Copy::getDestinationDir)
+                .map(File::listFiles)
+                .map { d -> d.singleOrNull { f -> f.name.endsWith("gschema.xml") } as File }
+                .run { layout.file(this) }
+
+            schemaBundles.register("default") {
+                manifest.convention(defaultGSchemaManifest)
+            }
+        }
     }
-    compileGSchemasTasks(target)
-    compileGResourcesTasks(target)
 }
 
 internal inline val KotlinNativeTarget.gtkSupported
