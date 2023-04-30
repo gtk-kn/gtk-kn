@@ -30,6 +30,7 @@ import org.gtkkn.bindings.gtk.Orientation
 import org.gtkkn.bindings.gtk.Separator
 import org.gtkkn.bindings.gtk.Stack
 import org.gtkkn.bindings.gtk.StackSidebar
+import org.gtkkn.bindings.gtk.Window
 import org.gtkkn.extensions.gio.runApplication
 
 fun main() {
@@ -45,7 +46,7 @@ private fun buildWindow(app: Application) = ApplicationWindow(app).apply {
     title = "gtk-kn widgets"
     setSizeRequest(800, 600)
 
-    val stack = buildStack()
+    val stack = buildStack(this)
     stack.hexpand = true
     stack.vexpand = true
 
@@ -63,8 +64,9 @@ private fun buildWindow(app: Application) = ApplicationWindow(app).apply {
     setChild(layout)
 }
 
-private fun buildStack() = Stack().apply {
+private fun buildStack(window: Window) = Stack().apply {
     addTitled(label(), "label", "Label")
     addTitled(progressBar(), "progressbar", "Progress Bar")
     addTitled(spinner(), "spinner", "Spinner")
+    addTitled(messageDialogs(window), "messagedialogs", "Message Dialog")
 }
