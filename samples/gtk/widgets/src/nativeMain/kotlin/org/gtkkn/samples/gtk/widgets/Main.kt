@@ -68,5 +68,7 @@ private fun buildStack(window: Window) = Stack().apply {
     addTitled(label(), "label", "Label")
     addTitled(progressBar(), "progressbar", "Progress Bar")
     addTitled(spinner(), "spinner", "Spinner")
-    addTitled(messageDialogs(window), "messagedialogs", "Message Dialog")
+    addTitled(messageDialogs(window), "message-dialogs", "Message Dialog")
+    addTitled(listViewStrings(), "listview-strings", "List View (strings)")
+    addTitled(listViewObjects(), "listview-objects", "List View (objects)")
 }
