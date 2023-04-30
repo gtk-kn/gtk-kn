@@ -22,40 +22,49 @@
 
 package org.gtkkn.samples.gtk.widgets
 
-import org.gtkkn.bindings.gobject.BindingFlags
+import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.gtk.Application
+import org.gtkkn.bindings.gtk.ApplicationWindow
 import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.Orientation
-import org.gtkkn.bindings.gtk.Spinner
-import org.gtkkn.bindings.gtk.ToggleButton
-import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.gtk.setMargins
+import org.gtkkn.bindings.gtk.Separator
+import org.gtkkn.bindings.gtk.Stack
+import org.gtkkn.bindings.gtk.StackSidebar
+import org.gtkkn.extensions.gio.runApplication
 
-// --8<-- [start:doc]
-fun spinner(): Widget {
-    val spinner = Spinner().apply {
-        setSizeRequest(100, 100)
+fun main() {
+    val app = Application("org.gtkkn.samples.gtk.widgets", ApplicationFlags.FLAGS_NONE)
+    app.connectActivate {
+        val window = buildWindow(app)
+        window.present()
     }
-
-    val toggleButton = ToggleButton(label = "Start Spinning")
-
-    // bind the spinning property of the spinner to the active property of the toggleButton
-    toggleButton.bindProperty("active", spinner, "spinning", BindingFlags.DEFAULT)
-
-    // update the text when the button is spinning
-    toggleButton.connectClicked {
-        if (toggleButton.getActive()) {
-            toggleButton.setLabel("Stop Spinning")
-        } else {
-            toggleButton.setLabel("Start Spinning")
-        }
-    }
-
-    val box = Box(Orientation.VERTICAL, 20).apply {
-        setMargins(20)
-        append(spinner)
-        append(toggleButton)
-    }
-
-    return box
+    app.runApplication()
 }
-// --8<-- [end:doc]
+
+private fun buildWindow(app: Application) = ApplicationWindow(app).apply {
+    title = "gtk-kn widgets"
+    setSizeRequest(800, 600)
+
+    val stack = buildStack()
+    stack.hexpand = true
+    stack.vexpand = true
+
+    val stackSidebar = StackSidebar()
+    stackSidebar.setStack(stack)
+    stackSidebar.setSizeRequest(200, -1)
+    stackSidebar.vexpand = true
+
+    val layout = Box(Orientation.HORIZONTAL, 0).apply {
+        append(stackSidebar)
+        append(Separator(Orientation.VERTICAL))
+        append(stack)
+    }
+
+    setChild(layout)
+}
+
+private fun buildStack() = Stack().apply {
+    addTitled(label(), "label", "Label")
+    addTitled(progressBar(), "progressbar", "Progress Bar")
+    addTitled(spinner(), "spinner", "Spinner")
+}

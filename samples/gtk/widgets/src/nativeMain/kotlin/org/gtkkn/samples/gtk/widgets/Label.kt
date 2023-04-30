@@ -22,9 +22,6 @@
 
 package org.gtkkn.samples.gtk.widgets
 
-import org.gtkkn.bindings.gio.ApplicationFlags
-import org.gtkkn.bindings.gtk.Application
-import org.gtkkn.bindings.gtk.ApplicationWindow
 import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.Button
 import org.gtkkn.bindings.gtk.Justification
@@ -33,52 +30,43 @@ import org.gtkkn.bindings.gtk.Orientation
 import org.gtkkn.bindings.gtk.Widget
 
 // --8<-- [start:doc]
-fun label() {
-    val app = Application("org.gtkkn.samples.gtk.widgets.label", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
-        val window = ApplicationWindow(app).apply {
-            title = "Label Example"
-        }
-
-        val hbox = Box(Orientation.HORIZONTAL, spacing = 10).apply {
-            homogeneous = false
-            marginStart = 16
-            marginTop = 16
-            marginEnd = 16
-            marginBottom = 16
-        }
-        val vboxLeft = Box(orientation = Orientation.VERTICAL, spacing = 10).apply {
-            homogeneous = false
-            vexpand = true
-            hexpand = true
-        }
-        val vboxRight = Box(orientation = Orientation.VERTICAL, spacing = 10).apply {
-            homogeneous = false
-            vexpand = true
-            hexpand = true
-        }
-
-        hbox.append(vboxLeft)
-        hbox.append(vboxRight)
-
-        val button = getButton()
-        vboxLeft.apply {
-            append(getNormalLabel())
-            append(getLeftJustifiedLabel())
-            append(getRightJustifiedLabel())
-            append(getMarkupLabel())
-            append(getLabelWithMnemonic(button))
-        }
-        vboxRight.apply {
-            append(getLineWrappedLabel())
-            append(getLineWrappedFilledLabel())
-            append(button)
-        }
-
-        window.setChild(hbox)
-        window.show()
+fun label(): Box {
+    val hbox = Box(Orientation.HORIZONTAL, spacing = 10).apply {
+        homogeneous = false
+        marginStart = 16
+        marginTop = 16
+        marginEnd = 16
+        marginBottom = 16
     }
-    app.run(0, emptyList())
+    val vboxLeft = Box(orientation = Orientation.VERTICAL, spacing = 10).apply {
+        homogeneous = false
+        vexpand = true
+        hexpand = true
+    }
+    val vboxRight = Box(orientation = Orientation.VERTICAL, spacing = 10).apply {
+        homogeneous = false
+        vexpand = true
+        hexpand = true
+    }
+
+    hbox.append(vboxLeft)
+    hbox.append(vboxRight)
+
+    val button = getButton()
+    vboxLeft.apply {
+        append(getNormalLabel())
+        append(getLeftJustifiedLabel())
+        append(getRightJustifiedLabel())
+        append(getMarkupLabel())
+        append(getLabelWithMnemonic(button))
+    }
+    vboxRight.apply {
+        append(getLineWrappedLabel())
+        append(getLineWrappedFilledLabel())
+        append(button)
+    }
+
+    return hbox
 }
 
 private fun getNormalLabel() =

@@ -28,7 +28,7 @@ kotlin {
     linuxX64 {
         binaries {
             executable {
-                entryPoint = "org.gtkkn.samples.gtk.widgets.label"
+                entryPoint = "org.gtkkn.samples.gtk.widgets.main"
             }
         }
     }
