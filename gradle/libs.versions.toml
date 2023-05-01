@@ -1,12 +1,11 @@
 # Sharing dependency versions between projects
 # https://docs.gradle.org/current/userguide/platforms.html
-
 [versions]
-java = "17"
 detekt = "1.22.0"
-gradle = "8.1.1"
-kotlin = "1.8.21"
 dokka = "1.8.10"
+gradle = "8.1.1"
+java = "17"
+kotlin = "1.8.21"
 kotlin-logging = "4.0.0-beta-28"
 ktlint = "0.49.0"
 log4j = "2.20.0"
@@ -30,29 +29,38 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 ktlint-cli-ruleset-core = { module = "com.pinterest.ktlint:ktlint-cli-ruleset-core", version.ref = "ktlint" }
 ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktlint" }
 ktlint-rule-engine = { module = "com.pinterest.ktlint:ktlint-rule-engine", version.ref = "ktlint" }
-ktlint-ruleset-experimental = { module = "com.pinterest.ktlint:ktlint-ruleset-experimental", version.ref = "ktlint" }
+ktlint-ruleset-experimental = "com.pinterest.ktlint:ktlint-ruleset-experimental:0.48.2"
 ktlint-ruleset-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlint" }
 log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j" }
 log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j" }
 log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "log4j" }
-
+plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 # plugins
 plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
-plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-plugin-spotless = { module = "com.diffplug.spotless:spotless-plugin-gradle", version = "6.17.0" }
-plugin-versionsgradle = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.45.0" }
+plugin-spotless = "com.diffplug.spotless:spotless-plugin-gradle:6.17.0"
+plugin-versions = "com.github.ben-manes:gradle-versions-plugin:0.45.0"
+plugin-versions-update = "nl.littlerobots.vcu:plugin:0.8.0"
 
 [bundles]
-kotlin-logging-jvm = ["kotlin-logging-jvm", "log4j-api", "log4j-core", "log4j-slf4j2-impl"]
-ktlint = ["ktlint-core", "ktlint-cli-ruleset-core", "ktlint-rule-engine", "ktlint-ruleset-standard"]
+kotlin-logging-jvm = [
+    "kotlin-logging-jvm",
+    "log4j-api",
+    "log4j-core",
+    "log4j-slf4j2-impl",
+]
+ktlint = [
+    "ktlint-core",
+    "ktlint-cli-ruleset-core", "ktlint-rule-engine",
+    "ktlint-ruleset-standard",
+]
 
 [plugins]
+buildConfig = "com.github.gmazzo.buildconfig:3.1.0"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-gradledoctor = { id = "com.osacky.doctor", version = "0.8.1" }
+gradlePluginPublish = "com.gradle.plugin-publish:0.21.0"
+gradledoctor = "com.osacky.doctor:0.8.1"
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.24.0" }
-gradlePluginPublish = { id = "com.gradle.plugin-publish", version = "0.21.0" }
-buildConfig = { id = "com.github.gmazzo.buildconfig", version = "3.1.0" }
+mavenPublish = "com.vanniktech.maven.publish:0.24.0"
