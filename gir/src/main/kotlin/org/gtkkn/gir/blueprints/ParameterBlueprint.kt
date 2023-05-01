@@ -20,5 +20,6 @@ data class ParameterBlueprint(
     val kotlinName: String,
     val nativeName: String,
     val typeInfo: TypeInfo,
+    val defaultNull: Boolean,
     val kdoc: String?,
 )

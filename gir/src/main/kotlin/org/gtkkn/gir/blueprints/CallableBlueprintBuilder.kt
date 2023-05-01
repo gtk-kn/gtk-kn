@@ -59,6 +59,7 @@ abstract class CallableBlueprintBuilder<T : Any>(
                         kotlinName = context.kotlinizeParameterName(callbackParam.callbackParam.name),
                         nativeName = callbackParam.callbackParam.name,
                         typeInfo = cbTypeInfo,
+                        defaultNull = false,
                         kdoc = context.processKdoc(callbackParam.callbackParam.docs.doc?.text),
                     )
                     parameterBlueprints.add(cbParamBluePrint)
