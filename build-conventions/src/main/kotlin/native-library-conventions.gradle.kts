@@ -14,7 +14,6 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-import com.diffplug.gradle.spotless.SpotlessTask
 import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
@@ -32,9 +31,6 @@ kotlin {
 }
 
 tasks {
-    withType<SpotlessTask> {
-        mustRunAfter(":gir:run")
-    }
     withType<AbstractDokkaLeafTask> {
         mustRunAfter(":gir:run")
     }
