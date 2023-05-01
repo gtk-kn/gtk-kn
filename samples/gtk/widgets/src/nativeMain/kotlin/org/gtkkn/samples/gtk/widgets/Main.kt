@@ -71,4 +71,5 @@ private fun buildStack(window: Window) = Stack().apply {
     addTitled(messageDialogs(window), "message-dialogs", "Message Dialog")
     addTitled(listViewStrings(), "listview-strings", "List View (strings)")
     addTitled(listViewObjects(), "listview-objects", "List View (objects)")
+    addTitled(treeview(), "tree-view", "Tree View")
 }

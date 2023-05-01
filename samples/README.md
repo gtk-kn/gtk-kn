@@ -11,7 +11,14 @@ the screen and interact with widgets.
 
 ### widgets
 
-[widgets](gtk/widgets) is a showcase of various GTK widgets.
+[widgets](gtk/widgets) is a showcase of various GTK widgets and patterns:
+
+- Label
+- ListView
+- MessageDialog
+- ProgressBar
+- Spinner
+- TreeView
 
 ### widget-templates
 
