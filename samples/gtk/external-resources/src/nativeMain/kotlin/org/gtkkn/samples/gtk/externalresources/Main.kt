@@ -20,27 +20,34 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.playground
+package org.gtkkn.samples.gtk.externalresources
 
-import io.github.oshai.KotlinLogging
-import io.github.oshai.KotlinLoggingConfiguration
-import io.github.oshai.Level
+import org.gtkkn.bindings.gdkpixbuf.Pixbuf
 import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.gio.Gio
+import org.gtkkn.bindings.gio.Resource
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
+import org.gtkkn.bindings.gtk.Image
 import org.gtkkn.extensions.gio.runApplication
 
-val logger = KotlinLogging.logger("main")
+fun main() {
+    // register the resource bundle
+    Gio.resourcesRegister(
+        Resource.load("build/gtk/gResource/linuxX64/main/gResource.gresource").getOrThrow(),
+    )
 
-@Suppress("FunctionName")
-fun Application(builder: ApplicationWindow.() -> Unit) {
-    KotlinLoggingConfiguration.logLevel = Level.TRACE
-    val app = Application("org.gtkkn.samples.playground", ApplicationFlags.FLAGS_NONE)
+    val app = Application("org.gtkkn.samples.gtk.embeddedresources", ApplicationFlags.FLAGS_NONE)
+
     app.connectActivate {
         val window = ApplicationWindow(app)
-        window.setDefaultSize(800, 600)
-        window.builder()
-        window.present()
+        window.title = "Logo from External Resources"
+        window.setDefaultSize(420, 420)
+
+        window.child = Image().apply {
+            setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
+        }
+        window.show()
     }
     app.runApplication()
 }

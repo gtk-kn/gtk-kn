@@ -22,29 +22,6 @@
 
 package org.gtkkn.samples.playground
 
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
-import org.gtkkn.bindings.gio.Gio
-import org.gtkkn.bindings.gio.Resource
-import org.gtkkn.bindings.gtk.Image
-
-fun logoFromEmbeddedResources() = Application {
-    title = "Logo from Embedded Resources"
-    setDefaultSize(420, 420)
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
-    }
-}
-
-fun logoFromFileResources() = Application {
-    title = "Logo from File Resources"
-    setDefaultSize(420, 420)
-
-    // borked for now: invalid gvdb header error
-    Gio.resourcesRegister(
-        Resource.load("build/gtk/gResource/linuxX64/main/gResource.gresource")
-            .getOrThrow(),
-    )
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
-    }
+fun main() = Application {
+    // this is where any playground code can run
 }

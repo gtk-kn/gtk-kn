@@ -13,6 +13,22 @@ the screen and interact with widgets.
 
 [widgets](gtk/widgets) is a showcase of various GTK widgets.
 
+### widget-templates
+
+[widget-templates](gtk/widget-templates) is an example that has a custom `ExampleWidget` widget class that uses
+[examplewidget.ui](gtk/widget-templates/src/nativeMain/resources/examplewidget.ui) as a resource file to define
+the widget template and binds the child objects from the template as instance properties.
+
+### restore-window-state
+
+[restore-window-state](gtk/restore-window-state) is an example that uses a Gio Settings schema
+to store the window state on close and restore the previous state when the window is opened.
+
+### embedded-resources
+
+[embedded-resources](gtk/embedded-resources) is an example that uses the gradle plugin to
+embed the `kotlin.png` file in the executable binary and display it at runtime in an `Image` widget.
+
 ## Playground
 
 The [playground](playground) is an empty project window that is mostly used

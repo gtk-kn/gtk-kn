@@ -20,34 +20,26 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.playground
+package org.gtkkn.samples.gtk.embeddedresources
 
-import org.gtkkn.bindings.gio.Settings
+import org.gtkkn.bindings.gdkpixbuf.Pixbuf
+import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
-import org.gtkkn.bindings.gtk.Label
+import org.gtkkn.bindings.gtk.Image
+import org.gtkkn.extensions.gio.runApplication
 
-fun schemaWindowSize() = Application {
-    title = "Schema Window Size"
+fun main() {
+    val app = Application("org.gtkkn.samples.gtk.embeddedresources", ApplicationFlags.FLAGS_NONE)
+    app.connectActivate {
+        val window = ApplicationWindow(app)
+        window.title = "Logo from Embedded Resources"
+        window.setDefaultSize(420, 420)
 
-    val settings = Settings(application!!.applicationId!!)
-    loadWindowState(settings)
-    connectCloseRequest {
-        saveWindowState(settings)
-        false
+        window.child = Image().apply {
+            setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
+        }
+        window.show()
     }
-    child = Label("Resize window and then check it's persisted between restarts")
-}
-
-fun ApplicationWindow.saveWindowState(settings: Settings) {
-    settings.setInt("window-width", getWidth())
-    settings.setInt("window-height", getHeight())
-    settings.setBoolean("is-maximised", isMaximized())
-}
-
-fun ApplicationWindow.loadWindowState(settings: Settings) {
-    val width = settings.getInt("window-width")
-    val height = settings.getInt("window-height")
-    val maximised = settings.getBoolean("is-maximised")
-    setDefaultSize(width = width, height = height)
-    if (maximised) maximize()
+    app.runApplication()
 }
