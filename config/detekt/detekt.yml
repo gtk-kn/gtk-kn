@@ -271,12 +271,13 @@ comments:
     active: false
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
   OutdatedDocumentation:
     active: true # Custom
@@ -287,12 +288,13 @@ comments:
     active: false
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
     searchInNestedClass: true
     searchInInnerClass: true
@@ -303,24 +305,26 @@ comments:
     active: false
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
     searchProtectedFunction: false
   UndocumentedPublicProperty:
     active: false
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
     searchProtectedProperty: false
 
@@ -405,12 +409,13 @@ complexity:
     active: false
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
     threshold: 3
     ignoreAnnotation: true
@@ -420,12 +425,13 @@ complexity:
     active: false # Custom
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
     thresholdInFiles: 11
     thresholdInClasses: 11
@@ -503,12 +509,13 @@ exceptions:
     active: true
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
   NotImplementedDeclaration:
     active: false
@@ -537,12 +544,13 @@ exceptions:
     active: true
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
     exceptions:
       - 'ArrayIndexOutOfBoundsException'
@@ -560,12 +568,13 @@ exceptions:
     active: true
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
     exceptionNames:
       - 'ArrayIndexOutOfBoundsException'
@@ -619,12 +628,13 @@ naming:
     active: true
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
     functionPattern: '`?[a-z][A-Za-z0-9]*`?' # Custom
     excludeClassPattern: '$^'
@@ -694,23 +704,25 @@ performance:
     active: true
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
   SpreadOperator:
     active: true
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
   UnnecessaryPartOfBinaryExpression:
     active: true # Custom
@@ -780,12 +792,13 @@ potential-bugs:
     active: true # Custom
     excludes:
       [
-        '**/test/**',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
     ignoreAnnotated: [ 'Inject' ] # Custom
     ignoreOnClassesPattern: '(.*Activity|.*Fragment|.*ViewModel)' # Custom
@@ -895,13 +908,14 @@ style:
     active: false # Custom
     excludes:
       [
-        '**/test/**',
+        '**/*.kts',
         '**/androidTest/**',
         '**/commonTest/**',
-        '**/jvmTest/**',
-        '**/jsTest/**',
         '**/iosTest/**',
-        '**/*.kts',
+        '**/jsTest/**',
+        '**/jvmTest/**',
+        '**/nativeTest/**',
+        '**/test/**',
       ]
     ignoreNumbers:
       - '-1'
