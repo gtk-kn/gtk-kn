@@ -81,6 +81,7 @@ class ParameterBlueprintBuilder(
             kotlinName = paramKotlinName,
             nativeName = girParam.name,
             typeInfo = typeInfo,
+            defaultNull = girParam.isDefaultNull(),
             kdoc = context.processKdoc(girParam.docs.doc?.text),
         )
     }

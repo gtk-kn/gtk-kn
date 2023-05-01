@@ -54,4 +54,6 @@ data class GirParameter(
     val type: GirAnyTypeOrVarargs,
 ) {
     fun isNullable(): Boolean = nullable == true || allowNone == true || optional == true
+
+    fun isDefaultNull(): Boolean = nullable == true && optional == true || nullable == true && allowNone == true
 }

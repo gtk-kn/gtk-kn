@@ -60,7 +60,7 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             }
         }.build()
 
-    @Suppress("LongMethod")
+    @Suppress("LongMethod", "CyclomaticComplexMethod")
     fun buildMethod(
         method: MethodBlueprint,
         instancePointer: String?,
@@ -89,7 +89,8 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             }
         }
 
-        appendSignatureParameters(method.parameters)
+        val includeDefaults = builderType == FunSpecBuilderType.DEFAULT && !method.isOverride
+        appendSignatureParameters(method.parameters, includeDefaults)
 
         // begin implementation
         if (method.needsMemscoped) {
@@ -367,11 +368,17 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             ),
         )
 
-    fun FunSpec.Builder.appendSignatureParameters(parameters: List<ParameterBlueprint>) {
+    fun FunSpec.Builder.appendSignatureParameters(
+        parameters: List<ParameterBlueprint>,
+        includeDefaults: Boolean = true
+    ) {
         // add arguments to signature
         parameters.forEach { param ->
-            val kotlinParamType = param.typeInfo.kotlinTypeName
-            addParameter(param.kotlinName, kotlinParamType)
+            val paramSpecBuilder = ParameterSpec.builder(param.kotlinName, param.typeInfo.kotlinTypeName)
+            if (includeDefaults && param.typeInfo.kotlinTypeName.isNullable && param.defaultNull) {
+                paramSpecBuilder.defaultValue("null")
+            }
+            addParameter(paramSpecBuilder.build())
         }
     }
 
