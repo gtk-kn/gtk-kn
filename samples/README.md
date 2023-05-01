@@ -29,7 +29,13 @@ to store the window state on close and restore the previous state when the windo
 [embedded-resources](gtk/embedded-resources) is an example that uses the gradle plugin to
 embed the `kotlin.png` file in the executable binary and display it at runtime in an `Image` widget.
 
+### external-resources
+
+[external-resources](gtk/external-resources) is similar to [embedded-resources](#embedded-resources)
+but instead uses the gradle plugin to compile the image into an external resource bundle which
+is loaded at runtime.
+
 ## Playground
 
-The [playground](playground) is an empty project window that is mostly used
+The [playground](playground) is a module which opens a blank window that is mostly used
 for development and testing purposes.
