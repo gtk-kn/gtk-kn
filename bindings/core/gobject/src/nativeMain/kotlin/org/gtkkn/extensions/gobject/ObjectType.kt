@@ -227,7 +227,7 @@ public open class ObjectType<T : Object>(
      * @return [CPointer] pointing to the newly create g_object.
      * @see ObjectType
      */
-    public inline fun <reified T : CPointed> newInstancePointer(): CPointer<T> =
+    public open fun <T : CPointed> newInstancePointer(): CPointer<T> =
         checkNotNull(g_object_new(type.gType, null, null)).reinterpret()
 
     /**
