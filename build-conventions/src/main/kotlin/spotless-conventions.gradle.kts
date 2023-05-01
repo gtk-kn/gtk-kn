@@ -15,6 +15,8 @@
  */
 
 import com.diffplug.gradle.spotless.KotlinExtension
+import com.diffplug.gradle.spotless.SpotlessTask
+import com.diffplug.gradle.spotless.SpotlessTaskImpl
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
@@ -55,3 +57,13 @@ spotless {
         endWithNewline()
     }
 }
+
+tasks {
+    withType<SpotlessTaskImpl> {
+        mustRunAfter("gir:run")
+    }
+    withType<SpotlessTask> {
+        mustRunAfter("gir:run")
+    }
+}
+
