@@ -22,6 +22,33 @@
 
 package org.gtkkn.samples.playground
 
+import org.gtkkn.bindings.adw.HeaderBar
+import org.gtkkn.bindings.gtk.Align
+import org.gtkkn.bindings.gtk.Box
+import org.gtkkn.bindings.gtk.Label
+import org.gtkkn.bindings.gtk.Orientation
+
 fun main() = Application {
-    // this is where any playground code can run
+    // setup a HeaderBar since adw windows don't have any by default
+    val headerBar = HeaderBar().apply {
+        title = "gtk-kn playground"
+    }
+
+    // setup window layout
+    val layout = Box(Orientation.VERTICAL, 0).apply {
+        append(headerBar)
+    }
+    setContent(layout)
+
+    // this is where any playground code can run to set up widgets
+    val label = Label().apply {
+        label = "Playground"
+        halign = Align.CENTER
+        valign = Align.CENTER
+        hexpand = true
+        vexpand = true
+    }
+
+    // and add your widget to the layout to display it
+    layout.append(label)
 }
