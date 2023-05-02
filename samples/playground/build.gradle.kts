@@ -40,6 +40,7 @@ kotlin {
                 implementation(project(":bindings:gtk:gtk4"))
                 implementation(project(":bindings:core:gdkpixbuf"))
                 implementation(project(":bindings:adwaita"))
+                implementation(project(":bindings:extra:libportal"))
 //                implementation(project(":bindings:gtksource"))
                 // Import from mavenLocal
                 // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")

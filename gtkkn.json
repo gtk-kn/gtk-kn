@@ -86,6 +86,11 @@
       "name": "he",
       "module": "extra:libhelium",
       "girPrefix": "He-"
+    },
+    {
+      "name": "xdp",
+      "module": "extra:libportal",
+      "girPrefix": "Xdp-"
     }
   ]
 }
