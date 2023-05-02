@@ -36,6 +36,8 @@ to store the window state on close and restore the previous state when the windo
 [embedded-resources](gtk/embedded-resources) is an example that uses the gradle plugin to
 embed the `kotlin.png` file in the executable binary and display it at runtime in an `Image` widget.
 
+This example also shows how to set up a css provider using a styles.css file from resources.
+
 ### external-resources
 
 [external-resources](gtk/external-resources) is similar to [embedded-resources](#embedded-resources)

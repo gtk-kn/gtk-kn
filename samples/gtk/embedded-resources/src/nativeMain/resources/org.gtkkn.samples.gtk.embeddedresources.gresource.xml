@@ -25,4 +25,7 @@
     <gresource prefix="/images">
         <file>kotlin.png</file>
     </gresource>
+    <gresource prefix="/css">
+        <file>styles.css</file>
+    </gresource>
 </gresources>

@@ -22,22 +22,39 @@
 
 package org.gtkkn.samples.gtk.embeddedresources
 
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
+import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
+import org.gtkkn.bindings.gtk.CssProvider
 import org.gtkkn.bindings.gtk.Image
+import org.gtkkn.bindings.gtk.StyleContext
 import org.gtkkn.extensions.gio.runApplication
+import org.gtkkn.native.gtk.GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
 
 fun main() {
     val app = Application("org.gtkkn.samples.gtk.embeddedresources", ApplicationFlags.FLAGS_NONE)
     app.connectActivate {
-        val window = ApplicationWindow(app)
-        window.title = "Logo from Embedded Resources"
-        window.setDefaultSize(420, 420)
+        // setup css provider
+        val cssProvider = CssProvider()
+        cssProvider.loadFromResource("/css/styles.css")
 
-        window.child = Image().apply {
-            setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
+        // apply the css provider to the display
+        val display = Display.getDefault() ?: error("No default display")
+        StyleContext.addProviderForDisplay(display, cssProvider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION.toUInt())
+
+        // setup the window
+        val window = ApplicationWindow(app).apply {
+            title = "Logo from Embedded Resources"
+            setDefaultSize(420, 420)
+            addCssClass("example-window")
+
+            // load the image from the embedded resources
+            val image = Image.newFromResource("/images/kotlin.png")
+            image.addCssClass("logo-image")
+
+            // set the image as child in the window
+            child = image
         }
         window.show()
     }
