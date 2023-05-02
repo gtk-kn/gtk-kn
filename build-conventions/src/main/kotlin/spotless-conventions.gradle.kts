@@ -27,7 +27,8 @@ val libs = the<LibrariesForLibs>()
 
 spotless {
     kotlin {
-        target("$projectDir/src/**/*.kt")
+        target("**/*.kt")
+        targetExclude("$buildDir/**/*.kt", "build-conventions/build/**/*.kt")
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()
@@ -49,7 +50,6 @@ spotless {
     format("misc") {
         // define the files to apply `misc` to
         target("**/*.md", "**/.gitignore")
-        targetExclude("**/src/nativeMain/kotlin/**")
 
         // define the steps to apply to those files
         indentWithSpaces()

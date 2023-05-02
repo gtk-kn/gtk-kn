@@ -24,23 +24,70 @@ package org.gtkkn.gradle.plugin.ext
 
 import org.gradle.api.Project
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.plugins.ExtensionAware
+import org.gradle.kotlin.dsl.domainObjectContainer
 import org.gradle.kotlin.dsl.getByType
+import org.gtkkn.gradle.plugin.domain.GResourceBundle
+import org.gtkkn.gradle.plugin.domain.GSchemaBundle
 import org.gtkkn.gradle.plugin.utils.maybeCreate
 
-interface GtkExt : GtkKotlinNativeCompilationExt {
+interface GtkExt : ExtensionAware {
     /**
      * Where to place intermediate outputs of various plugin tasks
      */
     val baseOutputDir: DirectoryProperty
 
+    /**
+     * Where to install compiled gschema.xml
+     */
+    val schemasInstallDir: DirectoryProperty
+
     companion object {
-        internal fun register(project: Project) = project.extensions.maybeCreate<GtkExt>("gtk") {
+        const val NAME = "gtk"
+        internal fun register(project: Project) = project.extensions.maybeCreate<GtkExt>(NAME) {
+            baseOutputDir.convention(project.layout.buildDirectory.dir("gtk/"))
             schemasInstallDir.convention(
                 project.layout.projectDirectory
                     .dir("${System.getProperty("user.home")}/.local/share/glib-2.0/schemas/"),
             )
-            baseOutputDir.convention(project.layout.buildDirectory.dir("gtk/"))
-            embedResources.convention(true)
+            registerGResources(project)
+            registerGSchemas(project)
+        }
+
+        private fun GtkExt.registerGResources(project: Project) {
+            project.objects.domainObjectContainer(GResourceBundle::class) { name ->
+                GResourceBundle.create(name, project)
+            }.apply {
+                whenObjectRemoved {
+                    project.tasks.removeAll(
+                        setOfNotNull(
+                            processTask.orNull,
+                            compileHeaderTask.orNull,
+                            compileSourceTask.orNull,
+                            compileBundleTask.orNull,
+                        ),
+                    )
+                }
+                register("main")
+                project.afterEvaluate{ this@apply.forEach { _ -> } }
+            }.also { extensions.add("gresources", it) }
+        }
+
+        private fun GtkExt.registerGSchemas(project: Project) {
+            project.objects.domainObjectContainer(GSchemaBundle::class) { name ->
+                GSchemaBundle.create(name, project)
+            }.apply {
+                whenObjectRemoved {
+                    project.tasks.removeAll(
+                        setOfNotNull(
+                            processTask.orNull,
+                            installTask.orNull,
+                        ),
+                    )
+                }
+                register("main")
+                project.afterEvaluate{ this@apply.forEach { _ -> } }
+            }.also { extensions.add("gschemas", it) }
         }
     }
 }

@@ -20,7 +20,6 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     id("detekt-conventions")
     id("org.gtkkn.gtk")
-    idea
 }
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -30,13 +29,6 @@ kotlin {
         binaries {
             executable {
                 entryPoint = "org.gtkkn.samples.playground.main"
-            }
-        }
-        compilations["main"].apply {
-            gtk {
-                resourceBundles.register("custom") {
-                    manifest.set(layout.projectDirectory.file("src/nativeMain/custom/custom.gresource.xml"))
-                }
             }
         }
     }
@@ -52,6 +44,30 @@ kotlin {
                 // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
                 implementation(libs.kotlin.logging.linux.x64)
             }
+        }
+    }
+}
+
+gtk {
+    schemasInstallDir.set(File("${System.getProperty("user.home")}/.local/share/glib-2.0/schemas/"))
+    baseOutputDir.set(layout.buildDirectory.dir("gtk/"))
+    gresources {
+        main {
+            manifest.set(projectDir.resolve("src/gresources/main/gresource.xml"))
+            embed(kotlin.linuxX64().compilations.named("main"))
+        }
+        register("custom") {
+            // This is detected by convention and does not have to be set up explicitly
+            manifest.set(projectDir.resolve("src/gresources/custom/whatever.gresource.xml"))
+        }
+    }
+    gschemas {
+        main {
+            preinstall(kotlin.linuxX64().compilations.named("main"))
+        }
+        register("custom") {
+            // This is detected by convention and does not have to be set up explicitly
+            manifest.set(projectDir.resolve("src/gschemas/custom.gschema.xml"))
         }
     }
 }

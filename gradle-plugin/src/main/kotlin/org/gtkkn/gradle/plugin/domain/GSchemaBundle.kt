@@ -22,13 +22,20 @@
 
 package org.gtkkn.gradle.plugin.domain
 
+import org.gradle.api.DomainObjectSet
 import org.gradle.api.Named
-import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.NamedDomainObjectProvider
+import org.gradle.api.Project
 import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.Optional
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.OutputFile
+import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.Copy
+import org.gradle.api.tasks.TaskProvider
+import org.gradle.kotlin.dsl.domainObjectSet
+import org.gradle.kotlin.dsl.register
+import org.gtkkn.gradle.plugin.GtkPlugin
+import org.gtkkn.gradle.plugin.ext.gtk
+import org.gtkkn.gradle.plugin.task.CompileGSchemasTask
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 
 interface GSchemaBundle : Named {
     /**
@@ -37,12 +44,54 @@ interface GSchemaBundle : Named {
     val manifest: RegularFileProperty
 
     /**
-     * Where to store the gschemas.compiled file
+     * A set of [KotlinNativeCompilation] which depend on schemas being preinstalled
      */
-    val targetDir: DirectoryProperty
+    val preinstall: DomainObjectSet<KotlinNativeCompilation>
 
-    /**
-     * Where to install the gschemas.compiled file
-     */
-    val installDir: DirectoryProperty
+    fun preinstall(compilation: KotlinNativeCompilation) {
+        preinstall.add(compilation)
+    }
+
+    fun preinstall(compilation: Provider<KotlinNativeCompilation>) {
+        preinstall.addLater(compilation)
+    }
+
+
+    val processTask: TaskProvider<Copy>
+    val installTask: TaskProvider<CompileGSchemasTask>
+
+    companion object {
+        internal fun create(name: String, project: Project): GSchemaBundle =
+            object : GSchemaBundle {
+                override fun getName() = name
+                override val manifest = project.objects.fileProperty()
+                override val preinstall = project.objects.domainObjectSet(KotlinNativeCompilation::class)
+                override val processTask = project.registerProcessTask(this)
+                override val installTask = project.registerInstallTask(this)
+            }.apply {
+                manifest.convention(project.layout.projectDirectory.file("src/gschemas/$name.gschema.xml"))
+                preinstall.whenObjectAdded {
+                    compileTaskProvider.configure {
+                        dependsOn(installTask)
+                    }
+                }
+            }
+
+        private fun Project.registerProcessTask(
+            bundle: GSchemaBundle,
+        ) = tasks.register<Copy>("${bundle.name}ProcessGSchema") {
+            group = GtkPlugin.TASK_GROUP
+            from(bundle.manifest)
+            destinationDir = project.buildDir.resolve("processedGSchemas/${bundle.name}")
+        }
+
+        private fun Project.registerInstallTask(
+            bundle: GSchemaBundle,
+        ) = tasks.register<CompileGSchemasTask>("${bundle.name}InstallGSchema") {
+            group = GtkPlugin.TASK_GROUP
+            dependsOn(bundle.processTask)
+            sourceDir.convention(project.layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
+            targetDir.convention(gtk.schemasInstallDir)
+        }
+    }
 }

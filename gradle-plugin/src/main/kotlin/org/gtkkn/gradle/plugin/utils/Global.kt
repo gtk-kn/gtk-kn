@@ -20,19 +20,23 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.gradle.plugin.ext
+@file:Suppress("PackageDirectoryMismatch")
 
-import org.gradle.api.plugins.ExtensionAware
-import org.gtkkn.gradle.plugin.utils.maybeCreate
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.gradle.api.NamedDomainObjectProvider
+import org.gradle.api.provider.Provider
+import org.gtkkn.gradle.plugin.domain.GResourceBundle
+import org.gtkkn.gradle.plugin.domain.GSchemaBundle
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 
-interface GtkKotlinNativeTargetExt : GtkKotlinNativeCompilationExt {
 
-    companion object {
-        internal fun register(gtk: GtkExt, target: KotlinNativeTarget) =
-            (target as ExtensionAware).extensions.maybeCreate<GtkKotlinNativeTargetExt>("gtk") {
-                schemasInstallDir.convention(gtk.schemasInstallDir)
-                embedResources.convention(gtk.embedResources)
-            }
-    }
-}
+fun NamedDomainObjectProvider<GResourceBundle>.embed(compilation: KotlinNativeCompilation) =
+    configure { embed(compilation) }
+
+fun NamedDomainObjectProvider<GResourceBundle>.embed(compilation: Provider<KotlinNativeCompilation>) =
+    configure { embed(compilation) }
+
+fun NamedDomainObjectProvider<GSchemaBundle>.preinstall(compilation: KotlinNativeCompilation) =
+    configure { preinstall(compilation) }
+
+fun NamedDomainObjectProvider<GSchemaBundle>.preinstall(compilation: Provider<KotlinNativeCompilation>) =
+    configure { preinstall(compilation) }
