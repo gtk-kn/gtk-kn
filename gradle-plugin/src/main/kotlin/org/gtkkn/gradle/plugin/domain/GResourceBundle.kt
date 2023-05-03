@@ -46,6 +46,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 import org.jetbrains.kotlin.gradle.tasks.CInteropProcess
 import java.io.File
 
+@Suppress("ClassOrdering")
 interface GResourceBundle : Named, SourceDirectorySet {
     /**
      * *.gresource.xml file
@@ -84,7 +85,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
 
     companion object {
         internal fun create(name: String, project: Project): GResourceBundle {
-            val defFile = project.gtk.baseOutputDir.file("gresources/${name}/${name}.def")
+            val defFile = project.gtk.baseOutputDir.file("gresources/$name/$name.def")
             return object : GResourceBundle, SourceDirectorySet by project.objects.sourceDirectorySet(name, name) {
                 override fun getName() = name
                 override val manifest = project.objects.fileProperty()
@@ -104,14 +105,16 @@ interface GResourceBundle : Named, SourceDirectorySet {
                             if (candidates.size > 1) {
                                 project.logger.error(
                                     """
-                                    |Multiple manifests detected for gresource[${this@gresource.name}]!
-                                    |Either remove extra manifests or declare desired manifest explicitly.
-                                    |Detected manifests:
-                                    |${candidates.joinToString("\n|\t", prefix = "\t")}
+                                        |Multiple manifests detected for gresource[${this@gresource.name}]!
+                                        |Either remove extra manifests or declare desired manifest explicitly.
+                                        |Detected manifests:
+                                        |${candidates.joinToString("\n|\t", prefix = "\t")}
                                     """.trimMargin(),
                                 )
                                 error("Multiple manifests detected for gresource[${this@gresource.name}]!")
-                            } else candidates.firstOrNull()
+                            } else {
+                                candidates.firstOrNull()
+                            }
                         },
                     ),
                 )
@@ -203,7 +206,6 @@ interface GResourceBundle : Named, SourceDirectorySet {
                 )
             }
         }
-
 
         /*
          * Leaving the below as an alternative way of embedding resources

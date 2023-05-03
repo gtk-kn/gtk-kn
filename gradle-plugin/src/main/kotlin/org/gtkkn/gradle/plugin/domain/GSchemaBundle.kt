@@ -24,7 +24,6 @@ package org.gtkkn.gradle.plugin.domain
 
 import org.gradle.api.DomainObjectSet
 import org.gradle.api.Named
-import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.Project
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Provider
@@ -37,6 +36,7 @@ import org.gtkkn.gradle.plugin.ext.gtk
 import org.gtkkn.gradle.plugin.task.CompileGSchemasTask
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 
+@Suppress("ClassOrdering")
 interface GSchemaBundle : Named {
     /**
      * *.gschema.xml file
@@ -55,7 +55,6 @@ interface GSchemaBundle : Named {
     fun preinstall(compilation: Provider<KotlinNativeCompilation>) {
         preinstall.addLater(compilation)
     }
-
 
     val processTask: TaskProvider<Copy>
     val installTask: TaskProvider<CompileGSchemasTask>

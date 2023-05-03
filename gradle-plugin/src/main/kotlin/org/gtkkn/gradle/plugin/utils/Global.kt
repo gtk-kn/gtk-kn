@@ -28,15 +28,14 @@ import org.gtkkn.gradle.plugin.domain.GResourceBundle
 import org.gtkkn.gradle.plugin.domain.GSchemaBundle
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 
-
-fun NamedDomainObjectProvider<GResourceBundle>.embed(compilation: KotlinNativeCompilation) =
+fun NamedDomainObjectProvider<GResourceBundle>.embed(compilation: KotlinNativeCompilation): Unit =
     configure { embed(compilation) }
 
-fun NamedDomainObjectProvider<GResourceBundle>.embed(compilation: Provider<KotlinNativeCompilation>) =
+fun NamedDomainObjectProvider<GResourceBundle>.embed(compilation: Provider<KotlinNativeCompilation>): Unit =
     configure { embed(compilation) }
 
-fun NamedDomainObjectProvider<GSchemaBundle>.preinstall(compilation: KotlinNativeCompilation) =
+fun NamedDomainObjectProvider<GSchemaBundle>.preinstall(compilation: KotlinNativeCompilation): Unit =
     configure { preinstall(compilation) }
 
-fun NamedDomainObjectProvider<GSchemaBundle>.preinstall(compilation: Provider<KotlinNativeCompilation>) =
+fun NamedDomainObjectProvider<GSchemaBundle>.preinstall(compilation: Provider<KotlinNativeCompilation>): Unit =
     configure { preinstall(compilation) }

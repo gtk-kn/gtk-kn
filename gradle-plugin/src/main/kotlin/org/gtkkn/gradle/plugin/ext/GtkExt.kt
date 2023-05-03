@@ -69,7 +69,7 @@ interface GtkExt : ExtensionAware {
                     )
                 }
                 register("main")
-                project.afterEvaluate{ this@apply.forEach { _ -> } }
+                project.afterEvaluate { this@apply.forEach { _ -> } }
             }.also { extensions.add("gresources", it) }
         }
 
@@ -86,7 +86,7 @@ interface GtkExt : ExtensionAware {
                     )
                 }
                 register("main")
-                project.afterEvaluate{ this@apply.forEach { _ -> } }
+                project.afterEvaluate { this@apply.forEach { _ -> } }
             }.also { extensions.add("gschemas", it) }
         }
     }
