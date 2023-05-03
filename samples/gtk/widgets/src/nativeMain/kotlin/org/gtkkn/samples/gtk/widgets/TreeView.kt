@@ -39,7 +39,7 @@ import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.gobject.ObjectType
 import org.gtkkn.extensions.gobject.asType
 
-fun treeview(): Widget {
+fun treeView(): Widget {
     // create a ListStore that contains instances of Comment
     val listStore = ListStore(Comment.gType)
 

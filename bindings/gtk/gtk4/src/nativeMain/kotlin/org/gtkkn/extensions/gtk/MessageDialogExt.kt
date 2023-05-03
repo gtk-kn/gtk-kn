@@ -59,4 +59,4 @@ public fun TypeCompanion<MessageDialog>.new(
  * but they can also be user defined.
  */
 public fun ResponseType.Companion.fromIntOrNull(value: Int): ResponseType? =
-    ResponseType.values().firstOrNull() { it.nativeValue.value == value }
+    ResponseType.values().firstOrNull { it.nativeValue.value == value }
