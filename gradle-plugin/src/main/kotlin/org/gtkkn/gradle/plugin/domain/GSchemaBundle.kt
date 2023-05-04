@@ -25,6 +25,7 @@ package org.gtkkn.gradle.plugin.domain
 import org.gradle.api.DomainObjectSet
 import org.gradle.api.Named
 import org.gradle.api.Project
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Copy
@@ -32,6 +33,7 @@ import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.domainObjectSet
 import org.gradle.kotlin.dsl.register
 import org.gtkkn.gradle.plugin.GtkPlugin
+import org.gtkkn.gradle.plugin.ext.GtkExt
 import org.gtkkn.gradle.plugin.ext.gtk
 import org.gtkkn.gradle.plugin.task.CompileGSchemasTask
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
@@ -40,8 +42,17 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 interface GSchemaBundle : Named {
     /**
      * *.gschema.xml file
+     *
+     * Defaults to "${projectDir}/src/gschemas/${name}.gschema.xml"
      */
     val manifest: RegularFileProperty
+
+    /**
+     * A directory where to install this gschema.
+     *
+     * Defaults to "${[GtkExt.installPrefix]}/glib-2.0/schemas/
+     */
+    val installDir: DirectoryProperty
 
     /**
      * A set of [KotlinNativeCompilation] which depend on schemas being preinstalled
@@ -57,6 +68,7 @@ interface GSchemaBundle : Named {
     }
 
     val processTask: TaskProvider<Copy>
+    val verifyTask: TaskProvider<CompileGSchemasTask>
     val installTask: TaskProvider<CompileGSchemasTask>
 
     companion object {
@@ -64,11 +76,14 @@ interface GSchemaBundle : Named {
             object : GSchemaBundle {
                 override fun getName() = name
                 override val manifest = project.objects.fileProperty()
+                override val installDir: DirectoryProperty = project.objects.directoryProperty()
                 override val preinstall = project.objects.domainObjectSet(KotlinNativeCompilation::class)
                 override val processTask = project.registerProcessTask(this)
+                override val verifyTask = project.registerVerifyTask(this)
                 override val installTask = project.registerInstallTask(this)
             }.apply {
                 manifest.convention(project.layout.projectDirectory.file("src/gschemas/$name.gschema.xml"))
+                installDir.convention(project.gtk.installPrefix.dir("glib-2.0/schemas/"))
                 preinstall.whenObjectAdded {
                     compileTaskProvider.configure {
                         dependsOn(installTask)
@@ -80,17 +95,41 @@ interface GSchemaBundle : Named {
             bundle: GSchemaBundle,
         ) = tasks.register<Copy>("${bundle.name}ProcessGSchema") {
             group = GtkPlugin.TASK_GROUP
+            description = "Processes ${bundle.name} gschema"
             from(bundle.manifest)
             destinationDir = project.buildDir.resolve("processedGSchemas/${bundle.name}")
         }
 
+        private fun Project.registerVerifyTask(
+            bundle: GSchemaBundle,
+        ) = tasks.register<CompileGSchemasTask>("${bundle.name}VerifyGSchema") {
+            group = "verification"
+            description = "Verifies ${bundle.name} gschema"
+            dependsOn(bundle.processTask)
+            onlyIf { bundle.processTask.get().destinationDir.exists() }
+            dryRun.convention(true)
+            sourceDir.convention(project.layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
+        }.also { t -> tasks.named("check") { dependsOn(t) } }
+
         private fun Project.registerInstallTask(
             bundle: GSchemaBundle,
-        ) = tasks.register<CompileGSchemasTask>("${bundle.name}InstallGSchema") {
-            group = GtkPlugin.TASK_GROUP
-            dependsOn(bundle.processTask)
-            sourceDir.convention(project.layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
-            targetDir.convention(gtk.schemasInstallDir)
+        ): TaskProvider<CompileGSchemasTask> {
+            val copyTask = tasks.register<Copy>("${bundle.name}PrepareInstallGSchema") {
+                group = GtkPlugin.TASK_GROUP
+                description = "Prepares ${bundle.name} gschema for installation"
+                dependsOn(bundle.processTask)
+                mustRunAfter(bundle.verifyTask)
+                from(project.layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
+                into(bundle.installDir)
+                eachFile { name = "${project.group}_${project.name}_${file.name}" }
+            }
+            return tasks.register<CompileGSchemasTask>("${bundle.name}InstallGSchema") {
+                group = GtkPlugin.TASK_GROUP
+                description = "Installs ${bundle.name} gschema"
+                dependsOn(copyTask)
+                onlyIf { bundle.processTask.get().destinationDir.exists() }
+                sourceDir.convention(bundle.installDir)
+            }
         }
     }
 }

@@ -28,9 +28,6 @@ plugins {
     id("org.gtkkn.gtk")
 }
 
-gtk {
-}
-
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
@@ -40,6 +37,7 @@ kotlin {
                 entryPoint = "org.gtkkn.samples.gtk.restorewindowstate.main"
             }
         }
+        gtk.gschemas.main.preinstall(compilations.named("main"))
     }
     sourceSets {
         named("nativeMain") {

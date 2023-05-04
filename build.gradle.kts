@@ -13,6 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
+import com.diffplug.gradle.spotless.SpotlessTask
+import com.diffplug.gradle.spotless.SpotlessTaskImpl
 import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 
 plugins {
@@ -26,6 +28,9 @@ plugins {
 }
 
 tasks {
+    withType<SpotlessTask> {
+        mustRunAfter("gir:run")
+    }
     dokkaHtmlMultiModule {
         outputDirectory.set(rootDir.resolve("docs/dokka"))
     }

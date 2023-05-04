@@ -5,8 +5,8 @@ A gradle plugin for convenient GTK development with `gtk-kn` framework.
 ## Features
 
 - `gtk-kn` artefact version resolution
-- `*.gschema.xml` compilation and installation from sourceSet's `resources`
-- `*.gresource.xml` compilation and embedding from sourceSet's `resources`
+- `*.gschema.xml` compilation and installation
+- `*.gresource.xml` compilation and embedding
 
 ## Primer
 
@@ -30,8 +30,8 @@ kotlin {
 }
 
 gtk {
-    schemasInstallDir.set(File("${System.getProperty("user.home")}/.local/share/glib-2.0/schemas/"))
-    baseOutputDir.set(layout.buildDirectory.dir("gtk/"))
+    installPrefix.set(File("${System.getProperty("user.home")}/.local/share"))
+    outputPrefix.set(layout.buildDirectory.dir("gtk/"))
     gresources {
         main {
             embed(kotlin.linuxX64().compilations.named("main"))

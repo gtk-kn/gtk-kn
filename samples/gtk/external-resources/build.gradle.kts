@@ -28,10 +28,6 @@ plugins {
     id("org.gtkkn.gtk")
 }
 
-gtk {
-    embedResources.set(false)
-}
-
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()

@@ -47,27 +47,3 @@ kotlin {
         }
     }
 }
-
-gtk {
-    schemasInstallDir.set(File("${System.getProperty("user.home")}/.local/share/glib-2.0/schemas/"))
-    baseOutputDir.set(layout.buildDirectory.dir("gtk/"))
-    gresources {
-        main {
-            manifest.set(projectDir.resolve("src/gresources/main/gresource.xml"))
-            embed(kotlin.linuxX64().compilations.named("main"))
-        }
-        register("custom") {
-            // This is detected by convention and does not have to be set up explicitly
-            manifest.set(projectDir.resolve("src/gresources/custom/whatever.gresource.xml"))
-        }
-    }
-    gschemas {
-        main {
-            preinstall(kotlin.linuxX64().compilations.named("main"))
-        }
-        register("custom") {
-            // This is detected by convention and does not have to be set up explicitly
-            manifest.set(projectDir.resolve("src/gschemas/custom.gschema.xml"))
-        }
-    }
-}

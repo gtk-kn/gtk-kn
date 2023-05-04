@@ -39,6 +39,7 @@ abstract class CompileGSchemasTask : GtkTask() {
      * Where to store the gschemas.compiled file
      */
     @get:OutputDirectory
+    @get:Optional
     abstract val targetDir: DirectoryProperty
 
     /**
@@ -68,10 +69,11 @@ abstract class CompileGSchemasTask : GtkTask() {
 
         executable.convention("glib-compile-schemas")
         packages.glibDefaults()
+        targetDir.convention(sourceDir)
         args.convention(
             provider {
                 buildList {
-                    val target = targetDir.get().asFile
+                    val target = targetDir.asFile.get()
                     target.mkdirs()
                     add("--targetdir=${target.absolutePath}")
                     if (!lax.getOrElse(false)) add("--strict")

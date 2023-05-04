@@ -23,35 +23,42 @@
 package org.gtkkn.gradle.plugin.ext
 
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.domainObjectContainer
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.withType
+import org.gtkkn.gradle.plugin.GtkPlugin
 import org.gtkkn.gradle.plugin.domain.GResourceBundle
 import org.gtkkn.gradle.plugin.domain.GSchemaBundle
+import org.gtkkn.gradle.plugin.task.CompileGSchemasTask
 import org.gtkkn.gradle.plugin.utils.maybeCreate
+import org.gtkkn.gradle.plugin.utils.maybeRegister
 
 interface GtkExt : ExtensionAware {
     /**
      * Where to place intermediate outputs of various plugin tasks
      */
-    val baseOutputDir: DirectoryProperty
+    val outputPrefix: DirectoryProperty
 
     /**
-     * Where to install compiled gschema.xml
+     * Base directory to install various gio resources
      */
-    val schemasInstallDir: DirectoryProperty
+    val installPrefix: DirectoryProperty
 
     companion object {
         const val NAME = "gtk"
         internal fun register(project: Project) = project.extensions.maybeCreate<GtkExt>(NAME) {
-            baseOutputDir.convention(project.layout.buildDirectory.dir("gtk/"))
-            schemasInstallDir.convention(
-                project.layout.projectDirectory
-                    .dir("${System.getProperty("user.home")}/.local/share/glib-2.0/schemas/"),
+            outputPrefix.convention(project.layout.buildDirectory.dir("gtk/"))
+            installPrefix.convention(
+                project.layout.projectDirectory.dir(
+                    "${System.getProperty("user.home")}/.local/share",
+                ),
             )
             registerGResources(project)
             registerGSchemas(project)
+            registerMetaTasks(project)
         }
 
         private fun GtkExt.registerGResources(project: Project) {
@@ -88,6 +95,21 @@ interface GtkExt : ExtensionAware {
                 register("main")
                 project.afterEvaluate { this@apply.forEach { _ -> } }
             }.also { extensions.add("gschemas", it) }
+        }
+
+        private fun registerMetaTasks(project: Project) {
+            val installGSchemas = project.tasks.register("installGSchemas") {
+                group = GtkPlugin.TASK_GROUP
+                description = "Installs all gschemas"
+                dependsOn(
+                    project.tasks.withType<CompileGSchemasTask>()
+                        .matching { t -> t.name.endsWith("InstallGSchema") },
+                )
+            }
+            project.tasks.maybeRegister<Task>("install") {
+                group = group ?: GtkPlugin.TASK_GROUP
+                dependsOn(installGSchemas)
+            }
         }
     }
 }
