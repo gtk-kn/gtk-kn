@@ -20,27 +20,11 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.playground
 
-import io.github.oshai.KotlinLogging
-import io.github.oshai.KotlinLoggingConfiguration
-import io.github.oshai.Level
-import org.gtkkn.bindings.adw.Application
-import org.gtkkn.bindings.adw.ApplicationWindow
-import org.gtkkn.bindings.gio.ApplicationFlags
-import org.gtkkn.extensions.gio.runApplication
+.example-window {
+    background-color: #cfcfcf;
+}
 
-val logger = KotlinLogging.logger("main")
-
-@Suppress("FunctionName")
-fun Application(builder: ApplicationWindow.() -> Unit) {
-    KotlinLoggingConfiguration.logLevel = Level.TRACE
-    val app = Application("org.gtkkn.samples.playground", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
-        val window = ApplicationWindow(app)
-        window.setDefaultSize(800, 600)
-        window.builder()
-        window.present()
-    }
-    app.runApplication()
+.logo-image {
+    margin: 20px;
 }

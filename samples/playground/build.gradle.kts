@@ -16,7 +16,6 @@
 
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
-@Suppress("DSL_SCOPE_VIOLATION") //https://github.com/gradle/gradle/issues/22797
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     id("detekt-conventions")
@@ -29,10 +28,7 @@ kotlin {
     linuxX64 {
         binaries {
             executable {
-//                entryPoint = "org.gtkkn.samples.playground.listView"
-//                entryPoint = "org.gtkkn.samples.playground.logoFromFileResources"; gtk.embedResources.set(false)
-                entryPoint = "org.gtkkn.samples.playground.logoFromEmbeddedResources"; gtk.embedResources.set(true)
-//                entryPoint = "org.gtkkn.samples.playground.schemaWindowSize"
+                entryPoint = "org.gtkkn.samples.playground.main"
             }
         }
     }

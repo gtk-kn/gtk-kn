@@ -20,31 +20,36 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.playground
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
-import org.gtkkn.bindings.gio.Gio
-import org.gtkkn.bindings.gio.Resource
-import org.gtkkn.bindings.gtk.Image
-
-fun logoFromEmbeddedResources() = Application {
-    title = "Logo from Embedded Resources"
-    setDefaultSize(420, 420)
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
-    }
+plugins {
+    alias(libs.plugins.kotlin.multiplatform)
+    id("detekt-conventions")
+    id("org.gtkkn.gtk")
 }
 
-fun logoFromFileResources() = Application {
-    title = "Logo from File Resources"
-    setDefaultSize(420, 420)
+gtk {
+    embedResources.set(true)
+}
 
-    // borked for now: invalid gvdb header error
-    Gio.resourcesRegister(
-        Resource.load("build/gtk/gResource/linuxX64/main/gResource.gresource")
-            .getOrThrow(),
-    )
-    child = Image().apply {
-        setFromPixbuf(Pixbuf.newFromResource("/images/kotlin.png").getOrThrow())
+@OptIn(ExperimentalKotlinGradlePluginApi::class)
+kotlin {
+    targetHierarchy.default()
+    linuxX64 {
+        binaries {
+            executable {
+                entryPoint = "org.gtkkn.samples.gtk.embeddedresources.main"
+            }
+        }
+    }
+    sourceSets {
+        named("nativeMain") {
+            dependencies {
+                // Import from project
+                implementation(project(":bindings:gtk:gtk4"))
+                // Import from mavenLocal
+                // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
+            }
+        }
     }
 }

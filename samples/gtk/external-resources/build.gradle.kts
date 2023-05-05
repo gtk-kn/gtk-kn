@@ -20,27 +20,36 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.samples.playground
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
-import io.github.oshai.KotlinLogging
-import io.github.oshai.KotlinLoggingConfiguration
-import io.github.oshai.Level
-import org.gtkkn.bindings.adw.Application
-import org.gtkkn.bindings.adw.ApplicationWindow
-import org.gtkkn.bindings.gio.ApplicationFlags
-import org.gtkkn.extensions.gio.runApplication
+plugins {
+    alias(libs.plugins.kotlin.multiplatform)
+    id("detekt-conventions")
+    id("org.gtkkn.gtk")
+}
 
-val logger = KotlinLogging.logger("main")
+gtk {
+    embedResources.set(false)
+}
 
-@Suppress("FunctionName")
-fun Application(builder: ApplicationWindow.() -> Unit) {
-    KotlinLoggingConfiguration.logLevel = Level.TRACE
-    val app = Application("org.gtkkn.samples.playground", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
-        val window = ApplicationWindow(app)
-        window.setDefaultSize(800, 600)
-        window.builder()
-        window.present()
+@OptIn(ExperimentalKotlinGradlePluginApi::class)
+kotlin {
+    targetHierarchy.default()
+    linuxX64 {
+        binaries {
+            executable {
+                entryPoint = "org.gtkkn.samples.gtk.externalresources.main"
+            }
+        }
     }
-    app.runApplication()
+    sourceSets {
+        named("nativeMain") {
+            dependencies {
+                // Import from project
+                implementation(project(":bindings:gtk:gtk4"))
+                // Import from mavenLocal
+                // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
+            }
+        }
+    }
 }

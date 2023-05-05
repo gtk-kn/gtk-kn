@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Copyright (c) 2023 gtk-kn
   ~
@@ -21,19 +21,11 @@
   ~ SOFTWARE.
   -->
 
-<schemalist>
-    <schema id="org.gtkkn.samples.playground" path="/org/gtkkn/samples/playground/">
-        <key name="window-width" type="i">
-            <default>-1</default>
-            <summary>Default window width</summary>
-        </key>
-        <key name="window-height" type="i">
-            <default>-1</default>
-            <summary>Default window height</summary>
-        </key>
-        <key name="is-maximised" type="b">
-            <default>false</default>
-            <summary>Default window maximised behaviour</summary>
-        </key>
-    </schema>
-</schemalist>
+<gresources>
+    <gresource prefix="/images">
+        <file>kotlin.png</file>
+    </gresource>
+    <gresource prefix="/css">
+        <file>styles.css</file>
+    </gresource>
+</gresources>

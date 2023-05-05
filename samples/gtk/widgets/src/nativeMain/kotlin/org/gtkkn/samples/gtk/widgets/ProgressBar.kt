@@ -22,57 +22,44 @@
 
 package org.gtkkn.samples.gtk.widgets
 
-import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.bindings.glib.Glib
-import org.gtkkn.bindings.gtk.Application
-import org.gtkkn.bindings.gtk.ApplicationWindow
 import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.CheckButton
 import org.gtkkn.bindings.gtk.Orientation
 import org.gtkkn.bindings.gtk.ProgressBar
-import org.gtkkn.extensions.gio.runApplication
 import org.gtkkn.extensions.gtk.setMargins
 
 // --8<-- [start:doc]
 private var activityMode: Boolean = false
 
-fun progressBar() {
-    val app = Application("org.gtkkn.samples.gtk.widgets.progressbar", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
-        val window = ApplicationWindow(app).apply {
-            title = "ProgressBar Demo"
-        }
-
-        val vbox = Box(orientation = Orientation.VERTICAL, spacing = 6).apply {
-            setMargins(16)
-        }
-
-        val progressBar = ProgressBar().apply {
-            vexpand = true
-            hexpand = true
-        }
-        vbox.append(progressBar)
-
-        val showTextButton = CheckButton(label = "Show text")
-        showTextButton.connectToggled { onShowTextToggled(showTextButton, progressBar) }
-        vbox.append(showTextButton)
-
-        val activityModeButton = CheckButton(label = "Activity mode")
-        activityModeButton.connectToggled { onActivityModeToggled(activityModeButton, progressBar) }
-        vbox.append(activityModeButton)
-
-        val rightToLeftButton = CheckButton(label = "Right to Left")
-        rightToLeftButton.connectToggled { onRightToLeftToggled(rightToLeftButton, progressBar) }
-        vbox.append(rightToLeftButton)
-
-        Glib.timeoutAdd(0, 50.toUInt()) {
-            onTimeout(progressBar)
-        }
-
-        window.setChild(vbox)
-        window.show()
+fun progressBar(): Box {
+    val vbox = Box(orientation = Orientation.VERTICAL, spacing = 6).apply {
+        setMargins(16)
     }
-    app.runApplication()
+
+    val progressBar = ProgressBar().apply {
+        vexpand = true
+        hexpand = true
+    }
+    vbox.append(progressBar)
+
+    val showTextButton = CheckButton(label = "Show text")
+    showTextButton.connectToggled { onShowTextToggled(showTextButton, progressBar) }
+    vbox.append(showTextButton)
+
+    val activityModeButton = CheckButton(label = "Activity mode")
+    activityModeButton.connectToggled { onActivityModeToggled(activityModeButton, progressBar) }
+    vbox.append(activityModeButton)
+
+    val rightToLeftButton = CheckButton(label = "Right to Left")
+    rightToLeftButton.connectToggled { onRightToLeftToggled(rightToLeftButton, progressBar) }
+    vbox.append(rightToLeftButton)
+
+    Glib.timeoutAdd(0, 50.toUInt()) {
+        onTimeout(progressBar)
+    }
+
+    return vbox
 }
 
 private fun onShowTextToggled(button: CheckButton, progressBar: ProgressBar) {
