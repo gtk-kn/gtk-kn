@@ -1,3 +1,7 @@
+:root {
+    --md-primary-fg-color: #E24462;
+}
+
 /* darcula looking style */
 [data-md-color-scheme="slate"] {
     --md-code-fg-color: rgb(169, 183, 198); /* normal */

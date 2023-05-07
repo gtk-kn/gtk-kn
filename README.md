@@ -1,14 +1,14 @@
 # gtk-kn
 
-<img src="art/gtk-kn_logo.png" width="120" align="right" hspace="0" />
+<img src="docs/assets/logo-256.png" width="100" align="right" hspace="32" />
 
 gtk-kn provides Kotlin Native bindings for the GTK framework, its dependencies and some additional GObject-based
 libraries.
 GTK is a popular cross-platform GUI toolkit that provides a complete set of widgets for building graphical applications.
 Kotlin Native is a technology that allows Kotlin code to be compiled to native code for various platforms.
 
-    Please note that this project is a work in progress and is not yet ready for production use. We welcome contributions
-    from anyone who is interested in helping us improve the project.
+*Please note that this project is a work in progress and is not yet ready for production use. We welcome contributions
+from anyone who is interested in helping us improve the project.*
 
 ## Example
 
