@@ -1,9 +1,18 @@
 # gtk-kn
 
+<figure markdown>
+![Image title](assets/logo-256.png)
+</figure>
+
+
 Experience the power and versatility of the GNOME stack in Kotlin/Native with ``gtk-kn``.
 
 Our project provides secure and dependable bindings to critical libraries like GLib, Pango, Cairo and GTK4, empowering
 you to create high-quality applications with ease.
+
+<figure markdown>
+[Get started](user-guide/index.md){ .md-button .md-button--primary }
+</figure>
 
 ## Example
 

@@ -37,7 +37,7 @@ theme:
   palette:
     - media: '(prefers-color-scheme: light)'
       scheme: default
-      primary: 'black'
+      primary: custom
       accent: 'deep-purple'
       toggle:
         icon: material/weather-night
@@ -50,7 +50,7 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   logo: 'assets/logo.svg'
-  favicon: 'assets/logo.svg'
+  favicon: 'assets/logo-head-only.svg'
 
 # Plugins
 plugins:
