@@ -16,10 +16,12 @@
 
 package org.gtkkn.gir.generator
 
-import com.pinterest.ktlint.core.Code
-import com.pinterest.ktlint.core.KtLintRuleEngine
-import com.pinterest.ktlint.core.RuleSetProviderV2
-import com.pinterest.ktlint.core.api.EditorConfigDefaults
+import com.pinterest.ktlint.cli.ruleset.core.api.RuleSetProviderV3
+import com.pinterest.ktlint.rule.engine.api.Code
+import com.pinterest.ktlint.rule.engine.api.EditorConfigDefaults
+import com.pinterest.ktlint.rule.engine.api.EditorConfigDefaults.Companion.load
+import com.pinterest.ktlint.rule.engine.api.KtLintRuleEngine
+import com.pinterest.ktlint.rule.engine.core.api.propertyTypes
 import org.gtkkn.gir.log.logger
 import java.io.File
 import java.nio.file.Path
@@ -27,7 +29,7 @@ import java.util.ServiceLoader
 
 class KtLintFormatter(outputDir: File) {
     private val ruleProviders = buildSet {
-        ServiceLoader.load(RuleSetProviderV2::class.java).flatMapTo(this) { it.getRuleProviders() }
+        ServiceLoader.load(RuleSetProviderV3::class.java).flatMapTo(this) { it.getRuleProviders() }
     }
     private val ktLintRuleEngine: KtLintRuleEngine
 
@@ -38,7 +40,7 @@ class KtLintFormatter(outputDir: File) {
         }
         ktLintRuleEngine = KtLintRuleEngine(
             ruleProviders = ruleProviders,
-            editorConfigDefaults = editorConfigPath?.let { EditorConfigDefaults.load(it) }
+            editorConfigDefaults = editorConfigPath?.let { load(it, ruleProviders.propertyTypes()) }
                 ?: EditorConfigDefaults.EMPTY_EDITOR_CONFIG_DEFAULTS,
         )
     }
@@ -58,7 +60,7 @@ class KtLintFormatter(outputDir: File) {
         kotlinFile.createNewFile()
 
         // Format and write the file
-        kotlinFile.writeText(ktLintRuleEngine.format(Code.CodeSnippet(content)))
+        kotlinFile.writeText(ktLintRuleEngine.format(Code.fromSnippet(content)))
     }
 
     private fun findEditorConfigPath(startDir: File): Path? {
