@@ -35,9 +35,10 @@ kotlin {
         binaries {
             executable {
                 entryPoint = "org.gtkkn.samples.gtk.restorewindowstate.main"
+
+                runTask?.dependsOn(gtk.gschemas.main.installTask)
             }
         }
-        gtk.gschemas.main.preinstall(compilations.named("main"))
     }
     sourceSets {
         named("nativeMain") {

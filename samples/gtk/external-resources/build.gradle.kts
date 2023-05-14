@@ -35,6 +35,7 @@ kotlin {
         binaries {
             executable {
                 entryPoint = "org.gtkkn.samples.gtk.externalresources.main"
+                runTask?.dependsOn(gtk.gresources.main.bundleTask)
             }
         }
     }
