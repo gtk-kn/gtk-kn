@@ -57,13 +57,3 @@ spotless {
         endWithNewline()
     }
 }
-
-tasks {
-    withType<SpotlessTaskImpl> {
-        mustRunAfter("gir:run")
-    }
-    withType<SpotlessTask> {
-        mustRunAfter("gir:run")
-    }
-}
-

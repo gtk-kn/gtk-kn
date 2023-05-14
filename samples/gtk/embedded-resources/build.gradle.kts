@@ -28,10 +28,6 @@ plugins {
     id("org.gtkkn.gtk")
 }
 
-gtk {
-    embedResources.set(true)
-}
-
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
@@ -41,6 +37,7 @@ kotlin {
                 entryPoint = "org.gtkkn.samples.gtk.embeddedresources.main"
             }
         }
+        gtk.gresources.main.embed(compilations.named("main"))
     }
     sourceSets {
         named("nativeMain") {

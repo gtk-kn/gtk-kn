@@ -28,11 +28,6 @@ plugins {
     id("org.gtkkn.gtk")
 }
 
-gtk {
-    // embed ui resource in the final binary
-    embedResources.set(true)
-}
-
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
@@ -42,6 +37,7 @@ kotlin {
                 entryPoint = "org.gtkkn.samples.widgettemplates.main"
             }
         }
+        gtk.gresources.main.embed(compilations.named("main"))
     }
     sourceSets {
         named("nativeMain") {

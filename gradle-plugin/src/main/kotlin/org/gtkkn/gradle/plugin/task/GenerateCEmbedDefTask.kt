@@ -45,20 +45,21 @@ abstract class GenerateCEmbedDefTask : DefaultTask() {
     abstract val packageName: Property<String>
 
     @get:OutputFile
-    abstract val output: RegularFileProperty
+    abstract val target: RegularFileProperty
 
     init {
         description = "Generates cinterop def file for embedding c source"
-        output.convention(project.layout.projectDirectory.file(temporaryDir.resolve("cEmbed.def").absolutePath))
+        target.convention(project.layout.projectDirectory.file(temporaryDir.resolve("cEmbed.def").absolutePath))
         packageName.convention("${BuildConfig.group}.embed.c")
         onlyIf { source.asFile.get().exists() }
     }
 
     @TaskAction
     fun run() {
-        output.asFile.get().writeText(
+        target.asFile.get().writeText(
             buildString {
                 appendLine("package = ${packageName.get()}")
+                appendLine("headerFilter = ''")
                 if (compilerOpts.isPresent) appendLine("compilerOpts = ${compilerOpts.get()}")
                 appendLine("---")
                 appendLine("#include \"${source.asFile.get().absolutePath}\"")

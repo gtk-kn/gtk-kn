@@ -26,6 +26,7 @@ dependencies {
     implementation(libs.plugin.dokka)
     implementation(libs.plugin.kotlin)
     implementation(libs.plugin.spotless)
-    implementation(libs.plugin.versionsgradle)
+    implementation(libs.plugin.versions)
+    implementation(libs.plugin.versions.update)
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 }

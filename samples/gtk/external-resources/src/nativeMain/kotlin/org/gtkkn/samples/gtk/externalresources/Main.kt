@@ -34,7 +34,7 @@ import org.gtkkn.extensions.gio.runApplication
 fun main() {
     // register the resource bundle
     Gio.resourcesRegister(
-        Resource.load("build/gtk/gResource/linuxX64/main/gResource.gresource").getOrThrow(),
+        Resource.load("build/gtk/gresources/main/main.gresource").getOrThrow(),
     )
 
     val app = Application("org.gtkkn.samples.gtk.embeddedresources", ApplicationFlags.FLAGS_NONE)

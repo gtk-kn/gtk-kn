@@ -3,6 +3,7 @@ generate-and-check:
   interruptible: true
   stage: build
   script:
+    - ./gradlew :gradle-plugin:detektMain
     - ./gradlew :gir:run
     - ./gradlew check
     - ./gradlew publishToMavenLocal

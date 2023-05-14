@@ -22,31 +22,15 @@
 
 package org.gtkkn.gradle.plugin.task
 
-import gtk
-import org.gradle.api.Project
 import org.gradle.api.file.DirectoryProperty
-import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.TaskProvider
-import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.register
-import org.gtkkn.gradle.plugin.BuildConfig
-import org.gtkkn.gradle.plugin.ext.gtk
-import org.gtkkn.gradle.plugin.utils.maybeRegister
 import org.gtkkn.gradle.plugin.utils.provider
-import org.gtkkn.gradle.plugin.utils.qualifiedName
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.gradle.tasks.CInteropProcess
-import java.io.File
 
 @Suppress("LeakingThis")
 abstract class CompileGResourcesTask : GtkTask() {
@@ -174,149 +158,4 @@ abstract class CompileGResourcesTask : GtkTask() {
             },
         )
     }
-}
-
-internal fun Project.compileGResourcesTasks(target: KotlinNativeTarget) {
-    target.compilations.all compilation@{
-        val compilationGtk = this@compilation.gtk
-        val processResources = tasks.named<Copy>(processResourcesTaskName)
-
-        val gResources = processResources
-            .map(Copy::getDestinationDir)
-            .map(File::listFiles)
-            .map { d -> d.singleOrNull { f -> f.name.endsWith("gresource.xml") } as File }
-            .run { layout.file(this) }
-
-        val baseName = "gResource"
-        val baseDir = this@compileGResourcesTasks.gtk.baseOutputDir.dir("gResource/${target.name}/$name")
-        val defOutput = baseDir.map { f -> f.file("$baseName.def") }
-
-        val sourceTask = registerSourcesTask(
-            kotlinNativeCompilation = this@compilation,
-            processResources = processResources,
-            target = baseDir.map { f -> f.file("$baseName.c") },
-            gResources = gResources,
-        )
-        val headerTask = registerHeaderTask(
-            kotlinNativeCompilation = this@compilation,
-            processResources = processResources,
-            target = baseDir.map { f -> f.file("$baseName.h") },
-            gResources = gResources,
-        )
-        val bundleTask = registerBundleTask(
-            kotlinNativeCompilation = this@compilation,
-            processResources = processResources,
-            target = baseDir.map { f -> f.file("$baseName.gresource") },
-            gResources = gResources,
-        )
-        val defTask = registerDefTask(
-            kotlinNativeCompilation = this@compilation,
-            sourceTask = sourceTask,
-            headerTask = headerTask,
-            defOutput = defOutput,
-        )
-        cinterops.register(baseName) {
-            tasks.named<CInteropProcess>(interopProcessingTaskName) {
-                dependsOn(defTask, sourceTask)
-                onlyIf("Resource embedding enabled") { compilationGtk.embedResources.get() }
-                onlyIf("Def file exists") { defTask.get().output.asFile.get().exists() }
-            }
-            defFileProperty.set(defOutput.map(RegularFile::getAsFile))
-            dependencyFiles = files(sourceTask.flatMap(CompileGResourcesTask::target))
-        }
-        tasks.named(compileKotlinTaskName) { dependsOn(bundleTask) }
-        /*
-         * Leaving the below as an alternative way of embedding resources
-         * should we start having any problems with cinterop
-         */
-//        val buildBitcodeTask = tasks.register<BuildBitcodeTask>("buildGResourceBitcode${qualifiedName}") {
-//            dependsOn(sourceTask)
-//            this@register.target.convention(konanTarget)
-//            includes.add(layout.projectDirectory.dir("/usr/include/glib-2.0"))
-//            includes.add(layout.projectDirectory.dir("/usr/lib64/glib-2.0/include"))
-//            input.convention(sourceTask.flatMap(CompileGResourcesTask::target))
-//            output.convention(baseDir.map { it.file("$baseName.bc") })
-//        }
-//        compileTaskProvider.configure {
-//            dependsOn(buildBitcodeTask)
-//        }
-//        compilerOptions.configure {
-//            freeCompilerArgs.add("-native-library")
-//            buildBitcodeTask.flatMap(BuildBitcodeTask::output)
-//                .map(RegularFile::getAsFile)
-//                .map(File::getAbsolutePath)
-//                .let(freeCompilerArgs::add)
-//        }
-    }
-}
-
-private fun Project.registerDefTask(
-    kotlinNativeCompilation: KotlinNativeCompilation,
-    sourceTask: TaskProvider<CompileGResourcesTask>,
-    headerTask: TaskProvider<CompileGResourcesTask>,
-    defOutput: Provider<RegularFile>
-): TaskProvider<GenerateCEmbedDefTask> {
-    val pkgConfigTask = rootProject.tasks.maybeRegister<PkgConfigTask>("generateGioCFlags") {
-        library.convention("gio-2.0")
-        cFlags.convention(true)
-    }
-    return tasks.register<GenerateCEmbedDefTask>("generateGResourceDef${kotlinNativeCompilation.qualifiedName}") {
-        onlyIf("Resource embedding enabled") { kotlinNativeCompilation.gtk.embedResources.get() }
-        dependsOn(sourceTask, headerTask, pkgConfigTask)
-        source.convention(sourceTask.flatMap(CompileGResourcesTask::target))
-        output.convention(defOutput)
-        packageName.convention("${BuildConfig.group}.resources.c")
-        compilerOpts.convention(
-            pkgConfigTask
-                .flatMap(PkgConfigTask::target)
-                .map(RegularFile::getAsFile)
-                .map(File::readText)
-                .map(String::trim),
-        )
-    }
-}
-
-private fun Project.registerBundleTask(
-    kotlinNativeCompilation: KotlinNativeCompilation,
-    processResources: TaskProvider<Copy>,
-    gResources: Provider<RegularFile>,
-    target: Provider<RegularFile>
-) = tasks.register<CompileGResourcesTask>("compileGResourceBundle${kotlinNativeCompilation.qualifiedName}") {
-    onlyIf("Resource embedding disabled") { !kotlinNativeCompilation.gtk.embedResources.get() }
-    description = "Compiles resources into gresource bundle"
-    dependsOn(processResources)
-    sourceDir.convention(layout.dir(processResources.map(Copy::getDestinationDir)))
-    this@register.target.convention(target)
-    this@register.generate.convention(true)
-    manifest.convention(gResources)
-}
-
-private fun Project.registerHeaderTask(
-    kotlinNativeCompilation: KotlinNativeCompilation,
-    processResources: TaskProvider<Copy>,
-    gResources: Provider<RegularFile>,
-    target: Provider<RegularFile>
-) = tasks.register<CompileGResourcesTask>("compileGResourceHeader${kotlinNativeCompilation.qualifiedName}") {
-    onlyIf("Resource embedding enabled") { kotlinNativeCompilation.gtk.embedResources.get() }
-    description = "Compiles resources into c header file"
-    dependsOn(processResources)
-    sourceDir.convention(layout.dir(processResources.map(Copy::getDestinationDir)))
-    this@register.target.convention(target)
-    this@register.generateHeader.convention(true)
-    manifest.convention(gResources)
-}
-
-private fun Project.registerSourcesTask(
-    kotlinNativeCompilation: KotlinNativeCompilation,
-    processResources: TaskProvider<Copy>,
-    gResources: Provider<RegularFile>,
-    target: Provider<RegularFile>
-) = tasks.register<CompileGResourcesTask>("compileGResourceSource${kotlinNativeCompilation.qualifiedName}") {
-    onlyIf("Resource embedding enabled") { kotlinNativeCompilation.gtk.embedResources.get() }
-    description = "Compiles resources into c source file"
-    dependsOn(processResources)
-    sourceDir.convention(layout.dir(processResources.map(Copy::getDestinationDir)))
-    this@register.target.convention(target)
-    this@register.generateSource.convention(true)
-    manifest.convention(gResources)
 }
