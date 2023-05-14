@@ -54,19 +54,6 @@ interface GSchemaBundle : Named {
      */
     val installDir: DirectoryProperty
 
-    /**
-     * A set of [KotlinNativeCompilation] which depend on schemas being preinstalled
-     */
-    val preinstall: DomainObjectSet<KotlinNativeCompilation>
-
-    fun preinstall(compilation: KotlinNativeCompilation) {
-        preinstall.add(compilation)
-    }
-
-    fun preinstall(compilation: Provider<KotlinNativeCompilation>) {
-        preinstall.addLater(compilation)
-    }
-
     val processTask: TaskProvider<Copy>
     val verifyTask: TaskProvider<CompileGSchemasTask>
     val installTask: TaskProvider<CompileGSchemasTask>
@@ -77,18 +64,12 @@ interface GSchemaBundle : Named {
                 override fun getName() = name
                 override val manifest = project.objects.fileProperty()
                 override val installDir: DirectoryProperty = project.objects.directoryProperty()
-                override val preinstall = project.objects.domainObjectSet(KotlinNativeCompilation::class)
                 override val processTask = project.registerProcessTask(this)
                 override val verifyTask = project.registerVerifyTask(this)
                 override val installTask = project.registerInstallTask(this)
             }.apply {
                 manifest.convention(project.layout.projectDirectory.file("src/gschemas/$name.gschema.xml"))
                 installDir.convention(project.gtk.installPrefix.dir("glib-2.0/schemas/"))
-                preinstall.whenObjectAdded {
-                    compileTaskProvider.configure {
-                        dependsOn(installTask)
-                    }
-                }
             }
 
         private fun Project.registerProcessTask(

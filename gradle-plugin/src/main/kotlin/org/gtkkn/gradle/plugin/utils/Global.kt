@@ -24,8 +24,11 @@
 
 import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.TaskProvider
 import org.gtkkn.gradle.plugin.domain.GResourceBundle
 import org.gtkkn.gradle.plugin.domain.GSchemaBundle
+import org.gtkkn.gradle.plugin.task.CompileGResourcesTask
+import org.gtkkn.gradle.plugin.task.CompileGSchemasTask
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 
 fun NamedDomainObjectProvider<GResourceBundle>.embed(compilation: KotlinNativeCompilation): Unit =
@@ -34,8 +37,8 @@ fun NamedDomainObjectProvider<GResourceBundle>.embed(compilation: KotlinNativeCo
 fun NamedDomainObjectProvider<GResourceBundle>.embed(compilation: Provider<KotlinNativeCompilation>): Unit =
     configure { embed(compilation) }
 
-fun NamedDomainObjectProvider<GSchemaBundle>.preinstall(compilation: KotlinNativeCompilation): Unit =
-    configure { preinstall(compilation) }
+val NamedDomainObjectProvider<GSchemaBundle>.installTask: Provider<TaskProvider<CompileGSchemasTask>>
+    get() = map { it.installTask }
 
-fun NamedDomainObjectProvider<GSchemaBundle>.preinstall(compilation: Provider<KotlinNativeCompilation>): Unit =
-    configure { preinstall(compilation) }
+val NamedDomainObjectProvider<GResourceBundle>.bundleTask: Provider<TaskProvider<CompileGResourcesTask>>
+    get() = map { it.compileBundleTask }
