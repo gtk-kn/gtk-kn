@@ -55,6 +55,7 @@ if (!configFile.startsWith("/")) {
 
 @Suppress("UNCHECKED_CAST")
 val config = JsonSlurper().parse(File(configFile)) as Map<String, Any>
+
 @Suppress("UNCHECKED_CAST")
 val libraries = config["libraries"] as List<Map<String, String>>
 
@@ -71,5 +72,6 @@ if(properties["org.gtkkn.samples.disable"] != "true") {
         "samples:gtk:restore-window-state",
         "samples:gtk:embedded-resources",
         "samples:gtk:external-resources",
+        "samples:text-viewer",
     )
 }
