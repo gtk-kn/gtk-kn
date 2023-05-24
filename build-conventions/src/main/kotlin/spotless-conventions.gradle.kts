@@ -14,9 +14,6 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-import com.diffplug.gradle.spotless.KotlinExtension
-import com.diffplug.gradle.spotless.SpotlessTask
-import com.diffplug.gradle.spotless.SpotlessTaskImpl
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
@@ -29,13 +26,6 @@ spotless {
     kotlin {
         target("**/*.kt")
         targetExclude("$buildDir/**/*.kt", "build-conventions/build/**/*.kt")
-        trimTrailingWhitespace()
-        indentWithSpaces()
-        endWithNewline()
-    }
-
-    format("kotlinGenerated", KotlinExtension::class.java) {
-        target("$buildDir/generated/**/*.kt")
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()
