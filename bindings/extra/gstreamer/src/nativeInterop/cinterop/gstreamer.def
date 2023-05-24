@@ -1,0 +1,76 @@
+headers = gst/gst.h
+package = org.gtkkn.native.gst
+headerFilter = gst/*
+
+# pkg-config --cflags gstreamer-1.0
+compilerOpts.linux = \
+    -pthread \
+    -I/usr/include \
+    -I/usr/include/gstreamer-1.0 \
+    -I/usr/include/x86_64-linux-gnu \
+    -I/usr/include/glib-2.0 \
+    -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+
+compilerOpts.linux_x64 = \
+    -I/usr/lib64/glib-2.0/include \
+    -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+
+# pkg-config --libs gstreamer-1.0
+linkerOpts.linux = \
+    -lgstreamer-1.0 \
+    -lgobject-2.0 \
+    -lglib-2.0
+
+
+linkerOpts.linux_x64 = \
+    -L/usr/lib/x86_64-linux-gnu \
+    -L/usr/lib64
+
+strictEnums = \
+    GstBufferingMode \
+    GstBusSyncReply \
+    GstCapsIntersectMode \
+    GstClockEntryType \
+    GstClockReturn \
+    GstClockType \
+    GstCoreError \
+    GstDebugColorMode \
+    GstDebugLevel \
+    GstEventType \
+    GstFlowReturn \
+    GstFormat \
+    GstIteratorItem \
+    GstIteratorResult \
+    GstLibraryError \
+    GstPadDirection \
+    GstPadLinkReturn \
+    GstPadMode \
+    GstPadPresence \
+    GstPadProbeReturn \
+    GstParseError \
+    GstPluginError \
+    GstProgressType \
+    GstPromiseResult \
+    GstQOSType \
+    GstQueryType \
+    GstRank \
+    GstResourceError \
+    GstSearchMode \
+    GstSeekType \
+    GstState \
+    GstStateChange \
+    GstStateChangeReturn \
+    GstStreamError \
+    GstStreamStatusType \
+    GstStructureChangeType \
+    GstTagFlag \
+    GstTagMergeMode \
+    GstTagScope \
+    GstTaskState \
+    GstTocEntryType \
+    GstTocLoopType \
+    GstTocScope \
+    GstTracerValueScope \
+    GstTypeFindProbability \
+    GstURIError \
+    GstURIType \

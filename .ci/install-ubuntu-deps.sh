@@ -22,7 +22,8 @@ apt-get --quiet install --yes \
   gcc-multilib \
   libgirepository1.0-dev \
   libadwaita-1-dev \
-  libgtksourceview-5-dev
+  libgtksourceview-5-dev \
+  libgstreamer1.0-dev
 # libhelium
 apt-get --quiet install --yes npm meson libgee-0.8-dev valac valadoc
 npm i -g sass

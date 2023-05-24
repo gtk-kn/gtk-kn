@@ -81,6 +81,11 @@
       "girPrefix": "GtkSource-5"
     },
     {
+      "name": "gst",
+      "module": "extra:gstreamer",
+      "girPrefix": "Gst-1"
+    },
+    {
       "name": "he",
       "module": "extra:libhelium",
       "girPrefix": "He-"
