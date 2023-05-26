@@ -37,7 +37,6 @@ abstract class CallableBlueprintBuilder<T : Any>(
     context: ProcessorContext,
     protected val girNamespace: GirNamespace,
 ) : BlueprintBuilder<T>(context) {
-
     protected val parameterBlueprints = mutableListOf<ParameterBlueprint>()
 
     protected fun addParameters(parameters: GirParameters) {
@@ -82,7 +81,7 @@ abstract class CallableBlueprintBuilder<T : Any>(
      * native params into one combined param.
      */
     private fun processParameters(parameters: GirParameters): List<ProcessedParam> {
-        if (parameters.parameters.none { it.closure != null }) {
+        if (parameters.parameters.all { it.closure == null }) {
             // no closures found, return all params as [SimpleParam]
             return parameters.parameters.map { SimpleParam(it) }
         }

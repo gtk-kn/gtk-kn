@@ -32,7 +32,6 @@ class FunctionBlueprintBuilder(
     girNamespace: GirNamespace,
     private val girFunction: GirFunction,
 ) : CallableBlueprintBuilder<FunctionBlueprint>(context, girNamespace) {
-
     override fun blueprintObjectType(): String = "function"
     override fun blueprintObjectName(): String = girFunction.name
 

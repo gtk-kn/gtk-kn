@@ -30,7 +30,6 @@ class ParameterBlueprintBuilder(
     private val girNamespace: GirNamespace,
     private val girParam: GirParameter,
 ) : BlueprintBuilder<ParameterBlueprint>(context) {
-
     override fun blueprintObjectType(): String = "parameter"
 
     override fun blueprintObjectName(): String = girParam.name

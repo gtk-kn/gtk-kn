@@ -37,9 +37,8 @@ class BindingsGenerator(
     RepositoryObjectGenerator,
     RecordGenerator,
     TypeProviderGenerator {
-
-    @Suppress("LongMethod")
-    fun generate(repository: RepositoryBlueprint, moduleOutputDir: File) {
+        @Suppress("LongMethod")
+        fun generate(repository: RepositoryBlueprint, moduleOutputDir: File) {
         val repositoryOutputDir = repositoryBuildDir(moduleOutputDir)
         if (!repositoryOutputDir.exists()) {
             logger.info("Creating output dir ${repositoryOutputDir.path}")
