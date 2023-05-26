@@ -23,7 +23,6 @@ import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.model.GirRepository
 
 class Phase2Processor {
-
     /**
      * Process a list of [GirRepository] into [RepositoryBlueprint]
      */

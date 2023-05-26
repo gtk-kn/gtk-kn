@@ -34,7 +34,6 @@ class CallbackBlueprintBuilder(
     girNamespace: GirNamespace,
     private val girCallback: GirCallback,
 ) : CallableBlueprintBuilder<CallbackBlueprint>(context, girNamespace) {
-
     private val callbackParameters = mutableListOf<ParameterBlueprint>()
 
     override fun blueprintObjectType(): String = "callback"
@@ -94,7 +93,6 @@ class CallbackBlueprintBuilder(
             parameters = callbackParameters,
             throws = girCallback.throws == true,
             exceptionResolvingFunctionMember = exceptionResolvingFunction(),
-
             kdoc = context.processKdoc(girCallback.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girCallback.returnValue.docs.doc?.text),
         )

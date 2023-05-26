@@ -39,7 +39,6 @@ import org.gtkkn.gir.blueprints.SignalBlueprint
 import org.gtkkn.gir.processor.NativeTypes
 
 interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
-
     fun buildProperty(property: PropertyBlueprint, instancePointer: String?): PropertySpec =
         PropertySpec.builder(property.kotlinName, property.typeInfo.kotlinTypeName, KModifier.PUBLIC).apply {
             addKdoc(buildPropertyKDoc(property.kdoc, property.version))

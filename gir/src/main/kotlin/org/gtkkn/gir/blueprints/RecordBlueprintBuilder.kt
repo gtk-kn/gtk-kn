@@ -32,7 +32,6 @@ class RecordBlueprintBuilder(
     private val girNamespace: GirNamespace,
     private val girRecord: GirRecord,
 ) : BlueprintBuilder<RecordBlueprint>(context) {
-
     private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()

@@ -337,7 +337,6 @@ private fun parseGirProperty(node: Node): GirProperty {
     }
     return GirProperty(
         info = parseGirInfo(node),
-
         name = node.attributeValue("name"),
         writable = node.attributeValueOrNull("writable")?.requireBoolean(),
         readable = node.attributeValueOrNull("readable")?.requireBoolean(),

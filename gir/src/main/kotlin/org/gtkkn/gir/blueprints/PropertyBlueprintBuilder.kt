@@ -33,7 +33,6 @@ class PropertyBlueprintBuilder(
     private val superInterfaces: List<GirInterface> = emptyList(),
     private val isOpen: Boolean = false,
 ) : BlueprintBuilder<PropertyBlueprint>(context) {
-
     override fun blueprintObjectType(): String = "method"
 
     override fun blueprintObjectName(): String = girProperty.name

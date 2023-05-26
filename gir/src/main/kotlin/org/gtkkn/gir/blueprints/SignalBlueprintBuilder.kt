@@ -32,7 +32,6 @@ class SignalBlueprintBuilder(
     girNamespace: GirNamespace,
     private val girSignal: GirSignal,
 ) : CallableBlueprintBuilder<SignalBlueprint>(context, girNamespace) {
-
     private val signalParameters = mutableListOf<ParameterBlueprint>()
 
     override fun blueprintObjectType(): String = "signal"

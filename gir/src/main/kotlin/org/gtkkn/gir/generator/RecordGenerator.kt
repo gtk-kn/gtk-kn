@@ -29,7 +29,6 @@ import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.processor.NativeTypes.KP_WILDCARD_CPOINTER
 
 interface RecordGenerator : MiscGenerator, KDocGenerator {
-
     fun buildRecord(record: RecordBlueprint): TypeSpec =
         TypeSpec.classBuilder(record.kotlinTypeName).apply {
             // kdoc

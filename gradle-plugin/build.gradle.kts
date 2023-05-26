@@ -21,7 +21,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
-    alias(libs.plugins.gradlePluginPublish)
+    alias(libs.plugins.gradle.publish)
     alias(libs.plugins.buildConfig)
     id("publishing-conventions")
     id("config-conventions")

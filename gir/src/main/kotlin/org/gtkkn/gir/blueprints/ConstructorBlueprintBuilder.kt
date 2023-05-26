@@ -32,7 +32,6 @@ class ConstructorBlueprintBuilder(
     girNamespace: GirNamespace,
     private val girConstructor: GirConstructor,
 ) : CallableBlueprintBuilder<ConstructorBlueprint>(context, girNamespace) {
-
     override fun blueprintObjectType(): String = "constructor"
 
     override fun blueprintObjectName(): String = girConstructor.name

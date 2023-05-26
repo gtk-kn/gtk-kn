@@ -29,7 +29,6 @@ class BitfieldBlueprintBuilder(
     private val girNamespace: GirNamespace,
     private val girBitfield: GirBitField,
 ) : BlueprintBuilder<BitfieldBlueprint>(context) {
-
     private val members = mutableListOf<BitfieldMemberBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
 
