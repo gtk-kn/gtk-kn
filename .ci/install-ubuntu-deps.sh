@@ -31,3 +31,4 @@ cd libhelium || return $?
 meson _build --prefix=/usr
 ninja -v -C _build install
 cd ..
+rm -r libhelium
