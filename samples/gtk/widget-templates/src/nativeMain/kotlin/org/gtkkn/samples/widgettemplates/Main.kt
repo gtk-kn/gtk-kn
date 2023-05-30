@@ -47,13 +47,14 @@ fun main() {
 
 @OptIn(ExperimentalForeignApi::class)
 class ExampleWidget : Box(newInstancePointer()) {
-
     // expose the children as vals on the instance
     val entry by Type.entry
     val button by Type.button
 
     companion object Type : TemplateWidgetType<ExampleWidget>(
-        ExampleWidget::class, Box.type, "/ui/examplewidget.ui",
+        ExampleWidget::class,
+        Box.type,
+        "/ui/examplewidget.ui",
     ) {
         val entry by templateChild<Entry>()
         val button by templateChild<Button>()

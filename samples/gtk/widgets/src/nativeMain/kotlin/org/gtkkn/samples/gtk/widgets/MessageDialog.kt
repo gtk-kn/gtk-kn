@@ -36,7 +36,6 @@ import org.gtkkn.extensions.gtk.fromIntOrNull
 import org.gtkkn.extensions.gtk.new
 import org.gtkkn.extensions.gtk.setMargins
 
-
 fun messageDialogs(window: Window): Widget {
     val simpleDialogButton = Button("Simple Dialog").apply {
         connectClicked { openSimpleDialog(window) }

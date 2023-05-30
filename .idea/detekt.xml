@@ -11,6 +11,8 @@
         <option value="$PROJECT_DIR$/config/detekt/detekt.yml" />
       </list>
     </option>
+    <option name="enableDetekt" value="true" />
+    <option name="enableForProjectResult" value="Accepted" />
     <option name="treatAsErrors" value="true" />
   </component>
 </project>

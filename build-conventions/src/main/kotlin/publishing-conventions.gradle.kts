@@ -25,24 +25,24 @@ plugins {
 
 val publish = config.extensions.create<PublishConfigExt>("publish").apply {
     ossrhUsername.convention(
-        providers.gradleProperty("ossrhUsername")
+        providers.gradleProperty("org.gtkkn.signing.ossrh.username")
             .orElse(providers.environmentVariable("OSSRH_USERNAME")),
     )
     ossrhPassword.convention(
-        providers.gradleProperty("ossrhPassword")
+        providers.gradleProperty("org.gtkkn.signing.ossrh.password")
             .orElse(providers.environmentVariable("OSSRH_PASSWORD")),
     )
     signingKeyId.convention(
-        providers.gradleProperty("signing.keyId")
+        providers.gradleProperty("org.gtkkn.signing.keyId")
             .orElse(providers.environmentVariable("SIGNING_KEY_ID")),
     )
     signingPassword.convention(
-        providers.gradleProperty("signing.password")
+        providers.gradleProperty("org.gtkkn.signing.password")
             .orElse(providers.environmentVariable("SIGNING_PASSWORD")),
     )
-    signingSecretKeyRingFile.convention(
-        providers.gradleProperty("signing.secretKeyRingFile")
-            .orElse(providers.environmentVariable("SIGNING_SECRET_KEY_RING_FILE")),
+    signingSecretKey.convention(
+        providers.gradleProperty("org.gtkkn.signing.secretKey")
+            .orElse(providers.environmentVariable("SIGNING_SECRET_KEY")),
     )
 }
 
@@ -51,11 +51,11 @@ val javadocJar by tasks.registering(Jar::class) {
 }
 
 publishing {
-    // Configure maven central repository
+    // Configure Sonatype snapshots repository
     repositories {
         maven {
-            name = "Deploy"
-            setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            name = "Snapshots"
+            setUrl("https://s01.oss.sonatype.org/content/repositories/snapshots/")
             credentials {
                 username = publish.ossrhUsername.orNull
                 password = publish.ossrhPassword.orNull
@@ -73,8 +73,8 @@ publishing {
 
             licenses {
                 license {
-                    name.set("MIT")
-                    url.set("https://opensource.org/licenses/MIT")
+                    name.set("LGPL")
+                    url.set("https://www.gnu.org/licenses/lgpl-3.0.html")
                 }
             }
 
@@ -84,6 +84,11 @@ publishing {
                     id.set("leinardi")
                     name.set("Roberto Leinardi")
                     email.set("roberto@leinardi.com")
+                }
+                developer {
+                    id.set("petuska")
+                    name.set("Martynas Petuška")
+                    email.set("martynas@petuska.dev")
                 }
                 developer {
                     id.set("vbsteven")
@@ -101,9 +106,29 @@ publishing {
     }
 }
 
+tasks {
+    val cleanMavenLocal by registering {
+        group = BasePlugin.BUILD_GROUP
+        doLast {
+            val groupRepo =
+                file("${System.getProperty("user.home")}/.m2/repository/${project.group.toString().replace(".", "/")}")
+            publishing.publications.filterIsInstance<MavenPublication>().forEach {
+                groupRepo.resolve(it.artifactId).deleteRecursively()
+            }
+        }
+    }
+    named(BasePlugin.CLEAN_TASK_NAME) {
+        dependsOn(cleanMavenLocal)
+    }
+    withType<AbstractPublishToMaven> {
+        mustRunAfter(withType<Sign>())
+    }
+}
+
 // Signing artifacts. Signing.* extra properties values will be used
 signing {
     isRequired = publish.signingPassword.isPresent
+    useInMemoryPgpKeys(publish.signingKeyId.orNull, publish.signingSecretKey.orNull, publish.signingPassword.orNull)
     sign(publishing.publications)
 }
 

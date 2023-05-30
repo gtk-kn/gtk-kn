@@ -25,7 +25,7 @@ interface PublishConfigExt : ExtensionAware {
     val ossrhPassword: Property<String>
     val signingKeyId: Property<String>
     val signingPassword: Property<String>
-    val signingSecretKeyRingFile: Property<String>
+    val signingSecretKey: Property<String>
 }
 
 internal inline val ConfigExt.publish: PublishConfigExt get() = extensions.getByType()
