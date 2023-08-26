@@ -23,7 +23,7 @@ To deploy the `gtk-kn` artifacts to MavenLocal, follow these steps:
 1. Clone the `gtk-kn` repository by running `git clone https://gitlab.com/gtk-kn/gtk-kn.git`
 2. Generate the binding source code by running `./gradlew :gir:run`.
 3. Compile the bindings by running `./gradlew assemble`.
-4. Install the library to your local repository by running `./gradlew publishToMavenLocal`.
+4. Install the library to your local repository by running `./gradlew publishToMavenLocal :gradle-plugin:publishToMavenLocal`.
 5. Confirm that the artifacts have been installed to your local repository by checking the `~/.m2/repository` directory.
 6. In your project's `settings.gradle.kts` file, add the following lines to the repositories block: `mavenLocal()`
 
