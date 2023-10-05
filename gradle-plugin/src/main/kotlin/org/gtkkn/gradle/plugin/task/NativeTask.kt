@@ -31,10 +31,10 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Nested
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.os.OperatingSystem
 import org.gradle.process.ExecOperations
 import java.io.ByteArrayOutputStream
-import java.io.InputStream
-import java.io.OutputStream
+import java.io.File
 import javax.inject.Inject
 
 abstract class NativeTask : DefaultTask() {
@@ -77,14 +77,7 @@ abstract class NativeTask : DefaultTask() {
     }
 
     private fun checkTooling(executable: String, assert: Boolean, toolingPackages: ToolingPackages) {
-        val onPath = execOperations.exec {
-            isIgnoreExitValue = true
-            standardInput = InputStream.nullInputStream()
-            standardOutput = OutputStream.nullOutputStream()
-            errorOutput = OutputStream.nullOutputStream()
-            this.executable = "which"
-            args(executable)
-        }.exitValue == 0
+        val onPath = isExecutableOnPath(executable)
         if (!onPath) {
             val message = """
                 GTK tool $executable missing on PATH
@@ -98,6 +91,26 @@ abstract class NativeTask : DefaultTask() {
             }
         } else {
             logger.info("GTK tool $executable is present on PATH")
+        }
+    }
+
+    private fun isExecutableOnPath(executable: String): Boolean {
+        val paths = System.getenv("PATH").split(File.pathSeparator)
+        val os = OperatingSystem.current()
+
+        // On Windows, executables may have extensions like .exe, .bat, .cmd
+        val executableNames = if (os.isWindows) {
+            val pathExt = System.getenv("PATHEXT")?.split(';') ?: listOf(".exe", ".bat", ".cmd")
+            pathExt.map { ext -> "$executable$ext" }
+        } else {
+            listOf(executable)
+        }
+
+        return paths.any { dir ->
+            executableNames.any { name ->
+                val file = File(dir, name)
+                file.exists() && file.canExecute()
+            }
         }
     }
 }

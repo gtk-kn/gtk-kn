@@ -15,12 +15,21 @@
 # along with gtk-kn. If not, see https://www.gnu.org/licenses/.
 #
 
-apt-get --quiet update --yes
-apt-get --quiet install --yes \
-  openjdk-17-jdk \
+set -v
+
+# Update package lists
+apt-get update
+
+# Install packages without prompts
+DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  apt-utils \
+  openjdk-17-jdk-headless \
   python3-pip \
   gcc-multilib \
   libgirepository1.0-dev \
   libadwaita-1-dev \
   libgtksourceview-5-dev \
   libwebkitgtk-6.0-dev
+
+# Clean up package lists
+apt-get clean

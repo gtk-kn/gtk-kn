@@ -1,17 +1,19 @@
 headers = graphene.h graphene-gobject.h
 package = org.gtkkn.native.graphene
-headerFilter = graphene-*
+headerFilter = graphene-*.h
 
 # pkg-config --cflags graphene-1.0
 compilerOpts.linux =\
+    -I/usr/include \
+    -I/usr/include/glib-2.0 \
     -I/usr/include/graphene-1.0 \
+    -I/usr/include/sysprof-4 \
+    -I/usr/include/sysprof-6 \
+    -I/usr/lib/glib-2.0/include \
     -I/usr/lib/graphene-1.0/include \
     -mfpmath=sse \
     -msse \
     -msse2 \
-    -I/usr/include/glib-2.0 \
-    -I/usr/lib/glib-2.0/include \
-    -I/usr/include/sysprof-4 \
     -pthread
 
 compilerOpts.linux_x64 =\

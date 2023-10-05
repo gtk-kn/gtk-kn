@@ -4,7 +4,8 @@ stages:
   - deploy
 
 include:
-  - local: ".gitlab/base.yml"
-  - local: ".gitlab/merge-request.yml"
-  - local: ".gitlab/pages.yml"
-#  - local: ".gitlab/publish-snapshots.yml" # disabled until fixed
+  - local: ".gitlab/ci/base.yml"
+  - local: ".gitlab/ci/docker-images.yml"
+  - local: ".gitlab/ci/merge-request.yml"
+  - local: ".gitlab/ci/pages.yml"
+#  - local: ".gitlab/ci/publish-snapshots.yml" # disabled until fixed

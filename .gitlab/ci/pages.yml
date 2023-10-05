@@ -1,5 +1,6 @@
 pages:
   extends: .build-base
+  image: "$CI_REGISTRY_IMAGE/fedora:41"
   stage: deploy
   script:
     - pip install -r mkdocs-requirements.txt --break-system-packages --ignore-installed PyYAML
@@ -10,4 +11,8 @@ pages:
     paths:
       - public
   rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "web"'
+      when: manual
+    - when: never

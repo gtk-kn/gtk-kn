@@ -37,7 +37,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo .ci/install-ubuntu-deps.sh
+          sudo docker/ubuntu/install-ubuntu-deps.sh
           pip install -r mkdocs-requirements.txt
 
       - name: Generate bindings

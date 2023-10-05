@@ -1,0 +1,374 @@
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_TLS_CERTDIR: ""
+  TEMP_IMAGE_NAME_ARCHLINUX: "$CI_REGISTRY_IMAGE/archlinux:${CI_COMMIT_SHORT_SHA}"
+  TEMP_IMAGE_NAME_FEDORA: "$CI_REGISTRY_IMAGE/fedora:${CI_COMMIT_SHORT_SHA}"
+  TEMP_IMAGE_NAME_OPENSUSE_TUMBLEWEED: "$CI_REGISTRY_IMAGE/opensuse-tumbleweed:${CI_COMMIT_SHORT_SHA}"
+  TEMP_IMAGE_NAME_UBUNTU: "$CI_REGISTRY_IMAGE/ubuntu:${CI_COMMIT_SHORT_SHA}"
+  ARCHLINUX_VERSION: "latest"
+  FEDORA_VERSION: "41"
+  OPENSUSE_TUMBLEWEED_VERSION: "latest"
+  UBUNTU_VERSION: "24.04"
+
+# Template for Docker jobs
+.docker_job_template: &docker_job_template
+  image: docker:24.0.7
+  services:
+    - docker:24.0.7-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+  before_script:
+    - apk add --no-cache git
+    - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+
+# Build Arch Linux Image
+build_archlinux:
+  <<: *docker_job_template
+  stage: build
+  variables:
+    IMAGE_NAME: "$CI_REGISTRY_IMAGE/archlinux:${ARCHLINUX_VERSION}"
+    TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_ARCHLINUX"
+  script:
+    - docker build --pull -t "$TEMP_IMAGE_NAME" -f docker/archlinux/Dockerfile .
+    - docker push "$TEMP_IMAGE_NAME"
+  rules:
+    # Automatically run on push to default branch with changes in docker/archlinux/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/archlinux/**
+      when: on_success
+
+    # Automatically run on merge request events with changes in docker/archlinux/**
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - docker/archlinux/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Test Arch Linux Image
+test_archlinux:
+  stage: test
+  extends: .build-base
+  image:
+    name: "$TEMP_IMAGE_NAME_ARCHLINUX"
+    entrypoint: [ "" ]
+  script:
+    - .ci/gtk-kt-check.sh
+  needs:
+    - build_archlinux
+  rules:
+    # Automatically run on push to default branch with changes in docker/archlinux/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/archlinux/**
+      when: on_success
+
+    # Automatically run on merge request events with changes in docker/archlinux/**
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - docker/archlinux/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Deploy Arch Linux Image
+deploy_archlinux:
+  <<: *docker_job_template
+  stage: deploy
+  variables:
+    IMAGE_NAME: "$CI_REGISTRY_IMAGE/archlinux:${ARCHLINUX_VERSION}"
+    TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_ARCHLINUX"
+  script:
+    - docker pull "$TEMP_IMAGE_NAME"
+    - docker tag "$TEMP_IMAGE_NAME" "$IMAGE_NAME"
+    - docker push "$IMAGE_NAME"
+  needs:
+    - test_archlinux
+  rules:
+    # Automatically run on push to default branch with changes in docker/archlinux/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/archlinux/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Build Fedora Image
+build_fedora:
+  <<: *docker_job_template
+  stage: build
+  variables:
+    IMAGE_NAME: "$CI_REGISTRY_IMAGE/fedora:${FEDORA_VERSION}"
+    TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_FEDORA"
+  script:
+    - docker build --pull -t "$TEMP_IMAGE_NAME" -f docker/fedora/Dockerfile .
+    - docker push "$TEMP_IMAGE_NAME"
+  rules:
+    # Automatically run on push to default branch with changes in docker/fedora/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/fedora/**
+      when: on_success
+
+    # Automatically run on merge request events with changes in docker/fedora/**
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - docker/fedora/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Test Fedora Image
+test_fedora:
+  stage: test
+  extends: .build-base
+  image:
+    name: "$TEMP_IMAGE_NAME_FEDORA"
+    entrypoint: [ "" ]
+  script:
+    - .ci/gtk-kt-check.sh
+  needs:
+    - build_fedora
+  rules:
+    # Automatically run on push to default branch with changes in docker/fedora/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/fedora/**
+      when: on_success
+
+    # Automatically run on merge request events with changes in docker/fedora/**
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - docker/fedora/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Deploy Fedora Image
+deploy_fedora:
+  <<: *docker_job_template
+  stage: deploy
+  variables:
+    IMAGE_NAME: "$CI_REGISTRY_IMAGE/fedora:${FEDORA_VERSION}"
+    TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_FEDORA"
+  script:
+    - docker pull "$TEMP_IMAGE_NAME"
+    - docker tag "$TEMP_IMAGE_NAME" "$IMAGE_NAME"
+    - docker push "$IMAGE_NAME"
+  needs:
+    - test_fedora
+  rules:
+    # Automatically run on push to default branch with changes in docker/fedora/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/fedora/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Build openSUSE Tumbleweed Image
+build_opensuse_tumbleweed:
+  <<: *docker_job_template
+  stage: build
+  variables:
+    IMAGE_NAME: "$CI_REGISTRY_IMAGE/opensuse-tumbleweed:${OPENSUSE_TUMBLEWEED_VERSION}"
+    TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_OPENSUSE_TUMBLEWEED"
+  script:
+    - docker build --pull -t "$TEMP_IMAGE_NAME" -f docker/opensuse-tumbleweed/Dockerfile .
+    - docker push "$TEMP_IMAGE_NAME"
+  rules:
+    # Automatically run on push to default branch with changes in docker/opensuse-tumbleweed/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/opensuse-tumbleweed/**
+      when: on_success
+
+    # Automatically run on merge request events with changes in docker/opensuse-tumbleweed/**
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - docker/opensuse-tumbleweed/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Test openSUSE Tumbleweed Image
+test_opensuse_tumbleweed:
+  stage: test
+  extends: .build-base
+  image:
+    name: "$TEMP_IMAGE_NAME_OPENSUSE_TUMBLEWEED"
+    entrypoint: [ "" ]
+  script:
+    - .ci/gtk-kt-check.sh
+  needs:
+    - build_opensuse_tumbleweed
+  rules:
+    # Automatically run on push to default branch with changes in docker/opensuse-tumbleweed/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/opensuse-tumbleweed/**
+      when: on_success
+
+    # Automatically run on merge request events with changes in docker/opensuse-tumbleweed/**
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - docker/opensuse-tumbleweed/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Deploy openSUSE Tumbleweed Image
+deploy_opensuse_tumbleweed:
+  <<: *docker_job_template
+  stage: deploy
+  variables:
+    IMAGE_NAME: "$CI_REGISTRY_IMAGE/opensuse-tumbleweed:${OPENSUSE_TUMBLEWEED_VERSION}"
+    TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_OPENSUSE_TUMBLEWEED"
+  script:
+    - docker pull "$TEMP_IMAGE_NAME"
+    - docker tag "$TEMP_IMAGE_NAME" "$IMAGE_NAME"
+    - docker push "$IMAGE_NAME"
+  needs:
+    - test_opensuse_tumbleweed
+  rules:
+    # Automatically run on push to default branch with changes in docker/opensuse-tumbleweed/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/opensuse-tumbleweed/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Build Ubuntu Image
+build_ubuntu:
+  <<: *docker_job_template
+  stage: build
+  variables:
+    IMAGE_NAME: "$CI_REGISTRY_IMAGE/ubuntu:${UBUNTU_VERSION}"
+    TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_UBUNTU"
+  script:
+    - docker build --pull -t "$TEMP_IMAGE_NAME" -f docker/ubuntu/Dockerfile .
+    - docker push "$TEMP_IMAGE_NAME"
+  rules:
+    # Automatically run on push to default branch with changes in docker/ubuntu/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/ubuntu/**
+      when: on_success
+
+    # Automatically run on merge request events with changes in docker/ubuntu/**
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - docker/ubuntu/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Test Ubuntu Image
+test_ubuntu:
+  stage: test
+  extends: .build-base
+  image:
+    name: "$TEMP_IMAGE_NAME_UBUNTU"
+    entrypoint: [ "" ]
+  script:
+    - .ci/gtk-kt-check.sh
+  needs:
+    - build_ubuntu
+  rules:
+    # Automatically run on push to default branch with changes in docker/ubuntu/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/ubuntu/**
+      when: on_success
+
+    # Automatically run on merge request events with changes in docker/ubuntu/**
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - docker/ubuntu/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Deploy Ubuntu Image
+deploy_ubuntu:
+  <<: *docker_job_template
+  stage: deploy
+  variables:
+    IMAGE_NAME: "$CI_REGISTRY_IMAGE/ubuntu:${UBUNTU_VERSION}"
+    TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_UBUNTU"
+  script:
+    - docker pull "$TEMP_IMAGE_NAME"
+    - docker tag "$TEMP_IMAGE_NAME" "$IMAGE_NAME"
+    - docker push "$IMAGE_NAME"
+  needs:
+    - test_ubuntu
+  rules:
+    # Automatically run on push to default branch with changes in docker/ubuntu/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/ubuntu/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never

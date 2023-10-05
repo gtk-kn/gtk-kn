@@ -1,8 +1,6 @@
-.build-base:
-  image: ubuntu:24.04
+.build-base: &build-base
   before_script:
     - GRADLE_USER_HOME="$(pwd)/.gradle"
     - export GRADLE_USER_HOME
     - mkdir -p $GRADLE_USER_HOME ; cp .ci/ci-gradle.properties $GRADLE_USER_HOME/gradle.properties
-    - .ci/install-ubuntu-deps.sh
     - ./gradlew javaToolchains
