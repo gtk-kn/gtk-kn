@@ -65,10 +65,6 @@ publishing {
 
     // Configure all publications
     publications.withType<MavenPublication> {
-
-        // Stub javadoc.jar artifact
-        artifact(javadocJar.get())
-
         // Provide artifacts information requited by Maven Central
         pom {
             name.set(project.name)
@@ -109,4 +105,8 @@ publishing {
 signing {
     isRequired = publish.signingPassword.isPresent
     sign(publishing.publications)
+}
+
+tasks.withType<AbstractPublishToMaven> {
+    mustRunAfter(tasks.withType<Sign>())
 }

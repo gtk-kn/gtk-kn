@@ -38,9 +38,9 @@ log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", ver
 plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-plugin-spotless = "com.diffplug.spotless:spotless-plugin-gradle:6.17.0"
-plugin-versions = "com.github.ben-manes:gradle-versions-plugin:0.45.0"
-plugin-versions-update = "nl.littlerobots.vcu:plugin:0.8.0"
+plugin-spotless = "com.diffplug.spotless:spotless-plugin-gradle:6.22.0"
+plugin-versions = "com.github.ben-manes:gradle-versions-plugin:0.48.0"
+plugin-versions-update = "nl.littlerobots.vcu:plugin:0.8.1"
 
 [bundles]
 kotlin-logging-jvm = [
