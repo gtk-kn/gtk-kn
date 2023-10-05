@@ -33,23 +33,23 @@ fun main(args: Array<String>) {
     configureLog4j(config.logLevel)
 
     if (!config.girBaseDir.exists()) {
-        logger.error("Error: the specified directory does not exist.")
+        logger.error { "Error: the specified directory does not exist." }
         exitProcess(2)
     }
 
-    logger.info("girBaseDir: ${config.girBaseDir}")
+    logger.info { "girBaseDir: ${config.girBaseDir}" }
 
     val girParser = GirParser()
     val repositories = config.girBaseDir.listFiles().orEmpty()
         .filter { file -> config.matchesGirFile(file) }
         .map { girParser.parse(it) }
 
-    logger.info("Parsed ${repositories.count()} gir files")
+    logger.info { "Parsed ${repositories.count()} gir files" }
 
     val phase2 = Phase2Processor()
     val repositoryBlueprints = phase2.process(repositories, config)
 
-    logger.info("Processed ${repositoryBlueprints.count()} blueprints")
+    logger.info { "Processed ${repositoryBlueprints.count()} blueprints" }
 
     val generator = BindingsGenerator(config, KtLintFormatter(config.outputDir))
     repositoryBlueprints.forEach {

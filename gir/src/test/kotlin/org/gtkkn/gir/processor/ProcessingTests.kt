@@ -17,7 +17,7 @@
 package org.gtkkn.gir.processor
 
 import com.squareup.kotlinpoet.ClassName
-import io.github.oshai.Level
+import io.github.oshai.kotlinlogging.Level
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.parser.GirParser

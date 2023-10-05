@@ -71,7 +71,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 class GirParser {
     fun parse(file: File): GirRepository {
-        logger.info("Parsing GIR file ${file.name}")
+        logger.info { "Parsing GIR file ${file.name}" }
 
         val dbFactory = DocumentBuilderFactory.newInstance()
         val dBuilder = dbFactory.newDocumentBuilder()

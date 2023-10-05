@@ -53,7 +53,7 @@ class PropertyBlueprintBuilder(
 
         val isOverride = nameMatchingSuperProperties.isNotEmpty()
         if (isOverride) {
-            logger.warn("Detected property override: ${girProperty.name}")
+            logger.warn { "Detected property override: ${girProperty.name}" }
         }
 
         return PropertyBlueprint(

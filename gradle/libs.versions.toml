@@ -1,13 +1,13 @@
 # Sharing dependency versions between projects
 # https://docs.gradle.org/current/userguide/platforms.html
 [versions]
-detekt = "1.23.0"
-dokka = "1.8.10"
-gradle = "8.1.1"
+detekt = "1.23.1"
+dokka = "1.9.0"
+gradle = "8.3"
 java = "17"
-kotlin = "1.8.21"
-kotlin-logging = "4.0.0-beta-28"
-ktlint = "0.49.1"
+kotlin = "1.9.10"
+kotlin-logging = "5.1.0"
+ktlint = "1.0.0"
 log4j = "2.20.0"
 prettier = "2.4.1"
 xmlutil = "0.84.3"
@@ -23,12 +23,12 @@ kotlin-logging-mingw-x64 = { module = "io.github.oshai:kotlin-logging-mingwx64",
 kotlin-test-annotations = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
 kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
-kotlinpoet = "com.squareup:kotlinpoet:1.13.2"
-kotlinx-cli = "org.jetbrains.kotlinx:kotlinx-cli:0.3.5"
-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
+kotlinpoet = "com.squareup:kotlinpoet:1.14.2"
+kotlinx-cli = "org.jetbrains.kotlinx:kotlinx-cli:0.3.6"
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0"
 ktlint-cli-ruleset-core = { module = "com.pinterest.ktlint:ktlint-cli-ruleset-core", version.ref = "ktlint" }
-ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktlint" }
 ktlint-rule-engine = { module = "com.pinterest.ktlint:ktlint-rule-engine", version.ref = "ktlint" }
+ktlint-rule-engine-core = { module = "com.pinterest.ktlint:ktlint-rule-engine-core", version.ref = "ktlint" }
 ktlint-ruleset-experimental = { module = "com.pinterest.ktlint:ktlint-ruleset-experimental", version.ref = "ktlint" }
 ktlint-ruleset-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlint" }
 log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j" }
@@ -51,17 +51,17 @@ kotlin-logging-jvm = [
 ]
 ktlint = [
     "ktlint-cli-ruleset-core",
-    "ktlint-core",
     "ktlint-rule-engine",
+    "ktlint-rule-engine-core",
     "ktlint-ruleset-standard",
 ]
 
 [plugins]
-buildConfig = "com.github.gmazzo.buildconfig:3.1.0"
+buildConfig = "com.github.gmazzo.buildconfig:4.1.2"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-gradle-publish = "com.gradle.plugin-publish:0.21.0"
+gradle-publish = "com.gradle.plugin-publish:1.2.1"
 gradledoctor = "com.osacky.doctor:0.8.1"
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-maven-publish = "com.vanniktech.maven.publish:0.24.0"
+maven-publish = "com.vanniktech.maven.publish:0.25.3"

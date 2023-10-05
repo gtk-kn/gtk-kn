@@ -22,6 +22,7 @@
 
 package org.gtkkn.samples.widgettemplates
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
@@ -44,6 +45,7 @@ fun main() {
     app.runApplication()
 }
 
+@OptIn(ExperimentalForeignApi::class)
 class ExampleWidget : Box(newInstancePointer()) {
 
     // expose the children as vals on the instance
