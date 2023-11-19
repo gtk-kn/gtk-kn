@@ -39,10 +39,11 @@ kotlin {
 }
 
 tasks {
+    val bindings = fileTree("${projectDir}/src/nativeMain/kotlin/org/gtkkn/bindings/")
     val cleanBindings by registering(Delete::class) {
         group = BasePlugin.BUILD_GROUP
-        delete("${projectDir}/src/nativeMain/kotlin/org/gtkkn/bindings/")
+        delete(bindings)
     }
     clean { dependsOn(cleanBindings) }
-    girTask.outputs.dir("$projectDir/src/nativeMain/kotlin/org/gtkkn/bindings")
+    girTask.outputs.files(bindings)
 }
