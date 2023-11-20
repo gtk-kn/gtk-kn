@@ -16,7 +16,7 @@
 
 package org.gtkkn.gir.config
 
-import io.github.oshai.Level
+import io.github.oshai.kotlinlogging.Level
 import kotlinx.serialization.Serializable
 import java.io.File
 

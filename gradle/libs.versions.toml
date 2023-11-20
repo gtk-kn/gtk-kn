@@ -1,14 +1,14 @@
 # Sharing dependency versions between projects
 # https://docs.gradle.org/current/userguide/platforms.html
 [versions]
-detekt = "1.23.0"
-dokka = "1.8.10"
-gradle = "8.1.1"
+detekt = "1.23.3"
+dokka = "1.9.10"
+gradle = "8.4"
 java = "17"
-kotlin = "1.8.21"
-kotlin-logging = "4.0.0-beta-28"
-ktlint = "0.49.1"
-log4j = "2.20.0"
+kotlin = "1.9.10"
+kotlin-logging = "5.1.0"
+ktlint = "1.0.1"
+log4j = "2.21.1"
 prettier = "2.4.1"
 xmlutil = "0.84.3"
 
@@ -23,11 +23,11 @@ kotlin-logging-mingw-x64 = { module = "io.github.oshai:kotlin-logging-mingwx64",
 kotlin-test-annotations = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
 kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
-kotlinpoet = "com.squareup:kotlinpoet:1.13.2"
-kotlinx-cli = "org.jetbrains.kotlinx:kotlinx-cli:0.3.5"
-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
+kotlinpoet = "com.squareup:kotlinpoet:1.15.1"
+kotlinx-cli = "org.jetbrains.kotlinx:kotlinx-cli:0.3.6"
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1"
 ktlint-cli-ruleset-core = { module = "com.pinterest.ktlint:ktlint-cli-ruleset-core", version.ref = "ktlint" }
-ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktlint" }
+ktlint-core = "com.pinterest.ktlint:ktlint-core:0.49.1"
 ktlint-rule-engine = { module = "com.pinterest.ktlint:ktlint-rule-engine", version.ref = "ktlint" }
 ktlint-ruleset-experimental = { module = "com.pinterest.ktlint:ktlint-ruleset-experimental", version.ref = "ktlint" }
 ktlint-ruleset-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlint" }

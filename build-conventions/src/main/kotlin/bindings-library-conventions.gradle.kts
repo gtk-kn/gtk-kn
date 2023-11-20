@@ -26,14 +26,16 @@ val girTask = tasks.getByPath(":gir:run")
 kotlin {
     targets.withType<KotlinNativeTarget> {
         compilations["main"].apply {
-            cinterops.create(project.name)
+            cinterops.create(project.name) {
+                dependencyFiles = fileTree("/usr/share/gir-1.0") + fileTree("/usr/include")
+            }
             compileTaskProvider {
-                dependsOn(girTask)
+                mustRunAfter(girTask)
             }
         }
 
         tasks.named("${name}SourcesJar") {
-            dependsOn(girTask)
+            mustRunAfter(girTask)
         }
     }
 }
@@ -44,5 +46,5 @@ tasks {
         delete("${projectDir}/src/nativeMain/kotlin/org/gtkkn/bindings/")
     }
     clean { dependsOn(cleanBindings) }
-    girTask.outputs.dir("$projectDir/src/nativeMain/kotlin/org/gtkkn/bindings")
+//    girTask.outputs.dir("$projectDir/src/nativeMain/kotlin/org/gtkkn/bindings")
 }

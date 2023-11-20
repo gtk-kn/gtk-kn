@@ -16,7 +16,7 @@
 
 package org.gtkkn.gir.cli
 
-import io.github.oshai.Level
+import io.github.oshai.kotlinlogging.Level
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.serialization.decodeFromString

@@ -28,6 +28,12 @@ kotlin {
     explicitApi()
     targetHierarchy.default()
     linuxX64()
+
+    sourceSets {
+        all {
+            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
+        }
+    }
 }
 
 tasks {

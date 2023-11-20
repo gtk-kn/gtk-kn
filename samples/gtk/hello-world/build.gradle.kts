@@ -17,7 +17,7 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-    kotlin("multiplatform") version "1.8.21"
+    kotlin("multiplatform") version "1.9.10"
 }
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
