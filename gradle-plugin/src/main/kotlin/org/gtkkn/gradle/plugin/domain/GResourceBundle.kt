@@ -138,7 +138,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
         ) = tasks.register<Copy>("${bundle.name}ProcessGResources") {
             group = GtkPlugin.TASK_GROUP
             from(bundle.asFileTree)
-            destinationDir = project.buildDir.resolve("processedGResources/${bundle.name}")
+            destinationDir = layout.buildDirectory.file("processedGResources/${bundle.name}").get().asFile
         }
 
         private fun Project.registerHeaderTask(

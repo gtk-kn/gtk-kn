@@ -133,7 +133,7 @@ private fun loadConfigFromFile(file: File): Config {
     val jsonConfig = Json.decodeFromString<GtkKnJsonConfig>(file.readText())
 
     return Config(
-        file.parentFile.resolve(jsonConfig.girBaseDir),
+        girBaseDir = file.parentFile.resolve(jsonConfig.girBaseDir),
         outputDir = file.parentFile.resolve(jsonConfig.outputDir),
         logLevel = Level.valueOf(jsonConfig.logLevel),
         skipFormat = jsonConfig.skipFormat,
