@@ -25,7 +25,7 @@ val libs = the<LibrariesForLibs>()
 spotless {
     kotlin {
         target("**/*.kt")
-        targetExclude("$buildDir/**/*.kt", "build-conventions/build/**/*.kt")
+        targetExclude("${layout.buildDirectory.asFile.get()}/**/*.kt", "build-conventions/build/**/*.kt")
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()

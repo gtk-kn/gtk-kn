@@ -97,7 +97,7 @@ interface GSchemaBundle : Named {
             group = GtkPlugin.TASK_GROUP
             description = "Processes ${bundle.name} gschema"
             from(bundle.manifest)
-            destinationDir = project.buildDir.resolve("processedGSchemas/${bundle.name}")
+            destinationDir = layout.buildDirectory.file("processedGSchemas/${bundle.name}").get().asFile
         }
 
         private fun Project.registerVerifyTask(
