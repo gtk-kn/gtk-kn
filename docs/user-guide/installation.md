@@ -13,7 +13,11 @@ will provide installation guidelines for each operating system in the upcoming c
 You first have to install the following dependencies:
 
 ```bash
-sudo apt install build-essentials gcc-multilib libgirepository1.0-dev libadwaita-1-dev
+# Debian
+sudo apt install gnome-devel gcc-multilib libgtksourceview-5-dev
+
+# Fedora
+sudo dnf install gtk4-devel libadwaita-devel gtksourceview5-devel
 ```
 
 A bash script to install all the dependencies for Ubuntu 22.04 , that includes also all the optional bindings, it is

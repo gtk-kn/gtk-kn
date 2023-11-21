@@ -14,7 +14,6 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 import com.diffplug.gradle.spotless.SpotlessTask
-import com.diffplug.gradle.spotless.SpotlessTaskImpl
 import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 
 plugins {
