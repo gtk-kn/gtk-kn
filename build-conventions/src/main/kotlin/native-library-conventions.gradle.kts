@@ -31,9 +31,7 @@ kotlin {
 
     sourceSets {
         all {
-            languageSettings.apply {
-                optIn("kotlinx.cinterop.ExperimentalForeignApi")
-            }
+            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
         }
     }
 }
