@@ -75,6 +75,15 @@ our [code of conduct](CODE_OF_CONDUCT.md) before getting started.
 Some documentation on how to build and deploy the bindings to maven local is
 available [here](docs/user-guide/deploy-on-mavenlocal.md).
 
+### Dependencies
+```bash
+# Debian
+sudo apt install gnome-devel gcc-multilib libgtksourceview-5-dev
+
+# Fedora
+sudo dnf install gtk4-devel libadwaita-devel gtksourceview5-devel
+```
+
 ## Running the examples
 
 The [samples](samples) directory contains sample applications that demonstrate how to use the GTK bindings in
