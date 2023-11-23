@@ -16,10 +16,9 @@
 
 package org.gtkkn.gir.cli
 
-import io.github.oshai.Level
+import io.github.oshai.kotlinlogging.Level
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.config.GtkKnJsonConfig
@@ -126,8 +125,8 @@ private fun resolveDefaultConfigFilePath(): String {
         searchDir = searchDir.parentFile
     }
 
-    logger.error("No gtkkn.json file found in ${userDir.absolutePath} or its parents")
-    error("No gtkkn.json file found")
+    logger.error { "No gtkkn.json file found in ${userDir.absolutePath} or its parents" }
+    error("No gtkkn.json file found in ${userDir.absolutePath} or its parents")
 }
 
 private fun loadConfigFromFile(file: File): Config {

@@ -437,7 +437,7 @@ class ProcessorContext(
         // first basic types
         typeInfoTable[type.name]?.let { typeInfo ->
             if (type.cType != null && type.cType.endsWith("*")) {
-                logger.error("Skipping primitive with pointer type")
+                logger.error { "Skipping primitive with pointer type" }
                 throw UnresolvableTypeException("Unsupported pointer to primitive type")
             }
             return typeInfo.withNullable(nullable)
@@ -465,7 +465,7 @@ class ProcessorContext(
 
                 null -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
                 else -> {
-                    logger.error("Skipping string type with cType: ${type.cType}")
+                    logger.error { "Skipping string type with cType: ${type.cType}" }
                     throw UnresolvableTypeException("Unsupported string with cType ${type.cType}")
                 }
             }.withNullable(nullable)
@@ -566,7 +566,7 @@ class ProcessorContext(
             // fallthrough
         }
 
-        logger.warn("Could not resolve type for type with name: ${type.name} and cType: ${type.cType}")
+        logger.warn { "Could not resolve type for type with name: ${type.name} and cType: ${type.cType}" }
         throw UnresolvableTypeException(type.name)
     }
 

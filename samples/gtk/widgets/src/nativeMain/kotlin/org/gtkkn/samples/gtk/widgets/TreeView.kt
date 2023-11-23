@@ -22,6 +22,7 @@
 
 package org.gtkkn.samples.gtk.widgets
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import org.gtkkn.bindings.gio.ListStore
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Align
@@ -133,6 +134,7 @@ private val exampleComments = buildList {
 /**
  * A Comment type that extends from GObject, each item has a list of child comments.
  */
+@OptIn(ExperimentalForeignApi::class)
 private class Comment(
     val text: String,
     val childComments: List<Comment> = emptyList()

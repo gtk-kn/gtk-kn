@@ -96,7 +96,7 @@ internal object TypeRegistry {
             class_data = StableRef.create(customTypeInfo).asCPointer()
         }
 
-        val gType = g_type_register_static(superType, typeName, typeInfoStruct.ptr, 0)
+        val gType = g_type_register_static(superType, typeName, typeInfoStruct.ptr, 0u)
 
         if (gType == 0uL) {
             error("Failed to register type for $typeName")

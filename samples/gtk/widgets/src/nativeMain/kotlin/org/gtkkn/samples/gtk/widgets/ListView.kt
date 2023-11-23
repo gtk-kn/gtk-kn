@@ -22,6 +22,7 @@
 
 package org.gtkkn.samples.gtk.widgets
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import org.gtkkn.bindings.gio.ListStore
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Label
@@ -109,6 +110,7 @@ fun listViewObjects(): Widget {
 /**
  * A Person type that extends from GObject, so we can use it in a list store.
  */
+@OptIn(ExperimentalForeignApi::class)
 private class Person(val name: String, val age: Int) : Object(newInstancePointer()) {
     companion object Type : ObjectType<Person>(Person::class, Object.type)
 }

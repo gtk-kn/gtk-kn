@@ -22,9 +22,9 @@
 
 package org.gtkkn.samples.playground
 
-import io.github.oshai.KotlinLogging
-import io.github.oshai.KotlinLoggingConfiguration
-import io.github.oshai.Level
+import io.github.oshai.kotlinlogging.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLoggingConfiguration
+import io.github.oshai.kotlinlogging.Level
 import org.gtkkn.bindings.adw.Application
 import org.gtkkn.bindings.adw.ApplicationWindow
 import org.gtkkn.bindings.gio.ApplicationFlags
@@ -35,6 +35,7 @@ val logger = KotlinLogging.logger("main")
 @Suppress("FunctionName")
 fun Application(builder: ApplicationWindow.() -> Unit) {
     KotlinLoggingConfiguration.logLevel = Level.TRACE
+    logger.debug { "Playground" }
     val app = Application("org.gtkkn.samples.playground", ApplicationFlags.FLAGS_NONE)
     app.connectActivate {
         val window = ApplicationWindow(app)

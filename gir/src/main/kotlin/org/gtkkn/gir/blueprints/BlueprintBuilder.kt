@@ -49,7 +49,7 @@ abstract class BlueprintBuilder<T : Any>(val context: ProcessorContext) {
         // propagate skipped object
         BlueprintResult.Skip(ex.skippedObject)
     } catch (ex: NotIntrospectableException) {
-        logger.debug("Skipping not introspectable object: ${ex.objectName}")
+        logger.debug { "Skipping not introspectable object: ${ex.objectName}" }
         skip(ex.message, documented = false)
     } catch (ex: BlueprintException) {
         skip(ex.message)

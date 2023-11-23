@@ -78,7 +78,7 @@ class MethodBlueprintBuilder(
             it.debugParameterSignature() == girMethod.debugParameterSignature()
         }
         if (isOverride) {
-            logger.warn("Detected method override: ${girMethod.name}")
+            logger.warn { "Detected method override: ${girMethod.name}" }
         }
 
         val isNameClash = nameMatchingSuperMethods.any {
@@ -113,7 +113,7 @@ class MethodBlueprintBuilder(
 
     private fun resolveNameClash(originalName: String): String {
         val result = "${originalName}_"
-        logger.error("Name clash: renaming method $originalName to $result")
+        logger.error { "Name clash: renaming method $originalName to $result" }
         return result
     }
 

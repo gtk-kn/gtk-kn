@@ -31,18 +31,15 @@ plugins {
 
 version = config.versions.gradlePlugin.get()
 
-pluginBundle {
+gradlePlugin {
     website = config.website.get()
     vcsUrl = config.vcsUrl.get()
-    tags = listOf("ui-framework")
-}
-
-gradlePlugin {
     plugins {
         register("gtk") {
             id = "org.gtkkn.gtk"
             displayName = "GTK Gradle Plugin"
             description = "GTK Gradle plugin for easy configuration"
+            tags = listOf("ui-framework")
             implementationClass = "org.gtkkn.gradle.plugin.GtkPlugin"
         }
     }
@@ -62,7 +59,7 @@ buildConfig {
 }
 
 detekt {
-    config = files("$rootDir/../config/detekt/detekt.yml")
+    config.from(files("$rootDir/../config/detekt/detekt.yml"))
 }
 
 tasks {

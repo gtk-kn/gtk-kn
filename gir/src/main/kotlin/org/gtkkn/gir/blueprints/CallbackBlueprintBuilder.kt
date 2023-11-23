@@ -72,7 +72,7 @@ class CallbackBlueprintBuilder(
         }
 
         if (returnTypeInfo is TypeInfo.KString) {
-            logger.warn("Skipping callback with String return value")
+            logger.warn { "Skipping callback with String return value" }
             throw UnresolvableTypeException("Callback with String return value is not supported")
         }
 

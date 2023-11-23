@@ -88,7 +88,7 @@ abstract class CallableBlueprintBuilder<T : Any>(
 
         // we have 1 closure param, find its user data and destroy function
         val closureParam = parameters.parameters.first { it.closure != null }
-        logger.debug("Found ${blueprintObjectType()} ${blueprintObjectName()} with closure: ${closureParam.name}")
+        logger.debug { "Found ${blueprintObjectType()} ${blueprintObjectName()} with closure: ${closureParam.name}" }
 
         if (closureParam.type !is GirType) error("Callback type is not a GirType")
         closureParam.type.cType?.let { context.checkIgnoredType(it) }
@@ -101,7 +101,7 @@ abstract class CallableBlueprintBuilder<T : Any>(
             it.type is GirType && it.type.name == "gpointer"
         }
         if (userDataParam == null) {
-            logger.warn("No user_data param for ${blueprintObjectType()} ${blueprintObjectName()}")
+            logger.warn { "No user_data param for ${blueprintObjectType()} ${blueprintObjectName()}" }
             throw UnresolvableTypeException("Could not resolve user_data param")
         }
 
@@ -109,9 +109,9 @@ abstract class CallableBlueprintBuilder<T : Any>(
             it.type is GirType && it.type.cType == "GDestroyNotify"
         }
         if (destroyDataParam == null) {
-            logger.debug("No destroy notify param found for ${blueprintObjectType()} ${blueprintObjectName()}")
+            logger.debug { "No destroy notify param found for ${blueprintObjectType()} ${blueprintObjectName()}" }
         } else {
-            logger.debug("Found destroy notify param for ${blueprintObjectType()} ${blueprintObjectName()}")
+            logger.debug { "Found destroy notify param for ${blueprintObjectType()} ${blueprintObjectName()}" }
         }
 
         return parameters.parameters.mapNotNull {

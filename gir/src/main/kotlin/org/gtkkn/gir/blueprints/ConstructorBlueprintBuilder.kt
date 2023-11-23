@@ -55,9 +55,9 @@ class ConstructorBlueprintBuilder(
         // return value
         val returnValue = girConstructor.returnValue
         if (returnValue == null) {
-            logger.error(
-                "Constructor ${girNamespace.name}.${blueprintObjectName()}.${girConstructor.name} has no return value",
-            )
+            logger.error {
+                "Constructor ${girNamespace.name}.${blueprintObjectName()}.${girConstructor.name} has no return value"
+            }
             throw UnresolvableTypeException("Constructor has no return value")
         }
 

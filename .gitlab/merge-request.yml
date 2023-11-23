@@ -3,9 +3,10 @@ generate-and-check:
   interruptible: true
   stage: build
   script:
-    - ./gradlew :gradle-plugin:detektMain
+    - ./gradlew :gradle-plugin:check
     - ./gradlew :gir:run
     - ./gradlew check
+    - ./gradlew gradle-plugin:publishToMavenLocal
     - ./gradlew publishToMavenLocal
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"

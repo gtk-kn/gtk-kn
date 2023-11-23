@@ -25,7 +25,7 @@ val libs = the<LibrariesForLibs>()
 
 detekt {
     toolVersion = libs.versions.detekt.get()
-    source = files("src/main/kotlin", "src/test/kotlin", "src/androidTest/kotlin")
+    source.from(files("src/main/kotlin", "src/test/kotlin", "src/androidTest/kotlin"))
     parallel = true
     autoCorrect = true
 }

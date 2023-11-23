@@ -36,7 +36,7 @@ class KtLintFormatter(outputDir: File) {
     init {
         val editorConfigPath = findEditorConfigPath(outputDir)
         if (editorConfigPath == null) {
-            logger.error("Unable to find .editorconfig file in or above directory ${outputDir.absolutePath}")
+            logger.error { "Unable to find .editorconfig file in or above directory ${outputDir.absolutePath}" }
         }
         ktLintRuleEngine = KtLintRuleEngine(
             ruleProviders = ruleProviders,

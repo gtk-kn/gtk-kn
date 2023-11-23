@@ -37,18 +37,18 @@ class BindingsGenerator(
     RepositoryObjectGenerator,
     RecordGenerator,
     TypeProviderGenerator {
-        @Suppress("LongMethod")
-        fun generate(repository: RepositoryBlueprint, moduleOutputDir: File) {
+    @Suppress("LongMethod")
+    fun generate(repository: RepositoryBlueprint, moduleOutputDir: File) {
         val repositoryOutputDir = repositoryBuildDir(moduleOutputDir)
         if (!repositoryOutputDir.exists()) {
-            logger.info("Creating output dir ${repositoryOutputDir.path}")
+            logger.info { "Creating output dir ${repositoryOutputDir.path}" }
             if (!repositoryOutputDir.mkdirs()) {
-                logger.error("Cannot create output path ${repositoryOutputDir.path}")
+                logger.error { "Cannot create output path ${repositoryOutputDir.path}" }
                 return
             }
         }
 
-        logger.info("Writing repository ${repository.name}")
+        logger.info { "Writing repository ${repository.name}" }
 
         // write skip file
         writeRepositorySkipFile(repository, moduleOutputDir)
@@ -152,7 +152,7 @@ class BindingsGenerator(
         additionalTypeAliases: List<TypeAliasSpec> = emptyList(),
         isRecord: Boolean = false
     ) {
-        logger.debug("Writing ${className.canonicalName}")
+        logger.debug { "Writing ${className.canonicalName}" }
 
         FileSpec
             .builder(className.packageName, className.simpleName)
