@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-@file:Suppress("PackageDirectoryMismatch")
+@file:Suppress("PackageDirectoryMismatch", "unused")
 
 import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.provider.Provider

@@ -22,13 +22,10 @@
 
 package org.gtkkn.gradle.plugin.task
 
-import org.gradle.api.Project
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
 import org.gradle.internal.os.OperatingSystem
-import java.io.InputStream
-import java.io.OutputStream
 
 interface ToolingPackages {
     @get:Input
@@ -61,29 +58,4 @@ internal fun ToolingPackages.installInstructions() = when {
     else -> """
         Operating system not supported by gtkkn
     """.trimIndent()
-}
-
-internal fun Project.checkTooling(executable: String, assert: Boolean, toolingPackages: ToolingPackages) {
-    val onPath = exec {
-        isIgnoreExitValue = true
-        standardInput = InputStream.nullInputStream()
-        standardOutput = OutputStream.nullOutputStream()
-        errorOutput = OutputStream.nullOutputStream()
-        this.executable = "which"
-        args(executable)
-    }.exitValue == 0
-    if (!onPath) {
-        val message = """
-            GTK tool $executable missing on PATH
-            Install the following package to fix it
-
-        """.trimIndent() + toolingPackages.installInstructions()
-        if (assert) {
-            error(message)
-        } else {
-            logger.warn(message)
-        }
-    } else {
-        logger.info("GTK tool $executable is present on PATH")
-    }
 }

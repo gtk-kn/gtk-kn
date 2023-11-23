@@ -102,32 +102,37 @@ interface GSchemaBundle : Named {
 
         private fun Project.registerVerifyTask(
             bundle: GSchemaBundle,
-        ) = tasks.register<CompileGSchemasTask>("${bundle.name}VerifyGSchema") {
-            group = "verification"
-            description = "Verifies ${bundle.name} gschema"
-            dependsOn(bundle.processTask)
-            onlyIf { bundle.processTask.get().destinationDir.exists() }
-            dryRun.convention(true)
-            sourceDir.convention(project.layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
-        }.also { t -> tasks.named("check") { dependsOn(t) } }
+        ): TaskProvider<CompileGSchemasTask> {
+            val resourcesDir = bundle.processTask.map(Copy::getDestinationDir)
+            return tasks.register<CompileGSchemasTask>("${bundle.name}VerifyGSchema") {
+                group = "verification"
+                description = "Verifies ${bundle.name} gschema"
+                dependsOn(bundle.processTask)
+                onlyIf { resourcesDir.get().exists() }
+                dryRun.convention(true)
+                sourceDir.convention(project.layout.dir(resourcesDir))
+            }.also { t -> tasks.named("check") { dependsOn(t) } }
+        }
 
         private fun Project.registerInstallTask(
             bundle: GSchemaBundle,
         ): TaskProvider<CompileGSchemasTask> {
+            val resourcesDir = bundle.processTask.map(Copy::getDestinationDir)
+            val namePrefix = "${project.group}_${project.name}"
             val copyTask = tasks.register<Copy>("${bundle.name}PrepareInstallGSchema") {
                 group = GtkPlugin.TASK_GROUP
                 description = "Prepares ${bundle.name} gschema for installation"
                 dependsOn(bundle.processTask)
                 mustRunAfter(bundle.verifyTask)
-                from(project.layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
+                from(project.layout.dir(resourcesDir))
                 into(bundle.installDir)
-                eachFile { name = "${project.group}_${project.name}_${file.name}" }
+                eachFile { name = "${namePrefix}_${file.name}" }
             }
             return tasks.register<CompileGSchemasTask>("${bundle.name}InstallGSchema") {
                 group = GtkPlugin.TASK_GROUP
                 description = "Installs ${bundle.name} gschema"
                 dependsOn(copyTask)
-                onlyIf { bundle.processTask.get().destinationDir.exists() }
+                onlyIf { resourcesDir.get().exists() }
                 sourceDir.convention(bundle.installDir)
             }
         }
