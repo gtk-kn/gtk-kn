@@ -72,6 +72,9 @@ our [code of conduct](CODE_OF_CONDUCT.md) before getting started.
 
 ## Building the project
 
+To build the project follow the setup outlined [here](docs/user-guide/installation.md).
+
+
 Some documentation on how to build and deploy the bindings to maven local is
 available [here](docs/user-guide/deploy-on-mavenlocal.md).
 

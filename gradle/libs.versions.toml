@@ -1,11 +1,11 @@
 # Sharing dependency versions between projects
 # https://docs.gradle.org/current/userguide/platforms.html
 [versions]
-detekt = "1.23.1"
-dokka = "1.9.10"
 gradle = "8.4"
 java = "17"
 kotlin = "1.9.10"
+detekt = "1.23.1"
+dokka = "1.9.10"
 kotlin-logging = "5.1.0"
 ktlint = "1.0.1"
 log4j = "2.22.0"
