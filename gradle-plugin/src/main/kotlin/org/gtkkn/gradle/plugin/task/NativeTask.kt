@@ -31,7 +31,11 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Nested
 import org.gradle.api.tasks.TaskAction
+import org.gradle.process.ExecOperations
 import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.io.OutputStream
+import javax.inject.Inject
 
 abstract class NativeTask : DefaultTask() {
     @get:Input
@@ -46,6 +50,9 @@ abstract class NativeTask : DefaultTask() {
     @get:Nested
     abstract val packages: ToolingPackages
 
+    @get:Inject
+    protected abstract val execOperations: ExecOperations
+
     /**
      * Added utility for extending classes to prepend some arguments before [args]
      */
@@ -55,9 +62,9 @@ abstract class NativeTask : DefaultTask() {
 
     @TaskAction
     fun run() {
-        project.checkTooling(executable.get(), true, packages)
+        checkTooling(executable.get(), true, packages)
         ByteArrayOutputStream().use { outputStream ->
-            project.exec {
+            execOperations.exec {
                 logging.captureStandardOutput(LogLevel.INFO)
                 logging.captureStandardError(LogLevel.ERROR)
                 executable = this@NativeTask.executable.get()
@@ -67,5 +74,30 @@ abstract class NativeTask : DefaultTask() {
             }
             outputStream.toString()
         }.also(::processOutput)
+    }
+
+    private fun checkTooling(executable: String, assert: Boolean, toolingPackages: ToolingPackages) {
+        val onPath = execOperations.exec {
+            isIgnoreExitValue = true
+            standardInput = InputStream.nullInputStream()
+            standardOutput = OutputStream.nullOutputStream()
+            errorOutput = OutputStream.nullOutputStream()
+            this.executable = "which"
+            args(executable)
+        }.exitValue == 0
+        if (!onPath) {
+            val message = """
+                GTK tool $executable missing on PATH
+                Install the following package to fix it
+
+            """.trimIndent() + toolingPackages.installInstructions()
+            if (assert) {
+                error(message)
+            } else {
+                logger.warn(message)
+            }
+        } else {
+            logger.info("GTK tool $executable is present on PATH")
+        }
     }
 }

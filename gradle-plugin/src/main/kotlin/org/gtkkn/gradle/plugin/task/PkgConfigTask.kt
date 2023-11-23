@@ -22,12 +22,14 @@
 
 package org.gtkkn.gradle.plugin.task
 
+import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gtkkn.gradle.plugin.utils.provider
+import javax.inject.Inject
 
 @Suppress("LeakingThis")
 abstract class PkgConfigTask : NativeTask() {
@@ -59,10 +61,13 @@ abstract class PkgConfigTask : NativeTask() {
     @get:OutputFile
     abstract val target: RegularFileProperty
 
+    @get:Inject
+    protected abstract val layout: ProjectLayout
+
     init {
         description = "Runs pkg-config on a given library"
         target.convention(
-            provider { temporaryDir.resolve("pkg-config.txt") }.run { project.layout.file(this) },
+            provider { temporaryDir.resolve("pkg-config.txt") }.run { layout.file(this) },
         )
         executable.convention("pkg-config")
         packages.apply {

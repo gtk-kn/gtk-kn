@@ -76,6 +76,7 @@ interface GtkExt : ExtensionAware {
                     )
                 }
                 register("main")
+                // Needed to actualise all entities (as a side effect) in order to spawn tasks
                 project.afterEvaluate { this@apply.forEach { _ -> } }
             }.also { extensions.add("gresources", it) }
         }
