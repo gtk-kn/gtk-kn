@@ -14,7 +14,7 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
+import org.jetbrains.dokka.gradle.AbstractDokkaTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
@@ -37,7 +37,8 @@ kotlin {
 }
 
 tasks {
-    withType<AbstractDokkaLeafTask> {
+    withType<AbstractDokkaTask> {
         mustRunAfter(":gir:run")
+        notCompatibleWithConfigurationCache("https://github.com/Kotlin/dokka/issues/2231")
     }
 }
