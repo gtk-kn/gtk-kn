@@ -15,6 +15,7 @@
  */
 
 import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
@@ -25,7 +26,12 @@ val libs = the<LibrariesForLibs>()
 
 detekt {
     toolVersion = libs.versions.detekt.get()
-    source.from("src/main/kotlin", "src/test/kotlin", "src/androidTest/kotlin")
+    source.from(
+        DetektExtension.DEFAULT_SRC_DIR_KOTLIN,
+        DetektExtension.DEFAULT_TEST_SRC_DIR_KOTLIN,
+        "src/nativeMain/kotlin",
+        "src/nativeTest/kotlin",
+    )
     parallel = true
     autoCorrect = true
 }

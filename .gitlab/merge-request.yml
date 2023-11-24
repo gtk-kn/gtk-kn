@@ -8,5 +8,6 @@ generate-and-check:
     - ./gradlew check
     - ./gradlew gradle-plugin:publishToMavenLocal
     - ./gradlew publishToMavenLocal
+    - ./gradlew :gradle-plugin:publishToMavenLocal
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"

@@ -36,7 +36,6 @@ import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.gobject.ObjectType
 import org.gtkkn.extensions.gobject.asType
 
-
 fun listViewStrings(): Widget {
     // listModel contains our list items
     val listModel = StringList(listOf("Kotlin", "C", "Vala"))

@@ -1,0 +1,9 @@
+snapshots:
+  extends: .build-base
+  stage: deploy
+  script:
+    - ./gradlew assemble
+    - ./gradlew gradle-plugin:publishAllPublicationsToSnapshotsRepository
+    - ./gradlew publishAllPublicationsToSnapshotsRepository
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
