@@ -2,6 +2,7 @@ snapshots:
   extends: .build-base
   stage: deploy
   script:
+    - ./gradlew :gir:run
     - ./gradlew assemble
     - ./gradlew gradle-plugin:publishAllPublicationsToSnapshotsRepository
     - ./gradlew publishAllPublicationsToSnapshotsRepository
