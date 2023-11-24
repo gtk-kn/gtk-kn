@@ -15,6 +15,7 @@
  */
 
 import groovy.json.JsonSlurper
+import java.util.Properties
 
 // https://docs.gradle.org/7.0/userguide/declaring_dependencies.html#sec:type-safe-project-accessors
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -30,6 +31,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "gtk-kn"
 
+val properties = (extra.properties + (rootDir.resolve("local.properties").takeIf(File::exists)?.let{
+    Properties().apply{
+        it.inputStream().use(this::load)
+    }.toMap()
+} ?: mapOf())).map { (k,v )-> "$k" to "$v" }.toMap()
+
 includeBuild("build-conventions")
 includeBuild("gradle-plugin")
 
@@ -37,8 +44,8 @@ include("gir")
 
 include("bindings:common")
 
-var configFile: String = if (extra.has("org.gtkkn.configFile")) {
-    checkNotNull(extra.get("org.gtkkn.configFile") as? String)
+var configFile: String = if (properties.contains("org.gtkkn.configFile")) {
+    checkNotNull(properties["org.gtkkn.configFile"])
 } else {
     "$rootDir/gtkkn.json"
 }
@@ -55,12 +62,14 @@ libraries.forEach { library ->
     include("bindings:${library["module"]}")
 }
 
-include(
-    "samples:gtk:hello-world",
-    "samples:playground",
-    "samples:gtk:widgets",
-    "samples:gtk:widget-templates",
-    "samples:gtk:restore-window-state",
-    "samples:gtk:embedded-resources",
-    "samples:gtk:external-resources",
-)
+if(properties["org.gtkkn.samples.disable"] != "true") {
+    include(
+        "samples:gtk:hello-world",
+        "samples:playground",
+        "samples:gtk:widgets",
+        "samples:gtk:widget-templates",
+        "samples:gtk:restore-window-state",
+        "samples:gtk:embedded-resources",
+        "samples:gtk:external-resources",
+    )
+}
