@@ -14,6 +14,7 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 import com.diffplug.gradle.spotless.SpotlessTask
+import org.jetbrains.dokka.gradle.AbstractDokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 
 plugins {
@@ -32,6 +33,9 @@ tasks {
     }
     dokkaHtmlMultiModule {
         outputDirectory.set(rootDir.resolve("docs/dokka"))
+    }
+    withType<AbstractDokkaTask> {
+        notCompatibleWithConfigurationCache("https://github.com/Kotlin/dokka/issues/2231")
     }
     register("generateBindings") {
         dependsOn(":gir:run")
