@@ -1,6 +1,6 @@
 headers = gdk/gdk.h
 package = org.gtkkn.native.gdk
-headerFilter = gdk/*
+headerFilter = gdk/* gdk/deprecated/*
 
 # pkg-config --cflags gtk4
 compilerOpts.linux = \

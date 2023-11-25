@@ -1,6 +1,6 @@
 headers = gtk/gtk.h gtk/gtkunixprint.h gtk/gtkmediastream.h
 package = org.gtkkn.native.gtk
-headerFilter = gtk/* gtk/deprecated/* gtk/css/*
+headerFilter = gtk/* gtk/deprecated/* gtk/css/* gtk/print/*
 
 # pkg-config --cflags gtk4
 compilerOpts.linux = \

@@ -4,6 +4,7 @@ maven.properties
 signing.properties
 .~lock*
 out
+local.properties
 
 # Intellij
 *.iml
