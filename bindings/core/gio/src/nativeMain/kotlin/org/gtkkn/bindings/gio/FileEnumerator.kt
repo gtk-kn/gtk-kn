@@ -1,0 +1,342 @@
+// This is a generated file. Do not modify.
+package org.gtkkn.bindings.gio
+
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.allocPointerTo
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.List
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.gobject.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.KGTyped
+import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gio.GFileEnumerator
+import org.gtkkn.native.gio.g_file_enumerator_close
+import org.gtkkn.native.gio.g_file_enumerator_close_async
+import org.gtkkn.native.gio.g_file_enumerator_close_finish
+import org.gtkkn.native.gio.g_file_enumerator_get_child
+import org.gtkkn.native.gio.g_file_enumerator_get_container
+import org.gtkkn.native.gio.g_file_enumerator_get_type
+import org.gtkkn.native.gio.g_file_enumerator_has_pending
+import org.gtkkn.native.gio.g_file_enumerator_is_closed
+import org.gtkkn.native.gio.g_file_enumerator_next_file
+import org.gtkkn.native.gio.g_file_enumerator_next_files_async
+import org.gtkkn.native.gio.g_file_enumerator_next_files_finish
+import org.gtkkn.native.gio.g_file_enumerator_set_pending
+import org.gtkkn.native.glib.GError
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.Result
+import kotlin.Unit
+
+/**
+ * #GFileEnumerator allows you to operate on a set of #GFiles,
+ * returning a #GFileInfo structure for each file enumerated (e.g.
+ * g_file_enumerate_children() will return a #GFileEnumerator for each
+ * of the children within a directory).
+ *
+ * To get the next file's information from a #GFileEnumerator, use
+ * g_file_enumerator_next_file() or its asynchronous version,
+ * g_file_enumerator_next_files_async(). Note that the asynchronous
+ * version will return a list of #GFileInfos, whereas the
+ * synchronous will only return the next file in the enumerator.
+ *
+ * The ordering of returned files is unspecified for non-Unix
+ * platforms; for more information, see g_dir_read_name().  On Unix,
+ * when operating on local files, returned files will be sorted by
+ * inode number.  Effectively you can assume that the ordering of
+ * returned files will be stable between successive calls (and
+ * applications) assuming the directory is unchanged.
+ *
+ * If your application needs a specific ordering, such as by name or
+ * modification time, you will have to implement that in your
+ * application code.
+ *
+ * To close a #GFileEnumerator, use g_file_enumerator_close(), or
+ * its asynchronous version, g_file_enumerator_close_async(). Once
+ * a #GFileEnumerator is closed, no further actions may be performed
+ * on it, and it should be freed with g_object_unref().
+ *
+ * ## Skipped during bindings generation
+ *
+ * - parameter `out_info`: out_info: Out parameter is not supported
+ * - method `container`: Property has no getter nor setter
+ */
+public open class FileEnumerator(
+    pointer: CPointer<GFileEnumerator>,
+) : Object(pointer.reinterpret()), KGTyped {
+    public val gioFileEnumeratorPointer: CPointer<GFileEnumerator>
+        get() = gPointer.reinterpret()
+
+    /**
+     * Releases all resources used by this enumerator, making the
+     * enumerator return %G_IO_ERROR_CLOSED on all calls.
+     *
+     * This will be automatically called when the last reference
+     * is dropped, but you might want to call this function to make
+     * sure resources are released as early as possible.
+     *
+     * @param cancellable optional #GCancellable object, null to ignore.
+     * @return #TRUE on success or #FALSE on error.
+     */
+    public open fun close(cancellable: Cancellable? = null): Result<Boolean> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_file_enumerator_close(
+                    gioFileEnumeratorPointer.reinterpret(),
+                    cancellable?.gioCancellablePointer?.reinterpret(),
+                    gError.ptr
+                ).asBoolean()
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(gResult)
+            }
+        }
+
+    /**
+     * Asynchronously closes the file enumerator.
+     *
+     * If @cancellable is not null, then the operation can be cancelled by
+     * triggering the cancellable object from another thread. If the operation
+     * was cancelled, the error %G_IO_ERROR_CANCELLED will be returned in
+     * g_file_enumerator_close_finish().
+     *
+     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param cancellable optional #GCancellable object, null to ignore.
+     * @param callback a #GAsyncReadyCallback to call when the request is satisfied
+     */
+    public open fun closeAsync(
+        ioPriority: Int,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit =
+        g_file_enumerator_close_async(
+            gioFileEnumeratorPointer.reinterpret(),
+            ioPriority,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
+
+    /**
+     * Finishes closing a file enumerator, started from g_file_enumerator_close_async().
+     *
+     * If the file enumerator was already closed when g_file_enumerator_close_async()
+     * was called, then this function will report %G_IO_ERROR_CLOSED in @error, and
+     * return false. If the file enumerator had pending operation when the close
+     * operation was started, then this function will report %G_IO_ERROR_PENDING, and
+     * return false.  If @cancellable was not null, then the operation may have been
+     * cancelled by triggering the cancellable object from another thread. If the operation
+     * was cancelled, the error %G_IO_ERROR_CANCELLED will be set, and false will be
+     * returned.
+     *
+     * @param result a #GAsyncResult.
+     * @return true if the close operation has finished successfully.
+     */
+    public open fun closeFinish(result: AsyncResult): Result<Boolean> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_file_enumerator_close_finish(
+                    gioFileEnumeratorPointer.reinterpret(),
+                    result.gioAsyncResultPointer,
+                    gError.ptr
+                ).asBoolean()
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(gResult)
+            }
+        }
+
+    /**
+     * Return a new #GFile which refers to the file named by @info in the source
+     * directory of @enumerator.  This function is primarily intended to be used
+     * inside loops with g_file_enumerator_next_file().
+     *
+     * To use this, %G_FILE_ATTRIBUTE_STANDARD_NAME must have been listed in the
+     * attributes list used when creating the #GFileEnumerator.
+     *
+     * This is a convenience method that's equivalent to:
+     * |[<!-- language="C" -->
+     *   gchar *name = g_file_info_get_name (info);
+     *   GFile *child = g_file_get_child (g_file_enumerator_get_container (enumr),
+     *                                    name);
+     * ]|
+     *
+     * @param info a #GFileInfo gotten from g_file_enumerator_next_file()
+     *   or the async equivalents.
+     * @return a #GFile for the #GFileInfo passed it.
+     * @since 2.36
+     */
+    public open fun getChild(info: FileInfo): File =
+        g_file_enumerator_get_child(
+            gioFileEnumeratorPointer.reinterpret(),
+            info.gioFileInfoPointer.reinterpret()
+        )!!.run {
+            File.wrap(reinterpret())
+        }
+
+    /**
+     * Get the #GFile container which is being enumerated.
+     *
+     * @return the #GFile which is being enumerated.
+     * @since 2.18
+     */
+    public open fun getContainer(): File =
+        g_file_enumerator_get_container(gioFileEnumeratorPointer.reinterpret())!!.run {
+            File.wrap(reinterpret())
+        }
+
+    /**
+     * Checks if the file enumerator has pending operations.
+     *
+     * @return true if the @enumerator has pending operations.
+     */
+    public open fun hasPending(): Boolean =
+        g_file_enumerator_has_pending(gioFileEnumeratorPointer.reinterpret()).asBoolean()
+
+    /**
+     * Checks if the file enumerator has been closed.
+     *
+     * @return true if the @enumerator is closed.
+     */
+    public open fun isClosed(): Boolean =
+        g_file_enumerator_is_closed(gioFileEnumeratorPointer.reinterpret()).asBoolean()
+
+    /**
+     * Returns information for the next file in the enumerated object.
+     * Will block until the information is available. The #GFileInfo
+     * returned from this function will contain attributes that match the
+     * attribute string that was passed when the #GFileEnumerator was created.
+     *
+     * See the documentation of #GFileEnumerator for information about the
+     * order of returned files.
+     *
+     * On error, returns null and sets @error to the error. If the
+     * enumerator is at the end, null will be returned and @error will
+     * be unset.
+     *
+     * @param cancellable optional #GCancellable object, null to ignore.
+     * @return A #GFileInfo or null on error
+     *    or end of enumerator.  Free the returned object with
+     *    g_object_unref() when no longer needed.
+     */
+    public open fun nextFile(cancellable: Cancellable? = null): Result<FileInfo?> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_file_enumerator_next_file(
+                    gioFileEnumeratorPointer.reinterpret(),
+                    cancellable?.gioCancellablePointer?.reinterpret(),
+                    gError.ptr
+                )?.run {
+                    FileInfo(reinterpret())
+                }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(gResult)
+            }
+        }
+
+    /**
+     * Request information for a number of files from the enumerator asynchronously.
+     * When all i/o for the operation is finished the @callback will be called with
+     * the requested information.
+     *
+     * See the documentation of #GFileEnumerator for information about the
+     * order of returned files.
+     *
+     * The callback can be called with less than @num_files files in case of error
+     * or at the end of the enumerator. In case of a partial error the callback will
+     * be called with any succeeding items and no error, and on the next request the
+     * error will be reported. If a request is cancelled the callback will be called
+     * with %G_IO_ERROR_CANCELLED.
+     *
+     * During an async request no other sync and async calls are allowed, and will
+     * result in %G_IO_ERROR_PENDING errors.
+     *
+     * Any outstanding i/o request with higher priority (lower numerical value) will
+     * be executed before an outstanding request with lower priority. Default
+     * priority is %G_PRIORITY_DEFAULT.
+     *
+     * @param numFiles the number of file info objects to request
+     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param cancellable optional #GCancellable object, null to ignore.
+     * @param callback a #GAsyncReadyCallback to call when the request is satisfied
+     */
+    public open fun nextFilesAsync(
+        numFiles: Int,
+        ioPriority: Int,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit =
+        g_file_enumerator_next_files_async(
+            gioFileEnumeratorPointer.reinterpret(),
+            numFiles,
+            ioPriority,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
+
+    /**
+     * Finishes the asynchronous operation started with g_file_enumerator_next_files_async().
+     *
+     * @param result a #GAsyncResult.
+     * @return a #GList of #GFileInfos. You must free the list with
+     *     g_list_free() and unref the infos with g_object_unref() when you're
+     *     done with them.
+     */
+    public open fun nextFilesFinish(result: AsyncResult): Result<List> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_file_enumerator_next_files_finish(
+                    gioFileEnumeratorPointer.reinterpret(),
+                    result.gioAsyncResultPointer,
+                    gError.ptr
+                )?.run {
+                    List(reinterpret())
+                }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
+
+    /**
+     * Sets the file enumerator as having pending operations.
+     *
+     * @param pending a boolean value.
+     */
+    public open fun setPending(pending: Boolean): Unit =
+        g_file_enumerator_set_pending(
+            gioFileEnumeratorPointer.reinterpret(),
+            pending.asGBoolean()
+        )
+
+    public companion object : TypeCompanion<FileEnumerator> {
+        override val type: GeneratedClassKGType<FileEnumerator> =
+            GeneratedClassKGType(g_file_enumerator_get_type()) {
+                FileEnumerator(it.reinterpret())
+            }
+
+        init {
+            GioTypeProvider.register()
+        }
+    }
+}

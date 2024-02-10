@@ -1,0 +1,91 @@
+// This is a generated file. Do not modify.
+package org.gtkkn.bindings.gio
+
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.gobject.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.KGTyped
+import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gio.GSocketControlMessage
+import org.gtkkn.native.gio.g_socket_control_message_get_level
+import org.gtkkn.native.gio.g_socket_control_message_get_msg_type
+import org.gtkkn.native.gio.g_socket_control_message_get_size
+import org.gtkkn.native.gio.g_socket_control_message_get_type
+import kotlin.Int
+import kotlin.ULong
+
+/**
+ * A #GSocketControlMessage is a special-purpose utility message that
+ * can be sent to or received from a #GSocket. These types of
+ * messages are often called "ancillary data".
+ *
+ * The message can represent some sort of special instruction to or
+ * information from the socket or can represent a special kind of
+ * transfer to the peer (for example, sending a file descriptor over
+ * a UNIX socket).
+ *
+ * These messages are sent with g_socket_send_message() and received
+ * with g_socket_receive_message().
+ *
+ * To extend the set of control message that can be sent, subclass this
+ * class and override the get_size, get_level, get_type and serialize
+ * methods.
+ *
+ * To extend the set of control messages that can be received, subclass
+ * this class and implement the deserialize method. Also, make sure your
+ * class is registered with the GType typesystem before calling
+ * g_socket_receive_message() to read such a message.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - parameter `data`: gpointer
+ * - parameter `data`: guint8
+ *
+ * @since 2.22
+ */
+public open class SocketControlMessage(
+    pointer: CPointer<GSocketControlMessage>,
+) : Object(pointer.reinterpret()), KGTyped {
+    public val gioSocketControlMessagePointer: CPointer<GSocketControlMessage>
+        get() = gPointer.reinterpret()
+
+    /**
+     * Returns the "level" (i.e. the originating protocol) of the control message.
+     * This is often SOL_SOCKET.
+     *
+     * @return an integer describing the level
+     * @since 2.22
+     */
+    public open fun getLevel(): Int = g_socket_control_message_get_level(gioSocketControlMessagePointer.reinterpret())
+
+    /**
+     * Returns the protocol specific type of the control message.
+     * For instance, for UNIX fd passing this would be SCM_RIGHTS.
+     *
+     * @return an integer describing the type of control message
+     * @since 2.22
+     */
+    public open fun getMsgType(): Int =
+        g_socket_control_message_get_msg_type(gioSocketControlMessagePointer.reinterpret())
+
+    /**
+     * Returns the space required for the control message, not including
+     * headers or alignment.
+     *
+     * @return The number of bytes required.
+     * @since 2.22
+     */
+    public open fun getSize(): ULong = g_socket_control_message_get_size(gioSocketControlMessagePointer.reinterpret())
+
+    public companion object : TypeCompanion<SocketControlMessage> {
+        override val type: GeneratedClassKGType<SocketControlMessage> =
+            GeneratedClassKGType(g_socket_control_message_get_type()) {
+                SocketControlMessage(it.reinterpret())
+            }
+
+        init {
+            GioTypeProvider.register()
+        }
+    }
+}

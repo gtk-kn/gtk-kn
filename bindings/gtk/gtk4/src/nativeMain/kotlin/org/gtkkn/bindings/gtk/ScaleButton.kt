@@ -1,0 +1,348 @@
+// This is a generated file. Do not modify.
+package org.gtkkn.bindings.gtk
+
+import kotlinx.cinterop.CFunction
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.common.toCStringList
+import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.KGTyped
+import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkBuildable
+import org.gtkkn.native.gtk.GtkConstraintTarget
+import org.gtkkn.native.gtk.GtkOrientable
+import org.gtkkn.native.gtk.GtkScaleButton
+import org.gtkkn.native.gtk.gtk_scale_button_get_adjustment
+import org.gtkkn.native.gtk.gtk_scale_button_get_minus_button
+import org.gtkkn.native.gtk.gtk_scale_button_get_plus_button
+import org.gtkkn.native.gtk.gtk_scale_button_get_popup
+import org.gtkkn.native.gtk.gtk_scale_button_get_type
+import org.gtkkn.native.gtk.gtk_scale_button_get_value
+import org.gtkkn.native.gtk.gtk_scale_button_new
+import org.gtkkn.native.gtk.gtk_scale_button_set_adjustment
+import org.gtkkn.native.gtk.gtk_scale_button_set_icons
+import org.gtkkn.native.gtk.gtk_scale_button_set_value
+import kotlin.Double
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
+
+/**
+ * `GtkScaleButton` provides a button which pops up a scale widget.
+ *
+ * This kind of widget is commonly used for volume controls in multimedia
+ * applications, and GTK provides a [class@Gtk.VolumeButton] subclass that
+ * is tailored for this use case.
+ *
+ * # CSS nodes
+ *
+ * `GtkScaleButton` has a single CSS node with name button. To differentiate
+ * it from a plain `GtkButton`, it gets the .scale style class.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `icons`: Property has no getter
+ */
+public open class ScaleButton(
+    pointer: CPointer<GtkScaleButton>,
+) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+    public val gtkScaleButtonPointer: CPointer<GtkScaleButton>
+        get() = gPointer.reinterpret()
+
+    override val gtkOrientablePointer: CPointer<GtkOrientable>
+        get() = gPointer.reinterpret()
+
+    override val gtkAccessiblePointer: CPointer<GtkAccessible>
+        get() = gPointer.reinterpret()
+
+    override val gtkBuildablePointer: CPointer<GtkBuildable>
+        get() = gPointer.reinterpret()
+
+    override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
+        get() = gPointer.reinterpret()
+
+    /**
+     * The `GtkAdjustment` that is used as the model.
+     */
+    public open var adjustment: Adjustment
+        /**
+         * Gets the `GtkAdjustment` associated with the `GtkScaleButton`’s scale.
+         *
+         * See [method@Gtk.Range.get_adjustment] for details.
+         *
+         * @return the adjustment associated with the scale
+         */
+        get() =
+            gtk_scale_button_get_adjustment(gtkScaleButtonPointer.reinterpret())!!.run {
+                Adjustment(reinterpret())
+            }
+
+        /**
+         * Sets the `GtkAdjustment` to be used as a model
+         * for the `GtkScaleButton`’s scale.
+         *
+         * See [method@Gtk.Range.set_adjustment] for details.
+         *
+         * @param adjustment a `GtkAdjustment`
+         */
+        set(adjustment) =
+            gtk_scale_button_set_adjustment(
+                gtkScaleButtonPointer.reinterpret(),
+                adjustment.gtkAdjustmentPointer.reinterpret()
+            )
+
+    /**
+     * The value of the scale.
+     */
+    public open var `value`: Double
+        /**
+         * Gets the current value of the scale button.
+         *
+         * @return current value of the scale button
+         */
+        get() = gtk_scale_button_get_value(gtkScaleButtonPointer.reinterpret())
+
+        /**
+         * Sets the current value of the scale.
+         *
+         * If the value is outside the minimum or maximum range values,
+         * it will be clamped to fit inside them.
+         *
+         * The scale button emits the [signal@Gtk.ScaleButton::value-changed]
+         * signal if the value changes.
+         *
+         * @param value new value of the scale button
+         */
+        set(`value`) = gtk_scale_button_set_value(gtkScaleButtonPointer.reinterpret(), `value`)
+
+    /**
+     * Creates a `GtkScaleButton`.
+     *
+     * The new scale button has a range between @min and @max,
+     * with a stepping of @step.
+     *
+     * @param min the minimum value of the scale (usually 0)
+     * @param max the maximum value of the scale (usually 100)
+     * @param step the stepping of value when a scroll-wheel event,
+     *   or up/down arrow event occurs (usually 2)
+     * @param icons a null-terminated
+     *   array of icon names, or null if you want to set the list
+     *   later with gtk_scale_button_set_icons()
+     * @return a new `GtkScaleButton`
+     */
+    public constructor(
+        min: Double,
+        max: Double,
+        step: Double,
+        icons: List<String>? = null,
+    ) : this(
+        memScoped {
+            gtk_scale_button_new(min, max, step, icons?.toCStringList(this))!!.reinterpret()
+        }
+    )
+
+    /**
+     * Gets the `GtkAdjustment` associated with the `GtkScaleButton`’s scale.
+     *
+     * See [method@Gtk.Range.get_adjustment] for details.
+     *
+     * @return the adjustment associated with the scale
+     */
+    public open fun getAdjustment(): Adjustment =
+        gtk_scale_button_get_adjustment(gtkScaleButtonPointer.reinterpret())!!.run {
+            Adjustment(reinterpret())
+        }
+
+    /**
+     * Retrieves the minus button of the `GtkScaleButton`.
+     *
+     * @return the minus button
+     *   of the `GtkScaleButton`
+     */
+    public open fun getMinusButton(): Button =
+        gtk_scale_button_get_minus_button(gtkScaleButtonPointer.reinterpret())!!.run {
+            Button(reinterpret())
+        }
+
+    /**
+     * Retrieves the plus button of the `GtkScaleButton.`
+     *
+     * @return the plus button
+     *   of the `GtkScaleButton`
+     */
+    public open fun getPlusButton(): Button =
+        gtk_scale_button_get_plus_button(gtkScaleButtonPointer.reinterpret())!!.run {
+            Button(reinterpret())
+        }
+
+    /**
+     * Retrieves the popup of the `GtkScaleButton`.
+     *
+     * @return the popup of the `GtkScaleButton`
+     */
+    public open fun getPopup(): Widget =
+        gtk_scale_button_get_popup(gtkScaleButtonPointer.reinterpret())!!.run {
+            Widget(reinterpret())
+        }
+
+    /**
+     * Gets the current value of the scale button.
+     *
+     * @return current value of the scale button
+     */
+    public open fun getValue(): Double = gtk_scale_button_get_value(gtkScaleButtonPointer.reinterpret())
+
+    /**
+     * Sets the `GtkAdjustment` to be used as a model
+     * for the `GtkScaleButton`’s scale.
+     *
+     * See [method@Gtk.Range.set_adjustment] for details.
+     *
+     * @param adjustment a `GtkAdjustment`
+     */
+    public open fun setAdjustment(adjustment: Adjustment): Unit =
+        gtk_scale_button_set_adjustment(
+            gtkScaleButtonPointer.reinterpret(),
+            adjustment.gtkAdjustmentPointer.reinterpret()
+        )
+
+    /**
+     * Sets the icons to be used by the scale button.
+     *
+     * @param icons a null-terminated array of icon names
+     */
+    public open fun setIcons(icons: List<String>): Unit =
+        memScoped {
+            return gtk_scale_button_set_icons(
+                gtkScaleButtonPointer.reinterpret(),
+                icons.toCStringList(this)
+            )
+        }
+
+    /**
+     * Sets the current value of the scale.
+     *
+     * If the value is outside the minimum or maximum range values,
+     * it will be clamped to fit inside them.
+     *
+     * The scale button emits the [signal@Gtk.ScaleButton::value-changed]
+     * signal if the value changes.
+     *
+     * @param value new value of the scale button
+     */
+    public open fun setValue(`value`: Double): Unit =
+        gtk_scale_button_set_value(gtkScaleButtonPointer.reinterpret(), `value`)
+
+    /**
+     * Emitted to dismiss the popup.
+     *
+     * This is a [keybinding signal](class.SignalAction.html).
+     *
+     * The default binding for this signal is <kbd>Escape</kbd>.
+     *
+     * @param connectFlags A combination of [ConnectFlags]
+     * @param handler the Callback to connect
+     */
+    public fun connectPopdown(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        handler: () -> Unit,
+    ): ULong =
+        g_signal_connect_data(
+            gPointer.reinterpret(),
+            "popdown",
+            connectPopdownFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emitted to popup the scale widget.
+     *
+     * This is a [keybinding signal](class.SignalAction.html).
+     *
+     * The default bindings for this signal are <kbd>Space</kbd>,
+     * <kbd>Enter</kbd> and <kbd>Return</kbd>.
+     *
+     * @param connectFlags A combination of [ConnectFlags]
+     * @param handler the Callback to connect
+     */
+    public fun connectPopup(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        handler: () -> Unit,
+    ): ULong =
+        g_signal_connect_data(
+            gPointer.reinterpret(),
+            "popup",
+            connectPopupFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emitted when the value field has changed.
+     *
+     * @param connectFlags A combination of [ConnectFlags]
+     * @param handler the Callback to connect. Params: `value` the new value
+     */
+    public fun connectValueChanged(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        handler: (`value`: Double) -> Unit,
+    ): ULong =
+        g_signal_connect_data(
+            gPointer.reinterpret(),
+            "value-changed",
+            connectValueChangedFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    public companion object : TypeCompanion<ScaleButton> {
+        override val type: GeneratedClassKGType<ScaleButton> =
+            GeneratedClassKGType(gtk_scale_button_get_type()) { ScaleButton(it.reinterpret()) }
+
+        init {
+            GtkTypeProvider.register()
+        }
+    }
+}
+
+private val connectPopdownFunc: CPointer<CFunction<() -> Unit>> =
+    staticCFunction {
+            _: COpaquePointer,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<() -> Unit>().get().invoke()
+    }
+        .reinterpret()
+
+private val connectPopupFunc: CPointer<CFunction<() -> Unit>> =
+    staticCFunction {
+            _: COpaquePointer,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<() -> Unit>().get().invoke()
+    }
+        .reinterpret()
+
+private val connectValueChangedFunc: CPointer<CFunction<(Double) -> Unit>> =
+    staticCFunction {
+            _: COpaquePointer,
+            `value`: Double,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)
+    }
+        .reinterpret()

@@ -14,9 +14,6 @@ local.properties
 !.idea/scopes/
 !.idea/detekt.xml
 
-# temporary excludes of binding src dirs
-bindings/**/src/nativeMain/kotlin/org/gtkkn/bindings/
-
 # envrc
 .env/
 .envrc.local

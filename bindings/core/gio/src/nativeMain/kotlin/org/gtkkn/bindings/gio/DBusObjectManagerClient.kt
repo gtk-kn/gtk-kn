@@ -1,0 +1,531 @@
+// This is a generated file. Do not modify.
+package org.gtkkn.bindings.gio
+
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CArrayPointer
+import kotlinx.cinterop.CFunction
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.CPointerVarOf
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.allocPointerTo
+import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.staticCFunction
+import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Variant
+import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.common.toKStringList
+import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.KGTyped
+import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gio.GAsyncInitable
+import org.gtkkn.native.gio.GDBusObjectManager
+import org.gtkkn.native.gio.GDBusObjectManagerClient
+import org.gtkkn.native.gio.GDBusObjectProxy
+import org.gtkkn.native.gio.GDBusProxy
+import org.gtkkn.native.gio.GInitable
+import org.gtkkn.native.gio.g_dbus_object_manager_client_get_connection
+import org.gtkkn.native.gio.g_dbus_object_manager_client_get_flags
+import org.gtkkn.native.gio.g_dbus_object_manager_client_get_name
+import org.gtkkn.native.gio.g_dbus_object_manager_client_get_name_owner
+import org.gtkkn.native.gio.g_dbus_object_manager_client_get_type
+import org.gtkkn.native.gio.g_dbus_object_manager_client_new_finish
+import org.gtkkn.native.gio.g_dbus_object_manager_client_new_for_bus_finish
+import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.GVariant
+import org.gtkkn.native.gobject.g_signal_connect_data
+import kotlin.Result
+import kotlin.String
+import kotlin.Throws
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
+
+/**
+ * #GDBusObjectManagerClient is used to create, monitor and delete object
+ * proxies for remote objects exported by a #GDBusObjectManagerServer (or any
+ * code implementing the
+ * [org.freedesktop.DBus.ObjectManager](http://dbus.freedesktop.org/doc/dbus-specification.html#standard-interfaces-objectmanager)
+ * interface).
+ *
+ * Once an instance of this type has been created, you can connect to
+ * the #GDBusObjectManager::object-added and
+ * #GDBusObjectManager::object-removed signals and inspect the
+ * #GDBusObjectProxy objects returned by
+ * g_dbus_object_manager_get_objects().
+ *
+ * If the name for a #GDBusObjectManagerClient is not owned by anyone at
+ * object construction time, the default behavior is to request the
+ * message bus to launch an owner for the name. This behavior can be
+ * disabled using the %G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_DO_NOT_AUTO_START
+ * flag. It's also worth noting that this only works if the name of
+ * interest is activatable in the first place. E.g. in some cases it
+ * is not possible to launch an owner for the requested name. In this
+ * case, #GDBusObjectManagerClient object construction still succeeds but
+ * there will be no object proxies
+ * (e.g. g_dbus_object_manager_get_objects() returns the empty list) and
+ * the #GDBusObjectManagerClient:name-owner property is null.
+ *
+ * The owner of the requested name can come and go (for example
+ * consider a system service being restarted) – #GDBusObjectManagerClient
+ * handles this case too; simply connect to the #GObject::notify
+ * signal to watch for changes on the #GDBusObjectManagerClient:name-owner
+ * property. When the name owner vanishes, the behavior is that
+ * #GDBusObjectManagerClient:name-owner is set to null (this includes
+ * emission of the #GObject::notify signal) and then
+ * #GDBusObjectManager::object-removed signals are synthesized
+ * for all currently existing object proxies. Since
+ * #GDBusObjectManagerClient:name-owner is null when this happens, you can
+ * use this information to disambiguate a synthesized signal from a
+ * genuine signal caused by object removal on the remote
+ * #GDBusObjectManager. Similarly, when a new name owner appears,
+ * #GDBusObjectManager::object-added signals are synthesized
+ * while #GDBusObjectManagerClient:name-owner is still null. Only when all
+ * object proxies have been added, the #GDBusObjectManagerClient:name-owner
+ * is set to the new name owner (this includes emission of the
+ * #GObject::notify signal).  Furthermore, you are guaranteed that
+ * #GDBusObjectManagerClient:name-owner will alternate between a name owner
+ * (e.g. `:1.42`) and null even in the case where
+ * the name of interest is atomically replaced
+ *
+ * Ultimately, #GDBusObjectManagerClient is used to obtain #GDBusProxy
+ * instances. All signals (including the
+ * org.freedesktop.DBus.Properties::PropertiesChanged signal)
+ * delivered to #GDBusProxy instances are guaranteed to originate
+ * from the name owner. This guarantee along with the behavior
+ * described above, means that certain race conditions including the
+ * "half the proxy is from the old owner and the other half is from
+ * the new owner" problem cannot happen.
+ *
+ * To avoid having the application connect to signals on the returned
+ * #GDBusObjectProxy and #GDBusProxy objects, the
+ * #GDBusObject::interface-added,
+ * #GDBusObject::interface-removed,
+ * #GDBusProxy::g-properties-changed and
+ * #GDBusProxy::g-signal signals
+ * are also emitted on the #GDBusObjectManagerClient instance managing these
+ * objects. The signals emitted are
+ * #GDBusObjectManager::interface-added,
+ * #GDBusObjectManager::interface-removed,
+ * #GDBusObjectManagerClient::interface-proxy-properties-changed and
+ * #GDBusObjectManagerClient::interface-proxy-signal.
+ *
+ * Note that all callbacks and signals are emitted in the
+ * [thread-default main context][g-main-context-push-thread-default]
+ * that the #GDBusObjectManagerClient object was constructed
+ * in. Additionally, the #GDBusObjectProxy and #GDBusProxy objects
+ * originating from the #GDBusObjectManagerClient object will be created in
+ * the same context and, consequently, will deliver signals in the
+ * same main loop.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `bus-type`: Property has no getter nor setter
+ * - method `get-proxy-type-destroy-notify`: Property has no getter nor setter
+ * - method `get-proxy-type-func`: Property has no getter nor setter
+ * - method `get-proxy-type-user-data`: Property has no getter nor setter
+ * - method `object-path`: Property has no getter nor setter
+ * - constructor `new_for_bus_sync`: C function g_dbus_object_manager_client_new_for_bus_sync is
+ * ignored
+ * - constructor `new_sync`: C function g_dbus_object_manager_client_new_sync is ignored
+ * - parameter `callback`: AsyncReadyCallback
+ * - parameter `callback`: AsyncReadyCallback
+ *
+ * @since 2.30
+ */
+public open class DBusObjectManagerClient(
+    pointer: CPointer<GDBusObjectManagerClient>,
+) : Object(pointer.reinterpret()), AsyncInitable, DBusObjectManager, Initable, KGTyped {
+    public val gioDBusObjectManagerClientPointer: CPointer<GDBusObjectManagerClient>
+        get() = gPointer.reinterpret()
+
+    override val gioAsyncInitablePointer: CPointer<GAsyncInitable>
+        get() = gPointer.reinterpret()
+
+    override val gioDBusObjectManagerPointer: CPointer<GDBusObjectManager>
+        get() = gPointer.reinterpret()
+
+    override val gioInitablePointer: CPointer<GInitable>
+        get() = gPointer.reinterpret()
+
+    /**
+     * The #GDBusConnection to use.
+     *
+     * @since 2.30
+     */
+    public open val connection: DBusConnection
+        /**
+         * Gets the #GDBusConnection used by @manager.
+         *
+         * @return A #GDBusConnection object. Do not free,
+         *   the object belongs to @manager.
+         * @since 2.30
+         */
+        get() =
+            g_dbus_object_manager_client_get_connection(gioDBusObjectManagerClientPointer.reinterpret())!!.run {
+                DBusConnection(reinterpret())
+            }
+
+    /**
+     * Flags from the #GDBusObjectManagerClientFlags enumeration.
+     *
+     * @since 2.30
+     */
+    public open val flags: DBusObjectManagerClientFlags
+        /**
+         * Gets the flags that @manager was constructed with.
+         *
+         * @return Zero of more flags from the #GDBusObjectManagerClientFlags
+         * enumeration.
+         * @since 2.30
+         */
+        get() =
+            g_dbus_object_manager_client_get_flags(gioDBusObjectManagerClientPointer.reinterpret()).run {
+                DBusObjectManagerClientFlags(this)
+            }
+
+    /**
+     * The well-known name or unique name that the manager is for.
+     *
+     * @since 2.30
+     */
+    public open val name: String
+        /**
+         * Gets the name that @manager is for, or null if not a message bus
+         * connection.
+         *
+         * @return A unique or well-known name. Do not free, the string
+         * belongs to @manager.
+         * @since 2.30
+         */
+        get() =
+            g_dbus_object_manager_client_get_name(gioDBusObjectManagerClientPointer.reinterpret())?.toKString()
+                ?: error("Expected not null string")
+
+    /**
+     * The unique name that owns #GDBusObjectManagerClient:name or null if
+     * no-one is currently owning the name. Connect to the
+     * #GObject::notify signal to track changes to this property.
+     *
+     * @since 2.30
+     */
+    public open val nameOwner: String
+        /**
+         * The unique name that owns the name that @manager is for or null if
+         * no-one currently owns that name. You can connect to the
+         * #GObject::notify signal to track changes to the
+         * #GDBusObjectManagerClient:name-owner property.
+         *
+         * @return The name owner or null if no name owner
+         * exists. Free with g_free().
+         * @since 2.30
+         */
+        get() =
+            g_dbus_object_manager_client_get_name_owner(gioDBusObjectManagerClientPointer.reinterpret())?.toKString()
+                ?: error("Expected not null string")
+
+    /**
+     * Finishes an operation started with g_dbus_object_manager_client_new().
+     *
+     * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
+     * g_dbus_object_manager_client_new().
+     * @return A
+     *   #GDBusObjectManagerClient object or null if @error is set. Free
+     *   with g_object_unref().
+     * @since 2.30
+     */
+    @Throws(GlibException::class)
+    public constructor(res: AsyncResult) : this(
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_dbus_object_manager_client_new_finish(res.gioAsyncResultPointer, gError.ptr)
+            if (gError.pointed != null) {
+                throw resolveException(Error(gError.pointed!!.ptr))
+            }
+            gResult!!.reinterpret()
+        }
+    )
+
+    /**
+     * Gets the #GDBusConnection used by @manager.
+     *
+     * @return A #GDBusConnection object. Do not free,
+     *   the object belongs to @manager.
+     * @since 2.30
+     */
+    public open fun getConnection(): DBusConnection =
+        g_dbus_object_manager_client_get_connection(gioDBusObjectManagerClientPointer.reinterpret())!!.run {
+            DBusConnection(reinterpret())
+        }
+
+    /**
+     * Gets the flags that @manager was constructed with.
+     *
+     * @return Zero of more flags from the #GDBusObjectManagerClientFlags
+     * enumeration.
+     * @since 2.30
+     */
+    public open fun getFlags(): DBusObjectManagerClientFlags =
+        g_dbus_object_manager_client_get_flags(gioDBusObjectManagerClientPointer.reinterpret()).run {
+            DBusObjectManagerClientFlags(this)
+        }
+
+    /**
+     * Gets the name that @manager is for, or null if not a message bus
+     * connection.
+     *
+     * @return A unique or well-known name. Do not free, the string
+     * belongs to @manager.
+     * @since 2.30
+     */
+    public open fun getName(): String =
+        g_dbus_object_manager_client_get_name(gioDBusObjectManagerClientPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
+
+    /**
+     * The unique name that owns the name that @manager is for or null if
+     * no-one currently owns that name. You can connect to the
+     * #GObject::notify signal to track changes to the
+     * #GDBusObjectManagerClient:name-owner property.
+     *
+     * @return The name owner or null if no name owner
+     * exists. Free with g_free().
+     * @since 2.30
+     */
+    public open fun getNameOwner(): String =
+        g_dbus_object_manager_client_get_name_owner(gioDBusObjectManagerClientPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
+
+    /**
+     * Emitted when one or more D-Bus properties on proxy changes. The
+     * local cache has already been updated when this signal fires. Note
+     * that both @changed_properties and @invalidated_properties are
+     * guaranteed to never be null (either may be empty though).
+     *
+     * This signal exists purely as a convenience to avoid having to
+     * connect signals to all interface proxies managed by @manager.
+     *
+     * This signal is emitted in the
+     * [thread-default main context][g-main-context-push-thread-default]
+     * that @manager was constructed in.
+     *
+     * @param connectFlags A combination of [ConnectFlags]
+     * @param handler the Callback to connect. Params: `objectProxy` The #GDBusObjectProxy on which
+     * an interface has properties that are changing.; `interfaceProxy` The #GDBusProxy that has
+     * properties that are changing.; `changedProperties` A #GVariant containing the properties that
+     * changed (type: `a{sv}`).; `invalidatedProperties` A null terminated
+     *   array of properties that were invalidated.
+     * @since 2.30
+     */
+    public fun connectInterfaceProxyPropertiesChanged(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        handler: (
+            objectProxy: DBusObjectProxy,
+            interfaceProxy: DBusProxy,
+            changedProperties: Variant,
+            invalidatedProperties: List<String>,
+        ) -> Unit,
+    ): ULong =
+        g_signal_connect_data(
+            gPointer.reinterpret(),
+            "interface-proxy-properties-changed",
+            connectInterfaceProxyPropertiesChangedFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emitted when a D-Bus signal is received on @interface_proxy.
+     *
+     * This signal exists purely as a convenience to avoid having to
+     * connect signals to all interface proxies managed by @manager.
+     *
+     * This signal is emitted in the
+     * [thread-default main context][g-main-context-push-thread-default]
+     * that @manager was constructed in.
+     *
+     * @param connectFlags A combination of [ConnectFlags]
+     * @param handler the Callback to connect. Params: `objectProxy` The #GDBusObjectProxy on which
+     * an interface is emitting a D-Bus signal.; `interfaceProxy` The #GDBusProxy that is emitting a
+     * D-Bus signal.; `senderName` The sender of the signal or NULL if the connection is not a bus
+     * connection.; `signalName` The signal name.; `parameters` A #GVariant tuple with parameters for
+     * the signal.
+     * @since 2.30
+     */
+    public fun connectInterfaceProxySignal(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        handler: (
+            objectProxy: DBusObjectProxy,
+            interfaceProxy: DBusProxy,
+            senderName: String,
+            signalName: String,
+            parameters: Variant,
+        ) -> Unit,
+    ): ULong =
+        g_signal_connect_data(
+            gPointer.reinterpret(),
+            "interface-proxy-signal",
+            connectInterfaceProxySignalFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    public companion object : TypeCompanion<DBusObjectManagerClient> {
+        override val type: GeneratedClassKGType<DBusObjectManagerClient> =
+            GeneratedClassKGType(g_dbus_object_manager_client_get_type()) {
+                DBusObjectManagerClient(it.reinterpret())
+            }
+
+        init {
+            GioTypeProvider.register()
+        }
+
+        /**
+         * Finishes an operation started with g_dbus_object_manager_client_new().
+         *
+         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
+         * g_dbus_object_manager_client_new().
+         * @return A
+         *   #GDBusObjectManagerClient object or null if @error is set. Free
+         *   with g_object_unref().
+         * @since 2.30
+         */
+        public fun newFinish(res: AsyncResult): Result<DBusObjectManagerClient> =
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                val gResult =
+                    g_dbus_object_manager_client_new_finish(
+                        res.gioAsyncResultPointer,
+                        gError.ptr
+                    )
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    Result.success(DBusObjectManagerClient(checkNotNull(gResult).reinterpret()))
+                }
+            }
+
+        /**
+         * Finishes an operation started with g_dbus_object_manager_client_new_for_bus().
+         *
+         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
+         * g_dbus_object_manager_client_new_for_bus().
+         * @return A
+         *   #GDBusObjectManagerClient object or null if @error is set. Free
+         *   with g_object_unref().
+         * @since 2.30
+         */
+        public fun newForBusFinish(res: AsyncResult): Result<DBusObjectManagerClient> =
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                val gResult =
+                    g_dbus_object_manager_client_new_for_bus_finish(
+                        res.gioAsyncResultPointer,
+                        gError.ptr
+                    )
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    Result.success(DBusObjectManagerClient(checkNotNull(gResult).reinterpret()))
+                }
+            }
+    }
+}
+
+private val connectInterfaceProxyPropertiesChangedFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GDBusObjectProxy>,
+            CPointer<GDBusProxy>,
+            CPointer<GVariant>,
+            CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>,
+        ) -> Unit
+        >
+    > =
+    staticCFunction {
+            _: COpaquePointer,
+            objectProxy: CPointer<GDBusObjectProxy>?,
+            interfaceProxy: CPointer<GDBusProxy>?,
+            changedProperties: CPointer<GVariant>?,
+            invalidatedProperties: CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>?,
+            userData: COpaquePointer,
+        ->
+        memScoped {
+            userData.asStableRef<
+                (
+                    objectProxy: DBusObjectProxy,
+                    interfaceProxy: DBusProxy,
+                    changedProperties: Variant,
+                    invalidatedProperties: List<String>,
+                ) -> Unit
+                >().get().invoke(
+                objectProxy!!.run {
+                    DBusObjectProxy(reinterpret())
+                },
+                interfaceProxy!!.run {
+                    DBusProxy(reinterpret())
+                },
+                changedProperties!!.run {
+                    Variant(reinterpret())
+                },
+                invalidatedProperties?.toKStringList() ?: error("Expected not null string array")
+            )
+        }
+    }
+        .reinterpret()
+
+private val connectInterfaceProxySignalFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GDBusObjectProxy>,
+            CPointer<GDBusProxy>,
+            CPointer<ByteVar>,
+            CPointer<ByteVar>,
+            CPointer<GVariant>,
+        ) -> Unit
+        >
+    > =
+    staticCFunction {
+            _: COpaquePointer,
+            objectProxy: CPointer<GDBusObjectProxy>?,
+            interfaceProxy: CPointer<GDBusProxy>?,
+            senderName: CPointer<ByteVar>?,
+            signalName: CPointer<ByteVar>?,
+            parameters: CPointer<GVariant>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<
+            (
+                objectProxy: DBusObjectProxy,
+                interfaceProxy: DBusProxy,
+                senderName: String,
+                signalName: String,
+                parameters: Variant,
+            ) -> Unit
+            >().get().invoke(
+            objectProxy!!.run {
+                DBusObjectProxy(reinterpret())
+            },
+            interfaceProxy!!.run {
+                DBusProxy(reinterpret())
+            },
+            senderName?.toKString() ?: error("Expected not null string"),
+            signalName?.toKString()
+                ?: error("Expected not null string"),
+            parameters!!.run {
+                Variant(reinterpret())
+            }
+        )
+    }
+        .reinterpret()

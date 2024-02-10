@@ -1,0 +1,110 @@
+// This is a generated file. Do not modify.
+package org.gtkkn.bindings.pango
+
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.gobject.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.KGTyped
+import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.pango.PangoFontFamily
+import org.gtkkn.native.pango.pango_font_family_get_face
+import org.gtkkn.native.pango.pango_font_family_get_name
+import org.gtkkn.native.pango.pango_font_family_get_type
+import org.gtkkn.native.pango.pango_font_family_is_monospace
+import org.gtkkn.native.pango.pango_font_family_is_variable
+import kotlin.Boolean
+import kotlin.String
+
+/**
+ * A `PangoFontFamily` is used to represent a family of related
+ * font faces.
+ *
+ * The font faces in a family share a common design, but differ in
+ * slant, weight, width or other aspects.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - parameter `faces`: faces: Out parameter is not supported
+ */
+public open class FontFamily(
+    pointer: CPointer<PangoFontFamily>,
+) : Object(pointer.reinterpret()), KGTyped {
+    public val pangoFontFamilyPointer: CPointer<PangoFontFamily>
+        get() = gPointer.reinterpret()
+
+    /**
+     * Gets the `PangoFontFace` of @family with the given name.
+     *
+     * @param name the name of a face. If the name is null,
+     *   the family's default face (fontconfig calls it "Regular")
+     *   will be returned.
+     * @return the `PangoFontFace`,
+     *   or null if no face with the given name exists.
+     * @since 1.46
+     */
+    public open fun getFace(name: String? = null): FontFace? =
+        pango_font_family_get_face(pangoFontFamilyPointer.reinterpret(), name)?.run {
+            FontFace(reinterpret())
+        }
+
+    /**
+     * Gets the name of the family.
+     *
+     * The name is unique among all fonts for the font backend and can
+     * be used in a `PangoFontDescription` to specify that a face from
+     * this family is desired.
+     *
+     * @return the name of the family. This string is owned
+     *   by the family object and must not be modified or freed.
+     */
+    public open fun getName(): String =
+        pango_font_family_get_name(pangoFontFamilyPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
+
+    /**
+     * A monospace font is a font designed for text display where the the
+     * characters form a regular grid.
+     *
+     * For Western languages this would
+     * mean that the advance width of all characters are the same, but
+     * this categorization also includes Asian fonts which include
+     * double-width characters: characters that occupy two grid cells.
+     * g_unichar_iswide() returns a result that indicates whether a
+     * character is typically double-width in a monospace font.
+     *
+     * The best way to find out the grid-cell size is to call
+     * [method@Pango.FontMetrics.get_approximate_digit_width], since the
+     * results of [method@Pango.FontMetrics.get_approximate_char_width] may
+     * be affected by double-width characters.
+     *
+     * @return true if the family is monospace.
+     * @since 1.4
+     */
+    public open fun isMonospace(): Boolean =
+        pango_font_family_is_monospace(pangoFontFamilyPointer.reinterpret()).asBoolean()
+
+    /**
+     * A variable font is a font which has axes that can be modified to
+     * produce different faces.
+     *
+     * Such axes are also known as _variations_; see
+     * [method@Pango.FontDescription.set_variations] for more information.
+     *
+     * @return true if the family is variable
+     * @since 1.44
+     */
+    public open fun isVariable(): Boolean =
+        pango_font_family_is_variable(pangoFontFamilyPointer.reinterpret()).asBoolean()
+
+    public companion object : TypeCompanion<FontFamily> {
+        override val type: GeneratedClassKGType<FontFamily> =
+            GeneratedClassKGType(pango_font_family_get_type()) { FontFamily(it.reinterpret()) }
+
+        init {
+            PangoTypeProvider.register()
+        }
+    }
+}

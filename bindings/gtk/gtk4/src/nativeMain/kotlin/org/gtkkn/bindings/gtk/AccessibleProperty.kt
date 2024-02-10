@@ -1,0 +1,197 @@
+// This is a generated file. Do not modify.
+package org.gtkkn.bindings.gtk
+
+import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.native.gtk.GtkAccessibleProperty
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_AUTOCOMPLETE
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_DESCRIPTION
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_HAS_POPUP
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_KEY_SHORTCUTS
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_LABEL
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_LEVEL
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_MODAL
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_MULTI_LINE
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_MULTI_SELECTABLE
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_ORIENTATION
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_PLACEHOLDER
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_READ_ONLY
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_REQUIRED
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_ROLE_DESCRIPTION
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_SORT
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_MAX
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_MIN
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_NOW
+import org.gtkkn.native.gtk.GtkAccessibleProperty.GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT
+import org.gtkkn.native.gtk.gtk_accessible_property_init_value
+import kotlin.Unit
+
+/**
+ * The possible accessible properties of a [iface@Accessible].
+ */
+public enum class AccessibleProperty(
+    public val nativeValue: GtkAccessibleProperty,
+) {
+    /**
+     * Indicates whether inputting text
+     *    could trigger display of one or more predictions of the user's intended
+     *    value for a combobox, searchbox, or textbox and specifies how predictions
+     *    would be presented if they were made. Value type: [enum@AccessibleAutocomplete]
+     */
+    AUTOCOMPLETE(GTK_ACCESSIBLE_PROPERTY_AUTOCOMPLETE),
+
+    /**
+     * Defines a string value that describes
+     *    or annotates the current element. Value type: string
+     */
+    DESCRIPTION(GTK_ACCESSIBLE_PROPERTY_DESCRIPTION),
+
+    /**
+     * Indicates the availability and type of
+     *    interactive popup element, such as menu or dialog, that can be triggered
+     *    by an element.
+     */
+    HAS_POPUP(GTK_ACCESSIBLE_PROPERTY_HAS_POPUP),
+
+    /**
+     * Indicates keyboard shortcuts that an
+     *    author has implemented to activate or give focus to an element. Value type:
+     *    string
+     */
+    KEY_SHORTCUTS(GTK_ACCESSIBLE_PROPERTY_KEY_SHORTCUTS),
+
+    /**
+     * Defines a string value that labels the current
+     *    element. Value type: string
+     */
+    LABEL(GTK_ACCESSIBLE_PROPERTY_LABEL),
+
+    /**
+     * Defines the hierarchical level of an element
+     *    within a structure. Value type: integer
+     */
+    LEVEL(GTK_ACCESSIBLE_PROPERTY_LEVEL),
+
+    /**
+     * Indicates whether an element is modal when
+     *    displayed. Value type: boolean
+     */
+    MODAL(GTK_ACCESSIBLE_PROPERTY_MODAL),
+
+    /**
+     * Indicates whether a text box accepts
+     *    multiple lines of input or only a single line. Value type: boolean
+     */
+    MULTI_LINE(GTK_ACCESSIBLE_PROPERTY_MULTI_LINE),
+
+    /**
+     * Indicates that the user may select
+     *    more than one item from the current selectable descendants. Value type:
+     *    boolean
+     */
+    MULTI_SELECTABLE(GTK_ACCESSIBLE_PROPERTY_MULTI_SELECTABLE),
+
+    /**
+     * Indicates whether the element's
+     *    orientation is horizontal, vertical, or unknown/ambiguous. Value type:
+     *    [enum@Orientation]
+     */
+    ORIENTATION(GTK_ACCESSIBLE_PROPERTY_ORIENTATION),
+
+    /**
+     * Defines a short hint (a word or short
+     *    phrase) intended to aid the user with data entry when the control has no
+     *    value. A hint could be a sample value or a brief description of the expected
+     *    format. Value type: string
+     */
+    PLACEHOLDER(GTK_ACCESSIBLE_PROPERTY_PLACEHOLDER),
+
+    /**
+     * Indicates that the element is not editable,
+     *    but is otherwise operable. Value type: boolean
+     */
+    READ_ONLY(GTK_ACCESSIBLE_PROPERTY_READ_ONLY),
+
+    /**
+     * Indicates that user input is required on
+     *    the element before a form may be submitted. Value type: boolean
+     */
+    REQUIRED(GTK_ACCESSIBLE_PROPERTY_REQUIRED),
+
+    /**
+     * Defines a human-readable,
+     *    author-localized description for the role of an element. Value type: string
+     */
+    ROLE_DESCRIPTION(GTK_ACCESSIBLE_PROPERTY_ROLE_DESCRIPTION),
+
+    /**
+     * Indicates if items in a table or grid are
+     *    sorted in ascending or descending order. Value type: [enum@AccessibleSort]
+     */
+    SORT(GTK_ACCESSIBLE_PROPERTY_SORT),
+
+    /**
+     * Defines the maximum allowed value for a
+     *    range widget. Value type: double
+     */
+    VALUE_MAX(GTK_ACCESSIBLE_PROPERTY_VALUE_MAX),
+
+    /**
+     * Defines the minimum allowed value for a
+     *    range widget. Value type: double
+     */
+    VALUE_MIN(GTK_ACCESSIBLE_PROPERTY_VALUE_MIN),
+
+    /**
+     * Defines the current value for a range widget.
+     *    Value type: double
+     */
+    VALUE_NOW(GTK_ACCESSIBLE_PROPERTY_VALUE_NOW),
+
+    /**
+     * Defines the human readable text alternative
+     *    of aria-valuenow for a range widget. Value type: string
+     */
+    VALUE_TEXT(GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT),
+    ;
+
+    public companion object {
+        public fun fromNativeValue(nativeValue: GtkAccessibleProperty): AccessibleProperty =
+            when (nativeValue) {
+                GTK_ACCESSIBLE_PROPERTY_AUTOCOMPLETE -> AUTOCOMPLETE
+                GTK_ACCESSIBLE_PROPERTY_DESCRIPTION -> DESCRIPTION
+                GTK_ACCESSIBLE_PROPERTY_HAS_POPUP -> HAS_POPUP
+                GTK_ACCESSIBLE_PROPERTY_KEY_SHORTCUTS -> KEY_SHORTCUTS
+                GTK_ACCESSIBLE_PROPERTY_LABEL -> LABEL
+                GTK_ACCESSIBLE_PROPERTY_LEVEL -> LEVEL
+                GTK_ACCESSIBLE_PROPERTY_MODAL -> MODAL
+                GTK_ACCESSIBLE_PROPERTY_MULTI_LINE -> MULTI_LINE
+                GTK_ACCESSIBLE_PROPERTY_MULTI_SELECTABLE -> MULTI_SELECTABLE
+                GTK_ACCESSIBLE_PROPERTY_ORIENTATION -> ORIENTATION
+                GTK_ACCESSIBLE_PROPERTY_PLACEHOLDER -> PLACEHOLDER
+                GTK_ACCESSIBLE_PROPERTY_READ_ONLY -> READ_ONLY
+                GTK_ACCESSIBLE_PROPERTY_REQUIRED -> REQUIRED
+                GTK_ACCESSIBLE_PROPERTY_ROLE_DESCRIPTION -> ROLE_DESCRIPTION
+                GTK_ACCESSIBLE_PROPERTY_SORT -> SORT
+                GTK_ACCESSIBLE_PROPERTY_VALUE_MAX -> VALUE_MAX
+                GTK_ACCESSIBLE_PROPERTY_VALUE_MIN -> VALUE_MIN
+                GTK_ACCESSIBLE_PROPERTY_VALUE_NOW -> VALUE_NOW
+                GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT -> VALUE_TEXT
+                else -> error("invalid nativeValue")
+            }
+
+        /**
+         *
+         *
+         * @param property
+         * @param value
+         */
+        public fun initValue(
+            `property`: AccessibleProperty,
+            `value`: Value,
+        ): Unit =
+            gtk_accessible_property_init_value(
+                `property`.nativeValue,
+                `value`.gobjectValuePointer
+            )
+    }
+}
