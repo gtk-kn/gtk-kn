@@ -108,6 +108,7 @@ publishing {
 
 tasks {
     val cleanMavenLocal by registering {
+        notCompatibleWithConfigurationCache("invocation of 'Task.project' at execution time is unsupported")
         group = BasePlugin.BUILD_GROUP
         doLast {
             val groupRepo =
