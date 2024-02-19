@@ -972,7 +972,7 @@ private val connectScrollChildFunc: CPointer<CFunction<(GtkScrollType, Int) -> I
                 scroll: ScrollType,
                 horizontal: Boolean,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             scroll.run {
                 ScrollType.fromNativeValue(this)
             },

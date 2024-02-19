@@ -932,7 +932,8 @@ public open class TextBuffer(
     ): String =
         gtk_text_buffer_get_slice(
             gtkTextBufferPointer.reinterpret(),
-            start.gtkTextIterPointer, end.gtkTextIterPointer,
+            start.gtkTextIterPointer,
+            end.gtkTextIterPointer,
             includeHiddenChars.asGBoolean()
         )?.toKString() ?: error("Expected not null string")
 
@@ -982,7 +983,8 @@ public open class TextBuffer(
     ): String =
         gtk_text_buffer_get_text(
             gtkTextBufferPointer.reinterpret(),
-            start.gtkTextIterPointer, end.gtkTextIterPointer,
+            start.gtkTextIterPointer,
+            end.gtkTextIterPointer,
             includeHiddenChars.asGBoolean()
         )?.toKString() ?: error("Expected not null string")
 
@@ -1893,8 +1895,8 @@ private val connectApplyTagFunc: CPointer<
             CPointer<GtkTextIter>,
             CPointer<GtkTextIter>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             tag: CPointer<GtkTextTag>?,
@@ -1908,7 +1910,7 @@ private val connectApplyTagFunc: CPointer<
                 start: TextIter,
                 end: TextIter,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             tag!!.run {
                 TextTag(reinterpret())
             },
@@ -1946,8 +1948,8 @@ private val connectDeleteRangeFunc: CPointer<
             CPointer<GtkTextIter>,
             CPointer<GtkTextIter>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             start: CPointer<GtkTextIter>?,
@@ -1980,8 +1982,8 @@ private val connectInsertChildAnchorFunc: CPointer<
             CPointer<GtkTextIter>,
             CPointer<GtkTextChildAnchor>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             location: CPointer<GtkTextIter>?,
@@ -1993,7 +1995,7 @@ private val connectInsertChildAnchorFunc: CPointer<
                 location: TextIter,
                 anchor: TextChildAnchor,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             location!!.run {
                 TextIter(reinterpret())
             },
@@ -2010,8 +2012,8 @@ private val connectInsertPaintableFunc: CPointer<
             CPointer<GtkTextIter>,
             CPointer<GdkPaintable>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             location: CPointer<GtkTextIter>?,
@@ -2023,7 +2025,7 @@ private val connectInsertPaintableFunc: CPointer<
                 location: TextIter,
                 paintable: Paintable,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             location!!.run {
                 TextIter(reinterpret())
             },
@@ -2041,8 +2043,8 @@ private val connectInsertTextFunc: CPointer<
             CPointer<ByteVar>,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             location: CPointer<GtkTextIter>?,
@@ -2056,7 +2058,7 @@ private val connectInsertTextFunc: CPointer<
                 text: String,
                 len: Int,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             location!!.run {
                 TextIter(reinterpret())
             },
@@ -2086,8 +2088,8 @@ private val connectMarkSetFunc: CPointer<
             CPointer<GtkTextIter>,
             CPointer<GtkTextMark>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             location: CPointer<GtkTextIter>?,
@@ -2099,7 +2101,7 @@ private val connectMarkSetFunc: CPointer<
                 location: TextIter,
                 mark: TextMark,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             location!!.run {
                 TextIter(reinterpret())
             },
@@ -2149,8 +2151,8 @@ private val connectRemoveTagFunc: CPointer<
             CPointer<GtkTextIter>,
             CPointer<GtkTextIter>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             tag: CPointer<GtkTextTag>?,
@@ -2164,7 +2166,7 @@ private val connectRemoveTagFunc: CPointer<
                 start: TextIter,
                 end: TextIter,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             tag!!.run {
                 TextTag(reinterpret())
             },

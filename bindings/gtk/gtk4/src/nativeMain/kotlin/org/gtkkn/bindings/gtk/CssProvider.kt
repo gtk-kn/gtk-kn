@@ -181,8 +181,8 @@ private val connectParsingErrorFunc: CPointer<
             CPointer<GtkCssSection>,
             CPointer<GError>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             section: CPointer<GtkCssSection>?,

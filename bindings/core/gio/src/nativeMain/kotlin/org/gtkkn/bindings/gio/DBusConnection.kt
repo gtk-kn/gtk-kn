@@ -1657,8 +1657,8 @@ private val connectClosedFunc: CPointer<
             Int,
             CPointer<org.gtkkn.native.glib.GError>?,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             remotePeerVanished: Int,
@@ -1670,7 +1670,7 @@ private val connectClosedFunc: CPointer<
                 remotePeerVanished: Boolean,
                 error: Error?,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             remotePeerVanished.asBoolean(),
             error?.run {
                 Error(reinterpret())

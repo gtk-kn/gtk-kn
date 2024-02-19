@@ -1199,8 +1199,8 @@ private val connectAddEditableFunc: CPointer<
             CPointer<GdkRectangle>,
             CPointer<ByteVar>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             renderer: CPointer<GtkCellRenderer>?,
@@ -1216,7 +1216,7 @@ private val connectAddEditableFunc: CPointer<
                 cellArea: Rectangle,
                 path: String,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             renderer!!.run {
                 CellRenderer(reinterpret())
             },
@@ -1239,8 +1239,8 @@ private val connectApplyAttributesFunc: CPointer<
             Int,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             model: CPointer<GtkTreeModel>?,
@@ -1256,7 +1256,7 @@ private val connectApplyAttributesFunc: CPointer<
                 isExpander: Boolean,
                 isExpanded: Boolean,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             model!!.run {
                 TreeModel.wrap(reinterpret())
             },
@@ -1275,8 +1275,8 @@ private val connectFocusChangedFunc: CPointer<
             CPointer<GtkCellRenderer>,
             CPointer<ByteVar>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             renderer: CPointer<GtkCellRenderer>?,
@@ -1288,7 +1288,7 @@ private val connectFocusChangedFunc: CPointer<
                 renderer: CellRenderer,
                 path: String,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             renderer!!.run {
                 CellRenderer(reinterpret())
             },
@@ -1303,8 +1303,8 @@ private val connectRemoveEditableFunc: CPointer<
             CPointer<GtkCellRenderer>,
             CPointer<GtkCellEditable>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             renderer: CPointer<GtkCellRenderer>?,
@@ -1316,7 +1316,7 @@ private val connectRemoveEditableFunc: CPointer<
                 renderer: CellRenderer,
                 editable: CellEditable,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             renderer!!.run {
                 CellRenderer(reinterpret())
             },

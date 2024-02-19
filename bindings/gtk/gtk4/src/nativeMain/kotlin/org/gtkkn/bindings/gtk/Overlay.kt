@@ -277,8 +277,8 @@ private val connectGetChildPositionFunc: CPointer<
             CPointer<GtkWidget>,
             CPointer<GdkRectangle>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             widget: CPointer<GtkWidget>?,
@@ -290,7 +290,7 @@ private val connectGetChildPositionFunc: CPointer<
                 widget: Widget,
                 allocation: Rectangle,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             widget!!.run {
                 Widget(reinterpret())
             },

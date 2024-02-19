@@ -171,8 +171,8 @@ private val connectPressedFunc: CPointer<
             Double,
             Double,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             nPress: Int,
@@ -186,7 +186,7 @@ private val connectPressedFunc: CPointer<
                 x: Double,
                 y: Double,
             ) -> Unit
-            >().get().invoke(nPress, x, y)
+        >().get().invoke(nPress, x, y)
     }
         .reinterpret()
 
@@ -197,8 +197,8 @@ private val connectReleasedFunc: CPointer<
             Double,
             Double,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             nPress: Int,
@@ -212,7 +212,7 @@ private val connectReleasedFunc: CPointer<
                 x: Double,
                 y: Double,
             ) -> Unit
-            >().get().invoke(nPress, x, y)
+        >().get().invoke(nPress, x, y)
     }
         .reinterpret()
 
@@ -233,8 +233,8 @@ private val connectUnpairedReleaseFunc: CPointer<
             UInt,
             CPointer<GdkEventSequence>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             x: Double,
@@ -250,7 +250,7 @@ private val connectUnpairedReleaseFunc: CPointer<
                 button: UInt,
                 sequence: EventSequence,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             x,
             y,
             button,

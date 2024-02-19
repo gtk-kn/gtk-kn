@@ -230,7 +230,9 @@ public open class DBusObjectManagerClient(
          * @since 2.30
          */
         get() =
-            g_dbus_object_manager_client_get_name_owner(gioDBusObjectManagerClientPointer.reinterpret())?.toKString()
+            g_dbus_object_manager_client_get_name_owner(
+                gioDBusObjectManagerClientPointer.reinterpret()
+            )?.toKString()
                 ?: error("Expected not null string")
 
     /**
@@ -451,8 +453,8 @@ private val connectInterfaceProxyPropertiesChangedFunc: CPointer<
             CPointer<GVariant>,
             CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             objectProxy: CPointer<GDBusObjectProxy>?,
@@ -469,7 +471,7 @@ private val connectInterfaceProxyPropertiesChangedFunc: CPointer<
                     changedProperties: Variant,
                     invalidatedProperties: List<String>,
                 ) -> Unit
-                >().get().invoke(
+            >().get().invoke(
                 objectProxy!!.run {
                     DBusObjectProxy(reinterpret())
                 },
@@ -494,8 +496,8 @@ private val connectInterfaceProxySignalFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<GVariant>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             objectProxy: CPointer<GDBusObjectProxy>?,
@@ -513,7 +515,7 @@ private val connectInterfaceProxySignalFunc: CPointer<
                 signalName: String,
                 parameters: Variant,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             objectProxy!!.run {
                 DBusObjectProxy(reinterpret())
             },

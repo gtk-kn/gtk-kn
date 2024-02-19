@@ -217,8 +217,8 @@ private val connectAuthorizeAuthenticatedPeerFunc: CPointer<
             CPointer<GIOStream>,
             CPointer<GCredentials>?,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             stream: CPointer<GIOStream>?,
@@ -230,7 +230,7 @@ private val connectAuthorizeAuthenticatedPeerFunc: CPointer<
                 stream: IOStream,
                 credentials: Credentials?,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             stream!!.run {
                 IOStream(reinterpret())
             },

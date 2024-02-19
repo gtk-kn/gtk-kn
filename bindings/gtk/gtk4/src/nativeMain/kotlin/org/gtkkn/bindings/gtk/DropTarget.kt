@@ -525,8 +525,8 @@ private val connectDropFunc: CPointer<
             Double,
             Double,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             `value`: CPointer<GValue>?,
@@ -540,7 +540,7 @@ private val connectDropFunc: CPointer<
                 x: Double,
                 y: Double,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             `value`!!.run {
                 Value(reinterpret())
             },

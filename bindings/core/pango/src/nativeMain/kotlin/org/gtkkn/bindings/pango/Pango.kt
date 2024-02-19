@@ -1672,8 +1672,8 @@ public val FontsetForeachFuncFunc: CPointer<
             CPointer<PangoFontset>,
             CPointer<PangoFont>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             fontset: CPointer<PangoFontset>?,
             font: CPointer<PangoFont>?,

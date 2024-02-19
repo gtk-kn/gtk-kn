@@ -1151,8 +1151,8 @@ private val connectEventFunc: CPointer<
             CPointer<GSocketConnectable>,
             CPointer<GIOStream>?,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             event: GSocketClientEvent,
@@ -1166,7 +1166,7 @@ private val connectEventFunc: CPointer<
                 connectable: SocketConnectable,
                 connection: IOStream?,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             event.run {
                 SocketClientEvent.fromNativeValue(this)
             },

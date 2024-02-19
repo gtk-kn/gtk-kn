@@ -931,8 +931,8 @@ private val connectAcceptCertificateFunc: CPointer<
             CPointer<GTlsCertificate>,
             GTlsCertificateFlags,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             peerCert: CPointer<GTlsCertificate>?,
@@ -944,7 +944,7 @@ private val connectAcceptCertificateFunc: CPointer<
                 peerCert: TlsCertificate,
                 errors: TlsCertificateFlags,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             peerCert!!.run {
                 TlsCertificate(reinterpret())
             },

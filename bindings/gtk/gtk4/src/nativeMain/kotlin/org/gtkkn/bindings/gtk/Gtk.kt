@@ -697,7 +697,9 @@ public object Gtk {
     ): String =
         gtk_accelerator_get_label_with_keycode(
             display?.gdkDisplayPointer?.reinterpret(),
-            acceleratorKey, keycode, acceleratorMods.mask
+            acceleratorKey,
+            keycode,
+            acceleratorMods.mask
         )?.toKString()
             ?: error("Expected not null string")
 
@@ -744,7 +746,9 @@ public object Gtk {
     ): String =
         gtk_accelerator_name_with_keycode(
             display?.gdkDisplayPointer?.reinterpret(),
-            acceleratorKey, keycode, acceleratorMods.mask
+            acceleratorKey,
+            keycode,
+            acceleratorMods.mask
         )?.toKString()
             ?: error("Expected not null string")
 
@@ -1607,8 +1611,8 @@ public val CellAllocCallbackFunc: CPointer<
             CPointer<GdkRectangle>,
             CPointer<GdkRectangle>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             renderer: CPointer<GtkCellRenderer>?,
             cellArea: CPointer<GdkRectangle>?,
@@ -1621,7 +1625,7 @@ public val CellAllocCallbackFunc: CPointer<
                 cellArea: Rectangle,
                 cellBackground: Rectangle,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             renderer!!.run {
                 CellRenderer(reinterpret())
             },
@@ -1656,8 +1660,8 @@ public val CellLayoutDataFuncFunc: CPointer<
             CPointer<GtkTreeModel>,
             CPointer<GtkTreeIter>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             cellLayout: CPointer<GtkCellLayout>?,
             cell: CPointer<GtkCellRenderer>?,
@@ -1672,7 +1676,7 @@ public val CellLayoutDataFuncFunc: CPointer<
                 treeModel: TreeModel,
                 iter: TreeIter,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             cellLayout!!.run {
                 CellLayout.wrap(reinterpret())
             },
@@ -1697,8 +1701,8 @@ public val CustomAllocateFuncFunc: CPointer<
             Int,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             widget: CPointer<GtkWidget>?,
             width: Int,
@@ -1713,7 +1717,7 @@ public val CustomAllocateFuncFunc: CPointer<
                 height: Int,
                 baseline: Int,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             widget!!.run {
                 Widget(reinterpret())
             },
@@ -1744,8 +1748,8 @@ public val CustomMeasureFuncFunc: CPointer<
             GtkOrientation,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             widget: CPointer<GtkWidget>?,
             orientation: GtkOrientation,
@@ -1758,7 +1762,7 @@ public val CustomMeasureFuncFunc: CPointer<
                 orientation: Orientation,
                 forSize: Int,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             widget!!.run {
                 Widget(reinterpret())
             },
@@ -1791,8 +1795,8 @@ public val DrawingAreaDrawFuncFunc: CPointer<
             Int,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             drawingArea: CPointer<GtkDrawingArea>?,
             width: Int,
@@ -1805,7 +1809,7 @@ public val DrawingAreaDrawFuncFunc: CPointer<
                 width: Int,
                 height: Int,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             drawingArea!!.run {
                 DrawingArea(reinterpret())
             },
@@ -1822,8 +1826,8 @@ public val EntryCompletionMatchFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<GtkTreeIter>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             completion: CPointer<GtkEntryCompletion>?,
             key: CPointer<ByteVar>?,
@@ -1836,7 +1840,7 @@ public val EntryCompletionMatchFuncFunc: CPointer<
                 key: String,
                 iter: TreeIter,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             completion!!.run {
                 EntryCompletion(reinterpret())
             },
@@ -1889,8 +1893,8 @@ public val FlowBoxForeachFuncFunc: CPointer<
             CPointer<GtkFlowBox>,
             CPointer<GtkFlowBoxChild>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             box: CPointer<GtkFlowBox>?,
             child: CPointer<GtkFlowBoxChild>?,
@@ -1913,8 +1917,8 @@ public val FlowBoxSortFuncFunc: CPointer<
             CPointer<GtkFlowBoxChild>,
             CPointer<GtkFlowBoxChild>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             child1: CPointer<GtkFlowBoxChild>?,
             child2: CPointer<GtkFlowBoxChild>?,
@@ -1925,7 +1929,7 @@ public val FlowBoxSortFuncFunc: CPointer<
                 child1: FlowBoxChild,
                 child2: FlowBoxChild,
             ) -> Int
-            >().get().invoke(
+        >().get().invoke(
             child1!!.run {
                 FlowBoxChild(reinterpret())
             },
@@ -1942,8 +1946,8 @@ public val FontFilterFuncFunc: CPointer<
             CPointer<PangoFontFamily>,
             CPointer<PangoFontFace>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             family: CPointer<PangoFontFamily>?,
             face: CPointer<PangoFontFace>?,
@@ -1954,7 +1958,7 @@ public val FontFilterFuncFunc: CPointer<
                 family: FontFamily,
                 face: FontFace,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             family!!.run {
                 FontFamily(reinterpret())
             },
@@ -1971,8 +1975,8 @@ public val IconViewForeachFuncFunc: CPointer<
             CPointer<GtkIconView>,
             CPointer<GtkTreePath>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             iconView: CPointer<GtkIconView>?,
             path: CPointer<GtkTreePath>?,
@@ -1983,7 +1987,7 @@ public val IconViewForeachFuncFunc: CPointer<
                 iconView: IconView,
                 path: TreePath,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             iconView!!.run {
                 IconView(reinterpret())
             },
@@ -2027,8 +2031,8 @@ public val ListBoxForeachFuncFunc: CPointer<
             CPointer<GtkListBox>,
             CPointer<GtkListBoxRow>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             box: CPointer<GtkListBox>?,
             row: CPointer<GtkListBoxRow>?,
@@ -2051,8 +2055,8 @@ public val ListBoxSortFuncFunc: CPointer<
             CPointer<GtkListBoxRow>,
             CPointer<GtkListBoxRow>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             row1: CPointer<GtkListBoxRow>?,
             row2: CPointer<GtkListBoxRow>?,
@@ -2075,8 +2079,8 @@ public val ListBoxUpdateHeaderFuncFunc: CPointer<
             CPointer<GtkListBoxRow>,
             CPointer<GtkListBoxRow>?,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             row: CPointer<GtkListBoxRow>?,
             before: CPointer<GtkListBoxRow>?,
@@ -2138,8 +2142,8 @@ public val PrintJobCompleteFuncFunc: CPointer<
             CPointer<GtkPrintJob>,
             CPointer<org.gtkkn.native.glib.GError>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             printJob: CPointer<GtkPrintJob>?,
             error: CPointer<org.gtkkn.native.glib.GError>?,
@@ -2162,8 +2166,8 @@ public val PrintSettingsFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<ByteVar>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             key: CPointer<ByteVar>?,
             `value`: CPointer<ByteVar>?,
@@ -2236,8 +2240,8 @@ public val TickCallbackFunc: CPointer<
             CPointer<GtkWidget>,
             CPointer<GdkFrameClock>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             widget: CPointer<GtkWidget>?,
             frameClock: CPointer<GdkFrameClock>?,
@@ -2248,7 +2252,7 @@ public val TickCallbackFunc: CPointer<
                 widget: Widget,
                 frameClock: FrameClock,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             widget!!.run {
                 Widget(reinterpret())
             },
@@ -2267,8 +2271,8 @@ public val TreeCellDataFuncFunc: CPointer<
             CPointer<GtkTreeModel>,
             CPointer<GtkTreeIter>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             treeColumn: CPointer<GtkTreeViewColumn>?,
             cell: CPointer<GtkCellRenderer>?,
@@ -2283,7 +2287,7 @@ public val TreeCellDataFuncFunc: CPointer<
                 treeModel: TreeModel,
                 iter: TreeIter,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             treeColumn!!.run {
                 TreeViewColumn(reinterpret())
             },
@@ -2307,8 +2311,8 @@ public val TreeIterCompareFuncFunc: CPointer<
             CPointer<GtkTreeIter>,
             CPointer<GtkTreeIter>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             model: CPointer<GtkTreeModel>?,
             a: CPointer<GtkTreeIter>?,
@@ -2321,7 +2325,7 @@ public val TreeIterCompareFuncFunc: CPointer<
                 a: TreeIter,
                 b: TreeIter,
             ) -> Int
-            >().get().invoke(
+        >().get().invoke(
             model!!.run {
                 TreeModel.wrap(reinterpret())
             },
@@ -2357,8 +2361,8 @@ public val TreeModelFilterModifyFuncFunc: CPointer<
             CPointer<GValue>,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             model: CPointer<GtkTreeModel>?,
             iter: CPointer<GtkTreeIter>?,
@@ -2373,7 +2377,7 @@ public val TreeModelFilterModifyFuncFunc: CPointer<
                 `value`: Value,
                 column: Int,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             model!!.run {
                 TreeModel.wrap(reinterpret())
             },
@@ -2394,8 +2398,8 @@ public val TreeModelFilterVisibleFuncFunc: CPointer<
             CPointer<GtkTreeModel>,
             CPointer<GtkTreeIter>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             model: CPointer<GtkTreeModel>?,
             iter: CPointer<GtkTreeIter>?,
@@ -2419,8 +2423,8 @@ public val TreeModelForeachFuncFunc: CPointer<
             CPointer<GtkTreePath>,
             CPointer<GtkTreeIter>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             model: CPointer<GtkTreeModel>?,
             path: CPointer<GtkTreePath>?,
@@ -2433,7 +2437,7 @@ public val TreeModelForeachFuncFunc: CPointer<
                 path: TreePath,
                 iter: TreeIter,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             model!!.run {
                 TreeModel.wrap(reinterpret())
             },
@@ -2454,8 +2458,8 @@ public val TreeSelectionForeachFuncFunc: CPointer<
             CPointer<GtkTreePath>,
             CPointer<GtkTreeIter>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             model: CPointer<GtkTreeModel>?,
             path: CPointer<GtkTreePath>?,
@@ -2468,7 +2472,7 @@ public val TreeSelectionForeachFuncFunc: CPointer<
                 path: TreePath,
                 iter: TreeIter,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             model!!.run {
                 TreeModel.wrap(reinterpret())
             },
@@ -2490,8 +2494,8 @@ public val TreeSelectionFuncFunc: CPointer<
             CPointer<GtkTreePath>,
             Int,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             selection: CPointer<GtkTreeSelection>?,
             model: CPointer<GtkTreeModel>?,
@@ -2506,7 +2510,7 @@ public val TreeSelectionFuncFunc: CPointer<
                 path: TreePath,
                 pathCurrentlySelected: Boolean,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             selection!!.run {
                 TreeSelection(reinterpret())
             },
@@ -2529,8 +2533,8 @@ public val TreeViewColumnDropFuncFunc: CPointer<
             CPointer<GtkTreeViewColumn>,
             CPointer<GtkTreeViewColumn>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             treeView: CPointer<GtkTreeView>?,
             column: CPointer<GtkTreeViewColumn>?,
@@ -2545,7 +2549,7 @@ public val TreeViewColumnDropFuncFunc: CPointer<
                 prevColumn: TreeViewColumn,
                 nextColumn: TreeViewColumn,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             treeView!!.run {
                 TreeView(reinterpret())
             },
@@ -2568,8 +2572,8 @@ public val TreeViewMappingFuncFunc: CPointer<
             CPointer<GtkTreeView>,
             CPointer<GtkTreePath>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             treeView: CPointer<GtkTreeView>?,
             path: CPointer<GtkTreePath>?,
@@ -2580,7 +2584,7 @@ public val TreeViewMappingFuncFunc: CPointer<
                 treeView: TreeView,
                 path: TreePath,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             treeView!!.run {
                 TreeView(reinterpret())
             },
@@ -2597,8 +2601,8 @@ public val TreeViewRowSeparatorFuncFunc: CPointer<
             CPointer<GtkTreeModel>,
             CPointer<GtkTreeIter>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             model: CPointer<GtkTreeModel>?,
             iter: CPointer<GtkTreeIter>?,
@@ -2623,8 +2627,8 @@ public val TreeViewSearchEqualFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<GtkTreeIter>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             model: CPointer<GtkTreeModel>?,
             column: Int,
@@ -2639,7 +2643,7 @@ public val TreeViewSearchEqualFuncFunc: CPointer<
                 key: String,
                 iter: TreeIter,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             model!!.run {
                 TreeModel.wrap(reinterpret())
             },
@@ -2659,8 +2663,8 @@ public val WidgetActionActivateFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<GVariant>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             widget: CPointer<GtkWidget>?,
             actionName: CPointer<ByteVar>?,
@@ -2673,7 +2677,7 @@ public val WidgetActionActivateFuncFunc: CPointer<
                 actionName: String,
                 parameter: Variant,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             widget!!.run {
                 Widget(reinterpret())
             },

@@ -728,8 +728,8 @@ private val connectCursorOnMatchFunc: CPointer<
             CPointer<GtkTreeModel>,
             CPointer<GtkTreeIter>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             model: CPointer<GtkTreeModel>?,
@@ -766,8 +766,8 @@ private val connectMatchSelectedFunc: CPointer<
             CPointer<GtkTreeModel>,
             CPointer<GtkTreeIter>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             model: CPointer<GtkTreeModel>?,

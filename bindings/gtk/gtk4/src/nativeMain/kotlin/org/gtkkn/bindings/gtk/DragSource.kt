@@ -430,8 +430,8 @@ private val connectDragCancelFunc: CPointer<
             CPointer<GdkDrag>,
             GdkDragCancelReason,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             drag: CPointer<GdkDrag>?,
@@ -443,7 +443,7 @@ private val connectDragCancelFunc: CPointer<
                 drag: Drag,
                 reason: DragCancelReason,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             drag!!.run {
                 Drag(reinterpret())
             },
@@ -476,8 +476,8 @@ private val connectPrepareFunc: CPointer<
             Double,
             Double,
         ) -> CPointer<GdkContentProvider>?
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             x: Double,

@@ -457,7 +457,8 @@ public class Uri(
             allowUtf8: Boolean,
         ): String =
             g_uri_escape_string(
-                unescaped, reservedCharsAllowed,
+                unescaped,
+                reservedCharsAllowed,
                 allowUtf8.asGBoolean()
             )?.toKString() ?: error("Expected not null string")
 
@@ -528,7 +529,13 @@ public class Uri(
             fragment: String? = null,
         ): String =
             g_uri_join(
-                flags.mask, scheme, userinfo, host, port, path, query,
+                flags.mask,
+                scheme,
+                userinfo,
+                host,
+                port,
+                path,
+                query,
                 fragment
             )?.toKString() ?: error("Expected not null string")
 

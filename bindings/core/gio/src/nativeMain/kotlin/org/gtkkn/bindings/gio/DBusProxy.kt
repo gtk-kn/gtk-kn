@@ -907,8 +907,8 @@ private val connectGPropertiesChangedFunc: CPointer<
             CPointer<GVariant>,
             CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             changedProperties: CPointer<GVariant>?,
@@ -921,7 +921,7 @@ private val connectGPropertiesChangedFunc: CPointer<
                     changedProperties: Variant,
                     invalidatedProperties: List<String>,
                 ) -> Unit
-                >().get().invoke(
+            >().get().invoke(
                 changedProperties!!.run {
                     Variant(reinterpret())
                 },
@@ -938,8 +938,8 @@ private val connectGSignalFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<GVariant>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             senderName: CPointer<ByteVar>?,
@@ -953,7 +953,7 @@ private val connectGSignalFunc: CPointer<
                 signalName: String,
                 parameters: Variant,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             senderName?.toKString() ?: error("Expected not null string"),
             signalName?.toKString() ?: error("Expected not null string"),
             parameters!!.run {

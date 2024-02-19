@@ -143,8 +143,8 @@ public val PixbufModulePreparedFuncFunc: CPointer<
             CPointer<GdkPixbuf>,
             CPointer<GdkPixbufAnimation>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             pixbuf: CPointer<GdkPixbuf>?,
             anim: CPointer<GdkPixbufAnimation>?,
@@ -155,7 +155,7 @@ public val PixbufModulePreparedFuncFunc: CPointer<
                 pixbuf: Pixbuf,
                 anim: PixbufAnimation,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             pixbuf!!.run {
                 Pixbuf(reinterpret())
             },
@@ -195,8 +195,8 @@ public val PixbufModuleUpdatedFuncFunc: CPointer<
             Int,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             pixbuf: CPointer<GdkPixbuf>?,
             x: Int,
@@ -213,7 +213,7 @@ public val PixbufModuleUpdatedFuncFunc: CPointer<
                 width: Int,
                 height: Int,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             pixbuf!!.run {
                 Pixbuf(reinterpret())
             },

@@ -2219,8 +2219,8 @@ public val BindingTransformFuncFunc: CPointer<
             CPointer<GValue>,
             CPointer<GValue>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             binding: CPointer<GBinding>?,
             fromValue: CPointer<GValue>?,
@@ -2233,7 +2233,7 @@ public val BindingTransformFuncFunc: CPointer<
                 fromValue: Value,
                 toValue: Value,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             binding!!.run {
                 Binding(reinterpret())
             },
@@ -2296,8 +2296,8 @@ public val ClosureMarshalFunc: CPointer<
             CPointer<GValue>?,
             UInt,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             closure: CPointer<GClosure>?,
             returnValue: CPointer<GValue>?,
@@ -2310,7 +2310,7 @@ public val ClosureMarshalFunc: CPointer<
                 returnValue: Value?,
                 nParamValues: UInt,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             closure!!.run {
                 Closure(reinterpret())
             },
@@ -2341,8 +2341,8 @@ public val InstanceInitFuncFunc: CPointer<
             CPointer<GTypeInstance>,
             CPointer<GTypeClass>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             instance: CPointer<GTypeInstance>?,
             gClass: CPointer<GTypeClass>?,
@@ -2353,7 +2353,7 @@ public val InstanceInitFuncFunc: CPointer<
                 instance: TypeInstance,
                 gClass: TypeClass,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             instance!!.run {
                 TypeInstance(reinterpret())
             },
@@ -2411,8 +2411,8 @@ public val ObjectGetPropertyFuncFunc: CPointer<
             CPointer<GValue>,
             CPointer<GParamSpec>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             `object`: CPointer<GObject>?,
             propertyId: UInt,
@@ -2427,7 +2427,7 @@ public val ObjectGetPropertyFuncFunc: CPointer<
                 `value`: Value,
                 pspec: ParamSpec,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             `object`!!.run {
                 Object(reinterpret())
             },
@@ -2450,8 +2450,8 @@ public val ObjectSetPropertyFuncFunc: CPointer<
             CPointer<GValue>,
             CPointer<GParamSpec>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             `object`: CPointer<GObject>?,
             propertyId: UInt,
@@ -2466,7 +2466,7 @@ public val ObjectSetPropertyFuncFunc: CPointer<
                 `value`: Value,
                 pspec: ParamSpec,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             `object`!!.run {
                 Object(reinterpret())
             },
@@ -2488,8 +2488,8 @@ public val SignalAccumulatorFunc: CPointer<
             CPointer<GValue>,
             CPointer<GValue>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             ihint: CPointer<GSignalInvocationHint>?,
             returnAccu: CPointer<GValue>?,
@@ -2502,7 +2502,7 @@ public val SignalAccumulatorFunc: CPointer<
                 returnAccu: Value,
                 handlerReturn: Value,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             ihint!!.run {
                 SignalInvocationHint(reinterpret())
             },
@@ -2522,8 +2522,8 @@ public val SignalEmissionHookFunc: CPointer<
             CPointer<GSignalInvocationHint>,
             UInt,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             ihint: CPointer<GSignalInvocationHint>?,
             nParamValues: UInt,
@@ -2534,7 +2534,7 @@ public val SignalEmissionHookFunc: CPointer<
                 ihint: SignalInvocationHint,
                 nParamValues: UInt,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             ihint!!.run {
                 SignalInvocationHint(reinterpret())
             },
@@ -2554,7 +2554,7 @@ public val ToggleNotifyFunc: CPointer<CFunction<(CPointer<GObject>, Int) -> Unit
                 `object`: Object,
                 isLastRef: Boolean,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             `object`!!.run {
                 Object(reinterpret())
             },
@@ -2597,8 +2597,8 @@ public val TypePluginCompleteInterfaceInfoFunc: CPointer<
             ULong,
             CPointer<GInterfaceInfo>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             plugin: CPointer<GTypePlugin>?,
             instanceType: ULong,
@@ -2613,7 +2613,7 @@ public val TypePluginCompleteInterfaceInfoFunc: CPointer<
                 interfaceType: ULong,
                 info: InterfaceInfo,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             plugin!!.run {
                 TypePlugin.wrap(reinterpret())
             },
@@ -2634,8 +2634,8 @@ public val TypePluginCompleteTypeInfoFunc: CPointer<
             CPointer<GTypeInfo>,
             CPointer<GTypeValueTable>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             plugin: CPointer<GTypePlugin>?,
             gType: ULong,
@@ -2650,7 +2650,7 @@ public val TypePluginCompleteTypeInfoFunc: CPointer<
                 info: TypeInfo,
                 valueTable: TypeValueTable,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             plugin!!.run {
                 TypePlugin.wrap(reinterpret())
             },
@@ -2702,7 +2702,7 @@ public val ValueTransformFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GV
                 srcValue: Value,
                 destValue: Value,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             srcValue!!.run {
                 Value(reinterpret())
             },

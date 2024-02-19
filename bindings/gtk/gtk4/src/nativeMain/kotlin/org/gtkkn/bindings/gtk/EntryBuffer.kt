@@ -351,8 +351,8 @@ private val connectInsertedTextFunc: CPointer<
             CPointer<ByteVar>,
             UInt,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             position: UInt,
@@ -366,7 +366,7 @@ private val connectInsertedTextFunc: CPointer<
                 chars: String,
                 nChars: UInt,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             position,
             chars?.toKString() ?: error("Expected not null string"),
             nChars

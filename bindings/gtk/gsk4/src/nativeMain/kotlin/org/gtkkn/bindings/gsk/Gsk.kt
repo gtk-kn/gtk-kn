@@ -107,8 +107,8 @@ public val ParseErrorFuncFunc: CPointer<
             CPointer<GskParseLocation>,
             CPointer<GError>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             start: CPointer<GskParseLocation>?,
             end: CPointer<GskParseLocation>?,
@@ -121,7 +121,7 @@ public val ParseErrorFuncFunc: CPointer<
                 end: ParseLocation,
                 error: Error,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             start!!.run {
                 ParseLocation(reinterpret())
             },

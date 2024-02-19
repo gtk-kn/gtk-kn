@@ -132,8 +132,8 @@ private val connectAccelEditedFunc: CPointer<
             GdkModifierType,
             UInt,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             pathString: CPointer<ByteVar>?,
@@ -149,7 +149,7 @@ private val connectAccelEditedFunc: CPointer<
                 accelMods: ModifierType,
                 hardwareKeycode: UInt,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             pathString?.toKString() ?: error("Expected not null string"),
             accelKey,
             accelMods.run {

@@ -352,7 +352,7 @@ comments:
     active: true # Custom
     matchTypeParameters: true
     matchDeclarationsOrder: true
-    allowParamOnConstructorProperties: false
+    allowParamOnConstructorProperties: true # Custom
   UndocumentedPublicClass:
     active: false
     excludes:
@@ -1189,9 +1189,7 @@ style:
     active: true
     allowedNames: '(_|ignored|expected|serialVersionUID)'
     ignoreAnnotated: # Custom
-      - 'DevicePreviews'
       - 'Preview'
-      - 'ThemePreviews'
   UnusedPrivateProperty:
     active: true
     allowedNames: '_|ignored|expected|serialVersionUID'

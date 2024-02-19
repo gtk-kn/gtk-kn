@@ -181,8 +181,8 @@ private val connectAuthorizeMethodFunc: CPointer<
             CPointer<GDBusInterfaceSkeleton>,
             CPointer<GDBusMethodInvocation>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             `interface`: CPointer<GDBusInterfaceSkeleton>?,
@@ -194,7 +194,7 @@ private val connectAuthorizeMethodFunc: CPointer<
                 `interface`: DBusInterfaceSkeleton,
                 invocation: DBusMethodInvocation,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             `interface`!!.run {
                 DBusInterfaceSkeleton(reinterpret())
             },

@@ -378,8 +378,8 @@ private val connectDragEnterFunc: CPointer<
             Double,
             Double,
         ) -> GdkDragAction
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             drop: CPointer<GdkDrop>?,
@@ -393,7 +393,7 @@ private val connectDragEnterFunc: CPointer<
                 x: Double,
                 y: Double,
             ) -> DragAction
-            >().get().invoke(
+        >().get().invoke(
             drop!!.run {
                 Drop(reinterpret())
             },
@@ -424,8 +424,8 @@ private val connectDragMotionFunc: CPointer<
             Double,
             Double,
         ) -> GdkDragAction
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             drop: CPointer<GdkDrop>?,
@@ -439,7 +439,7 @@ private val connectDragMotionFunc: CPointer<
                 x: Double,
                 y: Double,
             ) -> DragAction
-            >().get().invoke(
+        >().get().invoke(
             drop!!.run {
                 Drop(reinterpret())
             },
@@ -456,8 +456,8 @@ private val connectDropFunc: CPointer<
             Double,
             Double,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             drop: CPointer<GdkDrop>?,
@@ -471,7 +471,7 @@ private val connectDropFunc: CPointer<
                 x: Double,
                 y: Double,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             drop!!.run {
                 Drop(reinterpret())
             },

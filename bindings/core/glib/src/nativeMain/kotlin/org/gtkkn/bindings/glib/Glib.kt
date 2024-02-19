@@ -1936,7 +1936,8 @@ public object Glib {
         length: Long,
     ): kotlin.String =
         g_compute_checksum_for_string(
-            checksumType.nativeValue, str,
+            checksumType.nativeValue,
+            str,
             length
         )?.toKString() ?: error("Expected not null string")
 
@@ -1960,7 +1961,8 @@ public object Glib {
         `data`: Bytes,
     ): kotlin.String =
         g_compute_hmac_for_bytes(
-            digestType.nativeValue, key.glibBytesPointer,
+            digestType.nativeValue,
+            key.glibBytesPointer,
             `data`.glibBytesPointer
         )?.toKString() ?: error("Expected not null string")
 
@@ -2220,7 +2222,9 @@ public object Glib {
     ): List<kotlin.String> =
         memScoped {
             return g_environ_setenv(
-                envp?.toCStringList(this), variable, `value`,
+                envp?.toCStringList(this),
+                variable,
+                `value`,
                 overwrite.asGBoolean()
             )?.toKStringList() ?: error("Expected not null string array")
         }
@@ -4425,7 +4429,9 @@ public object Glib {
         matchOptions: RegexMatchFlags,
     ): List<kotlin.String> =
         g_regex_split_simple(
-            pattern, string, compileOptions.mask,
+            pattern,
+            string,
+            compileOptions.mask,
             matchOptions.mask
         )?.toKStringList() ?: error("Expected not null string array")
 
@@ -6222,7 +6228,8 @@ public object Glib {
         allowUtf8: Boolean,
     ): kotlin.String =
         g_uri_escape_string(
-            unescaped, reservedCharsAllowed,
+            unescaped,
+            reservedCharsAllowed,
             allowUtf8.asGBoolean()
         )?.toKString() ?: error("Expected not null string")
 
@@ -6293,7 +6300,13 @@ public object Glib {
         fragment: kotlin.String? = null,
     ): kotlin.String =
         g_uri_join(
-            flags.mask, scheme, userinfo, host, port, path, query,
+            flags.mask,
+            scheme,
+            userinfo,
+            host,
+            port,
+            path,
+            query,
             fragment
         )?.toKString() ?: error("Expected not null string")
 
@@ -6930,8 +6943,8 @@ public val ErrorCopyFuncFunc: CPointer<
             CPointer<org.gtkkn.native.glib.GError>,
             CPointer<org.gtkkn.native.glib.GError>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             srcError: CPointer<org.gtkkn.native.glib.GError>?,
             destError: CPointer<org.gtkkn.native.glib.GError>?,
@@ -6942,7 +6955,7 @@ public val ErrorCopyFuncFunc: CPointer<
                 srcError: Error,
                 destError: Error,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             srcError!!.run {
                 Error(reinterpret())
             },
@@ -7106,7 +7119,7 @@ public val IOFuncFunc: CPointer<CFunction<(CPointer<GIOChannel>, GIOCondition) -
                 source: IOChannel,
                 condition: IOCondition,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             source!!.run {
                 IOChannel(reinterpret())
             },
@@ -7124,8 +7137,8 @@ public val LogFuncFunc: CPointer<
             GLogLevelFlags,
             CPointer<ByteVar>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             logDomain: CPointer<ByteVar>?,
             logLevel: GLogLevelFlags,
@@ -7138,7 +7151,7 @@ public val LogFuncFunc: CPointer<
                 logLevel: LogLevelFlags,
                 message: kotlin.String,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             logDomain?.toKString() ?: error("Expected not null string"),
             logLevel.run {
                 LogLevelFlags(this)
@@ -7159,7 +7172,7 @@ public val LogWriterFuncFunc: CPointer<CFunction<(GLogLevelFlags, ULong) -> GLog
                 logLevel: LogLevelFlags,
                 nFields: ULong,
             ) -> LogWriterOutput
-            >().get().invoke(
+        >().get().invoke(
             logLevel.run {
                 LogLevelFlags(this)
             },
@@ -7201,8 +7214,8 @@ public val PollFuncFunc: CPointer<
             UInt,
             Int,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             ufds: CPointer<GPollFD>?,
             nfsd: UInt,
@@ -7215,7 +7228,7 @@ public val PollFuncFunc: CPointer<
                 nfsd: UInt,
                 timeout: Int,
             ) -> Int
-            >().get().invoke(
+        >().get().invoke(
             ufds!!.run {
                 PollFD(reinterpret())
             },
@@ -7243,8 +7256,8 @@ public val RegexEvalCallbackFunc: CPointer<
             CPointer<GMatchInfo>,
             CPointer<GString>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             matchInfo: CPointer<GMatchInfo>?,
             result: CPointer<GString>?,
@@ -7255,7 +7268,7 @@ public val RegexEvalCallbackFunc: CPointer<
                 matchInfo: MatchInfo,
                 result: String,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             matchInfo!!.run {
                 MatchInfo(reinterpret())
             },
@@ -7273,8 +7286,8 @@ public val ScannerMsgFuncFunc: CPointer<
             CPointer<ByteVar>,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             scanner: CPointer<GScanner>?,
             message: CPointer<ByteVar>?,
@@ -7287,7 +7300,7 @@ public val ScannerMsgFuncFunc: CPointer<
                 message: kotlin.String,
                 error: Boolean,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             scanner!!.run {
                 Scanner(reinterpret())
             },
@@ -7373,8 +7386,8 @@ public val TestLogFatalFuncFunc: CPointer<
             GLogLevelFlags,
             CPointer<ByteVar>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             logDomain: CPointer<ByteVar>?,
             logLevel: GLogLevelFlags,
@@ -7387,7 +7400,7 @@ public val TestLogFatalFuncFunc: CPointer<
                 logLevel: LogLevelFlags,
                 message: kotlin.String,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             logDomain?.toKString() ?: error("Expected not null string"),
             logLevel.run {
                 LogLevelFlags(this)

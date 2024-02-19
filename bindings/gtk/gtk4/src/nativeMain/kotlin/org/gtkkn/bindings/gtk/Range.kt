@@ -626,7 +626,7 @@ private val connectChangeValueFunc: CPointer<CFunction<(GtkScrollType, Double) -
                 scroll: ScrollType,
                 `value`: Double,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             scroll.run {
                 ScrollType.fromNativeValue(this)
             },

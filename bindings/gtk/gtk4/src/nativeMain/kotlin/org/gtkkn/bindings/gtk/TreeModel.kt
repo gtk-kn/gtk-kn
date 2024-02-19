@@ -789,8 +789,8 @@ private val connectRowChangedFunc: CPointer<
             CPointer<GtkTreePath>,
             CPointer<GtkTreeIter>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             path: CPointer<GtkTreePath>?,
@@ -828,8 +828,8 @@ private val connectRowHasChildToggledFunc: CPointer<
             CPointer<GtkTreePath>,
             CPointer<GtkTreeIter>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             path: CPointer<GtkTreePath>?,
@@ -853,8 +853,8 @@ private val connectRowInsertedFunc: CPointer<
             CPointer<GtkTreePath>,
             CPointer<GtkTreeIter>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             path: CPointer<GtkTreePath>?,

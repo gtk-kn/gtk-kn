@@ -153,8 +153,8 @@ private val connectGotPageSizeFunc: CPointer<
             CPointer<GtkPrintContext>,
             CPointer<GtkPageSetup>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             context: CPointer<GtkPrintContext>?,
@@ -166,7 +166,7 @@ private val connectGotPageSizeFunc: CPointer<
                 context: PrintContext,
                 pageSetup: PageSetup,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             context!!.run {
                 PrintContext(reinterpret())
             },

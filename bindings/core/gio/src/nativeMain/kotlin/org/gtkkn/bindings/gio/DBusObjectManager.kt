@@ -217,8 +217,8 @@ private val connectInterfaceAddedFunc: CPointer<
             CPointer<GDBusObject>,
             CPointer<GDBusInterface>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             `object`: CPointer<GDBusObject>?,
@@ -230,7 +230,7 @@ private val connectInterfaceAddedFunc: CPointer<
                 `object`: DBusObject,
                 `interface`: DBusInterface,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             `object`!!.run {
                 DBusObject.wrap(reinterpret())
             },
@@ -247,8 +247,8 @@ private val connectInterfaceRemovedFunc: CPointer<
             CPointer<GDBusObject>,
             CPointer<GDBusInterface>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             `object`: CPointer<GDBusObject>?,
@@ -260,7 +260,7 @@ private val connectInterfaceRemovedFunc: CPointer<
                 `object`: DBusObject,
                 `interface`: DBusInterface,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             `object`!!.run {
                 DBusObject.wrap(reinterpret())
             },

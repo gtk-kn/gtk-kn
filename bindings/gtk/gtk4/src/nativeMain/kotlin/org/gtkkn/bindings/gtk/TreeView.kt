@@ -2053,8 +2053,8 @@ private val connectExpandCollapseCursorRowFunc: CPointer<
             Int,
             Int,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             `object`: Int,
@@ -2068,7 +2068,7 @@ private val connectExpandCollapseCursorRowFunc: CPointer<
                 p0: Boolean,
                 p1: Boolean,
             ) -> Boolean
-            >().get().invoke(`object`.asBoolean(), p0.asBoolean(), p1.asBoolean()).asGBoolean()
+        >().get().invoke(`object`.asBoolean(), p0.asBoolean(), p1.asBoolean()).asGBoolean()
     }
         .reinterpret()
 
@@ -2080,8 +2080,8 @@ private val connectMoveCursorFunc: CPointer<
             Int,
             Int,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             step: GtkMovementStep,
@@ -2097,7 +2097,7 @@ private val connectMoveCursorFunc: CPointer<
                 extend: Boolean,
                 modify: Boolean,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             step.run {
                 MovementStep.fromNativeValue(this)
             },
@@ -2114,8 +2114,8 @@ private val connectRowActivatedFunc: CPointer<
             CPointer<GtkTreePath>,
             CPointer<GtkTreeViewColumn>?,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             path: CPointer<GtkTreePath>?,
@@ -2127,7 +2127,7 @@ private val connectRowActivatedFunc: CPointer<
                 path: TreePath,
                 column: TreeViewColumn?,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             path!!.run {
                 TreePath(reinterpret())
             },
@@ -2144,8 +2144,8 @@ private val connectRowCollapsedFunc: CPointer<
             CPointer<GtkTreeIter>,
             CPointer<GtkTreePath>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             iter: CPointer<GtkTreeIter>?,
@@ -2169,8 +2169,8 @@ private val connectRowExpandedFunc: CPointer<
             CPointer<GtkTreeIter>,
             CPointer<GtkTreePath>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             iter: CPointer<GtkTreeIter>?,
@@ -2231,8 +2231,8 @@ private val connectTestCollapseRowFunc: CPointer<
             CPointer<GtkTreeIter>,
             CPointer<GtkTreePath>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             iter: CPointer<GtkTreeIter>?,
@@ -2256,8 +2256,8 @@ private val connectTestExpandRowFunc: CPointer<
             CPointer<GtkTreeIter>,
             CPointer<GtkTreePath>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             iter: CPointer<GtkTreeIter>?,

@@ -588,8 +588,8 @@ private val connectSequenceStateChangedFunc: CPointer<
             CPointer<GdkEventSequence>?,
             GtkEventSequenceState,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             sequence: CPointer<GdkEventSequence>?,
@@ -601,7 +601,7 @@ private val connectSequenceStateChangedFunc: CPointer<
                 sequence: EventSequence?,
                 state: EventSequenceState,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             sequence?.run {
                 EventSequence(reinterpret())
             },

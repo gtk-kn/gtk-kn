@@ -469,8 +469,8 @@ private val connectAreaUpdatedFunc: CPointer<
             Int,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             x: Int,
@@ -486,7 +486,7 @@ private val connectAreaUpdatedFunc: CPointer<
                 width: Int,
                 height: Int,
             ) -> Unit
-            >().get().invoke(x, y, width, height)
+        >().get().invoke(x, y, width, height)
     }
         .reinterpret()
 

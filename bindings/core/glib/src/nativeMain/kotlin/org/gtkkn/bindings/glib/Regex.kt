@@ -250,7 +250,8 @@ public class Regex(
         matchOptions: RegexMatchFlags,
     ): List<String> =
         g_regex_split(
-            glibRegexPointer.reinterpret(), string,
+            glibRegexPointer.reinterpret(),
+            string,
             matchOptions.mask
         )?.toKStringList() ?: error("Expected not null string array")
 
@@ -395,7 +396,9 @@ public class Regex(
             matchOptions: RegexMatchFlags,
         ): List<String> =
             g_regex_split_simple(
-                pattern, string, compileOptions.mask,
+                pattern,
+                string,
+                compileOptions.mask,
                 matchOptions.mask
             )?.toKStringList() ?: error("Expected not null string array")
 

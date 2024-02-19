@@ -216,8 +216,8 @@ private val connectKeyPressedFunc: CPointer<
             UInt,
             GdkModifierType,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             keyval: UInt,
@@ -231,7 +231,7 @@ private val connectKeyPressedFunc: CPointer<
                 keycode: UInt,
                 state: ModifierType,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             keyval,
             keycode,
             state.run {
@@ -248,8 +248,8 @@ private val connectKeyReleasedFunc: CPointer<
             UInt,
             GdkModifierType,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             keyval: UInt,
@@ -263,7 +263,7 @@ private val connectKeyReleasedFunc: CPointer<
                 keycode: UInt,
                 state: ModifierType,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             keyval,
             keycode,
             state.run {

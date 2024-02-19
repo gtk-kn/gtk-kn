@@ -284,7 +284,9 @@ public class KeyFile(
         locale: String? = null,
     ): String =
         g_key_file_get_locale_for_key(
-            glibKeyFilePointer.reinterpret(), groupName, key,
+            glibKeyFilePointer.reinterpret(),
+            groupName,
+            key,
             locale
         )?.toKString() ?: error("Expected not null string")
 

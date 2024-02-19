@@ -356,8 +356,8 @@ private val connectItemsChangedFunc: CPointer<
             Int,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             position: Int,
@@ -371,6 +371,6 @@ private val connectItemsChangedFunc: CPointer<
                 removed: Int,
                 added: Int,
             ) -> Unit
-            >().get().invoke(position, removed, added)
+        >().get().invoke(position, removed, added)
     }
         .reinterpret()

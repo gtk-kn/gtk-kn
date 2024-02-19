@@ -567,8 +567,8 @@ private val connectEditingStartedFunc: CPointer<
             CPointer<GtkCellEditable>,
             CPointer<ByteVar>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             editable: CPointer<GtkCellEditable>?,
@@ -580,7 +580,7 @@ private val connectEditingStartedFunc: CPointer<
                 editable: CellEditable,
                 path: String,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             editable!!.run {
                 CellEditable.wrap(reinterpret())
             },

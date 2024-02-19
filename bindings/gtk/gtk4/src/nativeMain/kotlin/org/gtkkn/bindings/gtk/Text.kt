@@ -1366,8 +1366,8 @@ private val connectMoveCursorFunc: CPointer<
             Int,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             step: GtkMovementStep,
@@ -1381,7 +1381,7 @@ private val connectMoveCursorFunc: CPointer<
                 count: Int,
                 extend: Boolean,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             step.run {
                 MovementStep.fromNativeValue(this)
             },

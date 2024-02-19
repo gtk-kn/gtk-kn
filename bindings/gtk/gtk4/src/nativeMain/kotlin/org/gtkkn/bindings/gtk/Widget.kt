@@ -4188,8 +4188,8 @@ private val connectQueryTooltipFunc: CPointer<
             Int,
             CPointer<GtkTooltip>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             x: Int,
@@ -4205,7 +4205,7 @@ private val connectQueryTooltipFunc: CPointer<
                 keyboardMode: Boolean,
                 tooltip: Tooltip,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             x,
             y,
             keyboardMode.asBoolean(),

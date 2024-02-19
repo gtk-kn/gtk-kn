@@ -514,7 +514,7 @@ private val connectActionEnabledChangedFunc: CPointer<CFunction<(CPointer<ByteVa
                 actionName: String,
                 enabled: Boolean,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             actionName?.toKString()
                 ?: error("Expected not null string"),
             enabled.asBoolean()
@@ -541,8 +541,8 @@ private val connectActionStateChangedFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<GVariant>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             actionName: CPointer<ByteVar>?,
@@ -554,7 +554,7 @@ private val connectActionStateChangedFunc: CPointer<
                 actionName: String,
                 `value`: Variant,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             actionName?.toKString()
                 ?: error("Expected not null string"),
             `value`!!.run {

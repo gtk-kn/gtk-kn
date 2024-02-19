@@ -108,8 +108,8 @@ private val connectRunFunc: CPointer<
             CPointer<GSocketConnection>,
             CPointer<GObject>?,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             connection: CPointer<GSocketConnection>?,
@@ -121,7 +121,7 @@ private val connectRunFunc: CPointer<
                 connection: SocketConnection,
                 sourceObject: Object?,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 SocketConnection(reinterpret())
             },

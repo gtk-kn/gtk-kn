@@ -308,7 +308,7 @@ private val connectEventFunc: CPointer<CFunction<(GSocketListenerEvent, CPointer
                 event: SocketListenerEvent,
                 socket: Socket,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             event.run {
                 SocketListenerEvent.fromNativeValue(this)
             },

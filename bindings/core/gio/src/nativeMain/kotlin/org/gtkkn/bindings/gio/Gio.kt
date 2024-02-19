@@ -3819,8 +3819,8 @@ public val AsyncReadyCallbackFunc: CPointer<
             CPointer<GObject>?,
             CPointer<GAsyncResult>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             sourceObject: CPointer<GObject>?,
             res: CPointer<GAsyncResult>?,
@@ -3831,7 +3831,7 @@ public val AsyncReadyCallbackFunc: CPointer<
                 sourceObject: Object?,
                 res: AsyncResult,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             sourceObject?.run {
                 Object(reinterpret())
             },
@@ -3848,8 +3848,8 @@ public val BusAcquiredCallbackFunc: CPointer<
             CPointer<GDBusConnection>,
             CPointer<ByteVar>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
@@ -3860,7 +3860,7 @@ public val BusAcquiredCallbackFunc: CPointer<
                 connection: DBusConnection,
                 name: String,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -3875,8 +3875,8 @@ public val BusNameAcquiredCallbackFunc: CPointer<
             CPointer<GDBusConnection>,
             CPointer<ByteVar>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
@@ -3887,7 +3887,7 @@ public val BusNameAcquiredCallbackFunc: CPointer<
                 connection: DBusConnection,
                 name: String,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -3903,8 +3903,8 @@ public val BusNameAppearedCallbackFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<ByteVar>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
@@ -3917,7 +3917,7 @@ public val BusNameAppearedCallbackFunc: CPointer<
                 name: String,
                 nameOwner: String,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -3934,8 +3934,8 @@ public val BusNameLostCallbackFunc: CPointer<
             CPointer<GDBusConnection>,
             CPointer<ByteVar>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
@@ -3946,7 +3946,7 @@ public val BusNameLostCallbackFunc: CPointer<
                 connection: DBusConnection,
                 name: String,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -3961,8 +3961,8 @@ public val BusNameVanishedCallbackFunc: CPointer<
             CPointer<GDBusConnection>,
             CPointer<ByteVar>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
@@ -3973,7 +3973,7 @@ public val BusNameVanishedCallbackFunc: CPointer<
                 connection: DBusConnection,
                 name: String,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -4005,8 +4005,8 @@ public val DBusInterfaceGetPropertyFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<org.gtkkn.native.glib.GError>,
         ) -> CPointer<GVariant>
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             sender: CPointer<ByteVar>?,
@@ -4025,7 +4025,7 @@ public val DBusInterfaceGetPropertyFuncFunc: CPointer<
                 propertyName: String,
                 error: Error,
             ) -> Variant
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -4054,8 +4054,8 @@ public val DBusInterfaceMethodCallFuncFunc: CPointer<
             CPointer<GVariant>,
             CPointer<GDBusMethodInvocation>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             sender: CPointer<ByteVar>?,
@@ -4076,7 +4076,7 @@ public val DBusInterfaceMethodCallFuncFunc: CPointer<
                 parameters: Variant,
                 invocation: DBusMethodInvocation,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -4108,8 +4108,8 @@ public val DBusInterfaceSetPropertyFuncFunc: CPointer<
             CPointer<GVariant>,
             CPointer<org.gtkkn.native.glib.GError>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             sender: CPointer<ByteVar>?,
@@ -4130,7 +4130,7 @@ public val DBusInterfaceSetPropertyFuncFunc: CPointer<
                 `value`: Variant,
                 error: Error,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -4158,8 +4158,8 @@ public val DBusMessageFilterFunctionFunc: CPointer<
             CPointer<GDBusMessage>,
             Int,
         ) -> CPointer<GDBusMessage>?
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             message: CPointer<GDBusMessage>?,
@@ -4172,7 +4172,7 @@ public val DBusMessageFilterFunctionFunc: CPointer<
                 message: DBusMessage,
                 incoming: Boolean,
             ) -> DBusMessage?
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -4191,8 +4191,8 @@ public val DBusProxyTypeFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<ByteVar>?,
         ) -> ULong
-        >
-    > =
+    >
+> =
     staticCFunction {
             manager: CPointer<GDBusObjectManagerClient>?,
             objectPath: CPointer<ByteVar>?,
@@ -4205,7 +4205,7 @@ public val DBusProxyTypeFuncFunc: CPointer<
                 objectPath: String,
                 interfaceName: String?,
             ) -> ULong
-            >().get().invoke(
+        >().get().invoke(
             manager!!.run {
                 DBusObjectManagerClient(reinterpret())
             },
@@ -4225,8 +4225,8 @@ public val DBusSignalCallbackFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<GVariant>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             senderName: CPointer<ByteVar>?,
@@ -4245,7 +4245,7 @@ public val DBusSignalCallbackFunc: CPointer<
                 signalName: String,
                 parameters: Variant,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -4270,8 +4270,8 @@ public val DBusSubtreeDispatchFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<ByteVar>,
         ) -> CPointer<GDBusInterfaceVTable>?
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             sender: CPointer<ByteVar>?,
@@ -4288,7 +4288,7 @@ public val DBusSubtreeDispatchFuncFunc: CPointer<
                 interfaceName: String,
                 node: String,
             ) -> DBusInterfaceVTable?
-            >().get().invoke(
+        >().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -4310,8 +4310,8 @@ public val DBusSubtreeEnumerateFuncFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<ByteVar>,
         ) -> CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>
-        >
-    > =
+    >
+> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             sender: CPointer<ByteVar>?,
@@ -4325,7 +4325,7 @@ public val DBusSubtreeEnumerateFuncFunc: CPointer<
                     sender: String,
                     objectPath: String,
                 ) -> CollectionsList<String>
-                >().get().invoke(
+            >().get().invoke(
                 connection!!.run {
                     DBusConnection(reinterpret())
                 },
@@ -4343,8 +4343,8 @@ public val DatagramBasedSourceFuncFunc: CPointer<
             CPointer<GDatagramBased>,
             GIOCondition,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             datagramBased: CPointer<GDatagramBased>?,
             condition: GIOCondition,
@@ -4355,7 +4355,7 @@ public val DatagramBasedSourceFuncFunc: CPointer<
                 datagramBased: DatagramBased,
                 condition: IOCondition,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             datagramBased!!.run {
                 DatagramBased.wrap(reinterpret())
             },
@@ -4387,8 +4387,8 @@ public val FileMeasureProgressCallbackFunc: CPointer<
             ULong,
             ULong,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             reporting: Int,
             currentSize: ULong,
@@ -4403,7 +4403,7 @@ public val FileMeasureProgressCallbackFunc: CPointer<
                 numDirs: ULong,
                 numFiles: ULong,
             ) -> Unit
-            >().get().invoke(reporting.asBoolean(), currentSize, numDirs, numFiles)
+        >().get().invoke(reporting.asBoolean(), currentSize, numDirs, numFiles)
     }
         .reinterpret()
 
@@ -4418,7 +4418,7 @@ public val FileProgressCallbackFunc: CPointer<CFunction<(Long, Long) -> Unit>> =
                 currentNumBytes: Long,
                 totalNumBytes: Long,
             ) -> Unit
-            >().get().invoke(currentNumBytes, totalNumBytes)
+        >().get().invoke(currentNumBytes, totalNumBytes)
     }
         .reinterpret()
 
@@ -4433,7 +4433,7 @@ public val FileReadMoreCallbackFunc: CPointer<CFunction<(CPointer<ByteVar>, Long
                 fileContents: String,
                 fileSize: Long,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             fileContents?.toKString()
                 ?: error("Expected not null string"),
             fileSize
@@ -4473,8 +4473,8 @@ public val SettingsBindGetMappingFunc: CPointer<
             CPointer<GValue>,
             CPointer<GVariant>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             `value`: CPointer<GValue>?,
             variant: CPointer<GVariant>?,
@@ -4485,7 +4485,7 @@ public val SettingsBindGetMappingFunc: CPointer<
                 `value`: Value,
                 variant: Variant,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             `value`!!.run {
                 Value(reinterpret())
             },
@@ -4502,8 +4502,8 @@ public val SettingsBindSetMappingFunc: CPointer<
             CPointer<GValue>,
             CPointer<GVariantType>,
         ) -> CPointer<GVariant>
-        >
-    > =
+    >
+> =
     staticCFunction {
             `value`: CPointer<GValue>?,
             expectedType: CPointer<GVariantType>?,
@@ -4514,7 +4514,7 @@ public val SettingsBindSetMappingFunc: CPointer<
                 `value`: Value,
                 expectedType: VariantType,
             ) -> Variant
-            >().get().invoke(
+        >().get().invoke(
             `value`!!.run {
                 Value(reinterpret())
             },
@@ -4545,8 +4545,8 @@ public val SimpleAsyncThreadFuncFunc: CPointer<
             CPointer<GObject>,
             CPointer<GCancellable>?,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             res: CPointer<GSimpleAsyncResult>?,
             `object`: CPointer<GObject>?,
@@ -4559,7 +4559,7 @@ public val SimpleAsyncThreadFuncFunc: CPointer<
                 `object`: Object,
                 cancellable: Cancellable?,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             res!!.run {
                 SimpleAsyncResult(reinterpret())
             },
@@ -4584,7 +4584,7 @@ public val SocketSourceFuncFunc: CPointer<CFunction<(CPointer<GSocket>, GIOCondi
                 socket: Socket,
                 condition: IOCondition,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             socket!!.run {
                 Socket(reinterpret())
             },
@@ -4602,8 +4602,8 @@ public val TaskThreadFuncFunc: CPointer<
             CPointer<GObject>,
             CPointer<GCancellable>?,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             task: CPointer<GTask>?,
             sourceObject: CPointer<GObject>?,
@@ -4616,7 +4616,7 @@ public val TaskThreadFuncFunc: CPointer<
                 sourceObject: Object,
                 cancellable: Cancellable?,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             task!!.run {
                 Task(reinterpret())
             },
@@ -4636,8 +4636,8 @@ public val VfsFileLookupFuncFunc: CPointer<
             CPointer<GVfs>,
             CPointer<ByteVar>,
         ) -> CPointer<GFile>
-        >
-    > =
+    >
+> =
     staticCFunction {
             vfs: CPointer<GVfs>?,
             identifier: CPointer<ByteVar>?,

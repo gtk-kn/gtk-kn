@@ -483,8 +483,8 @@ private val connectExtraDragDropFunc: CPointer<
             CPointer<AdwTabPage>,
             CPointer<GValue>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             page: CPointer<AdwTabPage>?,

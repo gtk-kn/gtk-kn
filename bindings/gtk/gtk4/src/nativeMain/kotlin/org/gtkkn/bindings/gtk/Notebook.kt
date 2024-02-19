@@ -1329,7 +1329,7 @@ private val connectReorderTabFunc: CPointer<CFunction<(GtkDirectionType, Int) ->
                 `object`: DirectionType,
                 p0: Boolean,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             `object`.run {
                 DirectionType.fromNativeValue(this)
             },

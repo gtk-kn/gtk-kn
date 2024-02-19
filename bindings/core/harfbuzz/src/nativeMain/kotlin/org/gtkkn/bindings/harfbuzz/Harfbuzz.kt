@@ -1842,8 +1842,8 @@ public val font_get_glyph_advances_func_tFunc: CPointer<
             UInt,
             UInt,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             font: CPointer<hb_font_t>?,
             count: UInt,
@@ -1858,7 +1858,7 @@ public val font_get_glyph_advances_func_tFunc: CPointer<
                 glyphStride: UInt,
                 advanceStride: UInt,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             font!!.run {
                 Font(reinterpret())
             },
@@ -1877,8 +1877,8 @@ public val font_get_nominal_glyphs_func_tFunc: CPointer<
             UInt,
             UInt,
         ) -> UInt
-        >
-    > =
+    >
+> =
     staticCFunction {
             font: CPointer<hb_font_t>?,
             count: UInt,
@@ -1893,7 +1893,7 @@ public val font_get_nominal_glyphs_func_tFunc: CPointer<
                 unicodeStride: UInt,
                 glyphStride: UInt,
             ) -> UInt
-            >().get().invoke(
+        >().get().invoke(
             font!!.run {
                 Font(reinterpret())
             },

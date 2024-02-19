@@ -114,8 +114,8 @@ private val connectChangedFunc: CPointer<
             CPointer<ByteVar>,
             CPointer<GtkTreeIter>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             pathString: CPointer<ByteVar>?,
@@ -127,7 +127,7 @@ private val connectChangedFunc: CPointer<
                 pathString: String,
                 newIter: TreeIter,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             pathString?.toKString()
                 ?: error("Expected not null string"),
             newIter!!.run {

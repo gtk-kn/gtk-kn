@@ -1254,8 +1254,8 @@ private val connectDrawPageFunc: CPointer<
             CPointer<GtkPrintContext>,
             Int,
         ) -> kotlin.Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             context: CPointer<GtkPrintContext>?,
@@ -1267,7 +1267,7 @@ private val connectDrawPageFunc: CPointer<
                 context: PrintContext,
                 pageNr: Int,
             ) -> kotlin.Unit
-            >().get().invoke(
+        >().get().invoke(
             context!!.run {
                 PrintContext(reinterpret())
             },
@@ -1311,8 +1311,8 @@ private val connectPreviewFunc: CPointer<
             CPointer<GtkPrintContext>,
             CPointer<GtkWindow>?,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             preview: CPointer<GtkPrintOperationPreview>?,
@@ -1326,7 +1326,7 @@ private val connectPreviewFunc: CPointer<
                 context: PrintContext,
                 parent: Window?,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             preview!!.run {
                 PrintOperationPreview.wrap(reinterpret())
             },
@@ -1347,8 +1347,8 @@ private val connectRequestPageSetupFunc: CPointer<
             Int,
             CPointer<GtkPageSetup>,
         ) -> kotlin.Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             context: CPointer<GtkPrintContext>?,
@@ -1362,7 +1362,7 @@ private val connectRequestPageSetupFunc: CPointer<
                 pageNr: Int,
                 setup: PageSetup,
             ) -> kotlin.Unit
-            >().get().invoke(
+        >().get().invoke(
             context!!.run {
                 PrintContext(reinterpret())
             },
@@ -1390,8 +1390,8 @@ private val connectUpdateCustomWidgetFunc: CPointer<
             CPointer<GtkPageSetup>,
             CPointer<GtkPrintSettings>,
         ) -> kotlin.Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             widget: CPointer<GtkWidget>?,
@@ -1405,7 +1405,7 @@ private val connectUpdateCustomWidgetFunc: CPointer<
                 setup: PageSetup,
                 settings: PrintSettings,
             ) -> kotlin.Unit
-            >().get().invoke(
+        >().get().invoke(
             widget!!.run {
                 Widget(reinterpret())
             },

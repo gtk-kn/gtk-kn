@@ -174,8 +174,8 @@ private val connectChangedFunc: CPointer<
             CPointer<GFile>?,
             GFileMonitorEvent,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             `file`: CPointer<GFile>?,
@@ -189,7 +189,7 @@ private val connectChangedFunc: CPointer<
                 otherFile: File?,
                 eventType: FileMonitorEvent,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             `file`!!.run {
                 File.wrap(reinterpret())
             },

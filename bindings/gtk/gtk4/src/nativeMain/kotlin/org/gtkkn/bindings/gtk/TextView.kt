@@ -2044,8 +2044,8 @@ private val connectExtendSelectionFunc: CPointer<
             CPointer<GtkTextIter>,
             CPointer<GtkTextIter>,
         ) -> Int
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             granularity: GtkTextExtendSelection,
@@ -2061,7 +2061,7 @@ private val connectExtendSelectionFunc: CPointer<
                 start: TextIter,
                 end: TextIter,
             ) -> Boolean
-            >().get().invoke(
+        >().get().invoke(
             granularity.run {
                 TextExtendSelection.fromNativeValue(this)
             },
@@ -2107,8 +2107,8 @@ private val connectMoveCursorFunc: CPointer<
             Int,
             Int,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             step: GtkMovementStep,
@@ -2122,7 +2122,7 @@ private val connectMoveCursorFunc: CPointer<
                 count: Int,
                 extendSelection: Boolean,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             step.run {
                 MovementStep.fromNativeValue(this)
             },

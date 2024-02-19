@@ -143,7 +143,7 @@ private val connectPanFunc: CPointer<CFunction<(GtkPanDirection, Double) -> Unit
                 direction: PanDirection,
                 offset: Double,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             direction.run {
                 PanDirection.fromNativeValue(this)
             },

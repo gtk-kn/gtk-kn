@@ -264,8 +264,8 @@ private val connectLaunchStartedFunc: CPointer<
             CPointer<GAppInfo>,
             CPointer<GVariant>?,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             info: CPointer<GAppInfo>?,
@@ -277,7 +277,7 @@ private val connectLaunchStartedFunc: CPointer<
                 info: AppInfo,
                 platformData: Variant?,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             info!!.run {
                 AppInfo.wrap(reinterpret())
             },
@@ -294,8 +294,8 @@ private val connectLaunchedFunc: CPointer<
             CPointer<GAppInfo>,
             CPointer<GVariant>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             info: CPointer<GAppInfo>?,

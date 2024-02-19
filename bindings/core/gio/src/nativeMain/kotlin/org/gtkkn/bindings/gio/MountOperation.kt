@@ -658,8 +658,8 @@ private val connectAskPasswordFunc: CPointer<
             CPointer<ByteVar>,
             GAskPasswordFlags,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             message: CPointer<ByteVar>?,
@@ -675,7 +675,7 @@ private val connectAskPasswordFunc: CPointer<
                 defaultDomain: String,
                 flags: AskPasswordFlags,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             message?.toKString() ?: error("Expected not null string"),
             defaultUser?.toKString() ?: error("Expected not null string"),
             defaultDomain?.toKString() ?: error("Expected not null string"),
@@ -692,8 +692,8 @@ private val connectAskQuestionFunc: CPointer<
             CPointer<ByteVar>,
             CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             message: CPointer<ByteVar>?,
@@ -706,7 +706,7 @@ private val connectAskQuestionFunc: CPointer<
                     message: String,
                     choices: List<String>,
                 ) -> Unit
-                >().get().invoke(
+            >().get().invoke(
                 message?.toKString()
                     ?: error("Expected not null string"),
                 choices?.toKStringList()
@@ -737,8 +737,8 @@ private val connectShowUnmountProgressFunc: CPointer<
             Long,
             Long,
         ) -> Unit
-        >
-    > =
+    >
+> =
     staticCFunction {
             _: COpaquePointer,
             message: CPointer<ByteVar>?,
@@ -752,7 +752,7 @@ private val connectShowUnmountProgressFunc: CPointer<
                 timeLeft: Long,
                 bytesLeft: Long,
             ) -> Unit
-            >().get().invoke(
+        >().get().invoke(
             message?.toKString() ?: error("Expected not null string"),
             timeLeft,
             bytesLeft
