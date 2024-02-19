@@ -7,4 +7,4 @@ include:
   - local: ".gitlab/base.yml"
   - local: ".gitlab/merge-request.yml"
   - local: ".gitlab/pages.yml"
-  - local: ".gitlab/publish-snapshots.yml"
+#  - local: ".gitlab/publish-snapshots.yml" # disabled until fixed
