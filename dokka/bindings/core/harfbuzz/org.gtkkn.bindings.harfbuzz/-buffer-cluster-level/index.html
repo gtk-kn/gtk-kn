@@ -1,0 +1,247 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>BufferClusterLevel</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="harfbuzz::org.gtkkn.bindings.harfbuzz/BufferClusterLevel///PointingToDeclaration//-1705907848">
+  <div class="breadcrumbs"><a href="../../index.html">harfbuzz</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.harfbuzz</a><span class="delimiter">/</span><span class="current">BufferClusterLevel</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Buffer</span><wbr><span>Cluster</span><wbr><span><span>Level</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">BufferClusterLevel</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">BufferClusterLevel</a><span class="token operator">&gt; </span></div><p class="paragraph">Data type for holding HarfBuzz's clustering behavior options. The cluster level dictates one aspect of how HarfBuzz will treat non-base characters during shaping.</p><p class="paragraph">In @HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES, non-base characters are merged into the cluster of the base character that precedes them.</p><p class="paragraph">In @HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS, non-base characters are initially assigned their own cluster values, which are not merged into preceding base clusters. This allows HarfBuzz to perform additional operations like reorder sequences of adjacent marks.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.42</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="1722284236%2FClasslikes%2F-1705907848" anchor-label="MONOTONE_GRAPHEMES" id="1722284236%2FClasslikes%2F-1705907848" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-o-n-o-t-o-n-e_-g-r-a-p-h-e-m-e-s/index.html">MONOTONE_GRAPHEMES</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1722284236%2FClasslikes%2F-1705907848"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-o-n-o-t-o-n-e_-g-r-a-p-h-e-m-e-s/index.html">MONOTONE_GRAPHEMES</a></div></div><div class="brief "><p class="paragraph">Return cluster values grouped by graphemes into monotone order.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-620019638%2FClasslikes%2F-1705907848" anchor-label="MONOTONE_CHARACTERS" id="-620019638%2FClasslikes%2F-1705907848" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-o-n-o-t-o-n-e_-c-h-a-r-a-c-t-e-r-s/index.html">MONOTONE_CHARACTERS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-620019638%2FClasslikes%2F-1705907848"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-o-n-o-t-o-n-e_-c-h-a-r-a-c-t-e-r-s/index.html">MONOTONE_CHARACTERS</a></div></div><div class="brief "><p class="paragraph">Return cluster values grouped into monotone order.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1662195868%2FClasslikes%2F-1705907848" anchor-label="CHARACTERS" id="1662195868%2FClasslikes%2F-1705907848" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-h-a-r-a-c-t-e-r-s/index.html">CHARACTERS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1662195868%2FClasslikes%2F-1705907848"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-h-a-r-a-c-t-e-r-s/index.html">CHARACTERS</a></div></div><div class="brief "><p class="paragraph">Don't group cluster values.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1870759273%2FClasslikes%2F-1705907848" anchor-label="DEFAULT" id="-1870759273%2FClasslikes%2F-1705907848" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-f-a-u-l-t/index.html">DEFAULT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1870759273%2FClasslikes%2F-1705907848"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-e-f-a-u-l-t/index.html">DEFAULT</a></div></div><div class="brief "><p class="paragraph">Default cluster level, equal to @HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-630957213%2FClasslikes%2F-1705907848" anchor-label="Companion" id="-630957213%2FClasslikes%2F-1705907848" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-630957213%2FClasslikes%2F-1705907848"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F-1705907848" anchor-label="name" id="-372974862%2FProperties%2F-1705907848" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-unicode-general-category/-s-p-a-c-e_-s-e-p-a-r-a-t-o-r/index.html#-372974862%2FProperties%2F-1705907848"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F-1705907848"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../-unicode-general-category/-s-p-a-c-e_-s-e-p-a-r-a-t-o-r/index.html#-372974862%2FProperties%2F-1705907848">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="889751554%2FProperties%2F-1705907848" anchor-label="nativeValue" id="889751554%2FProperties%2F-1705907848" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="native-value.html"><span>native</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="889751554%2FProperties%2F-1705907848"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="native-value.html">nativeValue</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F-1705907848" anchor-label="ordinal" id="-739389684%2FProperties%2F-1705907848" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-unicode-general-category/-s-p-a-c-e_-s-e-p-a-r-a-t-o-r/index.html#-739389684%2FProperties%2F-1705907848"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F-1705907848"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../-unicode-general-category/-s-p-a-c-e_-s-e-p-a-r-a-t-o-r/index.html#-739389684%2FProperties%2F-1705907848">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="120473040%2FFunctions%2F-1705907848" anchor-label="valueOf" id="120473040%2FFunctions%2F-1705907848" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="120473040%2FFunctions%2F-1705907848"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">BufferClusterLevel</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1293975844%2FFunctions%2F-1705907848" anchor-label="values" id="-1293975844%2FFunctions%2F-1705907848" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1293975844%2FFunctions%2F-1705907848"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:harfbuzz:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">BufferClusterLevel</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

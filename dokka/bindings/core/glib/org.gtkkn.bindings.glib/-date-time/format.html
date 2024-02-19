@@ -1,0 +1,76 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>format</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="glib::org.gtkkn.bindings.glib/DateTime/format/#kotlin.String/PointingToDeclaration//-2101254470">
+  <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><a href="index.html">DateTime</a><span class="delimiter">/</span><span class="current">format</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>format</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="format.html"><span class="token function">format</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">format<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><p class="paragraph">Creates a newly allocated string representing the requested @format.</p><p class="paragraph">The format strings understood by this function are a subset of the strftime() format language as specified by C99.  The \%D, \%U and \%W conversions are not supported, nor is the 'E' modifier.  The GNU extensions \%k, \%l, \%s and \%P are supported, however, as are the '0', '_' and '-' modifiers. The Python extension \%f is also supported.</p><p class="paragraph">In contrast to strftime(), this function always produces a UTF-8 string, regardless of the current locale.  Note that the rendering of many formats is locale-dependent and may not match the strftime() output exactly.</p><p class="paragraph">The following format specifiers are supported:</p><ul><li><p class="paragraph">\%a: the abbreviated weekday name according to the current locale</p></li><li><p class="paragraph">\%A: the full weekday name according to the current locale</p></li><li><p class="paragraph">\%b: the abbreviated month name according to the current locale</p></li><li><p class="paragraph">\%B: the full month name according to the current locale</p></li><li><p class="paragraph">\%c: the preferred date and time representation for the current locale</p></li><li><p class="paragraph">\%C: the century number (year/100) as a 2-digit integer (00-99)</p></li><li><p class="paragraph">\%d: the day of the month as a decimal number (range 01 to 31)</p></li><li><p class="paragraph">\%e: the day of the month as a decimal number (range  1 to 31)</p></li><li><p class="paragraph">\%F: equivalent to <code class="lang-kotlin">%Y-%m-%d</code> (the ISO 8601 date format)</p></li><li><p class="paragraph">\%g: the last two digits of the ISO 8601 week-based year as a decimal number (00-99). This works well with \%V and \%u.</p></li><li><p class="paragraph">\%G: the ISO 8601 week-based year as a decimal number. This works well with \%V and \%u.</p></li><li><p class="paragraph">\%h: equivalent to \%b</p></li><li><p class="paragraph">\%H: the hour as a decimal number using a 24-hour clock (range 00 to 23)</p></li><li><p class="paragraph">\%I: the hour as a decimal number using a 12-hour clock (range 01 to 12)</p></li><li><p class="paragraph">\%j: the day of the year as a decimal number (range 001 to 366)</p></li><li><p class="paragraph">\%k: the hour (24-hour clock) as a decimal number (range 0 to 23); single digits are preceded by a blank</p></li><li><p class="paragraph">\%l: the hour (12-hour clock) as a decimal number (range 1 to 12); single digits are preceded by a blank</p></li><li><p class="paragraph">\%m: the month as a decimal number (range 01 to 12)</p></li><li><p class="paragraph">\%M: the minute as a decimal number (range 00 to 59)</p></li><li><p class="paragraph">\%f: the microsecond as a decimal number (range 000000 to 999999)</p></li><li><p class="paragraph">\%p: either "AM" or "PM" according to the given time value, or the corresponding  strings for the current locale.  Noon is treated as "PM" and midnight as "AM". Use of this format specifier is discouraged, as many locales have no concept of AM/PM formatting. Use \%c or \%X instead.</p></li><li><p class="paragraph">\%P: like \%p but lowercase: "am" or "pm" or a corresponding string for the current locale. Use of this format specifier is discouraged, as many locales have no concept of AM/PM formatting. Use \%c or \%X instead.</p></li><li><p class="paragraph">\%r: the time in a.m. or p.m. notation. Use of this format specifier is discouraged, as many locales have no concept of AM/PM formatting. Use \%c or \%X instead.</p></li><li><p class="paragraph">\%R: the time in 24-hour notation (\%H:\%M)</p></li><li><p class="paragraph">\%s: the number of seconds since the Epoch, that is, since 1970-01-01 00:00:00 UTC</p></li><li><p class="paragraph">\%S: the second as a decimal number (range 00 to 60)</p></li><li><p class="paragraph">\%t: a tab character</p></li><li><p class="paragraph">\%T: the time in 24-hour notation with seconds (\%H:\%M:\%S)</p></li><li><p class="paragraph">\%u: the ISO 8601 standard day of the week as a decimal, range 1 to 7,     Monday being 1. This works well with \%G and \%V.</p></li><li><p class="paragraph">\%V: the ISO 8601 standard week number of the current year as a decimal number, range 01 to 53, where week 1 is the first week that has at least 4 days in the new year. See g_date_time_get_week_of_year(). This works well with \%G and \%u.</p></li><li><p class="paragraph">\%w: the day of the week as a decimal, range 0 to 6, Sunday being 0. This is not the ISO 8601 standard format -- use \%u instead.</p></li><li><p class="paragraph">\%x: the preferred date representation for the current locale without the time</p></li><li><p class="paragraph">\%X: the preferred time representation for the current locale without the date</p></li><li><p class="paragraph">\%y: the year as a decimal number without the century</p></li><li><p class="paragraph">\%Y: the year as a decimal number including the century</p></li><li><p class="paragraph">\%z: the time zone as an offset from UTC (+hhmm)</p></li><li><p class="paragraph">\%:z: the time zone as an offset from UTC (+hh:mm). This is a gnulib strftime() extension. Since: 2.38</p></li><li><p class="paragraph">\%::z: the time zone as an offset from UTC (+hh:mm:ss). This is a gnulib strftime() extension. Since: 2.38</p></li><li><p class="paragraph">\%:::z: the time zone as an offset from UTC, with : to necessary precision (e.g., -04, +05:30). This is a gnulib strftime() extension. Since: 2.38</p></li><li><p class="paragraph">\%Z: the time zone or name or abbreviation</p></li><li><p class="paragraph">\%\%: a literal \% character</p></li></ul><p class="paragraph">Some conversion specifications can be modified by preceding the conversion specifier by one or more modifier characters. The following modifiers are supported for many of the numeric conversions:</p><ul><li><p class="paragraph">O: Use alternative numeric symbols, if the current locale supports those.</p></li><li><p class="paragraph">_: Pad a numeric result with spaces. This overrides the default padding for the specifier.</p></li><li><p class="paragraph">-: Do not pad a numeric result. This overrides the default padding for the specifier.</p></li><li><p class="paragraph">0: Pad a numeric result with zeros. This overrides the default padding for the specifier.</p></li></ul><p class="paragraph">Additionally, when O is used with B, b, or h, it produces the alternative form of a month name. The alternative form should be used when the month name is used without a day number (e.g., standalone). It is required in some languages (Baltic, Slavic, Greek, and more) due to their grammatical rules. For other languages there is no difference. \%OB is a GNU and BSD strftime() extension expected to be added to the future POSIX specification, \%Ob and \%Oh are GNU strftime() extensions. Since: 2.56</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">a newly allocated string formatted to     the requested format or null in the case that there was an error (such     as a format specifier not being supported in the current locale). The     string should be freed with g_free().</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.26</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>format</span></span></u></div></span></div><div><div class="title"><p class="paragraph">a valid UTF-8 string, containing the format for the     #GDateTime</p></div></div></div></div></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

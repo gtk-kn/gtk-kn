@@ -1,0 +1,637 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TabSwitcher</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="libhelium::org.gtkkn.bindings.he/TabSwitcher///PointingToDeclaration//-1620366970">
+  <div class="breadcrumbs"><a href="../../index.html">libhelium</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.he</a><span class="delimiter">/</span><span class="current">TabSwitcher</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Tab</span><wbr><span><span>Switcher</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">TabSwitcher</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-bin/index.html">Bin</a></div><h2 class=""> Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">n-tabs</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">tabs</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">tab-bar-behavior</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">allow-duplicate-tabs</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">allow-drag</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">allow-pinning</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">allow-closing</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">allow-new-window</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">current</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">menu</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">actions</code>: Property has no getter nor setter</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1389399958%2FConstructors%2F-1620366970" anchor-label="TabSwitcher" id="-1389399958%2FConstructors%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tab-switcher.html"><span>Tab</span><wbr><span><span>Switcher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1389399958%2FConstructors%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1967066374%2FClasslikes%2F-1620366970" anchor-label="Companion" id="1967066374%2FClasslikes%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1967066374%2FClasslikes%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="2048701196%2FProperties%2F-1620366970" anchor-label="gtkBuildablePointer" id="2048701196%2FProperties%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-buildable-pointer.html"><span>gtk</span><wbr><span>Buildable</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2048701196%2FProperties%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gtk-buildable-pointer.html">gtkBuildablePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1798873735%2FProperties%2F-1620366970" anchor-label="heBinPointer" id="-1798873735%2FProperties%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-bin/he-bin-pointer.html"><span>he</span><wbr><span>Bin</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1798873735%2FProperties%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../-bin/he-bin-pointer.html">heBinPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2043418455%2FProperties%2F-1620366970" anchor-label="heTabSwitcherPointer" id="2043418455%2FProperties%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="he-tab-switcher-pointer.html"><span>he</span><wbr><span>Tab</span><wbr><span>Switcher</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2043418455%2FProperties%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="he-tab-switcher-pointer.html">heTabSwitcherPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1624559638%2FFunctions%2F-1620366970" anchor-label="addChild" id="-1624559638%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-bin/add-child.html"><span>add</span><wbr><span><span>Child</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1624559638%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-bin/add-child.html"><span class="token function">addChild</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">builder<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">child<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2029029194%2FFunctions%2F-1620366970" anchor-label="connectCloseTabRequested" id="-2029029194%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-close-tab-requested.html"><span>connect</span><wbr><span>Close</span><wbr><span>Tab</span><wbr><span><span>Requested</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2029029194%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="connect-close-tab-requested.html"><span class="token function">connectCloseTabRequested</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>tab<span class="token operator">: </span><a href="../-tab/index.html">Tab</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1328114828%2FFunctions%2F-1620366970" anchor-label="connectNewTabRequested" id="-1328114828%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-new-tab-requested.html"><span>connect</span><wbr><span>New</span><wbr><span>Tab</span><wbr><span><span>Requested</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1328114828%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="connect-new-tab-requested.html"><span class="token function">connectNewTabRequested</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="152943508%2FFunctions%2F-1620366970" anchor-label="connectTabAdded" id="152943508%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-tab-added.html"><span>connect</span><wbr><span>Tab</span><wbr><span><span>Added</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="152943508%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="connect-tab-added.html"><span class="token function">connectTabAdded</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>tab<span class="token operator">: </span><a href="../-tab/index.html">Tab</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-532781823%2FFunctions%2F-1620366970" anchor-label="connectTabDuplicated" id="-532781823%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-tab-duplicated.html"><span>connect</span><wbr><span>Tab</span><wbr><span><span>Duplicated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-532781823%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="connect-tab-duplicated.html"><span class="token function">connectTabDuplicated</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>duplicatedTab<span class="token operator">: </span><a href="../-tab/index.html">Tab</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="670534529%2FFunctions%2F-1620366970" anchor-label="connectTabMoved" id="670534529%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-tab-moved.html"><span>connect</span><wbr><span>Tab</span><wbr><span><span>Moved</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="670534529%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="connect-tab-moved.html"><span class="token function">connectTabMoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>tab<span class="token operator">: </span><a href="../-tab/index.html">Tab</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="354439412%2FFunctions%2F-1620366970" anchor-label="connectTabRemoved" id="354439412%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-tab-removed.html"><span>connect</span><wbr><span>Tab</span><wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="354439412%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="connect-tab-removed.html"><span class="token function">connectTabRemoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>tab<span class="token operator">: </span><a href="../-tab/index.html">Tab</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1835121046%2FFunctions%2F-1620366970" anchor-label="connectTabSwitched" id="-1835121046%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-tab-switched.html"><span>connect</span><wbr><span>Tab</span><wbr><span><span>Switched</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1835121046%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="connect-tab-switched.html"><span class="token function">connectTabSwitched</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>oldTab<span class="token operator">: </span><a href="../-tab/index.html">Tab</a><span class="token operator">?</span><span class="token punctuation">, </span><span class="token keyword"></span>newTab<span class="token operator">: </span><a href="../-tab/index.html">Tab</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2095143660%2FFunctions%2F-1620366970" anchor-label="getActions" id="-2095143660%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-actions.html"><span>get</span><wbr><span><span>Actions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2095143660%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-actions.html"><span class="token function">getActions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="125426909%2FFunctions%2F-1620366970" anchor-label="getAllowClosing" id="125426909%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-allow-closing.html"><span>get</span><wbr><span>Allow</span><wbr><span><span>Closing</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="125426909%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-allow-closing.html"><span class="token function">getAllowClosing</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1181967116%2FFunctions%2F-1620366970" anchor-label="getAllowDrag" id="-1181967116%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-allow-drag.html"><span>get</span><wbr><span>Allow</span><wbr><span><span>Drag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1181967116%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-allow-drag.html"><span class="token function">getAllowDrag</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="331673897%2FFunctions%2F-1620366970" anchor-label="getAllowDuplicateTabs" id="331673897%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-allow-duplicate-tabs.html"><span>get</span><wbr><span>Allow</span><wbr><span>Duplicate</span><wbr><span><span>Tabs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="331673897%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-allow-duplicate-tabs.html"><span class="token function">getAllowDuplicateTabs</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="856442626%2FFunctions%2F-1620366970" anchor-label="getAllowNewWindow" id="856442626%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-allow-new-window.html"><span>get</span><wbr><span>Allow</span><wbr><span>New</span><wbr><span><span>Window</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="856442626%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-allow-new-window.html"><span class="token function">getAllowNewWindow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-470376375%2FFunctions%2F-1620366970" anchor-label="getAllowPinning" id="-470376375%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-allow-pinning.html"><span>get</span><wbr><span>Allow</span><wbr><span><span>Pinning</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-470376375%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-allow-pinning.html"><span class="token function">getAllowPinning</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2030283014%2FFunctions%2F-1620366970" anchor-label="getChild" id="2030283014%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-bin/get-child.html"><span>get</span><wbr><span><span>Child</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2030283014%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-bin/get-child.html"><span class="token function">getChild</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="402781208%2FFunctions%2F-1620366970" anchor-label="getCurrent" id="402781208%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-current.html"><span>get</span><wbr><span><span>Current</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="402781208%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-current.html"><span class="token function">getCurrent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tab/index.html">Tab</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="827498506%2FFunctions%2F-1620366970" anchor-label="getMenu" id="827498506%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-menu.html"><span>get</span><wbr><span><span>Menu</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="827498506%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-menu.html"><span class="token function">getMenu</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="488204517%2FFunctions%2F-1620366970" anchor-label="getNTabs" id="488204517%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-n-tabs.html"><span>get</span><wbr><span><span>NTabs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="488204517%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-n-tabs.html"><span class="token function">getNTabs</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="155204313%2FFunctions%2F-1620366970" anchor-label="getTabBarBehavior" id="155204313%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tab-bar-behavior.html"><span>get</span><wbr><span>Tab</span><wbr><span>Bar</span><wbr><span><span>Behavior</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="155204313%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-tab-bar-behavior.html"><span class="token function">getTabBarBehavior</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tab-switcher-tab-bar-behavior/index.html">TabSwitcherTabBarBehavior</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1980523902%2FFunctions%2F-1620366970" anchor-label="getTabPosition" id="-1980523902%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tab-position.html"><span>get</span><wbr><span>Tab</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1980523902%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-tab-position.html"><span class="token function">getTabPosition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tab<span class="token operator">: </span><a href="../-tab/index.html">Tab</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-608283957%2FFunctions%2F-1620366970" anchor-label="getTabs" id="-608283957%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tabs.html"><span>get</span><wbr><span><span>Tabs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-608283957%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-tabs.html"><span class="token function">getTabs</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1455841131%2FFunctions%2F-1620366970" anchor-label="insertTab" id="1455841131%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="insert-tab.html"><span>insert</span><wbr><span><span>Tab</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1455841131%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="insert-tab.html"><span class="token function">insertTab</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tab<span class="token operator">: </span><a href="../-tab/index.html">Tab</a><span class="token punctuation">, </span></span><span class="parameter ">index<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-662352441%2FFunctions%2F-1620366970" anchor-label="removeTab" id="-662352441%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-tab.html"><span>remove</span><wbr><span><span>Tab</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-662352441%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="remove-tab.html"><span class="token function">removeTab</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tab<span class="token operator">: </span><a href="../-tab/index.html">Tab</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-22450986%2FFunctions%2F-1620366970" anchor-label="setAllowClosing" id="-22450986%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-allow-closing.html"><span>set</span><wbr><span>Allow</span><wbr><span><span>Closing</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-22450986%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-allow-closing.html"><span class="token function">setAllowClosing</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1021193797%2FFunctions%2F-1620366970" anchor-label="setAllowDrag" id="1021193797%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-allow-drag.html"><span>set</span><wbr><span>Allow</span><wbr><span><span>Drag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1021193797%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-allow-drag.html"><span class="token function">setAllowDrag</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="201893154%2FFunctions%2F-1620366970" anchor-label="setAllowDuplicateTabs" id="201893154%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-allow-duplicate-tabs.html"><span>set</span><wbr><span>Allow</span><wbr><span>Duplicate</span><wbr><span><span>Tabs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="201893154%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-allow-duplicate-tabs.html"><span class="token function">setAllowDuplicateTabs</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="783459643%2FFunctions%2F-1620366970" anchor-label="setAllowNewWindow" id="783459643%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-allow-new-window.html"><span>set</span><wbr><span>Allow</span><wbr><span>New</span><wbr><span><span>Window</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="783459643%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-allow-new-window.html"><span class="token function">setAllowNewWindow</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1554367298%2FFunctions%2F-1620366970" anchor-label="setAllowPinning" id="1554367298%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-allow-pinning.html"><span>set</span><wbr><span>Allow</span><wbr><span><span>Pinning</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1554367298%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-allow-pinning.html"><span class="token function">setAllowPinning</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1886320922%2FFunctions%2F-1620366970" anchor-label="setChild" id="1886320922%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-bin/set-child.html"><span>set</span><wbr><span><span>Child</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1886320922%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-bin/set-child.html"><span class="token function">setChild</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="641503697%2FFunctions%2F-1620366970" anchor-label="setCurrent" id="641503697%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-current.html"><span>set</span><wbr><span><span>Current</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="641503697%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-current.html"><span class="token function">setCurrent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="../-tab/index.html">Tab</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-575501737%2FFunctions%2F-1620366970" anchor-label="setTabBarBehavior" id="-575501737%2FFunctions%2F-1620366970" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-tab-bar-behavior.html"><span>set</span><wbr><span>Tab</span><wbr><span>Bar</span><wbr><span><span>Behavior</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-575501737%2FFunctions%2F-1620366970"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:libhelium:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-tab-bar-behavior.html"><span class="token function">setTabBarBehavior</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="../-tab-switcher-tab-bar-behavior/index.html">TabSwitcherTabBarBehavior</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

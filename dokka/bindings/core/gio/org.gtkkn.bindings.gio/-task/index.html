@@ -1,0 +1,853 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Task</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gio:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gio::org.gtkkn.bindings.gio/Task///PointingToDeclaration//-143691045">
+  <div class="breadcrumbs"><a href="../../index.html">gio</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gio</a><span class="delimiter">/</span><span class="current">Task</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Task</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">Task</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-async-result/index.html">AsyncResult</a></div><p class="paragraph">A #GTask represents and manages a cancellable "task".</p><h2 class=""> Asynchronous operations</h2><p class="paragraph">The most common usage of #GTask is as a #GAsyncResult, to manage data during an asynchronous operation. You call g_task_new() in the "start" method, followed by g_task_set_task_data() and the like if you need to keep some additional data associated with the task, and then pass the task object around through your asynchronous operation. Eventually, you will call a method such as g_task_return_pointer() or g_task_return_error(), which will save the value you give it and then invoke the task's callback function in the g-main-context-push-thread-default where it was created (waiting until the next iteration of the main loop first, if necessary). The caller will pass the #GTask back to the operation's finish function (as a #GAsyncResult), and you can use g_task_propagate_pointer() or the like to extract the return value.</p><p class="paragraph">Using #GTask requires the thread-default #GMainContext from when the #GTask was constructed to be running at least until the task has completed and its data has been freed.</p><p class="paragraph">Here is an example for using GTask as a GAsyncResult: |[<!-- language="C" -->     typedef struct {       CakeFrostingType frosting;       char *message;     } DecorationData;</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">static void
+decoration_data_free (DecorationData *decoration)
+{
+  g_free (decoration-&gt;message);
+  g_slice_free (DecorationData, decoration);
+}
+
+static void
+baked_cb (Cake     *cake,
+          gpointer  user_data)
+{
+  GTask *task = user_data;
+  DecorationData *decoration = g_task_get_task_data (task);
+  GError *error = NULL;
+
+  if (cake == NULL)
+    {
+      g_task_return_new_error (task, BAKER_ERROR, BAKER_ERROR_NO_FLOUR,
+                               "Go to the supermarket");
+      g_object_unref (task);
+      return;
+    }
+
+  if (!cake_decorate (cake, decoration-&gt;frosting, decoration-&gt;message, &amp;error))
+    {
+      g_object_unref (cake);
+      // g_task_return_error() takes ownership of error
+      g_task_return_error (task, error);
+      g_object_unref (task);
+      return;
+    }
+
+  g_task_return_pointer (task, cake, g_object_unref);
+  g_object_unref (task);
+}
+
+void
+baker_bake_cake_async (Baker               *self,
+                       guint                radius,
+                       CakeFlavor           flavor,
+                       CakeFrostingType     frosting,
+                       const char          *message,
+                       GCancellable        *cancellable,
+                       GAsyncReadyCallback  callback,
+                       gpointer             user_data)
+{
+  GTask *task;
+  DecorationData *decoration;
+  Cake  *cake;
+
+  task = g_task_new (self, cancellable, callback, user_data);
+  if (radius &lt; 3)
+    {
+      g_task_return_new_error (task, BAKER_ERROR, BAKER_ERROR_TOO_SMALL,
+                               "%ucm radius cakes are silly",
+                               radius);
+      g_object_unref (task);
+      return;
+    }
+
+  cake = _baker_get_cached_cake (self, radius, flavor, frosting, message);
+  if (cake != NULL)
+    {
+      // _baker_get_cached_cake() returns a reffed cake
+      g_task_return_pointer (task, cake, g_object_unref);
+      g_object_unref (task);
+      return;
+    }
+
+  decoration = g_slice_new (DecorationData);
+  decoration-&gt;frosting = frosting;
+  decoration-&gt;message = g_strdup (message);
+  g_task_set_task_data (task, decoration, (GDestroyNotify) decoration_data_free);
+
+  _baker_begin_cake (self, radius, flavor, cancellable, baked_cb, task);
+}
+
+Cake *
+baker_bake_cake_finish (Baker         *self,
+                        GAsyncResult  *result,
+                        GError       **error)
+{
+  g_return_val_if_fail (g_task_is_valid (result, self), NULL);
+
+  return g_task_propagate_pointer (G_TASK (result), error);
+}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">]|</p><h2 class=""> Chained asynchronous operations</h2><p class="paragraph">#GTask also tries to simplify asynchronous operations that internally chain together several smaller asynchronous operations. g_task_get_cancellable(), g_task_get_context(), and g_task_get_priority() allow you to get back the task's #GCancellable, #GMainContext, and io-priority when starting a new subtask, so you don't have to keep track of them yourself. g_task_attach_source() simplifies the case of waiting for a source to fire (automatically using the correct #GMainContext and priority).</p><p class="paragraph">Here is an example for chained asynchronous operations: |[<!-- language="C" -->     typedef struct {       Cake *cake;       CakeFrostingType frosting;       char *message;     } BakingData;</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">static void
+decoration_data_free (BakingData *bd)
+{
+  if (bd-&gt;cake)
+    g_object_unref (bd-&gt;cake);
+  g_free (bd-&gt;message);
+  g_slice_free (BakingData, bd);
+}
+
+static void
+decorated_cb (Cake         *cake,
+              GAsyncResult *result,
+              gpointer      user_data)
+{
+  GTask *task = user_data;
+  GError *error = NULL;
+
+  if (!cake_decorate_finish (cake, result, &amp;error))
+    {
+      g_object_unref (cake);
+      g_task_return_error (task, error);
+      g_object_unref (task);
+      return;
+    }
+
+  // baking_data_free() will drop its ref on the cake, so we have to
+  // take another here to give to the caller.
+  g_task_return_pointer (task, g_object_ref (cake), g_object_unref);
+  g_object_unref (task);
+}
+
+static gboolean
+decorator_ready (gpointer user_data)
+{
+  GTask *task = user_data;
+  BakingData *bd = g_task_get_task_data (task);
+
+  cake_decorate_async (bd-&gt;cake, bd-&gt;frosting, bd-&gt;message,
+                       g_task_get_cancellable (task),
+                       decorated_cb, task);
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+baked_cb (Cake     *cake,
+          gpointer  user_data)
+{
+  GTask *task = user_data;
+  BakingData *bd = g_task_get_task_data (task);
+  GError *error = NULL;
+
+  if (cake == NULL)
+    {
+      g_task_return_new_error (task, BAKER_ERROR, BAKER_ERROR_NO_FLOUR,
+                               "Go to the supermarket");
+      g_object_unref (task);
+      return;
+    }
+
+  bd-&gt;cake = cake;
+
+  // Bail out now if the user has already cancelled
+  if (g_task_return_error_if_cancelled (task))
+    {
+      g_object_unref (task);
+      return;
+    }
+
+  if (cake_decorator_available (cake))
+    decorator_ready (task);
+  else
+    {
+      GSource *source;
+
+      source = cake_decorator_wait_source_new (cake);
+      // Attach @source to @task's GMainContext and have it call
+      // decorator_ready() when it is ready.
+      g_task_attach_source (task, source, decorator_ready);
+      g_source_unref (source);
+    }
+}
+
+void
+baker_bake_cake_async (Baker               *self,
+                       guint                radius,
+                       CakeFlavor           flavor,
+                       CakeFrostingType     frosting,
+                       const char          *message,
+                       gint                 priority,
+                       GCancellable        *cancellable,
+                       GAsyncReadyCallback  callback,
+                       gpointer             user_data)
+{
+  GTask *task;
+  BakingData *bd;
+
+  task = g_task_new (self, cancellable, callback, user_data);
+  g_task_set_priority (task, priority);
+
+  bd = g_slice_new0 (BakingData);
+  bd-&gt;frosting = frosting;
+  bd-&gt;message = g_strdup (message);
+  g_task_set_task_data (task, bd, (GDestroyNotify) baking_data_free);
+
+  _baker_begin_cake (self, radius, flavor, cancellable, baked_cb, task);
+}
+
+Cake *
+baker_bake_cake_finish (Baker         *self,
+                        GAsyncResult  *result,
+                        GError       **error)
+{
+  g_return_val_if_fail (g_task_is_valid (result, self), NULL);
+
+  return g_task_propagate_pointer (G_TASK (result), error);
+}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">]|</p><h2 class=""> Asynchronous operations from synchronous ones</h2><p class="paragraph">You can use g_task_run_in_thread() to turn a synchronous operation into an asynchronous one, by running it in a thread. When it completes, the result will be dispatched to the g-main-context-push-thread-default where the #GTask was created.</p><p class="paragraph">Running a task in a thread: |[<!-- language="C" -->     typedef struct {       guint radius;       CakeFlavor flavor;       CakeFrostingType frosting;       char *message;     } CakeData;</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">static void
+cake_data_free (CakeData *cake_data)
+{
+  g_free (cake_data-&gt;message);
+  g_slice_free (CakeData, cake_data);
+}
+
+static void
+bake_cake_thread (GTask         *task,
+                  gpointer       source_object,
+                  gpointer       task_data,
+                  GCancellable  *cancellable)
+{
+  Baker *self = source_object;
+  CakeData *cake_data = task_data;
+  Cake *cake;
+  GError *error = NULL;
+
+  cake = bake_cake (baker, cake_data-&gt;radius, cake_data-&gt;flavor,
+                    cake_data-&gt;frosting, cake_data-&gt;message,
+                    cancellable, &amp;error);
+  if (cake)
+    g_task_return_pointer (task, cake, g_object_unref);
+  else
+    g_task_return_error (task, error);
+}
+
+void
+baker_bake_cake_async (Baker               *self,
+                       guint                radius,
+                       CakeFlavor           flavor,
+                       CakeFrostingType     frosting,
+                       const char          *message,
+                       GCancellable        *cancellable,
+                       GAsyncReadyCallback  callback,
+                       gpointer             user_data)
+{
+  CakeData *cake_data;
+  GTask *task;
+
+  cake_data = g_slice_new (CakeData);
+  cake_data-&gt;radius = radius;
+  cake_data-&gt;flavor = flavor;
+  cake_data-&gt;frosting = frosting;
+  cake_data-&gt;message = g_strdup (message);
+  task = g_task_new (self, cancellable, callback, user_data);
+  g_task_set_task_data (task, cake_data, (GDestroyNotify) cake_data_free);
+  g_task_run_in_thread (task, bake_cake_thread);
+  g_object_unref (task);
+}
+
+Cake *
+baker_bake_cake_finish (Baker         *self,
+                        GAsyncResult  *result,
+                        GError       **error)
+{
+  g_return_val_if_fail (g_task_is_valid (result, self), NULL);
+
+  return g_task_propagate_pointer (G_TASK (result), error);
+}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">]|</p><h2 class=""> Adding cancellability to uncancellable tasks</h2><p class="paragraph">Finally, g_task_run_in_thread() and g_task_run_in_thread_sync() can be used to turn an uncancellable operation into a cancellable one. If you call g_task_set_return_on_cancel(), passing true, then if the task's #GCancellable is cancelled, it will return control back to the caller immediately, while allowing the task thread to continue running in the background (and simply discarding its result when it finally does finish). Provided that the task thread is careful about how it uses locks and other externally-visible resources, this allows you to make "GLib-friendly" asynchronous and cancellable synchronous variants of blocking APIs.</p><p class="paragraph">Cancelling a task: |[<!-- language="C" -->     static void     bake_cake_thread (GTask         *task,                       gpointer       source_object,                       gpointer       task_data,                       GCancellable  *cancellable)     {       Baker *self = source_object;       CakeData *cake_data = task_data;       Cake *cake;       GError *error = NULL;</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">  cake = bake_cake (baker, cake_data-&gt;radius, cake_data-&gt;flavor,
+                    cake_data-&gt;frosting, cake_data-&gt;message,
+                    &amp;error);
+  if (error)
+    {
+      g_task_return_error (task, error);
+      return;
+    }
+
+  // If the task has already been cancelled, then we don't want to add
+  // the cake to the cake cache. Likewise, we don't  want to have the
+  // task get cancelled in the middle of updating the cache.
+  // g_task_set_return_on_cancel() will return true here if it managed
+  // to disable return-on-cancel, or false if the task was cancelled
+  // before it could.
+  if (g_task_set_return_on_cancel (task, FALSE))
+    {
+      // If the caller cancels at this point, their
+      // GAsyncReadyCallback won't be invoked until we return,
+      // so we don't have to worry that this code will run at
+      // the same time as that code does. But if there were
+      // other functions that might look at the cake cache,
+      // then we'd probably need a GMutex here as well.
+      baker_add_cake_to_cache (baker, cake);
+      g_task_return_pointer (task, cake, g_object_unref);
+    }
+}
+
+void
+baker_bake_cake_async (Baker               *self,
+                       guint                radius,
+                       CakeFlavor           flavor,
+                       CakeFrostingType     frosting,
+                       const char          *message,
+                       GCancellable        *cancellable,
+                       GAsyncReadyCallback  callback,
+                       gpointer             user_data)
+{
+  CakeData *cake_data;
+  GTask *task;
+
+  cake_data = g_slice_new (CakeData);
+
+  ...
+
+  task = g_task_new (self, cancellable, callback, user_data);
+  g_task_set_task_data (task, cake_data, (GDestroyNotify) cake_data_free);
+  g_task_set_return_on_cancel (task, TRUE);
+  g_task_run_in_thread (task, bake_cake_thread);
+}
+
+Cake *
+baker_bake_cake_sync (Baker               *self,
+                      guint                radius,
+                      CakeFlavor           flavor,
+                      CakeFrostingType     frosting,
+                      const char          *message,
+                      GCancellable        *cancellable,
+                      GError             **error)
+{
+  CakeData *cake_data;
+  GTask *task;
+  Cake *cake;
+
+  cake_data = g_slice_new (CakeData);
+
+  ...
+
+  task = g_task_new (self, cancellable, NULL, NULL);
+  g_task_set_task_data (task, cake_data, (GDestroyNotify) cake_data_free);
+  g_task_set_return_on_cancel (task, TRUE);
+  g_task_run_in_thread_sync (task, bake_cake_thread);
+
+  cake = g_task_propagate_pointer (task, error);
+  g_object_unref (task);
+  return cake;
+}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">]|</p><h2 class=""> Porting from GSimpleAsyncResult</h2><p class="paragraph">#GTask's API attempts to be simpler than #GSimpleAsyncResult's in several ways:</p><ul><li><p class="paragraph">You can save task-specific data with g_task_set_task_data(), and retrieve it later with g_task_get_task_data(). This replaces the abuse of g_simple_async_result_set_op_res_gpointer() for the same purpose with #GSimpleAsyncResult.</p></li><li><p class="paragraph">In addition to the task data, #GTask also keeps track of the io-priority, #GCancellable, and #GMainContext associated with the task, so tasks that consist of a chain of simpler asynchronous operations will have easy access to those values when starting each sub-task.</p></li><li><p class="paragraph">g_task_return_error_if_cancelled() provides simplified handling for cancellation. In addition, cancellation overrides any other #GTask return value by default, like #GSimpleAsyncResult does when g_simple_async_result_set_check_cancellable() is called. (You can use g_task_set_check_cancellable() to turn off that behavior.) On the other hand, g_task_run_in_thread() guarantees that it will always run your <code class="lang-kotlin">task_func</code>, even if the task's #GCancellable is already cancelled before the task gets a chance to run; you can start your <code class="lang-kotlin">task_func</code> with a g_task_return_error_if_cancelled() check if you need the old behavior.</p></li><li><p class="paragraph">The "return" methods (eg, g_task_return_pointer()) automatically cause the task to be "completed" as well, and there is no need to worry about the "complete" vs "complete in idle" distinction. (#GTask automatically figures out whether the task's callback can be invoked directly, or if it needs to be sent to another #GMainContext, or delayed until the next iteration of the current #GMainContext.)</p></li><li><p class="paragraph">The "finish" functions for #GTask based operations are generally much simpler than #GSimpleAsyncResult ones, normally consisting of only a single call to g_task_propagate_pointer() or the like. Since g_task_propagate_pointer() "steals" the return value from the #GTask, it is not necessary to juggle pointers around to prevent it from being freed twice.</p></li><li><p class="paragraph">With #GSimpleAsyncResult, it was common to call g_simple_async_result_propagate_error() from the <code class="lang-kotlin">_finish()</code> wrapper function, and have virtual method implementations only deal with successful returns. This behavior is deprecated, because it makes it difficult for a subclass to chain to a parent class's async methods. Instead, the wrapper function should just be a simple wrapper, and the virtual method should call an appropriate <code class="lang-kotlin">g_task_propagate_</code> function. Note that wrapper methods can now use g_async_result_legacy_propagate_error() to do old-style #GSimpleAsyncResult error-returning behavior, and g_async_result_is_tagged() to check if a result is tagged as having come from the <code class="lang-kotlin">_async()</code> wrapper function (for "short-circuit" results, such as when passing 0 to g_input_stream_read_async()).</p></li></ul><h2 class=""> Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">get_source_tag</code>: Return type gpointer is unsupported</p></li><li><p class="paragraph">method <code class="lang-kotlin">get_task_data</code>: Return type gpointer is unsupported</p></li><li><p class="paragraph">method <code class="lang-kotlin">propagate_pointer</code>: Return type gpointer is unsupported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">result</code>: gpointer</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">task_func</code>: TaskThreadFunc</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">task_func</code>: TaskThreadFunc</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">source_tag</code>: gpointer</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">task_data</code>: gpointer</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">source_tag</code>: gpointer</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1087401648%2FConstructors%2F-143691045" anchor-label="Task" id="1087401648%2FConstructors%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-task.html"><span><span>Task</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1087401648%2FConstructors%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceObject<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a #GTask acting on @source_object, which will eventually be used to invoke @callback in the current g-main-context-push-thread-default.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1405768739%2FClasslikes%2F-143691045" anchor-label="Companion" id="1405768739%2FClasslikes%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1405768739%2FClasslikes%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="729327345%2FProperties%2F-143691045" anchor-label="completed" id="729327345%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="completed.html"><span><span>completed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="729327345%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="completed.html">completed</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the task has completed, meaning its callback (if set) has been invoked. This can only happen after g_task_return_pointer(), g_task_return_error() or one of the other return functions have been called on the task.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="768835723%2FProperties%2F-143691045" anchor-label="gioAsyncResultPointer" id="768835723%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-async-result-pointer.html"><span>gio</span><wbr><span>Async</span><wbr><span>Result</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="768835723%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gio-async-result-pointer.html">gioAsyncResultPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="135853939%2FProperties%2F-143691045" anchor-label="gioTaskPointer" id="135853939%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-task-pointer.html"><span>gio</span><wbr><span>Task</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="135853939%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="gio-task-pointer.html">gioTaskPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1832138856%2FFunctions%2F-143691045" anchor-label="getCancellable" id="1832138856%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-cancellable.html"><span>get</span><wbr><span><span>Cancellable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1832138856%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-cancellable.html"><span class="token function">getCancellable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a></div><div class="brief "><p class="paragraph">Gets @task's #GCancellable</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-119542142%2FFunctions%2F-143691045" anchor-label="getCheckCancellable" id="-119542142%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-check-cancellable.html"><span>get</span><wbr><span>Check</span><wbr><span><span>Cancellable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-119542142%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-check-cancellable.html"><span class="token function">getCheckCancellable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets @task's check-cancellable flag. See g_task_set_check_cancellable() for more details.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="160454217%2FFunctions%2F-143691045" anchor-label="getCompleted" id="160454217%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-completed.html"><span>get</span><wbr><span><span>Completed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="160454217%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-completed.html"><span class="token function">getCompleted</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets the value of #GTask:completed. This changes from false to true after the task’s callback is invoked, and will return false if called from inside the callback.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="444768549%2FFunctions%2F-143691045" anchor-label="getContext" id="444768549%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-context.html"><span>get</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="444768549%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-context.html"><span class="token function">getContext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the #GMainContext that @task will return its result in (that is, the context that was the g-main-context-push-thread-default at the point when @task was created).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="745836219%2FFunctions%2F-143691045" anchor-label="getName" id="745836219%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-name.html"><span>get</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="745836219%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-name.html"><span class="token function">getName</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets @task’s name. See g_task_set_name().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="732811586%2FFunctions%2F-143691045" anchor-label="getPriority" id="732811586%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-priority.html"><span>get</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="732811586%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-priority.html"><span class="token function">getPriority</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Gets @task's priority</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1094864189%2FFunctions%2F-143691045" anchor-label="getReturnOnCancel" id="1094864189%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-return-on-cancel.html"><span>get</span><wbr><span>Return</span><wbr><span>On</span><wbr><span><span>Cancel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1094864189%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-return-on-cancel.html"><span class="token function">getReturnOnCancel</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets @task's return-on-cancel flag. See g_task_set_return_on_cancel() for more details.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-208954514%2FFunctions%2F-143691045" anchor-label="getSourceObject" id="-208954514%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-async-result/get-source-object.html"><span>get</span><wbr><span>Source</span><wbr><span><span>Object</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-208954514%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-async-result/get-source-object.html"><span class="token function">getSourceObject</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the source object from a #GAsyncResult.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-865584657%2FFunctions%2F-143691045" anchor-label="getSourceObject_" id="-865584657%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-source-object_.html"><span>get</span><wbr><span>Source</span><wbr><span><span>Object_</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-865584657%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-source-object_.html"><span class="token function">getSourceObject_</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the source object from @task. Like g_async_result_get_source_object(), but does not ref the object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1973765409%2FFunctions%2F-143691045" anchor-label="hadError" id="1973765409%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="had-error.html"><span>had</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1973765409%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="had-error.html"><span class="token function">hadError</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests if @task resulted in an error.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="484744564%2FFunctions%2F-143691045" anchor-label="legacyPropagateError" id="484744564%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-async-result/legacy-propagate-error.html"><span>legacy</span><wbr><span>Propagate</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="484744564%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-async-result/legacy-propagate-error.html"><span class="token function">legacyPropagateError</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">If @res is a #GSimpleAsyncResult, this is equivalent to g_simple_async_result_propagate_error(). Otherwise it returns false.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="373406687%2FFunctions%2F-143691045" anchor-label="propagateBoolean" id="373406687%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="propagate-boolean.html"><span>propagate</span><wbr><span><span>Boolean</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="373406687%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="propagate-boolean.html"><span class="token function">propagateBoolean</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Gets the result of @task as a #gboolean.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-986922248%2FFunctions%2F-143691045" anchor-label="propagateInt" id="-986922248%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="propagate-int.html"><span>propagate</span><wbr><span><span>Int</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-986922248%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="propagate-int.html"><span class="token function">propagateInt</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Gets the result of @task as an integer (#gssize).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1196866337%2FFunctions%2F-143691045" anchor-label="propagateValue" id="-1196866337%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="propagate-value.html"><span>propagate</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1196866337%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="propagate-value.html"><span class="token function">propagateValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Gets the result of @task as a #GValue, and transfers ownership of that value to the caller. As with g_task_return_value(), this is a generic low-level method; g_task_propagate_pointer() and the like will usually be more useful for C code.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="51862985%2FFunctions%2F-143691045" anchor-label="returnBoolean" id="51862985%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="return-boolean.html"><span>return</span><wbr><span><span>Boolean</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="51862985%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="return-boolean.html"><span class="token function">returnBoolean</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @task's result to @result and completes the task (see g_task_return_pointer() for more discussion of exactly what this means).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-806954360%2FFunctions%2F-143691045" anchor-label="returnError" id="-806954360%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="return-error.html"><span>return</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-806954360%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="return-error.html"><span class="token function">returnError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">error<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @task's result to @error (which @task assumes ownership of) and completes the task (see g_task_return_pointer() for more discussion of exactly what this means).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1688678306%2FFunctions%2F-143691045" anchor-label="returnErrorIfCancelled" id="1688678306%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="return-error-if-cancelled.html"><span>return</span><wbr><span>Error</span><wbr><span>If</span><wbr><span><span>Cancelled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1688678306%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="return-error-if-cancelled.html"><span class="token function">returnErrorIfCancelled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if @task's #GCancellable has been cancelled, and if so, sets</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1544071164%2FFunctions%2F-143691045" anchor-label="returnInt" id="1544071164%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="return-int.html"><span>return</span><wbr><span><span>Int</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1544071164%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="return-int.html"><span class="token function">returnInt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @task's result to @result and completes the task (see g_task_return_pointer() for more discussion of exactly what this means).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="715439049%2FFunctions%2F-143691045" anchor-label="returnValue" id="715439049%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="return-value.html"><span>return</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="715439049%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="return-value.html"><span class="token function">returnValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @task's result to @result (by copying it) and completes the task.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1675386811%2FFunctions%2F-143691045" anchor-label="setCheckCancellable" id="1675386811%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-check-cancellable.html"><span>set</span><wbr><span>Check</span><wbr><span><span>Cancellable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1675386811%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-check-cancellable.html"><span class="token function">setCheckCancellable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">checkCancellable<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets or clears @task's check-cancellable flag. If this is true (the default), then g_task_propagate_pointer(), etc, and g_task_had_error() will check the task's #GCancellable first, and if it has been cancelled, then they will consider the task to have returned an "Operation was cancelled" error (%G_IO_ERROR_CANCELLED), regardless of any other error or return value the task may have had.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-449546930%2FFunctions%2F-143691045" anchor-label="setName" id="-449546930%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-name.html"><span>set</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-449546930%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-name.html"><span class="token function">setName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @task’s name, used in debugging and profiling. The name defaults to null.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1055702060%2FFunctions%2F-143691045" anchor-label="setPriority" id="-1055702060%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-priority.html"><span>set</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1055702060%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-priority.html"><span class="token function">setPriority</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">priority<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @task's priority. If you do not call this, it will default to %G_PRIORITY_DEFAULT.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="7841846%2FFunctions%2F-143691045" anchor-label="setReturnOnCancel" id="7841846%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-return-on-cancel.html"><span>set</span><wbr><span>Return</span><wbr><span>On</span><wbr><span><span>Cancel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="7841846%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-return-on-cancel.html"><span class="token function">setReturnOnCancel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">returnOnCancel<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Sets or clears @task's return-on-cancel flag. This is only meaningful for tasks run via g_task_run_in_thread() or g_task_run_in_thread_sync().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
