@@ -6,6 +6,7 @@ import org.gtkkn.native.glib.GRegexCompileFlags
 import org.gtkkn.native.glib.G_REGEX_ANCHORED
 import org.gtkkn.native.glib.G_REGEX_BSR_ANYCRLF
 import org.gtkkn.native.glib.G_REGEX_CASELESS
+import org.gtkkn.native.glib.G_REGEX_DEFAULT
 import org.gtkkn.native.glib.G_REGEX_DOLLAR_ENDONLY
 import org.gtkkn.native.glib.G_REGEX_DOTALL
 import org.gtkkn.native.glib.G_REGEX_DUPNAMES
@@ -32,6 +33,11 @@ public class RegexCompileFlags(
     override infix fun or(other: RegexCompileFlags): RegexCompileFlags = RegexCompileFlags(mask or other.mask)
 
     public companion object {
+        /**
+         * No special options set. Since: 2.74
+         */
+        public val DEFAULT: RegexCompileFlags = RegexCompileFlags(G_REGEX_DEFAULT)
+
         /**
          * Letters in the pattern match both upper- and
          *     lowercase letters. This option can be changed within a pattern
@@ -112,9 +118,13 @@ public class RegexCompileFlags(
         public val NO_AUTO_CAPTURE: RegexCompileFlags = RegexCompileFlags(G_REGEX_NO_AUTO_CAPTURE)
 
         /**
-         * Optimize the regular expression. If the pattern will
-         *     be used many times, then it may be worth the effort to optimize it
-         *     to improve the speed of matches.
+         * Since 2.74 and the port to pcre2, requests JIT
+         *     compilation, which, if the just-in-time compiler is available, further
+         *     processes a compiled pattern into machine code that executes much
+         *     faster. However, it comes at the cost of extra processing before the
+         *     match is performed, so it is most beneficial to use this when the same
+         *     compiled pattern is used for matching many times. Before 2.74 this
+         *     option used the built-in non-JIT optimizations in pcre1.
          */
         public val OPTIMIZE: RegexCompileFlags = RegexCompileFlags(G_REGEX_OPTIMIZE)
 
@@ -169,7 +179,8 @@ public class RegexCompileFlags(
 
         /**
          * Changes behaviour so that it is compatible with
-         *     JavaScript rather than PCRE. Since: 2.34
+         *     JavaScript rather than PCRE. Since GLib 2.74 this is no longer supported,
+         *     as libpcre2 does not support it. Since: 2.34 Deprecated: 2.74
          */
         public val JAVASCRIPT_COMPAT: RegexCompileFlags =
             RegexCompileFlags(G_REGEX_JAVASCRIPT_COMPAT)

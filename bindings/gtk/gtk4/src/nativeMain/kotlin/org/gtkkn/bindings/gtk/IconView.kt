@@ -109,7 +109,7 @@ import kotlin.Unit
  * `GtkIconView` will only display the first level of the tree and
  * ignore the tree’s branches.
  *
- * # CSS nodes
+ * ## CSS nodes
  *
  * ```
  * iconview.view

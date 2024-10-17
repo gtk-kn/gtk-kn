@@ -37,6 +37,7 @@ import org.gtkkn.native.gio.g_dbus_interface_skeleton_get_info
 import org.gtkkn.native.gio.g_dbus_interface_skeleton_get_object_path
 import org.gtkkn.native.gio.g_dbus_interface_skeleton_get_properties
 import org.gtkkn.native.gio.g_dbus_interface_skeleton_get_type
+import org.gtkkn.native.gio.g_dbus_interface_skeleton_get_vtable
 import org.gtkkn.native.gio.g_dbus_interface_skeleton_has_connection
 import org.gtkkn.native.gio.g_dbus_interface_skeleton_set_flags
 import org.gtkkn.native.gio.g_dbus_interface_skeleton_unexport
@@ -188,6 +189,19 @@ public open class DBusInterfaceSkeleton(
     public open fun getProperties(): Variant =
         g_dbus_interface_skeleton_get_properties(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
             Variant(reinterpret())
+        }
+
+    /**
+     * Gets the interface vtable for the D-Bus interface implemented by
+     * @interface_. The returned function pointers should expect @interface_
+     * itself to be passed as @user_data.
+     *
+     * @return the vtable of the D-Bus interface implemented by the skeleton
+     * @since 2.30
+     */
+    public open fun getVtable(): DBusInterfaceVTable =
+        g_dbus_interface_skeleton_get_vtable(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
+            DBusInterfaceVTable(reinterpret())
         }
 
     /**

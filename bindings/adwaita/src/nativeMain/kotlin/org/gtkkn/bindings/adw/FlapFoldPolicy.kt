@@ -8,7 +8,6 @@ import org.gtkkn.native.adw.AdwFlapFoldPolicy.ADW_FLAP_FOLD_POLICY_NEVER
 
 /**
  * Describes the possible folding behavior of a [class@Flap] widget.
- * @since 1.0
  */
 public enum class FlapFoldPolicy(
     public val nativeValue: AdwFlapFoldPolicy,

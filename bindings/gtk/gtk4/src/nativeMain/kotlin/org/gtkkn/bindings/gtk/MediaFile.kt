@@ -34,7 +34,7 @@ import kotlin.Unit
  * GTK provides a GIO extension point for `GtkMediaFile` implementations
  * to allow for external implementations using various media frameworks.
  *
- * GTK itself includes implementations using GStreamer and ffmpeg.
+ * GTK itself includes an implementation using GStreamer.
  */
 public open class MediaFile(
     pointer: CPointer<GtkMediaFile>,

@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.gtk.GtkNoSelection
+import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.GtkSelectionModel
 import org.gtkkn.native.gtk.gtk_no_selection_get_model
 import org.gtkkn.native.gtk.gtk_no_selection_get_type
@@ -23,14 +24,24 @@ import kotlin.Unit
  *
  * This model is meant to be used as a simple wrapper around a `GListModel`
  * when a `GtkSelectionModel` is required.
+ *
+ * `GtkNoSelection` passes through sections from the underlying model.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class NoSelection(
     pointer: CPointer<GtkNoSelection>,
-) : Object(pointer.reinterpret()), ListModel, SelectionModel, KGTyped {
+) : Object(pointer.reinterpret()), ListModel, SectionModel, SelectionModel, KGTyped {
     public val gtkNoSelectionPointer: CPointer<GtkNoSelection>
         get() = gPointer.reinterpret()
 
     override val gioListModelPointer: CPointer<GListModel>
+        get() = gPointer.reinterpret()
+
+    override val gtkSectionModelPointer: CPointer<GtkSectionModel>
         get() = gPointer.reinterpret()
 
     override val gtkSelectionModelPointer: CPointer<GtkSelectionModel>

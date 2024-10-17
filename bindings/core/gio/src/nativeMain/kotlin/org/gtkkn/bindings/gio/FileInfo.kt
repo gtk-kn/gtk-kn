@@ -23,6 +23,7 @@ import org.gtkkn.native.gio.g_file_info_get_access_date_time
 import org.gtkkn.native.gio.g_file_info_get_attribute_as_string
 import org.gtkkn.native.gio.g_file_info_get_attribute_boolean
 import org.gtkkn.native.gio.g_file_info_get_attribute_byte_string
+import org.gtkkn.native.gio.g_file_info_get_attribute_file_path
 import org.gtkkn.native.gio.g_file_info_get_attribute_int32
 import org.gtkkn.native.gio.g_file_info_get_attribute_int64
 import org.gtkkn.native.gio.g_file_info_get_attribute_object
@@ -59,6 +60,7 @@ import org.gtkkn.native.gio.g_file_info_remove_attribute
 import org.gtkkn.native.gio.g_file_info_set_access_date_time
 import org.gtkkn.native.gio.g_file_info_set_attribute_boolean
 import org.gtkkn.native.gio.g_file_info_set_attribute_byte_string
+import org.gtkkn.native.gio.g_file_info_set_attribute_file_path
 import org.gtkkn.native.gio.g_file_info_set_attribute_int32
 import org.gtkkn.native.gio.g_file_info_set_attribute_int64
 import org.gtkkn.native.gio.g_file_info_set_attribute_mask
@@ -94,35 +96,42 @@ import kotlin.Unit
 import kotlin.collections.List
 
 /**
- * Functionality for manipulating basic metadata for files. #GFileInfo
+ * Stores information about a file system object referenced by a [iface@Gio.File].
+ *
+ * Functionality for manipulating basic metadata for files. `GFileInfo`
  * implements methods for getting information that all files should
  * contain, and allows for manipulation of extended attributes.
  *
- * See [GFileAttribute][gio-GFileAttribute] for more information on how
- * GIO handles file attributes.
+ * See [file-attributes.html](file attributes) for more information on how GIO
+ * handles file attributes.
  *
- * To obtain a #GFileInfo for a #GFile, use g_file_query_info() (or its
- * async variant). To obtain a #GFileInfo for a file input or output
- * stream, use g_file_input_stream_query_info() or
- * g_file_output_stream_query_info() (or their async variants).
+ * To obtain a `GFileInfo` for a [iface@Gio.File], use
+ * [method@Gio.File.query_info] (or its async variant). To obtain a `GFileInfo`
+ * for a file input or output stream, use [method@Gio.FileInputStream.query_info]
+ * or [method@Gio.FileOutputStream.query_info] (or their async variants).
  *
  * To change the actual attributes of a file, you should then set the
- * attribute in the #GFileInfo and call g_file_set_attributes_from_info()
- * or g_file_set_attributes_async() on a GFile.
+ * attribute in the `GFileInfo` and call [method@Gio.File.set_attributes_from_info]
+ * or [method@Gio.File.set_attributes_async] on a `GFile`.
  *
  * However, not all attributes can be changed in the file. For instance,
- * the actual size of a file cannot be changed via g_file_info_set_size().
- * You may call g_file_query_settable_attributes() and
- * g_file_query_writable_namespaces() to discover the settable attributes
+ * the actual size of a file cannot be changed via [method@Gio.FileInfo.set_size].
+ * You may call [method@Gio.File.query_settable_attributes] and
+ * [method@Gio.File.query_writable_namespaces] to discover the settable attributes
  * of a particular file at runtime.
  *
- * The direct accessors, such as g_file_info_get_name(), are slightly more
+ * The direct accessors, such as [method@Gio.FileInfo.get_name], are slightly more
  * optimized than the generic attribute accessors, such as
- * g_file_info_get_attribute_byte_string().This optimization will matter
+ * [method@Gio.FileInfo.get_attribute_byte_string].This optimization will matter
  * only if calling the API in a tight loop.
  *
- * #GFileAttributeMatcher allows for searching through a #GFileInfo for
- * attributes.
+ * It is an error to call these accessors without specifying their required file
+ * attributes when creating the `GFileInfo`. Use
+ * [method@Gio.FileInfo.has_attribute] or [method@Gio.FileInfo.list_attributes]
+ * to check what attributes are specified for a `GFileInfo`.
+ *
+ * [struct@Gio.FileAttributeMatcher] allows for searching through a `GFileInfo`
+ * for attributes.
  *
  * ## Skipped during bindings generation
  *
@@ -173,9 +182,13 @@ public open class FileInfo(
      * Gets the access time of the current @info and returns it as a
      * #GDateTime.
      *
-     * This requires the %G_FILE_ATTRIBUTE_TIME_ACCESS attribute. If
-     * %G_FILE_ATTRIBUTE_TIME_ACCESS_USEC is provided, the resulting #GDateTime
-     * will have microsecond precision.
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_TIME_ACCESS. If %G_FILE_ATTRIBUTE_TIME_ACCESS_USEC is
+     * provided, the resulting #GDateTime will additionally have microsecond
+     * precision.
+     *
+     * If nanosecond precision is needed, %G_FILE_ATTRIBUTE_TIME_ACCESS_NSEC must
+     * be queried separately using g_file_info_get_attribute_uint32().
      *
      * @return access time, or null if unknown
      * @since 2.70
@@ -186,7 +199,7 @@ public open class FileInfo(
         }
 
     /**
-     * Gets the value of a attribute, formatted as a string.
+     * Gets the value of an attribute, formatted as a string.
      * This escapes things as needed to make the string valid
      * UTF-8.
      *
@@ -224,6 +237,25 @@ public open class FileInfo(
      */
     public open fun getAttributeByteString(attribute: String): String? =
         g_file_info_get_attribute_byte_string(
+            gioFileInfoPointer.reinterpret(),
+            attribute
+        )?.toKString()
+
+    /**
+     * Gets the value of a byte string attribute as a file path.
+     *
+     * If the attribute does not contain a byte string, `NULL` will be returned.
+     *
+     * This function is meant to be used by language bindings that have specific
+     * handling for Unix paths.
+     *
+     * @param attribute a file attribute key.
+     * @return the contents of the @attribute value as
+     * a file path, or null otherwise.
+     * @since 2.78
+     */
+    public open fun getAttributeFilePath(attribute: String): String? =
+        g_file_info_get_attribute_file_path(
             gioFileInfoPointer.reinterpret(),
             attribute
         )?.toKString()
@@ -341,6 +373,9 @@ public open class FileInfo(
     /**
      * Gets the file's content type.
      *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE.
+     *
      * @return a string containing the file's content type,
      * or null if unknown.
      */
@@ -351,9 +386,13 @@ public open class FileInfo(
      * Gets the creation time of the current @info and returns it as a
      * #GDateTime.
      *
-     * This requires the %G_FILE_ATTRIBUTE_TIME_CREATED attribute. If
-     * %G_FILE_ATTRIBUTE_TIME_CREATED_USEC is provided, the resulting #GDateTime
-     * will have microsecond precision.
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_TIME_CREATED. If %G_FILE_ATTRIBUTE_TIME_CREATED_USEC is
+     * provided, the resulting #GDateTime will additionally have microsecond
+     * precision.
+     *
+     * If nanosecond precision is needed, %G_FILE_ATTRIBUTE_TIME_CREATED_NSEC must
+     * be queried separately using g_file_info_get_attribute_uint32().
      *
      * @return creation time, or null if unknown
      * @since 2.70
@@ -365,8 +404,8 @@ public open class FileInfo(
 
     /**
      * Returns the #GDateTime representing the deletion date of the file, as
-     * available in G_FILE_ATTRIBUTE_TRASH_DELETION_DATE. If the
-     * G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, null is returned.
+     * available in %G_FILE_ATTRIBUTE_TRASH_DELETION_DATE. If the
+     * %G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, null is returned.
      *
      * @return a #GDateTime, or null.
      * @since 2.36
@@ -379,6 +418,9 @@ public open class FileInfo(
     /**
      * Gets a display name for a file. This is guaranteed to always be set.
      *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME.
+     *
      * @return a string containing the display name.
      */
     public open fun getDisplayName(): String =
@@ -388,6 +430,9 @@ public open class FileInfo(
     /**
      * Gets the edit name for a file.
      *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME.
+     *
      * @return a string containing the edit name.
      */
     public open fun getEditName(): String =
@@ -395,8 +440,11 @@ public open class FileInfo(
             ?: error("Expected not null string")
 
     /**
-     * Gets the [entity tag][gfile-etag] for a given
+     * Gets the [entity tag](iface.File.html#entity-tags) for a given
      * #GFileInfo. See %G_FILE_ATTRIBUTE_ETAG_VALUE.
+     *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_ETAG_VALUE.
      *
      * @return a string containing the value of the "etag:value" attribute.
      */
@@ -405,6 +453,9 @@ public open class FileInfo(
     /**
      * Gets a file's type (whether it is a regular file, symlink, etc).
      * This is different from the file's content type, see g_file_info_get_content_type().
+     *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_TYPE.
      *
      * @return a #GFileType for the given file.
      */
@@ -416,6 +467,9 @@ public open class FileInfo(
     /**
      * Gets the icon for a file.
      *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_ICON.
+     *
      * @return #GIcon for the given @info.
      */
     public open fun getIcon(): Icon? =
@@ -426,6 +480,9 @@ public open class FileInfo(
     /**
      * Checks if a file is a backup file.
      *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_IS_BACKUP.
+     *
      * @return true if file is a backup file, false otherwise.
      */
     public open fun getIsBackup(): Boolean = g_file_info_get_is_backup(gioFileInfoPointer.reinterpret()).asBoolean()
@@ -433,12 +490,18 @@ public open class FileInfo(
     /**
      * Checks if a file is hidden.
      *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN.
+     *
      * @return true if the file is a hidden file, false otherwise.
      */
     public open fun getIsHidden(): Boolean = g_file_info_get_is_hidden(gioFileInfoPointer.reinterpret()).asBoolean()
 
     /**
      * Checks if a file is a symlink.
+     *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK.
      *
      * @return true if the given @info is a symlink.
      */
@@ -448,9 +511,13 @@ public open class FileInfo(
      * Gets the modification time of the current @info and returns it as a
      * #GDateTime.
      *
-     * This requires the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute. If
-     * %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC is provided, the resulting #GDateTime
-     * will have microsecond precision.
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_TIME_MODIFIED. If %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC is
+     * provided, the resulting #GDateTime will additionally have microsecond
+     * precision.
+     *
+     * If nanosecond precision is needed, %G_FILE_ATTRIBUTE_TIME_MODIFIED_NSEC must
+     * be queried separately using g_file_info_get_attribute_uint32().
      *
      * @return modification time, or null if unknown
      * @since 2.62
@@ -464,6 +531,10 @@ public open class FileInfo(
      * Gets the modification time of the current @info and sets it
      * in @result.
      *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_TIME_MODIFIED. If %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC is
+     * provided it will be used too.
+     *
      * @param result a #GTimeVal.
      */
     public open fun getModificationTime(result: TimeVal): Unit =
@@ -474,6 +545,9 @@ public open class FileInfo(
 
     /**
      * Gets the name for a file. This is guaranteed to always be set.
+     *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_NAME.
      *
      * @return a string containing the file name.
      */
@@ -486,6 +560,9 @@ public open class FileInfo(
      * the %G_FILE_ATTRIBUTE_STANDARD_SIZE attribute and is converted
      * from #guint64 to #goffset before returning the result.
      *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_SIZE.
+     *
      * @return a #goffset containing the file's size (in bytes).
      */
     public open fun getSize(): Long = g_file_info_get_size(gioFileInfoPointer.reinterpret())
@@ -494,12 +571,18 @@ public open class FileInfo(
      * Gets the value of the sort_order attribute from the #GFileInfo.
      * See %G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER.
      *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER.
+     *
      * @return a #gint32 containing the value of the "standard::sort_order" attribute.
      */
     public open fun getSortOrder(): Int = g_file_info_get_sort_order(gioFileInfoPointer.reinterpret())
 
     /**
      * Gets the symbolic icon for a file.
+     *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON.
      *
      * @return #GIcon for the given @info.
      * @since 2.34
@@ -511,6 +594,9 @@ public open class FileInfo(
 
     /**
      * Gets the symlink target for a given #GFileInfo.
+     *
+     * It is an error to call this if the #GFileInfo does not contain
+     * %G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET.
      *
      * @return a string containing the symlink target.
      */
@@ -567,6 +653,8 @@ public open class FileInfo(
      * %G_FILE_ATTRIBUTE_TIME_ACCESS_USEC attributes in the file info to the
      * given date/time value.
      *
+     * %G_FILE_ATTRIBUTE_TIME_ACCESS_NSEC will be cleared.
+     *
      * @param atime a #GDateTime.
      * @since 2.70
      */
@@ -605,6 +693,27 @@ public open class FileInfo(
         attrValue: String,
     ): Unit =
         g_file_info_set_attribute_byte_string(
+            gioFileInfoPointer.reinterpret(),
+            attribute,
+            attrValue
+        )
+
+    /**
+     * Sets the @attribute to contain the given @attr_value,
+     * if possible.
+     *
+     * This function is meant to be used by language bindings that have specific
+     * handling for Unix paths.
+     *
+     * @param attribute a file attribute key.
+     * @param attrValue a file path.
+     * @since 2.78
+     */
+    public open fun setAttributeFilePath(
+        attribute: String,
+        attrValue: String,
+    ): Unit =
+        g_file_info_set_attribute_file_path(
             gioFileInfoPointer.reinterpret(),
             attribute,
             attrValue
@@ -757,6 +866,8 @@ public open class FileInfo(
      * %G_FILE_ATTRIBUTE_TIME_CREATED_USEC attributes in the file info to the
      * given date/time value.
      *
+     * %G_FILE_ATTRIBUTE_TIME_CREATED_NSEC will be cleared.
+     *
      * @param creationTime a #GDateTime.
      * @since 2.70
      */
@@ -825,6 +936,8 @@ public open class FileInfo(
      * %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC attributes in the file info to the
      * given date/time value.
      *
+     * %G_FILE_ATTRIBUTE_TIME_MODIFIED_NSEC will be cleared.
+     *
      * @param mtime a #GDateTime.
      * @since 2.62
      */
@@ -838,6 +951,8 @@ public open class FileInfo(
      * Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
      * %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC attributes in the file info to the
      * given time value.
+     *
+     * %G_FILE_ATTRIBUTE_TIME_MODIFIED_NSEC will be cleared.
      *
      * @param mtime a #GTimeVal.
      */

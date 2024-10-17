@@ -3,6 +3,7 @@ package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asGBoolean
@@ -13,6 +14,8 @@ import org.gtkkn.native.glib.g_hook_list_clear
 import org.gtkkn.native.glib.g_hook_list_init
 import org.gtkkn.native.glib.g_hook_list_invoke
 import org.gtkkn.native.glib.g_hook_list_invoke_check
+import org.gtkkn.native.glib.g_hook_list_marshal
+import org.gtkkn.native.glib.g_hook_list_marshal_check
 import kotlin.Boolean
 import kotlin.UInt
 import kotlin.ULong
@@ -108,6 +111,45 @@ public class HookList(
      */
     public fun invokeCheck(mayRecurse: Boolean): Unit =
         g_hook_list_invoke_check(glibHookListPointer.reinterpret(), mayRecurse.asGBoolean())
+
+    /**
+     * Calls a function on each valid #GHook.
+     *
+     * @param mayRecurse true if hooks which are currently running
+     *     (e.g. in another thread) are considered valid. If set to false,
+     *     these are skipped
+     * @param marshaller the function to call for each #GHook
+     */
+    public fun marshal(
+        mayRecurse: Boolean,
+        marshaller: HookMarshaller,
+    ): Unit =
+        g_hook_list_marshal(
+            glibHookListPointer.reinterpret(),
+            mayRecurse.asGBoolean(),
+            HookMarshallerFunc.reinterpret(),
+            StableRef.create(marshaller).asCPointer()
+        )
+
+    /**
+     * Calls a function on each valid #GHook and destroys it if the
+     * function returns false.
+     *
+     * @param mayRecurse true if hooks which are currently running
+     *     (e.g. in another thread) are considered valid. If set to false,
+     *     these are skipped
+     * @param marshaller the function to call for each #GHook
+     */
+    public fun marshalCheck(
+        mayRecurse: Boolean,
+        marshaller: HookCheckMarshaller,
+    ): Unit =
+        g_hook_list_marshal_check(
+            glibHookListPointer.reinterpret(),
+            mayRecurse.asGBoolean(),
+            HookCheckMarshallerFunc.reinterpret(),
+            StableRef.create(marshaller).asCPointer()
+        )
 
     public companion object : RecordCompanion<HookList, GHookList> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): HookList = HookList(pointer.reinterpret())

@@ -22,7 +22,7 @@ import kotlin.String
 import kotlin.UShort
 
 /**
- * Support for proxied #GInetSocketAddress.
+ * A [class@Gio.InetSocketAddress] representing a connection via a proxy server.
  * @since 2.26
  */
 public open class ProxyAddress(
@@ -34,6 +34,11 @@ public open class ProxyAddress(
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = gPointer.reinterpret()
 
+    /**
+     * The proxy destination hostname.
+     *
+     * @since 2.26
+     */
     public open val destinationHostname: String
         /**
          * Gets @proxy's destination hostname; that is, the name of the host
@@ -47,6 +52,11 @@ public open class ProxyAddress(
             g_proxy_address_get_destination_hostname(gioProxyAddressPointer.reinterpret())?.toKString()
                 ?: error("Expected not null string")
 
+    /**
+     * The proxy destination port.
+     *
+     * @since 2.26
+     */
     public open val destinationPort: UShort
         /**
          * Gets @proxy's destination port; that is, the port on the
@@ -76,6 +86,11 @@ public open class ProxyAddress(
             g_proxy_address_get_destination_protocol(gioProxyAddressPointer.reinterpret())?.toKString()
                 ?: error("Expected not null string")
 
+    /**
+     * The proxy password.
+     *
+     * @since 2.26
+     */
     public open val password: String?
         /**
          * Gets @proxy's password.
@@ -85,6 +100,11 @@ public open class ProxyAddress(
          */
         get() = g_proxy_address_get_password(gioProxyAddressPointer.reinterpret())?.toKString()
 
+    /**
+     * The proxy protocol.
+     *
+     * @since 2.26
+     */
     public open val protocol: String
         /**
          * Gets @proxy's protocol. eg, "socks" or "http"
@@ -111,6 +131,11 @@ public open class ProxyAddress(
          */
         get() = g_proxy_address_get_uri(gioProxyAddressPointer.reinterpret())?.toKString()
 
+    /**
+     * The proxy username.
+     *
+     * @since 2.26
+     */
     public open val username: String?
         /**
          * Gets @proxy's username.

@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gdk.Clipboard
 import org.gtkkn.bindings.gdk.Cursor
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gdk.FrameClock
+import org.gtkkn.bindings.gdk.RGBA
 import org.gtkkn.bindings.gio.ActionGroup
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Variant
@@ -60,15 +61,18 @@ import org.gtkkn.native.gtk.gtk_widget_compute_point
 import org.gtkkn.native.gtk.gtk_widget_compute_transform
 import org.gtkkn.native.gtk.gtk_widget_contains
 import org.gtkkn.native.gtk.gtk_widget_create_pango_layout
+import org.gtkkn.native.gtk.gtk_widget_dispose_template
 import org.gtkkn.native.gtk.gtk_widget_error_bell
 import org.gtkkn.native.gtk.gtk_widget_get_allocated_baseline
 import org.gtkkn.native.gtk.gtk_widget_get_allocated_height
 import org.gtkkn.native.gtk.gtk_widget_get_allocated_width
 import org.gtkkn.native.gtk.gtk_widget_get_ancestor
+import org.gtkkn.native.gtk.gtk_widget_get_baseline
 import org.gtkkn.native.gtk.gtk_widget_get_can_focus
 import org.gtkkn.native.gtk.gtk_widget_get_can_target
 import org.gtkkn.native.gtk.gtk_widget_get_child_visible
 import org.gtkkn.native.gtk.gtk_widget_get_clipboard
+import org.gtkkn.native.gtk.gtk_widget_get_color
 import org.gtkkn.native.gtk.gtk_widget_get_css_classes
 import org.gtkkn.native.gtk.gtk_widget_get_css_name
 import org.gtkkn.native.gtk.gtk_widget_get_cursor
@@ -245,13 +249,13 @@ import org.gtkkn.bindings.glib.List as GlibList
  * For example, when queried in the normal %GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH mode:
  *
  * First, the default minimum and natural width for each widget
- * in the interface will be computed using [id@gtk_widget_measure] with an
+ * in the interface will be computed using [method@Gtk.Widget.measure] with an
  * orientation of %GTK_ORIENTATION_HORIZONTAL and a for_size of -1.
  * Because the preferred widths for each widget depend on the preferred
  * widths of their children, this information propagates up the hierarchy,
  * and finally a minimum and natural width is determined for the entire
  * toplevel. Next, the toplevel will use the minimum width to query for the
- * minimum height contextual to that width using [id@gtk_widget_measure] with an
+ * minimum height contextual to that width using [method@Gtk.Widget.measure] with an
  * orientation of %GTK_ORIENTATION_VERTICAL and a for_size of the just computed
  * width. This will also be a highly recursive operation. The minimum height
  * for the minimum width is normally used to set the minimum size constraint
@@ -342,14 +346,14 @@ import org.gtkkn.bindings.glib.List as GlibList
  * to do it.
  *
  * Of course if you are getting the size request for another widget, such
- * as a child widget, you must use [id@gtk_widget_measure]; otherwise, you
+ * as a child widget, you must use [method@Gtk.Widget.measure]; otherwise, you
  * would not properly consider widget margins, [class@Gtk.SizeGroup], and
  * so forth.
  *
  * GTK also supports baseline vertical alignment of widgets. This
  * means that widgets are positioned such that the typographical baseline of
  * widgets in the same row are aligned. This happens if a widget supports
- * baselines, has a vertical alignment of %GTK_ALIGN_BASELINE, and is inside
+ * baselines, has a vertical alignment using baselines, and is inside
  * a widget that supports baselines and has a natural “row” that it aligns to
  * the baseline, or a baseline assigned to it by the grandparent.
  *
@@ -359,7 +363,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  *
  * If a widget ends up baseline aligned it will be allocated all the space in
  * the parent as if it was %GTK_ALIGN_FILL, but the selected baseline can be
- * found via [id@gtk_widget_get_allocated_baseline]. If the baseline has a
+ * found via [method@Gtk.Widget.get_baseline]. If the baseline has a
  * value other than -1 you need to align the widget such that the baseline
  * appears at the position.
  *
@@ -434,14 +438,14 @@ import org.gtkkn.bindings.glib.List as GlibList
  * The interface description semantics expected in composite template descriptions
  * is slightly different from regular [class@Gtk.Builder] XML.
  *
- * Unlike regular interface descriptions, [method@Gtk.WidgetClass.set_template] will
- * expect a `<template>` tag as a direct child of the toplevel `<interface>`
- * tag. The `<template>` tag must specify the “class” attribute which must be
- * the type name of the widget. Optionally, the “parent” attribute may be
- * specified to specify the direct parent type of the widget type, this is
- * ignored by `GtkBuilder` but required for UI design tools like
- * [Glade](https://glade.gnome.org/) to introspect what kind of properties and
- * internal children exist for a given type when the actual type does not exist.
+ * Unlike regular interface descriptions, [method@Gtk.WidgetClass.set_template]
+ * will expect a `<template>` tag as a direct child of the toplevel
+ * `<interface>` tag. The `<template>` tag must specify the “class” attribute
+ * which must be the type name of the widget. Optionally, the “parent”
+ * attribute may be specified to specify the direct parent type of the widget
+ * type; this is ignored by `GtkBuilder` but can be used by UI design tools to
+ * introspect what kind of properties and internal children exist for a given
+ * type when the actual type does not exist.
  *
  * The XML which is contained inside the `<template>` tag behaves as if it were
  * added to the `<object>` tag defining the widget itself. You may set properties
@@ -454,7 +458,13 @@ import org.gtkkn.bindings.glib.List as GlibList
  * which might be referenced by other widgets declared as children of the
  * `<template>` tag.
  *
- * An example of a template definition:
+ * Since, unlike the `<object>` tag, the `<template>` tag does not contain an
+ * “id” attribute, if you need to refer to the instance of the object itself that
+ * the template will create, simply refer to the template class name in an
+ * applicable element content.
+ *
+ * Here is an example of a template definition, which includes an example of
+ * this in the `<signal>` tag:
  *
  * ```xml
  * <interface>
@@ -499,13 +509,32 @@ import org.gtkkn.bindings.glib.List as GlibList
  * static void
  * foo_widget_init (FooWidget *self)
  * {
- *   // ...
  *   gtk_widget_init_template (GTK_WIDGET (self));
+ *
+ *   // Initialize the rest of the widget...
+ * }
+ * ```
+ *
+ * as well as calling [method@Gtk.Widget.dispose_template] from the dispose
+ * function:
+ *
+ * ```c
+ * static void
+ * foo_widget_dispose (GObject *gobject)
+ * {
+ *   FooWidget *self = FOO_WIDGET (gobject);
+ *
+ *   // Dispose objects for which you have a reference...
+ *
+ *   // Clear the template children for this widget type
+ *   gtk_widget_dispose_template (GTK_WIDGET (self), FOO_TYPE_WIDGET);
+ *
+ *   G_OBJECT_CLASS (foo_widget_parent_class)->dispose (gobject);
  * }
  * ```
  *
  * You can access widgets defined in the template using the
- * [id@gtk_widget_get_template_child] function, but you will typically declare
+ * [method@Gtk.Widget.get_template_child] function, but you will typically declare
  * a pointer in the instance private data structure of your type using the same
  * name as the widget in the template definition, and call
  * [method@Gtk.WidgetClass.bind_template_child_full] (or one of its wrapper macros
@@ -522,9 +551,19 @@ import org.gtkkn.bindings.glib.List as GlibList
  * G_DEFINE_TYPE_WITH_PRIVATE (FooWidget, foo_widget, GTK_TYPE_BOX)
  *
  * static void
+ * foo_widget_dispose (GObject *gobject)
+ * {
+ *   gtk_widget_dispose_template (GTK_WIDGET (gobject), FOO_TYPE_WIDGET);
+ *
+ *   G_OBJECT_CLASS (foo_widget_parent_class)->dispose (gobject);
+ * }
+ *
+ * static void
  * foo_widget_class_init (FooWidgetClass *klass)
  * {
  *   // ...
+ *   G_OBJECT_CLASS (klass)->dispose = foo_widget_dispose;
+ *
  *   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass),
  *                                                "/com/example/ui/foowidget.ui");
  *   gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (klass),
@@ -536,7 +575,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * static void
  * foo_widget_init (FooWidget *widget)
  * {
- *
+ *   gtk_widget_init_template (GTK_WIDGET (widget));
  * }
  * ```
  *
@@ -819,9 +858,10 @@ public open class Widget(
          * Gets the horizontal alignment of @widget.
          *
          * For backwards compatibility reasons this method will never return
-         * %GTK_ALIGN_BASELINE, but instead it will convert it to
-         * %GTK_ALIGN_FILL. Baselines are not supported for horizontal
-         * alignment.
+         * one of the baseline alignments, but instead it will convert it to
+         * `GTK_ALIGN_FILL` or `GTK_ALIGN_CENTER`.
+         *
+         * Baselines are not supported for horizontal alignment.
          *
          * @return the horizontal alignment of @widget
          */
@@ -1170,7 +1210,7 @@ public open class Widget(
      */
     public open var overflow: Overflow
         /**
-         * Returns the widgets overflow value.
+         * Returns the widget’s overflow value.
          *
          * @return The widget's overflow.
          */
@@ -1490,10 +1530,6 @@ public open class Widget(
          * Note that setting this to true doesn’t mean the widget is
          * actually viewable, see [method@Gtk.Widget.get_visible].
          *
-         * This function simply calls [method@Gtk.Widget.show] or
-         * [method@Gtk.Widget.hide] but is nicer to use when the
-         * visibility of the widget depends on some condition.
-         *
          * @param visible whether the widget should be shown or not
          */
         set(visible) = gtk_widget_set_visible(gtkWidgetPointer.reinterpret(), visible.asGBoolean())
@@ -1585,7 +1621,7 @@ public open class Widget(
     /**
      * Adds a style class to @widget.
      *
-     * After calling this function, the widgets style will match
+     * After calling this function, the widget’s style will match
      * for @css_class, according to CSS matching rules.
      *
      * Use [method@Gtk.Widget.remove_css_class] to remove the
@@ -1695,7 +1731,7 @@ public open class Widget(
      * The default `focus()` virtual function for a widget should return `TRUE` if
      * moving in @direction left the focus on a focusable location inside that
      * widget, and `FALSE` if moving in @direction moved the focus outside the
-     * widget. When returning `TRUE`, widgets normallycall [method@Gtk.Widget.grab_focus]
+     * widget. When returning `TRUE`, widgets normally call [method@Gtk.Widget.grab_focus]
      * to place the focus accordingly; when returning `FALSE`, they don’t modify
      * the current focus location.
      *
@@ -1715,7 +1751,9 @@ public open class Widget(
     /**
      * Computes the bounds for @widget in the coordinate space of @target.
      *
-     * FIXME: Explain what "bounds" are.
+     * The bounds of widget are (the bounding box of) the region that it is
+     * expected to draw in. See the [coordinate system](coordinates.html)
+     * overview to learn more.
      *
      * If the operation is successful, true is returned. If @widget has no
      * bounds or the bounds cannot be expressed in @target's coordinate space
@@ -1796,6 +1834,9 @@ public open class Widget(
      * when @widget and @target do not share a common ancestor. In that
      * case @out_transform gets set to the identity matrix.
      *
+     * To learn more about widget coordinate systems, see the coordinate
+     * system [overview](coordinates.html).
+     *
      * @param target the target widget that the matrix will transform to
      * @param outTransform location to
      *   store the final transformation
@@ -1843,6 +1884,39 @@ public open class Widget(
         gtk_widget_create_pango_layout(gtkWidgetPointer.reinterpret(), text)!!.run {
             Layout(reinterpret())
         }
+
+    /**
+     * Clears the template children for the given widget.
+     *
+     * This function is the opposite of [method@Gtk.Widget.init_template], and
+     * it is used to clear all the template children from a widget instance.
+     * If you bound a template child to a field in the instance structure, or
+     * in the instance private data structure, the field will be set to `NULL`
+     * after this function returns.
+     *
+     * You should call this function inside the `GObjectClass.dispose()`
+     * implementation of any widget that called `gtk_widget_init_template()`.
+     * Typically, you will want to call this function last, right before
+     * chaining up to the parent type's dispose implementation, e.g.
+     *
+     * ```c
+     * static void
+     * some_widget_dispose (GObject *gobject)
+     * {
+     *   SomeWidget *self = SOME_WIDGET (gobject);
+     *
+     *   // Clear the template data for SomeWidget
+     *   gtk_widget_dispose_template (GTK_WIDGET (self), SOME_TYPE_WIDGET);
+     *
+     *   G_OBJECT_CLASS (some_widget_parent_class)->dispose (gobject);
+     * }
+     * ```
+     *
+     * @param widgetType the type of the widget to finalize the template for
+     * @since 4.8
+     */
+    public open fun disposeTemplate(widgetType: ULong): Unit =
+        gtk_widget_dispose_template(gtkWidgetPointer.reinterpret(), widgetType)
 
     /**
      * Checks to see if a drag movement has passed the GTK drag threshold.
@@ -1893,12 +1967,18 @@ public open class Widget(
     /**
      * Returns the height that has currently been allocated to @widget.
      *
+     * To learn more about widget sizes, see the coordinate
+     * system [overview](coordinates.html).
+     *
      * @return the height of the @widget
      */
     public open fun getAllocatedHeight(): Int = gtk_widget_get_allocated_height(gtkWidgetPointer.reinterpret())
 
     /**
      * Returns the width that has currently been allocated to @widget.
+     *
+     * To learn more about widget sizes, see the coordinate
+     * system [overview](coordinates.html).
      *
      * @return the width of the @widget
      */
@@ -1922,6 +2002,18 @@ public open class Widget(
         gtk_widget_get_ancestor(gtkWidgetPointer.reinterpret(), widgetType)?.run {
             Widget(reinterpret())
         }
+
+    /**
+     * Returns the baseline that has currently been allocated to @widget.
+     *
+     * This function is intended to be used when implementing handlers
+     * for the `GtkWidget`Class.snapshot() function, and when allocating
+     * child widgets in `GtkWidget`Class.size_allocate().
+     *
+     * @return the baseline of the @widget, or -1 if none
+     * @since 4.12
+     */
+    public open fun getBaseline(): Int = gtk_widget_get_baseline(gtkWidgetPointer.reinterpret())
 
     /**
      * Determines whether the input focus can enter @widget or any
@@ -1969,6 +2061,20 @@ public open class Widget(
         gtk_widget_get_clipboard(gtkWidgetPointer.reinterpret())!!.run {
             Clipboard(reinterpret())
         }
+
+    /**
+     * Gets the current foreground color for the widget’s
+     * CSS style.
+     *
+     * This function should only be used in snapshot
+     * implementations that need to do custom
+     * drawing with the foreground color.
+     *
+     * @param color return location for the color
+     * @since 4.10
+     */
+    public open fun getColor(color: RGBA): Unit =
+        gtk_widget_get_color(gtkWidgetPointer.reinterpret(), color.gdkRGBAPointer)
 
     /**
      * Returns the list of style classes applied to @widget.
@@ -2035,7 +2141,7 @@ public open class Widget(
         }
 
     /**
-     * Returns the widgets first child.
+     * Returns the widget’s first child.
      *
      * This API is primarily meant for widget implementations.
      *
@@ -2125,9 +2231,10 @@ public open class Widget(
      * Gets the horizontal alignment of @widget.
      *
      * For backwards compatibility reasons this method will never return
-     * %GTK_ALIGN_BASELINE, but instead it will convert it to
-     * %GTK_ALIGN_FILL. Baselines are not supported for horizontal
-     * alignment.
+     * one of the baseline alignments, but instead it will convert it to
+     * `GTK_ALIGN_FILL` or `GTK_ALIGN_CENTER`.
+     *
+     * Baselines are not supported for horizontal alignment.
      *
      * @return the horizontal alignment of @widget
      */
@@ -2151,6 +2258,9 @@ public open class Widget(
      * should be using in [vfunc@Gtk.Widget.snapshot].
      *
      * For pointer events, see [method@Gtk.Widget.contains].
+     *
+     * To learn more about widget sizes, see the coordinate
+     * system [overview](coordinates.html).
      *
      * @return The height of @widget
      */
@@ -2195,7 +2305,7 @@ public open class Widget(
     public open fun getHexpandSet(): Boolean = gtk_widget_get_hexpand_set(gtkWidgetPointer.reinterpret()).asBoolean()
 
     /**
-     * Returns the widgets last child.
+     * Returns the widget’s last child.
      *
      * This API is primarily meant for widget implementations.
      *
@@ -2281,7 +2391,7 @@ public open class Widget(
         }
 
     /**
-     * Returns the widgets next sibling.
+     * Returns the widget’s next sibling.
      *
      * This API is primarily meant for widget implementations.
      *
@@ -2302,7 +2412,7 @@ public open class Widget(
     public open fun getOpacity(): Double = gtk_widget_get_opacity(gtkWidgetPointer.reinterpret())
 
     /**
-     * Returns the widgets overflow value.
+     * Returns the widget’s overflow value.
      *
      * @return The widget's overflow.
      */
@@ -2335,7 +2445,7 @@ public open class Widget(
      * the required height for the natural width is generally smaller than the
      * required height for the minimum width.
      *
-     * Use [id@gtk_widget_measure] if you want to support baseline alignment.
+     * Use [method@Gtk.Widget.measure] if you want to support baseline alignment.
      *
      * @param minimumSize location for storing the minimum size
      * @param naturalSize location for storing the natural size
@@ -2351,7 +2461,7 @@ public open class Widget(
         )
 
     /**
-     * Returns the widgets previous sibling.
+     * Returns the widget’s previous sibling.
      *
      * This API is primarily meant for widget implementations.
      *
@@ -2482,6 +2592,9 @@ public open class Widget(
      * writing orientation-independent code, such as when
      * implementing [iface@Gtk.Orientable] widgets.
      *
+     * To learn more about widget sizes, see the coordinate
+     * system [overview](coordinates.html).
+     *
      * @param orientation the orientation to query
      * @return The size of @widget in @orientation.
      */
@@ -2512,7 +2625,7 @@ public open class Widget(
      * The returned object is guaranteed to be the same
      * for the lifetime of @widget.
      *
-     * @return the widgets `GtkStyleContext`
+     * @return the widget’s `GtkStyleContext`
      */
     public open fun getStyleContext(): StyleContext =
         gtk_widget_get_style_context(gtkWidgetPointer.reinterpret())!!.run {
@@ -2621,6 +2734,9 @@ public open class Widget(
      * should be using in [vfunc@Gtk.Widget.snapshot].
      *
      * For pointer events, see [method@Gtk.Widget.contains].
+     *
+     * To learn more about widget sizes, see the coordinate
+     * system [overview](coordinates.html).
      *
      * @return The width of @widget
      */
@@ -3684,10 +3800,6 @@ public open class Widget(
      * Note that setting this to true doesn’t mean the widget is
      * actually viewable, see [method@Gtk.Widget.get_visible].
      *
-     * This function simply calls [method@Gtk.Widget.show] or
-     * [method@Gtk.Widget.hide] but is nicer to use when the
-     * visibility of the widget depends on some condition.
-     *
      * @param visible whether the widget should be shown or not
      */
     public open fun setVisible(visible: Boolean): Unit =
@@ -3902,6 +4014,11 @@ public open class Widget(
     /**
      * Emitted when the focus is moved.
      *
+     * The ::move-focus signal is a [keybinding signal](class.SignalAction.html).
+     *
+     * The default bindings for this signal are <kbd>Tab</kbd> to move forward,
+     * and <kbd>Shift</kbd>+<kbd>Tab</kbd> to move backward.
+     *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `direction` the direction of the focus move
      */
@@ -3919,7 +4036,7 @@ public open class Widget(
         )
 
     /**
-     * Emitted when the widgets tooltip is about to be shown.
+     * Emitted when the widget’s tooltip is about to be shown.
      *
      * This happens when the [property@Gtk.Widget:has-tooltip] property
      * is true and the hover timeout has expired with the cursor hovering

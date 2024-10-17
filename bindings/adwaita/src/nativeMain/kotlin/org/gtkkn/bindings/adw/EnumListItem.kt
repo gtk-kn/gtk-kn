@@ -18,7 +18,6 @@ import kotlin.String
 
 /**
  * `AdwEnumListItem` is the type of items in a [class@EnumListModel].
- * @since 1.0
  */
 public class EnumListItem(
     pointer: CPointer<AdwEnumListItem>,
@@ -28,15 +27,12 @@ public class EnumListItem(
 
     /**
      * The enum value name.
-     *
-     * @since 1.0
      */
     public val name: String
         /**
          * Gets the enum value name.
          *
          * @return the enum value name
-         * @since 1.0
          */
         get() =
             adw_enum_list_item_get_name(adwEnumListItemPointer.reinterpret())?.toKString()
@@ -44,15 +40,12 @@ public class EnumListItem(
 
     /**
      * The enum value nick.
-     *
-     * @since 1.0
      */
     public val nick: String
         /**
          * Gets the enum value nick.
          *
          * @return the enum value nick
-         * @since 1.0
          */
         get() =
             adw_enum_list_item_get_nick(adwEnumListItemPointer.reinterpret())?.toKString()
@@ -60,15 +53,12 @@ public class EnumListItem(
 
     /**
      * The enum value.
-     *
-     * @since 1.0
      */
     public val `value`: Int
         /**
          * Gets the enum value.
          *
          * @return the enum value
-         * @since 1.0
          */
         get() = adw_enum_list_item_get_value(adwEnumListItemPointer.reinterpret())
 
@@ -76,7 +66,6 @@ public class EnumListItem(
      * Gets the enum value name.
      *
      * @return the enum value name
-     * @since 1.0
      */
     public fun getName(): String =
         adw_enum_list_item_get_name(adwEnumListItemPointer.reinterpret())?.toKString()
@@ -86,7 +75,6 @@ public class EnumListItem(
      * Gets the enum value nick.
      *
      * @return the enum value nick
-     * @since 1.0
      */
     public fun getNick(): String =
         adw_enum_list_item_get_nick(adwEnumListItemPointer.reinterpret())?.toKString()
@@ -96,7 +84,6 @@ public class EnumListItem(
      * Gets the enum value.
      *
      * @return the enum value
-     * @since 1.0
      */
     public fun getValue(): Int = adw_enum_list_item_get_value(adwEnumListItemPointer.reinterpret())
 

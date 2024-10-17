@@ -36,48 +36,54 @@ import kotlin.Unit
  * on mobile phones. It can't be revealed if there are less than two pages.
  *
  * `AdwViewSwitcherBar` is intended to be used together with
- * [class@ViewSwitcherTitle].
- *
- * A common use case is to bind the [property@ViewSwitcherBar:reveal] property
- * to [property@ViewSwitcherTitle:title-visible] to automatically reveal the
- * view switcher bar when the title label is displayed in place of the view
- * switcher, as follows:
+ * `AdwViewSwitcher` in a header bar, and a [class@Breakpoint] showing the view
+ * switcher bar on narrow sizes, while removing the view switcher from the
+ * header bar, as follows:
  *
  * ```xml
- * <object class="GtkWindow">
- *   <child type="titlebar">
- *     <object class="AdwHeaderBar">
- *       <property name="centering-policy">strict</property>
- *       <child type="title">
- *         <object class="AdwViewSwitcherTitle" id="title">
- *           <property name="stack">stack</property>
- *         </object>
- *       </child>
- *     </object>
- *   </child>
+ * <object class="AdwWindow">
+ *   <property name="width-request">360</property>
+ *   <property name="height-request">200</property>
  *   <child>
- *     <object class="GtkBox">
- *       <property name="orientation">vertical</property>
- *       <child>
- *         <object class="AdwViewStack" id="stack"/>
+ *     <object class="AdwBreakpoint">
+ *       <condition>max-width: 550sp</condition>
+ *       <setter object="switcher_bar" property="reveal">True</setter>
+ *       <setter object="header_bar" property="title-widget"/>
+ *     </object>
+ *   </child>
+ *   <property name="content">
+ *     <object class="AdwToolbarView">
+ *       <child type="top">
+ *         <object class="AdwHeaderBar" id="header_bar">
+ *           <property name="title-widget">
+ *             <object class="AdwViewSwitcher">
+ *               <property name="stack">stack</property>
+ *               <property name="policy">wide</property>
+ *             </object>
+ *           </property>
+ *         </object>
  *       </child>
- *       <child>
- *         <object class="AdwViewSwitcherBar">
+ *       <property name="content">
+ *         <object class="AdwViewStack" id="stack"/>
+ *       </property>
+ *       <child type="bottom">
+ *         <object class="AdwViewSwitcherBar" id="switcher_bar">
  *           <property name="stack">stack</property>
- *           <binding name="reveal">
- *             <lookup name="title-visible">title</lookup>
- *           </binding>
  *         </object>
  *       </child>
  *     </object>
- *   </child>
+ *   </property>
  * </object>
  * ```
+ *
+ * It's recommended to set [property@ViewSwitcher:policy] to
+ * `ADW_VIEW_SWITCHER_POLICY_WIDE` in this case.
+ *
+ * You may have to adjust the breakpoint condition for your specific pages.
  *
  * ## CSS nodes
  *
  * `AdwViewSwitcherBar` has a single CSS node with name` viewswitcherbar`.
- * @since 1.0
  */
 public class ViewSwitcherBar(
     pointer: CPointer<AdwViewSwitcherBar>,
@@ -96,15 +102,12 @@ public class ViewSwitcherBar(
 
     /**
      * Whether the bar should be revealed or hidden.
-     *
-     * @since 1.0
      */
     public var reveal: Boolean
         /**
          * Gets whether @self should be revealed or hidden.
          *
          * @return whether @self is revealed
-         * @since 1.0
          */
         get() =
             adw_view_switcher_bar_get_reveal(adwViewSwitcherBarPointer.reinterpret()).asBoolean()
@@ -113,7 +116,6 @@ public class ViewSwitcherBar(
          * Sets whether @self should be revealed or hidden.
          *
          * @param reveal whether to reveal @self
-         * @since 1.0
          */
         set(reveal) =
             adw_view_switcher_bar_set_reveal(
@@ -123,15 +125,12 @@ public class ViewSwitcherBar(
 
     /**
      * The stack the view switcher controls.
-     *
-     * @since 1.0
      */
     public var stack: ViewStack?
         /**
          * Gets the stack controlled by @self.
          *
          * @return the stack
-         * @since 1.0
          */
         get() =
             adw_view_switcher_bar_get_stack(adwViewSwitcherBarPointer.reinterpret())?.run {
@@ -142,7 +141,6 @@ public class ViewSwitcherBar(
          * Sets the stack controlled by @self.
          *
          * @param stack a stack
-         * @since 1.0
          */
         set(stack) =
             adw_view_switcher_bar_set_stack(
@@ -154,7 +152,6 @@ public class ViewSwitcherBar(
      * Creates a new `AdwViewSwitcherBar`.
      *
      * @return the newly created `AdwViewSwitcherBar`
-     * @since 1.0
      */
     public constructor() : this(adw_view_switcher_bar_new()!!.reinterpret())
 
@@ -162,7 +159,6 @@ public class ViewSwitcherBar(
      * Gets whether @self should be revealed or hidden.
      *
      * @return whether @self is revealed
-     * @since 1.0
      */
     public fun getReveal(): Boolean =
         adw_view_switcher_bar_get_reveal(adwViewSwitcherBarPointer.reinterpret()).asBoolean()
@@ -171,7 +167,6 @@ public class ViewSwitcherBar(
      * Gets the stack controlled by @self.
      *
      * @return the stack
-     * @since 1.0
      */
     public fun getStack(): ViewStack? =
         adw_view_switcher_bar_get_stack(adwViewSwitcherBarPointer.reinterpret())?.run {
@@ -182,7 +177,6 @@ public class ViewSwitcherBar(
      * Sets whether @self should be revealed or hidden.
      *
      * @param reveal whether to reveal @self
-     * @since 1.0
      */
     public fun setReveal(reveal: Boolean): Unit =
         adw_view_switcher_bar_set_reveal(
@@ -194,7 +188,6 @@ public class ViewSwitcherBar(
      * Sets the stack controlled by @self.
      *
      * @param stack a stack
-     * @since 1.0
      */
     public fun setStack(stack: ViewStack? = null): Unit =
         adw_view_switcher_bar_set_stack(

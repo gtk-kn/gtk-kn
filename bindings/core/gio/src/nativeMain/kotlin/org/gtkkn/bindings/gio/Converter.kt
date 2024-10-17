@@ -13,7 +13,9 @@ import org.gtkkn.native.gio.g_converter_reset
 import kotlin.Unit
 
 /**
- * #GConverter is implemented by objects that convert
+ * `GConverter` is an interface for streaming conversions.
+ *
+ * `GConverter` is implemented by objects that convert
  * binary data in various ways. The conversion can be
  * stateful and may fail at any place.
  *

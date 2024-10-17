@@ -14,6 +14,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GApplicationCommandLine
 import org.gtkkn.native.gio.g_application_command_line_create_file_for_arg
+import org.gtkkn.native.gio.g_application_command_line_done
 import org.gtkkn.native.gio.g_application_command_line_get_cwd
 import org.gtkkn.native.gio.g_application_command_line_get_environ
 import org.gtkkn.native.gio.g_application_command_line_get_exit_status
@@ -23,6 +24,8 @@ import org.gtkkn.native.gio.g_application_command_line_get_platform_data
 import org.gtkkn.native.gio.g_application_command_line_get_stdin
 import org.gtkkn.native.gio.g_application_command_line_get_type
 import org.gtkkn.native.gio.g_application_command_line_getenv
+import org.gtkkn.native.gio.g_application_command_line_print_literal
+import org.gtkkn.native.gio.g_application_command_line_printerr_literal
 import org.gtkkn.native.gio.g_application_command_line_set_exit_status
 import kotlin.Boolean
 import kotlin.Int
@@ -31,30 +34,33 @@ import kotlin.Unit
 import kotlin.collections.List
 
 /**
- * #GApplicationCommandLine represents a command-line invocation of
- * an application.  It is created by #GApplication and emitted
- * in the #GApplication::command-line signal and virtual function.
+ * `GApplicationCommandLine` represents a command-line invocation of
+ * an application.
+ *
+ * It is created by [class@Gio.Application] and emitted
+ * in the [signal@Gio.Application::command-line] signal and virtual function.
  *
  * The class contains the list of arguments that the program was invoked
- * with.  It is also possible to query if the commandline invocation was
+ * with. It is also possible to query if the commandline invocation was
  * local (ie: the current process is running in direct response to the
  * invocation) or remote (ie: some other process forwarded the
  * commandline to this process).
  *
- * The GApplicationCommandLine object can provide the @argc and @argv
- * parameters for use with the #GOptionContext command-line parsing API,
- * with the g_application_command_line_get_arguments() function. See
+ * The `GApplicationCommandLine` object can provide the @argc and @argv
+ * parameters for use with the [struct@GLib.OptionContext] command-line parsing API,
+ * with the [method@Gio.ApplicationCommandLine.get_arguments] function. See
  * [gapplication-example-cmdline3.c][gapplication-example-cmdline3]
  * for an example.
  *
  * The exit status of the originally-invoked process may be set and
- * messages can be printed to stdout or stderr of that process.  The
- * lifecycle of the originally-invoked process is tied to the lifecycle
- * of this object (ie: the process exits when the last reference is
- * dropped).
+ * messages can be printed to stdout or stderr of that process.
  *
- * The main use for #GApplicationCommandLine (and the
- * #GApplication::command-line signal) is 'Emacs server' like use cases:
+ * For remote invocation, the originally-invoked process exits when
+ * [method@Gio.ApplicationCommandLine.done] method is called. This method is
+ * also automatically called when the object is disposed.
+ *
+ * The main use for `GApplicationCommandLine` (and the
+ * [signal@Gio.Application::command-line] signal) is 'Emacs server' like use cases:
  * You can set the `EDITOR` environment variable to have e.g. git use
  * your favourite editor to edit commit messages, and if you already
  * have an instance of the editor running, the editing will happen
@@ -63,11 +69,12 @@ import kotlin.collections.List
  * does not return until the editing is done.
  *
  * Normally, the commandline is completely handled in the
- * #GApplication::command-line handler. The launching instance exits
+ * [signal@Gio.Application::command-line] handler. The launching instance exits
  * once the signal handler in the primary instance has returned, and
  * the return value of the signal handler becomes the exit status
  * of the launching instance.
- * |[<!-- language="C" -->
+ *
+ * ```c
  * static int
  * command_line (GApplication            *application,
  *               GApplicationCommandLine *cmdline)
@@ -89,13 +96,15 @@ import kotlin.collections.List
  *
  *   return 0;
  * }
- * ]|
+ * ```
+ *
  * The complete example can be found here:
  * [gapplication-example-cmdline.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-cmdline.c)
  *
  * In more complicated cases, the handling of the commandline can be
  * split between the launcher and the primary instance.
- * |[<!-- language="C" -->
+ *
+ * ```c
  * static gboolean
  *  test_local_cmdline (GApplication   *application,
  *                      gchar        ***arguments,
@@ -141,18 +150,19 @@ import kotlin.collections.List
  *
  *   ...
  * }
- * ]|
+ * ```
+ *
  * In this example of split commandline handling, options that start
  * with `--local-` are handled locally, all other options are passed
- * to the #GApplication::command-line handler which runs in the primary
+ * to the [signal@Gio.Application::command-line] handler which runs in the primary
  * instance.
  *
  * The complete example can be found here:
  * [gapplication-example-cmdline2.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-cmdline2.c)
  *
- * If handling the commandline requires a lot of work, it may
- * be better to defer it.
- * |[<!-- language="C" -->
+ * If handling the commandline requires a lot of work, it may be better to defer it.
+ *
+ * ```c
  * static gboolean
  * my_cmdline_handler (gpointer data)
  * {
@@ -182,10 +192,11 @@ import kotlin.collections.List
  *
  *   return 0;
  * }
- * ]|
+ * ```
+ *
  * In this example the commandline is not completely handled before
- * the #GApplication::command-line handler returns. Instead, we keep
- * a reference to the #GApplicationCommandLine object and handle it
+ * the [signal@Gio.Application::command-line] handler returns. Instead, we keep
+ * a reference to the `GApplicationCommandLine` object and handle it
  * later (in this example, in an idle). Note that it is necessary to
  * hold the application until you are done with the commandline.
  *
@@ -205,6 +216,11 @@ public open class ApplicationCommandLine(
     public val gioApplicationCommandLinePointer: CPointer<GApplicationCommandLine>
         get() = gPointer.reinterpret()
 
+    /**
+     * Whether this is a remote commandline.
+     *
+     * @since 2.28
+     */
     public open val isRemote: Boolean
         /**
          * Determines if @cmdline represents a remote invocation.
@@ -234,6 +250,27 @@ public open class ApplicationCommandLine(
         )!!.run {
             File.wrap(reinterpret())
         }
+
+    /**
+     * Signals that command line processing is completed.
+     *
+     * For remote invocation, it causes the invoking process to terminate.
+     *
+     * For local invocation, it does nothing.
+     *
+     * This method should be called in the [signal@Gio.Application::command-line]
+     * handler, after the exit status is set and all messages are printed.
+     *
+     * After this call, g_application_command_line_set_exit_status() has no effect.
+     * Subsequent calls to this method are no-ops.
+     *
+     * This method is automatically called when the #GApplicationCommandLine
+     * object is disposed — so you can omit the call in non-garbage collected
+     * languages.
+     *
+     * @since 2.80
+     */
+    public open fun done(): Unit = g_application_command_line_done(gioApplicationCommandLinePointer.reinterpret())
 
     /**
      * Gets the working directory of the command line invocation.
@@ -296,7 +333,7 @@ public open class ApplicationCommandLine(
         g_application_command_line_get_is_remote(gioApplicationCommandLinePointer.reinterpret()).asBoolean()
 
     /**
-     * Gets the options there were passed to g_application_command_line().
+     * Gets the options that were passed to g_application_command_line().
      *
      * If you did not override local_command_line() then these are the same
      * options that were parsed according to the #GOptionEntrys added to the
@@ -305,6 +342,9 @@ public open class ApplicationCommandLine(
      *
      * If no options were sent then an empty dictionary is returned so that
      * you don't need to check for null.
+     *
+     * The data has been passed via an untrusted external process, so the types of
+     * all values must be checked before being used.
      *
      * @return a #GVariantDict with the options
      * @since 2.40
@@ -321,6 +361,9 @@ public open class ApplicationCommandLine(
      * context in which the invocation occurred.  It typically contains
      * information like the current working directory and the startup
      * notification ID.
+     *
+     * It comes from an untrusted external process and hence the types of all
+     * values must be validated before being used.
      *
      * For local invocation, it will be null.
      *
@@ -376,6 +419,38 @@ public open class ApplicationCommandLine(
         )?.toKString()
 
     /**
+     * Prints a message using the stdout print handler in the invoking process.
+     *
+     * Unlike g_application_command_line_print(), @message is not a `printf()`-style
+     * format string. Use this function if @message contains text you don't have
+     * control over, that could include `printf()` escape sequences.
+     *
+     * @param message the message
+     * @since 2.80
+     */
+    public open fun printLiteral(message: String): Unit =
+        g_application_command_line_print_literal(
+            gioApplicationCommandLinePointer.reinterpret(),
+            message
+        )
+
+    /**
+     * Prints a message using the stderr print handler in the invoking process.
+     *
+     * Unlike g_application_command_line_printerr(), @message is not
+     * a `printf()`-style format string. Use this function if @message contains text
+     * you don't have control over, that could include `printf()` escape sequences.
+     *
+     * @param message the message
+     * @since 2.80
+     */
+    public open fun printerrLiteral(message: String): Unit =
+        g_application_command_line_printerr_literal(
+            gioApplicationCommandLinePointer.reinterpret(),
+            message
+        )
+
+    /**
      * Sets the exit status that will be used when the invoking process
      * exits.
      *
@@ -397,6 +472,9 @@ public open class ApplicationCommandLine(
      * have been 'successful' in a certain sense, and the exit status is
      * always zero.  If the application use count is zero, though, the exit
      * status of the local #GApplicationCommandLine is used.
+     *
+     * This method is a no-op if g_application_command_line_done() has
+     * been called.
      *
      * @param exitStatus the exit status
      * @since 2.28

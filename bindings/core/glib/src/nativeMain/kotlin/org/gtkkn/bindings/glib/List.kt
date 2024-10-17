@@ -8,12 +8,15 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GList
+import org.gtkkn.native.glib.g_list_pop_allocator
+import kotlin.Unit
 
 /**
  * The #GList struct is used for each element in a doubly-linked list.
  *
  * ## Skipped during bindings generation
  *
+ * - parameter `allocator`: Allocator
  * - field `data`: gpointer
  */
 public class List(
@@ -44,6 +47,8 @@ public class List(
             }
 
     public companion object : RecordCompanion<List, GList> {
+        public fun popAllocator(): Unit = g_list_pop_allocator()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): List = List(pointer.reinterpret())
     }
 }

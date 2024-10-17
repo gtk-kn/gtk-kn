@@ -19,8 +19,9 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * #GSimpleActionGroup is a hash table filled with #GAction objects,
- * implementing the #GActionGroup and #GActionMap interfaces.
+ * `GSimpleActionGroup` is a hash table filled with [iface@Gio.Action] objects,
+ * implementing the [iface@Gio.ActionGroup] and [iface@Gio.ActionMap]
+ * interfaces.
  *
  * ## Skipped during bindings generation
  *

@@ -16,6 +16,10 @@ import kotlin.Int
 
 /**
  * A `GdkDragSurface` is an interface for surfaces used during DND.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - signal `compute-size`: Unsupported parameter `size` : DragSurfaceSize
  */
 public interface DragSurface : Interface, KGTyped {
     public val gdkDragSurfacePointer: CPointer<GdkDragSurface>

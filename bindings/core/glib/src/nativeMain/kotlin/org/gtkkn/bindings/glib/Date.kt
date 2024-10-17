@@ -33,7 +33,6 @@ import org.gtkkn.native.glib.g_date_order
 import org.gtkkn.native.glib.g_date_set_julian
 import org.gtkkn.native.glib.g_date_set_month
 import org.gtkkn.native.glib.g_date_set_parse
-import org.gtkkn.native.glib.g_date_set_time_t
 import org.gtkkn.native.glib.g_date_set_time_val
 import org.gtkkn.native.glib.g_date_subtract_days
 import org.gtkkn.native.glib.g_date_subtract_months
@@ -44,23 +43,50 @@ import org.gtkkn.native.glib.g_date_valid_month
 import org.gtkkn.native.glib.g_date_valid_weekday
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.UInt
 import kotlin.Unit
 
 /**
- * Represents a day between January 1, Year 1 and a few thousand years in
- * the future. None of its members should be accessed directly.
+ * `GDate` is a struct for calendrical calculations.
  *
- * If the `GDate` is obtained from g_date_new(), it will be safe
- * to mutate but invalid and thus not safe for calendrical computations.
+ * The `GDate` data structure represents a day between January 1, Year 1,
+ * and sometime a few thousand years in the future (right now it will go
+ * to the year 65535 or so, but [method@GLib.Date.set_parse] only parses up to the
+ * year 8000 or so - just count on "a few thousand"). `GDate` is meant to
+ * represent everyday dates, not astronomical dates or historical dates
+ * or ISO timestamps or the like. It extrapolates the current Gregorian
+ * calendar forward and backward in time; there is no attempt to change
+ * the calendar to match time periods or locations. `GDate` does not store
+ * time information; it represents a day.
  *
- * If it's declared on the stack, it will contain garbage so must be
- * initialized with g_date_clear(). g_date_clear() makes the date invalid
- * but safe. An invalid date doesn't represent a day, it's "empty." A date
- * becomes valid after you set it to a Julian day or you set a day, month,
- * and year.
+ * The `GDate` implementation has several nice features; it is only a
+ * 64-bit struct, so storing large numbers of dates is very efficient. It
+ * can keep both a Julian and day-month-year representation of the date,
+ * since some calculations are much easier with one representation or the
+ * other. A Julian representation is simply a count of days since some
+ * fixed day in the past; for #GDate the fixed day is January 1, 1 AD.
+ * ("Julian" dates in the #GDate API aren't really Julian dates in the
+ * technical sense; technically, Julian dates count from the start of the
+ * Julian period, Jan 1, 4713 BC).
+ *
+ * `GDate` is simple to use. First you need a "blank" date; you can get a
+ * dynamically allocated date from [ctor@GLib.Date.new], or you can declare an
+ * automatic variable or array and initialize it by calling [method@GLib.Date.clear].
+ * A cleared date is safe; it's safe to call [method@GLib.Date.set_dmy] and the other
+ * mutator functions to initialize the value of a cleared date. However, a cleared date
+ * is initially invalid, meaning that it doesn't represent a day that exists.
+ * It is undefined to call any of the date calculation routines on an invalid date.
+ * If you obtain a date from a user or other unpredictable source, you should check
+ * its validity with the [method@GLib.Date.valid] predicate. [method@GLib.Date.valid]
+ * is also used to check for errors with [method@GLib.Date.set_parse] and other functions
+ * that can fail. Dates can be invalidated by calling [method@GLib.Date.clear] again.
+ *
+ * It is very important to use the API to access the `GDate` struct. Often only the
+ * day-month-year or only the Julian representation is valid. Sometimes neither is valid.
+ * Use the API.
+ *
+ * GLib also features `GDateTime` which represents a precise time.
  *
  * ## Skipped during bindings generation
  *
@@ -69,6 +95,7 @@ import kotlin.Unit
  * - parameter `day`: DateDay
  * - parameter `day`: DateDay
  * - parameter `time_`: Time
+ * - parameter `timet`: time_t
  * - parameter `year`: DateYear
  * - parameter `tm`: gpointer
  * - parameter `day`: DateDay
@@ -124,7 +151,7 @@ public class Date(
         }
 
     /**
-     * the day of the day-month-year representation of the date,
+     * the month of the day-month-year representation of the date,
      *   as a number between 1 and 12
      */
     public var month: UInt
@@ -134,7 +161,7 @@ public class Date(
         }
 
     /**
-     * the day of the day-month-year representation of the date
+     * the year of the day-month-year representation of the date
      */
     public var year: UInt
         get() = glibDatePointer.pointed.year
@@ -388,24 +415,6 @@ public class Date(
      * @param str string to parse
      */
     public fun setParse(str: String): Unit = g_date_set_parse(glibDatePointer.reinterpret(), str)
-
-    /**
-     * Sets the value of a date to the date corresponding to a time
-     * specified as a time_t. The time to date conversion is done using
-     * the user's current timezone.
-     *
-     * To set the value of a date to the current day, you could write:
-     * |[<!-- language="C" -->
-     *  time_t now = time (NULL);
-     *  if (now == (time_t) -1)
-     *    // handle the error
-     *  g_date_set_time_t (date, now);
-     * ]|
-     *
-     * @param timet time_t value to set
-     * @since 2.10
-     */
-    public fun setTimeT(timet: Long): Unit = g_date_set_time_t(glibDatePointer.reinterpret(), timet)
 
     /**
      * Sets the value of a date from a #GTimeVal value.  Note that the

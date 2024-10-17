@@ -23,6 +23,11 @@ import kotlin.Unit
 /**
  * The `GError` structure contains information about
  * an error that has occurred.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - parameter `error_type_init`: ErrorInitFunc
+ * - parameter `error_type_init`: ErrorInitFunc
  */
 public class Error(
     pointer: CPointer<GError>,

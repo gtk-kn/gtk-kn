@@ -34,11 +34,11 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
- * A #GDBusObjectSkeleton instance is essentially a group of D-Bus
+ * A `GDBusObjectSkeleton` instance is essentially a group of D-Bus
  * interfaces. The set of exported interfaces on the object may be
  * dynamic and change at runtime.
  *
- * This type is intended to be used with #GDBusObjectManager.
+ * This type is intended to be used with [iface@Gio.DBusObjectManager].
  *
  * ## Skipped during bindings generation
  *

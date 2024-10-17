@@ -17,10 +17,15 @@ import org.gtkkn.native.gio.g_pollable_output_stream_is_writable
 import kotlin.Boolean
 
 /**
- * #GPollableOutputStream is implemented by #GOutputStreams that
+ * `GPollableOutputStream` is implemented by [class@Gio.OutputStream]s that
  * can be polled for readiness to write. This can be used when
  * interfacing with a non-GIO API that expects
  * UNIX-file-descriptor-style asynchronous I/O rather than GIO-style.
+ *
+ * Some classes may implement `GPollableOutputStream` but have only certain
+ * instances of that class be pollable. If [method@Gio.PollableOutputStream.can_poll]
+ * returns false, then the behavior of other `GPollableOutputStream` methods is
+ * undefined.
  *
  * ## Skipped during bindings generation
  *
@@ -57,6 +62,9 @@ public interface PollableOutputStream : Interface, KGTyped {
      * triggers, so you should use g_pollable_output_stream_write_nonblocking()
      * rather than g_output_stream_write() from the callback.
      *
+     * The behaviour of this method is undefined if
+     * g_pollable_output_stream_can_poll() returns false for @stream.
+     *
      * @param cancellable a #GCancellable, or null
      * @return a new #GSource
      * @since 2.28
@@ -78,6 +86,9 @@ public interface PollableOutputStream : Interface, KGTyped {
      * non-blocking behavior, you should always use
      * g_pollable_output_stream_write_nonblocking(), which will return a
      * %G_IO_ERROR_WOULD_BLOCK error rather than blocking.
+     *
+     * The behaviour of this method is undefined if
+     * g_pollable_output_stream_can_poll() returns false for @stream.
      *
      * @return true if @stream is writable, false if not. If an error
      *   has occurred on @stream, this will result in

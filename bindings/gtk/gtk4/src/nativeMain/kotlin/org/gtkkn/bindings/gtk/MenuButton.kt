@@ -22,7 +22,9 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkMenuButton
+import org.gtkkn.native.gtk.gtk_menu_button_get_active
 import org.gtkkn.native.gtk.gtk_menu_button_get_always_show_arrow
+import org.gtkkn.native.gtk.gtk_menu_button_get_can_shrink
 import org.gtkkn.native.gtk.gtk_menu_button_get_child
 import org.gtkkn.native.gtk.gtk_menu_button_get_direction
 import org.gtkkn.native.gtk.gtk_menu_button_get_has_frame
@@ -36,7 +38,9 @@ import org.gtkkn.native.gtk.gtk_menu_button_get_use_underline
 import org.gtkkn.native.gtk.gtk_menu_button_new
 import org.gtkkn.native.gtk.gtk_menu_button_popdown
 import org.gtkkn.native.gtk.gtk_menu_button_popup
+import org.gtkkn.native.gtk.gtk_menu_button_set_active
 import org.gtkkn.native.gtk.gtk_menu_button_set_always_show_arrow
+import org.gtkkn.native.gtk.gtk_menu_button_set_can_shrink
 import org.gtkkn.native.gtk.gtk_menu_button_set_child
 import org.gtkkn.native.gtk.gtk_menu_button_set_create_popup_func
 import org.gtkkn.native.gtk.gtk_menu_button_set_direction
@@ -138,15 +142,43 @@ public open class MenuButton(
         get() = gPointer.reinterpret()
 
     /**
+     * Whether the menu button is active.
+     *
+     * @since 4.10
+     */
+    public open var active: Boolean
+        /**
+         * Returns whether the menu button is active.
+         *
+         * @return TRUE if the button is active
+         * @since 4.10
+         */
+        get() = gtk_menu_button_get_active(gtkMenuButtonPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets whether the menu button is active.
+         *
+         * @param active whether the menu button is active
+         * @since 4.10
+         */
+        set(active) =
+            gtk_menu_button_set_active(
+                gtkMenuButtonPointer.reinterpret(),
+                active.asGBoolean()
+            )
+
+    /**
      * Whether to show a dropdown arrow even when using an icon or a custom child.
      *
      * @since 4.4
      */
     public open var alwaysShowArrow: Boolean
         /**
-         * Gets whether to show a dropdown arrow even when using an icon.
+         * Gets whether to show a dropdown arrow even when using an icon or a custom
+         * child.
          *
-         * @return whether to show a dropdown arrow even when using an icon
+         * @return whether to show a dropdown arrow even when using an icon or a custom
+         * child.
          * @since 4.4
          */
         get() =
@@ -156,13 +188,47 @@ public open class MenuButton(
          * Sets whether to show a dropdown arrow even when using an icon or a custom
          * child.
          *
-         * @param alwaysShowArrow hether to show a dropdown arrow even when using an icon
+         * @param alwaysShowArrow whether to show a dropdown arrow even when using an icon
+         * or a custom child
          * @since 4.4
          */
         set(alwaysShowArrow) =
             gtk_menu_button_set_always_show_arrow(
                 gtkMenuButtonPointer.reinterpret(),
                 alwaysShowArrow.asGBoolean()
+            )
+
+    /**
+     * Whether the size of the button can be made smaller than the natural
+     * size of its contents.
+     *
+     * @since 4.12
+     */
+    public open var canShrink: Boolean
+        /**
+         * Retrieves whether the button can be smaller than the natural
+         * size of its contents.
+         *
+         * @return true if the button can shrink, and false otherwise
+         * @since 4.12
+         */
+        get() = gtk_menu_button_get_can_shrink(gtkMenuButtonPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets whether the button size can be smaller than the natural size of
+         * its contents.
+         *
+         * For text buttons, setting @can_shrink to true will ellipsize the label.
+         *
+         * For icon buttons, this function has no effect.
+         *
+         * @param canShrink whether the button can shrink
+         * @since 4.12
+         */
+        set(canShrink) =
+            gtk_menu_button_set_can_shrink(
+                gtkMenuButtonPointer.reinterpret(),
+                canShrink.asGBoolean()
             )
 
     /**
@@ -362,13 +428,33 @@ public open class MenuButton(
     public constructor() : this(gtk_menu_button_new()!!.reinterpret())
 
     /**
-     * Gets whether to show a dropdown arrow even when using an icon.
+     * Returns whether the menu button is active.
      *
-     * @return whether to show a dropdown arrow even when using an icon
+     * @return TRUE if the button is active
+     * @since 4.10
+     */
+    public open fun getActive(): Boolean = gtk_menu_button_get_active(gtkMenuButtonPointer.reinterpret()).asBoolean()
+
+    /**
+     * Gets whether to show a dropdown arrow even when using an icon or a custom
+     * child.
+     *
+     * @return whether to show a dropdown arrow even when using an icon or a custom
+     * child.
      * @since 4.4
      */
     public open fun getAlwaysShowArrow(): Boolean =
         gtk_menu_button_get_always_show_arrow(gtkMenuButtonPointer.reinterpret()).asBoolean()
+
+    /**
+     * Retrieves whether the button can be smaller than the natural
+     * size of its contents.
+     *
+     * @return true if the button can shrink, and false otherwise
+     * @since 4.12
+     */
+    public open fun getCanShrink(): Boolean =
+        gtk_menu_button_get_can_shrink(gtkMenuButtonPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the child widget of @menu_button.
@@ -466,16 +552,43 @@ public open class MenuButton(
     public open fun popup(): Unit = gtk_menu_button_popup(gtkMenuButtonPointer.reinterpret())
 
     /**
+     * Sets whether the menu button is active.
+     *
+     * @param active whether the menu button is active
+     * @since 4.10
+     */
+    public open fun setActive(active: Boolean): Unit =
+        gtk_menu_button_set_active(gtkMenuButtonPointer.reinterpret(), active.asGBoolean())
+
+    /**
      * Sets whether to show a dropdown arrow even when using an icon or a custom
      * child.
      *
-     * @param alwaysShowArrow hether to show a dropdown arrow even when using an icon
+     * @param alwaysShowArrow whether to show a dropdown arrow even when using an icon
+     * or a custom child
      * @since 4.4
      */
     public open fun setAlwaysShowArrow(alwaysShowArrow: Boolean): Unit =
         gtk_menu_button_set_always_show_arrow(
             gtkMenuButtonPointer.reinterpret(),
             alwaysShowArrow.asGBoolean()
+        )
+
+    /**
+     * Sets whether the button size can be smaller than the natural size of
+     * its contents.
+     *
+     * For text buttons, setting @can_shrink to true will ellipsize the label.
+     *
+     * For icon buttons, this function has no effect.
+     *
+     * @param canShrink whether the button can shrink
+     * @since 4.12
+     */
+    public open fun setCanShrink(canShrink: Boolean): Unit =
+        gtk_menu_button_set_can_shrink(
+            gtkMenuButtonPointer.reinterpret(),
+            canShrink.asGBoolean()
         )
 
     /**

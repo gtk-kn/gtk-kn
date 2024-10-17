@@ -42,7 +42,6 @@ import kotlin.String
  *
  * - `style-hc-dark.css` contains styles used when the system high contrast
  *   preference is enabled and [property@StyleManager:dark] is `TRUE`.
- * @since 1.0
  */
 public open class Application(
     pointer: CPointer<AdwApplication>,
@@ -61,15 +60,15 @@ public open class Application(
      *
      * This is a convenience property allowing to access `AdwStyleManager` through
      * property bindings or expressions.
-     *
-     * @since 1.0
      */
     public open val styleManager: StyleManager
         /**
          * Gets the style manager for @self.
          *
+         * This is a convenience property allowing to access `AdwStyleManager` through
+         * property bindings or expressions.
+         *
          * @return the style manager
-         * @since 1.0
          */
         get() =
             adw_application_get_style_manager(adwApplicationPointer.reinterpret())!!.run {
@@ -88,7 +87,6 @@ public open class Application(
      * @param applicationId The application ID
      * @param flags The application flags
      * @return the newly created `AdwApplication`
-     * @since 1.0
      */
     public constructor(applicationId: String? = null, flags: ApplicationFlags) :
         this(adw_application_new(applicationId, flags.mask)!!.reinterpret())
@@ -96,8 +94,10 @@ public open class Application(
     /**
      * Gets the style manager for @self.
      *
+     * This is a convenience property allowing to access `AdwStyleManager` through
+     * property bindings or expressions.
+     *
      * @return the style manager
-     * @since 1.0
      */
     public open fun getStyleManager(): StyleManager =
         adw_application_get_style_manager(adwApplicationPointer.reinterpret())!!.run {

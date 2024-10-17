@@ -11,6 +11,8 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -23,6 +25,7 @@ import org.gtkkn.native.adw.adw_action_row_get_activatable_widget
 import org.gtkkn.native.adw.adw_action_row_get_icon_name
 import org.gtkkn.native.adw.adw_action_row_get_subtitle
 import org.gtkkn.native.adw.adw_action_row_get_subtitle_lines
+import org.gtkkn.native.adw.adw_action_row_get_subtitle_selectable
 import org.gtkkn.native.adw.adw_action_row_get_title_lines
 import org.gtkkn.native.adw.adw_action_row_get_type
 import org.gtkkn.native.adw.adw_action_row_new
@@ -31,12 +34,14 @@ import org.gtkkn.native.adw.adw_action_row_set_activatable_widget
 import org.gtkkn.native.adw.adw_action_row_set_icon_name
 import org.gtkkn.native.adw.adw_action_row_set_subtitle
 import org.gtkkn.native.adw.adw_action_row_set_subtitle_lines
+import org.gtkkn.native.adw.adw_action_row_set_subtitle_selectable
 import org.gtkkn.native.adw.adw_action_row_set_title_lines
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
+import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.ULong
@@ -81,8 +86,6 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - method `subtitle`: Property TypeInfo of getter and setter do not match
- *
- * @since 1.0
  */
 public open class ActionRow(
     pointer: CPointer<AdwActionRow>,
@@ -106,21 +109,18 @@ public open class ActionRow(
      * The widget to activate when the row is activated.
      *
      * The row can be activated either by clicking on it, calling
-     * [method@ActionRow.activate], or via mnemonics in the title or the subtitle.
+     * [method@ActionRow.activate], or via mnemonics in the title.
      * See the [property@PreferencesRow:use-underline] property to enable
      * mnemonics.
      *
      * The target widget will be activated by emitting the
      * [signal@Gtk.Widget::mnemonic-activate] signal on it.
-     *
-     * @since 1.0
      */
     public open var activatableWidget: Widget?
         /**
          * Gets the widget activated when @self is activated.
          *
          * @return the activatable widget for @self
-         * @since 1.0
          */
         get() =
             adw_action_row_get_activatable_widget(adwActionRowPointer.reinterpret())?.run {
@@ -130,8 +130,14 @@ public open class ActionRow(
         /**
          * Sets the widget to activate when @self is activated.
          *
+         * The row can be activated either by clicking on it, calling
+         * [method@ActionRow.activate], or via mnemonics in the title.
+         * See the [property@PreferencesRow:use-underline] property to enable mnemonics.
+         *
+         * The target widget will be activated by emitting the
+         * [signal@Gtk.Widget::mnemonic-activate] signal on it.
+         *
          * @param widget the target widget
-         * @since 1.0
          */
         set(widget) =
             adw_action_row_set_activatable_widget(
@@ -141,15 +147,12 @@ public open class ActionRow(
 
     /**
      * The icon name for this row.
-     *
-     * @since 1.0
      */
     public open var iconName: String?
         /**
          * Gets the icon name for @self.
          *
          * @return the icon name for @self
-         * @since 1.0
          */
         get() = adw_action_row_get_icon_name(adwActionRowPointer.reinterpret())?.toKString()
 
@@ -157,7 +160,6 @@ public open class ActionRow(
          * Sets the icon name for @self.
          *
          * @param iconName the icon name
-         * @since 1.0
          */
         set(iconName) = adw_action_row_set_icon_name(adwActionRowPointer.reinterpret(), iconName)
 
@@ -166,19 +168,14 @@ public open class ActionRow(
      * ellipsized.
      *
      * If the value is 0, the number of lines won't be limited.
-     *
-     * @since 1.0
      */
     public open var subtitleLines: Int
         /**
          * Gets the number of lines at the end of which the subtitle label will be
          * ellipsized.
          *
-         * If the value is 0, the number of lines won't be limited.
-         *
          * @return the number of lines at the end of which the subtitle label will be
          *   ellipsized
-         * @since 1.0
          */
         get() = adw_action_row_get_subtitle_lines(adwActionRowPointer.reinterpret())
 
@@ -190,7 +187,6 @@ public open class ActionRow(
          *
          * @param subtitleLines the number of lines at the end of which the subtitle label will be
          * ellipsized
-         * @since 1.0
          */
         set(subtitleLines) =
             adw_action_row_set_subtitle_lines(
@@ -199,22 +195,48 @@ public open class ActionRow(
             )
 
     /**
+     * Whether the user can copy the subtitle from the label.
+     *
+     * See also [property@Gtk.Label:selectable].
+     *
+     * @since 1.3
+     */
+    public open var subtitleSelectable: Boolean
+        /**
+         * Gets whether the user can copy the subtitle from the label
+         *
+         * @return whether the user can copy the subtitle from the label
+         * @since 1.3
+         */
+        get() =
+            adw_action_row_get_subtitle_selectable(adwActionRowPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets whether the user can copy the subtitle from the label
+         *
+         * See also [property@Gtk.Label:selectable].
+         *
+         * @param subtitleSelectable `TRUE` if the user can copy the subtitle from the label
+         * @since 1.3
+         */
+        set(subtitleSelectable) =
+            adw_action_row_set_subtitle_selectable(
+                adwActionRowPointer.reinterpret(),
+                subtitleSelectable.asGBoolean()
+            )
+
+    /**
      * The number of lines at the end of which the title label will be ellipsized.
      *
      * If the value is 0, the number of lines won't be limited.
-     *
-     * @since 1.0
      */
     public open var titleLines: Int
         /**
          * Gets the number of lines at the end of which the title label will be
          * ellipsized.
          *
-         * If the value is 0, the number of lines won't be limited.
-         *
          * @return the number of lines at the end of which the title label will be
          *   ellipsized
-         * @since 1.0
          */
         get() = adw_action_row_get_title_lines(adwActionRowPointer.reinterpret())
 
@@ -226,7 +248,6 @@ public open class ActionRow(
          *
          * @param titleLines the number of lines at the end of which the title label will be
          * ellipsized
-         * @since 1.0
          */
         set(titleLines) =
             adw_action_row_set_title_lines(
@@ -238,14 +259,11 @@ public open class ActionRow(
      * Creates a new `AdwActionRow`.
      *
      * @return the newly created `AdwActionRow`
-     * @since 1.0
      */
     public constructor() : this(adw_action_row_new()!!.reinterpret())
 
     /**
      * Activates @self.
-     *
-     * @since 1.0
      */
     public open fun activate_(): Unit = adw_action_row_activate(adwActionRowPointer.reinterpret())
 
@@ -253,7 +271,6 @@ public open class ActionRow(
      * Adds a prefix widget to @self.
      *
      * @param widget a widget
-     * @since 1.0
      */
     public open fun addPrefix(widget: Widget): Unit =
         adw_action_row_add_prefix(
@@ -265,7 +282,6 @@ public open class ActionRow(
      * Adds a suffix widget to @self.
      *
      * @param widget a widget
-     * @since 1.0
      */
     public open fun addSuffix(widget: Widget): Unit =
         adw_action_row_add_suffix(
@@ -277,7 +293,6 @@ public open class ActionRow(
      * Gets the widget activated when @self is activated.
      *
      * @return the activatable widget for @self
-     * @since 1.0
      */
     public open fun getActivatableWidget(): Widget? =
         adw_action_row_get_activatable_widget(adwActionRowPointer.reinterpret())?.run {
@@ -288,7 +303,6 @@ public open class ActionRow(
      * Gets the icon name for @self.
      *
      * @return the icon name for @self
-     * @since 1.0
      */
     public open fun getIconName(): String? =
         adw_action_row_get_icon_name(adwActionRowPointer.reinterpret())?.toKString()
@@ -297,7 +311,6 @@ public open class ActionRow(
      * Gets the subtitle for @self.
      *
      * @return the subtitle for @self
-     * @since 1.0
      */
     public open fun getSubtitle(): String? = adw_action_row_get_subtitle(adwActionRowPointer.reinterpret())?.toKString()
 
@@ -305,23 +318,26 @@ public open class ActionRow(
      * Gets the number of lines at the end of which the subtitle label will be
      * ellipsized.
      *
-     * If the value is 0, the number of lines won't be limited.
-     *
      * @return the number of lines at the end of which the subtitle label will be
      *   ellipsized
-     * @since 1.0
      */
     public open fun getSubtitleLines(): Int = adw_action_row_get_subtitle_lines(adwActionRowPointer.reinterpret())
+
+    /**
+     * Gets whether the user can copy the subtitle from the label
+     *
+     * @return whether the user can copy the subtitle from the label
+     * @since 1.3
+     */
+    public open fun getSubtitleSelectable(): Boolean =
+        adw_action_row_get_subtitle_selectable(adwActionRowPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the number of lines at the end of which the title label will be
      * ellipsized.
      *
-     * If the value is 0, the number of lines won't be limited.
-     *
      * @return the number of lines at the end of which the title label will be
      *   ellipsized
-     * @since 1.0
      */
     public open fun getTitleLines(): Int = adw_action_row_get_title_lines(adwActionRowPointer.reinterpret())
 
@@ -329,7 +345,6 @@ public open class ActionRow(
      * Removes a child from @self.
      *
      * @param widget the child to be removed
-     * @since 1.0
      */
     public open fun remove(widget: Widget): Unit =
         adw_action_row_remove(
@@ -340,8 +355,14 @@ public open class ActionRow(
     /**
      * Sets the widget to activate when @self is activated.
      *
+     * The row can be activated either by clicking on it, calling
+     * [method@ActionRow.activate], or via mnemonics in the title.
+     * See the [property@PreferencesRow:use-underline] property to enable mnemonics.
+     *
+     * The target widget will be activated by emitting the
+     * [signal@Gtk.Widget::mnemonic-activate] signal on it.
+     *
      * @param widget the target widget
-     * @since 1.0
      */
     public open fun setActivatableWidget(widget: Widget? = null): Unit =
         adw_action_row_set_activatable_widget(
@@ -353,7 +374,6 @@ public open class ActionRow(
      * Sets the icon name for @self.
      *
      * @param iconName the icon name
-     * @since 1.0
      */
     public open fun setIconName(iconName: String? = null): Unit =
         adw_action_row_set_icon_name(adwActionRowPointer.reinterpret(), iconName)
@@ -361,8 +381,10 @@ public open class ActionRow(
     /**
      * Sets the subtitle for @self.
      *
+     * The subtitle is interpreted as Pango markup unless
+     * [property@PreferencesRow:use-markup] is set to `FALSE`.
+     *
      * @param subtitle the subtitle
-     * @since 1.0
      */
     public open fun setSubtitle(subtitle: String): Unit =
         adw_action_row_set_subtitle(adwActionRowPointer.reinterpret(), subtitle)
@@ -375,10 +397,23 @@ public open class ActionRow(
      *
      * @param subtitleLines the number of lines at the end of which the subtitle label will be
      * ellipsized
-     * @since 1.0
      */
     public open fun setSubtitleLines(subtitleLines: Int): Unit =
         adw_action_row_set_subtitle_lines(adwActionRowPointer.reinterpret(), subtitleLines)
+
+    /**
+     * Sets whether the user can copy the subtitle from the label
+     *
+     * See also [property@Gtk.Label:selectable].
+     *
+     * @param subtitleSelectable `TRUE` if the user can copy the subtitle from the label
+     * @since 1.3
+     */
+    public open fun setSubtitleSelectable(subtitleSelectable: Boolean): Unit =
+        adw_action_row_set_subtitle_selectable(
+            adwActionRowPointer.reinterpret(),
+            subtitleSelectable.asGBoolean()
+        )
 
     /**
      * Sets the number of lines at the end of which the title label will be
@@ -387,7 +422,6 @@ public open class ActionRow(
      * If the value is 0, the number of lines won't be limited.
      *
      * @param titleLines the number of lines at the end of which the title label will be ellipsized
-     * @since 1.0
      */
     public open fun setTitleLines(titleLines: Int): Unit =
         adw_action_row_set_title_lines(adwActionRowPointer.reinterpret(), titleLines)
@@ -397,7 +431,6 @@ public open class ActionRow(
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
-     * @since 1.0
      */
     public fun connectActivated(
         connectFlags: ConnectFlags = ConnectFlags(0u),

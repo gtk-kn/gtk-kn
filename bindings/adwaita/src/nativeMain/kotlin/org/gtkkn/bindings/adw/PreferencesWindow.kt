@@ -20,7 +20,9 @@ import org.gtkkn.native.adw.adw_preferences_window_get_type
 import org.gtkkn.native.adw.adw_preferences_window_get_visible_page
 import org.gtkkn.native.adw.adw_preferences_window_get_visible_page_name
 import org.gtkkn.native.adw.adw_preferences_window_new
+import org.gtkkn.native.adw.adw_preferences_window_pop_subpage
 import org.gtkkn.native.adw.adw_preferences_window_present_subpage
+import org.gtkkn.native.adw.adw_preferences_window_push_subpage
 import org.gtkkn.native.adw.adw_preferences_window_remove
 import org.gtkkn.native.adw.adw_preferences_window_set_can_navigate_back
 import org.gtkkn.native.adw.adw_preferences_window_set_search_enabled
@@ -56,8 +58,6 @@ import kotlin.Unit
  *
  * - method `visible-page`: Property TypeInfo of getter and setter do not match
  * - method `visible-page-name`: Property TypeInfo of getter and setter do not match
- *
- * @since 1.0
  */
 public open class PreferencesWindow(
     pointer: CPointer<AdwPreferencesWindow>,
@@ -96,15 +96,12 @@ public open class PreferencesWindow(
      * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut.
      *
      * For right-to-left locales, gestures and shortcuts are reversed.
-     *
-     * @since 1.0
      */
     public open var canNavigateBack: Boolean
         /**
          * Gets whether gestures and shortcuts for closing subpages are enabled.
          *
          * @return whether gestures and shortcuts are enabled.
-         * @since 1.0
          */
         get() =
             adw_preferences_window_get_can_navigate_back(adwPreferencesWindowPointer.reinterpret()).asBoolean()
@@ -112,8 +109,18 @@ public open class PreferencesWindow(
         /**
          * Sets whether gestures and shortcuts for closing subpages are enabled.
          *
+         * The supported gestures are:
+         *
+         * - One-finger swipe on touchscreens
+         * - Horizontal scrolling on touchpads (usually two-finger swipe)
+         * - Back mouse button
+         *
+         * The keyboard back key is also supported, as well as the
+         * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut.
+         *
+         * For right-to-left locales, gestures and shortcuts are reversed.
+         *
          * @param canNavigateBack the new value
-         * @since 1.0
          */
         set(canNavigateBack) =
             adw_preferences_window_set_can_navigate_back(
@@ -123,15 +130,12 @@ public open class PreferencesWindow(
 
     /**
      * Whether search is enabled.
-     *
-     * @since 1.0
      */
     public open var searchEnabled: Boolean
         /**
          * Gets whether search is enabled for @self.
          *
          * @return whether search is enabled for @self.
-         * @since 1.0
          */
         get() =
             adw_preferences_window_get_search_enabled(adwPreferencesWindowPointer.reinterpret()).asBoolean()
@@ -140,7 +144,6 @@ public open class PreferencesWindow(
          * Sets whether search is enabled for @self.
          *
          * @param searchEnabled whether search is enabled
-         * @since 1.0
          */
         set(searchEnabled) =
             adw_preferences_window_set_search_enabled(
@@ -152,7 +155,6 @@ public open class PreferencesWindow(
      * Creates a new `AdwPreferencesWindow`.
      *
      * @return the newly created `AdwPreferencesWindow`
-     * @since 1.0
      */
     public constructor() : this(adw_preferences_window_new()!!.reinterpret())
 
@@ -160,7 +162,6 @@ public open class PreferencesWindow(
      * Adds a preferences page to @self.
      *
      * @param page the page to add
-     * @since 1.0
      */
     public open fun add(page: PreferencesPage): Unit =
         adw_preferences_window_add(
@@ -174,7 +175,6 @@ public open class PreferencesWindow(
      * See [method@ToastOverlay.add_toast].
      *
      * @param toast a toast
-     * @since 1.0
      */
     public open fun addToast(toast: Toast): Unit =
         adw_preferences_window_add_toast(
@@ -186,8 +186,6 @@ public open class PreferencesWindow(
      * Closes the current subpage.
      *
      * If there is no presented subpage, this does nothing.
-     *
-     * @since 1.0
      */
     public open fun closeSubpage(): Unit =
         adw_preferences_window_close_subpage(adwPreferencesWindowPointer.reinterpret())
@@ -196,7 +194,6 @@ public open class PreferencesWindow(
      * Gets whether gestures and shortcuts for closing subpages are enabled.
      *
      * @return whether gestures and shortcuts are enabled.
-     * @since 1.0
      */
     public open fun getCanNavigateBack(): Boolean =
         adw_preferences_window_get_can_navigate_back(adwPreferencesWindowPointer.reinterpret()).asBoolean()
@@ -205,7 +202,6 @@ public open class PreferencesWindow(
      * Gets whether search is enabled for @self.
      *
      * @return whether search is enabled for @self.
-     * @since 1.0
      */
     public open fun getSearchEnabled(): Boolean =
         adw_preferences_window_get_search_enabled(adwPreferencesWindowPointer.reinterpret()).asBoolean()
@@ -214,7 +210,6 @@ public open class PreferencesWindow(
      * Gets the currently visible page of @self.
      *
      * @return the visible page
-     * @since 1.0
      */
     public open fun getVisiblePage(): PreferencesPage? =
         adw_preferences_window_get_visible_page(adwPreferencesWindowPointer.reinterpret())?.run {
@@ -225,10 +220,18 @@ public open class PreferencesWindow(
      * Gets the name of currently visible page of @self.
      *
      * @return the name of the visible page
-     * @since 1.0
      */
     public open fun getVisiblePageName(): String? =
         adw_preferences_window_get_visible_page_name(adwPreferencesWindowPointer.reinterpret())?.toKString()
+
+    /**
+     * Pop the visible page from the subpage stack of @self.
+     *
+     * @return `TRUE` if a page has been popped
+     * @since 1.4
+     */
+    public open fun popSubpage(): Boolean =
+        adw_preferences_window_pop_subpage(adwPreferencesWindowPointer.reinterpret()).asBoolean()
 
     /**
      * Sets @subpage as the window's subpage and opens it.
@@ -237,7 +240,6 @@ public open class PreferencesWindow(
      * change back to the previously visible child.
      *
      * @param subpage the subpage
-     * @since 1.0
      */
     public open fun presentSubpage(subpage: Widget): Unit =
         adw_preferences_window_present_subpage(
@@ -246,10 +248,23 @@ public open class PreferencesWindow(
         )
 
     /**
+     * Pushes @page onto the subpage stack of @self.
+     *
+     * The page will be automatically removed when popped.
+     *
+     * @param page the subpage
+     * @since 1.4
+     */
+    public open fun pushSubpage(page: NavigationPage): Unit =
+        adw_preferences_window_push_subpage(
+            adwPreferencesWindowPointer.reinterpret(),
+            page.adwNavigationPagePointer.reinterpret()
+        )
+
+    /**
      * Removes a page from @self.
      *
      * @param page the page to remove
-     * @since 1.0
      */
     public open fun remove(page: PreferencesPage): Unit =
         adw_preferences_window_remove(
@@ -260,8 +275,18 @@ public open class PreferencesWindow(
     /**
      * Sets whether gestures and shortcuts for closing subpages are enabled.
      *
+     * The supported gestures are:
+     *
+     * - One-finger swipe on touchscreens
+     * - Horizontal scrolling on touchpads (usually two-finger swipe)
+     * - Back mouse button
+     *
+     * The keyboard back key is also supported, as well as the
+     * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut.
+     *
+     * For right-to-left locales, gestures and shortcuts are reversed.
+     *
      * @param canNavigateBack the new value
-     * @since 1.0
      */
     public open fun setCanNavigateBack(canNavigateBack: Boolean): Unit =
         adw_preferences_window_set_can_navigate_back(
@@ -273,7 +298,6 @@ public open class PreferencesWindow(
      * Sets whether search is enabled for @self.
      *
      * @param searchEnabled whether search is enabled
-     * @since 1.0
      */
     public open fun setSearchEnabled(searchEnabled: Boolean): Unit =
         adw_preferences_window_set_search_enabled(
@@ -285,7 +309,6 @@ public open class PreferencesWindow(
      * Makes @page the visible page of @self.
      *
      * @param page a page of @self
-     * @since 1.0
      */
     public open fun setVisiblePage(page: PreferencesPage): Unit =
         adw_preferences_window_set_visible_page(
@@ -296,8 +319,9 @@ public open class PreferencesWindow(
     /**
      * Makes the page with the given name visible.
      *
+     * See [property@PreferencesWindow:visible-page].
+     *
      * @param name the name of the page to make visible
-     * @since 1.0
      */
     public open fun setVisiblePageName(name: String): Unit =
         adw_preferences_window_set_visible_page_name(

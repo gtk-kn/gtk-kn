@@ -189,8 +189,8 @@ public class LayoutLine(
      * @return the line passed in.
      * @since 1.10
      */
-    public fun ref(): LayoutLine =
-        pango_layout_line_ref(pangoLayoutLinePointer.reinterpret())!!.run {
+    public fun ref(): LayoutLine? =
+        pango_layout_line_ref(pangoLayoutLinePointer.reinterpret())?.run {
             LayoutLine(reinterpret())
         }
 

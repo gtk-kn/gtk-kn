@@ -49,7 +49,7 @@ import kotlin.Unit
  * The URI bound to a `GtkLinkButton` can be set specifically using
  * [method@Gtk.LinkButton.set_uri].
  *
- * By default, `GtkLinkButton` calls [func@Gtk.show_uri] when the button
+ * By default, `GtkLinkButton` calls [method@Gtk.FileLauncher.launch] when the button
  * is clicked. This behaviour can be overridden by connecting to the
  * [signal@Gtk.LinkButton::activate-link] signal and returning true from
  * the signal handler.
@@ -197,7 +197,7 @@ public open class LinkButton(
     /**
      * Emitted each time the `GtkLinkButton` is clicked.
      *
-     * The default handler will call [func@Gtk.show_uri] with the URI
+     * The default handler will call [method@Gtk.FileLauncher.launch] with the URI
      * stored inside the [property@Gtk.LinkButton:uri] property.
      *
      * To override the default behavior, you can connect to the

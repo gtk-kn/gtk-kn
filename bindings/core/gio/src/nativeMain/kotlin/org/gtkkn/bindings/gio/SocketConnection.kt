@@ -33,22 +33,22 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
- * #GSocketConnection is a #GIOStream for a connected socket. They
- * can be created either by #GSocketClient when connecting to a host,
- * or by #GSocketListener when accepting a new client.
+ * `GSocketConnection` is a [class@Gio.IOStream] for a connected socket. They
+ * can be created either by [class@Gio.SocketClient] when connecting to a host,
+ * or by [class@Gio.SocketListener] when accepting a new client.
  *
- * The type of the #GSocketConnection object returned from these calls
+ * The type of the `GSocketConnection` object returned from these calls
  * depends on the type of the underlying socket that is in use. For
- * instance, for a TCP/IP connection it will be a #GTcpConnection.
+ * instance, for a TCP/IP connection it will be a [class@Gio.TcpConnection].
  *
  * Choosing what type of object to construct is done with the socket
- * connection factory, and it is possible for 3rd parties to register
+ * connection factory, and it is possible for third parties to register
  * custom socket connection types for specific combination of socket
- * family/type/protocol using g_socket_connection_factory_register_type().
+ * family/type/protocol using [func@Gio.SocketConnection.factory_register_type].
  *
- * To close a #GSocketConnection, use g_io_stream_close(). Closing both
- * substreams of the #GIOStream separately will not close the underlying
- * #GSocket.
+ * To close a `GSocketConnection`, use [method@Gio.IOStream.close]. Closing both
+ * substreams of the [class@Gio.IOStream] separately will not close the
+ * underlying [class@Gio.Socket].
  * @since 2.22
  */
 public open class SocketConnection(
@@ -57,6 +57,11 @@ public open class SocketConnection(
     public val gioSocketConnectionPointer: CPointer<GSocketConnection>
         get() = gPointer.reinterpret()
 
+    /**
+     * The underlying [class@Gio.Socket].
+     *
+     * @since 2.22
+     */
     public open val socket: Socket
         /**
          * Gets the underlying #GSocket object of the connection.
@@ -104,6 +109,10 @@ public open class SocketConnection(
      *
      * This clears the #GSocket:blocking flag on @connection's underlying
      * socket if it is currently set.
+     *
+     * If #GSocket:timeout is set, the operation will time out and return
+     * %G_IO_ERROR_TIMED_OUT after that period. Otherwise, it will continue
+     * indefinitely until operating system timeouts (if any) are hit.
      *
      * Use g_socket_connection_connect_finish() to retrieve the result.
      *

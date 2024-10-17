@@ -26,7 +26,9 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
- * TLS (Transport Layer Security, aka SSL) and DTLS backend.
+ * TLS (Transport Layer Security, aka SSL) and DTLS backend. This is an
+ * internal type used to coordinate the different classes implemented
+ * by a TLS backend.
  * @since 2.28
  */
 public interface TlsBackend : Interface, KGTyped {

@@ -16,16 +16,16 @@ import org.gtkkn.native.gio.g_power_profile_monitor_get_type
 import kotlin.Boolean
 
 /**
- * #GPowerProfileMonitor makes it possible for applications as well as OS components
- * to monitor system power profiles and act upon them. It currently only exports
- * whether the system is in “Power Saver” mode (known as “Low Power” mode on
- * some systems).
+ * `GPowerProfileMonitor` makes it possible for applications as well as OS
+ * components to monitor system power profiles and act upon them. It currently
+ * only exports whether the system is in “Power Saver” mode (known as
+ * “Low Power” mode on some systems).
  *
  * When in “Low Power” mode, it is recommended that applications:
- * - disabling automatic downloads
+ * - disable automatic downloads;
  * - reduce the rate of refresh from online sources such as calendar or
- *   email synchronisation
- * - if the application has expensive visual effects, reduce them
+ *   email synchronisation;
+ * - reduce the use of expensive visual effects.
  *
  * It is also likely that OS components providing services to applications will
  * lower their own background activity, for the sake of the system.
@@ -36,8 +36,9 @@ import kotlin.Boolean
  * or activity at all), `sysprof` to inspect CPU usage, and `intel_gpu_time` to
  * profile GPU usage.
  *
- * Don't forget to disconnect the #GPowerProfileMonitor::notify::power-saver-enabled
- * signal, and unref the #GPowerProfileMonitor itself when exiting.
+ * Don’t forget to disconnect the [signal@GObject.Object::notify] signal for
+ * [property@Gio.PowerProfileMonitor:power-saver-enabled], and unref the
+ * `GPowerProfileMonitor` itself when exiting.
  * @since 2.70
  */
 public interface PowerProfileMonitor : Interface, Initable, KGTyped {

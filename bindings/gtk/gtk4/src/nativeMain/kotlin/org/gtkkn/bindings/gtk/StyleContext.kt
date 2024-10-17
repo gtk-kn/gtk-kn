@@ -53,7 +53,7 @@ import kotlin.Unit
  * and RTL/LTR information set. The style context will also be updated
  * automatically if any of these settings change on the widget.
  *
- * # Style Classes
+ * ## Style Classes
  *
  * Widgets can add style classes to their context, which can be used to associate
  * different styles by class. The documentation for individual widgets lists

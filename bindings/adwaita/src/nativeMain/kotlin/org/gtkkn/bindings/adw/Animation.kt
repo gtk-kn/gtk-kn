@@ -11,11 +11,14 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.adw.AdwAnimation
+import org.gtkkn.native.adw.adw_animation_get_follow_enable_animations_setting
 import org.gtkkn.native.adw.adw_animation_get_state
 import org.gtkkn.native.adw.adw_animation_get_target
 import org.gtkkn.native.adw.adw_animation_get_type
@@ -25,8 +28,11 @@ import org.gtkkn.native.adw.adw_animation_pause
 import org.gtkkn.native.adw.adw_animation_play
 import org.gtkkn.native.adw.adw_animation_reset
 import org.gtkkn.native.adw.adw_animation_resume
+import org.gtkkn.native.adw.adw_animation_set_follow_enable_animations_setting
+import org.gtkkn.native.adw.adw_animation_set_target
 import org.gtkkn.native.adw.adw_animation_skip
 import org.gtkkn.native.gobject.g_signal_connect_data
+import kotlin.Boolean
 import kotlin.Double
 import kotlin.ULong
 import kotlin.Unit
@@ -77,7 +83,6 @@ import kotlin.Unit
  * If there's a chance the previous animation for the same target hasn't yet
  * finished, the previous animation should be stopped first, or the existing
  * `AdwAnimation` object can be reused.
- * @since 1.0
  */
 public open class Animation(
     pointer: CPointer<AdwAnimation>,
@@ -86,12 +91,53 @@ public open class Animation(
         get() = gPointer.reinterpret()
 
     /**
+     * Whether to skip the animation when animations are globally disabled.
+     *
+     * The default behavior is to skip the animation. Set to `FALSE` to disable
+     * this behavior.
+     *
+     * This can be useful for cases where animation is essential, like spinners,
+     * or in demo applications. Most other animations should keep it enabled.
+     *
+     * See [property@Gtk.Settings:gtk-enable-animations].
+     *
+     * @since 1.3
+     */
+    public open var followEnableAnimationsSetting: Boolean
+        /**
+         * Gets whether @self should be skipped when animations are globally disabled.
+         *
+         * @return whether to follow the global setting
+         * @since 1.3
+         */
+        get() =
+            adw_animation_get_follow_enable_animations_setting(adwAnimationPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets whether to skip @self when animations are globally disabled.
+         *
+         * The default behavior is to skip the animation. Set to `FALSE` to disable this
+         * behavior.
+         *
+         * This can be useful for cases where animation is essential, like spinners, or
+         * in demo applications. Most other animations should keep it enabled.
+         *
+         * See [property@Gtk.Settings:gtk-enable-animations].
+         *
+         * @param setting whether to follow the global setting
+         * @since 1.3
+         */
+        set(setting) =
+            adw_animation_set_follow_enable_animations_setting(
+                adwAnimationPointer.reinterpret(),
+                setting.asGBoolean()
+            )
+
+    /**
      * The animation state.
      *
      * The state indicates whether the animation is currently playing, paused,
      * finished or hasn't been started yet.
-     *
-     * @since 1.0
      */
     public open val state: AnimationState
         /**
@@ -101,7 +147,6 @@ public open class Animation(
          * hasn't been started yet.
          *
          * @return the animation value
-         * @since 1.0
          */
         get() =
             adw_animation_get_state(adwAnimationPointer.reinterpret()).run {
@@ -110,32 +155,37 @@ public open class Animation(
 
     /**
      * The target to animate.
-     *
-     * @since 1.0
      */
-    public open val target: AnimationTarget
+    public open var target: AnimationTarget
         /**
          * Gets the target @self animates.
          *
          * @return the animation target
-         * @since 1.0
          */
         get() =
             adw_animation_get_target(adwAnimationPointer.reinterpret())!!.run {
                 AnimationTarget(reinterpret())
             }
 
+        /**
+         * Sets the target @self animates to @target.
+         *
+         * @param target an animation target
+         */
+        set(target) =
+            adw_animation_set_target(
+                adwAnimationPointer.reinterpret(),
+                target.adwAnimationTargetPointer.reinterpret()
+            )
+
     /**
      * The current value of the animation.
-     *
-     * @since 1.0
      */
     public open val `value`: Double
         /**
          * Gets the current value of @self.
          *
          * @return the current value
-         * @since 1.0
          */
         get() = adw_animation_get_value(adwAnimationPointer.reinterpret())
 
@@ -148,20 +198,33 @@ public open class Animation(
      * The widget must be mapped in order for the animation to work. If it's not
      * mapped, or if it gets unmapped during an ongoing animation, the animation
      * will be automatically skipped.
-     *
-     * @since 1.0
      */
     public open val widget: Widget
         /**
          * Gets the widget @self was created for.
          *
+         * It provides the frame clock for the animation. It's not strictly necessary
+         * for this widget to be same as the one being animated.
+         *
+         * The widget must be mapped in order for the animation to work. If it's not
+         * mapped, or if it gets unmapped during an ongoing animation, the animation
+         * will be automatically skipped.
+         *
          * @return the animation widget
-         * @since 1.0
          */
         get() =
             adw_animation_get_widget(adwAnimationPointer.reinterpret())!!.run {
                 Widget(reinterpret())
             }
+
+    /**
+     * Gets whether @self should be skipped when animations are globally disabled.
+     *
+     * @return whether to follow the global setting
+     * @since 1.3
+     */
+    public open fun getFollowEnableAnimationsSetting(): Boolean =
+        adw_animation_get_follow_enable_animations_setting(adwAnimationPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the current value of @self.
@@ -170,7 +233,6 @@ public open class Animation(
      * hasn't been started yet.
      *
      * @return the animation value
-     * @since 1.0
      */
     public open fun getState(): AnimationState =
         adw_animation_get_state(adwAnimationPointer.reinterpret()).run {
@@ -181,7 +243,6 @@ public open class Animation(
      * Gets the target @self animates.
      *
      * @return the animation target
-     * @since 1.0
      */
     public open fun getTarget(): AnimationTarget =
         adw_animation_get_target(adwAnimationPointer.reinterpret())!!.run {
@@ -192,15 +253,20 @@ public open class Animation(
      * Gets the current value of @self.
      *
      * @return the current value
-     * @since 1.0
      */
     public open fun getValue(): Double = adw_animation_get_value(adwAnimationPointer.reinterpret())
 
     /**
      * Gets the widget @self was created for.
      *
+     * It provides the frame clock for the animation. It's not strictly necessary
+     * for this widget to be same as the one being animated.
+     *
+     * The widget must be mapped in order for the animation to work. If it's not
+     * mapped, or if it gets unmapped during an ongoing animation, the animation
+     * will be automatically skipped.
+     *
      * @return the animation widget
-     * @since 1.0
      */
     public open fun getWidget(): Widget =
         adw_animation_get_widget(adwAnimationPointer.reinterpret())!!.run {
@@ -213,8 +279,6 @@ public open class Animation(
      * Does nothing if the current state of @self isn't `ADW_ANIMATION_PLAYING`.
      *
      * Sets [property@Animation:state] to `ADW_ANIMATION_PAUSED`.
-     *
-     * @since 1.0
      */
     public open fun pause(): Unit = adw_animation_pause(adwAnimationPointer.reinterpret())
 
@@ -234,8 +298,6 @@ public open class Animation(
      * example, when using [func@GLib.idle_add] and starting an animation
      * immediately afterwards, it's entirely possible that the idle callback will
      * run after the animation has already finished, and not while it's playing.
-     *
-     * @since 1.0
      */
     public open fun play(): Unit = adw_animation_play(adwAnimationPointer.reinterpret())
 
@@ -243,8 +305,6 @@ public open class Animation(
      * Resets the animation for @self.
      *
      * Sets [property@Animation:state] to `ADW_ANIMATION_IDLE`.
-     *
-     * @since 1.0
      */
     public open fun reset(): Unit = adw_animation_reset(adwAnimationPointer.reinterpret())
 
@@ -255,10 +315,39 @@ public open class Animation(
      * [method@Animation.pause].
      *
      * Sets [property@Animation:state] to `ADW_ANIMATION_PLAYING`.
-     *
-     * @since 1.0
      */
     public open fun resume(): Unit = adw_animation_resume(adwAnimationPointer.reinterpret())
+
+    /**
+     * Sets whether to skip @self when animations are globally disabled.
+     *
+     * The default behavior is to skip the animation. Set to `FALSE` to disable this
+     * behavior.
+     *
+     * This can be useful for cases where animation is essential, like spinners, or
+     * in demo applications. Most other animations should keep it enabled.
+     *
+     * See [property@Gtk.Settings:gtk-enable-animations].
+     *
+     * @param setting whether to follow the global setting
+     * @since 1.3
+     */
+    public open fun setFollowEnableAnimationsSetting(setting: Boolean): Unit =
+        adw_animation_set_follow_enable_animations_setting(
+            adwAnimationPointer.reinterpret(),
+            setting.asGBoolean()
+        )
+
+    /**
+     * Sets the target @self animates to @target.
+     *
+     * @param target an animation target
+     */
+    public open fun setTarget(target: AnimationTarget): Unit =
+        adw_animation_set_target(
+            adwAnimationPointer.reinterpret(),
+            target.adwAnimationTargetPointer.reinterpret()
+        )
 
     /**
      * Skips the animation for @self.
@@ -268,8 +357,6 @@ public open class Animation(
      * emitted.
      *
      * Sets [property@Animation:state] to `ADW_ANIMATION_FINISHED`.
-     *
-     * @since 1.0
      */
     public open fun skip(): Unit = adw_animation_skip(adwAnimationPointer.reinterpret())
 
@@ -279,7 +366,6 @@ public open class Animation(
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
-     * @since 1.0
      */
     public fun connectDone(
         connectFlags: ConnectFlags = ConnectFlags(0u),

@@ -24,19 +24,20 @@ import kotlin.Result
 import kotlin.Unit
 
 /**
- * #GSocketAddressEnumerator is an enumerator type for #GSocketAddress
- * instances. It is returned by enumeration functions such as
- * g_socket_connectable_enumerate(), which returns a #GSocketAddressEnumerator
- * to list each #GSocketAddress which could be used to connect to that
- * #GSocketConnectable.
+ * `GSocketAddressEnumerator` is an enumerator type for
+ * [class@Gio.SocketAddress] instances. It is returned by enumeration functions
+ * such as [method@Gio.SocketConnectable.enumerate], which returns a
+ * `GSocketAddressEnumerator` to list each [class@Gio.SocketAddress] which could
+ * be used to connect to that [iface@Gio.SocketConnectable].
  *
  * Enumeration is typically a blocking operation, so the asynchronous methods
- * g_socket_address_enumerator_next_async() and
- * g_socket_address_enumerator_next_finish() should be used where possible.
+ * [method@Gio.SocketAddressEnumerator.next_async] and
+ * [method@Gio.SocketAddressEnumerator.next_finish] should be used where
+ * possible.
  *
- * Each #GSocketAddressEnumerator can only be enumerated once. Once
- * g_socket_address_enumerator_next() has returned null, further
- * enumeration with that #GSocketAddressEnumerator is not possible, and it can
+ * Each `GSocketAddressEnumerator` can only be enumerated once. Once
+ * [method@Gio.SocketAddressEnumerator.next] has returned `NULL`, further
+ * enumeration with that `GSocketAddressEnumerator` is not possible, and it can
  * be unreffed.
  */
 public open class SocketAddressEnumerator(
@@ -65,7 +66,7 @@ public open class SocketAddressEnumerator(
      *     error (in which case *@error will be set) or if there are no
      *     more addresses.
      */
-    public open fun next(cancellable: Cancellable? = null): Result<SocketAddress> =
+    public open fun next(cancellable: Cancellable? = null): Result<SocketAddress?> =
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
@@ -80,7 +81,7 @@ public open class SocketAddressEnumerator(
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
-                Result.success(checkNotNull(gResult))
+                Result.success(gResult)
             }
         }
 
@@ -92,8 +93,8 @@ public open class SocketAddressEnumerator(
      * It is an error to call this multiple times before the previous callback has finished.
      *
      * @param cancellable optional #GCancellable object, null to ignore.
-     * @param callback a #GAsyncReadyCallback to call when the request
-     *     is satisfied
+     * @param callback a #GAsyncReadyCallback to call
+     *   when the request is satisfied
      */
     public open fun nextAsync(
         cancellable: Cancellable? = null,
@@ -117,7 +118,7 @@ public open class SocketAddressEnumerator(
      *     error (in which case *@error will be set) or if there are no
      *     more addresses.
      */
-    public open fun nextFinish(result: AsyncResult): Result<SocketAddress> =
+    public open fun nextFinish(result: AsyncResult): Result<SocketAddress?> =
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
@@ -132,7 +133,7 @@ public open class SocketAddressEnumerator(
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
-                Result.success(checkNotNull(gResult))
+                Result.success(gResult)
             }
         }
 

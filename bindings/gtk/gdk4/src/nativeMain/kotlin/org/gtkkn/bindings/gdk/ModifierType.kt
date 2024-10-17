@@ -12,6 +12,7 @@ import org.gtkkn.native.gdk.GDK_CONTROL_MASK
 import org.gtkkn.native.gdk.GDK_HYPER_MASK
 import org.gtkkn.native.gdk.GDK_LOCK_MASK
 import org.gtkkn.native.gdk.GDK_META_MASK
+import org.gtkkn.native.gdk.GDK_NO_MODIFIER_MASK
 import org.gtkkn.native.gdk.GDK_SHIFT_MASK
 import org.gtkkn.native.gdk.GDK_SUPER_MASK
 import org.gtkkn.native.gdk.GdkModifierType
@@ -33,6 +34,12 @@ public class ModifierType(
     override infix fun or(other: ModifierType): ModifierType = ModifierType(mask or other.mask)
 
     public companion object {
+        /**
+         * No modifier.
+         * @since 4.14
+         */
+        public val NO_MODIFIER_MASK: ModifierType = ModifierType(GDK_NO_MODIFIER_MASK)
+
         /**
          * the Shift key.
          */

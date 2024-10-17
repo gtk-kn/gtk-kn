@@ -3,9 +3,9 @@
 [versions]
 detekt = "1.23.5"
 dokka = "1.9.10"
-gradle = "8.6"
+gradle = "8.10.2"
 java = "17"
-kotlin = "1.9.10"  # 1.9.2x breaks harfbuzz.def
+kotlin = "2.0.21"  # 1.9.2x breaks harfbuzz.def
 kotlin-logging = "6.0.3"
 ktlint = "1.1.1"
 log4j = "2.22.1"

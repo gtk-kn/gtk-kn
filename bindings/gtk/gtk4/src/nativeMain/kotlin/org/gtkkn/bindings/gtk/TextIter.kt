@@ -182,7 +182,7 @@ public class TextIter(
         gtk_text_iter_backward_chars(gtkTextIterPointer.reinterpret(), count).asBoolean()
 
     /**
-     * Like gtk_text_iter_forward_cursor_position(), but moves backward.
+     * Like [method@Gtk.TextIter.forward_cursor_position], but moves backward.
      *
      * @return true if we moved
      */
@@ -204,7 +204,7 @@ public class TextIter(
         ).asBoolean()
 
     /**
-     * Same as gtk_text_iter_forward_find_char(),
+     * Same as [method@Gtk.TextIter.forward_find_char],
      * but goes backward from @iter.
      *
      * @param pred function to be called on each character
@@ -256,7 +256,7 @@ public class TextIter(
         gtk_text_iter_backward_lines(gtkTextIterPointer.reinterpret(), count).asBoolean()
 
     /**
-     * Same as gtk_text_iter_forward_search(), but moves backward.
+     * Same as [method@Gtk.TextIter.forward_search], but moves backward.
      *
      * @match_end will never be set to a `GtkTextIter` located after @iter,
      * even if there is a possible @match_start before or at @iter.
@@ -299,7 +299,7 @@ public class TextIter(
         gtk_text_iter_backward_sentence_start(gtkTextIterPointer.reinterpret()).asBoolean()
 
     /**
-     * Calls gtk_text_iter_backward_sentence_start() up to @count times.
+     * Calls [method@Gtk.TextIter.backward_sentence_start] up to @count times.
      *
      * If @count is negative, moves forward instead of backward.
      *
@@ -333,7 +333,7 @@ public class TextIter(
         ).asBoolean()
 
     /**
-     * Moves @iter forward to the previous visible cursor position.
+     * Moves @iter backward to the previous visible cursor position.
      *
      * See [method@Gtk.TextIter.backward_cursor_position] for details.
      *
@@ -408,7 +408,7 @@ public class TextIter(
         gtk_text_iter_backward_visible_word_start(gtkTextIterPointer.reinterpret()).asBoolean()
 
     /**
-     * Calls gtk_text_iter_backward_visible_word_start() up to @count times.
+     * Calls [method@Gtk.TextIter.backward_visible_word_start] up to @count times.
      *
      * @param count number of times to move
      * @return true if @iter moved and is not the end iterator
@@ -434,7 +434,7 @@ public class TextIter(
         gtk_text_iter_backward_word_start(gtkTextIterPointer.reinterpret()).asBoolean()
 
     /**
-     * Calls gtk_text_iter_backward_word_start() up to @count times.
+     * Calls [method@Gtk.TextIter.backward_word_start] up to @count times.
      *
      * @param count number of times to move
      * @return true if @iter moved and is not the end iterator
@@ -761,7 +761,7 @@ public class TextIter(
         gtk_text_iter_forward_sentence_end(gtkTextIterPointer.reinterpret()).asBoolean()
 
     /**
-     * Calls gtk_text_iter_forward_sentence_end() @count times.
+     * Calls [method@Gtk.TextIter.forward_sentence_end] @count times.
      *
      * If @count is negative, moves backward instead of forward.
      *
@@ -775,7 +775,7 @@ public class TextIter(
      * Moves @iter forward to the “end iterator”, which points
      * one past the last valid character in the buffer.
      *
-     * gtk_text_iter_get_char() called on the end iterator
+     * [method@Gtk.TextIter.get_char] called on the end iterator
      * returns 0, which is convenient for writing loops.
      */
     public fun forwardToEnd(): Unit = gtk_text_iter_forward_to_end(gtkTextIterPointer.reinterpret())
@@ -888,7 +888,7 @@ public class TextIter(
         gtk_text_iter_forward_visible_word_end(gtkTextIterPointer.reinterpret()).asBoolean()
 
     /**
-     * Calls gtk_text_iter_forward_visible_word_end() up to @count times.
+     * Calls [method@Gtk.TextIter.forward_visible_word_end] up to @count times.
      *
      * @param count number of times to move
      * @return true if @iter moved and is not the end iterator
@@ -913,7 +913,7 @@ public class TextIter(
     public fun forwardWordEnd(): Boolean = gtk_text_iter_forward_word_end(gtkTextIterPointer.reinterpret()).asBoolean()
 
     /**
-     * Calls gtk_text_iter_forward_word_end() up to @count times.
+     * Calls [method@Gtk.TextIter.forward_word_end] up to @count times.
      *
      * @param count number of times to move
      * @return true if @iter moved and is not the end iterator
@@ -1051,7 +1051,7 @@ public class TextIter(
      *
      * Each character in a `GtkTextBuffer` has an offset,
      * starting with 0 for the first character in the buffer.
-     * Use [method@Gtk,TextBuffer.get_iter_at_offset] to convert
+     * Use [method@Gtk.TextBuffer.get_iter_at_offset] to convert
      * an offset back into an iterator.
      *
      * @return a character offset
@@ -1281,7 +1281,7 @@ public class TextIter(
      * Returns true if @iter is the end iterator.
      *
      * This means it is one past the last dereferenceable iterator
-     * in the buffer. gtk_text_iter_is_end() is the most efficient
+     * in the buffer. [method@Gtk.TextIter.is_end] is the most efficient
      * way to check whether an iterator is the end iterator.
      *
      * @return whether @iter is the end iterator
@@ -1325,7 +1325,7 @@ public class TextIter(
     public fun setLine(lineNumber: Int): Unit = gtk_text_iter_set_line(gtkTextIterPointer.reinterpret(), lineNumber)
 
     /**
-     * Same as gtk_text_iter_set_line_offset(), but works with a
+     * Same as [method@Gtk.TextIter.set_line_offset], but works with a
      * byte index. The given byte index must be at
      * the start of a character, it can’t be in the middle of a UTF-8
      * encoded character.
@@ -1359,7 +1359,7 @@ public class TextIter(
     public fun setOffset(charOffset: Int): Unit = gtk_text_iter_set_offset(gtkTextIterPointer.reinterpret(), charOffset)
 
     /**
-     * Like gtk_text_iter_set_line_index(), but the index is in visible
+     * Like [method@Gtk.TextIter.set_line_index], but the index is in visible
      * bytes, i.e. text with a tag making it invisible is not counted
      * in the index.
      *
@@ -1369,7 +1369,7 @@ public class TextIter(
         gtk_text_iter_set_visible_line_index(gtkTextIterPointer.reinterpret(), byteOnLine)
 
     /**
-     * Like gtk_text_iter_set_line_offset(), but the offset is in visible
+     * Like [method@Gtk.TextIter.set_line_offset], but the offset is in visible
      * characters, i.e. text with a tag making it invisible is not
      * counted in the offset.
      *
@@ -1410,7 +1410,7 @@ public class TextIter(
      * @iter is at the beginning of the tagged range, and that the
      * character at @iter is inside the tagged range. In other
      * words, unlike [method@Gtk.TextIter.ends_tag], if
-     * this function returns true, [method@Gtk.TextIter.has_tag
+     * this function returns true, [method@Gtk.TextIter.has_tag]
      * will also return true for the same parameters.
      *
      * @param tag a `GtkTextTag`

@@ -28,6 +28,11 @@ import kotlin.Unit
 
 /**
  * `GtkTreeListModel` is a list model that can create child models on demand.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class TreeListModel(
     pointer: CPointer<GtkTreeListModel>,

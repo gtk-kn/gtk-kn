@@ -43,7 +43,7 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
- * `GtkInfoBar` can be show messages to the user without a dialog.
+ * `GtkInfoBar` can be used to show messages to the user without a dialog.
  *
  * ![An example GtkInfoBar](info-bar.png)
  *
@@ -247,7 +247,7 @@ public open class InfoBar(
      *
      * Clicking the button will emit the [signal@Gtk.InfoBar::response]
      * signal with the given response_id. The button is appended to the
-     * end of the info bars's action area. The button widget is returned,
+     * end of the info bar's action area. The button widget is returned,
      * but usually you don't need it.
      *
      * @param buttonText text of button

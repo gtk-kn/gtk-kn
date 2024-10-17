@@ -20,8 +20,11 @@ import kotlin.UInt
 import kotlin.UShort
 
 /**
- * An IPv4 or IPv6 socket address; that is, the combination of a
- * #GInetAddress and a port number.
+ * An IPv4 or IPv6 socket address. That is, the combination of a
+ * [class@Gio.InetAddress] and a port number.
+ *
+ * In UNIX terms, `GInetSocketAddress` corresponds to a
+ * [`struct sockaddr_in` or `struct sockaddr_in6`](man:sockaddr(3type)).
  */
 public open class InetSocketAddress(
     pointer: CPointer<GInetSocketAddress>,
@@ -32,6 +35,11 @@ public open class InetSocketAddress(
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = gPointer.reinterpret()
 
+    /**
+     * The address.
+     *
+     * @since 2.22
+     */
     public open val address: InetAddress
         /**
          * Gets @address's #GInetAddress.
@@ -60,6 +68,11 @@ public open class InetSocketAddress(
          */
         get() = g_inet_socket_address_get_flowinfo(gioInetSocketAddressPointer.reinterpret())
 
+    /**
+     * The port.
+     *
+     * @since 2.22
+     */
     public open val port: UShort
         /**
          * Gets @address's port.
@@ -69,6 +82,11 @@ public open class InetSocketAddress(
          */
         get() = g_inet_socket_address_get_port(gioInetSocketAddressPointer.reinterpret())
 
+    /**
+     * The `sin6_scope_id` field, for IPv6 addresses.
+     *
+     * @since 2.32
+     */
     public open val scopeId: UInt
         /**
          * Gets the `sin6_scope_id` field from @address,

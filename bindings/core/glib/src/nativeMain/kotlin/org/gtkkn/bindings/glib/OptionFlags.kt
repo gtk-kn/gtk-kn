@@ -39,7 +39,8 @@ public class OptionFlags(
 
         /**
          * For options of the %G_OPTION_ARG_NONE kind, this
-         *     flag indicates that the sense of the option is reversed.
+         *     flag indicates that the sense of the option is reversed. i.e. false will
+         *     be stored into the argument rather than true.
          */
         public val REVERSE: OptionFlags = OptionFlags(G_OPTION_FLAG_REVERSE)
 

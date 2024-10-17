@@ -32,22 +32,24 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
- * This is the asynchronous version of #GInitable; it behaves the same
- * in all ways except that initialization is asynchronous. For more details
- * see the descriptions on #GInitable.
+ * `GAsyncInitable` is an interface for asynchronously initializable objects.
  *
- * A class may implement both the #GInitable and #GAsyncInitable interfaces.
+ * This is the asynchronous version of [iface@Gio.Initable]; it behaves the same
+ * in all ways except that initialization is asynchronous. For more details
+ * see the descriptions on `GInitable`.
+ *
+ * A class may implement both the `GInitable` and `GAsyncInitable` interfaces.
  *
  * Users of objects implementing this are not intended to use the interface
  * method directly; instead it will be used automatically in various ways.
- * For C applications you generally just call g_async_initable_new_async()
+ * For C applications you generally just call [func@Gio.AsyncInitable.new_async]
  * directly, or indirectly via a foo_thing_new_async() wrapper. This will call
- * g_async_initable_init_async() under the cover, calling back with null and
- * a set %GError on failure.
+ * [method@Gio.AsyncInitable.init_async] under the covers, calling back with `NULL`
+ * and a set `GError` on failure.
  *
  * A typical implementation might look something like this:
  *
- * |[<!-- language="C" -->
+ * ```c
  * enum {
  *    NOT_INITIALIZED,
  *    INITIALIZING,
@@ -130,7 +132,7 @@ import kotlin.Unit
  *   iface->init_async = foo_init_async;
  *   iface->init_finish = foo_init_finish;
  * }
- * ]|
+ * ```
  * @since 2.22
  */
 public interface AsyncInitable : Interface, KGTyped {

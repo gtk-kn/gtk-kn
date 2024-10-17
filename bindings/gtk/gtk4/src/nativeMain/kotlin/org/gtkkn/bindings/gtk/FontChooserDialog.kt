@@ -33,6 +33,11 @@ import kotlin.String
  * The `GtkFontChooserDialog` implementation of the `GtkBuildable`
  * interface exposes the buttons with the names “select_button”
  * and “cancel_button”.
+ *
+ * ## CSS nodes
+ *
+ * `GtkFontChooserDialog` has a single CSS node with the name `window` and style
+ * class `.fontchooser`.
  */
 public open class FontChooserDialog(
     pointer: CPointer<GtkFontChooserDialog>,

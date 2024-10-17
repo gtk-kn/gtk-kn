@@ -10,15 +10,18 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gtk.GtkBoxLayout
 import org.gtkkn.native.gtk.GtkOrientable
+import org.gtkkn.native.gtk.gtk_box_layout_get_baseline_child
 import org.gtkkn.native.gtk.gtk_box_layout_get_baseline_position
 import org.gtkkn.native.gtk.gtk_box_layout_get_homogeneous
 import org.gtkkn.native.gtk.gtk_box_layout_get_spacing
 import org.gtkkn.native.gtk.gtk_box_layout_get_type
 import org.gtkkn.native.gtk.gtk_box_layout_new
+import org.gtkkn.native.gtk.gtk_box_layout_set_baseline_child
 import org.gtkkn.native.gtk.gtk_box_layout_set_baseline_position
 import org.gtkkn.native.gtk.gtk_box_layout_set_homogeneous
 import org.gtkkn.native.gtk.gtk_box_layout_set_spacing
 import kotlin.Boolean
+import kotlin.Int
 import kotlin.UInt
 import kotlin.Unit
 
@@ -46,6 +49,35 @@ public open class BoxLayout(
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = gPointer.reinterpret()
+
+    /**
+     * The child that determines the baseline of the box
+     * in vertical layout.
+     *
+     * If the child does baseline positioning, then its baseline
+     * is lined up with the baseline of the box. If it doesn't, then
+     * the bottom edge of the child is used.
+     *
+     * @since 4.12
+     */
+    public open var baselineChild: Int
+        /**
+         * Gets the value set by gtk_box_layout_set_baseline_child().
+         *
+         * @return the index of the child that determines the baseline
+         *     in vertical layout, or -1
+         * @since 4.12
+         */
+        get() = gtk_box_layout_get_baseline_child(gtkBoxLayoutPointer.reinterpret())
+
+        /**
+         * Sets the index of the child that determines the baseline
+         * in vertical layout.
+         *
+         * @param child the child position, or -1
+         * @since 4.12
+         */
+        set(child) = gtk_box_layout_set_baseline_child(gtkBoxLayoutPointer.reinterpret(), child)
 
     /**
      * The position of the allocated baseline within the extra space
@@ -134,6 +166,15 @@ public open class BoxLayout(
         this(gtk_box_layout_new(orientation.nativeValue)!!.reinterpret())
 
     /**
+     * Gets the value set by gtk_box_layout_set_baseline_child().
+     *
+     * @return the index of the child that determines the baseline
+     *     in vertical layout, or -1
+     * @since 4.12
+     */
+    public open fun getBaselineChild(): Int = gtk_box_layout_get_baseline_child(gtkBoxLayoutPointer.reinterpret())
+
+    /**
      * Gets the value set by gtk_box_layout_set_baseline_position().
      *
      * @return the baseline position
@@ -157,6 +198,16 @@ public open class BoxLayout(
      * @return the spacing of the layout
      */
     public open fun getSpacing(): UInt = gtk_box_layout_get_spacing(gtkBoxLayoutPointer.reinterpret())
+
+    /**
+     * Sets the index of the child that determines the baseline
+     * in vertical layout.
+     *
+     * @param child the child position, or -1
+     * @since 4.12
+     */
+    public open fun setBaselineChild(child: Int): Unit =
+        gtk_box_layout_set_baseline_child(gtkBoxLayoutPointer.reinterpret(), child)
 
     /**
      * Sets the baseline position of a box layout.

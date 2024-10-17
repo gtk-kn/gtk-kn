@@ -18,12 +18,14 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkMonitor
 import org.gtkkn.native.gdk.gdk_monitor_get_connector
+import org.gtkkn.native.gdk.gdk_monitor_get_description
 import org.gtkkn.native.gdk.gdk_monitor_get_display
 import org.gtkkn.native.gdk.gdk_monitor_get_geometry
 import org.gtkkn.native.gdk.gdk_monitor_get_height_mm
 import org.gtkkn.native.gdk.gdk_monitor_get_manufacturer
 import org.gtkkn.native.gdk.gdk_monitor_get_model
 import org.gtkkn.native.gdk.gdk_monitor_get_refresh_rate
+import org.gtkkn.native.gdk.gdk_monitor_get_scale
 import org.gtkkn.native.gdk.gdk_monitor_get_scale_factor
 import org.gtkkn.native.gdk.gdk_monitor_get_subpixel_layout
 import org.gtkkn.native.gdk.gdk_monitor_get_type
@@ -31,6 +33,7 @@ import org.gtkkn.native.gdk.gdk_monitor_get_width_mm
 import org.gtkkn.native.gdk.gdk_monitor_is_valid
 import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.Boolean
+import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.ULong
@@ -63,9 +66,29 @@ public open class Monitor(
         /**
          * Gets the name of the monitor's connector, if available.
          *
+         * These are strings such as "eDP-1", or "HDMI-2". They depend
+         * on software and hardware configuration, and should not be
+         * relied on as stable identifiers of a specific monitor.
+         *
          * @return the name of the connector
          */
         get() = gdk_monitor_get_connector(gdkMonitorPointer.reinterpret())?.toKString()
+
+    /**
+     * A short description of the monitor, meant for display to the user.
+     *
+     * @since 4.10
+     */
+    public open val description: String?
+        /**
+         * Gets a string describing the monitor, if available.
+         *
+         * This can be used to identify a monitor in the UI.
+         *
+         * @return the monitor description
+         * @since 4.10
+         */
+        get() = gdk_monitor_get_description(gdkMonitorPointer.reinterpret())?.toKString()
 
     /**
      * The `GdkDisplay` of the monitor.
@@ -135,7 +158,29 @@ public open class Monitor(
         get() = gdk_monitor_get_refresh_rate(gdkMonitorPointer.reinterpret())
 
     /**
+     * The scale of the monitor.
+     *
+     * @since 4.14
+     */
+    public open val scale: Double
+        /**
+         * Gets the internal scale factor that maps from monitor coordinates
+         * to device pixels.
+         *
+         * This can be used if you want to create pixel based data for a
+         * particular monitor, but most of the time you’re drawing to a surface
+         * where it is better to use [method@Gdk.Surface.get_scale] instead.
+         *
+         * @return the scale
+         * @since 4.14
+         */
+        get() = gdk_monitor_get_scale(gdkMonitorPointer.reinterpret())
+
+    /**
      * The scale factor.
+     *
+     * The scale factor is the next larger integer,
+     * compared to [property@Gdk.Surface:scale].
      */
     public open val scaleFactor: Int
         /**
@@ -182,9 +227,24 @@ public open class Monitor(
     /**
      * Gets the name of the monitor's connector, if available.
      *
+     * These are strings such as "eDP-1", or "HDMI-2". They depend
+     * on software and hardware configuration, and should not be
+     * relied on as stable identifiers of a specific monitor.
+     *
      * @return the name of the connector
      */
     public open fun getConnector(): String? = gdk_monitor_get_connector(gdkMonitorPointer.reinterpret())?.toKString()
+
+    /**
+     * Gets a string describing the monitor, if available.
+     *
+     * This can be used to identify a monitor in the UI.
+     *
+     * @return the monitor description
+     * @since 4.10
+     */
+    public open fun getDescription(): String? =
+        gdk_monitor_get_description(gdkMonitorPointer.reinterpret())?.toKString()
 
     /**
      * Gets the display that this monitor belongs to.
@@ -201,7 +261,7 @@ public open class Monitor(
      * display coordinate space.
      *
      * The returned geometry is in  ”application pixels”, not in
-     * ”device pixels” (see [method@Gdk.Monitor.get_scale_factor]).
+     * ”device pixels” (see [method@Gdk.Monitor.get_scale]).
      *
      * @param geometry a `GdkRectangle` to be filled with the monitor geometry
      */
@@ -245,6 +305,19 @@ public open class Monitor(
      * @return the refresh rate in milli-Hertz, or 0
      */
     public open fun getRefreshRate(): Int = gdk_monitor_get_refresh_rate(gdkMonitorPointer.reinterpret())
+
+    /**
+     * Gets the internal scale factor that maps from monitor coordinates
+     * to device pixels.
+     *
+     * This can be used if you want to create pixel based data for a
+     * particular monitor, but most of the time you’re drawing to a surface
+     * where it is better to use [method@Gdk.Surface.get_scale] instead.
+     *
+     * @return the scale
+     * @since 4.14
+     */
+    public open fun getScale(): Double = gdk_monitor_get_scale(gdkMonitorPointer.reinterpret())
 
     /**
      * Gets the internal scale factor that maps from monitor coordinates

@@ -57,24 +57,23 @@ import kotlin.Unit
  * switcher, as follows:
  *
  * ```xml
- * <object class="GtkWindow">
- *   <child type="titlebar">
- *     <object class="AdwHeaderBar">
- *       <property name="centering-policy">strict</property>
- *       <child type="title">
- *         <object class="AdwViewSwitcherTitle" id="title">
- *           <property name="stack">stack</property>
+ * <object class="AdwWindow">
+ *   <property name="content">
+ *     <object class="AdwToolbarView">
+ *       <child type="top">
+ *         <object class="AdwHeaderBar">
+ *           <property name="centering-policy">strict</property>
+ *           <property name="title-widget">
+ *             <object class="AdwViewSwitcherTitle" id="title">
+ *               <property name="stack">stack</property>
+ *             </object>
+ *           </property>
  *         </object>
  *       </child>
- *     </object>
- *   </child>
- *   <child>
- *     <object class="GtkBox">
- *       <property name="orientation">vertical</property>
- *       <child>
+ *       <property name="content">
  *         <object class="AdwViewStack" id="stack"/>
- *       </child>
- *       <child>
+ *       </property>
+ *       <child type="bottom">
  *         <object class="AdwViewSwitcherBar">
  *           <property name="stack">stack</property>
  *           <binding name="reveal">
@@ -83,14 +82,13 @@ import kotlin.Unit
  *         </object>
  *       </child>
  *     </object>
- *   </child>
+ *   </property>
  * </object>
  * ```
  *
  * ## CSS nodes
  *
  * `AdwViewSwitcherTitle` has a single CSS node with name `viewswitchertitle`.
- * @since 1.0
  */
 public class ViewSwitcherTitle(
     pointer: CPointer<AdwViewSwitcherTitle>,
@@ -109,15 +107,12 @@ public class ViewSwitcherTitle(
 
     /**
      * The stack the view switcher controls.
-     *
-     * @since 1.0
      */
     public var stack: ViewStack?
         /**
          * Gets the stack controlled by @self.
          *
          * @return the stack
-         * @since 1.0
          */
         get() =
             adw_view_switcher_title_get_stack(adwViewSwitcherTitlePointer.reinterpret())?.run {
@@ -128,7 +123,6 @@ public class ViewSwitcherTitle(
          * Sets the stack controlled by @self.
          *
          * @param stack a stack
-         * @since 1.0
          */
         set(stack) =
             adw_view_switcher_title_set_stack(
@@ -139,16 +133,13 @@ public class ViewSwitcherTitle(
     /**
      * The subtitle to display.
      *
-     * The subtitle should give a user additional details.
-     *
-     * @since 1.0
+     * The subtitle should give the user additional details.
      */
     public var subtitle: String
         /**
          * Gets the subtitle of @self.
          *
          * @return the subtitle
-         * @since 1.0
          */
         get() =
             adw_view_switcher_title_get_subtitle(adwViewSwitcherTitlePointer.reinterpret())?.toKString()
@@ -157,8 +148,9 @@ public class ViewSwitcherTitle(
         /**
          * Sets the subtitle of @self.
          *
+         * The subtitle should give the user additional details.
+         *
          * @param subtitle a subtitle
-         * @since 1.0
          */
         set(subtitle) =
             adw_view_switcher_title_set_subtitle(
@@ -169,17 +161,14 @@ public class ViewSwitcherTitle(
     /**
      * The title to display.
      *
-     * The title should give a user additional details. A good title should not
-     * include the application name.
-     *
-     * @since 1.0
+     * The title typically identifies the current view or content item, and
+     * generally does not use the application name.
      */
     public var title: String
         /**
          * Gets the title of @self.
          *
          * @return the title
-         * @since 1.0
          */
         get() =
             adw_view_switcher_title_get_title(adwViewSwitcherTitlePointer.reinterpret())?.toKString()
@@ -188,8 +177,10 @@ public class ViewSwitcherTitle(
         /**
          * Sets the title of @self.
          *
+         * The title typically identifies the current view or content item, and
+         * generally does not use the application name.
+         *
          * @param title a title
-         * @since 1.0
          */
         set(title) =
             adw_view_switcher_title_set_title(
@@ -202,15 +193,15 @@ public class ViewSwitcherTitle(
      *
      * If the title is visible, it means the view switcher is hidden an it may be
      * wanted to show an alternative switcher, e.g. a [class@ViewSwitcherBar].
-     *
-     * @since 1.0
      */
     public val titleVisible: Boolean
         /**
          * Gets whether the title of @self is currently visible.
          *
+         * If the title is visible, it means the view switcher is hidden an it may be
+         * wanted to show an alternative switcher, e.g. a [class@ViewSwitcherBar].
+         *
          * @return whether the title of @self is currently visible
-         * @since 1.0
          */
         get() =
             adw_view_switcher_title_get_title_visible(adwViewSwitcherTitlePointer.reinterpret()).asBoolean()
@@ -224,15 +215,12 @@ public class ViewSwitcherTitle(
      *
      * This can be used e.g. to ensure the view switcher is hidden below a certain
      * window width, or any other constraint you find suitable.
-     *
-     * @since 1.0
      */
     public var viewSwitcherEnabled: Boolean
         /**
          * Gets whether @self's view switcher is enabled.
          *
          * @return whether the view switcher is enabled
-         * @since 1.0
          */
         get() =
             adw_view_switcher_title_get_view_switcher_enabled(adwViewSwitcherTitlePointer.reinterpret()).asBoolean()
@@ -240,8 +228,14 @@ public class ViewSwitcherTitle(
         /**
          * Sets whether @self's view switcher is enabled.
          *
+         * If it is disabled, the title will be displayed instead. This allows to
+         * programmatically hide the view switcher even if it fits in the available
+         * space.
+         *
+         * This can be used e.g. to ensure the view switcher is hidden below a certain
+         * window width, or any other constraint you find suitable.
+         *
          * @param enabled whether the view switcher is enabled
-         * @since 1.0
          */
         set(enabled) =
             adw_view_switcher_title_set_view_switcher_enabled(
@@ -253,7 +247,6 @@ public class ViewSwitcherTitle(
      * Creates a new `AdwViewSwitcherTitle`.
      *
      * @return the newly created `AdwViewSwitcherTitle`
-     * @since 1.0
      */
     public constructor() : this(adw_view_switcher_title_new()!!.reinterpret())
 
@@ -261,7 +254,6 @@ public class ViewSwitcherTitle(
      * Gets the stack controlled by @self.
      *
      * @return the stack
-     * @since 1.0
      */
     public fun getStack(): ViewStack? =
         adw_view_switcher_title_get_stack(adwViewSwitcherTitlePointer.reinterpret())?.run {
@@ -272,7 +264,6 @@ public class ViewSwitcherTitle(
      * Gets the subtitle of @self.
      *
      * @return the subtitle
-     * @since 1.0
      */
     public fun getSubtitle(): String =
         adw_view_switcher_title_get_subtitle(adwViewSwitcherTitlePointer.reinterpret())?.toKString()
@@ -282,7 +273,6 @@ public class ViewSwitcherTitle(
      * Gets the title of @self.
      *
      * @return the title
-     * @since 1.0
      */
     public fun getTitle(): String =
         adw_view_switcher_title_get_title(adwViewSwitcherTitlePointer.reinterpret())?.toKString()
@@ -291,8 +281,10 @@ public class ViewSwitcherTitle(
     /**
      * Gets whether the title of @self is currently visible.
      *
+     * If the title is visible, it means the view switcher is hidden an it may be
+     * wanted to show an alternative switcher, e.g. a [class@ViewSwitcherBar].
+     *
      * @return whether the title of @self is currently visible
-     * @since 1.0
      */
     public fun getTitleVisible(): Boolean =
         adw_view_switcher_title_get_title_visible(adwViewSwitcherTitlePointer.reinterpret()).asBoolean()
@@ -301,7 +293,6 @@ public class ViewSwitcherTitle(
      * Gets whether @self's view switcher is enabled.
      *
      * @return whether the view switcher is enabled
-     * @since 1.0
      */
     public fun getViewSwitcherEnabled(): Boolean =
         adw_view_switcher_title_get_view_switcher_enabled(adwViewSwitcherTitlePointer.reinterpret()).asBoolean()
@@ -310,7 +301,6 @@ public class ViewSwitcherTitle(
      * Sets the stack controlled by @self.
      *
      * @param stack a stack
-     * @since 1.0
      */
     public fun setStack(stack: ViewStack? = null): Unit =
         adw_view_switcher_title_set_stack(
@@ -321,8 +311,9 @@ public class ViewSwitcherTitle(
     /**
      * Sets the subtitle of @self.
      *
+     * The subtitle should give the user additional details.
+     *
      * @param subtitle a subtitle
-     * @since 1.0
      */
     public fun setSubtitle(subtitle: String): Unit =
         adw_view_switcher_title_set_subtitle(
@@ -333,8 +324,10 @@ public class ViewSwitcherTitle(
     /**
      * Sets the title of @self.
      *
+     * The title typically identifies the current view or content item, and
+     * generally does not use the application name.
+     *
      * @param title a title
-     * @since 1.0
      */
     public fun setTitle(title: String): Unit =
         adw_view_switcher_title_set_title(adwViewSwitcherTitlePointer.reinterpret(), title)
@@ -342,8 +335,14 @@ public class ViewSwitcherTitle(
     /**
      * Sets whether @self's view switcher is enabled.
      *
+     * If it is disabled, the title will be displayed instead. This allows to
+     * programmatically hide the view switcher even if it fits in the available
+     * space.
+     *
+     * This can be used e.g. to ensure the view switcher is hidden below a certain
+     * window width, or any other constraint you find suitable.
+     *
      * @param enabled whether the view switcher is enabled
-     * @since 1.0
      */
     public fun setViewSwitcherEnabled(enabled: Boolean): Unit =
         adw_view_switcher_title_set_view_switcher_enabled(

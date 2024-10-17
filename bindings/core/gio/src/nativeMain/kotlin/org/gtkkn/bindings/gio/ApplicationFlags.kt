@@ -5,6 +5,7 @@ import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GApplicationFlags
 import org.gtkkn.native.gio.G_APPLICATION_ALLOW_REPLACEMENT
 import org.gtkkn.native.gio.G_APPLICATION_CAN_OVERRIDE_APP_ID
+import org.gtkkn.native.gio.G_APPLICATION_DEFAULT_FLAGS
 import org.gtkkn.native.gio.G_APPLICATION_FLAGS_NONE
 import org.gtkkn.native.gio.G_APPLICATION_HANDLES_COMMAND_LINE
 import org.gtkkn.native.gio.G_APPLICATION_HANDLES_OPEN
@@ -25,9 +26,15 @@ public class ApplicationFlags(
 
     public companion object {
         /**
-         * Default
+         * Default. Deprecated in 2.74, use
+         *   %G_APPLICATION_DEFAULT_FLAGS instead
          */
         public val FLAGS_NONE: ApplicationFlags = ApplicationFlags(G_APPLICATION_FLAGS_NONE)
+
+        /**
+         * Default flags. Since: 2.74
+         */
+        public val DEFAULT_FLAGS: ApplicationFlags = ApplicationFlags(G_APPLICATION_DEFAULT_FLAGS)
 
         /**
          * Run as a service. In this mode, registration

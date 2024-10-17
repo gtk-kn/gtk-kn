@@ -18,6 +18,9 @@ local.properties
 .env/
 .envrc.local
 
+# kotlin
+.kotlin
+
 # mkdocs
 docs/dokka/
 public/

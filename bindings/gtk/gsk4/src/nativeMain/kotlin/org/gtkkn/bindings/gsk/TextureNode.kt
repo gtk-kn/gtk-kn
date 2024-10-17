@@ -26,6 +26,10 @@ public open class TextureNode(
      * Creates a `GskRenderNode` that will render the given
      * @texture into the area given by @bounds.
      *
+     * Note that GSK applies linear filtering when textures are
+     * scaled and transformed. See [class@Gsk.TextureScaleNode]
+     * for a way to influence filtering.
+     *
      * @param texture the `GdkTexture`
      * @param bounds the rectangle to render the texture into
      * @return A new `GskRenderNode`

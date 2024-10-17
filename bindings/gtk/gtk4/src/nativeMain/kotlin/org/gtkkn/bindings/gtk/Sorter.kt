@@ -63,7 +63,7 @@ public open class Sorter(
      * update the sort order without a full resorting. Refer to
      * the [enum@Gtk.SorterChange] documentation for details.
      *
-     * This function is intended for implementors of `GtkSorter`
+     * This function is intended for implementers of `GtkSorter`
      * subclasses and should not be called from other functions.
      *
      * @param change How the sorter changed

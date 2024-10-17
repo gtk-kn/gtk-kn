@@ -39,6 +39,11 @@ import kotlin.Unit
  * To set the heading that is shown above the `GtkAppChooserWidget`,
  * use [method@Gtk.AppChooserDialog.set_heading].
  *
+ * ## CSS nodes
+ *
+ * `GtkAppChooserDialog` has a single CSS node with the name `window` and style
+ * class `.appchooser`.
+ *
  * ## Skipped during bindings generation
  *
  * - method `gfile`: Property has no getter nor setter

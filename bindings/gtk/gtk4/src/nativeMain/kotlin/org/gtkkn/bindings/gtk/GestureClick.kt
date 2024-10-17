@@ -140,7 +140,7 @@ public open class GestureClick(
             x: Double,
             y: Double,
             button: UInt,
-            sequence: EventSequence,
+            sequence: EventSequence?,
         ) -> Unit,
     ): ULong =
         g_signal_connect_data(
@@ -231,7 +231,7 @@ private val connectUnpairedReleaseFunc: CPointer<
             Double,
             Double,
             UInt,
-            CPointer<GdkEventSequence>,
+            CPointer<GdkEventSequence>?,
         ) -> Unit
     >
 > =
@@ -248,13 +248,13 @@ private val connectUnpairedReleaseFunc: CPointer<
                 x: Double,
                 y: Double,
                 button: UInt,
-                sequence: EventSequence,
+                sequence: EventSequence?,
             ) -> Unit
         >().get().invoke(
             x,
             y,
             button,
-            sequence!!.run {
+            sequence?.run {
                 EventSequence(reinterpret())
             }
         )

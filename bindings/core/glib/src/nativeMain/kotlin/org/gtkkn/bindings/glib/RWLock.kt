@@ -105,7 +105,7 @@ public class RWLock(
      * Calling g_rw_lock_clear() when any thread holds the lock
      * leads to undefined behaviour.
      *
-     * Sine: 2.32
+     * @since 2.32
      */
     public fun clear(): Unit = g_rw_lock_clear(glibRWLockPointer.reinterpret())
 

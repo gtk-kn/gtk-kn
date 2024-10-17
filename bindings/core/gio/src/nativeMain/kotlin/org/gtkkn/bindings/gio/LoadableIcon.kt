@@ -16,8 +16,8 @@ import kotlin.Int
 import kotlin.Unit
 
 /**
- * Extends the #GIcon interface and adds the ability to
- * load icons from streams.
+ * `GLoadableIcon` extends the [iface@Gio.Icon] interface and adds the ability
+ * to load icons from streams.
  *
  * ## Skipped during bindings generation
  *
@@ -37,8 +37,8 @@ public interface LoadableIcon : Interface, Icon, KGTyped {
      *
      * @param size an integer.
      * @param cancellable optional #GCancellable object, null to ignore.
-     * @param callback a #GAsyncReadyCallback to call when the
-     *            request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun loadAsync(
         size: Int,

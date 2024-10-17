@@ -10,6 +10,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.DeviceTool
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -17,8 +19,11 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkGestureStylus
 import org.gtkkn.native.gtk.gtk_gesture_stylus_get_device_tool
+import org.gtkkn.native.gtk.gtk_gesture_stylus_get_stylus_only
 import org.gtkkn.native.gtk.gtk_gesture_stylus_get_type
 import org.gtkkn.native.gtk.gtk_gesture_stylus_new
+import org.gtkkn.native.gtk.gtk_gesture_stylus_set_stylus_only
+import kotlin.Boolean
 import kotlin.Double
 import kotlin.ULong
 import kotlin.Unit
@@ -42,6 +47,39 @@ public open class GestureStylus(
         get() = gPointer.reinterpret()
 
     /**
+     * If this gesture should exclusively react to stylus input devices.
+     *
+     * @since 4.10
+     */
+    public open var stylusOnly: Boolean
+        /**
+         * Checks whether the gesture is for styluses only.
+         *
+         * Stylus-only gestures will signal events exclusively from stylus
+         * input devices.
+         *
+         * @return true if the gesture is only for stylus events
+         * @since 4.10
+         */
+        get() =
+            gtk_gesture_stylus_get_stylus_only(gtkGestureStylusPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets the state of stylus-only
+         *
+         * If true, the gesture will exclusively handle events from stylus input devices,
+         * otherwise it'll handle events from any pointing device.
+         *
+         * @param stylusOnly whether the gesture is used exclusively for stylus events
+         * @since 4.10
+         */
+        set(stylusOnly) =
+            gtk_gesture_stylus_set_stylus_only(
+                gtkGestureStylusPointer.reinterpret(),
+                stylusOnly.asGBoolean()
+            )
+
+    /**
      * Creates a new `GtkGestureStylus`.
      *
      * @return a newly created stylus gesture
@@ -62,6 +100,33 @@ public open class GestureStylus(
         gtk_gesture_stylus_get_device_tool(gtkGestureStylusPointer.reinterpret())?.run {
             DeviceTool(reinterpret())
         }
+
+    /**
+     * Checks whether the gesture is for styluses only.
+     *
+     * Stylus-only gestures will signal events exclusively from stylus
+     * input devices.
+     *
+     * @return true if the gesture is only for stylus events
+     * @since 4.10
+     */
+    public open fun getStylusOnly(): Boolean =
+        gtk_gesture_stylus_get_stylus_only(gtkGestureStylusPointer.reinterpret()).asBoolean()
+
+    /**
+     * Sets the state of stylus-only
+     *
+     * If true, the gesture will exclusively handle events from stylus input devices,
+     * otherwise it'll handle events from any pointing device.
+     *
+     * @param stylusOnly whether the gesture is used exclusively for stylus events
+     * @since 4.10
+     */
+    public open fun setStylusOnly(stylusOnly: Boolean): Unit =
+        gtk_gesture_stylus_set_stylus_only(
+            gtkGestureStylusPointer.reinterpret(),
+            stylusOnly.asGBoolean()
+        )
 
     /**
      * Emitted when the stylus touches the device.

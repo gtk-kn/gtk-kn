@@ -167,8 +167,8 @@ import kotlin.Unit
  * # GtkEntry as GtkBuildable
  *
  * The `GtkEntry` implementation of the `GtkBuildable` interface supports a
- * custom <attributes> element, which supports any number of <attribute>
- * elements. The <attribute> element has attributes named “name“, “value“,
+ * custom `<attributes>` element, which supports any number of `<attribute>`
+ * elements. The `<attribute>` element has attributes named “name“, “value“,
  * “start“ and “end“ and allows you to specify `PangoAttribute` values for
  * this label.
  *
@@ -351,7 +351,7 @@ public open class Entry(
             )
 
     /**
-     * Whehter the entry should draw a frame.
+     * Whether the entry should draw a frame.
      */
     public open var hasFrame: Boolean
         /**
@@ -472,7 +472,7 @@ public open class Entry(
          * Sets the maximum allowed length of the contents of the widget.
          *
          * If the current contents are longer than the given length, then
-         * they will be truncated to fit. The length is is in characters.
+         * they will be truncated to fit. The length is in characters.
          *
          * This is equivalent to getting @entry's `GtkEntryBuffer` and
          * calling [method@Gtk.EntryBuffer.set_max_length] on it.
@@ -583,7 +583,7 @@ public open class Entry(
 
     public open var tabs: TabArray?
         /**
-         * Gets the tabstops of the `GtkEntry.
+         * Gets the tabstops of the `GtkEntry`.
          *
          * See [method@Gtk.Entry.set_tabs].
          *
@@ -975,7 +975,7 @@ public open class Entry(
     public open fun getProgressPulseStep(): Double = gtk_entry_get_progress_pulse_step(gtkEntryPointer.reinterpret())
 
     /**
-     * Gets the tabstops of the `GtkEntry.
+     * Gets the tabstops of the `GtkEntry`.
      *
      * See [method@Gtk.Entry.set_tabs].
      *
@@ -1069,7 +1069,7 @@ public open class Entry(
      *
      * The attributes in the list are applied to the entry text.
      *
-     * Since the attributes will be applies to text that changes
+     * Since the attributes will be applied to text that changes
      * as the user types, it makes most sense to use attributes
      * with unlimited extent.
      *
@@ -1339,7 +1339,7 @@ public open class Entry(
      * Sets the maximum allowed length of the contents of the widget.
      *
      * If the current contents are longer than the given length, then
-     * they will be truncated to fit. The length is is in characters.
+     * they will be truncated to fit. The length is in characters.
      *
      * This is equivalent to getting @entry's `GtkEntryBuffer` and
      * calling [method@Gtk.EntryBuffer.set_max_length] on it.

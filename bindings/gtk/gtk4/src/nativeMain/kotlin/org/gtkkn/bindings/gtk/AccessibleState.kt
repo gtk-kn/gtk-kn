@@ -11,6 +11,7 @@ import org.gtkkn.native.gtk.GtkAccessibleState.GTK_ACCESSIBLE_STATE_HIDDEN
 import org.gtkkn.native.gtk.GtkAccessibleState.GTK_ACCESSIBLE_STATE_INVALID
 import org.gtkkn.native.gtk.GtkAccessibleState.GTK_ACCESSIBLE_STATE_PRESSED
 import org.gtkkn.native.gtk.GtkAccessibleState.GTK_ACCESSIBLE_STATE_SELECTED
+import org.gtkkn.native.gtk.GtkAccessibleState.GTK_ACCESSIBLE_STATE_VISITED
 import org.gtkkn.native.gtk.gtk_accessible_state_init_value
 import kotlin.Unit
 
@@ -72,6 +73,13 @@ public enum class AccessibleState(
      *   is selected. Value type: boolean or undefined
      */
     SELECTED(GTK_ACCESSIBLE_STATE_SELECTED),
+
+    /**
+     * Indicates that a widget with the GTK_ACCESSIBLE_ROLE_LINK has been visited.
+     * Value type: boolean.
+     * @since 4.12
+     */
+    VISITED(GTK_ACCESSIBLE_STATE_VISITED),
     ;
 
     public companion object {
@@ -85,6 +93,7 @@ public enum class AccessibleState(
                 GTK_ACCESSIBLE_STATE_INVALID -> INVALID
                 GTK_ACCESSIBLE_STATE_PRESSED -> PRESSED
                 GTK_ACCESSIBLE_STATE_SELECTED -> SELECTED
+                GTK_ACCESSIBLE_STATE_VISITED -> VISITED
                 else -> error("invalid nativeValue")
             }
 

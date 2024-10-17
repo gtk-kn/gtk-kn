@@ -11,7 +11,6 @@ import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoLanguage
 import org.gtkkn.native.pango.pango_language_from_string
 import org.gtkkn.native.pango.pango_language_get_default
-import org.gtkkn.native.pango.pango_language_get_preferred
 import org.gtkkn.native.pango.pango_language_get_sample_string
 import org.gtkkn.native.pango.pango_language_includes_script
 import org.gtkkn.native.pango.pango_language_matches
@@ -29,6 +28,7 @@ import kotlin.String
  *
  * - parameter `num_scripts`: num_scripts: Out parameter is not supported
  * - method `to_string`: C function pango_language_to_string is ignored
+ * - function `get_preferred`: Array parameter of type Language is not supported
  */
 public class Language(
     pointer: CPointer<PangoLanguage>,
@@ -167,28 +167,6 @@ public class Language(
          */
         public fun getDefault(): Language =
             pango_language_get_default()!!.run {
-                Language(reinterpret())
-            }
-
-        /**
-         * Returns the list of languages that the user prefers.
-         *
-         * The list is specified by the `PANGO_LANGUAGE` or `LANGUAGE`
-         * environment variables, in order of preference. Note that this
-         * list does not necessarily include the language returned by
-         * [func@Pango.Language.get_default].
-         *
-         * When choosing language-specific resources, such as the sample
-         * text returned by [method@Pango.Language.get_sample_string],
-         * you should first try the default language, followed by the
-         * languages returned by this function.
-         *
-         * @return a null-terminated array
-         *   of `PangoLanguage`*
-         * @since 1.48
-         */
-        public fun getPreferred(): Language? =
-            pango_language_get_preferred()?.run {
                 Language(reinterpret())
             }
 

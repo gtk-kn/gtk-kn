@@ -79,7 +79,7 @@ import kotlin.Unit
  *
  *   // This widget accepts two types of drop types: GFile objects
  *   // and GdkPixbuf objects
- *   gtk_drop_target_set_gtypes (target, (GTypes [2]) {
+ *   gtk_drop_target_set_gtypes (target, (GType [2]) {
  *     G_TYPE_FILE,
  *     GDK_TYPE_PIXBUF,
  *   }, 2);

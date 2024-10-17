@@ -69,7 +69,6 @@ import org.gtkkn.native.pango.pango_gravity_to_rotation
 import org.gtkkn.native.pango.pango_is_zero_width
 import org.gtkkn.native.pango.pango_language_from_string
 import org.gtkkn.native.pango.pango_language_get_default
-import org.gtkkn.native.pango.pango_language_get_preferred
 import org.gtkkn.native.pango.pango_layout_deserialize_error_quark
 import org.gtkkn.native.pango.pango_markup_parser_new
 import org.gtkkn.native.pango.pango_reorder_items
@@ -111,6 +110,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `mirrored_ch`: Unsupported pointer to primitive type
  * - parameter `context`: C Type PangoContext is ignored
  * - parameter `context`: C Type PangoContext is ignored
+ * - function `language_get_preferred`: Array parameter of type Language is not supported
  * - function `log2vis_get_embedding_levels`: Return type guint8 is unsupported
  * - parameter `attr_list`: attr_list: Out parameter is not supported
  * - parameter `value`: value: Out parameter is not supported
@@ -140,6 +140,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - record `LayoutClass`: glib type struct are ignored
  * - record `RendererClass`: glib type struct are ignored
  * - record `RendererPrivate`: Disguised records are ignored
+ * - include `HarfBuzz`: Missing dependant repository
  */
 public object Pango {
     /**
@@ -201,17 +202,17 @@ public object Pango {
     /**
      * The micro component of the version of Pango available at compile-time.
      */
-    public const val VERSION_MICRO: Int = 6
+    public const val VERSION_MICRO: Int = 1
 
     /**
      * The minor component of the version of Pango available at compile-time.
      */
-    public const val VERSION_MINOR: Int = 50
+    public const val VERSION_MINOR: Int = 52
 
     /**
      * A string literal containing the version of Pango available at compile-time.
      */
-    public const val VERSION_STRING: String = "1.50.6"
+    public const val VERSION_STRING: String = "1.52.1"
 
     /**
      * Create a new allow-breaks attribute.
@@ -1193,28 +1194,6 @@ public object Pango {
             Language(reinterpret())
         }
 
-    /**
-     * Returns the list of languages that the user prefers.
-     *
-     * The list is specified by the `PANGO_LANGUAGE` or `LANGUAGE`
-     * environment variables, in order of preference. Note that this
-     * list does not necessarily include the language returned by
-     * [func@Pango.Language.get_default].
-     *
-     * When choosing language-specific resources, such as the sample
-     * text returned by [method@Pango.Language.get_sample_string],
-     * you should first try the default language, followed by the
-     * languages returned by this function.
-     *
-     * @return a null-terminated array
-     *   of `PangoLanguage`*
-     * @since 1.48
-     */
-    public fun languageGetPreferred(): Language? =
-        pango_language_get_preferred()?.run {
-            Language(reinterpret())
-        }
-
     public fun layoutDeserializeErrorQuark(): UInt = pango_layout_deserialize_error_quark()
 
     /**
@@ -1346,6 +1325,10 @@ public object Pango {
      * that API allows for shaping interaction happening across text item
      * boundaries.
      *
+     * Some aspects of hyphen insertion and text transformation (in particular,
+     * capitalization) require log attrs, and thus can only be handled by
+     * [func@Pango.shape_item].
+     *
      * Note that the extra attributes in the @analyis that is returned from
      * [func@Pango.itemize] have indices that are relative to the entire paragraph,
      * so you need to subtract the item offset from their indices before
@@ -1381,6 +1364,10 @@ public object Pango {
      * certain cross-item shaping interactions. If you have access to the broader
      * text of which @item_text is part of, provide the broader text as
      * @paragraph_text. If @paragraph_text is null, item text is used instead.
+     *
+     * Some aspects of hyphen insertion and text transformation (in particular,
+     * capitalization) require log attrs, and thus can only be handled by
+     * [func@Pango.shape_item].
      *
      * Note that the extra attributes in the @analyis that is returned from
      * [func@Pango.itemize] have indices that are relative to the entire paragraph,
@@ -1419,8 +1406,9 @@ public object Pango {
      *
      * This is similar to [func@Pango.shape_with_flags], except it takes a
      * `PangoItem` instead of separate @item_text and @analysis arguments.
-     * It also takes @log_attrs, which may be used in implementing text
-     * transforms.
+     *
+     * It also takes @log_attrs, which are needed for implementing some aspects
+     * of hyphen insertion and text transforms (in particular, capitalization).
      *
      * Note that the extra attributes in the @analyis that is returned from
      * [func@Pango.itemize] have indices that are relative to the entire paragraph,
@@ -1463,6 +1451,10 @@ public object Pango {
      *
      * This is similar to [func@Pango.shape_full], except it also takes flags
      * that can influence the shaping process.
+     *
+     * Some aspects of hyphen insertion and text transformation (in particular,
+     * capitalization) require log attrs, and thus can only be handled by
+     * [func@Pango.shape_item].
      *
      * Note that the extra attributes in the @analyis that is returned from
      * [func@Pango.itemize] have indices that are relative to the entire paragraph,

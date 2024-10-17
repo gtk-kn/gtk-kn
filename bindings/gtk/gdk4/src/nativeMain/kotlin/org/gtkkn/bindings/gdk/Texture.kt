@@ -22,6 +22,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.gdk.GdkTexture
+import org.gtkkn.native.gdk.gdk_texture_get_format
 import org.gtkkn.native.gdk.gdk_texture_get_height
 import org.gtkkn.native.gdk.gdk_texture_get_type
 import org.gtkkn.native.gdk.gdk_texture_get_width
@@ -50,7 +51,8 @@ import kotlin.Throws
  * multiple frames, and will be used for a long time.
  *
  * There are various ways to create `GdkTexture` objects from a
- * [class@GdkPixbuf.Pixbuf], or a Cairo surface, or other pixel data.
+ * [class@GdkPixbuf.Pixbuf], or from bytes stored in memory, a file, or a
+ * [struct@Gio.Resource].
  *
  * The ownership of the pixel data is transferred to the `GdkTexture`
  * instance; you can only make a copy of it, via [method@Gdk.Texture.download].
@@ -117,7 +119,7 @@ public open class Texture(
      * Creates a new texture by loading an image from memory,
      *
      * The file format is detected automatically. The supported formats
-     * are PNG and JPEG, though more formats might be available.
+     * are PNG, JPEG and TIFF, though more formats might be available.
      *
      * If null is returned, then @error will be set.
      *
@@ -145,7 +147,7 @@ public open class Texture(
      * Creates a new texture by loading an image from a file.
      *
      * The file format is detected automatically. The supported formats
-     * are PNG and JPEG, though more formats might be available.
+     * are PNG, JPEG and TIFF, though more formats might be available.
      *
      * If null is returned, then @error will be set.
      *
@@ -172,7 +174,7 @@ public open class Texture(
      * Creates a new texture by loading an image from a file.
      *
      * The file format is detected automatically. The supported formats
-     * are PNG and JPEG, though more formats might be available.
+     * are PNG, JPEG and TIFF, though more formats might be available.
      *
      * If null is returned, then @error will be set.
      *
@@ -195,6 +197,25 @@ public open class Texture(
             gResult!!.reinterpret()
         }
     )
+
+    /**
+     * Gets the memory format most closely associated with the data of
+     * the texture.
+     *
+     * Note that it may not be an exact match for texture data
+     * stored on the GPU or with compression.
+     *
+     * The format can give an indication about the bit depth and opacity
+     * of the texture and is useful to determine the best format for
+     * downloading the texture.
+     *
+     * @return the preferred format for the texture's data
+     * @since 4.10
+     */
+    public open fun getFormat(): MemoryFormat =
+        gdk_texture_get_format(gdkTexturePointer.reinterpret()).run {
+            MemoryFormat.fromNativeValue(this)
+        }
 
     /**
      * Returns the height of the @texture, in pixels.
@@ -295,7 +316,7 @@ public open class Texture(
          * Creates a new texture by loading an image from a file.
          *
          * The file format is detected automatically. The supported formats
-         * are PNG and JPEG, though more formats might be available.
+         * are PNG, JPEG and TIFF, though more formats might be available.
          *
          * If null is returned, then @error will be set.
          *

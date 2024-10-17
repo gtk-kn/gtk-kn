@@ -13,6 +13,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.gtk.GtkMapListModel
+import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.gtk_map_list_model_get_model
 import org.gtkkn.native.gtk.gtk_map_list_model_get_type
 import org.gtkkn.native.gtk.gtk_map_list_model_has_map
@@ -51,17 +52,24 @@ import kotlin.Unit
  * `GtkMapListModel` will attempt to discard the mapped objects as soon as
  * they are no longer needed and recreate them if necessary.
  *
+ * `GtkMapListModel` passes through sections from the underlying model.
+ *
  * ## Skipped during bindings generation
  *
  * - method `has-map`: Property has no getter nor setter
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class MapListModel(
     pointer: CPointer<GtkMapListModel>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()), ListModel, SectionModel, KGTyped {
     public val gtkMapListModelPointer: CPointer<GtkMapListModel>
         get() = gPointer.reinterpret()
 
     override val gioListModelPointer: CPointer<GListModel>
+        get() = gPointer.reinterpret()
+
+    override val gtkSectionModelPointer: CPointer<GtkSectionModel>
         get() = gPointer.reinterpret()
 
     /**

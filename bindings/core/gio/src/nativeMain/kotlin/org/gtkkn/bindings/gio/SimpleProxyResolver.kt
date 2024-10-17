@@ -21,14 +21,14 @@ import kotlin.Unit
 import kotlin.collections.List
 
 /**
- * #GSimpleProxyResolver is a simple #GProxyResolver implementation
+ * `GSimpleProxyResolver` is a simple [iface@Gio.ProxyResolver] implementation
  * that handles a single default proxy, multiple URI-scheme-specific
  * proxies, and a list of hosts that proxies should not be used for.
  *
- * #GSimpleProxyResolver is never the default proxy resolver, but it
+ * `GSimpleProxyResolver` is never the default proxy resolver, but it
  * can be used as the base class for another proxy resolver
  * implementation, or it can be created and used manually, such as
- * with g_socket_client_set_proxy_resolver().
+ * with [method@Gio.SocketClient.set_proxy_resolver].
  *
  * ## Skipped during bindings generation
  *
@@ -58,7 +58,7 @@ public open class SimpleProxyResolver(
      * @param defaultProxy the default proxy to use
      * @since 2.36
      */
-    public open fun setDefaultProxy(defaultProxy: String): Unit =
+    public open fun setDefaultProxy(defaultProxy: String? = null): Unit =
         g_simple_proxy_resolver_set_default_proxy(
             gioSimpleProxyResolverPointer.reinterpret(),
             defaultProxy

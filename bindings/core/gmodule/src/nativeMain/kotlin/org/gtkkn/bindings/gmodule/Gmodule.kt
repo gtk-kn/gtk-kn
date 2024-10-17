@@ -16,6 +16,7 @@ import org.gtkkn.native.gmodule.g_module_error
 import org.gtkkn.native.gmodule.g_module_error_quark
 import org.gtkkn.native.gmodule.g_module_supported
 import kotlin.Boolean
+import kotlin.Int
 import kotlin.String
 import kotlin.UInt
 import kotlin.Unit
@@ -27,6 +28,14 @@ import kotlin.Unit
  * - record `Module`: Disguised records are ignored
  */
 public object Gmodule {
+    public const val MODULE_IMPL_AR: Int = 7
+
+    public const val MODULE_IMPL_DL: Int = 1
+
+    public const val MODULE_IMPL_NONE: Int = 0
+
+    public const val MODULE_IMPL_WIN32: Int = 3
+
     /**
      * A portable way to build the filename of a module. The platform-specific
      * prefix and suffix are added to the filename, if needed, and the result

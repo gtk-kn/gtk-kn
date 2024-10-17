@@ -52,7 +52,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `add_unix_fd`: Return type gpointer is unsupported
+ * - parameter `events`: C Type GIOCondition is ignored
  * - parameter `tag`: gpointer
  * - parameter `tag`: gpointer
  * - parameter `tag`: gpointer
@@ -136,7 +136,8 @@ public class Source(
      * This function is safe to call from any thread, regardless of which thread
      * the @context is running in.
      *
-     * @param context a #GMainContext (if null, the default context will be used)
+     * @param context a #GMainContext (if null, the global-default
+     *   main context will be used)
      * @return the ID (greater than 0) for the source within the
      *   #GMainContext.
      */
@@ -232,8 +233,8 @@ public class Source(
      * Gets the "ready time" of @source, as set by
      * g_source_set_ready_time().
      *
-     * Any time before the current monotonic time (including 0) is an
-     * indication that the source will fire immediately.
+     * Any time before or equal to the current monotonic time (including 0)
+     * is an indication that the source will fire immediately.
      *
      * @return the monotonic ready time, -1 for "never"
      */
@@ -438,7 +439,7 @@ public class Source(
      *
      * The source name should describe in a human-readable way
      * what the source does. For example, "X11 event queue"
-     * or "GTK+ repaint idle handler" or whatever it is.
+     * or "GTK repaint idle handler" or whatever it is.
      *
      * It is permitted to call this function multiple times, but is not
      * recommended due to the potential performance impact.  For example,

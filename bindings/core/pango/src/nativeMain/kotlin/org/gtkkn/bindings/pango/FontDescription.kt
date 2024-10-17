@@ -152,8 +152,8 @@ public class FontDescription(
      *
      * See [method@Pango.FontDescription.set_family].
      *
-     * @return the family name field for the font
-     *   description, or null if not previously set. This has the same
+     * @return the family name field for the
+     *   font description, or null if not previously set. This has the same
      *   life-time as the font description itself and should not be freed.
      */
     public fun getFamily(): String? =
@@ -552,9 +552,8 @@ public class FontDescription(
      *
      * @return a new string that must be freed with g_free().
      */
-    public fun toFilename(): String =
+    public fun toFilename(): String? =
         pango_font_description_to_filename(pangoFontDescriptionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Unsets some of the fields in a `PangoFontDescription`.
@@ -573,8 +572,8 @@ public class FontDescription(
         /**
          * Creates a new font description structure with all fields unset.
          *
-         * @return the newly allocated `PangoFontDescription`, which
-         *   should be freed using [method@Pango.FontDescription.free].
+         * @return the newly allocated `PangoFontDescription`,
+         *   which should be freed using [method@Pango.FontDescription.free].
          */
         public fun new(): FontDescription = FontDescription(pango_font_description_new()!!.reinterpret())
 

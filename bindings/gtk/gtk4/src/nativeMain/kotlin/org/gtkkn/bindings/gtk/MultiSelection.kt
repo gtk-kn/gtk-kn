@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.gtk.GtkMultiSelection
+import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.GtkSelectionModel
 import org.gtkkn.native.gtk.gtk_multi_selection_get_model
 import org.gtkkn.native.gtk.gtk_multi_selection_get_type
@@ -20,14 +21,22 @@ import kotlin.Unit
 /**
  * `GtkMultiSelection` is a `GtkSelectionModel` that allows selecting multiple
  * elements.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class MultiSelection(
     pointer: CPointer<GtkMultiSelection>,
-) : Object(pointer.reinterpret()), ListModel, SelectionModel, KGTyped {
+) : Object(pointer.reinterpret()), ListModel, SectionModel, SelectionModel, KGTyped {
     public val gtkMultiSelectionPointer: CPointer<GtkMultiSelection>
         get() = gPointer.reinterpret()
 
     override val gioListModelPointer: CPointer<GListModel>
+        get() = gPointer.reinterpret()
+
+    override val gtkSectionModelPointer: CPointer<GtkSectionModel>
         get() = gPointer.reinterpret()
 
     override val gtkSelectionModelPointer: CPointer<GtkSelectionModel>

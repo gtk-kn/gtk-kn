@@ -75,7 +75,7 @@ public class FileAttributeMatcher(
         ).asBoolean()
 
     /**
-     * Checks if a attribute matcher only matches a given attribute. Always
+     * Checks if an attribute matcher only matches a given attribute. Always
      * returns false if "*" was used when creating the matcher.
      *
      * @param attribute a file attribute key.

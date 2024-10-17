@@ -18,7 +18,8 @@ import kotlin.String
  * `GtkStringObject` is the type of items in a `GtkStringList`.
  *
  * A `GtkStringObject` is a wrapper around a `const char*`; it has
- * a [property@Gtk.StringObject:string] property.
+ * a [property@Gtk.StringObject:string] property that can be used
+ * for property bindings and expressions.
  */
 public open class StringObject(
     pointer: CPointer<GtkStringObject>,

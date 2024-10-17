@@ -9,10 +9,12 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gtk.GtkStringSorter
+import org.gtkkn.native.gtk.gtk_string_sorter_get_collation
 import org.gtkkn.native.gtk.gtk_string_sorter_get_expression
 import org.gtkkn.native.gtk.gtk_string_sorter_get_ignore_case
 import org.gtkkn.native.gtk.gtk_string_sorter_get_type
 import org.gtkkn.native.gtk.gtk_string_sorter_new
+import org.gtkkn.native.gtk.gtk_string_sorter_set_collation
 import org.gtkkn.native.gtk.gtk_string_sorter_set_expression
 import org.gtkkn.native.gtk.gtk_string_sorter_set_ignore_case
 import kotlin.Boolean
@@ -33,6 +35,41 @@ public open class StringSorter(
 ) : Sorter(pointer.reinterpret()), KGTyped {
     public val gtkStringSorterPointer: CPointer<GtkStringSorter>
         get() = gPointer.reinterpret()
+
+    /**
+     * The collation method to use for sorting.
+     *
+     * The `GTK_COLLATION_NONE` value is useful when the expression already
+     * returns collation keys, or strings that need to be compared byte-by-byte.
+     *
+     * The default value, `GTK_COLLATION_UNICODE`, compares strings according
+     * to the [Unicode collation algorithm](https://www.unicode.org/reports/tr10/).
+     *
+     * @since 4.10
+     */
+    public open var collation: Collation
+        /**
+         * Gets which collation method the sorter uses.
+         *
+         * @return The collation method
+         * @since 4.10
+         */
+        get() =
+            gtk_string_sorter_get_collation(gtkStringSorterPointer.reinterpret()).run {
+                Collation.fromNativeValue(this)
+            }
+
+        /**
+         * Sets the collation method to use for sorting.
+         *
+         * @param collation the collation method
+         * @since 4.10
+         */
+        set(collation) =
+            gtk_string_sorter_set_collation(
+                gtkStringSorterPointer.reinterpret(),
+                collation.nativeValue
+            )
 
     /**
      * The expression to evaluate on item to get a string to compare with.
@@ -62,7 +99,7 @@ public open class StringSorter(
             )
 
     /**
-     * If matching is case sensitive.
+     * If sorting is case sensitive.
      */
     public open var ignoreCase: Boolean
         /**
@@ -97,6 +134,17 @@ public open class StringSorter(
         this(gtk_string_sorter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
 
     /**
+     * Gets which collation method the sorter uses.
+     *
+     * @return The collation method
+     * @since 4.10
+     */
+    public open fun getCollation(): Collation =
+        gtk_string_sorter_get_collation(gtkStringSorterPointer.reinterpret()).run {
+            Collation.fromNativeValue(this)
+        }
+
+    /**
      * Gets the expression that is evaluated to obtain strings from items.
      *
      * @return a `GtkExpression`
@@ -113,6 +161,18 @@ public open class StringSorter(
      */
     public open fun getIgnoreCase(): Boolean =
         gtk_string_sorter_get_ignore_case(gtkStringSorterPointer.reinterpret()).asBoolean()
+
+    /**
+     * Sets the collation method to use for sorting.
+     *
+     * @param collation the collation method
+     * @since 4.10
+     */
+    public open fun setCollation(collation: Collation): Unit =
+        gtk_string_sorter_set_collation(
+            gtkStringSorterPointer.reinterpret(),
+            collation.nativeValue
+        )
 
     /**
      * Sets the expression that is evaluated to obtain strings from items.

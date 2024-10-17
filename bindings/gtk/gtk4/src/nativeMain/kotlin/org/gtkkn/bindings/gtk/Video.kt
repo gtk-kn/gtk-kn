@@ -15,6 +15,7 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkVideo
 import org.gtkkn.native.gtk.gtk_video_get_autoplay
 import org.gtkkn.native.gtk.gtk_video_get_file
+import org.gtkkn.native.gtk.gtk_video_get_graphics_offload
 import org.gtkkn.native.gtk.gtk_video_get_loop
 import org.gtkkn.native.gtk.gtk_video_get_media_stream
 import org.gtkkn.native.gtk.gtk_video_get_type
@@ -26,6 +27,7 @@ import org.gtkkn.native.gtk.gtk_video_new_for_resource
 import org.gtkkn.native.gtk.gtk_video_set_autoplay
 import org.gtkkn.native.gtk.gtk_video_set_file
 import org.gtkkn.native.gtk.gtk_video_set_filename
+import org.gtkkn.native.gtk.gtk_video_set_graphics_offload
 import org.gtkkn.native.gtk.gtk_video_set_loop
 import org.gtkkn.native.gtk.gtk_video_set_media_stream
 import org.gtkkn.native.gtk.gtk_video_set_resource
@@ -104,6 +106,39 @@ public open class Video(
          * @param file the file to play
          */
         set(`file`) = gtk_video_set_file(gtkVideoPointer.reinterpret(), `file`?.gioFilePointer)
+
+    /**
+     * Whether to enable graphics offload.
+     *
+     * @since 4.14
+     */
+    public open var graphicsOffload: GraphicsOffloadEnabled
+        /**
+         * Returns whether graphics offload is enabled.
+         *
+         * See [class@Gtk.GraphicsOffload] for more information on graphics offload.
+         *
+         * @return the graphics offload status
+         * @since 4.14
+         */
+        get() =
+            gtk_video_get_graphics_offload(gtkVideoPointer.reinterpret()).run {
+                GraphicsOffloadEnabled.fromNativeValue(this)
+            }
+
+        /**
+         * Sets whether to enable graphics offload.
+         *
+         * See [class@Gtk.GraphicsOffload] for more information on graphics offload.
+         *
+         * @param enabled the new graphics offload status
+         * @since 4.14
+         */
+        set(enabled) =
+            gtk_video_set_graphics_offload(
+                gtkVideoPointer.reinterpret(),
+                enabled.nativeValue
+            )
 
     /**
      * If new media files should be set to loop.
@@ -211,6 +246,19 @@ public open class Video(
         }
 
     /**
+     * Returns whether graphics offload is enabled.
+     *
+     * See [class@Gtk.GraphicsOffload] for more information on graphics offload.
+     *
+     * @return the graphics offload status
+     * @since 4.14
+     */
+    public open fun getGraphicsOffload(): GraphicsOffloadEnabled =
+        gtk_video_get_graphics_offload(gtkVideoPointer.reinterpret()).run {
+            GraphicsOffloadEnabled.fromNativeValue(this)
+        }
+
+    /**
      * Returns true if videos have been set to loop.
      *
      * @return true if streams should loop
@@ -253,6 +301,17 @@ public open class Video(
      */
     public open fun setFilename(filename: String? = null): Unit =
         gtk_video_set_filename(gtkVideoPointer.reinterpret(), filename)
+
+    /**
+     * Sets whether to enable graphics offload.
+     *
+     * See [class@Gtk.GraphicsOffload] for more information on graphics offload.
+     *
+     * @param enabled the new graphics offload status
+     * @since 4.14
+     */
+    public open fun setGraphicsOffload(enabled: GraphicsOffloadEnabled): Unit =
+        gtk_video_set_graphics_offload(gtkVideoPointer.reinterpret(), enabled.nativeValue)
 
     /**
      * Sets whether new files loaded by @self should be set to loop.

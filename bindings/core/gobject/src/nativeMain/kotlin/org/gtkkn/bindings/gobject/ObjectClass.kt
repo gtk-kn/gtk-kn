@@ -57,6 +57,9 @@ import kotlin.Unit
  * - field `notify`: Fields with callbacks are not supported
  * - field `constructed`: Fields with callbacks are not supported
  * - field `flags`: Record field flags is private
+ * - field `n_construct_properties`: Record field n_construct_properties is private
+ * - field `pspecs`: Record field pspecs is private
+ * - field `n_pspecs`: Record field n_pspecs is private
  * - field `pdummy`: Record field pdummy is private
  */
 public class ObjectClass(

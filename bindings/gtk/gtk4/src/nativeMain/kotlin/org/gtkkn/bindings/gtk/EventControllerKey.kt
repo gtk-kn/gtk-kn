@@ -124,8 +124,7 @@ public open class EventControllerKey(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `keyval` the pressed key.; `keycode` the raw
      * code of the pressed key.; `state` the bitmask, representing the state of modifier keys and
-     * pointer buttons. See `GdkModifierType`.. Returns true if the key press was handled, false
-     * otherwise.
+     * pointer buttons.. Returns true if the key press was handled, false otherwise.
      */
     public fun connectKeyPressed(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -150,7 +149,7 @@ public open class EventControllerKey(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `keyval` the released key.; `keycode` the raw
      * code of the released key.; `state` the bitmask, representing the state of modifier keys and
-     * pointer buttons. See `GdkModifierType`.
+     * pointer buttons.
      */
     public fun connectKeyReleased(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -173,11 +172,13 @@ public open class EventControllerKey(
      * Emitted whenever the state of modifier keys and pointer buttons change.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `keyval` the released key.
+     * @param handler the Callback to connect. Params: `state` the bitmask, representing the new
+     * state of modifier keys and
+     *   pointer buttons.
      */
     public fun connectModifiers(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (keyval: ModifierType) -> Boolean,
+        handler: (state: ModifierType) -> Boolean,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -276,11 +277,11 @@ private val connectKeyReleasedFunc: CPointer<
 private val connectModifiersFunc: CPointer<CFunction<(GdkModifierType) -> Int>> =
     staticCFunction {
             _: COpaquePointer,
-            keyval: GdkModifierType,
+            state: GdkModifierType,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(keyval: ModifierType) -> Boolean>().get().invoke(
-            keyval.run {
+        userData.asStableRef<(state: ModifierType) -> Boolean>().get().invoke(
+            state.run {
                 ModifierType(this)
             }
         ).asGBoolean()

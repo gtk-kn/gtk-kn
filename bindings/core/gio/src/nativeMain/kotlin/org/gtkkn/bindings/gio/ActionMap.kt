@@ -16,9 +16,11 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * The GActionMap interface is implemented by #GActionGroup
- * implementations that operate by containing a number of
- * named #GAction instances, such as #GSimpleActionGroup.
+ * `GActionMap` is an interface for action containers.
+ *
+ * The `GActionMap` interface is implemented by [iface@Gio.ActionGroup]
+ * implementations that operate by containing a number of named
+ * [iface@Gio.Action] instances, such as [class@Gio.SimpleActionGroup].
  *
  * One useful application of this interface is to map the
  * names of actions from various action groups to unique,
@@ -28,6 +30,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - parameter `entries`: Array parameter of type ActionEntry is not supported
  * - parameter `entries`: Array parameter of type ActionEntry is not supported
  *
  * @since 2.32

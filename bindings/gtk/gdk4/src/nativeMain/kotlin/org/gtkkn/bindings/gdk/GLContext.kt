@@ -253,7 +253,9 @@ public open class GLContext(
     /**
      * Checks whether the @context is using an OpenGL or OpenGL ES profile.
      *
-     * @return true if the `GdkGLContext` is using an OpenGL ES profile
+     * @return true if the `GdkGLContext` is using an OpenGL ES profile;
+     * false if other profile is in use of if the @context has not yet
+     * been realized.
      */
     public open fun getUseEs(): Boolean = gdk_gl_context_get_use_es(gdkGLContextPointer.reinterpret()).asBoolean()
 
@@ -386,7 +388,10 @@ public open class GLContext(
      *
      * Setting @major and @minor to zero will use the default values.
      *
-     * The `GdkGLContext` must not be realized or made current prior to calling
+     * Setting @major and @minor lower than the minimum versions required
+     * by GTK will result in the context choosing the minimum version.
+     *
+     * The @context must not be realized or made current prior to calling
      * this function.
      *
      * @param major the major version to request

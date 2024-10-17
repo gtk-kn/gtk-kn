@@ -19,6 +19,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkLevelBar
@@ -88,7 +89,7 @@ import kotlin.Unit
  *   //   background-color: magenta;
  *   //   border-style: solid;
  *   //   border-color: black;
- *   //   border-style: 1px;
+ *   //   border-width: 1px;
  *   // }
  *
  *   gtk_level_bar_add_offset_value (bar, "my-offset", 0.60);
@@ -114,8 +115,8 @@ import kotlin.Unit
  * # GtkLevelBar as GtkBuildable
  *
  * The `GtkLevelBar` implementation of the `GtkBuildable` interface supports a
- * custom <offsets> element, which can contain any number of <offset> elements,
- * each of which must have name and value attributes.
+ * custom `<offsets>` element, which can contain any number of `<offset>` elements,
+ * each of which must have "name" and "value" attributes.
  *
  * # CSS nodes
  *
@@ -149,8 +150,11 @@ import kotlin.Unit
  */
 public open class LevelBar(
     pointer: CPointer<GtkLevelBar>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()), AccessibleRange, Orientable, KGTyped {
     public val gtkLevelBarPointer: CPointer<GtkLevelBar>
+        get() = gPointer.reinterpret()
+
+    override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
         get() = gPointer.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
@@ -216,7 +220,7 @@ public open class LevelBar(
      */
     public open var minValue: Double
         /**
-         * Returns the `min-value of the `GtkLevelBar`.
+         * Returns the `min-value` of the `GtkLevelBar`.
          *
          * @return a positive value
          */
@@ -270,7 +274,7 @@ public open class LevelBar(
          * Returns the `value` of the `GtkLevelBar`.
          *
          * @return a value in the interval between
-         *   [property@Gtk.LevelBar:min-value[ and [property@Gtk.LevelBar:max-value]
+         *   [property@Gtk.LevelBar:min-value] and [property@Gtk.LevelBar:max-value]
          */
         get() = gtk_level_bar_get_value(gtkLevelBarPointer.reinterpret())
 
@@ -333,7 +337,7 @@ public open class LevelBar(
     public open fun getMaxValue(): Double = gtk_level_bar_get_max_value(gtkLevelBarPointer.reinterpret())
 
     /**
-     * Returns the `min-value of the `GtkLevelBar`.
+     * Returns the `min-value` of the `GtkLevelBar`.
      *
      * @return a positive value
      */
@@ -353,7 +357,7 @@ public open class LevelBar(
      * Returns the `value` of the `GtkLevelBar`.
      *
      * @return a value in the interval between
-     *   [property@Gtk.LevelBar:min-value[ and [property@Gtk.LevelBar:max-value]
+     *   [property@Gtk.LevelBar:min-value] and [property@Gtk.LevelBar:max-value]
      */
     public open fun getValue(): Double = gtk_level_bar_get_value(gtkLevelBarPointer.reinterpret())
 

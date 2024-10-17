@@ -12,9 +12,6 @@ import org.gtkkn.native.adw.AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_UNDER
  * It determines the type of animation when transitioning between children in a
  * [class@Flap] widget, as well as which areas can be swiped via
  * [property@Flap:swipe-to-open] and [property@Flap:swipe-to-close].
- *
- * New values may be added to this enum over time.
- * @since 1.0
  */
 public enum class FlapTransitionType(
     public val nativeValue: AdwFlapTransitionType,

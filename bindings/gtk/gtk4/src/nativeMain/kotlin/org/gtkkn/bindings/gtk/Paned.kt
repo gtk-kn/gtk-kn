@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
@@ -104,13 +105,13 @@ import kotlin.Unit
  * gtk_widget_set_size_request (hpaned, 200, -1);
  *
  * gtk_paned_set_start_child (GTK_PANED (hpaned), frame1);
- * gtk_paned_set_start_child_resize (GTK_PANED (hpaned), TRUE);
- * gtk_paned_set_start_child_shrink (GTK_PANED (hpaned), FALSE);
+ * gtk_paned_set_resize_start_child (GTK_PANED (hpaned), TRUE);
+ * gtk_paned_set_shrink_start_child (GTK_PANED (hpaned), FALSE);
  * gtk_widget_set_size_request (frame1, 50, -1);
  *
  * gtk_paned_set_end_child (GTK_PANED (hpaned), frame2);
- * gtk_paned_set_end_child_resize (GTK_PANED (hpaned), FALSE);
- * gtk_paned_set_end_child_shrink (GTK_PANED (hpaned), FALSE);
+ * gtk_paned_set_resize_end_child (GTK_PANED (hpaned), FALSE);
+ * gtk_paned_set_shrink_end_child (GTK_PANED (hpaned), FALSE);
  * gtk_widget_set_size_request (frame2, 50, -1);
  * ```
  *
@@ -122,8 +123,11 @@ import kotlin.Unit
  */
 public open class Paned(
     pointer: CPointer<GtkPaned>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()), AccessibleRange, Orientable, KGTyped {
     public val gtkPanedPointer: CPointer<GtkPaned>
+        get() = gPointer.reinterpret()
+
+    override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
         get() = gPointer.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>

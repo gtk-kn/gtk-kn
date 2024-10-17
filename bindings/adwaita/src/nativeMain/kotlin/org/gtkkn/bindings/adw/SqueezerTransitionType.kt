@@ -7,7 +7,6 @@ import org.gtkkn.native.adw.AdwSqueezerTransitionType.ADW_SQUEEZER_TRANSITION_TY
 
 /**
  * Describes the possible transitions in a [class@Squeezer] widget.
- * @since 1.0
  */
 public enum class SqueezerTransitionType(
     public val nativeValue: AdwSqueezerTransitionType,

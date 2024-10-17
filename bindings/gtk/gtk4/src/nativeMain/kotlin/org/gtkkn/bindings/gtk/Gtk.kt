@@ -83,6 +83,7 @@ import org.gtkkn.native.gtk.gtk_check_version
 import org.gtkkn.native.gtk.gtk_constraint_vfl_parser_error_quark
 import org.gtkkn.native.gtk.gtk_css_parser_error_quark
 import org.gtkkn.native.gtk.gtk_css_parser_warning_quark
+import org.gtkkn.native.gtk.gtk_dialog_error_quark
 import org.gtkkn.native.gtk.gtk_disable_setlocale
 import org.gtkkn.native.gtk.gtk_editable_delegate_get_property
 import org.gtkkn.native.gtk.gtk_editable_delegate_set_property
@@ -101,7 +102,6 @@ import org.gtkkn.native.gtk.gtk_init
 import org.gtkkn.native.gtk.gtk_init_check
 import org.gtkkn.native.gtk.gtk_is_initialized
 import org.gtkkn.native.gtk.gtk_native_get_for_surface
-import org.gtkkn.native.gtk.gtk_ordering_from_cmpfunc
 import org.gtkkn.native.gtk.gtk_paper_size_get_default
 import org.gtkkn.native.gtk.gtk_paper_size_get_paper_sizes
 import org.gtkkn.native.gtk.gtk_param_spec_expression
@@ -166,9 +166,12 @@ import kotlin.Unit
  * - callback `ScaleFormatValueFunc`: Callback with String return value is not supported
  * - record `ATContextClass`: glib type struct are ignored
  * - record `AccessibleInterface`: glib type struct are ignored
+ * - record `AccessibleRangeInterface`: glib type struct are ignored
+ * - record `AccessibleTextInterface`: glib type struct are ignored
  * - record `ActionableInterface`: glib type struct are ignored
  * - record `ActivateActionClass`: glib type struct are ignored
  * - record `AdjustmentClass`: glib type struct are ignored
+ * - record `AlertDialogClass`: glib type struct are ignored
  * - record `AlternativeTriggerClass`: glib type struct are ignored
  * - record `AnyFilterClass`: glib type struct are ignored
  * - record `ApplicationClass`: glib type struct are ignored
@@ -200,8 +203,13 @@ import kotlin.Unit
  * - record `CenterLayoutClass`: glib type struct are ignored
  * - record `CheckButtonClass`: glib type struct are ignored
  * - record `ColorChooserInterface`: glib type struct are ignored
+ * - record `ColorDialogButtonClass`: glib type struct are ignored
+ * - record `ColorDialogClass`: glib type struct are ignored
+ * - record `ColumnViewCellClass`: glib type struct are ignored
  * - record `ColumnViewClass`: glib type struct are ignored
  * - record `ColumnViewColumnClass`: glib type struct are ignored
+ * - record `ColumnViewRowClass`: glib type struct are ignored
+ * - record `ColumnViewSorterClass`: glib type struct are ignored
  * - record `ComboBoxClass`: glib type struct are ignored
  * - record `ConstraintClass`: glib type struct are ignored
  * - record `ConstraintGuideClass`: glib type struct are ignored
@@ -236,6 +244,8 @@ import kotlin.Unit
  * - record `EventControllerScrollClass`: glib type struct are ignored
  * - record `EveryFilterClass`: glib type struct are ignored
  * - record `FileChooserNativeClass`: glib type struct are ignored
+ * - record `FileDialogClass`: glib type struct are ignored
+ * - record `FileLauncherClass`: glib type struct are ignored
  * - record `FilterClass`: glib type struct are ignored
  * - record `FilterListModelClass`: glib type struct are ignored
  * - record `FixedClass`: glib type struct are ignored
@@ -244,6 +254,8 @@ import kotlin.Unit
  * - record `FlattenListModelClass`: glib type struct are ignored
  * - record `FlowBoxChildClass`: glib type struct are ignored
  * - record `FontChooserIface`: glib type struct are ignored
+ * - record `FontDialogButtonClass`: glib type struct are ignored
+ * - record `FontDialogClass`: glib type struct are ignored
  * - record `FrameClass`: glib type struct are ignored
  * - record `GLAreaClass`: glib type struct are ignored
  * - record `GestureClass`: glib type struct are ignored
@@ -256,6 +268,7 @@ import kotlin.Unit
  * - record `GestureStylusClass`: glib type struct are ignored
  * - record `GestureSwipeClass`: glib type struct are ignored
  * - record `GestureZoomClass`: glib type struct are ignored
+ * - record `GraphicsOffloadClass`: glib type struct are ignored
  * - record `GridClass`: glib type struct are ignored
  * - record `GridLayoutChildClass`: glib type struct are ignored
  * - record `GridLayoutClass`: glib type struct are ignored
@@ -265,11 +278,13 @@ import kotlin.Unit
  * - record `IMContextSimplePrivate`: Disguised records are ignored
  * - record `IMMulticontextClass`: glib type struct are ignored
  * - record `IMMulticontextPrivate`: Disguised records are ignored
+ * - record `InscriptionClass`: glib type struct are ignored
  * - record `KeyvalTriggerClass`: glib type struct are ignored
  * - record `LayoutChildClass`: glib type struct are ignored
  * - record `LayoutManagerClass`: glib type struct are ignored
  * - record `ListBaseClass`: glib type struct are ignored
  * - record `ListBoxRowClass`: glib type struct are ignored
+ * - record `ListHeaderClass`: glib type struct are ignored
  * - record `ListItemClass`: glib type struct are ignored
  * - record `ListItemFactoryClass`: glib type struct are ignored
  * - record `ListStoreClass`: glib type struct are ignored
@@ -303,6 +318,7 @@ import kotlin.Unit
  * - record `PictureClass`: glib type struct are ignored
  * - record `PopoverClass`: glib type struct are ignored
  * - record `PrintBackend`: Disguised records are ignored
+ * - record `PrintDialogClass`: glib type struct are ignored
  * - record `PrintOperationClass`: glib type struct are ignored
  * - record `PrintOperationPreviewIface`: glib type struct are ignored
  * - record `PrintOperationPrivate`: Disguised records are ignored
@@ -313,6 +329,7 @@ import kotlin.Unit
  * - record `ScaleButtonClass`: glib type struct are ignored
  * - record `ScaleClass`: glib type struct are ignored
  * - record `ScrollableInterface`: glib type struct are ignored
+ * - record `SectionModelInterface`: glib type struct are ignored
  * - record `SelectionFilterModelClass`: glib type struct are ignored
  * - record `SelectionModelInterface`: glib type struct are ignored
  * - record `ShortcutActionClass`: glib type struct are ignored
@@ -361,6 +378,7 @@ import kotlin.Unit
  * - record `TreeStoreClass`: glib type struct are ignored
  * - record `TreeStorePrivate`: Disguised records are ignored
  * - record `TreeViewClass`: glib type struct are ignored
+ * - record `UriLauncherClass`: glib type struct are ignored
  * - record `VideoClass`: glib type struct are ignored
  * - record `WidgetClass`: glib type struct are ignored
  * - record `WidgetClassPrivate`: Disguised records are ignored
@@ -374,6 +392,289 @@ import kotlin.Unit
  */
 public object Gtk {
     /**
+     * An attribute for the background color, expressed as an RGB value
+     * encoded in a string using the format: `{r8},{g8},{b8}`.
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_BACKGROUND: String = "bg-color"
+
+    /**
+     * An attribute for the font family name.
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_FAMILY: String = "family-name"
+
+    /**
+     * An attribute for the foreground color, expressed as an RGB value
+     * encoded in a string using the format: `{r8},{g8},{b8}`.
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_FOREGROUND: String = "fg-color"
+
+    /**
+     * An attribute for the overline style.
+     *
+     * Possible values are:
+     *
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_OVERLINE_NONE]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_OVERLINE_SINGLE]
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_OVERLINE: String = "overline"
+
+    /**
+     * The "none" overline value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_OVERLINE].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_OVERLINE_NONE: String = "none"
+
+    /**
+     * The "single" overline value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_OVERLINE].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_OVERLINE_SINGLE: String = "single"
+
+    /**
+     * An attribute for the font size, expressed in points.
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_SIZE: String = "size"
+
+    /**
+     * An attribute for the font stretch type.
+     *
+     * Possible values are:
+     *
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH_ULTRA_CONDENSED]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH_EXTRA_CONDENSED]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH_CONDENSED]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH_SEMI_CONDENSED]
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STRETCH: String = "stretch"
+
+    /**
+     * The "condensed" stretch value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STRETCH_CONDENSED: String = "condensed"
+
+    /**
+     * The "expanded" stretch value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STRETCH_EXPANDED: String = "expanded"
+
+    /**
+     * The "extra condensed" stretch value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STRETCH_EXTRA_CONDENSED: String = "extra_condensed"
+
+    /**
+     * The "extra expanded" stretch value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STRETCH_EXTRA_EXPANDED: String = "extra_expanded"
+
+    /**
+     * The "normal" stretch value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STRETCH_NORMAL: String = "normal"
+
+    /**
+     * The "semi condensed" stretch value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STRETCH_SEMI_CONDENSED: String = "semi_condensed"
+
+    /**
+     * The "semi expanded" stretch value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STRETCH_SEMI_EXPANDED: String = "semi_expanded"
+
+    /**
+     * The "ultra condensed" stretch value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STRETCH_ULTRA_CONDENSED: String = "ultra_condensed"
+
+    /**
+     * The "ultra expanded" stretch value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STRETCH].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STRETCH_ULTRA_EXPANDED: String = "ultra_expanded"
+
+    /**
+     * An attribute for strikethrough text.
+     *
+     * Possible values are `true` or `false`.
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STRIKETHROUGH: String = "strikethrough"
+
+    /**
+     * An attribute for the font style.
+     *
+     * Possible values are:
+     *
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_STYLE_NORMAL]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_STYLE_OBLIQUE]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_STYLE_ITALIC]
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STYLE: String = "style"
+
+    /**
+     * The "italic" style value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STYLE].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STYLE_ITALIC: String = "italic"
+
+    /**
+     * The "normal" style value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STYLE].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STYLE_NORMAL: String = "normal"
+
+    /**
+     * The "oblique" style value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_STYLE].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_STYLE_OBLIQUE: String = "oblique"
+
+    /**
+     * An attribute for the underline style.
+     *
+     * Possible values are:
+     *
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_UNDERLINE_NONE]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_UNDERLINE_SINGLE]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_UNDERLINE_DOUBLE]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_UNDERLINE_ERROR]
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_UNDERLINE: String = "underline"
+
+    /**
+     * The "double" underline value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_UNDERLINE].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_UNDERLINE_DOUBLE: String = "double"
+
+    /**
+     * The "error" underline value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_UNDERLINE].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_UNDERLINE_ERROR: String = "error"
+
+    /**
+     * The "none" underline value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_UNDERLINE].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_UNDERLINE_NONE: String = "none"
+
+    /**
+     * The "single" underline value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_UNDERLINE].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_UNDERLINE_SINGLE: String = "single"
+
+    /**
+     * An attribute for the font variant.
+     *
+     * Possible values are:
+     *
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT_SMALL_CAPS]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT_ALL_SMALL_CAPS]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT_PETITE_CAPS]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT_ALL_PETITE_CAPS]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT_UNICASE]
+     * - [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT_TITLE_CAPS]
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_VARIANT: String = "variant"
+
+    /**
+     * The "all petite caps" variant value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_VARIANT_ALL_PETITE_CAPS: String = "all-petite-caps"
+
+    /**
+     * The "all small caps" variant value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_VARIANT_ALL_SMALL_CAPS: String = "all-small-caps"
+
+    /**
+     * The "petite caps" variant value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_VARIANT_PETITE_CAPS: String = "petite-caps"
+
+    /**
+     * The "small caps" variant value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_VARIANT_SMALL_CAPS: String = "small-caps"
+
+    /**
+     * The "title caps" variant value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_VARIANT_TITLE_CAPS: String = "title-caps"
+
+    /**
+     * The "unicase" variant value for [const@Gtk.ACCESSIBLE_ATTRIBUTE_VARIANT].
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_VARIANT_UNICASE: String = "unicase"
+
+    /**
+     * An attribute for the font weight.
+     *
+     * @since 4.14
+     */
+    public const val ACCESSIBLE_ATTRIBUTE_WEIGHT: String = "weight"
+
+    /**
      * An undefined value. The accessible attribute is either unset, or its
      * value is undefined.
      */
@@ -384,7 +685,7 @@ public object Gtk {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val BINARY_AGE: Int = 609
+    public const val BINARY_AGE: Int = 1402
 
     public const val IM_MODULE_EXTENSION_POINT_NAME: String = "gtk-im-module"
 
@@ -401,7 +702,7 @@ public object Gtk {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val INTERFACE_AGE: Int = 9
+    public const val INTERFACE_AGE: Int = 2
 
     /**
      * The value used to refer to a guaranteed invalid position
@@ -447,14 +748,14 @@ public object Gtk {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MICRO_VERSION: Int = 9
+    public const val MICRO_VERSION: Int = 2
 
     /**
      * Like [func@get_minor_version], but from the headers used at
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MINOR_VERSION: Int = 6
+    public const val MINOR_VERSION: Int = 14
 
     /**
      * Name for the A3 paper size.
@@ -849,8 +1150,10 @@ public object Gtk {
 
     public fun cssParserWarningQuark(): UInt = gtk_css_parser_warning_quark()
 
+    public fun dialogErrorQuark(): UInt = gtk_dialog_error_quark()
+
     /**
-     * Prevents [id@gtk_init] and [id@gtk_init_check] from automatically calling
+     * Prevents [func@Gtk.init] and [func@Gtk.init_check] from automatically calling
      * `setlocale (LC_ALL, "")`.
      *
      * You would want to use this function if you wanted to set the locale for
@@ -973,12 +1276,10 @@ public object Gtk {
      * locale. It determines, for example, whether GTK uses
      * the right-to-left or left-to-right text direction.
      *
-     * This function is equivalent to
-     * [func@Pango.Language.get_default].
+     * This function is equivalent to [func@Pango.Language.get_default].
      * See that function for details.
      *
-     * @return the default language as a
-     *   `PangoLanguage`
+     * @return the default language
      */
     public fun getDefaultLanguage(): Language =
         gtk_get_default_language()!!.run {
@@ -1018,12 +1319,11 @@ public object Gtk {
      * update_locale (const char *new_locale)
      * {
      *   setlocale (LC_ALL, new_locale);
-     *   GtkTextDirection direction = gtk_get_locale_direction ();
-     *   gtk_widget_set_default_direction (direction);
+     *   gtk_widget_set_default_direction (gtk_get_locale_direction ());
      * }
      * ]|
      *
-     * @return the `GtkTextDirection` of the current locale
+     * @return the direction of the current locale
      */
     public fun getLocaleDirection(): TextDirection =
         gtk_get_locale_direction().run {
@@ -1076,24 +1376,24 @@ public object Gtk {
 
     /**
      * Call this function before using any other GTK functions in your GUI
-     * applications.  It will initialize everything needed to operate the
+     * applications. It will initialize everything needed to operate the
      * toolkit.
      *
-     * If you are using `GtkApplication`, you don't have to call gtk_init()
-     * or gtk_init_check(); the `GApplication::startup` handler
-     * does it for you.
+     * If you are using `GtkApplication`, you usually don't have to call this
+     * function; the `GApplication::startup` handler does it for you. Though,
+     * if you are using GApplication methods that will be invoked before `startup`,
+     * such as `local_command_line`, you may need to initialize stuff explicitly.
      *
      * This function will terminate your program if it was unable to
      * initialize the windowing system for some reason. If you want
-     * your program to fall back to a textual interface you want to
-     * call gtk_init_check() instead.
+     * your program to fall back to a textual interface, call
+     * [func@Gtk.init_check] instead.
      *
-     * GTK calls `signal (SIGPIPE, SIG_IGN)`
-     * during initialization, to ignore SIGPIPE signals, since these are
-     * almost never wanted in graphical applications. If you do need to
-     * handle SIGPIPE for some reason, reset the handler after gtk_init(),
-     * but notice that other libraries (e.g. libdbus or gvfs) might do
-     * similar things.
+     * GTK calls `signal (SIGPIPE, SIG_IGN)` during initialization, to ignore
+     * SIGPIPE signals, since these are almost never wanted in graphical
+     * applications. If you do need to handle SIGPIPE for some reason, reset
+     * the handler after gtk_init(), but notice that other libraries (e.g.
+     * libdbus or gvfs) might do similar things.
      */
     public fun `init`(): Unit = gtk_init()
 
@@ -1112,8 +1412,9 @@ public object Gtk {
     public fun initCheck(): Boolean = gtk_init_check().asBoolean()
 
     /**
-     * Use this function to check if GTK has been initialized with gtk_init()
-     * or gtk_init_check().
+     * Use this function to check if GTK has been initialized.
+     *
+     * See [func@Gtk.init].
      *
      * @return the initialization status
      */
@@ -1128,19 +1429,6 @@ public object Gtk {
     public fun nativeGetForSurface(surface: Surface): Native? =
         gtk_native_get_for_surface(surface.gdkSurfacePointer.reinterpret())?.run {
             Native.wrap(reinterpret())
-        }
-
-    /**
-     * Converts the result of a `GCompareFunc` like strcmp() to a
-     * `GtkOrdering` value.
-     *
-     * @param cmpfuncResult Result of a comparison function
-     * @return the corresponding `GtkOrdering`
-     * @since 4.2
-     */
-    public fun orderingFromCmpfunc(cmpfuncResult: Int): Ordering =
-        gtk_ordering_from_cmpfunc(cmpfuncResult).run {
-            Ordering.fromNativeValue(this)
         }
 
     /**
@@ -1434,7 +1722,7 @@ public object Gtk {
     /**
      * Force registration of all core GTK object types.
      *
-     * This allowes to refer to any of those object types via
+     * This allows to refer to any of those object types via
      * g_type_from_name() after calling this function.
      */
     public fun testRegisterAllTypes(): Unit = gtk_test_register_all_types()
@@ -1568,6 +1856,11 @@ public object Gtk {
                     CssParserError.fromErrorOrNull(error)
                         ?.let {
                             CssParserErrorException(error, it)
+                        }
+                DialogError.quark() ->
+                    DialogError.fromErrorOrNull(error)
+                        ?.let {
+                            DialogErrorException(error, it)
                         }
                 FileChooserError.quark() ->
                     FileChooserError.fromErrorOrNull(error)
@@ -2661,7 +2954,7 @@ public val WidgetActionActivateFuncFunc: CPointer<
         (
             CPointer<GtkWidget>,
             CPointer<ByteVar>,
-            CPointer<GVariant>,
+            CPointer<GVariant>?,
         ) -> Unit
     >
 > =
@@ -2675,14 +2968,14 @@ public val WidgetActionActivateFuncFunc: CPointer<
             (
                 widget: Widget,
                 actionName: String,
-                parameter: Variant,
+                parameter: Variant?,
             ) -> Unit
         >().get().invoke(
             widget!!.run {
                 Widget(reinterpret())
             },
             actionName?.toKString() ?: error("Expected not null string"),
-            parameter!!.run {
+            parameter?.run {
                 Variant(reinterpret())
             }
         )
@@ -2875,7 +3168,7 @@ public typealias FlowBoxForeachFunc = (box: FlowBox, child: FlowBoxChild) -> Uni
  * - param `child1` the first child
  * - param `child2` the second child
  * - return < 0 if @child1 should be before @child2, 0 if
- *   the are equal, and > 0 otherwise
+ *   they are equal, and > 0 otherwise
  */
 public typealias FlowBoxSortFunc = (child1: FlowBoxChild, child2: FlowBoxChild) -> Int
 
@@ -3279,5 +3572,5 @@ public typealias TreeViewSearchEqualFunc = (
 public typealias WidgetActionActivateFunc = (
     widget: Widget,
     actionName: String,
-    parameter: Variant,
+    parameter: Variant?,
 ) -> Unit

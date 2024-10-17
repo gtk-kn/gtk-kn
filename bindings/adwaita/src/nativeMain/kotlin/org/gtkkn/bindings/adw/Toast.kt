@@ -12,6 +12,9 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -21,19 +24,24 @@ import org.gtkkn.native.adw.adw_toast_dismiss
 import org.gtkkn.native.adw.adw_toast_get_action_name
 import org.gtkkn.native.adw.adw_toast_get_action_target_value
 import org.gtkkn.native.adw.adw_toast_get_button_label
+import org.gtkkn.native.adw.adw_toast_get_custom_title
 import org.gtkkn.native.adw.adw_toast_get_priority
 import org.gtkkn.native.adw.adw_toast_get_timeout
 import org.gtkkn.native.adw.adw_toast_get_title
 import org.gtkkn.native.adw.adw_toast_get_type
+import org.gtkkn.native.adw.adw_toast_get_use_markup
 import org.gtkkn.native.adw.adw_toast_new
 import org.gtkkn.native.adw.adw_toast_set_action_name
 import org.gtkkn.native.adw.adw_toast_set_action_target_value
 import org.gtkkn.native.adw.adw_toast_set_button_label
+import org.gtkkn.native.adw.adw_toast_set_custom_title
 import org.gtkkn.native.adw.adw_toast_set_detailed_action_name
 import org.gtkkn.native.adw.adw_toast_set_priority
 import org.gtkkn.native.adw.adw_toast_set_timeout
 import org.gtkkn.native.adw.adw_toast_set_title
+import org.gtkkn.native.adw.adw_toast_set_use_markup
 import org.gtkkn.native.gobject.g_signal_connect_data
+import kotlin.Boolean
 import kotlin.String
 import kotlin.UInt
 import kotlin.ULong
@@ -60,6 +68,12 @@ import kotlin.Unit
  * [property@Toast:timeout] determines how long the toast stays on screen, while
  * [property@Toast:priority] determines how it behaves if another toast is
  * already being displayed.
+ *
+ * Toast titles use Pango markup by default, set [property@Toast:use-markup] to
+ * `FALSE` if this is unwanted.
+ *
+ * [property@Toast:custom-title] can be used to replace the title label with a
+ * custom widget.
  *
  * ## Actions
  *
@@ -117,9 +131,7 @@ import kotlin.Unit
  *   n_items = ... // The number of waiting items
  *
  *   if (!self->undo_toast) {
- *     title = g_strdup_printf (_("‘%s’ deleted"), ...);
- *
- *     self->undo_toast = adw_toast_new (title);
+ *     self->undo_toast = adw_toast_new_format (_("‘%s’ deleted"), ...);
  *
  *     adw_toast_set_priority (self->undo_toast, ADW_TOAST_PRIORITY_HIGH);
  *     adw_toast_set_button_label (self->undo_toast, _("_Undo"));
@@ -139,6 +151,9 @@ import kotlin.Unit
  *                                n_items), n_items);
  *
  *   adw_toast_set_title (self->undo_toast, title);
+ *
+ *   // Bump the toast timeout
+ *   adw_toast_overlay_add_toast (self->toast_overlay, g_object_ref (self->undo_toast));
  * }
  *
  * static void
@@ -158,8 +173,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - method `action-target`: Property has no getter nor setter
- *
- * @since 1.0
+ * - method `title`: Property TypeInfo of getter and setter do not match
  */
 public class Toast(
     pointer: CPointer<AdwToast>,
@@ -173,23 +187,23 @@ public class Toast(
      * It will be activated when clicking the button.
      *
      * See [property@Toast:action-target].
-     *
-     * @since 1.0
      */
     public var actionName: String?
         /**
          * Gets the name of the associated action.
          *
          * @return the action name
-         * @since 1.0
          */
         get() = adw_toast_get_action_name(adwToastPointer.reinterpret())?.toKString()
 
         /**
          * Sets the name of the associated action.
          *
+         * It will be activated when clicking the button.
+         *
+         * See [property@Toast:action-target].
+         *
          * @param actionName the action name
-         * @since 1.0
          */
         set(actionName) = adw_toast_set_action_name(adwToastPointer.reinterpret(), actionName)
 
@@ -201,27 +215,66 @@ public class Toast(
      * If set to `NULL`, the button won't be shown.
      *
      * See [property@Toast:action-name].
-     *
-     * @since 1.0
      */
     public var buttonLabel: String?
         /**
          * Gets the label to show on the button.
          *
          * @return the button label
-         * @since 1.0
          */
         get() = adw_toast_get_button_label(adwToastPointer.reinterpret())?.toKString()
 
         /**
          * Sets the label to show on the button.
          *
-         * It set to `NULL`, the button won't be shown.
+         * Underlines in the button text can be used to indicate a mnemonic.
+         *
+         * If set to `NULL`, the button won't be shown.
+         *
+         * See [property@Toast:action-name].
          *
          * @param buttonLabel a button label
-         * @since 1.0
          */
         set(buttonLabel) = adw_toast_set_button_label(adwToastPointer.reinterpret(), buttonLabel)
+
+    /**
+     * The custom title widget.
+     *
+     * It will be displayed instead of the title if set. In this case,
+     * [property@Toast:title] is ignored.
+     *
+     * Setting a custom title will unset [property@Toast:title].
+     *
+     * @since 1.2
+     */
+    public var customTitle: Widget?
+        /**
+         * Gets the custom title widget of @self.
+         *
+         * @return the custom title widget
+         * @since 1.2
+         */
+        get() =
+            adw_toast_get_custom_title(adwToastPointer.reinterpret())?.run {
+                Widget(reinterpret())
+            }
+
+        /**
+         * Sets the custom title widget of @self.
+         *
+         * It will be displayed instead of the title if set. In this case,
+         * [property@Toast:title] is ignored.
+         *
+         * Setting a custom title will unset [property@Toast:title].
+         *
+         * @param widget the custom title widget
+         * @since 1.2
+         */
+        set(widget) =
+            adw_toast_set_custom_title(
+                adwToastPointer.reinterpret(),
+                widget?.gtkWidgetPointer?.reinterpret()
+            )
 
     /**
      * The priority of the toast.
@@ -233,15 +286,12 @@ public class Toast(
      *
      * If the priority is `ADW_TOAST_PRIORITY_HIGH`, the toast will be displayed
      * immediately, pushing the previous toast into the queue instead.
-     *
-     * @since 1.0
      */
     public var priority: ToastPriority
         /**
          * Gets priority for @self.
          *
          * @return the priority
-         * @since 1.0
          */
         get() =
             adw_toast_get_priority(adwToastPointer.reinterpret()).run {
@@ -256,11 +306,10 @@ public class Toast(
          *
          * If @priority is `ADW_TOAST_PRIORITY_NORMAL`, the toast will be queued.
          *
-         * If @priority is `ADW_TOAST_PRIORITY_HIGH`, the toast will be displayed immediately,
-         * pushing the previous toast into the queue instead.
+         * If @priority is `ADW_TOAST_PRIORITY_HIGH`, the toast will be displayed
+         * immediately, pushing the previous toast into the queue instead.
          *
          * @param priority the priority
-         * @since 1.0
          */
         set(priority) = adw_toast_set_priority(adwToastPointer.reinterpret(), priority.nativeValue)
 
@@ -272,15 +321,12 @@ public class Toast(
      *
      * Toasts cannot disappear while being hovered, pressed (on touchscreen), or
      * have keyboard focus inside them.
-     *
-     * @since 1.0
      */
     public var timeout: UInt
         /**
          * Gets timeout for @self.
          *
          * @return the timeout
-         * @since 1.0
          */
         get() = adw_toast_get_timeout(adwToastPointer.reinterpret())
 
@@ -294,35 +340,38 @@ public class Toast(
          * have keyboard focus inside them.
          *
          * @param timeout the timeout
-         * @since 1.0
          */
         set(timeout) = adw_toast_set_timeout(adwToastPointer.reinterpret(), timeout)
 
     /**
-     * The title of the toast.
+     * Whether to use Pango markup for the toast title.
      *
-     * The title can be marked up with the Pango text markup language.
+     * See also [func@Pango.parse_markup].
      *
-     * @since 1.0
+     * @since 1.4
      */
-    public var title: String
+    public var useMarkup: Boolean
         /**
-         * Gets the title that will be displayed on the toast.
+         * Gets whether to use Pango markup for the toast title.
          *
-         * @return the title
-         * @since 1.0
+         * @return whether the toast uses markup
+         * @since 1.4
          */
-        get() =
-            adw_toast_get_title(adwToastPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_toast_get_use_markup(adwToastPointer.reinterpret()).asBoolean()
 
         /**
-         * Sets the title that will be displayed on the toast.
+         * Whether to use Pango markup for the toast title.
          *
-         * @param title a title
-         * @since 1.0
+         * See also [func@Pango.parse_markup].
+         *
+         * @param useMarkup whether to use markup
+         * @since 1.4
          */
-        set(title) = adw_toast_set_title(adwToastPointer.reinterpret(), title)
+        set(useMarkup) =
+            adw_toast_set_use_markup(
+                adwToastPointer.reinterpret(),
+                useMarkup.asGBoolean()
+            )
 
     /**
      * Creates a new `AdwToast`.
@@ -333,14 +382,14 @@ public class Toast(
      *
      * @param title the title to be displayed
      * @return the new created `AdwToast`
-     * @since 1.0
      */
     public constructor(title: String) : this(adw_toast_new(title)!!.reinterpret())
 
     /**
      * Dismisses @self.
      *
-     * @since 1.0
+     * Does nothing if @self has already been dismissed, or hasn't been added to an
+     * [class@ToastOverlay].
      */
     public fun dismiss(): Unit = adw_toast_dismiss(adwToastPointer.reinterpret())
 
@@ -348,7 +397,6 @@ public class Toast(
      * Gets the name of the associated action.
      *
      * @return the action name
-     * @since 1.0
      */
     public fun getActionName(): String? = adw_toast_get_action_name(adwToastPointer.reinterpret())?.toKString()
 
@@ -356,7 +404,6 @@ public class Toast(
      * Gets the parameter for action invocations.
      *
      * @return the action target
-     * @since 1.0
      */
     public fun getActionTargetValue(): Variant? =
         adw_toast_get_action_target_value(adwToastPointer.reinterpret())?.run {
@@ -367,15 +414,24 @@ public class Toast(
      * Gets the label to show on the button.
      *
      * @return the button label
-     * @since 1.0
      */
     public fun getButtonLabel(): String? = adw_toast_get_button_label(adwToastPointer.reinterpret())?.toKString()
+
+    /**
+     * Gets the custom title widget of @self.
+     *
+     * @return the custom title widget
+     * @since 1.2
+     */
+    public fun getCustomTitle(): Widget? =
+        adw_toast_get_custom_title(adwToastPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
 
     /**
      * Gets priority for @self.
      *
      * @return the priority
-     * @since 1.0
      */
     public fun getPriority(): ToastPriority =
         adw_toast_get_priority(adwToastPointer.reinterpret()).run {
@@ -386,25 +442,35 @@ public class Toast(
      * Gets timeout for @self.
      *
      * @return the timeout
-     * @since 1.0
      */
     public fun getTimeout(): UInt = adw_toast_get_timeout(adwToastPointer.reinterpret())
 
     /**
      * Gets the title that will be displayed on the toast.
      *
+     * If a custom title has been set with [method@Adw.Toast.set_custom_title]
+     * the return value will be null.
+     *
      * @return the title
-     * @since 1.0
      */
-    public fun getTitle(): String =
-        adw_toast_get_title(adwToastPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getTitle(): String? = adw_toast_get_title(adwToastPointer.reinterpret())?.toKString()
+
+    /**
+     * Gets whether to use Pango markup for the toast title.
+     *
+     * @return whether the toast uses markup
+     * @since 1.4
+     */
+    public fun getUseMarkup(): Boolean = adw_toast_get_use_markup(adwToastPointer.reinterpret()).asBoolean()
 
     /**
      * Sets the name of the associated action.
      *
+     * It will be activated when clicking the button.
+     *
+     * See [property@Toast:action-target].
+     *
      * @param actionName the action name
-     * @since 1.0
      */
     public fun setActionName(actionName: String? = null): Unit =
         adw_toast_set_action_name(adwToastPointer.reinterpret(), actionName)
@@ -416,7 +482,6 @@ public class Toast(
      * will sink it.
      *
      * @param actionTarget the action target
-     * @since 1.0
      */
     public fun setActionTargetValue(actionTarget: Variant? = null): Unit =
         adw_toast_set_action_target_value(
@@ -427,13 +492,33 @@ public class Toast(
     /**
      * Sets the label to show on the button.
      *
-     * It set to `NULL`, the button won't be shown.
+     * Underlines in the button text can be used to indicate a mnemonic.
+     *
+     * If set to `NULL`, the button won't be shown.
+     *
+     * See [property@Toast:action-name].
      *
      * @param buttonLabel a button label
-     * @since 1.0
      */
     public fun setButtonLabel(buttonLabel: String? = null): Unit =
         adw_toast_set_button_label(adwToastPointer.reinterpret(), buttonLabel)
+
+    /**
+     * Sets the custom title widget of @self.
+     *
+     * It will be displayed instead of the title if set. In this case,
+     * [property@Toast:title] is ignored.
+     *
+     * Setting a custom title will unset [property@Toast:title].
+     *
+     * @param widget the custom title widget
+     * @since 1.2
+     */
+    public fun setCustomTitle(widget: Widget? = null): Unit =
+        adw_toast_set_custom_title(
+            adwToastPointer.reinterpret(),
+            widget?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * Sets the action name and its parameter.
@@ -442,7 +527,6 @@ public class Toast(
      * [func@Gio.Action.parse_detailed_name].
      *
      * @param detailedActionName the detailed action name
-     * @since 1.0
      */
     public fun setDetailedActionName(detailedActionName: String? = null): Unit =
         adw_toast_set_detailed_action_name(adwToastPointer.reinterpret(), detailedActionName)
@@ -455,11 +539,10 @@ public class Toast(
      *
      * If @priority is `ADW_TOAST_PRIORITY_NORMAL`, the toast will be queued.
      *
-     * If @priority is `ADW_TOAST_PRIORITY_HIGH`, the toast will be displayed immediately,
-     * pushing the previous toast into the queue instead.
+     * If @priority is `ADW_TOAST_PRIORITY_HIGH`, the toast will be displayed
+     * immediately, pushing the previous toast into the queue instead.
      *
      * @param priority the priority
-     * @since 1.0
      */
     public fun setPriority(priority: ToastPriority): Unit =
         adw_toast_set_priority(adwToastPointer.reinterpret(), priority.nativeValue)
@@ -474,15 +557,19 @@ public class Toast(
      * have keyboard focus inside them.
      *
      * @param timeout the timeout
-     * @since 1.0
      */
     public fun setTimeout(timeout: UInt): Unit = adw_toast_set_timeout(adwToastPointer.reinterpret(), timeout)
 
     /**
      * Sets the title that will be displayed on the toast.
      *
+     * The title can be marked up with the Pango text markup language.
+     *
+     * Setting a title will unset [property@Toast:custom-title].
+     *
+     * If [property@Toast:custom-title] is set, it will be used instead.
+     *
      * @param title a title
-     * @since 1.0
      */
     public fun setTitle(title: String): Unit =
         adw_toast_set_title(
@@ -491,11 +578,43 @@ public class Toast(
         )
 
     /**
+     * Whether to use Pango markup for the toast title.
+     *
+     * See also [func@Pango.parse_markup].
+     *
+     * @param useMarkup whether to use markup
+     * @since 1.4
+     */
+    public fun setUseMarkup(useMarkup: Boolean): Unit =
+        adw_toast_set_use_markup(adwToastPointer.reinterpret(), useMarkup.asGBoolean())
+
+    /**
+     * Emitted after the button has been clicked.
+     *
+     * It can be used as an alternative to setting an action.
+     *
+     * @param connectFlags A combination of [ConnectFlags]
+     * @param handler the Callback to connect
+     * @since 1.2
+     */
+    public fun connectButtonClicked(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        handler: () -> Unit,
+    ): ULong =
+        g_signal_connect_data(
+            gPointer.reinterpret(),
+            "button-clicked",
+            connectButtonClickedFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
      * Emitted when the toast has been dismissed.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
-     * @since 1.0
      */
     public fun connectDismissed(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -519,6 +638,15 @@ public class Toast(
         }
     }
 }
+
+private val connectButtonClickedFunc: CPointer<CFunction<() -> Unit>> =
+    staticCFunction {
+            _: COpaquePointer,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<() -> Unit>().get().invoke()
+    }
+        .reinterpret()
 
 private val connectDismissedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {

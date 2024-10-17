@@ -21,15 +21,21 @@ import org.gtkkn.native.adw.AdwNavigationDirection
 import org.gtkkn.native.adw.AdwSwipeTracker
 import org.gtkkn.native.adw.adw_swipe_tracker_get_allow_long_swipes
 import org.gtkkn.native.adw.adw_swipe_tracker_get_allow_mouse_drag
+import org.gtkkn.native.adw.adw_swipe_tracker_get_allow_window_handle
 import org.gtkkn.native.adw.adw_swipe_tracker_get_enabled
+import org.gtkkn.native.adw.adw_swipe_tracker_get_lower_overshoot
 import org.gtkkn.native.adw.adw_swipe_tracker_get_reversed
 import org.gtkkn.native.adw.adw_swipe_tracker_get_swipeable
 import org.gtkkn.native.adw.adw_swipe_tracker_get_type
+import org.gtkkn.native.adw.adw_swipe_tracker_get_upper_overshoot
 import org.gtkkn.native.adw.adw_swipe_tracker_new
 import org.gtkkn.native.adw.adw_swipe_tracker_set_allow_long_swipes
 import org.gtkkn.native.adw.adw_swipe_tracker_set_allow_mouse_drag
+import org.gtkkn.native.adw.adw_swipe_tracker_set_allow_window_handle
 import org.gtkkn.native.adw.adw_swipe_tracker_set_enabled
+import org.gtkkn.native.adw.adw_swipe_tracker_set_lower_overshoot
 import org.gtkkn.native.adw.adw_swipe_tracker_set_reversed
+import org.gtkkn.native.adw.adw_swipe_tracker_set_upper_overshoot
 import org.gtkkn.native.adw.adw_swipe_tracker_shift_position
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkOrientable
@@ -39,7 +45,8 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
- * A swipe tracker used in [class@Carousel], [class@Flap] and [class@Leaflet].
+ * A swipe tracker used in [class@Carousel], [class@NavigationView] and
+ * [class@OverlaySplitView].
  *
  * The `AdwSwipeTracker` object can be used for implementing widgets with swipe
  * gestures. It supports touch-based swipes, pointer dragging, and touchpad
@@ -49,7 +56,6 @@ import kotlin.Unit
  * property. If they expect to use horizontal orientation,
  * [property@SwipeTracker:reversed] can be used for supporting RTL text
  * direction.
- * @since 1.0
  */
 public class SwipeTracker(
     pointer: CPointer<AdwSwipeTracker>,
@@ -65,15 +71,12 @@ public class SwipeTracker(
      *
      * If the value is `FALSE`, each swipe can only move to the adjacent snap
      * points.
-     *
-     * @since 1.0
      */
     public var allowLongSwipes: Boolean
         /**
          * Gets whether to allow swiping for more than one snap point at a time.
          *
          * @return whether long swipes are allowed
-         * @since 1.0
          */
         get() =
             adw_swipe_tracker_get_allow_long_swipes(adwSwipeTrackerPointer.reinterpret()).asBoolean()
@@ -81,8 +84,10 @@ public class SwipeTracker(
         /**
          * Sets whether to allow swiping for more than one snap point at a time.
          *
+         * If the value is `FALSE`, each swipe can only move to the adjacent snap
+         * points.
+         *
          * @param allowLongSwipes whether to allow long swipes
-         * @since 1.0
          */
         set(allowLongSwipes) =
             adw_swipe_tracker_set_allow_long_swipes(
@@ -92,15 +97,12 @@ public class SwipeTracker(
 
     /**
      * Whether to allow dragging with mouse pointer.
-     *
-     * @since 1.0
      */
     public var allowMouseDrag: Boolean
         /**
          * Gets whether @self can be dragged with mouse pointer.
          *
          * @return whether mouse dragging is allowed
-         * @since 1.0
          */
         get() =
             adw_swipe_tracker_get_allow_mouse_drag(adwSwipeTrackerPointer.reinterpret()).asBoolean()
@@ -109,7 +111,6 @@ public class SwipeTracker(
          * Sets whether @self can be dragged with mouse pointer.
          *
          * @param allowMouseDrag whether to allow mouse dragging
-         * @since 1.0
          */
         set(allowMouseDrag) =
             adw_swipe_tracker_set_allow_mouse_drag(
@@ -118,27 +119,57 @@ public class SwipeTracker(
             )
 
     /**
+     * Whether to allow touchscreen swiping from `GtkWindowHandle`.
+     *
+     * This will make dragging the window impossible.
+     *
+     * @since 1.5
+     */
+    public var allowWindowHandle: Boolean
+        /**
+         * Gets whether to allow touchscreen swiping from `GtkWindowHandle`.
+         *
+         * @return whether swiping from window handles is allowed
+         * @since 1.5
+         */
+        get() =
+            adw_swipe_tracker_get_allow_window_handle(adwSwipeTrackerPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets whether to allow touchscreen swiping from `GtkWindowHandle`.
+         *
+         * Setting it to `TRUE` will make dragging the window impossible.
+         *
+         * @param allowWindowHandle whether to allow swiping from window handles
+         * @since 1.5
+         */
+        set(allowWindowHandle) =
+            adw_swipe_tracker_set_allow_window_handle(
+                adwSwipeTrackerPointer.reinterpret(),
+                allowWindowHandle.asGBoolean()
+            )
+
+    /**
      * Whether the swipe tracker is enabled.
      *
      * When it's not enabled, no events will be processed. Usually widgets will
      * want to expose this via a property.
-     *
-     * @since 1.0
      */
     public var enabled: Boolean
         /**
          * Gets whether @self is enabled.
          *
          * @return whether @self is enabled
-         * @since 1.0
          */
         get() = adw_swipe_tracker_get_enabled(adwSwipeTrackerPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self is enabled.
          *
+         * When it's not enabled, no events will be processed. Usually widgets will want
+         * to expose this via a property.
+         *
          * @param enabled whether @self is enabled
-         * @since 1.0
          */
         set(enabled) =
             adw_swipe_tracker_set_enabled(
@@ -147,27 +178,53 @@ public class SwipeTracker(
             )
 
     /**
+     * Whether to allow swiping past the first available snap point.
+     *
+     * @since 1.4
+     */
+    public var lowerOvershoot: Boolean
+        /**
+         * Gets whether to allow swiping past the first available snap point.
+         *
+         * @return whether to allow swiping past the first available snap point
+         * @since 1.4
+         */
+        get() =
+            adw_swipe_tracker_get_lower_overshoot(adwSwipeTrackerPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets whether to allow swiping past the first available snap point.
+         *
+         * @param overshoot whether to allow swiping past the first available snap point
+         * @since 1.4
+         */
+        set(overshoot) =
+            adw_swipe_tracker_set_lower_overshoot(
+                adwSwipeTrackerPointer.reinterpret(),
+                overshoot.asGBoolean()
+            )
+
+    /**
      * Whether to reverse the swipe direction.
      *
      * If the swipe tracker is horizontal, it can be used for supporting RTL text
      * direction.
-     *
-     * @since 1.0
      */
     public var reversed: Boolean
         /**
          * Gets whether @self is reversing the swipe direction.
          *
          * @return whether the direction is reversed
-         * @since 1.0
          */
         get() = adw_swipe_tracker_get_reversed(adwSwipeTrackerPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether to reverse the swipe direction.
          *
+         * If the swipe tracker is horizontal, it can be used for supporting RTL text
+         * direction.
+         *
          * @param reversed whether to reverse the swipe direction
-         * @since 1.0
          */
         set(reversed) =
             adw_swipe_tracker_set_reversed(
@@ -177,15 +234,12 @@ public class SwipeTracker(
 
     /**
      * The widget the swipe tracker is attached to.
-     *
-     * @since 1.0
      */
     public val swipeable: Swipeable
         /**
          * Get the widget @self is attached to.
          *
          * @return the swipeable widget
-         * @since 1.0
          */
         get() =
             adw_swipe_tracker_get_swipeable(adwSwipeTrackerPointer.reinterpret())!!.run {
@@ -193,11 +247,37 @@ public class SwipeTracker(
             }
 
     /**
+     * Whether to allow swiping past the last available snap point.
+     *
+     * @since 1.4
+     */
+    public var upperOvershoot: Boolean
+        /**
+         * Gets whether to allow swiping past the last available snap point.
+         *
+         * @return whether to allow swiping past the last available snap point
+         * @since 1.4
+         */
+        get() =
+            adw_swipe_tracker_get_upper_overshoot(adwSwipeTrackerPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets whether to allow swiping past the last available snap point.
+         *
+         * @param overshoot whether to allow swiping past the last available snap point
+         * @since 1.4
+         */
+        set(overshoot) =
+            adw_swipe_tracker_set_upper_overshoot(
+                adwSwipeTrackerPointer.reinterpret(),
+                overshoot.asGBoolean()
+            )
+
+    /**
      * Creates a new `AdwSwipeTracker` for @widget.
      *
      * @param swipeable a widget to add the tracker on
      * @return the newly created `AdwSwipeTracker`
-     * @since 1.0
      */
     public constructor(swipeable: Swipeable) :
         this(adw_swipe_tracker_new(swipeable.adwSwipeablePointer)!!.reinterpret())
@@ -206,7 +286,6 @@ public class SwipeTracker(
      * Gets whether to allow swiping for more than one snap point at a time.
      *
      * @return whether long swipes are allowed
-     * @since 1.0
      */
     public fun getAllowLongSwipes(): Boolean =
         adw_swipe_tracker_get_allow_long_swipes(adwSwipeTrackerPointer.reinterpret()).asBoolean()
@@ -215,24 +294,39 @@ public class SwipeTracker(
      * Gets whether @self can be dragged with mouse pointer.
      *
      * @return whether mouse dragging is allowed
-     * @since 1.0
      */
     public fun getAllowMouseDrag(): Boolean =
         adw_swipe_tracker_get_allow_mouse_drag(adwSwipeTrackerPointer.reinterpret()).asBoolean()
 
     /**
+     * Gets whether to allow touchscreen swiping from `GtkWindowHandle`.
+     *
+     * @return whether swiping from window handles is allowed
+     * @since 1.5
+     */
+    public fun getAllowWindowHandle(): Boolean =
+        adw_swipe_tracker_get_allow_window_handle(adwSwipeTrackerPointer.reinterpret()).asBoolean()
+
+    /**
      * Gets whether @self is enabled.
      *
      * @return whether @self is enabled
-     * @since 1.0
      */
     public fun getEnabled(): Boolean = adw_swipe_tracker_get_enabled(adwSwipeTrackerPointer.reinterpret()).asBoolean()
+
+    /**
+     * Gets whether to allow swiping past the first available snap point.
+     *
+     * @return whether to allow swiping past the first available snap point
+     * @since 1.4
+     */
+    public fun getLowerOvershoot(): Boolean =
+        adw_swipe_tracker_get_lower_overshoot(adwSwipeTrackerPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether @self is reversing the swipe direction.
      *
      * @return whether the direction is reversed
-     * @since 1.0
      */
     public fun getReversed(): Boolean = adw_swipe_tracker_get_reversed(adwSwipeTrackerPointer.reinterpret()).asBoolean()
 
@@ -240,7 +334,6 @@ public class SwipeTracker(
      * Get the widget @self is attached to.
      *
      * @return the swipeable widget
-     * @since 1.0
      */
     public fun getSwipeable(): Swipeable =
         adw_swipe_tracker_get_swipeable(adwSwipeTrackerPointer.reinterpret())!!.run {
@@ -248,10 +341,21 @@ public class SwipeTracker(
         }
 
     /**
+     * Gets whether to allow swiping past the last available snap point.
+     *
+     * @return whether to allow swiping past the last available snap point
+     * @since 1.4
+     */
+    public fun getUpperOvershoot(): Boolean =
+        adw_swipe_tracker_get_upper_overshoot(adwSwipeTrackerPointer.reinterpret()).asBoolean()
+
+    /**
      * Sets whether to allow swiping for more than one snap point at a time.
      *
+     * If the value is `FALSE`, each swipe can only move to the adjacent snap
+     * points.
+     *
      * @param allowLongSwipes whether to allow long swipes
-     * @since 1.0
      */
     public fun setAllowLongSwipes(allowLongSwipes: Boolean): Unit =
         adw_swipe_tracker_set_allow_long_swipes(
@@ -263,7 +367,6 @@ public class SwipeTracker(
      * Sets whether @self can be dragged with mouse pointer.
      *
      * @param allowMouseDrag whether to allow mouse dragging
-     * @since 1.0
      */
     public fun setAllowMouseDrag(allowMouseDrag: Boolean): Unit =
         adw_swipe_tracker_set_allow_mouse_drag(
@@ -272,10 +375,26 @@ public class SwipeTracker(
         )
 
     /**
+     * Sets whether to allow touchscreen swiping from `GtkWindowHandle`.
+     *
+     * Setting it to `TRUE` will make dragging the window impossible.
+     *
+     * @param allowWindowHandle whether to allow swiping from window handles
+     * @since 1.5
+     */
+    public fun setAllowWindowHandle(allowWindowHandle: Boolean): Unit =
+        adw_swipe_tracker_set_allow_window_handle(
+            adwSwipeTrackerPointer.reinterpret(),
+            allowWindowHandle.asGBoolean()
+        )
+
+    /**
      * Sets whether @self is enabled.
      *
+     * When it's not enabled, no events will be processed. Usually widgets will want
+     * to expose this via a property.
+     *
      * @param enabled whether @self is enabled
-     * @since 1.0
      */
     public fun setEnabled(enabled: Boolean): Unit =
         adw_swipe_tracker_set_enabled(
@@ -284,15 +403,41 @@ public class SwipeTracker(
         )
 
     /**
+     * Sets whether to allow swiping past the first available snap point.
+     *
+     * @param overshoot whether to allow swiping past the first available snap point
+     * @since 1.4
+     */
+    public fun setLowerOvershoot(overshoot: Boolean): Unit =
+        adw_swipe_tracker_set_lower_overshoot(
+            adwSwipeTrackerPointer.reinterpret(),
+            overshoot.asGBoolean()
+        )
+
+    /**
      * Sets whether to reverse the swipe direction.
      *
+     * If the swipe tracker is horizontal, it can be used for supporting RTL text
+     * direction.
+     *
      * @param reversed whether to reverse the swipe direction
-     * @since 1.0
      */
     public fun setReversed(reversed: Boolean): Unit =
         adw_swipe_tracker_set_reversed(
             adwSwipeTrackerPointer.reinterpret(),
             reversed.asGBoolean()
+        )
+
+    /**
+     * Sets whether to allow swiping past the last available snap point.
+     *
+     * @param overshoot whether to allow swiping past the last available snap point
+     * @since 1.4
+     */
+    public fun setUpperOvershoot(overshoot: Boolean): Unit =
+        adw_swipe_tracker_set_upper_overshoot(
+            adwSwipeTrackerPointer.reinterpret(),
+            overshoot.asGBoolean()
         )
 
     /**
@@ -302,7 +447,6 @@ public class SwipeTracker(
      * the gesture.
      *
      * @param delta the position delta
-     * @since 1.0
      */
     public fun shiftPosition(delta: Double): Unit =
         adw_swipe_tracker_shift_position(adwSwipeTrackerPointer.reinterpret(), delta)
@@ -313,7 +457,6 @@ public class SwipeTracker(
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
-     * @since 1.0
      */
     public fun connectBeginSwipe(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -339,7 +482,6 @@ public class SwipeTracker(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `velocity` the velocity of the swipe; `to`
      * the progress value to animate to
-     * @since 1.0
      */
     public fun connectEndSwipe(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -362,7 +504,6 @@ public class SwipeTracker(
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `direction` the direction of the swipe
-     * @since 1.0
      */
     public fun connectPrepare(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -383,7 +524,6 @@ public class SwipeTracker(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `progress` the current animation progress
      * value
-     * @since 1.0
      */
     public fun connectUpdateSwipe(
         connectFlags: ConnectFlags = ConnectFlags(0u),

@@ -7,6 +7,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gdk.Surface
 import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.glib.Error
@@ -24,6 +25,7 @@ import org.gtkkn.native.gsk.gsk_renderer_get_type
 import org.gtkkn.native.gsk.gsk_renderer_is_realized
 import org.gtkkn.native.gsk.gsk_renderer_new_for_surface
 import org.gtkkn.native.gsk.gsk_renderer_realize
+import org.gtkkn.native.gsk.gsk_renderer_realize_for_display
 import org.gtkkn.native.gsk.gsk_renderer_render_texture
 import org.gtkkn.native.gsk.gsk_renderer_unrealize
 import kotlin.Boolean
@@ -110,6 +112,8 @@ public open class Renderer(
      *
      * Since GTK 4.6, the surface may be `NULL`, which allows using
      * renderers without having to create a surface.
+     * Since GTK 4.14, it is recommended to use [method@Gsk.Renderer.realize_for_display]
+     * instead.
      *
      * Note that it is mandatory to call [method@Gsk.Renderer.unrealize] before
      * destroying the renderer.
@@ -124,6 +128,33 @@ public open class Renderer(
                 gsk_renderer_realize(
                     gskRendererPointer.reinterpret(),
                     surface?.gdkSurfacePointer?.reinterpret(),
+                    gError.ptr
+                ).asBoolean()
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(gResult)
+            }
+        }
+
+    /**
+     * Creates the resources needed by the @renderer to render the scene
+     * graph.
+     *
+     * Note that it is mandatory to call [method@Gsk.Renderer.unrealize] before
+     * destroying the renderer.
+     *
+     * @param display the `GdkDisplay` renderer will be used on
+     * @return Whether the renderer was successfully realized
+     * @since 4.14
+     */
+    public open fun realizeForDisplay(display: Display): Result<Boolean> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                gsk_renderer_realize_for_display(
+                    gskRendererPointer.reinterpret(),
+                    display.gdkDisplayPointer.reinterpret(),
                     gError.ptr
                 ).asBoolean()
             return if (gError.pointed != null) {

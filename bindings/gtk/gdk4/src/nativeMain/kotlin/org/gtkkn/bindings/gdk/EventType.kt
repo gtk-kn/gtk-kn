@@ -187,8 +187,9 @@ public enum class EventType(
     PAD_GROUP_MODE(GDK_PAD_GROUP_MODE),
 
     /**
-     * A touchpad hold gesture event, the current state
-     *   is determined by its phase field. Since: 4.6
+     * A touchpad hold gesture event, the current state is determined by its phase
+     * field.
+     * @since 4.6
      */
     TOUCHPAD_HOLD(GDK_TOUCHPAD_HOLD),
 

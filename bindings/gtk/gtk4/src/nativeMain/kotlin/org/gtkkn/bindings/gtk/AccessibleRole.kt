@@ -4,7 +4,10 @@ package org.gtkkn.bindings.gtk
 import org.gtkkn.native.gtk.GtkAccessibleRole
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ALERT
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ALERT_DIALOG
+import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_APPLICATION
+import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_ARTICLE
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_BANNER
+import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_BLOCK_QUOTE
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_BUTTON
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_CAPTION
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_CELL
@@ -12,6 +15,7 @@ import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_CHECKBOX
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COLUMN_HEADER
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMBO_BOX
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMMAND
+import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMMENT
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_COMPOSITE
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_DIALOG
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_DOCUMENT
@@ -45,6 +49,7 @@ import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_NAVIGATION
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_NONE
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_NOTE
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_OPTION
+import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_PARAGRAPH
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_PRESENTATION
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_PROGRESS_BAR
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_RADIO
@@ -70,9 +75,11 @@ import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TAB
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TABLE
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TAB_LIST
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TAB_PANEL
+import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TERMINAL
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TEXT_BOX
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TIME
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TIMER
+import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TOGGLE_BUTTON
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TOOLBAR
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TOOLTIP
 import org.gtkkn.native.gtk.GtkAccessibleRole.GTK_ACCESSIBLE_ROLE_TREE
@@ -153,13 +160,14 @@ public enum class AccessibleRole(
 
     /**
      * A dialog is a window that is designed to interrupt
-     *    the current processing of an application in order to prompt the user to enter
-     *    information or require a response.
+     *   the current processing of an application in order to prompt the user to enter
+     *   information or require a response.
      */
     DIALOG(GTK_ACCESSIBLE_ROLE_DIALOG),
 
     /**
-     * Unused
+     * Content that assistive technology users may want to
+     *   browse in a reading mode.
      */
     DOCUMENT(GTK_ACCESSIBLE_ROLE_DOCUMENT),
 
@@ -174,7 +182,8 @@ public enum class AccessibleRole(
     FORM(GTK_ACCESSIBLE_ROLE_FORM),
 
     /**
-     * Unused
+     * A nameless container that has no semantic meaning
+     *   of its own. This is the role that GTK uses by default for widgets.
      */
     GENERIC(GTK_ACCESSIBLE_ROLE_GENERIC),
 
@@ -189,9 +198,8 @@ public enum class AccessibleRole(
     GRID_CELL(GTK_ACCESSIBLE_ROLE_GRID_CELL),
 
     /**
-     * An element that groups multiple widgets. GTK uses
-     *   this role for various containers, like [class@Box], [class@Viewport], and
-     * [class@HeaderBar].
+     * An element that groups multiple related widgets. GTK uses
+     *   this role for various containers, like [class@Gtk.HeaderBar] or [class@Gtk.Notebook].
      */
     GROUP(GTK_ACCESSIBLE_ROLE_GROUP),
 
@@ -302,6 +310,7 @@ public enum class AccessibleRole(
 
     /**
      * An element that is not represented to accessibility technologies.
+     *   This role is synonymous to @GTK_ACCESSIBLE_ROLE_PRESENTATION.
      */
     NONE(GTK_ACCESSIBLE_ROLE_NONE),
 
@@ -317,18 +326,19 @@ public enum class AccessibleRole(
 
     /**
      * An element that is not represented to accessibility technologies.
+     *   This role is synonymous to @GTK_ACCESSIBLE_ROLE_NONE.
      */
     PRESENTATION(GTK_ACCESSIBLE_ROLE_PRESENTATION),
 
     /**
      * An element that displays the progress
-     *    status for tasks that take a long time.
+     *   status for tasks that take a long time.
      */
     PROGRESS_BAR(GTK_ACCESSIBLE_ROLE_PROGRESS_BAR),
 
     /**
      * A checkable input in a group of radio roles,
-     *    only one of which can be checked at a time.
+     *   only one of which can be checked at a time.
      */
     RADIO(GTK_ACCESSIBLE_ROLE_RADIO),
 
@@ -364,8 +374,8 @@ public enum class AccessibleRole(
 
     /**
      * A graphical object that controls the scrolling
-     *    of content within a viewing area, regardless of whether the content is fully
-     *    displayed within the viewing area.
+     *   of content within a viewing area, regardless of whether the content is fully
+     *   displayed within the viewing area.
      */
     SCROLLBAR(GTK_ACCESSIBLE_ROLE_SCROLLBAR),
 
@@ -376,7 +386,7 @@ public enum class AccessibleRole(
 
     /**
      * A type of textbox intended for specifying
-     *    search criteria.
+     *   search criteria.
      */
     SEARCH_BOX(GTK_ACCESSIBLE_ROLE_SEARCH_BOX),
 
@@ -397,19 +407,19 @@ public enum class AccessibleRole(
 
     /**
      * A divider that separates and distinguishes
-     *    sections of content or groups of menuitems.
+     *   sections of content or groups of menuitems.
      */
     SEPARATOR(GTK_ACCESSIBLE_ROLE_SEPARATOR),
 
     /**
      * A user input where the user selects a value
-     *    from within a given range.
+     *   from within a given range.
      */
     SLIDER(GTK_ACCESSIBLE_ROLE_SLIDER),
 
     /**
      * A form of range that expects the user to
-     *    select from among discrete choices.
+     *   select from among discrete choices.
      */
     SPIN_BUTTON(GTK_ACCESSIBLE_ROLE_SPIN_BUTTON),
 
@@ -425,7 +435,7 @@ public enum class AccessibleRole(
 
     /**
      * A type of checkbox that represents on/off values,
-     *    as opposed to checked/unchecked values.
+     *   as opposed to checked/unchecked values.
      */
     SWITCH(GTK_ACCESSIBLE_ROLE_SWITCH),
 
@@ -451,7 +461,7 @@ public enum class AccessibleRole(
 
     /**
      * A type of input that allows free-form text
-     *    as its value.
+     *   as its value.
      */
     TEXT_BOX(GTK_ACCESSIBLE_ROLE_TEXT_BOX),
 
@@ -491,15 +501,61 @@ public enum class AccessibleRole(
     TREE_ITEM(GTK_ACCESSIBLE_ROLE_TREE_ITEM),
 
     /**
-     * An interactive component of a graphical user
-     *    interface. This is the role that GTK uses by default for widgets.
+     * Abstract role for interactive components of a
+     *   graphical user interface
      */
     WIDGET(GTK_ACCESSIBLE_ROLE_WIDGET),
 
     /**
-     * An application window.
+     * Abstract role for windows.
      */
     WINDOW(GTK_ACCESSIBLE_ROLE_WINDOW),
+
+    /**
+     * A type of push button which stays pressed until depressed by a second
+     * activation.
+     * @since 4.10
+     */
+    TOGGLE_BUTTON(GTK_ACCESSIBLE_ROLE_TOGGLE_BUTTON),
+
+    /**
+     * A toplevel element of a graphical user interface.
+     *
+     * This is the role that GTK uses by default for windows.
+     * @since 4.12
+     */
+    APPLICATION(GTK_ACCESSIBLE_ROLE_APPLICATION),
+
+    /**
+     * A paragraph of content.
+     * @since 4.14
+     */
+    PARAGRAPH(GTK_ACCESSIBLE_ROLE_PARAGRAPH),
+
+    /**
+     * A section of content that is quoted from another source.
+     * @since 4.14
+     */
+    BLOCK_QUOTE(GTK_ACCESSIBLE_ROLE_BLOCK_QUOTE),
+
+    /**
+     * A section of a page that consists of a composition that forms an independent
+     * part of a document, page, or site.
+     * @since 4.14
+     */
+    ARTICLE(GTK_ACCESSIBLE_ROLE_ARTICLE),
+
+    /**
+     * A comment contains content expressing reaction to other content.
+     * @since 4.14
+     */
+    COMMENT(GTK_ACCESSIBLE_ROLE_COMMENT),
+
+    /**
+     * A virtual terminal.
+     * @since 4.14
+     */
+    TERMINAL(GTK_ACCESSIBLE_ROLE_TERMINAL),
     ;
 
     public companion object {
@@ -583,6 +639,13 @@ public enum class AccessibleRole(
                 GTK_ACCESSIBLE_ROLE_TREE_ITEM -> TREE_ITEM
                 GTK_ACCESSIBLE_ROLE_WIDGET -> WIDGET
                 GTK_ACCESSIBLE_ROLE_WINDOW -> WINDOW
+                GTK_ACCESSIBLE_ROLE_TOGGLE_BUTTON -> TOGGLE_BUTTON
+                GTK_ACCESSIBLE_ROLE_APPLICATION -> APPLICATION
+                GTK_ACCESSIBLE_ROLE_PARAGRAPH -> PARAGRAPH
+                GTK_ACCESSIBLE_ROLE_BLOCK_QUOTE -> BLOCK_QUOTE
+                GTK_ACCESSIBLE_ROLE_ARTICLE -> ARTICLE
+                GTK_ACCESSIBLE_ROLE_COMMENT -> COMMENT
+                GTK_ACCESSIBLE_ROLE_TERMINAL -> TERMINAL
                 else -> error("invalid nativeValue")
             }
     }

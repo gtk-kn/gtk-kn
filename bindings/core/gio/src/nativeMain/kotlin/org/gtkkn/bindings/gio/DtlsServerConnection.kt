@@ -22,8 +22,8 @@ import org.gtkkn.native.glib.GError
 import kotlin.Result
 
 /**
- * #GDtlsServerConnection is the server-side subclass of #GDtlsConnection,
- * representing a server-side DTLS connection.
+ * `GDtlsServerConnection` is the server-side subclass of
+ * [iface@Gio.DtlsConnection], representing a server-side DTLS connection.
  *
  * ## Skipped during bindings generation
  *

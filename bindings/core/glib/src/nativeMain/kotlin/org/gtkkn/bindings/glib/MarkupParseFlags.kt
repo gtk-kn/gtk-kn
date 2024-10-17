@@ -3,6 +3,7 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.glib.GMarkupParseFlags
+import org.gtkkn.native.glib.G_MARKUP_DEFAULT_FLAGS
 import org.gtkkn.native.glib.G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG
 import org.gtkkn.native.glib.G_MARKUP_IGNORE_QUALIFIED
 import org.gtkkn.native.glib.G_MARKUP_PREFIX_ERROR_POSITION
@@ -17,6 +18,11 @@ public class MarkupParseFlags(
     override infix fun or(other: MarkupParseFlags): MarkupParseFlags = MarkupParseFlags(mask or other.mask)
 
     public companion object {
+        /**
+         * No special behaviour. Since: 2.74
+         */
+        public val DEFAULT_FLAGS: MarkupParseFlags = MarkupParseFlags(G_MARKUP_DEFAULT_FLAGS)
+
         /**
          * flag you should not use
          */

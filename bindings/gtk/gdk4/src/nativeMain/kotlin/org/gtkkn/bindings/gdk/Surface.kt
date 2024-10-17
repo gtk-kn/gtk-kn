@@ -36,6 +36,7 @@ import org.gtkkn.native.gdk.gdk_surface_get_display
 import org.gtkkn.native.gdk.gdk_surface_get_frame_clock
 import org.gtkkn.native.gdk.gdk_surface_get_height
 import org.gtkkn.native.gdk.gdk_surface_get_mapped
+import org.gtkkn.native.gdk.gdk_surface_get_scale
 import org.gtkkn.native.gdk.gdk_surface_get_scale_factor
 import org.gtkkn.native.gdk.gdk_surface_get_type
 import org.gtkkn.native.gdk.gdk_surface_get_width
@@ -50,6 +51,7 @@ import org.gtkkn.native.gdk.gdk_surface_set_device_cursor
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.Boolean
+import kotlin.Double
 import kotlin.Int
 import kotlin.Result
 import kotlin.ULong
@@ -59,7 +61,7 @@ import kotlin.Unit
  * A `GdkSurface` is a rectangular region on the screen.
  *
  * It’s a low-level object, used to implement high-level objects
- * such as [class@Gtk.Window] or [class@Gtk.Dialog] in GTK.
+ * such as [GtkWindow](../gtk4/class.Window.html).
  *
  * The surfaces you see in practice are either [iface@Gdk.Toplevel] or
  * [iface@Gdk.Popup], and those interfaces provide much of the required
@@ -179,7 +181,34 @@ public open class Surface(
         get() = gdk_surface_get_mapped(gdkSurfacePointer.reinterpret()).asBoolean()
 
     /**
+     * The scale of the surface.
+     *
+     * @since 4.12
+     */
+    public open val scale: Double
+        /**
+         * Returns the internal scale that maps from surface coordinates
+         * to the actual device pixels.
+         *
+         * When the scale is bigger than 1, the windowing system prefers to get
+         * buffers with a resolution that is bigger than the surface size (e.g.
+         * to show the surface on a high-resolution display, or in a magnifier).
+         *
+         * Compare with [method@Gdk.Surface.get_scale_factor], which returns the
+         * next larger integer.
+         *
+         * The scale may change during the lifetime of the surface.
+         *
+         * @return the scale
+         * @since 4.12
+         */
+        get() = gdk_surface_get_scale(gdkSurfacePointer.reinterpret())
+
+    /**
      * The scale factor of the surface.
+     *
+     * The scale factor is the next larger integer,
+     * compared to [property@Gdk.Surface:scale].
      */
     public open val scaleFactor: Int
         /**
@@ -193,7 +222,7 @@ public open class Surface(
          * pixel-based data the scale value can be used to determine whether to
          * use a pixel resource with higher resolution data.
          *
-         * The scale of a surface may change during runtime.
+         * The scale factor may change during the lifetime of the surface.
          *
          * @return the scale factor
          */
@@ -287,12 +316,9 @@ public open class Surface(
         }
 
     /**
-     * Creates a new `GdkVulkanContext` for rendering on @surface.
+     * Sets an error and returns null.
      *
-     * If the creation of the `GdkVulkanContext` failed, @error will be set.
-     *
-     * @return the newly created `GdkVulkanContext`, or
-     *   null on error
+     * @return null
      */
     public open fun createVulkanContext(): Result<VulkanContext> =
         memScoped {
@@ -405,6 +431,24 @@ public open class Surface(
     public open fun getMapped(): Boolean = gdk_surface_get_mapped(gdkSurfacePointer.reinterpret()).asBoolean()
 
     /**
+     * Returns the internal scale that maps from surface coordinates
+     * to the actual device pixels.
+     *
+     * When the scale is bigger than 1, the windowing system prefers to get
+     * buffers with a resolution that is bigger than the surface size (e.g.
+     * to show the surface on a high-resolution display, or in a magnifier).
+     *
+     * Compare with [method@Gdk.Surface.get_scale_factor], which returns the
+     * next larger integer.
+     *
+     * The scale may change during the lifetime of the surface.
+     *
+     * @return the scale
+     * @since 4.12
+     */
+    public open fun getScale(): Double = gdk_surface_get_scale(gdkSurfacePointer.reinterpret())
+
+    /**
      * Returns the internal scale factor that maps from surface coordinates
      * to the actual device pixels.
      *
@@ -415,7 +459,7 @@ public open class Surface(
      * pixel-based data the scale value can be used to determine whether to
      * use a pixel resource with higher resolution data.
      *
-     * The scale of a surface may change during runtime.
+     * The scale factor may change during the lifetime of the surface.
      *
      * @return the scale factor
      */
@@ -437,7 +481,7 @@ public open class Surface(
      * For toplevel surfaces, withdraws them, so they will no longer be
      * known to the window manager; for all surfaces, unmaps them, so
      * they won’t be displayed. Normally done automatically as
-     * part of [method@Gtk.Widget.hide].
+     * part of [gtk_widget_hide()](../gtk4/method.Widget.hide.html).
      */
     public open fun hide(): Unit = gdk_surface_hide(gdkSurfacePointer.reinterpret())
 

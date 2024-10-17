@@ -105,7 +105,11 @@ import kotlin.Unit
  * }
  * ```
  *
- * # Performance Considerations
+ * `GtkListStore` is deprecated since GTK 4.10, and should not be used in newly
+ * written code. You should use [class@Gio.ListStore] instead, and the various
+ * list models provided by GTK.
+ *
+ * ## Performance Considerations
  *
  * Internally, the `GtkListStore` was originally implemented with a linked list
  * with a tail pointer.  As a result, it was fast at data insertion and deletion,
@@ -115,7 +119,7 @@ import kotlin.Unit
  * often and your code is expected to run on older versions of GTK, it is worth
  * keeping the iter around.
  *
- * # Atomic Operations
+ * ## Atomic Operations
  *
  * It is important to note that only the methods
  * gtk_list_store_insert_with_values() and gtk_list_store_insert_with_valuesv()
@@ -132,7 +136,7 @@ import kotlin.Unit
  * `GtkTreeModel`FilterVisibleFunc to be visited with an empty row first; the
  * function must be prepared for that.
  *
- * # GtkListStore as GtkBuildable
+ * ## GtkListStore as GtkBuildable
  *
  * The GtkListStore implementation of the [iface@Gtk.Buildable] interface allows
  * to specify the model columns with a `<columns>` element that may contain

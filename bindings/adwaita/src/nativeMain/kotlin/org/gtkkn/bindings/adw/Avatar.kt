@@ -58,7 +58,6 @@ import kotlin.Unit
  * ## CSS nodes
  *
  * `AdwAvatar` has a single CSS node with name `avatar`.
- * @since 1.0
  */
 public class Avatar(
     pointer: CPointer<AdwAvatar>,
@@ -76,16 +75,15 @@ public class Avatar(
         get() = gPointer.reinterpret()
 
     /**
-     * A custom image to use instead of initials or icon.
+     * A custom image paintable.
      *
-     * @since 1.0
+     * Custom image is displayed instead of initials or icon.
      */
     public var customImage: Paintable?
         /**
          * Gets the custom image paintable.
          *
          * @return the custom image
-         * @since 1.0
          */
         get() =
             adw_avatar_get_custom_image(adwAvatarPointer.reinterpret())?.run {
@@ -95,8 +93,9 @@ public class Avatar(
         /**
          * Sets the custom image paintable.
          *
+         * Custom image is displayed instead of initials or icon.
+         *
          * @param customImage a custom image
-         * @since 1.0
          */
         set(customImage) =
             adw_avatar_set_custom_image(
@@ -108,15 +107,12 @@ public class Avatar(
      * The name of an icon to use as a fallback.
      *
      * If no name is set, `avatar-default-symbolic` will be used.
-     *
-     * @since 1.0
      */
     public var iconName: String?
         /**
          * Gets the name of an icon to use as a fallback.
          *
          * @return the icon name
-         * @since 1.0
          */
         get() = adw_avatar_get_icon_name(adwAvatarPointer.reinterpret())?.toKString()
 
@@ -126,7 +122,6 @@ public class Avatar(
          * If no name is set, `avatar-default-symbolic` will be used.
          *
          * @param iconName the icon name
-         * @since 1.0
          */
         set(iconName) = adw_avatar_set_icon_name(adwAvatarPointer.reinterpret(), iconName)
 
@@ -134,23 +129,21 @@ public class Avatar(
      * Whether initials are used instead of an icon on the fallback avatar.
      *
      * See [property@Avatar:icon-name] for how to change the fallback icon.
-     *
-     * @since 1.0
      */
     public var showInitials: Boolean
         /**
          * Gets whether initials are used instead of an icon on the fallback avatar.
          *
          * @return whether initials are used instead of an icon as fallback
-         * @since 1.0
          */
         get() = adw_avatar_get_show_initials(adwAvatarPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether to use initials instead of an icon on the fallback avatar.
          *
+         * See [property@Avatar:icon-name] for how to change the fallback icon.
+         *
          * @param showInitials whether to use initials instead of an icon as fallback
-         * @since 1.0
          */
         set(showInitials) =
             adw_avatar_set_show_initials(
@@ -160,15 +153,12 @@ public class Avatar(
 
     /**
      * The size of the avatar.
-     *
-     * @since 1.0
      */
     public var size: Int
         /**
          * Gets the size of the avatar.
          *
          * @return the size of the avatar
-         * @since 1.0
          */
         get() = adw_avatar_get_size(adwAvatarPointer.reinterpret())
 
@@ -176,7 +166,6 @@ public class Avatar(
          * Sets the size of the avatar.
          *
          * @param size The size of the avatar
-         * @since 1.0
          */
         set(size) = adw_avatar_set_size(adwAvatarPointer.reinterpret(), size)
 
@@ -185,8 +174,6 @@ public class Avatar(
      *
      * It's only used to generate the color if [property@Avatar:show-initials] is
      * `FALSE`.
-     *
-     * @since 1.0
      */
     public var text: String?
         /**
@@ -194,15 +181,16 @@ public class Avatar(
          *
          * @return the text used to generate the fallback initials and
          *   color
-         * @since 1.0
          */
         get() = adw_avatar_get_text(adwAvatarPointer.reinterpret())?.toKString()
 
         /**
          * Sets the text used to generate the fallback initials and color.
          *
+         * It's only used to generate the color if [property@Avatar:show-initials] is
+         * `FALSE`.
+         *
          * @param text the text used to get the initials and color
-         * @since 1.0
          */
         set(text) = adw_avatar_set_text(adwAvatarPointer.reinterpret(), text)
 
@@ -213,7 +201,6 @@ public class Avatar(
      * @param text the text used to get the initials and color
      * @param showInitials whether to use initials instead of an icon as fallback
      * @return the newly created `AdwAvatar`
-     * @since 1.0
      */
     public constructor(
         size: Int,
@@ -228,7 +215,6 @@ public class Avatar(
      *
      * @param scaleFactor The scale factor
      * @return the texture
-     * @since 1.0
      */
     public fun drawToTexture(scaleFactor: Int): Texture =
         adw_avatar_draw_to_texture(adwAvatarPointer.reinterpret(), scaleFactor)!!.run {
@@ -239,7 +225,6 @@ public class Avatar(
      * Gets the custom image paintable.
      *
      * @return the custom image
-     * @since 1.0
      */
     public fun getCustomImage(): Paintable? =
         adw_avatar_get_custom_image(adwAvatarPointer.reinterpret())?.run {
@@ -250,7 +235,6 @@ public class Avatar(
      * Gets the name of an icon to use as a fallback.
      *
      * @return the icon name
-     * @since 1.0
      */
     public fun getIconName(): String? = adw_avatar_get_icon_name(adwAvatarPointer.reinterpret())?.toKString()
 
@@ -258,7 +242,6 @@ public class Avatar(
      * Gets whether initials are used instead of an icon on the fallback avatar.
      *
      * @return whether initials are used instead of an icon as fallback
-     * @since 1.0
      */
     public fun getShowInitials(): Boolean = adw_avatar_get_show_initials(adwAvatarPointer.reinterpret()).asBoolean()
 
@@ -266,7 +249,6 @@ public class Avatar(
      * Gets the size of the avatar.
      *
      * @return the size of the avatar
-     * @since 1.0
      */
     public fun getSize_(): Int = adw_avatar_get_size(adwAvatarPointer.reinterpret())
 
@@ -275,15 +257,15 @@ public class Avatar(
      *
      * @return the text used to generate the fallback initials and
      *   color
-     * @since 1.0
      */
     public fun getText(): String? = adw_avatar_get_text(adwAvatarPointer.reinterpret())?.toKString()
 
     /**
      * Sets the custom image paintable.
      *
+     * Custom image is displayed instead of initials or icon.
+     *
      * @param customImage a custom image
-     * @since 1.0
      */
     public fun setCustomImage(customImage: Paintable? = null): Unit =
         adw_avatar_set_custom_image(
@@ -297,7 +279,6 @@ public class Avatar(
      * If no name is set, `avatar-default-symbolic` will be used.
      *
      * @param iconName the icon name
-     * @since 1.0
      */
     public fun setIconName(iconName: String? = null): Unit =
         adw_avatar_set_icon_name(adwAvatarPointer.reinterpret(), iconName)
@@ -305,8 +286,9 @@ public class Avatar(
     /**
      * Sets whether to use initials instead of an icon on the fallback avatar.
      *
+     * See [property@Avatar:icon-name] for how to change the fallback icon.
+     *
      * @param showInitials whether to use initials instead of an icon as fallback
-     * @since 1.0
      */
     public fun setShowInitials(showInitials: Boolean): Unit =
         adw_avatar_set_show_initials(adwAvatarPointer.reinterpret(), showInitials.asGBoolean())
@@ -315,15 +297,16 @@ public class Avatar(
      * Sets the size of the avatar.
      *
      * @param size The size of the avatar
-     * @since 1.0
      */
     public fun setSize(size: Int): Unit = adw_avatar_set_size(adwAvatarPointer.reinterpret(), size)
 
     /**
      * Sets the text used to generate the fallback initials and color.
      *
+     * It's only used to generate the color if [property@Avatar:show-initials] is
+     * `FALSE`.
+     *
      * @param text the text used to get the initials and color
-     * @since 1.0
      */
     public fun setText(text: String? = null): Unit = adw_avatar_set_text(adwAvatarPointer.reinterpret(), text)
 

@@ -3,6 +3,7 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.glib.GTestTrapFlags
+import org.gtkkn.native.glib.G_TEST_TRAP_DEFAULT
 import org.gtkkn.native.glib.G_TEST_TRAP_INHERIT_STDIN
 import org.gtkkn.native.glib.G_TEST_TRAP_SILENCE_STDERR
 import org.gtkkn.native.glib.G_TEST_TRAP_SILENCE_STDOUT
@@ -17,6 +18,11 @@ public class TestTrapFlags(
     override infix fun or(other: TestTrapFlags): TestTrapFlags = TestTrapFlags(mask or other.mask)
 
     public companion object {
+        /**
+         * Default behaviour. Since: 2.74
+         */
+        public val DEFAULT: TestTrapFlags = TestTrapFlags(G_TEST_TRAP_DEFAULT)
+
         /**
          * Redirect stdout of the test child to
          *     `/dev/null` so it cannot be observed on the console during test

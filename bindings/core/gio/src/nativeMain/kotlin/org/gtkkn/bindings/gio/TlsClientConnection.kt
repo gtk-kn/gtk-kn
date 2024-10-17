@@ -33,8 +33,8 @@ import kotlin.Result
 import kotlin.Unit
 
 /**
- * #GTlsClientConnection is the client-side subclass of
- * #GTlsConnection, representing a client-side TLS connection.
+ * `GTlsClientConnection` is the client-side subclass of
+ * [class@Gio.TlsConnection], representing a client-side TLS connection.
  *
  * ## Skipped during bindings generation
  *

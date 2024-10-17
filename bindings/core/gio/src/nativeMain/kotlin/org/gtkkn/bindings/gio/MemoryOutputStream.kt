@@ -18,11 +18,11 @@ import org.gtkkn.native.gio.g_memory_output_stream_steal_as_bytes
 import kotlin.ULong
 
 /**
- * #GMemoryOutputStream is a class for using arbitrary
+ * `GMemoryOutputStream` is a class for using arbitrary
  * memory chunks as output for GIO streaming output operations.
  *
- * As of GLib 2.34, #GMemoryOutputStream trivially implements
- * #GPollableOutputStream: it always polls as ready.
+ * As of GLib 2.34, `GMemoryOutputStream` trivially implements
+ * [iface@Gio.PollableOutputStream]: it always polls as ready.
  *
  * ## Skipped during bindings generation
  *

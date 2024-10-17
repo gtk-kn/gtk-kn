@@ -31,7 +31,10 @@ import kotlin.Unit
  * It allows to set the color scheme via the
  * [property@StyleManager:color-scheme] property, and to query the current
  * appearance, as well as whether a system-wide color scheme preference exists.
- * @since 1.0
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `yaru-accent`: Property has no getter nor setter
  */
 public class StyleManager(
     pointer: CPointer<AdwStyleManager>,
@@ -71,15 +74,12 @@ public class StyleManager(
      * The [property@StyleManager:system-supports-color-schemes] property can be
      * used to check if the current environment provides a color scheme
      * preference.
-     *
-     * @since 1.0
      */
     public var colorScheme: ColorScheme
         /**
          * Gets the requested application color scheme.
          *
          * @return the color scheme
-         * @since 1.0
          */
         get() =
             adw_style_manager_get_color_scheme(adwStyleManagerPointer.reinterpret()).run {
@@ -94,8 +94,32 @@ public class StyleManager(
          * [property@StyleManager:dark] property can be used to query the current
          * effective appearance.
          *
+         * The `ADW_COLOR_SCHEME_PREFER_LIGHT` color scheme results in the application
+         * using light appearance unless the system prefers dark colors. This is the
+         * default value.
+         *
+         * The `ADW_COLOR_SCHEME_PREFER_DARK` color scheme results in the application
+         * using dark appearance, but can still switch to the light appearance if the
+         * system can prefers it, for example, when the high contrast preference is
+         * enabled.
+         *
+         * The `ADW_COLOR_SCHEME_FORCE_LIGHT` and `ADW_COLOR_SCHEME_FORCE_DARK` values
+         * ignore the system preference entirely. They are useful if the application
+         * wants to match its UI to its content or to provide a separate color scheme
+         * switcher.
+         *
+         * If a per-[class@Gdk.Display] style manager has its color scheme set to
+         * `ADW_COLOR_SCHEME_DEFAULT`, it will inherit the color scheme from the
+         * default style manager.
+         *
+         * For the default style manager, `ADW_COLOR_SCHEME_DEFAULT` is equivalent to
+         * `ADW_COLOR_SCHEME_PREFER_LIGHT`.
+         *
+         * The [property@StyleManager:system-supports-color-schemes] property can be
+         * used to check if the current environment provides a color scheme
+         * preference.
+         *
          * @param colorScheme the color scheme
-         * @since 1.0
          */
         set(colorScheme) =
             adw_style_manager_set_color_scheme(
@@ -108,15 +132,15 @@ public class StyleManager(
      *
      * This property can be used to query the current appearance, as requested via
      * [property@StyleManager:color-scheme].
-     *
-     * @since 1.0
      */
     public val dark: Boolean
         /**
          * Gets whether the application is using dark appearance.
          *
+         * This can be used to query the current appearance, as requested via
+         * [property@StyleManager:color-scheme].
+         *
          * @return whether the application is using dark appearance
-         * @since 1.0
          */
         get() = adw_style_manager_get_dark(adwStyleManagerPointer.reinterpret()).asBoolean()
 
@@ -125,21 +149,18 @@ public class StyleManager(
      *
      * The display will be `NULL` for the style manager returned by
      * [func@StyleManager.get_default].
-     *
-     * @since 1.0
      */
-    public val display: Display
+    public val display: Display?
         /**
          * Gets the display the style manager is associated with.
          *
          * The display will be `NULL` for the style manager returned by
          * [func@StyleManager.get_default].
          *
-         * @return (nullable): the display
-         * @since 1.0
+         * @return the display
          */
         get() =
-            adw_style_manager_get_display(adwStyleManagerPointer.reinterpret())!!.run {
+            adw_style_manager_get_display(adwStyleManagerPointer.reinterpret())?.run {
                 Display(reinterpret())
             }
 
@@ -147,15 +168,14 @@ public class StyleManager(
      * Whether the application is using high contrast appearance.
      *
      * This cannot be overridden by applications.
-     *
-     * @since 1.0
      */
     public val highContrast: Boolean
         /**
          * Gets whether the application is using high contrast appearance.
          *
+         * This cannot be overridden by applications.
+         *
          * @return whether the application is using high contrast appearance
-         * @since 1.0
          */
         get() =
             adw_style_manager_get_high_contrast(adwStyleManagerPointer.reinterpret()).asBoolean()
@@ -168,15 +188,16 @@ public class StyleManager(
      * separate appearance switcher if it's set to `FALSE`.
      *
      * See [property@StyleManager:color-scheme].
-     *
-     * @since 1.0
      */
     public val systemSupportsColorSchemes: Boolean
         /**
          * Gets whether the system supports color schemes.
          *
+         * This can be used to check if the current environment provides a color scheme
+         * preference. For example, applications might want to show a separate
+         * appearance switcher if it's set to `FALSE`.
+         *
          * @return whether the system supports color schemes
-         * @since 1.0
          */
         get() =
             adw_style_manager_get_system_supports_color_schemes(adwStyleManagerPointer.reinterpret()).asBoolean()
@@ -185,7 +206,6 @@ public class StyleManager(
      * Gets the requested application color scheme.
      *
      * @return the color scheme
-     * @since 1.0
      */
     public fun getColorScheme(): ColorScheme =
         adw_style_manager_get_color_scheme(adwStyleManagerPointer.reinterpret()).run {
@@ -195,8 +215,10 @@ public class StyleManager(
     /**
      * Gets whether the application is using dark appearance.
      *
+     * This can be used to query the current appearance, as requested via
+     * [property@StyleManager:color-scheme].
+     *
      * @return whether the application is using dark appearance
-     * @since 1.0
      */
     public fun getDark(): Boolean = adw_style_manager_get_dark(adwStyleManagerPointer.reinterpret()).asBoolean()
 
@@ -206,19 +228,19 @@ public class StyleManager(
      * The display will be `NULL` for the style manager returned by
      * [func@StyleManager.get_default].
      *
-     * @return (nullable): the display
-     * @since 1.0
+     * @return the display
      */
-    public fun getDisplay(): Display =
-        adw_style_manager_get_display(adwStyleManagerPointer.reinterpret())!!.run {
+    public fun getDisplay(): Display? =
+        adw_style_manager_get_display(adwStyleManagerPointer.reinterpret())?.run {
             Display(reinterpret())
         }
 
     /**
      * Gets whether the application is using high contrast appearance.
      *
+     * This cannot be overridden by applications.
+     *
      * @return whether the application is using high contrast appearance
-     * @since 1.0
      */
     public fun getHighContrast(): Boolean =
         adw_style_manager_get_high_contrast(adwStyleManagerPointer.reinterpret()).asBoolean()
@@ -226,8 +248,11 @@ public class StyleManager(
     /**
      * Gets whether the system supports color schemes.
      *
+     * This can be used to check if the current environment provides a color scheme
+     * preference. For example, applications might want to show a separate
+     * appearance switcher if it's set to `FALSE`.
+     *
      * @return whether the system supports color schemes
-     * @since 1.0
      */
     public fun getSystemSupportsColorSchemes(): Boolean =
         adw_style_manager_get_system_supports_color_schemes(adwStyleManagerPointer.reinterpret()).asBoolean()
@@ -240,8 +265,32 @@ public class StyleManager(
      * [property@StyleManager:dark] property can be used to query the current
      * effective appearance.
      *
+     * The `ADW_COLOR_SCHEME_PREFER_LIGHT` color scheme results in the application
+     * using light appearance unless the system prefers dark colors. This is the
+     * default value.
+     *
+     * The `ADW_COLOR_SCHEME_PREFER_DARK` color scheme results in the application
+     * using dark appearance, but can still switch to the light appearance if the
+     * system can prefers it, for example, when the high contrast preference is
+     * enabled.
+     *
+     * The `ADW_COLOR_SCHEME_FORCE_LIGHT` and `ADW_COLOR_SCHEME_FORCE_DARK` values
+     * ignore the system preference entirely. They are useful if the application
+     * wants to match its UI to its content or to provide a separate color scheme
+     * switcher.
+     *
+     * If a per-[class@Gdk.Display] style manager has its color scheme set to
+     * `ADW_COLOR_SCHEME_DEFAULT`, it will inherit the color scheme from the
+     * default style manager.
+     *
+     * For the default style manager, `ADW_COLOR_SCHEME_DEFAULT` is equivalent to
+     * `ADW_COLOR_SCHEME_PREFER_LIGHT`.
+     *
+     * The [property@StyleManager:system-supports-color-schemes] property can be
+     * used to check if the current environment provides a color scheme
+     * preference.
+     *
      * @param colorScheme the color scheme
-     * @since 1.0
      */
     public fun setColorScheme(colorScheme: ColorScheme): Unit =
         adw_style_manager_set_color_scheme(
@@ -268,7 +317,6 @@ public class StyleManager(
          * See [func@StyleManager.get_for_display].
          *
          * @return the default style manager
-         * @since 1.0
          */
         public fun getDefault(): StyleManager =
             adw_style_manager_get_default()!!.run {
@@ -285,7 +333,6 @@ public class StyleManager(
          *
          * @param display a `GdkDisplay`
          * @return the style manager for @display
-         * @since 1.0
          */
         public fun getForDisplay(display: Display): StyleManager =
             adw_style_manager_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {

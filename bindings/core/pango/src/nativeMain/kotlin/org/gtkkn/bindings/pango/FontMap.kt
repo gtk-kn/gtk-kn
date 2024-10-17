@@ -3,10 +3,12 @@ package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.pango.PangoFontMap
 import org.gtkkn.native.pango.pango_font_map_changed
 import org.gtkkn.native.pango.pango_font_map_get_family
@@ -29,11 +31,17 @@ import kotlin.Unit
  * - parameter `families`: families: Out parameter is not supported
  * - parameter `context`: C Type PangoContext is ignored
  * - parameter `context`: C Type PangoContext is ignored
+ * - parameter `context`: C Type PangoContext is ignored
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class FontMap(
     pointer: CPointer<PangoFontMap>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()), ListModel, KGTyped {
     public val pangoFontMapPointer: CPointer<PangoFontMap>
+        get() = gPointer.reinterpret()
+
+    override val gioListModelPointer: CPointer<GListModel>
         get() = gPointer.reinterpret()
 
     /**

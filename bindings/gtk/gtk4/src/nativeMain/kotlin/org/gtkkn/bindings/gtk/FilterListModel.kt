@@ -12,6 +12,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.gtk.GtkFilterListModel
+import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.gtk_filter_list_model_get_filter
 import org.gtkkn.native.gtk.gtk_filter_list_model_get_incremental
 import org.gtkkn.native.gtk.gtk_filter_list_model_get_model
@@ -32,17 +33,27 @@ import kotlin.Unit
  * It hides some elements from the other model according to
  * criteria given by a `GtkFilter`.
  *
- * The model can be set up to do incremental searching, so that
+ * The model can be set up to do incremental filtering, so that
  * filtering long lists doesn't block the UI. See
  * [method@Gtk.FilterListModel.set_incremental] for details.
+ *
+ * `GtkFilterListModel` passes through sections from the underlying model.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class FilterListModel(
     pointer: CPointer<GtkFilterListModel>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()), ListModel, SectionModel, KGTyped {
     public val gtkFilterListModelPointer: CPointer<GtkFilterListModel>
         get() = gPointer.reinterpret()
 
     override val gioListModelPointer: CPointer<GListModel>
+        get() = gPointer.reinterpret()
+
+    override val gtkSectionModelPointer: CPointer<GtkSectionModel>
         get() = gPointer.reinterpret()
 
     /**

@@ -55,7 +55,7 @@ public enum class Weight(
     NORMAL(PANGO_WEIGHT_NORMAL),
 
     /**
-     * the normal weight (= 500) Since: 1.24
+     * the medium weight (= 500) Since: 1.24
      */
     MEDIUM(PANGO_WEIGHT_MEDIUM),
 

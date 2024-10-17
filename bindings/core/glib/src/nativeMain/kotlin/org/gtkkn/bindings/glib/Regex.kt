@@ -18,6 +18,7 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GRegex
 import org.gtkkn.native.glib.g_regex_error_quark
 import org.gtkkn.native.glib.g_regex_escape_nul
+import org.gtkkn.native.glib.g_regex_escape_string
 import org.gtkkn.native.glib.g_regex_get_capture_count
 import org.gtkkn.native.glib.g_regex_get_compile_flags
 import org.gtkkn.native.glib.g_regex_get_has_cr_or_lf
@@ -41,9 +42,11 @@ import kotlin.Unit
 import kotlin.collections.List
 
 /**
- * The g_regex_*() functions implement regular
- * expression pattern matching using syntax and semantics similar to
- * Perl regular expression.
+ * A `GRegex` is the "compiled" form of a regular expression pattern.
+ *
+ * `GRegex` implements regular expression pattern matching using syntax and
+ * semantics similar to Perl regular expression. See the
+ * [PCRE documentation](man:pcrepattern(3)) for the syntax definition.
  *
  * Some functions accept a @start_position argument, setting it differs
  * from just passing over a shortened string and setting %G_REGEX_MATCH_NOTBOL
@@ -77,35 +80,21 @@ import kotlin.collections.List
  * The behaviour of the dot, circumflex, and dollar metacharacters are
  * affected by newline characters, the default is to recognize any newline
  * character (the same characters recognized by "\R"). This can be changed
- * with %G_REGEX_NEWLINE_CR, %G_REGEX_NEWLINE_LF and %G_REGEX_NEWLINE_CRLF
- * compile options, and with %G_REGEX_MATCH_NEWLINE_ANY,
- * %G_REGEX_MATCH_NEWLINE_CR, %G_REGEX_MATCH_NEWLINE_LF and
- * %G_REGEX_MATCH_NEWLINE_CRLF match options. These settings are also
- * relevant when compiling a pattern if %G_REGEX_EXTENDED is set, and an
+ * with `G_REGEX_NEWLINE_CR`, `G_REGEX_NEWLINE_LF` and `G_REGEX_NEWLINE_CRLF`
+ * compile options, and with `G_REGEX_MATCH_NEWLINE_ANY`,
+ * `G_REGEX_MATCH_NEWLINE_CR`, `G_REGEX_MATCH_NEWLINE_LF` and
+ * `G_REGEX_MATCH_NEWLINE_CRLF` match options. These settings are also
+ * relevant when compiling a pattern if `G_REGEX_EXTENDED` is set, and an
  * unescaped "#" outside a character class is encountered. This indicates
  * a comment that lasts until after the next newline.
  *
- * When setting the %G_REGEX_JAVASCRIPT_COMPAT flag, pattern syntax and pattern
- * matching is changed to be compatible with the way that regular expressions
- * work in JavaScript. More precisely, a lonely ']' character in the pattern
- * is a syntax error; the '\x' escape only allows 0 to 2 hexadecimal digits, and
- * you must use the '\u' escape sequence with 4 hex digits to specify a unicode
- * codepoint instead of '\x' or 'x{....}'. If '\x' or '\u' are not followed by
- * the specified number of hex digits, they match 'x' and 'u' literally; also
- * '\U' always matches 'U' instead of being an error in the pattern. Finally,
- * pattern matching is modified so that back references to an unset subpattern
- * group produces a match with the empty string instead of an error. See
- * pcreapi(3) for more information.
- *
- * Creating and manipulating the same #GRegex structure from different
- * threads is not a problem as #GRegex does not modify its internal
- * state between creation and destruction, on the other hand #GMatchInfo
+ * Creating and manipulating the same `GRegex` structure from different
+ * threads is not a problem as `GRegex` does not modify its internal
+ * state between creation and destruction, on the other hand `GMatchInfo`
  * is not threadsafe.
  *
  * The regular expressions low-level functionalities are obtained through
- * the excellent
- * [PCRE](http://www.pcre.org/)
- * library written by Philip Hazel.
+ * the excellent [PCRE](http://www.pcre.org/) library written by Philip Hazel.
  *
  * ## Skipped during bindings generation
  *
@@ -116,8 +105,8 @@ import kotlin.collections.List
  * - parameter `string`: Unsupported string with cType gchar
  * - parameter `string`: Unsupported string with cType gchar
  * - parameter `string`: Unsupported string with cType gchar
- * - parameter `has_references`: has_references: Out parameter is not supported
  * - parameter `string`: Unsupported string with cType gchar
+ * - parameter `has_references`: has_references: Out parameter is not supported
  *
  * @since 2.14
  */
@@ -316,6 +305,29 @@ public class Regex(
             length: Int,
         ): String =
             g_regex_escape_nul(
+                string,
+                length
+            )?.toKString() ?: error("Expected not null string")
+
+        /**
+         * Escapes the special characters used for regular expressions
+         * in @string, for instance "a.b*c" becomes "a\.b\*c". This
+         * function is useful to dynamically generate regular expressions.
+         *
+         * @string can contain nul characters that are replaced with "\0",
+         * in this case remember to specify the correct length of @string
+         * in @length.
+         *
+         * @param string the string to escape
+         * @param length the length of @string, in bytes, or -1 if @string is nul-terminated
+         * @return a newly-allocated escaped string
+         * @since 2.14
+         */
+        public fun escapeString(
+            string: String,
+            length: Int,
+        ): String =
+            g_regex_escape_string(
                 string,
                 length
             )?.toKString() ?: error("Expected not null string")

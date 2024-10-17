@@ -23,19 +23,26 @@ import org.gtkkn.native.gtk.GtkCalendar
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.gtk_calendar_clear_marks
 import org.gtkkn.native.gtk.gtk_calendar_get_date
+import org.gtkkn.native.gtk.gtk_calendar_get_day
 import org.gtkkn.native.gtk.gtk_calendar_get_day_is_marked
+import org.gtkkn.native.gtk.gtk_calendar_get_month
 import org.gtkkn.native.gtk.gtk_calendar_get_show_day_names
 import org.gtkkn.native.gtk.gtk_calendar_get_show_heading
 import org.gtkkn.native.gtk.gtk_calendar_get_show_week_numbers
 import org.gtkkn.native.gtk.gtk_calendar_get_type
+import org.gtkkn.native.gtk.gtk_calendar_get_year
 import org.gtkkn.native.gtk.gtk_calendar_mark_day
 import org.gtkkn.native.gtk.gtk_calendar_new
 import org.gtkkn.native.gtk.gtk_calendar_select_day
+import org.gtkkn.native.gtk.gtk_calendar_set_day
+import org.gtkkn.native.gtk.gtk_calendar_set_month
 import org.gtkkn.native.gtk.gtk_calendar_set_show_day_names
 import org.gtkkn.native.gtk.gtk_calendar_set_show_heading
 import org.gtkkn.native.gtk.gtk_calendar_set_show_week_numbers
+import org.gtkkn.native.gtk.gtk_calendar_set_year
 import org.gtkkn.native.gtk.gtk_calendar_unmark_day
 import kotlin.Boolean
+import kotlin.Int
 import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
@@ -90,12 +97,6 @@ import kotlin.Unit
  * style class. The label of the current day get the .today style class.
  *
  * Marked day labels get the :selected state assigned.
- *
- * ## Skipped during bindings generation
- *
- * - method `day`: Property has no getter nor setter
- * - method `month`: Property has no getter nor setter
- * - method `year`: Property has no getter nor setter
  */
 public open class Calendar(
     pointer: CPointer<GtkCalendar>,
@@ -111,6 +112,54 @@ public open class Calendar(
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
         get() = gPointer.reinterpret()
+
+    /**
+     * The selected day (as a number between 1 and 31).
+     */
+    public open var day: Int
+        /**
+         * Gets the day of the selected date.
+         *
+         * @return the day of the selected date.
+         * @since 4.14
+         */
+        get() = gtk_calendar_get_day(gtkCalendarPointer.reinterpret())
+
+        /**
+         * Sets the day for the selected date.
+         *
+         * The new date must be valid. For example, setting 31 for the day when the
+         * month is February, fails.
+         *
+         * @param day The desired day for the selected date (as a number between 1 and 31).
+         * @since 4.14
+         */
+        set(day) = gtk_calendar_set_day(gtkCalendarPointer.reinterpret(), day)
+
+    /**
+     * The selected month (as a number between 0 and 11).
+     *
+     * This property gets initially set to the current month.
+     */
+    public open var month: Int
+        /**
+         * Gets the month of the selected date.
+         *
+         * @return The month of the selected date (as a number between 0 and 11).
+         * @since 4.14
+         */
+        get() = gtk_calendar_get_month(gtkCalendarPointer.reinterpret())
+
+        /**
+         * Sets the month for the selected date.
+         *
+         * The new date must be valid. For example, setting 1 (February) for the month
+         * when the day is 31, fails.
+         *
+         * @param month The desired month for the selected date (as a number between 0 and 11).
+         * @since 4.14
+         */
+        set(month) = gtk_calendar_set_month(gtkCalendarPointer.reinterpret(), month)
 
     /**
      * Determines whether day names are displayed.
@@ -193,6 +242,32 @@ public open class Calendar(
             )
 
     /**
+     * The selected year.
+     *
+     * This property gets initially set to the current year.
+     */
+    public open var year: Int
+        /**
+         * Gets the year of the selected date.
+         *
+         * @return the year of the selected date.
+         * @since 4.14
+         */
+        get() = gtk_calendar_get_year(gtkCalendarPointer.reinterpret())
+
+        /**
+         * Sets the year for the selected date.
+         *
+         * The new date must be valid. For example, setting 2023 for the year when then
+         * the date is 2024-02-29, fails.
+         *
+         * @param year The desired year for the selected date (within [struct@GLib.DateTime]
+         *   limits, i.e. from 0001 to 9999).
+         * @since 4.14
+         */
+        set(year) = gtk_calendar_set_year(gtkCalendarPointer.reinterpret(), year)
+
+    /**
      * Creates a new calendar, with the current date being selected.
      *
      * @return a newly `GtkCalendar` widget
@@ -210,12 +285,20 @@ public open class Calendar(
      *
      * The returned date is in the local time zone.
      *
-     * @return the `GDate` representing the shown date
+     * @return the `GDateTime` representing the shown date
      */
     public open fun getDate(): DateTime =
         gtk_calendar_get_date(gtkCalendarPointer.reinterpret())!!.run {
             DateTime(reinterpret())
         }
+
+    /**
+     * Gets the day of the selected date.
+     *
+     * @return the day of the selected date.
+     * @since 4.14
+     */
+    public open fun getDay(): Int = gtk_calendar_get_day(gtkCalendarPointer.reinterpret())
 
     /**
      * Returns if the @day of the @calendar is already marked.
@@ -225,6 +308,14 @@ public open class Calendar(
      */
     public open fun getDayIsMarked(day: UInt): Boolean =
         gtk_calendar_get_day_is_marked(gtkCalendarPointer.reinterpret(), day).asBoolean()
+
+    /**
+     * Gets the month of the selected date.
+     *
+     * @return The month of the selected date (as a number between 0 and 11).
+     * @since 4.14
+     */
+    public open fun getMonth(): Int = gtk_calendar_get_month(gtkCalendarPointer.reinterpret())
 
     /**
      * Returns whether @self is currently showing the names
@@ -262,7 +353,15 @@ public open class Calendar(
         gtk_calendar_get_show_week_numbers(gtkCalendarPointer.reinterpret()).asBoolean()
 
     /**
-     * Places a visual marker on a particular day.
+     * Gets the year of the selected date.
+     *
+     * @return the year of the selected date.
+     * @since 4.14
+     */
+    public open fun getYear(): Int = gtk_calendar_get_year(gtkCalendarPointer.reinterpret())
+
+    /**
+     * Places a visual marker on a particular day of the current month.
      *
      * @param day the day number to mark between 1 and 31.
      */
@@ -275,6 +374,32 @@ public open class Calendar(
      */
     public open fun selectDay(date: DateTime): Unit =
         gtk_calendar_select_day(gtkCalendarPointer.reinterpret(), date.glibDateTimePointer)
+
+    /**
+     * Sets the day for the selected date.
+     *
+     * The new date must be valid. For example, setting 31 for the day when the
+     * month is February, fails.
+     *
+     * @param day The desired day for the selected date (as a number between 1 and 31).
+     * @since 4.14
+     */
+    public open fun setDay(day: Int): Unit =
+        gtk_calendar_set_day(
+            gtkCalendarPointer.reinterpret(),
+            day
+        )
+
+    /**
+     * Sets the month for the selected date.
+     *
+     * The new date must be valid. For example, setting 1 (February) for the month
+     * when the day is 31, fails.
+     *
+     * @param month The desired month for the selected date (as a number between 0 and 11).
+     * @since 4.14
+     */
+    public open fun setMonth(month: Int): Unit = gtk_calendar_set_month(gtkCalendarPointer.reinterpret(), month)
 
     /**
      * Sets whether the calendar shows day names.
@@ -305,6 +430,18 @@ public open class Calendar(
             gtkCalendarPointer.reinterpret(),
             `value`.asGBoolean()
         )
+
+    /**
+     * Sets the year for the selected date.
+     *
+     * The new date must be valid. For example, setting 2023 for the year when then
+     * the date is 2024-02-29, fails.
+     *
+     * @param year The desired year for the selected date (within [struct@GLib.DateTime]
+     *   limits, i.e. from 0001 to 9999).
+     * @since 4.14
+     */
+    public open fun setYear(year: Int): Unit = gtk_calendar_set_year(gtkCalendarPointer.reinterpret(), year)
 
     /**
      * Removes the visual marker from a particular day.

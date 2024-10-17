@@ -3,6 +3,7 @@ package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -19,6 +20,7 @@ import org.gtkkn.native.glib.g_scanner_get_next_token
 import org.gtkkn.native.glib.g_scanner_input_file
 import org.gtkkn.native.glib.g_scanner_input_text
 import org.gtkkn.native.glib.g_scanner_peek_next_token
+import org.gtkkn.native.glib.g_scanner_scope_foreach_symbol
 import org.gtkkn.native.glib.g_scanner_scope_remove_symbol
 import org.gtkkn.native.glib.g_scanner_set_scope
 import org.gtkkn.native.glib.g_scanner_sync_file_offset
@@ -30,7 +32,7 @@ import kotlin.UInt
 import kotlin.Unit
 
 /**
- * The data structure representing a lexical scanner.
+ * `GScanner` provides a general-purpose lexical scanner.
  *
  * You should set @input_name after creating the scanner, since
  * it is used by the default message handler when displaying
@@ -257,6 +259,26 @@ public class Scanner(
         g_scanner_peek_next_token(glibScannerPointer.reinterpret()).run {
             TokenType.fromNativeValue(this)
         }
+
+    /**
+     * Calls the given function for each of the symbol/value pairs
+     * in the given scope of the #GScanner. The function is passed
+     * the symbol and value of each pair, and the given @user_data
+     * parameter.
+     *
+     * @param scopeId the scope id
+     * @param func the function to call for each symbol/value pair
+     */
+    public fun scopeForeachSymbol(
+        scopeId: UInt,
+        func: HFunc,
+    ): Unit =
+        g_scanner_scope_foreach_symbol(
+            glibScannerPointer.reinterpret(),
+            scopeId,
+            HFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
 
     /**
      * Removes a symbol from a scope.

@@ -43,16 +43,26 @@ import kotlin.Unit
 /**
  * The base object type.
  *
- * All the fields in the `GObject` structure are private to the implementation
- * and should never be accessed directly.
+ * `GObject` is the fundamental type providing the common attributes and
+ * methods for all object types in GTK, Pango and other libraries
+ * based on GObject. The `GObject` class provides methods for object
+ * construction and destruction, property access methods, and signal
+ * support. Signals are described in detail [here][gobject-Signals].
  *
- * Since GLib 2.72, all #GObjects are guaranteed to be aligned to at least the
- * alignment of the largest basic GLib type (typically this is #guint64 or
- * #gdouble). If you need larger alignment for an element in a #GObject, you
- * should allocate it on the heap (aligned), or arrange for your #GObject to be
- * appropriately padded. This guarantee applies to the #GObject (or derived)
- * struct, the #GObjectClass (or derived) struct, and any private data allocated
- * by G_ADD_PRIVATE().
+ * For a tutorial on implementing a new `GObject` class, see [How to define and
+ * implement a new GObject](tutorial.html#how-to-define-and-implement-a-new-gobject).
+ * For a list of naming conventions for GObjects and their methods, see the
+ * [GType conventions](concepts.html#conventions). For the high-level concepts
+ * behind GObject, read
+ * [Instantiatable classed types: Objects](concepts.html#instantiatable-classed-types-objects).
+ *
+ * Since GLib 2.72, all `GObject`s are guaranteed to be aligned to at least the
+ * alignment of the largest basic GLib type (typically this is `guint64` or
+ * `gdouble`). If you need larger alignment for an element in a `GObject`, you
+ * should allocate it on the heap (aligned), or arrange for your `GObject` to be
+ * appropriately padded. This guarantee applies to the `GObject` (or derived)
+ * struct, the `GObjectClass` (or derived) struct, and any private data allocated
+ * by `G_ADD_PRIVATE()`.
  *
  * ## Skipped during bindings generation
  *
@@ -267,22 +277,21 @@ public open class Object(
      * g_object_class_install_property() inside a static array, e.g.:
      *
      * |[<!-- language="C" -->
-     *   enum
+     *   typedef enum
      *   {
-     *     PROP_0,
-     *     PROP_FOO,
+     *     PROP_FOO = 1,
      *     PROP_LAST
-     *   };
+     *   } MyObjectProperty;
      *
      *   static GParamSpec *properties[PROP_LAST];
      *
      *   static void
      *   my_object_class_init (MyObjectClass *klass)
      *   {
-     *     properties[PROP_FOO] = g_param_spec_int ("foo", "Foo", "The foo",
+     *     properties[PROP_FOO] = g_param_spec_int ("foo", NULL, NULL,
      *                                              0, 100,
      *                                              50,
-     *                                              G_PARAM_READWRITE);
+     *                                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
      *     g_object_class_install_property (gobject_class,
      *                                      PROP_FOO,
      *                                      properties[PROP_FOO]);

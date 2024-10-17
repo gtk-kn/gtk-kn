@@ -11,11 +11,13 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.adw.AdwButtonContent
+import org.gtkkn.native.adw.adw_button_content_get_can_shrink
 import org.gtkkn.native.adw.adw_button_content_get_icon_name
 import org.gtkkn.native.adw.adw_button_content_get_label
 import org.gtkkn.native.adw.adw_button_content_get_type
 import org.gtkkn.native.adw.adw_button_content_get_use_underline
 import org.gtkkn.native.adw.adw_button_content_new
+import org.gtkkn.native.adw.adw_button_content_set_can_shrink
 import org.gtkkn.native.adw.adw_button_content_set_icon_name
 import org.gtkkn.native.adw.adw_button_content_set_label
 import org.gtkkn.native.adw.adw_button_content_set_use_underline
@@ -59,12 +61,13 @@ import kotlin.Unit
  *
  * ```
  * buttoncontent
- * ├── image
- * ╰── label
+ * ╰── box
+ *     ├── image
+ *     ╰── label
  * ```
  *
- * `AdwButtonContent`'s CSS node is called `buttoncontent`. It contains the
- * subnodes `image` and `label`.
+ * `AdwButtonContent`'s CSS node is called `buttoncontent`. It contains a `box`
+ * subnode that serves as a container for the  `image` and `label` nodes.
  *
  * When inside a `GtkButton` or `AdwSplitButton`, the button will receive the
  * `.image-text-button` style class. When inside a `GtkMenuButton`, the
@@ -73,7 +76,6 @@ import kotlin.Unit
  * ## Accessibility
  *
  * `AdwButtonContent` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
- * @since 1.0
  */
 public class ButtonContent(
     pointer: CPointer<AdwButtonContent>,
@@ -91,18 +93,49 @@ public class ButtonContent(
         get() = gPointer.reinterpret()
 
     /**
+     * Whether the button can be smaller than the natural size of its contents.
+     *
+     * If set to `TRUE`, the label will ellipsize.
+     *
+     * See [property@Gtk.Button:can-shrink].
+     *
+     * @since 1.4
+     */
+    public var canShrink: Boolean
+        /**
+         * gets whether the button can be smaller than the natural size of its contents.
+         *
+         * @return whether the button can shrink
+         * @since 1.4
+         */
+        get() = adw_button_content_get_can_shrink(adwButtonContentPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets whether the button can be smaller than the natural size of its contents.
+         *
+         * If set to `TRUE`, the label will ellipsize.
+         *
+         * See [method@Gtk.Button.set_can_shrink].
+         *
+         * @param canShrink whether the button can shrink
+         * @since 1.4
+         */
+        set(canShrink) =
+            adw_button_content_set_can_shrink(
+                adwButtonContentPointer.reinterpret(),
+                canShrink.asGBoolean()
+            )
+
+    /**
      * The name of the displayed icon.
      *
      * If empty, the icon is not shown.
-     *
-     * @since 1.0
      */
     public var iconName: String
         /**
          * Gets the name of the displayed icon.
          *
          * @return the icon name
-         * @since 1.0
          */
         get() =
             adw_button_content_get_icon_name(adwButtonContentPointer.reinterpret())?.toKString()
@@ -111,8 +144,9 @@ public class ButtonContent(
         /**
          * Sets the name of the displayed icon.
          *
+         * If empty, the icon is not shown.
+         *
          * @param iconName the new icon name
-         * @since 1.0
          */
         set(iconName) =
             adw_button_content_set_icon_name(
@@ -122,15 +156,12 @@ public class ButtonContent(
 
     /**
      * The displayed label.
-     *
-     * @since 1.0
      */
     public var label: String
         /**
          * Gets the displayed label.
          *
          * @return the label
-         * @since 1.0
          */
         get() =
             adw_button_content_get_label(adwButtonContentPointer.reinterpret())?.toKString()
@@ -140,7 +171,6 @@ public class ButtonContent(
          * Sets the displayed label.
          *
          * @param label the new label
-         * @since 1.0
          */
         set(label) = adw_button_content_set_label(adwButtonContentPointer.reinterpret(), label)
 
@@ -150,15 +180,12 @@ public class ButtonContent(
      * The mnemonic can be used to activate the parent button.
      *
      * See [property@ButtonContent:label].
-     *
-     * @since 1.0
      */
     public var useUnderline: Boolean
         /**
          * Gets whether an underline in the text indicates a mnemonic.
          *
          * @return whether an underline in the text indicates a mnemonic
-         * @since 1.0
          */
         get() =
             adw_button_content_get_use_underline(adwButtonContentPointer.reinterpret()).asBoolean()
@@ -166,8 +193,11 @@ public class ButtonContent(
         /**
          * Sets whether an underline in the text indicates a mnemonic.
          *
+         * The mnemonic can be used to activate the parent button.
+         *
+         * See [property@ButtonContent:label].
+         *
          * @param useUnderline whether an underline in the text indicates a mnemonic
-         * @since 1.0
          */
         set(useUnderline) =
             adw_button_content_set_use_underline(
@@ -179,15 +209,22 @@ public class ButtonContent(
      * Creates a new `AdwButtonContent`.
      *
      * @return the new created `AdwButtonContent`
-     * @since 1.0
      */
     public constructor() : this(adw_button_content_new()!!.reinterpret())
+
+    /**
+     * gets whether the button can be smaller than the natural size of its contents.
+     *
+     * @return whether the button can shrink
+     * @since 1.4
+     */
+    public fun getCanShrink(): Boolean =
+        adw_button_content_get_can_shrink(adwButtonContentPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the name of the displayed icon.
      *
      * @return the icon name
-     * @since 1.0
      */
     public fun getIconName(): String =
         adw_button_content_get_icon_name(adwButtonContentPointer.reinterpret())?.toKString()
@@ -197,7 +234,6 @@ public class ButtonContent(
      * Gets the displayed label.
      *
      * @return the label
-     * @since 1.0
      */
     public fun getLabel(): String =
         adw_button_content_get_label(adwButtonContentPointer.reinterpret())?.toKString()
@@ -207,16 +243,32 @@ public class ButtonContent(
      * Gets whether an underline in the text indicates a mnemonic.
      *
      * @return whether an underline in the text indicates a mnemonic
-     * @since 1.0
      */
     public fun getUseUnderline(): Boolean =
         adw_button_content_get_use_underline(adwButtonContentPointer.reinterpret()).asBoolean()
 
     /**
+     * Sets whether the button can be smaller than the natural size of its contents.
+     *
+     * If set to `TRUE`, the label will ellipsize.
+     *
+     * See [method@Gtk.Button.set_can_shrink].
+     *
+     * @param canShrink whether the button can shrink
+     * @since 1.4
+     */
+    public fun setCanShrink(canShrink: Boolean): Unit =
+        adw_button_content_set_can_shrink(
+            adwButtonContentPointer.reinterpret(),
+            canShrink.asGBoolean()
+        )
+
+    /**
      * Sets the name of the displayed icon.
      *
+     * If empty, the icon is not shown.
+     *
      * @param iconName the new icon name
-     * @since 1.0
      */
     public fun setIconName(iconName: String): Unit =
         adw_button_content_set_icon_name(adwButtonContentPointer.reinterpret(), iconName)
@@ -225,7 +277,6 @@ public class ButtonContent(
      * Sets the displayed label.
      *
      * @param label the new label
-     * @since 1.0
      */
     public fun setLabel(label: String): Unit =
         adw_button_content_set_label(adwButtonContentPointer.reinterpret(), label)
@@ -233,8 +284,11 @@ public class ButtonContent(
     /**
      * Sets whether an underline in the text indicates a mnemonic.
      *
+     * The mnemonic can be used to activate the parent button.
+     *
+     * See [property@ButtonContent:label].
+     *
      * @param useUnderline whether an underline in the text indicates a mnemonic
-     * @since 1.0
      */
     public fun setUseUnderline(useUnderline: Boolean): Unit =
         adw_button_content_set_use_underline(

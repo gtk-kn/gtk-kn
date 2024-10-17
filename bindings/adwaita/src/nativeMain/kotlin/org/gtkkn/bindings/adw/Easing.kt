@@ -41,7 +41,6 @@ import kotlin.Double
  * [class@TimedAnimation].
  *
  * New values may be added to this enumeration over time.
- * @since 1.0
  */
 public enum class Easing(
     public val nativeValue: AdwEasing,
@@ -262,7 +261,6 @@ public enum class Easing(
          * @param self an easing value
          * @param value a value to ease
          * @return the easing for @value
-         * @since 1.0
          */
         public fun ease(
             self: Easing,

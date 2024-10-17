@@ -14,10 +14,12 @@ import org.gtkkn.native.adw.AdwPreferencesRow
 import org.gtkkn.native.adw.adw_preferences_row_get_title
 import org.gtkkn.native.adw.adw_preferences_row_get_title_selectable
 import org.gtkkn.native.adw.adw_preferences_row_get_type
+import org.gtkkn.native.adw.adw_preferences_row_get_use_markup
 import org.gtkkn.native.adw.adw_preferences_row_get_use_underline
 import org.gtkkn.native.adw.adw_preferences_row_new
 import org.gtkkn.native.adw.adw_preferences_row_set_title
 import org.gtkkn.native.adw.adw_preferences_row_set_title_selectable
+import org.gtkkn.native.adw.adw_preferences_row_set_use_markup
 import org.gtkkn.native.adw.adw_preferences_row_set_use_underline
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -30,14 +32,13 @@ import kotlin.Unit
 /**
  * A [class@Gtk.ListBoxRow] used to present preferences.
  *
- * The `AdwPreferencesRow` widget has a title that [class@PreferencesWindow]
+ * The `AdwPreferencesRow` widget has a title that [class@PreferencesDialog]
  * will use to let the user look for a preference. It doesn't present the title
  * in any way and lets you present the preference as you please.
  *
  * [class@ActionRow] and its derivatives are convenient to use as preference
  * rows as they take care of presenting the preference's title while letting you
  * compose the inputs of the preference around it.
- * @since 1.0
  */
 public open class PreferencesRow(
     pointer: CPointer<AdwPreferencesRow>,
@@ -60,14 +61,14 @@ public open class PreferencesRow(
     /**
      * The title of the preference represented by this row.
      *
-     * @since 1.0
+     * The title is interpreted as Pango markup unless
+     * [property@PreferencesRow:use-markup] is set to `FALSE`.
      */
     public open var title: String
         /**
          * Gets the title of the preference represented by @self.
          *
          * @return the title
-         * @since 1.0
          */
         get() =
             adw_preferences_row_get_title(adwPreferencesRowPointer.reinterpret())?.toKString()
@@ -76,8 +77,10 @@ public open class PreferencesRow(
         /**
          * Sets the title of the preference represented by @self.
          *
+         * The title is interpreted as Pango markup unless
+         * [property@PreferencesRow:use-markup] is set to `FALSE`.
+         *
          * @param title the title
-         * @since 1.0
          */
         set(title) = adw_preferences_row_set_title(adwPreferencesRowPointer.reinterpret(), title)
 
@@ -101,6 +104,8 @@ public open class PreferencesRow(
         /**
          * Sets whether the user can copy the title from the label
          *
+         * See also [property@Gtk.Label:selectable].
+         *
          * @param titleSelectable `TRUE` if the user can copy the title from the label
          * @since 1.1
          */
@@ -111,16 +116,48 @@ public open class PreferencesRow(
             )
 
     /**
-     * Whether an embedded underline in the title indicates a mnemonic.
+     * Whether to use Pango markup for the title label.
      *
-     * @since 1.0
+     * Subclasses may also use it for other labels, such as subtitle.
+     *
+     * See also [func@Pango.parse_markup].
+     *
+     * @since 1.2
+     */
+    public open var useMarkup: Boolean
+        /**
+         * Gets whether to use Pango markup for the title label.
+         *
+         * @return whether to use markup
+         * @since 1.2
+         */
+        get() =
+            adw_preferences_row_get_use_markup(adwPreferencesRowPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets whether to use Pango markup for the title label.
+         *
+         * Subclasses may also use it for other labels, such as subtitle.
+         *
+         * See also [func@Pango.parse_markup].
+         *
+         * @param useMarkup whether to use markup
+         * @since 1.2
+         */
+        set(useMarkup) =
+            adw_preferences_row_set_use_markup(
+                adwPreferencesRowPointer.reinterpret(),
+                useMarkup.asGBoolean()
+            )
+
+    /**
+     * Whether an embedded underline in the title indicates a mnemonic.
      */
     public open var useUnderline: Boolean
         /**
          * Gets whether an embedded underline in the title indicates a mnemonic.
          *
          * @return whether an embedded underline in the title indicates a mnemonic
-         * @since 1.0
          */
         get() =
             adw_preferences_row_get_use_underline(adwPreferencesRowPointer.reinterpret()).asBoolean()
@@ -129,7 +166,6 @@ public open class PreferencesRow(
          * Sets whether an embedded underline in the title indicates a mnemonic.
          *
          * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
-         * @since 1.0
          */
         set(useUnderline) =
             adw_preferences_row_set_use_underline(
@@ -141,7 +177,6 @@ public open class PreferencesRow(
      * Creates a new `AdwPreferencesRow`.
      *
      * @return the newly created `AdwPreferencesRow`
-     * @since 1.0
      */
     public constructor() : this(adw_preferences_row_new()!!.reinterpret())
 
@@ -149,7 +184,6 @@ public open class PreferencesRow(
      * Gets the title of the preference represented by @self.
      *
      * @return the title
-     * @since 1.0
      */
     public open fun getTitle(): String =
         adw_preferences_row_get_title(adwPreferencesRowPointer.reinterpret())?.toKString()
@@ -165,10 +199,18 @@ public open class PreferencesRow(
         adw_preferences_row_get_title_selectable(adwPreferencesRowPointer.reinterpret()).asBoolean()
 
     /**
+     * Gets whether to use Pango markup for the title label.
+     *
+     * @return whether to use markup
+     * @since 1.2
+     */
+    public open fun getUseMarkup(): Boolean =
+        adw_preferences_row_get_use_markup(adwPreferencesRowPointer.reinterpret()).asBoolean()
+
+    /**
      * Gets whether an embedded underline in the title indicates a mnemonic.
      *
      * @return whether an embedded underline in the title indicates a mnemonic
-     * @since 1.0
      */
     public open fun getUseUnderline(): Boolean =
         adw_preferences_row_get_use_underline(adwPreferencesRowPointer.reinterpret()).asBoolean()
@@ -176,14 +218,18 @@ public open class PreferencesRow(
     /**
      * Sets the title of the preference represented by @self.
      *
+     * The title is interpreted as Pango markup unless
+     * [property@PreferencesRow:use-markup] is set to `FALSE`.
+     *
      * @param title the title
-     * @since 1.0
      */
     public open fun setTitle(title: String): Unit =
         adw_preferences_row_set_title(adwPreferencesRowPointer.reinterpret(), title)
 
     /**
      * Sets whether the user can copy the title from the label
+     *
+     * See also [property@Gtk.Label:selectable].
      *
      * @param titleSelectable `TRUE` if the user can copy the title from the label
      * @since 1.1
@@ -195,10 +241,25 @@ public open class PreferencesRow(
         )
 
     /**
+     * Sets whether to use Pango markup for the title label.
+     *
+     * Subclasses may also use it for other labels, such as subtitle.
+     *
+     * See also [func@Pango.parse_markup].
+     *
+     * @param useMarkup whether to use markup
+     * @since 1.2
+     */
+    public open fun setUseMarkup(useMarkup: Boolean): Unit =
+        adw_preferences_row_set_use_markup(
+            adwPreferencesRowPointer.reinterpret(),
+            useMarkup.asGBoolean()
+        )
+
+    /**
      * Sets whether an embedded underline in the title indicates a mnemonic.
      *
      * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
-     * @since 1.0
      */
     public open fun setUseUnderline(useUnderline: Boolean): Unit =
         adw_preferences_row_set_use_underline(

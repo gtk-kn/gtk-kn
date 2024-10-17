@@ -10,15 +10,16 @@ import org.gtkkn.native.gio.GProxyAddressEnumerator
 import org.gtkkn.native.gio.g_proxy_address_enumerator_get_type
 
 /**
- * #GProxyAddressEnumerator is a wrapper around #GSocketAddressEnumerator which
- * takes the #GSocketAddress instances returned by the #GSocketAddressEnumerator
- * and wraps them in #GProxyAddress instances, using the given
- * #GProxyAddressEnumerator:proxy-resolver.
+ * `GProxyAddressEnumerator` is a wrapper around
+ * [class@Gio.SocketAddressEnumerator] which takes the [class@Gio.SocketAddress]
+ * instances returned by the [class@Gio.SocketAddressEnumerator]
+ * and wraps them in [class@Gio.ProxyAddress] instances, using the given
+ * [property@Gio.ProxyAddressEnumerator:proxy-resolver].
  *
  * This enumerator will be returned (for example, by
- * g_socket_connectable_enumerate()) as appropriate when a proxy is configured;
- * there should be no need to manually wrap a #GSocketAddressEnumerator instance
- * with one.
+ * [method@Gio.SocketConnectable.enumerate]) as appropriate when a proxy is
+ * configured; there should be no need to manually wrap a
+ * [class@Gio.SocketAddressEnumerator] instance with one.
  *
  * ## Skipped during bindings generation
  *

@@ -94,8 +94,6 @@ import kotlin.Unit
  *
  * - method `visible-child`: Property TypeInfo of getter and setter do not match
  * - method `visible-child-name`: Property TypeInfo of getter and setter do not match
- *
- * @since 1.0
  */
 public class Leaflet(
     pointer: CPointer<AdwLeaflet>,
@@ -136,23 +134,35 @@ public class Leaflet(
      *
      * Only children that have [property@LeafletPage:navigatable] set to `TRUE`
      * can be navigated to.
-     *
-     * @since 1.0
      */
     public var canNavigateBack: Boolean
         /**
          * Gets whether gestures and shortcuts for navigating backward are enabled.
          *
          * @return Whether gestures and shortcuts are enabled.
-         * @since 1.0
          */
         get() = adw_leaflet_get_can_navigate_back(adwLeafletPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether gestures and shortcuts for navigating backward are enabled.
          *
+         * The supported gestures are:
+         *
+         * - One-finger swipe on touchscreens
+         * - Horizontal scrolling on touchpads (usually two-finger swipe)
+         * - Back/forward mouse buttons
+         *
+         * The keyboard back/forward keys are also supported, as well as the
+         * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut for horizontal orientation, or
+         * <kbd>Alt</kbd>+<kbd>↑</kbd> for vertical orientation.
+         *
+         * If the orientation is horizontal, for right-to-left locales, gestures and
+         * shortcuts are reversed.
+         *
+         * Only children that have [property@LeafletPage:navigatable] set to `TRUE` can
+         * be navigated to.
+         *
          * @param canNavigateBack the new value
-         * @since 1.0
          */
         set(canNavigateBack) =
             adw_leaflet_set_can_navigate_back(
@@ -178,23 +188,35 @@ public class Leaflet(
      *
      * Only children that have [property@LeafletPage:navigatable] set to `TRUE`
      * can be navigated to.
-     *
-     * @since 1.0
      */
     public var canNavigateForward: Boolean
         /**
          * Gets whether gestures and shortcuts for navigating forward are enabled.
          *
          * @return Whether gestures and shortcuts are enabled.
-         * @since 1.0
          */
         get() = adw_leaflet_get_can_navigate_forward(adwLeafletPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether gestures and shortcuts for navigating forward are enabled.
          *
+         * The supported gestures are:
+         *
+         * - One-finger swipe on touchscreens
+         * - Horizontal scrolling on touchpads (usually two-finger swipe)
+         * - Back/forward mouse buttons
+         *
+         * The keyboard back/forward keys are also supported, as well as the
+         * <kbd>Alt</kbd>+<kbd>→</kbd> shortcut for horizontal orientation, or
+         * <kbd>Alt</kbd>+<kbd>↓</kbd> for vertical orientation.
+         *
+         * If the orientation is horizontal, for right-to-left locales, gestures and
+         * shortcuts are reversed.
+         *
+         * Only children that have [property@LeafletPage:navigatable] set to `TRUE` can
+         * be navigated to.
+         *
          * @param canNavigateForward the new value
-         * @since 1.0
          */
         set(canNavigateForward) =
             adw_leaflet_set_can_navigate_forward(
@@ -204,15 +226,12 @@ public class Leaflet(
 
     /**
      * Whether or not the leaflet can unfold.
-     *
-     * @since 1.0
      */
     public var canUnfold: Boolean
         /**
          * Gets whether @self can unfold.
          *
          * @return whether @self can unfold
-         * @since 1.0
          */
         get() = adw_leaflet_get_can_unfold(adwLeafletPointer.reinterpret()).asBoolean()
 
@@ -220,7 +239,6 @@ public class Leaflet(
          * Sets whether @self can unfold.
          *
          * @param canUnfold whether @self can unfold
-         * @since 1.0
          */
         set(canUnfold) =
             adw_leaflet_set_can_unfold(
@@ -236,15 +254,12 @@ public class Leaflet(
      * ```c
      * adw_spring_params_new (1, 0.5, 500)
      * ```
-     *
-     * @since 1.0
      */
     public var childTransitionParams: SpringParams
         /**
          * Gets the child transition spring parameters for @self.
          *
          * @return the child transition parameters
-         * @since 1.0
          */
         get() =
             adw_leaflet_get_child_transition_params(adwLeafletPointer.reinterpret())!!.run {
@@ -254,8 +269,13 @@ public class Leaflet(
         /**
          * Sets the child transition spring parameters for @self.
          *
+         * The default value is equivalent to:
+         *
+         * ```c
+         * adw_spring_params_new (1, 0.5, 500)
+         * ```
+         *
          * @param params the new parameters
-         * @since 1.0
          */
         set(params) =
             adw_leaflet_set_child_transition_params(
@@ -265,15 +285,12 @@ public class Leaflet(
 
     /**
      * Whether a child transition is currently running.
-     *
-     * @since 1.0
      */
     public val childTransitionRunning: Boolean
         /**
          * Gets whether a child transition is currently running for @self.
          *
          * @return whether a transition is currently running
-         * @since 1.0
          */
         get() =
             adw_leaflet_get_child_transition_running(adwLeafletPointer.reinterpret()).asBoolean()
@@ -281,20 +298,16 @@ public class Leaflet(
     /**
      * Determines when the leaflet will fold.
      *
-     * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when
-     * the children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`,
-     * it will fold as soon as children don't get their natural size.
+     * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when the
+     * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
+     * will fold as soon as children don't get their natural size.
      *
      * This can be useful if you have a long ellipsizing label and want to let it
      * ellipsize instead of immediately folding.
-     *
-     * @since 1.0
      */
     public var foldThresholdPolicy: FoldThresholdPolicy
         /**
          * Gets the fold threshold policy for @self.
-         *
-         * @since 1.0
          */
         get() =
             adw_leaflet_get_fold_threshold_policy(adwLeafletPointer.reinterpret()).run {
@@ -304,8 +317,14 @@ public class Leaflet(
         /**
          * Sets the fold threshold policy for @self.
          *
+         * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when the
+         * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
+         * will fold as soon as children don't get their natural size.
+         *
+         * This can be useful if you have a long ellipsizing label and want to let it
+         * ellipsize instead of immediately folding.
+         *
          * @param policy the policy to use
-         * @since 1.0
          */
         set(policy) =
             adw_leaflet_set_fold_threshold_policy(
@@ -317,16 +336,18 @@ public class Leaflet(
      * Whether the leaflet is folded.
      *
      * The leaflet will be folded if the size allocated to it is smaller than the
-     * sum of the fold threshold policy, it will be unfolded otherwise.
-     *
-     * @since 1.0
+     * sum of the minimum or natural sizes of the children (see
+     * [property@Leaflet:fold-threshold-policy]), it will be unfolded otherwise.
      */
     public val folded: Boolean
         /**
          * Gets whether @self is folded.
          *
+         * The leaflet will be folded if the size allocated to it is smaller than the
+         * sum of the minimum or natural sizes of the children (see
+         * [property@Leaflet:fold-threshold-policy]), it will be unfolded otherwise.
+         *
          * @return whether @self is folded.
-         * @since 1.0
          */
         get() = adw_leaflet_get_folded(adwLeafletPointer.reinterpret()).asBoolean()
 
@@ -335,15 +356,12 @@ public class Leaflet(
      *
      * If set to `FALSE`, different children can have different size along the
      * opposite orientation.
-     *
-     * @since 1.0
      */
     public var homogeneous: Boolean
         /**
          * Gets whether @self is homogeneous.
          *
          * @return whether @self is homogeneous
-         * @since 1.0
          */
         get() = adw_leaflet_get_homogeneous(adwLeafletPointer.reinterpret()).asBoolean()
 
@@ -354,7 +372,6 @@ public class Leaflet(
          * opposite orientation.
          *
          * @param homogeneous whether to make @self homogeneous
-         * @since 1.0
          */
         set(homogeneous) =
             adw_leaflet_set_homogeneous(
@@ -364,15 +381,12 @@ public class Leaflet(
 
     /**
      * The mode transition animation duration, in milliseconds.
-     *
-     * @since 1.0
      */
     public var modeTransitionDuration: UInt
         /**
          * Gets the mode transition animation duration for @self.
          *
          * @return the mode transition duration, in milliseconds.
-         * @since 1.0
          */
         get() = adw_leaflet_get_mode_transition_duration(adwLeafletPointer.reinterpret())
 
@@ -380,7 +394,6 @@ public class Leaflet(
          * Sets the mode transition animation duration for @self.
          *
          * @param duration the new duration, in milliseconds
-         * @since 1.0
          */
         set(duration) =
             adw_leaflet_set_mode_transition_duration(
@@ -394,8 +407,6 @@ public class Leaflet(
      * This can be used to keep an up-to-date view. The model also implements
      * [iface@Gtk.SelectionModel] and can be used to track and change the visible
      * page.
-     *
-     * @since 1.0
      */
     public val pages: SelectionModel
         /**
@@ -406,7 +417,6 @@ public class Leaflet(
          * page.
          *
          * @return a `GtkSelectionModel` for the leaflet's children
-         * @since 1.0
          */
         get() =
             adw_leaflet_get_pages(adwLeafletPointer.reinterpret())!!.run {
@@ -419,15 +429,12 @@ public class Leaflet(
      * The transition type can be changed without problems at runtime, so it is
      * possible to change the animation based on the mode or child that is about
      * to become current.
-     *
-     * @since 1.0
      */
     public var transitionType: LeafletTransitionType
         /**
          * Gets the type of animation used for transitions between modes and children.
          *
          * @return the current transition type of @self
-         * @since 1.0
          */
         get() =
             adw_leaflet_get_transition_type(adwLeafletPointer.reinterpret()).run {
@@ -437,8 +444,11 @@ public class Leaflet(
         /**
          * Sets the type of animation used for transitions between modes and children.
          *
+         * The transition type can be changed without problems at runtime, so it is
+         * possible to change the animation based on the mode or child that is about to
+         * become current.
+         *
          * @param transition the new transition type
-         * @since 1.0
          */
         set(transition) =
             adw_leaflet_set_transition_type(
@@ -450,7 +460,6 @@ public class Leaflet(
      * Creates a new `AdwLeaflet`.
      *
      * @return the new created `AdwLeaflet`
-     * @since 1.0
      */
     public constructor() : this(adw_leaflet_new()!!.reinterpret())
 
@@ -459,7 +468,6 @@ public class Leaflet(
      *
      * @param child the widget to add
      * @return the [class@LeafletPage] for @child
-     * @since 1.0
      */
     public fun append(child: Widget): LeafletPage =
         adw_leaflet_append(
@@ -481,7 +489,6 @@ public class Leaflet(
      *
      * @param direction the direction
      * @return the previous or next child
-     * @since 1.0
      */
     public fun getAdjacentChild(direction: NavigationDirection): Widget? =
         adw_leaflet_get_adjacent_child(
@@ -495,7 +502,6 @@ public class Leaflet(
      * Gets whether gestures and shortcuts for navigating backward are enabled.
      *
      * @return Whether gestures and shortcuts are enabled.
-     * @since 1.0
      */
     public fun getCanNavigateBack(): Boolean =
         adw_leaflet_get_can_navigate_back(adwLeafletPointer.reinterpret()).asBoolean()
@@ -504,7 +510,6 @@ public class Leaflet(
      * Gets whether gestures and shortcuts for navigating forward are enabled.
      *
      * @return Whether gestures and shortcuts are enabled.
-     * @since 1.0
      */
     public fun getCanNavigateForward(): Boolean =
         adw_leaflet_get_can_navigate_forward(adwLeafletPointer.reinterpret()).asBoolean()
@@ -513,7 +518,6 @@ public class Leaflet(
      * Gets whether @self can unfold.
      *
      * @return whether @self can unfold
-     * @since 1.0
      */
     public fun getCanUnfold(): Boolean = adw_leaflet_get_can_unfold(adwLeafletPointer.reinterpret()).asBoolean()
 
@@ -526,7 +530,6 @@ public class Leaflet(
      *
      * @param name the name of the child to find
      * @return the requested child of @self
-     * @since 1.0
      */
     public fun getChildByName(name: String): Widget? =
         adw_leaflet_get_child_by_name(adwLeafletPointer.reinterpret(), name)?.run {
@@ -537,7 +540,6 @@ public class Leaflet(
      * Gets the child transition spring parameters for @self.
      *
      * @return the child transition parameters
-     * @since 1.0
      */
     public fun getChildTransitionParams(): SpringParams =
         adw_leaflet_get_child_transition_params(adwLeafletPointer.reinterpret())!!.run {
@@ -548,15 +550,12 @@ public class Leaflet(
      * Gets whether a child transition is currently running for @self.
      *
      * @return whether a transition is currently running
-     * @since 1.0
      */
     public fun getChildTransitionRunning(): Boolean =
         adw_leaflet_get_child_transition_running(adwLeafletPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the fold threshold policy for @self.
-     *
-     * @since 1.0
      */
     public fun getFoldThresholdPolicy(): FoldThresholdPolicy =
         adw_leaflet_get_fold_threshold_policy(adwLeafletPointer.reinterpret()).run {
@@ -566,8 +565,11 @@ public class Leaflet(
     /**
      * Gets whether @self is folded.
      *
+     * The leaflet will be folded if the size allocated to it is smaller than the
+     * sum of the minimum or natural sizes of the children (see
+     * [property@Leaflet:fold-threshold-policy]), it will be unfolded otherwise.
+     *
      * @return whether @self is folded.
-     * @since 1.0
      */
     public fun getFolded(): Boolean = adw_leaflet_get_folded(adwLeafletPointer.reinterpret()).asBoolean()
 
@@ -575,7 +577,6 @@ public class Leaflet(
      * Gets whether @self is homogeneous.
      *
      * @return whether @self is homogeneous
-     * @since 1.0
      */
     public fun getHomogeneous(): Boolean = adw_leaflet_get_homogeneous(adwLeafletPointer.reinterpret()).asBoolean()
 
@@ -583,7 +584,6 @@ public class Leaflet(
      * Gets the mode transition animation duration for @self.
      *
      * @return the mode transition duration, in milliseconds.
-     * @since 1.0
      */
     public fun getModeTransitionDuration(): UInt =
         adw_leaflet_get_mode_transition_duration(adwLeafletPointer.reinterpret())
@@ -593,7 +593,6 @@ public class Leaflet(
      *
      * @param child a child of @self
      * @return the page object for @child
-     * @since 1.0
      */
     public fun getPage(child: Widget): LeafletPage =
         adw_leaflet_get_page(
@@ -611,7 +610,6 @@ public class Leaflet(
      * page.
      *
      * @return a `GtkSelectionModel` for the leaflet's children
-     * @since 1.0
      */
     public fun getPages(): SelectionModel =
         adw_leaflet_get_pages(adwLeafletPointer.reinterpret())!!.run {
@@ -622,7 +620,6 @@ public class Leaflet(
      * Gets the type of animation used for transitions between modes and children.
      *
      * @return the current transition type of @self
-     * @since 1.0
      */
     public fun getTransitionType(): LeafletTransitionType =
         adw_leaflet_get_transition_type(adwLeafletPointer.reinterpret()).run {
@@ -633,7 +630,6 @@ public class Leaflet(
      * Gets the widget currently visible when the leaflet is folded.
      *
      * @return the visible child
-     * @since 1.0
      */
     public fun getVisibleChild(): Widget? =
         adw_leaflet_get_visible_child(adwLeafletPointer.reinterpret())?.run {
@@ -644,7 +640,6 @@ public class Leaflet(
      * Gets the name of the currently visible child widget.
      *
      * @return the name of the visible child
-     * @since 1.0
      */
     public fun getVisibleChildName(): String? =
         adw_leaflet_get_visible_child_name(adwLeafletPointer.reinterpret())?.toKString()
@@ -657,7 +652,6 @@ public class Leaflet(
      * @param child the widget to insert
      * @param sibling the sibling after which to insert @child
      * @return the [class@LeafletPage] for @child
-     * @since 1.0
      */
     public fun insertChildAfter(
         child: Widget,
@@ -682,7 +676,6 @@ public class Leaflet(
      *
      * @param direction the direction
      * @return whether the visible child was changed
-     * @since 1.0
      */
     public fun navigate(direction: NavigationDirection): Boolean =
         adw_leaflet_navigate(adwLeafletPointer.reinterpret(), direction.nativeValue).asBoolean()
@@ -692,7 +685,6 @@ public class Leaflet(
      *
      * @param child the widget to prepend
      * @return the [class@LeafletPage] for @child
-     * @since 1.0
      */
     public fun prepend(child: Widget): LeafletPage =
         adw_leaflet_prepend(
@@ -706,7 +698,6 @@ public class Leaflet(
      * Removes a child widget from @self.
      *
      * @param child the child to remove
-     * @since 1.0
      */
     public fun remove(child: Widget): Unit =
         adw_leaflet_remove(
@@ -721,7 +712,6 @@ public class Leaflet(
      *
      * @param child the widget to move, must be a child of @self
      * @param sibling the sibling to move @child after
-     * @since 1.0
      */
     public fun reorderChildAfter(
         child: Widget,
@@ -736,8 +726,23 @@ public class Leaflet(
     /**
      * Sets whether gestures and shortcuts for navigating backward are enabled.
      *
+     * The supported gestures are:
+     *
+     * - One-finger swipe on touchscreens
+     * - Horizontal scrolling on touchpads (usually two-finger swipe)
+     * - Back/forward mouse buttons
+     *
+     * The keyboard back/forward keys are also supported, as well as the
+     * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut for horizontal orientation, or
+     * <kbd>Alt</kbd>+<kbd>↑</kbd> for vertical orientation.
+     *
+     * If the orientation is horizontal, for right-to-left locales, gestures and
+     * shortcuts are reversed.
+     *
+     * Only children that have [property@LeafletPage:navigatable] set to `TRUE` can
+     * be navigated to.
+     *
      * @param canNavigateBack the new value
-     * @since 1.0
      */
     public fun setCanNavigateBack(canNavigateBack: Boolean): Unit =
         adw_leaflet_set_can_navigate_back(
@@ -748,8 +753,23 @@ public class Leaflet(
     /**
      * Sets whether gestures and shortcuts for navigating forward are enabled.
      *
+     * The supported gestures are:
+     *
+     * - One-finger swipe on touchscreens
+     * - Horizontal scrolling on touchpads (usually two-finger swipe)
+     * - Back/forward mouse buttons
+     *
+     * The keyboard back/forward keys are also supported, as well as the
+     * <kbd>Alt</kbd>+<kbd>→</kbd> shortcut for horizontal orientation, or
+     * <kbd>Alt</kbd>+<kbd>↓</kbd> for vertical orientation.
+     *
+     * If the orientation is horizontal, for right-to-left locales, gestures and
+     * shortcuts are reversed.
+     *
+     * Only children that have [property@LeafletPage:navigatable] set to `TRUE` can
+     * be navigated to.
+     *
      * @param canNavigateForward the new value
-     * @since 1.0
      */
     public fun setCanNavigateForward(canNavigateForward: Boolean): Unit =
         adw_leaflet_set_can_navigate_forward(
@@ -761,7 +781,6 @@ public class Leaflet(
      * Sets whether @self can unfold.
      *
      * @param canUnfold whether @self can unfold
-     * @since 1.0
      */
     public fun setCanUnfold(canUnfold: Boolean): Unit =
         adw_leaflet_set_can_unfold(adwLeafletPointer.reinterpret(), canUnfold.asGBoolean())
@@ -769,8 +788,13 @@ public class Leaflet(
     /**
      * Sets the child transition spring parameters for @self.
      *
+     * The default value is equivalent to:
+     *
+     * ```c
+     * adw_spring_params_new (1, 0.5, 500)
+     * ```
+     *
      * @param params the new parameters
-     * @since 1.0
      */
     public fun setChildTransitionParams(params: SpringParams): Unit =
         adw_leaflet_set_child_transition_params(
@@ -781,8 +805,14 @@ public class Leaflet(
     /**
      * Sets the fold threshold policy for @self.
      *
+     * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when the
+     * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
+     * will fold as soon as children don't get their natural size.
+     *
+     * This can be useful if you have a long ellipsizing label and want to let it
+     * ellipsize instead of immediately folding.
+     *
      * @param policy the policy to use
-     * @since 1.0
      */
     public fun setFoldThresholdPolicy(policy: FoldThresholdPolicy): Unit =
         adw_leaflet_set_fold_threshold_policy(
@@ -797,7 +827,6 @@ public class Leaflet(
      * opposite orientation.
      *
      * @param homogeneous whether to make @self homogeneous
-     * @since 1.0
      */
     public fun setHomogeneous(homogeneous: Boolean): Unit =
         adw_leaflet_set_homogeneous(adwLeafletPointer.reinterpret(), homogeneous.asGBoolean())
@@ -806,7 +835,6 @@ public class Leaflet(
      * Sets the mode transition animation duration for @self.
      *
      * @param duration the new duration, in milliseconds
-     * @since 1.0
      */
     public fun setModeTransitionDuration(duration: UInt): Unit =
         adw_leaflet_set_mode_transition_duration(adwLeafletPointer.reinterpret(), duration)
@@ -814,8 +842,11 @@ public class Leaflet(
     /**
      * Sets the type of animation used for transitions between modes and children.
      *
+     * The transition type can be changed without problems at runtime, so it is
+     * possible to change the animation based on the mode or child that is about to
+     * become current.
+     *
      * @param transition the new transition type
-     * @since 1.0
      */
     public fun setTransitionType(transition: LeafletTransitionType): Unit =
         adw_leaflet_set_transition_type(adwLeafletPointer.reinterpret(), transition.nativeValue)
@@ -823,8 +854,12 @@ public class Leaflet(
     /**
      * Sets the widget currently visible when the leaflet is folded.
      *
+     * The transition is determined by [property@Leaflet:transition-type] and
+     * [property@Leaflet:child-transition-params]. The transition can be cancelled
+     * by the user, in which case visible child will change back to the previously
+     * visible child.
+     *
      * @param visibleChild the new child
-     * @since 1.0
      */
     public fun setVisibleChild(visibleChild: Widget): Unit =
         adw_leaflet_set_visible_child(
@@ -835,10 +870,9 @@ public class Leaflet(
     /**
      * Makes the child with the name @name visible.
      *
-     * See adw_leaflet_set_visible_child() for more details.
+     * See [property@Leaflet:visible-child].
      *
      * @param name the name of a child
-     * @since 1.0
      */
     public fun setVisibleChildName(name: String): Unit =
         adw_leaflet_set_visible_child_name(adwLeafletPointer.reinterpret(), name)

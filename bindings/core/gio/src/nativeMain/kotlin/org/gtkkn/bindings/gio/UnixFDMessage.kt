@@ -25,19 +25,19 @@ import kotlin.Int
 import kotlin.Result
 
 /**
- * This #GSocketControlMessage contains a #GUnixFDList.
- * It may be sent using g_socket_send_message() and received using
- * g_socket_receive_message() over UNIX sockets (ie: sockets in the
- * %G_SOCKET_FAMILY_UNIX family). The file descriptors are copied
+ * This [class@Gio.SocketControlMessage] contains a [class@Gio.UnixFDList].
+ * It may be sent using [method@Gio.Socket.send_message] and received using
+ * [method@Gio.Socket.receive_message] over UNIX sockets (ie: sockets in the
+ * `G_SOCKET_FAMILY_UNIX` family). The file descriptors are copied
  * between processes by the kernel.
  *
  * For an easier way to send and receive file descriptors over
- * stream-oriented UNIX sockets, see g_unix_connection_send_fd() and
- * g_unix_connection_receive_fd().
+ * stream-oriented UNIX sockets, see [method@Gio.UnixConnection.send_fd] and
+ * [method@Gio.UnixConnection.receive_fd].
  *
  * Note that `<gio/gunixfdmessage.h>` belongs to the UNIX-specific GIO
  * interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
- * file when using it.
+ * file or the `GioUnix-2.0` GIR namespace when using it.
  *
  * ## Skipped during bindings generation
  *
@@ -49,6 +49,11 @@ public open class UnixFDMessage(
     public val gioUnixFDMessagePointer: CPointer<GUnixFDMessage>
         get() = gPointer.reinterpret()
 
+    /**
+     * The [class@Gio.UnixFDList] object to send with the message.
+     *
+     * @since 2.22
+     */
     public open val fdList: UnixFDList
         /**
          * Gets the #GUnixFDList contained in @message.  This function does not

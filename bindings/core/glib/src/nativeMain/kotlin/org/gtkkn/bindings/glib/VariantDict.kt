@@ -205,12 +205,12 @@ public class VariantDict(
     public fun lookupValue(
         key: String,
         expectedType: VariantType? = null,
-    ): Variant =
+    ): Variant? =
         g_variant_dict_lookup_value(
             glibVariantDictPointer.reinterpret(),
             key,
             expectedType?.glibVariantTypePointer
-        )!!.run {
+        )?.run {
             Variant(reinterpret())
         }
 

@@ -19,6 +19,11 @@ import kotlin.Unit
 /**
  * `GtkSelectionFilterModel` is a list model that presents the selection from
  * a `GtkSelectionModel`.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class SelectionFilterModel(
     pointer: CPointer<GtkSelectionFilterModel>,

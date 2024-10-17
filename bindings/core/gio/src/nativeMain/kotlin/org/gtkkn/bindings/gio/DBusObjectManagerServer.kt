@@ -23,9 +23,9 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * #GDBusObjectManagerServer is used to export #GDBusObject instances using
- * the standardized
- * [org.freedesktop.DBus.ObjectManager](http://dbus.freedesktop.org/doc/dbus-specification.html#standard-interfaces-objectmanager)
+ * `GDBusObjectManagerServer` is used to export [iface@Gio.DBusObject] instances
+ * using the standardized
+ * [`org.freedesktop.DBus.ObjectManager`](http://dbus.freedesktop.org/doc/dbus-specification.html#standard-interfaces-objectmanager)
  * interface. For example, remote D-Bus clients can get all objects
  * and properties in a single call. Additionally, any change in the
  * object hierarchy is broadcast using signals. This means that D-Bus
@@ -41,10 +41,9 @@ import kotlin.Unit
  * It is supported, but not recommended, to export an object manager at the root
  * path, `/`.
  *
- * See #GDBusObjectManagerClient for the client-side code that is
- * intended to be used with #GDBusObjectManagerServer or any D-Bus
- * object implementing the org.freedesktop.DBus.ObjectManager
- * interface.
+ * See [class@Gio.DBusObjectManagerClient] for the client-side code that is
+ * intended to be used with `GDBusObjectManagerServer` or any D-Bus
+ * object implementing the `org.freedesktop.DBus.ObjectManager` interface.
  *
  * ## Skipped during bindings generation
  *

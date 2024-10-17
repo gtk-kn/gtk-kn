@@ -13,10 +13,12 @@ import org.gtkkn.native.adw.adw_clamp_get_child
 import org.gtkkn.native.adw.adw_clamp_get_maximum_size
 import org.gtkkn.native.adw.adw_clamp_get_tightening_threshold
 import org.gtkkn.native.adw.adw_clamp_get_type
+import org.gtkkn.native.adw.adw_clamp_get_unit
 import org.gtkkn.native.adw.adw_clamp_new
 import org.gtkkn.native.adw.adw_clamp_set_child
 import org.gtkkn.native.adw.adw_clamp_set_maximum_size
 import org.gtkkn.native.adw.adw_clamp_set_tightening_threshold
+import org.gtkkn.native.adw.adw_clamp_set_unit
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -44,14 +46,12 @@ import kotlin.Unit
  * If the child requires more than the requested maximum size, it will be
  * allocated the minimum size it can fit in instead.
  *
+ * `AdwClamp` can scale with the text scale factor, use the
+ * [property@ClampLayout:unit] property to enable that behavior.
+ *
  * ## CSS nodes
  *
  * `AdwClamp` has a single CSS node with name `clamp`.
- *
- * Its children will receive the style classes `.large` when the child reached
- * its maximum size, `.small` when the clamp allocates its full size to the
- * child, `.medium` in-between, or none if it hasn't computed its size yet.
- * @since 1.0
  */
 public class Clamp(
     pointer: CPointer<AdwClamp>,
@@ -73,15 +73,12 @@ public class Clamp(
 
     /**
      * The child widget of the `AdwClamp`.
-     *
-     * @since 1.0
      */
     public var child: Widget?
         /**
          * Gets the child widget of @self.
          *
          * @return the child widget of @self
-         * @since 1.0
          */
         get() =
             adw_clamp_get_child(adwClampPointer.reinterpret())?.run {
@@ -92,7 +89,6 @@ public class Clamp(
          * Sets the child widget of @self.
          *
          * @param child the child widget
-         * @since 1.0
          */
         set(child) =
             adw_clamp_set_child(
@@ -104,23 +100,21 @@ public class Clamp(
      * The maximum size allocated to the child.
      *
      * It is the width if the clamp is horizontal, or the height if it is vertical.
-     *
-     * @since 1.0
      */
     public var maximumSize: Int
         /**
          * Gets the maximum size allocated to the child.
          *
          * @return the maximum size to allocate to the child
-         * @since 1.0
          */
         get() = adw_clamp_get_maximum_size(adwClampPointer.reinterpret())
 
         /**
          * Sets the maximum size allocated to the child.
          *
+         * It is the width if the clamp is horizontal, or the height if it is vertical.
+         *
          * @param maximumSize the maximum size
-         * @since 1.0
          */
         set(maximumSize) = adw_clamp_set_maximum_size(adwClampPointer.reinterpret(), maximumSize)
 
@@ -139,23 +133,32 @@ public class Clamp(
      *
      * Effectively, tightening the grip on the child before it reaches its maximum
      * size makes transitions to and from the maximum size smoother when resizing.
-     *
-     * @since 1.0
      */
     public var tighteningThreshold: Int
         /**
          * Gets the size above which the child is clamped.
          *
          * @return the size above which the child is clamped
-         * @since 1.0
          */
         get() = adw_clamp_get_tightening_threshold(adwClampPointer.reinterpret())
 
         /**
          * Sets the size above which the child is clamped.
          *
+         * Starting from this size, the clamp will tighten its grip on the child, slowly
+         * allocating less and less of the available size up to the maximum allocated
+         * size. Below that threshold and below the maximum size, the child will be
+         * allocated all the available size.
+         *
+         * If the threshold is greater than the maximum size to allocate to the child,
+         * the child will be allocated all the size up to the maximum. If the threshold
+         * is lower than the minimum size to allocate to the child, that size will be
+         * used as the tightening threshold.
+         *
+         * Effectively, tightening the grip on the child before it reaches its maximum
+         * size makes transitions to and from the maximum size smoother when resizing.
+         *
          * @param tighteningThreshold the tightening threshold
-         * @since 1.0
          */
         set(tighteningThreshold) =
             adw_clamp_set_tightening_threshold(
@@ -164,10 +167,38 @@ public class Clamp(
             )
 
     /**
+     * The length unit for maximum size and tightening threshold.
+     *
+     * Allows the sizes to vary depending on the text scale factor.
+     *
+     * @since 1.4
+     */
+    public var unit: LengthUnit
+        /**
+         * Gets the length unit for maximum size and tightening threshold.
+         *
+         * @return the length unit
+         * @since 1.4
+         */
+        get() =
+            adw_clamp_get_unit(adwClampPointer.reinterpret()).run {
+                LengthUnit.fromNativeValue(this)
+            }
+
+        /**
+         * Sets the length unit for maximum size and tightening threshold.
+         *
+         * Allows the sizes to vary depending on the text scale factor.
+         *
+         * @param unit the length unit
+         * @since 1.4
+         */
+        set(unit) = adw_clamp_set_unit(adwClampPointer.reinterpret(), unit.nativeValue)
+
+    /**
      * Creates a new `AdwClamp`.
      *
      * @return the newly created `AdwClamp`
-     * @since 1.0
      */
     public constructor() : this(adw_clamp_new()!!.reinterpret())
 
@@ -175,7 +206,6 @@ public class Clamp(
      * Gets the child widget of @self.
      *
      * @return the child widget of @self
-     * @since 1.0
      */
     public fun getChild(): Widget? =
         adw_clamp_get_child(adwClampPointer.reinterpret())?.run {
@@ -186,7 +216,6 @@ public class Clamp(
      * Gets the maximum size allocated to the child.
      *
      * @return the maximum size to allocate to the child
-     * @since 1.0
      */
     public fun getMaximumSize(): Int = adw_clamp_get_maximum_size(adwClampPointer.reinterpret())
 
@@ -194,15 +223,24 @@ public class Clamp(
      * Gets the size above which the child is clamped.
      *
      * @return the size above which the child is clamped
-     * @since 1.0
      */
     public fun getTighteningThreshold(): Int = adw_clamp_get_tightening_threshold(adwClampPointer.reinterpret())
+
+    /**
+     * Gets the length unit for maximum size and tightening threshold.
+     *
+     * @return the length unit
+     * @since 1.4
+     */
+    public fun getUnit(): LengthUnit =
+        adw_clamp_get_unit(adwClampPointer.reinterpret()).run {
+            LengthUnit.fromNativeValue(this)
+        }
 
     /**
      * Sets the child widget of @self.
      *
      * @param child the child widget
-     * @since 1.0
      */
     public fun setChild(child: Widget? = null): Unit =
         adw_clamp_set_child(
@@ -213,8 +251,9 @@ public class Clamp(
     /**
      * Sets the maximum size allocated to the child.
      *
+     * It is the width if the clamp is horizontal, or the height if it is vertical.
+     *
      * @param maximumSize the maximum size
-     * @since 1.0
      */
     public fun setMaximumSize(maximumSize: Int): Unit =
         adw_clamp_set_maximum_size(adwClampPointer.reinterpret(), maximumSize)
@@ -222,11 +261,37 @@ public class Clamp(
     /**
      * Sets the size above which the child is clamped.
      *
+     * Starting from this size, the clamp will tighten its grip on the child, slowly
+     * allocating less and less of the available size up to the maximum allocated
+     * size. Below that threshold and below the maximum size, the child will be
+     * allocated all the available size.
+     *
+     * If the threshold is greater than the maximum size to allocate to the child,
+     * the child will be allocated all the size up to the maximum. If the threshold
+     * is lower than the minimum size to allocate to the child, that size will be
+     * used as the tightening threshold.
+     *
+     * Effectively, tightening the grip on the child before it reaches its maximum
+     * size makes transitions to and from the maximum size smoother when resizing.
+     *
      * @param tighteningThreshold the tightening threshold
-     * @since 1.0
      */
     public fun setTighteningThreshold(tighteningThreshold: Int): Unit =
         adw_clamp_set_tightening_threshold(adwClampPointer.reinterpret(), tighteningThreshold)
+
+    /**
+     * Sets the length unit for maximum size and tightening threshold.
+     *
+     * Allows the sizes to vary depending on the text scale factor.
+     *
+     * @param unit the length unit
+     * @since 1.4
+     */
+    public fun setUnit(unit: LengthUnit): Unit =
+        adw_clamp_set_unit(
+            adwClampPointer.reinterpret(),
+            unit.nativeValue
+        )
 
     public companion object : TypeCompanion<Clamp> {
         override val type: GeneratedClassKGType<Clamp> =

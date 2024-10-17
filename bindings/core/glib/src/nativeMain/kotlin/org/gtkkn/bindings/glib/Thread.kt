@@ -36,6 +36,10 @@ import kotlin.Unit
  * - constructor `new`: C function g_thread_new is ignored
  * - constructor `try_new`: C function g_thread_try_new is ignored
  * - parameter `retval`: gpointer
+ * - field `func`: Record field func is private
+ * - field `data`: Record field data is private
+ * - field `joinable`: Record field joinable is private
+ * - field `priority`: Record field priority is private
  */
 public class Thread(
     pointer: CPointer<GThread>,

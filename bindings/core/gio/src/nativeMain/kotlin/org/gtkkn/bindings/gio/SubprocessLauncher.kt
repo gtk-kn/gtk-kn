@@ -47,7 +47,7 @@ import kotlin.collections.List
  * such as where its standard input and output will be directed, the
  * argument list, the environment, and more.
  *
- * While the #GSubprocess class has high level functions covering
+ * While the [class@Gio.Subprocess] class has high level functions covering
  * popular cases, use of this class allows access to more advanced
  * options.  It can also be used to launch multiple subprocesses with
  * a similar configuration.
@@ -215,10 +215,10 @@ public open class SubprocessLauncher(
      *
      * This feature is only available on UNIX.
      *
-     * @param path
+     * @param path a filename or null
      * @since 2.40
      */
-    public open fun setStdinFilePath(path: String): Unit =
+    public open fun setStdinFilePath(path: String? = null): Unit =
         g_subprocess_launcher_set_stdin_file_path(
             gioSubprocessLauncherPointer.reinterpret(),
             path

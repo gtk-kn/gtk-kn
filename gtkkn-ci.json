@@ -41,11 +41,6 @@
       "girPrefix": "Graphene-"
     },
     {
-      "name": "harfbuzz",
-      "module": "core:harfbuzz",
-      "girPrefix": "HarfBuzz-"
-    },
-    {
       "name": "pango",
       "module": "core:pango",
       "girPrefix": "Pango-"

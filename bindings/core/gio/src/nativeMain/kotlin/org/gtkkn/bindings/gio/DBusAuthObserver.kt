@@ -32,22 +32,23 @@ import kotlin.String
 import kotlin.ULong
 
 /**
- * The #GDBusAuthObserver type provides a mechanism for participating
- * in how a #GDBusServer (or a #GDBusConnection) authenticates remote
- * peers. Simply instantiate a #GDBusAuthObserver and connect to the
+ * `GDBusAuthObserver` provides a mechanism for participating
+ * in how a [class@Gio.DBusServer] (or a [class@Gio.DBusConnection])
+ * authenticates remote peers.
+ *
+ * Simply instantiate a `GDBusAuthObserver` and connect to the
  * signals you are interested in. Note that new signals may be added
- * in the future
+ * in the future.
  *
  * ## Controlling Authentication Mechanisms
  *
- * By default, a #GDBusServer or server-side #GDBusConnection will allow
- * any authentication mechanism to be used. If you only
- * want to allow D-Bus connections with the `EXTERNAL` mechanism,
- * which makes use of credentials passing and is the recommended
- * mechanism for modern Unix platforms such as Linux and the BSD family,
- * you would use a signal handler like this:
+ * By default, a `GDBusServer` or server-side `GDBusConnection` will allow
+ * any authentication mechanism to be used. If you only want to allow D-Bus
+ * connections with the `EXTERNAL` mechanism, which makes use of credentials
+ * passing and is the recommended mechanism for modern Unix platforms such
+ * as Linux and the BSD family, you would use a signal handler like this:
  *
- * |[<!-- language="C" -->
+ * ```c
  * static gboolean
  * on_allow_mechanism (GDBusAuthObserver *observer,
  *                     const gchar       *mechanism,
@@ -60,19 +61,19 @@ import kotlin.ULong
  *
  *   return FALSE;
  * }
- * ]|
+ * ```
  *
- * ## Controlling Authorization # {#auth-observer}
+ * ## Controlling Authorization
  *
- * By default, a #GDBusServer or server-side #GDBusConnection will accept
+ * By default, a `GDBusServer` or server-side `GDBusConnection` will accept
  * connections from any successfully authenticated user (but not from
  * anonymous connections using the `ANONYMOUS` mechanism). If you only
  * want to allow D-Bus connections from processes owned by the same uid
  * as the server, since GLib 2.68, you should use the
- * %G_DBUS_SERVER_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER flag. It’s equivalent
+ * `G_DBUS_SERVER_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER` flag. It’s equivalent
  * to the following signal handler:
  *
- * |[<!-- language="C" -->
+ * ```c
  * static gboolean
  * on_authorize_authenticated_peer (GDBusAuthObserver *observer,
  *                                  GIOStream         *stream,
@@ -93,7 +94,7 @@ import kotlin.ULong
  *
  *   return authorized;
  * }
- * ]|
+ * ```
  * @since 2.26
  */
 public open class DBusAuthObserver(

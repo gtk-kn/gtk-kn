@@ -9,12 +9,13 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gtk.GtkListItem
 import org.gtkkn.native.gtk.GtkSignalListItemFactory
 import org.gtkkn.native.gtk.gtk_signal_list_item_factory_get_type
 import org.gtkkn.native.gtk.gtk_signal_list_item_factory_new
@@ -23,7 +24,7 @@ import kotlin.Unit
 
 /**
  * `GtkSignalListItemFactory` is a `GtkListItemFactory` that emits signals
- * to to manage listitems.
+ * to manage listitems.
  *
  * Signals are emitted for every listitem in the same order:
  *
@@ -55,10 +56,10 @@ import kotlin.Unit
  * was emitted on a listitem, the listitem will be destroyed and not be used again.
  *
  * Note that during the signal emissions, changing properties on the
- * `GtkListItem`s passed will not trigger notify signals as the listitem's
+ * listitems passed will not trigger notify signals as the listitem's
  * notifications are frozen. See g_object_freeze_notify() for details.
  *
- * For tracking changes in other properties in the `GtkListItem`, the
+ * For tracking changes in other properties in the listitem, the
  * ::notify signal is recommended. The signal can be connected in the
  * [signal@Gtk.SignalListItemFactory::setup] signal and removed again during
  * [signal@Gtk.SignalListItemFactory::teardown].
@@ -79,22 +80,23 @@ public open class SignalListItemFactory(
     public constructor() : this(gtk_signal_list_item_factory_new()!!.reinterpret())
 
     /**
-     * Emitted when a new [property@Gtk.ListItem:item] has been set
-     * on the @listitem and should be bound for use.
+     * Emitted when an object has been bound, for example when a
+     * new [property@Gtk.ListItem:item] has been set on a
+     * listitem and should be bound for use.
      *
-     * After this signal was emitted, the listitem might be shown in
-     * a [class@Gtk.ListView] or other list widget.
+     * After this signal was emitted, the object might be shown in
+     * a [class@Gtk.ListView] or other widget.
      *
      * The [signal@Gtk.SignalListItemFactory::unbind] signal is the
      * opposite of this signal and can be used to undo everything done
      * in this signal.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `listitem` The `GtkListItem` to bind
+     * @param handler the Callback to connect. Params: `object` The `GObject` to bind
      */
     public fun connectBind(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (listitem: ListItem) -> Unit,
+        handler: (`object`: Object) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -114,11 +116,11 @@ public open class SignalListItemFactory(
      * of this signal and can be used to undo everything done in this signal.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `listitem` The `GtkListItem` to set up
+     * @param handler the Callback to connect. Params: `object` The `GObject` to set up
      */
     public fun connectSetup(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (listitem: ListItem) -> Unit,
+        handler: (`object`: Object) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -130,19 +132,19 @@ public open class SignalListItemFactory(
         )
 
     /**
-     * Emitted when a listitem is about to be destroyed.
+     * Emitted when an object is about to be destroyed.
      *
-     * It is the last signal ever emitted for this @listitem.
+     * It is the last signal ever emitted for this @object.
      *
      * This signal is the opposite of the [signal@Gtk.SignalListItemFactory::setup]
      * signal and should be used to undo everything done in that signal.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `listitem` The `GtkListItem` to teardown
+     * @param handler the Callback to connect. Params: `object` The `GObject` to tear down
      */
     public fun connectTeardown(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (listitem: ListItem) -> Unit,
+        handler: (`object`: Object) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -154,18 +156,19 @@ public open class SignalListItemFactory(
         )
 
     /**
-     * Emitted when a listitem has been removed from use in a list widget
-     * and its new [property@Gtk.ListItem:item] is about to be unset.
+     * Emitted when an object has been unbound from its item, for example when
+     * a listitem was removed from use in a list widget
+     * and its [property@Gtk.ListItem:item] is about to be unset.
      *
      * This signal is the opposite of the [signal@Gtk.SignalListItemFactory::bind]
      * signal and should be used to undo everything done in that signal.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `listitem` The `GtkListItem` to unbind
+     * @param handler the Callback to connect. Params: `object` The `GObject` to unbind
      */
     public fun connectUnbind(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (listitem: ListItem) -> Unit,
+        handler: (`object`: Object) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -188,57 +191,57 @@ public open class SignalListItemFactory(
     }
 }
 
-private val connectBindFunc: CPointer<CFunction<(CPointer<GtkListItem>) -> Unit>> =
+private val connectBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
-            listitem: CPointer<GtkListItem>?,
+            `object`: CPointer<GObject>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(listitem: ListItem) -> Unit>().get().invoke(
-            listitem!!.run {
-                ListItem(reinterpret())
+        userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
+            `object`!!.run {
+                Object(reinterpret())
             }
         )
     }
         .reinterpret()
 
-private val connectSetupFunc: CPointer<CFunction<(CPointer<GtkListItem>) -> Unit>> =
+private val connectSetupFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
-            listitem: CPointer<GtkListItem>?,
+            `object`: CPointer<GObject>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(listitem: ListItem) -> Unit>().get().invoke(
-            listitem!!.run {
-                ListItem(reinterpret())
+        userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
+            `object`!!.run {
+                Object(reinterpret())
             }
         )
     }
         .reinterpret()
 
-private val connectTeardownFunc: CPointer<CFunction<(CPointer<GtkListItem>) -> Unit>> =
+private val connectTeardownFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
-            listitem: CPointer<GtkListItem>?,
+            `object`: CPointer<GObject>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(listitem: ListItem) -> Unit>().get().invoke(
-            listitem!!.run {
-                ListItem(reinterpret())
+        userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
+            `object`!!.run {
+                Object(reinterpret())
             }
         )
     }
         .reinterpret()
 
-private val connectUnbindFunc: CPointer<CFunction<(CPointer<GtkListItem>) -> Unit>> =
+private val connectUnbindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
-            listitem: CPointer<GtkListItem>?,
+            `object`: CPointer<GObject>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(listitem: ListItem) -> Unit>().get().invoke(
-            listitem!!.run {
-                ListItem(reinterpret())
+        userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
+            `object`!!.run {
+                Object(reinterpret())
             }
         )
     }

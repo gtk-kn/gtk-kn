@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkScrollEvent
 import org.gtkkn.native.gdk.gdk_scroll_event_get_direction
 import org.gtkkn.native.gdk.gdk_scroll_event_get_type
+import org.gtkkn.native.gdk.gdk_scroll_event_get_unit
 import org.gtkkn.native.gdk.gdk_scroll_event_is_stop
 import kotlin.Boolean
 
@@ -34,6 +35,20 @@ public open class ScrollEvent(
     public open fun getDirection(): ScrollDirection =
         gdk_scroll_event_get_direction(gdkScrollEventPointer.reinterpret()).run {
             ScrollDirection.fromNativeValue(this)
+        }
+
+    /**
+     * Extracts the scroll delta unit of a scroll event.
+     *
+     * The unit will always be %GDK_SCROLL_UNIT_WHEEL if the scroll direction is not
+     * %GDK_SCROLL_SMOOTH.
+     *
+     * @return the scroll unit.
+     * @since 4.8
+     */
+    public open fun getUnit(): ScrollUnit =
+        gdk_scroll_event_get_unit(gdkScrollEventPointer.reinterpret()).run {
+            ScrollUnit.fromNativeValue(this)
         }
 
     /**

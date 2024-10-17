@@ -70,18 +70,18 @@ import kotlin.UShort
 import kotlin.Unit
 
 /**
- * #GSocketClient is a lightweight high-level utility class for connecting to
+ * `GSocketClient` is a lightweight high-level utility class for connecting to
  * a network host using a connection oriented socket type.
  *
- * You create a #GSocketClient object, set any options you want, and then
- * call a sync or async connect operation, which returns a #GSocketConnection
- * subclass on success.
+ * You create a `GSocketClient` object, set any options you want, and then
+ * call a sync or async connect operation, which returns a
+ * [class@Gio.SocketConnection] subclass on success.
  *
- * The type of the #GSocketConnection object returned depends on the type of
- * the underlying socket that is in use. For instance, for a TCP/IP connection
- * it will be a #GTcpConnection.
+ * The type of the [class@Gio.SocketConnection] object returned depends on the
+ * type of the underlying socket that is in use. For instance, for a TCP/IP
+ * connection it will be a [class@Gio.TcpConnection].
  *
- * As #GSocketClient is a lightweight object, you don't need to cache it. You
+ * As `GSocketClient` is a lightweight object, you don't need to cache it. You
  * can just create a new one any time you need one.
  *
  * ## Skipped during bindings generation
@@ -97,6 +97,11 @@ public open class SocketClient(
     public val gioSocketClientPointer: CPointer<GSocketClient>
         get() = gPointer.reinterpret()
 
+    /**
+     * Enable proxy support.
+     *
+     * @since 2.22
+     */
     public open var enableProxy: Boolean
         /**
          * Gets the proxy enable state; see g_socket_client_set_enable_proxy()
@@ -123,6 +128,11 @@ public open class SocketClient(
                 enable.asGBoolean()
             )
 
+    /**
+     * The address family to use for socket construction.
+     *
+     * @since 2.22
+     */
     public open var family: SocketFamily
         /**
          * Gets the socket family of the socket client.
@@ -156,6 +166,11 @@ public open class SocketClient(
                 family.nativeValue
             )
 
+    /**
+     * The local address constructed sockets will be bound to.
+     *
+     * @since 2.22
+     */
     public open var localAddress: SocketAddress?
         /**
          * Gets the local address of the socket client.
@@ -188,6 +203,11 @@ public open class SocketClient(
                 address?.gioSocketAddressPointer?.reinterpret()
             )
 
+    /**
+     * The protocol to use for socket construction, or `0` for default.
+     *
+     * @since 2.22
+     */
     public open var protocol: SocketProtocol
         /**
          * Gets the protocol name type of the socket client.
@@ -219,6 +239,11 @@ public open class SocketClient(
                 protocol.nativeValue
             )
 
+    /**
+     * The I/O timeout for sockets, in seconds, or `0` for none.
+     *
+     * @since 2.22
+     */
     public open var timeout: UInt
         /**
          * Gets the I/O timeout time for sockets created by @client.
@@ -243,6 +268,11 @@ public open class SocketClient(
          */
         set(timeout) = g_socket_client_set_timeout(gioSocketClientPointer.reinterpret(), timeout)
 
+    /**
+     * Whether to create TLS connections.
+     *
+     * @since 2.22
+     */
     public open var tls: Boolean
         /**
          * Gets whether @client creates TLS connections. See

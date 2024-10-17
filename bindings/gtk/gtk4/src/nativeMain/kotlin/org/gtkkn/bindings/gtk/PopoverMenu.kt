@@ -15,11 +15,13 @@ import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.GtkPopoverMenu
 import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.gtk_popover_menu_add_child
+import org.gtkkn.native.gtk.gtk_popover_menu_get_flags
 import org.gtkkn.native.gtk.gtk_popover_menu_get_menu_model
 import org.gtkkn.native.gtk.gtk_popover_menu_get_type
 import org.gtkkn.native.gtk.gtk_popover_menu_new_from_model
 import org.gtkkn.native.gtk.gtk_popover_menu_new_from_model_full
 import org.gtkkn.native.gtk.gtk_popover_menu_remove_child
+import org.gtkkn.native.gtk.gtk_popover_menu_set_flags
 import org.gtkkn.native.gtk.gtk_popover_menu_set_menu_model
 import kotlin.Boolean
 import kotlin.String
@@ -34,6 +36,7 @@ import kotlin.Unit
  * `GtkPopoverMenu` treats its children like menus and allows switching
  * between them. It can open submenus as traditional, nested submenus,
  * or in a more touch-friendly sliding fashion.
+ * The property [property@Gtk.PopoverMenu:flags] controls this appearance.
  *
  * `GtkPopoverMenu` is meant to be used primarily with menu models,
  * using [ctor@Gtk.PopoverMenu.new_from_model]. If you need to put
@@ -113,14 +116,21 @@ import kotlin.Unit
  *
  * Menu items will also show accelerators, which are usually associated
  * with actions via [method@Gtk.Application.set_accels_for_action],
- * [id@gtk_widget_class_add_binding_action] or
+ * [method@WidgetClass.add_binding_action] or
  * [method@Gtk.ShortcutController.add_shortcut].
  *
  * # CSS Nodes
  *
  * `GtkPopoverMenu` is just a subclass of `GtkPopover` that adds custom content
  * to it, therefore it has the same CSS nodes. It is one of the cases that add
- * a .menu style class to the popover's main node.
+ * a `.menu` style class to the main `popover` node.
+ *
+ * Menu items have nodes with name `button` and class `.model`. If a section
+ * display-hint is set, the section gets a node `box` with class `horizontal`
+ * plus a class with the same text as the display hint. Note that said box may
+ * not be the direct ancestor of the item `button`s. Thus, for example, to style
+ * items in an `inline-buttons` section, select `.inline-buttons button.model`.
+ * Other things that may be of interest to style in menus include `label` nodes.
  *
  * # Accessibility
  *
@@ -154,6 +164,37 @@ public open class PopoverMenu(
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
         get() = gPointer.reinterpret()
+
+    /**
+     * The flags that @popover uses to create/display a menu from its model.
+     *
+     * If a model is set and the flags change, contents are rebuilt, so if setting
+     * properties individually, set flags before model to avoid a redundant rebuild.
+     *
+     * @since 4.14
+     */
+    public open var flags: PopoverMenuFlags
+        /**
+         * Returns the flags that @popover uses to create/display a menu from its model.
+         *
+         * @return the `GtkPopoverMenuFlags`
+         * @since 4.14
+         */
+        get() =
+            gtk_popover_menu_get_flags(gtkPopoverMenuPointer.reinterpret()).run {
+                PopoverMenuFlags(this)
+            }
+
+        /**
+         * Sets the flags that @popover uses to create/display a menu from its model.
+         *
+         * If a model is set and the flags change, contents are rebuilt, so if setting
+         * properties individually, set flags before model to avoid a redundant rebuild.
+         *
+         * @param flags a set of `GtkPopoverMenuFlags`
+         * @since 4.14
+         */
+        set(flags) = gtk_popover_menu_set_flags(gtkPopoverMenuPointer.reinterpret(), flags.mask)
 
     /**
      * The model from which the menu is made.
@@ -214,10 +255,6 @@ public open class PopoverMenu(
      * belongs. Actions can also be added using [method@Gtk.Widget.insert_action_group]
      * on the parent widget or on any of its parent widgets.
      *
-     * The only flag that is supported currently is
-     * %GTK_POPOVER_MENU_NESTED, which makes GTK create traditional,
-     * nested submenus instead of the default sliding submenus.
-     *
      * @param model a `GMenuModel`
      * @param flags flags that affect how the menu is created
      * @return the new `GtkPopoverMenu`
@@ -251,6 +288,17 @@ public open class PopoverMenu(
         ).asBoolean()
 
     /**
+     * Returns the flags that @popover uses to create/display a menu from its model.
+     *
+     * @return the `GtkPopoverMenuFlags`
+     * @since 4.14
+     */
+    public open fun getFlags(): PopoverMenuFlags =
+        gtk_popover_menu_get_flags(gtkPopoverMenuPointer.reinterpret()).run {
+            PopoverMenuFlags(this)
+        }
+
+    /**
      * Returns the menu model used to populate the popover.
      *
      * @return the menu model of @popover
@@ -262,7 +310,7 @@ public open class PopoverMenu(
 
     /**
      * Removes a widget that has previously been added with
-     * gtk_popover_menu_add_child().
+     * [method@Gtk.PopoverMenu.add_child()]
      *
      * @param child the `GtkWidget` to remove
      * @return true if the widget was removed
@@ -272,6 +320,18 @@ public open class PopoverMenu(
             gtkPopoverMenuPointer.reinterpret(),
             child.gtkWidgetPointer.reinterpret()
         ).asBoolean()
+
+    /**
+     * Sets the flags that @popover uses to create/display a menu from its model.
+     *
+     * If a model is set and the flags change, contents are rebuilt, so if setting
+     * properties individually, set flags before model to avoid a redundant rebuild.
+     *
+     * @param flags a set of `GtkPopoverMenuFlags`
+     * @since 4.14
+     */
+    public open fun setFlags(flags: PopoverMenuFlags): Unit =
+        gtk_popover_menu_set_flags(gtkPopoverMenuPointer.reinterpret(), flags.mask)
 
     /**
      * Sets a new menu model on @popover.

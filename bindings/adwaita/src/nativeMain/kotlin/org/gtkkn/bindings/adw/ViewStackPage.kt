@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.Accessible
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -28,6 +29,7 @@ import org.gtkkn.native.adw.adw_view_stack_page_set_needs_attention
 import org.gtkkn.native.adw.adw_view_stack_page_set_title
 import org.gtkkn.native.adw.adw_view_stack_page_set_use_underline
 import org.gtkkn.native.adw.adw_view_stack_page_set_visible
+import org.gtkkn.native.gtk.GtkAccessible
 import kotlin.Boolean
 import kotlin.String
 import kotlin.UInt
@@ -35,38 +37,41 @@ import kotlin.Unit
 
 /**
  * An auxiliary class used by [class@ViewStack].
- * @since 1.0
  */
 public class ViewStackPage(
     pointer: CPointer<AdwViewStackPage>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()), Accessible, KGTyped {
     public val adwViewStackPagePointer: CPointer<AdwViewStackPage>
         get() = gPointer.reinterpret()
 
+    override val gtkAccessiblePointer: CPointer<GtkAccessible>
+        get() = gPointer.reinterpret()
+
     /**
-     * A number associated with the page.
+     * The badge number for this page.
      *
      * [class@ViewSwitcher] can display it as a badge next to the page icon. It is
      * commonly used to display a number of unread items within the page.
      *
      * It can be used together with [property@ViewStack{age}:needs-attention].
-     *
-     * @since 1.0
      */
     public var badgeNumber: UInt
         /**
          * Gets the badge number for this page.
          *
          * @return the badge number for this page
-         * @since 1.0
          */
         get() = adw_view_stack_page_get_badge_number(adwViewStackPagePointer.reinterpret())
 
         /**
          * Sets the badge number for this page.
          *
+         * [class@ViewSwitcher] can display it as a badge next to the page icon. It is
+         * commonly used to display a number of unread items within the page.
+         *
+         * It can be used together with [property@ViewStack{age}:needs-attention].
+         *
          * @param badgeNumber the new value to set
-         * @since 1.0
          */
         set(badgeNumber) =
             adw_view_stack_page_set_badge_number(
@@ -75,16 +80,13 @@ public class ViewStackPage(
             )
 
     /**
-     * The child of the page.
-     *
-     * @since 1.0
+     * The stack child to which the page belongs.
      */
     public val child: Widget
         /**
          * Gets the stack child to which @self belongs.
          *
          * @return the child to which @self belongs
-         * @since 1.0
          */
         get() =
             adw_view_stack_page_get_child(adwViewStackPagePointer.reinterpret())!!.run {
@@ -93,15 +95,12 @@ public class ViewStackPage(
 
     /**
      * The icon name of the child page.
-     *
-     * @since 1.0
      */
     public var iconName: String?
         /**
          * Gets the icon name of the page.
          *
          * @return the icon name of the page
-         * @since 1.0
          */
         get() =
             adw_view_stack_page_get_icon_name(adwViewStackPagePointer.reinterpret())?.toKString()
@@ -110,7 +109,6 @@ public class ViewStackPage(
          * Sets the icon name of the page.
          *
          * @param iconName the icon name
-         * @since 1.0
          */
         set(iconName) =
             adw_view_stack_page_set_icon_name(
@@ -120,15 +118,12 @@ public class ViewStackPage(
 
     /**
      * The name of the child page.
-     *
-     * @since 1.0
      */
     public var name: String?
         /**
          * Gets the name of the page.
          *
          * @return the name of the page
-         * @since 1.0
          */
         get() = adw_view_stack_page_get_name(adwViewStackPagePointer.reinterpret())?.toKString()
 
@@ -136,7 +131,6 @@ public class ViewStackPage(
          * Sets the name of the page.
          *
          * @param name the page name
-         * @since 1.0
          */
         set(name) = adw_view_stack_page_set_name(adwViewStackPagePointer.reinterpret(), name)
 
@@ -144,24 +138,22 @@ public class ViewStackPage(
      * Whether the page requires the user attention.
      *
      * [class@ViewSwitcher] will display it as a dot next to the page icon.
-     *
-     * @since 1.0
      */
     public var needsAttention: Boolean
         /**
-         * Gets whether the page is marked as “needs attention”.
+         * Gets whether the page requires the user attention.
          *
          * @return whether the page needs attention
-         * @since 1.0
          */
         get() =
             adw_view_stack_page_get_needs_attention(adwViewStackPagePointer.reinterpret()).asBoolean()
 
         /**
-         * Sets whether the page is marked as “needs attention”.
+         * Sets whether the page requires the user attention.
+         *
+         * [class@ViewSwitcher] will display it as a dot next to the page icon.
          *
          * @param needsAttention the new value to set
-         * @since 1.0
          */
         set(needsAttention) =
             adw_view_stack_page_set_needs_attention(
@@ -171,15 +163,12 @@ public class ViewStackPage(
 
     /**
      * The title of the child page.
-     *
-     * @since 1.0
      */
     public var title: String?
         /**
          * Gets the page title.
          *
          * @return the page title
-         * @since 1.0
          */
         get() = adw_view_stack_page_get_title(adwViewStackPagePointer.reinterpret())?.toKString()
 
@@ -187,21 +176,17 @@ public class ViewStackPage(
          * Sets the page title.
          *
          * @param title the page title
-         * @since 1.0
          */
         set(title) = adw_view_stack_page_set_title(adwViewStackPagePointer.reinterpret(), title)
 
     /**
      * Whether an embedded underline in the title indicates a mnemonic.
-     *
-     * @since 1.0
      */
     public var useUnderline: Boolean
         /**
          * Gets whether underlines in the page title indicate mnemonics.
          *
          * @return whether underlines in the page title indicate mnemonics
-         * @since 1.0
          */
         get() =
             adw_view_stack_page_get_use_underline(adwViewStackPagePointer.reinterpret()).asBoolean()
@@ -210,7 +195,6 @@ public class ViewStackPage(
          * Sets whether underlines in the page title indicate mnemonics.
          *
          * @param useUnderline the new value to set
-         * @since 1.0
          */
         set(useUnderline) =
             adw_view_stack_page_set_use_underline(
@@ -223,8 +207,6 @@ public class ViewStackPage(
      *
      * This is independent from the [property@Gtk.Widget:visible] property of
      * [property@ViewStackPage:child].
-     *
-     * @since 1.0
      */
     public var visible: Boolean
         /**
@@ -234,15 +216,16 @@ public class ViewStackPage(
          * property of its widget.
          *
          * @return whether @self is visible
-         * @since 1.0
          */
         get() = adw_view_stack_page_get_visible(adwViewStackPagePointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @page is visible in its `AdwViewStack`.
          *
+         * This is independent from the [property@Gtk.Widget:visible] property of
+         * [property@ViewStackPage:child].
+         *
          * @param visible whether @self is visible
-         * @since 1.0
          */
         set(visible) =
             adw_view_stack_page_set_visible(
@@ -254,7 +237,6 @@ public class ViewStackPage(
      * Gets the badge number for this page.
      *
      * @return the badge number for this page
-     * @since 1.0
      */
     public fun getBadgeNumber(): UInt = adw_view_stack_page_get_badge_number(adwViewStackPagePointer.reinterpret())
 
@@ -262,7 +244,6 @@ public class ViewStackPage(
      * Gets the stack child to which @self belongs.
      *
      * @return the child to which @self belongs
-     * @since 1.0
      */
     public fun getChild(): Widget =
         adw_view_stack_page_get_child(adwViewStackPagePointer.reinterpret())!!.run {
@@ -273,7 +254,6 @@ public class ViewStackPage(
      * Gets the icon name of the page.
      *
      * @return the icon name of the page
-     * @since 1.0
      */
     public fun getIconName(): String? =
         adw_view_stack_page_get_icon_name(adwViewStackPagePointer.reinterpret())?.toKString()
@@ -282,15 +262,13 @@ public class ViewStackPage(
      * Gets the name of the page.
      *
      * @return the name of the page
-     * @since 1.0
      */
     public fun getName(): String? = adw_view_stack_page_get_name(adwViewStackPagePointer.reinterpret())?.toKString()
 
     /**
-     * Gets whether the page is marked as “needs attention”.
+     * Gets whether the page requires the user attention.
      *
      * @return whether the page needs attention
-     * @since 1.0
      */
     public fun getNeedsAttention(): Boolean =
         adw_view_stack_page_get_needs_attention(adwViewStackPagePointer.reinterpret()).asBoolean()
@@ -299,7 +277,6 @@ public class ViewStackPage(
      * Gets the page title.
      *
      * @return the page title
-     * @since 1.0
      */
     public fun getTitle(): String? = adw_view_stack_page_get_title(adwViewStackPagePointer.reinterpret())?.toKString()
 
@@ -307,7 +284,6 @@ public class ViewStackPage(
      * Gets whether underlines in the page title indicate mnemonics.
      *
      * @return whether underlines in the page title indicate mnemonics
-     * @since 1.0
      */
     public fun getUseUnderline(): Boolean =
         adw_view_stack_page_get_use_underline(adwViewStackPagePointer.reinterpret()).asBoolean()
@@ -319,7 +295,6 @@ public class ViewStackPage(
      * property of its widget.
      *
      * @return whether @self is visible
-     * @since 1.0
      */
     public fun getVisible(): Boolean =
         adw_view_stack_page_get_visible(adwViewStackPagePointer.reinterpret()).asBoolean()
@@ -327,8 +302,12 @@ public class ViewStackPage(
     /**
      * Sets the badge number for this page.
      *
+     * [class@ViewSwitcher] can display it as a badge next to the page icon. It is
+     * commonly used to display a number of unread items within the page.
+     *
+     * It can be used together with [property@ViewStack{age}:needs-attention].
+     *
      * @param badgeNumber the new value to set
-     * @since 1.0
      */
     public fun setBadgeNumber(badgeNumber: UInt): Unit =
         adw_view_stack_page_set_badge_number(adwViewStackPagePointer.reinterpret(), badgeNumber)
@@ -337,7 +316,6 @@ public class ViewStackPage(
      * Sets the icon name of the page.
      *
      * @param iconName the icon name
-     * @since 1.0
      */
     public fun setIconName(iconName: String? = null): Unit =
         adw_view_stack_page_set_icon_name(adwViewStackPagePointer.reinterpret(), iconName)
@@ -346,16 +324,16 @@ public class ViewStackPage(
      * Sets the name of the page.
      *
      * @param name the page name
-     * @since 1.0
      */
     public fun setName(name: String? = null): Unit =
         adw_view_stack_page_set_name(adwViewStackPagePointer.reinterpret(), name)
 
     /**
-     * Sets whether the page is marked as “needs attention”.
+     * Sets whether the page requires the user attention.
+     *
+     * [class@ViewSwitcher] will display it as a dot next to the page icon.
      *
      * @param needsAttention the new value to set
-     * @since 1.0
      */
     public fun setNeedsAttention(needsAttention: Boolean): Unit =
         adw_view_stack_page_set_needs_attention(
@@ -367,7 +345,6 @@ public class ViewStackPage(
      * Sets the page title.
      *
      * @param title the page title
-     * @since 1.0
      */
     public fun setTitle(title: String? = null): Unit =
         adw_view_stack_page_set_title(adwViewStackPagePointer.reinterpret(), title)
@@ -376,7 +353,6 @@ public class ViewStackPage(
      * Sets whether underlines in the page title indicate mnemonics.
      *
      * @param useUnderline the new value to set
-     * @since 1.0
      */
     public fun setUseUnderline(useUnderline: Boolean): Unit =
         adw_view_stack_page_set_use_underline(
@@ -387,8 +363,10 @@ public class ViewStackPage(
     /**
      * Sets whether @page is visible in its `AdwViewStack`.
      *
+     * This is independent from the [property@Gtk.Widget:visible] property of
+     * [property@ViewStackPage:child].
+     *
      * @param visible whether @self is visible
-     * @since 1.0
      */
     public fun setVisible(visible: Boolean): Unit =
         adw_view_stack_page_set_visible(

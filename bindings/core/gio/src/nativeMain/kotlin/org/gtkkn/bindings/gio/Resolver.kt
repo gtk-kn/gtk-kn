@@ -24,6 +24,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GResolver
 import org.gtkkn.native.gio.g_resolver_get_default
+import org.gtkkn.native.gio.g_resolver_get_timeout
 import org.gtkkn.native.gio.g_resolver_get_type
 import org.gtkkn.native.gio.g_resolver_lookup_by_address
 import org.gtkkn.native.gio.g_resolver_lookup_by_address_async
@@ -41,28 +42,80 @@ import org.gtkkn.native.gio.g_resolver_lookup_service
 import org.gtkkn.native.gio.g_resolver_lookup_service_async
 import org.gtkkn.native.gio.g_resolver_lookup_service_finish
 import org.gtkkn.native.gio.g_resolver_set_default
+import org.gtkkn.native.gio.g_resolver_set_timeout
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.Result
 import kotlin.String
+import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 
 /**
- * #GResolver provides cancellable synchronous and asynchronous DNS
- * resolution, for hostnames (g_resolver_lookup_by_address(),
- * g_resolver_lookup_by_name() and their async variants) and SRV
- * (service) records (g_resolver_lookup_service()).
+ * The object that handles DNS resolution. Use [func@Gio.Resolver.get_default]
+ * to get the default resolver.
  *
- * #GNetworkAddress and #GNetworkService provide wrappers around
- * #GResolver functionality that also implement #GSocketConnectable,
- * making it easy to connect to a remote host/service.
+ * `GResolver` provides cancellable synchronous and asynchronous DNS
+ * resolution, for hostnames ([method@Gio.Resolver.lookup_by_address],
+ * [method@Gio.Resolver.lookup_by_name] and their async variants) and SRV
+ * (service) records ([method@Gio.Resolver.lookup_service]).
+ *
+ * [class@Gio.NetworkAddress] and [class@Gio.NetworkService] provide wrappers
+ * around `GResolver` functionality that also implement
+ * [iface@Gio.SocketConnectable], making it easy to connect to a remote
+ * host/service.
+ *
+ * The default resolver (see [func@Gio.Resolver.get_default]) has a timeout of
+ * 30s set on it since GLib 2.78. Earlier versions of GLib did not support
+ * resolver timeouts.
+ *
+ * This is an abstract type; subclasses of it implement different resolvers for
+ * different platforms and situations.
  */
 public open class Resolver(
     pointer: CPointer<GResolver>,
 ) : Object(pointer.reinterpret()), KGTyped {
     public val gioResolverPointer: CPointer<GResolver>
         get() = gPointer.reinterpret()
+
+    /**
+     * The timeout applied to all resolver lookups, in milliseconds.
+     *
+     * This may be changed through the lifetime of the #GResolver. The new value
+     * will apply to any lookups started after the change, but not to any
+     * already-ongoing lookups.
+     *
+     * If this is `0`, no timeout is applied to lookups.
+     *
+     * No timeout was applied to lookups before this property was added in
+     * GLib 2.78.
+     *
+     * @since 2.78
+     */
+    public open var timeout: UInt
+        /**
+         * Get the timeout applied to all resolver lookups. See #GResolver:timeout.
+         *
+         * @return the resolver timeout, in milliseconds, or `0` for no timeout
+         * @since 2.78
+         */
+        get() = g_resolver_get_timeout(gioResolverPointer.reinterpret())
+
+        /**
+         * Set the timeout applied to all resolver lookups. See #GResolver:timeout.
+         *
+         * @param timeoutMs timeout in milliseconds, or `0` for no timeouts
+         * @since 2.78
+         */
+        set(timeoutMs) = g_resolver_set_timeout(gioResolverPointer.reinterpret(), timeoutMs)
+
+    /**
+     * Get the timeout applied to all resolver lookups. See #GResolver:timeout.
+     *
+     * @return the resolver timeout, in milliseconds, or `0` for no timeout
+     * @since 2.78
+     */
+    public open fun getTimeout(): UInt = g_resolver_get_timeout(gioResolverPointer.reinterpret())
 
     /**
      * Synchronously reverse-resolves @address to determine its
@@ -612,6 +665,15 @@ public open class Resolver(
      * @since 2.22
      */
     public open fun setDefault(): Unit = g_resolver_set_default(gioResolverPointer.reinterpret())
+
+    /**
+     * Set the timeout applied to all resolver lookups. See #GResolver:timeout.
+     *
+     * @param timeoutMs timeout in milliseconds, or `0` for no timeouts
+     * @since 2.78
+     */
+    public open fun setTimeout(timeoutMs: UInt): Unit =
+        g_resolver_set_timeout(gioResolverPointer.reinterpret(), timeoutMs)
 
     /**
      * Emitted when the resolver notices that the system resolver

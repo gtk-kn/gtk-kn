@@ -51,7 +51,7 @@ import kotlin.Unit
  * for the synchronization being implemented, the clock will process a frame and
  * emit signals for each phase that has been requested. (See the signals of the
  * `GdkFrameClock` class for documentation of the phases.
- * %GDK_FRAME_CLOCK_PHASE_UPDATE and the [signal@GdkFrameClock::update] signal
+ * %GDK_FRAME_CLOCK_PHASE_UPDATE and the [signal@Gdk.FrameClock::update] signal
  * are most interesting for application writers, and are used to update the
  * animations, using the frame time given by [method@Gdk.FrameClock.get_frame_time].
  *
@@ -63,7 +63,7 @@ import kotlin.Unit
  * are called at a “similar” time get the same value. This means that
  * if different animations are timed by looking at the difference in
  * time between an initial value from [method@Gdk.FrameClock.get_frame_time]
- * and the value inside the [signal@GdkFrameClock::update] signal of the clock,
+ * and the value inside the [signal@Gdk.FrameClock::update] signal of the clock,
  * they will stay exactly synchronized.
  *
  * ## Skipped during bindings generation
@@ -284,7 +284,8 @@ public open class FrameClock(
      *
      * The frame is repainted. GDK normally handles this internally and
      * emits [signal@Gdk.Surface::render] signals which are turned into
-     * [signal@Gtk.Widget::snapshot] signals by GTK.
+     * [GtkWidget::snapshot](../gtk4/signal.Widget.snapshot.html) signals
+     * by GTK.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -330,7 +331,8 @@ public open class FrameClock(
      *
      * Animations should be updated using [method@Gdk.FrameClock.get_frame_time].
      * Applications can connect directly to this signal, or use
-     * [method@Gtk.Widget.add_tick_callback] as a more convenient interface.
+     * [gtk_widget_add_tick_callback()](../gtk4/method.Widget.add_tick_callback.html)
+     * as a more convenient interface.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect

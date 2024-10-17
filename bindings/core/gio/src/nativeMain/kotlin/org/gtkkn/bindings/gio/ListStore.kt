@@ -25,8 +25,8 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
- * #GListStore is a simple implementation of #GListModel that stores all
- * items in memory.
+ * `GListStore` is a simple implementation of [iface@Gio.ListModel] that stores
+ * all items in memory.
  *
  * It provides insertions, deletions, and lookups in logarithmic time
  * with a fast path for the common case of iterating the list linearly.
@@ -35,8 +35,10 @@ import kotlin.Unit
  *
  * - parameter `position`: position: Out parameter is not supported
  * - parameter `equal_func`: GLib.EqualFunc
+ * - parameter `position`: position: Out parameter is not supported
  * - parameter `additions`: Array parameter of type GObject.Object is not supported
  * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class ListStore(
     pointer: CPointer<GListStore>,

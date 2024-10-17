@@ -21,14 +21,14 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * Like #GNetworkAddress does with hostnames, #GNetworkService
+ * Like [class@Gio.NetworkAddress] does with hostnames, `GNetworkService`
  * provides an easy way to resolve a SRV record, and then attempt to
  * connect to one of the hosts that implements that service, handling
  * service priority/weighting, multiple IP addresses, and multiple
  * address families.
  *
- * See #GSrvTarget for more information about SRV records, and see
- * #GSocketConnectable for an example of using the connectable
+ * See [struct@Gio.SrvTarget] for more information about SRV records, and see
+ * [iface@Gio.SocketConnectable] for an example of using the connectable
  * interface.
  */
 public open class NetworkService(
@@ -40,6 +40,11 @@ public open class NetworkService(
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = gPointer.reinterpret()
 
+    /**
+     * Network domain, for example `example.com`.
+     *
+     * @since 2.22
+     */
     public open val domain: String
         /**
          * Gets the domain that @srv serves. This might be either UTF-8 or
@@ -52,6 +57,11 @@ public open class NetworkService(
             g_network_service_get_domain(gioNetworkServicePointer.reinterpret())?.toKString()
                 ?: error("Expected not null string")
 
+    /**
+     * Network protocol, for example `tcp`.
+     *
+     * @since 2.22
+     */
     public open val protocol: String
         /**
          * Gets @srv's protocol name (eg, "tcp").
@@ -63,6 +73,11 @@ public open class NetworkService(
             g_network_service_get_protocol(gioNetworkServicePointer.reinterpret())?.toKString()
                 ?: error("Expected not null string")
 
+    /**
+     * Network scheme (default is to use service).
+     *
+     * @since 2.22
+     */
     public open var scheme: String
         /**
          * Gets the URI scheme used to resolve proxies. By default, the service name
@@ -84,6 +99,11 @@ public open class NetworkService(
          */
         set(scheme) = g_network_service_set_scheme(gioNetworkServicePointer.reinterpret(), scheme)
 
+    /**
+     * Service name, for example `ldap`.
+     *
+     * @since 2.22
+     */
     public open val service: String
         /**
          * Gets @srv's service name (eg, "ldap").

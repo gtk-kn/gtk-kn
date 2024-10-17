@@ -78,7 +78,8 @@ public open class TreeListRow(
          * of zero, rows corresponding to items of models of direct children
          * of the root model have a depth of 1 and so on.
          *
-         * The depth of a row never changes until the row is destroyed.
+         * The depth of a row never changes until the row is removed from its model
+         * at which point it will forever return 0.
          *
          * @return The depth of this row
          */
@@ -120,11 +121,9 @@ public open class TreeListRow(
         /**
          * Gets the item corresponding to this row,
          *
-         * The value returned by this function never changes until the
-         * row is destroyed.
-         *
          * @return The item
-         *   of this row or null when the row was destroyed
+         *   of this row. This function is only marked as nullable for backwards
+         *   compatibility reasons.
          */
         get() =
             gtk_tree_list_row_get_item(gtkTreeListRowPointer.reinterpret())?.run {
@@ -165,7 +164,8 @@ public open class TreeListRow(
      * of zero, rows corresponding to items of models of direct children
      * of the root model have a depth of 1 and so on.
      *
-     * The depth of a row never changes until the row is destroyed.
+     * The depth of a row never changes until the row is removed from its model
+     * at which point it will forever return 0.
      *
      * @return The depth of this row
      */
@@ -182,11 +182,9 @@ public open class TreeListRow(
     /**
      * Gets the item corresponding to this row,
      *
-     * The value returned by this function never changes until the
-     * row is destroyed.
-     *
      * @return The item
-     *   of this row or null when the row was destroyed
+     *   of this row. This function is only marked as nullable for backwards
+     *   compatibility reasons.
      */
     public open fun getItem(): Object? =
         gtk_tree_list_row_get_item(gtkTreeListRowPointer.reinterpret())?.run {
@@ -203,7 +201,8 @@ public open class TreeListRow(
      * null is returned.
      *
      * The value returned by this function never changes
-     * until the row is destroyed.
+     * until the row is removed from its model at which point
+     * it will forever return null.
      *
      * @return The parent of @self
      */
@@ -226,7 +225,8 @@ public open class TreeListRow(
      * This does not mean that the row is actually expanded,
      * this can be checked with [method@Gtk.TreeListRow.get_expanded].
      *
-     * If a row is expandable never changes until the row is destroyed.
+     * If a row is expandable never changes until the row is removed
+     * from its model at which point it will forever return false.
      *
      * @return true if the row is expandable
      */

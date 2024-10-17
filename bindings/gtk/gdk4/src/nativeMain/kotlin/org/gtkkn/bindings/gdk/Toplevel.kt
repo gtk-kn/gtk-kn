@@ -138,8 +138,9 @@ public interface Toplevel : Interface, KGTyped {
     /**
      * Sets keyboard focus to @surface.
      *
-     * In most cases, [method@Gtk.Window.present_with_time] should be
-     * used on a [class@Gtk.Window], rather than calling this function.
+     * In most cases, [gtk_window_present_with_time()](../gtk4/method.Window.present_with_time.html)
+     * should be used on a [GtkWindow](../gtk4/class.Window.html), rather than
+     * calling this function.
      *
      * @param timestamp timestamp of the event triggering the surface focus
      */
@@ -296,8 +297,8 @@ public interface Toplevel : Interface, KGTyped {
      * Sets the startup notification ID.
      *
      * When using GTK, typically you should use
-     * [method@Gtk.Window.set_startup_id] instead of this
-     * low-level function.
+     * [gtk_window_set_startup_id()](../gtk4/method.Window.set_startup_id.html)
+     * instead of this low-level function.
      *
      * @param startupId a string with startup-notification identifier
      */
@@ -322,8 +323,8 @@ public interface Toplevel : Interface, KGTyped {
      * allows the window manager to do things like center @surface
      * on @parent and keep @surface above @parent.
      *
-     * See [method@Gtk.Window.set_transient_for] if you’re using
-     * [class@Gtk.Window] or [class@Gtk.Dialog].
+     * See [gtk_window_set_transient_for()](../gtk4/method.Window.set_transient_for.html)
+     * if you’re using [GtkWindow](../gtk4/class.Window.html).
      *
      * @param parent another toplevel `GdkSurface`
      */

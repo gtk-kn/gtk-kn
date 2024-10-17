@@ -23,6 +23,7 @@ import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCheckButton
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.gtk_check_button_get_active
+import org.gtkkn.native.gtk.gtk_check_button_get_child
 import org.gtkkn.native.gtk.gtk_check_button_get_inconsistent
 import org.gtkkn.native.gtk.gtk_check_button_get_label
 import org.gtkkn.native.gtk.gtk_check_button_get_type
@@ -31,6 +32,7 @@ import org.gtkkn.native.gtk.gtk_check_button_new
 import org.gtkkn.native.gtk.gtk_check_button_new_with_label
 import org.gtkkn.native.gtk.gtk_check_button_new_with_mnemonic
 import org.gtkkn.native.gtk.gtk_check_button_set_active
+import org.gtkkn.native.gtk.gtk_check_button_set_child
 import org.gtkkn.native.gtk.gtk_check_button_set_group
 import org.gtkkn.native.gtk.gtk_check_button_set_inconsistent
 import org.gtkkn.native.gtk.gtk_check_button_set_label
@@ -76,6 +78,11 @@ import kotlin.Unit
  *
  * To add a `GtkCheckButton` to a group, use [method@Gtk.CheckButton.set_group].
  *
+ * When the code must keep track of the state of a group of radio buttons, it
+ * is recommended to keep track of such state through a stateful
+ * `GAction` with a target for each button. Using the `toggled` signals to keep
+ * track of the group changes and state is discouraged.
+ *
  * # CSS nodes
  *
  * ```
@@ -85,9 +92,10 @@ import kotlin.Unit
  * ```
  *
  * A `GtkCheckButton` has a main node with name checkbutton. If the
- * [property@Gtk.CheckButton:label] property is set, it contains a label
- * child. The indicator node is named check when no group is set, and
- * radio if the checkbutton is grouped together with other checkbuttons.
+ * [property@Gtk.CheckButton:label] or [property@Gtk.CheckButton:child]
+ * properties are set, it contains a child widget. The indicator node
+ * is named check when no group is set, and radio if the checkbutton
+ * is grouped together with other checkbuttons.
  *
  * # Accessibility
  *
@@ -141,6 +149,41 @@ public open class CheckButton(
             )
 
     /**
+     * The child widget.
+     *
+     * @since 4.8
+     */
+    public open var child: Widget?
+        /**
+         * Gets the child widget of @button or `NULL` if [property@CheckButton:label] is set.
+         *
+         * @return the child widget of @button
+         * @since 4.8
+         */
+        get() =
+            gtk_check_button_get_child(gtkCheckButtonPointer.reinterpret())?.run {
+                Widget(reinterpret())
+            }
+
+        /**
+         * Sets the child widget of @button.
+         *
+         * Note that by using this API, you take full responsibility for setting
+         * up the proper accessibility label and description information for @button.
+         * Most likely, you'll either set the accessibility label or description
+         * for @button explicitly, or you'll set a labelled-by or described-by
+         * relations from @child to @button.
+         *
+         * @param child the child widget
+         * @since 4.8
+         */
+        set(child) =
+            gtk_check_button_set_child(
+                gtkCheckButtonPointer.reinterpret(),
+                child?.gtkWidgetPointer?.reinterpret()
+            )
+
+    /**
      * If the check button is in an “in between” state.
      *
      * The inconsistent state only affects visual appearance,
@@ -157,7 +200,7 @@ public open class CheckButton(
         /**
          * Sets the `GtkCheckButton` to inconsistent state.
          *
-         * You shoud turn off the inconsistent state again if the user checks
+         * You should turn off the inconsistent state again if the user checks
          * the check button. This has to be done manually.
          *
          * @param inconsistent true if state is inconsistent
@@ -173,7 +216,7 @@ public open class CheckButton(
      */
     public open var label: String?
         /**
-         * Returns the label of the check button.
+         * Returns the label of the check button or `NULL` if [property@CheckButton:child] is set.
          *
          * @return The label @self shows next
          *   to the indicator. If no label is shown, null will be returned.
@@ -245,6 +288,17 @@ public open class CheckButton(
     public open fun getActive(): Boolean = gtk_check_button_get_active(gtkCheckButtonPointer.reinterpret()).asBoolean()
 
     /**
+     * Gets the child widget of @button or `NULL` if [property@CheckButton:label] is set.
+     *
+     * @return the child widget of @button
+     * @since 4.8
+     */
+    public open fun getChild(): Widget? =
+        gtk_check_button_get_child(gtkCheckButtonPointer.reinterpret())?.run {
+            Widget(reinterpret())
+        }
+
+    /**
      * Returns whether the check button is in an inconsistent state.
      *
      * @return true if @check_button is currently in an inconsistent state
@@ -253,7 +307,7 @@ public open class CheckButton(
         gtk_check_button_get_inconsistent(gtkCheckButtonPointer.reinterpret()).asBoolean()
 
     /**
-     * Returns the label of the check button.
+     * Returns the label of the check button or `NULL` if [property@CheckButton:child] is set.
      *
      * @return The label @self shows next
      *   to the indicator. If no label is shown, null will be returned.
@@ -277,6 +331,24 @@ public open class CheckButton(
      */
     public open fun setActive(setting: Boolean): Unit =
         gtk_check_button_set_active(gtkCheckButtonPointer.reinterpret(), setting.asGBoolean())
+
+    /**
+     * Sets the child widget of @button.
+     *
+     * Note that by using this API, you take full responsibility for setting
+     * up the proper accessibility label and description information for @button.
+     * Most likely, you'll either set the accessibility label or description
+     * for @button explicitly, or you'll set a labelled-by or described-by
+     * relations from @child to @button.
+     *
+     * @param child the child widget
+     * @since 4.8
+     */
+    public open fun setChild(child: Widget? = null): Unit =
+        gtk_check_button_set_child(
+            gtkCheckButtonPointer.reinterpret(),
+            child?.gtkWidgetPointer?.reinterpret()
+        )
 
     /**
      * Adds @self to the group of @group.
@@ -307,7 +379,7 @@ public open class CheckButton(
     /**
      * Sets the `GtkCheckButton` to inconsistent state.
      *
-     * You shoud turn off the inconsistent state again if the user checks
+     * You should turn off the inconsistent state again if the user checks
      * the check button. This has to be done manually.
      *
      * @param inconsistent true if state is inconsistent
@@ -354,6 +426,9 @@ public open class CheckButton(
      *
      * Applications should never connect to this signal, but use the
      * [signal@Gtk.CheckButton::toggled] signal.
+     *
+     * The default bindings for this signal are all forms of the
+     * <kbd>␣</kbd> and <kbd>Enter</kbd> keys.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect

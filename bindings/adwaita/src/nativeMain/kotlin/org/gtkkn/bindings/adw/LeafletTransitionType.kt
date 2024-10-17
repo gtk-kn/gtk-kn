@@ -10,7 +10,6 @@ import org.gtkkn.native.adw.AdwLeafletTransitionType.ADW_LEAFLET_TRANSITION_TYPE
  * Describes the possible transitions in a [class@Leaflet] widget.
  *
  * New values may be added to this enumeration over time.
- * @since 1.0
  */
 public enum class LeafletTransitionType(
     public val nativeValue: AdwLeafletTransitionType,

@@ -18,6 +18,7 @@ import org.gtkkn.native.glib.GMarkupParseContext
 import org.gtkkn.native.glib.g_markup_parse_context_end_parse
 import org.gtkkn.native.glib.g_markup_parse_context_free
 import org.gtkkn.native.glib.g_markup_parse_context_get_element
+import org.gtkkn.native.glib.g_markup_parse_context_get_element_stack
 import org.gtkkn.native.glib.g_markup_parse_context_parse
 import org.gtkkn.native.glib.g_markup_parse_context_ref
 import org.gtkkn.native.glib.g_markup_parse_context_unref
@@ -92,6 +93,27 @@ public class MarkupParseContext(
     public fun getElement(): String =
         g_markup_parse_context_get_element(glibMarkupParseContextPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
+
+    /**
+     * Retrieves the element stack from the internal state of the parser.
+     *
+     * The returned #GSList is a list of strings where the first item is
+     * the currently open tag (as would be returned by
+     * g_markup_parse_context_get_element()) and the next item is its
+     * immediate parent.
+     *
+     * This function is intended to be used in the start_element and
+     * end_element handlers where g_markup_parse_context_get_element()
+     * would merely return the name of the element that is being
+     * processed.
+     *
+     * @return the element stack, which must not be modified
+     * @since 2.16
+     */
+    public fun getElementStack(): SList =
+        g_markup_parse_context_get_element_stack(glibMarkupParseContextPointer.reinterpret())!!.run {
+            SList(reinterpret())
+        }
 
     /**
      * Feed some data to the #GMarkupParseContext.

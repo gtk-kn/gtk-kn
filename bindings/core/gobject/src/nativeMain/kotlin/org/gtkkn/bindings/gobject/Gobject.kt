@@ -59,6 +59,7 @@ import org.gtkkn.native.gobject.g_param_spec_variant
 import org.gtkkn.native.gobject.g_param_type_register_static
 import org.gtkkn.native.gobject.g_param_value_convert
 import org.gtkkn.native.gobject.g_param_value_defaults
+import org.gtkkn.native.gobject.g_param_value_is_valid
 import org.gtkkn.native.gobject.g_param_value_set_default
 import org.gtkkn.native.gobject.g_param_value_validate
 import org.gtkkn.native.gobject.g_param_values_cmp
@@ -145,6 +146,7 @@ import kotlin.Unit
  *
  * - parameter `src_boxed`: gpointer
  * - parameter `boxed`: gpointer
+ * - parameter `boxed_copy`: BoxedCopyFunc
  * - parameter `invocation_hint`: gpointer
  * - parameter `invocation_hint`: gpointer
  * - parameter `invocation_hint`: gpointer
@@ -184,6 +186,8 @@ import kotlin.Unit
  * - function `signal_handlers_disconnect_matched`: Could not resolve user_data param
  * - function `signal_handlers_unblock_matched`: Could not resolve user_data param
  * - parameter `n_ids`: n_ids: Out parameter is not supported
+ * - parameter `c_marshaller`: SignalCMarshaller
+ * - parameter `class_handler`: Callback
  * - parameter `signal_id_p`: signal_id_p: Out parameter is not supported
  * - parameter `va_marshaller`: SignalCVaMarshaller
  * - function `strdup_value_contents`: C function g_strdup_value_contents is ignored
@@ -193,8 +197,13 @@ import kotlin.Unit
  * - parameter `n_prerequisites`: n_prerequisites: Out parameter is not supported
  * - parameter `n_interfaces`: n_interfaces: Out parameter is not supported
  * - parameter `data`: gpointer
+ * - function `variant_get_gtype`: C function g_variant_get_gtype is ignored
  * - callback `BoxedCopyFunc`: Return type gpointer is unsupported
- * - constant `TYPE_FLAG_RESERVED_ID_BIT`: GLib.Type
+ * - callback `TypeValueCollectFunc`: Callback with String return value is not supported
+ * - callback `TypeValueLCopyFunc`: Callback with String return value is not supported
+ * - callback `TypeValuePeekPointerFunc`: Return type gpointer is unsupported
+ * - bitfield `IOCondition`: C Type GIOCondition is ignored
+ * - constant `TYPE_FLAG_RESERVED_ID_BIT`: Type
  * - record `InitiallyUnownedClass`: glib type struct are ignored
  * - record `ParamSpecClass`: glib type struct are ignored
  * - record `ParamSpecPool`: Disguised records are ignored
@@ -209,6 +218,12 @@ public object Gobject {
     /**
      * #GParamFlags value alias for %G_PARAM_STATIC_NAME | %G_PARAM_STATIC_NICK |
      * %G_PARAM_STATIC_BLURB.
+     *
+     * It is recommended to use this for all properties by default, as it allows for
+     * internal performance improvements in GObject.
+     *
+     * It is very rare that a property would have a dynamically constructed name,
+     * nickname or blurb.
      *
      * Since 2.13.0
      */
@@ -234,7 +249,7 @@ public object Gobject {
      * An integer constant that represents the number of identifiers reserved
      * for types that are assigned at compile-time.
      */
-    public const val TYPE_FUNDAMENTAL_MAX: Int = 255
+    public const val TYPE_FUNDAMENTAL_MAX: Int = 1020
 
     /**
      * Shift value used in converting numbers to type IDs.
@@ -268,6 +283,12 @@ public object Gobject {
      * type id with G_TYPE_MAKE_FUNDAMENTAL().
      */
     public const val TYPE_RESERVED_USER_FIRST: Int = 49
+
+    /**
+     * The maximal number of #GTypeCValues which can be collected for a
+     * single #GValue.
+     */
+    public const val VALUE_COLLECT_FORMAT_MAX_LENGTH: Int = 8
 
     /**
      * For string values, indicates that the string contained is canonical and will
@@ -440,8 +461,8 @@ public object Gobject {
      */
     public fun paramSpecBoolean(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         defaultValue: Boolean,
         flags: ParamFlags,
     ): ParamSpec =
@@ -470,8 +491,8 @@ public object Gobject {
      */
     public fun paramSpecBoxed(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         boxedType: ULong,
         flags: ParamFlags,
     ): ParamSpec =
@@ -496,8 +517,8 @@ public object Gobject {
      */
     public fun paramSpecDouble(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         minimum: Double,
         maximum: Double,
         defaultValue: Double,
@@ -531,8 +552,8 @@ public object Gobject {
      */
     public fun paramSpecEnum(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         enumType: ULong,
         defaultValue: Int,
         flags: ParamFlags,
@@ -557,8 +578,8 @@ public object Gobject {
      */
     public fun paramSpecFlags(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         flagsType: ULong,
         defaultValue: UInt,
         flags: ParamFlags,
@@ -590,8 +611,8 @@ public object Gobject {
      */
     public fun paramSpecFloat(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         minimum: Float,
         maximum: Float,
         defaultValue: Float,
@@ -626,8 +647,8 @@ public object Gobject {
      */
     public fun paramSpecGtype(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         isAType: ULong,
         flags: ParamFlags,
     ): ParamSpec =
@@ -651,8 +672,8 @@ public object Gobject {
      */
     public fun paramSpecInt(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         minimum: Int,
         maximum: Int,
         defaultValue: Int,
@@ -686,8 +707,8 @@ public object Gobject {
      */
     public fun paramSpecInt64(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         minimum: Long,
         maximum: Long,
         defaultValue: Long,
@@ -721,8 +742,8 @@ public object Gobject {
      */
     public fun paramSpecLong(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         minimum: Long,
         maximum: Long,
         defaultValue: Long,
@@ -755,8 +776,8 @@ public object Gobject {
      */
     public fun paramSpecObject(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         objectType: ULong,
         flags: ParamFlags,
     ): ParamSpec =
@@ -779,8 +800,8 @@ public object Gobject {
      */
     public fun paramSpecParam(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         paramType: ULong,
         flags: ParamFlags,
     ): ParamSpec =
@@ -803,8 +824,8 @@ public object Gobject {
      */
     public fun paramSpecPointer(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         flags: ParamFlags,
     ): ParamSpec =
         g_param_spec_pointer(name, nick, blurb, flags.mask)!!.run {
@@ -825,8 +846,8 @@ public object Gobject {
      */
     public fun paramSpecString(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         defaultValue: String? = null,
         flags: ParamFlags,
     ): ParamSpec =
@@ -850,8 +871,8 @@ public object Gobject {
      */
     public fun paramSpecUint(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         minimum: UInt,
         maximum: UInt,
         defaultValue: UInt,
@@ -886,8 +907,8 @@ public object Gobject {
      */
     public fun paramSpecUint64(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         minimum: ULong,
         maximum: ULong,
         defaultValue: ULong,
@@ -922,8 +943,8 @@ public object Gobject {
      */
     public fun paramSpecUlong(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         minimum: ULong,
         maximum: ULong,
         defaultValue: ULong,
@@ -957,8 +978,8 @@ public object Gobject {
      */
     public fun paramSpecUnichar(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         defaultValue: UInt,
         flags: ParamFlags,
     ): ParamSpec =
@@ -986,8 +1007,8 @@ public object Gobject {
      */
     public fun paramSpecVariant(
         name: String,
-        nick: String?,
-        blurb: String?,
+        nick: String? = null,
+        blurb: String? = null,
         type: VariantType,
         defaultValue: Variant? = null,
         flags: ParamFlags,
@@ -1062,6 +1083,25 @@ public object Gobject {
         `value`: Value,
     ): Boolean =
         g_param_value_defaults(
+            pspec.gPointer.reinterpret(),
+            `value`.gobjectValuePointer
+        ).asBoolean()
+
+    /**
+     * Return whether the contents of @value comply with the specifications
+     * set out by @pspec.
+     *
+     * @param pspec a valid #GParamSpec
+     * @param value a #GValue of correct type for @pspec
+     * @return whether the contents of @value comply with the specifications
+     *   set out by @pspec.
+     * @since 2.74
+     */
+    public fun paramValueIsValid(
+        pspec: ParamSpec,
+        `value`: Value,
+    ): Boolean =
+        g_param_value_is_valid(
             pspec.gPointer.reinterpret(),
             `value`.gobjectValuePointer
         ).asBoolean()
@@ -1155,12 +1195,18 @@ public object Gobject {
     /**
      * Connects a closure to a signal for a particular object.
      *
+     * If @closure is a floating reference (see g_closure_sink()), this function
+     * takes ownership of @closure.
+     *
+     * This function cannot fail. If the given signal doesn’t exist, a critical
+     * warning is emitted.
+     *
      * @param instance the instance to connect to.
      * @param detailedSignal a string of the form "signal-name::detail".
      * @param closure the closure to connect.
      * @param after whether the handler should be called before or after the
      *  default handler of the signal.
-     * @return the handler ID (always greater than 0 for successful connections)
+     * @return the handler ID (always greater than 0)
      */
     public fun signalConnectClosure(
         instance: Object,
@@ -1178,13 +1224,19 @@ public object Gobject {
     /**
      * Connects a closure to a signal for a particular object.
      *
+     * If @closure is a floating reference (see g_closure_sink()), this function
+     * takes ownership of @closure.
+     *
+     * This function cannot fail. If the given signal doesn’t exist, a critical
+     * warning is emitted.
+     *
      * @param instance the instance to connect to.
      * @param signalId the id of the signal.
      * @param detail the detail.
      * @param closure the closure to connect.
      * @param after whether the handler should be called before or after the
      *  default handler of the signal.
-     * @return the handler ID (always greater than 0 for successful connections)
+     * @return the handler ID (always greater than 0)
      */
     public fun signalConnectClosureById(
         instance: Object,
@@ -1833,8 +1885,8 @@ public object Gobject {
     /**
      * Returns the number of instances allocated of the particular type;
      * this is only available if GLib is built with debugging support and
-     * the instance_count debug flag is set (by setting the GOBJECT_DEBUG
-     * variable to include instance-count).
+     * the `instance-count` debug flag is set (by setting the `GOBJECT_DEBUG`
+     * variable to include `instance-count`).
      *
      * @param type a #GType
      * @return the number of instances allocated of the given type;
@@ -1879,7 +1931,7 @@ public object Gobject {
      * flags.  Since GLib 2.36, the type system is initialised automatically
      * and this function does nothing.
      *
-     * If you need to enable debugging features, use the GOBJECT_DEBUG
+     * If you need to enable debugging features, use the `GOBJECT_DEBUG`
      * environment variable.
      *
      * @param debugFlags bitwise combination of #GTypeDebugFlags values for
@@ -1983,9 +2035,7 @@ public object Gobject {
      * @param type type to return name for
      * @return static type name or null
      */
-    public fun typeName(type: ULong): String =
-        g_type_name(type)?.toKString()
-            ?: error("Expected not null string")
+    public fun typeName(type: ULong): String? = g_type_name(type)?.toKString()
 
     /**
      *
@@ -2046,11 +2096,15 @@ public object Gobject {
 
     /**
      * Queries the type system for information about a specific type.
+     *
      * This function will fill in a user-provided structure to hold
      * type-specific information. If an invalid #GType is passed in, the
      * @type member of the #GTypeQuery is 0. All members filled into the
      * #GTypeQuery structure should be considered constant and have to be
      * left untouched.
+     *
+     * Since GLib 2.78, this function allows queries on dynamic types. Previously
+     * it only supported static types.
      *
      * @param type #GType of a static, classed type
      * @param query a user provided structure that is
@@ -2691,6 +2745,54 @@ public val TypePluginUseFunc: CPointer<CFunction<(CPointer<GTypePlugin>) -> Unit
     }
         .reinterpret()
 
+public val TypeValueCopyFuncFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GValue>) -> Unit>> =
+    staticCFunction {
+            srcValue: CPointer<GValue>?,
+            destValue: CPointer<GValue>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<
+            (
+                srcValue: Value,
+                destValue: Value,
+            ) -> Unit
+        >().get().invoke(
+            srcValue!!.run {
+                Value(reinterpret())
+            },
+            destValue!!.run {
+                Value(reinterpret())
+            }
+        )
+    }
+        .reinterpret()
+
+public val TypeValueFreeFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>> =
+    staticCFunction {
+            `value`: CPointer<GValue>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(`value`: Value) -> Unit>().get().invoke(
+            `value`!!.run {
+                Value(reinterpret())
+            }
+        )
+    }
+        .reinterpret()
+
+public val TypeValueInitFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>> =
+    staticCFunction {
+            `value`: CPointer<GValue>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(`value`: Value) -> Unit>().get().invoke(
+            `value`!!.run {
+                Value(reinterpret())
+            }
+        )
+    }
+        .reinterpret()
+
 public val ValueTransformFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GValue>) -> Unit>> =
     staticCFunction {
             srcValue: CPointer<GValue>?,
@@ -3152,6 +3254,59 @@ public typealias TypePluginUnuse = (plugin: TypePlugin) -> Unit
  * - param `plugin` the #GTypePlugin whose use count should be increased
  */
 public typealias TypePluginUse = (plugin: TypePlugin) -> Unit
+
+/**
+ * Copies the content of a #GValue into another.
+ *
+ * The @dest_value is a #GValue with zero-filled data section and @src_value
+ * is a properly initialized #GValue of same type, or derived type.
+ *
+ * The purpose of this function is to copy the contents of @src_value
+ * into @dest_value in a way, that even after @src_value has been freed, the
+ * contents of @dest_value remain valid. String type example:
+ *
+ * |[<!-- language="C" -->
+ * dest_value->data[0].v_pointer = g_strdup (src_value->data[0].v_pointer);
+ * ]|
+ *
+ * - param `srcValue` the value to copy
+ * - param `destValue` the location of the copy
+ */
+public typealias TypeValueCopyFunc = (srcValue: Value, destValue: Value) -> Unit
+
+/**
+ * Frees any old contents that might be left in the `value->data` array of
+ * the given value.
+ *
+ * No resources may remain allocated through the #GValue contents after this
+ * function returns. E.g. for our above string type:
+ *
+ * |[<!-- language="C" -->
+ * // only free strings without a specific flag for static storage
+ * if (!(value->data[1].v_uint & G_VALUE_NOCOPY_CONTENTS))
+ *   g_free (value->data[0].v_pointer);
+ * ]|
+ *
+ * - param `value` the value to free
+ */
+public typealias TypeValueFreeFunc = (`value`: Value) -> Unit
+
+/**
+ * Initializes the value contents by setting the fields of the `value->data`
+ * array.
+ *
+ * The data array of the #GValue passed into this function was zero-filled
+ * with `memset()`, so no care has to be taken to free any old contents.
+ * For example, in the case of a string value that may never be null, the
+ * implementation might look like:
+ *
+ * |[<!-- language="C" -->
+ * value->data[0].v_pointer = g_strdup ("");
+ * ]|
+ *
+ * - param `value` the value to initialize
+ */
+public typealias TypeValueInitFunc = (`value`: Value) -> Unit
 
 /**
  * The type of value transformation functions which can be registered with

@@ -621,7 +621,7 @@ public open class Layout(
      * Converts from an index within a `PangoLayout` to the onscreen position
      * corresponding to the grapheme at that index.
      *
-     * The return value is represented as rectangle. Note that `pos->x` is
+     * The returns is represented as rectangle. Note that `pos->x` is
      * always the leading edge of the grapheme and `pos->x + pos->width` the
      * trailing edge of the grapheme. If the directionality of the grapheme
      * is right-to-left, then `pos->width` will be negative.

@@ -3,6 +3,7 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.glib.GTestSubprocessFlags
+import org.gtkkn.native.glib.G_TEST_SUBPROCESS_DEFAULT
 import org.gtkkn.native.glib.G_TEST_SUBPROCESS_INHERIT_STDERR
 import org.gtkkn.native.glib.G_TEST_SUBPROCESS_INHERIT_STDIN
 import org.gtkkn.native.glib.G_TEST_SUBPROCESS_INHERIT_STDOUT
@@ -20,11 +21,17 @@ public class TestSubprocessFlags(
 
     public companion object {
         /**
+         * Default behaviour. Since: 2.74
+         */
+        public val DEFAULT: TestSubprocessFlags = TestSubprocessFlags(G_TEST_SUBPROCESS_DEFAULT)
+
+        /**
          * If this flag is given, the child
          *     process will inherit the parent's stdin. Otherwise, the child's
          *     stdin is redirected to `/dev/null`.
          */
-        public val STDIN: TestSubprocessFlags = TestSubprocessFlags(G_TEST_SUBPROCESS_INHERIT_STDIN)
+        public val INHERIT_STDIN: TestSubprocessFlags =
+            TestSubprocessFlags(G_TEST_SUBPROCESS_INHERIT_STDIN)
 
         /**
          * If this flag is given, the child
@@ -32,7 +39,7 @@ public class TestSubprocessFlags(
          *     stdout will not be visible, but it will be captured to allow
          *     later tests with g_test_trap_assert_stdout().
          */
-        public val STDOUT: TestSubprocessFlags =
+        public val INHERIT_STDOUT: TestSubprocessFlags =
             TestSubprocessFlags(G_TEST_SUBPROCESS_INHERIT_STDOUT)
 
         /**
@@ -41,7 +48,7 @@ public class TestSubprocessFlags(
          *     stderr will not be visible, but it will be captured to allow
          *     later tests with g_test_trap_assert_stderr().
          */
-        public val STDERR: TestSubprocessFlags =
+        public val INHERIT_STDERR: TestSubprocessFlags =
             TestSubprocessFlags(G_TEST_SUBPROCESS_INHERIT_STDERR)
     }
 }

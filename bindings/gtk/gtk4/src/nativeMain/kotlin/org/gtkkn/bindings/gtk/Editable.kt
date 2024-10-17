@@ -22,6 +22,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkEditable
+import org.gtkkn.native.gtk.gtk_editable_delegate_get_accessible_platform_state
 import org.gtkkn.native.gtk.gtk_editable_delegate_get_property
 import org.gtkkn.native.gtk.gtk_editable_delegate_set_property
 import org.gtkkn.native.gtk.gtk_editable_delete_selection
@@ -313,6 +314,41 @@ public interface Editable : Interface, KGTyped {
          * @param nChars width in chars
          */
         set(nChars) = gtk_editable_set_width_chars(gtkEditablePointer.reinterpret(), nChars)
+
+    /**
+     * Retrieves the accessible platform state from the editable delegate.
+     *
+     * This is an helper function to retrieve the accessible state for
+     * `GtkEditable` interface implementations using a delegate pattern.
+     *
+     * You should call this function in your editable widget implementation
+     * of the [vfunc@Gtk.Accessible.get_platform_state] virtual function, for
+     * instance:
+     *
+     * ```c
+     * static void
+     * accessible_interface_init (GtkAccessibleInterface *iface)
+     * {
+     *   iface->get_platform_state = your_editable_get_accessible_platform_state;
+     * }
+     *
+     * static gboolean
+     * your_editable_get_accessible_platform_state (GtkAccessible *accessible,
+     *                                              GtkAccessiblePlatformState state)
+     * {
+     *   return gtk_editable_delegate_get_accessible_platform_state (GTK_EDITABLE (accessible),
+     * state);
+     * }
+     * ```
+     *
+     * @param state what kind of accessible state to retrieve
+     * @since 4.10
+     */
+    public fun delegateGetAccessiblePlatformState(state: AccessiblePlatformState): Boolean =
+        gtk_editable_delegate_get_accessible_platform_state(
+            gtkEditablePointer.reinterpret(),
+            state.nativeValue
+        ).asBoolean()
 
     /**
      * Deletes the currently selected text of the editable.

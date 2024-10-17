@@ -11,15 +11,18 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.GtkSortListModel
 import org.gtkkn.native.gtk.gtk_sort_list_model_get_incremental
 import org.gtkkn.native.gtk.gtk_sort_list_model_get_model
 import org.gtkkn.native.gtk.gtk_sort_list_model_get_pending
+import org.gtkkn.native.gtk.gtk_sort_list_model_get_section_sorter
 import org.gtkkn.native.gtk.gtk_sort_list_model_get_sorter
 import org.gtkkn.native.gtk.gtk_sort_list_model_get_type
 import org.gtkkn.native.gtk.gtk_sort_list_model_new
 import org.gtkkn.native.gtk.gtk_sort_list_model_set_incremental
 import org.gtkkn.native.gtk.gtk_sort_list_model_set_model
+import org.gtkkn.native.gtk.gtk_sort_list_model_set_section_sorter
 import org.gtkkn.native.gtk.gtk_sort_list_model_set_sorter
 import kotlin.Boolean
 import kotlin.UInt
@@ -45,14 +48,29 @@ import kotlin.Unit
  * If you run into performance issues with `GtkSortListModel`,
  * it is strongly recommended that you write your own sorting list
  * model.
+ *
+ * `GtkSortListModel` allows sorting the items into sections. It
+ * implements `GtkSectionModel` and when [property@Gtk.SortListModel:section-sorter]
+ * is set, it will sort all items with that sorter and items comparing
+ * equal with it will be put into the same section.
+ * The [property@Gtk.SortListModel:sorter] will then be used to sort items
+ * inside their sections.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class SortListModel(
     pointer: CPointer<GtkSortListModel>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()), ListModel, SectionModel, KGTyped {
     public val gtkSortListModelPointer: CPointer<GtkSortListModel>
         get() = gPointer.reinterpret()
 
     override val gioListModelPointer: CPointer<GListModel>
+        get() = gPointer.reinterpret()
+
+    override val gtkSectionModelPointer: CPointer<GtkSectionModel>
         get() = gPointer.reinterpret()
 
     /**
@@ -150,6 +168,36 @@ public open class SortListModel(
         get() = gtk_sort_list_model_get_pending(gtkSortListModelPointer.reinterpret())
 
     /**
+     * The section sorter for this model, if one is set.
+     *
+     * @since 4.12
+     */
+    public open var sectionSorter: Sorter?
+        /**
+         * Gets the section sorter that is used to sort items of @self into
+         * sections.
+         *
+         * @return the sorter of #self
+         * @since 4.12
+         */
+        get() =
+            gtk_sort_list_model_get_section_sorter(gtkSortListModelPointer.reinterpret())?.run {
+                Sorter(reinterpret())
+            }
+
+        /**
+         * Sets a new section sorter on @self.
+         *
+         * @param sorter the `GtkSorter` to sort @model with
+         * @since 4.12
+         */
+        set(sorter) =
+            gtk_sort_list_model_set_section_sorter(
+                gtkSortListModelPointer.reinterpret(),
+                sorter?.gtkSorterPointer?.reinterpret()
+            )
+
+    /**
      * The sorter for this model.
      */
     public open var sorter: Sorter?
@@ -233,6 +281,18 @@ public open class SortListModel(
     public open fun getPending(): UInt = gtk_sort_list_model_get_pending(gtkSortListModelPointer.reinterpret())
 
     /**
+     * Gets the section sorter that is used to sort items of @self into
+     * sections.
+     *
+     * @return the sorter of #self
+     * @since 4.12
+     */
+    public open fun getSectionSorter(): Sorter? =
+        gtk_sort_list_model_get_section_sorter(gtkSortListModelPointer.reinterpret())?.run {
+            Sorter(reinterpret())
+        }
+
+    /**
      * Gets the sorter that is used to sort @self.
      *
      * @return the sorter of #self
@@ -279,6 +339,18 @@ public open class SortListModel(
         gtk_sort_list_model_set_model(
             gtkSortListModelPointer.reinterpret(),
             model?.gioListModelPointer
+        )
+
+    /**
+     * Sets a new section sorter on @self.
+     *
+     * @param sorter the `GtkSorter` to sort @model with
+     * @since 4.12
+     */
+    public open fun setSectionSorter(sorter: Sorter? = null): Unit =
+        gtk_sort_list_model_set_section_sorter(
+            gtkSortListModelPointer.reinterpret(),
+            sorter?.gtkSorterPointer?.reinterpret()
         )
 
     /**

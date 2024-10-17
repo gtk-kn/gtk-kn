@@ -1,10 +1,11 @@
-headers = glib-object.h
+headers = glib-object.h glib-unix.h
 package = org.gtkkn.native.gobject
-headerFilter = gobject/* glib/*
+headerFilter = glib-object.h glib-unix.h gobject/* glib/*
 
 # pkg-config --cflags gobject-2.0
 compilerOpts.linux = \
     -I/usr/include/glib-2.0 \
+    -I/usr/lib/glib-2.0/include \
     -I/usr/include/sysprof-4 \
     -pthread
 

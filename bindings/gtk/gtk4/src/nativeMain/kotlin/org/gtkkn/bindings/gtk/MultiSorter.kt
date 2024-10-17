@@ -23,6 +23,11 @@ import kotlin.Unit
  *
  * If the first sorter compares two items as equal,
  * the second is tried next, and so on.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class MultiSorter(
     pointer: CPointer<GtkMultiSorter>,

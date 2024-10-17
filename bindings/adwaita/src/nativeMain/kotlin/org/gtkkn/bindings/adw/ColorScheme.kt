@@ -10,7 +10,6 @@ import org.gtkkn.native.adw.AdwColorScheme.ADW_COLOR_SCHEME_PREFER_LIGHT
 
 /**
  * Application color schemes for [property@StyleManager:color-scheme].
- * @since 1.0
  */
 public enum class ColorScheme(
     public val nativeValue: AdwColorScheme,

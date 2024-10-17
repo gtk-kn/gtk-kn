@@ -19,6 +19,12 @@ import kotlin.Unit
  *
  * `GtkOrientable` is more flexible in that it allows the orientation to be
  * changed at runtime, allowing the widgets to “flip”.
+ *
+ * ## CSS nodes
+ *
+ * `GtkWidget` types implementing the `GtkOrientable` interface will
+ * automatically acquire the `horizontal` or `vertical` CSS class depending on
+ * the value of the [property@Gtk.Orientable:orientation] property.
  */
 public interface Orientable : Interface, KGTyped {
     public val gtkOrientablePointer: CPointer<GtkOrientable>

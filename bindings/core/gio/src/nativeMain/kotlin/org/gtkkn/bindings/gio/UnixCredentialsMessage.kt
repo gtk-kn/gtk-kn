@@ -16,19 +16,19 @@ import org.gtkkn.native.gio.g_unix_credentials_message_new_with_credentials
 import kotlin.Boolean
 
 /**
- * This #GSocketControlMessage contains a #GCredentials instance.  It
- * may be sent using g_socket_send_message() and received using
- * g_socket_receive_message() over UNIX sockets (ie: sockets in the
- * %G_SOCKET_FAMILY_UNIX family).
+ * This [class@Gio.SocketControlMessage] contains a [class@Gio.Credentials]
+ * instance.  It may be sent using [method@Gio.Socket.send_message] and received
+ * using [method@Gio.Socket.receive_message] over UNIX sockets (ie: sockets in
+ * the `G_SOCKET_FAMILY_UNIX` family).
  *
  * For an easier way to send and receive credentials over
  * stream-oriented UNIX sockets, see
- * g_unix_connection_send_credentials() and
- * g_unix_connection_receive_credentials(). To receive credentials of
+ * [method@Gio.UnixConnection.send_credentials] and
+ * [method@Gio.UnixConnection.receive_credentials]. To receive credentials of
  * a foreign process connected to a socket, use
- * g_socket_get_credentials().
+ * [method@Gio.Socket.get_credentials].
  *
- * Since GLib 2.72, #GUnixCredentialMessage is available on all platforms. It
+ * Since GLib 2.72, `GUnixCredentialMessage` is available on all platforms. It
  * requires underlying system support (such as Windows 10 with `AF_UNIX`) at run
  * time.
  *

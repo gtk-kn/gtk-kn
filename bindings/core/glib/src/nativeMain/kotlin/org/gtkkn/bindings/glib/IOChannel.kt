@@ -20,7 +20,6 @@ import org.gtkkn.native.glib.g_io_channel_close
 import org.gtkkn.native.glib.g_io_channel_error_from_errno
 import org.gtkkn.native.glib.g_io_channel_error_quark
 import org.gtkkn.native.glib.g_io_channel_flush
-import org.gtkkn.native.glib.g_io_channel_get_buffer_condition
 import org.gtkkn.native.glib.g_io_channel_get_buffer_size
 import org.gtkkn.native.glib.g_io_channel_get_buffered
 import org.gtkkn.native.glib.g_io_channel_get_close_on_unref
@@ -52,13 +51,47 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
- * A data structure representing an IO Channel. The fields should be
- * considered private and should only be accessed with the following
- * functions.
+ * The `GIOChannel` data type aims to provide a portable method for
+ * using file descriptors, pipes, and sockets, and integrating them
+ * into the main event loop (see [struct@GLib.MainContext]). Currently,
+ * full support is available on UNIX platforms; support for Windows
+ * is only partially complete.
+ *
+ * To create a new `GIOChannel` on UNIX systems use
+ * [ctor@GLib.IOChannel.unix_new]. This works for plain file descriptors,
+ * pipes and sockets. Alternatively, a channel can be created for a
+ * file in a system independent manner using [ctor@GLib.IOChannel.new_file].
+ *
+ * Once a `GIOChannel` has been created, it can be used in a generic
+ * manner with the functions [method@GLib.IOChannel.read_chars],
+ * [method@GLib.IOChannel.write_chars], [method@GLib.IOChannel.seek_position],
+ * and [method@GLib.IOChannel.shutdown].
+ *
+ * To add a `GIOChannel` to the main event loop, use [func@GLib.io_add_watch] or
+ * [func@GLib.io_add_watch_full]. Here you specify which events you are
+ * interested in on the `GIOChannel`, and provide a function to be called
+ * whenever these events occur.
+ *
+ * `GIOChannel` instances are created with an initial reference count of 1.
+ * [method@GLib.IOChannel.ref] and [method@GLib.IOChannel.unref] can be used to
+ * increment or decrement the reference count respectively. When the
+ * reference count falls to 0, the `GIOChannel` is freed. (Though it
+ * isn’t closed automatically, unless it was created using
+ * [ctor@GLib.IOChannel.new_file].) Using [func@GLib.io_add_watch] or
+ * [func@GLib.io_add_watch_full] increments a channel’s reference count.
+ *
+ * The new functions [method@GLib.IOChannel.read_chars],
+ * [method@GLib.IOChannel.read_line], [method@GLib.IOChannel.read_line_string],
+ * [method@GLib.IOChannel.read_to_end], [method@GLib.IOChannel.write_chars],
+ * [method@GLib.IOChannel.seek_position], and [method@GLib.IOChannel.flush]
+ * should not be mixed with the deprecated functions
+ * [method@GLib.IOChannel.read], [method@GLib.IOChannel.write], and
+ * [method@GLib.IOChannel.seek] on the same channel.
  *
  * ## Skipped during bindings generation
  *
- * - parameter `length`: Unsupported pointer to primitive type
+ * - method `get_buffer_condition`: C function g_io_channel_get_buffer_condition is ignored
+ * - parameter `length`: length: Out parameter is not supported
  * - parameter `bytes_read`: Unsupported pointer to primitive type
  * - parameter `buf`: buf: Out parameter is not supported
  * - parameter `str_return`: str_return: Out parameter is not supported
@@ -120,18 +153,6 @@ public class IOChannel(
             } else {
                 Result.success(gResult)
             }
-        }
-
-    /**
-     * This function returns a #GIOCondition depending on whether there
-     * is data to be read/space to write data in the internal buffers in
-     * the #GIOChannel. Only the flags %G_IO_IN and %G_IO_OUT may be set.
-     *
-     * @return A #GIOCondition
-     */
-    public fun getBufferCondition(): IOCondition =
-        g_io_channel_get_buffer_condition(glibIOChannelPointer.reinterpret()).run {
-            IOCondition(this)
         }
 
     /**

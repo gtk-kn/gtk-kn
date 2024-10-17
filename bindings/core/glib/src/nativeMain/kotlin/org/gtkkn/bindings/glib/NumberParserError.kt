@@ -15,12 +15,12 @@ public enum class NumberParserError(
     public val nativeValue: GNumberParserError,
 ) {
     /**
-     * String was not a valid number.
+     * string was not a valid number
      */
     INVALID(G_NUMBER_PARSER_ERROR_INVALID),
 
     /**
-     * String was a number, but out of bounds.
+     * string was a number, but out of bounds
      */
     OUT_OF_BOUNDS(G_NUMBER_PARSER_ERROR_OUT_OF_BOUNDS),
     ;

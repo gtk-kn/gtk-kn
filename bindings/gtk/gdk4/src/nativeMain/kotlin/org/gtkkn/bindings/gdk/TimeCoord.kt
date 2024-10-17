@@ -13,6 +13,11 @@ import kotlin.UInt
 /**
  * A `GdkTimeCoord` stores a single event in a motion history.
  *
+ * To check whether an axis is present, check whether the corresponding
+ * flag from the [flags@Gdk.AxisFlags] enumeration is set in the @flags
+ * To access individual axis values, use the values of the values of
+ * the [enum@Gdk.AxisUse] enumerations as indices.
+ *
  * ## Skipped during bindings generation
  *
  * - field `axes`: Fields with arrays are not supported
@@ -32,7 +37,7 @@ public class TimeCoord(
         }
 
     /**
-     * Flags indicating what axes are present
+     * Flags indicating what axes are present, see [flags@Gdk.AxisFlags]
      */
     public var flags: AxisFlags
         get() =

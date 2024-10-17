@@ -22,6 +22,7 @@ import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkButton
 import org.gtkkn.native.gtk.GtkConstraintTarget
+import org.gtkkn.native.gtk.gtk_button_get_can_shrink
 import org.gtkkn.native.gtk.gtk_button_get_child
 import org.gtkkn.native.gtk.gtk_button_get_has_frame
 import org.gtkkn.native.gtk.gtk_button_get_icon_name
@@ -32,6 +33,7 @@ import org.gtkkn.native.gtk.gtk_button_new
 import org.gtkkn.native.gtk.gtk_button_new_from_icon_name
 import org.gtkkn.native.gtk.gtk_button_new_with_label
 import org.gtkkn.native.gtk.gtk_button_new_with_mnemonic
+import org.gtkkn.native.gtk.gtk_button_set_can_shrink
 import org.gtkkn.native.gtk.gtk_button_set_child
 import org.gtkkn.native.gtk.gtk_button_set_has_frame
 import org.gtkkn.native.gtk.gtk_button_set_icon_name
@@ -98,6 +100,44 @@ public open class Button(
         get() = gPointer.reinterpret()
 
     /**
+     * Whether the size of the button can be made smaller than the natural
+     * size of its contents.
+     *
+     * For text buttons, setting this property will allow ellipsizing the label.
+     *
+     * If the contents of a button are an icon or a custom widget, setting this
+     * property has no effect.
+     *
+     * @since 4.12
+     */
+    public open var canShrink: Boolean
+        /**
+         * Retrieves whether the button can be smaller than the natural
+         * size of its contents.
+         *
+         * @return true if the button can shrink, and false otherwise
+         * @since 4.12
+         */
+        get() = gtk_button_get_can_shrink(gtkButtonPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets whether the button size can be smaller than the natural size of
+         * its contents.
+         *
+         * For text buttons, setting @can_shrink to true will ellipsize the label.
+         *
+         * For icons and custom children, this function has no effect.
+         *
+         * @param canShrink whether the button can shrink
+         * @since 4.12
+         */
+        set(canShrink) =
+            gtk_button_set_can_shrink(
+                gtkButtonPointer.reinterpret(),
+                canShrink.asGBoolean()
+            )
+
+    /**
      * The child widget.
      */
     public open var child: Widget?
@@ -142,7 +182,7 @@ public open class Button(
         /**
          * Sets the style of the button.
          *
-         * Buttons can has a flat appearance or have a frame drawn around them.
+         * Buttons can have a flat appearance or have a frame drawn around them.
          *
          * @param hasFrame whether the button should have a visible frame
          */
@@ -191,25 +231,21 @@ public open class Button(
     public constructor() : this(gtk_button_new()!!.reinterpret())
 
     /**
-     * Creates a new button containing an icon from the current icon theme.
-     *
-     * If the icon name isn’t known, a “broken image” icon will be
-     * displayed instead. If the current icon theme is changed, the icon
-     * will be updated appropriately.
-     *
-     * @param iconName an icon name
-     * @return a new `GtkButton` displaying the themed icon
-     */
-    public constructor(iconName: String? = null) :
-        this(gtk_button_new_from_icon_name(iconName)!!.reinterpret())
-
-    /**
      * Creates a `GtkButton` widget with a `GtkLabel` child.
      *
      * @param label The text you want the `GtkLabel` to hold
      * @return The newly created `GtkButton` widget
      */
     public constructor(label: String) : this(gtk_button_new_with_label(label)!!.reinterpret())
+
+    /**
+     * Retrieves whether the button can be smaller than the natural
+     * size of its contents.
+     *
+     * @return true if the button can shrink, and false otherwise
+     * @since 4.12
+     */
+    public open fun getCanShrink(): Boolean = gtk_button_get_can_shrink(gtkButtonPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the child widget of @button.
@@ -263,6 +299,20 @@ public open class Button(
         gtk_button_get_use_underline(gtkButtonPointer.reinterpret()).asBoolean()
 
     /**
+     * Sets whether the button size can be smaller than the natural size of
+     * its contents.
+     *
+     * For text buttons, setting @can_shrink to true will ellipsize the label.
+     *
+     * For icons and custom children, this function has no effect.
+     *
+     * @param canShrink whether the button can shrink
+     * @since 4.12
+     */
+    public open fun setCanShrink(canShrink: Boolean): Unit =
+        gtk_button_set_can_shrink(gtkButtonPointer.reinterpret(), canShrink.asGBoolean())
+
+    /**
      * Sets the child widget of @button.
      *
      * Note that by using this API, you take full responsibility for setting
@@ -282,7 +332,7 @@ public open class Button(
     /**
      * Sets the style of the button.
      *
-     * Buttons can has a flat appearance or have a frame drawn around them.
+     * Buttons can have a flat appearance or have a frame drawn around them.
      *
      * @param hasFrame whether the button should have a visible frame
      */
@@ -325,6 +375,9 @@ public open class Button(
      *
      * This is an action signal. Applications should never connect
      * to this signal, but use the [signal@Gtk.Button::clicked] signal.
+     *
+     * The default bindings for this signal are all forms of the
+     * <kbd>␣</kbd> and <kbd>Enter</kbd> keys.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -383,13 +436,27 @@ public open class Button(
          * If characters in @label are preceded by an underscore, they are underlined.
          * If you need a literal underscore character in a label, use “__” (two
          * underscores). The first underlined character represents a keyboard
-         * accelerator called a mnemonic. Pressing Alt and that key activates the button.
+         * accelerator called a mnemonic. Pressing <kbd>Alt</kbd> and that key
+         * activates the button.
          *
          * @param label The text of the button, with an underscore in front of the
          *   mnemonic character
          * @return a new `GtkButton`
          */
         public fun newWithMnemonic(label: String): Button = Button(gtk_button_new_with_mnemonic(label)!!.reinterpret())
+
+        /**
+         * Creates a new button containing an icon from the current icon theme.
+         *
+         * If the icon name isn’t known, a “broken image” icon will be
+         * displayed instead. If the current icon theme is changed, the icon
+         * will be updated appropriately.
+         *
+         * @param iconName an icon name
+         * @return a new `GtkButton` displaying the themed icon
+         */
+        public fun newFromIconName(iconName: String): Button =
+            Button(gtk_button_new_from_icon_name(iconName)!!.reinterpret())
     }
 }
 

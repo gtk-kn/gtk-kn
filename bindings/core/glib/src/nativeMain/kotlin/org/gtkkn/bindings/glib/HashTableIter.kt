@@ -7,6 +7,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GHashTableIter
+import org.gtkkn.native.glib.g_hash_table_iter_get_hash_table
 import org.gtkkn.native.glib.g_hash_table_iter_init
 import org.gtkkn.native.glib.g_hash_table_iter_remove
 import org.gtkkn.native.glib.g_hash_table_iter_steal
@@ -36,6 +37,17 @@ public class HashTableIter(
     pointer: CPointer<GHashTableIter>,
 ) : Record {
     public val glibHashTableIterPointer: CPointer<GHashTableIter> = pointer
+
+    /**
+     * Returns the #GHashTable associated with @iter.
+     *
+     * @return the #GHashTable associated with @iter.
+     * @since 2.16
+     */
+    public fun getHashTable(): HashTable =
+        g_hash_table_iter_get_hash_table(glibHashTableIterPointer.reinterpret())!!.run {
+            HashTable(reinterpret())
+        }
 
     /**
      * Initializes a key/value pair iterator and associates it with

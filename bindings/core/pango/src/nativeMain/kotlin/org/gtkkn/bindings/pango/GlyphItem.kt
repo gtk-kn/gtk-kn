@@ -160,16 +160,16 @@ public class GlyphItem(
      * @param text text to which positions in @orig apply
      * @param splitIndex byte index of position to split item, relative to the
      *   start of the item
-     * @return the newly allocated item representing text before
-     *   @split_index, which should be freed
+     * @return the newly allocated item
+     *   representing text before @split_index, which should be freed
      *   with pango_glyph_item_free().
      * @since 1.2
      */
     public fun split(
         text: String,
         splitIndex: Int,
-    ): GlyphItem =
-        pango_glyph_item_split(pangoGlyphItemPointer.reinterpret(), text, splitIndex)!!.run {
+    ): GlyphItem? =
+        pango_glyph_item_split(pangoGlyphItemPointer.reinterpret(), text, splitIndex)?.run {
             GlyphItem(reinterpret())
         }
 

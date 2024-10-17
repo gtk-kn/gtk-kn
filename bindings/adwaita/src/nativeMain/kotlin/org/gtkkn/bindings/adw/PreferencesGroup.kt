@@ -37,7 +37,7 @@ import kotlin.Unit
  * which in turn are represented by [class@PreferencesRow].
  *
  * To summarize the role of the preferences it gathers, a group can have both a
- * title and a description. The title will be used by [class@PreferencesWindow]
+ * title and a description. The title will be used by [class@PreferencesDialog]
  * to let the user look for a preference.
  *
  * ## AdwPreferencesGroup as GtkBuildable
@@ -57,7 +57,6 @@ import kotlin.Unit
  * ## Accessibility
  *
  * `AdwPreferencesGroup` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
- * @since 1.0
  */
 public open class PreferencesGroup(
     pointer: CPointer<AdwPreferencesGroup>,
@@ -76,15 +75,12 @@ public open class PreferencesGroup(
 
     /**
      * The description for this group of preferences.
-     *
-     * @since 1.0
      */
     public open var description: String?
         /**
          * Gets the description of @self.
          *
          * @return the description of @self
-         * @since 1.0
          */
         get() =
             adw_preferences_group_get_description(adwPreferencesGroupPointer.reinterpret())?.toKString()
@@ -93,7 +89,6 @@ public open class PreferencesGroup(
          * Sets the description for @self.
          *
          * @param description the description
-         * @since 1.0
          */
         set(description) =
             adw_preferences_group_set_description(
@@ -104,8 +99,10 @@ public open class PreferencesGroup(
     /**
      * The header suffix widget.
      *
-     * Displayed above the list, next to the title and description. Suffixes are commonly used to
-     * show a button or a spinner for the whole group.
+     * Displayed above the list, next to the title and description.
+     *
+     * Suffixes are commonly used to show a button or a spinner for the whole
+     * group.
      *
      * @since 1.1
      */
@@ -124,6 +121,10 @@ public open class PreferencesGroup(
         /**
          * Sets the suffix for @self's header.
          *
+         * Displayed above the list, next to the title and description.
+         *
+         * Suffixes are commonly used to show a button or a spinner for the whole group.
+         *
          * @param suffix the suffix to set
          * @since 1.1
          */
@@ -135,15 +136,12 @@ public open class PreferencesGroup(
 
     /**
      * The title for this group of preferences.
-     *
-     * @since 1.0
      */
     public open var title: String
         /**
          * Gets the title of @self.
          *
          * @return the title of @self
-         * @since 1.0
          */
         get() =
             adw_preferences_group_get_title(adwPreferencesGroupPointer.reinterpret())?.toKString()
@@ -153,7 +151,6 @@ public open class PreferencesGroup(
          * Sets the title for @self.
          *
          * @param title the title
-         * @since 1.0
          */
         set(title) =
             adw_preferences_group_set_title(
@@ -165,7 +162,6 @@ public open class PreferencesGroup(
      * Creates a new `AdwPreferencesGroup`.
      *
      * @return the newly created `AdwPreferencesGroup`
-     * @since 1.0
      */
     public constructor() : this(adw_preferences_group_new()!!.reinterpret())
 
@@ -173,7 +169,6 @@ public open class PreferencesGroup(
      * Adds a child to @self.
      *
      * @param child the widget to add
-     * @since 1.0
      */
     public open fun add(child: Widget): Unit =
         adw_preferences_group_add(
@@ -185,7 +180,6 @@ public open class PreferencesGroup(
      * Gets the description of @self.
      *
      * @return the description of @self
-     * @since 1.0
      */
     public open fun getDescription(): String? =
         adw_preferences_group_get_description(adwPreferencesGroupPointer.reinterpret())?.toKString()
@@ -205,7 +199,6 @@ public open class PreferencesGroup(
      * Gets the title of @self.
      *
      * @return the title of @self
-     * @since 1.0
      */
     public open fun getTitle(): String =
         adw_preferences_group_get_title(adwPreferencesGroupPointer.reinterpret())?.toKString()
@@ -215,7 +208,6 @@ public open class PreferencesGroup(
      * Removes a child from @self.
      *
      * @param child the child to remove
-     * @since 1.0
      */
     public open fun remove(child: Widget): Unit =
         adw_preferences_group_remove(
@@ -227,7 +219,6 @@ public open class PreferencesGroup(
      * Sets the description for @self.
      *
      * @param description the description
-     * @since 1.0
      */
     public open fun setDescription(description: String? = null): Unit =
         adw_preferences_group_set_description(
@@ -237,6 +228,10 @@ public open class PreferencesGroup(
 
     /**
      * Sets the suffix for @self's header.
+     *
+     * Displayed above the list, next to the title and description.
+     *
+     * Suffixes are commonly used to show a button or a spinner for the whole group.
      *
      * @param suffix the suffix to set
      * @since 1.1
@@ -251,7 +246,6 @@ public open class PreferencesGroup(
      * Sets the title for @self.
      *
      * @param title the title
-     * @since 1.0
      */
     public open fun setTitle(title: String): Unit =
         adw_preferences_group_set_title(adwPreferencesGroupPointer.reinterpret(), title)

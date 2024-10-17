@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.gtk.GtkFlattenListModel
+import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.gtk_flatten_list_model_get_model
 import org.gtkkn.native.gtk.gtk_flatten_list_model_get_model_for_item
 import org.gtkkn.native.gtk.gtk_flatten_list_model_get_type
@@ -21,16 +22,24 @@ import kotlin.Unit
 /**
  * `GtkFlattenListModel` is a list model that concatenates other list models.
  *
- * `GtkFlattenListModel` takes a list model containing list models,
- *  and flattens it into a single model.
+ * `GtkFlattenListModel` takes a list model containing list models, and flattens
+ * it into a single model. Each list model becomes a section in the single model.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class FlattenListModel(
     pointer: CPointer<GtkFlattenListModel>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()), ListModel, SectionModel, KGTyped {
     public val gtkFlattenListModelPointer: CPointer<GtkFlattenListModel>
         get() = gPointer.reinterpret()
 
     override val gioListModelPointer: CPointer<GListModel>
+        get() = gPointer.reinterpret()
+
+    override val gtkSectionModelPointer: CPointer<GtkSectionModel>
         get() = gPointer.reinterpret()
 
     /**

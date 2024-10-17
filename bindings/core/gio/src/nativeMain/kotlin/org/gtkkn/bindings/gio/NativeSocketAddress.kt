@@ -13,9 +13,14 @@ import org.gtkkn.native.gio.g_native_socket_address_get_type
 /**
  * A socket address of some unknown native type.
  *
+ * This corresponds to a general `struct sockaddr` of a type not otherwise
+ * handled by GLib.
+ *
  * ## Skipped during bindings generation
  *
  * - parameter `native`: gpointer
+ *
+ * @since 2.46
  */
 public open class NativeSocketAddress(
     pointer: CPointer<GNativeSocketAddress>,

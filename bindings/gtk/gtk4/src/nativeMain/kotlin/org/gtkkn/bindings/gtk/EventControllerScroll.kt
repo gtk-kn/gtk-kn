@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gdk.ScrollUnit
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -18,6 +19,7 @@ import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkEventControllerScroll
 import org.gtkkn.native.gtk.gtk_event_controller_scroll_get_flags
 import org.gtkkn.native.gtk.gtk_event_controller_scroll_get_type
+import org.gtkkn.native.gtk.gtk_event_controller_scroll_get_unit
 import org.gtkkn.native.gtk.gtk_event_controller_scroll_new
 import org.gtkkn.native.gtk.gtk_event_controller_scroll_set_flags
 import kotlin.Boolean
@@ -113,6 +115,21 @@ public open class EventControllerScroll(
         }
 
     /**
+     * Gets the scroll unit of the last
+     * [signal@Gtk.EventControllerScroll::scroll] signal received.
+     *
+     * Always returns %GDK_SCROLL_UNIT_WHEEL if the
+     * %GTK_EVENT_CONTROLLER_SCROLL_DISCRETE flag is set.
+     *
+     * @return the scroll unit.
+     * @since 4.8
+     */
+    public open fun getUnit(): ScrollUnit =
+        gtk_event_controller_scroll_get_unit(gtkEventControllerScrollPointer.reinterpret()).run {
+            ScrollUnit.fromNativeValue(this)
+        }
+
+    /**
      * Sets the flags conditioning scroll controller behavior.
      *
      * @param flags flags affecting the controller behavior
@@ -150,6 +167,9 @@ public open class EventControllerScroll(
     /**
      * Signals that the widget should scroll by the
      * amount specified by @dx and @dy.
+     *
+     * For the representation unit of the deltas, see
+     * [method@Gtk.EventControllerScroll.get_unit].
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `dx` X delta; `dy` Y delta. Returns true if

@@ -32,8 +32,8 @@ import kotlin.UInt
 import kotlin.Unit
 
 /**
- * #GCharsetConverter is an implementation of #GConverter based on
- * GIConv.
+ * `GCharsetConverter` is an implementation of [iface@Gio.Converter] based on
+ * [struct@GLib.IConv].
  *
  * ## Skipped during bindings generation
  *
@@ -52,6 +52,11 @@ public open class CharsetConverter(
     override val gioInitablePointer: CPointer<GInitable>
         get() = gPointer.reinterpret()
 
+    /**
+     * Use fallback (of form `\<hexval>`) for invalid bytes.
+     *
+     * @since 2.24
+     */
     public open var useFallback: Boolean
         /**
          * Gets the #GCharsetConverter:use-fallback property.

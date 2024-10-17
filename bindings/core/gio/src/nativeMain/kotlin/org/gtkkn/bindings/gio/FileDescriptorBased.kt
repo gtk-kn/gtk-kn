@@ -13,12 +13,14 @@ import org.gtkkn.native.gio.g_file_descriptor_based_get_type
 import kotlin.Int
 
 /**
- * #GFileDescriptorBased is implemented by streams (implementations of
- * #GInputStream or #GOutputStream) that are based on file descriptors.
+ * `GFileDescriptorBased` is an interface for file descriptor based IO.
+ *
+ * It is implemented by streams (implementations of [class@Gio.InputStream] or
+ * [class@Gio.OutputStream]) that are based on file descriptors.
  *
  * Note that `<gio/gfiledescriptorbased.h>` belongs to the UNIX-specific
  * GIO interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
- * file when using it.
+ * file or the `GioUnix-2.0` GIR namespace when using it.
  * @since 2.24
  */
 public interface FileDescriptorBased : Interface, KGTyped {

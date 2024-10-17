@@ -17,6 +17,7 @@ import org.gtkkn.native.gtk.gtk_viewport_get_child
 import org.gtkkn.native.gtk.gtk_viewport_get_scroll_to_focus
 import org.gtkkn.native.gtk.gtk_viewport_get_type
 import org.gtkkn.native.gtk.gtk_viewport_new
+import org.gtkkn.native.gtk.gtk_viewport_scroll_to
 import org.gtkkn.native.gtk.gtk_viewport_set_child
 import org.gtkkn.native.gtk.gtk_viewport_set_scroll_to_focus
 import kotlin.Boolean
@@ -38,7 +39,9 @@ import kotlin.Unit
  *
  * # Accessibility
  *
- * `GtkViewport` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
+ * Until GTK 4.10, `GtkViewport` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ *
+ * Starting from GTK 4.12, `GtkViewport` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
 public open class Viewport(
     pointer: CPointer<GtkViewport>,
@@ -147,6 +150,27 @@ public open class Viewport(
      */
     public open fun getScrollToFocus(): Boolean =
         gtk_viewport_get_scroll_to_focus(gtkViewportPointer.reinterpret()).asBoolean()
+
+    /**
+     * Scrolls a descendant of the viewport into view.
+     *
+     * The viewport and the descendant must be visible and mapped for
+     * this function to work, otherwise no scrolling will be performed.
+     *
+     * @param descendant a descendant widget of the viewport
+     * @param scroll details of how to perform
+     *   the scroll operation or NULL to scroll into view
+     * @since 4.12
+     */
+    public open fun scrollTo(
+        descendant: Widget,
+        scroll: ScrollInfo? = null,
+    ): Unit =
+        gtk_viewport_scroll_to(
+            gtkViewportPointer.reinterpret(),
+            descendant.gtkWidgetPointer.reinterpret(),
+            scroll?.gtkScrollInfoPointer
+        )
 
     /**
      * Sets the child widget of @viewport.

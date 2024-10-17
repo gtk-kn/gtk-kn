@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellEditable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -25,6 +26,7 @@ import org.gtkkn.native.gtk.GtkOrientable
 import org.gtkkn.native.gtk.GtkScrollType
 import org.gtkkn.native.gtk.GtkSpinButton
 import org.gtkkn.native.gtk.gtk_spin_button_configure
+import org.gtkkn.native.gtk.gtk_spin_button_get_activates_default
 import org.gtkkn.native.gtk.gtk_spin_button_get_adjustment
 import org.gtkkn.native.gtk.gtk_spin_button_get_climb_rate
 import org.gtkkn.native.gtk.gtk_spin_button_get_digits
@@ -37,6 +39,7 @@ import org.gtkkn.native.gtk.gtk_spin_button_get_value_as_int
 import org.gtkkn.native.gtk.gtk_spin_button_get_wrap
 import org.gtkkn.native.gtk.gtk_spin_button_new
 import org.gtkkn.native.gtk.gtk_spin_button_new_with_range
+import org.gtkkn.native.gtk.gtk_spin_button_set_activates_default
 import org.gtkkn.native.gtk.gtk_spin_button_set_adjustment
 import org.gtkkn.native.gtk.gtk_spin_button_set_climb_rate
 import org.gtkkn.native.gtk.gtk_spin_button_set_digits
@@ -105,7 +108,7 @@ import kotlin.Unit
  *   button = gtk_spin_button_new (adjustment, 1.0, 0);
  *   gtk_window_set_child (GTK_WINDOW (window), button);
  *
- *   gtk_widget_show (window);
+ *   gtk_window_present (GTK_WINDOW (window));
  * }
  * ```
  *
@@ -136,7 +139,7 @@ import kotlin.Unit
  *   button = gtk_spin_button_new (adjustment, 0.001, 3);
  *   gtk_window_set_child (GTK_WINDOW (window), button);
  *
- *   gtk_widget_show (window);
+ *   gtk_window_present (GTK_WINDOW (window));
  * }
  * ```
  *
@@ -166,7 +169,7 @@ import kotlin.Unit
  * below the text node. The orientation of the spin button is reflected in
  * the .vertical or .horizontal style class on the main node.
  *
- * # Accessiblity
+ * # Accessibility
  *
  * `GtkSpinButton` uses the %GTK_ACCESSIBLE_ROLE_SPIN_BUTTON role.
  *
@@ -178,8 +181,11 @@ import kotlin.Unit
  */
 public open class SpinButton(
     pointer: CPointer<GtkSpinButton>,
-) : Widget(pointer.reinterpret()), CellEditable, Editable, Orientable, KGTyped {
+) : Widget(pointer.reinterpret()), AccessibleRange, CellEditable, Editable, Orientable, KGTyped {
     public val gtkSpinButtonPointer: CPointer<GtkSpinButton>
+        get() = gPointer.reinterpret()
+
+    override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
         get() = gPointer.reinterpret()
 
     override val gtkCellEditablePointer: CPointer<GtkCellEditable>
@@ -199,6 +205,38 @@ public open class SpinButton(
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
         get() = gPointer.reinterpret()
+
+    /**
+     * Whether to activate the default widget when the spin button is activated.
+     *
+     * See [signal@Gtk.SpinButton::activate] for what counts as activation.
+     *
+     * @since 4.14
+     */
+    public open var activatesDefault: Boolean
+        /**
+         * Retrieves the value set by [method@Gtk.SpinButton.set_activates_default].
+         *
+         * @return true if the spin button will activate the default widget
+         * @since 4.14
+         */
+        get() =
+            gtk_spin_button_get_activates_default(gtkSpinButtonPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets whether activating the spin button will activate the default
+         * widget for the window containing the spin button.
+         *
+         * See [signal@Gtk.SpinButton::activate] for what counts as activation.
+         *
+         * @param activatesDefault true to activate window’s default widget on activation
+         * @since 4.14
+         */
+        set(activatesDefault) =
+            gtk_spin_button_set_activates_default(
+                gtkSpinButtonPointer.reinterpret(),
+                activatesDefault.asGBoolean()
+            )
 
     /**
      * The adjustment that holds the value of the spin button.
@@ -459,6 +497,15 @@ public open class SpinButton(
         )
 
     /**
+     * Retrieves the value set by [method@Gtk.SpinButton.set_activates_default].
+     *
+     * @return true if the spin button will activate the default widget
+     * @since 4.14
+     */
+    public open fun getActivatesDefault(): Boolean =
+        gtk_spin_button_get_activates_default(gtkSpinButtonPointer.reinterpret()).asBoolean()
+
+    /**
      * Get the adjustment associated with a `GtkSpinButton`.
      *
      * @return the `GtkAdjustment` of @spin_button
@@ -531,6 +578,21 @@ public open class SpinButton(
      * @return true if the spin button wraps around
      */
     public open fun getWrap(): Boolean = gtk_spin_button_get_wrap(gtkSpinButtonPointer.reinterpret()).asBoolean()
+
+    /**
+     * Sets whether activating the spin button will activate the default
+     * widget for the window containing the spin button.
+     *
+     * See [signal@Gtk.SpinButton::activate] for what counts as activation.
+     *
+     * @param activatesDefault true to activate window’s default widget on activation
+     * @since 4.14
+     */
+    public open fun setActivatesDefault(activatesDefault: Boolean): Unit =
+        gtk_spin_button_set_activates_default(
+            gtkSpinButtonPointer.reinterpret(),
+            activatesDefault.asGBoolean()
+        )
 
     /**
      * Replaces the `GtkAdjustment` associated with @spin_button.
@@ -668,6 +730,32 @@ public open class SpinButton(
     public open fun update(): Unit = gtk_spin_button_update(gtkSpinButtonPointer.reinterpret())
 
     /**
+     * Emitted when the spin button is activated.
+     *
+     * The keybindings for this signal are all forms of the <kbd>Enter</kbd> key.
+     *
+     * If the <kbd>Enter</kbd> key results in the value being committed to the
+     * spin button, then activation does not occur until <kbd>Enter</kbd> is
+     * pressed again.
+     *
+     * @param connectFlags A combination of [ConnectFlags]
+     * @param handler the Callback to connect
+     * @since 4.14
+     */
+    public fun connectActivate(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        handler: () -> Unit,
+    ): ULong =
+        g_signal_connect_data(
+            gPointer.reinterpret(),
+            "activate",
+            connectActivateFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
      * Emitted when the user initiates a value change.
      *
      * This is a [keybinding signal](class.SignalAction.html).
@@ -704,14 +792,12 @@ public open class SpinButton(
      * on_output (GtkSpinButton *spin,
      *            gpointer       data)
      * {
-     *    GtkAdjustment *adjustment;
      *    char *text;
      *    int value;
      *
-     *    adjustment = gtk_spin_button_get_adjustment (spin);
-     *    value = (int)gtk_adjustment_get_value (adjustment);
+     *    value = gtk_spin_button_get_value_as_int (spin);
      *    text = g_strdup_printf ("%02d", value);
-     *    gtk_spin_button_set_text (spin, text):
+     *    gtk_editable_set_text (GTK_EDITABLE (spin), text):
      *    g_free (text);
      *
      *    return TRUE;
@@ -784,6 +870,15 @@ public open class SpinButton(
         }
     }
 }
+
+private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
+    staticCFunction {
+            _: COpaquePointer,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<() -> Unit>().get().invoke()
+    }
+        .reinterpret()
 
 private val connectChangeValueFunc: CPointer<CFunction<(GtkScrollType) -> Unit>> =
     staticCFunction {

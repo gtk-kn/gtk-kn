@@ -12,7 +12,16 @@ import org.gtkkn.native.glib.GString
 import kotlin.ULong
 
 /**
- * The GString struct contains the public fields of a GString.
+ * A `GString` is an object that handles the memory management of a C string.
+ *
+ * The emphasis of `GString` is on text, typically UTF-8. Crucially, the "str" member
+ * of a `GString` is guaranteed to have a trailing nul character, and it is therefore
+ * always safe to call functions such as `strchr()` or `strdup()` on it.
+ *
+ * However, a `GString` can also hold arbitrary binary data, because it has a "len" member,
+ * which includes any possible embedded nul characters in the data. Conceptually then,
+ * `GString` is like a `GByteArray` with the addition of many convenience methods for
+ * text, and a guaranteed nul terminator.
  *
  * ## Skipped during bindings generation
  *
@@ -28,6 +37,7 @@ import kotlin.ULong
  * - method `equal`: C function g_string_equal is ignored
  * - method `erase`: C function g_string_erase is ignored
  * - method `free`: C function g_string_free is ignored
+ * - method `free_and_steal`: C function g_string_free_and_steal is ignored
  * - method `free_to_bytes`: C function g_string_free_to_bytes is ignored
  * - method `hash`: C function g_string_hash is ignored
  * - method `insert`: C function g_string_insert is ignored
@@ -46,6 +56,7 @@ import kotlin.ULong
  * - method `up`: C function g_string_up is ignored
  * - constructor `new`: C function g_string_new is ignored
  * - constructor `new_len`: C function g_string_new_len is ignored
+ * - constructor `new_take`: C function g_string_new_take is ignored
  * - constructor `sized_new`: C function g_string_sized_new is ignored
  */
 public class String(

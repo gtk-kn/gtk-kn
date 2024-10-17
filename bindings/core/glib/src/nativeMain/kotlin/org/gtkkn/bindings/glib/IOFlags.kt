@@ -11,6 +11,7 @@ import org.gtkkn.native.glib.G_IO_FLAG_IS_WRITABLE
 import org.gtkkn.native.glib.G_IO_FLAG_IS_WRITEABLE
 import org.gtkkn.native.glib.G_IO_FLAG_MASK
 import org.gtkkn.native.glib.G_IO_FLAG_NONBLOCK
+import org.gtkkn.native.glib.G_IO_FLAG_NONE
 import org.gtkkn.native.glib.G_IO_FLAG_SET_MASK
 
 /**
@@ -24,6 +25,11 @@ public class IOFlags(
     override infix fun or(other: IOFlags): IOFlags = IOFlags(mask or other.mask)
 
     public companion object {
+        /**
+         * no special flags set. Since: 2.74
+         */
+        public val NONE: IOFlags = IOFlags(G_IO_FLAG_NONE)
+
         /**
          * turns on append mode, corresponds to %O_APPEND
          *     (see the documentation of the UNIX open() syscall)

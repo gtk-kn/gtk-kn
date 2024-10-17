@@ -9,6 +9,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.GtkSliceListModel
 import org.gtkkn.native.gtk.gtk_slice_list_model_get_model
 import org.gtkkn.native.gtk.gtk_slice_list_model_get_offset
@@ -27,14 +28,24 @@ import kotlin.Unit
  * This is useful when implementing paging by setting the size to the number
  * of elements per page and updating the offset whenever a different page is
  * opened.
+ *
+ * `GtkSliceListModel` passes through sections from the underlying model.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class SliceListModel(
     pointer: CPointer<GtkSliceListModel>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()), ListModel, SectionModel, KGTyped {
     public val gtkSliceListModelPointer: CPointer<GtkSliceListModel>
         get() = gPointer.reinterpret()
 
     override val gioListModelPointer: CPointer<GListModel>
+        get() = gPointer.reinterpret()
+
+    override val gtkSectionModelPointer: CPointer<GtkSectionModel>
         get() = gPointer.reinterpret()
 
     /**

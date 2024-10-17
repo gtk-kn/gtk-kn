@@ -18,6 +18,7 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkPicture
 import org.gtkkn.native.gtk.gtk_picture_get_alternative_text
 import org.gtkkn.native.gtk.gtk_picture_get_can_shrink
+import org.gtkkn.native.gtk.gtk_picture_get_content_fit
 import org.gtkkn.native.gtk.gtk_picture_get_file
 import org.gtkkn.native.gtk.gtk_picture_get_keep_aspect_ratio
 import org.gtkkn.native.gtk.gtk_picture_get_paintable
@@ -30,6 +31,7 @@ import org.gtkkn.native.gtk.gtk_picture_new_for_pixbuf
 import org.gtkkn.native.gtk.gtk_picture_new_for_resource
 import org.gtkkn.native.gtk.gtk_picture_set_alternative_text
 import org.gtkkn.native.gtk.gtk_picture_set_can_shrink
+import org.gtkkn.native.gtk.gtk_picture_set_content_fit
 import org.gtkkn.native.gtk.gtk_picture_set_file
 import org.gtkkn.native.gtk.gtk_picture_set_filename
 import org.gtkkn.native.gtk.gtk_picture_set_keep_aspect_ratio
@@ -70,14 +72,14 @@ import kotlin.Unit
  *
  * ## Sizing the paintable
  *
- * You can influence how the paintable is displayed inside the `GtkPicture`.
- * By turning off [property@Gtk.Picture:keep-aspect-ratio] you can allow the
- * paintable to get stretched. [property@Gtk.Picture:can-shrink] can be unset
- * to make sure that paintables are never made smaller than their ideal size -
- * but be careful if you do not know the size of the paintable in use (like
+ * You can influence how the paintable is displayed inside the `GtkPicture`
+ * by changing [property@Gtk.Picture:content-fit]. See [enum@Gtk.ContentFit]
+ * for details. [property@Gtk.Picture:can-shrink] can be unset to make sure
+ * that paintables are never made smaller than their ideal size - but
+ * be careful if you do not know the size of the paintable in use (like
  * when displaying user-loaded images). This can easily cause the picture to
- * grow larger than the screen. And [property@GtkWidget:halign] and
- * [property@GtkWidget:valign] can be used to make sure the paintable doesn't
+ * grow larger than the screen. And [property@Gtk.Widget:halign] and
+ * [property@Gtk.Widget:valign] can be used to make sure the paintable doesn't
  * fill all available space but is instead displayed at its original size.
  *
  * ## CSS nodes
@@ -162,6 +164,39 @@ public open class Picture(
             gtk_picture_set_can_shrink(
                 gtkPicturePointer.reinterpret(),
                 canShrink.asGBoolean()
+            )
+
+    /**
+     * How the content should be resized to fit inside the `GtkPicture`.
+     *
+     * @since 4.8
+     */
+    public open var contentFit: ContentFit
+        /**
+         * Returns the fit mode for the content of the `GtkPicture`.
+         *
+         * See [enum@Gtk.ContentFit] for details.
+         *
+         * @return the content fit mode
+         * @since 4.8
+         */
+        get() =
+            gtk_picture_get_content_fit(gtkPicturePointer.reinterpret()).run {
+                ContentFit.fromNativeValue(this)
+            }
+
+        /**
+         * Sets how the content should be resized to fit the `GtkPicture`.
+         *
+         * See [enum@Gtk.ContentFit] for details.
+         *
+         * @param contentFit the content fit mode
+         * @since 4.8
+         */
+        set(contentFit) =
+            gtk_picture_set_content_fit(
+                gtkPicturePointer.reinterpret(),
+                contentFit.nativeValue
             )
 
     /**
@@ -328,6 +363,19 @@ public open class Picture(
     public open fun getCanShrink(): Boolean = gtk_picture_get_can_shrink(gtkPicturePointer.reinterpret()).asBoolean()
 
     /**
+     * Returns the fit mode for the content of the `GtkPicture`.
+     *
+     * See [enum@Gtk.ContentFit] for details.
+     *
+     * @return the content fit mode
+     * @since 4.8
+     */
+    public open fun getContentFit(): ContentFit =
+        gtk_picture_get_content_fit(gtkPicturePointer.reinterpret()).run {
+            ContentFit.fromNativeValue(this)
+        }
+
+    /**
      * Gets the `GFile` currently displayed if @self is displaying a file.
      *
      * If @self is not displaying a file, for example when
@@ -388,6 +436,17 @@ public open class Picture(
      */
     public open fun setCanShrink(canShrink: Boolean): Unit =
         gtk_picture_set_can_shrink(gtkPicturePointer.reinterpret(), canShrink.asGBoolean())
+
+    /**
+     * Sets how the content should be resized to fit the `GtkPicture`.
+     *
+     * See [enum@Gtk.ContentFit] for details.
+     *
+     * @param contentFit the content fit mode
+     * @since 4.8
+     */
+    public open fun setContentFit(contentFit: ContentFit): Unit =
+        gtk_picture_set_content_fit(gtkPicturePointer.reinterpret(), contentFit.nativeValue)
 
     /**
      * Makes @self load and display @file.

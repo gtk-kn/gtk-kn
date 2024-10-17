@@ -64,7 +64,10 @@ public class MainContext(
      *
      * You must be the owner of a context before you
      * can call g_main_context_prepare(), g_main_context_query(),
-     * g_main_context_check(), g_main_context_dispatch().
+     * g_main_context_check(), g_main_context_dispatch(), g_main_context_release().
+     *
+     * Since 2.76 @context can be null to use the global-default
+     * main context.
      *
      * @return true if the operation succeeded, and
      *   this thread is now the owner of @context.
@@ -97,6 +100,9 @@ public class MainContext(
      *
      * You must have successfully acquired the context with
      * g_main_context_acquire() before you may call this function.
+     *
+     * Since 2.76 @context can be null to use the global-default
+     * main context.
      */
     public fun dispatch(): Unit = g_main_context_dispatch(glibMainContextPointer.reinterpret())
 
@@ -204,7 +210,7 @@ public class MainContext(
      * (such as most [gio][gio]-based I/O) which are
      * started in this thread to run under @context and deliver their
      * results to its main loop, rather than running under the global
-     * default context in the main thread. Note that calling this function
+     * default main context in the main thread. Note that calling this function
      * changes the context returned by g_main_context_get_thread_default(),
      * not the one returned by g_main_context_default(), so it does not affect
      * the context used by functions like g_idle_add().
@@ -257,6 +263,9 @@ public class MainContext(
      * with g_main_context_acquire(). If the context was acquired multiple
      * times, the ownership will be released only when g_main_context_release()
      * is called as many times as it was acquired.
+     *
+     * You must have successfully acquired the context with
+     * g_main_context_acquire() before you may call this function.
      */
     public fun release(): Unit = g_main_context_release(glibMainContextPointer.reinterpret())
 
@@ -327,12 +336,12 @@ public class MainContext(
             MainContext(g_main_context_new_with_flags(flags.mask)!!.reinterpret())
 
         /**
-         * Returns the global default main context. This is the main context
+         * Returns the global-default main context. This is the main context
          * used for main loop functions when a main loop is not explicitly
          * specified, and corresponds to the "main" main loop. See also
          * g_main_context_get_thread_default().
          *
-         * @return the global default main context.
+         * @return the global-default main context.
          */
         public fun default(): MainContext =
             g_main_context_default()!!.run {
@@ -353,7 +362,7 @@ public class MainContext(
          * g_main_context_ref_thread_default() instead.
          *
          * @return the thread-default #GMainContext, or
-         * null if the thread-default context is the global default context.
+         * null if the thread-default context is the global-default main context.
          * @since 2.22
          */
         public fun getThreadDefault(): MainContext? =
@@ -366,7 +375,7 @@ public class MainContext(
          * g_main_context_get_thread_default(), but also adds a reference to
          * it with g_main_context_ref(). In addition, unlike
          * g_main_context_get_thread_default(), if the thread-default context
-         * is the global default context, this will return that #GMainContext
+         * is the global-default context, this will return that #GMainContext
          * (with a ref added to it) rather than returning null.
          *
          * @return the thread-default #GMainContext. Unref

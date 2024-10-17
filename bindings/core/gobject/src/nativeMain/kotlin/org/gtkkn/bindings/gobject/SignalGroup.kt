@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -16,20 +17,23 @@ import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GSignalGroup
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_group_block
+import org.gtkkn.native.gobject.g_signal_group_connect_closure
 import org.gtkkn.native.gobject.g_signal_group_connect_swapped
 import org.gtkkn.native.gobject.g_signal_group_dup_target
 import org.gtkkn.native.gobject.g_signal_group_get_type
 import org.gtkkn.native.gobject.g_signal_group_new
 import org.gtkkn.native.gobject.g_signal_group_set_target
 import org.gtkkn.native.gobject.g_signal_group_unblock
+import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
 
 /**
- * #GSignalGroup manages to simplify the process of connecting
- * many signals to a #GObject as a group. As such there is no API
- * to disconnect a signal from the group.
+ * `GSignalGroup` manages a collection of signals on a `GObject`.
+ *
+ * `GSignalGroup` simplifies the process of connecting  many signals to a `GObject`
+ * as a group. As such there is no API to disconnect a signal from the group.
  *
  * In particular, this allows you to:
  *
@@ -38,12 +42,12 @@ import kotlin.Unit
  *  - Block and unblock signals as a group
  *  - Ensuring that blocked state transfers across target instances.
  *
- * One place you might want to use such a structure is with #GtkTextView and
- * #GtkTextBuffer. Often times, you'll need to connect to many signals on
- * #GtkTextBuffer from a #GtkTextView subclass. This allows you to create a
+ * One place you might want to use such a structure is with `GtkTextView` and
+ * `GtkTextBuffer`. Often times, you'll need to connect to many signals on
+ * `GtkTextBuffer` from a `GtkTextView` subclass. This allows you to create a
  * signal group during instance construction, simply bind the
- * #GtkTextView:buffer property to #GSignalGroup:target and connect
- * all the signals you need. When the #GtkTextView:buffer property changes
+ * `GtkTextView:buffer` property to `GSignalGroup:target` and connect
+ * all the signals you need. When the `GtkTextView:buffer` property changes
  * all of the signals will be transitioned correctly.
  *
  * ## Skipped during bindings generation
@@ -79,6 +83,29 @@ public open class SignalGroup(
      * @since 2.72
      */
     public open fun block(): Unit = g_signal_group_block(gobjectSignalGroupPointer.reinterpret())
+
+    /**
+     * Connects @closure to the signal @detailed_signal on #GSignalGroup:target.
+     *
+     * You cannot connect a signal handler after #GSignalGroup:target has been set.
+     *
+     * @param detailedSignal a string of the form `signal-name` with optional `::signal-detail`
+     * @param closure the closure to connect.
+     * @param after whether the handler should be called before or after the
+     *  default handler of the signal.
+     * @since 2.74
+     */
+    public open fun connectClosure(
+        detailedSignal: String,
+        closure: Closure,
+        after: Boolean,
+    ): Unit =
+        g_signal_group_connect_closure(
+            gobjectSignalGroupPointer.reinterpret(),
+            detailedSignal,
+            closure.gobjectClosurePointer,
+            after.asGBoolean()
+        )
 
     /**
      * Connects @c_handler to the signal @detailed_signal

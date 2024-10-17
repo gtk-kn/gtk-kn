@@ -44,7 +44,7 @@ import kotlin.Unit
  *
  * The `GtkTextTagTable` implementation of the `GtkBuildable` interface
  * supports adding tags by specifying “tag” as the “type” attribute
- * of a <child> element.
+ * of a `<child>` element.
  *
  * An example of a UI definition fragment specifying tags:
  * ```xml

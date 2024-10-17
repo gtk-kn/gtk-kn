@@ -27,8 +27,10 @@ import org.gtkkn.native.gtk.GtkDropDown
 import org.gtkkn.native.gtk.gtk_drop_down_get_enable_search
 import org.gtkkn.native.gtk.gtk_drop_down_get_expression
 import org.gtkkn.native.gtk.gtk_drop_down_get_factory
+import org.gtkkn.native.gtk.gtk_drop_down_get_header_factory
 import org.gtkkn.native.gtk.gtk_drop_down_get_list_factory
 import org.gtkkn.native.gtk.gtk_drop_down_get_model
+import org.gtkkn.native.gtk.gtk_drop_down_get_search_match_mode
 import org.gtkkn.native.gtk.gtk_drop_down_get_selected
 import org.gtkkn.native.gtk.gtk_drop_down_get_selected_item
 import org.gtkkn.native.gtk.gtk_drop_down_get_show_arrow
@@ -38,8 +40,10 @@ import org.gtkkn.native.gtk.gtk_drop_down_new_from_strings
 import org.gtkkn.native.gtk.gtk_drop_down_set_enable_search
 import org.gtkkn.native.gtk.gtk_drop_down_set_expression
 import org.gtkkn.native.gtk.gtk_drop_down_set_factory
+import org.gtkkn.native.gtk.gtk_drop_down_set_header_factory
 import org.gtkkn.native.gtk.gtk_drop_down_set_list_factory
 import org.gtkkn.native.gtk.gtk_drop_down_set_model
+import org.gtkkn.native.gtk.gtk_drop_down_set_search_match_mode
 import org.gtkkn.native.gtk.gtk_drop_down_set_selected
 import org.gtkkn.native.gtk.gtk_drop_down_set_show_arrow
 import kotlin.Boolean
@@ -55,11 +59,17 @@ import kotlin.collections.List
  *
  * ![An example GtkDropDown](drop-down.png)
  *
- * The `GtkDropDown` displays the selected choice.
+ * The `GtkDropDown` displays the [selected][property@Gtk.DropDown:selected]
+ * choice.
  *
  * The options are given to `GtkDropDown` in the form of `GListModel`
  * and how the individual options are represented is determined by
- * a [class@Gtk.ListItemFactory]. The default factory displays simple strings.
+ * a [class@Gtk.ListItemFactory]. The default factory displays simple strings,
+ * and adds a checkmark to the selected item in the popup.
+ *
+ * To set your own factory, use [method@Gtk.DropDown.set_factory]. It is
+ * possible to use a separate factory for the items in the popup, with
+ * [method@Gtk.DropDown.set_list_factory].
  *
  * `GtkDropDown` knows how to obtain strings from the items in a
  * [class@Gtk.StringList]; for other models, you have to provide an expression
@@ -69,12 +79,35 @@ import kotlin.collections.List
  * useful if the list of options is long. To enable the search entry,
  * use [method@Gtk.DropDown.set_enable_search].
  *
- * # CSS nodes
+ * Here is a UI definition example for `GtkDropDown` with a simple model:
+ *
+ * ```xml
+ * <object class="GtkDropDown">
+ *   <property name="model">
+ *     <object class="GtkStringList">
+ *       <items>
+ *         <item translatable="yes">Factory</item>
+ *         <item translatable="yes">Home</item>
+ *         <item translatable="yes">Subway</item>
+ *       </items>
+ *     </object>
+ *   </property>
+ * </object>
+ * ```
+ *
+ * If a `GtkDropDown` is created in this manner, or with
+ * [ctor@Gtk.DropDown.new_from_strings], for instance, the object returned from
+ * [method@Gtk.DropDown.get_selected_item] will be a [class@Gtk.StringObject].
+ *
+ * To learn more about the list widget framework, see the
+ * [overview](section-list-widget.html).
+ *
+ * ## CSS nodes
  *
  * `GtkDropDown` has a single CSS node with name dropdown,
  * with the button and popover nodes as children.
  *
- * # Accessibility
+ * ## Accessibility
  *
  * `GtkDropDown` uses the %GTK_ACCESSIBLE_ROLE_COMBO_BOX role.
  */
@@ -187,6 +220,35 @@ public open class DropDown(
             )
 
     /**
+     * The factory for creating header widgets for the popup.
+     *
+     * @since 4.12
+     */
+    public open var headerFactory: ListItemFactory?
+        /**
+         * Gets the factory that's currently used to create header widgets for the popup.
+         *
+         * @return The factory in use
+         * @since 4.12
+         */
+        get() =
+            gtk_drop_down_get_header_factory(gtkDropDownPointer.reinterpret())?.run {
+                ListItemFactory(reinterpret())
+            }
+
+        /**
+         * Sets the `GtkListItemFactory` to use for creating header widgets for the popup.
+         *
+         * @param factory the factory to use
+         * @since 4.12
+         */
+        set(factory) =
+            gtk_drop_down_set_header_factory(
+                gtkDropDownPointer.reinterpret(),
+                factory?.gtkListItemFactoryPointer?.reinterpret()
+            )
+
+    /**
      * The factory for populating list items in the popup.
      *
      * If this is not set, [property@Gtk.DropDown:factory] is used.
@@ -236,6 +298,35 @@ public open class DropDown(
             gtk_drop_down_set_model(
                 gtkDropDownPointer.reinterpret(),
                 model?.gioListModelPointer
+            )
+
+    /**
+     * The match mode for the search filter.
+     *
+     * @since 4.12
+     */
+    public open var searchMatchMode: StringFilterMatchMode
+        /**
+         * Returns the match mode that the search filter is using.
+         *
+         * @return the match mode of the search filter
+         * @since 4.12
+         */
+        get() =
+            gtk_drop_down_get_search_match_mode(gtkDropDownPointer.reinterpret()).run {
+                StringFilterMatchMode.fromNativeValue(this)
+            }
+
+        /**
+         * Sets the match mode for the search filter.
+         *
+         * @param searchMatchMode the new match mode
+         * @since 4.12
+         */
+        set(searchMatchMode) =
+            gtk_drop_down_set_search_match_mode(
+                gtkDropDownPointer.reinterpret(),
+                searchMatchMode.nativeValue
             )
 
     /**
@@ -366,6 +457,17 @@ public open class DropDown(
         }
 
     /**
+     * Gets the factory that's currently used to create header widgets for the popup.
+     *
+     * @return The factory in use
+     * @since 4.12
+     */
+    public open fun getHeaderFactory(): ListItemFactory? =
+        gtk_drop_down_get_header_factory(gtkDropDownPointer.reinterpret())?.run {
+            ListItemFactory(reinterpret())
+        }
+
+    /**
      * Gets the factory that's currently used to populate list items in the popup.
      *
      * @return The factory in use
@@ -383,6 +485,17 @@ public open class DropDown(
     public open fun getModel(): ListModel? =
         gtk_drop_down_get_model(gtkDropDownPointer.reinterpret())?.run {
             ListModel.wrap(reinterpret())
+        }
+
+    /**
+     * Returns the match mode that the search filter is using.
+     *
+     * @return the match mode of the search filter
+     * @since 4.12
+     */
+    public open fun getSearchMatchMode(): StringFilterMatchMode =
+        gtk_drop_down_get_search_match_mode(gtkDropDownPointer.reinterpret()).run {
+            StringFilterMatchMode.fromNativeValue(this)
         }
 
     /**
@@ -452,6 +565,18 @@ public open class DropDown(
         )
 
     /**
+     * Sets the `GtkListItemFactory` to use for creating header widgets for the popup.
+     *
+     * @param factory the factory to use
+     * @since 4.12
+     */
+    public open fun setHeaderFactory(factory: ListItemFactory? = null): Unit =
+        gtk_drop_down_set_header_factory(
+            gtkDropDownPointer.reinterpret(),
+            factory?.gtkListItemFactoryPointer?.reinterpret()
+        )
+
+    /**
      * Sets the `GtkListItemFactory` to use for populating list items in the popup.
      *
      * @param factory the factory to use
@@ -469,6 +594,18 @@ public open class DropDown(
      */
     public open fun setModel(model: ListModel? = null): Unit =
         gtk_drop_down_set_model(gtkDropDownPointer.reinterpret(), model?.gioListModelPointer)
+
+    /**
+     * Sets the match mode for the search filter.
+     *
+     * @param searchMatchMode the new match mode
+     * @since 4.12
+     */
+    public open fun setSearchMatchMode(searchMatchMode: StringFilterMatchMode): Unit =
+        gtk_drop_down_set_search_match_mode(
+            gtkDropDownPointer.reinterpret(),
+            searchMatchMode.nativeValue
+        )
 
     /**
      * Selects the item at the given position.

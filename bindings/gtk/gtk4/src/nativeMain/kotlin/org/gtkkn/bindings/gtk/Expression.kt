@@ -87,7 +87,7 @@ import kotlin.Unit
  * ## GtkExpression in GObject properties
  *
  * In order to use a `GtkExpression` as a `GObject` property, you must use the
- * [id@gtk_param_spec_expression] when creating a `GParamSpec` to install in the
+ * [func@Gtk.param_spec_expression] when creating a `GParamSpec` to install in the
  * `GObject` class being defined; for instance:
  *
  * ```c
@@ -101,8 +101,8 @@ import kotlin.Unit
  * ```
  *
  * When implementing the `GObjectClass.set_property` and `GObjectClass.get_property`
- * virtual functions, you must use [id@gtk_value_get_expression], to retrieve the
- * stored `GtkExpression` from the `GValue` container, and [id@gtk_value_set_expression],
+ * virtual functions, you must use [func@Gtk.value_get_expression], to retrieve the
+ * stored `GtkExpression` from the `GValue` container, and [func@Gtk.value_set_expression],
  * to store the `GtkExpression` into the `GValue`; for instance:
  *
  * ```c
@@ -125,7 +125,7 @@ import kotlin.Unit
  *
  * To create a property expression, use the `<lookup>` element. It can have a `type`
  * attribute to specify the object type, and a `name` attribute to specify the property
- * to look up. The content of `<lookup>` can either be an element specfiying the expression
+ * to look up. The content of `<lookup>` can either be an element specifying the expression
  * to use the object, or a string that specifies the name of the object to use.
  *
  * Example:
@@ -133,6 +133,11 @@ import kotlin.Unit
  * ```xml
  *   <lookup name='search'>string_filter</lookup>
  * ```
+ *
+ * Since the `<lookup>` element creates an expression and its element content can
+ * itself be an expression, this means that `<lookup>` tags can also be nested.
+ * This is a common idiom when dealing with `GtkListItem`s. See
+ * [class@Gtk.BuilderListItemFactory] for an example of this technique.
  *
  * To create a constant expression, use the `<constant>` element. If the type attribute
  * is specified, the element content is interpreted as a value of that type. Otherwise,
@@ -143,15 +148,32 @@ import kotlin.Unit
  *   <constant type='gchararray'>Hello, world</constant>
  * ```
  *
- * To create a closure expression, use the `<closure>` element. The `type` and `function`
- * attributes specify what function to use for the closure, the content of the element
- * contains the expressions for the parameters. For instance:
+ * To create a closure expression, use the `<closure>` element. The `function`
+ * attribute specifies what function to use for the closure, and the `type`
+ * attribute specifies its return type. The content of the element contains the
+ * expressions for the parameters. For instance:
  *
  * ```xml
  *   <closure type='gchararray' function='combine_args_somehow'>
  *     <constant type='gchararray'>File size:</constant>
  *     <lookup type='GFile' name='size'>myfile</lookup>
  *   </closure>
+ * ```
+ *
+ * To create a property binding, use the `<binding>` element in place of where a
+ * `<property>` tag would ordinarily be used. The `name` and `object` attributes are
+ * supported. The `name` attribute is required, and pertains to the applicable property
+ * name. The `object` attribute is optional. If provided, it will use the specified object
+ * as the `this` object when the expression is evaluated. Here is an example in which the
+ * `label` property of a `GtkLabel` is bound to the `string` property of another arbitrary
+ * object:
+ *
+ * ```xml
+ *   <object class='GtkLabel'>
+ *     <binding name='label'>
+ *       <lookup name='string'>some_other_object</lookup>
+ *     </binding>
+ *   </object>
  * ```
  */
 public open class Expression(

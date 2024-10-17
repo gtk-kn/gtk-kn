@@ -65,6 +65,7 @@ import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_JAVANESE
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_KAITHI
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_KANNADA
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_KATAKANA
+import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_KAWI
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_KAYAH_LI
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_KHAROSHTHI
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_KHITAN_SMALL_SCRIPT
@@ -100,6 +101,7 @@ import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_MRO
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_MULTANI
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_MYANMAR
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_NABATAEAN
+import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_NAG_MUNDARI
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_NANDINAGARI
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_NEWA
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_NEW_TAI_LUE
@@ -166,6 +168,9 @@ import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_WARANG_CITI
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_YEZIDI
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_YI
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_ZANABAZAR_SQUARE
+import org.gtkkn.native.glib.g_unicode_script_from_iso15924
+import org.gtkkn.native.glib.g_unicode_script_to_iso15924
+import kotlin.UInt
 
 /**
  * The #GUnicodeScript enumeration identifies different writing
@@ -1000,6 +1005,16 @@ public enum class UnicodeScript(
      * Mathematical notation. Since: 2.72
      */
     MATH(G_UNICODE_SCRIPT_MATH),
+
+    /**
+     * Kawi. Since 2.74
+     */
+    KAWI(G_UNICODE_SCRIPT_KAWI),
+
+    /**
+     * Nag Mundari. Since 2.74
+     */
+    NAG_MUNDARI(G_UNICODE_SCRIPT_NAG_MUNDARI),
     ;
 
     public companion object {
@@ -1169,7 +1184,52 @@ public enum class UnicodeScript(
                 G_UNICODE_SCRIPT_TOTO -> TOTO
                 G_UNICODE_SCRIPT_VITHKUQI -> VITHKUQI
                 G_UNICODE_SCRIPT_MATH -> MATH
+                G_UNICODE_SCRIPT_KAWI -> KAWI
+                G_UNICODE_SCRIPT_NAG_MUNDARI -> NAG_MUNDARI
                 else -> error("invalid nativeValue")
             }
+
+        /**
+         * Looks up the Unicode script for @iso15924.  ISO 15924 assigns four-letter
+         * codes to scripts.  For example, the code for Arabic is 'Arab'.
+         * This function accepts four letter codes encoded as a @guint32 in a
+         * big-endian fashion.  That is, the code expected for Arabic is
+         * 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
+         *
+         * See
+         * [Codes for the representation of names of
+         * scripts](http://unicode.org/iso15924/codelists.html)
+         * for details.
+         *
+         * @param iso15924 a Unicode script
+         * @return the Unicode script for @iso15924, or
+         *   of %G_UNICODE_SCRIPT_INVALID_CODE if @iso15924 is zero and
+         *   %G_UNICODE_SCRIPT_UNKNOWN if @iso15924 is unknown.
+         * @since 2.30
+         */
+        public fun fromIso15924(iso15924: UInt): UnicodeScript =
+            g_unicode_script_from_iso15924(iso15924).run {
+                UnicodeScript.fromNativeValue(this)
+            }
+
+        /**
+         * Looks up the ISO 15924 code for @script.  ISO 15924 assigns four-letter
+         * codes to scripts.  For example, the code for Arabic is 'Arab'.  The
+         * four letter codes are encoded as a @guint32 by this function in a
+         * big-endian fashion.  That is, the code returned for Arabic is
+         * 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
+         *
+         * See
+         * [Codes for the representation of names of
+         * scripts](http://unicode.org/iso15924/codelists.html)
+         * for details.
+         *
+         * @param script a Unicode script
+         * @return the ISO 15924 code for @script, encoded as an integer,
+         *   of zero if @script is %G_UNICODE_SCRIPT_INVALID_CODE or
+         *   ISO 15924 code 'Zzzz' (script code for UNKNOWN) if @script is not understood.
+         * @since 2.30
+         */
+        public fun toIso15924(script: UnicodeScript): UInt = g_unicode_script_to_iso15924(script.nativeValue)
     }
 }

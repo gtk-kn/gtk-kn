@@ -37,7 +37,6 @@ import kotlin.Unit
  *
  * `AdwCarouselIndicatorLines` has a single CSS node with name
  * `carouselindicatorlines`.
- * @since 1.0
  */
 public class CarouselIndicatorLines(
     pointer: CPointer<AdwCarouselIndicatorLines>,
@@ -59,15 +58,12 @@ public class CarouselIndicatorLines(
 
     /**
      * The displayed carousel.
-     *
-     * @since 1.0
      */
     public var carousel: Carousel?
         /**
          * Gets the displayed carousel.
          *
          * @return the displayed carousel
-         * @since 1.0
          */
         get() =
             adw_carousel_indicator_lines_get_carousel(adwCarouselIndicatorLinesPointer.reinterpret())?.run {
@@ -78,7 +74,6 @@ public class CarouselIndicatorLines(
          * Sets the displayed carousel.
          *
          * @param carousel a carousel
-         * @since 1.0
          */
         set(carousel) =
             adw_carousel_indicator_lines_set_carousel(
@@ -90,7 +85,6 @@ public class CarouselIndicatorLines(
      * Creates a new `AdwCarouselIndicatorLines`.
      *
      * @return the newly created `AdwCarouselIndicatorLines`
-     * @since 1.0
      */
     public constructor() : this(adw_carousel_indicator_lines_new()!!.reinterpret())
 
@@ -98,7 +92,6 @@ public class CarouselIndicatorLines(
      * Gets the displayed carousel.
      *
      * @return the displayed carousel
-     * @since 1.0
      */
     public fun getCarousel(): Carousel? =
         adw_carousel_indicator_lines_get_carousel(adwCarouselIndicatorLinesPointer.reinterpret())?.run {
@@ -109,7 +102,6 @@ public class CarouselIndicatorLines(
      * Sets the displayed carousel.
      *
      * @param carousel a carousel
-     * @since 1.0
      */
     public fun setCarousel(carousel: Carousel? = null): Unit =
         adw_carousel_indicator_lines_set_carousel(

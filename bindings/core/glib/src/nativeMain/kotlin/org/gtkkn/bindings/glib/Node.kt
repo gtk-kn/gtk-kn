@@ -3,6 +3,7 @@ package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -10,13 +11,16 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GNode
 import org.gtkkn.native.glib.g_node_child_position
+import org.gtkkn.native.glib.g_node_children_foreach
 import org.gtkkn.native.glib.g_node_depth
 import org.gtkkn.native.glib.g_node_destroy
 import org.gtkkn.native.glib.g_node_is_ancestor
 import org.gtkkn.native.glib.g_node_max_height
 import org.gtkkn.native.glib.g_node_n_children
 import org.gtkkn.native.glib.g_node_n_nodes
+import org.gtkkn.native.glib.g_node_pop_allocator
 import org.gtkkn.native.glib.g_node_reverse_children
+import org.gtkkn.native.glib.g_node_traverse
 import org.gtkkn.native.glib.g_node_unlink
 import kotlin.Boolean
 import kotlin.Int
@@ -29,6 +33,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `data`: gpointer
+ * - parameter `allocator`: Allocator
  * - field `data`: gpointer
  */
 public class Node(
@@ -94,6 +99,26 @@ public class Node(
      */
     public fun childPosition(child: Node): Int =
         g_node_child_position(glibNodePointer.reinterpret(), child.glibNodePointer)
+
+    /**
+     * Calls a function for each of the children of a #GNode. Note that it
+     * doesn't descend beneath the child nodes. @func must not do anything
+     * that would modify the structure of the tree.
+     *
+     * @param flags which types of children are to be visited, one of
+     *     %G_TRAVERSE_ALL, %G_TRAVERSE_LEAVES and %G_TRAVERSE_NON_LEAVES
+     * @param func the function to call for each visited node
+     */
+    public fun childrenForeach(
+        flags: TraverseFlags,
+        func: NodeForeachFunc,
+    ): Unit =
+        g_node_children_foreach(
+            glibNodePointer.reinterpret(),
+            flags.mask,
+            NodeForeachFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
 
     /**
      * Gets the depth of a #GNode.
@@ -163,11 +188,44 @@ public class Node(
     public fun reverseChildren(): Unit = g_node_reverse_children(glibNodePointer.reinterpret())
 
     /**
+     * Traverses a tree starting at the given root #GNode.
+     * It calls the given function for each node visited.
+     * The traversal can be halted at any point by returning true from @func.
+     * @func must not do anything that would modify the structure of the tree.
+     *
+     * @param order the order in which nodes are visited - %G_IN_ORDER,
+     *     %G_PRE_ORDER, %G_POST_ORDER, or %G_LEVEL_ORDER.
+     * @param flags which types of children are to be visited, one of
+     *     %G_TRAVERSE_ALL, %G_TRAVERSE_LEAVES and %G_TRAVERSE_NON_LEAVES
+     * @param maxDepth the maximum depth of the traversal. Nodes below this
+     *     depth will not be visited. If max_depth is -1 all nodes in
+     *     the tree are visited. If depth is 1, only the root is visited.
+     *     If depth is 2, the root and its children are visited. And so on.
+     * @param func the function to call for each visited #GNode
+     */
+    public fun traverse(
+        order: TraverseType,
+        flags: TraverseFlags,
+        maxDepth: Int,
+        func: NodeTraverseFunc,
+    ): Unit =
+        g_node_traverse(
+            glibNodePointer.reinterpret(),
+            order.nativeValue,
+            flags.mask,
+            maxDepth,
+            NodeTraverseFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
+
+    /**
      * Unlinks a #GNode from a tree, resulting in two separate trees.
      */
     public fun unlink(): Unit = g_node_unlink(glibNodePointer.reinterpret())
 
     public companion object : RecordCompanion<Node, GNode> {
+        public fun popAllocator(): Unit = g_node_pop_allocator()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Node = Node(pointer.reinterpret())
     }
 }

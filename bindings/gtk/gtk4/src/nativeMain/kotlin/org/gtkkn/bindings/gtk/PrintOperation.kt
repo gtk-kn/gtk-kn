@@ -552,7 +552,7 @@ public open class PrintOperation(
      * 					     error->message);
      *    g_signal_connect (error_dialog, "response",
      *                      G_CALLBACK (gtk_window_destroy), NULL);
-     *    gtk_widget_show (error_dialog);
+     *    gtk_window_present (GTK_WINDOW (error_dialog));
      *    g_error_free (error);
      *  }
      * else if (res == GTK_PRINT_OPERATION_RESULT_APPLY)

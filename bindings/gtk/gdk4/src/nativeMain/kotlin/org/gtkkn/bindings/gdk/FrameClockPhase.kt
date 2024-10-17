@@ -46,7 +46,7 @@ public class FrameClockPhase(
         public val UPDATE: FrameClockPhase = FrameClockPhase(GDK_FRAME_CLOCK_PHASE_UPDATE)
 
         /**
-         * corresponds to GdkFrameClock::layout. Should not be handled by applicatiosn.
+         * corresponds to GdkFrameClock::layout. Should not be handled by applications.
          */
         public val LAYOUT: FrameClockPhase = FrameClockPhase(GDK_FRAME_CLOCK_PHASE_LAYOUT)
 

@@ -7,7 +7,6 @@ import org.gtkkn.native.adw.AdwNavigationDirection.ADW_NAVIGATION_DIRECTION_FORW
 
 /**
  * Describes the direction of a swipe navigation gesture.
- * @since 1.0
  */
 public enum class NavigationDirection(
     public val nativeValue: AdwNavigationDirection,

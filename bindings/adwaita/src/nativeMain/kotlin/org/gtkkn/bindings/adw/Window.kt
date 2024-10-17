@@ -3,13 +3,18 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.adw.AdwWindow
+import org.gtkkn.native.adw.adw_window_add_breakpoint
 import org.gtkkn.native.adw.adw_window_get_content
+import org.gtkkn.native.adw.adw_window_get_current_breakpoint
+import org.gtkkn.native.adw.adw_window_get_dialogs
 import org.gtkkn.native.adw.adw_window_get_type
+import org.gtkkn.native.adw.adw_window_get_visible_dialog
 import org.gtkkn.native.adw.adw_window_new
 import org.gtkkn.native.adw.adw_window_set_content
 import org.gtkkn.native.gtk.GtkAccessible
@@ -29,27 +34,72 @@ import kotlin.Unit
  * </picture>
  *
  * The `AdwWindow` widget is a subclass of [class@Gtk.Window] which has no
- * titlebar area. It means [class@Gtk.HeaderBar] can be used as follows:
+ * titlebar area. Instead, [class@ToolbarView] can be used together with
+ * [class@HeaderBar] or [class@Gtk.HeaderBar] as follows:
  *
  * ```xml
  * <object class="AdwWindow">
  *   <property name="content">
- *     <object class="GtkBox">
- *       <property name="orientation">vertical</property>
- *       <child>
- *         <object class="GtkHeaderBar"/>
+ *     <object class="AdwToolbarView">
+ *       <child type="top">
+ *         <object class="AdwHeaderBar"/>
  *       </child>
- *       <child>
+ *       <property name="content">
  *         <!-- ... -->
- *       </child>
+ *       </property>
  *     </object>
  *   </property>
  * </object>
  * ```
  *
- * Using [method@Gtk.Window.get_titlebar] and [method@Gtk.Window.set_titlebar]
- * is not supported and will result in a crash.
- * @since 1.0
+ * Using [property@Gtk.Window:titlebar] or [property@Gtk.Window:child]
+ * is not supported and will result in a crash. Use [property@Window:content]
+ * instead.
+ *
+ * ## Dialogs
+ *
+ * `AdwWindow` can contain [class@Dialog]. Use [method@Dialog.present] with the
+ * window or a widget within a window to show a dialog.
+ *
+ * ## Breakpoints
+ *
+ * `AdwWindow` can be used with [class@Breakpoint] the same way as
+ * [class@BreakpointBin]. Refer to that widget's documentation for details.
+ *
+ * Example:
+ *
+ * ```xml
+ * <object class="AdwWindow">
+ *   <property name="width-request">360</property>
+ *   <property name="height-request">200</property>
+ *   <property name="content">
+ *     <object class="AdwToolbarView">
+ *       <child type="top">
+ *         <object class="AdwHeaderBar"/>
+ *       </child>
+ *       <property name="content">
+ *         <!-- ... -->
+ *       </property>
+ *       <child type="bottom">
+ *         <object class="GtkActionBar" id="bottom_bar">
+ *           <property name="revealed">True</property>
+ *           <property name="visible">False</property>
+ *         </object>
+ *       </child>
+ *     </object>
+ *   </property>
+ *   <child>
+ *     <object class="AdwBreakpoint">
+ *       <condition>max-width: 500px</condition>
+ *       <setter object="bottom_bar" property="visible">True</setter>
+ *     </object>
+ *   </child>
+ * </object>
+ * ```
+ *
+ * Like `AdwBreakpointBin`, if breakpoints are used, `AdwWindow` doesn't have a
+ * minimum size, and [property@Gtk.Widget:width-request] and
+ * [property@Gtk.Widget:height-request] properties must be set manually.
  */
 public open class Window(
     pointer: CPointer<AdwWindow>,
@@ -78,7 +128,7 @@ public open class Window(
     /**
      * The content widget.
      *
-     * @since 1.0
+     * This property should always be used instead of [property@Gtk.Window:child].
      */
     public open var content: Widget?
         /**
@@ -87,7 +137,6 @@ public open class Window(
          * This method should always be used instead of [method@Gtk.Window.get_child].
          *
          * @return the content widget of @self
-         * @since 1.0
          */
         get() =
             adw_window_get_content(adwWindowPointer.reinterpret())?.run {
@@ -100,7 +149,6 @@ public open class Window(
          * This method should always be used instead of [method@Gtk.Window.set_child].
          *
          * @param content the content widget
-         * @since 1.0
          */
         set(content) =
             adw_window_set_content(
@@ -109,12 +157,76 @@ public open class Window(
             )
 
     /**
+     * The current breakpoint.
+     *
+     * @since 1.4
+     */
+    public open val currentBreakpoint: Breakpoint?
+        /**
+         * Gets the current breakpoint.
+         *
+         * @return the current breakpoint
+         * @since 1.4
+         */
+        get() =
+            adw_window_get_current_breakpoint(adwWindowPointer.reinterpret())?.run {
+                Breakpoint(reinterpret())
+            }
+
+    /**
+     * The open dialogs.
+     *
+     * @since 1.5
+     */
+    public open val dialogs: ListModel
+        /**
+         * Returns a [iface@Gio.ListModel] that contains the open dialogs of @self.
+         *
+         * This can be used to keep an up-to-date view.
+         *
+         * @return a list model for the dialogs of @self
+         * @since 1.5
+         */
+        get() =
+            adw_window_get_dialogs(adwWindowPointer.reinterpret())!!.run {
+                ListModel.wrap(reinterpret())
+            }
+
+    /**
+     * The currently visible dialog
+     *
+     * @since 1.5
+     */
+    public open val visibleDialog: Dialog?
+        /**
+         * Returns the currently visible dialog in @self, if there's one.
+         *
+         * @return the visible dialog
+         * @since 1.5
+         */
+        get() =
+            adw_window_get_visible_dialog(adwWindowPointer.reinterpret())?.run {
+                Dialog(reinterpret())
+            }
+
+    /**
      * Creates a new `AdwWindow`.
      *
      * @return the newly created `AdwWindow`
-     * @since 1.0
      */
     public constructor() : this(adw_window_new()!!.reinterpret())
+
+    /**
+     * Adds @breakpoint to @self.
+     *
+     * @param breakpoint the breakpoint to add
+     * @since 1.4
+     */
+    public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
+        adw_window_add_breakpoint(
+            adwWindowPointer.reinterpret(),
+            breakpoint.adwBreakpointPointer.reinterpret()
+        )
 
     /**
      * Gets the content widget of @self.
@@ -122,11 +234,45 @@ public open class Window(
      * This method should always be used instead of [method@Gtk.Window.get_child].
      *
      * @return the content widget of @self
-     * @since 1.0
      */
     public open fun getContent(): Widget? =
         adw_window_get_content(adwWindowPointer.reinterpret())?.run {
             Widget(reinterpret())
+        }
+
+    /**
+     * Gets the current breakpoint.
+     *
+     * @return the current breakpoint
+     * @since 1.4
+     */
+    public open fun getCurrentBreakpoint(): Breakpoint? =
+        adw_window_get_current_breakpoint(adwWindowPointer.reinterpret())?.run {
+            Breakpoint(reinterpret())
+        }
+
+    /**
+     * Returns a [iface@Gio.ListModel] that contains the open dialogs of @self.
+     *
+     * This can be used to keep an up-to-date view.
+     *
+     * @return a list model for the dialogs of @self
+     * @since 1.5
+     */
+    public open fun getDialogs(): ListModel =
+        adw_window_get_dialogs(adwWindowPointer.reinterpret())!!.run {
+            ListModel.wrap(reinterpret())
+        }
+
+    /**
+     * Returns the currently visible dialog in @self, if there's one.
+     *
+     * @return the visible dialog
+     * @since 1.5
+     */
+    public open fun getVisibleDialog(): Dialog? =
+        adw_window_get_visible_dialog(adwWindowPointer.reinterpret())?.run {
+            Dialog(reinterpret())
         }
 
     /**
@@ -135,7 +281,6 @@ public open class Window(
      * This method should always be used instead of [method@Gtk.Window.set_child].
      *
      * @param content the content widget
-     * @since 1.0
      */
     public open fun setContent(content: Widget? = null): Unit =
         adw_window_set_content(

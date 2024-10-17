@@ -20,8 +20,11 @@
  * SOFTWARE.
  */
 
+@file:OptIn(ExperimentalForeignApi::class)
+
 package org.gtkkn.samples.gtk.embeddedresources
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.bindings.gtk.Application
@@ -43,7 +46,7 @@ fun main() {
         val display = Display.getDefault() ?: error("No default display")
         StyleContext.addProviderForDisplay(display, cssProvider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION.toUInt())
 
-        // setup the window
+        // set up the window
         val window = ApplicationWindow(app).apply {
             title = "Logo from Embedded Resources"
             setDefaultSize(420, 420)
