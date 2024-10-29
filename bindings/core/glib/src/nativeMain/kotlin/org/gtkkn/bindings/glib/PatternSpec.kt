@@ -20,8 +20,22 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
- * A GPatternSpec struct is the 'compiled' form of a pattern. This
- * structure is opaque and its fields cannot be accessed directly.
+ * A `GPatternSpec` struct is the 'compiled' form of a glob-style pattern.
+ *
+ * The [func@GLib.pattern_match_simple] and [method@GLib.PatternSpec.match] functions
+ * match a string against a pattern containing '*' and '?' wildcards with similar
+ * semantics as the standard `glob()` function: '*' matches an arbitrary,
+ * possibly empty, string, '?' matches an arbitrary character.
+ *
+ * Note that in contrast to `glob()`, the '/' character can be matched by
+ * the wildcards, there are no '[]' character ranges and '*' and '?'
+ * can not be escaped to include them literally in a pattern.
+ *
+ * When multiple strings must be matched against the same pattern, it is better
+ * to compile the pattern to a [struct@GLib.PatternSpec] using
+ * [ctor@GLib.PatternSpec.new] and use [method@GLib.PatternSpec.match_string]
+ * instead of [func@GLib.pattern_match_simple]. This avoids the overhead of repeated
+ * pattern compilation.
  */
 public class PatternSpec(
     pointer: CPointer<GPatternSpec>,

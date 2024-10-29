@@ -7,6 +7,8 @@ import org.gtkkn.native.glib.G_FORMAT_SIZE_BITS
 import org.gtkkn.native.glib.G_FORMAT_SIZE_DEFAULT
 import org.gtkkn.native.glib.G_FORMAT_SIZE_IEC_UNITS
 import org.gtkkn.native.glib.G_FORMAT_SIZE_LONG_FORMAT
+import org.gtkkn.native.glib.G_FORMAT_SIZE_ONLY_UNIT
+import org.gtkkn.native.glib.G_FORMAT_SIZE_ONLY_VALUE
 
 /**
  * Flags to modify the format of the string returned by g_format_size_full().
@@ -38,8 +40,22 @@ public class FormatSizeFlags(
 
         /**
          * set the size as a quantity in bits, rather than
-         *     bytes, and return units in bits. For example, ‘Mb’ rather than ‘MB’.
+         *     bytes, and return units in bits. For example, ‘Mbit’ rather than ‘MB’.
          */
         public val BITS: FormatSizeFlags = FormatSizeFlags(G_FORMAT_SIZE_BITS)
+
+        /**
+         * return only value, without unit; this should
+         *     not be used together with @G_FORMAT_SIZE_LONG_FORMAT
+         *     nor @G_FORMAT_SIZE_ONLY_UNIT. Since: 2.74
+         */
+        public val ONLY_VALUE: FormatSizeFlags = FormatSizeFlags(G_FORMAT_SIZE_ONLY_VALUE)
+
+        /**
+         * return only unit, without value; this should
+         *     not be used together with @G_FORMAT_SIZE_LONG_FORMAT
+         *     nor @G_FORMAT_SIZE_ONLY_VALUE. Since: 2.74
+         */
+        public val ONLY_UNIT: FormatSizeFlags = FormatSizeFlags(G_FORMAT_SIZE_ONLY_UNIT)
     }
 }

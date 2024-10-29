@@ -19,10 +19,22 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * An opaque structure representing a checksumming operation.
+ * GLib provides a generic API for computing checksums (or ‘digests’)
+ * for a sequence of arbitrary bytes, using various hashing algorithms
+ * like MD5, SHA-1 and SHA-256. Checksums are commonly used in various
+ * environments and specifications.
  *
- * To create a new GChecksum, use g_checksum_new(). To free
- * a GChecksum, use g_checksum_free().
+ * To create a new `GChecksum`, use [ctor@GLib.Checksum.new]. To free
+ * a `GChecksum`, use [method@GLib.Checksum.free].
+ *
+ * GLib supports incremental checksums using the `GChecksum` data
+ * structure, by calling [method@GLib.Checksum.update] as long as there’s data
+ * available and then using [method@GLib.Checksum.get_string] or
+ * [method@GLib.Checksum.get_digest] to compute the checksum and return it
+ * either as a string in hexadecimal form, or as a raw sequence of bytes. To
+ * compute the checksum for binary blobs and nul-terminated strings in
+ * one go, use the convenience functions [func@GLib.compute_checksum_for_data]
+ * and [func@GLib.compute_checksum_for_string], respectively.
  *
  * ## Skipped during bindings generation
  *

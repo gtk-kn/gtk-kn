@@ -25,6 +25,10 @@ import org.gtkkn.native.gtk.gtk_builder_scope_get_type
  *
  * By default, GTK will use its own implementation of `GtkBuilderScope`
  * for the C language which can be created via [ctor@Gtk.BuilderCScope.new].
+ *
+ * If you implement `GtkBuilderScope` for a language binding, you
+ * may want to (partially) derive from or fall back to a [class@Gtk.BuilderCScope],
+ * as that class implements support for automatic lookups from C symbols.
  */
 public interface BuilderScope : Interface, KGTyped {
     public val gtkBuilderScopePointer: CPointer<GtkBuilderScope>

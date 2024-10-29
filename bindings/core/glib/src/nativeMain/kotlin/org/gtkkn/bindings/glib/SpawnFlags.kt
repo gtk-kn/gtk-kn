@@ -3,7 +3,9 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.glib.GSpawnFlags
+import org.gtkkn.native.glib.G_SPAWN_CHILD_INHERITS_STDERR
 import org.gtkkn.native.glib.G_SPAWN_CHILD_INHERITS_STDIN
+import org.gtkkn.native.glib.G_SPAWN_CHILD_INHERITS_STDOUT
 import org.gtkkn.native.glib.G_SPAWN_CLOEXEC_PIPES
 import org.gtkkn.native.glib.G_SPAWN_DEFAULT
 import org.gtkkn.native.glib.G_SPAWN_DO_NOT_REAP_CHILD
@@ -12,6 +14,7 @@ import org.gtkkn.native.glib.G_SPAWN_LEAVE_DESCRIPTORS_OPEN
 import org.gtkkn.native.glib.G_SPAWN_SEARCH_PATH
 import org.gtkkn.native.glib.G_SPAWN_SEARCH_PATH_FROM_ENVP
 import org.gtkkn.native.glib.G_SPAWN_STDERR_TO_DEV_NULL
+import org.gtkkn.native.glib.G_SPAWN_STDIN_FROM_DEV_NULL
 import org.gtkkn.native.glib.G_SPAWN_STDOUT_TO_DEV_NULL
 
 /**
@@ -85,5 +88,23 @@ public class SpawnFlags(
          *     Since: 2.40
          */
         public val CLOEXEC_PIPES: SpawnFlags = SpawnFlags(G_SPAWN_CLOEXEC_PIPES)
+
+        /**
+         * The child will inherit the parent's standard output.
+         * @since 2.74
+         */
+        public val CHILD_INHERITS_STDOUT: SpawnFlags = SpawnFlags(G_SPAWN_CHILD_INHERITS_STDOUT)
+
+        /**
+         * The child will inherit the parent's standard error.
+         * @since 2.74
+         */
+        public val CHILD_INHERITS_STDERR: SpawnFlags = SpawnFlags(G_SPAWN_CHILD_INHERITS_STDERR)
+
+        /**
+         * The child's standard input is attached to `/dev/null`.
+         * @since 2.74
+         */
+        public val STDIN_FROM_DEV_NULL: SpawnFlags = SpawnFlags(G_SPAWN_STDIN_FROM_DEV_NULL)
     }
 }

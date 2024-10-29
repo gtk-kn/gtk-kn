@@ -35,8 +35,51 @@ import kotlin.Unit
  * displayed side by side, or icon on top of the label. This can be controlled
  * via the [property@ViewSwitcher:policy] property.
  *
- * Most applications should be using [class@ViewSwitcherBar] and
- * [class@ViewSwitcherTitle].
+ * `AdwViewSwitcher` is intended to be used in a header bar together with
+ * [class@ViewSwitcherBar] at the bottom of the window, and a [class@Breakpoint]
+ * showing the view switcher bar on narrow sizes, while removing the view
+ * switcher from the header bar, as follows:
+ *
+ * ```xml
+ * <object class="AdwWindow">
+ *   <property name="width-request">360</property>
+ *   <property name="height-request">200</property>
+ *   <child>
+ *     <object class="AdwBreakpoint">
+ *       <condition>max-width: 550sp</condition>
+ *       <setter object="switcher_bar" property="reveal">True</setter>
+ *       <setter object="header_bar" property="title-widget"/>
+ *     </object>
+ *   </child>
+ *   <property name="content">
+ *     <object class="AdwToolbarView">
+ *       <child type="top">
+ *         <object class="AdwHeaderBar" id="header_bar">
+ *           <property name="title-widget">
+ *             <object class="AdwViewSwitcher">
+ *               <property name="stack">stack</property>
+ *               <property name="policy">wide</property>
+ *             </object>
+ *           </property>
+ *         </object>
+ *       </child>
+ *       <property name="content">
+ *         <object class="AdwViewStack" id="stack"/>
+ *       </property>
+ *       <child type="bottom">
+ *         <object class="AdwViewSwitcherBar" id="switcher_bar">
+ *           <property name="stack">stack</property>
+ *         </object>
+ *       </child>
+ *     </object>
+ *   </property>
+ * </object>
+ * ```
+ *
+ * It's recommended to set [property@ViewSwitcher:policy] to
+ * `ADW_VIEW_SWITCHER_POLICY_WIDE` in this case.
+ *
+ * You may have to adjust the breakpoint condition for your specific pages.
  *
  * ## CSS nodes
  *
@@ -47,7 +90,6 @@ import kotlin.Unit
  *
  * `AdwViewSwitcher` uses the `GTK_ACCESSIBLE_ROLE_TAB_LIST` role and uses the
  * `GTK_ACCESSIBLE_ROLE_TAB` for its buttons.
- * @since 1.0
  */
 public class ViewSwitcher(
     pointer: CPointer<AdwViewSwitcher>,
@@ -66,15 +108,12 @@ public class ViewSwitcher(
 
     /**
      * The policy to determine which mode to use.
-     *
-     * @since 1.0
      */
     public var policy: ViewSwitcherPolicy
         /**
          * Gets the policy of @self.
          *
          * @return the policy of @self
-         * @since 1.0
          */
         get() =
             adw_view_switcher_get_policy(adwViewSwitcherPointer.reinterpret()).run {
@@ -85,7 +124,6 @@ public class ViewSwitcher(
          * Sets the policy of @self.
          *
          * @param policy the new policy
-         * @since 1.0
          */
         set(policy) =
             adw_view_switcher_set_policy(
@@ -95,15 +133,12 @@ public class ViewSwitcher(
 
     /**
      * The stack the view switcher controls.
-     *
-     * @since 1.0
      */
     public var stack: ViewStack?
         /**
          * Gets the stack controlled by @self.
          *
          * @return the stack
-         * @since 1.0
          */
         get() =
             adw_view_switcher_get_stack(adwViewSwitcherPointer.reinterpret())?.run {
@@ -114,7 +149,6 @@ public class ViewSwitcher(
          * Sets the stack controlled by @self.
          *
          * @param stack a stack
-         * @since 1.0
          */
         set(stack) =
             adw_view_switcher_set_stack(
@@ -126,7 +160,6 @@ public class ViewSwitcher(
      * Creates a new `AdwViewSwitcher`.
      *
      * @return the newly created `AdwViewSwitcher`
-     * @since 1.0
      */
     public constructor() : this(adw_view_switcher_new()!!.reinterpret())
 
@@ -134,7 +167,6 @@ public class ViewSwitcher(
      * Gets the policy of @self.
      *
      * @return the policy of @self
-     * @since 1.0
      */
     public fun getPolicy(): ViewSwitcherPolicy =
         adw_view_switcher_get_policy(adwViewSwitcherPointer.reinterpret()).run {
@@ -145,7 +177,6 @@ public class ViewSwitcher(
      * Gets the stack controlled by @self.
      *
      * @return the stack
-     * @since 1.0
      */
     public fun getStack(): ViewStack? =
         adw_view_switcher_get_stack(adwViewSwitcherPointer.reinterpret())?.run {
@@ -156,7 +187,6 @@ public class ViewSwitcher(
      * Sets the policy of @self.
      *
      * @param policy the new policy
-     * @since 1.0
      */
     public fun setPolicy(policy: ViewSwitcherPolicy): Unit =
         adw_view_switcher_set_policy(adwViewSwitcherPointer.reinterpret(), policy.nativeValue)
@@ -165,7 +195,6 @@ public class ViewSwitcher(
      * Sets the stack controlled by @self.
      *
      * @param stack a stack
-     * @since 1.0
      */
     public fun setStack(stack: ViewStack? = null): Unit =
         adw_view_switcher_set_stack(

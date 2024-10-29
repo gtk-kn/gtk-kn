@@ -17,8 +17,18 @@ import kotlin.UInt
  *
  * - parameter `array`: guint8
  * - parameter `array`: guint8
+ * - parameter `array`: guint8
  * - function `new`: guint8
  * - parameter `data`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
+ * - function `sized_new`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
  * - parameter `array`: guint8
  * - parameter `array`: guint8
  * - field `data`: guint8

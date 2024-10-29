@@ -1,6 +1,6 @@
-headers = gsk/gsk.h gsk/gl/gskglrenderer.h
+headers = gsk/gsk.h gsk/gl/gskglrenderer.h gsk/gpu/gskvulkanrenderer.h
 package = org.gtkkn.native.gsk
-headerFilter = gsk/* gsk/broadway/* gsk/gl/*
+headerFilter = gsk/* gsk/broadway/* gsk/gl/* gsk/gpu/*
 
 # pkg-config --cflags gtk4
 compilerOpts.linux = \
@@ -56,8 +56,13 @@ linkerOpts.linux_x64 = \
 strictEnums = \
     GskBlendMode \
     GskCorner \
+    GskFillRule \
     GskGLUniformType \
+    GskLineCap \
+    GskLineJoin \
     GskMaskMode \
+    GskPathDirection \
+    GskPathOperation \
     GskRenderNodeType \
     GskScalingFilter \
     GskSerializationError \

@@ -23,6 +23,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkDeleteType
@@ -158,8 +159,11 @@ import kotlin.Unit
  */
 public open class TextView(
     pointer: CPointer<GtkTextView>,
-) : Widget(pointer.reinterpret()), Scrollable, KGTyped {
+) : Widget(pointer.reinterpret()), AccessibleText, Scrollable, KGTyped {
     public val gtkTextViewPointer: CPointer<GtkTextView>
+        get() = gPointer.reinterpret()
+
+    override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
         get() = gPointer.reinterpret()
 
     override val gtkScrollablePointer: CPointer<GtkScrollable>
@@ -194,6 +198,8 @@ public open class TextView(
          * If @accepts_tab is true, a tab character is inserted. If @accepts_tab
          * is false the keyboard focus is moved to the next widget in the focus
          * chain.
+         *
+         * Focus can always be moved using <kbd>Ctrl</kbd>+<kbd>Tab</kbd>.
          *
          * @param acceptsTab true if pressing the Tab key should insert a tab
          *    character, false, if pressing the Tab key should move the
@@ -254,7 +260,7 @@ public open class TextView(
          * cursor, so you may want to turn the cursor off.
          *
          * Note that this property may be overridden by the
-         * [property@GtkSettings:gtk-keynav-use-caret] setting.
+         * [property@Gtk.Settings:gtk-keynav-use-caret] setting.
          *
          * @param setting whether to show the insertion cursor
          */
@@ -290,6 +296,10 @@ public open class TextView(
 
     /**
      * Amount to indent the paragraph, in pixels.
+     *
+     * A negative value of indent will produce a hanging indentation.
+     * That is, the first line will have the full width, and subsequent
+     * lines will be indented by the absolute value of indent.
      */
     public open var indent: Int
         /**
@@ -1320,6 +1330,8 @@ public open class TextView(
      * is false the keyboard focus is moved to the next widget in the focus
      * chain.
      *
+     * Focus can always be moved using <kbd>Ctrl</kbd>+<kbd>Tab</kbd>.
+     *
      * @param acceptsTab true if pressing the Tab key should insert a tab
      *    character, false, if pressing the Tab key should move the
      *    keyboard focus.
@@ -1361,7 +1373,7 @@ public open class TextView(
      * cursor, so you may want to turn the cursor off.
      *
      * Note that this property may be overridden by the
-     * [property@GtkSettings:gtk-keynav-use-caret] setting.
+     * [property@Gtk.Settings:gtk-keynav-use-caret] setting.
      *
      * @param setting whether to show the insertion cursor
      */
@@ -1581,7 +1593,7 @@ public open class TextView(
      * The ::backspace signal is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * <kbd>Backspace</kbd> and <kbd>Shift</kbd>-<kbd>Backspace</kbd>.
+     * <kbd>Backspace</kbd> and <kbd>Shift</kbd>+<kbd>Backspace</kbd>.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -1605,8 +1617,8 @@ public open class TextView(
      * The ::copy-clipboard signal is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * <kbd>Ctrl</kbd>-<kbd>c</kbd> and
-     * <kbd>Ctrl</kbd>-<kbd>Insert</kbd>.
+     * <kbd>Ctrl</kbd>+<kbd>c</kbd> and
+     * <kbd>Ctrl</kbd>+<kbd>Insert</kbd>.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -1630,8 +1642,8 @@ public open class TextView(
      * The ::cut-clipboard signal is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * <kbd>Ctrl</kbd>-<kbd>x</kbd> and
-     * <kbd>Shift</kbd>-<kbd>Delete</kbd>.
+     * <kbd>Ctrl</kbd>+<kbd>x</kbd> and
+     * <kbd>Shift</kbd>+<kbd>Delete</kbd>.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -1659,8 +1671,8 @@ public open class TextView(
      * of characters.
      *
      * The default bindings for this signal are <kbd>Delete</kbd> for
-     * deleting a character, <kbd>Ctrl</kbd>-<kbd>Delete</kbd> for
-     * deleting a word and <kbd>Ctrl</kbd>-<kbd>Backspace</kbd> for
+     * deleting a character, <kbd>Ctrl</kbd>+<kbd>Delete</kbd> for
+     * deleting a word and <kbd>Ctrl</kbd>+<kbd>Backspace</kbd> for
      * deleting a word backwards.
      *
      * @param connectFlags A combination of [ConnectFlags]
@@ -1738,8 +1750,8 @@ public open class TextView(
      * The ::insert-emoji signal is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * <kbd>Ctrl</kbd>-<kbd>.</kbd> and
-     * <kbd>Ctrl</kbd>-<kbd>;</kbd>
+     * <kbd>Ctrl</kbd>+<kbd>.</kbd> and
+     * <kbd>Ctrl</kbd>+<kbd>;</kbd>
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -1776,10 +1788,10 @@ public open class TextView(
      *
      * - <kbd>←</kbd>, <kbd>→</kbd>, <kbd>↑</kbd>, <kbd>↓</kbd>
      *   move by individual characters/lines
-     * - <kbd>Ctrl</kbd>-<kbd>→</kbd>, etc. move by words/paragraphs
-     * - <kbd>Home</kbd>, <kbd>End</kbd> move to the ends of the buffer
-     * - <kbd>PgUp</kbd>, <kbd>PgDn</kbd> move vertically by pages
-     * - <kbd>Ctrl</kbd>-<kbd>PgUp</kbd>, <kbd>Ctrl</kbd>-<kbd>PgDn</kbd>
+     * - <kbd>Ctrl</kbd>+<kbd>←</kbd>, etc. move by words/paragraphs
+     * - <kbd>Home</kbd> and <kbd>End</kbd> move to the ends of the buffer
+     * - <kbd>PgUp</kbd> and <kbd>PgDn</kbd> move vertically by pages
+     * - <kbd>Ctrl</kbd>+<kbd>PgUp</kbd> and <kbd>Ctrl</kbd>+<kbd>PgDn</kbd>
      *   move horizontally by pages
      *
      * @param connectFlags A combination of [ConnectFlags]
@@ -1838,8 +1850,8 @@ public open class TextView(
      * The ::paste-clipboard signal is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * <kbd>Ctrl</kbd>-<kbd>v</kbd> and
-     * <kbd>Shift</kbd>-<kbd>Insert</kbd>.
+     * <kbd>Ctrl</kbd>+<kbd>v</kbd> and
+     * <kbd>Shift</kbd>+<kbd>Insert</kbd>.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -1889,10 +1901,10 @@ public open class TextView(
      * The ::select-all signal is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * <kbd>Ctrl</kbd>-<kbd>a</kbd> and
-     * <kbd>Ctrl</kbd>-<kbd>/</kbd> for selecting and
-     * <kbd>Shift</kbd>-<kbd>Ctrl</kbd>-<kbd>a</kbd> and
-     * <kbd>Ctrl</kbd>-<kbd>\</kbd> for unselecting.
+     * <kbd>Ctrl</kbd>+<kbd>a</kbd> and
+     * <kbd>Ctrl</kbd>+<kbd>/</kbd> for selecting and
+     * <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>a</kbd> and
+     * <kbd>Ctrl</kbd>+<kbd>\</kbd> for unselecting.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `select` true to select, false to unselect

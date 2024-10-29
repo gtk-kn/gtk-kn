@@ -37,6 +37,12 @@ import kotlin.Unit
  * # CSS nodes
  *
  * `GtkAspectFrame` uses a CSS node with name `frame`.
+ *
+ * # Accessibility
+ *
+ * Until GTK 4.10, `GtkAspectFrame` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ *
+ * Starting from GTK 4.12, `GtkAspectFrame` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
 public open class AspectFrame(
     pointer: CPointer<GtkAspectFrame>,
@@ -60,7 +66,7 @@ public open class AspectFrame(
         /**
          * Gets the child widget of @self.
          *
-         * @return the child widget of self@
+         * @return the child widget of @self
          */
         get() =
             gtk_aspect_frame_get_child(gtkAspectFramePointer.reinterpret())?.run {
@@ -96,7 +102,7 @@ public open class AspectFrame(
          * the `GtkAspectFrame`.
          *
          * @param obeyChild If true, @ratio is ignored, and the aspect
-         *    ratio is taken from the requistion of the child.
+         *    ratio is taken from the requisition of the child.
          */
         set(obeyChild) =
             gtk_aspect_frame_set_obey_child(
@@ -187,7 +193,7 @@ public open class AspectFrame(
     /**
      * Gets the child widget of @self.
      *
-     * @return the child widget of self@
+     * @return the child widget of @self
      */
     public open fun getChild(): Widget? =
         gtk_aspect_frame_get_child(gtkAspectFramePointer.reinterpret())?.run {
@@ -243,7 +249,7 @@ public open class AspectFrame(
      * the `GtkAspectFrame`.
      *
      * @param obeyChild If true, @ratio is ignored, and the aspect
-     *    ratio is taken from the requistion of the child.
+     *    ratio is taken from the requisition of the child.
      */
     public open fun setObeyChild(obeyChild: Boolean): Unit =
         gtk_aspect_frame_set_obey_child(

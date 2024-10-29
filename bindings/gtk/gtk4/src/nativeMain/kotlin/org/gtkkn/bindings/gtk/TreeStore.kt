@@ -35,25 +35,29 @@ import kotlin.Int
 import kotlin.Unit
 
 /**
- * A tree-like data structure that can be used with the GtkTreeView
+ * A tree-like data structure that can be used with the [class@Gtk.TreeView].
  *
  * The `GtkTreeStore` object is a list model for use with a `GtkTreeView`
- * widget.  It implements the `GtkTreeModel` interface, and consequently,
- * can use all of the methods available there.  It also implements the
- * `GtkTreeSortable` interface so it can be sorted by the view.  Finally,
- * it also implements the tree
- * [drag and drop][gtk3-GtkTreeView-drag-and-drop]
- * interfaces.
+ * widget. It implements the [iface@Gtk.TreeModel] interface, and consequently,
+ * can use all of the methods available there. It also implements the
+ * [iface@Gtk.TreeSortable] interface so it can be sorted by the view.
+ * Finally, it also implements the tree [drag][iface@Gtk.TreeDragSource]
+ * and [drop][iface@Gtk.TreeDragDest] interfaces.
  *
- * # GtkTreeStore as GtkBuildable
+ * `GtkTreeStore` is deprecated since GTK 4.10, and should not be used in newly
+ * written code. You should use [class@Gtk.TreeListModel] for a tree-like model
+ * object.
+ *
+ * ## GtkTreeStore as GtkBuildable
  *
  * The GtkTreeStore implementation of the `GtkBuildable` interface allows
- * to specify the model columns with a <columns> element that may contain
- * multiple <column> elements, each specifying one model column. The “type”
+ * to specify the model columns with a `<columns>` element that may contain
+ * multiple `<column>` elements, each specifying one model column. The “type”
  * attribute specifies the data type for the column.
  *
  * An example of a UI Definition fragment for a tree store:
- * |[
+ *
+ * ```xml
  * <object class="GtkTreeStore">
  *   <columns>
  *     <column type="gchararray"/>
@@ -61,7 +65,7 @@ import kotlin.Unit
  *     <column type="gint"/>
  *   </columns>
  * </object>
- * ]|
+ * ```
  *
  * ## Skipped during bindings generation
  *
@@ -98,10 +102,13 @@ public open class TreeStore(
         get() = gPointer.reinterpret()
 
     /**
-     * Appends a new row to @tree_store.  If @parent is non-null, then it will append the
-     * new row after the last child of @parent, otherwise it will append a row to
-     * the top level.  @iter will be changed to point to this new row.  The row will
-     * be empty after this function is called.  To fill in values, you need to call
+     * Appends a new row to @tree_store.
+     *
+     * If @parent is non-null, then it will append the new row after the last
+     * child of @parent, otherwise it will append a row to the top level.
+     *
+     * The @iter parameter will be changed to point to this new row. The row will
+     * be empty after this function is called. To fill in values, you need to call
      * gtk_tree_store_set() or gtk_tree_store_set_value().
      *
      * @param iter An unset `GtkTreeIter` to set to the appended row
@@ -123,13 +130,17 @@ public open class TreeStore(
     public open fun clear(): Unit = gtk_tree_store_clear(gtkTreeStorePointer.reinterpret())
 
     /**
-     * Creates a new row at @position.  If parent is non-null, then the row will be
-     * made a child of @parent.  Otherwise, the row will be created at the toplevel.
-     * If @position is -1 or is larger than the number of rows at that level, then
-     * the new row will be inserted to the end of the list.  @iter will be changed
-     * to point to this new row.  The row will be empty after this function is
-     * called.  To fill in values, you need to call gtk_tree_store_set() or
-     * gtk_tree_store_set_value().
+     * Creates a new row at @position.
+     *
+     * If parent is non-null, then the row will be made a child of @parent.
+     * Otherwise, the row will be created at the toplevel.
+     *
+     * If @position is `-1` or is larger than the number of rows at that level,
+     * then the new row will be inserted to the end of the list.
+     *
+     * The @iter parameter will be changed to point to this new row. The row
+     * will be empty after this function is called. To fill in values, you
+     * need to call gtk_tree_store_set() or gtk_tree_store_set_value().
      *
      * @param iter An unset `GtkTreeIter` to set to the new row
      * @param parent A valid `GtkTreeIter`
@@ -148,14 +159,18 @@ public open class TreeStore(
         )
 
     /**
-     * Inserts a new row after @sibling.  If @sibling is null, then the row will be
-     * prepended to @parent ’s children.  If @parent and @sibling are null, then
-     * the row will be prepended to the toplevel.  If both @sibling and @parent are
-     * set, then @parent must be the parent of @sibling.  When @sibling is set,
-     * @parent is optional.
+     * Inserts a new row after @sibling.
      *
-     * @iter will be changed to point to this new row.  The row will be empty after
-     * this function is called.  To fill in values, you need to call
+     * If @sibling is null, then the row will be prepended to @parent’s children.
+     *
+     * If @parent and @sibling are null, then the row will be prepended to the
+     * toplevel.
+     *
+     * If both @sibling and @parent are set, then @parent must be the parent
+     * of @sibling. When @sibling is set, @parent is optional.
+     *
+     * The @iter parameter will be changed to point to this new row. The row will
+     * be empty after this function is called. To fill in values, you need to call
      * gtk_tree_store_set() or gtk_tree_store_set_value().
      *
      * @param iter An unset `GtkTreeIter` to set to the new row
@@ -175,14 +190,18 @@ public open class TreeStore(
         )
 
     /**
-     * Inserts a new row before @sibling.  If @sibling is null, then the row will
-     * be appended to @parent ’s children.  If @parent and @sibling are null, then
-     * the row will be appended to the toplevel.  If both @sibling and @parent are
-     * set, then @parent must be the parent of @sibling.  When @sibling is set,
-     * @parent is optional.
+     * Inserts a new row before @sibling.
      *
-     * @iter will be changed to point to this new row.  The row will be empty after
-     * this function is called.  To fill in values, you need to call
+     * If @sibling is null, then the row will be appended to @parent’s children.
+     *
+     * If @parent and @sibling are null, then the row will be appended to the
+     * toplevel.
+     *
+     * If both @sibling and @parent are set, then @parent must be the parent
+     * of @sibling. When @sibling is set, @parent is optional.
+     *
+     * The @iter parameter will be changed to point to this new row. The row will
+     * be empty after this function is called. To fill in values, you need to call
      * gtk_tree_store_set() or gtk_tree_store_set_value().
      *
      * @param iter An unset `GtkTreeIter` to set to the new row
@@ -202,12 +221,11 @@ public open class TreeStore(
         )
 
     /**
-     * Returns true if @iter is an ancestor of @descendant.  That is, @iter is the
-     * parent (or grandparent or great-grandparent) of @descendant.
+     * Checks if @iter is an ancestor of @descendant.
      *
      * @param iter A valid `GtkTreeIter`
      * @param descendant A valid `GtkTreeIter`
-     * @return true, if @iter is an ancestor of @descendant
+     * @return true if @iter is an ancestor of @descendant, and false otherwise
      */
     public open fun isAncestor(
         iter: TreeIter,
@@ -220,11 +238,13 @@ public open class TreeStore(
         ).asBoolean()
 
     /**
-     * Returns the depth of @iter.  This will be 0 for anything on the root level, 1
-     * for anything down a level, etc.
+     * Returns the depth of the position pointed by the iterator
+     *
+     * The depth will be 0 for anything on the root level, 1 for anything down
+     * a level, etc.
      *
      * @param iter A valid `GtkTreeIter`
-     * @return The depth of @iter
+     * @return The depth of the position pointed by the iterator
      */
     public open fun iterDepth(iter: TreeIter): Int =
         gtk_tree_store_iter_depth(gtkTreeStorePointer.reinterpret(), iter.gtkTreeIterPointer)
@@ -236,7 +256,7 @@ public open class TreeStore(
      * purposes.
      *
      * @param iter the iterator to check
-     * @return true if the iter is valid, false if the iter is invalid.
+     * @return true if the iter is valid, and false otherwise
      */
     public open fun iterIsValid(iter: TreeIter): Boolean =
         gtk_tree_store_iter_is_valid(
@@ -245,10 +265,13 @@ public open class TreeStore(
         ).asBoolean()
 
     /**
-     * Moves @iter in @tree_store to the position after @position. @iter and
-     * @position should be in the same level. Note that this function only
-     * works with unsorted stores. If @position is null, @iter will be moved
-     * to the start of the level.
+     * Moves @iter in @tree_store to the position after @position.
+     *
+     * @iter and @position should be in the same level.
+     *
+     * Note that this function only works with unsorted stores.
+     *
+     * If @position is null, @iter will be moved to the start of the level.
      *
      * @param iter A `GtkTreeIter`.
      * @param position A `GtkTreeIter`.
@@ -264,10 +287,13 @@ public open class TreeStore(
         )
 
     /**
-     * Moves @iter in @tree_store to the position before @position. @iter and
-     * @position should be in the same level. Note that this function only
-     * works with unsorted stores. If @position is null, @iter will be
-     * moved to the end of the level.
+     * Moves @iter in @tree_store to the position before @position.
+     *
+     * @iter and @position should be in the same level.
+     *
+     * Note that this function only works with unsorted stores.
+     *
+     * If @position is null, @iter will be moved to the end of the level.
      *
      * @param iter A `GtkTreeIter`
      * @param position A `GtkTreeIter`
@@ -283,10 +309,12 @@ public open class TreeStore(
         )
 
     /**
-     * Prepends a new row to @tree_store.  If @parent is non-null, then it will prepend
-     * the new row before the first child of @parent, otherwise it will prepend a row
-     * to the top level.  @iter will be changed to point to this new row.  The row
-     * will be empty after this function is called.  To fill in values, you need to
+     * Prepends a new row to @tree_store.
+     *
+     * If @parent is non-null, then it will prepend the new row before the first
+     * child of @parent, otherwise it will prepend a row to the top level. The
+     * `iter` parameter will be changed to point to this new row.  The row will
+     * be empty after this function is called. To fill in values, you need to
      * call gtk_tree_store_set() or gtk_tree_store_set_value().
      *
      * @param iter An unset `GtkTreeIter` to set to the prepended row
@@ -303,12 +331,13 @@ public open class TreeStore(
         )
 
     /**
-     * Removes @iter from @tree_store.  After being removed, @iter is set to the
-     * next valid row at that level, or invalidated if it previously pointed to the
-     * last one.
+     * Removes @iter from @tree_store.
+     *
+     * After being removed, @iter is set to the next valid row at that level, or
+     * invalidated if it previously pointed to the last one.
      *
      * @param iter A valid `GtkTreeIter`
-     * @return true if @iter is still valid, false if not.
+     * @return true if @iter is still valid, and false otherwise
      */
     public open fun remove(iter: TreeIter): Boolean =
         gtk_tree_store_remove(
@@ -318,6 +347,7 @@ public open class TreeStore(
 
     /**
      * Sets the data in the cell specified by @iter and @column.
+     *
      * The type of @value must be convertible to the type of the
      * column.
      *
@@ -338,8 +368,9 @@ public open class TreeStore(
         )
 
     /**
-     * Swaps @a and @b in the same level of @tree_store. Note that this function
-     * only works with unsorted stores.
+     * Swaps @a and @b in the same level of @tree_store.
+     *
+     * Note that this function only works with unsorted stores.
      *
      * @param a A `GtkTreeIter`.
      * @param b Another `GtkTreeIter`.

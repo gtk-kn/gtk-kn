@@ -37,6 +37,7 @@ import org.gtkkn.native.gdk.gdk_display_get_app_launch_context
 import org.gtkkn.native.gdk.gdk_display_get_clipboard
 import org.gtkkn.native.gdk.gdk_display_get_default
 import org.gtkkn.native.gdk.gdk_display_get_default_seat
+import org.gtkkn.native.gdk.gdk_display_get_dmabuf_formats
 import org.gtkkn.native.gdk.gdk_display_get_monitor_at_surface
 import org.gtkkn.native.gdk.gdk_display_get_monitors
 import org.gtkkn.native.gdk.gdk_display_get_name
@@ -53,6 +54,7 @@ import org.gtkkn.native.gdk.gdk_display_open
 import org.gtkkn.native.gdk.gdk_display_prepare_gl
 import org.gtkkn.native.gdk.gdk_display_put_event
 import org.gtkkn.native.gdk.gdk_display_supports_input_shapes
+import org.gtkkn.native.gdk.gdk_display_supports_shadow_width
 import org.gtkkn.native.gdk.gdk_display_sync
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -87,12 +89,38 @@ import kotlin.Unit
  * - method `composited`: Property has no getter nor setter
  * - method `input-shapes`: Property has no getter nor setter
  * - method `rgba`: Property has no getter nor setter
+ * - method `shadow-width`: Property has no getter nor setter
  */
 public open class Display(
     pointer: CPointer<GdkDisplay>,
 ) : Object(pointer.reinterpret()), KGTyped {
     public val gdkDisplayPointer: CPointer<GdkDisplay>
         get() = gPointer.reinterpret()
+
+    /**
+     * The dma-buf formats that are supported on this display
+     *
+     * @since 4.14
+     */
+    public open val dmabufFormats: DmabufFormats
+        /**
+         * Returns the dma-buf formats that are supported on this display.
+         *
+         * GTK may use OpenGL or Vulkan to support some formats.
+         * Calling this function will then initialize them if they aren't yet.
+         *
+         * The formats returned by this function can be used for negotiating
+         * buffer formats with producers such as v4l, pipewire or GStreamer.
+         *
+         * To learn more about dma-bufs, see [class@Gdk.DmabufTextureBuilder].
+         *
+         * @return a `GdkDmabufFormats` object
+         * @since 4.14
+         */
+        get() =
+            gdk_display_get_dmabuf_formats(gdkDisplayPointer.reinterpret())!!.run {
+                DmabufFormats(reinterpret())
+            }
 
     /**
      * Emits a short beep on @display
@@ -199,21 +227,37 @@ public open class Display(
         }
 
     /**
+     * Returns the dma-buf formats that are supported on this display.
+     *
+     * GTK may use OpenGL or Vulkan to support some formats.
+     * Calling this function will then initialize them if they aren't yet.
+     *
+     * The formats returned by this function can be used for negotiating
+     * buffer formats with producers such as v4l, pipewire or GStreamer.
+     *
+     * To learn more about dma-bufs, see [class@Gdk.DmabufTextureBuilder].
+     *
+     * @return a `GdkDmabufFormats` object
+     * @since 4.14
+     */
+    public open fun getDmabufFormats(): DmabufFormats =
+        gdk_display_get_dmabuf_formats(gdkDisplayPointer.reinterpret())!!.run {
+            DmabufFormats(reinterpret())
+        }
+
+    /**
      * Gets the monitor in which the largest area of @surface
      * resides.
-     *
-     * Returns a monitor close to @surface if it is outside
-     * of all monitors.
      *
      * @param surface a `GdkSurface`
      * @return the monitor with the largest
      *   overlap with @surface
      */
-    public open fun getMonitorAtSurface(surface: Surface): Monitor =
+    public open fun getMonitorAtSurface(surface: Surface): Monitor? =
         gdk_display_get_monitor_at_surface(
             gdkDisplayPointer.reinterpret(),
             surface.gdkSurfacePointer.reinterpret()
-        )!!.run {
+        )?.run {
             Monitor(reinterpret())
         }
 
@@ -342,9 +386,9 @@ public open class Display(
      * Indicates to the GUI environment that the application has
      * finished loading, using a given identifier.
      *
-     * GTK will call this function automatically for [class@Gtk.Window]
+     * GTK will call this function automatically for [GtkWindow](../gtk4/class.Window.html)
      * with custom startup-notification identifier unless
-     * [method@Gtk.Window.set_auto_startup_notification]
+     * [gtk_window_set_auto_startup_notification()](../gtk4/method.Window.set_auto_startup_notification.html)
      * is called to disable that feature.
      *
      * @param startupId a startup-notification identifier, for which
@@ -388,11 +432,7 @@ public open class Display(
         }
 
     /**
-     * Appends the given event onto the front of the event
-     * queue for @display.
-     *
-     * This function is only useful in very special situations
-     * and should not be used by applications.
+     * Adds the given event to the event queue for @display.
      *
      * @param event a `GdkEvent`
      */
@@ -411,6 +451,19 @@ public open class Display(
      */
     public open fun supportsInputShapes(): Boolean =
         gdk_display_supports_input_shapes(gdkDisplayPointer.reinterpret()).asBoolean()
+
+    /**
+     * Returns whether it's possible for a surface to draw outside of the window area.
+     *
+     * If true is returned the application decides if it wants to draw shadows.
+     * If false is returned, the compositor decides if it wants to draw shadows.
+     *
+     * @return true if surfaces can draw shadows or
+     *   false if the display does not support this functionality.
+     * @since 4.14
+     */
+    public open fun supportsShadowWidth(): Boolean =
+        gdk_display_supports_shadow_width(gdkDisplayPointer.reinterpret()).asBoolean()
 
     /**
      * Flushes any requests queued for the windowing system and waits until all
@@ -554,7 +607,7 @@ public open class Display(
          * @param displayName the name of the display to open
          * @return a `GdkDisplay`
          */
-        public fun `open`(displayName: String): Display? =
+        public fun `open`(displayName: String? = null): Display? =
             gdk_display_open(displayName)?.run {
                 Display(reinterpret())
             }

@@ -14,7 +14,7 @@ import org.gtkkn.native.gio.g_zlib_decompressor_get_type
 import org.gtkkn.native.gio.g_zlib_decompressor_new
 
 /**
- * #GZlibDecompressor is an implementation of #GConverter that
+ * `GZlibDecompressor` is an implementation of [iface@Gio.Converter] that
  * decompresses data compressed with zlib.
  *
  * ## Skipped during bindings generation

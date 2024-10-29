@@ -134,7 +134,7 @@ public open class TextBuffer(
         /**
          * Gets whether there is a redoable action in the history.
          *
-         * @return true if there is an redoable action
+         * @return true if there is a redoable action
          */
         get() = gtk_text_buffer_get_can_redo(gtkTextBufferPointer.reinterpret()).asBoolean()
 
@@ -160,6 +160,8 @@ public open class TextBuffer(
          * See [method@Gtk.TextBuffer.begin_irreversible_action] and
          * [method@Gtk.TextBuffer.end_irreversible_action] to create
          * changes to the buffer that cannot be undone.
+         *
+         * @return true if undoing and redoing changes to the buffer is allowed.
          */
         get() = gtk_text_buffer_get_enable_undo(gtkTextBufferPointer.reinterpret()).asBoolean()
 
@@ -607,7 +609,7 @@ public open class TextBuffer(
     /**
      * Gets whether there is a redoable action in the history.
      *
-     * @return true if there is an redoable action
+     * @return true if there is a redoable action
      */
     public open fun getCanRedo(): Boolean = gtk_text_buffer_get_can_redo(gtkTextBufferPointer.reinterpret()).asBoolean()
 
@@ -638,6 +640,8 @@ public open class TextBuffer(
      * See [method@Gtk.TextBuffer.begin_irreversible_action] and
      * [method@Gtk.TextBuffer.end_irreversible_action] to create
      * changes to the buffer that cannot be undone.
+     *
+     * @return true if undoing and redoing changes to the buffer is allowed.
      */
     public open fun getEnableUndo(): Boolean =
         gtk_text_buffer_get_enable_undo(gtkTextBufferPointer.reinterpret()).asBoolean()
@@ -836,6 +840,8 @@ public open class TextBuffer(
      * If 0, unlimited undo actions may be performed. Note that this may
      * have a memory usage impact as it requires storing an additional
      * copy of the inserted or removed text within the text buffer.
+     *
+     * @return The max number of undo levels allowed (0 indicates unlimited).
      */
     public open fun getMaxUndoLevels(): UInt = gtk_text_buffer_get_max_undo_levels(gtkTextBufferPointer.reinterpret())
 
@@ -1333,7 +1339,7 @@ public open class TextBuffer(
 
     /**
      * Removes a `GdkClipboard` added with
-     * gtk_text_buffer_add_selection_clipboard().
+     * [method@Gtk.TextBuffer.add_selection_clipboard]
      *
      * @param clipboard a `GdkClipboard` added to @buffer by
      *   [method@Gtk.TextBuffer.add_selection_clipboard]
@@ -1454,7 +1460,7 @@ public open class TextBuffer(
      * Whenever the buffer is saved to disk, call
      * `gtk_text_buffer_set_modified (@buffer, FALSE)`.
      * When the buffer is modified, it will automatically
-     * toggled on the modified bit again. When the modified
+     * toggle on the modified bit again. When the modified
      * bit flips, the buffer emits the
      * [signal@Gtk.TextBuffer::modified-changed] signal.
      *
@@ -1464,7 +1470,10 @@ public open class TextBuffer(
         gtk_text_buffer_set_modified(gtkTextBufferPointer.reinterpret(), setting.asGBoolean())
 
     /**
-     * Deletes current contents of @buffer, and inserts @text instead.
+     * Deletes current contents of @buffer, and inserts @text instead. This is
+     * automatically marked as an irreversible action in the undo stack. If you
+     * wish to mark this action as part of a larger undo operation, call
+     * [method@TextBuffer.delete] and [method@TextBuffer.insert] directly instead.
      *
      * If @len is -1, @text must be nul-terminated.
      * @text must be valid UTF-8.

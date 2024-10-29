@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.native.gtk.GtkLicense
+import org.gtkkn.native.gtk.GtkLicense.GTK_LICENSE_0BSD
 import org.gtkkn.native.gtk.GtkLicense.GTK_LICENSE_AGPL_3_0
 import org.gtkkn.native.gtk.GtkLicense.GTK_LICENSE_AGPL_3_0_ONLY
 import org.gtkkn.native.gtk.GtkLicense.GTK_LICENSE_APACHE_2_0
@@ -119,6 +120,11 @@ public enum class License(
      * The Mozilla Public License, version 2.0
      */
     MPL_2_0(GTK_LICENSE_MPL_2_0),
+
+    /**
+     * Zero-Clause BSD license
+     */
+    `0BSD`(GTK_LICENSE_0BSD),
     ;
 
     public companion object {
@@ -142,6 +148,7 @@ public enum class License(
                 GTK_LICENSE_BSD_3 -> BSD_3
                 GTK_LICENSE_APACHE_2_0 -> APACHE_2_0
                 GTK_LICENSE_MPL_2_0 -> MPL_2_0
+                GTK_LICENSE_0BSD -> `0BSD`
                 else -> error("invalid nativeValue")
             }
     }

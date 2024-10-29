@@ -30,7 +30,11 @@ import org.gtkkn.native.gio.g_app_info_get_all
 import org.gtkkn.native.gio.g_app_info_get_all_for_type
 import org.gtkkn.native.gio.g_app_info_get_commandline
 import org.gtkkn.native.gio.g_app_info_get_default_for_type
+import org.gtkkn.native.gio.g_app_info_get_default_for_type_async
+import org.gtkkn.native.gio.g_app_info_get_default_for_type_finish
 import org.gtkkn.native.gio.g_app_info_get_default_for_uri_scheme
+import org.gtkkn.native.gio.g_app_info_get_default_for_uri_scheme_async
+import org.gtkkn.native.gio.g_app_info_get_default_for_uri_scheme_finish
 import org.gtkkn.native.gio.g_app_info_get_description
 import org.gtkkn.native.gio.g_app_info_get_display_name
 import org.gtkkn.native.gio.g_app_info_get_executable
@@ -65,32 +69,35 @@ import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
 /**
- * #GAppInfo and #GAppLaunchContext are used for describing and launching
+ * Information about an installed application and methods to launch
+ * it (with file arguments).
+ *
+ * `GAppInfo` and `GAppLaunchContext` are used for describing and launching
  * applications installed on the system.
  *
  * As of GLib 2.20, URIs will always be converted to POSIX paths
- * (using g_file_get_path()) when using g_app_info_launch() even if
- * the application requested an URI and not a POSIX path. For example
+ * (using [method@Gio.File.get_path]) when using [method@Gio.AppInfo.launch]
+ * even if the application requested an URI and not a POSIX path. For example
  * for a desktop-file based application with Exec key `totem
  * %U` and a single URI, `sftp://foo/file.avi`, then
  * `/home/user/.gvfs/sftp on foo/file.avi` will be passed. This will
- * only work if a set of suitable GIO extensions (such as gvfs 2.26
+ * only work if a set of suitable GIO extensions (such as GVfs 2.26
  * compiled with FUSE support), is available and operational; if this
  * is not the case, the URI will be passed unmodified to the application.
  * Some URIs, such as `mailto:`, of course cannot be mapped to a POSIX
- * path (in gvfs there's no FUSE mount for it); such URIs will be
+ * path (in GVfs there's no FUSE mount for it); such URIs will be
  * passed unmodified to the application.
  *
- * Specifically for gvfs 2.26 and later, the POSIX URI will be mapped
- * back to the GIO URI in the #GFile constructors (since gvfs
- * implements the #GVfs extension point). As such, if the application
- * needs to examine the URI, it needs to use g_file_get_uri() or
- * similar on #GFile. In other words, an application cannot assume
- * that the URI passed to e.g. g_file_new_for_commandline_arg() is
- * equal to the result of g_file_get_uri(). The following snippet
+ * Specifically for GVfs 2.26 and later, the POSIX URI will be mapped
+ * back to the GIO URI in the [iface@Gio.File] constructors (since GVfs
+ * implements the GVfs extension point). As such, if the application
+ * needs to examine the URI, it needs to use [method@Gio.File.get_uri]
+ * or similar on [iface@Gio.File]. In other words, an application cannot
+ * assume that the URI passed to e.g. [func@Gio.File.new_for_commandline_arg]
+ * is equal to the result of [method@Gio.File.get_uri]. The following snippet
  * illustrates this:
  *
- * |[
+ * ```c
  * GFile *f;
  * char *uri;
  *
@@ -105,7 +112,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  *     // do something special with uri
  *   }
  * g_object_unref (file);
- * ]|
+ * ```
  *
  * This code will work when both `cdda://sr0/Track 1.wav` and
  * `/home/user/.gvfs/cdda on sr0/Track 1.wav` is passed to the
@@ -229,6 +236,10 @@ public interface AppInfo : Interface, KGTyped {
     /**
      * Gets the executable's name for the installed application.
      *
+     * This is intended to be used for debugging or labelling what program is going
+     * to be run. To launch the executable, use g_app_info_launch() and related
+     * functions, rather than spawning the return value from this function.
+     *
      * @return a string containing the @appinfo's application
      * binaries name
      */
@@ -310,9 +321,9 @@ public interface AppInfo : Interface, KGTyped {
      * environment variable with the path of the launched desktop file and
      * `GIO_LAUNCHED_DESKTOP_FILE_PID` to the process id of the launched
      * process. This can be used to ignore `GIO_LAUNCHED_DESKTOP_FILE`,
-     * should it be inherited by further processes. The `DISPLAY` and
-     * `DESKTOP_STARTUP_ID` environment variables are also set, based
-     * on information provided in @context.
+     * should it be inherited by further processes. The `DISPLAY`,
+     * `XDG_ACTIVATION_TOKEN` and `DESKTOP_STARTUP_ID` environment
+     * variables are also set, based on information provided in @context.
      *
      * @param files a #GList of #GFile objects
      * @param context a #GAppLaunchContext or null
@@ -342,7 +353,9 @@ public interface AppInfo : Interface, KGTyped {
      * Launches the application. This passes the @uris to the launched application
      * as arguments, using the optional @context to get information
      * about the details of the launcher (like what screen it is on).
-     * On error, @error will be set accordingly.
+     * On error, @error will be set accordingly. If the application only supports
+     * one URI per invocation as part of their command-line, multiple instances
+     * of the application will be spawned.
      *
      * To launch the application without arguments pass a null @uris list.
      *
@@ -645,6 +658,59 @@ public interface AppInfo : Interface, KGTyped {
             }
 
         /**
+         * Asynchronously gets the default #GAppInfo for a given content type.
+         *
+         * @param contentType the content type to find a #GAppInfo for
+         * @param mustSupportUris if true, the #GAppInfo is expected to
+         *     support URIs
+         * @param cancellable optional #GCancellable object, null to ignore
+         * @param callback a #GAsyncReadyCallback to call when the request is done
+         * @since 2.74
+         */
+        public fun getDefaultForTypeAsync(
+            contentType: String,
+            mustSupportUris: Boolean,
+            cancellable: Cancellable? = null,
+            callback: AsyncReadyCallback,
+        ): Unit =
+            g_app_info_get_default_for_type_async(
+                contentType,
+                mustSupportUris.asGBoolean(),
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                AsyncReadyCallbackFunc.reinterpret(),
+                StableRef.create(callback).asCPointer()
+            )
+
+        /**
+         * Finishes a default #GAppInfo lookup started by
+         * g_app_info_get_default_for_type_async().
+         *
+         * If no #GAppInfo is found, then @error will be set to %G_IO_ERROR_NOT_FOUND.
+         *
+         * @param result a #GAsyncResult
+         * @return #GAppInfo for given @content_type or
+         *     null on error.
+         * @since 2.74
+         */
+        public fun getDefaultForTypeFinish(result: AsyncResult): Result<AppInfo> =
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                val gResult =
+                    g_app_info_get_default_for_type_finish(
+                        result.gioAsyncResultPointer,
+                        gError.ptr
+                    )?.run {
+                        AppInfo.wrap(reinterpret())
+                    }
+
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    Result.success(checkNotNull(gResult))
+                }
+            }
+
+        /**
          * Gets the default application for handling URIs with
          * the given URI scheme. A URI scheme is the initial part
          * of the URI, up to but not including the ':', e.g. "http",
@@ -657,6 +723,58 @@ public interface AppInfo : Interface, KGTyped {
         public fun getDefaultForUriScheme(uriScheme: String): AppInfo? =
             g_app_info_get_default_for_uri_scheme(uriScheme)?.run {
                 AppInfo.wrap(reinterpret())
+            }
+
+        /**
+         * Asynchronously gets the default application for handling URIs with
+         * the given URI scheme. A URI scheme is the initial part
+         * of the URI, up to but not including the ':', e.g. "http",
+         * "ftp" or "sip".
+         *
+         * @param uriScheme a string containing a URI scheme.
+         * @param cancellable optional #GCancellable object, null to ignore
+         * @param callback a #GAsyncReadyCallback to call when the request is done
+         * @since 2.74
+         */
+        public fun getDefaultForUriSchemeAsync(
+            uriScheme: String,
+            cancellable: Cancellable? = null,
+            callback: AsyncReadyCallback,
+        ): Unit =
+            g_app_info_get_default_for_uri_scheme_async(
+                uriScheme,
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                AsyncReadyCallbackFunc.reinterpret(),
+                StableRef.create(callback).asCPointer()
+            )
+
+        /**
+         * Finishes a default #GAppInfo lookup started by
+         * g_app_info_get_default_for_uri_scheme_async().
+         *
+         * If no #GAppInfo is found, then @error will be set to %G_IO_ERROR_NOT_FOUND.
+         *
+         * @param result a #GAsyncResult
+         * @return #GAppInfo for given @uri_scheme or
+         *     null on error.
+         * @since 2.74
+         */
+        public fun getDefaultForUriSchemeFinish(result: AsyncResult): Result<AppInfo> =
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                val gResult =
+                    g_app_info_get_default_for_uri_scheme_finish(
+                        result.gioAsyncResultPointer,
+                        gError.ptr
+                    )?.run {
+                        AppInfo.wrap(reinterpret())
+                    }
+
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    Result.success(checkNotNull(gResult))
+                }
             }
 
         /**

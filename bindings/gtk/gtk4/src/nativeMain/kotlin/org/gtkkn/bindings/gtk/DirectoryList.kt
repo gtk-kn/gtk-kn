@@ -38,7 +38,7 @@ import kotlin.Unit
  * It presents a `GListModel` and fills it asynchronously with the `GFileInfo`s
  * returned from that function.
  *
- * Enumeration will start automatically when a the
+ * Enumeration will start automatically when the
  * [property@Gtk.DirectoryList:file] property is set.
  *
  * While the `GtkDirectoryList` is being filled, the
@@ -58,7 +58,9 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - method `item-type`: Property has no getter nor setter
  * - method `loading`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class DirectoryList(
     pointer: CPointer<GtkDirectoryList>,
@@ -84,8 +86,8 @@ public open class DirectoryList(
         /**
          * Sets the @attributes to be enumerated and starts the enumeration.
          *
-         * If @attributes is null, no attributes will be queried, but a list
-         * of `GFileInfo`s will still be created.
+         * If @attributes is null, the list of file infos will still be created, it will just
+         * not contain any extra attributes.
          *
          * @param attributes the attributes to enumerate
          */
@@ -288,8 +290,8 @@ public open class DirectoryList(
     /**
      * Sets the @attributes to be enumerated and starts the enumeration.
      *
-     * If @attributes is null, no attributes will be queried, but a list
-     * of `GFileInfo`s will still be created.
+     * If @attributes is null, the list of file infos will still be created, it will just
+     * not contain any extra attributes.
      *
      * @param attributes the attributes to enumerate
      */

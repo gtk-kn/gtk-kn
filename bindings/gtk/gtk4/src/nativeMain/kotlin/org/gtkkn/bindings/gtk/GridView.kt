@@ -28,14 +28,17 @@ import org.gtkkn.native.gtk.gtk_grid_view_get_max_columns
 import org.gtkkn.native.gtk.gtk_grid_view_get_min_columns
 import org.gtkkn.native.gtk.gtk_grid_view_get_model
 import org.gtkkn.native.gtk.gtk_grid_view_get_single_click_activate
+import org.gtkkn.native.gtk.gtk_grid_view_get_tab_behavior
 import org.gtkkn.native.gtk.gtk_grid_view_get_type
 import org.gtkkn.native.gtk.gtk_grid_view_new
+import org.gtkkn.native.gtk.gtk_grid_view_scroll_to
 import org.gtkkn.native.gtk.gtk_grid_view_set_enable_rubberband
 import org.gtkkn.native.gtk.gtk_grid_view_set_factory
 import org.gtkkn.native.gtk.gtk_grid_view_set_max_columns
 import org.gtkkn.native.gtk.gtk_grid_view_set_min_columns
 import org.gtkkn.native.gtk.gtk_grid_view_set_model
 import org.gtkkn.native.gtk.gtk_grid_view_set_single_click_activate
+import org.gtkkn.native.gtk.gtk_grid_view_set_tab_behavior
 import kotlin.Boolean
 import kotlin.UInt
 import kotlin.ULong
@@ -218,7 +221,7 @@ public open class GridView(
             }
 
         /**
-         * Sets the imodel to use.
+         * Sets the model to use.
          *
          * This must be a [iface@Gtk.SelectionModel].
          *
@@ -253,6 +256,35 @@ public open class GridView(
             gtk_grid_view_set_single_click_activate(
                 gtkGridViewPointer.reinterpret(),
                 singleClickActivate.asGBoolean()
+            )
+
+    /**
+     * Behavior of the <kbd>Tab</kbd> key
+     *
+     * @since 4.12
+     */
+    public open var tabBehavior: ListTabBehavior
+        /**
+         * Gets the behavior set for the <kbd>Tab</kbd> key.
+         *
+         * @return The behavior of the <kbd>Tab</kbd> key
+         * @since 4.12
+         */
+        get() =
+            gtk_grid_view_get_tab_behavior(gtkGridViewPointer.reinterpret()).run {
+                ListTabBehavior.fromNativeValue(this)
+            }
+
+        /**
+         * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
+         *
+         * @param tabBehavior The desired tab behavior
+         * @since 4.12
+         */
+        set(tabBehavior) =
+            gtk_grid_view_set_tab_behavior(
+                gtkGridViewPointer.reinterpret(),
+                tabBehavior.nativeValue
             )
 
     /**
@@ -330,6 +362,42 @@ public open class GridView(
         gtk_grid_view_get_single_click_activate(gtkGridViewPointer.reinterpret()).asBoolean()
 
     /**
+     * Gets the behavior set for the <kbd>Tab</kbd> key.
+     *
+     * @return The behavior of the <kbd>Tab</kbd> key
+     * @since 4.12
+     */
+    public open fun getTabBehavior(): ListTabBehavior =
+        gtk_grid_view_get_tab_behavior(gtkGridViewPointer.reinterpret()).run {
+            ListTabBehavior.fromNativeValue(this)
+        }
+
+    /**
+     * Scrolls to the item at the given position and performs the actions
+     * specified in @flags.
+     *
+     * This function works no matter if the gridview is shown or focused.
+     * If it isn't, then the changes will take effect once that happens.
+     *
+     * @param pos position of the item
+     * @param flags actions to perform
+     * @param scroll details of how to perform
+     *   the scroll operation or null to scroll into view
+     * @since 4.12
+     */
+    public open fun scrollTo(
+        pos: UInt,
+        flags: ListScrollFlags,
+        scroll: ScrollInfo? = null,
+    ): Unit =
+        gtk_grid_view_scroll_to(
+            gtkGridViewPointer.reinterpret(),
+            pos,
+            flags.mask,
+            scroll?.gtkScrollInfoPointer
+        )
+
+    /**
      * Sets whether selections can be changed by dragging with the mouse.
      *
      * @param enableRubberband true to enable rubberband selection
@@ -378,7 +446,7 @@ public open class GridView(
         gtk_grid_view_set_min_columns(gtkGridViewPointer.reinterpret(), minColumns)
 
     /**
-     * Sets the imodel to use.
+     * Sets the model to use.
      *
      * This must be a [iface@Gtk.SelectionModel].
      *
@@ -400,6 +468,18 @@ public open class GridView(
         gtk_grid_view_set_single_click_activate(
             gtkGridViewPointer.reinterpret(),
             singleClickActivate.asGBoolean()
+        )
+
+    /**
+     * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
+     *
+     * @param tabBehavior The desired tab behavior
+     * @since 4.12
+     */
+    public open fun setTabBehavior(tabBehavior: ListTabBehavior): Unit =
+        gtk_grid_view_set_tab_behavior(
+            gtkGridViewPointer.reinterpret(),
+            tabBehavior.nativeValue
         )
 
     /**

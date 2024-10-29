@@ -8,8 +8,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.glib.IOCondition
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -24,9 +24,6 @@ import org.gtkkn.native.gio.g_socket_accept
 import org.gtkkn.native.gio.g_socket_bind
 import org.gtkkn.native.gio.g_socket_check_connect_result
 import org.gtkkn.native.gio.g_socket_close
-import org.gtkkn.native.gio.g_socket_condition_check
-import org.gtkkn.native.gio.g_socket_condition_timed_wait
-import org.gtkkn.native.gio.g_socket_condition_wait
 import org.gtkkn.native.gio.g_socket_connect
 import org.gtkkn.native.gio.g_socket_connection_factory_create_connection
 import org.gtkkn.native.gio.g_socket_get_available_bytes
@@ -55,6 +52,7 @@ import org.gtkkn.native.gio.g_socket_leave_multicast_group_ssm
 import org.gtkkn.native.gio.g_socket_listen
 import org.gtkkn.native.gio.g_socket_new
 import org.gtkkn.native.gio.g_socket_new_from_fd
+import org.gtkkn.native.gio.g_socket_receive_bytes
 import org.gtkkn.native.gio.g_socket_set_blocking
 import org.gtkkn.native.gio.g_socket_set_broadcast
 import org.gtkkn.native.gio.g_socket_set_keepalive
@@ -74,44 +72,46 @@ import kotlin.Result
 import kotlin.String
 import kotlin.Throws
 import kotlin.UInt
+import kotlin.ULong
 import kotlin.Unit
 
 /**
- * A #GSocket is a low-level networking primitive. It is a more or less
+ * A `GSocket` is a low-level networking primitive. It is a more or less
  * direct mapping of the BSD socket API in a portable GObject based API.
  * It supports both the UNIX socket implementations and winsock2 on Windows.
  *
- * #GSocket is the platform independent base upon which the higher level
+ * `GSocket` is the platform independent base upon which the higher level
  * network primitives are based. Applications are not typically meant to
- * use it directly, but rather through classes like #GSocketClient,
- * #GSocketService and #GSocketConnection. However there may be cases where
- * direct use of #GSocket is useful.
+ * use it directly, but rather through classes like [class@Gio.SocketClient],
+ * [class@Gio.SocketService] and [class@Gio.SocketConnection]. However there may
+ * be cases where direct use of `GSocket` is useful.
  *
- * #GSocket implements the #GInitable interface, so if it is manually constructed
- * by e.g. g_object_new() you must call g_initable_init() and check the
- * results before using the object. This is done automatically in
- * g_socket_new() and g_socket_new_from_fd(), so these functions can return
- * null.
+ * `GSocket` implements the [iface@Gio.Initable] interface, so if it is manually
+ * constructed by e.g. [ctor@GObject.Object.new] you must call
+ * [method@Gio.Initable.init] and check the results before using the object.
+ * This is done automatically in [ctor@Gio.Socket.new] and
+ * [ctor@Gio.Socket.new_from_fd], so these functions can return `NULL`.
  *
  * Sockets operate in two general modes, blocking or non-blocking. When
  * in blocking mode all operations (which don’t take an explicit blocking
  * parameter) block until the requested operation
  * is finished or there is an error. In non-blocking mode all calls that
- * would block return immediately with a %G_IO_ERROR_WOULD_BLOCK error.
- * To know when a call would successfully run you can call g_socket_condition_check(),
- * or g_socket_condition_wait(). You can also use g_socket_create_source() and
- * attach it to a #GMainContext to get callbacks when I/O is possible.
+ * would block return immediately with a `G_IO_ERROR_WOULD_BLOCK` error.
+ * To know when a call would successfully run you can call
+ * [method@Gio.Socket.condition_check], or [method@Gio.Socket.condition_wait].
+ * You can also use [method@Gio.Socket.create_source] and attach it to a
+ * [type@GLib.MainContext] to get callbacks when I/O is possible.
  * Note that all sockets are always set to non blocking mode in the system, and
- * blocking mode is emulated in GSocket.
+ * blocking mode is emulated in `GSocket`.
  *
  * When working in non-blocking mode applications should always be able to
- * handle getting a %G_IO_ERROR_WOULD_BLOCK error even when some other
+ * handle getting a `G_IO_ERROR_WOULD_BLOCK` error even when some other
  * function said that I/O was possible. This can easily happen in case
  * of a race condition in the application, but it can also happen for other
  * reasons. For instance, on Windows a socket is always seen as writable
- * until a write returns %G_IO_ERROR_WOULD_BLOCK.
+ * until a write returns `G_IO_ERROR_WOULD_BLOCK`.
  *
- * #GSockets can be either connection oriented or datagram based.
+ * `GSocket`s can be either connection oriented or datagram based.
  * For connection oriented types you must first establish a connection by
  * either connecting to an address or accepting a connection from another
  * address. For connectionless socket types the target/source address is
@@ -119,20 +119,42 @@ import kotlin.Unit
  *
  * All socket file descriptors are set to be close-on-exec.
  *
- * Note that creating a #GSocket causes the signal %SIGPIPE to be
+ * Note that creating a `GSocket` causes the signal `SIGPIPE` to be
  * ignored for the remainder of the program. If you are writing a
- * command-line utility that uses #GSocket, you may need to take into
+ * command-line utility that uses `GSocket`, you may need to take into
  * account the fact that your program will not automatically be killed
- * if it tries to write to %stdout after it has been closed.
+ * if it tries to write to `stdout` after it has been closed.
  *
- * Like most other APIs in GLib, #GSocket is not inherently thread safe. To use
- * a #GSocket concurrently from multiple threads, you must implement your own
+ * Like most other APIs in GLib, `GSocket` is not inherently thread safe. To use
+ * a `GSocket` concurrently from multiple threads, you must implement your own
  * locking.
+ *
+ * ## Nagle’s algorithm
+ *
+ * Since GLib 2.80, `GSocket` will automatically set the `TCP_NODELAY` option on
+ * all `G_SOCKET_TYPE_STREAM` sockets. This disables
+ * [Nagle’s algorithm](https://en.wikipedia.org/wiki/Nagle%27s_algorithm) as it
+ * typically does more harm than good on modern networks.
+ *
+ * If your application needs Nagle’s algorithm enabled, call
+ * [method@Gio.Socket.set_option] after constructing a `GSocket` to enable it:
+ * ```c
+ * socket = g_socket_new (…, G_SOCKET_TYPE_STREAM, …);
+ * if (socket != NULL)
+ *   {
+ *     g_socket_set_option (socket, IPPROTO_TCP, TCP_NODELAY, FALSE, &local_error);
+ *     // handle error if needed
+ *   }
+ * ```
  *
  * ## Skipped during bindings generation
  *
+ * - parameter `condition`: C Type GIOCondition is ignored
+ * - parameter `condition`: C Type GIOCondition is ignored
+ * - parameter `condition`: C Type GIOCondition is ignored
  * - parameter `value`: value: Out parameter is not supported
  * - parameter `buffer`: buffer: Out parameter is not supported
+ * - parameter `address`: address: Out parameter is not supported
  * - parameter `address`: address: Out parameter is not supported
  * - method `receive_message`: In/Out parameter is not supported
  * - parameter `messages`: InputMessage
@@ -161,6 +183,11 @@ public open class Socket(
     override val gioInitablePointer: CPointer<GInitable>
         get() = gPointer.reinterpret()
 
+    /**
+     * Whether I/O on this socket is blocking.
+     *
+     * @since 2.22
+     */
     public open var blocking: Boolean
         /**
          * Gets the blocking mode of the socket. For details on blocking I/O,
@@ -217,6 +244,11 @@ public open class Socket(
                 broadcast.asGBoolean()
             )
 
+    /**
+     * The socket’s address family.
+     *
+     * @since 2.22
+     */
     public open val family: SocketFamily
         /**
          * Gets the socket family of the socket.
@@ -229,6 +261,11 @@ public open class Socket(
                 SocketFamily.fromNativeValue(this)
             }
 
+    /**
+     * The socket’s file descriptor.
+     *
+     * @since 2.22
+     */
     public open val fd: Int
         /**
          * Returns the underlying OS socket object. On unix this
@@ -242,6 +279,11 @@ public open class Socket(
          */
         get() = g_socket_get_fd(gioSocketPointer.reinterpret())
 
+    /**
+     * Whether to keep the connection alive by sending periodic pings.
+     *
+     * @since 2.22
+     */
     public open var keepalive: Boolean
         /**
          * Gets the keepalive mode of the socket. For details on this,
@@ -278,6 +320,11 @@ public open class Socket(
                 keepalive.asGBoolean()
             )
 
+    /**
+     * The number of outstanding connections in the listen queue.
+     *
+     * @since 2.22
+     */
     public open var listenBacklog: Int
         /**
          * Gets the listen backlog setting of the socket. For details on this,
@@ -358,6 +405,11 @@ public open class Socket(
          */
         set(ttl) = g_socket_set_multicast_ttl(gioSocketPointer.reinterpret(), ttl)
 
+    /**
+     * The ID of the protocol to use, or `-1` for unknown.
+     *
+     * @since 2.22
+     */
     public open val protocol: SocketProtocol
         /**
          * Gets the socket protocol id the socket was created with.
@@ -660,117 +712,6 @@ public open class Socket(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_socket_close(gioSocketPointer.reinterpret(), gError.ptr).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
-        }
-
-    /**
-     * Checks on the readiness of @socket to perform operations.
-     * The operations specified in @condition are checked for and masked
-     * against the currently-satisfied conditions on @socket. The result
-     * is returned.
-     *
-     * Note that on Windows, it is possible for an operation to return
-     * %G_IO_ERROR_WOULD_BLOCK even immediately after
-     * g_socket_condition_check() has claimed that the socket is ready for
-     * writing. Rather than calling g_socket_condition_check() and then
-     * writing to the socket if it succeeds, it is generally better to
-     * simply try writing to the socket right away, and try again later if
-     * the initial attempt returns %G_IO_ERROR_WOULD_BLOCK.
-     *
-     * It is meaningless to specify %G_IO_ERR or %G_IO_HUP in condition;
-     * these conditions will always be set in the output if they are true.
-     *
-     * This call never blocks.
-     *
-     * @param condition a #GIOCondition mask to check
-     * @return the @GIOCondition mask of the current state
-     * @since 2.22
-     */
-    open override fun conditionCheck(condition: IOCondition): IOCondition =
-        g_socket_condition_check(gioSocketPointer.reinterpret(), condition.mask).run {
-            IOCondition(this)
-        }
-
-    /**
-     * Waits for up to @timeout_us microseconds for @condition to become true
-     * on @socket. If the condition is met, true is returned.
-     *
-     * If @cancellable is cancelled before the condition is met, or if
-     * @timeout_us (or the socket's #GSocket:timeout) is reached before the
-     * condition is met, then false is returned and @error, if non-null,
-     * is set to the appropriate value (%G_IO_ERROR_CANCELLED or
-     * %G_IO_ERROR_TIMED_OUT).
-     *
-     * If you don't want a timeout, use g_socket_condition_wait().
-     * (Alternatively, you can pass -1 for @timeout_us.)
-     *
-     * Note that although @timeout_us is in microseconds for consistency with
-     * other GLib APIs, this function actually only has millisecond
-     * resolution, and the behavior is undefined if @timeout_us is not an
-     * exact number of milliseconds.
-     *
-     * @param condition a #GIOCondition mask to wait for
-     * @param timeoutUs the maximum time (in microseconds) to wait, or -1
-     * @param cancellable a #GCancellable, or null
-     * @return true if the condition was met, false otherwise
-     * @since 2.32
-     */
-    public open fun conditionTimedWait(
-        condition: IOCondition,
-        timeoutUs: Long,
-        cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_condition_timed_wait(
-                    gioSocketPointer.reinterpret(),
-                    condition.mask,
-                    timeoutUs,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
-        }
-
-    /**
-     * Waits for @condition to become true on @socket. When the condition
-     * is met, true is returned.
-     *
-     * If @cancellable is cancelled before the condition is met, or if the
-     * socket has a timeout set and it is reached before the condition is
-     * met, then false is returned and @error, if non-null, is set to
-     * the appropriate value (%G_IO_ERROR_CANCELLED or
-     * %G_IO_ERROR_TIMED_OUT).
-     *
-     * See also g_socket_condition_timed_wait().
-     *
-     * @param condition a #GIOCondition mask to wait for
-     * @param cancellable a #GCancellable, or null
-     * @return true if the condition was met, false otherwise
-     * @since 2.22
-     */
-    public open fun conditionWait_(
-        condition: IOCondition,
-        cancellable: Cancellable? = null,
-    ): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_condition_wait(
-                    gioSocketPointer.reinterpret(),
-                    condition.mask,
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -1271,6 +1212,50 @@ public open class Socket(
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
                 Result.success(gResult)
+            }
+        }
+
+    /**
+     * Receives data (up to @size bytes) from a socket.
+     *
+     * This function is a variant of [method@Gio.Socket.receive] which returns a
+     * [struct@GLib.Bytes] rather than a plain buffer.
+     *
+     * Pass `-1` to @timeout_us to block indefinitely until data is received (or
+     * the connection is closed, or there is an error). Pass `0` to use the default
+     * timeout from [property@Gio.Socket:timeout], or pass a positive number to wait
+     * for that many microseconds for data before returning `G_IO_ERROR_TIMED_OUT`.
+     *
+     * @param size the number of bytes you want to read from the socket
+     * @param timeoutUs the timeout to wait for, in microseconds, or `-1` to block
+     *   indefinitely
+     * @param cancellable a %GCancellable, or `NULL`
+     * @return a bytes buffer containing the
+     *   received bytes, or `NULL` on error
+     * @since 2.80
+     */
+    public open fun receiveBytes(
+        size: ULong,
+        timeoutUs: Long,
+        cancellable: Cancellable? = null,
+    ): Result<Bytes> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_socket_receive_bytes(
+                    gioSocketPointer.reinterpret(),
+                    size,
+                    timeoutUs,
+                    cancellable?.gioCancellablePointer?.reinterpret(),
+                    gError.ptr
+                )?.run {
+                    Bytes(reinterpret())
+                }
+
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
             }
         }
 

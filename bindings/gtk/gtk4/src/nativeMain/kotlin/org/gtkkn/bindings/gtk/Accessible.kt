@@ -3,16 +3,27 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.gtk_accessible_announce
+import org.gtkkn.native.gtk.gtk_accessible_get_accessible_parent
 import org.gtkkn.native.gtk.gtk_accessible_get_accessible_role
+import org.gtkkn.native.gtk.gtk_accessible_get_at_context
+import org.gtkkn.native.gtk.gtk_accessible_get_first_accessible_child
+import org.gtkkn.native.gtk.gtk_accessible_get_next_accessible_sibling
+import org.gtkkn.native.gtk.gtk_accessible_get_platform_state
 import org.gtkkn.native.gtk.gtk_accessible_get_type
 import org.gtkkn.native.gtk.gtk_accessible_reset_property
 import org.gtkkn.native.gtk.gtk_accessible_reset_relation
 import org.gtkkn.native.gtk.gtk_accessible_reset_state
+import org.gtkkn.native.gtk.gtk_accessible_set_accessible_parent
+import org.gtkkn.native.gtk.gtk_accessible_update_next_accessible_sibling
+import kotlin.Boolean
+import kotlin.String
 import kotlin.Unit
 
 /**
@@ -33,8 +44,22 @@ import kotlin.Unit
  * if a `GtkWidget` visibility changes, the %GTK_ACCESSIBLE_STATE_HIDDEN
  * state will also change to reflect the [property@Gtk.Widget:visible] property.
  *
+ * Every accessible implementation is part of a tree of accessible objects.
+ * Normally, this tree corresponds to the widget tree, but can be customized
+ * by reimplementing the [vfunc@Gtk.Accessible.get_accessible_parent],
+ * [vfunc@Gtk.Accessible.get_first_accessible_child] and
+ * [vfunc@Gtk.Accessible.get_next_accessible_sibling] virtual functions.
+ * Note that you can not create a top-level accessible object as of now,
+ * which means that you must always have a parent accessible object.
+ * Also note that when an accessible object does not correspond to a widget,
+ * and it has children, whose implementation you don't control,
+ * it is necessary to ensure the correct shape of the a11y tree
+ * by calling [method@Gtk.Accessible.set_accessible_parent] and
+ * updating the sibling by [method@Gtk.Accessible.update_next_accessible_sibling].
+ *
  * ## Skipped during bindings generation
  *
+ * - parameter `x`: x: Out parameter is not supported
  * - parameter `properties`: Array parameter of type AccessibleProperty is not supported
  * - parameter `relations`: Array parameter of type AccessibleRelation is not supported
  * - parameter `states`: Array parameter of type AccessibleState is not supported
@@ -49,9 +74,9 @@ public interface Accessible : Interface, KGTyped {
      */
     public val accessibleRole: AccessibleRole
         /**
-         * Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
+         * Retrieves the accessible role of an accessible object.
          *
-         * @return a `GtkAccessibleRole`
+         * @return the accessible role
          */
         get() =
             gtk_accessible_get_accessible_role(gtkAccessiblePointer.reinterpret()).run {
@@ -59,14 +84,104 @@ public interface Accessible : Interface, KGTyped {
             }
 
     /**
-     * Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
+     * Requests the user's screen reader to announce the given message.
      *
-     * @return a `GtkAccessibleRole`
+     * This kind of notification is useful for messages that
+     * either have only a visual representation or that are not
+     * exposed visually at all, e.g. a notification about a
+     * successful operation.
+     *
+     * Also, by using this API, you can ensure that the message
+     * does not interrupts the user's current screen reader output.
+     *
+     * @param message the string to announce
+     * @param priority the priority of the announcement
+     * @since 4.14
+     */
+    public fun announce(
+        message: String,
+        priority: AccessibleAnnouncementPriority,
+    ): Unit =
+        gtk_accessible_announce(
+            gtkAccessiblePointer.reinterpret(),
+            message,
+            priority.nativeValue
+        )
+
+    /**
+     * Retrieves the accessible parent for an accessible object.
+     *
+     * This function returns `NULL` for top level widgets.
+     *
+     * @return the accessible parent
+     * @since 4.10
+     */
+    public fun getAccessibleParent(): Accessible? =
+        gtk_accessible_get_accessible_parent(gtkAccessiblePointer.reinterpret())?.run {
+            Accessible.wrap(reinterpret())
+        }
+
+    /**
+     * Retrieves the accessible role of an accessible object.
+     *
+     * @return the accessible role
      */
     public fun getAccessibleRole(): AccessibleRole =
         gtk_accessible_get_accessible_role(gtkAccessiblePointer.reinterpret()).run {
             AccessibleRole.fromNativeValue(this)
         }
+
+    /**
+     * Retrieves the accessible implementation for the given `GtkAccessible`.
+     *
+     * @return the accessible implementation object
+     * @since 4.10
+     */
+    public fun getAtContext(): ATContext =
+        gtk_accessible_get_at_context(gtkAccessiblePointer.reinterpret())!!.run {
+            ATContext(reinterpret())
+        }
+
+    /**
+     * Retrieves the first accessible child of an accessible object.
+     *
+     * @return the first accessible child
+     * @since 4.10
+     */
+    public fun getFirstAccessibleChild(): Accessible? =
+        gtk_accessible_get_first_accessible_child(gtkAccessiblePointer.reinterpret())?.run {
+            Accessible.wrap(reinterpret())
+        }
+
+    /**
+     * Retrieves the next accessible sibling of an accessible object
+     *
+     * @return the next accessible sibling
+     * @since 4.10
+     */
+    public fun getNextAccessibleSibling(): Accessible? =
+        gtk_accessible_get_next_accessible_sibling(gtkAccessiblePointer.reinterpret())?.run {
+            Accessible.wrap(reinterpret())
+        }
+
+    /**
+     * Query a platform state, such as focus.
+     *
+     * See gtk_accessible_platform_changed().
+     *
+     * This functionality can be overridden by `GtkAccessible`
+     * implementations, e.g. to get platform state from an ignored
+     * child widget, as is the case for `GtkText` wrappers.
+     *
+     * @param state platform state to query
+     * @return the value of @state for the accessible
+     * @since 4.10
+     */
+    public fun getPlatformState(state: AccessiblePlatformState): Boolean =
+        gtk_accessible_get_platform_state(
+            gtkAccessiblePointer.reinterpret(),
+            state.nativeValue
+        ).asBoolean()
 
     /**
      * Resets the accessible @property to its default value.
@@ -94,6 +209,46 @@ public interface Accessible : Interface, KGTyped {
      */
     public fun resetState(state: AccessibleState): Unit =
         gtk_accessible_reset_state(gtkAccessiblePointer.reinterpret(), state.nativeValue)
+
+    /**
+     * Sets the parent and sibling of an accessible object.
+     *
+     * This function is meant to be used by accessible implementations that are
+     * not part of the widget hierarchy, and but act as a logical bridge between
+     * widgets. For instance, if a widget creates an object that holds metadata
+     * for each child, and you want that object to implement the `GtkAccessible`
+     * interface, you will use this function to ensure that the parent of each
+     * child widget is the metadata object, and the parent of each metadata
+     * object is the container widget.
+     *
+     * @param parent the parent accessible object
+     * @param nextSibling the sibling accessible object
+     * @since 4.10
+     */
+    public fun setAccessibleParent(
+        parent: Accessible? = null,
+        nextSibling: Accessible? = null,
+    ): Unit =
+        gtk_accessible_set_accessible_parent(
+            gtkAccessiblePointer.reinterpret(),
+            parent?.gtkAccessiblePointer,
+            nextSibling?.gtkAccessiblePointer
+        )
+
+    /**
+     * Updates the next accessible sibling of @self.
+     *
+     * That might be useful when a new child of a custom `GtkAccessible`
+     * is created, and it needs to be linked to a previous child.
+     *
+     * @param newSibling the new next accessible sibling to set
+     * @since 4.10
+     */
+    public fun updateNextAccessibleSibling(newSibling: Accessible? = null): Unit =
+        gtk_accessible_update_next_accessible_sibling(
+            gtkAccessiblePointer.reinterpret(),
+            newSibling?.gtkAccessiblePointer
+        )
 
     private data class Wrapper(
         private val pointer: CPointer<GtkAccessible>,

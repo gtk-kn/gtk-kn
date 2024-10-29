@@ -13,9 +13,11 @@ import org.gtkkn.native.gsk.GskRenderNodeType.GSK_CONIC_GRADIENT_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_CONTAINER_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_CROSS_FADE_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_DEBUG_NODE
+import org.gtkkn.native.gsk.GskRenderNodeType.GSK_FILL_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_GL_SHADER_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_INSET_SHADOW_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_LINEAR_GRADIENT_NODE
+import org.gtkkn.native.gsk.GskRenderNodeType.GSK_MASK_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_NOT_A_RENDER_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_OPACITY_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_OUTSET_SHADOW_NODE
@@ -25,7 +27,10 @@ import org.gtkkn.native.gsk.GskRenderNodeType.GSK_REPEATING_RADIAL_GRADIENT_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_REPEAT_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_ROUNDED_CLIP_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_SHADOW_NODE
+import org.gtkkn.native.gsk.GskRenderNodeType.GSK_STROKE_NODE
+import org.gtkkn.native.gsk.GskRenderNodeType.GSK_SUBSURFACE_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_TEXTURE_NODE
+import org.gtkkn.native.gsk.GskRenderNodeType.GSK_TEXTURE_SCALE_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_TEXT_NODE
 import org.gtkkn.native.gsk.GskRenderNodeType.GSK_TRANSFORM_NODE
 
@@ -164,6 +169,36 @@ public enum class RenderNodeType(
      * A node that uses OpenGL fragment shaders to render
      */
     GL_SHADER_NODE(GSK_GL_SHADER_NODE),
+
+    /**
+     * A node drawing a `GdkTexture` scaled and filtered.
+     * @since 4.10
+     */
+    TEXTURE_SCALE_NODE(GSK_TEXTURE_SCALE_NODE),
+
+    /**
+     * A node that masks one child with another.
+     * @since 4.10
+     */
+    MASK_NODE(GSK_MASK_NODE),
+
+    /**
+     * A node that fills a path.
+     * @since 4.14
+     */
+    FILL_NODE(GSK_FILL_NODE),
+
+    /**
+     * A node that strokes a path.
+     * @since 4.14
+     */
+    STROKE_NODE(GSK_STROKE_NODE),
+
+    /**
+     * A node that possibly redirects part of the scene graph to a subsurface.
+     * @since 4.14
+     */
+    SUBSURFACE_NODE(GSK_SUBSURFACE_NODE),
     ;
 
     public companion object {
@@ -195,6 +230,11 @@ public enum class RenderNodeType(
                 GSK_BLUR_NODE -> BLUR_NODE
                 GSK_DEBUG_NODE -> DEBUG_NODE
                 GSK_GL_SHADER_NODE -> GL_SHADER_NODE
+                GSK_TEXTURE_SCALE_NODE -> TEXTURE_SCALE_NODE
+                GSK_MASK_NODE -> MASK_NODE
+                GSK_FILL_NODE -> FILL_NODE
+                GSK_STROKE_NODE -> STROKE_NODE
+                GSK_SUBSURFACE_NODE -> SUBSURFACE_NODE
                 else -> error("invalid nativeValue")
             }
     }

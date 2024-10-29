@@ -85,6 +85,7 @@ class ProcessorContext(
         "GskBroadwayRenderer",
         // bitfield members not found through cinterop
         "GdkPixbufFormatFlags",
+        "GIOCondition",
 
         // callback returning a String
         "GtkScaleFormatValueFunc",
@@ -97,6 +98,9 @@ class ProcessorContext(
 
         // not a pointed type, simd vector?
         "graphene_simd4f_t",
+
+        // Can't find it in Ubuntu 24.04
+        "GThreadedResolver",
     )
 
     /**
@@ -125,6 +129,7 @@ class ProcessorContext(
 
         // which def file should include this (gio or glib)?
         "g_networking_init",
+        "g_io_channel_get_buffer_condition",
 
         // error pointer argument
         "g_prefix_error_literal",
@@ -155,6 +160,7 @@ class ProcessorContext(
         // ThreadFunc is not supported yet
         "g_thread_try_new",
         "g_thread_new",
+
         // DBusProxyTypeFunc is not supported yet
         "g_dbus_object_manager_client_new_for_bus_sync",
         "g_dbus_object_manager_client_new_sync",
@@ -163,13 +169,16 @@ class ProcessorContext(
         // GtkSource, problem with enum parameter value
         "gtk_source_view_get_gutter",
 
-        // libhelium
-        // Return type of is not a subtype of the return type of the overridden member
-        "he_badge_get_child",
-        "he_overlay_button_get_child",
-        // https://github.com/tau-OS/libhelium/issues/33
-        "he_application_window_set_modal",
-        "he_window_set_modal",
+        // GLib gstdio macros
+        "g_chmod",
+        "g_creat",
+        "g_fsync",
+        "g_mkdir",
+        "g_open",
+        "g_remove",
+        "g_rename",
+
+        "g_tree_traverse",
     )
 
     /**

@@ -29,8 +29,8 @@ import kotlin.Result
 import kotlin.Unit
 
 /**
- * #GDtlsClientConnection is the client-side subclass of
- * #GDtlsConnection, representing a client-side DTLS connection.
+ * `GDtlsClientConnection` is the client-side subclass of
+ * [iface@Gio.DtlsConnection], representing a client-side DTLS connection.
  * @since 2.48
  */
 public interface DtlsClientConnection : Interface, DatagramBased, DtlsConnection, KGTyped {
@@ -126,11 +126,27 @@ public interface DtlsClientConnection : Interface, DatagramBased, DtlsConnection
      * ways indicated here will be rejected unless the application
      * overrides the default via #GDtlsConnection::accept-certificate.
      *
+     * GLib guarantees that if certificate verification fails, at least one
+     * flag will be set, but it does not guarantee that all possible flags
+     * will be set. Accordingly, you may not safely decide to ignore any
+     * particular type of error. For example, it would be incorrect to mask
+     * %G_TLS_CERTIFICATE_EXPIRED if you want to allow expired certificates,
+     * because this could potentially be the only error flag set even if
+     * other problems exist with the certificate. Therefore, there is no
+     * safe way to use this property. This is not a horrible problem,
+     * though, because you should not be attempting to ignore validation
+     * errors anyway. If you really must ignore TLS certificate errors,
+     * connect to #GDtlsConnection::accept-certificate.
+     *
      * @since 2.48
      */
     public var validationFlags: TlsCertificateFlags
         /**
          * Gets @conn's validation flags
+         *
+         * This function does not work as originally designed and is impossible
+         * to use correctly. See #GDtlsClientConnection:validation-flags for more
+         * information.
          *
          * @return the validation flags
          * @since 2.48
@@ -144,6 +160,10 @@ public interface DtlsClientConnection : Interface, DatagramBased, DtlsConnection
          * Sets @conn's validation flags, to override the default set of
          * checks performed when validating a server certificate. By default,
          * %G_TLS_CERTIFICATE_VALIDATE_ALL is used.
+         *
+         * This function does not work as originally designed and is impossible
+         * to use correctly. See #GDtlsClientConnection:validation-flags for more
+         * information.
          *
          * @param flags the #GTlsCertificateFlags to use
          * @since 2.48
@@ -189,6 +209,10 @@ public interface DtlsClientConnection : Interface, DatagramBased, DtlsConnection
     /**
      * Gets @conn's validation flags
      *
+     * This function does not work as originally designed and is impossible
+     * to use correctly. See #GDtlsClientConnection:validation-flags for more
+     * information.
+     *
      * @return the validation flags
      * @since 2.48
      */
@@ -216,6 +240,10 @@ public interface DtlsClientConnection : Interface, DatagramBased, DtlsConnection
      * Sets @conn's validation flags, to override the default set of
      * checks performed when validating a server certificate. By default,
      * %G_TLS_CERTIFICATE_VALIDATE_ALL is used.
+     *
+     * This function does not work as originally designed and is impossible
+     * to use correctly. See #GDtlsClientConnection:validation-flags for more
+     * information.
      *
      * @param flags the #GTlsCertificateFlags to use
      * @since 2.48

@@ -18,6 +18,11 @@ import kotlin.Unit
 
 /**
  * `GtkMultiFilter` is the base class for filters that combine multiple filters.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class MultiFilter(
     pointer: CPointer<GtkMultiFilter>,

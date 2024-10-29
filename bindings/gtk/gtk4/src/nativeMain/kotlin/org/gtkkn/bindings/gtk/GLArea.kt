@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gdk.GLAPI
 import org.gtkkn.bindings.gdk.GLContext
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
@@ -24,6 +25,8 @@ import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkGLArea
 import org.gtkkn.native.gtk.gtk_gl_area_attach_buffers
+import org.gtkkn.native.gtk.gtk_gl_area_get_allowed_apis
+import org.gtkkn.native.gtk.gtk_gl_area_get_api
 import org.gtkkn.native.gtk.gtk_gl_area_get_auto_render
 import org.gtkkn.native.gtk.gtk_gl_area_get_context
 import org.gtkkn.native.gtk.gtk_gl_area_get_error
@@ -34,6 +37,7 @@ import org.gtkkn.native.gtk.gtk_gl_area_get_use_es
 import org.gtkkn.native.gtk.gtk_gl_area_make_current
 import org.gtkkn.native.gtk.gtk_gl_area_new
 import org.gtkkn.native.gtk.gtk_gl_area_queue_render
+import org.gtkkn.native.gtk.gtk_gl_area_set_allowed_apis
 import org.gtkkn.native.gtk.gtk_gl_area_set_auto_render
 import org.gtkkn.native.gtk.gtk_gl_area_set_error
 import org.gtkkn.native.gtk.gtk_gl_area_set_has_depth_buffer
@@ -53,6 +57,8 @@ import kotlin.Unit
  * `GtkGLArea` sets up its own [class@Gdk.GLContext], and creates a custom
  * GL framebuffer that the widget will do GL rendering onto. It also ensures
  * that this framebuffer is the default GL rendering target when rendering.
+ * The completed rendering is integrated into the larger GTK scene graph as
+ * a texture.
  *
  * In order to draw, you have to connect to the [signal@Gtk.GLArea::render]
  * signal, or subclass `GtkGLArea` and override the GtkGLAreaClass.render
@@ -69,6 +75,8 @@ import kotlin.Unit
  *
  * The `render()` function will be called when the `GtkGLArea` is ready
  * for you to draw its content:
+ *
+ * The initial contents of the framebuffer are transparent.
  *
  * ```c
  * static gboolean
@@ -168,6 +176,57 @@ public open class GLArea(
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
         get() = gPointer.reinterpret()
+
+    /**
+     * The allowed APIs.
+     *
+     * @since 4.12
+     */
+    public open var allowedApis: GLAPI
+        /**
+         * Gets the allowed APIs.
+         *
+         * See [method@Gtk.GLArea.set_allowed_apis].
+         *
+         * @return the allowed APIs
+         * @since 4.12
+         */
+        get() =
+            gtk_gl_area_get_allowed_apis(gtkGLAreaPointer.reinterpret()).run {
+                GLAPI(this)
+            }
+
+        /**
+         * Sets the allowed APIs to create a context with.
+         *
+         * You should check [property@Gtk.GLArea:api] before drawing
+         * with either API.
+         *
+         * By default, all APIs are allowed.
+         *
+         * @param apis the allowed APIs
+         * @since 4.12
+         */
+        set(apis) = gtk_gl_area_set_allowed_apis(gtkGLAreaPointer.reinterpret(), apis.mask)
+
+    /**
+     * The API currently in use.
+     *
+     * @since 4.12
+     */
+    public open val api: GLAPI
+        /**
+         * Gets the API that is currently in use.
+         *
+         * If the GL area has not been realized yet, 0 is returned.
+         *
+         * @return the currently used API
+         * @since 4.12
+         */
+        get() =
+            gtk_gl_area_get_api(gtkGLAreaPointer.reinterpret()).run {
+                GLAPI(this)
+            }
 
     /**
      * If set to true the ::render signal will be emitted every time
@@ -332,6 +391,32 @@ public open class GLArea(
     public open fun attachBuffers(): Unit = gtk_gl_area_attach_buffers(gtkGLAreaPointer.reinterpret())
 
     /**
+     * Gets the allowed APIs.
+     *
+     * See [method@Gtk.GLArea.set_allowed_apis].
+     *
+     * @return the allowed APIs
+     * @since 4.12
+     */
+    public open fun getAllowedApis(): GLAPI =
+        gtk_gl_area_get_allowed_apis(gtkGLAreaPointer.reinterpret()).run {
+            GLAPI(this)
+        }
+
+    /**
+     * Gets the API that is currently in use.
+     *
+     * If the GL area has not been realized yet, 0 is returned.
+     *
+     * @return the currently used API
+     * @since 4.12
+     */
+    public open fun getApi(): GLAPI =
+        gtk_gl_area_get_api(gtkGLAreaPointer.reinterpret()).run {
+            GLAPI(this)
+        }
+
+    /**
      * Returns whether the area is in auto render mode or not.
      *
      * @return true if the @area is auto rendering, false otherwise
@@ -406,6 +491,20 @@ public open class GLArea(
      * emit [signal@Gtk.GLArea::render] on each draw.
      */
     public open fun queueRender(): Unit = gtk_gl_area_queue_render(gtkGLAreaPointer.reinterpret())
+
+    /**
+     * Sets the allowed APIs to create a context with.
+     *
+     * You should check [property@Gtk.GLArea:api] before drawing
+     * with either API.
+     *
+     * By default, all APIs are allowed.
+     *
+     * @param apis the allowed APIs
+     * @since 4.12
+     */
+    public open fun setAllowedApis(apis: GLAPI): Unit =
+        gtk_gl_area_set_allowed_apis(gtkGLAreaPointer.reinterpret(), apis.mask)
 
     /**
      * Sets whether the `GtkGLArea` is in auto render mode.

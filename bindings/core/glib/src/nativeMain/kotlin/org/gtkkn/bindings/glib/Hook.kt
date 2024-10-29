@@ -27,6 +27,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - parameter `func`: HookCompareFunc
  * - field `data`: gpointer
  * - field `func`: gpointer
  * - field `destroy`: DestroyNotify

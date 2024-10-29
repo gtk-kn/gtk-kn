@@ -55,6 +55,7 @@ import org.gtkkn.native.gobject.g_value_set_uint
 import org.gtkkn.native.gobject.g_value_set_uint64
 import org.gtkkn.native.gobject.g_value_set_ulong
 import org.gtkkn.native.gobject.g_value_set_variant
+import org.gtkkn.native.gobject.g_value_steal_string
 import org.gtkkn.native.gobject.g_value_take_variant
 import org.gtkkn.native.gobject.g_value_transform
 import org.gtkkn.native.gobject.g_value_type_compatible
@@ -531,6 +532,25 @@ public class Value(
      */
     public fun setVariant(variant: Variant? = null): Unit =
         g_value_set_variant(gobjectValuePointer.reinterpret(), variant?.glibVariantPointer)
+
+    /**
+     * Steal ownership on contents of a %G_TYPE_STRING #GValue.
+     * As a result of this operation the value's contents will be reset to null.
+     *
+     * The purpose of this call is to provide a way to avoid an extra copy
+     * when some object have been serialized into string through #GValue API.
+     *
+     * NOTE: for safety and compatibility purposes, if #GValue contains
+     * static string, or an interned one, this function will return a copy
+     * of the string. Otherwise the transfer notation would be ambiguous.
+     *
+     * @return string content of @value;
+     *  Should be freed with g_free() when no longer needed.
+     * @since 2.80
+     */
+    public fun stealString(): String =
+        g_value_steal_string(gobjectValuePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Set the contents of a variant #GValue to @variant, and takes over

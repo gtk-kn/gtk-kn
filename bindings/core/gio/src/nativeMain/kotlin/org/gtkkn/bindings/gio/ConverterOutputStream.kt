@@ -13,11 +13,11 @@ import org.gtkkn.native.gio.g_converter_output_stream_get_type
 import org.gtkkn.native.gio.g_converter_output_stream_new
 
 /**
- * Converter output stream implements #GOutputStream and allows
+ * Converter output stream implements [class@Gio.OutputStream] and allows
  * conversion of data of various types during reading.
  *
- * As of GLib 2.34, #GConverterOutputStream implements
- * #GPollableOutputStream.
+ * As of GLib 2.34, `GConverterOutputStream` implements
+ * [iface@Gio.PollableOutputStream].
  */
 public open class ConverterOutputStream(
     pointer: CPointer<GConverterOutputStream>,
@@ -28,6 +28,9 @@ public open class ConverterOutputStream(
     override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream>
         get() = gPointer.reinterpret()
 
+    /**
+     * The converter object.
+     */
     public open val converter: Converter
         /**
          * Gets the #GConverter that is used by @converter_stream.

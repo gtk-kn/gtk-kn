@@ -15,8 +15,10 @@ import org.gtkkn.native.gio.g_file_icon_get_type
 import org.gtkkn.native.gio.g_file_icon_new
 
 /**
- * #GFileIcon specifies an icon by pointing to an image file
+ * `GFileIcon` specifies an icon by pointing to an image file
  * to be used as icon.
+ *
+ * It implements [iface@Gio.LoadableIcon].
  */
 public open class FileIcon(
     pointer: CPointer<GFileIcon>,

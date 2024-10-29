@@ -382,7 +382,7 @@ public open class DragSource(
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` the X coordinate of the drag starting
-     * point; `y` the Y coordinate fo the drag starting point. Returns a `GdkContentProvider`
+     * point; `y` the Y coordinate of the drag starting point. Returns a `GdkContentProvider`
      */
     public fun connectPrepare(
         connectFlags: ConnectFlags = ConnectFlags(0u),

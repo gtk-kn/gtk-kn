@@ -32,16 +32,13 @@ public class LeafletPage(
         get() = gPointer.reinterpret()
 
     /**
-     * The child of the page.
-     *
-     * @since 1.0
+     * The leaflet child to which the page belongs.
      */
     public val child: Widget
         /**
-         * Gets the leaflet child th which @self belongs.
+         * Gets the leaflet child to which @self belongs.
          *
          * @return the child to which @self belongs
-         * @since 1.0
          */
         get() =
             adw_leaflet_page_get_child(adwLeafletPagePointer.reinterpret())!!.run {
@@ -50,15 +47,12 @@ public class LeafletPage(
 
     /**
      * The name of the child page.
-     *
-     * @since 1.0
      */
     public var name: String?
         /**
          * Gets the name of @self.
          *
          * @return the name of @self.
-         * @since 1.0
          */
         get() = adw_leaflet_page_get_name(adwLeafletPagePointer.reinterpret())?.toKString()
 
@@ -66,7 +60,6 @@ public class LeafletPage(
          * Sets the name of the @self.
          *
          * @param name the new value to set
-         * @since 1.0
          */
         set(name) = adw_leaflet_page_set_name(adwLeafletPagePointer.reinterpret(), name)
 
@@ -78,23 +71,24 @@ public class LeafletPage(
      * gestures.
      *
      * This can be used used to prevent switching to widgets like separators.
-     *
-     * @since 1.0
      */
     public var navigatable: Boolean
         /**
          * Gets whether the child can be navigated to when folded.
          *
          * @return whether @self can be navigated to when folded
-         * @since 1.0
          */
         get() = adw_leaflet_page_get_navigatable(adwLeafletPagePointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self can be navigated to when folded.
          *
+         * If `FALSE`, the child will be ignored by [method@Leaflet.get_adjacent_child],
+         * [method@Leaflet.navigate], and swipe gestures.
+         *
+         * This can be used used to prevent switching to widgets like separators.
+         *
          * @param navigatable whether @self can be navigated to when folded
-         * @since 1.0
          */
         set(navigatable) =
             adw_leaflet_page_set_navigatable(
@@ -103,10 +97,9 @@ public class LeafletPage(
             )
 
     /**
-     * Gets the leaflet child th which @self belongs.
+     * Gets the leaflet child to which @self belongs.
      *
      * @return the child to which @self belongs
-     * @since 1.0
      */
     public fun getChild(): Widget =
         adw_leaflet_page_get_child(adwLeafletPagePointer.reinterpret())!!.run {
@@ -117,7 +110,6 @@ public class LeafletPage(
      * Gets the name of @self.
      *
      * @return the name of @self.
-     * @since 1.0
      */
     public fun getName(): String? = adw_leaflet_page_get_name(adwLeafletPagePointer.reinterpret())?.toKString()
 
@@ -125,7 +117,6 @@ public class LeafletPage(
      * Gets whether the child can be navigated to when folded.
      *
      * @return whether @self can be navigated to when folded
-     * @since 1.0
      */
     public fun getNavigatable(): Boolean =
         adw_leaflet_page_get_navigatable(adwLeafletPagePointer.reinterpret()).asBoolean()
@@ -134,7 +125,6 @@ public class LeafletPage(
      * Sets the name of the @self.
      *
      * @param name the new value to set
-     * @since 1.0
      */
     public fun setName(name: String? = null): Unit =
         adw_leaflet_page_set_name(adwLeafletPagePointer.reinterpret(), name)
@@ -142,8 +132,12 @@ public class LeafletPage(
     /**
      * Sets whether @self can be navigated to when folded.
      *
+     * If `FALSE`, the child will be ignored by [method@Leaflet.get_adjacent_child],
+     * [method@Leaflet.navigate], and swipe gestures.
+     *
+     * This can be used used to prevent switching to widgets like separators.
+     *
      * @param navigatable whether @self can be navigated to when folded
-     * @since 1.0
      */
     public fun setNavigatable(navigatable: Boolean): Unit =
         adw_leaflet_page_set_navigatable(

@@ -6,6 +6,7 @@ import org.gtkkn.native.glib.GRegexMatchFlags
 import org.gtkkn.native.glib.G_REGEX_MATCH_ANCHORED
 import org.gtkkn.native.glib.G_REGEX_MATCH_BSR_ANY
 import org.gtkkn.native.glib.G_REGEX_MATCH_BSR_ANYCRLF
+import org.gtkkn.native.glib.G_REGEX_MATCH_DEFAULT
 import org.gtkkn.native.glib.G_REGEX_MATCH_NEWLINE_ANY
 import org.gtkkn.native.glib.G_REGEX_MATCH_NEWLINE_ANYCRLF
 import org.gtkkn.native.glib.G_REGEX_MATCH_NEWLINE_CR
@@ -29,6 +30,11 @@ public class RegexMatchFlags(
     override infix fun or(other: RegexMatchFlags): RegexMatchFlags = RegexMatchFlags(mask or other.mask)
 
     public companion object {
+        /**
+         * No special options set. Since: 2.74
+         */
+        public val DEFAULT: RegexMatchFlags = RegexMatchFlags(G_REGEX_MATCH_DEFAULT)
+
         /**
          * The pattern is forced to be "anchored", that is,
          *     it is constrained to match only at the first matching point in the

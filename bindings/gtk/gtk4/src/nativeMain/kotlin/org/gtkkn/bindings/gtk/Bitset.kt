@@ -259,7 +259,7 @@ public class Bitset(
     /**
      * Removes @value from @self if it was part of it before.
      *
-     * @param value value to add
+     * @param value value to remove
      * @return true if @value was part of @self and @self
      *   was changed
      */

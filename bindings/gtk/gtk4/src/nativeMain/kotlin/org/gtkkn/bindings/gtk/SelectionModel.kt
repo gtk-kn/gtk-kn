@@ -107,7 +107,7 @@ public interface SelectionModel : Interface, ListModel, KGTyped {
      * case is in response to the [signal@Gtk.SelectionModel::selection-changed]
      * signal.
      *
-     * @param position start of the queired range
+     * @param position start of the queried range
      * @param nItems number of items in the queried range
      * @return A `GtkBitset` that matches the selection state
      *   for the given range with all other values being undefined.
@@ -187,7 +187,7 @@ public interface SelectionModel : Interface, ListModel, KGTyped {
     /**
      * Helper function for implementations of `GtkSelectionModel`.
      *
-     * Call this when a the selection changes to emit the
+     * Call this when the selection changes to emit the
      * [signal@Gtk.SelectionModel::selection-changed] signal.
      *
      * @param position the first changed item

@@ -117,7 +117,7 @@ import kotlin.Unit
  * a button, both with the .combo class added. The button also contains another
  * node with name arrow.
  *
- * # Accessibility
+ * ## Accessibility
  *
  * `GtkComboBox` uses the %GTK_ACCESSIBLE_ROLE_COMBO_BOX role.
  *

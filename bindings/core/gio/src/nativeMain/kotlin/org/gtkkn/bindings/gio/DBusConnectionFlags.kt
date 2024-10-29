@@ -7,6 +7,7 @@ import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_ALLOW_ANONYMO
 import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_CLIENT
 import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER
 import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_SERVER
+import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_CROSS_NAMESPACE
 import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_DELAY_MESSAGE_PROCESSING
 import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_MESSAGE_BUS_CONNECTION
 import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_NONE
@@ -68,5 +69,16 @@ public class DBusConnectionFlags(
          */
         public val AUTHENTICATION_REQUIRE_SAME_USER: DBusConnectionFlags =
             DBusConnectionFlags(G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER)
+
+        /**
+         * When authenticating, try to use
+         *  protocols that work across a Linux user namespace boundary, even if this
+         *  reduces interoperability with older D-Bus implementations. This currently
+         *  affects client-side `EXTERNAL` authentication, for which this flag makes
+         *  connections to a server in another user namespace succeed, but causes
+         *  a deadlock when connecting to a GDBus server older than 2.73.3. Since: 2.74
+         */
+        public val CROSS_NAMESPACE: DBusConnectionFlags =
+            DBusConnectionFlags(G_DBUS_CONNECTION_FLAGS_CROSS_NAMESPACE)
     }
 }

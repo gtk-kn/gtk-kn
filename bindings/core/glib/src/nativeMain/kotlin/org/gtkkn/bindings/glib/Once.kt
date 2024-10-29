@@ -16,7 +16,10 @@ import org.gtkkn.native.glib.GOnce
  *
  * ## Skipped during bindings generation
  *
+ * - function `init_enter`: In/Out parameter is not supported
+ * - parameter `location`: Unsupported pointer to primitive type
  * - parameter `location`: gpointer
+ * - function `init_leave`: In/Out parameter is not supported
  * - parameter `location`: gpointer
  * - field `retval`: gpointer
  *

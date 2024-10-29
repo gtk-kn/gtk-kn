@@ -16,8 +16,8 @@ import org.gtkkn.native.gio.g_bytes_icon_get_type
 import org.gtkkn.native.gio.g_bytes_icon_new
 
 /**
- * #GBytesIcon specifies an image held in memory in a common format (usually
- * png) to be used as icon.
+ * `GBytesIcon` specifies an image held in memory in a common format (usually
+ * PNG) to be used as icon.
  * @since 2.38
  */
 public open class BytesIcon(

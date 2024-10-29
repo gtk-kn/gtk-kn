@@ -35,7 +35,6 @@ import kotlin.Unit
  * ## CSS nodes
  *
  * `AdwWindowTitle` has a single CSS node with name `windowtitle`.
- * @since 1.0
  */
 public class WindowTitle(
     pointer: CPointer<AdwWindowTitle>,
@@ -55,16 +54,13 @@ public class WindowTitle(
     /**
      * The subtitle to display.
      *
-     * The subtitle should give a user additional details.
-     *
-     * @since 1.0
+     * The subtitle should give the user additional details.
      */
     public var subtitle: String
         /**
          * Gets the subtitle of @self.
          *
          * @return the subtitle
-         * @since 1.0
          */
         get() =
             adw_window_title_get_subtitle(adwWindowTitlePointer.reinterpret())?.toKString()
@@ -73,8 +69,9 @@ public class WindowTitle(
         /**
          * Sets the subtitle of @self.
          *
+         * The subtitle should give the user additional details.
+         *
          * @param subtitle a subtitle
-         * @since 1.0
          */
         set(subtitle) = adw_window_title_set_subtitle(adwWindowTitlePointer.reinterpret(), subtitle)
 
@@ -83,15 +80,12 @@ public class WindowTitle(
      *
      * The title typically identifies the current view or content item, and
      * generally does not use the application name.
-     *
-     * @since 1.0
      */
     public var title: String
         /**
          * Gets the title of @self.
          *
          * @return the title
-         * @since 1.0
          */
         get() =
             adw_window_title_get_title(adwWindowTitlePointer.reinterpret())?.toKString()
@@ -100,8 +94,10 @@ public class WindowTitle(
         /**
          * Sets the title of @self.
          *
+         * The title typically identifies the current view or content item, and
+         * generally does not use the application name.
+         *
          * @param title a title
-         * @since 1.0
          */
         set(title) = adw_window_title_set_title(adwWindowTitlePointer.reinterpret(), title)
 
@@ -111,7 +107,6 @@ public class WindowTitle(
      * @param title a title
      * @param subtitle a subtitle
      * @return the newly created `AdwWindowTitle`
-     * @since 1.0
      */
     public constructor(title: String, subtitle: String) : this(
         adw_window_title_new(
@@ -124,7 +119,6 @@ public class WindowTitle(
      * Gets the subtitle of @self.
      *
      * @return the subtitle
-     * @since 1.0
      */
     public fun getSubtitle(): String =
         adw_window_title_get_subtitle(adwWindowTitlePointer.reinterpret())?.toKString()
@@ -134,7 +128,6 @@ public class WindowTitle(
      * Gets the title of @self.
      *
      * @return the title
-     * @since 1.0
      */
     public fun getTitle(): String =
         adw_window_title_get_title(adwWindowTitlePointer.reinterpret())?.toKString()
@@ -143,8 +136,9 @@ public class WindowTitle(
     /**
      * Sets the subtitle of @self.
      *
+     * The subtitle should give the user additional details.
+     *
      * @param subtitle a subtitle
-     * @since 1.0
      */
     public fun setSubtitle(subtitle: String): Unit =
         adw_window_title_set_subtitle(adwWindowTitlePointer.reinterpret(), subtitle)
@@ -152,8 +146,10 @@ public class WindowTitle(
     /**
      * Sets the title of @self.
      *
+     * The title typically identifies the current view or content item, and
+     * generally does not use the application name.
+     *
      * @param title a title
-     * @since 1.0
      */
     public fun setTitle(title: String): Unit = adw_window_title_set_title(adwWindowTitlePointer.reinterpret(), title)
 

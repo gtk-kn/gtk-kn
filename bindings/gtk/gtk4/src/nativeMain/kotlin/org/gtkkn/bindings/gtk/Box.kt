@@ -14,6 +14,7 @@ import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
 import org.gtkkn.native.gtk.gtk_box_append
+import org.gtkkn.native.gtk.gtk_box_get_baseline_child
 import org.gtkkn.native.gtk.gtk_box_get_baseline_position
 import org.gtkkn.native.gtk.gtk_box_get_homogeneous
 import org.gtkkn.native.gtk.gtk_box_get_spacing
@@ -23,6 +24,7 @@ import org.gtkkn.native.gtk.gtk_box_new
 import org.gtkkn.native.gtk.gtk_box_prepend
 import org.gtkkn.native.gtk.gtk_box_remove
 import org.gtkkn.native.gtk.gtk_box_reorder_child_after
+import org.gtkkn.native.gtk.gtk_box_set_baseline_child
 import org.gtkkn.native.gtk.gtk_box_set_baseline_position
 import org.gtkkn.native.gtk.gtk_box_set_homogeneous
 import org.gtkkn.native.gtk.gtk_box_set_spacing
@@ -62,7 +64,9 @@ import kotlin.Unit
  *
  * # Accessibility
  *
- * `GtkBox` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
+ * Until GTK 4.10, `GtkBox` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ *
+ * Starting from GTK 4.12, `GtkBox` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
 public open class Box(
     pointer: CPointer<GtkBox>,
@@ -81,6 +85,30 @@ public open class Box(
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
         get() = gPointer.reinterpret()
+
+    /**
+     * The child that determines the baseline, in vertical orientation.
+     *
+     * @since 4.12
+     */
+    public open var baselineChild: Int
+        /**
+         * Gets the value set by gtk_box_set_baseline_child().
+         *
+         * @return the baseline child
+         * @since 4.12
+         */
+        get() = gtk_box_get_baseline_child(gtkBoxPointer.reinterpret())
+
+        /**
+         * Sets the baseline child of a box.
+         *
+         * This affects only vertical boxes.
+         *
+         * @param child a child, or -1
+         * @since 4.12
+         */
+        set(child) = gtk_box_set_baseline_child(gtkBoxPointer.reinterpret(), child)
 
     /**
      * The position of the baseline aligned widgets if extra space is available.
@@ -178,6 +206,14 @@ public open class Box(
         )
 
     /**
+     * Gets the value set by gtk_box_set_baseline_child().
+     *
+     * @return the baseline child
+     * @since 4.12
+     */
+    public open fun getBaselineChild(): Int = gtk_box_get_baseline_child(gtkBoxPointer.reinterpret())
+
+    /**
      * Gets the value set by gtk_box_set_baseline_position().
      *
      * @return the baseline position
@@ -265,6 +301,16 @@ public open class Box(
             child.gtkWidgetPointer.reinterpret(),
             sibling?.gtkWidgetPointer?.reinterpret()
         )
+
+    /**
+     * Sets the baseline child of a box.
+     *
+     * This affects only vertical boxes.
+     *
+     * @param child a child, or -1
+     * @since 4.12
+     */
+    public open fun setBaselineChild(child: Int): Unit = gtk_box_set_baseline_child(gtkBoxPointer.reinterpret(), child)
 
     /**
      * Sets the baseline position of a box.

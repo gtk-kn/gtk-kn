@@ -3,6 +3,7 @@ package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.common.asBoolean
@@ -10,11 +11,13 @@ import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GQueue
 import org.gtkkn.native.glib.g_queue_clear
+import org.gtkkn.native.glib.g_queue_foreach
 import org.gtkkn.native.glib.g_queue_free
 import org.gtkkn.native.glib.g_queue_get_length
 import org.gtkkn.native.glib.g_queue_init
 import org.gtkkn.native.glib.g_queue_is_empty
 import org.gtkkn.native.glib.g_queue_reverse
+import org.gtkkn.native.glib.g_queue_sort
 import kotlin.Boolean
 import kotlin.UInt
 import kotlin.Unit
@@ -27,6 +30,7 @@ import kotlin.Unit
  *
  * - parameter `free_func`: DestroyNotify
  * - parameter `free_func`: DestroyNotify
+ * - parameter `data`: gpointer
  * - parameter `data`: gpointer
  * - method `peek_head`: Return type gpointer is unsupported
  * - method `peek_nth`: Return type gpointer is unsupported
@@ -85,6 +89,23 @@ public class Queue(
     public fun clear(): Unit = g_queue_clear(glibQueuePointer.reinterpret())
 
     /**
+     * Calls @func for each element in the queue passing @user_data to the
+     * function.
+     *
+     * It is safe for @func to remove the element from @queue, but it must
+     * not modify any part of the queue after that element.
+     *
+     * @param func the function to call for each element's data
+     * @since 2.4
+     */
+    public fun foreach(func: Func): Unit =
+        g_queue_foreach(
+            glibQueuePointer.reinterpret(),
+            FuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
+
+    /**
      * Frees the memory allocated for the #GQueue. Only call this function
      * if @queue was created with g_queue_new(). If queue elements contain
      * dynamically-allocated memory, they should be freed first.
@@ -125,6 +146,22 @@ public class Queue(
      * @since 2.4
      */
     public fun reverse(): Unit = g_queue_reverse(glibQueuePointer.reinterpret())
+
+    /**
+     * Sorts @queue using @compare_func.
+     *
+     * @param compareFunc the #GCompareDataFunc used to sort @queue. This function
+     *     is passed two elements of the queue and should return 0 if they are
+     *     equal, a negative value if the first comes before the second, and
+     *     a positive value if the second comes before the first.
+     * @since 2.4
+     */
+    public fun sort(compareFunc: CompareDataFunc): Unit =
+        g_queue_sort(
+            glibQueuePointer.reinterpret(),
+            CompareDataFuncFunc.reinterpret(),
+            StableRef.create(compareFunc).asCPointer()
+        )
 
     public companion object : RecordCompanion<Queue, GQueue> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Queue = Queue(pointer.reinterpret())

@@ -17,7 +17,7 @@ import kotlin.UInt
 import kotlin.Unit
 
 /**
- * A #GClosure represents a callback supplied by the programmer.
+ * A `GClosure` represents a callback supplied by the programmer.
  *
  * It will generally comprise a function of some kind and a marshaller
  * used to call it. It is the responsibility of the marshaller to
@@ -85,7 +85,7 @@ public class Closure(
 
     /**
      * Indicates whether the closure is currently being invoked with
-     *  g_closure_invoke()
+     *   g_closure_invoke()
      */
     public var inMarshal: UInt
         get() = gobjectClosurePointer.pointed.in_marshal
@@ -95,7 +95,7 @@ public class Closure(
 
     /**
      * Indicates whether the closure has been invalidated by
-     *  g_closure_invalidate()
+     *   g_closure_invalidate()
      */
     public var isInvalid: UInt
         get() = gobjectClosurePointer.pointed.is_invalid

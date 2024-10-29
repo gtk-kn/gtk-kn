@@ -15,6 +15,7 @@ import org.gtkkn.native.adw.AdwViewStack
 import org.gtkkn.native.adw.adw_view_stack_add
 import org.gtkkn.native.adw.adw_view_stack_add_named
 import org.gtkkn.native.adw.adw_view_stack_add_titled
+import org.gtkkn.native.adw.adw_view_stack_add_titled_with_icon
 import org.gtkkn.native.adw.adw_view_stack_get_child_by_name
 import org.gtkkn.native.adw.adw_view_stack_get_hhomogeneous
 import org.gtkkn.native.adw.adw_view_stack_get_page
@@ -87,12 +88,15 @@ import kotlin.Unit
  *
  * `AdwViewStack` has a single CSS node named `stack`.
  *
+ * ## Accessibility
+ *
+ * `AdwViewStack` uses the `GTK_ACCESSIBLE_ROLE_TAB_PANEL` for the stack pages
+ * which are the accessible parent objects of the child widgets.
+ *
  * ## Skipped during bindings generation
  *
  * - method `visible-child`: Property TypeInfo of getter and setter do not match
  * - method `visible-child-name`: Property TypeInfo of getter and setter do not match
- *
- * @since 1.0
  */
 public class ViewStack(
     pointer: CPointer<AdwViewStack>,
@@ -110,27 +114,32 @@ public class ViewStack(
         get() = gPointer.reinterpret()
 
     /**
-     * Whether the stack allocates the same width for all children.
+     * Whether the stack is horizontally homogeneous.
+     *
+     * If the stack is horizontally homogeneous, it allocates the same width for
+     * all children.
      *
      * If it's `FALSE`, the stack may change width when a different child becomes
      * visible.
-     *
-     * @since 1.0
      */
     public var hhomogeneous: Boolean
         /**
          * Gets whether @self is horizontally homogeneous.
          *
          * @return whether @self is horizontally homogeneous
-         * @since 1.0
          */
         get() = adw_view_stack_get_hhomogeneous(adwViewStackPointer.reinterpret()).asBoolean()
 
         /**
          * Sets @self to be horizontally homogeneous or not.
          *
+         * If the stack is horizontally homogeneous, it allocates the same width for
+         * all children.
+         *
+         * If it's `FALSE`, the stack may change width when a different child becomes
+         * visible.
+         *
          * @param hhomogeneous whether to make @self horizontally homogeneous
-         * @since 1.0
          */
         set(hhomogeneous) =
             adw_view_stack_set_hhomogeneous(
@@ -154,7 +163,6 @@ public class ViewStack(
          * page.
          *
          * @return a `GtkSelectionModel` for the stack's children
-         * @since 1.0
          */
         get() =
             adw_view_stack_get_pages(adwViewStackPointer.reinterpret())!!.run {
@@ -162,27 +170,32 @@ public class ViewStack(
             }
 
     /**
-     * Whether the stack allocates the same height for all children.
+     * Whether the stack is vertically homogeneous.
+     *
+     * If the stack is vertically homogeneous, it allocates the same height for
+     * all children.
      *
      * If it's `FALSE`, the stack may change height when a different child becomes
      * visible.
-     *
-     * @since 1.0
      */
     public var vhomogeneous: Boolean
         /**
          * Gets whether @self is vertically homogeneous.
          *
          * @return whether @self is vertically homogeneous
-         * @since 1.0
          */
         get() = adw_view_stack_get_vhomogeneous(adwViewStackPointer.reinterpret()).asBoolean()
 
         /**
          * Sets @self to be vertically homogeneous or not.
          *
+         * If the stack is vertically homogeneous, it allocates the same height for
+         * all children.
+         *
+         * If it's `FALSE`, the stack may change height when a different child becomes
+         * visible.
+         *
          * @param vhomogeneous whether to make @self vertically homogeneous
-         * @since 1.0
          */
         set(vhomogeneous) =
             adw_view_stack_set_vhomogeneous(
@@ -194,7 +207,6 @@ public class ViewStack(
      * Creates a new `AdwViewStack`.
      *
      * @return the newly created `AdwViewStack`
-     * @since 1.0
      */
     public constructor() : this(adw_view_stack_new()!!.reinterpret())
 
@@ -203,7 +215,6 @@ public class ViewStack(
      *
      * @param child the widget to add
      * @return the [class@ViewStackPage] for @child
-     * @since 1.0
      */
     public fun add(child: Widget): ViewStackPage =
         adw_view_stack_add(
@@ -221,7 +232,6 @@ public class ViewStack(
      * @param child the widget to add
      * @param name the name for @child
      * @return the `AdwViewStackPage` for @child
-     * @since 1.0
      */
     public fun addNamed(
         child: Widget,
@@ -245,7 +255,6 @@ public class ViewStack(
      * @param name the name for @child
      * @param title a human-readable title for @child
      * @return the `AdwViewStackPage` for @child
-     * @since 1.0
      */
     public fun addTitled(
         child: Widget,
@@ -262,11 +271,39 @@ public class ViewStack(
         }
 
     /**
+     * Adds a child to @self.
+     *
+     * The child is identified by the @name. The @title and @icon_name will be used
+     * by [class@ViewSwitcher] to represent @child.
+     *
+     * @param child the widget to add
+     * @param name the name for @child
+     * @param title a human-readable title for @child
+     * @param iconName an icon name for @child
+     * @return the `AdwViewStackPage` for @child
+     * @since 1.2
+     */
+    public fun addTitledWithIcon(
+        child: Widget,
+        name: String? = null,
+        title: String,
+        iconName: String,
+    ): ViewStackPage =
+        adw_view_stack_add_titled_with_icon(
+            adwViewStackPointer.reinterpret(),
+            child.gtkWidgetPointer.reinterpret(),
+            name,
+            title,
+            iconName
+        )!!.run {
+            ViewStackPage(reinterpret())
+        }
+
+    /**
      * Finds the child with @name in @self.
      *
      * @param name the name of the child to find
      * @return the requested child
-     * @since 1.0
      */
     public fun getChildByName(name: String): Widget? =
         adw_view_stack_get_child_by_name(adwViewStackPointer.reinterpret(), name)?.run {
@@ -277,7 +314,6 @@ public class ViewStack(
      * Gets whether @self is horizontally homogeneous.
      *
      * @return whether @self is horizontally homogeneous
-     * @since 1.0
      */
     public fun getHhomogeneous(): Boolean =
         adw_view_stack_get_hhomogeneous(adwViewStackPointer.reinterpret()).asBoolean()
@@ -287,7 +323,6 @@ public class ViewStack(
      *
      * @param child a child of @self
      * @return the page object for @child
-     * @since 1.0
      */
     public fun getPage(child: Widget): ViewStackPage =
         adw_view_stack_get_page(
@@ -305,7 +340,6 @@ public class ViewStack(
      * page.
      *
      * @return a `GtkSelectionModel` for the stack's children
-     * @since 1.0
      */
     public fun getPages(): SelectionModel =
         adw_view_stack_get_pages(adwViewStackPointer.reinterpret())!!.run {
@@ -316,7 +350,6 @@ public class ViewStack(
      * Gets whether @self is vertically homogeneous.
      *
      * @return whether @self is vertically homogeneous
-     * @since 1.0
      */
     public fun getVhomogeneous(): Boolean =
         adw_view_stack_get_vhomogeneous(adwViewStackPointer.reinterpret()).asBoolean()
@@ -325,7 +358,6 @@ public class ViewStack(
      * Gets the currently visible child of @self, .
      *
      * @return the visible child
-     * @since 1.0
      */
     public fun getVisibleChild(): Widget? =
         adw_view_stack_get_visible_child(adwViewStackPointer.reinterpret())?.run {
@@ -336,7 +368,6 @@ public class ViewStack(
      * Returns the name of the currently visible child of @self.
      *
      * @return the name of the visible child
-     * @since 1.0
      */
     public fun getVisibleChildName(): String? =
         adw_view_stack_get_visible_child_name(adwViewStackPointer.reinterpret())?.toKString()
@@ -345,7 +376,6 @@ public class ViewStack(
      * Removes a child widget from @self.
      *
      * @param child the child to remove
-     * @since 1.0
      */
     public fun remove(child: Widget): Unit =
         adw_view_stack_remove(
@@ -356,8 +386,13 @@ public class ViewStack(
     /**
      * Sets @self to be horizontally homogeneous or not.
      *
+     * If the stack is horizontally homogeneous, it allocates the same width for
+     * all children.
+     *
+     * If it's `FALSE`, the stack may change width when a different child becomes
+     * visible.
+     *
      * @param hhomogeneous whether to make @self horizontally homogeneous
-     * @since 1.0
      */
     public fun setHhomogeneous(hhomogeneous: Boolean): Unit =
         adw_view_stack_set_hhomogeneous(
@@ -368,8 +403,13 @@ public class ViewStack(
     /**
      * Sets @self to be vertically homogeneous or not.
      *
+     * If the stack is vertically homogeneous, it allocates the same height for
+     * all children.
+     *
+     * If it's `FALSE`, the stack may change height when a different child becomes
+     * visible.
+     *
      * @param vhomogeneous whether to make @self vertically homogeneous
-     * @since 1.0
      */
     public fun setVhomogeneous(vhomogeneous: Boolean): Unit =
         adw_view_stack_set_vhomogeneous(
@@ -381,7 +421,6 @@ public class ViewStack(
      * Makes @child the visible child of @self.
      *
      * @param child a child of @self
-     * @since 1.0
      */
     public fun setVisibleChild(child: Widget): Unit =
         adw_view_stack_set_visible_child(
@@ -392,8 +431,9 @@ public class ViewStack(
     /**
      * Makes the child with @name visible.
      *
+     * See [property@ViewStack:visible-child].
+     *
      * @param name the name of the child
-     * @since 1.0
      */
     public fun setVisibleChildName(name: String): Unit =
         adw_view_stack_set_visible_child_name(adwViewStackPointer.reinterpret(), name)

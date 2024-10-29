@@ -27,7 +27,7 @@ kotlin {
                 api(project(":bindings:common"))
                 api(project(":bindings:core:gobject"))
                 api(project(":bindings:core:gio"))
-                api(project(":bindings:core:harfbuzz"))
+//                api(project(":bindings:core:harfbuzz"))
                 api(project(":bindings:core:cairo"))
                 // transitive
                 api(project(":bindings:core:glib"))

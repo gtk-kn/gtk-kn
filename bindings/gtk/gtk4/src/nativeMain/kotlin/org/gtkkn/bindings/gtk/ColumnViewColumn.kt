@@ -17,6 +17,7 @@ import org.gtkkn.native.gtk.gtk_column_view_column_get_expand
 import org.gtkkn.native.gtk.gtk_column_view_column_get_factory
 import org.gtkkn.native.gtk.gtk_column_view_column_get_fixed_width
 import org.gtkkn.native.gtk.gtk_column_view_column_get_header_menu
+import org.gtkkn.native.gtk.gtk_column_view_column_get_id
 import org.gtkkn.native.gtk.gtk_column_view_column_get_resizable
 import org.gtkkn.native.gtk.gtk_column_view_column_get_sorter
 import org.gtkkn.native.gtk.gtk_column_view_column_get_title
@@ -27,6 +28,7 @@ import org.gtkkn.native.gtk.gtk_column_view_column_set_expand
 import org.gtkkn.native.gtk.gtk_column_view_column_set_factory
 import org.gtkkn.native.gtk.gtk_column_view_column_set_fixed_width
 import org.gtkkn.native.gtk.gtk_column_view_column_set_header_menu
+import org.gtkkn.native.gtk.gtk_column_view_column_set_id
 import org.gtkkn.native.gtk.gtk_column_view_column_set_resizable
 import org.gtkkn.native.gtk.gtk_column_view_column_set_sorter
 import org.gtkkn.native.gtk.gtk_column_view_column_set_title
@@ -37,7 +39,7 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * `GtkColumnViewColumn` represents the columns being added to `GtkColumnView`.
+ * `GtkColumnViewColumn` represents the columns being added to a `GtkColumnView`.
  *
  * The main ingredient for a `GtkColumnViewColumn` is the `GtkListItemFactory`
  * that tells the columnview how to create cells for this column from items in
@@ -178,6 +180,39 @@ public open class ColumnViewColumn(
                 gtkColumnViewColumnPointer.reinterpret(),
                 menu?.gioMenuModelPointer?.reinterpret()
             )
+
+    /**
+     * An ID for the column.
+     *
+     * GTK is not currently using the ID for anything, but
+     * it can be used by applications when saving column view
+     * configurations.
+     *
+     * It is up to applications to ensure uniqueness of IDs.
+     *
+     * @since 4.10
+     */
+    public open var id: String?
+        /**
+         * Returns the ID set with gtk_column_view_column_set_id().
+         *
+         * @return The column's ID
+         * @since 4.10
+         */
+        get() = gtk_column_view_column_get_id(gtkColumnViewColumnPointer.reinterpret())?.toKString()
+
+        /**
+         * Sets the id of this column.
+         *
+         * GTK makes no use of this, but applications can use it when
+         * storing column view configuration.
+         *
+         * It is up to callers to ensure uniqueness of IDs.
+         *
+         * @param id ID to use for this column
+         * @since 4.10
+         */
+        set(id) = gtk_column_view_column_set_id(gtkColumnViewColumnPointer.reinterpret(), id)
 
     /**
      * Whether this column is resizable.
@@ -362,6 +397,15 @@ public open class ColumnViewColumn(
         }
 
     /**
+     * Returns the ID set with gtk_column_view_column_set_id().
+     *
+     * @return The column's ID
+     * @since 4.10
+     */
+    public open fun getId(): String? =
+        gtk_column_view_column_get_id(gtkColumnViewColumnPointer.reinterpret())?.toKString()
+
+    /**
      * Returns whether this column is resizable.
      *
      * @return true if this column is resizable
@@ -447,6 +491,20 @@ public open class ColumnViewColumn(
             gtkColumnViewColumnPointer.reinterpret(),
             menu?.gioMenuModelPointer?.reinterpret()
         )
+
+    /**
+     * Sets the id of this column.
+     *
+     * GTK makes no use of this, but applications can use it when
+     * storing column view configuration.
+     *
+     * It is up to callers to ensure uniqueness of IDs.
+     *
+     * @param id ID to use for this column
+     * @since 4.10
+     */
+    public open fun setId(id: String? = null): Unit =
+        gtk_column_view_column_set_id(gtkColumnViewColumnPointer.reinterpret(), id)
 
     /**
      * Sets whether this column should be resizable by dragging.

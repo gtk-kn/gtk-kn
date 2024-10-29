@@ -15,6 +15,7 @@ import org.gtkkn.native.gdk.GDK_TOPLEVEL_STATE_MINIMIZED
 import org.gtkkn.native.gdk.GDK_TOPLEVEL_STATE_RIGHT_RESIZABLE
 import org.gtkkn.native.gdk.GDK_TOPLEVEL_STATE_RIGHT_TILED
 import org.gtkkn.native.gdk.GDK_TOPLEVEL_STATE_STICKY
+import org.gtkkn.native.gdk.GDK_TOPLEVEL_STATE_SUSPENDED
 import org.gtkkn.native.gdk.GDK_TOPLEVEL_STATE_TILED
 import org.gtkkn.native.gdk.GDK_TOPLEVEL_STATE_TOP_RESIZABLE
 import org.gtkkn.native.gdk.GDK_TOPLEVEL_STATE_TOP_TILED
@@ -116,5 +117,10 @@ public class ToplevelState(
          * whether the left edge is resizable
          */
         public val LEFT_RESIZABLE: ToplevelState = ToplevelState(GDK_TOPLEVEL_STATE_LEFT_RESIZABLE)
+
+        /**
+         * the surface is not visible to the user
+         */
+        public val SUSPENDED: ToplevelState = ToplevelState(GDK_TOPLEVEL_STATE_SUSPENDED)
     }
 }

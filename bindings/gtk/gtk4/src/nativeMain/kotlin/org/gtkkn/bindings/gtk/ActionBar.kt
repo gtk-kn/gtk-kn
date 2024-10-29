@@ -37,6 +37,13 @@ import kotlin.Unit
  * the full width of the box, even if the children at either side take
  * up different amounts of space.
  *
+ * # GtkActionBar as GtkBuildable
+ *
+ * The `GtkActionBar` implementation of the `GtkBuildable` interface supports
+ * adding children at the start or end sides by specifying “start” or “end” as
+ * the “type” attribute of a `<child>` element, or setting the center widget
+ * by specifying “center” value.
+ *
  * # CSS nodes
  *
  * ```

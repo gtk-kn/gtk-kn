@@ -63,7 +63,7 @@ public open class Filter(
      * be changed, but only some. Refer to the [enum@Gtk.FilterChange]
      * documentation for details.
      *
-     * This function is intended for implementors of `GtkFilter`
+     * This function is intended for implementers of `GtkFilter`
      * subclasses and should not be called from other functions.
      *
      * @param change How the filter changed

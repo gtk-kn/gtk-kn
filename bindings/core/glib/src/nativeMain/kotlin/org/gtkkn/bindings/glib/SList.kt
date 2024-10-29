@@ -8,6 +8,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GSList
+import org.gtkkn.native.glib.g_slist_pop_allocator
+import kotlin.Unit
 
 /**
  * The #GSList struct is used for each element in the singly-linked
@@ -15,6 +17,7 @@ import org.gtkkn.native.glib.GSList
  *
  * ## Skipped during bindings generation
  *
+ * - parameter `allocator`: Allocator
  * - field `data`: gpointer
  */
 public class SList(
@@ -34,6 +37,8 @@ public class SList(
             }
 
     public companion object : RecordCompanion<SList, GSList> {
+        public fun popAllocator(): Unit = g_slist_pop_allocator()
+
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): SList = SList(pointer.reinterpret())
     }
 }

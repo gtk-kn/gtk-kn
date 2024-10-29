@@ -14,6 +14,7 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -69,6 +70,8 @@ import org.gtkkn.native.gio.g_file_make_directory_async
 import org.gtkkn.native.gio.g_file_make_directory_finish
 import org.gtkkn.native.gio.g_file_make_directory_with_parents
 import org.gtkkn.native.gio.g_file_make_symbolic_link
+import org.gtkkn.native.gio.g_file_make_symbolic_link_async
+import org.gtkkn.native.gio.g_file_make_symbolic_link_finish
 import org.gtkkn.native.gio.g_file_monitor
 import org.gtkkn.native.gio.g_file_monitor_directory
 import org.gtkkn.native.gio.g_file_monitor_file
@@ -78,10 +81,14 @@ import org.gtkkn.native.gio.g_file_mount_mountable
 import org.gtkkn.native.gio.g_file_mount_mountable_finish
 import org.gtkkn.native.gio.g_file_move
 import org.gtkkn.native.gio.g_file_move_finish
+import org.gtkkn.native.gio.g_file_new_build_filenamev
 import org.gtkkn.native.gio.g_file_new_for_commandline_arg
 import org.gtkkn.native.gio.g_file_new_for_commandline_arg_and_cwd
 import org.gtkkn.native.gio.g_file_new_for_path
 import org.gtkkn.native.gio.g_file_new_for_uri
+import org.gtkkn.native.gio.g_file_new_tmp_async
+import org.gtkkn.native.gio.g_file_new_tmp_dir_async
+import org.gtkkn.native.gio.g_file_new_tmp_dir_finish
 import org.gtkkn.native.gio.g_file_open_readwrite
 import org.gtkkn.native.gio.g_file_open_readwrite_async
 import org.gtkkn.native.gio.g_file_open_readwrite_finish
@@ -145,89 +152,100 @@ import kotlin.String
 import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
+import kotlin.collections.List
 
 /**
- * #GFile is a high level abstraction for manipulating files on a
- * virtual file system. #GFiles are lightweight, immutable objects
+ * `GFile` is a high level abstraction for manipulating files on a
+ * virtual file system. `GFile`s are lightweight, immutable objects
  * that do no I/O upon creation. It is necessary to understand that
- * #GFile objects do not represent files, merely an identifier for a
+ * `GFile` objects do not represent files, merely an identifier for a
  * file. All file content I/O is implemented as streaming operations
- * (see #GInputStream and #GOutputStream).
+ * (see [class@Gio.InputStream] and [class@Gio.OutputStream]).
  *
- * To construct a #GFile, you can use:
- * - g_file_new_for_path() if you have a path.
- * - g_file_new_for_uri() if you have a URI.
- * - g_file_new_for_commandline_arg() for a command line argument.
- * - g_file_new_tmp() to create a temporary file from a template.
- * - g_file_parse_name() from a UTF-8 string gotten from g_file_get_parse_name().
- * - g_file_new_build_filename() to create a file from path elements.
+ * To construct a `GFile`, you can use:
  *
- * One way to think of a #GFile is as an abstraction of a pathname. For
+ * - [func@Gio.File.new_for_path] if you have a path.
+ * - [func@Gio.File.new_for_uri] if you have a URI.
+ * - [func@Gio.File.new_for_commandline_arg] or
+ *   [func@Gio.File.new_for_commandline_arg_and_cwd] for a command line
+ *   argument.
+ * - [func@Gio.File.new_tmp] to create a temporary file from a template.
+ * - [func@Gio.File.new_tmp_async] to asynchronously create a temporary file.
+ * - [func@Gio.File.new_tmp_dir_async] to asynchronously create a temporary
+ *   directory.
+ * - [func@Gio.File.parse_name] from a UTF-8 string gotten from
+ *   [method@Gio.File.get_parse_name].
+ * - [func@Gio.File.new_build_filename] or [func@Gio.File.new_build_filenamev]
+ *   to create a file from path elements.
+ *
+ * One way to think of a `GFile` is as an abstraction of a pathname. For
  * normal files the system pathname is what is stored internally, but as
- * #GFiles are extensible it could also be something else that corresponds
+ * `GFile`s are extensible it could also be something else that corresponds
  * to a pathname in a userspace implementation of a filesystem.
  *
- * #GFiles make up hierarchies of directories and files that correspond to
+ * `GFile`s make up hierarchies of directories and files that correspond to
  * the files on a filesystem. You can move through the file system with
- * #GFile using g_file_get_parent() to get an identifier for the parent
- * directory, g_file_get_child() to get a child within a directory,
- * g_file_resolve_relative_path() to resolve a relative path between two
- * #GFiles. There can be multiple hierarchies, so you may not end up at
- * the same root if you repeatedly call g_file_get_parent() on two different
- * files.
+ * `GFile` using [method@Gio.File.get_parent] to get an identifier for the
+ * parent directory, [method@Gio.File.get_child] to get a child within a
+ * directory, and [method@Gio.File.resolve_relative_path] to resolve a relative
+ * path between two `GFile`s. There can be multiple hierarchies, so you may not
+ * end up at the same root if you repeatedly call [method@Gio.File.get_parent]
+ * on two different files.
  *
- * All #GFiles have a basename (get with g_file_get_basename()). These names
- * are byte strings that are used to identify the file on the filesystem
+ * All `GFile`s have a basename (get with [method@Gio.File.get_basename]). These
+ * names are byte strings that are used to identify the file on the filesystem
  * (relative to its parent directory) and there is no guarantees that they
  * have any particular charset encoding or even make any sense at all. If
  * you want to use filenames in a user interface you should use the display
  * name that you can get by requesting the
- * %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME attribute with g_file_query_info().
- * This is guaranteed to be in UTF-8 and can be used in a user interface.
- * But always store the real basename or the #GFile to use to actually
- * access the file, because there is no way to go from a display name to
- * the actual name.
+ * `G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME` attribute with
+ * [method@Gio.File.query_info]. This is guaranteed to be in UTF-8 and can be
+ * used in a user interface. But always store the real basename or the `GFile`
+ * to use to actually access the file, because there is no way to go from a
+ * display name to the actual name.
  *
- * Using #GFile as an identifier has the same weaknesses as using a path
+ * Using `GFile` as an identifier has the same weaknesses as using a path
  * in that there may be multiple aliases for the same file. For instance,
- * hard or soft links may cause two different #GFiles to refer to the same
+ * hard or soft links may cause two different `GFile`s to refer to the same
  * file. Other possible causes for aliases are: case insensitive filesystems,
  * short and long names on FAT/NTFS, or bind mounts in Linux. If you want to
- * check if two #GFiles point to the same file you can query for the
- * %G_FILE_ATTRIBUTE_ID_FILE attribute. Note that #GFile does some trivial
+ * check if two `GFile`s point to the same file you can query for the
+ * `G_FILE_ATTRIBUTE_ID_FILE` attribute. Note that `GFile` does some trivial
  * canonicalization of pathnames passed in, so that trivial differences in
  * the path string used at creation (duplicated slashes, slash at end of
- * path, "." or ".." path segments, etc) does not create different #GFiles.
+ * path, `.` or `..` path segments, etc) does not create different `GFile`s.
  *
- * Many #GFile operations have both synchronous and asynchronous versions
+ * Many `GFile` operations have both synchronous and asynchronous versions
  * to suit your application. Asynchronous versions of synchronous functions
- * simply have _async() appended to their function names. The asynchronous
- * I/O functions call a #GAsyncReadyCallback which is then used to finalize
- * the operation, producing a GAsyncResult which is then passed to the
- * function's matching _finish() operation.
+ * simply have `_async()` appended to their function names. The asynchronous
+ * I/O functions call a [callback@Gio.AsyncReadyCallback] which is then used to
+ * finalize the operation, producing a [iface@Gio.AsyncResult] which is then
+ * passed to the function’s matching `_finish()` operation.
  *
  * It is highly recommended to use asynchronous calls when running within a
  * shared main loop, such as in the main thread of an application. This avoids
  * I/O operations blocking other sources on the main loop from being dispatched.
  * Synchronous I/O operations should be performed from worker threads. See the
- * [introduction to asynchronous programming section][async-programming] for
- * more.
+ * [introduction to asynchronous programming section](overview.html#asynchronous-programming)
+ * for more.
  *
- * Some #GFile operations almost always take a noticeable amount of time, and
+ * Some `GFile` operations almost always take a noticeable amount of time, and
  * so do not have synchronous analogs. Notable cases include:
- * - g_file_mount_mountable() to mount a mountable file.
- * - g_file_unmount_mountable_with_operation() to unmount a mountable file.
- * - g_file_eject_mountable_with_operation() to eject a mountable file.
  *
- * ## Entity Tags # {#gfile-etag}
+ * - [method@Gio.File.mount_mountable] to mount a mountable file.
+ * - [method@Gio.File.unmount_mountable_with_operation] to unmount a mountable
+ *   file.
+ * - [method@Gio.File.eject_mountable_with_operation] to eject a mountable file.
  *
- * One notable feature of #GFiles are entity tags, or "etags" for
+ * ## Entity Tags
+ *
+ * One notable feature of `GFile`s are entity tags, or ‘etags’ for
  * short. Entity tags are somewhat like a more abstract version of the
  * traditional mtime, and can be used to quickly determine if the file
  * has been modified from the version on the file system. See the
  * HTTP 1.1
  * [specification](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)
- * for HTTP Etag headers, which are a very similar concept.
+ * for HTTP `ETag` headers, which are a very similar concept.
  *
  * ## Skipped during bindings generation
  *
@@ -238,12 +256,14 @@ import kotlin.Unit
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `disk_usage`: disk_usage: Out parameter is not supported
+ * - parameter `disk_usage`: disk_usage: Out parameter is not supported
  * - parameter `callback`: AsyncReadyCallback
  * - parameter `contents`: guint8
  * - parameter `contents`: guint8
  * - parameter `new_etag`: new_etag: Out parameter is not supported
  * - parameter `value_p`: gpointer
  * - parameter `info`: info: Out parameter is not supported
+ * - parameter `iostream`: iostream: Out parameter is not supported
  * - parameter `iostream`: iostream: Out parameter is not supported
  */
 public interface File : Interface, KGTyped {
@@ -311,8 +331,8 @@ public interface File : Interface, KGTyped {
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun appendToAsync(
         flags: FileCreateFlags,
@@ -597,8 +617,8 @@ public interface File : Interface, KGTyped {
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun createAsync(
         flags: FileCreateFlags,
@@ -713,8 +733,8 @@ public interface File : Interface, KGTyped {
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      * @since 2.22
      */
     public fun createReadwriteAsync(
@@ -885,8 +905,8 @@ public interface File : Interface, KGTyped {
      * @param flags flags affecting the operation
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied, or null
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun ejectMountable(
         flags: MountUnmountFlags,
@@ -940,8 +960,8 @@ public interface File : Interface, KGTyped {
      *   or null to avoid user interaction
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied, or null
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      * @since 2.22
      */
     public fun ejectMountableWithOperation(
@@ -1060,8 +1080,8 @@ public interface File : Interface, KGTyped {
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call when the
-     *   request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun enumerateChildrenAsync(
         attributes: String,
@@ -1175,8 +1195,8 @@ public interface File : Interface, KGTyped {
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun findEnclosingMountAsync(
         ioPriority: Int,
@@ -1492,8 +1512,8 @@ public interface File : Interface, KGTyped {
      * See g_file_load_bytes() for more information.
      *
      * @param cancellable a #GCancellable or null
-     * @param callback a #GAsyncReadyCallback to call when the
-     *   request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      * @since 2.56
      */
     public fun loadBytesAsync(
@@ -1691,6 +1711,58 @@ public interface File : Interface, KGTyped {
         }
 
     /**
+     * Asynchronously creates a symbolic link named @file which contains the
+     * string @symlink_value.
+     *
+     * @param symlinkValue a string with the path for the target
+     *   of the new symlink
+     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param cancellable optional #GCancellable object,
+     *   null to ignore
+     * @param callback a #GAsyncReadyCallback to call
+     *   when the request is satisfied
+     * @since 2.74
+     */
+    public fun makeSymbolicLinkAsync(
+        symlinkValue: String,
+        ioPriority: Int,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit =
+        g_file_make_symbolic_link_async(
+            gioFilePointer.reinterpret(),
+            symlinkValue,
+            ioPriority,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
+
+    /**
+     * Finishes an asynchronous symbolic link creation, started with
+     * g_file_make_symbolic_link_async().
+     *
+     * @param result a #GAsyncResult
+     * @return true on successful directory creation, false otherwise.
+     * @since 2.74
+     */
+    public fun makeSymbolicLinkFinish(result: AsyncResult): Result<Boolean> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_file_make_symbolic_link_finish(
+                    gioFilePointer.reinterpret(),
+                    result.gioAsyncResultPointer,
+                    gError.ptr
+                ).asBoolean()
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(gResult)
+            }
+        }
+
+    /**
      * Obtains a file or directory monitor for the given file,
      * depending on the type of the file.
      *
@@ -1747,8 +1819,7 @@ public interface File : Interface, KGTyped {
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @return a #GFileMonitor for the given @file,
-     *   or null on error.
-     *   Free the returned object with g_object_unref().
+     *   or null on error. Free the returned object with g_object_unref().
      */
     public fun monitorDirectory(
         flags: FileMonitorFlags,
@@ -1896,8 +1967,8 @@ public interface File : Interface, KGTyped {
      *   or null to avoid user interaction
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied, or null
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun mountMountable(
         flags: MountMountFlags,
@@ -2090,8 +2161,8 @@ public interface File : Interface, KGTyped {
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      * @since 2.22
      */
     public fun openReadwriteAsync(
@@ -2420,8 +2491,8 @@ public interface File : Interface, KGTyped {
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun queryFilesystemInfoAsync(
         attributes: String,
@@ -2546,8 +2617,8 @@ public interface File : Interface, KGTyped {
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call when the
-     *   request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun queryInfoAsync(
         attributes: String,
@@ -2714,8 +2785,8 @@ public interface File : Interface, KGTyped {
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun readAsync(
         ioPriority: Int,
@@ -2800,7 +2871,7 @@ public interface File : Interface, KGTyped {
      * %G_IO_ERROR_FILENAME_TOO_LONG will be returned. Other errors are
      * possible too, and depend on what kind of filesystem the file is on.
      *
-     * @param etag an optional [entity tag][gfile-etag]
+     * @param etag an optional [entity tag](#entity-tags)
      *   for the current #GFile, or #NULL to ignore
      * @param makeBackup true if a backup should be created
      * @param flags a set of #GFileCreateFlags
@@ -2847,15 +2918,15 @@ public interface File : Interface, KGTyped {
      * You can then call g_file_replace_finish() to get the result
      * of the operation.
      *
-     * @param etag an [entity tag][gfile-etag] for the current #GFile,
+     * @param etag an [entity tag](#entity-tags) for the current #GFile,
      *   or null to ignore
      * @param makeBackup true if a backup should be created
      * @param flags a set of #GFileCreateFlags
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun replaceAsync(
         etag: String? = null,
@@ -2887,7 +2958,7 @@ public interface File : Interface, KGTyped {
      * g_file_replace_contents_finish().
      *
      * @param contents a #GBytes
-     * @param etag a new [entity tag][gfile-etag] for the @file, or null
+     * @param etag a new [entity tag](#entity-tags) for the @file, or null
      * @param makeBackup true if a backup should be created
      * @param flags a set of #GFileCreateFlags
      * @param cancellable optional #GCancellable object, null to ignore
@@ -2952,7 +3023,7 @@ public interface File : Interface, KGTyped {
      * supported, so make sure you really need to do read and write streaming,
      * rather than just opening for reading or writing.
      *
-     * @param etag an optional [entity tag][gfile-etag]
+     * @param etag an optional [entity tag](#entity-tags)
      *   for the current #GFile, or #NULL to ignore
      * @param makeBackup true if a backup should be created
      * @param flags a set of #GFileCreateFlags
@@ -3001,15 +3072,15 @@ public interface File : Interface, KGTyped {
      * You can then call g_file_replace_readwrite_finish() to get
      * the result of the operation.
      *
-     * @param etag an [entity tag][gfile-etag] for the current #GFile,
+     * @param etag an [entity tag](#entity-tags) for the current #GFile,
      *   or null to ignore
      * @param makeBackup true if a backup should be created
      * @param flags a set of #GFileCreateFlags
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      * @since 2.22
      */
     public fun replaceReadwriteAsync(
@@ -3330,6 +3401,7 @@ public interface File : Interface, KGTyped {
      * @param cancellable optional #GCancellable object,
      *   null to ignore
      * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun setAttributesAsync(
         info: FileInfo,
@@ -3451,8 +3523,8 @@ public interface File : Interface, KGTyped {
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun setDisplayNameAsync(
         displayName: String,
@@ -3724,8 +3796,8 @@ public interface File : Interface, KGTyped {
      * @param flags flags affecting the operation
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied, or null
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public fun unmountMountable(
         flags: MountUnmountFlags,
@@ -3782,8 +3854,8 @@ public interface File : Interface, KGTyped {
      *   or null to avoid user interaction
      * @param cancellable optional #GCancellable object,
      *   null to ignore
-     * @param callback a #GAsyncReadyCallback to call
-     *   when the request is satisfied, or null
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      * @since 2.22
      */
     public fun unmountMountableWithOperation(
@@ -3844,6 +3916,25 @@ public interface File : Interface, KGTyped {
         }
 
         public fun wrap(pointer: CPointer<GFile>): File = Wrapper(pointer)
+
+        /**
+         * Constructs a #GFile from a vector of elements using the correct
+         * separator for filenames.
+         *
+         * Using this function is equivalent to calling g_build_filenamev(),
+         * followed by g_file_new_for_path() on the result.
+         *
+         * @param args null-terminated
+         *   array of strings containing the path elements.
+         * @return a new #GFile
+         * @since 2.78
+         */
+        public fun newBuildFilenamev(args: List<String>): File =
+            memScoped {
+                return g_file_new_build_filenamev(args.toCStringList(this))!!.run {
+                    File.wrap(reinterpret())
+                }
+            }
 
         /**
          * Creates a #GFile with the given argument from the command line.
@@ -3924,6 +4015,88 @@ public interface File : Interface, KGTyped {
         public fun newForUri(uri: String): File =
             g_file_new_for_uri(uri)!!.run {
                 File.wrap(reinterpret())
+            }
+
+        /**
+         * Asynchronously opens a file in the preferred directory for temporary files
+         *  (as returned by g_get_tmp_dir()) as g_file_new_tmp().
+         *
+         * @tmpl should be a string in the GLib file name encoding
+         * containing a sequence of six 'X' characters, and containing no
+         * directory components. If it is null, a default template is used.
+         *
+         * @param tmpl Template for the file
+         *   name, as in g_file_open_tmp(), or null for a default template
+         * @param ioPriority the [I/O priority][io-priority] of the request
+         * @param cancellable optional #GCancellable object, null to ignore
+         * @param callback a #GAsyncReadyCallback to call when the request is done
+         * @since 2.74
+         */
+        public fun newTmpAsync(
+            tmpl: String? = null,
+            ioPriority: Int,
+            cancellable: Cancellable? = null,
+            callback: AsyncReadyCallback,
+        ): Unit =
+            g_file_new_tmp_async(
+                tmpl,
+                ioPriority,
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                AsyncReadyCallbackFunc.reinterpret(),
+                StableRef.create(callback).asCPointer()
+            )
+
+        /**
+         * Asynchronously creates a directory in the preferred directory for
+         * temporary files (as returned by g_get_tmp_dir()) as g_dir_make_tmp().
+         *
+         * @tmpl should be a string in the GLib file name encoding
+         * containing a sequence of six 'X' characters, and containing no
+         * directory components. If it is null, a default template is used.
+         *
+         * @param tmpl Template for the file
+         *   name, as in g_dir_make_tmp(), or null for a default template
+         * @param ioPriority the [I/O priority][io-priority] of the request
+         * @param cancellable optional #GCancellable object, null to ignore
+         * @param callback a #GAsyncReadyCallback to call when the request is done
+         * @since 2.74
+         */
+        public fun newTmpDirAsync(
+            tmpl: String? = null,
+            ioPriority: Int,
+            cancellable: Cancellable? = null,
+            callback: AsyncReadyCallback,
+        ): Unit =
+            g_file_new_tmp_dir_async(
+                tmpl,
+                ioPriority,
+                cancellable?.gioCancellablePointer?.reinterpret(),
+                AsyncReadyCallbackFunc.reinterpret(),
+                StableRef.create(callback).asCPointer()
+            )
+
+        /**
+         * Finishes a temporary directory creation started by
+         * g_file_new_tmp_dir_async().
+         *
+         * @param result a #GAsyncResult
+         * @return a new #GFile.
+         *   Free the returned object with g_object_unref().
+         * @since 2.74
+         */
+        public fun newTmpDirFinish(result: AsyncResult): Result<File> =
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                val gResult =
+                    g_file_new_tmp_dir_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
+                        File.wrap(reinterpret())
+                    }
+
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    Result.success(checkNotNull(gResult))
+                }
             }
 
         /**

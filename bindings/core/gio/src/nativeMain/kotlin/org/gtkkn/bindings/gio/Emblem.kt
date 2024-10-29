@@ -16,9 +16,9 @@ import org.gtkkn.native.gio.g_emblem_new
 import org.gtkkn.native.gio.g_emblem_new_with_origin
 
 /**
- * #GEmblem is an implementation of #GIcon that supports
+ * `GEmblem` is an implementation of [iface@Gio.Icon] that supports
  * having an emblem, which is an icon with additional properties.
- * It can than be added to a #GEmblemedIcon.
+ * It can than be added to a [class@Gio.EmblemedIcon].
  *
  * Currently, only metainformation about the emblem's origin is
  * supported. More may be added in the future.
@@ -32,6 +32,11 @@ public open class Emblem(
     override val gioIconPointer: CPointer<GIcon>
         get() = gPointer.reinterpret()
 
+    /**
+     * The actual icon of the emblem.
+     *
+     * @since 2.18
+     */
     public open val icon: Icon
         /**
          * Gives back the icon from @emblem.
@@ -45,6 +50,11 @@ public open class Emblem(
                 Icon.wrap(reinterpret())
             }
 
+    /**
+     * The origin the emblem is derived from.
+     *
+     * @since 2.18
+     */
     public open val origin: EmblemOrigin
         /**
          * Gets the origin of the emblem.

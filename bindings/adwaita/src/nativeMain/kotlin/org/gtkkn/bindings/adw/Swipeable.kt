@@ -29,8 +29,6 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `n_snap_points`: n_snap_points: Out parameter is not supported
- *
- * @since 1.0
  */
 public interface Swipeable : Interface, KGTyped {
     public val adwSwipeablePointer: CPointer<AdwSwipeable>
@@ -39,7 +37,6 @@ public interface Swipeable : Interface, KGTyped {
      * Gets the progress @self will snap back to after the gesture is canceled.
      *
      * @return the cancel progress, unitless
-     * @since 1.0
      */
     public fun getCancelProgress(): Double = adw_swipeable_get_cancel_progress(adwSwipeablePointer.reinterpret())
 
@@ -49,7 +46,6 @@ public interface Swipeable : Interface, KGTyped {
      * This corresponds to how many pixels 1 unit represents.
      *
      * @return the swipe distance in pixels
-     * @since 1.0
      */
     public fun getDistance(): Double = adw_swipeable_get_distance(adwSwipeablePointer.reinterpret())
 
@@ -57,7 +53,6 @@ public interface Swipeable : Interface, KGTyped {
      * Gets the current progress of @self.
      *
      * @return the current progress, unitless
-     * @since 1.0
      */
     public fun getProgress(): Double = adw_swipeable_get_progress(adwSwipeablePointer.reinterpret())
 
@@ -75,7 +70,6 @@ public interface Swipeable : Interface, KGTyped {
      * @param navigationDirection the direction of the swipe
      * @param isDrag whether the swipe is caused by a dragging gesture
      * @param rect a pointer to a rectangle to store the swipe area
-     * @since 1.0
      */
     public fun getSwipeArea(
         navigationDirection: NavigationDirection,

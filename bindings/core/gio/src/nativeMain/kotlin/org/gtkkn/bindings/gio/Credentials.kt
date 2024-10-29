@@ -28,43 +28,41 @@ import kotlin.Result
 import kotlin.UInt
 
 /**
- * The #GCredentials type is a reference-counted wrapper for native
- * credentials. This information is typically used for identifying,
+ * The `GCredentials` type is a reference-counted wrapper for native
+ * credentials.
+ *
+ * The information in `GCredentials` is typically used for identifying,
  * authenticating and authorizing other processes.
  *
- * Some operating systems supports looking up the credentials of the
- * remote peer of a communication endpoint - see e.g.
- * g_socket_get_credentials().
+ * Some operating systems supports looking up the credentials of the remote
+ * peer of a communication endpoint - see e.g. [method@Gio.Socket.get_credentials].
  *
  * Some operating systems supports securely sending and receiving
- * credentials over a Unix Domain Socket, see
- * #GUnixCredentialsMessage, g_unix_connection_send_credentials() and
- * g_unix_connection_receive_credentials() for details.
+ * credentials over a Unix Domain Socket, see [class@Gio.UnixCredentialsMessage],
+ * [method@Gio.UnixConnection.send_credentials] and
+ * [method@Gio.UnixConnection.receive_credentials] for details.
  *
  * On Linux, the native credential type is a `struct ucred` - see the
- * unix(7) man page for details. This corresponds to
- * %G_CREDENTIALS_TYPE_LINUX_UCRED.
+ * [`unix(7)` man page](man:unix(7)) for details. This corresponds to
+ * `G_CREDENTIALS_TYPE_LINUX_UCRED`.
  *
- * On Apple operating systems (including iOS, tvOS, and macOS),
- * the native credential type is a `struct xucred`.
- * This corresponds to %G_CREDENTIALS_TYPE_APPLE_XUCRED.
+ * On Apple operating systems (including iOS, tvOS, and macOS), the native credential
+ * type is a `struct xucred`. This corresponds to `G_CREDENTIALS_TYPE_APPLE_XUCRED`.
  *
- * On FreeBSD, Debian GNU/kFreeBSD, and GNU/Hurd, the native
- * credential type is a `struct cmsgcred`. This corresponds
- * to %G_CREDENTIALS_TYPE_FREEBSD_CMSGCRED.
+ * On FreeBSD, Debian GNU/kFreeBSD, and GNU/Hurd, the native credential type is a
+ * `struct cmsgcred`. This corresponds to `G_CREDENTIALS_TYPE_FREEBSD_CMSGCRED`.
  *
  * On NetBSD, the native credential type is a `struct unpcbid`.
- * This corresponds to %G_CREDENTIALS_TYPE_NETBSD_UNPCBID.
+ * This corresponds to `G_CREDENTIALS_TYPE_NETBSD_UNPCBID`.
  *
  * On OpenBSD, the native credential type is a `struct sockpeercred`.
- * This corresponds to %G_CREDENTIALS_TYPE_OPENBSD_SOCKPEERCRED.
+ * This corresponds to `G_CREDENTIALS_TYPE_OPENBSD_SOCKPEERCRED`.
  *
- * On Solaris (including OpenSolaris and its derivatives), the native
- * credential type is a `ucred_t`. This corresponds to
- * %G_CREDENTIALS_TYPE_SOLARIS_UCRED.
+ * On Solaris (including OpenSolaris and its derivatives), the native credential type
+ * is a `ucred_t`. This corresponds to `G_CREDENTIALS_TYPE_SOLARIS_UCRED`.
  *
  * Since GLib 2.72, on Windows, the native credentials may contain the PID of a
- * process. This corresponds to %G_CREDENTIALS_TYPE_WIN32_PID.
+ * process. This corresponds to `G_CREDENTIALS_TYPE_WIN32_PID`.
  *
  * ## Skipped during bindings generation
  *

@@ -15,9 +15,11 @@ import org.gtkkn.native.gio.g_dbus_interface_set_object
 import kotlin.Unit
 
 /**
- * The #GDBusInterface type is the base type for D-Bus interfaces both
- * on the service side (see #GDBusInterfaceSkeleton) and client side
- * (see #GDBusProxy).
+ * Base type for D-Bus interfaces.
+ *
+ * The `GDBusInterface` type is the base type for D-Bus interfaces both
+ * on the service side (see [class@Gio.DBusInterfaceSkeleton]) and client side
+ * (see [class@Gio.DBusProxy]).
  * @since 2.30
  */
 public interface DBusInterface : Interface, KGTyped {

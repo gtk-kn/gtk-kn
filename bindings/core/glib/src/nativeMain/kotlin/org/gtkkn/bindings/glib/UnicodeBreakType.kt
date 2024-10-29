@@ -4,6 +4,9 @@ package org.gtkkn.bindings.glib
 import org.gtkkn.native.glib.GUnicodeBreakType
 import org.gtkkn.native.glib.GUnicodeBreakType.Companion.G_UNICODE_BREAK_CLOSE_PARENTHESIS
 import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_AFTER
+import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_AKSARA
+import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_AKSARA_PRE_BASE
+import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_AKSARA_START
 import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_ALPHABETIC
 import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_AMBIGUOUS
 import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_BEFORE
@@ -43,6 +46,8 @@ import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_SPACE
 import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_SURROGATE
 import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_SYMBOL
 import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_UNKNOWN
+import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_VIRAMA
+import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_VIRAMA_FINAL
 import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_WORD_JOINER
 import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_ZERO_WIDTH_JOINER
 import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_ZERO_WIDTH_SPACE
@@ -50,10 +55,10 @@ import org.gtkkn.native.glib.GUnicodeBreakType.G_UNICODE_BREAK_ZERO_WIDTH_SPACE
 /**
  * These are the possible line break classifications.
  *
- * Since new unicode versions may add new types here, applications should be ready
+ * Since new Unicode versions may add new types here, applications should be ready
  * to handle unknown values. They may be regarded as %G_UNICODE_BREAK_UNKNOWN.
  *
- * See [Unicode Line Breaking Algorithm](http://www.unicode.org/unicode/reports/tr14/).
+ * See [Unicode Line Breaking Algorithm](https://www.unicode.org/reports/tr14/).
  */
 public enum class UnicodeBreakType(
     public val nativeValue: GUnicodeBreakType,
@@ -278,6 +283,19 @@ public enum class UnicodeBreakType(
      * Zero Width Joiner (ZWJ). Since: 2.50
      */
     ZERO_WIDTH_JOINER(G_UNICODE_BREAK_ZERO_WIDTH_JOINER),
+
+    /**
+     * Aksara (AK). Since: 2.80
+     * @G_UNICODE_BREAK_AKSARA_PRE_BASE (AP). Since: 2.80
+     * @G_UNICODE_BREAK_AKSARA_START (AS). Since: 2.80
+     * @G_UNICODE_BREAK_VIRAMA_FINAL (VF). Since: 2.80
+     * @G_UNICODE_BREAK_VIRAMA (VI). Since: 2.80
+     */
+    AKSARA(G_UNICODE_BREAK_AKSARA),
+    AKSARA_PRE_BASE(G_UNICODE_BREAK_AKSARA_PRE_BASE),
+    AKSARA_START(G_UNICODE_BREAK_AKSARA_START),
+    VIRAMA_FINAL(G_UNICODE_BREAK_VIRAMA_FINAL),
+    VIRAMA(G_UNICODE_BREAK_VIRAMA),
     ;
 
     public companion object {
@@ -327,6 +345,11 @@ public enum class UnicodeBreakType(
                 G_UNICODE_BREAK_EMOJI_BASE -> EMOJI_BASE
                 G_UNICODE_BREAK_EMOJI_MODIFIER -> EMOJI_MODIFIER
                 G_UNICODE_BREAK_ZERO_WIDTH_JOINER -> ZERO_WIDTH_JOINER
+                G_UNICODE_BREAK_AKSARA -> AKSARA
+                G_UNICODE_BREAK_AKSARA_PRE_BASE -> AKSARA_PRE_BASE
+                G_UNICODE_BREAK_AKSARA_START -> AKSARA_START
+                G_UNICODE_BREAK_VIRAMA_FINAL -> VIRAMA_FINAL
+                G_UNICODE_BREAK_VIRAMA -> VIRAMA
                 else -> error("invalid nativeValue")
             }
     }

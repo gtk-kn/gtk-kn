@@ -5,8 +5,6 @@ import org.gtkkn.native.gtk.GtkOrdering
 import org.gtkkn.native.gtk.GtkOrdering.GTK_ORDERING_EQUAL
 import org.gtkkn.native.gtk.GtkOrdering.GTK_ORDERING_LARGER
 import org.gtkkn.native.gtk.GtkOrdering.GTK_ORDERING_SMALLER
-import org.gtkkn.native.gtk.gtk_ordering_from_cmpfunc
-import kotlin.Int
 
 /**
  * Describes the way two values can be compared.
@@ -42,19 +40,6 @@ public enum class Ordering(
                 GTK_ORDERING_EQUAL -> EQUAL
                 GTK_ORDERING_LARGER -> LARGER
                 else -> error("invalid nativeValue")
-            }
-
-        /**
-         * Converts the result of a `GCompareFunc` like strcmp() to a
-         * `GtkOrdering` value.
-         *
-         * @param cmpfuncResult Result of a comparison function
-         * @return the corresponding `GtkOrdering`
-         * @since 4.2
-         */
-        public fun fromCmpfunc(cmpfuncResult: Int): Ordering =
-            gtk_ordering_from_cmpfunc(cmpfuncResult).run {
-                Ordering.fromNativeValue(this)
             }
     }
 }

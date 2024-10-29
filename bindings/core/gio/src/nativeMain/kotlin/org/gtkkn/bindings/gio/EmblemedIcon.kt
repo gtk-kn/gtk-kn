@@ -19,12 +19,12 @@ import org.gtkkn.native.gio.g_emblemed_icon_new
 import kotlin.Unit
 
 /**
- * #GEmblemedIcon is an implementation of #GIcon that supports
+ * `GEmblemedIcon` is an implementation of [iface@Gio.Icon] that supports
  * adding an emblem to an icon. Adding multiple emblems to an
- * icon is ensured via g_emblemed_icon_add_emblem().
+ * icon is ensured via [method@Gio.EmblemedIcon.add_emblem].
  *
- * Note that #GEmblemedIcon allows no control over the position
- * of the emblems. See also #GEmblem for more information.
+ * Note that `GEmblemedIcon` allows no control over the position
+ * of the emblems. See also [class@Gio.Emblem] for more information.
  *
  * ## Skipped during bindings generation
  *

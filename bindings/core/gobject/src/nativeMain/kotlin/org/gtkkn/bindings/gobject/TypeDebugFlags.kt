@@ -13,7 +13,7 @@ import org.gtkkn.native.gobject.G_TYPE_DEBUG_SIGNALS
  * These flags used to be passed to g_type_init_with_debug_flags() which
  * is now deprecated.
  *
- * If you need to enable debugging features, use the GOBJECT_DEBUG
+ * If you need to enable debugging features, use the `GOBJECT_DEBUG`
  * environment variable.
  */
 public class TypeDebugFlags(

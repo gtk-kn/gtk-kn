@@ -53,11 +53,11 @@ import kotlin.Unit
  * You should not call [method@Gtk.ComboBox.set_model] or attempt to pack more
  * cells into this combo box via its [iface@Gtk.CellLayout] interface.
  *
- * # GtkComboBoxText as GtkBuildable
+ * ## GtkComboBoxText as GtkBuildable
  *
  * The `GtkComboBoxText` implementation of the `GtkBuildable` interface supports
- * adding items directly using the <items> element and specifying <item>
- * elements for each item. Each <item> element can specify the “id”
+ * adding items directly using the `<items>` element and specifying `<item>`
+ * elements for each item. Each `<item>` element can specify the “id”
  * corresponding to the appended text and also supports the regular
  * translation attributes “translatable”, “context” and “comments”.
  *
@@ -72,7 +72,7 @@ import kotlin.Unit
  * </object>
  * ```
  *
- * # CSS nodes
+ * ## CSS nodes
  *
  * ```
  * combobox

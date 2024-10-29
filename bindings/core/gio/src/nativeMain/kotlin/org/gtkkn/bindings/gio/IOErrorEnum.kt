@@ -13,6 +13,7 @@ import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_CANT_CREATE_BACKUP
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_CLOSED
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_CONNECTION_REFUSED
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_DBUS_ERROR
+import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_DESTINATION_UNSET
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_EXISTS
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_FAILED
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_FAILED_HANDLED
@@ -36,6 +37,7 @@ import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_NOT_REGULAR_FILE
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_NOT_SUPPORTED
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_NOT_SYMBOLIC_LINK
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_NO_SPACE
+import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_NO_SUCH_DEVICE
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_PARTIAL_INPUT
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_PENDING
 import org.gtkkn.native.gio.GIOErrorEnum.G_IO_ERROR_PERMISSION_DENIED
@@ -329,6 +331,16 @@ public enum class IOErrorEnum(
      * Message too large. Since 2.48.
      */
     MESSAGE_TOO_LARGE(G_IO_ERROR_MESSAGE_TOO_LARGE),
+
+    /**
+     * No such device found. Since 2.74
+     */
+    NO_SUCH_DEVICE(G_IO_ERROR_NO_SUCH_DEVICE),
+
+    /**
+     * Destination address unset. Since 2.80
+     */
+    DESTINATION_UNSET(G_IO_ERROR_DESTINATION_UNSET),
     ;
 
     public companion object {
@@ -382,6 +394,8 @@ public enum class IOErrorEnum(
                 G_IO_ERROR_CONNECTION_CLOSED -> CONNECTION_CLOSED
                 G_IO_ERROR_NOT_CONNECTED -> NOT_CONNECTED
                 G_IO_ERROR_MESSAGE_TOO_LARGE -> MESSAGE_TOO_LARGE
+                G_IO_ERROR_NO_SUCH_DEVICE -> NO_SUCH_DEVICE
+                G_IO_ERROR_DESTINATION_UNSET -> DESTINATION_UNSET
                 else -> error("invalid nativeValue")
             }
 

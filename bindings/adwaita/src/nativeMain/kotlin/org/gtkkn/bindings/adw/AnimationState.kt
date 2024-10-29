@@ -13,7 +13,6 @@ import org.gtkkn.native.adw.AdwAnimationState.ADW_ANIMATION_PLAYING
  * The state can be controlled with [method@Animation.play],
  * [method@Animation.pause], [method@Animation.resume],
  * [method@Animation.reset] and [method@Animation.skip].
- * @since 1.0
  */
 public enum class AnimationState(
     public val nativeValue: AdwAnimationState,

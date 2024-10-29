@@ -73,7 +73,6 @@ import kotlin.Unit
  * ## CSS nodes
  *
  * `AdwCarousel` has a single CSS node with name `carousel`.
- * @since 1.0
  */
 public class Carousel(
     pointer: CPointer<AdwCarousel>,
@@ -100,23 +99,22 @@ public class Carousel(
      * Whether to allow swiping for more than one page at a time.
      *
      * If the value is `FALSE`, each swipe can only move to the adjacent pages.
-     *
-     * @since 1.0
      */
     public var allowLongSwipes: Boolean
         /**
          * Gets whether to allow swiping for more than one page at a time.
          *
          * @return `TRUE` if long swipes are allowed
-         * @since 1.0
          */
         get() = adw_carousel_get_allow_long_swipes(adwCarouselPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether to allow swiping for more than one page at a time.
          *
+         * If @allow_long_swipes is `FALSE`, each swipe can only move to the adjacent
+         * pages.
+         *
          * @param allowLongSwipes whether to allow long swipes
-         * @since 1.0
          */
         set(allowLongSwipes) =
             adw_carousel_set_allow_long_swipes(
@@ -128,23 +126,21 @@ public class Carousel(
      * Sets whether the `AdwCarousel` can be dragged with mouse pointer.
      *
      * If the value is `FALSE`, dragging is only available on touch.
-     *
-     * @since 1.0
      */
     public var allowMouseDrag: Boolean
         /**
          * Sets whether @self can be dragged with mouse pointer.
          *
          * @return whether @self can be dragged with mouse pointer
-         * @since 1.0
          */
         get() = adw_carousel_get_allow_mouse_drag(adwCarouselPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self can be dragged with mouse pointer.
          *
+         * If @allow_mouse_drag is `FALSE`, dragging is only available on touch.
+         *
          * @param allowMouseDrag whether @self can be dragged with mouse pointer
-         * @since 1.0
          */
         set(allowMouseDrag) =
             adw_carousel_set_allow_mouse_drag(
@@ -156,23 +152,21 @@ public class Carousel(
      * Whether the widget will respond to scroll wheel events.
      *
      * If the value is `FALSE`, wheel events will be ignored.
-     *
-     * @since 1.0
      */
     public var allowScrollWheel: Boolean
         /**
          * Gets whether @self will respond to scroll wheel events.
          *
          * @return `TRUE` if @self will respond to scroll wheel events
-         * @since 1.0
          */
         get() = adw_carousel_get_allow_scroll_wheel(adwCarouselPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self will respond to scroll wheel events.
          *
+         * If @allow_scroll_wheel is `FALSE`, wheel events will be ignored.
+         *
          * @param allowScrollWheel whether @self will respond to scroll wheel events
-         * @since 1.0
          */
         set(allowScrollWheel) =
             adw_carousel_set_allow_scroll_wheel(
@@ -183,25 +177,24 @@ public class Carousel(
     /**
      * Whether the carousel can be navigated.
      *
-     * This can be used to temporarily disable a `AdwCarousel` to only allow
+     * This can be used to temporarily disable the carousel to only allow
      * navigating it in a certain state.
-     *
-     * @since 1.0
      */
     public var interactive: Boolean
         /**
          * Gets whether @self can be navigated.
          *
          * @return whether @self can be navigated
-         * @since 1.0
          */
         get() = adw_carousel_get_interactive(adwCarouselPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self can be navigated.
          *
+         * This can be used to temporarily disable the carousel to only allow navigating
+         * it in a certain state.
+         *
          * @param interactive whether @self can be navigated
-         * @since 1.0
          */
         set(interactive) =
             adw_carousel_set_interactive(
@@ -211,15 +204,12 @@ public class Carousel(
 
     /**
      * The number of pages in a `AdwCarousel`.
-     *
-     * @since 1.0
      */
     public val nPages: UInt
         /**
          * Gets the number of pages in @self.
          *
          * @return the number of pages in @self
-         * @since 1.0
          */
         get() = adw_carousel_get_n_pages(adwCarouselPointer.reinterpret())
 
@@ -227,39 +217,36 @@ public class Carousel(
      * Current scrolling position, unitless.
      *
      * 1 matches 1 page. Use [method@Carousel.scroll_to] for changing it.
-     *
-     * @since 1.0
      */
     public val position: Double
         /**
-         * Gets current scroll position in @self.
+         * Gets current scroll position in @self, unitless.
          *
-         * It's unitless, 1 matches 1 page.
+         * 1 matches 1 page. Use [method@Carousel.scroll_to] for changing it.
          *
          * @return the scroll position
-         * @since 1.0
          */
         get() = adw_carousel_get_position(adwCarouselPointer.reinterpret())
 
     /**
      * Page reveal duration, in milliseconds.
      *
-     * @since 1.0
+     * Reveal duration is used when animating adding or removing pages.
      */
     public var revealDuration: UInt
         /**
-         * Gets duration of the animation used when adding or removing pages.
+         * Gets the page reveal duration, in milliseconds.
          *
          * @return the duration
-         * @since 1.0
          */
         get() = adw_carousel_get_reveal_duration(adwCarouselPointer.reinterpret())
 
         /**
-         * Sets duration of the animation used when adding or removing pages.
+         * Sets the page reveal duration, in milliseconds.
+         *
+         * Reveal duration is used when animating adding or removing pages.
          *
          * @param revealDuration the new reveal duration value
-         * @since 1.0
          */
         set(revealDuration) =
             adw_carousel_set_reveal_duration(
@@ -275,15 +262,12 @@ public class Carousel(
      * ```c
      * adw_spring_params_new (1, 0.5, 500)
      * ```
-     *
-     * @since 1.0
      */
     public var scrollParams: SpringParams
         /**
          * Gets the scroll animation spring parameters for @self.
          *
          * @return the animation parameters
-         * @since 1.0
          */
         get() =
             adw_carousel_get_scroll_params(adwCarouselPointer.reinterpret())!!.run {
@@ -293,8 +277,13 @@ public class Carousel(
         /**
          * Sets the scroll animation spring parameters for @self.
          *
+         * The default value is equivalent to:
+         *
+         * ```c
+         * adw_spring_params_new (1, 0.5, 500)
+         * ```
+         *
          * @param params the new parameters
-         * @since 1.0
          */
         set(params) =
             adw_carousel_set_scroll_params(
@@ -304,15 +293,12 @@ public class Carousel(
 
     /**
      * Spacing between pages in pixels.
-     *
-     * @since 1.0
      */
     public var spacing: UInt
         /**
          * Gets spacing between pages in pixels.
          *
          * @return spacing between pages
-         * @since 1.0
          */
         get() = adw_carousel_get_spacing(adwCarouselPointer.reinterpret())
 
@@ -320,7 +306,6 @@ public class Carousel(
          * Sets spacing between pages in pixels.
          *
          * @param spacing the new spacing value
-         * @since 1.0
          */
         set(spacing) = adw_carousel_set_spacing(adwCarouselPointer.reinterpret(), spacing)
 
@@ -328,7 +313,6 @@ public class Carousel(
      * Creates a new `AdwCarousel`.
      *
      * @return the newly created `AdwCarousel`
-     * @since 1.0
      */
     public constructor() : this(adw_carousel_new()!!.reinterpret())
 
@@ -336,7 +320,6 @@ public class Carousel(
      * Appends @child to @self.
      *
      * @param child a widget to add
-     * @since 1.0
      */
     public fun append(child: Widget): Unit =
         adw_carousel_append(
@@ -348,7 +331,6 @@ public class Carousel(
      * Gets whether to allow swiping for more than one page at a time.
      *
      * @return `TRUE` if long swipes are allowed
-     * @since 1.0
      */
     public fun getAllowLongSwipes(): Boolean =
         adw_carousel_get_allow_long_swipes(adwCarouselPointer.reinterpret()).asBoolean()
@@ -357,7 +339,6 @@ public class Carousel(
      * Sets whether @self can be dragged with mouse pointer.
      *
      * @return whether @self can be dragged with mouse pointer
-     * @since 1.0
      */
     public fun getAllowMouseDrag(): Boolean =
         adw_carousel_get_allow_mouse_drag(adwCarouselPointer.reinterpret()).asBoolean()
@@ -366,7 +347,6 @@ public class Carousel(
      * Gets whether @self will respond to scroll wheel events.
      *
      * @return `TRUE` if @self will respond to scroll wheel events
-     * @since 1.0
      */
     public fun getAllowScrollWheel(): Boolean =
         adw_carousel_get_allow_scroll_wheel(adwCarouselPointer.reinterpret()).asBoolean()
@@ -375,7 +355,6 @@ public class Carousel(
      * Gets whether @self can be navigated.
      *
      * @return whether @self can be navigated
-     * @since 1.0
      */
     public fun getInteractive(): Boolean = adw_carousel_get_interactive(adwCarouselPointer.reinterpret()).asBoolean()
 
@@ -383,7 +362,6 @@ public class Carousel(
      * Gets the number of pages in @self.
      *
      * @return the number of pages in @self
-     * @since 1.0
      */
     public fun getNPages(): UInt = adw_carousel_get_n_pages(adwCarouselPointer.reinterpret())
 
@@ -392,7 +370,6 @@ public class Carousel(
      *
      * @param n index of the page
      * @return the page
-     * @since 1.0
      */
     public fun getNthPage(n: UInt): Widget =
         adw_carousel_get_nth_page(adwCarouselPointer.reinterpret(), n)!!.run {
@@ -400,20 +377,18 @@ public class Carousel(
         }
 
     /**
-     * Gets current scroll position in @self.
+     * Gets current scroll position in @self, unitless.
      *
-     * It's unitless, 1 matches 1 page.
+     * 1 matches 1 page. Use [method@Carousel.scroll_to] for changing it.
      *
      * @return the scroll position
-     * @since 1.0
      */
     public fun getPosition(): Double = adw_carousel_get_position(adwCarouselPointer.reinterpret())
 
     /**
-     * Gets duration of the animation used when adding or removing pages.
+     * Gets the page reveal duration, in milliseconds.
      *
      * @return the duration
-     * @since 1.0
      */
     public fun getRevealDuration(): UInt = adw_carousel_get_reveal_duration(adwCarouselPointer.reinterpret())
 
@@ -421,7 +396,6 @@ public class Carousel(
      * Gets the scroll animation spring parameters for @self.
      *
      * @return the animation parameters
-     * @since 1.0
      */
     public fun getScrollParams(): SpringParams =
         adw_carousel_get_scroll_params(adwCarouselPointer.reinterpret())!!.run {
@@ -432,7 +406,6 @@ public class Carousel(
      * Gets spacing between pages in pixels.
      *
      * @return spacing between pages
-     * @since 1.0
      */
     public fun getSpacing(): UInt = adw_carousel_get_spacing(adwCarouselPointer.reinterpret())
 
@@ -444,7 +417,6 @@ public class Carousel(
      *
      * @param child a widget to add
      * @param position the position to insert @child at
-     * @since 1.0
      */
     public fun insert(
         child: Widget,
@@ -460,7 +432,6 @@ public class Carousel(
      * Prepends @child to @self.
      *
      * @param child a widget to add
-     * @since 1.0
      */
     public fun prepend(child: Widget): Unit =
         adw_carousel_prepend(
@@ -472,7 +443,6 @@ public class Carousel(
      * Removes @child from @self.
      *
      * @param child a widget to remove
-     * @since 1.0
      */
     public fun remove(child: Widget): Unit =
         adw_carousel_remove(
@@ -488,7 +458,6 @@ public class Carousel(
      *
      * @param child a widget to add
      * @param position the position to move @child to
-     * @since 1.0
      */
     public fun reorder(
         child: Widget,
@@ -507,7 +476,6 @@ public class Carousel(
      *
      * @param widget a child of @self
      * @param animate whether to animate the transition
-     * @since 1.0
      */
     public fun scrollTo(
         widget: Widget,
@@ -522,8 +490,10 @@ public class Carousel(
     /**
      * Sets whether to allow swiping for more than one page at a time.
      *
+     * If @allow_long_swipes is `FALSE`, each swipe can only move to the adjacent
+     * pages.
+     *
      * @param allowLongSwipes whether to allow long swipes
-     * @since 1.0
      */
     public fun setAllowLongSwipes(allowLongSwipes: Boolean): Unit =
         adw_carousel_set_allow_long_swipes(
@@ -534,8 +504,9 @@ public class Carousel(
     /**
      * Sets whether @self can be dragged with mouse pointer.
      *
+     * If @allow_mouse_drag is `FALSE`, dragging is only available on touch.
+     *
      * @param allowMouseDrag whether @self can be dragged with mouse pointer
-     * @since 1.0
      */
     public fun setAllowMouseDrag(allowMouseDrag: Boolean): Unit =
         adw_carousel_set_allow_mouse_drag(
@@ -546,8 +517,9 @@ public class Carousel(
     /**
      * Sets whether @self will respond to scroll wheel events.
      *
+     * If @allow_scroll_wheel is `FALSE`, wheel events will be ignored.
+     *
      * @param allowScrollWheel whether @self will respond to scroll wheel events
-     * @since 1.0
      */
     public fun setAllowScrollWheel(allowScrollWheel: Boolean): Unit =
         adw_carousel_set_allow_scroll_wheel(
@@ -558,17 +530,20 @@ public class Carousel(
     /**
      * Sets whether @self can be navigated.
      *
+     * This can be used to temporarily disable the carousel to only allow navigating
+     * it in a certain state.
+     *
      * @param interactive whether @self can be navigated
-     * @since 1.0
      */
     public fun setInteractive(interactive: Boolean): Unit =
         adw_carousel_set_interactive(adwCarouselPointer.reinterpret(), interactive.asGBoolean())
 
     /**
-     * Sets duration of the animation used when adding or removing pages.
+     * Sets the page reveal duration, in milliseconds.
+     *
+     * Reveal duration is used when animating adding or removing pages.
      *
      * @param revealDuration the new reveal duration value
-     * @since 1.0
      */
     public fun setRevealDuration(revealDuration: UInt): Unit =
         adw_carousel_set_reveal_duration(adwCarouselPointer.reinterpret(), revealDuration)
@@ -576,8 +551,13 @@ public class Carousel(
     /**
      * Sets the scroll animation spring parameters for @self.
      *
+     * The default value is equivalent to:
+     *
+     * ```c
+     * adw_spring_params_new (1, 0.5, 500)
+     * ```
+     *
      * @param params the new parameters
-     * @since 1.0
      */
     public fun setScrollParams(params: SpringParams): Unit =
         adw_carousel_set_scroll_params(
@@ -589,7 +569,6 @@ public class Carousel(
      * Sets spacing between pages in pixels.
      *
      * @param spacing the new spacing value
-     * @since 1.0
      */
     public fun setSpacing(spacing: UInt): Unit = adw_carousel_set_spacing(adwCarouselPointer.reinterpret(), spacing)
 
@@ -599,9 +578,11 @@ public class Carousel(
      * It can be used to implement "infinite scrolling" by amending the pages
      * after every scroll.
      *
+     * ::: note
+     *     An empty carousel is indicated by `(int)index == -1`.
+     *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `index` current page
-     * @since 1.0
      */
     public fun connectPageChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),

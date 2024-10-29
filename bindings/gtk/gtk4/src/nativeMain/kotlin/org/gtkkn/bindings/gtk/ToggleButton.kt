@@ -65,6 +65,10 @@ import kotlin.Unit
  * `GtkToggleButton` has a single CSS node with name button. To differentiate
  * it from a plain `GtkButton`, it gets the `.toggle` style class.
  *
+ * ## Accessibility
+ *
+ * `GtkToggleButton` uses the %GTK_ACCESSIBLE_ROLE_TOGGLE_BUTTON role.
+ *
  * ## Creating two `GtkToggleButton` widgets.
  *
  * ```c
@@ -103,7 +107,7 @@ import kotlin.Unit
  *   gtk_box_append (GTK_BOX (box), toggle2);
  *
  *   gtk_window_set_child (GTK_WINDOW (window), box);
- *   gtk_widget_show (window);
+ *   gtk_window_present (GTK_WINDOW (window));
  * }
  * ```
  *
@@ -150,7 +154,7 @@ public open class ToggleButton(
          * and false to raise it.
          *
          * If the status of the button changes, this action causes the
-         * [signal@GtkToggleButton::toggled] signal to be emitted.
+         * [signal@Gtk.ToggleButton::toggled] signal to be emitted.
          *
          * @param isActive true or false.
          */
@@ -196,7 +200,7 @@ public open class ToggleButton(
      * and false to raise it.
      *
      * If the status of the button changes, this action causes the
-     * [signal@GtkToggleButton::toggled] signal to be emitted.
+     * [signal@Gtk.ToggleButton::toggled] signal to be emitted.
      *
      * @param isActive true or false.
      */
@@ -230,8 +234,6 @@ public open class ToggleButton(
 
     /**
      * Emits the ::toggled signal on the `GtkToggleButton`.
-     *
-     * There is no good reason for an application ever to call this function.
      */
     public open fun toggled(): Unit = gtk_toggle_button_toggled(gtkToggleButtonPointer.reinterpret())
 

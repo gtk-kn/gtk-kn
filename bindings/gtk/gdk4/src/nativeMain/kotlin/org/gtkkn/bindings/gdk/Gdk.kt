@@ -34,7 +34,9 @@ import org.gtkkn.native.gdk.gdk_content_register_deserializer
 import org.gtkkn.native.gdk.gdk_content_register_serializer
 import org.gtkkn.native.gdk.gdk_content_serialize_async
 import org.gtkkn.native.gdk.gdk_content_serialize_finish
+import org.gtkkn.native.gdk.gdk_dmabuf_error_quark
 import org.gtkkn.native.gdk.gdk_drag_action_is_unique
+import org.gtkkn.native.gdk.gdk_drag_surface_size_get_type
 import org.gtkkn.native.gdk.gdk_gl_error_quark
 import org.gtkkn.native.gdk.gdk_intern_mime_type
 import org.gtkkn.native.gdk.gdk_keyval_from_name
@@ -76,9 +78,13 @@ import kotlin.Unit
  * - parameter `surface`: cairo.Surface
  * - record `ContentProviderClass`: glib type struct are ignored
  * - record `DevicePadInterface`: glib type struct are ignored
+ * - record `DmabufTextureBuilderClass`: glib type struct are ignored
+ * - record `DmabufTextureClass`: glib type struct are ignored
  * - record `DragSurfaceInterface`: glib type struct are ignored
+ * - record `DragSurfaceSize`: Disguised records are ignored
  * - record `FrameClockClass`: glib type struct are ignored
  * - record `FrameClockPrivate`: Disguised records are ignored
+ * - record `GLTextureBuilderClass`: glib type struct are ignored
  * - record `GLTextureClass`: glib type struct are ignored
  * - record `MemoryTextureClass`: glib type struct are ignored
  * - record `MonitorClass`: glib type struct are ignored
@@ -4877,6 +4883,8 @@ public object Gdk {
             }
         }
 
+    public fun dmabufErrorQuark(): UInt = gdk_dmabuf_error_quark()
+
     /**
      * Checks if @action represents a single action or includes
      * multiple actions.
@@ -4888,6 +4896,8 @@ public object Gdk {
      * @return true if exactly one action was given
      */
     public fun dragActionIsUnique(action: DragAction): Boolean = gdk_drag_action_is_unique(action.mask).asBoolean()
+
+    public fun dragSurfaceSizeGetType(): ULong = gdk_drag_surface_size_get_type()
 
     public fun glErrorQuark(): UInt = gdk_gl_error_quark()
 
@@ -4985,7 +4995,8 @@ public object Gdk {
      * This is often useful for implementing the
      * [vfunc@Gdk.Paintable.get_current_image] virtual function
      * when the paintable is in an incomplete state (like a
-     * [class@Gtk.MediaStream] before receiving the first frame).
+     * [GtkMediaStream](../gtk4/class.MediaStream.html) before receiving
+     * the first frame).
      *
      * @param intrinsicWidth The intrinsic width to report. Can be 0 for no width.
      * @param intrinsicHeight The intrinsic height to report. Can be 0 for no height.
@@ -5071,6 +5082,11 @@ public object Gdk {
     public fun resolveException(error: Error): GlibException {
         val ex =
             when (error.domain) {
+                DmabufError.quark() ->
+                    DmabufError.fromErrorOrNull(error)
+                        ?.let {
+                            DmabufErrorException(error, it)
+                        }
                 GLError.quark() ->
                     GLError.fromErrorOrNull(error)
                         ?.let {

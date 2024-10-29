@@ -48,7 +48,6 @@ import kotlin.Unit
  * on the [property@TimedAnimation:repeat-count] value. If
  * [property@TimedAnimation:alternate] is set to `TRUE`, it will also change the
  * direction every other iteration.
- * @since 1.0
  */
 public class TimedAnimation(
     pointer: CPointer<AdwTimedAnimation>,
@@ -58,15 +57,12 @@ public class TimedAnimation(
 
     /**
      * Whether the animation changes direction on every iteration.
-     *
-     * @since 1.0
      */
     public var alternate: Boolean
         /**
          * Gets whether @self changes direction on every iteration.
          *
          * @return whether @self alternates
-         * @since 1.0
          */
         get() =
             adw_timed_animation_get_alternate(adwTimedAnimationPointer.reinterpret()).asBoolean()
@@ -75,7 +71,6 @@ public class TimedAnimation(
          * Sets whether @self changes direction on every iteration.
          *
          * @param alternate whether @self alternates
-         * @since 1.0
          */
         set(alternate) =
             adw_timed_animation_set_alternate(
@@ -90,15 +85,12 @@ public class TimedAnimation(
      *
      * If the animation repeats more than once, describes the duration of one
      * iteration.
-     *
-     * @since 1.0
      */
     public var duration: UInt
         /**
          * Gets the duration of @self.
          *
          * @return the duration of @self, in milliseconds
-         * @since 1.0
          */
         get() = adw_timed_animation_get_duration(adwTimedAnimationPointer.reinterpret())
 
@@ -108,7 +100,6 @@ public class TimedAnimation(
          * If the animation repeats more than once, sets the duration of one iteration.
          *
          * @param duration the duration to use, in milliseconds
-         * @since 1.0
          */
         set(duration) =
             adw_timed_animation_set_duration(
@@ -122,15 +113,12 @@ public class TimedAnimation(
      * Describes the curve the value is interpolated on.
      *
      * See [enum@Easing] for the description of specific easing functions.
-     *
-     * @since 1.0
      */
     public var easing: Easing
         /**
          * Gets the easing function @self uses.
          *
          * @return the easing function @self uses
-         * @since 1.0
          */
         get() =
             adw_timed_animation_get_easing(adwTimedAnimationPointer.reinterpret()).run {
@@ -143,7 +131,6 @@ public class TimedAnimation(
          * See [enum@Easing] for the description of specific easing functions.
          *
          * @param easing the easing function to use
-         * @since 1.0
          */
         set(easing) =
             adw_timed_animation_set_easing(
@@ -155,15 +142,12 @@ public class TimedAnimation(
      * Number of times the animation will play.
      *
      * If set to 0, the animation will repeat endlessly.
-     *
-     * @since 1.0
      */
     public var repeatCount: UInt
         /**
          * Gets the number of times @self will play.
          *
          * @return the number of times @self will play
-         * @since 1.0
          */
         get() = adw_timed_animation_get_repeat_count(adwTimedAnimationPointer.reinterpret())
 
@@ -173,7 +157,6 @@ public class TimedAnimation(
          * If set to 0, @self will repeat endlessly.
          *
          * @param repeatCount the number of times @self will play
-         * @since 1.0
          */
         set(repeatCount) =
             adw_timed_animation_set_repeat_count(
@@ -183,15 +166,12 @@ public class TimedAnimation(
 
     /**
      * Whether the animation plays backwards.
-     *
-     * @since 1.0
      */
     public var reverse: Boolean
         /**
          * Gets whether @self plays backwards.
          *
          * @return whether @self plays backwards
-         * @since 1.0
          */
         get() = adw_timed_animation_get_reverse(adwTimedAnimationPointer.reinterpret()).asBoolean()
 
@@ -199,7 +179,6 @@ public class TimedAnimation(
          * Sets whether @self plays backwards.
          *
          * @param reverse whether @self plays backwards
-         * @since 1.0
          */
         set(reverse) =
             adw_timed_animation_set_reverse(
@@ -215,23 +194,25 @@ public class TimedAnimation(
      *
      * If [property@TimedAnimation:reverse] is `TRUE`, the animation will end at
      * this value instead.
-     *
-     * @since 1.0
      */
     public var valueFrom: Double
         /**
          * Gets the value @self will animate from.
          *
          * @return the value to animate from
-         * @since 1.0
          */
         get() = adw_timed_animation_get_value_from(adwTimedAnimationPointer.reinterpret())
 
         /**
          * Sets the value @self will animate from.
          *
+         * The animation will start at this value and end at
+         * [property@TimedAnimation:value-to].
+         *
+         * If [property@TimedAnimation:reverse] is `TRUE`, the animation will end at
+         * this value instead.
+         *
          * @param value the value to animate from
-         * @since 1.0
          */
         set(`value`) =
             adw_timed_animation_set_value_from(
@@ -247,23 +228,25 @@ public class TimedAnimation(
      *
      * If [property@TimedAnimation:reverse] is `TRUE`, the animation will start
      * at this value instead.
-     *
-     * @since 1.0
      */
     public var valueTo: Double
         /**
          * Gets the value @self will animate to.
          *
          * @return the value to animate to
-         * @since 1.0
          */
         get() = adw_timed_animation_get_value_to(adwTimedAnimationPointer.reinterpret())
 
         /**
          * Sets the value @self will animate to.
          *
+         * The animation will start at [property@TimedAnimation:value-from] and end at
+         * this value.
+         *
+         * If [property@TimedAnimation:reverse] is `TRUE`, the animation will start
+         * at this value instead.
+         *
          * @param value the value to animate to
-         * @since 1.0
          */
         set(`value`) =
             adw_timed_animation_set_value_to(
@@ -281,7 +264,6 @@ public class TimedAnimation(
      * @param duration a duration for the animation
      * @param target a target value to animate
      * @return the newly created animation
-     * @since 1.0
      */
     public constructor(
         widget: Widget,
@@ -303,7 +285,6 @@ public class TimedAnimation(
      * Gets whether @self changes direction on every iteration.
      *
      * @return whether @self alternates
-     * @since 1.0
      */
     public fun getAlternate(): Boolean =
         adw_timed_animation_get_alternate(adwTimedAnimationPointer.reinterpret()).asBoolean()
@@ -312,7 +293,6 @@ public class TimedAnimation(
      * Gets the duration of @self.
      *
      * @return the duration of @self, in milliseconds
-     * @since 1.0
      */
     public fun getDuration(): UInt = adw_timed_animation_get_duration(adwTimedAnimationPointer.reinterpret())
 
@@ -320,7 +300,6 @@ public class TimedAnimation(
      * Gets the easing function @self uses.
      *
      * @return the easing function @self uses
-     * @since 1.0
      */
     public fun getEasing(): Easing =
         adw_timed_animation_get_easing(adwTimedAnimationPointer.reinterpret()).run {
@@ -331,7 +310,6 @@ public class TimedAnimation(
      * Gets the number of times @self will play.
      *
      * @return the number of times @self will play
-     * @since 1.0
      */
     public fun getRepeatCount(): UInt = adw_timed_animation_get_repeat_count(adwTimedAnimationPointer.reinterpret())
 
@@ -339,7 +317,6 @@ public class TimedAnimation(
      * Gets whether @self plays backwards.
      *
      * @return whether @self plays backwards
-     * @since 1.0
      */
     public fun getReverse(): Boolean =
         adw_timed_animation_get_reverse(adwTimedAnimationPointer.reinterpret()).asBoolean()
@@ -348,7 +325,6 @@ public class TimedAnimation(
      * Gets the value @self will animate from.
      *
      * @return the value to animate from
-     * @since 1.0
      */
     public fun getValueFrom(): Double = adw_timed_animation_get_value_from(adwTimedAnimationPointer.reinterpret())
 
@@ -356,7 +332,6 @@ public class TimedAnimation(
      * Gets the value @self will animate to.
      *
      * @return the value to animate to
-     * @since 1.0
      */
     public fun getValueTo(): Double = adw_timed_animation_get_value_to(adwTimedAnimationPointer.reinterpret())
 
@@ -364,7 +339,6 @@ public class TimedAnimation(
      * Sets whether @self changes direction on every iteration.
      *
      * @param alternate whether @self alternates
-     * @since 1.0
      */
     public fun setAlternate(alternate: Boolean): Unit =
         adw_timed_animation_set_alternate(
@@ -378,7 +352,6 @@ public class TimedAnimation(
      * If the animation repeats more than once, sets the duration of one iteration.
      *
      * @param duration the duration to use, in milliseconds
-     * @since 1.0
      */
     public fun setDuration(duration: UInt): Unit =
         adw_timed_animation_set_duration(adwTimedAnimationPointer.reinterpret(), duration)
@@ -389,7 +362,6 @@ public class TimedAnimation(
      * See [enum@Easing] for the description of specific easing functions.
      *
      * @param easing the easing function to use
-     * @since 1.0
      */
     public fun setEasing(easing: Easing): Unit =
         adw_timed_animation_set_easing(
@@ -403,7 +375,6 @@ public class TimedAnimation(
      * If set to 0, @self will repeat endlessly.
      *
      * @param repeatCount the number of times @self will play
-     * @since 1.0
      */
     public fun setRepeatCount(repeatCount: UInt): Unit =
         adw_timed_animation_set_repeat_count(
@@ -415,7 +386,6 @@ public class TimedAnimation(
      * Sets whether @self plays backwards.
      *
      * @param reverse whether @self plays backwards
-     * @since 1.0
      */
     public fun setReverse(reverse: Boolean): Unit =
         adw_timed_animation_set_reverse(
@@ -426,8 +396,13 @@ public class TimedAnimation(
     /**
      * Sets the value @self will animate from.
      *
+     * The animation will start at this value and end at
+     * [property@TimedAnimation:value-to].
+     *
+     * If [property@TimedAnimation:reverse] is `TRUE`, the animation will end at
+     * this value instead.
+     *
      * @param value the value to animate from
-     * @since 1.0
      */
     public fun setValueFrom(`value`: Double): Unit =
         adw_timed_animation_set_value_from(adwTimedAnimationPointer.reinterpret(), `value`)
@@ -435,8 +410,13 @@ public class TimedAnimation(
     /**
      * Sets the value @self will animate to.
      *
+     * The animation will start at [property@TimedAnimation:value-from] and end at
+     * this value.
+     *
+     * If [property@TimedAnimation:reverse] is `TRUE`, the animation will start
+     * at this value instead.
+     *
      * @param value the value to animate to
-     * @since 1.0
      */
     public fun setValueTo(`value`: Double): Unit =
         adw_timed_animation_set_value_to(adwTimedAnimationPointer.reinterpret(), `value`)

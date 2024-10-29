@@ -28,6 +28,9 @@ public open class FilterInputStream(
     public val gioFilterInputStreamPointer: CPointer<GFilterInputStream>
         get() = gPointer.reinterpret()
 
+    /**
+     * The underlying base stream on which the I/O ops will be done.
+     */
     public open val baseStream: InputStream
         /**
          * Gets the base stream for the filter stream.
@@ -39,6 +42,9 @@ public open class FilterInputStream(
                 InputStream(reinterpret())
             }
 
+    /**
+     * Whether the base stream should be closed when the filter stream is closed.
+     */
     public open var closeBaseStream: Boolean
         /**
          * Returns whether the base stream will be closed when @stream is

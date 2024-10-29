@@ -52,7 +52,7 @@ public class RecMutex(
      * Calling g_rec_mutex_clear() on a locked recursive mutex leads
      * to undefined behaviour.
      *
-     * Sine: 2.32
+     * @since 2.32
      */
     public fun clear(): Unit = g_rec_mutex_clear(glibRecMutexPointer.reinterpret())
 

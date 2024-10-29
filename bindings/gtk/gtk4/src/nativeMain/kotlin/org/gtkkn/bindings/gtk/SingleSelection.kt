@@ -11,6 +11,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.GtkSelectionModel
 import org.gtkkn.native.gtk.GtkSingleSelection
 import org.gtkkn.native.gtk.gtk_single_selection_get_autoselect
@@ -36,14 +37,22 @@ import kotlin.Unit
  * and re-added in the same [signal@Gio.ListModel::items-changed] emission, it
  * stays selected. In particular, this means that changing the sort order of an
  * underlying sort model will preserve the selection.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class SingleSelection(
     pointer: CPointer<GtkSingleSelection>,
-) : Object(pointer.reinterpret()), ListModel, SelectionModel, KGTyped {
+) : Object(pointer.reinterpret()), ListModel, SectionModel, SelectionModel, KGTyped {
     public val gtkSingleSelectionPointer: CPointer<GtkSingleSelection>
         get() = gPointer.reinterpret()
 
     override val gioListModelPointer: CPointer<GListModel>
+        get() = gPointer.reinterpret()
+
+    override val gtkSectionModelPointer: CPointer<GtkSectionModel>
         get() = gPointer.reinterpret()
 
     override val gtkSelectionModelPointer: CPointer<GtkSelectionModel>

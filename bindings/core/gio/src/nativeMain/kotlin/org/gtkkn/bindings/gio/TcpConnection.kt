@@ -16,7 +16,7 @@ import kotlin.Boolean
 import kotlin.Unit
 
 /**
- * This is the subclass of #GSocketConnection that is created
+ * This is the subclass of [class@Gio.SocketConnection] that is created
  * for TCP/IP sockets.
  * @since 2.22
  */
@@ -26,6 +26,11 @@ public open class TcpConnection(
     public val gioTcpConnectionPointer: CPointer<GTcpConnection>
         get() = gPointer.reinterpret()
 
+    /**
+     * Whether [method@Gio.IOStream.close] does a graceful disconnect.
+     *
+     * @since 2.22
+     */
     public open var gracefulDisconnect: Boolean
         /**
          * Checks if graceful disconnects are used. See

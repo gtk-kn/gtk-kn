@@ -412,8 +412,9 @@ public open class Clipboard(
      * exit. Depending on the platform, the functionality may not be available
      * unless a "clipboard manager" is running.
      *
-     * This function is called automatically when a [class@Gtk.Application] is
-     * shut down, so you likely don't need to call it.
+     * This function is called automatically when a
+     * [GtkApplication](../gtk4/class.Application.html)
+     * is shut down, so you likely don't need to call it.
      *
      * @param ioPriority the I/O priority of the request
      * @param cancellable optional `GCancellable` object

@@ -50,7 +50,7 @@ public open class RadialGradientNode(
     public open fun getEnd(): Float = gsk_radial_gradient_node_get_end(gskRadialGradientNodePointer.reinterpret())
 
     /**
-     * Retrieves the horizonal radius for the gradient.
+     * Retrieves the horizontal radius for the gradient.
      *
      * @return the horizontal radius for the gradient
      */

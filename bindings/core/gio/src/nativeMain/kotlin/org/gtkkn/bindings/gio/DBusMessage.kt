@@ -19,6 +19,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GDBusMessage
 import org.gtkkn.native.gio.g_dbus_message_copy
 import org.gtkkn.native.gio.g_dbus_message_get_arg0
+import org.gtkkn.native.gio.g_dbus_message_get_arg0_path
 import org.gtkkn.native.gio.g_dbus_message_get_body
 import org.gtkkn.native.gio.g_dbus_message_get_byte_order
 import org.gtkkn.native.gio.g_dbus_message_get_destination
@@ -70,7 +71,7 @@ import kotlin.Unit
 
 /**
  * A type for representing D-Bus messages that can be sent or received
- * on a #GDBusConnection.
+ * on a [class@Gio.DBusConnection].
  *
  * ## Skipped during bindings generation
  *
@@ -168,11 +169,26 @@ public open class DBusMessage(
     /**
      * Convenience to get the first item in the body of @message.
      *
+     * See [method@Gio.DBusMessage.get_arg0_path] for returning object-path-typed
+     * arg0 values.
+     *
      * @return The string item or null if the first item in the body of
      * @message is not a string.
      * @since 2.26
      */
     public open fun getArg0(): String? = g_dbus_message_get_arg0(gioDBusMessagePointer.reinterpret())?.toKString()
+
+    /**
+     * Convenience to get the first item in the body of @message.
+     *
+     * See [method@Gio.DBusMessage.get_arg0] for returning string-typed arg0 values.
+     *
+     * @return The object path item or `NULL` if the first item in the
+     *   body of @message is not an object path.
+     * @since 2.80
+     */
+    public open fun getArg0Path(): String? =
+        g_dbus_message_get_arg0_path(gioDBusMessagePointer.reinterpret())?.toKString()
 
     /**
      * Gets the body of a message.
@@ -400,7 +416,7 @@ public open class DBusMessage(
      * The contents of the description has no ABI guarantees, the contents
      * and formatting is subject to change at any time. Typical output
      * looks something like this:
-     * |[
+     * ```
      * Flags:   none
      * Version: 0
      * Serial:  4
@@ -412,9 +428,9 @@ public open class DBusMessage(
      * Body: ()
      * UNIX File Descriptors:
      *   (none)
-     * ]|
+     * ```
      * or
-     * |[
+     * ```
      * Flags:   no-reply-expected
      * Version: 0
      * Serial:  477
@@ -427,10 +443,10 @@ public open class DBusMessage(
      * UNIX File Descriptors:
      *   fd 12:
      * dev=0:10,mode=020620,ino=5,uid=500,gid=5,rdev=136:2,size=0,atime=1273085037,mtime=1273085851,ctime=1272982635
-     * ]|
+     * ```
      *
      * @param indent Indentation level.
-     * @return A string that should be freed with g_free().
+     * @return A string that should be freed with [func@GLib.free].
      * @since 2.26
      */
     public open fun print(indent: UInt): String =

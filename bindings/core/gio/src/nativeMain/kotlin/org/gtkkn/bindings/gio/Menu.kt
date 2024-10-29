@@ -29,14 +29,14 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * #GMenu is a simple implementation of #GMenuModel.
- * You populate a #GMenu by adding #GMenuItem instances to it.
+ * `GMenu` is a simple implementation of [class@Gio.MenuModel].
+ * You populate a `GMenu` by adding [class@Gio.MenuItem] instances to it.
  *
  * There are some convenience functions to allow you to directly
- * add items (avoiding #GMenuItem) for the common cases. To add
- * a regular item, use g_menu_insert(). To add a section, use
- * g_menu_insert_section(). To add a submenu, use
- * g_menu_insert_submenu().
+ * add items (avoiding [class@Gio.MenuItem]) for the common cases. To add
+ * a regular item, use [method@Gio.Menu.insert]. To add a section, use
+ * [method@Gio.Menu.insert_section]. To add a submenu, use
+ * [method@Gio.Menu.insert_submenu].
  * @since 2.32
  */
 public open class Menu(

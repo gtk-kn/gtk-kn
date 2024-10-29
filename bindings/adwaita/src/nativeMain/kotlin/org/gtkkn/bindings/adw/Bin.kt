@@ -30,7 +30,6 @@ import kotlin.Unit
  *
  * It is useful for deriving subclasses, since it provides common code needed
  * for handling a single child widget.
- * @since 1.0
  */
 public open class Bin(
     pointer: CPointer<AdwBin>,
@@ -49,15 +48,12 @@ public open class Bin(
 
     /**
      * The child widget of the `AdwBin`.
-     *
-     * @since 1.0
      */
     public open var child: Widget?
         /**
          * Gets the child widget of @self.
          *
          * @return the child widget of @self
-         * @since 1.0
          */
         get() =
             adw_bin_get_child(adwBinPointer.reinterpret())?.run {
@@ -68,7 +64,6 @@ public open class Bin(
          * Sets the child widget of @self.
          *
          * @param child the child widget
-         * @since 1.0
          */
         set(child) =
             adw_bin_set_child(
@@ -80,7 +75,6 @@ public open class Bin(
      * Creates a new `AdwBin`.
      *
      * @return the new created `AdwBin`
-     * @since 1.0
      */
     public constructor() : this(adw_bin_new()!!.reinterpret())
 
@@ -88,7 +82,6 @@ public open class Bin(
      * Gets the child widget of @self.
      *
      * @return the child widget of @self
-     * @since 1.0
      */
     public open fun getChild(): Widget? =
         adw_bin_get_child(adwBinPointer.reinterpret())?.run {
@@ -99,7 +92,6 @@ public open class Bin(
      * Sets the child widget of @self.
      *
      * @param child the child widget
-     * @since 1.0
      */
     public open fun setChild(child: Widget? = null): Unit =
         adw_bin_set_child(adwBinPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())

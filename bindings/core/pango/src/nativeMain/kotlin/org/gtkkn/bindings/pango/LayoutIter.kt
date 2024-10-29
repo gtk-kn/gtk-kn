@@ -135,8 +135,8 @@ public class LayoutIter(
      * @return the layout associated with @iter
      * @since 1.20
      */
-    public fun getLayout(): Layout =
-        pango_layout_iter_get_layout(pangoLayoutIterPointer.reinterpret())!!.run {
+    public fun getLayout(): Layout? =
+        pango_layout_iter_get_layout(pangoLayoutIterPointer.reinterpret())?.run {
             Layout(reinterpret())
         }
 
@@ -165,8 +165,8 @@ public class LayoutIter(
      *
      * @return the current line
      */
-    public fun getLine(): LayoutLine =
-        pango_layout_iter_get_line(pangoLayoutIterPointer.reinterpret())!!.run {
+    public fun getLine(): LayoutLine? =
+        pango_layout_iter_get_line(pangoLayoutIterPointer.reinterpret())?.run {
             LayoutLine(reinterpret())
         }
 
@@ -202,8 +202,8 @@ public class LayoutIter(
      *   modified
      * @since 1.16
      */
-    public fun getLineReadonly(): LayoutLine =
-        pango_layout_iter_get_line_readonly(pangoLayoutIterPointer.reinterpret())!!.run {
+    public fun getLineReadonly(): LayoutLine? =
+        pango_layout_iter_get_line_readonly(pangoLayoutIterPointer.reinterpret())?.run {
             LayoutLine(reinterpret())
         }
 

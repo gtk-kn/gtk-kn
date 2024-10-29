@@ -20,8 +20,8 @@ import org.gtkkn.native.glib.GError
 import kotlin.Result
 
 /**
- * #GTlsServerConnection is the server-side subclass of #GTlsConnection,
- * representing a server-side TLS connection.
+ * `GTlsServerConnection` is the server-side subclass of
+ * [class@Gio.TlsConnection], representing a server-side TLS connection.
  *
  * ## Skipped during bindings generation
  *

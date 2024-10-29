@@ -30,7 +30,7 @@ import kotlin.String
 import kotlin.UShort
 
 /**
- * #GNetworkAddress provides an easy way to resolve a hostname and
+ * `GNetworkAddress` provides an easy way to resolve a hostname and
  * then attempt to connect to that host, handling the possibility of
  * multiple IP addresses and multiple address families.
  *
@@ -38,7 +38,7 @@ import kotlin.UShort
  * as this object is kept alive which may have unexpected results if
  * alive for too long.
  *
- * See #GSocketConnectable for an example of using the connectable
+ * See [iface@Gio.SocketConnectable] for an example of using the connectable
  * interface.
  */
 public open class NetworkAddress(
@@ -50,6 +50,11 @@ public open class NetworkAddress(
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = gPointer.reinterpret()
 
+    /**
+     * Hostname to resolve.
+     *
+     * @since 2.22
+     */
     public open val hostname: String
         /**
          * Gets @addr's hostname. This might be either UTF-8 or ASCII-encoded,
@@ -62,6 +67,11 @@ public open class NetworkAddress(
             g_network_address_get_hostname(gioNetworkAddressPointer.reinterpret())?.toKString()
                 ?: error("Expected not null string")
 
+    /**
+     * Network port.
+     *
+     * @since 2.22
+     */
     public open val port: UShort
         /**
          * Gets @addr's port number
@@ -71,6 +81,11 @@ public open class NetworkAddress(
          */
         get() = g_network_address_get_port(gioNetworkAddressPointer.reinterpret())
 
+    /**
+     * URI scheme.
+     *
+     * @since 2.22
+     */
     public open val scheme: String?
         /**
          * Gets @addr's scheme

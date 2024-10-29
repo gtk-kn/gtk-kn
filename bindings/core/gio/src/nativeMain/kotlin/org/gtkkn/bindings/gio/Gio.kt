@@ -18,7 +18,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.glib.IOCondition
+import org.gtkkn.bindings.glib.FileError
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
@@ -52,7 +52,11 @@ import org.gtkkn.native.gio.g_app_info_create_from_commandline
 import org.gtkkn.native.gio.g_app_info_get_all
 import org.gtkkn.native.gio.g_app_info_get_all_for_type
 import org.gtkkn.native.gio.g_app_info_get_default_for_type
+import org.gtkkn.native.gio.g_app_info_get_default_for_type_async
+import org.gtkkn.native.gio.g_app_info_get_default_for_type_finish
 import org.gtkkn.native.gio.g_app_info_get_default_for_uri_scheme
+import org.gtkkn.native.gio.g_app_info_get_default_for_uri_scheme_async
+import org.gtkkn.native.gio.g_app_info_get_default_for_uri_scheme_finish
 import org.gtkkn.native.gio.g_app_info_get_fallback_for_type
 import org.gtkkn.native.gio.g_app_info_get_recommended_for_type
 import org.gtkkn.native.gio.g_app_info_launch_default_for_uri
@@ -109,14 +113,19 @@ import org.gtkkn.native.gio.g_dbus_is_supported_address
 import org.gtkkn.native.gio.g_dbus_is_unique_name
 import org.gtkkn.native.gio.g_dtls_client_connection_new
 import org.gtkkn.native.gio.g_dtls_server_connection_new
+import org.gtkkn.native.gio.g_file_new_build_filenamev
 import org.gtkkn.native.gio.g_file_new_for_commandline_arg
 import org.gtkkn.native.gio.g_file_new_for_commandline_arg_and_cwd
 import org.gtkkn.native.gio.g_file_new_for_path
 import org.gtkkn.native.gio.g_file_new_for_uri
+import org.gtkkn.native.gio.g_file_new_tmp_async
+import org.gtkkn.native.gio.g_file_new_tmp_dir_async
+import org.gtkkn.native.gio.g_file_new_tmp_dir_finish
 import org.gtkkn.native.gio.g_file_parse_name
 import org.gtkkn.native.gio.g_icon_deserialize
 import org.gtkkn.native.gio.g_icon_new_for_string
 import org.gtkkn.native.gio.g_io_error_from_errno
+import org.gtkkn.native.gio.g_io_error_from_file_error
 import org.gtkkn.native.gio.g_io_error_quark
 import org.gtkkn.native.gio.g_io_modules_load_all_in_directory
 import org.gtkkn.native.gio.g_io_modules_scan_all_in_directory
@@ -169,7 +178,6 @@ import org.gtkkn.native.gio.g_unix_mount_is_system_internal
 import org.gtkkn.native.gio.g_unix_mount_points_changed_since
 import org.gtkkn.native.gio.g_unix_mounts_changed_since
 import org.gtkkn.native.glib.GError
-import org.gtkkn.native.glib.GIOCondition
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.glib.GVariantType
 import org.gtkkn.native.gobject.GObject
@@ -188,7 +196,14 @@ import org.gtkkn.bindings.glib.List as GlibList
 /**
  * ## Skipped during bindings generation
  *
+ * - class `ThreadedResolver`: C Type GThreadedResolver is ignored
  * - parameter `action_name`: action_name: Out parameter is not supported
+ * - function `bus_own_name`: g_bus_own_name is shadowedBy bus_own_name_with_closures
+ * - function `bus_own_name_on_connection`: g_bus_own_name_on_connection is shadowedBy
+ * bus_own_name_on_connection_with_closures
+ * - function `bus_watch_name`: g_bus_watch_name is shadowedBy bus_watch_name_with_closures
+ * - function `bus_watch_name_on_connection`: g_bus_watch_name_on_connection is shadowedBy
+ * bus_watch_name_on_connection_with_closures
  * - parameter `data`: guint8
  * - parameter `out_guid`: out_guid: Out parameter is not supported
  * - parameter `out_guid`: out_guid: Out parameter is not supported
@@ -197,7 +212,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `bytes`: guint8
  * - function `dbus_unescape_object_path`: guint8
  * - parameter `iostream`: iostream: Out parameter is not supported
- * - parameter `icon`: gpointer
+ * - parameter `iostream`: iostream: Out parameter is not supported
  * - parameter `parameters`: GObject.Parameter
  * - function `io_extension_point_implement`: Return type IOExtension is unsupported
  * - function `io_extension_point_lookup`: Return type IOExtensionPoint is unsupported
@@ -380,6 +395,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - record `TcpWrapperConnectionClass`: glib type struct are ignored
  * - record `TcpWrapperConnectionPrivate`: Disguised records are ignored
  * - record `ThemedIconClass`: glib type struct are ignored
+ * - record `ThreadedResolverClass`: glib type struct are ignored
  * - record `ThreadedSocketServiceClass`: glib type struct are ignored
  * - record `ThreadedSocketServicePrivate`: Disguised records are ignored
  * - record `TlsBackendInterface`: glib type struct are ignored
@@ -1060,6 +1076,55 @@ public object Gio {
     public const val FILE_ATTRIBUTE_THUMBNAILING_FAILED: String = "thumbnail::failed"
 
     /**
+     * A key in the "thumbnail" namespace for checking if thumbnailing failed
+     * for the large image.
+     *
+     * This attribute is true if thumbnailing failed.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BOOLEAN.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAILING_FAILED_LARGE: String = "thumbnail::failed-large"
+
+    /**
+     * A key in the "thumbnail" namespace for checking if thumbnailing failed
+     * for the normal image.
+     *
+     * This attribute is true if thumbnailing failed.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BOOLEAN.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAILING_FAILED_NORMAL: String = "thumbnail::failed-normal"
+
+    /**
+     * A key in the "thumbnail" namespace for checking if thumbnailing failed
+     * for the x-large image.
+     *
+     * This attribute is true if thumbnailing failed.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BOOLEAN.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAILING_FAILED_XLARGE: String = "thumbnail::failed-xlarge"
+
+    /**
+     * A key in the "thumbnail" namespace for checking if thumbnailing failed
+     * for the xx-large image.
+     *
+     * This attribute is true if thumbnailing failed.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BOOLEAN.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAILING_FAILED_XXLARGE: String =
+        "thumbnail::failed-xxlarge"
+
+    /**
      * A key in the "thumbnail" namespace for checking whether the thumbnail is outdated.
      *
      * This attribute is true if the thumbnail is up-to-date with the file it represents,
@@ -1075,12 +1140,125 @@ public object Gio {
     public const val FILE_ATTRIBUTE_THUMBNAIL_IS_VALID: String = "thumbnail::is-valid"
 
     /**
+     * A key in the "thumbnail" namespace for checking whether the large
+     * thumbnail is outdated.
+     *
+     * This attribute is true if the large thumbnail is up-to-date with the file
+     * it represents, and false if the file has been modified since the thumbnail
+     * was generated.
+     *
+     * If %G_FILE_ATTRIBUTE_THUMBNAILING_FAILED_LARGE is true and this attribute
+     * is false, it indicates that thumbnailing may be attempted again and may
+     * succeed.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BOOLEAN.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAIL_IS_VALID_LARGE: String = "thumbnail::is-valid-large"
+
+    /**
+     * A key in the "thumbnail" namespace for checking whether the normal
+     * thumbnail is outdated.
+     *
+     * This attribute is true if the normal thumbnail is up-to-date with the file
+     * it represents, and false if the file has been modified since the thumbnail
+     * was generated.
+     *
+     * If %G_FILE_ATTRIBUTE_THUMBNAILING_FAILED_NORMAL is true and this attribute
+     * is false, it indicates that thumbnailing may be attempted again and may
+     * succeed.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BOOLEAN.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAIL_IS_VALID_NORMAL: String = "thumbnail::is-valid-normal"
+
+    /**
+     * A key in the "thumbnail" namespace for checking whether the x-large
+     * thumbnail is outdated.
+     *
+     * This attribute is true if the x-large thumbnail is up-to-date with the file
+     * it represents, and false if the file has been modified since the thumbnail
+     * was generated.
+     *
+     * If %G_FILE_ATTRIBUTE_THUMBNAILING_FAILED_XLARGE is true and this attribute
+     * is false, it indicates that thumbnailing may be attempted again and may
+     * succeed.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BOOLEAN.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAIL_IS_VALID_XLARGE: String = "thumbnail::is-valid-xlarge"
+
+    /**
+     * A key in the "thumbnail" namespace for checking whether the xx-large
+     * thumbnail is outdated.
+     *
+     * This attribute is true if the x-large thumbnail is up-to-date with the file
+     * it represents, and false if the file has been modified since the thumbnail
+     * was generated.
+     *
+     * If %G_FILE_ATTRIBUTE_THUMBNAILING_FAILED_XXLARGE is true and this attribute
+     * is false, it indicates that thumbnailing may be attempted again and may
+     * succeed.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BOOLEAN.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAIL_IS_VALID_XXLARGE: String =
+        "thumbnail::is-valid-xxlarge"
+
+    /**
      * A key in the "thumbnail" namespace for getting the path to the thumbnail
-     * image.
+     * image with the biggest size available.
      *
      * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BYTE_STRING.
      */
     public const val FILE_ATTRIBUTE_THUMBNAIL_PATH: String = "thumbnail::path"
+
+    /**
+     * A key in the "thumbnail" namespace for getting the path to the large
+     * thumbnail image.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BYTE_STRING.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAIL_PATH_LARGE: String = "thumbnail::path-large"
+
+    /**
+     * A key in the "thumbnail" namespace for getting the path to the normal
+     * thumbnail image.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BYTE_STRING.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAIL_PATH_NORMAL: String = "thumbnail::path-normal"
+
+    /**
+     * A key in the "thumbnail" namespace for getting the path to the x-large
+     * thumbnail image.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BYTE_STRING.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAIL_PATH_XLARGE: String = "thumbnail::path-xlarge"
+
+    /**
+     * A key in the "thumbnail" namespace for getting the path to the xx-large
+     * thumbnail image.
+     *
+     * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_BYTE_STRING.
+     *
+     * @since 2.76
+     */
+    public const val FILE_ATTRIBUTE_THUMBNAIL_PATH_XXLARGE: String = "thumbnail::path-xxlarge"
 
     /**
      * A key in the "time" namespace for getting the time the file was last
@@ -1091,6 +1269,16 @@ public object Gio {
      * UNIX epoch.
      */
     public const val FILE_ATTRIBUTE_TIME_ACCESS: String = "time::access"
+
+    /**
+     * A key in the "time" namespace for getting the nanoseconds of the time
+     * the file was last accessed. This should be used in conjunction with
+     * #G_FILE_ATTRIBUTE_TIME_ACCESS. Corresponding #GFileAttributeType is
+     * %G_FILE_ATTRIBUTE_TYPE_UINT32.
+     *
+     * @since 2.74
+     */
+    public const val FILE_ATTRIBUTE_TIME_ACCESS_NSEC: String = "time::access-nsec"
 
     /**
      * A key in the "time" namespace for getting the microseconds of the time
@@ -1115,6 +1303,16 @@ public object Gio {
     public const val FILE_ATTRIBUTE_TIME_CHANGED: String = "time::changed"
 
     /**
+     * A key in the "time" namespace for getting the nanoseconds of the time
+     * the file was last changed. This should be used in conjunction with
+     * #G_FILE_ATTRIBUTE_TIME_CHANGED. Corresponding #GFileAttributeType is
+     * %G_FILE_ATTRIBUTE_TYPE_UINT32.
+     *
+     * @since 2.74
+     */
+    public const val FILE_ATTRIBUTE_TIME_CHANGED_NSEC: String = "time::changed-nsec"
+
+    /**
      * A key in the "time" namespace for getting the microseconds of the time
      * the file was last changed.
      *
@@ -1137,6 +1335,16 @@ public object Gio {
     public const val FILE_ATTRIBUTE_TIME_CREATED: String = "time::created"
 
     /**
+     * A key in the "time" namespace for getting the nanoseconds of the time
+     * the file was created. This should be used in conjunction with
+     * #G_FILE_ATTRIBUTE_TIME_CREATED. Corresponding #GFileAttributeType is
+     * %G_FILE_ATTRIBUTE_TYPE_UINT32.
+     *
+     * @since 2.74
+     */
+    public const val FILE_ATTRIBUTE_TIME_CREATED_NSEC: String = "time::created-nsec"
+
+    /**
      * A key in the "time" namespace for getting the microseconds of the time
      * the file was created.
      *
@@ -1155,6 +1363,16 @@ public object Gio {
      * epoch.
      */
     public const val FILE_ATTRIBUTE_TIME_MODIFIED: String = "time::modified"
+
+    /**
+     * A key in the "time" namespace for getting the nanoseconds of the time
+     * the file was last modified. This should be used in conjunction with
+     * #G_FILE_ATTRIBUTE_TIME_MODIFIED. Corresponding #GFileAttributeType is
+     * %G_FILE_ATTRIBUTE_TYPE_UINT32.
+     *
+     * @since 2.74
+     */
+    public const val FILE_ATTRIBUTE_TIME_MODIFIED_NSEC: String = "time::modified-nsec"
 
     /**
      * A key in the "time" namespace for getting the microseconds of the time
@@ -1362,6 +1580,16 @@ public object Gio {
      * @since 2.32
      */
     public const val MENU_ATTRIBUTE_TARGET: String = "target"
+
+    /**
+     * The maximum number of entries in a menu section supported by
+     * g_dbus_connection_export_menu_model().
+     *
+     * The exact value of the limit may change in future GLib versions.
+     *
+     * @since 2.76
+     */
+    public const val MENU_EXPORTER_MAX_SECTION_SIZE: Int = 1000
 
     /**
      * The name of the link that associates a menu item with a section.  The linked
@@ -1618,6 +1846,59 @@ public object Gio {
         }
 
     /**
+     * Asynchronously gets the default #GAppInfo for a given content type.
+     *
+     * @param contentType the content type to find a #GAppInfo for
+     * @param mustSupportUris if true, the #GAppInfo is expected to
+     *     support URIs
+     * @param cancellable optional #GCancellable object, null to ignore
+     * @param callback a #GAsyncReadyCallback to call when the request is done
+     * @since 2.74
+     */
+    public fun appInfoGetDefaultForTypeAsync(
+        contentType: String,
+        mustSupportUris: Boolean,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit =
+        g_app_info_get_default_for_type_async(
+            contentType,
+            mustSupportUris.asGBoolean(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
+
+    /**
+     * Finishes a default #GAppInfo lookup started by
+     * g_app_info_get_default_for_type_async().
+     *
+     * If no #GAppInfo is found, then @error will be set to %G_IO_ERROR_NOT_FOUND.
+     *
+     * @param result a #GAsyncResult
+     * @return #GAppInfo for given @content_type or
+     *     null on error.
+     * @since 2.74
+     */
+    public fun appInfoGetDefaultForTypeFinish(result: AsyncResult): Result<AppInfo> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_app_info_get_default_for_type_finish(
+                    result.gioAsyncResultPointer,
+                    gError.ptr
+                )?.run {
+                    AppInfo.wrap(reinterpret())
+                }
+
+            return if (gError.pointed != null) {
+                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
+
+    /**
      * Gets the default application for handling URIs with
      * the given URI scheme. A URI scheme is the initial part
      * of the URI, up to but not including the ':', e.g. "http",
@@ -1630,6 +1911,58 @@ public object Gio {
     public fun appInfoGetDefaultForUriScheme(uriScheme: String): AppInfo? =
         g_app_info_get_default_for_uri_scheme(uriScheme)?.run {
             AppInfo.wrap(reinterpret())
+        }
+
+    /**
+     * Asynchronously gets the default application for handling URIs with
+     * the given URI scheme. A URI scheme is the initial part
+     * of the URI, up to but not including the ':', e.g. "http",
+     * "ftp" or "sip".
+     *
+     * @param uriScheme a string containing a URI scheme.
+     * @param cancellable optional #GCancellable object, null to ignore
+     * @param callback a #GAsyncReadyCallback to call when the request is done
+     * @since 2.74
+     */
+    public fun appInfoGetDefaultForUriSchemeAsync(
+        uriScheme: String,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit =
+        g_app_info_get_default_for_uri_scheme_async(
+            uriScheme,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
+
+    /**
+     * Finishes a default #GAppInfo lookup started by
+     * g_app_info_get_default_for_uri_scheme_async().
+     *
+     * If no #GAppInfo is found, then @error will be set to %G_IO_ERROR_NOT_FOUND.
+     *
+     * @param result a #GAsyncResult
+     * @return #GAppInfo for given @uri_scheme or
+     *     null on error.
+     * @since 2.74
+     */
+    public fun appInfoGetDefaultForUriSchemeFinish(result: AsyncResult): Result<AppInfo> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_app_info_get_default_for_uri_scheme_finish(
+                    result.gioAsyncResultPointer,
+                    gError.ptr
+                )?.run {
+                    AppInfo.wrap(reinterpret())
+                }
+
+            return if (gError.pointed != null) {
+                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
         }
 
     /**
@@ -2774,6 +3107,25 @@ public object Gio {
         }
 
     /**
+     * Constructs a #GFile from a vector of elements using the correct
+     * separator for filenames.
+     *
+     * Using this function is equivalent to calling g_build_filenamev(),
+     * followed by g_file_new_for_path() on the result.
+     *
+     * @param args null-terminated
+     *   array of strings containing the path elements.
+     * @return a new #GFile
+     * @since 2.78
+     */
+    public fun fileNewBuildFilenamev(args: CollectionsList<String>): File =
+        memScoped {
+            return g_file_new_build_filenamev(args.toCStringList(this))!!.run {
+                File.wrap(reinterpret())
+            }
+        }
+
+    /**
      * Creates a #GFile with the given argument from the command line.
      * The value of @arg can be either a URI, an absolute path or a
      * relative path resolved relative to the current working directory.
@@ -2855,6 +3207,88 @@ public object Gio {
         }
 
     /**
+     * Asynchronously opens a file in the preferred directory for temporary files
+     *  (as returned by g_get_tmp_dir()) as g_file_new_tmp().
+     *
+     * @tmpl should be a string in the GLib file name encoding
+     * containing a sequence of six 'X' characters, and containing no
+     * directory components. If it is null, a default template is used.
+     *
+     * @param tmpl Template for the file
+     *   name, as in g_file_open_tmp(), or null for a default template
+     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param cancellable optional #GCancellable object, null to ignore
+     * @param callback a #GAsyncReadyCallback to call when the request is done
+     * @since 2.74
+     */
+    public fun fileNewTmpAsync(
+        tmpl: String? = null,
+        ioPriority: Int,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit =
+        g_file_new_tmp_async(
+            tmpl,
+            ioPriority,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
+
+    /**
+     * Asynchronously creates a directory in the preferred directory for
+     * temporary files (as returned by g_get_tmp_dir()) as g_dir_make_tmp().
+     *
+     * @tmpl should be a string in the GLib file name encoding
+     * containing a sequence of six 'X' characters, and containing no
+     * directory components. If it is null, a default template is used.
+     *
+     * @param tmpl Template for the file
+     *   name, as in g_dir_make_tmp(), or null for a default template
+     * @param ioPriority the [I/O priority][io-priority] of the request
+     * @param cancellable optional #GCancellable object, null to ignore
+     * @param callback a #GAsyncReadyCallback to call when the request is done
+     * @since 2.74
+     */
+    public fun fileNewTmpDirAsync(
+        tmpl: String? = null,
+        ioPriority: Int,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit =
+        g_file_new_tmp_dir_async(
+            tmpl,
+            ioPriority,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
+
+    /**
+     * Finishes a temporary directory creation started by
+     * g_file_new_tmp_dir_async().
+     *
+     * @param result a #GAsyncResult
+     * @return a new #GFile.
+     *   Free the returned object with g_object_unref().
+     * @since 2.74
+     */
+    public fun fileNewTmpDirFinish(result: AsyncResult): Result<File> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_file_new_tmp_dir_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
+                    File.wrap(reinterpret())
+                }
+
+            return if (gError.pointed != null) {
+                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
+
+    /**
      * Constructs a #GFile with the given @parse_name (i.e. something
      * given by g_file_get_parse_name()). This operation never fails,
      * but the returned object might not support any I/O operation if
@@ -2909,19 +3343,43 @@ public object Gio {
         }
 
     /**
-     * Converts errno.h error codes into GIO error codes. The fallback
-     * value %G_IO_ERROR_FAILED is returned for error codes not currently
-     * handled (but note that future GLib releases may return a more
+     * Converts `errno.h` error codes into GIO error codes.
+     *
+     * The fallback value %G_IO_ERROR_FAILED is returned for error codes not
+     * currently handled (but note that future GLib releases may return a more
      * specific value instead).
      *
-     * As %errno is global and may be modified by intermediate function
-     * calls, you should save its value as soon as the call which sets it
+     * As `errno` is global and may be modified by intermediate function
+     * calls, you should save its value immediately after the call returns,
+     * and use the saved value instead of `errno`:
+     *
+     *
+     * |[<!-- language="C" -->
+     *   int saved_errno;
+     *
+     *   ret = read (blah);
+     *   saved_errno = errno;
+     *
+     *   g_io_error_from_errno (saved_errno);
+     * ]|
      *
      * @param errNo Error number as defined in errno.h.
-     * @return #GIOErrorEnum value for the given errno.h error number.
+     * @return #GIOErrorEnum value for the given `errno.h` error number
      */
     public fun ioErrorFromErrno(errNo: Int): IOErrorEnum =
         g_io_error_from_errno(errNo).run {
+            IOErrorEnum.fromNativeValue(this)
+        }
+
+    /**
+     * Converts #GFileError error codes into GIO error codes.
+     *
+     * @param fileError a #GFileError.
+     * @return #GIOErrorEnum value for the given #GFileError error value.
+     * @since 2.74
+     */
+    public fun ioErrorFromFileError(fileError: FileError): IOErrorEnum =
+        g_io_error_from_file_error(fileError.nativeValue).run {
             IOErrorEnum.fromNativeValue(this)
         }
 
@@ -4337,30 +4795,14 @@ public val DBusSubtreeEnumerateFuncFunc: CPointer<
     }
         .reinterpret()
 
-public val DatagramBasedSourceFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDatagramBased>,
-            GIOCondition,
-        ) -> Int
-    >
-> =
+public val DatagramBasedSourceFuncFunc: CPointer<CFunction<(CPointer<GDatagramBased>) -> Int>> =
     staticCFunction {
             datagramBased: CPointer<GDatagramBased>?,
-            condition: GIOCondition,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                datagramBased: DatagramBased,
-                condition: IOCondition,
-            ) -> Boolean
-        >().get().invoke(
+        userData.asStableRef<(datagramBased: DatagramBased) -> Boolean>().get().invoke(
             datagramBased!!.run {
                 DatagramBased.wrap(reinterpret())
-            },
-            condition.run {
-                IOCondition(this)
             }
         ).asGBoolean()
     }
@@ -4573,23 +5015,14 @@ public val SimpleAsyncThreadFuncFunc: CPointer<
     }
         .reinterpret()
 
-public val SocketSourceFuncFunc: CPointer<CFunction<(CPointer<GSocket>, GIOCondition) -> Int>> =
+public val SocketSourceFuncFunc: CPointer<CFunction<(CPointer<GSocket>) -> Int>> =
     staticCFunction {
             socket: CPointer<GSocket>?,
-            condition: GIOCondition,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                socket: Socket,
-                condition: IOCondition,
-            ) -> Boolean
-        >().get().invoke(
+        userData.asStableRef<(socket: Socket) -> Boolean>().get().invoke(
             socket!!.run {
                 Socket(reinterpret())
-            },
-            condition.run {
-                IOCondition(this)
             }
         ).asGBoolean()
     }
@@ -4968,14 +5401,10 @@ public typealias DBusSubtreeEnumerateFunc = (
  * returned by g_datagram_based_create_source().
  *
  * - param `datagramBased` the #GDatagramBased
- * - param `condition` the current condition at the source fired
  * - return %G_SOURCE_REMOVE if the source should be removed,
  *   %G_SOURCE_CONTINUE otherwise
  */
-public typealias DatagramBasedSourceFunc = (
-    datagramBased: DatagramBased,
-    condition: IOCondition,
-) -> Boolean
+public typealias DatagramBasedSourceFunc = (datagramBased: DatagramBased) -> Boolean
 
 /**
  * During invocation, g_desktop_app_info_launch_uris_as_manager() may
@@ -5129,10 +5558,9 @@ public typealias SimpleAsyncThreadFunc = (
  * returned by g_socket_create_source().
  *
  * - param `socket` the #GSocket
- * - param `condition` the current condition at the source fired.
  * - return it should return false if the source should be removed.
  */
-public typealias SocketSourceFunc = (socket: Socket, condition: IOCondition) -> Boolean
+public typealias SocketSourceFunc = (socket: Socket) -> Boolean
 
 /**
  * The prototype for a task function to be run in a thread via

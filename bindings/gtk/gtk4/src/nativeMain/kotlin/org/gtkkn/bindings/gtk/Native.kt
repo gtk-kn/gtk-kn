@@ -47,8 +47,8 @@ public interface Native : Interface, KGTyped {
      *
      * @return the renderer for @self
      */
-    public fun getRenderer(): Renderer =
-        gtk_native_get_renderer(gtkNativePointer.reinterpret())!!.run {
+    public fun getRenderer(): Renderer? =
+        gtk_native_get_renderer(gtkNativePointer.reinterpret())?.run {
             Renderer(reinterpret())
         }
 
@@ -57,8 +57,8 @@ public interface Native : Interface, KGTyped {
      *
      * @return the surface of @self
      */
-    public fun getSurface(): Surface =
-        gtk_native_get_surface(gtkNativePointer.reinterpret())!!.run {
+    public fun getSurface(): Surface? =
+        gtk_native_get_surface(gtkNativePointer.reinterpret())?.run {
             Surface(reinterpret())
         }
 

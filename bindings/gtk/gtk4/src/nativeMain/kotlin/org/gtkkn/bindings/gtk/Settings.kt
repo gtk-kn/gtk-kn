@@ -29,6 +29,8 @@ import kotlin.Unit
  * On Wayland, the settings are obtained either via a settings portal,
  * or by reading desktop settings from DConf.
  *
+ * On macOS, the settings are obtained from `NSUserDefaults`.
+ *
  * In the absence of these sharing mechanisms, GTK reads default values for
  * settings from `settings.ini` files in `/etc/gtk-4.0`, `$XDG_CONFIG_DIRS/gtk-4.0`
  * and `$XDG_CONFIG_HOME/gtk-4.0`. These files must be valid key files (see
@@ -86,6 +88,7 @@ import kotlin.Unit
  * - method `gtk-shell-shows-app-menu`: Property has no getter nor setter
  * - method `gtk-shell-shows-desktop`: Property has no getter nor setter
  * - method `gtk-shell-shows-menubar`: Property has no getter nor setter
+ * - method `gtk-show-status-shapes`: Property has no getter nor setter
  * - method `gtk-sound-theme-name`: Property has no getter nor setter
  * - method `gtk-split-cursor`: Property has no getter nor setter
  * - method `gtk-theme-name`: Property has no getter nor setter

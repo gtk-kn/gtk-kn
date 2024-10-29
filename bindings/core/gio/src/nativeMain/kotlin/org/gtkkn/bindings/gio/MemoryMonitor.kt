@@ -24,10 +24,10 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
- * #GMemoryMonitor will monitor system memory and suggest to the application
+ * `GMemoryMonitor` will monitor system memory and suggest to the application
  * when to free memory so as to leave more room for other applications.
- * It is implemented on Linux using the [Low Memory
- * Monitor](https://gitlab.freedesktop.org/hadess/low-memory-monitor/)
+ * It is implemented on Linux using the
+ * [Low Memory Monitor](https://gitlab.freedesktop.org/hadess/low-memory-monitor/)
  * ([API documentation](https://hadess.pages.freedesktop.org/low-memory-monitor/)).
  *
  * There is also an implementation for use inside Flatpak sandboxes.
@@ -35,11 +35,11 @@ import kotlin.Unit
  * Possible actions to take when the signal is received are:
  *
  *  - Free caches
- *  - Save files that haven't been looked at in a while to disk, ready to be reopened when needed
+ *  - Save files that haven’t been looked at in a while to disk, ready to be reopened when needed
  *  - Run a garbage collection cycle
  *  - Try and compress fragmented allocations
  *  - Exit on idle if the process has no reason to stay around
- *  - Call [`malloc_trim(3)`](man:malloc_trim) to return cached heap pages to
+ *  - Call [`malloc_trim(3)`](man:malloc_trim(3)) to return cached heap pages to
  *    the kernel (if supported by your libc)
  *
  * Note that some actions may not always improve system performance, and so
@@ -47,9 +47,10 @@ import kotlin.Unit
  * make future heap allocations slower (due to releasing cached heap pages back
  * to the kernel).
  *
- * See #GMemoryMonitorWarningLevel for details on the various warning levels.
+ * See [type@Gio.MemoryMonitorWarningLevel] for details on the various warning
+ * levels.
  *
- * |[<!-- language="C" -->
+ * ```c
  * static void
  * warning_cb (GMemoryMonitor *m, GMemoryMonitorWarningLevel level)
  * {
@@ -67,10 +68,10 @@ import kotlin.Unit
  *                     G_CALLBACK (warning_cb), NULL);
  *   return m;
  * }
- * ]|
+ * ```
  *
- * Don't forget to disconnect the #GMemoryMonitor::low-memory-warning
- * signal, and unref the #GMemoryMonitor itself when exiting.
+ * Don’t forget to disconnect the [signal@Gio.MemoryMonitor::low-memory-warning]
+ * signal, and unref the `GMemoryMonitor` itself when exiting.
  * @since 2.64
  */
 public interface MemoryMonitor : Interface, Initable, KGTyped {

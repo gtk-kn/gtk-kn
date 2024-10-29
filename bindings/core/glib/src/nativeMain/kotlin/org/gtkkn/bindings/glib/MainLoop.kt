@@ -21,7 +21,7 @@ import kotlin.Unit
 
 /**
  * The `GMainLoop` struct is an opaque data type
- * representing the main event loop of a GLib or GTK+ application.
+ * representing the main event loop of a GLib or GTK application.
  */
 public class MainLoop(
     pointer: CPointer<GMainLoop>,
@@ -82,7 +82,8 @@ public class MainLoop(
         /**
          * Creates a new #GMainLoop structure.
          *
-         * @param context a #GMainContext  (if null, the default context will be used).
+         * @param context a #GMainContext  (if null, the global-default
+         *   main context will be used).
          * @param isRunning set to true to indicate that the loop is running. This
          * is not very important since calling g_main_loop_run() will set this to
          * true anyway.

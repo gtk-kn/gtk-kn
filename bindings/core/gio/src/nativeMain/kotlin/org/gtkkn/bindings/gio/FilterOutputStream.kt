@@ -39,6 +39,9 @@ public open class FilterOutputStream(
                 OutputStream(reinterpret())
             }
 
+    /**
+     * Whether the base stream should be closed when the filter stream is closed.
+     */
     public open val closeBaseStream: Boolean
         /**
          * Returns whether the base stream will be closed when @stream is

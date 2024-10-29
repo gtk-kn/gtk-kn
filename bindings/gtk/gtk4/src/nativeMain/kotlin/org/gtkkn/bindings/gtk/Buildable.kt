@@ -35,7 +35,7 @@ public interface Buildable : Interface, KGTyped {
      * Gets the ID of the @buildable object.
      *
      * `GtkBuilder` sets the name based on the ID attribute
-     * of the <object> tag used to construct the @buildable.
+     * of the `<object>` tag used to construct the @buildable.
      *
      * @return the ID of the buildable object
      */

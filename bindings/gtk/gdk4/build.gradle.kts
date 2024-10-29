@@ -33,7 +33,7 @@ kotlin {
                 // transitive
                 api(project(":bindings:core:gobject"))
                 api(project(":bindings:core:glib"))
-                api(project(":bindings:core:harfbuzz"))
+//                api(project(":bindings:core:harfbuzz"))
             }
         }
     }

@@ -37,19 +37,19 @@ import kotlin.Result
 import kotlin.Unit
 
 /**
- * #GFileEnumerator allows you to operate on a set of #GFiles,
- * returning a #GFileInfo structure for each file enumerated (e.g.
- * g_file_enumerate_children() will return a #GFileEnumerator for each
+ * `GFileEnumerator` allows you to operate on a set of [iface@Gio.File] objects,
+ * returning a [class@Gio.FileInfo] structure for each file enumerated (e.g.
+ * [method@Gio.File.enumerate_children] will return a `GFileEnumerator` for each
  * of the children within a directory).
  *
- * To get the next file's information from a #GFileEnumerator, use
- * g_file_enumerator_next_file() or its asynchronous version,
- * g_file_enumerator_next_files_async(). Note that the asynchronous
- * version will return a list of #GFileInfos, whereas the
+ * To get the next file's information from a `GFileEnumerator`, use
+ * [method@Gio.FileEnumerator.next_file] or its asynchronous version,
+ * [method@Gio.FileEnumerator.next_files_async]. Note that the asynchronous
+ * version will return a list of [class@Gio.FileInfo] objects, whereas the
  * synchronous will only return the next file in the enumerator.
  *
  * The ordering of returned files is unspecified for non-Unix
- * platforms; for more information, see g_dir_read_name().  On Unix,
+ * platforms; for more information, see [method@GLib.Dir.read_name].  On Unix,
  * when operating on local files, returned files will be sorted by
  * inode number.  Effectively you can assume that the ordering of
  * returned files will be stable between successive calls (and
@@ -59,10 +59,10 @@ import kotlin.Unit
  * modification time, you will have to implement that in your
  * application code.
  *
- * To close a #GFileEnumerator, use g_file_enumerator_close(), or
- * its asynchronous version, g_file_enumerator_close_async(). Once
- * a #GFileEnumerator is closed, no further actions may be performed
- * on it, and it should be freed with g_object_unref().
+ * To close a `GFileEnumerator`, use [method@Gio.FileEnumerator.close], or
+ * its asynchronous version, [method@Gio.FileEnumerator.close_async]. Once
+ * a `GFileEnumerator` is closed, no further actions may be performed
+ * on it, and it should be freed with [method@GObject.Object.unref].
  *
  * ## Skipped during bindings generation
  *
@@ -112,7 +112,8 @@ public open class FileEnumerator(
      *
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object, null to ignore.
-     * @param callback a #GAsyncReadyCallback to call when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public open fun closeAsync(
         ioPriority: Int,
@@ -252,29 +253,75 @@ public open class FileEnumerator(
 
     /**
      * Request information for a number of files from the enumerator asynchronously.
-     * When all i/o for the operation is finished the @callback will be called with
+     * When all I/O for the operation is finished the @callback will be called with
      * the requested information.
      *
      * See the documentation of #GFileEnumerator for information about the
      * order of returned files.
      *
-     * The callback can be called with less than @num_files files in case of error
-     * or at the end of the enumerator. In case of a partial error the callback will
-     * be called with any succeeding items and no error, and on the next request the
-     * error will be reported. If a request is cancelled the callback will be called
-     * with %G_IO_ERROR_CANCELLED.
+     * Once the end of the enumerator is reached, or if an error occurs, the
+     * @callback will be called with an empty list. In this case, the previous call
+     * to g_file_enumerator_next_files_async() will typically have returned fewer
+     * than @num_files items.
+     *
+     * If a request is cancelled the callback will be called with
+     * %G_IO_ERROR_CANCELLED.
+     *
+     * This leads to the following pseudo-code usage:
+     * |[
+     * g_autoptr(GFile) dir = get_directory ();
+     * g_autoptr(GFileEnumerator) enumerator = NULL;
+     * g_autolist(GFileInfo) files = NULL;
+     * g_autoptr(GError) local_error = NULL;
+     *
+     * enumerator = yield g_file_enumerate_children_async (dir,
+     *                                                     G_FILE_ATTRIBUTE_STANDARD_NAME ","
+     *                                                     G_FILE_ATTRIBUTE_STANDARD_TYPE,
+     *                                                     G_FILE_QUERY_INFO_NONE,
+     *                                                     G_PRIORITY_DEFAULT,
+     *                                                     cancellable,
+     *                                                     …,
+     *                                                     &local_error);
+     * if (enumerator == NULL)
+     *   g_error ("Error enumerating: %s", local_error->message);
+     *
+     * // Loop until no files are returned, either because the end of the enumerator
+     * // has been reached, or an error was returned.
+     * do
+     *   {
+     *     files = yield g_file_enumerator_next_files_async (enumerator,
+     *                                                       5,  // number of files to request
+     *                                                       G_PRIORITY_DEFAULT,
+     *                                                       cancellable,
+     *                                                       …,
+     *                                                       &local_error);
+     *
+     *     // Process the returned files, but don’t assume that exactly 5 were returned.
+     *     for (GList *l = files; l != NULL; l = l->next)
+     *       {
+     *         GFileInfo *info = l->data;
+     *         handle_file_info (info);
+     *       }
+     *   }
+     * while (files != NULL);
+     *
+     * if (local_error != NULL &&
+     *     !g_error_matches (local_error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+     *   g_error ("Error while enumerating: %s", local_error->message);
+     * ]|
      *
      * During an async request no other sync and async calls are allowed, and will
      * result in %G_IO_ERROR_PENDING errors.
      *
-     * Any outstanding i/o request with higher priority (lower numerical value) will
+     * Any outstanding I/O request with higher priority (lower numerical value) will
      * be executed before an outstanding request with lower priority. Default
      * priority is %G_PRIORITY_DEFAULT.
      *
      * @param numFiles the number of file info objects to request
      * @param ioPriority the [I/O priority][io-priority] of the request
      * @param cancellable optional #GCancellable object, null to ignore.
-     * @param callback a #GAsyncReadyCallback to call when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public open fun nextFilesAsync(
         numFiles: Int,

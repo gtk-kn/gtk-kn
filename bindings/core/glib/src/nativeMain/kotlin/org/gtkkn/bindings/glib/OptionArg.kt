@@ -22,7 +22,7 @@ public enum class OptionArg(
     public val nativeValue: GOptionArg,
 ) {
     /**
-     * No extra argument. This is useful for simple flags.
+     * No extra argument. This is useful for simple flags or booleans.
      */
     NONE(G_OPTION_ARG_NONE),
 

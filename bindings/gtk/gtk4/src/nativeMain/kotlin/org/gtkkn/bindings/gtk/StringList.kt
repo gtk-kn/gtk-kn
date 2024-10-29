@@ -28,16 +28,17 @@ import kotlin.collections.List
 /**
  * `GtkStringList` is a list model that wraps an array of strings.
  *
- * The objects in the model have a "string" property.
+ * The objects in the model are of type [class@Gtk.StringObject] and have
+ * a "string" property that can be used inside expressions.
  *
  * `GtkStringList` is well-suited for any place where you would
  * typically use a `char*[]`, but need a list model.
  *
- * # GtkStringList as GtkBuildable
+ * ## GtkStringList as GtkBuildable
  *
  * The `GtkStringList` implementation of the `GtkBuildable` interface
- * supports adding items directly using the <items> element and
- * specifying <item> elements for each item. Each <item> element
+ * supports adding items directly using the `<items>` element and
+ * specifying `<item>` elements for each item. Each `<item>` element
  * supports the regular translation attributes “translatable”,
  * “context” and “comments”.
  *
@@ -56,6 +57,9 @@ import kotlin.collections.List
  * ## Skipped during bindings generation
  *
  * - method `take`: C function gtk_string_list_take is ignored
+ * - method `item-type`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
+ * - method `strings`: Property has no getter nor setter
  */
 public open class StringList(
     pointer: CPointer<GtkStringList>,

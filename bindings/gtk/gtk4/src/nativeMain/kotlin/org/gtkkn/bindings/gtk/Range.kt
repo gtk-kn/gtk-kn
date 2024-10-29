@@ -18,6 +18,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
@@ -68,8 +69,11 @@ import kotlin.Unit
  */
 public open class Range(
     pointer: CPointer<GtkRange>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()), AccessibleRange, Orientable, KGTyped {
     public val gtkRangePointer: CPointer<GtkRange>
+        get() = gPointer.reinterpret()
+
+    override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
         get() = gPointer.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>

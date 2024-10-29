@@ -67,7 +67,7 @@ import kotlin.Unit
  * To track changes in the selected application, use the
  * [signal@Gtk.AppChooserButton::changed] signal.
  *
- * # CSS nodes
+ * ## CSS nodes
  *
  * `GtkAppChooserButton` has a single CSS node with the name “appchooserbutton”.
  *

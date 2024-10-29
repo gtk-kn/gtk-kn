@@ -13,11 +13,12 @@ import org.gtkkn.native.gio.g_simple_permission_new
 import kotlin.Boolean
 
 /**
- * #GSimplePermission is a trivial implementation of #GPermission that
- * represents a permission that is either always or never allowed.  The
- * value is given at construction and doesn't change.
+ * `GSimplePermission` is a trivial implementation of [class@Gio.Permission]
+ * that represents a permission that is either always or never allowed.  The
+ * value is given at construction and doesn’t change.
  *
- * Calling request or release will result in errors.
+ * Calling [method@Gio.Permission.acquire] or [method@Gio.Permission.release]
+ * on a `GSimplePermission` will result in errors.
  */
 public open class SimplePermission(
     pointer: CPointer<GSimplePermission>,

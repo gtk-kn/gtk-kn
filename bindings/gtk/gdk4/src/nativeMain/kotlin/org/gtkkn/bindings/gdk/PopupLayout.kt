@@ -58,9 +58,9 @@ import kotlin.Unit
  * [method@Gdk.Popup.get_position_x], [method@Gdk.Popup.get_position_y],
  * [method@Gdk.Popup.get_rect_anchor] and [method@Gdk.Popup.get_surface_anchor]
  * after the popup has been presented. This can be used to adjust the rendering.
- * For example, [class@Gtk.Popover] changes its arrow position accordingly.
- * But you have to be careful avoid changing the size of the popover, or it
- * has to be presented again.
+ * For example, [GtkPopover](../gtk4/class.Popover.html) changes its arrow position
+ * accordingly. But you have to be careful avoid changing the size of the popover,
+ * or it has to be presented again.
  *
  * ## Skipped during bindings generation
  *

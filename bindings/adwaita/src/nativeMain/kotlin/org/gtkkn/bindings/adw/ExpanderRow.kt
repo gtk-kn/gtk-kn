@@ -14,11 +14,14 @@ import org.gtkkn.native.adw.AdwExpanderRow
 import org.gtkkn.native.adw.adw_expander_row_add_action
 import org.gtkkn.native.adw.adw_expander_row_add_prefix
 import org.gtkkn.native.adw.adw_expander_row_add_row
+import org.gtkkn.native.adw.adw_expander_row_add_suffix
 import org.gtkkn.native.adw.adw_expander_row_get_enable_expansion
 import org.gtkkn.native.adw.adw_expander_row_get_expanded
 import org.gtkkn.native.adw.adw_expander_row_get_icon_name
 import org.gtkkn.native.adw.adw_expander_row_get_show_enable_switch
 import org.gtkkn.native.adw.adw_expander_row_get_subtitle
+import org.gtkkn.native.adw.adw_expander_row_get_subtitle_lines
+import org.gtkkn.native.adw.adw_expander_row_get_title_lines
 import org.gtkkn.native.adw.adw_expander_row_get_type
 import org.gtkkn.native.adw.adw_expander_row_new
 import org.gtkkn.native.adw.adw_expander_row_remove
@@ -27,11 +30,14 @@ import org.gtkkn.native.adw.adw_expander_row_set_expanded
 import org.gtkkn.native.adw.adw_expander_row_set_icon_name
 import org.gtkkn.native.adw.adw_expander_row_set_show_enable_switch
 import org.gtkkn.native.adw.adw_expander_row_set_subtitle
+import org.gtkkn.native.adw.adw_expander_row_set_subtitle_lines
+import org.gtkkn.native.adw.adw_expander_row_set_title_lines
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import kotlin.Boolean
+import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 
@@ -50,7 +56,7 @@ import kotlin.Unit
  * ## AdwExpanderRow as GtkBuildable
  *
  * The `AdwExpanderRow` implementation of the [iface@Gtk.Buildable] interface
- * supports adding a child as an action widget by specifying “action” as the
+ * supports adding a child as an suffix widget by specifying “suffix” as the
  * “type” attribute of a <child> element.
  *
  * It also supports adding it as a prefix widget by specifying “prefix” as the
@@ -64,7 +70,11 @@ import kotlin.Unit
  * It contains the subnodes `row.header` for its main embedded row,
  * `list.nested` for the list it can expand, and `image.expander-row-arrow` for
  * its arrow.
- * @since 1.0
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `subtitle-lines`: Property TypeInfo of getter and setter do not match
+ * - method `title-lines`: Property TypeInfo of getter and setter do not match
  */
 public open class ExpanderRow(
     pointer: CPointer<AdwExpanderRow>,
@@ -86,15 +96,12 @@ public open class ExpanderRow(
 
     /**
      * Whether expansion is enabled.
-     *
-     * @since 1.0
      */
     public open var enableExpansion: Boolean
         /**
          * Gets whether the expansion of @self is enabled.
          *
          * @return whether the expansion of @self is enabled.
-         * @since 1.0
          */
         get() =
             adw_expander_row_get_enable_expansion(adwExpanderRowPointer.reinterpret()).asBoolean()
@@ -103,7 +110,6 @@ public open class ExpanderRow(
          * Sets whether the expansion of @self is enabled.
          *
          * @param enableExpansion whether to enable the expansion
-         * @since 1.0
          */
         set(enableExpansion) =
             adw_expander_row_set_enable_expansion(
@@ -113,15 +119,12 @@ public open class ExpanderRow(
 
     /**
      * Whether the row is expanded.
-     *
-     * @since 1.0
      */
     public open var expanded: Boolean
         /**
          * Gets whether @self is expanded.
          *
          * @return whether @self is expanded
-         * @since 1.0
          */
         get() = adw_expander_row_get_expanded(adwExpanderRowPointer.reinterpret()).asBoolean()
 
@@ -129,7 +132,6 @@ public open class ExpanderRow(
          * Sets whether @self is expanded.
          *
          * @param expanded whether to expand the row
-         * @since 1.0
          */
         set(expanded) =
             adw_expander_row_set_expanded(
@@ -139,15 +141,12 @@ public open class ExpanderRow(
 
     /**
      * The icon name for this row.
-     *
-     * @since 1.0
      */
     public open var iconName: String?
         /**
          * Gets the icon name for @self.
          *
          * @return the icon name for @self
-         * @since 1.0
          */
         get() = adw_expander_row_get_icon_name(adwExpanderRowPointer.reinterpret())?.toKString()
 
@@ -155,7 +154,6 @@ public open class ExpanderRow(
          * Sets the icon name for @self.
          *
          * @param iconName the icon name
-         * @since 1.0
          */
         set(iconName) =
             adw_expander_row_set_icon_name(
@@ -165,15 +163,12 @@ public open class ExpanderRow(
 
     /**
      * Whether the switch enabling the expansion is visible.
-     *
-     * @since 1.0
      */
     public open var showEnableSwitch: Boolean
         /**
          * Gets whether the switch enabling the expansion of @self is visible.
          *
          * @return whether the switch enabling the expansion is visible
-         * @since 1.0
          */
         get() =
             adw_expander_row_get_show_enable_switch(adwExpanderRowPointer.reinterpret()).asBoolean()
@@ -182,7 +177,6 @@ public open class ExpanderRow(
          * Sets whether the switch enabling the expansion of @self is visible.
          *
          * @param showEnableSwitch whether to show the switch enabling the expansion
-         * @since 1.0
          */
         set(showEnableSwitch) =
             adw_expander_row_set_show_enable_switch(
@@ -193,14 +187,14 @@ public open class ExpanderRow(
     /**
      * The subtitle for this row.
      *
-     * @since 1.0
+     * The subtitle is interpreted as Pango markup unless
+     * [property@PreferencesRow:use-markup] is set to `FALSE`.
      */
     public open var subtitle: String
         /**
          * Gets the subtitle for @self.
          *
          * @return the subtitle for @self
-         * @since 1.0
          */
         get() =
             adw_expander_row_get_subtitle(adwExpanderRowPointer.reinterpret())?.toKString()
@@ -209,8 +203,10 @@ public open class ExpanderRow(
         /**
          * Sets the subtitle for @self.
          *
+         * The subtitle is interpreted as Pango markup unless
+         * [property@PreferencesRow:use-markup] is set to `FALSE`.
+         *
          * @param subtitle the subtitle
-         * @since 1.0
          */
         set(subtitle) = adw_expander_row_set_subtitle(adwExpanderRowPointer.reinterpret(), subtitle)
 
@@ -218,7 +214,6 @@ public open class ExpanderRow(
      * Creates a new `AdwExpanderRow`.
      *
      * @return the newly created `AdwExpanderRow`
-     * @since 1.0
      */
     public constructor() : this(adw_expander_row_new()!!.reinterpret())
 
@@ -226,7 +221,6 @@ public open class ExpanderRow(
      * Adds an action widget to @self.
      *
      * @param widget a widget
-     * @since 1.0
      */
     public open fun addAction(widget: Widget): Unit =
         adw_expander_row_add_action(
@@ -238,7 +232,6 @@ public open class ExpanderRow(
      * Adds a prefix widget to @self.
      *
      * @param widget a widget
-     * @since 1.0
      */
     public open fun addPrefix(widget: Widget): Unit =
         adw_expander_row_add_prefix(
@@ -252,7 +245,6 @@ public open class ExpanderRow(
      * The widget will appear in the expanding list below @self.
      *
      * @param child a widget
-     * @since 1.0
      */
     public open fun addRow(child: Widget): Unit =
         adw_expander_row_add_row(
@@ -261,10 +253,21 @@ public open class ExpanderRow(
         )
 
     /**
+     * Adds an suffix widget to @self.
+     *
+     * @param widget a widget
+     * @since 1.4
+     */
+    public open fun addSuffix(widget: Widget): Unit =
+        adw_expander_row_add_suffix(
+            adwExpanderRowPointer.reinterpret(),
+            widget.gtkWidgetPointer.reinterpret()
+        )
+
+    /**
      * Gets whether the expansion of @self is enabled.
      *
      * @return whether the expansion of @self is enabled.
-     * @since 1.0
      */
     public open fun getEnableExpansion(): Boolean =
         adw_expander_row_get_enable_expansion(adwExpanderRowPointer.reinterpret()).asBoolean()
@@ -273,7 +276,6 @@ public open class ExpanderRow(
      * Gets whether @self is expanded.
      *
      * @return whether @self is expanded
-     * @since 1.0
      */
     public open fun getExpanded(): Boolean =
         adw_expander_row_get_expanded(adwExpanderRowPointer.reinterpret()).asBoolean()
@@ -282,7 +284,6 @@ public open class ExpanderRow(
      * Gets the icon name for @self.
      *
      * @return the icon name for @self
-     * @since 1.0
      */
     public open fun getIconName(): String? =
         adw_expander_row_get_icon_name(adwExpanderRowPointer.reinterpret())?.toKString()
@@ -291,7 +292,6 @@ public open class ExpanderRow(
      * Gets whether the switch enabling the expansion of @self is visible.
      *
      * @return whether the switch enabling the expansion is visible
-     * @since 1.0
      */
     public open fun getShowEnableSwitch(): Boolean =
         adw_expander_row_get_show_enable_switch(adwExpanderRowPointer.reinterpret()).asBoolean()
@@ -300,11 +300,32 @@ public open class ExpanderRow(
      * Gets the subtitle for @self.
      *
      * @return the subtitle for @self
-     * @since 1.0
      */
     public open fun getSubtitle(): String =
         adw_expander_row_get_subtitle(adwExpanderRowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
+
+    /**
+     * Gets the number of lines at the end of which the subtitle label will be
+     * ellipsized.
+     *
+     * @return the number of lines at the end of which the subtitle label will be
+     *   ellipsized
+     * @since 1.3
+     */
+    public open fun getSubtitleLines(): Boolean =
+        adw_expander_row_get_subtitle_lines(adwExpanderRowPointer.reinterpret()).asBoolean()
+
+    /**
+     * Gets the number of lines at the end of which the title label will be
+     * ellipsized.
+     *
+     * @return the number of lines at the end of which the title label will be
+     *   ellipsized
+     * @since 1.3
+     */
+    public open fun getTitleLines(): Boolean =
+        adw_expander_row_get_title_lines(adwExpanderRowPointer.reinterpret()).asBoolean()
 
     /**
      *
@@ -321,7 +342,6 @@ public open class ExpanderRow(
      * Sets whether the expansion of @self is enabled.
      *
      * @param enableExpansion whether to enable the expansion
-     * @since 1.0
      */
     public open fun setEnableExpansion(enableExpansion: Boolean): Unit =
         adw_expander_row_set_enable_expansion(
@@ -333,7 +353,6 @@ public open class ExpanderRow(
      * Sets whether @self is expanded.
      *
      * @param expanded whether to expand the row
-     * @since 1.0
      */
     public open fun setExpanded(expanded: Boolean): Unit =
         adw_expander_row_set_expanded(
@@ -345,7 +364,6 @@ public open class ExpanderRow(
      * Sets the icon name for @self.
      *
      * @param iconName the icon name
-     * @since 1.0
      */
     public open fun setIconName(iconName: String? = null): Unit =
         adw_expander_row_set_icon_name(adwExpanderRowPointer.reinterpret(), iconName)
@@ -354,7 +372,6 @@ public open class ExpanderRow(
      * Sets whether the switch enabling the expansion of @self is visible.
      *
      * @param showEnableSwitch whether to show the switch enabling the expansion
-     * @since 1.0
      */
     public open fun setShowEnableSwitch(showEnableSwitch: Boolean): Unit =
         adw_expander_row_set_show_enable_switch(
@@ -365,11 +382,38 @@ public open class ExpanderRow(
     /**
      * Sets the subtitle for @self.
      *
+     * The subtitle is interpreted as Pango markup unless
+     * [property@PreferencesRow:use-markup] is set to `FALSE`.
+     *
      * @param subtitle the subtitle
-     * @since 1.0
      */
     public open fun setSubtitle(subtitle: String): Unit =
         adw_expander_row_set_subtitle(adwExpanderRowPointer.reinterpret(), subtitle)
+
+    /**
+     * Sets the number of lines at the end of which the subtitle label will be
+     * ellipsized.
+     *
+     * If the value is 0, the number of lines won't be limited.
+     *
+     * @param subtitleLines the number of lines at the end of which the subtitle label will be
+     * ellipsized
+     * @since 1.3
+     */
+    public open fun setSubtitleLines(subtitleLines: Int): Unit =
+        adw_expander_row_set_subtitle_lines(adwExpanderRowPointer.reinterpret(), subtitleLines)
+
+    /**
+     * Sets the number of lines at the end of which the title label will be
+     * ellipsized.
+     *
+     * If the value is 0, the number of lines won't be limited.
+     *
+     * @param titleLines the number of lines at the end of which the title label will be ellipsized
+     * @since 1.3
+     */
+    public open fun setTitleLines(titleLines: Int): Unit =
+        adw_expander_row_set_title_lines(adwExpanderRowPointer.reinterpret(), titleLines)
 
     public companion object : TypeCompanion<ExpanderRow> {
         override val type: GeneratedClassKGType<ExpanderRow> =

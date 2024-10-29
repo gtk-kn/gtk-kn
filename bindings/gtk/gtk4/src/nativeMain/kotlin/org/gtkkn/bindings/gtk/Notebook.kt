@@ -96,14 +96,14 @@ import kotlin.Unit
  *
  * The `GtkNotebook` implementation of the `GtkBuildable` interface
  * supports placing children into tabs by specifying “tab” as the
- * “type” attribute of a <child> element. Note that the content
+ * “type” attribute of a `<child>` element. Note that the content
  * of the tab must be created before the tab can be filled.
- * A tab child can be specified without specifying a <child>
+ * A tab child can be specified without specifying a `<child>`
  * type attribute.
  *
  * To add a child widget in the notebooks action area, specify
  * "action-start" or “action-end” as the “type” attribute of the
- * <child> element.
+ * `<child>` element.
  *
  * An example of a UI definition fragment with `GtkNotebook`:
  *
@@ -568,7 +568,7 @@ public open class Notebook(
      *
      * @param child a widget contained in a page of @notebook
      * @return the text of the tab label, or null if
-     *   the tab label idget is not a `GtkLabel`. The string is owned
+     *   the tab label widget is not a `GtkLabel`. The string is owned
      *   by the widget and must not be freed.
      */
     public open fun getTabLabelText(child: Widget): String? =
@@ -883,15 +883,16 @@ public open class Notebook(
      * Sets whether the tab can be detached from @notebook to another
      * notebook or widget.
      *
-     * Note that two notebooks must share a common group identificator
+     * Note that two notebooks must share a common group identifier
      * (see [method@Gtk.Notebook.set_group_name]) to allow automatic tabs
      * interchange between them.
      *
      * If you want a widget to interact with a notebook through DnD
      * (i.e.: accept dragged tabs from it) it must be set as a drop
-     * destination and accept the target “GTK_NOTEBOOK_TAB”. The notebook
-     * will fill the selection with a GtkWidget** pointing to the child
-     * widget that corresponds to the dropped tab.
+     * destination by adding to it a [class@Gtk.DropTarget] controller that accepts
+     * the GType `GTK_TYPE_NOTEBOOK_PAGE`. The `:value` of said drop target will be
+     * preloaded with a [class@Gtk.NotebookPage] object that corresponds to the
+     * dropped tab, so you can process the value via `::accept` or `::drop` signals.
      *
      * Note that you should use [method@Gtk.Notebook.detach_tab] instead
      * of [method@Gtk.Notebook.remove_page] if you want to remove the tab

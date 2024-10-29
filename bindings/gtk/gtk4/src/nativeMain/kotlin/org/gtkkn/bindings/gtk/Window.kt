@@ -57,6 +57,7 @@ import org.gtkkn.native.gtk.gtk_window_has_group
 import org.gtkkn.native.gtk.gtk_window_is_active
 import org.gtkkn.native.gtk.gtk_window_is_fullscreen
 import org.gtkkn.native.gtk.gtk_window_is_maximized
+import org.gtkkn.native.gtk.gtk_window_is_suspended
 import org.gtkkn.native.gtk.gtk_window_list_toplevels
 import org.gtkkn.native.gtk.gtk_window_maximize
 import org.gtkkn.native.gtk.gtk_window_minimize
@@ -109,7 +110,7 @@ import kotlin.Unit
  *
  * The `GtkWindow` implementation of the [iface@Gtk.Buildable] interface supports
  * setting a child as the titlebar by specifying “titlebar” as the “type”
- * attribute of a <child> element.
+ * attribute of a `<child>` element.
  *
  * # CSS nodes
  *
@@ -143,7 +144,9 @@ import kotlin.Unit
  *
  * # Accessibility
  *
- * `GtkWindow` uses the %GTK_ACCESSIBLE_ROLE_WINDOW role.
+ * Until GTK 4.10, `GtkWindow` used the `GTK_ACCESSIBLE_ROLE_WINDOW` role.
+ *
+ * Since GTK 4.12, `GtkWindow` uses the `GTK_ACCESSIBLE_ROLE_APPLICATION` role.
  *
  * # Actions
  *
@@ -164,6 +167,7 @@ import kotlin.Unit
  * - method `is-active`: Property has no getter nor setter
  * - method `maximized`: Property has no getter nor setter
  * - method `startup-id`: Property has no getter
+ * - method `suspended`: Property has no getter nor setter
  */
 public open class Window(
     pointer: CPointer<GtkWindow>,
@@ -399,6 +403,9 @@ public open class Window(
         /**
          * Sets whether “focus rectangles” are supposed to be visible.
          *
+         * This property is maintained by GTK based on user input,
+         * and should not be set by applications.
+         *
          * @param setting the new value
          */
         set(setting) =
@@ -502,6 +509,9 @@ public open class Window(
 
         /**
          * Sets whether mnemonics are supposed to be visible.
+         *
+         * This property is maintained by GTK based on user input,
+         * and should not be set by applications.
          *
          * @param setting the new value
          */
@@ -698,7 +708,7 @@ public open class Window(
      * Asks to place @window in the fullscreen state.
      *
      * Note that you shouldn’t assume the window is definitely fullscreen
-     * afterward, because other entities (e.g. the user or window manager
+     * afterward, because other entities (e.g. the user or window manager)
      * unfullscreen it again, and not all window managers honor requests
      * to fullscreen windows.
      *
@@ -945,10 +955,21 @@ public open class Window(
     public open fun isMaximized(): Boolean = gtk_window_is_maximized(gtkWindowPointer.reinterpret()).asBoolean()
 
     /**
+     * Retrieves the current suspended state of @window.
+     *
+     * A window being suspended means it's currently not visible to the user, for
+     * example by being on a inactive workspace, minimized, obstructed.
+     *
+     * @return whether the window is suspended.
+     * @since 4.12
+     */
+    public open fun isSuspended(): Boolean = gtk_window_is_suspended(gtkWindowPointer.reinterpret()).asBoolean()
+
+    /**
      * Asks to maximize @window, so that it fills the screen.
      *
      * Note that you shouldn’t assume the window is definitely maximized
-     * afterward, because other entities (e.g. the user or window manager
+     * afterward, because other entities (e.g. the user or window manager)
      * could unmaximize it again, and not all window managers support
      * maximization.
      *
@@ -968,7 +989,7 @@ public open class Window(
      *
      * Note that you shouldn’t assume the window is definitely minimized
      * afterward, because the windowing system might not support this
-     * functionality; other entities (e.g. the user or the window manager
+     * functionality; other entities (e.g. the user or the window manager)
      * could unminimize it again, or there may not be a window manager in
      * which case minimization isn’t possible, etc.
      *
@@ -984,30 +1005,20 @@ public open class Window(
     /**
      * Presents a window to the user.
      *
-     * This function should not be used as when it is called,
-     * it is too late to gather a valid timestamp to allow focus
-     * stealing prevention to work correctly.
+     * This may mean raising the window in the stacking order,
+     * unminimizing it, moving it to the current desktop and/or
+     * giving it the keyboard focus (possibly dependent on the user’s
+     * platform, window manager and preferences).
+     *
+     * If @window is hidden, this function also makes it visible.
      */
     public open fun present(): Unit = gtk_window_present(gtkWindowPointer.reinterpret())
 
     /**
-     * Presents a window to the user.
+     * Presents a window to the user in response to an user interaction.
      *
-     * This may mean raising the window in the stacking order,
-     * unminimizing it, moving it to the current desktop, and/or
-     * giving it the keyboard focus, possibly dependent on the user’s
-     * platform, window manager, and preferences.
+     * See [method@Gtk.Window.present] for more details.
      *
-     * If @window is hidden, this function calls [method@Gtk.Widget.show]
-     * as well.
-     *
-     * This function should be used when the user tries to open a window
-     * that’s already open. Say for example the preferences dialog is
-     * currently open, and the user chooses Preferences from the menu
-     * a second time; use [method@Gtk.Window.present] to move the
-     * already-open dialog where the user can see it.
-     *
-     * Presents a window to the user in response to a user interaction.
      * The timestamp should be gathered when the window was requested
      * to be shown (when clicking a link for example), rather than once
      * the window is ready to be shown.
@@ -1075,8 +1086,19 @@ public open class Window(
     /**
      * Sets the default size of a window.
      *
-     * If the window’s “natural” size (its size request) is larger than
+     * The default size of a window is the size that will be used if no other constraints apply.
+     *
+     * The default size will be updated whenever the window is resized
+     * to reflect the new size, unless the window is forced to a size,
+     * like when it is maximized or fullscreened.
+     *
+     * If the window’s minimum size request is larger than
      * the default, the default will be ignored.
+     *
+     * Setting the default size to a value <= 0 will cause it to be
+     * ignored and the natural size request will be used instead. It
+     * is possible to do this while the window is showing to "reset"
+     * it to its initial size.
      *
      * Unlike [method@Gtk.Widget.set_size_request], which sets a size
      * request for a widget and thus would keep users from shrinking
@@ -1085,13 +1107,6 @@ public open class Window(
      * shrink the window again as they normally would. Setting a default
      * size of -1 means to use the “natural” default size (the size request
      * of the window).
-     *
-     * The default size of a window only affects the first time a window is
-     * shown; if a window is hidden and re-shown, it will remember the size
-     * it had prior to hiding, rather than using the default size.
-     *
-     * Windows can’t actually be 0x0 in size, they must be at least 1x1, but
-     * passing 0 for @width and @height is OK, resulting in a 1x1 default size.
      *
      * If you use this function to reestablish a previously saved window size,
      * note that the appropriate size to save is the one returned by
@@ -1188,6 +1203,9 @@ public open class Window(
     /**
      * Sets whether “focus rectangles” are supposed to be visible.
      *
+     * This property is maintained by GTK based on user input,
+     * and should not be set by applications.
+     *
      * @param setting the new value
      */
     public open fun setFocusVisible(setting: Boolean): Unit =
@@ -1231,6 +1249,9 @@ public open class Window(
 
     /**
      * Sets whether mnemonics are supposed to be visible.
+     *
+     * This property is maintained by GTK based on user input,
+     * and should not be set by applications.
      *
      * @param setting the new value
      */
@@ -1346,7 +1367,7 @@ public open class Window(
      *
      * Note that you shouldn’t assume the window is definitely not
      * fullscreen afterward, because other entities (e.g. the user or
-     * window manager could fullscreen it again, and not all window
+     * window manager) could fullscreen it again, and not all window
      * managers honor requests to unfullscreen windows; normally the
      * window will end up restored to its normal state. Just don’t
      * write code that crashes if not.
@@ -1361,7 +1382,7 @@ public open class Window(
      * Asks to unmaximize @window.
      *
      * Note that you shouldn’t assume the window is definitely unmaximized
-     * afterward, because other entities (e.g. the user or window manager
+     * afterward, because other entities (e.g. the user or window manager)
      * maximize it again, and not all window managers honor requests to
      * unmaximize.
      *
@@ -1376,7 +1397,7 @@ public open class Window(
      *
      * Note that you shouldn’t assume the window is definitely unminimized
      * afterward, because the windowing system might not support this
-     * functionality; other entities (e.g. the user or the window manager
+     * functionality; other entities (e.g. the user or the window manager)
      * could minimize it again, or there may not be a window manager in
      * which case minimization isn’t possible, etc.
      *
@@ -1553,7 +1574,7 @@ public open class Window(
          * Sets whether the window should request startup notification.
          *
          * By default, after showing the first `GtkWindow`, GTK calls
-         * [method@Gdk.Display.notify_startup_complete]. Call this function
+         * [method@Gdk.Toplevel.set_startup_id]. Call this function
          * to disable the automatic startup notification. You might do this
          * if your first window is a splash screen, and you want to delay
          * notification until after your real main window has been shown,

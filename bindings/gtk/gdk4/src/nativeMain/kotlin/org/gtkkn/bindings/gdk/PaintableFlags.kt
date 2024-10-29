@@ -19,14 +19,14 @@ public class PaintableFlags(
     public companion object {
         /**
          * The size is immutable.
-         *   The [signal@GdkPaintable::invalidate-size] signal will never be
+         *   The [signal@Gdk.Paintable::invalidate-size] signal will never be
          *   emitted.
          */
         public val SIZE: PaintableFlags = PaintableFlags(GDK_PAINTABLE_STATIC_SIZE)
 
         /**
          * The content is immutable.
-         *   The [signal@GdkPaintable::invalidate-contents] signal will never be
+         *   The [signal@Gdk.Paintable::invalidate-contents] signal will never be
          *   emitted.
          */
         public val CONTENTS: PaintableFlags = PaintableFlags(GDK_PAINTABLE_STATIC_CONTENTS)

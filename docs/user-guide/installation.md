@@ -20,7 +20,7 @@ sudo apt install gnome-devel gcc-multilib libgtksourceview-5-dev
 sudo dnf install gtk4-devel libadwaita-devel gtksourceview5-devel libxcrypt-compat
 ```
 
-A bash script to install all the dependencies for Ubuntu 22.04 , that includes also all the optional bindings, it is
+A bash script to install all the dependencies for Ubuntu 24.04 , that includes also all the optional bindings, it is
 available here:
 
 ``` bash title=".ci/install-ubuntu-deps.sh"

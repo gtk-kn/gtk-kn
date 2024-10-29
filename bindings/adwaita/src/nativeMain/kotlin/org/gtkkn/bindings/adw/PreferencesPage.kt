@@ -12,12 +12,15 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.adw.AdwPreferencesPage
 import org.gtkkn.native.adw.adw_preferences_page_add
+import org.gtkkn.native.adw.adw_preferences_page_get_description
 import org.gtkkn.native.adw.adw_preferences_page_get_icon_name
 import org.gtkkn.native.adw.adw_preferences_page_get_title
 import org.gtkkn.native.adw.adw_preferences_page_get_type
 import org.gtkkn.native.adw.adw_preferences_page_get_use_underline
 import org.gtkkn.native.adw.adw_preferences_page_new
 import org.gtkkn.native.adw.adw_preferences_page_remove
+import org.gtkkn.native.adw.adw_preferences_page_scroll_to_top
+import org.gtkkn.native.adw.adw_preferences_page_set_description
 import org.gtkkn.native.adw.adw_preferences_page_set_icon_name
 import org.gtkkn.native.adw.adw_preferences_page_set_title
 import org.gtkkn.native.adw.adw_preferences_page_set_use_underline
@@ -29,7 +32,7 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * A page from [class@PreferencesWindow].
+ * A page from [class@PreferencesDialog].
  *
  * <picture>
  *   <source srcset="preferences-page-dark.png" media="(prefers-color-scheme: dark)">
@@ -52,8 +55,6 @@ import kotlin.Unit
  * - method `get_name`: C function adw_preferences_page_get_name is ignored
  * - method `set_name`: C function adw_preferences_page_set_name is ignored
  * - method `name`: Property has no getter nor setter
- *
- * @since 1.0
  */
 public open class PreferencesPage(
     pointer: CPointer<AdwPreferencesPage>,
@@ -71,16 +72,43 @@ public open class PreferencesPage(
         get() = gPointer.reinterpret()
 
     /**
-     * The icon name for this page.
+     * The description to be displayed at the top of the page.
      *
-     * @since 1.0
+     * @since 1.4
+     */
+    public open var description: String
+        /**
+         * Gets the description of @self.
+         *
+         * @return the description of @self.
+         * @since 1.4
+         */
+        get() =
+            adw_preferences_page_get_description(adwPreferencesPagePointer.reinterpret())?.toKString()
+                ?: error("Expected not null string")
+
+        /**
+         * Sets the description of @self.
+         *
+         * The description is displayed at the top of the page.
+         *
+         * @param description the description
+         * @since 1.4
+         */
+        set(description) =
+            adw_preferences_page_set_description(
+                adwPreferencesPagePointer.reinterpret(),
+                description
+            )
+
+    /**
+     * The icon name for this page.
      */
     public open var iconName: String?
         /**
          * Gets the icon name for @self.
          *
          * @return the icon name for @self
-         * @since 1.0
          */
         get() =
             adw_preferences_page_get_icon_name(adwPreferencesPagePointer.reinterpret())?.toKString()
@@ -89,7 +117,6 @@ public open class PreferencesPage(
          * Sets the icon name for @self.
          *
          * @param iconName the icon name
-         * @since 1.0
          */
         set(iconName) =
             adw_preferences_page_set_icon_name(
@@ -99,15 +126,12 @@ public open class PreferencesPage(
 
     /**
      * The title for this page.
-     *
-     * @since 1.0
      */
     public open var title: String
         /**
          * Gets the title of @self.
          *
          * @return the title of @self.
-         * @since 1.0
          */
         get() =
             adw_preferences_page_get_title(adwPreferencesPagePointer.reinterpret())?.toKString()
@@ -117,21 +141,17 @@ public open class PreferencesPage(
          * Sets the title of @self.
          *
          * @param title the title
-         * @since 1.0
          */
         set(title) = adw_preferences_page_set_title(adwPreferencesPagePointer.reinterpret(), title)
 
     /**
      * Whether an embedded underline in the title indicates a mnemonic.
-     *
-     * @since 1.0
      */
     public open var useUnderline: Boolean
         /**
          * Gets whether an embedded underline in the title indicates a mnemonic.
          *
          * @return whether an embedded underline in the title indicates a mnemonic
-         * @since 1.0
          */
         get() =
             adw_preferences_page_get_use_underline(adwPreferencesPagePointer.reinterpret()).asBoolean()
@@ -140,7 +160,6 @@ public open class PreferencesPage(
          * Sets whether an embedded underline in the title indicates a mnemonic.
          *
          * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
-         * @since 1.0
          */
         set(useUnderline) =
             adw_preferences_page_set_use_underline(
@@ -152,7 +171,6 @@ public open class PreferencesPage(
      * Creates a new `AdwPreferencesPage`.
      *
      * @return the newly created `AdwPreferencesPage`
-     * @since 1.0
      */
     public constructor() : this(adw_preferences_page_new()!!.reinterpret())
 
@@ -160,7 +178,6 @@ public open class PreferencesPage(
      * Adds a preferences group to @self.
      *
      * @param group the group to add
-     * @since 1.0
      */
     public open fun add(group: PreferencesGroup): Unit =
         adw_preferences_page_add(
@@ -169,10 +186,19 @@ public open class PreferencesPage(
         )
 
     /**
+     * Gets the description of @self.
+     *
+     * @return the description of @self.
+     * @since 1.4
+     */
+    public open fun getDescription(): String =
+        adw_preferences_page_get_description(adwPreferencesPagePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
+
+    /**
      * Gets the icon name for @self.
      *
      * @return the icon name for @self
-     * @since 1.0
      */
     public open fun getIconName(): String? =
         adw_preferences_page_get_icon_name(adwPreferencesPagePointer.reinterpret())?.toKString()
@@ -181,7 +207,6 @@ public open class PreferencesPage(
      * Gets the title of @self.
      *
      * @return the title of @self.
-     * @since 1.0
      */
     public open fun getTitle(): String =
         adw_preferences_page_get_title(adwPreferencesPagePointer.reinterpret())?.toKString()
@@ -191,7 +216,6 @@ public open class PreferencesPage(
      * Gets whether an embedded underline in the title indicates a mnemonic.
      *
      * @return whether an embedded underline in the title indicates a mnemonic
-     * @since 1.0
      */
     public open fun getUseUnderline(): Boolean =
         adw_preferences_page_get_use_underline(adwPreferencesPagePointer.reinterpret()).asBoolean()
@@ -200,7 +224,6 @@ public open class PreferencesPage(
      * Removes a group from @self.
      *
      * @param group the group to remove
-     * @since 1.0
      */
     public open fun remove(group: PreferencesGroup): Unit =
         adw_preferences_page_remove(
@@ -209,10 +232,30 @@ public open class PreferencesPage(
         )
 
     /**
+     * Scrolls the scrolled window of @self to the top.
+     *
+     * @since 1.3
+     */
+    public open fun scrollToTop(): Unit = adw_preferences_page_scroll_to_top(adwPreferencesPagePointer.reinterpret())
+
+    /**
+     * Sets the description of @self.
+     *
+     * The description is displayed at the top of the page.
+     *
+     * @param description the description
+     * @since 1.4
+     */
+    public open fun setDescription(description: String): Unit =
+        adw_preferences_page_set_description(
+            adwPreferencesPagePointer.reinterpret(),
+            description
+        )
+
+    /**
      * Sets the icon name for @self.
      *
      * @param iconName the icon name
-     * @since 1.0
      */
     public open fun setIconName(iconName: String? = null): Unit =
         adw_preferences_page_set_icon_name(adwPreferencesPagePointer.reinterpret(), iconName)
@@ -221,7 +264,6 @@ public open class PreferencesPage(
      * Sets the title of @self.
      *
      * @param title the title
-     * @since 1.0
      */
     public open fun setTitle(title: String): Unit =
         adw_preferences_page_set_title(adwPreferencesPagePointer.reinterpret(), title)
@@ -230,7 +272,6 @@ public open class PreferencesPage(
      * Sets whether an embedded underline in the title indicates a mnemonic.
      *
      * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
-     * @since 1.0
      */
     public open fun setUseUnderline(useUnderline: Boolean): Unit =
         adw_preferences_page_set_use_underline(

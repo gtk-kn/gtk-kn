@@ -110,7 +110,7 @@ public open class DisplayManager(
      * @return a `GdkDisplay`, or null
      *   if the display could not be opened
      */
-    public open fun openDisplay(name: String): Display? =
+    public open fun openDisplay(name: String? = null): Display? =
         gdk_display_manager_open_display(gdkDisplayManagerPointer.reinterpret(), name)?.run {
             Display(reinterpret())
         }
@@ -164,7 +164,7 @@ public open class DisplayManager(
          * with multiple backends).
          *
          * Applications can use [func@set_allowed_backends] to limit what
-         * backends wil be used.
+         * backends will be used.
          *
          * @return The global `GdkDisplayManager` singleton
          */

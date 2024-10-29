@@ -32,13 +32,14 @@ import kotlin.UInt
 import kotlin.Unit
 
 /**
- * Instances of the #GDBusMethodInvocation class are used when
+ * Instances of the `GDBusMethodInvocation` class are used when
  * handling D-Bus method calls. It provides a way to asynchronously
  * return results and errors.
  *
- * The normal way to obtain a #GDBusMethodInvocation object is to receive
- * it as an argument to the handle_method_call() function in a
- * #GDBusInterfaceVTable that was passed to g_dbus_connection_register_object().
+ * The normal way to obtain a `GDBusMethodInvocation` object is to receive
+ * it as an argument to the `handle_method_call()` function in a
+ * [type@Gio.DBusInterfaceVTable] that was passed to
+ * [method@Gio.DBusConnection.register_object].
  * @since 2.26
  */
 public open class DBusMethodInvocation(

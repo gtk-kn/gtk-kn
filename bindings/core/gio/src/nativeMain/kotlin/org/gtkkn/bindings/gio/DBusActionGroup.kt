@@ -15,9 +15,11 @@ import org.gtkkn.native.gio.g_dbus_action_group_get_type
 import kotlin.String
 
 /**
- * #GDBusActionGroup is an implementation of the #GActionGroup
- * interface that can be used as a proxy for an action group
- * that is exported over D-Bus with g_dbus_connection_export_action_group().
+ * `GDBusActionGroup` is an implementation of the [iface@Gio.ActionGroup]
+ * interface.
+ *
+ * `GDBusActionGroup` can be used as a proxy for an action group
+ * that is exported over D-Bus with [method@Gio.DBusConnection.export_action_group].
  */
 public open class DBusActionGroup(
     pointer: CPointer<GDBusActionGroup>,

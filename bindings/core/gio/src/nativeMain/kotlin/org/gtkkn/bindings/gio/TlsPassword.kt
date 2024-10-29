@@ -21,7 +21,8 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * Holds a password used in TLS.
+ * An abstract interface representing a password used in TLS. Often used in
+ * user interaction such as unlocking a key storage token.
  *
  * ## Skipped during bindings generation
  *
@@ -37,6 +38,11 @@ public open class TlsPassword(
     public val gioTlsPasswordPointer: CPointer<GTlsPassword>
         get() = gPointer.reinterpret()
 
+    /**
+     * Description of what the password is for.
+     *
+     * @since 2.30
+     */
     public open var description: String
         /**
          * Get a description string about what the password will be used for.
@@ -60,6 +66,11 @@ public open class TlsPassword(
                 description
             )
 
+    /**
+     * Flags about the password.
+     *
+     * @since 2.30
+     */
     public open var flags: TlsPasswordFlags
         /**
          * Get flags about the password.
@@ -80,6 +91,11 @@ public open class TlsPassword(
          */
         set(flags) = g_tls_password_set_flags(gioTlsPasswordPointer.reinterpret(), flags.mask)
 
+    /**
+     * Warning about the password.
+     *
+     * @since 2.30
+     */
     public open var warning: String
         /**
          * Get a user readable translated warning. Usually this warning is a

@@ -85,7 +85,7 @@ import kotlin.collections.List
  * ![An example GtkAboutDialog](aboutdialog.png)
  *
  * About dialogs often contain links and email addresses. `GtkAboutDialog`
- * displays these as clickable links. By default, it calls [func@Gtk.show_uri]
+ * displays these as clickable links. By default, it calls [method@Gtk.FileLauncher.launch]
  * when a user clicks one. The behaviour can be overridden with the
  * [signal@Gtk.AboutDialog::activate-link] signal.
  *
@@ -376,7 +376,7 @@ public open class AboutDialog(
      * A logo for the about box.
      *
      * If it is `NULL`, the default window icon set with
-     * [id@gtk_window_set_default_icon_name] will be used.
+     * [func@Gtk.Window.set_default_icon_name] will be used.
      */
     public open var logo: Paintable?
         /**
@@ -973,7 +973,7 @@ public open class AboutDialog(
      * Emitted every time a URL is activated.
      *
      * Applications may connect to it to override the default behaviour,
-     * which is to call [func@Gtk.show_uri].
+     * which is to call [method@Gtk.FileLauncher.launch].
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `uri` the URI that is activated. Returns

@@ -8,6 +8,7 @@ import org.gtkkn.native.gio.G_TLS_CERTIFICATE_EXPIRED
 import org.gtkkn.native.gio.G_TLS_CERTIFICATE_GENERIC_ERROR
 import org.gtkkn.native.gio.G_TLS_CERTIFICATE_INSECURE
 import org.gtkkn.native.gio.G_TLS_CERTIFICATE_NOT_ACTIVATED
+import org.gtkkn.native.gio.G_TLS_CERTIFICATE_NO_FLAGS
 import org.gtkkn.native.gio.G_TLS_CERTIFICATE_REVOKED
 import org.gtkkn.native.gio.G_TLS_CERTIFICATE_UNKNOWN_CA
 import org.gtkkn.native.gio.G_TLS_CERTIFICATE_VALIDATE_ALL
@@ -32,6 +33,11 @@ public class TlsCertificateFlags(
     override infix fun or(other: TlsCertificateFlags): TlsCertificateFlags = TlsCertificateFlags(mask or other.mask)
 
     public companion object {
+        /**
+         * No flags set. Since: 2.74
+         */
+        public val NO_FLAGS: TlsCertificateFlags = TlsCertificateFlags(G_TLS_CERTIFICATE_NO_FLAGS)
+
         /**
          * The signing certificate authority is
          *   not known.

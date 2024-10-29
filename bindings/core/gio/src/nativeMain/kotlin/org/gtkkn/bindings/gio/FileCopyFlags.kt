@@ -9,6 +9,7 @@ import org.gtkkn.native.gio.G_FILE_COPY_NOFOLLOW_SYMLINKS
 import org.gtkkn.native.gio.G_FILE_COPY_NONE
 import org.gtkkn.native.gio.G_FILE_COPY_NO_FALLBACK_FOR_MOVE
 import org.gtkkn.native.gio.G_FILE_COPY_OVERWRITE
+import org.gtkkn.native.gio.G_FILE_COPY_TARGET_DEFAULT_MODIFIED_TIME
 import org.gtkkn.native.gio.G_FILE_COPY_TARGET_DEFAULT_PERMS
 
 /**
@@ -56,5 +57,12 @@ public class FileCopyFlags(
          */
         public val TARGET_DEFAULT_PERMS: FileCopyFlags =
             FileCopyFlags(G_FILE_COPY_TARGET_DEFAULT_PERMS)
+
+        /**
+         * Use default modification
+         *     timestamps instead of copying them from the source file. Since 2.80
+         */
+        public val TARGET_DEFAULT_MODIFIED_TIME: FileCopyFlags =
+            FileCopyFlags(G_FILE_COPY_TARGET_DEFAULT_MODIFIED_TIME)
     }
 }

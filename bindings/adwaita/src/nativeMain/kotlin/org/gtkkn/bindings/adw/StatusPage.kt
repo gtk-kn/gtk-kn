@@ -46,7 +46,6 @@ import kotlin.Unit
  * `AdwStatusPage` can use the
  * [`.compact`](style-classes.html#compact-status-page) style class for when it
  * needs to fit into a small space such a sidebar or a popover.
- * @since 1.0
  */
 public class StatusPage(
     pointer: CPointer<AdwStatusPage>,
@@ -65,15 +64,12 @@ public class StatusPage(
 
     /**
      * The child widget.
-     *
-     * @since 1.0
      */
     public var child: Widget?
         /**
          * Gets the child widget of @self.
          *
          * @return the child widget of @self
-         * @since 1.0
          */
         get() =
             adw_status_page_get_child(adwStatusPagePointer.reinterpret())?.run {
@@ -84,7 +80,6 @@ public class StatusPage(
          * Sets the child widget of @self.
          *
          * @param child the child widget
-         * @since 1.0
          */
         set(child) =
             adw_status_page_set_child(
@@ -93,24 +88,22 @@ public class StatusPage(
             )
 
     /**
-     * The description to be displayed below the title.
-     *
-     * @since 1.0
+     * The description markup to be displayed below the title.
      */
     public var description: String?
         /**
-         * Gets the description for @self.
+         * Gets the description markup for @self.
          *
          * @return the description
-         * @since 1.0
          */
         get() = adw_status_page_get_description(adwStatusPagePointer.reinterpret())?.toKString()
 
         /**
-         * Sets the description for @self.
+         * Sets the description markup for @self.
+         *
+         * The description is displayed below the title. It is parsed as Pango markup.
          *
          * @param description the description
-         * @since 1.0
          */
         set(description) =
             adw_status_page_set_description(
@@ -121,40 +114,35 @@ public class StatusPage(
     /**
      * The name of the icon to be used.
      *
-     * Changing this will clear [property@StatusPage:paintable] out.
-     *
-     * @since 1.0
+     * Changing this will set [property@StatusPage:paintable] to `NULL`.
      */
     public var iconName: String?
         /**
          * Gets the icon name for @self.
          *
          * @return the icon name
-         * @since 1.0
          */
         get() = adw_status_page_get_icon_name(adwStatusPagePointer.reinterpret())?.toKString()
 
         /**
          * Sets the icon name for @self.
          *
+         * Changing this will set [property@StatusPage:paintable] to `NULL`.
+         *
          * @param iconName the icon name
-         * @since 1.0
          */
         set(iconName) = adw_status_page_set_icon_name(adwStatusPagePointer.reinterpret(), iconName)
 
     /**
-     * The @GdkPaintable to be used.
+     * The paintable to be used.
      *
-     * Changing this will clear [property@StatusPage:icon-name] out.
-     *
-     * @since 1.0
+     * Changing this will set [property@StatusPage:icon-name] to `NULL`.
      */
     public var paintable: Paintable?
         /**
          * Gets the paintable for @self.
          *
          * @return the paintable
-         * @since 1.0
          */
         get() =
             adw_status_page_get_paintable(adwStatusPagePointer.reinterpret())?.run {
@@ -164,8 +152,9 @@ public class StatusPage(
         /**
          * Sets the paintable for @self.
          *
+         * Changing this will set [property@StatusPage:icon-name] to `NULL`.
+         *
          * @param paintable the paintable
-         * @since 1.0
          */
         set(paintable) =
             adw_status_page_set_paintable(
@@ -176,14 +165,13 @@ public class StatusPage(
     /**
      * The title to be displayed below the icon.
      *
-     * @since 1.0
+     * It is not parsed as Pango markup.
      */
     public var title: String
         /**
          * Gets the title for @self.
          *
          * @return the title
-         * @since 1.0
          */
         get() =
             adw_status_page_get_title(adwStatusPagePointer.reinterpret())?.toKString()
@@ -192,8 +180,9 @@ public class StatusPage(
         /**
          * Sets the title for @self.
          *
+         * The title is displayed below the icon. It is not parsed as Pango markup.
+         *
          * @param title the title
-         * @since 1.0
          */
         set(title) = adw_status_page_set_title(adwStatusPagePointer.reinterpret(), title)
 
@@ -201,7 +190,6 @@ public class StatusPage(
      * Creates a new `AdwStatusPage`.
      *
      * @return the newly created `AdwStatusPage`
-     * @since 1.0
      */
     public constructor() : this(adw_status_page_new()!!.reinterpret())
 
@@ -209,7 +197,6 @@ public class StatusPage(
      * Gets the child widget of @self.
      *
      * @return the child widget of @self
-     * @since 1.0
      */
     public fun getChild(): Widget? =
         adw_status_page_get_child(adwStatusPagePointer.reinterpret())?.run {
@@ -217,10 +204,9 @@ public class StatusPage(
         }
 
     /**
-     * Gets the description for @self.
+     * Gets the description markup for @self.
      *
      * @return the description
-     * @since 1.0
      */
     public fun getDescription(): String? =
         adw_status_page_get_description(adwStatusPagePointer.reinterpret())?.toKString()
@@ -229,7 +215,6 @@ public class StatusPage(
      * Gets the icon name for @self.
      *
      * @return the icon name
-     * @since 1.0
      */
     public fun getIconName(): String? = adw_status_page_get_icon_name(adwStatusPagePointer.reinterpret())?.toKString()
 
@@ -237,7 +222,6 @@ public class StatusPage(
      * Gets the paintable for @self.
      *
      * @return the paintable
-     * @since 1.0
      */
     public fun getPaintable(): Paintable? =
         adw_status_page_get_paintable(adwStatusPagePointer.reinterpret())?.run {
@@ -248,7 +232,6 @@ public class StatusPage(
      * Gets the title for @self.
      *
      * @return the title
-     * @since 1.0
      */
     public fun getTitle(): String =
         adw_status_page_get_title(adwStatusPagePointer.reinterpret())?.toKString()
@@ -258,7 +241,6 @@ public class StatusPage(
      * Sets the child widget of @self.
      *
      * @param child the child widget
-     * @since 1.0
      */
     public fun setChild(child: Widget? = null): Unit =
         adw_status_page_set_child(
@@ -267,10 +249,11 @@ public class StatusPage(
         )
 
     /**
-     * Sets the description for @self.
+     * Sets the description markup for @self.
+     *
+     * The description is displayed below the title. It is parsed as Pango markup.
      *
      * @param description the description
-     * @since 1.0
      */
     public fun setDescription(description: String? = null): Unit =
         adw_status_page_set_description(adwStatusPagePointer.reinterpret(), description)
@@ -278,8 +261,9 @@ public class StatusPage(
     /**
      * Sets the icon name for @self.
      *
+     * Changing this will set [property@StatusPage:paintable] to `NULL`.
+     *
      * @param iconName the icon name
-     * @since 1.0
      */
     public fun setIconName(iconName: String? = null): Unit =
         adw_status_page_set_icon_name(adwStatusPagePointer.reinterpret(), iconName)
@@ -287,8 +271,9 @@ public class StatusPage(
     /**
      * Sets the paintable for @self.
      *
+     * Changing this will set [property@StatusPage:icon-name] to `NULL`.
+     *
      * @param paintable the paintable
-     * @since 1.0
      */
     public fun setPaintable(paintable: Paintable? = null): Unit =
         adw_status_page_set_paintable(
@@ -299,8 +284,9 @@ public class StatusPage(
     /**
      * Sets the title for @self.
      *
+     * The title is displayed below the icon. It is not parsed as Pango markup.
+     *
      * @param title the title
-     * @since 1.0
      */
     public fun setTitle(title: String): Unit = adw_status_page_set_title(adwStatusPagePointer.reinterpret(), title)
 

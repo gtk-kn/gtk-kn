@@ -44,17 +44,23 @@ import kotlin.Result
 import kotlin.Unit
 
 /**
- * #GOutputStream has functions to write to a stream (g_output_stream_write()),
- * to close a stream (g_output_stream_close()) and to flush pending writes
- * (g_output_stream_flush()).
+ * `GOutputStream` is a base class for implementing streaming output.
+ *
+ * It has functions to write to a stream ([method@Gio.OutputStream.write]),
+ * to close a stream ([method@Gio.OutputStream.close]) and to flush pending
+ * writes ([method@Gio.OutputStream.flush]).
  *
  * To copy the content of an input stream to an output stream without
- * manually handling the reads and writes, use g_output_stream_splice().
+ * manually handling the reads and writes, use [method@Gio.OutputStream.splice].
  *
- * See the documentation for #GIOStream for details of thread safety of
- * streaming APIs.
+ * See the documentation for [class@Gio.IOStream] for details of thread safety
+ * of streaming APIs.
  *
  * All of these functions have async variants too.
+ *
+ * All classes derived from `GOutputStream` *should* implement synchronous
+ * writing, splicing, flushing and closing streams, but *may* implement
+ * asynchronous versions.
  *
  * ## Skipped during bindings generation
  *
@@ -145,7 +151,8 @@ public open class OutputStream(
      *
      * @param ioPriority the io priority of the request.
      * @param cancellable optional cancellable object
-     * @param callback callback to call when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public open fun closeAsync(
         ioPriority: Int,
@@ -223,7 +230,8 @@ public open class OutputStream(
      *
      * @param ioPriority the io priority of the request.
      * @param cancellable optional #GCancellable object, null to ignore.
-     * @param callback a #GAsyncReadyCallback to call when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public open fun flushAsync(
         ioPriority: Int,
@@ -355,7 +363,8 @@ public open class OutputStream(
      * @param flags a set of #GOutputStreamSpliceFlags.
      * @param ioPriority the io priority of the request.
      * @param cancellable optional #GCancellable object, null to ignore.
-     * @param callback a #GAsyncReadyCallback.
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public open fun spliceAsync(
         source: InputStream,
@@ -454,7 +463,8 @@ public open class OutputStream(
      * @param bytes The bytes to write
      * @param ioPriority the io priority of the request.
      * @param cancellable optional #GCancellable object, null to ignore.
-     * @param callback callback to call when the request is satisfied
+     * @param callback a #GAsyncReadyCallback
+     *   to call when the request is satisfied
      */
     public open fun writeBytesAsync(
         bytes: Bytes,

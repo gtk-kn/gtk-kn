@@ -38,7 +38,9 @@ import kotlin.Unit
  * toastoverlay
  * ├── [child]
  * ├── toast
- * ┊   ├── label.heading
+ * ┊   ├── widget
+ * ┊   │   ├── [label.heading]
+ *     │   ╰── [custom title]
  *     ├── [button]
  *     ╰── button.circular.flat
  * ```
@@ -46,14 +48,16 @@ import kotlin.Unit
  * `AdwToastOverlay`'s CSS node is called `toastoverlay`. It contains the child,
  * as well as zero or more `toast` subnodes.
  *
- * Each of the `toast` nodes contains a `label` subnode with the `.heading`
- * style class, optionally a `button` subnode, and another `button` subnode with
- * `.circular` and `.flat` style classes.
+ * Each of the `toast` nodes contains a `widget` subnode, optionally a `button`
+ * subnode, and another `button` subnode with `.circular` and `.flat` style
+ * classes.
+ *
+ * The `widget` subnode contains a `label` subnode with the `.heading` style
+ * class, or a custom widget provided by the application.
  *
  * ## Accessibility
  *
  * `AdwToastOverlay` uses the `GTK_ACCESSIBLE_ROLE_TAB_GROUP` role.
- * @since 1.0
  */
 public class ToastOverlay(
     pointer: CPointer<AdwToastOverlay>,
@@ -72,15 +76,12 @@ public class ToastOverlay(
 
     /**
      * The child widget.
-     *
-     * @since 1.0
      */
     public var child: Widget?
         /**
          * Gets the child widget of @self.
          *
          * @return the child widget of @self
-         * @since 1.0
          */
         get() =
             adw_toast_overlay_get_child(adwToastOverlayPointer.reinterpret())?.run {
@@ -91,7 +92,6 @@ public class ToastOverlay(
          * Sets the child widget of @self.
          *
          * @param child the child widget
-         * @since 1.0
          */
         set(child) =
             adw_toast_overlay_set_child(
@@ -103,7 +103,6 @@ public class ToastOverlay(
      * Creates a new `AdwToastOverlay`.
      *
      * @return the new created `AdwToastOverlay`
-     * @since 1.0
      */
     public constructor() : this(adw_toast_overlay_new()!!.reinterpret())
 
@@ -114,8 +113,12 @@ public class ToastOverlay(
      * either @toast or the original toast will be placed in a queue, depending on
      * the priority of @toast. See [property@Toast:priority].
      *
+     * If called on a toast that's already displayed, its timeout will be reset.
+     *
+     * If called on a toast currently in the queue, the toast will be bumped
+     * forward to be shown as soon as possible.
+     *
      * @param toast a toast
-     * @since 1.0
      */
     public fun addToast(toast: Toast): Unit =
         adw_toast_overlay_add_toast(
@@ -127,7 +130,6 @@ public class ToastOverlay(
      * Gets the child widget of @self.
      *
      * @return the child widget of @self
-     * @since 1.0
      */
     public fun getChild(): Widget? =
         adw_toast_overlay_get_child(adwToastOverlayPointer.reinterpret())?.run {
@@ -138,7 +140,6 @@ public class ToastOverlay(
      * Sets the child widget of @self.
      *
      * @param child the child widget
-     * @since 1.0
      */
     public fun setChild(child: Widget? = null): Unit =
         adw_toast_overlay_set_child(

@@ -15,7 +15,6 @@ import org.gtkkn.native.adw.adw_callback_animation_target_new
 /**
  * An [class@AnimationTarget] that calls a given callback during the
  * animation.
- * @since 1.0
  */
 public class CallbackAnimationTarget(
     pointer: CPointer<AdwCallbackAnimationTarget>,
@@ -29,7 +28,6 @@ public class CallbackAnimationTarget(
      *
      * @param callback the callback to call
      * @return the newly created callback target
-     * @since 1.0
      */
     public constructor(callback: AnimationTargetFunc) :
         this(

@@ -21,8 +21,8 @@ import kotlin.Result
 import kotlin.String
 
 /**
- * #GTlsFileDatabase is implemented by #GTlsDatabase objects which load
- * their certificate information from a file. It is an interface which
+ * `GTlsFileDatabase` is implemented by [class@Gio.TlsDatabase] objects which
+ * load their certificate information from a file. It is an interface which
  * TLS library specific subtypes implement.
  *
  * ## Skipped during bindings generation

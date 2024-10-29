@@ -123,7 +123,9 @@ import kotlin.Unit
  *
  * # Accessibility
  *
- * `GtkGrid` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
+ * Until GTK 4.10, `GtkGrid` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ *
+ * Starting from GTK 4.12, `GtkGrid` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  *
  * ## Skipped during bindings generation
  *
@@ -148,7 +150,7 @@ public open class Grid(
         get() = gPointer.reinterpret()
 
     /**
-     * The row to align to the baseline when valign is %GTK_ALIGN_BASELINE.
+     * The row to align to the baseline when valign is using baseline alignment.
      */
     public open var baselineRow: Int
         /**

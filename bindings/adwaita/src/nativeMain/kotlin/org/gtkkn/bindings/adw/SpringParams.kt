@@ -49,7 +49,6 @@ import kotlin.Unit
  * * Larger than 1: an overdamped spring.
  *
  * As such
- * @since 1.0
  */
 public class SpringParams(
     pointer: CPointer<AdwSpringParams>,
@@ -60,7 +59,6 @@ public class SpringParams(
      * Gets the damping of @self.
      *
      * @return the damping
-     * @since 1.0
      */
     public fun getDamping(): Double = adw_spring_params_get_damping(adwSpringParamsPointer.reinterpret())
 
@@ -68,7 +66,6 @@ public class SpringParams(
      * Gets the damping ratio of @self.
      *
      * @return the damping ratio
-     * @since 1.0
      */
     public fun getDampingRatio(): Double = adw_spring_params_get_damping_ratio(adwSpringParamsPointer.reinterpret())
 
@@ -76,7 +73,6 @@ public class SpringParams(
      * Gets the mass of @self.
      *
      * @return the mass
-     * @since 1.0
      */
     public fun getMass(): Double = adw_spring_params_get_mass(adwSpringParamsPointer.reinterpret())
 
@@ -84,7 +80,6 @@ public class SpringParams(
      * Gets the stiffness of @self.
      *
      * @return the stiffness
-     * @since 1.0
      */
     public fun getStiffness(): Double = adw_spring_params_get_stiffness(adwSpringParamsPointer.reinterpret())
 
@@ -92,7 +87,6 @@ public class SpringParams(
      * Increases the reference count of @self.
      *
      * @return @self
-     * @since 1.0
      */
     public fun ref(): SpringParams =
         adw_spring_params_ref(adwSpringParamsPointer.reinterpret())!!.run {
@@ -103,8 +97,6 @@ public class SpringParams(
      * Decreases the reference count of @self.
      *
      * If the last reference is dropped, the structure is freed.
-     *
-     * @since 1.0
      */
     public fun unref(): Unit = adw_spring_params_unref(adwSpringParamsPointer.reinterpret())
 
@@ -130,7 +122,6 @@ public class SpringParams(
          * @param mass the mass of the spring
          * @param stiffness the stiffness of the spring
          * @return the newly created spring parameters
-         * @since 1.0
          */
         public fun new(
             dampingRatio: Double,
@@ -155,7 +146,6 @@ public class SpringParams(
          * @param mass the mass of the spring
          * @param stiffness the stiffness of the spring
          * @return the newly created spring parameters
-         * @since 1.0
          */
         public fun newFull(
             damping: Double,

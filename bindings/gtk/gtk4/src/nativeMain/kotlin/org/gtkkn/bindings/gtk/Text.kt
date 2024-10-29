@@ -23,6 +23,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkDeleteType
@@ -78,9 +79,9 @@ import kotlin.Unit
  * The `GtkText` widget is a single-line text entry widget.
  *
  * `GtkText` is the common implementation of single-line text editing
- * that is shared between `GtkEntry`, `GtkPasswordEntry`, `GtkSpinButton`
- * and other widgets. In all of these, `GtkText` is used as the delegate
- * for the [iface@Gtk.Editable] implementation.
+ * that is shared between [class@Gtk.Entry], [class@Gtk.PasswordEntry],
+ * [class@Gtk.SpinButton], and other widgets. In all of these, `GtkText` is
+ * used as the delegate for the [iface@Gtk.Editable] implementation.
  *
  * A fairly large set of key bindings are supported by default. If the
  * entered text is longer than the allocation of the widget, the widget
@@ -94,10 +95,10 @@ import kotlin.Unit
  * [method@Gtk.Text.set_invisible_char].
  *
  * If you are looking to add icons or progress display in an entry, look
- * at `GtkEntry`. There other alternatives for more specialized use cases,
- * such as `GtkSearchEntry`.
+ * at [class@Gtk.Entry]. There other alternatives for more specialized use
+ * cases, such as [class@Gtk.SearchEntry].
  *
- * If you need multi-line editable text, look at `GtkTextView`.
+ * If you need multi-line editable text, look at [class@Gtk.TextView].
  *
  * # CSS nodes
  *
@@ -111,25 +112,25 @@ import kotlin.Unit
  * ╰── [window.popup]
  * ```
  *
- * `GtkText` has a main node with the name text. Depending on the properties
- * of the widget, the .read-only style class may appear.
+ * `GtkText` has a main node with the name `text`. Depending on the properties
+ * of the widget, the `.read-only` style class may appear.
  *
- * When the entry has a selection, it adds a subnode with the name selection.
+ * When the entry has a selection, it adds a subnode with the name `selection`.
  *
  * When the entry is in overwrite mode, it adds a subnode with the name
- * block-cursor that determines how the block cursor is drawn.
+ * `block-cursor` that determines how the block cursor is drawn.
  *
- * The CSS node for a context menu is added as a subnode below text as well.
+ * The CSS node for a context menu is added as a subnode with the name `popup`.
  *
- * The undershoot nodes are used to draw the underflow indication when content
- * is scrolled out of view. These nodes get the .left and .right style classes
+ * The `undershoot` nodes are used to draw the underflow indication when content
+ * is scrolled out of view. These nodes get the `.left` or `.right` style class
  * added depending on where the indication is drawn.
  *
  * When touch is used and touch selection handles are shown, they are using
- * CSS nodes with name cursor-handle. They get the .top or .bottom style class
- * depending on where they are shown in relation to the selection. If there is
- * just a single handle for the text cursor, it gets the style class
- * .insertion-cursor.
+ * CSS nodes with name `cursor-handle`. They get the `.top` or `.bottom` style
+ * class depending on where they are shown in relation to the selection. If
+ * there is just a single handle for the text cursor, it gets the style class
+ * `.insertion-cursor`.
  *
  * # Accessibility
  *
@@ -146,8 +147,11 @@ import kotlin.Unit
  */
 public open class Text(
     pointer: CPointer<GtkText>,
-) : Widget(pointer.reinterpret()), Editable, KGTyped {
+) : Widget(pointer.reinterpret()), AccessibleText, Editable, KGTyped {
     public val gtkTextPointer: CPointer<GtkText>
+        get() = gPointer.reinterpret()
+
+    override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
         get() = gPointer.reinterpret()
 
     override val gtkEditablePointer: CPointer<GtkEditable>
@@ -985,7 +989,7 @@ public open class Text(
     public open fun unsetInvisibleChar(): Unit = gtk_text_unset_invisible_char(gtkTextPointer.reinterpret())
 
     /**
-     * Emitted when the user hits the Enter key.
+     * Emitted when the user hits the <kbd>Enter</kbd> key.
      *
      * The default bindings for this signal are all forms
      * of the <kbd>Enter</kbd> key.
@@ -1012,7 +1016,7 @@ public open class Text(
      * This is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * <kbd>Backspace</kbd> and <kbd>Shift</kbd>-<kbd>Backspace</kbd>.
+     * <kbd>Backspace</kbd> and <kbd>Shift</kbd>+<kbd>Backspace</kbd>.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -1036,8 +1040,8 @@ public open class Text(
      * This is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * <kbd>Ctrl</kbd>-<kbd>c</kbd> and
-     * <kbd>Ctrl</kbd>-<kbd>Insert</kbd>.
+     * <kbd>Ctrl</kbd>+<kbd>c</kbd> and
+     * <kbd>Ctrl</kbd>+<kbd>Insert</kbd>.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -1061,8 +1065,8 @@ public open class Text(
      * This is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * <kbd>Ctrl</kbd>-<kbd>x</kbd> and
-     * <kbd>Shift</kbd>-<kbd>Delete</kbd>.
+     * <kbd>Ctrl</kbd>+<kbd>x</kbd> and
+     * <kbd>Shift</kbd>+<kbd>Delete</kbd>.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -1090,7 +1094,7 @@ public open class Text(
      * of characters.
      *
      * The default bindings for this signal are <kbd>Delete</kbd>
-     * for deleting a character and <kbd>Ctrl</kbd>-<kbd>Delete</kbd>
+     * for deleting a character and <kbd>Ctrl</kbd>+<kbd>Delete</kbd>
      * for deleting a word.
      *
      * @param connectFlags A combination of [ConnectFlags]
@@ -1140,8 +1144,8 @@ public open class Text(
      * This is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * <kbd>Ctrl</kbd>-<kbd>.</kbd> and
-     * <kbd>Ctrl</kbd>-<kbd>;</kbd>
+     * <kbd>Ctrl</kbd>+<kbd>.</kbd> and
+     * <kbd>Ctrl</kbd>+<kbd>;</kbd>
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
@@ -1178,8 +1182,8 @@ public open class Text(
      *
      * - <kbd>←</kbd>, <kbd>→</kbd>, <kbd>↑</kbd>, <kbd>↓</kbd>
      *   move by individual characters/lines
-     * - <kbd>Ctrl</kbd>-<kbd>→</kbd>, etc. move by words/paragraphs
-     * - <kbd>Home</kbd>, <kbd>End</kbd> move to the ends of the buffer
+     * - <kbd>Ctrl</kbd>+<kbd>←</kbd>, etc. move by words/paragraphs
+     * - <kbd>Home</kbd> and <kbd>End</kbd> move to the ends of the buffer
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `step` the granularity of the move, as a
@@ -1209,7 +1213,7 @@ public open class Text(
      * This is a [keybinding signal](class.SignalAction.html).
      *
      * The default bindings for this signal are
-     * <kbd>Ctrl</kbd>-<kbd>v</kbd> and <kbd>Shift</kbd>-<kbd>Insert</kbd>.
+     * <kbd>Ctrl</kbd>+<kbd>v</kbd> and <kbd>Shift</kbd>+<kbd>Insert</kbd>.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect

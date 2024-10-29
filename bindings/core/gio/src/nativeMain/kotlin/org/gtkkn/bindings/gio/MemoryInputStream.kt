@@ -17,11 +17,11 @@ import org.gtkkn.native.gio.g_memory_input_stream_new_from_bytes
 import kotlin.Unit
 
 /**
- * #GMemoryInputStream is a class for using arbitrary
+ * `GMemoryInputStream` is a class for using arbitrary
  * memory chunks as input for GIO streaming input operations.
  *
- * As of GLib 2.34, #GMemoryInputStream implements
- * #GPollableInputStream.
+ * As of GLib 2.34, `GMemoryInputStream` implements
+ * [iface@Gio.PollableInputStream].
  *
  * ## Skipped during bindings generation
  *

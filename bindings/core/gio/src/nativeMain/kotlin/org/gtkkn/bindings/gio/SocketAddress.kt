@@ -15,9 +15,10 @@ import org.gtkkn.native.gio.g_socket_address_get_type
 import kotlin.Long
 
 /**
- * #GSocketAddress is the equivalent of struct sockaddr in the BSD
- * sockets API. This is an abstract class; use #GInetSocketAddress
- * for internet sockets, or #GUnixSocketAddress for UNIX domain sockets.
+ * `GSocketAddress` is the equivalent of
+ * [`struct sockaddr`](man:sockaddr(3type)) and its subtypes in the BSD sockets
+ * API. This is an abstract class; use [class@Gio.InetSocketAddress] for
+ * internet sockets, or [class@Gio.UnixSocketAddress] for UNIX domain sockets.
  *
  * ## Skipped during bindings generation
  *
@@ -33,6 +34,11 @@ public open class SocketAddress(
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = gPointer.reinterpret()
 
+    /**
+     * The family of the socket address.
+     *
+     * @since 2.22
+     */
     public open val family: SocketFamily
         /**
          * Gets the socket family type of @address.

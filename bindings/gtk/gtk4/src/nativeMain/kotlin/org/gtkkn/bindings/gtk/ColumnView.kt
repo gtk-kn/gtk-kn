@@ -25,22 +25,29 @@ import org.gtkkn.native.gtk.GtkScrollable
 import org.gtkkn.native.gtk.gtk_column_view_append_column
 import org.gtkkn.native.gtk.gtk_column_view_get_columns
 import org.gtkkn.native.gtk.gtk_column_view_get_enable_rubberband
+import org.gtkkn.native.gtk.gtk_column_view_get_header_factory
 import org.gtkkn.native.gtk.gtk_column_view_get_model
 import org.gtkkn.native.gtk.gtk_column_view_get_reorderable
+import org.gtkkn.native.gtk.gtk_column_view_get_row_factory
 import org.gtkkn.native.gtk.gtk_column_view_get_show_column_separators
 import org.gtkkn.native.gtk.gtk_column_view_get_show_row_separators
 import org.gtkkn.native.gtk.gtk_column_view_get_single_click_activate
 import org.gtkkn.native.gtk.gtk_column_view_get_sorter
+import org.gtkkn.native.gtk.gtk_column_view_get_tab_behavior
 import org.gtkkn.native.gtk.gtk_column_view_get_type
 import org.gtkkn.native.gtk.gtk_column_view_insert_column
 import org.gtkkn.native.gtk.gtk_column_view_new
 import org.gtkkn.native.gtk.gtk_column_view_remove_column
+import org.gtkkn.native.gtk.gtk_column_view_scroll_to
 import org.gtkkn.native.gtk.gtk_column_view_set_enable_rubberband
+import org.gtkkn.native.gtk.gtk_column_view_set_header_factory
 import org.gtkkn.native.gtk.gtk_column_view_set_model
 import org.gtkkn.native.gtk.gtk_column_view_set_reorderable
+import org.gtkkn.native.gtk.gtk_column_view_set_row_factory
 import org.gtkkn.native.gtk.gtk_column_view_set_show_column_separators
 import org.gtkkn.native.gtk.gtk_column_view_set_show_row_separators
 import org.gtkkn.native.gtk.gtk_column_view_set_single_click_activate
+import org.gtkkn.native.gtk.gtk_column_view_set_tab_behavior
 import org.gtkkn.native.gtk.gtk_column_view_sort_by_column
 import kotlin.Boolean
 import kotlin.UInt
@@ -174,6 +181,39 @@ public open class ColumnView(
             )
 
     /**
+     * Factory for creating header widgets.
+     *
+     * @since 4.12
+     */
+    public open var headerFactory: ListItemFactory?
+        /**
+         * Gets the factory that's currently used to populate section headers.
+         *
+         * @return The factory in use
+         * @since 4.12
+         */
+        get() =
+            gtk_column_view_get_header_factory(gtkColumnViewPointer.reinterpret())?.run {
+                ListItemFactory(reinterpret())
+            }
+
+        /**
+         * Sets the `GtkListItemFactory` to use for populating the
+         * [class@Gtk.ListHeader] objects used in section headers.
+         *
+         * If this factory is set to null, the list will not show
+         * section headers.
+         *
+         * @param factory the factory to use
+         * @since 4.12
+         */
+        set(factory) =
+            gtk_column_view_set_header_factory(
+                gtkColumnViewPointer.reinterpret(),
+                factory?.gtkListItemFactoryPointer?.reinterpret()
+            )
+
+    /**
      * Model for the items displayed.
      */
     public open var model: SelectionModel?
@@ -220,6 +260,41 @@ public open class ColumnView(
             gtk_column_view_set_reorderable(
                 gtkColumnViewPointer.reinterpret(),
                 reorderable.asGBoolean()
+            )
+
+    /**
+     * The factory used for configuring rows.
+     *
+     * @since 4.12
+     */
+    public open var rowFactory: ListItemFactory?
+        /**
+         * Gets the factory set via [method@Gtk.ColumnView.set_row_factory].
+         *
+         * @return The factory
+         * @since 4.12
+         */
+        get() =
+            gtk_column_view_get_row_factory(gtkColumnViewPointer.reinterpret())?.run {
+                ListItemFactory(reinterpret())
+            }
+
+        /**
+         * Sets the factory used for configuring rows. The factory must be for configuring
+         * [class@Gtk.ColumnViewRow] objects.
+         *
+         * If this factory is not set - which is the default - then the defaults will be used.
+         *
+         * This factory is not used to set the widgets displayed in the individual cells. For
+         * that see [method@GtkColumnViewColumn.set_factory] and [class@GtkColumnViewCell].
+         *
+         * @param factory The row factory
+         * @since 4.12
+         */
+        set(factory) =
+            gtk_column_view_set_row_factory(
+                gtkColumnViewPointer.reinterpret(),
+                factory?.gtkListItemFactoryPointer?.reinterpret()
             )
 
     /**
@@ -330,6 +405,35 @@ public open class ColumnView(
             }
 
     /**
+     * Behavior of the <kbd>Tab</kbd> key
+     *
+     * @since 4.12
+     */
+    public open var tabBehavior: ListTabBehavior
+        /**
+         * Gets the behavior set for the <kbd>Tab</kbd> key.
+         *
+         * @return The behavior of the <kbd>Tab</kbd> key
+         * @since 4.12
+         */
+        get() =
+            gtk_column_view_get_tab_behavior(gtkColumnViewPointer.reinterpret()).run {
+                ListTabBehavior.fromNativeValue(this)
+            }
+
+        /**
+         * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
+         *
+         * @param tabBehavior The desired tab behavior
+         * @since 4.12
+         */
+        set(tabBehavior) =
+            gtk_column_view_set_tab_behavior(
+                gtkColumnViewPointer.reinterpret(),
+                tabBehavior.nativeValue
+            )
+
+    /**
      * Creates a new `GtkColumnView`.
      *
      * You most likely want to call [method@Gtk.ColumnView.append_column]
@@ -376,6 +480,17 @@ public open class ColumnView(
         gtk_column_view_get_enable_rubberband(gtkColumnViewPointer.reinterpret()).asBoolean()
 
     /**
+     * Gets the factory that's currently used to populate section headers.
+     *
+     * @return The factory in use
+     * @since 4.12
+     */
+    public open fun getHeaderFactory(): ListItemFactory? =
+        gtk_column_view_get_header_factory(gtkColumnViewPointer.reinterpret())?.run {
+            ListItemFactory(reinterpret())
+        }
+
+    /**
      * Gets the model that's currently used to read the items displayed.
      *
      * @return The model in use
@@ -392,6 +507,17 @@ public open class ColumnView(
      */
     public open fun getReorderable(): Boolean =
         gtk_column_view_get_reorderable(gtkColumnViewPointer.reinterpret()).asBoolean()
+
+    /**
+     * Gets the factory set via [method@Gtk.ColumnView.set_row_factory].
+     *
+     * @return The factory
+     * @since 4.12
+     */
+    public open fun getRowFactory(): ListItemFactory? =
+        gtk_column_view_get_row_factory(gtkColumnViewPointer.reinterpret())?.run {
+            ListItemFactory(reinterpret())
+        }
 
     /**
      * Returns whether the list should show separators
@@ -449,6 +575,17 @@ public open class ColumnView(
         }
 
     /**
+     * Gets the behavior set for the <kbd>Tab</kbd> key.
+     *
+     * @return The behavior of the <kbd>Tab</kbd> key
+     * @since 4.12
+     */
+    public open fun getTabBehavior(): ListTabBehavior =
+        gtk_column_view_get_tab_behavior(gtkColumnViewPointer.reinterpret()).run {
+            ListTabBehavior.fromNativeValue(this)
+        }
+
+    /**
      * Inserts a column at the given position in the columns of @self.
      *
      * If @column is already a column of @self, it will be repositioned.
@@ -478,6 +615,35 @@ public open class ColumnView(
         )
 
     /**
+     * Scroll to the row at the given position - or cell if a column is
+     * given - and performs the actions specified in @flags.
+     *
+     * This function works no matter if the listview is shown or focused.
+     * If it isn't, then the changes will take effect once that happens.
+     *
+     * @param pos position of the item
+     * @param column The column to scroll to
+     *   or null to not scroll columns.
+     * @param flags actions to perform
+     * @param scroll details of how to perform
+     *   the scroll operation or null to scroll into view
+     * @since 4.12
+     */
+    public open fun scrollTo(
+        pos: UInt,
+        column: ColumnViewColumn? = null,
+        flags: ListScrollFlags,
+        scroll: ScrollInfo? = null,
+    ): Unit =
+        gtk_column_view_scroll_to(
+            gtkColumnViewPointer.reinterpret(),
+            pos,
+            column?.gtkColumnViewColumnPointer?.reinterpret(),
+            flags.mask,
+            scroll?.gtkScrollInfoPointer
+        )
+
+    /**
      * Sets whether selections can be changed by dragging with the mouse.
      *
      * @param enableRubberband true to enable rubberband selection
@@ -486,6 +652,22 @@ public open class ColumnView(
         gtk_column_view_set_enable_rubberband(
             gtkColumnViewPointer.reinterpret(),
             enableRubberband.asGBoolean()
+        )
+
+    /**
+     * Sets the `GtkListItemFactory` to use for populating the
+     * [class@Gtk.ListHeader] objects used in section headers.
+     *
+     * If this factory is set to null, the list will not show
+     * section headers.
+     *
+     * @param factory the factory to use
+     * @since 4.12
+     */
+    public open fun setHeaderFactory(factory: ListItemFactory? = null): Unit =
+        gtk_column_view_set_header_factory(
+            gtkColumnViewPointer.reinterpret(),
+            factory?.gtkListItemFactoryPointer?.reinterpret()
         )
 
     /**
@@ -510,6 +692,24 @@ public open class ColumnView(
         gtk_column_view_set_reorderable(
             gtkColumnViewPointer.reinterpret(),
             reorderable.asGBoolean()
+        )
+
+    /**
+     * Sets the factory used for configuring rows. The factory must be for configuring
+     * [class@Gtk.ColumnViewRow] objects.
+     *
+     * If this factory is not set - which is the default - then the defaults will be used.
+     *
+     * This factory is not used to set the widgets displayed in the individual cells. For
+     * that see [method@GtkColumnViewColumn.set_factory] and [class@GtkColumnViewCell].
+     *
+     * @param factory The row factory
+     * @since 4.12
+     */
+    public open fun setRowFactory(factory: ListItemFactory? = null): Unit =
+        gtk_column_view_set_row_factory(
+            gtkColumnViewPointer.reinterpret(),
+            factory?.gtkListItemFactoryPointer?.reinterpret()
         )
 
     /**
@@ -546,6 +746,18 @@ public open class ColumnView(
         gtk_column_view_set_single_click_activate(
             gtkColumnViewPointer.reinterpret(),
             singleClickActivate.asGBoolean()
+        )
+
+    /**
+     * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
+     *
+     * @param tabBehavior The desired tab behavior
+     * @since 4.12
+     */
+    public open fun setTabBehavior(tabBehavior: ListTabBehavior): Unit =
+        gtk_column_view_set_tab_behavior(
+            gtkColumnViewPointer.reinterpret(),
+            tabBehavior.nativeValue
         )
 
     /**

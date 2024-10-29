@@ -44,7 +44,7 @@ import kotlin.Unit
  * gtk_cell_layout_set_cell_data_func() that is called to determine the
  * value of the attribute for each cell that is rendered.
  *
- * # GtkCellLayouts as GtkBuildable
+ * ## GtkCellLayouts as GtkBuildable
  *
  * Implementations of GtkCellLayout which also implement the GtkBuildable
  * interface (`GtkCellView`, `GtkIconView`, `GtkComboBox`,
@@ -88,7 +88,7 @@ import kotlin.Unit
  * </object>
  * ```
  *
- * # Subclassing GtkCellLayout implementations
+ * ## Subclassing GtkCellLayout implementations
  *
  * When subclassing a widget that implements `GtkCellLayout` like
  * `GtkIconView` or `GtkComboBox`, there are some considerations related

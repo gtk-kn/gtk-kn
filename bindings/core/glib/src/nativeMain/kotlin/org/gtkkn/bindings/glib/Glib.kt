@@ -24,7 +24,6 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GHook
 import org.gtkkn.native.glib.GHookList
 import org.gtkkn.native.glib.GIOChannel
-import org.gtkkn.native.glib.GIOCondition
 import org.gtkkn.native.glib.GLogLevelFlags
 import org.gtkkn.native.glib.GLogWriterOutput
 import org.gtkkn.native.glib.GMatchInfo
@@ -36,12 +35,14 @@ import org.gtkkn.native.glib.GString
 import org.gtkkn.native.glib.g_access
 import org.gtkkn.native.glib.g_assert_warning
 import org.gtkkn.native.glib.g_assertion_message
+import org.gtkkn.native.glib.g_assertion_message_cmpint
 import org.gtkkn.native.glib.g_assertion_message_cmpstr
 import org.gtkkn.native.glib.g_assertion_message_error
 import org.gtkkn.native.glib.g_basename
 import org.gtkkn.native.glib.g_bit_nth_lsf
 import org.gtkkn.native.glib.g_bit_nth_msf
 import org.gtkkn.native.glib.g_bit_storage
+import org.gtkkn.native.glib.g_blow_chunks
 import org.gtkkn.native.glib.g_bookmark_file_error_quark
 import org.gtkkn.native.glib.g_build_filenamev
 import org.gtkkn.native.glib.g_build_pathv
@@ -50,6 +51,7 @@ import org.gtkkn.native.glib.g_chdir
 import org.gtkkn.native.glib.g_checksum_type_get_length
 import org.gtkkn.native.glib.g_clear_error
 import org.gtkkn.native.glib.g_close
+import org.gtkkn.native.glib.g_closefrom
 import org.gtkkn.native.glib.g_compute_checksum_for_bytes
 import org.gtkkn.native.glib.g_compute_checksum_for_string
 import org.gtkkn.native.glib.g_compute_hmac_for_bytes
@@ -66,6 +68,7 @@ import org.gtkkn.native.glib.g_dpgettext2
 import org.gtkkn.native.glib.g_environ_getenv
 import org.gtkkn.native.glib.g_environ_setenv
 import org.gtkkn.native.glib.g_environ_unsetenv
+import org.gtkkn.native.glib.g_fdwalk_set_cloexec
 import org.gtkkn.native.glib.g_file_error_from_errno
 import org.gtkkn.native.glib.g_file_error_quark
 import org.gtkkn.native.glib.g_file_read_link
@@ -105,7 +108,11 @@ import org.gtkkn.native.glib.g_get_user_special_dir
 import org.gtkkn.native.glib.g_get_user_state_dir
 import org.gtkkn.native.glib.g_getenv
 import org.gtkkn.native.glib.g_hash_table_destroy
+import org.gtkkn.native.glib.g_hash_table_foreach
+import org.gtkkn.native.glib.g_hash_table_foreach_remove
+import org.gtkkn.native.glib.g_hash_table_foreach_steal
 import org.gtkkn.native.glib.g_hash_table_new_similar
+import org.gtkkn.native.glib.g_hash_table_ref
 import org.gtkkn.native.glib.g_hash_table_remove_all
 import org.gtkkn.native.glib.g_hash_table_size
 import org.gtkkn.native.glib.g_hash_table_steal_all
@@ -125,11 +132,10 @@ import org.gtkkn.native.glib.g_idle_add_full
 import org.gtkkn.native.glib.g_idle_source_new
 import org.gtkkn.native.glib.g_intern_static_string
 import org.gtkkn.native.glib.g_intern_string
-import org.gtkkn.native.glib.g_io_add_watch_full
 import org.gtkkn.native.glib.g_io_channel_error_from_errno
 import org.gtkkn.native.glib.g_io_channel_error_quark
-import org.gtkkn.native.glib.g_io_create_watch
 import org.gtkkn.native.glib.g_key_file_error_quark
+import org.gtkkn.native.glib.g_list_pop_allocator
 import org.gtkkn.native.glib.g_listenv
 import org.gtkkn.native.glib.g_log_get_debug_enabled
 import org.gtkkn.native.glib.g_log_remove_handler
@@ -150,10 +156,12 @@ import org.gtkkn.native.glib.g_main_current_source
 import org.gtkkn.native.glib.g_main_depth
 import org.gtkkn.native.glib.g_markup_error_quark
 import org.gtkkn.native.glib.g_markup_escape_text
+import org.gtkkn.native.glib.g_mem_chunk_info
 import org.gtkkn.native.glib.g_mem_is_system_malloc
 import org.gtkkn.native.glib.g_mem_profile
 import org.gtkkn.native.glib.g_mem_set_vtable
 import org.gtkkn.native.glib.g_mkdir_with_parents
+import org.gtkkn.native.glib.g_node_pop_allocator
 import org.gtkkn.native.glib.g_number_parser_error_quark
 import org.gtkkn.native.glib.g_on_error_query
 import org.gtkkn.native.glib.g_on_error_stack_trace
@@ -177,6 +185,7 @@ import org.gtkkn.native.glib.g_ref_string_new_intern
 import org.gtkkn.native.glib.g_ref_string_new_len
 import org.gtkkn.native.glib.g_regex_error_quark
 import org.gtkkn.native.glib.g_regex_escape_nul
+import org.gtkkn.native.glib.g_regex_escape_string
 import org.gtkkn.native.glib.g_regex_match_simple
 import org.gtkkn.native.glib.g_regex_split_simple
 import org.gtkkn.native.glib.g_reload_user_special_dirs_cache
@@ -189,6 +198,7 @@ import org.gtkkn.native.glib.g_shell_quote
 import org.gtkkn.native.glib.g_shell_unquote
 import org.gtkkn.native.glib.g_slice_get_config
 import org.gtkkn.native.glib.g_slice_set_config
+import org.gtkkn.native.glib.g_slist_pop_allocator
 import org.gtkkn.native.glib.g_source_remove
 import org.gtkkn.native.glib.g_source_set_name_by_id
 import org.gtkkn.native.glib.g_spaced_primes_closest
@@ -200,6 +210,7 @@ import org.gtkkn.native.glib.g_spawn_exit_error_quark
 import org.gtkkn.native.glib.g_test_assert_expected_messages_internal
 import org.gtkkn.native.glib.g_test_bug
 import org.gtkkn.native.glib.g_test_bug_base
+import org.gtkkn.native.glib.g_test_disable_crash_reporting
 import org.gtkkn.native.glib.g_test_expect_message
 import org.gtkkn.native.glib.g_test_fail
 import org.gtkkn.native.glib.g_test_failed
@@ -224,6 +235,7 @@ import org.gtkkn.native.glib.g_test_trap_fork
 import org.gtkkn.native.glib.g_test_trap_has_passed
 import org.gtkkn.native.glib.g_test_trap_reached_timeout
 import org.gtkkn.native.glib.g_test_trap_subprocess
+import org.gtkkn.native.glib.g_test_trap_subprocess_with_envp
 import org.gtkkn.native.glib.g_thread_error_quark
 import org.gtkkn.native.glib.g_thread_pool_get_max_idle_time
 import org.gtkkn.native.glib.g_thread_pool_get_max_unused_threads
@@ -268,8 +280,6 @@ import org.gtkkn.native.glib.g_unichar_xdigit_value
 import org.gtkkn.native.glib.g_unicode_script_from_iso15924
 import org.gtkkn.native.glib.g_unicode_script_to_iso15924
 import org.gtkkn.native.glib.g_unix_error_quark
-import org.gtkkn.native.glib.g_unix_fd_add_full
-import org.gtkkn.native.glib.g_unix_fd_source_new
 import org.gtkkn.native.glib.g_unix_set_fd_nonblocking
 import org.gtkkn.native.glib.g_unix_signal_add_full
 import org.gtkkn.native.glib.g_unix_signal_source_new
@@ -322,6 +332,7 @@ import kotlin.collections.List
  * - function `aligned_alloc`: Return type gpointer is unsupported
  * - function `aligned_alloc0`: Return type gpointer is unsupported
  * - parameter `mem`: gpointer
+ * - parameter `mem`: gpointer
  * - function `ascii_digit_value`: C function g_ascii_digit_value is ignored
  * - function `ascii_dtostr`: C function g_ascii_dtostr is ignored
  * - function `ascii_formatd`: C function g_ascii_formatd is ignored
@@ -349,6 +360,10 @@ import kotlin.collections.List
  * - parameter `atomic`: Unsupported pointer to primitive type
  * - parameter `atomic`: Unsupported pointer to primitive type
  * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `atomic`: Unsupported pointer to primitive type
+ * - parameter `atomic`: gpointer
+ * - parameter `atomic`: gpointer
  * - parameter `atomic`: gpointer
  * - parameter `atomic`: gpointer
  * - parameter `atomic`: gpointer
@@ -377,17 +392,30 @@ import kotlin.collections.List
  * - parameter `address`: Unsupported pointer to primitive type
  * - parameter `array`: guint8
  * - parameter `array`: guint8
+ * - parameter `array`: guint8
  * - function `byte_array_new`: guint8
  * - parameter `data`: guint8
  * - parameter `array`: guint8
  * - parameter `array`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
+ * - function `byte_array_sized_new`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
+ * - parameter `array`: guint8
  * - parameter `pid`: Pid
  * - parameter `pid`: Pid
+ * - function `chmod`: C function g_chmod is ignored
  * - parameter `data`: guint8
  * - parameter `key`: guint8
  * - parameter `key`: guint8
  * - parameter `str`: guint8
  * - parameter `str`: guint8
+ * - function `creat`: C function g_creat is ignored
+ * - parameter `datalist`: Data
  * - parameter `datalist`: Data
  * - parameter `datalist`: Data
  * - parameter `datalist`: Data
@@ -409,6 +437,8 @@ import kotlin.collections.List
  * - parameter `v`: gpointer
  * - parameter `v1`: gpointer
  * - parameter `v`: gpointer
+ * - parameter `error_type_init`: ErrorInitFunc
+ * - parameter `error_type_init`: ErrorInitFunc
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `name_used`: name_used: Out parameter is not supported
  * - parameter `contents`: guint8
@@ -416,12 +446,17 @@ import kotlin.collections.List
  * - parameter `hostname`: hostname: Out parameter is not supported
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
+ * - function `fopen`: Return type gpointer is unsupported
  * - parameter `mem`: gpointer
+ * - parameter `mem`: gpointer
+ * - parameter `stream`: gpointer
+ * - function `fsync`: C function g_fsync is ignored
  * - parameter `charset`: charset: Out parameter is not supported
  * - parameter `charset`: charset: Out parameter is not supported
  * - parameter `filename_charsets`: filename_charsets: Out parameter is not supported
  * - parameter `key`: gpointer
  * - parameter `key`: gpointer
+ * - function `hash_table_find`: Return type gpointer is unsupported
  * - parameter `key`: gpointer
  * - parameter `key`: gpointer
  * - parameter `lookup_key`: gpointer
@@ -429,34 +464,52 @@ import kotlin.collections.List
  * - parameter `key`: gpointer
  * - parameter `key`: gpointer
  * - parameter `lookup_key`: gpointer
+ * - parameter `func`: HookCompareFunc
  * - parameter `data`: gpointer
  * - parameter `v1`: gpointer
  * - parameter `v`: gpointer
  * - parameter `v1`: gpointer
  * - parameter `v`: gpointer
+ * - parameter `condition`: C Type GIOCondition is ignored
+ * - parameter `condition`: C Type GIOCondition is ignored
+ * - parameter `allocator`: Allocator
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
  * - parameter `opsysstring`: guint8
  * - parameter `unused_data`: gpointer
  * - parameter `fields`: LogField
  * - parameter `fields`: LogField
+ * - parameter `domains`: Unsupported string with cType const gchar* const*
  * - parameter `fields`: LogField
  * - parameter `fields`: LogField
  * - parameter `fields`: LogField
+ * - parameter `fields`: LogField
+ * - parameter `buf`: StatBuf
  * - function `malloc`: Return type gpointer is unsupported
  * - function `malloc0`: Return type gpointer is unsupported
  * - function `malloc0_n`: Return type gpointer is unsupported
  * - function `malloc_n`: Return type gpointer is unsupported
  * - parameter `mem`: gpointer
  * - parameter `mem`: gpointer
+ * - function `mkdir`: C function g_mkdir is ignored
+ * - parameter `allocator`: Allocator
  * - parameter `nullify_location`: gpointer
+ * - function `once_init_enter`: In/Out parameter is not supported
+ * - parameter `location`: Unsupported pointer to primitive type
  * - parameter `location`: gpointer
+ * - function `once_init_leave`: In/Out parameter is not supported
  * - parameter `location`: gpointer
+ * - function `open`: C function g_open is ignored
  * - parameter `keys`: DebugKey
+ * - parameter `v1`: gpointer
+ * - parameter `address`: gpointer
+ * - parameter `address`: gpointer
+ * - parameter `ptr`: gpointer
  * - parameter `address`: gpointer
  * - parameter `address`: gpointer
  * - parameter `address`: gpointer
  * - function `prefix_error_literal`: C function g_prefix_error_literal is ignored
  * - parameter `dest`: dest: Out parameter is not supported
+ * - parameter `pbase`: gpointer
  * - function `quark_to_string`: C function g_quark_to_string is ignored
  * - parameter `mem_block`: gpointer
  * - function `rc_box_alloc`: Return type gpointer is unsupported
@@ -475,7 +528,9 @@ import kotlin.collections.List
  * - parameter `str`: Unsupported string type with cType: char*
  * - parameter `str`: Unsupported string type with cType: char*
  * - parameter `has_references`: has_references: Out parameter is not supported
- * - parameter `string`: Unsupported string with cType gchar
+ * - function `remove`: C function g_remove is ignored
+ * - function `rename`: C function g_rename is ignored
+ * - parameter `begin`: SequenceIter
  * - parameter `iter`: SequenceIter
  * - parameter `iter`: SequenceIter
  * - parameter `src`: SequenceIter
@@ -483,6 +538,8 @@ import kotlin.collections.List
  * - parameter `begin`: SequenceIter
  * - parameter `iter`: SequenceIter
  * - parameter `begin`: SequenceIter
+ * - parameter `iter`: SequenceIter
+ * - parameter `iter`: SequenceIter
  * - parameter `iter`: SequenceIter
  * - parameter `a`: SequenceIter
  * - parameter `err`: err: Out parameter is not supported
@@ -493,6 +550,7 @@ import kotlin.collections.List
  * - parameter `mem_block`: gpointer
  * - parameter `mem_chain`: gpointer
  * - parameter `n_values`: Unsupported pointer to primitive type
+ * - parameter `allocator`: Allocator
  * - parameter `user_data`: gpointer
  * - parameter `user_data`: gpointer
  * - parameter `child_pid`: child_pid: Out parameter is not supported
@@ -502,6 +560,7 @@ import kotlin.collections.List
  * - parameter `pid`: Pid
  * - parameter `standard_output`: standard_output: Out parameter is not supported
  * - parameter `standard_output`: standard_output: Out parameter is not supported
+ * - parameter `buf`: StatBuf
  * - function `stpcpy`: C function g_stpcpy is ignored
  * - function `str_equal`: C function g_str_equal is ignored
  * - function `str_has_prefix`: C function g_str_has_prefix is ignored
@@ -520,6 +579,7 @@ import kotlin.collections.List
  * - function `strdelimit`: C function g_strdelimit is ignored
  * - function `strdown`: C function g_strdown is ignored
  * - function `strdup`: C function g_strdup is ignored
+ * - function `strdupv`: C function g_strdupv is ignored
  * - function `strerror`: C function g_strerror is ignored
  * - function `strescape`: C function g_strescape is ignored
  * - function `strfreev`: C function g_strfreev is ignored
@@ -534,6 +594,8 @@ import kotlin.collections.List
  * - function `strrstr`: C function g_strrstr is ignored
  * - function `strrstr_len`: C function g_strrstr_len is ignored
  * - function `strsignal`: C function g_strsignal is ignored
+ * - function `strsplit`: C function g_strsplit is ignored
+ * - function `strsplit_set`: C function g_strsplit_set is ignored
  * - function `strstr_len`: C function g_strstr_len is ignored
  * - function `strtod`: C function g_strtod is ignored
  * - function `strup`: C function g_strup is ignored
@@ -558,23 +620,25 @@ import kotlin.collections.List
  * - function `try_malloc_n`: Return type gpointer is unsupported
  * - parameter `mem`: gpointer
  * - parameter `mem`: gpointer
- * - parameter `str`: Unsupported pointer to primitive type
- * - parameter `str`: Unsupported pointer to primitive type
+ * - parameter `str`: Array parameter of type gunichar is not supported
+ * - parameter `str`: Array parameter of type gunichar is not supported
  * - parameter `ch`: ch: Out parameter is not supported
  * - parameter `a`: a: Out parameter is not supported
  * - parameter `result`: result: Out parameter is not supported
- * - parameter `mirrored_ch`: Unsupported pointer to primitive type
+ * - parameter `mirrored_ch`: mirrored_ch: Out parameter is not supported
  * - parameter `outbuf`: outbuf: Out parameter is not supported
  * - parameter `result_len`: Unsupported pointer to primitive type
- * - parameter `string`: Unsupported pointer to primitive type
+ * - parameter `string`: Array parameter of type gunichar is not supported
+ * - parameter `condition`: C Type GIOCondition is ignored
+ * - parameter `condition`: C Type GIOCondition is ignored
  * - function `unix_get_passwd_entry`: Return type gpointer is unsupported
- * - parameter `fds`: Unsupported pointer to primitive type
+ * - parameter `fds`: Array parameter of type gint is not supported
  * - parameter `unescaped`: guint8
  * - parameter `scheme`: scheme: Out parameter is not supported
  * - parameter `scheme`: scheme: Out parameter is not supported
  * - parameter `scheme`: scheme: Out parameter is not supported
- * - parameter `str`: Unsupported pointer to primitive type
- * - parameter `str`: Unsupported pointer to primitive type
+ * - parameter `str`: Array parameter of type guint16 is not supported
+ * - parameter `str`: Array parameter of type guint16 is not supported
  * - function `utf8_casefold`: C function g_utf8_casefold is ignored
  * - function `utf8_collate`: C function g_utf8_collate is ignored
  * - function `utf8_collate_key`: C function g_utf8_collate_key is ignored
@@ -599,11 +663,16 @@ import kotlin.collections.List
  * - function `utf8_to_ucs4`: C function g_utf8_to_ucs4 is ignored
  * - function `utf8_to_ucs4_fast`: C function g_utf8_to_ucs4_fast is ignored
  * - function `utf8_to_utf16`: C function g_utf8_to_utf16 is ignored
+ * - function `utf8_truncate_middle`: C function g_utf8_truncate_middle is ignored
  * - function `utf8_validate`: C function g_utf8_validate is ignored
  * - function `utf8_validate_len`: C function g_utf8_validate_len is ignored
+ * - parameter `utb`: gpointer
  * - function `variant_get_gtype`: C function g_variant_get_gtype is ignored
  * - parameter `endptr`: Unsupported string with cType const gchar**
  * - parameter `endptr`: endptr: Out parameter is not supported
+ * - callback `CacheDupFunc`: Return type gpointer is unsupported
+ * - callback `CacheNewFunc`: Return type gpointer is unsupported
+ * - callback `CompletionFunc`: Callback with String return value is not supported
  * - callback `CopyFunc`: Return type gpointer is unsupported
  * - callback `DuplicateFunc`: Return type gpointer is unsupported
  * - callback `OptionArgFunc`: Callbacks that throw are not supported
@@ -611,48 +680,78 @@ import kotlin.collections.List
  * - callback `OptionParseFunc`: Callbacks that throw are not supported
  * - callback `ThreadFunc`: Return type gpointer is unsupported
  * - callback `TranslateFunc`: Callback with String return value is not supported
+ * - bitfield `IOCondition`: C Type GIOCondition is ignored
  * - constant `MAXINT8`: gint8
  * - constant `MAXUINT8`: guint8
  * - constant `MININT8`: gint8
+ * - record `Allocator`: Disguised records are ignored
  * - record `AsyncQueue`: Disguised records are ignored
- * - record `BookmarkFile`: Disguised records are ignored
+ * - record `Cache`: Disguised records are ignored
  * - record `Data`: Disguised records are ignored
- * - record `Dir`: Disguised records are ignored
- * - record `Hmac`: Disguised records are ignored
+ * - record `MemChunk`: Disguised records are ignored
  * - record `OptionContext`: Disguised records are ignored
- * - record `Rand`: Disguised records are ignored
+ * - record `Relation`: Disguised records are ignored
  * - record `Sequence`: Disguised records are ignored
  * - record `SequenceIter`: Disguised records are ignored
  * - record `SourcePrivate`: Disguised records are ignored
  * - record `StatBuf`: Disguised records are ignored
  * - record `StringChunk`: Disguised records are ignored
- * - record `StrvBuilder`: Disguised records are ignored
  * - record `TestCase`: Disguised records are ignored
  * - record `TestSuite`: Disguised records are ignored
  * - record `Timer`: Disguised records are ignored
  * - record `TreeNode`: Disguised records are ignored
  */
 public object Glib {
+    public const val ALLOCATOR_LIST: Int = 1
+
+    public const val ALLOCATOR_NODE: Int = 3
+
+    public const val ALLOCATOR_SLIST: Int = 2
+
+    public const val ALLOC_AND_FREE: Int = 2
+
+    public const val ALLOC_ONLY: Int = 1
+
     public const val ANALYZER_ANALYZING: Int = 1
 
     /**
-     * A good size for a buffer to be passed into g_ascii_dtostr().
+     * A good size for a buffer to be passed into [func@GLib.ascii_dtostr].
      * It is guaranteed to be enough for all output of that function
      * on systems with 64bit IEEE-compatible doubles.
      *
      * The typical usage would be something like:
-     * |[<!-- language="C" -->
-     *   char buf[G_ASCII_DTOSTR_BUF_SIZE];
+     * ```C
+     * char buf[G_ASCII_DTOSTR_BUF_SIZE];
      *
-     *   fprintf (out, "value=%s\n", g_ascii_dtostr (buf, sizeof (buf), value));
-     * ]|
+     * fprintf (out, "value=%s\n", g_ascii_dtostr (buf, sizeof (buf), value));
+     * ```
      */
     public const val ASCII_DTOSTR_BUF_SIZE: Int = 39
 
     /**
-     * Specifies one of the possible types of byte order.
-     * See %G_BYTE_ORDER.
+     * Evaluates to the initial reference count for `gatomicrefcount`.
+     *
+     * This macro is useful for initializing `gatomicrefcount` fields inside
+     * structures, for instance:
+     *
+     * |[<!-- language="C" -->
+     * typedef struct {
+     *   gatomicrefcount ref_count;
+     *   char *name;
+     *   char *address;
+     * } Person;
+     *
+     * static const Person default_person = {
+     *   .ref_count = G_ATOMIC_REF_COUNT_INIT,
+     *   .name = "Default name",
+     *   .address = "Default address",
+     * };
+     * ]|
+     *
+     * @since 2.78
      */
+    public const val ATOMIC_REF_COUNT_INIT: Int = 1
+
     public const val BIG_ENDIAN: Int = 4321
 
     /**
@@ -676,6 +775,8 @@ public object Glib {
      */
     public const val CSET_a_2_z: kotlin.String = "abcdefghijklmnopqrstuvwxyz"
 
+    public const val C_STD_VERSION: Int = 199000
+
     /**
      * A bitmask that restricts the possible flags passed to
      * g_datalist_set_flags(). Passing a flags value where
@@ -698,112 +799,26 @@ public object Glib {
      */
     public const val DATE_BAD_YEAR: Int = 0
 
-    /**
-     * The directory separator character.
-     * This is '/' on UNIX machines and '\' under Windows.
-     */
     public const val DIR_SEPARATOR: Int = 47
 
-    /**
-     * The directory separator as a string.
-     * This is "/" on UNIX machines and "\" under Windows.
-     */
     public const val DIR_SEPARATOR_S: kotlin.String = "/"
 
-    /**
-     * The base of natural logarithms.
-     */
     public const val E: Double = 2.718282
 
-    /**
-     * This is the platform dependent conversion specifier for scanning and
-     * printing values of type #gint16. It is a string literal, but doesn't
-     * include the percent-sign, such that you can add precision and length
-     * modifiers between percent-sign and conversion specifier.
-     *
-     * |[<!-- language="C" -->
-     * gint16 in;
-     * gint32 out;
-     * sscanf ("42", "%" G_GINT16_FORMAT, &in)
-     * out = in * 1000;
-     * g_print ("%" G_GINT32_FORMAT, out);
-     * ]|
-     */
     public const val GINT16_FORMAT: kotlin.String = "hi"
 
-    /**
-     * The platform dependent length modifier for conversion specifiers
-     * for scanning and printing values of type #gint16 or #guint16. It
-     * is a string literal, but doesn't include the percent-sign, such
-     * that you can add precision and length modifiers between percent-sign
-     * and conversion specifier and append a conversion specifier.
-     *
-     * The following example prints "0x7b";
-     * |[<!-- language="C" -->
-     * gint16 value = 123;
-     * g_print ("%#" G_GINT16_MODIFIER "x", value);
-     * ]|
-     *
-     * @since 2.4
-     */
     public const val GINT16_MODIFIER: kotlin.String = "h"
 
-    /**
-     * This is the platform dependent conversion specifier for scanning
-     * and printing values of type #gint32. See also %G_GINT16_FORMAT.
-     */
     public const val GINT32_FORMAT: kotlin.String = "i"
 
-    /**
-     * The platform dependent length modifier for conversion specifiers
-     * for scanning and printing values of type #gint32 or #guint32. It
-     * is a string literal. See also %G_GINT16_MODIFIER.
-     *
-     * @since 2.4
-     */
     public const val GINT32_MODIFIER: kotlin.String = ""
 
-    /**
-     * This is the platform dependent conversion specifier for scanning
-     * and printing values of type #gint64. See also %G_GINT16_FORMAT.
-     *
-     * Some platforms do not support scanning and printing 64-bit integers,
-     * even though the types are supported. On such platforms %G_GINT64_FORMAT
-     * is not defined. Note that scanf() may not support 64-bit integers, even
-     * if %G_GINT64_FORMAT is defined. Due to its weak error handling, scanf()
-     * is not recommended for parsing anyway; consider using g_ascii_strtoull()
-     * instead.
-     */
     public const val GINT64_FORMAT: kotlin.String = "li"
 
-    /**
-     * The platform dependent length modifier for conversion specifiers
-     * for scanning and printing values of type #gint64 or #guint64.
-     * It is a string literal.
-     *
-     * Some platforms do not support printing 64-bit integers, even
-     * though the types are supported. On such platforms %G_GINT64_MODIFIER
-     * is not defined.
-     *
-     * @since 2.4
-     */
     public const val GINT64_MODIFIER: kotlin.String = "l"
 
-    /**
-     * This is the platform dependent conversion specifier for scanning
-     * and printing values of type #gintptr.
-     *
-     * @since 2.22
-     */
     public const val GINTPTR_FORMAT: kotlin.String = "li"
 
-    /**
-     * The platform dependent length modifier for conversion specifiers
-     * for scanning and printing values of type #gintptr or #guintptr.
-     * It is a string literal.
-     *
-     * @since 2.22
-     */
     public const val GINTPTR_MODIFIER: kotlin.String = "l"
 
     /**
@@ -818,80 +833,26 @@ public object Glib {
      */
     public const val GNUC_PRETTY_FUNCTION: kotlin.String = ""
 
-    /**
-     * This is the platform dependent conversion specifier for scanning
-     * and printing values of type #gsize. See also %G_GINT16_FORMAT.
-     *
-     * @since 2.6
-     */
     public const val GSIZE_FORMAT: kotlin.String = "lu"
 
-    /**
-     * The platform dependent length modifier for conversion specifiers
-     * for scanning and printing values of type #gsize. It
-     * is a string literal.
-     *
-     * @since 2.6
-     */
     public const val GSIZE_MODIFIER: kotlin.String = "l"
 
-    /**
-     * This is the platform dependent conversion specifier for scanning
-     * and printing values of type #gssize. See also %G_GINT16_FORMAT.
-     *
-     * @since 2.6
-     */
     public const val GSSIZE_FORMAT: kotlin.String = "li"
 
-    /**
-     * The platform dependent length modifier for conversion specifiers
-     * for scanning and printing values of type #gssize. It
-     * is a string literal.
-     *
-     * @since 2.6
-     */
     public const val GSSIZE_MODIFIER: kotlin.String = "l"
 
-    /**
-     * This is the platform dependent conversion specifier for scanning
-     * and printing values of type #guint16. See also %G_GINT16_FORMAT
-     */
     public const val GUINT16_FORMAT: kotlin.String = "hu"
 
-    /**
-     * This is the platform dependent conversion specifier for scanning
-     * and printing values of type #guint32. See also %G_GINT16_FORMAT.
-     */
     public const val GUINT32_FORMAT: kotlin.String = "u"
 
-    /**
-     * This is the platform dependent conversion specifier for scanning
-     * and printing values of type #guint64. See also %G_GINT16_FORMAT.
-     *
-     * Some platforms do not support scanning and printing 64-bit integers,
-     * even though the types are supported. On such platforms %G_GUINT64_FORMAT
-     * is not defined.  Note that scanf() may not support 64-bit integers, even
-     * if %G_GINT64_FORMAT is defined. Due to its weak error handling, scanf()
-     * is not recommended for parsing anyway; consider using g_ascii_strtoull()
-     * instead.
-     */
     public const val GUINT64_FORMAT: kotlin.String = "lu"
 
-    /**
-     * This is the platform dependent conversion specifier
-     * for scanning and printing values of type #guintptr.
-     *
-     * @since 2.22
-     */
     public const val GUINTPTR_FORMAT: kotlin.String = "lu"
 
     public const val HAVE_GINT64: Int = 1
 
     public const val HAVE_GNUC_VARARGS: Int = 1
 
-    /**
-     * Defined to 1 if gcc-style visibility handling is supported.
-     */
     public const val HAVE_GNUC_VISIBILITY: Int = 1
 
     public const val HAVE_GROWING_STACK: Int = 0
@@ -906,14 +867,8 @@ public object Glib {
      */
     public const val HOOK_FLAG_USER_SHIFT: Int = 4
 
-    /**
-     * The bias by which exponents in double-precision floats are offset.
-     */
     public const val IEEE754_DOUBLE_BIAS: Int = 1023
 
-    /**
-     * The bias by which exponents in single-precision floats are offset.
-     */
     public const val IEEE754_FLOAT_BIAS: Int = 127
 
     /**
@@ -1138,25 +1093,12 @@ public object Glib {
      */
     public const val KEY_FILE_DESKTOP_TYPE_LINK: kotlin.String = "Link"
 
-    /**
-     * Specifies one of the possible types of byte order.
-     * See %G_BYTE_ORDER.
-     */
     public const val LITTLE_ENDIAN: Int = 1234
 
-    /**
-     * The natural logarithm of 10.
-     */
     public const val LN10: Double = 2.302585
 
-    /**
-     * The natural logarithm of 2.
-     */
     public const val LN2: Double = 0.693147
 
-    /**
-     * Multiplying the base 2 exponent by this number yields the base 10 exponent.
-     */
     public const val LOG_2_BASE_10: Double = 0.301030
 
     /**
@@ -1175,7 +1117,7 @@ public object Glib {
      * not advisable, as it cannot be filtered against using the `G_MESSAGES_DEBUG`
      * environment variable.
      *
-     * For example, GTK+ uses this in its `Makefile.am`:
+     * For example, GTK uses this in its `Makefile.am`:
      * |[
      * AM_CPPFLAGS = -DG_LOG_DOMAIN=\"Gtk\"
      * ]|
@@ -1190,12 +1132,12 @@ public object Glib {
      * GLib log levels that are considered fatal by default.
      *
      * This is not used if structured logging is enabled; see
-     * [Using Structured Logging][using-structured-logging].
+     * [Using Structured Logging](logging.html#using-structured-logging).
      */
     public const val LOG_FATAL_MASK: Int = 5
 
     /**
-     * Log levels below 1<<G_LOG_LEVEL_USER_SHIFT are used by GLib.
+     * Log levels below `1<<G_LOG_LEVEL_USER_SHIFT` are used by GLib.
      * Higher bits can be used for user-defined log levels.
      */
     public const val LOG_LEVEL_USER_SHIFT: Int = 8
@@ -1209,42 +1151,16 @@ public object Glib {
      */
     public const val MAJOR_VERSION: Int = 2
 
-    /**
-     * The maximum value which can be held in a #gint16.
-     *
-     * @since 2.4
-     */
     public const val MAXINT16: Short = 32767
 
-    /**
-     * The maximum value which can be held in a #gint32.
-     *
-     * @since 2.4
-     */
     public const val MAXINT32: Int = Int.MAX_VALUE
 
-    /**
-     * The maximum value which can be held in a #gint64.
-     */
     public const val MAXINT64: Long = Long.MAX_VALUE
 
-    /**
-     * The maximum value which can be held in a #guint16.
-     *
-     * @since 2.4
-     */
     public const val MAXUINT16: UShort = 65535u
 
-    /**
-     * The maximum value which can be held in a #guint32.
-     *
-     * @since 2.4
-     */
     public const val MAXUINT32: UInt = UInt.MAX_VALUE
 
-    /**
-     * The maximum value which can be held in a #guint64.
-     */
     public const val MAXUINT64: ULong = ULong.MAX_VALUE
 
     /**
@@ -1254,7 +1170,7 @@ public object Glib {
      * application compile time, rather than from the library
      * linked against at application run time.
      */
-    public const val MICRO_VERSION: Int = 3
+    public const val MICRO_VERSION: Int = 0
 
     /**
      * The minimum value which can be held in a #gint16.
@@ -1282,7 +1198,7 @@ public object Glib {
      * application compile time, rather than from the library
      * linked against at application run time.
      */
-    public const val MINOR_VERSION: Int = 71
+    public const val MINOR_VERSION: Int = 80
 
     public const val MODULE_SUFFIX: kotlin.String = "so"
 
@@ -1302,15 +1218,8 @@ public object Glib {
      */
     public const val OPTION_REMAINING: kotlin.String = ""
 
-    /**
-     * Specifies one of the possible types of byte order
-     * (currently unused). See %G_BYTE_ORDER.
-     */
     public const val PDP_ENDIAN: Int = 3412
 
-    /**
-     * The value of pi (ratio of circle's circumference to its diameter).
-     */
     public const val PI: Double = 3.141593
 
     /**
@@ -1321,14 +1230,8 @@ public object Glib {
      */
     public const val PID_FORMAT: kotlin.String = "i"
 
-    /**
-     * Pi divided by 2.
-     */
     public const val PI_2: Double = 1.570796
 
-    /**
-     * Pi divided by 4.
-     */
     public const val PI_4: Double = 0.785398
 
     /**
@@ -1357,14 +1260,14 @@ public object Glib {
     /**
      * Use this for high priority event sources.
      *
-     * It is not used within GLib or GTK+.
+     * It is not used within GLib or GTK.
      */
     public const val PRIORITY_HIGH: Int = -100
 
     /**
      * Use this for high priority idle functions.
      *
-     * GTK+ uses %G_PRIORITY_HIGH_IDLE + 10 for resizing operations,
+     * GTK uses %G_PRIORITY_HIGH_IDLE + 10 for resizing operations,
      * and %G_PRIORITY_HIGH_IDLE + 20 for redrawing operations. (This is
      * done to ensure that any pending resizes are processed before any
      * pending redraws, so that widgets are not redrawn twice unnecessarily.)
@@ -1374,20 +1277,36 @@ public object Glib {
     /**
      * Use this for very low priority background tasks.
      *
-     * It is not used within GLib or GTK+.
+     * It is not used within GLib or GTK.
      */
     public const val PRIORITY_LOW: Int = 300
 
     /**
-     * The search path separator character.
-     * This is ':' on UNIX machines and ';' under Windows.
+     * Evaluates to the initial reference count for `grefcount`.
+     *
+     * This macro is useful for initializing `grefcount` fields inside
+     * structures, for instance:
+     *
+     * |[<!-- language="C" -->
+     * typedef struct {
+     *   grefcount ref_count;
+     *   char *name;
+     *   char *address;
+     * } Person;
+     *
+     * static const Person default_person = {
+     *   .ref_count = G_REF_COUNT_INIT,
+     *   .name = "Default name",
+     *   .address = "Default address",
+     * };
+     * ]|
+     *
+     * @since 2.78
      */
+    public const val REF_COUNT_INIT: Int = -1
+
     public const val SEARCHPATH_SEPARATOR: Int = 58
 
-    /**
-     * The search path separator as a string.
-     * This is ":" on UNIX machines and ";" under Windows.
-     */
     public const val SEARCHPATH_SEPARATOR_S: kotlin.String = ":"
 
     public const val SIZEOF_LONG: Int = 8
@@ -1414,13 +1333,10 @@ public object Glib {
      */
     public const val SOURCE_REMOVE: Boolean = false
 
-    /**
-     * The square root of two.
-     */
     public const val SQRT2: Double = 1.414214
 
     /**
-     * The standard delimiters, used in g_strdelimit().
+     * The standard delimiters, used in [func@GLib.strdelimit].
      */
     public const val STR_DELIMITERS: kotlin.String = "_-|> <."
 
@@ -1628,6 +1544,35 @@ public object Glib {
      * @param arg1
      * @param cmp
      * @param arg2
+     * @param numtype
+     */
+    public fun assertionMessageCmpint(
+        domain: kotlin.String,
+        `file`: kotlin.String,
+        line: Int,
+        func: kotlin.String,
+        expr: kotlin.String,
+        arg1: ULong,
+        cmp: kotlin.String,
+        arg2: ULong,
+        numtype: Char,
+    ): Unit =
+        g_assertion_message_cmpint(
+            domain, `file`, line, func, expr, arg1, cmp, arg2,
+            numtype.code.toByte()
+        )
+
+    /**
+     *
+     *
+     * @param domain
+     * @param file
+     * @param line
+     * @param func
+     * @param expr
+     * @param arg1
+     * @param cmp
+     * @param arg2
      */
     public fun assertionMessageCmpstr(
         domain: kotlin.String,
@@ -1680,7 +1625,7 @@ public object Glib {
      *
      * @param fileName the name of the file
      * @return the name of the file without any leading
-     *     directory components
+     *   directory components
      */
     public fun basename(fileName: kotlin.String): kotlin.String =
         g_basename(fileName)?.toKString()
@@ -1728,17 +1673,24 @@ public object Glib {
      */
     public fun bitStorage(number: ULong): UInt = g_bit_storage(number)
 
+    public fun blowChunks(): Unit = g_blow_chunks()
+
     public fun bookmarkFileErrorQuark(): UInt = g_bookmark_file_error_quark()
 
     /**
-     * Behaves exactly like g_build_filename(), but takes the path elements
-     * as a string array, instead of varargs. This function is mainly
+     * Creates a filename from a vector of elements using the correct
+     * separator for the current platform.
+     *
+     * This function behaves exactly like g_build_filename(), but takes the path
+     * elements as a string array, instead of varargs. This function is mainly
      * meant for language bindings.
      *
+     * If you are building a path programmatically you may want to use
+     * #GPathBuf instead.
+     *
      * @param args null-terminated
-     *     array of strings containing the path elements.
-     * @return a newly-allocated string that
-     *     must be freed with g_free().
+     *   array of strings containing the path elements.
+     * @return the newly allocated path
      * @since 2.8
      */
     public fun buildFilenamev(args: List<kotlin.String>): kotlin.String =
@@ -1749,12 +1701,13 @@ public object Glib {
 
     /**
      * Behaves exactly like g_build_path(), but takes the path elements
-     * as a string array, instead of varargs. This function is mainly
-     * meant for language bindings.
+     * as a string array, instead of variadic arguments.
+     *
+     * This function is mainly meant for language bindings.
      *
      * @param separator a string used to separator the elements of the path.
      * @param args null-terminated
-     *     array of strings containing the path elements.
+     *   array of strings containing the path elements.
      * @return a newly-allocated string that
      *     must be freed with g_free().
      * @since 2.8
@@ -1788,7 +1741,7 @@ public object Glib {
      * @param relativeTo the relative directory, or null
      * to use the current working directory
      * @return a newly allocated string with the
-     * canonical file path
+     *   canonical file path
      * @since 2.58
      */
     public fun canonicalizeFilename(
@@ -1870,13 +1823,23 @@ public object Glib {
         }
 
     /**
-     * This wraps the close() call; in case of error, %errno will be
+     * This wraps the close() call. In case of error, %errno will be
      * preserved, but the error will also be stored as a #GError in @error.
+     * In case of success, %errno is undefined.
      *
      * Besides using #GError, there is another major reason to prefer this
      * function over the call provided by the system; on Unix, it will
      * attempt to correctly handle %EINTR, which has platform-specific
      * semantics.
+     *
+     * It is a bug to call this function with an invalid file descriptor.
+     *
+     * On POSIX platforms since GLib 2.76, this function is async-signal safe
+     * if (and only if) @error is null and @fd is a valid open file descriptor.
+     * This makes it safe to call from a signal handler or a #GSpawnChildSetupFunc
+     * under those conditions.
+     * See [`signal(7)`](man:signal(7)) and
+     * [`signal-safety(7)`](man:signal-safety(7)) for more details.
      *
      * @param fd A file descriptor
      * @return true on success, false if there was an error.
@@ -1892,6 +1855,29 @@ public object Glib {
                 Result.success(gResult)
             }
         }
+
+    /**
+     * Close every file descriptor equal to or greater than @lowfd.
+     *
+     * Typically @lowfd will be 3, to leave standard input, standard output
+     * and standard error open.
+     *
+     * This is the same as Linux `close_range (lowfd, ~0U, 0)`,
+     * but portable to other OSs and to older versions of Linux.
+     * Equivalently, it is the same as BSD `closefrom (lowfd)`, but portable,
+     * and async-signal-safe on all OSs.
+     *
+     * This function is async-signal safe, making it safe to call from a
+     * signal handler or a [callback@GLib.SpawnChildSetupFunc], as long as @lowfd is
+     * non-negative.
+     * See [`signal(7)`](man:signal(7)) and
+     * [`signal-safety(7)`](man:signal-safety(7)) for more details.
+     *
+     * @param lowfd Minimum fd to close, which must be non-negative
+     * @return 0 on success, -1 with errno set on error
+     * @since 2.80
+     */
+    public fun closefrom(lowfd: Int): Int = g_closefrom(lowfd)
 
     /**
      * Computes the checksum for a binary @data. This is a
@@ -2022,12 +2008,12 @@ public object Glib {
      * translations for the current locale.
      *
      * The advantage of using this function over dgettext() proper is that
-     * libraries using this function (like GTK+) will not use translations
+     * libraries using this function (like GTK) will not use translations
      * if the application using the library does not have translations for
      * the current locale.  This results in a consistent English-only
      * interface instead of one having partial translations.  For this
      * feature to work, the call to textdomain() and setlocale() should
-     * precede any g_dgettext() invocations.  For GTK+, it means calling
+     * precede any g_dgettext() invocations.  For GTK, it means calling
      * textdomain() before gtk_init or its variants.
      *
      * This function disables translations if and only if upon its first
@@ -2045,7 +2031,7 @@ public object Glib {
      *
      * Note that this behavior may not be desired for example if an application
      * has its untranslated messages in a language other than English. In those
-     * cases the application should call textdomain() after initializing GTK+.
+     * cases the application should call textdomain() after initializing GTK.
      *
      * Applications should normally not use this function directly,
      * but use the _() macro for translations.
@@ -2075,11 +2061,11 @@ public object Glib {
      * modified, and might thus be a read-only literal string.
      *
      * @param tmpl Template for directory name,
-     *     as in g_mkdtemp(), basename only, or null for a default template
+     *   as in g_mkdtemp(), basename only, or null for a default template
      * @return The actual name used. This string
-     *     should be freed with g_free() when not needed any longer and is
-     *     is in the GLib file name encoding. In case of errors, null is
-     *     returned and @error will be set.
+     *   should be freed with g_free() when not needed any longer and is
+     *   is in the GLib file name encoding. In case of errors, null is
+     *   returned and @error will be set.
      * @since 2.30
      */
     public fun dirMakeTmp(tmpl: kotlin.String? = null): Result<kotlin.String> =
@@ -2252,6 +2238,28 @@ public object Glib {
         }
 
     /**
+     * Mark every file descriptor equal to or greater than @lowfd to be closed
+     * at the next `execve()` or similar, as if via the `FD_CLOEXEC` flag.
+     *
+     * Typically @lowfd will be 3, to leave standard input, standard output
+     * and standard error open after exec.
+     *
+     * This is the same as Linux `close_range (lowfd, ~0U, CLOSE_RANGE_CLOEXEC)`,
+     * but portable to other OSs and to older versions of Linux.
+     *
+     * This function is async-signal safe, making it safe to call from a
+     * signal handler or a [callback@GLib.SpawnChildSetupFunc], as long as @lowfd is
+     * non-negative.
+     * See [`signal(7)`](man:signal(7)) and
+     * [`signal-safety(7)`](man:signal-safety(7)) for more details.
+     *
+     * @param lowfd Minimum fd to act on, which must be non-negative
+     * @return 0 on success, -1 with errno set on error
+     * @since 2.80
+     */
+    public fun fdwalkSetCloexec(lowfd: Int): Int = g_fdwalk_set_cloexec(lowfd)
+
+    /**
      * Gets a #GFileError constant based on the passed-in @err_no.
      *
      * For example, if you pass in `EEXIST` this function returns
@@ -2274,12 +2282,32 @@ public object Glib {
 
     /**
      * Reads the contents of the symbolic link @filename like the POSIX
-     * readlink() function.  The returned string is in the encoding used
-     * for filenames. Use g_filename_to_utf8() to convert it to UTF-8.
+     * `readlink()` function.
+     *
+     * The returned string is in the encoding used for filenames. Use
+     * g_filename_to_utf8() to convert it to UTF-8.
+     *
+     * The returned string may also be a relative path. Use g_build_filename()
+     * to convert it to an absolute path:
+     *
+     * |[<!-- language="C" -->
+     * g_autoptr(GError) local_error = NULL;
+     * g_autofree gchar *link_target = g_file_read_link ("/etc/localtime", &local_error);
+     *
+     * if (local_error != NULL)
+     *   g_error ("Error reading link: %s", local_error->message);
+     *
+     * if (!g_path_is_absolute (link_target))
+     *   {
+     *     g_autofree gchar *absolute_link_target = g_build_filename ("/etc", link_target, NULL);
+     *     g_free (link_target);
+     *     link_target = g_steal_pointer (&absolute_link_target);
+     *   }
+     * ]|
      *
      * @param filename the symbolic link
      * @return A newly-allocated string with
-     *     the contents of the symbolic link, or null if an error occurred.
+     *   the contents of the symbolic link, or null if an error occurred.
      * @since 2.4
      */
     public fun fileReadLink(filename: kotlin.String): Result<kotlin.String> =
@@ -2310,15 +2338,33 @@ public object Glib {
      *
      * You should never use g_file_test() to test whether it is safe
      * to perform an operation, because there is always the possibility
-     * of the condition changing before you actually perform the operation.
+     * of the condition changing before you actually perform the operation,
+     * see [TOCTOU](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use).
+     *
      * For example, you might think you could use %G_FILE_TEST_IS_SYMLINK
      * to know whether it is safe to write to a file without being
      * tricked into writing into a different location. It doesn't work!
+     *
      * |[<!-- language="C" -->
      *  // DON'T DO THIS
      *  if (!g_file_test (filename, G_FILE_TEST_IS_SYMLINK))
      *    {
      *      fd = g_open (filename, O_WRONLY);
+     *      // write to fd
+     *    }
+     *
+     *  // DO THIS INSTEAD
+     *  fd = g_open (filename, O_WRONLY | O_NOFOLLOW | O_CLOEXEC);
+     *  if (fd == -1)
+     *    {
+     *      // check error
+     *      if (errno == ELOOP)
+     *        // file is a symlink and can be ignored
+     *      else
+     *        // handle errors as before
+     *    }
+     *  else
+     *    {
      *      // write to fd
      *    }
      * ]|
@@ -2759,7 +2805,7 @@ public object Glib {
      * in contrast to g_get_application_name().
      *
      * If you are using #GApplication the program name is set in
-     * g_application_run(). In case of GDK or GTK+ it is set in
+     * g_application_run(). In case of GDK or GTK it is set in
      * gdk_init(), which is called by gtk_init() and the
      * #GtkApplication::startup handler. The program name is found by
      * taking the last component of @argv[0].
@@ -3093,6 +3139,80 @@ public object Glib {
     public fun hashTableDestroy(hashTable: HashTable): Unit = g_hash_table_destroy(hashTable.glibHashTablePointer)
 
     /**
+     * Calls the given function for each of the key/value pairs in the
+     * #GHashTable.  The function is passed the key and value of each
+     * pair, and the given @user_data parameter.  The hash table may not
+     * be modified while iterating over it (you can't add/remove
+     * items). To remove all items matching a predicate, use
+     * g_hash_table_foreach_remove().
+     *
+     * The order in which g_hash_table_foreach() iterates over the keys/values in
+     * the hash table is not defined.
+     *
+     * See g_hash_table_find() for performance caveats for linear
+     * order searches in contrast to g_hash_table_lookup().
+     *
+     * @param hashTable a #GHashTable
+     * @param func the function to call for each key/value pair
+     */
+    public fun hashTableForeach(
+        hashTable: HashTable,
+        func: HFunc,
+    ): Unit =
+        g_hash_table_foreach(
+            hashTable.glibHashTablePointer,
+            HFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
+
+    /**
+     * Calls the given function for each key/value pair in the
+     * #GHashTable. If the function returns true, then the key/value
+     * pair is removed from the #GHashTable. If you supplied key or
+     * value destroy functions when creating the #GHashTable, they are
+     * used to free the memory allocated for the removed keys and values.
+     *
+     * See #GHashTableIter for an alternative way to loop over the
+     * key/value pairs in the hash table.
+     *
+     * @param hashTable a #GHashTable
+     * @param func the function to call for each key/value pair
+     * @return the number of key/value pairs removed
+     */
+    public fun hashTableForeachRemove(
+        hashTable: HashTable,
+        func: HRFunc,
+    ): UInt =
+        g_hash_table_foreach_remove(
+            hashTable.glibHashTablePointer,
+            HRFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
+
+    /**
+     * Calls the given function for each key/value pair in the
+     * #GHashTable. If the function returns true, then the key/value
+     * pair is removed from the #GHashTable, but no key or value
+     * destroy functions are called.
+     *
+     * See #GHashTableIter for an alternative way to loop over the
+     * key/value pairs in the hash table.
+     *
+     * @param hashTable a #GHashTable
+     * @param func the function to call for each key/value pair
+     * @return the number of key/value pairs removed.
+     */
+    public fun hashTableForeachSteal(
+        hashTable: HashTable,
+        func: HRFunc,
+    ): UInt =
+        g_hash_table_foreach_steal(
+            hashTable.glibHashTablePointer,
+            HRFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
+
+    /**
      * Creates a new #GHashTable like g_hash_table_new_full() with a reference
      * count of 1.
      *
@@ -3108,6 +3228,19 @@ public object Glib {
      */
     public fun hashTableNewSimilar(otherHashTable: HashTable): HashTable =
         g_hash_table_new_similar(otherHashTable.glibHashTablePointer)!!.run {
+            HashTable(reinterpret())
+        }
+
+    /**
+     * Atomically increments the reference count of @hash_table by one.
+     * This function is MT-safe and may be called from any thread.
+     *
+     * @param hashTable a valid #GHashTable
+     * @return the passed in #GHashTable
+     * @since 2.10
+     */
+    public fun hashTableRef(hashTable: HashTable): HashTable =
+        g_hash_table_ref(hashTable.glibHashTablePointer)!!.run {
             HashTable(reinterpret())
         }
 
@@ -3387,35 +3520,6 @@ public object Glib {
         g_intern_string(string)?.toKString() ?: error("Expected not null string")
 
     /**
-     * Adds the #GIOChannel into the default main loop context
-     * with the given priority.
-     *
-     * This internally creates a main loop source using g_io_create_watch()
-     * and attaches it to the main loop context with g_source_attach().
-     * You can do these steps manually if you need greater control.
-     *
-     * @param channel a #GIOChannel
-     * @param priority the priority of the #GIOChannel source
-     * @param condition the condition to watch for
-     * @param func the function to call when the condition is satisfied
-     * @return the event source id
-     */
-    public fun ioAddWatch(
-        channel: IOChannel,
-        priority: Int,
-        condition: IOCondition,
-        func: IOFunc,
-    ): UInt =
-        g_io_add_watch_full(
-            channel.glibIOChannelPointer,
-            priority,
-            condition.mask,
-            IOFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
-
-    /**
      * Converts an `errno` error number to a #GIOChannelError.
      *
      * @param en an `errno` error number, e.g. `EINVAL`
@@ -3429,35 +3533,9 @@ public object Glib {
 
     public fun ioChannelErrorQuark(): UInt = g_io_channel_error_quark()
 
-    /**
-     * Creates a #GSource that's dispatched when @condition is met for the
-     * given @channel. For example, if condition is %G_IO_IN, the source will
-     * be dispatched when there's data available for reading.
-     *
-     * The callback function invoked by the #GSource should be added with
-     * g_source_set_callback(), but it has type #GIOFunc (not #GSourceFunc).
-     *
-     * g_io_add_watch() is a simpler interface to this same functionality, for
-     * the case where you want to add the source to the default main loop context
-     * at the default priority.
-     *
-     * On Windows, polling a #GSource created to watch a channel for a socket
-     * puts the socket in non-blocking mode. This is a side-effect of the
-     * implementation and unavoidable.
-     *
-     * @param channel a #GIOChannel to watch
-     * @param condition conditions to watch for
-     * @return a new #GSource
-     */
-    public fun ioCreateWatch(
-        channel: IOChannel,
-        condition: IOCondition,
-    ): Source =
-        g_io_create_watch(channel.glibIOChannelPointer, condition.mask)!!.run {
-            Source(reinterpret())
-        }
-
     public fun keyFileErrorQuark(): UInt = g_key_file_error_quark()
+
+    public fun listPopAllocator(): Unit = g_list_pop_allocator()
 
     /**
      * Gets the names of all variables set in the environment.
@@ -3481,14 +3559,15 @@ public object Glib {
     /**
      * Return whether debug output from the GLib logging system is enabled.
      *
-     * Note that this should not be used to conditionalise calls to g_debug() or
-     * other logging functions; it should only be used from %GLogWriterFunc
+     * Note that this should not be used to conditionalise calls to [func@GLib.debug] or
+     * other logging functions; it should only be used from [type@GLib.LogWriterFunc]
      * implementations.
      *
-     * Note also that the value of this does not depend on `G_MESSAGES_DEBUG`; see
-     * the docs for g_log_set_debug_enabled().
+     * Note also that the value of this does not depend on `G_MESSAGES_DEBUG`, nor
+     * [func@GLib.log_writer_default_set_debug_domains]; see the docs for
+     * [func@GLib.log_set_debug_enabled].
      *
-     * @return true if debug output is enabled, false otherwise
+     * @return `TRUE` if debug output is enabled, `FALSE` otherwise
      * @since 2.72
      */
     public fun logGetDebugEnabled(): Boolean = g_log_get_debug_enabled().asBoolean()
@@ -3497,11 +3576,11 @@ public object Glib {
      * Removes the log handler.
      *
      * This has no effect if structured logging is enabled; see
-     * [Using Structured Logging][using-structured-logging].
+     * [Using Structured Logging](logging.html#using-structured-logging).
      *
      * @param logDomain the log domain
-     * @param handlerId the id of the handler, which was returned
-     *     in g_log_set_handler()
+     * @param handlerId the ID of the handler, which was returned
+     *   in [func@GLib.log_set_handler]
      */
     public fun logRemoveHandler(
         logDomain: kotlin.String,
@@ -3510,9 +3589,10 @@ public object Glib {
 
     /**
      * Sets the message levels which are always fatal, in any log domain.
+     *
      * When a message with any of these levels is logged the program terminates.
      * You can only set the levels defined by GLib to be fatal.
-     * %G_LOG_LEVEL_ERROR is always fatal.
+     * [flags@GLib.LogLevelFlags.LEVEL_ERROR] is always fatal.
      *
      * You can also make some message levels fatal at runtime by setting
      * the `G_DEBUG` environment variable (see
@@ -3521,13 +3601,13 @@ public object Glib {
      * Libraries should not call this function, as it affects all messages logged
      * by a process, including those from other libraries.
      *
-     * Structured log messages (using g_log_structured() and
-     * g_log_structured_array()) are fatal only if the default log writer is used;
+     * Structured log messages (using [func@GLib.log_structured] and
+     * [func@GLib.log_structured_array]) are fatal only if the default log writer is used;
      * otherwise it is up to the writer function to determine which log messages
-     * are fatal. See [Using Structured Logging][using-structured-logging].
+     * are fatal. See [Using Structured Logging](logging.html#using-structured-logging).
      *
-     * @param fatalMask the mask containing bits set for each level
-     *     of error which is to be fatal
+     * @param fatalMask the mask containing bits set for each level of error which is
+     *   to be fatal
      * @return the old fatal mask
      */
     public fun logSetAlwaysFatal(fatalMask: LogLevelFlags): LogLevelFlags =
@@ -3537,31 +3617,35 @@ public object Glib {
 
     /**
      * Enable or disable debug output from the GLib logging system for all domains.
-     * This value interacts disjunctively with `G_MESSAGES_DEBUG` — if either of
-     * them would allow a debug message to be outputted, it will be.
+     *
+     * This value interacts disjunctively with `G_MESSAGES_DEBUG` and
+     * [func@GLib.log_writer_default_set_debug_domains] — if any of them would allow
+     * a debug message to be outputted, it will be.
      *
      * Note that this should not be used from within library code to enable debug
      * output — it is intended for external use.
      *
-     * @param enabled true to enable debug output, false otherwise
+     * @param enabled `TRUE` to enable debug output, `FALSE` otherwise
      * @since 2.72
      */
     public fun logSetDebugEnabled(enabled: Boolean): Unit = g_log_set_debug_enabled(enabled.asGBoolean())
 
     /**
      * Sets the log levels which are fatal in the given domain.
-     * %G_LOG_LEVEL_ERROR is always fatal.
      *
-     * This has no effect on structured log messages (using g_log_structured() or
-     * g_log_structured_array()). To change the fatal behaviour for specific log
+     * [flags@GLib.LogLevelFlags.LEVEL_ERROR] is always fatal.
+     *
+     * This has no effect on structured log messages (using [func@GLib.log_structured] or
+     * [func@GLib.log_structured_array]). To change the fatal behaviour for specific log
      * messages, programs must install a custom log writer function using
-     * g_log_set_writer_func(). See
-     * [Using Structured Logging][using-structured-logging].
+     * [func@GLib.log_set_writer_func]. See
+     * [Using Structured Logging](logging.html#using-structured-logging).
      *
      * This function is mostly intended to be used with
-     * %G_LOG_LEVEL_CRITICAL.  You should typically not set
-     * %G_LOG_LEVEL_WARNING, %G_LOG_LEVEL_MESSAGE, %G_LOG_LEVEL_INFO or
-     * %G_LOG_LEVEL_DEBUG as fatal except inside of test programs.
+     * [flags@GLib.LogLevelFlags.LEVEL_CRITICAL].  You should typically not set
+     * [flags@GLib.LogLevelFlags.LEVEL_WARNING], [flags@GLib.LogLevelFlags.LEVEL_MESSAGE],
+     * [flags@GLib.LogLevelFlags.LEVEL_INFO] or
+     * [flags@GLib.LogLevelFlags.LEVEL_DEBUG] as fatal except inside of test programs.
      *
      * @param logDomain the log domain
      * @param fatalMask the new fatal mask
@@ -3576,19 +3660,19 @@ public object Glib {
         }
 
     /**
-     * Like g_log_set_handler(), but takes a destroy notify for the @user_data.
+     * Like [func@GLib.log_set_handler], but takes a destroy notify for the @user_data.
      *
      * This has no effect if structured logging is enabled; see
-     * [Using Structured Logging][using-structured-logging].
+     * [Using Structured Logging](logging.html#using-structured-logging).
      *
-     * @param logDomain the log domain, or null for the default ""
+     * @param logDomain the log domain, or `NULL` for the default `""`
      *   application domain
      * @param logLevels the log levels to apply the log handler for.
      *   To handle fatal and recursive messages as well, combine
-     *   the log levels with the %G_LOG_FLAG_FATAL and
-     *   %G_LOG_FLAG_RECURSION bit flags.
+     *   the log levels with the [flags@GLib.LogLevelFlags.FLAG_FATAL] and
+     *   [flags@GLib.LogLevelFlags.FLAG_RECURSION] bit flags.
      * @param logFunc the log handler function
-     * @return the id of the new handler
+     * @return the ID of the new handler
      * @since 2.46
      */
     public fun logSetHandler(
@@ -3606,8 +3690,10 @@ public object Glib {
 
     /**
      * Set a writer function which will be called to format and write out each log
-     * message. Each program should set a writer function, or the default writer
-     * (g_log_writer_default()) will be used.
+     * message.
+     *
+     * Each program should set a writer function, or the default writer
+     * ([func@GLib.log_writer_default]) will be used.
      *
      * Libraries **must not** call this function — only programs are allowed to
      * install a writer function, as there must be a single, central point where
@@ -3615,7 +3701,7 @@ public object Glib {
      *
      * There can only be one writer function. It is an error to set more than one.
      *
-     * @param func log writer function, which must not be null
+     * @param func log writer function, which must not be `NULL`
      * @since 2.50
      */
     public fun logSetWriterFunc(func: LogWriterFunc): Unit =
@@ -3626,25 +3712,26 @@ public object Glib {
         )
 
     /**
-     * Log a message with structured data, accepting the data within a #GVariant. This
-     * version is especially useful for use in other languages, via introspection.
+     * Log a message with structured data, accepting the data within a [type@GLib.Variant].
      *
-     * The only mandatory item in the @fields dictionary is the "MESSAGE" which must
+     * This version is especially useful for use in other languages, via introspection.
+     *
+     * The only mandatory item in the @fields dictionary is the `"MESSAGE"` which must
      * contain the text shown to the user.
      *
-     * The values in the @fields dictionary are likely to be of type String
-     * (%G_VARIANT_TYPE_STRING). Array of bytes (%G_VARIANT_TYPE_BYTESTRING) is also
+     * The values in the @fields dictionary are likely to be of type `G_VARIANT_TYPE_STRING`.
+     * Array of bytes (`G_VARIANT_TYPE_BYTESTRING`) is also
      * supported. In this case the message is handled as binary and will be forwarded
      * to the log writer as such. The size of the array should not be higher than
-     * %G_MAXSSIZE. Otherwise it will be truncated to this size. For other types
-     * g_variant_print() will be used to convert the value into a string.
+     * `G_MAXSSIZE`. Otherwise it will be truncated to this size. For other types
+     * [method@GLib.Variant.print] will be used to convert the value into a string.
      *
-     * For more details on its usage and about the parameters, see g_log_structured().
+     * For more details on its usage and about the parameters, see [func@GLib.log_structured].
      *
-     * @param logDomain log domain, usually %G_LOG_DOMAIN
-     * @param logLevel log level, either from #GLogLevelFlags, or a user-defined
+     * @param logDomain log domain, usually `G_LOG_DOMAIN`
+     * @param logLevel log level, either from [type@GLib.LogLevelFlags], or a user-defined
      *    level
-     * @param fields a dictionary (#GVariant of the type %G_VARIANT_TYPE_VARDICT)
+     * @param fields a dictionary ([type@GLib.Variant] of the type `G_VARIANT_TYPE_VARDICT`)
      * containing the key-value pairs of message data.
      * @since 2.50
      */
@@ -3655,13 +3742,15 @@ public object Glib {
     ): Unit = g_log_variant(logDomain, logLevel.mask, fields.glibVariantPointer)
 
     /**
-     * Configure whether the built-in log functions
-     * (g_log_default_handler() for the old-style API, and both
-     * g_log_writer_default() and g_log_writer_standard_streams() for the
-     * structured API) will output all log messages to `stderr`.
+     * Configure whether the built-in log functions will output all log messages to
+     * `stderr`.
      *
-     * By default, log messages of levels %G_LOG_LEVEL_INFO and
-     * %G_LOG_LEVEL_DEBUG are sent to `stdout`, and other log messages are
+     * The built-in log functions are [func@GLib.log_default_handler] for the
+     * old-style API, and both [func@GLib.log_writer_default] and
+     * [func@GLib.log_writer_standard_streams] for the structured API.
+     *
+     * By default, log messages of levels [flags@GLib.LogLevelFlags.LEVEL_INFO] and
+     * [flags@GLib.LogLevelFlags.LEVEL_DEBUG] are sent to `stdout`, and other log messages are
      * sent to `stderr`. This is problematic for applications that intend
      * to reserve `stdout` for structured output such as JSON or XML.
      *
@@ -3669,7 +3758,7 @@ public object Glib {
      * called at the very start of a program, before creating any other threads
      * or creating objects that could create worker threads of their own.
      *
-     * @param useStderr If true, use `stderr` for log messages that would
+     * @param useStderr If `TRUE`, use `stderr` for log messages that would
      *  normally have appeared on `stdout`
      * @since 2.68
      */
@@ -3677,39 +3766,39 @@ public object Glib {
         g_log_writer_default_set_use_stderr(useStderr.asGBoolean())
 
     /**
-     * Check whether g_log_writer_default() and g_log_default_handler() would
+     * Check whether [func@GLib.log_writer_default] and [func@GLib.log_default_handler] would
      * ignore a message with the given domain and level.
      *
-     * As with g_log_default_handler(), this function drops debug and informational
+     * As with [func@GLib.log_default_handler], this function drops debug and informational
      * messages unless their log domain (or `all`) is listed in the space-separated
-     * `G_MESSAGES_DEBUG` environment variable.
+     * `G_MESSAGES_DEBUG` environment variable, or by
+     * [func@GLib.log_writer_default_set_debug_domains].
      *
      * This can be used when implementing log writers with the same filtering
      * behaviour as the default, but a different destination or output format:
      *
-     * |[<!-- language="C" -->
-     *   if (g_log_writer_default_would_drop (log_level, log_domain))
-     *     return G_LOG_WRITER_HANDLED;
+     * ```c
+     * if (g_log_writer_default_would_drop (log_level, log_domain))
+     *   return G_LOG_WRITER_HANDLED;
      * ]|
      *
      * or to skip an expensive computation if it is only needed for a debugging
      * message, and `G_MESSAGES_DEBUG` is not set:
      *
-     * |[<!-- language="C" -->
-     *   if (!g_log_writer_default_would_drop (G_LOG_LEVEL_DEBUG, G_LOG_DOMAIN))
-     *     {
-     *       gchar *result = expensive_computation (my_object);
+     * ```c
+     * if (!g_log_writer_default_would_drop (G_LOG_LEVEL_DEBUG, G_LOG_DOMAIN))
+     *   {
+     *     g_autofree gchar *result = expensive_computation (my_object);
      *
-     *       g_debug ("my_object result: %s", result);
-     *       g_free (result);
-     *     }
-     * ]|
+     *     g_debug ("my_object result: %s", result);
+     *   }
+     * ```
      *
-     * @param logLevel log level, either from #GLogLevelFlags, or a user-defined
+     * @param logLevel log level, either from [type@GLib.LogLevelFlags], or a user-defined
      *    level
      * @param logDomain log domain
-     * @return true if the log message would be dropped by GLib's
-     *  default log handlers
+     * @return `TRUE` if the log message would be dropped by GLib’s
+     *   default log handlers
      * @since 2.68
      */
     public fun logWriterDefaultWouldDrop(
@@ -3722,36 +3811,37 @@ public object Glib {
      * systemd journal, or something else (like a log file or `stdout` or
      * `stderr`).
      *
-     * Invalid file descriptors are accepted and return false, which allows for
+     * Invalid file descriptors are accepted and return `FALSE`, which allows for
      * the following construct without needing any additional error handling:
-     * |[<!-- language="C" -->
-     *   is_journald = g_log_writer_is_journald (fileno (stderr));
-     * ]|
+     * ```c
+     * is_journald = g_log_writer_is_journald (fileno (stderr));
+     * ```
      *
      * @param outputFd output file descriptor to check
-     * @return true if @output_fd points to the journal, false otherwise
+     * @return `TRUE` if @output_fd points to the journal, `FALSE` otherwise
      * @since 2.50
      */
     public fun logWriterIsJournald(outputFd: Int): Boolean = g_log_writer_is_journald(outputFd).asBoolean()
 
     /**
-     * Check whether the given @output_fd file descriptor supports ANSI color
-     * escape sequences. If so, they can safely be used when formatting log
-     * messages.
+     * Check whether the given @output_fd file descriptor supports
+     * [ANSI color escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code).
+     *
+     * If so, they can safely be used when formatting log messages.
      *
      * @param outputFd output file descriptor to check
-     * @return true if ANSI color escapes are supported, false otherwise
+     * @return `TRUE` if ANSI color escapes are supported, `FALSE` otherwise
      * @since 2.50
      */
     public fun logWriterSupportsColor(outputFd: Int): Boolean = g_log_writer_supports_color(outputFd).asBoolean()
 
     /**
-     * Returns the global default main context. This is the main context
+     * Returns the global-default main context. This is the main context
      * used for main loop functions when a main loop is not explicitly
      * specified, and corresponds to the "main" main loop. See also
      * g_main_context_get_thread_default().
      *
-     * @return the global default main context.
+     * @return the global-default main context.
      */
     public fun mainContextDefault(): MainContext =
         g_main_context_default()!!.run {
@@ -3772,7 +3862,7 @@ public object Glib {
      * g_main_context_ref_thread_default() instead.
      *
      * @return the thread-default #GMainContext, or
-     * null if the thread-default context is the global default context.
+     * null if the thread-default context is the global-default main context.
      * @since 2.22
      */
     public fun mainContextGetThreadDefault(): MainContext? =
@@ -3785,7 +3875,7 @@ public object Glib {
      * g_main_context_get_thread_default(), but also adds a reference to
      * it with g_main_context_ref(). In addition, unlike
      * g_main_context_get_thread_default(), if the thread-default context
-     * is the global default context, this will return that #GMainContext
+     * is the global-default context, this will return that #GMainContext
      * (with a ref added to it) rather than returning null.
      *
      * @return the thread-default #GMainContext. Unref
@@ -3811,7 +3901,7 @@ public object Glib {
     /**
      * Returns the depth of the stack of calls to
      * g_main_context_dispatch() on any #GMainContext in the current thread.
-     *  That is, when called from the toplevel, it gives 0. When
+     * That is, when called from the toplevel, it gives 0. When
      * called from within a callback from g_main_context_iteration()
      * (or g_main_loop_run(), etc.) it returns 1. When called from within
      * a callback to a recursive call to g_main_context_iteration(),
@@ -3942,6 +4032,8 @@ public object Glib {
         length: Long,
     ): kotlin.String = g_markup_escape_text(text, length)?.toKString() ?: error("Expected not null string")
 
+    public fun memChunkInfo(): Unit = g_mem_chunk_info()
+
     /**
      * Checks whether the allocator used by g_malloc() is the system's
      * malloc implementation. If it returns true memory allocated with
@@ -3984,6 +4076,8 @@ public object Glib {
         pathname: kotlin.String,
         mode: Int,
     ): Int = g_mkdir_with_parents(pathname, mode)
+
+    public fun nodePopAllocator(): Unit = g_node_pop_allocator()
 
     public fun numberParserErrorQuark(): UInt = g_number_parser_error_quark()
 
@@ -4074,7 +4168,7 @@ public object Glib {
      *
      * @param fileName the name of the file
      * @return a newly allocated string
-     *    containing the last component of the filename
+     *   containing the last component of the filename
      */
     public fun pathGetBasename(fileName: kotlin.String): kotlin.String =
         g_path_get_basename(fileName)?.toKString() ?: error("Expected not null string")
@@ -4195,7 +4289,7 @@ public object Glib {
      * with statically allocated strings in the main program, but not with
      * statically allocated memory in dynamically loaded modules, if you
      * expect to ever unload the module again (e.g. do not use this
-     * function in GTK+ theme engines).
+     * function in GTK theme engines).
      *
      * This function must not be used before library constructors have finished
      * running. In particular, this means it cannot be used to initialize global
@@ -4354,6 +4448,25 @@ public object Glib {
     ): kotlin.String = g_regex_escape_nul(string, length)?.toKString() ?: error("Expected not null string")
 
     /**
+     * Escapes the special characters used for regular expressions
+     * in @string, for instance "a.b*c" becomes "a\.b\*c". This
+     * function is useful to dynamically generate regular expressions.
+     *
+     * @string can contain nul characters that are replaced with "\0",
+     * in this case remember to specify the correct length of @string
+     * in @length.
+     *
+     * @param string the string to escape
+     * @param length the length of @string, in bytes, or -1 if @string is nul-terminated
+     * @return a newly-allocated escaped string
+     * @since 2.14
+     */
+    public fun regexEscapeString(
+        string: kotlin.String,
+        length: Int,
+    ): kotlin.String = g_regex_escape_string(string, length)?.toKString() ?: error("Expected not null string")
+
+    /**
      * Scans for a match in @string for @pattern.
      *
      * This function is equivalent to g_regex_match() but it does not
@@ -4487,7 +4600,7 @@ public object Glib {
      * in contrast to g_set_application_name().
      *
      * If you are using #GApplication the program name is set in
-     * g_application_run(). In case of GDK or GTK+ it is set in
+     * g_application_run(). In case of GDK or GTK it is set in
      * gdk_init(), which is called by gtk_init() and the
      * #GtkApplication::startup handler. The program name is found by
      * taking the last component of @argv[0].
@@ -4614,6 +4727,8 @@ public object Glib {
         ckey: SliceConfig,
         `value`: Long,
     ): Unit = g_slice_set_config(ckey.nativeValue, `value`)
+
+    public fun slistPopAllocator(): Unit = g_slist_pop_allocator()
 
     /**
      * Removes the source with the given ID from the default main context. You must
@@ -4849,44 +4964,56 @@ public object Glib {
     public fun testBugBase(uriPattern: kotlin.String): Unit = g_test_bug_base(uriPattern)
 
     /**
+     * Attempt to disable system crash reporting infrastructure.
+     *
+     * This function should be called before exercising code paths that are
+     * expected or intended to crash, to avoid wasting resources in system-wide
+     * crash collection infrastructure such as systemd-coredump or abrt.
+     *
+     * @since 2.78
+     */
+    public fun testDisableCrashReporting(): Unit = g_test_disable_crash_reporting()
+
+    /**
      * Indicates that a message with the given @log_domain and @log_level,
-     * with text matching @pattern, is expected to be logged. When this
-     * message is logged, it will not be printed, and the test case will
+     * with text matching @pattern, is expected to be logged.
+     *
+     * When this message is logged, it will not be printed, and the test case will
      * not abort.
      *
-     * This API may only be used with the old logging API (g_log() without
-     * %G_LOG_USE_STRUCTURED defined). It will not work with the structured logging
-     * API. See [Testing for Messages][testing-for-messages].
+     * This API may only be used with the old logging API ([func@GLib.log] without
+     * `G_LOG_USE_STRUCTURED` defined). It will not work with the structured logging
+     * API. See [Testing for Messages](logging.html#testing-for-messages).
      *
-     * Use g_test_assert_expected_messages() to assert that all
+     * Use [func@GLib.test_assert_expected_messages] to assert that all
      * previously-expected messages have been seen and suppressed.
      *
      * You can call this multiple times in a row, if multiple messages are
      * expected as a result of a single call. (The messages must appear in
-     * the same order as the calls to g_test_expect_message().)
+     * the same order as the calls to [func@GLib.test_expect_message].)
      *
      * For example:
      *
-     * |[<!-- language="C" -->
-     *   // g_main_context_push_thread_default() should fail if the
-     *   // context is already owned by another thread.
-     *   g_test_expect_message (G_LOG_DOMAIN,
-     *                          G_LOG_LEVEL_CRITICAL,
-     *                          "assertion*acquired_context*failed");
-     *   g_main_context_push_thread_default (bad_context);
-     *   g_test_assert_expected_messages ();
-     * ]|
+     * ```c
+     * // g_main_context_push_thread_default() should fail if the
+     * // context is already owned by another thread.
+     * g_test_expect_message (G_LOG_DOMAIN,
+     *                        G_LOG_LEVEL_CRITICAL,
+     *                        "assertion*acquired_context*failed");
+     * g_main_context_push_thread_default (bad_context);
+     * g_test_assert_expected_messages ();
+     * ```
      *
-     * Note that you cannot use this to test g_error() messages, since
-     * g_error() intentionally never returns even if the program doesn't
-     * abort; use g_test_trap_subprocess() in this case.
+     * Note that you cannot use this to test [func@GLib.error] messages, since
+     * [func@GLib.error] intentionally never returns even if the program doesn’t
+     * abort; use [func@GLib.test_trap_subprocess] in this case.
      *
-     * If messages at %G_LOG_LEVEL_DEBUG are emitted, but not explicitly
-     * expected via g_test_expect_message() then they will be ignored.
+     * If messages at [flags@GLib.LogLevelFlags.LEVEL_DEBUG] are emitted, but not explicitly
+     * expected via [func@GLib.test_expect_message] then they will be ignored.
      *
      * @param logDomain the log domain of the message
      * @param logLevel the log level of the message
-     * @param pattern a glob-style [pattern][glib-Glob-style-pattern-matching]
+     * @param pattern a glob-style pattern (see [type@GLib.PatternSpec])
      * @since 2.34
      */
     public fun testExpectMessage(
@@ -4958,6 +5085,8 @@ public object Glib {
      * e.g. g_test_add() when the test was added.
      *
      * This function returns a valid string only within a test function.
+     *
+     * Note that this is a test path, not a file system path.
      *
      * @return the test path for the test currently being run
      * @since 2.68
@@ -5256,6 +5385,25 @@ public object Glib {
 
     /**
      * Respawns the test program to run only @test_path in a subprocess.
+     *
+     * This is equivalent to calling g_test_trap_subprocess_with_envp() with `envp`
+     * set to null. See the documentation for that function for full details.
+     *
+     * @param testPath Test to run in a subprocess
+     * @param usecTimeout Timeout for the subprocess test in micro seconds.
+     * @param testFlags Flags to modify subprocess behaviour.
+     * @since 2.38
+     */
+    public fun testTrapSubprocess(
+        testPath: kotlin.String? = null,
+        usecTimeout: ULong,
+        testFlags: TestSubprocessFlags,
+    ): Unit = g_test_trap_subprocess(testPath, usecTimeout, testFlags.mask)
+
+    /**
+     * Respawns the test program to run only @test_path in a subprocess with the
+     * given @envp environment.
+     *
      * This can be used for a test case that might not return, or that
      * might abort.
      *
@@ -5268,6 +5416,8 @@ public object Glib {
      * ending with "`/subprocess`" if the test only has one child test);
      * tests with names of this form will automatically be skipped in the
      * parent process.
+     *
+     * If @envp is null, the parent process’ environment will be inherited.
      *
      * If @usec_timeout is non-0, the test subprocess is aborted and
      * considered failing if its run time exceeds it.
@@ -5286,6 +5436,11 @@ public object Glib {
      * the subprocess, you can call g_test_subprocess() (after calling
      * g_test_init()) to see whether you are in a subprocess.
      *
+     * Internally, this function tracks the child process using
+     * g_child_watch_source_new(), so your process must not ignore `SIGCHLD`, and
+     * must not attempt to watch or wait for the child process via another
+     * mechanism.
+     *
      * The following example tests that calling
      * `my_object_new(1000000)` will abort with an error
      * message.
@@ -5301,9 +5456,27 @@ public object Glib {
      *       }
      *
      *     // Reruns this same test in a subprocess
-     *     g_test_trap_subprocess (NULL, 0, 0);
+     *     g_test_trap_subprocess (NULL, 0, G_TEST_SUBPROCESS_DEFAULT);
      *     g_test_trap_assert_failed ();
      *     g_test_trap_assert_stderr ("*ERROR*too large*");
+     *   }
+     *
+     *   static void
+     *   test_different_username (void)
+     *   {
+     *     if (g_test_subprocess ())
+     *       {
+     *         // Code under test goes here
+     *         g_message ("Username is now simulated as %s", g_getenv ("USER"));
+     *         return;
+     *       }
+     *
+     *     // Reruns this same test in a subprocess
+     *     g_autoptr(GStrv) envp = g_get_environ ();
+     *     envp = g_environ_setenv (g_steal_pointer (&envp), "USER", "charlie", TRUE);
+     *     g_test_trap_subprocess_with_envp (NULL, envp, 0, G_TEST_SUBPROCESS_DEFAULT);
+     *     g_test_trap_assert_passed ();
+     *     g_test_trap_assert_stdout ("Username is now simulated as charlie");
      *   }
      *
      *   int
@@ -5311,22 +5484,36 @@ public object Glib {
      *   {
      *     g_test_init (&argc, &argv, NULL);
      *
-     *     g_test_add_func ("/myobject/create_large_object",
+     *     g_test_add_func ("/myobject/create-large-object",
      *                      test_create_large_object);
+     *     g_test_add_func ("/myobject/different-username",
+     *                      test_different_username);
      *     return g_test_run ();
      *   }
      * ]|
      *
      * @param testPath Test to run in a subprocess
+     * @param envp Environment
+     *   to run the test in, or null to inherit the parent’s environment. This must
+     *   be in the GLib filename encoding.
      * @param usecTimeout Timeout for the subprocess test in micro seconds.
      * @param testFlags Flags to modify subprocess behaviour.
-     * @since 2.38
+     * @since 2.80
      */
-    public fun testTrapSubprocess(
+    public fun testTrapSubprocessWithEnvp(
         testPath: kotlin.String? = null,
+        envp: List<kotlin.String>? = null,
         usecTimeout: ULong,
         testFlags: TestSubprocessFlags,
-    ): Unit = g_test_trap_subprocess(testPath, usecTimeout, testFlags.mask)
+    ): Unit =
+        memScoped {
+            return g_test_trap_subprocess_with_envp(
+                testPath,
+                envp?.toCStringList(this),
+                usecTimeout,
+                testFlags.mask
+            )
+        }
 
     public fun threadErrorQuark(): UInt = g_thread_error_quark()
 
@@ -5952,58 +6139,6 @@ public object Glib {
     public fun unixErrorQuark(): UInt = g_unix_error_quark()
 
     /**
-     * Sets a function to be called when the IO condition, as specified by
-     * @condition becomes true for @fd.
-     *
-     * This is the same as g_unix_fd_add(), except that it allows you to
-     * specify a non-default priority and a provide a #GDestroyNotify for
-     * @user_data.
-     *
-     * @param priority the priority of the source
-     * @param fd a file descriptor
-     * @param condition IO conditions to watch for on @fd
-     * @param function a #GUnixFDSourceFunc
-     * @return the ID (greater than 0) of the event source
-     * @since 2.36
-     */
-    public fun unixFdAddFull(
-        priority: Int,
-        fd: Int,
-        condition: IOCondition,
-        function: UnixFDSourceFunc,
-    ): UInt =
-        g_unix_fd_add_full(
-            priority,
-            fd,
-            condition.mask,
-            UnixFDSourceFuncFunc.reinterpret(),
-            StableRef.create(function).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
-
-    /**
-     * Creates a #GSource to watch for a particular IO condition on a file
-     * descriptor.
-     *
-     * The source will never close the fd -- you must do it yourself.
-     *
-     * @param fd a file descriptor
-     * @param condition IO conditions to watch for on @fd
-     * @return the newly created #GSource
-     * @since 2.36
-     */
-    public fun unixFdSourceNew(
-        fd: Int,
-        condition: IOCondition,
-    ): Source =
-        g_unix_fd_source_new(
-            fd,
-            condition.mask
-        )!!.run {
-            Source(reinterpret())
-        }
-
-    /**
      * Control the non-blocking state of the given file descriptor,
      * according to @nonblock. On most systems this uses %O_NONBLOCK, but
      * on some older ones may use %O_NDELAY.
@@ -6064,11 +6199,11 @@ public object Glib {
      *
      * For example, an effective use of this function is to handle `SIGTERM`
      * cleanly; flushing any outstanding files, and then calling
-     * g_main_loop_quit ().  It is not safe to do any of this a regular
-     * UNIX signal handler; your handler may be invoked while malloc() or
-     * another library function is running, causing reentrancy if you
-     * attempt to use it from the handler.  None of the GLib/GObject API
-     * is safe against this kind of reentrancy.
+     * g_main_loop_quit().  It is not safe to do any of this from a regular
+     * UNIX signal handler; such a handler may be invoked while malloc() or
+     * another library function is running, causing reentrancy issues if the
+     * handler attempts to use those functions.  None of the GLib/GObject
+     * API is safe against this kind of reentrancy.
      *
      * The interaction of this source when combined with native UNIX
      * functions like sigprocmask() is not defined.
@@ -6235,7 +6370,7 @@ public object Glib {
 
     /**
      * Parses @uri_string according to @flags, to determine whether it is a valid
-     * [absolute URI][relative-absolute-uris], i.e. it does not need to be resolved
+     * [absolute URI](#relative-and-absolute-uris), i.e. it does not need to be resolved
      * relative to another URI using g_uri_parse_relative().
      *
      * If it’s not a valid URI, an error is returned explaining how it’s invalid.
@@ -6269,7 +6404,7 @@ public object Glib {
      *
      * When @host is present, @path must either be empty or begin with a slash (`/`)
      * character. When @host is not present, @path cannot begin with two slash
-     *    characters (`//`). See
+     * characters (`//`). See
      * [RFC 3986, section 3](https://tools.ietf.org/html/rfc3986#section-3).
      *
      * See also g_uri_join_with_user(), which allows specifying the
@@ -6370,7 +6505,7 @@ public object Glib {
 
     /**
      * Parses @uri_string according to @flags. If the result is not a
-     * valid [absolute URI][relative-absolute-uris], it will be discarded, and an
+     * valid [absolute URI](#relative-and-absolute-uris), it will be discarded, and an
      * error returned.
      *
      * @param uriString a string representing an absolute URI
@@ -6494,7 +6629,7 @@ public object Glib {
 
     /**
      * Parses @uri_ref according to @flags and, if it is a
-     * [relative URI][relative-absolute-uris], resolves it relative to
+     * [relative URI](#relative-and-absolute-uris), resolves it relative to
      * @base_uri_string. If the result is not a valid absolute URI, it will be
      * discarded, and an error returned.
      *
@@ -6758,10 +6893,10 @@ public object Glib {
     /**
      *
      *
-     * @param arg0
+     * @param typeString
      */
-    public fun variantTypeChecked(arg0: kotlin.String): VariantType =
-        g_variant_type_checked_(arg0)!!.run {
+    public fun variantTypeChecked(typeString: kotlin.String): VariantType =
+        g_variant_type_checked_(typeString)!!.run {
             VariantType(reinterpret())
         }
 
@@ -6865,6 +7000,14 @@ public object Glib {
     }
 }
 
+public val CacheDestroyFuncFunc: CPointer<CFunction<() -> Unit>> =
+    staticCFunction {
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<() -> Unit>().get().invoke()
+    }
+        .reinterpret()
+
 public val ChildWatchFuncFunc: CPointer<CFunction<(Int) -> Unit>> =
     staticCFunction {
             waitStatus: Int,
@@ -6899,6 +7042,36 @@ public val CompareFuncFunc: CPointer<CFunction<() -> Int>> =
     }
         .reinterpret()
 
+public val CompletionStrncmpFuncFunc: CPointer<
+    CFunction<
+        (
+            CPointer<ByteVar>,
+            CPointer<ByteVar>,
+            ULong,
+        ) -> Int
+    >
+> =
+    staticCFunction {
+            s1: CPointer<ByteVar>?,
+            s2: CPointer<ByteVar>?,
+            n: ULong,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<
+            (
+                s1: kotlin.String,
+                s2: kotlin.String,
+                n: ULong,
+            ) -> Int
+        >().get().invoke(
+            s1?.toKString() ?: error("Expected not null string"),
+            s2?.toKString()
+                ?: error("Expected not null string"),
+            n
+        )
+    }
+        .reinterpret()
+
 public val DataForeachFuncFunc: CPointer<CFunction<(UInt) -> Unit>> =
     staticCFunction {
             keyId: UInt,
@@ -6917,6 +7090,14 @@ public val DestroyNotifyFunc: CPointer<CFunction<() -> Unit>> =
         .reinterpret()
 
 public val EqualFuncFunc: CPointer<CFunction<() -> Int>> =
+    staticCFunction {
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
+    }
+        .reinterpret()
+
+public val EqualFuncFullFunc: CPointer<CFunction<() -> Int>> =
     staticCFunction {
             userData: COpaquePointer,
         ->
@@ -7108,23 +7289,14 @@ public val HookMarshallerFunc: CPointer<CFunction<(CPointer<GHook>) -> Unit>> =
     }
         .reinterpret()
 
-public val IOFuncFunc: CPointer<CFunction<(CPointer<GIOChannel>, GIOCondition) -> Int>> =
+public val IOFuncFunc: CPointer<CFunction<(CPointer<GIOChannel>) -> Int>> =
     staticCFunction {
             source: CPointer<GIOChannel>?,
-            condition: GIOCondition,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                source: IOChannel,
-                condition: IOCondition,
-            ) -> Boolean
-        >().get().invoke(
+        userData.asStableRef<(source: IOChannel) -> Boolean>().get().invoke(
             source!!.run {
                 IOChannel(reinterpret())
-            },
-            condition.run {
-                IOCondition(this)
             }
         ).asGBoolean()
     }
@@ -7347,6 +7519,14 @@ public val SourceFuncFunc: CPointer<CFunction<() -> Int>> =
     }
         .reinterpret()
 
+public val SourceOnceFuncFunc: CPointer<CFunction<() -> Unit>> =
+    staticCFunction {
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<() -> Unit>().get().invoke()
+    }
+        .reinterpret()
+
 public val SpawnChildSetupFuncFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
             userData: COpaquePointer,
@@ -7426,18 +7606,12 @@ public val TraverseNodeFuncFunc: CPointer<CFunction<() -> Int>> =
     }
         .reinterpret()
 
-public val UnixFDSourceFuncFunc: CPointer<CFunction<(Int, GIOCondition) -> Int>> =
+public val UnixFDSourceFuncFunc: CPointer<CFunction<(Int) -> Int>> =
     staticCFunction {
             fd: Int,
-            condition: GIOCondition,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(fd: Int, condition: IOCondition) -> Boolean>().get().invoke(
-            fd,
-            condition.run {
-                IOCondition(this)
-            }
-        ).asGBoolean()
+        userData.asStableRef<(fd: Int) -> Boolean>().get().invoke(fd).asGBoolean()
     }
         .reinterpret()
 
@@ -7448,6 +7622,14 @@ public val VoidFuncFunc: CPointer<CFunction<() -> Unit>> =
         userData.asStableRef<() -> Unit>().get().invoke()
     }
         .reinterpret()
+
+/**
+ * Specifies the type of the @value_destroy_func and @key_destroy_func
+ * functions passed to g_cache_new(). The functions are passed a
+ * pointer to the #GCache key or #GCache value and should free any
+ * memory and other resources associated with it.
+ */
+public typealias CacheDestroyFunc = () -> Unit
 
 /**
  * Prototype of a #GChildWatchSource callback, called when a child
@@ -7496,6 +7678,25 @@ public typealias CompareDataFunc = () -> Int
 public typealias CompareFunc = () -> Int
 
 /**
+ * Specifies the type of the function passed to
+ * g_completion_set_compare(). This is used when you use strings as
+ * #GCompletion items.
+ *
+ * - param `s1` string to compare with @s2.
+ * - param `s2` string to compare with @s1.
+ * - param `n` maximal number of bytes to compare.
+ * - return an integer less than, equal to, or greater than zero if
+ *          the first @n bytes of @s1 is found, respectively, to be
+ *          less than, to match, or to be greater than the first @n
+ *          bytes of @s2.
+ */
+public typealias CompletionStrncmpFunc = (
+    s1: kotlin.String,
+    s2: kotlin.String,
+    n: ULong,
+) -> Int
+
+/**
  * Specifies the type of function passed to g_dataset_foreach(). It is
  * called with each #GQuark id and associated data element, together
  * with the @user_data parameter supplied to g_dataset_foreach().
@@ -7519,6 +7720,18 @@ public typealias DestroyNotify = () -> Unit
  * - return true if @a = @b; false otherwise
  */
 public typealias EqualFunc = () -> Boolean
+
+/**
+ * Specifies the type of a function used to test two values for
+ * equality. The function should return true if both values are equal
+ * and false otherwise.
+ *
+ * This is a version of #GEqualFunc which provides a @user_data closure from
+ * the caller.
+ *
+ * - return true if @a = @b; false otherwise
+ */
+public typealias EqualFuncFull = () -> Boolean
 
 /**
  * Specifies the type of function which is called when an extended
@@ -7563,7 +7776,7 @@ public typealias ErrorInitFunc = (error: Error) -> Unit
 /**
  * Declares a type of function which takes an arbitrary
  * data pointer argument and has no return value. It is
- * not currently used in GLib or GTK+.
+ * not currently used in GLib or GTK.
  */
 public typealias FreeFunc = () -> Unit
 
@@ -7690,27 +7903,26 @@ public typealias HookMarshaller = (hook: Hook) -> Unit
  * on a #GIOChannel is satisfied.
  *
  * - param `source` the #GIOChannel event source
- * - param `condition` the condition which has been satisfied
  * - return the function should return false if the event source
  *          should be removed
  */
-public typealias IOFunc = (source: IOChannel, condition: IOCondition) -> Boolean
+public typealias IOFunc = (source: IOChannel) -> Boolean
 
 /**
  * Specifies the prototype of log handler functions.
  *
- * The default log handler, g_log_default_handler(), automatically appends a
+ * The default log handler, [func@GLib.log_default_handler], automatically appends a
  * new-line character to @message when printing it. It is advised that any
  * custom log handler functions behave similarly, so that logging calls in user
  * code do not need modifying to add a new-line character to the message if the
  * log handler is changed.
  *
  * This is not used if structured logging is enabled; see
- * [Using Structured Logging][using-structured-logging].
+ * [Using Structured Logging](logging.html#using-structured-logging).
  *
  * - param `logDomain` the log domain of the message
  * - param `logLevel` the log level of the message (including the
- *     fatal and recursion flags)
+ *   fatal and recursion flags)
  * - param `message` the message to process
  */
 public typealias LogFunc = (
@@ -7857,6 +8069,14 @@ public typealias SourceDummyMarshal = () -> Unit
 public typealias SourceFunc = () -> Boolean
 
 /**
+ * A source function that is only called once before being removed from the main
+ * context automatically.
+ *
+ * See: g_idle_add_once(), g_timeout_add_once()
+ */
+public typealias SourceOnceFunc = () -> Unit
+
+/**
  * Specifies the type of the setup function passed to g_spawn_async(),
  * g_spawn_sync() and g_spawn_async_with_pipes(), which can, in very
  * limited ways, be used to affect the child's execution.
@@ -7954,10 +8174,9 @@ public typealias TraverseNodeFunc = () -> Boolean
  * triggers.
  *
  * - param `fd` the fd that triggered the event
- * - param `condition` the IO conditions reported on @fd
  * - return false if the source should be removed
  */
-public typealias UnixFDSourceFunc = (fd: Int, condition: IOCondition) -> Boolean
+public typealias UnixFDSourceFunc = (fd: Int) -> Boolean
 
 /**
  * Declares a type of function which takes no arguments

@@ -7,7 +7,6 @@ import org.gtkkn.native.adw.AdwFoldThresholdPolicy.ADW_FOLD_THRESHOLD_POLICY_NAT
 
 /**
  * Determines when [class@Flap] and [class@Leaflet] will fold.
- * @since 1.0
  */
 public enum class FoldThresholdPolicy(
     public val nativeValue: AdwFoldThresholdPolicy,

@@ -7,7 +7,6 @@ import org.gtkkn.native.adw.AdwCenteringPolicy.ADW_CENTERING_POLICY_STRICT
 
 /**
  * Describes title centering behavior of a [class@HeaderBar] widget.
- * @since 1.0
  */
 public enum class CenteringPolicy(
     public val nativeValue: AdwCenteringPolicy,

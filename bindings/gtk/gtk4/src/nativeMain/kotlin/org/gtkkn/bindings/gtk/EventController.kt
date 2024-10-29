@@ -25,6 +25,7 @@ import org.gtkkn.native.gtk.gtk_event_controller_reset
 import org.gtkkn.native.gtk.gtk_event_controller_set_name
 import org.gtkkn.native.gtk.gtk_event_controller_set_propagation_limit
 import org.gtkkn.native.gtk.gtk_event_controller_set_propagation_phase
+import org.gtkkn.native.gtk.gtk_event_controller_set_static_name
 import kotlin.String
 import kotlin.UInt
 import kotlin.Unit
@@ -41,7 +42,7 @@ import kotlin.Unit
  *
  * See the chapter on [input handling](input-handling.html) for
  * an overview of the basic concepts, such as the capture and bubble
- * phases of even propagation.
+ * phases of event propagation.
  */
 public open class EventController(
     pointer: CPointer<GtkEventController>,
@@ -268,6 +269,15 @@ public open class EventController(
             gtkEventControllerPointer.reinterpret(),
             phase.nativeValue
         )
+
+    /**
+     * Sets a name on the controller that can be used for debugging.
+     *
+     * @param name a name for @controller, must be a static string
+     * @since 4.8
+     */
+    public open fun setStaticName(name: String? = null): Unit =
+        gtk_event_controller_set_static_name(gtkEventControllerPointer.reinterpret(), name)
 
     public companion object : TypeCompanion<EventController> {
         override val type: GeneratedClassKGType<EventController> =

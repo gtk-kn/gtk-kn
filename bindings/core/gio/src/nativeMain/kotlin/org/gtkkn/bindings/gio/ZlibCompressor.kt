@@ -17,7 +17,7 @@ import kotlin.Int
 import kotlin.Unit
 
 /**
- * #GZlibCompressor is an implementation of #GConverter that
+ * `GZlibCompressor` is an implementation of [iface@Gio.Converter] that
  * compresses data using zlib.
  *
  * ## Skipped during bindings generation

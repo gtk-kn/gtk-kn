@@ -25,8 +25,6 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_spin_new
  * of `GtkCellRendererSpin:digits` to display. Other `GtkSpinButton` properties
  * can be set in a handler for the `GtkCellRenderer::editing-started` signal.
  *
- * The `GtkCellRendererSpin` cell renderer was added in GTK 2.10.
- *
  * ## Skipped during bindings generation
  *
  * - method `adjustment`: Property has no getter nor setter

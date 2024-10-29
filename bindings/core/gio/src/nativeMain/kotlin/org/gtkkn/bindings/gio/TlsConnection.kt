@@ -60,12 +60,13 @@ import kotlin.Unit
 import kotlin.collections.List
 
 /**
- * #GTlsConnection is the base TLS connection class type, which wraps
- * a #GIOStream and provides TLS encryption on top of it. Its
- * subclasses, #GTlsClientConnection and #GTlsServerConnection,
- * implement client-side and server-side TLS, respectively.
+ * `GTlsConnection` is the base TLS connection class type, which wraps
+ * a [class@Gio.IOStream] and provides TLS encryption on top of it. Its
+ * subclasses, [iface@Gio.TlsClientConnection] and
+ * [iface@Gio.TlsServerConnection], implement client-side and server-side TLS,
+ * respectively.
  *
- * For DTLS (Datagram TLS) support, see #GDtlsConnection.
+ * For DTLS (Datagram TLS) support, see [iface@Gio.DtlsConnection].
  *
  * ## Skipped during bindings generation
  *
@@ -149,7 +150,7 @@ public open class TlsConnection(
          * #GTlsClientConnection:validation-flags).
          *
          * There are nonintuitive security implications when using a non-default
-         * database. See #GDtlsConnection:database for details.
+         * database. See #GTlsConnection:database for details.
          *
          * @param database a #GTlsDatabase
          * @since 2.30
@@ -750,7 +751,7 @@ public open class TlsConnection(
      * #GTlsClientConnection:validation-flags).
      *
      * There are nonintuitive security implications when using a non-default
-     * database. See #GDtlsConnection:database for details.
+     * database. See #GTlsConnection:database for details.
      *
      * @param database a #GTlsDatabase
      * @since 2.30

@@ -73,6 +73,12 @@ import kotlin.collections.List
  *   </suffixes>
  * </object>
  * ```
+ *
+ * ## Skipped during bindings generation
+ *
+ * - method `mime-types`: Property has no getter nor setter
+ * - method `patterns`: Property has no getter nor setter
+ * - method `suffixes`: Property has no getter nor setter
  */
 public open class FileFilter(
     pointer: CPointer<GtkFileFilter>,

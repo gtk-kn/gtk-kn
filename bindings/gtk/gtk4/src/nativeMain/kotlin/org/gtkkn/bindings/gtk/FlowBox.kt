@@ -44,6 +44,7 @@ import org.gtkkn.native.gtk.gtk_flow_box_invalidate_sort
 import org.gtkkn.native.gtk.gtk_flow_box_new
 import org.gtkkn.native.gtk.gtk_flow_box_prepend
 import org.gtkkn.native.gtk.gtk_flow_box_remove
+import org.gtkkn.native.gtk.gtk_flow_box_remove_all
 import org.gtkkn.native.gtk.gtk_flow_box_select_all
 import org.gtkkn.native.gtk.gtk_flow_box_select_child
 import org.gtkkn.native.gtk.gtk_flow_box_selected_foreach
@@ -487,7 +488,7 @@ public open class FlowBox(
      * Updates the filtering for all children.
      *
      * Call this function when the result of the filter
-     * function on the @box is changed due ot an external
+     * function on the @box is changed due to an external
      * factor. For instance, this would be used if the
      * filter function just looked for a specific search
      * term, and the entry with the string has changed.
@@ -529,6 +530,15 @@ public open class FlowBox(
             gtkFlowBoxPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret()
         )
+
+    /**
+     * Removes all children from @box.
+     *
+     * This function does nothing if @box is backed by a model.
+     *
+     * @since 4.12
+     */
+    public open fun removeAll(): Unit = gtk_flow_box_remove_all(gtkFlowBoxPointer.reinterpret())
 
     /**
      * Select all children of @box, if the selection
@@ -801,7 +811,7 @@ public open class FlowBox(
      * - <kbd>PgUp</kbd>, <kbd>PgDn</kbd> move vertically by pages
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `step` the granularity fo the move, as a
+     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a
      * `GtkMovementStep`; `count` the number of @step units to move; `extend` whether to extend the
      * selection; `modify` whether to modify the selection. Returns true to stop other handlers from
      * being invoked for the event.

@@ -41,19 +41,26 @@ import kotlin.Unit
  * empty area, or by dragging the handle.
  *
  * `GtkSwitch` can also handle situations where the underlying state
- * changes with a delay. See [signal@GtkSwitch::state-set] for details.
+ * changes with a delay. In this case, the slider position indicates
+ * the user's recent change (as indicated by the [property@Gtk.Switch:active]
+ * property), and the color indicates whether the underlying state (represented
+ * by the [property@Gtk.Switch:state] property) has been updated yet.
+ *
+ * ![GtkSwitch with delayed state change](switch-state.png)
+ *
+ * See [signal@Gtk.Switch::state-set] for details.
  *
  * # CSS nodes
  *
  * ```
  * switch
- * ├── label
- * ├── label
+ * ├── image
+ * ├── image
  * ╰── slider
  * ```
  *
  * `GtkSwitch` has four css nodes, the main node with the name switch and
- * subnodes for the slider and the on and off labels. Neither of them is
+ * subnodes for the slider and the on and off images. Neither of them is
  * using any style classes.
  *
  * # Accessibility
@@ -99,7 +106,7 @@ public open class Switch(
     /**
      * The backend state that is controlled by the switch.
      *
-     * See [signal@GtkSwitch::state-set] for details.
+     * See [signal@Gtk.Switch::state-set] for details.
      */
     public open var state: Boolean
         /**
@@ -112,9 +119,8 @@ public open class Switch(
         /**
          * Sets the underlying state of the `GtkSwitch`.
          *
-         * Normally, this is the same as [property@Gtk.Switch:active], unless
-         * the switch is set up for delayed state changes. This function is
-         * typically called from a [signal@Gtk.Switch::state-set] signal handler.
+         * This function is typically called from a [signal@Gtk.Switch::state-set]
+         * signal handler in order to set up delayed state changes.
          *
          * See [signal@Gtk.Switch::state-set] for details.
          *
@@ -154,9 +160,8 @@ public open class Switch(
     /**
      * Sets the underlying state of the `GtkSwitch`.
      *
-     * Normally, this is the same as [property@Gtk.Switch:active], unless
-     * the switch is set up for delayed state changes. This function is
-     * typically called from a [signal@Gtk.Switch::state-set] signal handler.
+     * This function is typically called from a [signal@Gtk.Switch::state-set]
+     * signal handler in order to set up delayed state changes.
      *
      * See [signal@Gtk.Switch::state-set] for details.
      *

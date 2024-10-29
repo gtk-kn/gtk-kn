@@ -7,8 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.native.adw.adw_breakpoint_condition_parse
 import org.gtkkn.native.adw.adw_easing_ease
 import org.gtkkn.native.adw.adw_get_enable_animations
 import org.gtkkn.native.adw.adw_get_major_version
@@ -16,6 +18,8 @@ import org.gtkkn.native.adw.adw_get_micro_version
 import org.gtkkn.native.adw.adw_get_minor_version
 import org.gtkkn.native.adw.adw_init
 import org.gtkkn.native.adw.adw_is_initialized
+import org.gtkkn.native.adw.adw_length_unit_from_px
+import org.gtkkn.native.adw.adw_length_unit_to_px
 import org.gtkkn.native.adw.adw_lerp
 import kotlin.Boolean
 import kotlin.Double
@@ -27,13 +31,19 @@ import kotlin.Unit
 /**
  * ## Skipped during bindings generation
  *
+ * - record `AboutDialogClass`: glib type struct are ignored
+ * - record `AboutWindowClass`: glib type struct are ignored
  * - record `ActionRowClass`: glib type struct are ignored
+ * - record `AlertDialogClass`: glib type struct are ignored
  * - record `AnimationClass`: glib type struct are ignored
  * - record `AnimationTargetClass`: glib type struct are ignored
  * - record `ApplicationClass`: glib type struct are ignored
  * - record `ApplicationWindowClass`: glib type struct are ignored
  * - record `AvatarClass`: glib type struct are ignored
+ * - record `BannerClass`: glib type struct are ignored
  * - record `BinClass`: glib type struct are ignored
+ * - record `BreakpointBinClass`: glib type struct are ignored
+ * - record `BreakpointClass`: glib type struct are ignored
  * - record `ButtonContentClass`: glib type struct are ignored
  * - record `CallbackAnimationTargetClass`: glib type struct are ignored
  * - record `CarouselClass`: glib type struct are ignored
@@ -43,6 +53,8 @@ import kotlin.Unit
  * - record `ClampLayoutClass`: glib type struct are ignored
  * - record `ClampScrollableClass`: glib type struct are ignored
  * - record `ComboRowClass`: glib type struct are ignored
+ * - record `DialogClass`: glib type struct are ignored
+ * - record `EntryRowClass`: glib type struct are ignored
  * - record `EnumListItemClass`: glib type struct are ignored
  * - record `EnumListModelClass`: glib type struct are ignored
  * - record `ExpanderRowClass`: glib type struct are ignored
@@ -50,10 +62,19 @@ import kotlin.Unit
  * - record `HeaderBarClass`: glib type struct are ignored
  * - record `LeafletClass`: glib type struct are ignored
  * - record `LeafletPageClass`: glib type struct are ignored
+ * - record `MessageDialogClass`: glib type struct are ignored
+ * - record `NavigationPageClass`: glib type struct are ignored
+ * - record `NavigationSplitViewClass`: glib type struct are ignored
+ * - record `NavigationViewClass`: glib type struct are ignored
+ * - record `OverlaySplitViewClass`: glib type struct are ignored
+ * - record `PasswordEntryRowClass`: glib type struct are ignored
+ * - record `PreferencesDialogClass`: glib type struct are ignored
  * - record `PreferencesGroupClass`: glib type struct are ignored
  * - record `PreferencesPageClass`: glib type struct are ignored
  * - record `PreferencesRowClass`: glib type struct are ignored
  * - record `PreferencesWindowClass`: glib type struct are ignored
+ * - record `PropertyAnimationTargetClass`: glib type struct are ignored
+ * - record `SpinRowClass`: glib type struct are ignored
  * - record `SplitButtonClass`: glib type struct are ignored
  * - record `SpringAnimationClass`: glib type struct are ignored
  * - record `SqueezerClass`: glib type struct are ignored
@@ -62,14 +83,19 @@ import kotlin.Unit
  * - record `StyleManagerClass`: glib type struct are ignored
  * - record `SwipeTrackerClass`: glib type struct are ignored
  * - record `SwipeableInterface`: glib type struct are ignored
+ * - record `SwitchRowClass`: glib type struct are ignored
  * - record `TabBarClass`: glib type struct are ignored
+ * - record `TabButtonClass`: glib type struct are ignored
+ * - record `TabOverviewClass`: glib type struct are ignored
  * - record `TabPageClass`: glib type struct are ignored
  * - record `TabViewClass`: glib type struct are ignored
  * - record `TimedAnimationClass`: glib type struct are ignored
  * - record `ToastClass`: glib type struct are ignored
  * - record `ToastOverlayClass`: glib type struct are ignored
+ * - record `ToolbarViewClass`: glib type struct are ignored
  * - record `ViewStackClass`: glib type struct are ignored
  * - record `ViewStackPageClass`: glib type struct are ignored
+ * - record `ViewStackPagesClass`: glib type struct are ignored
  * - record `ViewSwitcherBarClass`: glib type struct are ignored
  * - record `ViewSwitcherClass`: glib type struct are ignored
  * - record `ViewSwitcherTitleClass`: glib type struct are ignored
@@ -92,18 +118,84 @@ public object Adw {
     /**
      * Adwaita micro version component (e.g. 3 if the version is 1.2.3).
      */
-    public const val MICRO_VERSION: Int = 7
+    public const val MICRO_VERSION: Int = 0
 
     /**
      * Adwaita minor version component (e.g. 2 if the version is 1.2.3).
      */
-    public const val MINOR_VERSION: Int = 1
+    public const val MINOR_VERSION: Int = 5
 
     /**
      * Adwaita version, encoded as a string, useful for printing and
      * concatenation.
      */
-    public const val VERSION_S: String = "1.1.7"
+    public const val VERSION_S: String = "1.5.0"
+
+    /**
+     * Parses a condition from a string.
+     *
+     * Length conditions are specified as `<type>: <value>[<unit>]`, where:
+     *
+     * - `<type>` can be `min-width`, `max-width`, `min-height` or `max-height`
+     * - `<value>` is a fractional number
+     * - `<unit>` can be `px`, `pt` or `sp`
+     *
+     * If the unit is omitted, `px` is assumed.
+     *
+     * See [ctor@BreakpointCondition.new_length].
+     *
+     * Examples:
+     *
+     * - `min-width: 500px`
+     * - `min-height: 400pt`
+     * - `max-width: 100sp`
+     * - `max-height: 500`
+     *
+     * Ratio conditions are specified as `<type>: <width>[/<height>]`, where:
+     *
+     * - `<type>` can be `min-aspect-ratio` or `max-aspect-ratio`
+     * - `<width>` and `<height>` are integer numbers
+     *
+     * See [ctor@BreakpointCondition.new_ratio].
+     *
+     * The ratio is represented as `<width>` divided by `<height>`.
+     *
+     * If `<height>` is omitted, it's assumed to be 1.
+     *
+     * Examples:
+     *
+     * - `min-aspect-ratio: 4/3`
+     * - `max-aspect-ratio: 1`
+     *
+     * The logical operators `and`, `or` can be used to compose a complex condition
+     * as follows:
+     *
+     * - `<condition> and <condition>`: the condition is true when both
+     *   `<condition>`s are true, same as when using
+     *   [ctor@BreakpointCondition.new_and]
+     * - `<condition> or <condition>`: the condition is true when either of the
+     *   `<condition>`s is true, same as when using
+     *   [ctor@BreakpointCondition.new_or]
+     *
+     * Examples:
+     *
+     * - `min-width: 400px and max-aspect-ratio: 4/3`
+     * - `max-width: 360sp or max-width: 360px`
+     *
+     * Conditions can be further nested using parentheses, for example:
+     *
+     * - `min-width: 400px and (max-aspect-ratio: 4/3 or max-height: 400px)`
+     *
+     * If parentheses are omitted, the first operator takes priority.
+     *
+     * @param str the string specifying the condition
+     * @return the parsed condition
+     * @since 1.4
+     */
+    public fun breakpointConditionParse(str: String): BreakpointCondition =
+        adw_breakpoint_condition_parse(str)!!.run {
+            BreakpointCondition(reinterpret())
+        }
 
     /**
      * Computes easing with @easing for @value.
@@ -113,7 +205,6 @@ public object Adw {
      * @param self an easing value
      * @param value a value to ease
      * @return the easing for @value
-     * @since 1.0
      */
     public fun easingEase(
         self: Easing,
@@ -132,7 +223,6 @@ public object Adw {
      *
      * @param widget a `GtkWidget`
      * @return whether animations are enabled for @widget
-     * @since 1.0
      */
     public fun getEnableAnimations(widget: Widget): Boolean =
         adw_get_enable_animations(widget.gtkWidgetPointer.reinterpret()).asBoolean()
@@ -191,8 +281,6 @@ public object Adw {
      *
      * This makes sure translations, types, themes, and icons for the Adwaita
      * library are set up properly.
-     *
-     * @since 1.0
      */
     public fun `init`(): Unit = adw_init()
 
@@ -205,13 +293,52 @@ public object Adw {
     public fun isInitialized(): Boolean = adw_is_initialized().asBoolean()
 
     /**
+     * Converts @value from pixels to @unit.
+     *
+     * @param unit a length unit
+     * @param value a value in pixels
+     * @param settings settings to use, or `NULL` for default settings
+     * @return the length in @unit
+     * @since 1.4
+     */
+    public fun lengthUnitFromPx(
+        unit: LengthUnit,
+        `value`: Double,
+        settings: Settings? = null,
+    ): Double =
+        adw_length_unit_from_px(
+            unit.nativeValue,
+            `value`,
+            settings?.gtkSettingsPointer?.reinterpret()
+        )
+
+    /**
+     * Converts @value from @unit to pixels.
+     *
+     * @param unit a length unit
+     * @param value a value in @unit
+     * @param settings settings to use, or `NULL` for default settings
+     * @return the length in pixels
+     * @since 1.4
+     */
+    public fun lengthUnitToPx(
+        unit: LengthUnit,
+        `value`: Double,
+        settings: Settings? = null,
+    ): Double =
+        adw_length_unit_to_px(
+            unit.nativeValue,
+            `value`,
+            settings?.gtkSettingsPointer?.reinterpret()
+        )
+
+    /**
      * Computes the linear interpolation between @a and @b for @t.
      *
      * @param a the start
      * @param b the end
      * @param t the interpolation rate
      * @return the computed value
-     * @since 1.0
      */
     public fun lerp(
         a: Double,

@@ -44,6 +44,7 @@ import org.gtkkn.native.gtk.gtk_list_box_invalidate_sort
 import org.gtkkn.native.gtk.gtk_list_box_new
 import org.gtkkn.native.gtk.gtk_list_box_prepend
 import org.gtkkn.native.gtk.gtk_list_box_remove
+import org.gtkkn.native.gtk.gtk_list_box_remove_all
 import org.gtkkn.native.gtk.gtk_list_box_select_all
 import org.gtkkn.native.gtk.gtk_list_box_select_row
 import org.gtkkn.native.gtk.gtk_list_box_selected_foreach
@@ -90,13 +91,13 @@ import kotlin.Unit
  *
  * The `GtkListBox` implementation of the `GtkBuildable` interface supports
  * setting a child as the placeholder by specifying “placeholder” as the “type”
- * attribute of a <child> element. See [method@Gtk.ListBox.set_placeholder]
+ * attribute of a `<child>` element. See [method@Gtk.ListBox.set_placeholder]
  * for info.
  *
  * # CSS nodes
  *
  * |[<!-- language="plain" -->
- * list[.separators][.rich-list][.navigation-sidebar]
+ * list[.separators][.rich-list][.navigation-sidebar][.boxed-list]
  * ╰── row[.activatable]
  * ]|
  *
@@ -104,6 +105,9 @@ import kotlin.Unit
  * style class, when the [property@Gtk.ListBox:show-separators] property is set.
  * Each `GtkListBoxRow` uses a single CSS node named row. The row nodes get the
  * .activatable style class added when appropriate.
+ *
+ * It may also carry the .boxed-list style class. In this case, the list will be
+ * automatically surrounded by a frame and have separators.
  *
  * The main list node may also carry style classes to select
  * the style of [list presentation](section-list-widget.html#list-styles):
@@ -452,6 +456,15 @@ public open class ListBox(
         )
 
     /**
+     * Removes all rows from @box.
+     *
+     * This function does nothing if @box is backed by a model.
+     *
+     * @since 4.12
+     */
+    public open fun removeAll(): Unit = gtk_list_box_remove_all(gtkListBoxPointer.reinterpret())
+
+    /**
      * Select all children of @box, if the selection mode allows it.
      */
     public open fun selectAll(): Unit = gtk_list_box_select_all(gtkListBoxPointer.reinterpret())
@@ -639,7 +652,7 @@ public open class ListBox(
     /**
      * Unselects a single row of @box, if the selection mode allows it.
      *
-     * @param row the row to unselected
+     * @param row the row to unselect
      */
     public open fun unselectRow(row: ListBoxRow): Unit =
         gtk_list_box_unselect_row(

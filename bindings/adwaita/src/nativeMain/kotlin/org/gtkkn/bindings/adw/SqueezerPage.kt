@@ -28,16 +28,13 @@ public class SqueezerPage(
         get() = gPointer.reinterpret()
 
     /**
-     * The child of the page.
-     *
-     * @since 1.0
+     * The the squeezer child to which the page belongs.
      */
     public val child: Widget
         /**
          * Returns the squeezer child to which @self belongs.
          *
          * @return the child to which @self belongs
-         * @since 1.0
          */
         get() =
             adw_squeezer_page_get_child(adwSqueezerPagePointer.reinterpret())!!.run {
@@ -55,23 +52,28 @@ public class SqueezerPage(
      *
      * This can be used e.g. to ensure a certain child is hidden below a certain
      * window width, or any other constraint you find suitable.
-     *
-     * @since 1.0
      */
     public var enabled: Boolean
         /**
          * Gets whether @self is enabled.
          *
          * @return whether @self is enabled
-         * @since 1.0
          */
         get() = adw_squeezer_page_get_enabled(adwSqueezerPagePointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self is enabled.
          *
+         * If a child is disabled, it will be ignored when looking for the child
+         * fitting the available size best.
+         *
+         * This allows to programmatically and prematurely hide a child even if it fits
+         * in the available space.
+         *
+         * This can be used e.g. to ensure a certain child is hidden below a certain
+         * window width, or any other constraint you find suitable.
+         *
          * @param enabled whether @self is enabled
-         * @since 1.0
          */
         set(enabled) =
             adw_squeezer_page_set_enabled(
@@ -83,7 +85,6 @@ public class SqueezerPage(
      * Returns the squeezer child to which @self belongs.
      *
      * @return the child to which @self belongs
-     * @since 1.0
      */
     public fun getChild(): Widget =
         adw_squeezer_page_get_child(adwSqueezerPagePointer.reinterpret())!!.run {
@@ -94,15 +95,22 @@ public class SqueezerPage(
      * Gets whether @self is enabled.
      *
      * @return whether @self is enabled
-     * @since 1.0
      */
     public fun getEnabled(): Boolean = adw_squeezer_page_get_enabled(adwSqueezerPagePointer.reinterpret()).asBoolean()
 
     /**
      * Sets whether @self is enabled.
      *
+     * If a child is disabled, it will be ignored when looking for the child
+     * fitting the available size best.
+     *
+     * This allows to programmatically and prematurely hide a child even if it fits
+     * in the available space.
+     *
+     * This can be used e.g. to ensure a certain child is hidden below a certain
+     * window width, or any other constraint you find suitable.
+     *
      * @param enabled whether @self is enabled
-     * @since 1.0
      */
     public fun setEnabled(enabled: Boolean): Unit =
         adw_squeezer_page_set_enabled(

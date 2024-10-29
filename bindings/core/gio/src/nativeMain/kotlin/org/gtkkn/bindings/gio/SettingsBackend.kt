@@ -16,11 +16,11 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * The #GSettingsBackend interface defines a generic interface for
+ * The `GSettingsBackend` interface defines a generic interface for
  * non-strictly-typed data that is stored in a hierarchy. To implement
- * an alternative storage backend for #GSettings, you need to implement
- * the #GSettingsBackend interface and then make it implement the
- * extension point %G_SETTINGS_BACKEND_EXTENSION_POINT_NAME.
+ * an alternative storage backend for [class@Gio.Settings], you need to
+ * implement the `GSettingsBackend` interface and then make it implement the
+ * extension point `G_SETTINGS_BACKEND_EXTENSION_POINT_NAME`.
  *
  * The interface defines methods for reading and writing values, a
  * method for determining if writing of certain values will fail
@@ -30,15 +30,14 @@ import kotlin.Unit
  * implementations must carefully adhere to the expectations of
  * callers that are documented on each of the interface methods.
  *
- * Some of the #GSettingsBackend functions accept or return a #GTree.
- * These trees always have strings as keys and #GVariant as values.
- * g_settings_backend_create_tree() is a convenience function to create
- * suitable trees.
+ * Some of the `GSettingsBackend` functions accept or return a
+ * [struct@GLib.Tree]. These trees always have strings as keys and
+ * [struct@GLib.Variant] as values.
  *
- * The #GSettingsBackend API is exported to allow third-party
+ * The `GSettingsBackend` API is exported to allow third-party
  * implementations, but does not carry the same stability guarantees
  * as the public GIO API. For this reason, you have to define the
- * C preprocessor symbol %G_SETTINGS_ENABLE_BACKEND before including
+ * C preprocessor symbol `G_SETTINGS_ENABLE_BACKEND` before including
  * `gio/gsettingsbackend.h`.
  *
  * ## Skipped during bindings generation

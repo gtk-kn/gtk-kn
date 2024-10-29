@@ -21,6 +21,7 @@ import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.GtkRoot
 import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.GtkShortcutsWindow
+import org.gtkkn.native.gtk.gtk_shortcuts_window_add_section
 import org.gtkkn.native.gtk.gtk_shortcuts_window_get_type
 import kotlin.ULong
 import kotlin.Unit
@@ -36,9 +37,14 @@ import kotlin.Unit
  * showing information that is not relevant in the current application context.
  *
  * The recommended way to construct a `GtkShortcutsWindow` is with
- * [class@Gtk.Builder], by populating a `GtkShortcutsWindow` with one or
- * more `GtkShortcutsSection` objects, which contain `GtkShortcutsGroups`
- * that in turn contain objects of class `GtkShortcutsShortcut`.
+ * [class@Gtk.Builder], by using the `<child>` tag to populate a
+ * `GtkShortcutsWindow` with one or more [class@Gtk.ShortcutsSection] objects,
+ * which contain one or more [class@Gtk.ShortcutsGroup] instances, which, in turn,
+ * contain [class@Gtk.ShortcutsShortcut] instances.
+ *
+ * If you need to add a section programmatically, use [method@Gtk.ShortcutsWindow.add_section]
+ * instead of [method@Gtk.Window.set_child], as the shortcuts window manages
+ * its children directly.
  *
  * # A simple example:
  *
@@ -71,6 +77,11 @@ import kotlin.Unit
  * The .ui file for this example can be found
  * [here](https://gitlab.gnome.org/GNOME/gtk/tree/main/demos/gtk-demo/shortcuts-builder.ui).
  *
+ * ## CSS nodes
+ *
+ * `GtkShortcutsWindow` has a single CSS node with the name `window` and style
+ * class `.shortcuts`.
+ *
  * ## Skipped during bindings generation
  *
  * - method `section-name`: Property has no getter nor setter
@@ -99,6 +110,24 @@ public open class ShortcutsWindow(
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
         get() = gPointer.reinterpret()
+
+    /**
+     * Adds a section to the shortcuts window.
+     *
+     * This is the programmatic equivalent to using [class@Gtk.Builder] and a
+     * `<child>` tag to add the child.
+     *
+     * Using [method@Gtk.Window.set_child] is not appropriate as the shortcuts
+     * window manages its children internally.
+     *
+     * @param section the `GtkShortcutsSection` to add
+     * @since 4.14
+     */
+    public open fun addSection(section: ShortcutsSection): Unit =
+        gtk_shortcuts_window_add_section(
+            gtkShortcutsWindowPointer.reinterpret(),
+            section.gtkShortcutsSectionPointer.reinterpret()
+        )
 
     /**
      * Emitted when the user uses a keybinding to close the window.

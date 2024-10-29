@@ -25,11 +25,13 @@ import kotlin.Unit
 import kotlin.collections.List
 
 /**
- * #GThemedIcon is an implementation of #GIcon that supports icon themes.
- * #GThemedIcon contains a list of all of the icons present in an icon
- * theme, so that icons can be looked up quickly. #GThemedIcon does
+ * `GThemedIcon` is an implementation of [iface@Gio.Icon] that supports icon
+ * themes.
+ *
+ * `GThemedIcon` contains a list of all of the icons present in an icon
+ * theme, so that icons can be looked up quickly. `GThemedIcon` does
  * not provide actual pixmaps for icons, just the icon names.
- * Ideally something like gtk_icon_theme_choose_icon() should be used to
+ * Ideally something like [method@Gtk.IconTheme.choose_icon] should be used to
  * resolve the list of names so that fallback icons work nicely with
  * themes that inherit other themes.
  *

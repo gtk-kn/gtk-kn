@@ -7,7 +7,6 @@ import org.gtkkn.native.adw.AdwToastPriority.ADW_TOAST_PRIORITY_NORMAL
 
 /**
  * [class@Toast] behavior when another toast is already displayed.
- * @since 1.0
  */
 public enum class ToastPriority(
     public val nativeValue: AdwToastPriority,

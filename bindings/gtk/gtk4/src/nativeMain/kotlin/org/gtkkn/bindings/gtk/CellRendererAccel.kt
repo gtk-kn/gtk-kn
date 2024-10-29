@@ -78,7 +78,7 @@ public open class CellRendererAccel(
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `pathString` the path identifying the row of
-     * the edited cell; `accelKey` the new accelerator keyval; `accelMods` the new acclerator modifier
+     * the edited cell; `accelKey` the new accelerator keyval; `accelMods` the new accelerator modifier
      * mask; `hardwareKeycode` the keycode of the new accelerator
      */
     public fun connectAccelEdited(

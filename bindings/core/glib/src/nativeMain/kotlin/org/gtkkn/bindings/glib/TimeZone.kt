@@ -28,12 +28,36 @@ import kotlin.String
 import kotlin.Unit
 
 /**
- * #GTimeZone is an opaque structure whose members cannot be accessed
- * directly.
+ * A `GTimeZone` represents a time zone, at no particular point in time.
+ *
+ * The `GTimeZone` struct is refcounted and immutable.
+ *
+ * Each time zone has an identifier (for example, ‘Europe/London’) which is
+ * platform dependent. See [ctor@GLib.TimeZone.new] for information on the
+ * identifier formats. The identifier of a time zone can be retrieved using
+ * [method@GLib.TimeZone.get_identifier].
+ *
+ * A time zone contains a number of intervals. Each interval has an abbreviation
+ * to describe it (for example, ‘PDT’), an offset to UTC and a flag indicating
+ * if the daylight savings time is in effect during that interval. A time zone
+ * always has at least one interval — interval 0. Note that interval abbreviations
+ * are not the same as time zone identifiers (apart from ‘UTC’), and cannot be
+ * passed to [ctor@GLib.TimeZone.new].
+ *
+ * Every UTC time is contained within exactly one interval, but a given
+ * local time may be contained within zero, one or two intervals (due to
+ * incontinuities associated with daylight savings time).
+ *
+ * An interval may refer to a specific period of time (eg: the duration
+ * of daylight savings time during 2010) or it may refer to many periods
+ * of time that share the same properties (eg: all periods of daylight
+ * savings time).  It is also possible (usually for political reasons)
+ * that some properties (like the abbreviation) change between intervals
+ * without other properties changing.
  *
  * ## Skipped during bindings generation
  *
- * - parameter `time_`: Unsupported pointer to primitive type
+ * - method `adjust_time`: In/Out parameter is not supported
  *
  * @since 2.26
  */
@@ -265,8 +289,14 @@ public class TimeZone(
          * This is equivalent to calling g_time_zone_new() with a string in the form
          * `[+|-]hh[:mm[:ss]]`.
          *
+         * It is possible for this function to fail if @seconds is too big (greater than
+         * 24 hours), in which case this function will return the UTC timezone for
+         * backwards compatibility. To detect failures like this, use
+         * g_time_zone_new_identifier() directly.
+         *
          * @param seconds offset to UTC, in seconds
-         * @return a timezone at the given offset from UTC
+         * @return a timezone at the given offset from UTC, or UTC on
+         *   failure
          * @since 2.58
          */
         public fun newOffset(seconds: Int): TimeZone = TimeZone(g_time_zone_new_offset(seconds)!!.reinterpret())

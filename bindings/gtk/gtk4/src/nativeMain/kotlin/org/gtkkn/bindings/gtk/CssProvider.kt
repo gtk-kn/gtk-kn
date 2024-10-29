@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.File
+import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
@@ -22,11 +23,15 @@ import org.gtkkn.native.gtk.GtkCssProvider
 import org.gtkkn.native.gtk.GtkCssSection
 import org.gtkkn.native.gtk.GtkStyleProvider
 import org.gtkkn.native.gtk.gtk_css_provider_get_type
+import org.gtkkn.native.gtk.gtk_css_provider_load_from_bytes
+import org.gtkkn.native.gtk.gtk_css_provider_load_from_data
 import org.gtkkn.native.gtk.gtk_css_provider_load_from_file
 import org.gtkkn.native.gtk.gtk_css_provider_load_from_path
 import org.gtkkn.native.gtk.gtk_css_provider_load_from_resource
+import org.gtkkn.native.gtk.gtk_css_provider_load_from_string
 import org.gtkkn.native.gtk.gtk_css_provider_load_named
 import org.gtkkn.native.gtk.gtk_css_provider_new
+import kotlin.Long
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -64,7 +69,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `data`: guint8
  * - method `to_string`: C function gtk_css_provider_to_string is ignored
  */
 public open class CssProvider(
@@ -82,6 +86,33 @@ public open class CssProvider(
      * @return A new `GtkCssProvider`
      */
     public constructor() : this(gtk_css_provider_new()!!.reinterpret())
+
+    /**
+     * Loads @data into @css_provider.
+     *
+     * This clears any previously loaded information.
+     *
+     * @param data `GBytes` containing the data to load
+     * @since 4.12
+     */
+    public open fun loadFromBytes(`data`: Bytes): Unit =
+        gtk_css_provider_load_from_bytes(
+            gtkCssProviderPointer.reinterpret(),
+            `data`.glibBytesPointer
+        )
+
+    /**
+     * Loads @data into @css_provider.
+     *
+     * This clears any previously loaded information.
+     *
+     * @param data CSS data to be parsed
+     * @param length the length of @data in bytes, or -1 for NUL terminated strings
+     */
+    public open fun loadFromData(
+        `data`: String,
+        length: Long,
+    ): Unit = gtk_css_provider_load_from_data(gtkCssProviderPointer.reinterpret(), `data`, length)
 
     /**
      * Loads the data contained in @file into @css_provider.
@@ -116,6 +147,17 @@ public open class CssProvider(
      */
     public open fun loadFromResource(resourcePath: String): Unit =
         gtk_css_provider_load_from_resource(gtkCssProviderPointer.reinterpret(), resourcePath)
+
+    /**
+     * Loads @string into @css_provider.
+     *
+     * This clears any previously loaded information.
+     *
+     * @param string the CSS to load
+     * @since 4.12
+     */
+    public open fun loadFromString(string: String): Unit =
+        gtk_css_provider_load_from_string(gtkCssProviderPointer.reinterpret(), string)
 
     /**
      * Loads a theme from the usual theme paths.

@@ -33,11 +33,9 @@ import kotlin.ULong
 import kotlin.Unit
 
 /**
- * A #GSimpleAction is the obvious simple implementation of the #GAction
- * interface. This is the easiest way to create an action for purposes of
- * adding it to a #GSimpleActionGroup.
- *
- * See also #GtkAction.
+ * A `GSimpleAction` is the obvious simple implementation of the
+ * [iface@Gio.Action] interface. This is the easiest way to create an action for
+ * purposes of adding it to a [class@Gio.SimpleActionGroup].
  *
  * ## Skipped during bindings generation
  *

@@ -375,18 +375,16 @@ public open class Stack(
         gtk_stack_get_interpolate_size(gtkStackPointer.reinterpret()).asBoolean()
 
     /**
-     * Retrieves the stack page for the given @child.
-     *
-     * If the given @child is not a child widget of the stack, this function will return `NULL`.
+     * Returns the `GtkStackPage` object for @child.
      *
      * @param child a child of @stack
-     * @return the stack page object
+     * @return the `GtkStackPage` for @child
      */
-    public open fun getPage(child: Widget): StackPage? =
+    public open fun getPage(child: Widget): StackPage =
         gtk_stack_get_page(
             gtkStackPointer.reinterpret(),
             child.gtkWidgetPointer.reinterpret()
-        )?.run {
+        )!!.run {
             StackPage(reinterpret())
         }
 

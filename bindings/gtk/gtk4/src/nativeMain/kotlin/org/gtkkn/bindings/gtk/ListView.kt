@@ -24,16 +24,21 @@ import org.gtkkn.native.gtk.GtkOrientable
 import org.gtkkn.native.gtk.GtkScrollable
 import org.gtkkn.native.gtk.gtk_list_view_get_enable_rubberband
 import org.gtkkn.native.gtk.gtk_list_view_get_factory
+import org.gtkkn.native.gtk.gtk_list_view_get_header_factory
 import org.gtkkn.native.gtk.gtk_list_view_get_model
 import org.gtkkn.native.gtk.gtk_list_view_get_show_separators
 import org.gtkkn.native.gtk.gtk_list_view_get_single_click_activate
+import org.gtkkn.native.gtk.gtk_list_view_get_tab_behavior
 import org.gtkkn.native.gtk.gtk_list_view_get_type
 import org.gtkkn.native.gtk.gtk_list_view_new
+import org.gtkkn.native.gtk.gtk_list_view_scroll_to
 import org.gtkkn.native.gtk.gtk_list_view_set_enable_rubberband
 import org.gtkkn.native.gtk.gtk_list_view_set_factory
+import org.gtkkn.native.gtk.gtk_list_view_set_header_factory
 import org.gtkkn.native.gtk.gtk_list_view_set_model
 import org.gtkkn.native.gtk.gtk_list_view_set_show_separators
 import org.gtkkn.native.gtk.gtk_list_view_set_single_click_activate
+import org.gtkkn.native.gtk.gtk_list_view_set_tab_behavior
 import kotlin.Boolean
 import kotlin.UInt
 import kotlin.ULong
@@ -207,6 +212,38 @@ public open class ListView(
             )
 
     /**
+     * Factory for creating header widgets.
+     *
+     * @since 4.12
+     */
+    public open var headerFactory: ListItemFactory?
+        /**
+         * Gets the factory that's currently used to populate section headers.
+         *
+         * @return The factory in use
+         * @since 4.12
+         */
+        get() =
+            gtk_list_view_get_header_factory(gtkListViewPointer.reinterpret())?.run {
+                ListItemFactory(reinterpret())
+            }
+
+        /**
+         * Sets the `GtkListItemFactory` to use for populating the
+         * [class@Gtk.ListHeader] objects used in section headers.
+         *
+         * If this factory is set to null, the list will not show section headers.
+         *
+         * @param factory the factory to use
+         * @since 4.12
+         */
+        set(factory) =
+            gtk_list_view_set_header_factory(
+                gtkListViewPointer.reinterpret(),
+                factory?.gtkListItemFactoryPointer?.reinterpret()
+            )
+
+    /**
      * Model for the items displayed.
      */
     public open var model: SelectionModel?
@@ -283,6 +320,35 @@ public open class ListView(
             )
 
     /**
+     * Behavior of the <kbd>Tab</kbd> key
+     *
+     * @since 4.12
+     */
+    public open var tabBehavior: ListTabBehavior
+        /**
+         * Gets the behavior set for the <kbd>Tab</kbd> key.
+         *
+         * @return The behavior of the <kbd>Tab</kbd> key
+         * @since 4.12
+         */
+        get() =
+            gtk_list_view_get_tab_behavior(gtkListViewPointer.reinterpret()).run {
+                ListTabBehavior.fromNativeValue(this)
+            }
+
+        /**
+         * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
+         *
+         * @param tabBehavior The desired tab behavior
+         * @since 4.12
+         */
+        set(tabBehavior) =
+            gtk_list_view_set_tab_behavior(
+                gtkListViewPointer.reinterpret(),
+                tabBehavior.nativeValue
+            )
+
+    /**
      * Creates a new `GtkListView` that uses the given @factory for
      * mapping items to widgets.
      *
@@ -324,6 +390,17 @@ public open class ListView(
         }
 
     /**
+     * Gets the factory that's currently used to populate section headers.
+     *
+     * @return The factory in use
+     * @since 4.12
+     */
+    public open fun getHeaderFactory(): ListItemFactory? =
+        gtk_list_view_get_header_factory(gtkListViewPointer.reinterpret())?.run {
+            ListItemFactory(reinterpret())
+        }
+
+    /**
      * Gets the model that's currently used to read the items displayed.
      *
      * @return The model in use
@@ -352,6 +429,42 @@ public open class ListView(
         gtk_list_view_get_single_click_activate(gtkListViewPointer.reinterpret()).asBoolean()
 
     /**
+     * Gets the behavior set for the <kbd>Tab</kbd> key.
+     *
+     * @return The behavior of the <kbd>Tab</kbd> key
+     * @since 4.12
+     */
+    public open fun getTabBehavior(): ListTabBehavior =
+        gtk_list_view_get_tab_behavior(gtkListViewPointer.reinterpret()).run {
+            ListTabBehavior.fromNativeValue(this)
+        }
+
+    /**
+     * Scrolls to the item at the given position and performs the actions
+     * specified in @flags.
+     *
+     * This function works no matter if the listview is shown or focused.
+     * If it isn't, then the changes will take effect once that happens.
+     *
+     * @param pos position of the item
+     * @param flags actions to perform
+     * @param scroll details of how to perform
+     *   the scroll operation or null to scroll into view
+     * @since 4.12
+     */
+    public open fun scrollTo(
+        pos: UInt,
+        flags: ListScrollFlags,
+        scroll: ScrollInfo? = null,
+    ): Unit =
+        gtk_list_view_scroll_to(
+            gtkListViewPointer.reinterpret(),
+            pos,
+            flags.mask,
+            scroll?.gtkScrollInfoPointer
+        )
+
+    /**
      * Sets whether selections can be changed by dragging with the mouse.
      *
      * @param enableRubberband true to enable rubberband selection
@@ -369,6 +482,21 @@ public open class ListView(
      */
     public open fun setFactory(factory: ListItemFactory? = null): Unit =
         gtk_list_view_set_factory(
+            gtkListViewPointer.reinterpret(),
+            factory?.gtkListItemFactoryPointer?.reinterpret()
+        )
+
+    /**
+     * Sets the `GtkListItemFactory` to use for populating the
+     * [class@Gtk.ListHeader] objects used in section headers.
+     *
+     * If this factory is set to null, the list will not show section headers.
+     *
+     * @param factory the factory to use
+     * @since 4.12
+     */
+    public open fun setHeaderFactory(factory: ListItemFactory? = null): Unit =
+        gtk_list_view_set_header_factory(
             gtkListViewPointer.reinterpret(),
             factory?.gtkListItemFactoryPointer?.reinterpret()
         )
@@ -408,6 +536,18 @@ public open class ListView(
         gtk_list_view_set_single_click_activate(
             gtkListViewPointer.reinterpret(),
             singleClickActivate.asGBoolean()
+        )
+
+    /**
+     * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
+     *
+     * @param tabBehavior The desired tab behavior
+     * @since 4.12
+     */
+    public open fun setTabBehavior(tabBehavior: ListTabBehavior): Unit =
+        gtk_list_view_set_tab_behavior(
+            gtkListViewPointer.reinterpret(),
+            tabBehavior.nativeValue
         )
 
     /**

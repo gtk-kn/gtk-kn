@@ -11,14 +11,16 @@ import org.gtkkn.native.gio.g_simple_io_stream_get_type
 import org.gtkkn.native.gio.g_simple_io_stream_new
 
 /**
- * GSimpleIOStream creates a #GIOStream from an arbitrary #GInputStream and
- * #GOutputStream. This allows any pair of input and output streams to be used
- * with #GIOStream methods.
+ * `GSimpleIOStream` creates a [class@Gio.IOStream] from an arbitrary
+ * [class@Gio.InputStream] and [class@Gio.OutputStream]. This allows any pair of
+ * input and output streams to be used with [class@Gio.IOStream] methods.
  *
- * This is useful when you obtained a #GInputStream and a #GOutputStream
- * by other means, for instance creating them with platform specific methods as
- * g_unix_input_stream_new() or g_win32_input_stream_new(), and you want
- * to take advantage of the methods provided by #GIOStream.
+ * This is useful when you obtained a [class@Gio.InputStream] and a
+ * [class@Gio.OutputStream] by other means, for instance creating them with
+ * platform specific methods as
+ * [`g_unix_input_stream_new()`](../gio-unix/ctor.UnixInputStream.new.html)
+ * (from `gio-unix-2.0.pc` / `GioUnix-2.0`), and you want to
+ * take advantage of the methods provided by [class@Gio.IOStream].
  *
  * ## Skipped during bindings generation
  *

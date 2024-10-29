@@ -17,7 +17,7 @@ import org.gtkkn.native.glib.G_LOG_LEVEL_WARNING
  * Flags specifying the level of log messages.
  *
  * It is possible to change how GLib treats messages of the various
- * levels using g_log_set_handler() and g_log_set_fatal_mask().
+ * levels using [func@GLib.log_set_handler] and [func@GLib.log_set_fatal_mask].
  */
 public class LogLevelFlags(
     public val mask: GLogLevelFlags,
@@ -36,36 +36,35 @@ public class LogLevelFlags(
         public val FLAG_FATAL: LogLevelFlags = LogLevelFlags(G_LOG_FLAG_FATAL)
 
         /**
-         * log level for errors, see g_error().
-         *     This level is also used for messages produced by g_assert().
+         * log level for errors, see [func@GLib.error].
+         *   This level is also used for messages produced by [func@GLib.assert].
          */
         public val LEVEL_ERROR: LogLevelFlags = LogLevelFlags(G_LOG_LEVEL_ERROR)
 
         /**
          * log level for critical warning messages, see
-         *     g_critical().
-         *     This level is also used for messages produced by g_return_if_fail()
-         *     and g_return_val_if_fail().
+         *   [func@GLib.critical]. This level is also used for messages produced by
+         *   [func@GLib.return_if_fail] and [func@GLib.return_val_if_fail].
          */
         public val LEVEL_CRITICAL: LogLevelFlags = LogLevelFlags(G_LOG_LEVEL_CRITICAL)
 
         /**
-         * log level for warnings, see g_warning()
+         * log level for warnings, see [func@GLib.warning]
          */
         public val LEVEL_WARNING: LogLevelFlags = LogLevelFlags(G_LOG_LEVEL_WARNING)
 
         /**
-         * log level for messages, see g_message()
+         * log level for messages, see [func@GLib.message]
          */
         public val LEVEL_MESSAGE: LogLevelFlags = LogLevelFlags(G_LOG_LEVEL_MESSAGE)
 
         /**
-         * log level for informational messages, see g_info()
+         * log level for informational messages, see [func@GLib.info]
          */
         public val LEVEL_INFO: LogLevelFlags = LogLevelFlags(G_LOG_LEVEL_INFO)
 
         /**
-         * log level for debug messages, see g_debug()
+         * log level for debug messages, see [func@GLib.debug]
          */
         public val LEVEL_DEBUG: LogLevelFlags = LogLevelFlags(G_LOG_LEVEL_DEBUG)
 

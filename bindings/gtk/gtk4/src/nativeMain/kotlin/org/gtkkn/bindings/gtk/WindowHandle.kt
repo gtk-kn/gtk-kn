@@ -28,7 +28,9 @@ import kotlin.Unit
  *
  * # Accessibility
  *
- * `GtkWindowHandle` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
+ * Until GTK 4.10, `GtkWindowHandle` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ *
+ * Starting from GTK 4.12, `GtkWindowHandle` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
 public open class WindowHandle(
     pointer: CPointer<GtkWindowHandle>,

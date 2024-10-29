@@ -37,7 +37,9 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
+ * - method `item-type`: Property has no getter nor setter
  * - method `loading`: Property has no getter nor setter
+ * - method `n-items`: Property has no getter nor setter
  */
 public open class BookmarkList(
     pointer: CPointer<GtkBookmarkList>,

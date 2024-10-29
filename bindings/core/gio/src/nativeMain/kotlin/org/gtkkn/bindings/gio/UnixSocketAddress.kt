@@ -22,18 +22,19 @@ import kotlin.String
 import kotlin.ULong
 
 /**
- * Support for UNIX-domain (also known as local) sockets.
+ * Support for UNIX-domain (also known as local) sockets, corresponding to
+ * `struct sockaddr_un`.
  *
  * UNIX domain sockets are generally visible in the filesystem.
  * However, some systems support abstract socket names which are not
  * visible in the filesystem and not affected by the filesystem
  * permissions, visibility, etc. Currently this is only supported
  * under Linux. If you attempt to use abstract sockets on other
- * systems, function calls may return %G_IO_ERROR_NOT_SUPPORTED
- * errors. You can use g_unix_socket_address_abstract_names_supported()
+ * systems, function calls may return `G_IO_ERROR_NOT_SUPPORTED`
+ * errors. You can use [func@Gio.UnixSocketAddress.abstract_names_supported]
  * to see if abstract names are supported.
  *
- * Since GLib 2.72, #GUnixSocketAddress is available on all platforms. It
+ * Since GLib 2.72, `GUnixSocketAddress` is available on all platforms. It
  * requires underlying system support (such as Windows 10 with `AF_UNIX`) at
  * run time.
  *
@@ -57,6 +58,11 @@ public open class UnixSocketAddress(
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = gPointer.reinterpret()
 
+    /**
+     * The type of Unix socket address.
+     *
+     * @since 2.22
+     */
     public open val addressType: UnixSocketAddressType
         /**
          * Gets @address's type.
@@ -69,6 +75,11 @@ public open class UnixSocketAddress(
                 UnixSocketAddressType.fromNativeValue(this)
             }
 
+    /**
+     * Unix socket path.
+     *
+     * @since 2.22
+     */
     public open val path: String
         /**
          * Gets @address's path, or for abstract sockets the "name".

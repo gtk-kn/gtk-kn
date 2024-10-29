@@ -17,12 +17,12 @@ import kotlin.String
  *
  * ## Skipped during bindings generation
  *
- * - field `value_init`: Fields with callbacks are not supported
- * - field `value_free`: Fields with callbacks are not supported
- * - field `value_copy`: Fields with callbacks are not supported
- * - field `value_peek_pointer`: Fields with callbacks are not supported
- * - field `collect_value`: Fields with callbacks are not supported
- * - field `lcopy_value`: Fields with callbacks are not supported
+ * - field `value_init`: TypeValueInitFunc
+ * - field `value_free`: TypeValueFreeFunc
+ * - field `value_copy`: TypeValueCopyFunc
+ * - field `value_peek_pointer`: TypeValuePeekPointerFunc
+ * - field `collect_value`: TypeValueCollectFunc
+ * - field `lcopy_value`: TypeValueLCopyFunc
  */
 public class TypeValueTable(
     pointer: CPointer<GTypeValueTable>,
@@ -31,17 +31,17 @@ public class TypeValueTable(
 
     /**
      * A string format describing how to collect the contents of
-     *  this value bit-by-bit. Each character in the format represents
-     *  an argument to be collected, and the characters themselves indicate
-     *  the type of the argument. Currently supported arguments are:
-     *  - 'i' - Integers. passed as collect_values[].v_int.
-     *  - 'l' - Longs. passed as collect_values[].v_long.
-     *  - 'd' - Doubles. passed as collect_values[].v_double.
-     *  - 'p' - Pointers. passed as collect_values[].v_pointer.
-     *  It should be noted that for variable argument list construction,
-     *  ANSI C promotes every type smaller than an integer to an int, and
-     *  floats to doubles. So for collection of short int or char, 'i'
-     *  needs to be used, and for collection of floats 'd'.
+     *   this value bit-by-bit. Each character in the format represents
+     *   an argument to be collected, and the characters themselves indicate
+     *   the type of the argument. Currently supported arguments are:
+     *    - `'i'`: Integers, passed as `collect_values[].v_int`
+     *    - `'l'`: Longs, passed as `collect_values[].v_long`
+     *    - `'d'`: Doubles, passed as `collect_values[].v_double`
+     *    - `'p'`: Pointers, passed as `collect_values[].v_pointer`
+     *   It should be noted that for variable argument list construction,
+     *   ANSI C promotes every type smaller than an integer to an int, and
+     *   floats to doubles. So for collection of short int or char, `'i'`
+     *   needs to be used, and for collection of floats `'d'`.
      *
      * Note: this property is writeable but the setter binding is not supported yet.
      */
@@ -50,8 +50,8 @@ public class TypeValueTable(
 
     /**
      * Format description of the arguments to collect for @lcopy_value,
-     *  analogous to @collect_format. Usually, @lcopy_format string consists
-     *  only of 'p's to provide lcopy_value() with pointers to storage locations.
+     *   analogous to @collect_format. Usually, @lcopy_format string consists
+     *   only of `'p'`s to provide lcopy_value() with pointers to storage locations.
      *
      * Note: this property is writeable but the setter binding is not supported yet.
      */

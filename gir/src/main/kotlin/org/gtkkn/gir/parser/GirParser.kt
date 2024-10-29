@@ -399,7 +399,11 @@ private fun parseGirUnion(node: Node): GirUnion = GirUnion(
     constructors = node.childNodesWithName("constructor").map { parseGirConstructor(it) },
     methods = node.childNodesWithName("method").map { parseGirMethod(it) },
     functions = node.childNodesWithName("function").map { parseGirFunction(it) },
-    records = node.childNodesWithName("record").map { parseGirRecord(it) },
+    records = node.childNodesWithName("record")
+        .mapNotNull { record ->
+            // Gsk-4.0.gir has records without names. Not sure how to deal with them.
+            record.attributeValueOrNull("name")?.let { parseGirRecord(record) }
+        },
 )
 
 private fun parseGirRecord(node: Node): GirRecord = GirRecord(

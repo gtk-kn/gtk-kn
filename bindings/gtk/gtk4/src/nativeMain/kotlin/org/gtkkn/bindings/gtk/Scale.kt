@@ -10,6 +10,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
@@ -40,7 +41,7 @@ import kotlin.Unit
  * ![An example GtkScale](scales.png)
  *
  * To use it, you’ll probably want to investigate the methods on its base
- * class, [class@GtkRange], in addition to the methods for `GtkScale` itself.
+ * class, [class@Gtk.Range], in addition to the methods for `GtkScale` itself.
  * To set the value of a scale, you would normally use [method@Gtk.Range.set_value].
  * To detect changes to the value, you would normally use the
  * [signal@Gtk.Range::value-changed] signal.
@@ -52,8 +53,8 @@ import kotlin.Unit
  *
  * # GtkScale as GtkBuildable
  *
- * `GtkScale` supports a custom <marks> element, which can contain multiple
- * <mark\> elements. The “value” and “position” attributes have the same
+ * `GtkScale` supports a custom `<marks>` element, which can contain multiple
+ * `<mark\>` elements. The “value” and “position” attributes have the same
  * meaning as [method@Gtk.Scale.add_mark] parameters of the same name. If
  * the element is not empty, its content is taken as the markup to show at
  * the mark. It can be translated with the usual ”translatable” and
@@ -130,6 +131,9 @@ public open class Scale(
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = gPointer.reinterpret()
 
+    override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
+        get() = gPointer.reinterpret()
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = gPointer.reinterpret()
 
@@ -155,9 +159,9 @@ public open class Scale(
          *
          * Also causes the value of the adjustment to be rounded to this number
          * of digits, so the retrieved value matches the displayed one, if
-         * [property@GtkScale:draw-value] is true when the value changes. If
-         * you want to enforce rounding the value when [property@GtkScale:draw-value]
-         * is false, you can set [property@GtkRange:round-digits] instead.
+         * [property@Gtk.Scale:draw-value] is true when the value changes. If
+         * you want to enforce rounding the value when [property@Gtk.Scale:draw-value]
+         * is false, you can set [property@Gtk.Range:round-digits] instead.
          *
          * Note that rounding to a small number of digits can interfere with
          * the smooth autoscrolling that is built into `GtkScale`. As an alternative,
@@ -207,7 +211,7 @@ public open class Scale(
         /**
          * Sets whether the scale has an origin.
          *
-         * If [property@GtkScale:has-origin] is set to true (the default),
+         * If [property@Gtk.Scale:has-origin] is set to true (the default),
          * the scale will highlight the part of the trough between the origin
          * (bottom or left side) and the current value.
          *
@@ -347,7 +351,7 @@ public open class Scale(
      * to be freed by the caller.
      *
      * @return the [class@Pango.Layout]
-     *   for this scale, or null if the [property@GtkScale:draw-value]
+     *   for this scale, or null if the [property@Gtk.Scale:draw-value]
      *   property is false.
      */
     public open fun getLayout(): Layout? =
@@ -370,9 +374,9 @@ public open class Scale(
      *
      * Also causes the value of the adjustment to be rounded to this number
      * of digits, so the retrieved value matches the displayed one, if
-     * [property@GtkScale:draw-value] is true when the value changes. If
-     * you want to enforce rounding the value when [property@GtkScale:draw-value]
-     * is false, you can set [property@GtkRange:round-digits] instead.
+     * [property@Gtk.Scale:draw-value] is true when the value changes. If
+     * you want to enforce rounding the value when [property@Gtk.Scale:draw-value]
+     * is false, you can set [property@Gtk.Range:round-digits] instead.
      *
      * Note that rounding to a small number of digits can interfere with
      * the smooth autoscrolling that is built into `GtkScale`. As an alternative,
@@ -396,7 +400,7 @@ public open class Scale(
     /**
      * Sets whether the scale has an origin.
      *
-     * If [property@GtkScale:has-origin] is set to true (the default),
+     * If [property@Gtk.Scale:has-origin] is set to true (the default),
      * the scale will highlight the part of the trough between the origin
      * (bottom or left side) and the current value.
      *

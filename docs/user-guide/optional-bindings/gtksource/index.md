@@ -55,11 +55,7 @@ the GtkSourceView library section in the `gtkkn.json` from `ignoredLibraries` to
            "girPrefix": "GtkSource-5"
     -    },
     +    }
-    +  ],
-    +  "ignoredLibraries": [
-         {
-           "name": "he",
-           "module": "extra:libhelium",
+    +  ]
     ```
 
 ## Requirements

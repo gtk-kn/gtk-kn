@@ -42,6 +42,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - method `search-mode`: Property has no getter nor setter
+ * - method `show-time`: Property has no getter nor setter
  * - method `subtitle`: Property has no getter nor setter
  */
 public open class FileChooserWidget(

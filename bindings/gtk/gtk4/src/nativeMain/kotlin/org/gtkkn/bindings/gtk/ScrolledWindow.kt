@@ -75,24 +75,7 @@ import kotlin.Unit
  * just add any child widget and not worry about the details.
  *
  * If [method@Gtk.ScrolledWindow.set_child] has added a `GtkViewport` for you,
- * you can remove both your added child widget from the `GtkViewport`, and the
- * `GtkViewport` from the `GtkScrolledWindow`, like this:
- *
- * ```c
- * GtkWidget *scrolled_window = gtk_scrolled_window_new ();
- * GtkWidget *child_widget = gtk_button_new ();
- *
- * // GtkButton is not a GtkScrollable, so GtkScrolledWindow will automatically
- * // add a GtkViewport.
- * gtk_box_append (GTK_BOX (scrolled_window), child_widget);
- *
- * // Either of these will result in child_widget being unparented:
- * gtk_box_remove (GTK_BOX (scrolled_window), child_widget);
- * // or
- * gtk_box_remove (GTK_BOX (scrolled_window),
- *                       gtk_bin_get_child (GTK_BIN (scrolled_window)));
- * ```
- *
+ * it will be automatically removed when you unset the child.
  * Unless [property@Gtk.ScrolledWindow:hscrollbar-policy] and
  * [property@Gtk.ScrolledWindow:vscrollbar-policy] are %GTK_POLICY_NEVER or
  * %GTK_POLICY_EXTERNAL, `GtkScrolledWindow` adds internal `GtkScrollbar` widgets
@@ -143,7 +126,9 @@ import kotlin.Unit
  *
  * # Accessibility
  *
- * `GtkScrolledWindow` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
+ * Until GTK 4.10, `GtkScrolledWindow` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ *
+ * Starting from GTK 4.12, `GtkScrolledWindow` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  *
  * ## Skipped during bindings generation
  *
@@ -171,10 +156,18 @@ public open class ScrolledWindow(
 
     /**
      * The child widget.
+     *
+     * When setting this property, if the child widget does not implement
+     * [iface@Gtk.Scrollable], the scrolled window will add the child to
+     * a [class@Gtk.Viewport] and then set the viewport as the child.
      */
     public open var child: Widget?
         /**
          * Gets the child widget of @scrolled_window.
+         *
+         * If the scrolled window automatically added a [class@Gtk.Viewport], this
+         * function will return the viewport widget, and you can retrieve its child
+         * using [method@Gtk.Viewport.get_child].
          *
          * @return the child widget of @scrolled_window
          */
@@ -185,6 +178,10 @@ public open class ScrolledWindow(
 
         /**
          * Sets the child widget of @scrolled_window.
+         *
+         * If @child does not implement the [iface@Gtk.Scrollable] interface,
+         * the scrolled window will add @child to a [class@Gtk.Viewport] instance
+         * and then add the viewport as its child widget.
          *
          * @param child the child widget
          */
@@ -455,6 +452,10 @@ public open class ScrolledWindow(
     /**
      * Gets the child widget of @scrolled_window.
      *
+     * If the scrolled window automatically added a [class@Gtk.Viewport], this
+     * function will return the viewport widget, and you can retrieve its child
+     * using [method@Gtk.Viewport.get_child].
+     *
      * @return the child widget of @scrolled_window
      */
     public open fun getChild(): Widget? =
@@ -594,6 +595,10 @@ public open class ScrolledWindow(
 
     /**
      * Sets the child widget of @scrolled_window.
+     *
+     * If @child does not implement the [iface@Gtk.Scrollable] interface,
+     * the scrolled window will add @child to a [class@Gtk.Viewport] instance
+     * and then add the viewport as its child widget.
      *
      * @param child the child widget
      */

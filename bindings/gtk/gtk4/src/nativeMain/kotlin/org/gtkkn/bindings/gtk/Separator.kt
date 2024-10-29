@@ -17,7 +17,7 @@ import org.gtkkn.native.gtk.gtk_separator_new
 /**
  * `GtkSeparator` is a horizontal or vertical separator widget.
  *
- * ![An example GtkSeparator](separators.png)
+ * ![An example GtkSeparator](separator.png)
  *
  * A `GtkSeparator` can be used to group the widgets within a window.
  * It displays a line with a shadow to make it appear sunken into the

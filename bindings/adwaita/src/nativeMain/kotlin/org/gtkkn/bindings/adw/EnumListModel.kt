@@ -22,7 +22,6 @@ import kotlin.ULong
  * A [iface@Gio.ListModel] representing values of a given enum.
  *
  * `AdwEnumListModel` contains objects of type [class@EnumListItem].
- * @since 1.0
  */
 public class EnumListModel(
     pointer: CPointer<AdwEnumListModel>,
@@ -35,15 +34,12 @@ public class EnumListModel(
 
     /**
      * The type of the enum represented by the model.
-     *
-     * @since 1.0
      */
     public val enumType: ULong
         /**
          * Gets the type of the enum represented by @self.
          *
          * @return the enum type
-         * @since 1.0
          */
         get() = adw_enum_list_model_get_enum_type(adwEnumListModelPointer.reinterpret())
 
@@ -52,15 +48,15 @@ public class EnumListModel(
      *
      * @param enumType the type of the enum to construct the model from
      * @return the newly created `AdwEnumListModel`
-     * @since 1.0
      */
     public constructor(enumType: ULong) : this(adw_enum_list_model_new(enumType)!!.reinterpret())
 
     /**
      * Finds the position of a given enum value in @self.
      *
+     * If the value is not found, `GTK_INVALID_LIST_POSITION` is returned.
+     *
      * @param value an enum value
-     * @since 1.0
      */
     public fun findPosition(`value`: Int): UInt =
         adw_enum_list_model_find_position(adwEnumListModelPointer.reinterpret(), `value`)
@@ -69,7 +65,6 @@ public class EnumListModel(
      * Gets the type of the enum represented by @self.
      *
      * @return the enum type
-     * @since 1.0
      */
     public fun getEnumType(): ULong = adw_enum_list_model_get_enum_type(adwEnumListModelPointer.reinterpret())
 

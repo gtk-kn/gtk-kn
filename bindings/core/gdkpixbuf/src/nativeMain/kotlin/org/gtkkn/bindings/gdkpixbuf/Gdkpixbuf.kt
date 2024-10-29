@@ -56,7 +56,7 @@ public object Gdkpixbuf {
      * Micro version of gdk-pixbuf library, that is the "2" in
      * "0.8.2" for example.
      */
-    public const val PIXBUF_MICRO: Int = 8
+    public const val PIXBUF_MICRO: Int = 10
 
     /**
      * Minor version of gdk-pixbuf library, that is the "8" in
@@ -70,7 +70,7 @@ public object Gdkpixbuf {
      * This is the version being compiled against; contrast with
      * `gdk_pixbuf_version`.
      */
-    public const val PIXBUF_VERSION: String = "2.42.8"
+    public const val PIXBUF_VERSION: String = "2.42.10"
 
     public fun pixbufErrorQuark(): UInt = gdk_pixbuf_error_quark()
 

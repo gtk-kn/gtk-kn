@@ -90,14 +90,24 @@ public open class AppLaunchContext(
 
     /**
      * Initiates startup notification for the application and returns the
-     * `DESKTOP_STARTUP_ID` for the launched operation, if supported.
+     * `XDG_ACTIVATION_TOKEN` or `DESKTOP_STARTUP_ID` for the launched operation,
+     * if supported.
      *
-     * Startup notification IDs are defined in the
-     * [FreeDesktop.Org Startup Notifications
-     * standard](http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt).
+     * The returned token may be referred to equivalently as an ‘activation token’
+     * (using Wayland terminology) or a ‘startup sequence ID’ (using X11 terminology).
+     * The two [are
+     * interoperable](https://gitlab.freedesktop.org/wayland/wayland-protocols/-/blob/main/staging/xdg-activation/x11-interoperation.rst).
+     *
+     * Activation tokens are defined in the [XDG Activation
+     * Protocol](https://wayland.app/protocols/xdg-activation-v1),
+     * and startup notification IDs are defined in the
+     * [freedesktop.org Startup Notification
+     * Protocol](http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt).
+     *
+     * Support for the XDG Activation Protocol was added in GLib 2.76.
      *
      * @param info a #GAppInfo
-     * @param files a #GList of of #GFile objects
+     * @param files a #GList of #GFile objects
      * @return a startup notification ID for the application, or null if
      *     not supported.
      */
@@ -152,6 +162,10 @@ public open class AppLaunchContext(
      * fails. The startup notification id is provided, so that the launcher
      * can cancel the startup notification.
      *
+     * Because a launch operation may involve spawning multiple instances of the
+     * target application, you should expect this signal to be emitted multiple
+     * times, one for each spawned instance.
+     *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `startupNotifyId` the startup notification id
      * for the failed launch
@@ -186,6 +200,10 @@ public open class AppLaunchContext(
      * It is guaranteed that this signal is followed by either a #GAppLaunchContext::launched or
      * #GAppLaunchContext::launch-failed signal.
      *
+     * Because a launch operation may involve spawning multiple instances of the
+     * target application, you should expect this signal to be emitted multiple
+     * times, one for each spawned instance.
+     *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `info` the #GAppInfo that is about to be
      * launched; `platformData` additional platform-specific data for this launch
@@ -206,7 +224,13 @@ public open class AppLaunchContext(
 
     /**
      * The #GAppLaunchContext::launched signal is emitted when a #GAppInfo is successfully
-     * launched. The @platform_data is an GVariant dictionary mapping
+     * launched.
+     *
+     * Because a launch operation may involve spawning multiple instances of the
+     * target application, you should expect this signal to be emitted multiple
+     * times, one time for each spawned instance.
+     *
+     * The @platform_data is an GVariant dictionary mapping
      * strings to variants (ie `a{sv}`), which contains additional,
      * platform-specific data about this launch. On UNIX, at least the
      * `pid` and `startup-notification-id` keys will be present.
@@ -214,6 +238,11 @@ public open class AppLaunchContext(
      * Since 2.72 the `pid` may be 0 if the process id wasn't known (for
      * example if the process was launched via D-Bus). The `pid` may not be
      * set at all in subsequent releases.
+     *
+     * On Windows, `pid` is guaranteed to be valid only for the duration of the
+     * #GAppLaunchContext::launched signal emission; after the signal is emitted,
+     * GLib will call g_spawn_close_pid(). If you need to keep the #GPid after the
+     * signal has been emitted, then you can duplicate `pid` using `DuplicateHandle()`.
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `info` the #GAppInfo that was just launched;

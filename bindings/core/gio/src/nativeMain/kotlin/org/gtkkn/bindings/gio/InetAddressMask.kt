@@ -32,10 +32,10 @@ import kotlin.Throws
 import kotlin.UInt
 
 /**
- * #GInetAddressMask represents a range of IPv4 or IPv6 addresses
+ * `GInetAddressMask` represents a range of IPv4 or IPv6 addresses
  * described by a base address and a length indicating how many bits
  * of the base address are relevant for matching purposes. These are
- * often given in string form. Eg, "10.0.0.0/8", or "fe80::/10".
+ * often given in string form. For example, `10.0.0.0/8`, or `fe80::/10`.
  *
  * ## Skipped during bindings generation
  *
@@ -52,6 +52,11 @@ public open class InetAddressMask(
     override val gioInitablePointer: CPointer<GInitable>
         get() = gPointer.reinterpret()
 
+    /**
+     * The base address.
+     *
+     * @since 2.32
+     */
     public open val address: InetAddress
         /**
          * Gets @mask's base address
@@ -64,6 +69,11 @@ public open class InetAddressMask(
                 InetAddress(reinterpret())
             }
 
+    /**
+     * The address family (IPv4 or IPv6).
+     *
+     * @since 2.32
+     */
     public open val family: SocketFamily
         /**
          * Gets the #GSocketFamily of @mask's address
@@ -76,6 +86,11 @@ public open class InetAddressMask(
                 SocketFamily.fromNativeValue(this)
             }
 
+    /**
+     * The prefix length, in bytes.
+     *
+     * @since 2.32
+     */
     public open val length: UInt
         /**
          * Gets @mask's length

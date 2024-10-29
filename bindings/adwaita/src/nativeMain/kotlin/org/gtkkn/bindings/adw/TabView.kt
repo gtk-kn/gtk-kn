@@ -22,6 +22,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.adw.AdwTabPage
 import org.gtkkn.native.adw.AdwTabView
 import org.gtkkn.native.adw.adw_tab_view_add_page
+import org.gtkkn.native.adw.adw_tab_view_add_shortcuts
 import org.gtkkn.native.adw.adw_tab_view_append
 import org.gtkkn.native.adw.adw_tab_view_append_pinned
 import org.gtkkn.native.adw.adw_tab_view_close_other_pages
@@ -39,12 +40,15 @@ import org.gtkkn.native.adw.adw_tab_view_get_page
 import org.gtkkn.native.adw.adw_tab_view_get_page_position
 import org.gtkkn.native.adw.adw_tab_view_get_pages
 import org.gtkkn.native.adw.adw_tab_view_get_selected_page
+import org.gtkkn.native.adw.adw_tab_view_get_shortcuts
 import org.gtkkn.native.adw.adw_tab_view_get_type
 import org.gtkkn.native.adw.adw_tab_view_insert
 import org.gtkkn.native.adw.adw_tab_view_insert_pinned
+import org.gtkkn.native.adw.adw_tab_view_invalidate_thumbnails
 import org.gtkkn.native.adw.adw_tab_view_new
 import org.gtkkn.native.adw.adw_tab_view_prepend
 import org.gtkkn.native.adw.adw_tab_view_prepend_pinned
+import org.gtkkn.native.adw.adw_tab_view_remove_shortcuts
 import org.gtkkn.native.adw.adw_tab_view_reorder_backward
 import org.gtkkn.native.adw.adw_tab_view_reorder_first
 import org.gtkkn.native.adw.adw_tab_view_reorder_forward
@@ -56,6 +60,7 @@ import org.gtkkn.native.adw.adw_tab_view_set_default_icon
 import org.gtkkn.native.adw.adw_tab_view_set_menu_model
 import org.gtkkn.native.adw.adw_tab_view_set_page_pinned
 import org.gtkkn.native.adw.adw_tab_view_set_selected_page
+import org.gtkkn.native.adw.adw_tab_view_set_shortcuts
 import org.gtkkn.native.adw.adw_tab_view_transfer_page
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
@@ -71,8 +76,8 @@ import kotlin.Unit
  *
  * `AdwTabView` is a container which shows one child at a time. While it
  * provides keyboard shortcuts for switching between pages, it does not provide
- * a visible tab bar and relies on external widgets for that, such as
- * [class@TabBar].
+ * a visible tab switcher and relies on external widgets for that, such as
+ * [class@TabBar], [class@TabOverview] and [class@TabButton].
  *
  * `AdwTabView` maintains a [class@TabPage] object for each page, which holds
  * additional per-page properties. You can obtain the `AdwTabPage` for a page
@@ -86,35 +91,32 @@ import kotlin.Unit
  *
  * As such, it does not support disabling page reordering or detaching.
  *
- * `AdwTabView` adds the following shortcuts in the managed scope:
+ * `AdwTabView` adds a number of global page switching and reordering shortcuts.
+ * The [property@TabView:shortcuts] property can be used to manage them.
  *
- * * <kbd>Ctrl</kbd>+<kbd>Page Up</kbd> - switch to the previous page
- * * <kbd>Ctrl</kbd>+<kbd>Page Down</kbd> - switch to the next page
- * * <kbd>Ctrl</kbd>+<kbd>Home</kbd> - switch to the first page
- * * <kbd>Ctrl</kbd>+<kbd>End</kbd> - switch to the last page
- * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Up</kbd> - move the current page
- *     backward
- * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Down</kbd> - move the current
- *     page forward
- * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Home</kbd> - move the current page at
- *     the start
- * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>End</kbd> - move the current page at
- *      the end
- * * <kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the next page, with looping
- * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Tab</kbd> - switch to the previous
- *     page, with looping
- * * <kbd>Alt</kbd>+<kbd>1</kbd>⋯<kbd>9</kbd> - switch to pages 1-9
- * * <kbd>Alt</kbd>+<kbd>0</kbd> - switch to page 10
+ * See [flags@TabViewShortcuts] for the list of the available shortcuts. All of
+ * the shortcuts are enabled by default.
+ *
+ * [method@TabView.add_shortcuts] and [method@TabView.remove_shortcuts] can be
+ * used to manage shortcuts in a convenient way, for example:
+ *
+ * ```c
+ * adw_tab_view_remove_shortcuts (view, ADW_TAB_VIEW_SHORTCUT_CONTROL_HOME |
+ *                                      ADW_TAB_VIEW_SHORTCUT_CONTROL_END);
+ * ```
  *
  * ## CSS nodes
  *
  * `AdwTabView` has a main CSS node with the name `tabview`.
  *
+ * ## Accessibility
+ *
+ * `AdwTabView` uses the `GTK_ACCESSIBLE_ROLE_TAB_PANEL` for the tab pages which
+ * are the accessible parent objects of the child widgets.
+ *
  * ## Skipped during bindings generation
  *
  * - method `selected-page`: Property TypeInfo of getter and setter do not match
- *
- * @since 1.0
  */
 public class TabView(
     pointer: CPointer<AdwTabView>,
@@ -142,16 +144,16 @@ public class TabView(
      * not loading, doesn't have an icon and an indicator. Default icon is never
      * used for tabs that aren't pinned.
      *
-     * By default, the `adw-tab-icon-missing-symbolic` icon is used.
+     * [class@TabOverview] will use default icon for pages with missing
+     * thumbnails.
      *
-     * @since 1.0
+     * By default, the `adw-tab-icon-missing-symbolic` icon is used.
      */
     public var defaultIcon: Icon
         /**
          * Gets the default icon of @self.
          *
          * @return the default icon of @self.
-         * @since 1.0
          */
         get() =
             adw_tab_view_get_default_icon(adwTabViewPointer.reinterpret())!!.run {
@@ -161,8 +163,18 @@ public class TabView(
         /**
          * Sets the default page icon for @self.
          *
+         * If a page doesn't provide its own icon via [property@TabPage:icon], a default
+         * icon may be used instead for contexts where having an icon is necessary.
+         *
+         * [class@TabBar] will use default icon for pinned tabs in case the page is not
+         * loading, doesn't have an icon and an indicator. Default icon is never used
+         * for tabs that aren't pinned.
+         *
+         * [class@TabOverview] will use default icon for pages with missing thumbnails.
+         *
+         * By default, the `adw-tab-icon-missing-symbolic` icon is used.
+         *
          * @param defaultIcon the default icon
-         * @since 1.0
          */
         set(defaultIcon) =
             adw_tab_view_set_default_icon(
@@ -178,15 +190,18 @@ public class TabView(
      *
      * During the transfer, children cannot receive pointer input and a tab can
      * be safely dropped on the tab view.
-     *
-     * @since 1.0
      */
     public val isTransferringPage: Boolean
         /**
          * Whether a page is being transferred.
          *
+         * The corresponding property will be set to `TRUE` when a drag-n-drop tab
+         * transfer starts on any `AdwTabView`, and to `FALSE` after it ends.
+         *
+         * During the transfer, children cannot receive pointer input and a tab can
+         * be safely dropped on the tab view.
+         *
          * @return whether a page is being transferred
-         * @since 1.0
          */
         get() = adw_tab_view_get_is_transferring_page(adwTabViewPointer.reinterpret()).asBoolean()
 
@@ -196,15 +211,12 @@ public class TabView(
      * When a context menu is shown for a tab, it will be constructed from the
      * provided menu model. Use the [signal@TabView::setup-menu] signal to set up
      * the menu actions for the particular tab.
-     *
-     * @since 1.0
      */
     public var menuModel: MenuModel?
         /**
          * Gets the tab context menu model for @self.
          *
          * @return the tab context menu model for @self
-         * @since 1.0
          */
         get() =
             adw_tab_view_get_menu_model(adwTabViewPointer.reinterpret())?.run {
@@ -214,8 +226,11 @@ public class TabView(
         /**
          * Sets the tab context menu model for @self.
          *
+         * When a context menu is shown for a tab, it will be constructed from the
+         * provided menu model. Use the [signal@TabView::setup-menu] signal to set up
+         * the menu actions for the particular tab.
+         *
          * @param menuModel a menu model
-         * @since 1.0
          */
         set(menuModel) =
             adw_tab_view_set_menu_model(
@@ -225,15 +240,12 @@ public class TabView(
 
     /**
      * The number of pages in the tab view.
-     *
-     * @since 1.0
      */
     public val nPages: Int
         /**
          * Gets the number of pages in @self.
          *
          * @return the number of pages in @self
-         * @since 1.0
          */
         get() = adw_tab_view_get_n_pages(adwTabViewPointer.reinterpret())
 
@@ -241,15 +253,14 @@ public class TabView(
      * The number of pinned pages in the tab view.
      *
      * See [method@TabView.set_page_pinned].
-     *
-     * @since 1.0
      */
     public val nPinnedPages: Int
         /**
          * Gets the number of pinned pages in @self.
          *
+         * See [method@TabView.set_page_pinned].
+         *
          * @return the number of pinned pages in @self
-         * @since 1.0
          */
         get() = adw_tab_view_get_n_pinned_pages(adwTabViewPointer.reinterpret())
 
@@ -259,8 +270,6 @@ public class TabView(
      * This can be used to keep an up-to-date view. The model also implements
      * [iface@Gtk.SelectionModel] and can be used to track and change the selected
      * page.
-     *
-     * @since 1.0
      */
     public val pages: SelectionModel
         /**
@@ -271,7 +280,6 @@ public class TabView(
          * page.
          *
          * @return a `GtkSelectionModel` for the pages of @self
-         * @since 1.0
          */
         get() =
             adw_tab_view_get_pages(adwTabViewPointer.reinterpret())!!.run {
@@ -279,10 +287,46 @@ public class TabView(
             }
 
     /**
+     * The enabled shortcuts.
+     *
+     * See [flags@TabViewShortcuts] for the list of the available shortcuts. All
+     * of the shortcuts are enabled by default.
+     *
+     * [method@TabView.add_shortcuts] and [method@TabView.remove_shortcuts]
+     * provide a convenient way to manage individual shortcuts.
+     *
+     * @since 1.2
+     */
+    public var shortcuts: TabViewShortcuts
+        /**
+         * Gets the enabled shortcuts for @self.
+         *
+         * @return the shortcut mask
+         * @since 1.2
+         */
+        get() =
+            adw_tab_view_get_shortcuts(adwTabViewPointer.reinterpret()).run {
+                TabViewShortcuts(this)
+            }
+
+        /**
+         * Sets the enabled shortcuts for @self.
+         *
+         * See [flags@TabViewShortcuts] for the list of the available shortcuts. All of
+         * the shortcuts are enabled by default.
+         *
+         * [method@TabView.add_shortcuts] and [method@TabView.remove_shortcuts] provide
+         * a convenient way to manage individual shortcuts.
+         *
+         * @param shortcuts the new shortcuts
+         * @since 1.2
+         */
+        set(shortcuts) = adw_tab_view_set_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
+
+    /**
      * Creates a new `AdwTabView`.
      *
      * @return the newly created `AdwTabView`
-     * @since 1.0
      */
     public constructor() : this(adw_tab_view_new()!!.reinterpret())
 
@@ -298,7 +342,6 @@ public class TabView(
      * @param child a widget to add
      * @param parent a parent page for @child
      * @return the page object representing @child
-     * @since 1.0
      */
     public fun addPage(
         child: Widget,
@@ -313,11 +356,21 @@ public class TabView(
         }
 
     /**
+     * Adds @shortcuts for @self.
+     *
+     * See [property@TabView:shortcuts] for details.
+     *
+     * @param shortcuts the shortcuts to add
+     * @since 1.2
+     */
+    public fun addShortcuts(shortcuts: TabViewShortcuts): Unit =
+        adw_tab_view_add_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
+
+    /**
      * Inserts @child as the last non-pinned page.
      *
      * @param child a widget to add
      * @return the page object representing @child
-     * @since 1.0
      */
     public fun append(child: Widget): TabPage =
         adw_tab_view_append(
@@ -332,7 +385,6 @@ public class TabView(
      *
      * @param child a widget to add
      * @return the page object representing @child
-     * @since 1.0
      */
     public fun appendPinned(child: Widget): TabPage =
         adw_tab_view_append_pinned(
@@ -346,7 +398,6 @@ public class TabView(
      * Requests to close all pages other than @page.
      *
      * @param page a page of @self
-     * @since 1.0
      */
     public fun closeOtherPages(page: TabPage): Unit =
         adw_tab_view_close_other_pages(
@@ -379,7 +430,6 @@ public class TabView(
      * are pinned, the parent will be selected instead.
      *
      * @param page a page of @self
-     * @since 1.0
      */
     public fun closePage(page: TabPage): Unit =
         adw_tab_view_close_page(
@@ -399,7 +449,6 @@ public class TabView(
      *
      * @param page a page of @self
      * @param confirm whether to confirm or deny closing @page
-     * @since 1.0
      */
     public fun closePageFinish(
         page: TabPage,
@@ -415,7 +464,6 @@ public class TabView(
      * Requests to close all pages after @page.
      *
      * @param page a page of @self
-     * @since 1.0
      */
     public fun closePagesAfter(page: TabPage): Unit =
         adw_tab_view_close_pages_after(
@@ -427,7 +475,6 @@ public class TabView(
      * Requests to close all pages before @page.
      *
      * @param page a page of @self
-     * @since 1.0
      */
     public fun closePagesBefore(page: TabPage): Unit =
         adw_tab_view_close_pages_before(
@@ -439,7 +486,6 @@ public class TabView(
      * Gets the default icon of @self.
      *
      * @return the default icon of @self.
-     * @since 1.0
      */
     public fun getDefaultIcon(): Icon =
         adw_tab_view_get_default_icon(adwTabViewPointer.reinterpret())!!.run {
@@ -449,8 +495,13 @@ public class TabView(
     /**
      * Whether a page is being transferred.
      *
+     * The corresponding property will be set to `TRUE` when a drag-n-drop tab
+     * transfer starts on any `AdwTabView`, and to `FALSE` after it ends.
+     *
+     * During the transfer, children cannot receive pointer input and a tab can
+     * be safely dropped on the tab view.
+     *
      * @return whether a page is being transferred
-     * @since 1.0
      */
     public fun getIsTransferringPage(): Boolean =
         adw_tab_view_get_is_transferring_page(adwTabViewPointer.reinterpret()).asBoolean()
@@ -459,7 +510,6 @@ public class TabView(
      * Gets the tab context menu model for @self.
      *
      * @return the tab context menu model for @self
-     * @since 1.0
      */
     public fun getMenuModel(): MenuModel? =
         adw_tab_view_get_menu_model(adwTabViewPointer.reinterpret())?.run {
@@ -470,15 +520,15 @@ public class TabView(
      * Gets the number of pages in @self.
      *
      * @return the number of pages in @self
-     * @since 1.0
      */
     public fun getNPages(): Int = adw_tab_view_get_n_pages(adwTabViewPointer.reinterpret())
 
     /**
      * Gets the number of pinned pages in @self.
      *
+     * See [method@TabView.set_page_pinned].
+     *
      * @return the number of pinned pages in @self
-     * @since 1.0
      */
     public fun getNPinnedPages(): Int = adw_tab_view_get_n_pinned_pages(adwTabViewPointer.reinterpret())
 
@@ -487,7 +537,6 @@ public class TabView(
      *
      * @param position the index of the page in @self, starting from 0
      * @return the page object at @position
-     * @since 1.0
      */
     public fun getNthPage(position: Int): TabPage =
         adw_tab_view_get_nth_page(adwTabViewPointer.reinterpret(), position)!!.run {
@@ -499,7 +548,6 @@ public class TabView(
      *
      * @param child a child in @self
      * @return the page object for @child
-     * @since 1.0
      */
     public fun getPage(child: Widget): TabPage =
         adw_tab_view_get_page(
@@ -514,7 +562,6 @@ public class TabView(
      *
      * @param page a page of @self
      * @return the position of @page in @self
-     * @since 1.0
      */
     public fun getPagePosition(page: TabPage): Int =
         adw_tab_view_get_page_position(
@@ -530,7 +577,6 @@ public class TabView(
      * page.
      *
      * @return a `GtkSelectionModel` for the pages of @self
-     * @since 1.0
      */
     public fun getPages(): SelectionModel =
         adw_tab_view_get_pages(adwTabViewPointer.reinterpret())!!.run {
@@ -541,11 +587,21 @@ public class TabView(
      * Gets the currently selected page in @self.
      *
      * @return the selected page
-     * @since 1.0
      */
     public fun getSelectedPage(): TabPage? =
         adw_tab_view_get_selected_page(adwTabViewPointer.reinterpret())?.run {
             TabPage(reinterpret())
+        }
+
+    /**
+     * Gets the enabled shortcuts for @self.
+     *
+     * @return the shortcut mask
+     * @since 1.2
+     */
+    public fun getShortcuts(): TabViewShortcuts =
+        adw_tab_view_get_shortcuts(adwTabViewPointer.reinterpret()).run {
+            TabViewShortcuts(this)
         }
 
     /**
@@ -557,7 +613,6 @@ public class TabView(
      * @param child a widget to add
      * @param position the position to add @child at, starting from 0
      * @return the page object representing @child
-     * @since 1.0
      */
     public fun insert(
         child: Widget,
@@ -580,7 +635,6 @@ public class TabView(
      * @param child a widget to add
      * @param position the position to add @child at, starting from 0
      * @return the page object representing @child
-     * @since 1.0
      */
     public fun insertPinned(
         child: Widget,
@@ -595,11 +649,20 @@ public class TabView(
         }
 
     /**
+     * Invalidates thumbnails for all pages in @self.
+     *
+     * This is a convenience method, equivalent to calling
+     * [method@TabPage.invalidate_thumbnail] on each page.
+     *
+     * @since 1.3
+     */
+    public fun invalidateThumbnails(): Unit = adw_tab_view_invalidate_thumbnails(adwTabViewPointer.reinterpret())
+
+    /**
      * Inserts @child as the first non-pinned page.
      *
      * @param child a widget to add
      * @return the page object representing @child
-     * @since 1.0
      */
     public fun prepend(child: Widget): TabPage =
         adw_tab_view_prepend(
@@ -614,7 +677,6 @@ public class TabView(
      *
      * @param child a widget to add
      * @return the page object representing @child
-     * @since 1.0
      */
     public fun prependPinned(child: Widget): TabPage =
         adw_tab_view_prepend_pinned(
@@ -625,11 +687,21 @@ public class TabView(
         }
 
     /**
+     * Removes @shortcuts from @self.
+     *
+     * See [property@TabView:shortcuts] for details.
+     *
+     * @param shortcuts the shortcuts to reomve
+     * @since 1.2
+     */
+    public fun removeShortcuts(shortcuts: TabViewShortcuts): Unit =
+        adw_tab_view_remove_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
+
+    /**
      * Reorders @page to before its previous page if possible.
      *
      * @param page a page of @self
      * @return whether @page was moved
-     * @since 1.0
      */
     public fun reorderBackward(page: TabPage): Boolean =
         adw_tab_view_reorder_backward(
@@ -642,7 +714,6 @@ public class TabView(
      *
      * @param page a page of @self
      * @return whether @page was moved
-     * @since 1.0
      */
     public fun reorderFirst(page: TabPage): Boolean =
         adw_tab_view_reorder_first(
@@ -655,7 +726,6 @@ public class TabView(
      *
      * @param page a page of @self
      * @return whether @page was moved
-     * @since 1.0
      */
     public fun reorderForward(page: TabPage): Boolean =
         adw_tab_view_reorder_forward(
@@ -668,7 +738,6 @@ public class TabView(
      *
      * @param page a page of @self
      * @return whether @page was moved
-     * @since 1.0
      */
     public fun reorderLast(page: TabPage): Boolean =
         adw_tab_view_reorder_last(
@@ -685,7 +754,6 @@ public class TabView(
      * @param page a page of @self
      * @param position the position to insert the page at, starting at 0
      * @return whether @page was moved
-     * @since 1.0
      */
     public fun reorderPage(
         page: TabPage,
@@ -703,7 +771,6 @@ public class TabView(
      * If the last page was already selected, this function does nothing.
      *
      * @return whether the selected page was changed
-     * @since 1.0
      */
     public fun selectNextPage(): Boolean = adw_tab_view_select_next_page(adwTabViewPointer.reinterpret()).asBoolean()
 
@@ -713,7 +780,6 @@ public class TabView(
      * If the first page was already selected, this function does nothing.
      *
      * @return whether the selected page was changed
-     * @since 1.0
      */
     public fun selectPreviousPage(): Boolean =
         adw_tab_view_select_previous_page(adwTabViewPointer.reinterpret()).asBoolean()
@@ -721,8 +787,18 @@ public class TabView(
     /**
      * Sets the default page icon for @self.
      *
+     * If a page doesn't provide its own icon via [property@TabPage:icon], a default
+     * icon may be used instead for contexts where having an icon is necessary.
+     *
+     * [class@TabBar] will use default icon for pinned tabs in case the page is not
+     * loading, doesn't have an icon and an indicator. Default icon is never used
+     * for tabs that aren't pinned.
+     *
+     * [class@TabOverview] will use default icon for pages with missing thumbnails.
+     *
+     * By default, the `adw-tab-icon-missing-symbolic` icon is used.
+     *
      * @param defaultIcon the default icon
-     * @since 1.0
      */
     public fun setDefaultIcon(defaultIcon: Icon): Unit =
         adw_tab_view_set_default_icon(
@@ -733,8 +809,11 @@ public class TabView(
     /**
      * Sets the tab context menu model for @self.
      *
+     * When a context menu is shown for a tab, it will be constructed from the
+     * provided menu model. Use the [signal@TabView::setup-menu] signal to set up
+     * the menu actions for the particular tab.
+     *
      * @param menuModel a menu model
-     * @since 1.0
      */
     public fun setMenuModel(menuModel: MenuModel? = null): Unit =
         adw_tab_view_set_menu_model(
@@ -764,6 +843,10 @@ public class TabView(
      * 3. [property@TabPage:icon]
      * 4. [property@TabView:default-icon]
      *
+     * [class@TabOverview] will not show a thumbnail for pinned pages, and replace
+     * the close button with an unpin button. Unlike `AdwTabBar`, it will still
+     * display the page's title, icon and indicator separately.
+     *
      * Pinned pages cannot be closed by default, see [signal@TabView::close-page]
      * for how to override that behavior.
      *
@@ -771,7 +854,6 @@ public class TabView(
      *
      * @param page a page of @self
      * @param pinned whether @page should be pinned
-     * @since 1.0
      */
     public fun setPagePinned(
         page: TabPage,
@@ -787,13 +869,27 @@ public class TabView(
      * Sets the currently selected page in @self.
      *
      * @param selectedPage a page in @self
-     * @since 1.0
      */
     public fun setSelectedPage(selectedPage: TabPage): Unit =
         adw_tab_view_set_selected_page(
             adwTabViewPointer.reinterpret(),
             selectedPage.adwTabPagePointer.reinterpret()
         )
+
+    /**
+     * Sets the enabled shortcuts for @self.
+     *
+     * See [flags@TabViewShortcuts] for the list of the available shortcuts. All of
+     * the shortcuts are enabled by default.
+     *
+     * [method@TabView.add_shortcuts] and [method@TabView.remove_shortcuts] provide
+     * a convenient way to manage individual shortcuts.
+     *
+     * @param shortcuts the new shortcuts
+     * @since 1.2
+     */
+    public fun setShortcuts(shortcuts: TabViewShortcuts): Unit =
+        adw_tab_view_set_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
 
     /**
      * Transfers @page from @self to @other_view.
@@ -806,7 +902,6 @@ public class TabView(
      * @param page a page of @self
      * @param otherView the tab view to transfer the page to
      * @param position the position to insert the page at, starting at 0
-     * @since 1.0
      */
     public fun transferPage(
         page: TabPage,
@@ -850,7 +945,6 @@ public class TabView(
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self
-     * @since 1.0
      */
     public fun connectClosePage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -875,7 +969,6 @@ public class TabView(
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns the `AdwTabView` from the new window
-     * @since 1.0
      */
     public fun connectCreateWindow(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -898,7 +991,6 @@ public class TabView(
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self
-     * @since 1.0
      */
     public fun connectIndicatorActivated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -922,7 +1014,6 @@ public class TabView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self; `position` the
      * position of the page, starting from 0
-     * @since 1.0
      */
     public fun connectPageAttached(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -951,7 +1042,6 @@ public class TabView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self; `position` the
      * position of the removed page, starting from 0
-     * @since 1.0
      */
     public fun connectPageDetached(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -972,7 +1062,6 @@ public class TabView(
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self; `position` the
      * position @page was moved to, starting at 0
-     * @since 1.0
      */
     public fun connectPageReordered(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -997,7 +1086,6 @@ public class TabView(
      *
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` a page of @self
-     * @since 1.0
      */
     public fun connectSetupMenu(
         connectFlags: ConnectFlags = ConnectFlags(0u),

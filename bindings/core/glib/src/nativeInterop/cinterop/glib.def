@@ -1,6 +1,6 @@
 headers = glib.h glib-unix.h glib/gstdio.h
 package = org.gtkkn.native.glib
-headerFilter = glib.h glib-*.h glib/*
+headerFilter = glib.h glib-*.h glib/* glib/deprecated/*.h
 
 # pkg-config --cflags glib-2.0
 compilerOpts.linux = \
@@ -59,6 +59,7 @@ strictEnums = \
     GUnicodeBreakType \
     GUnicodeScript \
     GUnicodeType \
+    GUnixPipeEnd \
     GUriError \
     GUserDirectory \
     GVariantClass \

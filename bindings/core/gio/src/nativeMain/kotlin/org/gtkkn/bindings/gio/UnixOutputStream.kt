@@ -21,15 +21,15 @@ import kotlin.Int
 import kotlin.Unit
 
 /**
- * #GUnixOutputStream implements #GOutputStream for writing to a UNIX
+ * `GUnixOutputStream` implements [class@Gio.OutputStream] for writing to a UNIX
  * file descriptor, including asynchronous operations. (If the file
- * descriptor refers to a socket or pipe, this will use poll() to do
+ * descriptor refers to a socket or pipe, this will use `poll()` to do
  * asynchronous I/O. If it refers to a regular file, it will fall back
  * to doing asynchronous I/O in another thread.)
  *
  * Note that `<gio/gunixoutputstream.h>` belongs to the UNIX-specific GIO
  * interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config file
- * when using it.
+ * file or the `GioUnix-2.0` GIR namespace when using it.
  */
 public open class UnixOutputStream(
     pointer: CPointer<GUnixOutputStream>,

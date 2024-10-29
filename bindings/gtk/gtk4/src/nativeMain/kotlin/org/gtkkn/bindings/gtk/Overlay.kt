@@ -87,6 +87,9 @@ public open class Overlay(
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
         get() = gPointer.reinterpret()
 
+    /**
+     * The main child widget.
+     */
     public open var child: Widget?
         /**
          * Gets the child widget of @overlay.

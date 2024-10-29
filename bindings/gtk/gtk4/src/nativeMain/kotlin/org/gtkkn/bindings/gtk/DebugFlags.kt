@@ -11,6 +11,7 @@ import org.gtkkn.native.gtk.GTK_DEBUG_GEOMETRY
 import org.gtkkn.native.gtk.GTK_DEBUG_ICONFALLBACK
 import org.gtkkn.native.gtk.GTK_DEBUG_ICONTHEME
 import org.gtkkn.native.gtk.GTK_DEBUG_INTERACTIVE
+import org.gtkkn.native.gtk.GTK_DEBUG_INVERT_TEXT_DIR
 import org.gtkkn.native.gtk.GTK_DEBUG_KEYBINDINGS
 import org.gtkkn.native.gtk.GTK_DEBUG_LAYOUT
 import org.gtkkn.native.gtk.GTK_DEBUG_MODULES
@@ -19,7 +20,6 @@ import org.gtkkn.native.gtk.GTK_DEBUG_PRINTING
 import org.gtkkn.native.gtk.GTK_DEBUG_SIZE_REQUEST
 import org.gtkkn.native.gtk.GTK_DEBUG_SNAPSHOT
 import org.gtkkn.native.gtk.GTK_DEBUG_TEXT
-import org.gtkkn.native.gtk.GTK_DEBUG_TOUCHSCREEN
 import org.gtkkn.native.gtk.GTK_DEBUG_TREE
 import org.gtkkn.native.gtk.GtkDebugFlags
 
@@ -92,11 +92,6 @@ public class DebugFlags(
         public val INTERACTIVE: DebugFlags = DebugFlags(GTK_DEBUG_INTERACTIVE)
 
         /**
-         * Pretend the pointer is a touchscreen
-         */
-        public val TOUCHSCREEN: DebugFlags = DebugFlags(GTK_DEBUG_TOUCHSCREEN)
-
-        /**
          * Information about actions and menu models
          */
         public val ACTIONS: DebugFlags = DebugFlags(GTK_DEBUG_ACTIONS)
@@ -127,8 +122,15 @@ public class DebugFlags(
         public val A11Y: DebugFlags = DebugFlags(GTK_DEBUG_A11Y)
 
         /**
-         * Information about icon fallback. Since: 4.2
+         * Information about icon fallback.
+         * @since 4.2
          */
         public val ICONFALLBACK: DebugFlags = DebugFlags(GTK_DEBUG_ICONFALLBACK)
+
+        /**
+         * Inverts the default text-direction.
+         * @since 4.8
+         */
+        public val INVERT_TEXT_DIR: DebugFlags = DebugFlags(GTK_DEBUG_INVERT_TEXT_DIR)
     }
 }

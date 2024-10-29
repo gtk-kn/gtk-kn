@@ -10,6 +10,8 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -17,11 +19,14 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
+import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
 import org.gtkkn.native.gtk.GtkScaleButton
+import org.gtkkn.native.gtk.gtk_scale_button_get_active
 import org.gtkkn.native.gtk.gtk_scale_button_get_adjustment
+import org.gtkkn.native.gtk.gtk_scale_button_get_has_frame
 import org.gtkkn.native.gtk.gtk_scale_button_get_minus_button
 import org.gtkkn.native.gtk.gtk_scale_button_get_plus_button
 import org.gtkkn.native.gtk.gtk_scale_button_get_popup
@@ -29,8 +34,10 @@ import org.gtkkn.native.gtk.gtk_scale_button_get_type
 import org.gtkkn.native.gtk.gtk_scale_button_get_value
 import org.gtkkn.native.gtk.gtk_scale_button_new
 import org.gtkkn.native.gtk.gtk_scale_button_set_adjustment
+import org.gtkkn.native.gtk.gtk_scale_button_set_has_frame
 import org.gtkkn.native.gtk.gtk_scale_button_set_icons
 import org.gtkkn.native.gtk.gtk_scale_button_set_value
+import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
 import kotlin.ULong
@@ -46,8 +53,14 @@ import kotlin.collections.List
  *
  * # CSS nodes
  *
- * `GtkScaleButton` has a single CSS node with name button. To differentiate
- * it from a plain `GtkButton`, it gets the .scale style class.
+ * ```
+ * scalebutton.scale
+ * ╰── button.toggle
+ *     ╰── <icon>
+ * ```
+ *
+ * `GtkScaleButton` has a single CSS node with name scalebutton and `.scale`
+ * style class, and contains a `button` node with a `.toggle` style class.
  *
  * ## Skipped during bindings generation
  *
@@ -55,8 +68,11 @@ import kotlin.collections.List
  */
 public open class ScaleButton(
     pointer: CPointer<GtkScaleButton>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()), AccessibleRange, Orientable, KGTyped {
     public val gtkScaleButtonPointer: CPointer<GtkScaleButton>
+        get() = gPointer.reinterpret()
+
+    override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
         get() = gPointer.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
@@ -70,6 +86,23 @@ public open class ScaleButton(
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
         get() = gPointer.reinterpret()
+
+    /**
+     * If the scale button should be pressed in.
+     *
+     * @since 4.10
+     */
+    public open val active: Boolean
+        /**
+         * Queries a `GtkScaleButton` and returns its current state.
+         *
+         * Returns true if the scale button is pressed in and false
+         * if it is raised.
+         *
+         * @return whether the button is pressed
+         * @since 4.10
+         */
+        get() = gtk_scale_button_get_active(gtkScaleButtonPointer.reinterpret()).asBoolean()
 
     /**
      * The `GtkAdjustment` that is used as the model.
@@ -99,6 +132,32 @@ public open class ScaleButton(
             gtk_scale_button_set_adjustment(
                 gtkScaleButtonPointer.reinterpret(),
                 adjustment.gtkAdjustmentPointer.reinterpret()
+            )
+
+    /**
+     * If the scale button has a frame.
+     *
+     * @since 4.14
+     */
+    public open var hasFrame: Boolean
+        /**
+         * Returns whether the button has a frame.
+         *
+         * @return true if the button has a frame
+         * @since 4.14
+         */
+        get() = gtk_scale_button_get_has_frame(gtkScaleButtonPointer.reinterpret()).asBoolean()
+
+        /**
+         * Sets the style of the button.
+         *
+         * @param hasFrame whether the button should have a visible frame
+         * @since 4.14
+         */
+        set(hasFrame) =
+            gtk_scale_button_set_has_frame(
+                gtkScaleButtonPointer.reinterpret(),
+                hasFrame.asGBoolean()
             )
 
     /**
@@ -152,6 +211,17 @@ public open class ScaleButton(
     )
 
     /**
+     * Queries a `GtkScaleButton` and returns its current state.
+     *
+     * Returns true if the scale button is pressed in and false
+     * if it is raised.
+     *
+     * @return whether the button is pressed
+     * @since 4.10
+     */
+    public open fun getActive(): Boolean = gtk_scale_button_get_active(gtkScaleButtonPointer.reinterpret()).asBoolean()
+
+    /**
      * Gets the `GtkAdjustment` associated with the `GtkScaleButton`’s scale.
      *
      * See [method@Gtk.Range.get_adjustment] for details.
@@ -162,6 +232,15 @@ public open class ScaleButton(
         gtk_scale_button_get_adjustment(gtkScaleButtonPointer.reinterpret())!!.run {
             Adjustment(reinterpret())
         }
+
+    /**
+     * Returns whether the button has a frame.
+     *
+     * @return true if the button has a frame
+     * @since 4.14
+     */
+    public open fun getHasFrame(): Boolean =
+        gtk_scale_button_get_has_frame(gtkScaleButtonPointer.reinterpret()).asBoolean()
 
     /**
      * Retrieves the minus button of the `GtkScaleButton`.
@@ -214,6 +293,18 @@ public open class ScaleButton(
         gtk_scale_button_set_adjustment(
             gtkScaleButtonPointer.reinterpret(),
             adjustment.gtkAdjustmentPointer.reinterpret()
+        )
+
+    /**
+     * Sets the style of the button.
+     *
+     * @param hasFrame whether the button should have a visible frame
+     * @since 4.14
+     */
+    public open fun setHasFrame(hasFrame: Boolean): Unit =
+        gtk_scale_button_set_has_frame(
+            gtkScaleButtonPointer.reinterpret(),
+            hasFrame.asGBoolean()
         )
 
     /**

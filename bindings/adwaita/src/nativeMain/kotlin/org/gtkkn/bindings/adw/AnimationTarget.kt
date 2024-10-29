@@ -12,9 +12,6 @@ import org.gtkkn.native.adw.adw_animation_target_get_type
 
 /**
  * Represents a value [class@Animation] can animate.
- *
- * Currently the only implementation is [class@CallbackAnimationTarget].
- * @since 1.0
  */
 public open class AnimationTarget(
     pointer: CPointer<AdwAnimationTarget>,

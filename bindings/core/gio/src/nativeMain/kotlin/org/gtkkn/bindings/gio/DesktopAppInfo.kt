@@ -41,12 +41,12 @@ import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
 /**
- * #GDesktopAppInfo is an implementation of #GAppInfo based on
+ * `GDesktopAppInfo` is an implementation of [iface@Gio.AppInfo] based on
  * desktop files.
  *
  * Note that `<gio/gdesktopappinfo.h>` belongs to the UNIX-specific
  * GIO interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
- * file when using it.
+ * file or the `GioUnix-2.0` GIR namespace when using it.
  *
  * ## Skipped during bindings generation
  *

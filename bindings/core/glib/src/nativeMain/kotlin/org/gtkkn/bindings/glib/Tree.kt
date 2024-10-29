@@ -3,11 +3,14 @@ package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GTree
 import org.gtkkn.native.glib.g_tree_destroy
+import org.gtkkn.native.glib.g_tree_foreach
+import org.gtkkn.native.glib.g_tree_foreach_node
 import org.gtkkn.native.glib.g_tree_height
 import org.gtkkn.native.glib.g_tree_nnodes
 import org.gtkkn.native.glib.g_tree_ref
@@ -34,7 +37,10 @@ import kotlin.Unit
  * - parameter `key`: gpointer
  * - parameter `key`: gpointer
  * - parameter `key`: gpointer
+ * - method `search`: Return type gpointer is unsupported
+ * - method `search_node`: Return type TreeNode is unsupported
  * - parameter `key`: gpointer
+ * - method `traverse`: C function g_tree_traverse is ignored
  * - parameter `key`: gpointer
  * - parameter `value_destroy_func`: DestroyNotify
  */
@@ -54,6 +60,47 @@ public class Tree(
     public fun destroy(): Unit = g_tree_destroy(glibTreePointer.reinterpret())
 
     /**
+     * Calls the given function for each of the key/value pairs in the #GTree.
+     * The function is passed the key and value of each pair, and the given
+     * @data parameter. The tree is traversed in sorted order.
+     *
+     * The tree may not be modified while iterating over it (you can't
+     * add/remove items). To remove all items matching a predicate, you need
+     * to add each item to a list in your #GTraverseFunc as you walk over
+     * the tree, then walk the list and remove each item.
+     *
+     * @param func the function to call for each node visited.
+     *     If this function returns true, the traversal is stopped.
+     */
+    public fun foreach(func: TraverseFunc): Unit =
+        g_tree_foreach(
+            glibTreePointer.reinterpret(),
+            TraverseFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
+
+    /**
+     * Calls the given function for each of the nodes in the #GTree.
+     * The function is passed the pointer to the particular node, and the given
+     * @data parameter. The tree traversal happens in-order.
+     *
+     * The tree may not be modified while iterating over it (you can't
+     * add/remove items). To remove all items matching a predicate, you need
+     * to add each item to a list in your #GTraverseFunc as you walk over
+     * the tree, then walk the list and remove each item.
+     *
+     * @param func the function to call for each node visited.
+     *     If this function returns true, the traversal is stopped.
+     * @since 2.68
+     */
+    public fun foreachNode(func: TraverseNodeFunc): Unit =
+        g_tree_foreach_node(
+            glibTreePointer.reinterpret(),
+            TraverseNodeFuncFunc.reinterpret(),
+            StableRef.create(func).asCPointer()
+        )
+
+    /**
      * Gets the height of a #GTree.
      *
      * If the #GTree contains no nodes, the height is 0.
@@ -68,6 +115,11 @@ public class Tree(
      * Gets the number of nodes in a #GTree.
      *
      * @return the number of nodes in @tree
+     *
+     * The node counter value type is really a #guint,
+     * but it is returned as a #gint due to backward
+     * compatibility issues (can be cast back to #guint to
+     * support its full range of values).
      */
     public fun nnodes(): Int = g_tree_nnodes(glibTreePointer.reinterpret())
 
