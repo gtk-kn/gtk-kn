@@ -129,7 +129,7 @@ headers from the local `/usr/include` folders.
 
 ### Supported platforms
 
-While working towards a 1.0 release, we are focussed on linux first and are actively testing on Ubuntu 22.04 LTS, 22.10,
+While working towards a 1.0 release, we are focussed on linux first and are actively testing on Ubuntu 24.04 LTS
 and Arch linux. Other Linux distributions should be supported as well.
 
 Windows and macOS support is on our roadmap.

@@ -15,7 +15,7 @@ Put an x inside the [] like this: [x] to mark the checkbox.
 
 - gtk-kn version: `?`
 - Installed from source/other (specify): `?`
-- Operating system name and version (e.g. Ubuntu 22.04): `?`
+- Operating system name and version (e.g. Ubuntu 24.04): `?`
 - Desktop Environment (e.g. Gnome 42.8): `?`
 - GTK version (e.g. 4.4): `?`
 

@@ -1,5 +1,5 @@
 .build-base:
-  image: ubuntu:22.04
+  image: ubuntu:24.04
   before_script:
     - GRADLE_USER_HOME="$(pwd)/.gradle"
     - export GRADLE_USER_HOME
