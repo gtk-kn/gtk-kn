@@ -169,14 +169,6 @@ class ProcessorContext(
         // GtkSource, problem with enum parameter value
         "gtk_source_view_get_gutter",
 
-        // libhelium
-        // Return type of is not a subtype of the return type of the overridden member
-        "he_badge_get_child",
-        "he_overlay_button_get_child",
-        // https://github.com/tau-OS/libhelium/issues/33
-        "he_application_window_set_modal",
-        "he_window_set_modal",
-
         // GLib gstdio macros
         "g_chmod",
         "g_creat",
