@@ -99,7 +99,9 @@ import kotlin.collections.List
  *
  * - method `filter`: Property TypeInfo of getter and setter do not match
  */
-public interface FileChooser : Interface, KGTyped {
+public interface FileChooser :
+    Interface,
+    KGTyped {
     public val gtkFileChooserPointer: CPointer<GtkFileChooser>
 
     /**
@@ -127,11 +129,7 @@ public interface FileChooser : Interface, KGTyped {
          *
          * @param action the action that the file selector is performing
          */
-        set(action) =
-            gtk_file_chooser_set_action(
-                gtkFileChooserPointer.reinterpret(),
-                action.nativeValue
-            )
+        set(action) = gtk_file_chooser_set_action(gtkFileChooserPointer.reinterpret(), action.nativeValue)
 
     /**
      * Whether a file chooser not in %GTK_FILE_CHOOSER_ACTION_OPEN mode
@@ -153,11 +151,9 @@ public interface FileChooser : Interface, KGTyped {
          *
          * @param createFolders true if the Create Folder button should be displayed
          */
-        set(createFolders) =
-            gtk_file_chooser_set_create_folders(
-                gtkFileChooserPointer.reinterpret(),
-                createFolders.asGBoolean()
-            )
+        set(
+            createFolders
+        ) = gtk_file_chooser_set_create_folders(gtkFileChooserPointer.reinterpret(), createFolders.asGBoolean())
 
     /**
      * A `GListModel` containing the filters that have been
@@ -194,8 +190,7 @@ public interface FileChooser : Interface, KGTyped {
          *
          * @return true if multiple files can be selected.
          */
-        get() =
-            gtk_file_chooser_get_select_multiple(gtkFileChooserPointer.reinterpret()).asBoolean()
+        get() = gtk_file_chooser_get_select_multiple(gtkFileChooserPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether multiple files can be selected in the file chooser.
@@ -206,11 +201,9 @@ public interface FileChooser : Interface, KGTyped {
          *
          * @param selectMultiple true if multiple files can be selected.
          */
-        set(selectMultiple) =
-            gtk_file_chooser_set_select_multiple(
-                gtkFileChooserPointer.reinterpret(),
-                selectMultiple.asGBoolean()
-            )
+        set(
+            selectMultiple
+        ) = gtk_file_chooser_set_select_multiple(gtkFileChooserPointer.reinterpret(), selectMultiple.asGBoolean())
 
     /**
      * A `GListModel` containing the shortcut folders that have been
@@ -276,10 +269,7 @@ public interface FileChooser : Interface, KGTyped {
      * @param filter a `GtkFileFilter`
      */
     public fun addFilter(filter: FileFilter): Unit =
-        gtk_file_chooser_add_filter(
-            gtkFileChooserPointer.reinterpret(),
-            filter.gtkFileFilterPointer.reinterpret()
-        )
+        gtk_file_chooser_add_filter(gtkFileChooserPointer.reinterpret(), filter.gtkFileFilterPointer.reinterpret())
 
     /**
      * Adds a folder to be displayed with the shortcut folders
@@ -450,10 +440,7 @@ public interface FileChooser : Interface, KGTyped {
      * @param filter a `GtkFileFilter`
      */
     public fun removeFilter(filter: FileFilter): Unit =
-        gtk_file_chooser_remove_filter(
-            gtkFileChooserPointer.reinterpret(),
-            filter.gtkFileFilterPointer.reinterpret()
-        )
+        gtk_file_chooser_remove_filter(gtkFileChooserPointer.reinterpret(), filter.gtkFileFilterPointer.reinterpret())
 
     /**
      * Removes a folder from the shortcut folders in a file chooser.
@@ -515,10 +502,7 @@ public interface FileChooser : Interface, KGTyped {
      * @param createFolders true if the Create Folder button should be displayed
      */
     public fun setCreateFolders(createFolders: Boolean): Unit =
-        gtk_file_chooser_set_create_folders(
-            gtkFileChooserPointer.reinterpret(),
-            createFolders.asGBoolean()
-        )
+        gtk_file_chooser_set_create_folders(gtkFileChooserPointer.reinterpret(), createFolders.asGBoolean())
 
     /**
      * Sets the current folder for @chooser from a `GFile`.
@@ -640,10 +624,7 @@ public interface FileChooser : Interface, KGTyped {
      * @param filter a `GtkFileFilter`
      */
     public fun setFilter(filter: FileFilter): Unit =
-        gtk_file_chooser_set_filter(
-            gtkFileChooserPointer.reinterpret(),
-            filter.gtkFileFilterPointer.reinterpret()
-        )
+        gtk_file_chooser_set_filter(gtkFileChooserPointer.reinterpret(), filter.gtkFileFilterPointer.reinterpret())
 
     /**
      * Sets whether multiple files can be selected in the file chooser.
@@ -655,10 +636,7 @@ public interface FileChooser : Interface, KGTyped {
      * @param selectMultiple true if multiple files can be selected.
      */
     public fun setSelectMultiple(selectMultiple: Boolean): Unit =
-        gtk_file_chooser_set_select_multiple(
-            gtkFileChooserPointer.reinterpret(),
-            selectMultiple.asGBoolean()
-        )
+        gtk_file_chooser_set_select_multiple(gtkFileChooserPointer.reinterpret(), selectMultiple.asGBoolean())
 
     private data class Wrapper(
         private val pointer: CPointer<GtkFileChooser>,

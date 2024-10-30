@@ -33,7 +33,8 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_spin_new
  */
 public open class CellRendererSpin(
     pointer: CPointer<GtkCellRendererSpin>,
-) : CellRendererText(pointer.reinterpret()), KGTyped {
+) : CellRendererText(pointer.reinterpret()),
+    KGTyped {
     public val gtkCellRendererSpinPointer: CPointer<GtkCellRendererSpin>
         get() = gPointer.reinterpret()
 
@@ -46,9 +47,7 @@ public open class CellRendererSpin(
 
     public companion object : TypeCompanion<CellRendererSpin> {
         override val type: GeneratedClassKGType<CellRendererSpin> =
-            GeneratedClassKGType(gtk_cell_renderer_spin_get_type()) {
-                CellRendererSpin(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_cell_renderer_spin_get_type()) { CellRendererSpin(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

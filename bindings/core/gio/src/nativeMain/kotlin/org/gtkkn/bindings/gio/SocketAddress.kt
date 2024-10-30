@@ -27,7 +27,9 @@ import kotlin.Long
  */
 public open class SocketAddress(
     pointer: CPointer<GSocketAddress>,
-) : Object(pointer.reinterpret()), SocketConnectable, KGTyped {
+) : Object(pointer.reinterpret()),
+    SocketConnectable,
+    KGTyped {
     public val gioSocketAddressPointer: CPointer<GSocketAddress>
         get() = gPointer.reinterpret()
 
@@ -75,9 +77,7 @@ public open class SocketAddress(
 
     public companion object : TypeCompanion<SocketAddress> {
         override val type: GeneratedClassKGType<SocketAddress> =
-            GeneratedClassKGType(g_socket_address_get_type()) {
-                SocketAddress(it.reinterpret())
-            }
+            GeneratedClassKGType(g_socket_address_get_type()) { SocketAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

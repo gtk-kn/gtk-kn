@@ -34,7 +34,10 @@ import kotlin.String
  */
 public open class IconPaintable(
     pointer: CPointer<GtkIconPaintable>,
-) : Object(pointer.reinterpret()), Paintable, SymbolicPaintable, KGTyped {
+) : Object(pointer.reinterpret()),
+    Paintable,
+    SymbolicPaintable,
+    KGTyped {
     public val gtkIconPaintablePointer: CPointer<GtkIconPaintable>
         get() = gPointer.reinterpret()
 
@@ -142,9 +145,7 @@ public open class IconPaintable(
 
     public companion object : TypeCompanion<IconPaintable> {
         override val type: GeneratedClassKGType<IconPaintable> =
-            GeneratedClassKGType(gtk_icon_paintable_get_type()) {
-                IconPaintable(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_icon_paintable_get_type()) { IconPaintable(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

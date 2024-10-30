@@ -67,7 +67,8 @@ import kotlin.Unit
  */
 public open class LockButton(
     pointer: CPointer<GtkLockButton>,
-) : Button(pointer.reinterpret()), KGTyped {
+) : Button(pointer.reinterpret()),
+    KGTyped {
     public val gtkLockButtonPointer: CPointer<GtkLockButton>
         get() = gPointer.reinterpret()
 
@@ -102,7 +103,9 @@ public open class LockButton(
          *
          * @param permission a `GPermission` object
          */
-        set(permission) =
+        set(
+            permission
+        ) =
             gtk_lock_button_set_permission(
                 gtkLockButtonPointer.reinterpret(),
                 permission?.gioPermissionPointer?.reinterpret()
@@ -114,8 +117,9 @@ public open class LockButton(
      * @param permission a `GPermission`
      * @return a new `GtkLockButton`
      */
-    public constructor(permission: Permission? = null) :
-        this(gtk_lock_button_new(permission?.gioPermissionPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        permission: Permission? = null,
+    ) : this(gtk_lock_button_new(permission?.gioPermissionPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Obtains the `GPermission` object that controls @button.

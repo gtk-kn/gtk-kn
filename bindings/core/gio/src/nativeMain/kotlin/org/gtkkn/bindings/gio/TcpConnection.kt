@@ -22,7 +22,8 @@ import kotlin.Unit
  */
 public open class TcpConnection(
     pointer: CPointer<GTcpConnection>,
-) : SocketConnection(pointer.reinterpret()), KGTyped {
+) : SocketConnection(pointer.reinterpret()),
+    KGTyped {
     public val gioTcpConnectionPointer: CPointer<GTcpConnection>
         get() = gPointer.reinterpret()
 
@@ -39,8 +40,7 @@ public open class TcpConnection(
          * @return true if graceful disconnect is used on close, false otherwise
          * @since 2.22
          */
-        get() =
-            g_tcp_connection_get_graceful_disconnect(gioTcpConnectionPointer.reinterpret()).asBoolean()
+        get() = g_tcp_connection_get_graceful_disconnect(gioTcpConnectionPointer.reinterpret()).asBoolean()
 
         /**
          * This enables graceful disconnects on close. A graceful disconnect
@@ -56,7 +56,9 @@ public open class TcpConnection(
          * @param gracefulDisconnect Whether to do graceful disconnects or not
          * @since 2.22
          */
-        set(gracefulDisconnect) =
+        set(
+            gracefulDisconnect
+        ) =
             g_tcp_connection_set_graceful_disconnect(
                 gioTcpConnectionPointer.reinterpret(),
                 gracefulDisconnect.asGBoolean()
@@ -87,16 +89,11 @@ public open class TcpConnection(
      * @since 2.22
      */
     public open fun setGracefulDisconnect(gracefulDisconnect: Boolean): Unit =
-        g_tcp_connection_set_graceful_disconnect(
-            gioTcpConnectionPointer.reinterpret(),
-            gracefulDisconnect.asGBoolean()
-        )
+        g_tcp_connection_set_graceful_disconnect(gioTcpConnectionPointer.reinterpret(), gracefulDisconnect.asGBoolean())
 
     public companion object : TypeCompanion<TcpConnection> {
         override val type: GeneratedClassKGType<TcpConnection> =
-            GeneratedClassKGType(g_tcp_connection_get_type()) {
-                TcpConnection(it.reinterpret())
-            }
+            GeneratedClassKGType(g_tcp_connection_get_type()) { TcpConnection(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

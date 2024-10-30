@@ -177,7 +177,8 @@ import kotlin.Unit
  */
 public class Toast(
     pointer: CPointer<AdwToast>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val adwToastPointer: CPointer<AdwToast>
         get() = gPointer.reinterpret()
 
@@ -270,11 +271,7 @@ public class Toast(
          * @param widget the custom title widget
          * @since 1.2
          */
-        set(widget) =
-            adw_toast_set_custom_title(
-                adwToastPointer.reinterpret(),
-                widget?.gtkWidgetPointer?.reinterpret()
-            )
+        set(widget) = adw_toast_set_custom_title(adwToastPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The priority of the toast.
@@ -367,11 +364,7 @@ public class Toast(
          * @param useMarkup whether to use markup
          * @since 1.4
          */
-        set(useMarkup) =
-            adw_toast_set_use_markup(
-                adwToastPointer.reinterpret(),
-                useMarkup.asGBoolean()
-            )
+        set(useMarkup) = adw_toast_set_use_markup(adwToastPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
      * Creates a new `AdwToast`.
@@ -484,10 +477,7 @@ public class Toast(
      * @param actionTarget the action target
      */
     public fun setActionTargetValue(actionTarget: Variant? = null): Unit =
-        adw_toast_set_action_target_value(
-            adwToastPointer.reinterpret(),
-            actionTarget?.glibVariantPointer
-        )
+        adw_toast_set_action_target_value(adwToastPointer.reinterpret(), actionTarget?.glibVariantPointer)
 
     /**
      * Sets the label to show on the button.
@@ -515,10 +505,7 @@ public class Toast(
      * @since 1.2
      */
     public fun setCustomTitle(widget: Widget? = null): Unit =
-        adw_toast_set_custom_title(
-            adwToastPointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_toast_set_custom_title(adwToastPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the action name and its parameter.
@@ -571,11 +558,7 @@ public class Toast(
      *
      * @param title a title
      */
-    public fun setTitle(title: String): Unit =
-        adw_toast_set_title(
-            adwToastPointer.reinterpret(),
-            title
-        )
+    public fun setTitle(title: String): Unit = adw_toast_set_title(adwToastPointer.reinterpret(), title)
 
     /**
      * Whether to use Pango markup for the toast title.
@@ -645,8 +628,7 @@ private val connectButtonClickedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDismissedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -654,5 +636,4 @@ private val connectDismissedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

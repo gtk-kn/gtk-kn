@@ -46,7 +46,8 @@ import kotlin.Int
  */
 public open class Constraint(
     pointer: CPointer<GtkConstraint>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkConstraintPointer: CPointer<GtkConstraint>
         get() = gPointer.reinterpret()
 

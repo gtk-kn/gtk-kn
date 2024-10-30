@@ -32,7 +32,9 @@ import kotlin.Unit
  */
 public open class EmblemedIcon(
     pointer: CPointer<GEmblemedIcon>,
-) : Object(pointer.reinterpret()), Icon, KGTyped {
+) : Object(pointer.reinterpret()),
+    Icon,
+    KGTyped {
     public val gioEmblemedIconPointer: CPointer<GEmblemedIcon>
         get() = gPointer.reinterpret()
 
@@ -47,13 +49,10 @@ public open class EmblemedIcon(
      * @return a new #GIcon
      * @since 2.18
      */
-    public constructor(icon: Icon, emblem: Emblem? = null) :
-        this(
-            g_emblemed_icon_new(
-                icon.gioIconPointer,
-                emblem?.gioEmblemPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        icon: Icon,
+        emblem: Emblem? = null,
+    ) : this(g_emblemed_icon_new(icon.gioIconPointer, emblem?.gioEmblemPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Adds @emblem to the #GList of #GEmblems.
@@ -62,10 +61,7 @@ public open class EmblemedIcon(
      * @since 2.18
      */
     public open fun addEmblem(emblem: Emblem): Unit =
-        g_emblemed_icon_add_emblem(
-            gioEmblemedIconPointer.reinterpret(),
-            emblem.gioEmblemPointer.reinterpret()
-        )
+        g_emblemed_icon_add_emblem(gioEmblemedIconPointer.reinterpret(), emblem.gioEmblemPointer.reinterpret())
 
     /**
      * Removes all the emblems from @icon.

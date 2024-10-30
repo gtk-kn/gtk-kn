@@ -130,12 +130,7 @@ public open class RenderNode(
     public open fun writeToFile(filename: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                gsk_render_node_write_to_file(
-                    gPointer.reinterpret(),
-                    filename,
-                    gError.ptr
-                ).asBoolean()
+            val gResult = gsk_render_node_write_to_file(gPointer.reinterpret(), filename, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {

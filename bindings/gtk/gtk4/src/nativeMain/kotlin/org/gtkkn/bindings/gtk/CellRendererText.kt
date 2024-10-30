@@ -86,7 +86,8 @@ import kotlin.Unit
  */
 public open class CellRendererText(
     pointer: CPointer<GtkCellRendererText>,
-) : CellRenderer(pointer.reinterpret()), KGTyped {
+) : CellRenderer(pointer.reinterpret()),
+    KGTyped {
     public val gtkCellRendererTextPointer: CPointer<GtkCellRendererText>
         get() = gPointer.reinterpret()
 
@@ -115,10 +116,7 @@ public open class CellRendererText(
      * @param numberOfRows Number of rows of text each cell renderer is allocated, or -1
      */
     public open fun setFixedHeightFromFont(numberOfRows: Int): Unit =
-        gtk_cell_renderer_text_set_fixed_height_from_font(
-            gtkCellRendererTextPointer.reinterpret(),
-            numberOfRows
-        )
+        gtk_cell_renderer_text_set_fixed_height_from_font(gtkCellRendererTextPointer.reinterpret(), numberOfRows)
 
     /**
      * This signal is emitted after @renderer has been edited.
@@ -127,15 +125,11 @@ public open class CellRendererText(
      * and store @new_text at the position indicated by @path.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `path` the path identifying the edited cell;
-     * `newText` the new text
+     * @param handler the Callback to connect. Params: `path` the path identifying the edited cell; `newText` the new text
      */
     public fun connectEdited(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            path: String,
-            newText: String,
-        ) -> Unit,
+        handler: (path: String, newText: String) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -148,9 +142,7 @@ public open class CellRendererText(
 
     public companion object : TypeCompanion<CellRendererText> {
         override val type: GeneratedClassKGType<CellRendererText> =
-            GeneratedClassKGType(gtk_cell_renderer_text_get_type()) {
-                CellRendererText(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_cell_renderer_text_get_type()) { CellRendererText(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -166,10 +158,7 @@ private val connectEditedFunc: CPointer<CFunction<(CPointer<ByteVar>, CPointer<B
             userData: COpaquePointer,
         ->
         userData.asStableRef<(path: String, newText: String) -> Unit>().get().invoke(
-            path?.toKString()
-                ?: error("Expected not null string"),
-            newText?.toKString()
-                ?: error("Expected not null string")
+            path?.toKString() ?: error("Expected not null string"),
+            newText?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()

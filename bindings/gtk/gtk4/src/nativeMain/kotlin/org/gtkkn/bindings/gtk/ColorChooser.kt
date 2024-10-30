@@ -44,7 +44,9 @@ import kotlin.Unit
  * - parameter `colors`: Gdk.RGBA
  * - method `rgba`: Property has no getter
  */
-public interface ColorChooser : Interface, KGTyped {
+public interface ColorChooser :
+    Interface,
+    KGTyped {
     public val gtkColorChooserPointer: CPointer<GtkColorChooser>
 
     /**
@@ -71,11 +73,7 @@ public interface ColorChooser : Interface, KGTyped {
          *
          * @param useAlpha true if color chooser should use alpha channel, false if not
          */
-        set(useAlpha) =
-            gtk_color_chooser_set_use_alpha(
-                gtkColorChooserPointer.reinterpret(),
-                useAlpha.asGBoolean()
-            )
+        set(useAlpha) = gtk_color_chooser_set_use_alpha(gtkColorChooserPointer.reinterpret(), useAlpha.asGBoolean())
 
     /**
      * Gets the currently-selected color.
@@ -108,10 +106,7 @@ public interface ColorChooser : Interface, KGTyped {
      * @param useAlpha true if color chooser should use alpha channel, false if not
      */
     public fun setUseAlpha(useAlpha: Boolean): Unit =
-        gtk_color_chooser_set_use_alpha(
-            gtkColorChooserPointer.reinterpret(),
-            useAlpha.asGBoolean()
-        )
+        gtk_color_chooser_set_use_alpha(gtkColorChooserPointer.reinterpret(), useAlpha.asGBoolean())
 
     /**
      * Emitted when a color is activated from the color chooser.
@@ -165,5 +160,4 @@ private val connectColorActivatedFunc: CPointer<CFunction<(CPointer<GdkRGBA>) ->
                 RGBA(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -60,7 +60,8 @@ import kotlin.Unit
  */
 public open class TextMark(
     pointer: CPointer<GtkTextMark>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkTextMarkPointer: CPointer<GtkTextMark>
         get() = gPointer.reinterpret()
 
@@ -109,12 +110,10 @@ public open class TextMark(
      * @param leftGravity whether the mark should have left gravity
      * @return new `GtkTextMark`
      */
-    public constructor(name: String? = null, leftGravity: Boolean) : this(
-        gtk_text_mark_new(
-            name,
-            leftGravity.asGBoolean()
-        )!!.reinterpret()
-    )
+    public constructor(
+        name: String? = null,
+        leftGravity: Boolean,
+    ) : this(gtk_text_mark_new(name, leftGravity.asGBoolean())!!.reinterpret())
 
     /**
      * Gets the buffer this mark is located inside.

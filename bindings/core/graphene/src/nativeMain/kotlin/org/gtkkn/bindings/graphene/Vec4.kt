@@ -71,12 +71,7 @@ public class Vec4(
     public fun add(
         b: Vec4,
         res: Vec4,
-    ): Unit =
-        graphene_vec4_add(
-            grapheneVec4Pointer.reinterpret(),
-            b.grapheneVec4Pointer,
-            res.grapheneVec4Pointer
-        )
+    ): Unit = graphene_vec4_add(grapheneVec4Pointer.reinterpret(), b.grapheneVec4Pointer, res.grapheneVec4Pointer)
 
     /**
      * Divides each component of the first operand @a by the corresponding
@@ -90,12 +85,7 @@ public class Vec4(
     public fun divide(
         b: Vec4,
         res: Vec4,
-    ): Unit =
-        graphene_vec4_divide(
-            grapheneVec4Pointer.reinterpret(),
-            b.grapheneVec4Pointer,
-            res.grapheneVec4Pointer
-        )
+    ): Unit = graphene_vec4_divide(grapheneVec4Pointer.reinterpret(), b.grapheneVec4Pointer, res.grapheneVec4Pointer)
 
     /**
      * Computes the dot product of the two given vectors.
@@ -104,11 +94,7 @@ public class Vec4(
      * @return the value of the dot product
      * @since 1.0
      */
-    public fun dot(b: Vec4): Float =
-        graphene_vec4_dot(
-            grapheneVec4Pointer.reinterpret(),
-            b.grapheneVec4Pointer
-        )
+    public fun dot(b: Vec4): Float = graphene_vec4_dot(grapheneVec4Pointer.reinterpret(), b.grapheneVec4Pointer)
 
     /**
      * Checks whether the two given #graphene_vec4_t are equal.
@@ -117,11 +103,7 @@ public class Vec4(
      * @return `true` if the two vectors are equal, and false otherwise
      * @since 1.2
      */
-    public fun equal(v2: Vec4): Boolean =
-        graphene_vec4_equal(
-            grapheneVec4Pointer.reinterpret(),
-            v2.grapheneVec4Pointer
-        )
+    public fun equal(v2: Vec4): Boolean = graphene_vec4_equal(grapheneVec4Pointer.reinterpret(), v2.grapheneVec4Pointer)
 
     /**
      * Frees the resources allocated by @v
@@ -153,11 +135,7 @@ public class Vec4(
      * @param res return location for a #graphene_vec2_t
      * @since 1.0
      */
-    public fun getXy(res: Vec2): Unit =
-        graphene_vec4_get_xy(
-            grapheneVec4Pointer.reinterpret(),
-            res.grapheneVec2Pointer
-        )
+    public fun getXy(res: Vec2): Unit = graphene_vec4_get_xy(grapheneVec4Pointer.reinterpret(), res.grapheneVec2Pointer)
 
     /**
      * Creates a #graphene_vec3_t that contains the first three components
@@ -167,10 +145,7 @@ public class Vec4(
      * @since 1.0
      */
     public fun getXyz(res: Vec3): Unit =
-        graphene_vec4_get_xyz(
-            grapheneVec4Pointer.reinterpret(),
-            res.grapheneVec3Pointer
-        )
+        graphene_vec4_get_xyz(grapheneVec4Pointer.reinterpret(), res.grapheneVec3Pointer)
 
     /**
      * Retrieves the value of the second component of the given #graphene_vec4_t.
@@ -226,12 +201,7 @@ public class Vec4(
         z: Float,
         w: Float,
     ): Vec4 =
-        graphene_vec4_init_from_vec2(
-            grapheneVec4Pointer.reinterpret(),
-            src.grapheneVec2Pointer,
-            z,
-            w
-        )!!.run {
+        graphene_vec4_init_from_vec2(grapheneVec4Pointer.reinterpret(), src.grapheneVec2Pointer, z, w)!!.run {
             Vec4(reinterpret())
         }
 
@@ -248,11 +218,7 @@ public class Vec4(
         src: Vec3,
         w: Float,
     ): Vec4 =
-        graphene_vec4_init_from_vec3(
-            grapheneVec4Pointer.reinterpret(),
-            src.grapheneVec3Pointer,
-            w
-        )!!.run {
+        graphene_vec4_init_from_vec3(grapheneVec4Pointer.reinterpret(), src.grapheneVec3Pointer, w)!!.run {
             Vec4(reinterpret())
         }
 
@@ -265,10 +231,7 @@ public class Vec4(
      * @since 1.0
      */
     public fun initFromVec4(src: Vec4): Vec4 =
-        graphene_vec4_init_from_vec4(
-            grapheneVec4Pointer.reinterpret(),
-            src.grapheneVec4Pointer
-        )!!.run {
+        graphene_vec4_init_from_vec4(grapheneVec4Pointer.reinterpret(), src.grapheneVec4Pointer)!!.run {
             Vec4(reinterpret())
         }
 
@@ -311,12 +274,7 @@ public class Vec4(
     public fun max(
         b: Vec4,
         res: Vec4,
-    ): Unit =
-        graphene_vec4_max(
-            grapheneVec4Pointer.reinterpret(),
-            b.grapheneVec4Pointer,
-            res.grapheneVec4Pointer
-        )
+    ): Unit = graphene_vec4_max(grapheneVec4Pointer.reinterpret(), b.grapheneVec4Pointer, res.grapheneVec4Pointer)
 
     /**
      * Compares each component of the two given vectors and creates a
@@ -329,12 +287,7 @@ public class Vec4(
     public fun min(
         b: Vec4,
         res: Vec4,
-    ): Unit =
-        graphene_vec4_min(
-            grapheneVec4Pointer.reinterpret(),
-            b.grapheneVec4Pointer,
-            res.grapheneVec4Pointer
-        )
+    ): Unit = graphene_vec4_min(grapheneVec4Pointer.reinterpret(), b.grapheneVec4Pointer, res.grapheneVec4Pointer)
 
     /**
      * Multiplies each component of the two given vectors.
@@ -346,12 +299,7 @@ public class Vec4(
     public fun multiply(
         b: Vec4,
         res: Vec4,
-    ): Unit =
-        graphene_vec4_multiply(
-            grapheneVec4Pointer.reinterpret(),
-            b.grapheneVec4Pointer,
-            res.grapheneVec4Pointer
-        )
+    ): Unit = graphene_vec4_multiply(grapheneVec4Pointer.reinterpret(), b.grapheneVec4Pointer, res.grapheneVec4Pointer)
 
     /**
      * Compares the two given #graphene_vec4_t vectors and checks
@@ -374,10 +322,7 @@ public class Vec4(
      * @since 1.2
      */
     public fun negate(res: Vec4): Unit =
-        graphene_vec4_negate(
-            grapheneVec4Pointer.reinterpret(),
-            res.grapheneVec4Pointer
-        )
+        graphene_vec4_negate(grapheneVec4Pointer.reinterpret(), res.grapheneVec4Pointer)
 
     /**
      * Normalizes the given #graphene_vec4_t.
@@ -413,12 +358,7 @@ public class Vec4(
     public fun subtract(
         b: Vec4,
         res: Vec4,
-    ): Unit =
-        graphene_vec4_subtract(
-            grapheneVec4Pointer.reinterpret(),
-            b.grapheneVec4Pointer,
-            res.grapheneVec4Pointer
-        )
+    ): Unit = graphene_vec4_subtract(grapheneVec4Pointer.reinterpret(), b.grapheneVec4Pointer, res.grapheneVec4Pointer)
 
     public companion object : RecordCompanion<Vec4, graphene_vec4_t> {
         /**

@@ -73,7 +73,10 @@ import kotlin.Unit
  */
 public open class ShortcutController(
     pointer: CPointer<GtkShortcutController>,
-) : EventController(pointer.reinterpret()), ListModel, Buildable, KGTyped {
+) : EventController(pointer.reinterpret()),
+    ListModel,
+    Buildable,
+    KGTyped {
     public val gtkShortcutControllerPointer: CPointer<GtkShortcutController>
         get() = gPointer.reinterpret()
 
@@ -112,11 +115,7 @@ public open class ShortcutController(
          *
          * @param scope the new scope to use
          */
-        set(scope) =
-            gtk_shortcut_controller_set_scope(
-                gtkShortcutControllerPointer.reinterpret(),
-                scope.nativeValue
-            )
+        set(scope) = gtk_shortcut_controller_set_scope(gtkShortcutControllerPointer.reinterpret(), scope.nativeValue)
 
     /**
      * Creates a new shortcut controller.
@@ -136,8 +135,9 @@ public open class ShortcutController(
      * @param model a `GListModel` containing shortcuts
      * @return a newly created shortcut controller
      */
-    public constructor(model: ListModel) :
-        this(gtk_shortcut_controller_new_for_model(model.gioListModelPointer)!!.reinterpret())
+    public constructor(
+        model: ListModel,
+    ) : this(gtk_shortcut_controller_new_for_model(model.gioListModelPointer)!!.reinterpret())
 
     /**
      * Adds @shortcut to the list of shortcuts handled by @self.
@@ -207,10 +207,7 @@ public open class ShortcutController(
      * @param modifiers the new mnemonics_modifiers to use
      */
     public open fun setMnemonicsModifiers(modifiers: ModifierType): Unit =
-        gtk_shortcut_controller_set_mnemonics_modifiers(
-            gtkShortcutControllerPointer.reinterpret(),
-            modifiers.mask
-        )
+        gtk_shortcut_controller_set_mnemonics_modifiers(gtkShortcutControllerPointer.reinterpret(), modifiers.mask)
 
     /**
      * Sets the controller to have the given @scope.
@@ -226,16 +223,11 @@ public open class ShortcutController(
      * @param scope the new scope to use
      */
     public open fun setScope(scope: ShortcutScope): Unit =
-        gtk_shortcut_controller_set_scope(
-            gtkShortcutControllerPointer.reinterpret(),
-            scope.nativeValue
-        )
+        gtk_shortcut_controller_set_scope(gtkShortcutControllerPointer.reinterpret(), scope.nativeValue)
 
     public companion object : TypeCompanion<ShortcutController> {
         override val type: GeneratedClassKGType<ShortcutController> =
-            GeneratedClassKGType(gtk_shortcut_controller_get_type()) {
-                ShortcutController(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_shortcut_controller_get_type()) { ShortcutController(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

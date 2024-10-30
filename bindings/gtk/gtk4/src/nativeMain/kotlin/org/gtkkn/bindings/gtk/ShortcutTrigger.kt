@@ -49,7 +49,8 @@ import org.gtkkn.bindings.glib.String as GlibString
  */
 public open class ShortcutTrigger(
     pointer: CPointer<GtkShortcutTrigger>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkShortcutTriggerPointer: CPointer<GtkShortcutTrigger>
         get() = gPointer.reinterpret()
 
@@ -74,8 +75,7 @@ public open class ShortcutTrigger(
      * @param string the string to parse
      * @return a new `GtkShortcutTrigger`
      */
-    public constructor(string: KotlinString) :
-        this(gtk_shortcut_trigger_parse_string(string)!!.reinterpret())
+    public constructor(string: KotlinString) : this(gtk_shortcut_trigger_parse_string(string)!!.reinterpret())
 
     /**
      * The types of @trigger1 and @trigger2 are `gconstpointer` only to allow
@@ -134,10 +134,7 @@ public open class ShortcutTrigger(
      * @param string a `GString` to print into
      */
     public open fun print(string: GlibString): Unit =
-        gtk_shortcut_trigger_print(
-            gtkShortcutTriggerPointer.reinterpret(),
-            string.glibStringPointer
-        )
+        gtk_shortcut_trigger_print(gtkShortcutTriggerPointer.reinterpret(), string.glibStringPointer)
 
     /**
      * Prints the given trigger into a string.
@@ -215,9 +212,7 @@ public open class ShortcutTrigger(
 
     public companion object : TypeCompanion<ShortcutTrigger> {
         override val type: GeneratedClassKGType<ShortcutTrigger> =
-            GeneratedClassKGType(gtk_shortcut_trigger_get_type()) {
-                ShortcutTrigger(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_shortcut_trigger_get_type()) { ShortcutTrigger(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -15,7 +15,9 @@ public class ResolverNameLookupFlags(
     public val mask: GResolverNameLookupFlags,
 ) : Bitfield<ResolverNameLookupFlags> {
     override infix fun or(other: ResolverNameLookupFlags): ResolverNameLookupFlags =
-        ResolverNameLookupFlags(mask or other.mask)
+        ResolverNameLookupFlags(
+            mask or other.mask
+        )
 
     public companion object {
         /**

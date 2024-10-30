@@ -90,10 +90,7 @@ public class PopupLayout(
      *   otherwise false.
      */
     public fun equal(other: PopupLayout): Boolean =
-        gdk_popup_layout_equal(
-            gdkPopupLayoutPointer.reinterpret(),
-            other.gdkPopupLayoutPointer
-        ).asBoolean()
+        gdk_popup_layout_equal(gdkPopupLayoutPointer.reinterpret(), other.gdkPopupLayoutPointer).asBoolean()
 
     /**
      * Get the `GdkAnchorHints`.
@@ -165,10 +162,7 @@ public class PopupLayout(
      * @param anchorRect the new anchor rectangle
      */
     public fun setAnchorRect(anchorRect: Rectangle): Unit =
-        gdk_popup_layout_set_anchor_rect(
-            gdkPopupLayoutPointer.reinterpret(),
-            anchorRect.gdkRectanglePointer
-        )
+        gdk_popup_layout_set_anchor_rect(gdkPopupLayoutPointer.reinterpret(), anchorRect.gdkRectanglePointer)
 
     /**
      * Offset the position of the anchor rectangle with the given delta.
@@ -187,10 +181,7 @@ public class PopupLayout(
      * @param anchor the new rect anchor
      */
     public fun setRectAnchor(anchor: Gravity): Unit =
-        gdk_popup_layout_set_rect_anchor(
-            gdkPopupLayoutPointer.reinterpret(),
-            anchor.nativeValue
-        )
+        gdk_popup_layout_set_rect_anchor(gdkPopupLayoutPointer.reinterpret(), anchor.nativeValue)
 
     /**
      * Sets the shadow width of the popup.
@@ -210,14 +201,7 @@ public class PopupLayout(
         right: Int,
         top: Int,
         bottom: Int,
-    ): Unit =
-        gdk_popup_layout_set_shadow_width(
-            gdkPopupLayoutPointer.reinterpret(),
-            left,
-            right,
-            top,
-            bottom
-        )
+    ): Unit = gdk_popup_layout_set_shadow_width(gdkPopupLayoutPointer.reinterpret(), left, right, top, bottom)
 
     /**
      * Set the anchor on the popup surface.
@@ -225,10 +209,7 @@ public class PopupLayout(
      * @param anchor the new popup surface anchor
      */
     public fun setSurfaceAnchor(anchor: Gravity): Unit =
-        gdk_popup_layout_set_surface_anchor(
-            gdkPopupLayoutPointer.reinterpret(),
-            anchor.nativeValue
-        )
+        gdk_popup_layout_set_surface_anchor(gdkPopupLayoutPointer.reinterpret(), anchor.nativeValue)
 
     /**
      * Decreases the reference count of @value.

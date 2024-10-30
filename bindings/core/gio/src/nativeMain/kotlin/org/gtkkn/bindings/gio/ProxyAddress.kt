@@ -27,7 +27,8 @@ import kotlin.UShort
  */
 public open class ProxyAddress(
     pointer: CPointer<GProxyAddress>,
-) : InetSocketAddress(pointer.reinterpret()), KGTyped {
+) : InetSocketAddress(pointer.reinterpret()),
+    KGTyped {
     public val gioProxyAddressPointer: CPointer<GProxyAddress>
         get() = gPointer.reinterpret()
 

@@ -105,7 +105,10 @@ import kotlin.Unit
  */
 public open class ApplicationWindow(
     pointer: CPointer<GtkApplicationWindow>,
-) : Window(pointer.reinterpret()), ActionGroup, ActionMap, KGTyped {
+) : Window(pointer.reinterpret()),
+    ActionGroup,
+    ActionMap,
+    KGTyped {
     public val gtkApplicationWindowPointer: CPointer<GtkApplicationWindow>
         get() = gPointer.reinterpret()
 
@@ -149,8 +152,7 @@ public open class ApplicationWindow(
          *
          * @return true if @window will display a menubar when needed
          */
-        get() =
-            gtk_application_window_get_show_menubar(gtkApplicationWindowPointer.reinterpret()).asBoolean()
+        get() = gtk_application_window_get_show_menubar(gtkApplicationWindowPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the window will display a menubar for the app menu
@@ -158,11 +160,9 @@ public open class ApplicationWindow(
          *
          * @param showMenubar whether to show a menubar when needed
          */
-        set(showMenubar) =
-            gtk_application_window_set_show_menubar(
-                gtkApplicationWindowPointer.reinterpret(),
-                showMenubar.asGBoolean()
-            )
+        set(
+            showMenubar
+        ) = gtk_application_window_set_show_menubar(gtkApplicationWindowPointer.reinterpret(), showMenubar.asGBoolean())
 
     /**
      * Creates a new `GtkApplicationWindow`.
@@ -170,8 +170,9 @@ public open class ApplicationWindow(
      * @param application a `GtkApplication`
      * @return a newly created `GtkApplicationWindow`
      */
-    public constructor(application: Application) :
-        this(gtk_application_window_new(application.gtkApplicationPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        application: Application,
+    ) : this(gtk_application_window_new(application.gtkApplicationPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the `GtkShortcutsWindow` that is associated with @window.
@@ -228,16 +229,11 @@ public open class ApplicationWindow(
      * @param showMenubar whether to show a menubar when needed
      */
     public open fun setShowMenubar(showMenubar: Boolean): Unit =
-        gtk_application_window_set_show_menubar(
-            gtkApplicationWindowPointer.reinterpret(),
-            showMenubar.asGBoolean()
-        )
+        gtk_application_window_set_show_menubar(gtkApplicationWindowPointer.reinterpret(), showMenubar.asGBoolean())
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =
-            GeneratedClassKGType(gtk_application_window_get_type()) {
-                ApplicationWindow(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_application_window_get_type()) { ApplicationWindow(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

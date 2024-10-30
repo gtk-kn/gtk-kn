@@ -192,7 +192,9 @@ import org.gtkkn.native.gtk.gtk_file_chooser_dialog_get_type
  */
 public open class FileChooserDialog(
     pointer: CPointer<GtkFileChooserDialog>,
-) : Dialog(pointer.reinterpret()), FileChooser, KGTyped {
+) : Dialog(pointer.reinterpret()),
+    FileChooser,
+    KGTyped {
     public val gtkFileChooserDialogPointer: CPointer<GtkFileChooserDialog>
         get() = gPointer.reinterpret()
 
@@ -219,9 +221,7 @@ public open class FileChooserDialog(
 
     public companion object : TypeCompanion<FileChooserDialog> {
         override val type: GeneratedClassKGType<FileChooserDialog> =
-            GeneratedClassKGType(gtk_file_chooser_dialog_get_type()) {
-                FileChooserDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_file_chooser_dialog_get_type()) { FileChooserDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

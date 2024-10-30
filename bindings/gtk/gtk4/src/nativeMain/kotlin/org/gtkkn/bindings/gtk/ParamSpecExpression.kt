@@ -15,15 +15,14 @@ import org.gtkkn.native.gtk.gtk_param_expression_get_type
  */
 public open class ParamSpecExpression(
     pointer: CPointer<GtkParamSpecExpression>,
-) : ParamSpec(pointer.reinterpret()), KGTyped {
+) : ParamSpec(pointer.reinterpret()),
+    KGTyped {
     public val gtkParamSpecExpressionPointer: CPointer<GtkParamSpecExpression>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<ParamSpecExpression> {
         override val type: GeneratedClassKGType<ParamSpecExpression> =
-            GeneratedClassKGType(gtk_param_expression_get_type()) {
-                ParamSpecExpression(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_param_expression_get_type()) { ParamSpecExpression(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

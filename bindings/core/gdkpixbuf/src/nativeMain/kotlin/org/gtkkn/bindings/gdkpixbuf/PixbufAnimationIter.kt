@@ -24,7 +24,8 @@ import kotlin.Int
  */
 public open class PixbufAnimationIter(
     pointer: CPointer<GdkPixbufAnimationIter>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkpixbufPixbufAnimationIterPointer: CPointer<GdkPixbufAnimationIter>
         get() = gPointer.reinterpret()
 
@@ -117,9 +118,7 @@ public open class PixbufAnimationIter(
 
     public companion object : TypeCompanion<PixbufAnimationIter> {
         override val type: GeneratedClassKGType<PixbufAnimationIter> =
-            GeneratedClassKGType(gdk_pixbuf_animation_iter_get_type()) {
-                PixbufAnimationIter(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_pixbuf_animation_iter_get_type()) { PixbufAnimationIter(it.reinterpret()) }
 
         init {
             GdkpixbufTypeProvider.register()

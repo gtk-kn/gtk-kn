@@ -31,7 +31,8 @@ import kotlin.UInt
  */
 public open class TextNode(
     pointer: CPointer<GskTextNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskTextNodePointer: CPointer<GskTextNode>
         get() = gPointer.reinterpret()
 

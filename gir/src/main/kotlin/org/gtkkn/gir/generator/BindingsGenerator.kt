@@ -93,9 +93,9 @@ class BindingsGenerator(
                 repositorySrcDir(moduleOutputDir),
             )
 
-            enum.errorExceptionTypeName?.let {
+            enum.errorExceptionTypeName?.let { typeName ->
                 writeType(
-                    it,
+                    typeName,
                     buildErrorDomainExceptionClass(enum),
                     repositorySrcDir(moduleOutputDir),
                 )

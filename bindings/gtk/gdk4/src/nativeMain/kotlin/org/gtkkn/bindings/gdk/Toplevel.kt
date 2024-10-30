@@ -58,7 +58,9 @@ import kotlin.Unit
  * - method `transient-for`: Property has no getter
  * - signal `compute-size`: Unsupported parameter `size` : ToplevelSize
  */
-public interface Toplevel : Interface, KGTyped {
+public interface Toplevel :
+    Interface,
+    KGTyped {
     public val gdkToplevelPointer: CPointer<GdkToplevel>
 
     /**
@@ -144,11 +146,7 @@ public interface Toplevel : Interface, KGTyped {
      *
      * @param timestamp timestamp of the event triggering the surface focus
      */
-    public fun focus(timestamp: UInt): Unit =
-        gdk_toplevel_focus(
-            gdkToplevelPointer.reinterpret(),
-            timestamp
-        )
+    public fun focus(timestamp: UInt): Unit = gdk_toplevel_focus(gdkToplevelPointer.reinterpret(), timestamp)
 
     /**
      * Gets the bitwise or of the currently active surface state flags,
@@ -188,10 +186,7 @@ public interface Toplevel : Interface, KGTyped {
      *   request, or null if none is available
      */
     public fun inhibitSystemShortcuts(event: Event? = null): Unit =
-        gdk_toplevel_inhibit_system_shortcuts(
-            gdkToplevelPointer.reinterpret(),
-            event?.gPointer?.reinterpret()
-        )
+        gdk_toplevel_inhibit_system_shortcuts(gdkToplevelPointer.reinterpret(), event?.gPointer?.reinterpret())
 
     /**
      * Asks to lower the @toplevel below other windows.
@@ -329,10 +324,7 @@ public interface Toplevel : Interface, KGTyped {
      * @param parent another toplevel `GdkSurface`
      */
     public fun setTransientFor(parent: Surface): Unit =
-        gdk_toplevel_set_transient_for(
-            gdkToplevelPointer.reinterpret(),
-            parent.gdkSurfacePointer.reinterpret()
-        )
+        gdk_toplevel_set_transient_for(gdkToplevelPointer.reinterpret(), parent.gdkSurfacePointer.reinterpret())
 
     /**
      * Asks the windowing system to show the window menu.
@@ -346,10 +338,7 @@ public interface Toplevel : Interface, KGTyped {
      * @return true if the window menu was shown and false otherwise.
      */
     public fun showWindowMenu(event: Event): Boolean =
-        gdk_toplevel_show_window_menu(
-            gdkToplevelPointer.reinterpret(),
-            event.gPointer.reinterpret()
-        ).asBoolean()
+        gdk_toplevel_show_window_menu(gdkToplevelPointer.reinterpret(), event.gPointer.reinterpret()).asBoolean()
 
     /**
      * Returns whether the desktop environment supports
@@ -367,10 +356,7 @@ public interface Toplevel : Interface, KGTyped {
      * @since 4.4
      */
     public fun titlebarGesture(gesture: TitlebarGesture): Boolean =
-        gdk_toplevel_titlebar_gesture(
-            gdkToplevelPointer.reinterpret(),
-            gesture.nativeValue
-        ).asBoolean()
+        gdk_toplevel_titlebar_gesture(gdkToplevelPointer.reinterpret(), gesture.nativeValue).asBoolean()
 
     private data class Wrapper(
         private val pointer: CPointer<GdkToplevel>,

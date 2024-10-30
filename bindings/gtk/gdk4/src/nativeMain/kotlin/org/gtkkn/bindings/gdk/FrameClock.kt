@@ -72,7 +72,8 @@ import kotlin.Unit
  */
 public open class FrameClock(
     pointer: CPointer<GdkFrameClock>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkFrameClockPointer: CPointer<GdkFrameClock>
         get() = gPointer.reinterpret()
 
@@ -366,8 +367,7 @@ private val connectAfterPaintFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectBeforePaintFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -375,8 +375,7 @@ private val connectBeforePaintFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectFlushEventsFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -384,8 +383,7 @@ private val connectFlushEventsFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectLayoutFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -393,8 +391,7 @@ private val connectLayoutFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPaintFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -402,8 +399,7 @@ private val connectPaintFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectResumeEventsFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -411,8 +407,7 @@ private val connectResumeEventsFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectUpdateFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -420,5 +415,4 @@ private val connectUpdateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

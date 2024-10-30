@@ -61,7 +61,9 @@ import kotlin.Unit
  */
 public class TabButton(
     pointer: CPointer<AdwTabButton>,
-) : Widget(pointer.reinterpret()), Actionable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Actionable,
+    KGTyped {
     public val adwTabButtonPointer: CPointer<AdwTabButton>
         get() = gPointer.reinterpret()
 
@@ -100,11 +102,7 @@ public class TabButton(
          * @param view a tab view
          * @since 1.3
          */
-        set(view) =
-            adw_tab_button_set_view(
-                adwTabButtonPointer.reinterpret(),
-                view?.adwTabViewPointer?.reinterpret()
-            )
+        set(view) = adw_tab_button_set_view(adwTabButtonPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
 
     /**
      * Creates a new `AdwTabButton`.
@@ -132,10 +130,7 @@ public class TabButton(
      * @since 1.3
      */
     public fun setView(view: TabView? = null): Unit =
-        adw_tab_button_set_view(
-            adwTabButtonPointer.reinterpret(),
-            view?.adwTabViewPointer?.reinterpret()
-        )
+        adw_tab_button_set_view(adwTabButtonPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
 
     /**
      * Emitted to animate press then release.
@@ -196,8 +191,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectClickedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -205,5 +199,4 @@ private val connectClickedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

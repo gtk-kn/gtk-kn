@@ -48,7 +48,9 @@ import kotlin.Unit
  */
 public open class DataOutputStream(
     pointer: CPointer<GDataOutputStream>,
-) : FilterOutputStream(pointer.reinterpret()), Seekable, KGTyped {
+) : FilterOutputStream(pointer.reinterpret()),
+    Seekable,
+    KGTyped {
     public val gioDataOutputStreamPointer: CPointer<GDataOutputStream>
         get() = gPointer.reinterpret()
 
@@ -75,11 +77,7 @@ public open class DataOutputStream(
          *
          * @param order a %GDataStreamByteOrder.
          */
-        set(order) =
-            g_data_output_stream_set_byte_order(
-                gioDataOutputStreamPointer.reinterpret(),
-                order.nativeValue
-            )
+        set(order) = g_data_output_stream_set_byte_order(gioDataOutputStreamPointer.reinterpret(), order.nativeValue)
 
     /**
      * Creates a new data output stream for @base_stream.
@@ -87,8 +85,9 @@ public open class DataOutputStream(
      * @param baseStream a #GOutputStream.
      * @return #GDataOutputStream.
      */
-    public constructor(baseStream: OutputStream) :
-        this(g_data_output_stream_new(baseStream.gioOutputStreamPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        baseStream: OutputStream,
+    ) : this(g_data_output_stream_new(baseStream.gioOutputStreamPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the byte order for the stream.
@@ -295,16 +294,11 @@ public open class DataOutputStream(
      * @param order a %GDataStreamByteOrder.
      */
     public open fun setByteOrder(order: DataStreamByteOrder): Unit =
-        g_data_output_stream_set_byte_order(
-            gioDataOutputStreamPointer.reinterpret(),
-            order.nativeValue
-        )
+        g_data_output_stream_set_byte_order(gioDataOutputStreamPointer.reinterpret(), order.nativeValue)
 
     public companion object : TypeCompanion<DataOutputStream> {
         override val type: GeneratedClassKGType<DataOutputStream> =
-            GeneratedClassKGType(g_data_output_stream_get_type()) {
-                DataOutputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(g_data_output_stream_get_type()) { DataOutputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

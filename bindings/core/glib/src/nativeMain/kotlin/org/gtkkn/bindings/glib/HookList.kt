@@ -85,11 +85,7 @@ public class HookList(
      * @param hookSize the size of each element in the #GHookList,
      *     typically `sizeof (GHook)`.
      */
-    public fun `init`(hookSize: UInt): Unit =
-        g_hook_list_init(
-            glibHookListPointer.reinterpret(),
-            hookSize
-        )
+    public fun `init`(hookSize: UInt): Unit = g_hook_list_init(glibHookListPointer.reinterpret(), hookSize)
 
     /**
      * Calls all of the #GHook functions in a #GHookList.

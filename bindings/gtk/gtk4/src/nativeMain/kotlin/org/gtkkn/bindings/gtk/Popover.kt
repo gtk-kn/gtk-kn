@@ -136,7 +136,10 @@ import kotlin.Unit
  */
 public open class Popover(
     pointer: CPointer<GtkPopover>,
-) : Widget(pointer.reinterpret()), Native, ShortcutManager, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Native,
+    ShortcutManager,
+    KGTyped {
     public val gtkPopoverPointer: CPointer<GtkPopover>
         get() = gPointer.reinterpret()
 
@@ -182,11 +185,7 @@ public open class Popover(
          *
          * @param autohide true to dismiss the popover on outside clicks
          */
-        set(autohide) =
-            gtk_popover_set_autohide(
-                gtkPopoverPointer.reinterpret(),
-                autohide.asGBoolean()
-            )
+        set(autohide) = gtk_popover_set_autohide(gtkPopoverPointer.reinterpret(), autohide.asGBoolean())
 
     /**
      * Whether the popover pops down after a child popover.
@@ -209,11 +208,9 @@ public open class Popover(
          *
          * @param cascadePopdown true if the popover should follow a child closing
          */
-        set(cascadePopdown) =
-            gtk_popover_set_cascade_popdown(
-                gtkPopoverPointer.reinterpret(),
-                cascadePopdown.asGBoolean()
-            )
+        set(
+            cascadePopdown
+        ) = gtk_popover_set_cascade_popdown(gtkPopoverPointer.reinterpret(), cascadePopdown.asGBoolean())
 
     /**
      * The child widget.
@@ -234,11 +231,7 @@ public open class Popover(
          *
          * @param child the child widget
          */
-        set(child) =
-            gtk_popover_set_child(
-                gtkPopoverPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = gtk_popover_set_child(gtkPopoverPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether to draw an arrow.
@@ -258,11 +251,7 @@ public open class Popover(
          *
          * @param hasArrow true to draw an arrow
          */
-        set(hasArrow) =
-            gtk_popover_set_has_arrow(
-                gtkPopoverPointer.reinterpret(),
-                hasArrow.asGBoolean()
-            )
+        set(hasArrow) = gtk_popover_set_has_arrow(gtkPopoverPointer.reinterpret(), hasArrow.asGBoolean())
 
     /**
      * Whether mnemonics are currently visible in this popover.
@@ -281,11 +270,9 @@ public open class Popover(
          *
          * @param mnemonicsVisible the new value
          */
-        set(mnemonicsVisible) =
-            gtk_popover_set_mnemonics_visible(
-                gtkPopoverPointer.reinterpret(),
-                mnemonicsVisible.asGBoolean()
-            )
+        set(
+            mnemonicsVisible
+        ) = gtk_popover_set_mnemonics_visible(gtkPopoverPointer.reinterpret(), mnemonicsVisible.asGBoolean())
 
     /**
      * How to place the popover, relative to its parent.
@@ -313,11 +300,7 @@ public open class Popover(
          *
          * @param position preferred popover position
          */
-        set(position) =
-            gtk_popover_set_position(
-                gtkPopoverPointer.reinterpret(),
-                position.nativeValue
-            )
+        set(position) = gtk_popover_set_position(gtkPopoverPointer.reinterpret(), position.nativeValue)
 
     /**
      * Creates a new `GtkPopover`.
@@ -383,10 +366,7 @@ public open class Popover(
      * @return true if a rectangle to point to was set.
      */
     public open fun getPointingTo(rect: Rectangle): Boolean =
-        gtk_popover_get_pointing_to(
-            gtkPopoverPointer.reinterpret(),
-            rect.gdkRectanglePointer
-        ).asBoolean()
+        gtk_popover_get_pointing_to(gtkPopoverPointer.reinterpret(), rect.gdkRectanglePointer).asBoolean()
 
     /**
      * Returns the preferred position of @popover.
@@ -447,10 +427,7 @@ public open class Popover(
      * @param cascadePopdown true if the popover should follow a child closing
      */
     public open fun setCascadePopdown(cascadePopdown: Boolean): Unit =
-        gtk_popover_set_cascade_popdown(
-            gtkPopoverPointer.reinterpret(),
-            cascadePopdown.asGBoolean()
-        )
+        gtk_popover_set_cascade_popdown(gtkPopoverPointer.reinterpret(), cascadePopdown.asGBoolean())
 
     /**
      * Sets the child widget of @popover.
@@ -458,10 +435,7 @@ public open class Popover(
      * @param child the child widget
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_popover_set_child(
-            gtkPopoverPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_popover_set_child(gtkPopoverPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the default widget of a `GtkPopover`.
@@ -474,10 +448,7 @@ public open class Popover(
      *   the default, or null to unset the default widget for the popover
      */
     public open fun setDefaultWidget(widget: Widget? = null): Unit =
-        gtk_popover_set_default_widget(
-            gtkPopoverPointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_popover_set_default_widget(gtkPopoverPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether this popover should draw an arrow
@@ -494,10 +465,7 @@ public open class Popover(
      * @param mnemonicsVisible the new value
      */
     public open fun setMnemonicsVisible(mnemonicsVisible: Boolean): Unit =
-        gtk_popover_set_mnemonics_visible(
-            gtkPopoverPointer.reinterpret(),
-            mnemonicsVisible.asGBoolean()
-        )
+        gtk_popover_set_mnemonics_visible(gtkPopoverPointer.reinterpret(), mnemonicsVisible.asGBoolean())
 
     /**
      * Sets the offset to use when calculating the position
@@ -595,8 +563,7 @@ private val connectActivateDefaultFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectClosedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -604,5 +571,4 @@ private val connectClosedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

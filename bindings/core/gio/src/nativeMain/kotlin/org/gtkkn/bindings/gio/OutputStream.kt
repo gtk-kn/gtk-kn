@@ -78,7 +78,8 @@ import kotlin.Unit
  */
 public open class OutputStream(
     pointer: CPointer<GOutputStream>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioOutputStreamPointer: CPointer<GOutputStream>
         get() = gPointer.reinterpret()
 
@@ -304,11 +305,7 @@ public open class OutputStream(
     public open fun setPending(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_output_stream_set_pending(
-                    gioOutputStreamPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
+            val gResult = g_output_stream_set_pending(gioOutputStreamPointer.reinterpret(), gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {

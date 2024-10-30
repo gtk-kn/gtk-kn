@@ -33,7 +33,9 @@ import kotlin.Unit
  */
 public open class NetworkService(
     pointer: CPointer<GNetworkService>,
-) : Object(pointer.reinterpret()), SocketConnectable, KGTyped {
+) : Object(pointer.reinterpret()),
+    SocketConnectable,
+    KGTyped {
     public val gioNetworkServicePointer: CPointer<GNetworkService>
         get() = gPointer.reinterpret()
 
@@ -186,9 +188,7 @@ public open class NetworkService(
 
     public companion object : TypeCompanion<NetworkService> {
         override val type: GeneratedClassKGType<NetworkService> =
-            GeneratedClassKGType(g_network_service_get_type()) {
-                NetworkService(it.reinterpret())
-            }
+            GeneratedClassKGType(g_network_service_get_type()) { NetworkService(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

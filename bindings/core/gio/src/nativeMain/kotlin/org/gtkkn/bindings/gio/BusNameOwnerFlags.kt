@@ -31,15 +31,13 @@ public class BusNameOwnerFlags(
 
         /**
          * If another message bus connection owns the name and have
-         * specified %G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT, then take the name from the other
-         * connection.
+         * specified %G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT, then take the name from the other connection.
          */
         public val REPLACE: BusNameOwnerFlags = BusNameOwnerFlags(G_BUS_NAME_OWNER_FLAGS_REPLACE)
 
         /**
          * If another message bus connection owns the name, immediately
-         * return an error from g_bus_own_name() rather than entering the waiting queue for that
-         * name. (Since 2.54)
+         * return an error from g_bus_own_name() rather than entering the waiting queue for that name. (Since 2.54)
          */
         public val DO_NOT_QUEUE: BusNameOwnerFlags =
             BusNameOwnerFlags(G_BUS_NAME_OWNER_FLAGS_DO_NOT_QUEUE)

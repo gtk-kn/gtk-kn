@@ -92,7 +92,8 @@ import kotlin.Unit
  */
 public open class IOStream(
     pointer: CPointer<GIOStream>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioIOStreamPointer: CPointer<GIOStream>
         get() = gPointer.reinterpret()
 
@@ -303,11 +304,7 @@ public open class IOStream(
     public open fun setPending(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_io_stream_set_pending(
-                    gioIOStreamPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
+            val gResult = g_io_stream_set_pending(gioIOStreamPointer.reinterpret(), gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -367,11 +364,7 @@ public open class IOStream(
         public fun spliceFinish(result: AsyncResult): Result<Boolean> =
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_io_stream_splice_finish(
-                        result.gioAsyncResultPointer,
-                        gError.ptr
-                    ).asBoolean()
+                val gResult = g_io_stream_splice_finish(result.gioAsyncResultPointer, gError.ptr).asBoolean()
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {

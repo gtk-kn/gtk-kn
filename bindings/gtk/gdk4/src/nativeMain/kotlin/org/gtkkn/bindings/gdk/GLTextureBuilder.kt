@@ -58,7 +58,8 @@ import kotlin.Unit
  */
 public open class GLTextureBuilder(
     pointer: CPointer<GdkGLTextureBuilder>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkGLTextureBuilderPointer: CPointer<GdkGLTextureBuilder>
         get() = gPointer.reinterpret()
 
@@ -89,7 +90,9 @@ public open class GLTextureBuilder(
          * @param context The context the texture beongs to or null to unset
          * @since 4.12
          */
-        set(context) =
+        set(
+            context
+        ) =
             gdk_gl_texture_builder_set_context(
                 gdkGLTextureBuilderPointer.reinterpret(),
                 context?.gdkGLContextPointer?.reinterpret()
@@ -133,11 +136,7 @@ public open class GLTextureBuilder(
          * @param format The texture's format
          * @since 4.12
          */
-        set(format) =
-            gdk_gl_texture_builder_set_format(
-                gdkGLTextureBuilderPointer.reinterpret(),
-                format.nativeValue
-            )
+        set(format) = gdk_gl_texture_builder_set_format(gdkGLTextureBuilderPointer.reinterpret(), format.nativeValue)
 
     /**
      * If the texture has a mipmap.
@@ -151,8 +150,7 @@ public open class GLTextureBuilder(
          * @return Whether the texture has a mipmap
          * @since 4.12
          */
-        get() =
-            gdk_gl_texture_builder_get_has_mipmap(gdkGLTextureBuilderPointer.reinterpret()).asBoolean()
+        get() = gdk_gl_texture_builder_get_has_mipmap(gdkGLTextureBuilderPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the texture has a mipmap. This allows the renderer and other users of the
@@ -163,11 +161,9 @@ public open class GLTextureBuilder(
          * @param hasMipmap Whether the texture has a mipmap
          * @since 4.12
          */
-        set(hasMipmap) =
-            gdk_gl_texture_builder_set_has_mipmap(
-                gdkGLTextureBuilderPointer.reinterpret(),
-                hasMipmap.asGBoolean()
-            )
+        set(
+            hasMipmap
+        ) = gdk_gl_texture_builder_set_has_mipmap(gdkGLTextureBuilderPointer.reinterpret(), hasMipmap.asGBoolean())
 
     /**
      * The height of the texture.
@@ -192,11 +188,7 @@ public open class GLTextureBuilder(
          * @param height The texture's height or 0 to unset
          * @since 4.12
          */
-        set(height) =
-            gdk_gl_texture_builder_set_height(
-                gdkGLTextureBuilderPointer.reinterpret(),
-                height
-            )
+        set(height) = gdk_gl_texture_builder_set_height(gdkGLTextureBuilderPointer.reinterpret(), height)
 
     /**
      * The texture ID to use.
@@ -250,7 +242,9 @@ public open class GLTextureBuilder(
          * @param texture the texture to update
          * @since 4.12
          */
-        set(texture) =
+        set(
+            texture
+        ) =
             gdk_gl_texture_builder_set_update_texture(
                 gdkGLTextureBuilderPointer.reinterpret(),
                 texture?.gdkTexturePointer?.reinterpret()
@@ -279,11 +273,7 @@ public open class GLTextureBuilder(
          * @param width The texture's width or 0 to unset
          * @since 4.12
          */
-        set(width) =
-            gdk_gl_texture_builder_set_width(
-                gdkGLTextureBuilderPointer.reinterpret(),
-                width
-            )
+        set(width) = gdk_gl_texture_builder_set_width(gdkGLTextureBuilderPointer.reinterpret(), width)
 
     /**
      * Creates a new texture builder.
@@ -401,10 +391,7 @@ public open class GLTextureBuilder(
      * @since 4.12
      */
     public open fun setFormat(format: MemoryFormat): Unit =
-        gdk_gl_texture_builder_set_format(
-            gdkGLTextureBuilderPointer.reinterpret(),
-            format.nativeValue
-        )
+        gdk_gl_texture_builder_set_format(gdkGLTextureBuilderPointer.reinterpret(), format.nativeValue)
 
     /**
      * Sets whether the texture has a mipmap. This allows the renderer and other users of the
@@ -416,10 +403,7 @@ public open class GLTextureBuilder(
      * @since 4.12
      */
     public open fun setHasMipmap(hasMipmap: Boolean): Unit =
-        gdk_gl_texture_builder_set_has_mipmap(
-            gdkGLTextureBuilderPointer.reinterpret(),
-            hasMipmap.asGBoolean()
-        )
+        gdk_gl_texture_builder_set_has_mipmap(gdkGLTextureBuilderPointer.reinterpret(), hasMipmap.asGBoolean())
 
     /**
      * Sets the height of the texture.
@@ -470,9 +454,7 @@ public open class GLTextureBuilder(
 
     public companion object : TypeCompanion<GLTextureBuilder> {
         override val type: GeneratedClassKGType<GLTextureBuilder> =
-            GeneratedClassKGType(gdk_gl_texture_builder_get_type()) {
-                GLTextureBuilder(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_gl_texture_builder_get_type()) { GLTextureBuilder(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

@@ -84,10 +84,7 @@ public class Language(
      * @since 1.4
      */
     public fun includesScript(script: Script): Boolean =
-        pango_language_includes_script(
-            pangoLanguagePointer.reinterpret(),
-            script.nativeValue
-        ).asBoolean()
+        pango_language_includes_script(pangoLanguagePointer.reinterpret(), script.nativeValue).asBoolean()
 
     /**
      * Checks if a language tag matches one of the elements in a list of

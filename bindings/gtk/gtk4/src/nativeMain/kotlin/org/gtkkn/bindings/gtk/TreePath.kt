@@ -61,11 +61,7 @@ public class TreePath(
      * @param b a `GtkTreePath` to compare with
      * @return the relative positions of @a and @b
      */
-    public fun compare(b: TreePath): Int =
-        gtk_tree_path_compare(
-            gtkTreePathPointer.reinterpret(),
-            b.gtkTreePathPointer
-        )
+    public fun compare(b: TreePath): Int = gtk_tree_path_compare(gtkTreePathPointer.reinterpret(), b.gtkTreePathPointer)
 
     /**
      * Creates a new `GtkTreePath` as a copy of @path.
@@ -101,10 +97,7 @@ public class TreePath(
      * @return true if @descendant is contained inside @path
      */
     public fun isAncestor(descendant: TreePath): Boolean =
-        gtk_tree_path_is_ancestor(
-            gtkTreePathPointer.reinterpret(),
-            descendant.gtkTreePathPointer
-        ).asBoolean()
+        gtk_tree_path_is_ancestor(gtkTreePathPointer.reinterpret(), descendant.gtkTreePathPointer).asBoolean()
 
     /**
      * Returns true if @path is a descendant of @ancestor.
@@ -113,10 +106,7 @@ public class TreePath(
      * @return true if @ancestor contains @path somewhere below it
      */
     public fun isDescendant(ancestor: TreePath): Boolean =
-        gtk_tree_path_is_descendant(
-            gtkTreePathPointer.reinterpret(),
-            ancestor.gtkTreePathPointer
-        ).asBoolean()
+        gtk_tree_path_is_descendant(gtkTreePathPointer.reinterpret(), ancestor.gtkTreePathPointer).asBoolean()
 
     /**
      * Moves the @path to point to the next node at the current depth.

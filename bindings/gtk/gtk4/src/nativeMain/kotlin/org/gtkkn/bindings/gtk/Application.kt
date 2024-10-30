@@ -123,7 +123,8 @@ import org.gtkkn.bindings.glib.List as GlibList
  */
 public open class Application(
     pointer: CPointer<GtkApplication>,
-) : org.gtkkn.bindings.gio.Application(pointer.reinterpret()), KGTyped {
+) : org.gtkkn.bindings.gio.Application(pointer.reinterpret()),
+    KGTyped {
     public val gtkApplicationPointer: CPointer<GtkApplication>
         get() = gPointer.reinterpret()
 
@@ -189,7 +190,9 @@ public open class Application(
          *
          * @param menubar a `GMenuModel`
          */
-        set(menubar) =
+        set(
+            menubar
+        ) =
             gtk_application_set_menubar(
                 gtkApplicationPointer.reinterpret(),
                 menubar?.gioMenuModelPointer?.reinterpret()
@@ -219,8 +222,10 @@ public open class Application(
      * @param flags the application flags
      * @return a new `GtkApplication` instance
      */
-    public constructor(applicationId: String? = null, flags: ApplicationFlags) :
-        this(gtk_application_new(applicationId, flags.mask)!!.reinterpret())
+    public constructor(
+        applicationId: String? = null,
+        flags: ApplicationFlags,
+    ) : this(gtk_application_new(applicationId, flags.mask)!!.reinterpret())
 
     /**
      * Adds a window to `application`.
@@ -242,10 +247,7 @@ public open class Application(
      * @param window a `GtkWindow`
      */
     public open fun addWindow(window: Window): Unit =
-        gtk_application_add_window(
-            gtkApplicationPointer.reinterpret(),
-            window.gtkWindowPointer.reinterpret()
-        )
+        gtk_application_add_window(gtkApplicationPointer.reinterpret(), window.gtkWindowPointer.reinterpret())
 
     /**
      * Gets the accelerators that are currently associated with
@@ -257,10 +259,8 @@ public open class Application(
      *   accelerators for `detailed_action_name`
      */
     public open fun getAccelsForAction(detailedActionName: String): CollectionsList<String> =
-        gtk_application_get_accels_for_action(
-            gtkApplicationPointer.reinterpret(),
-            detailedActionName
-        )?.toKStringList() ?: error("Expected not null string array")
+        gtk_application_get_accels_for_action(gtkApplicationPointer.reinterpret(), detailedActionName)?.toKStringList()
+            ?: error("Expected not null string array")
 
     /**
      * Returns the list of actions (possibly empty) that `accel` maps to.
@@ -285,10 +285,8 @@ public open class Application(
      * @return a null-terminated array of actions for `accel`
      */
     public open fun getActionsForAccel(accel: String): CollectionsList<String> =
-        gtk_application_get_actions_for_accel(
-            gtkApplicationPointer.reinterpret(),
-            accel
-        )?.toKStringList() ?: error("Expected not null string array")
+        gtk_application_get_actions_for_accel(gtkApplicationPointer.reinterpret(), accel)?.toKStringList()
+            ?: error("Expected not null string array")
 
     /**
      * Gets the “active” window for the application.
@@ -434,10 +432,7 @@ public open class Application(
      * @param window a `GtkWindow`
      */
     public open fun removeWindow(window: Window): Unit =
-        gtk_application_remove_window(
-            gtkApplicationPointer.reinterpret(),
-            window.gtkWindowPointer.reinterpret()
-        )
+        gtk_application_remove_window(gtkApplicationPointer.reinterpret(), window.gtkWindowPointer.reinterpret())
 
     /**
      * Sets zero or more keyboard accelerators that will trigger the
@@ -492,10 +487,7 @@ public open class Application(
      * @param menubar a `GMenuModel`
      */
     public open fun setMenubar(menubar: MenuModel? = null): Unit =
-        gtk_application_set_menubar(
-            gtkApplicationPointer.reinterpret(),
-            menubar?.gioMenuModelPointer?.reinterpret()
-        )
+        gtk_application_set_menubar(gtkApplicationPointer.reinterpret(), menubar?.gioMenuModelPointer?.reinterpret())
 
     /**
      * Removes an inhibitor that has been previously established.
@@ -560,8 +552,7 @@ public open class Application(
      * or explicitly through [method@Gtk.Application.remove_window].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `window` the [class@Gtk.Window] that is being
-     * removed
+     * @param handler the Callback to connect. Params: `window` the [class@Gtk.Window] that is being removed
      */
     public fun connectWindowRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -592,8 +583,7 @@ private val connectQueryEndFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectWindowAddedFunc: CPointer<CFunction<(CPointer<GtkWindow>) -> Unit>> =
     staticCFunction {
@@ -606,8 +596,7 @@ private val connectWindowAddedFunc: CPointer<CFunction<(CPointer<GtkWindow>) -> 
                 Window(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectWindowRemovedFunc: CPointer<CFunction<(CPointer<GtkWindow>) -> Unit>> =
     staticCFunction {
@@ -620,5 +609,4 @@ private val connectWindowRemovedFunc: CPointer<CFunction<(CPointer<GtkWindow>) -
                 Window(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

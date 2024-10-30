@@ -99,8 +99,7 @@ import kotlin.Unit
  * dialog = adw_message_dialog_new (parent, _("Replace File?"), NULL);
  *
  * adw_message_dialog_format_body (ADW_MESSAGE_DIALOG (dialog),
- *                                 _("A file named “%s” already exists. Do you want to replace
- * it?"),
+ *                                 _("A file named “%s” already exists. Do you want to replace it?"),
  *                                 filename);
  *
  * adw_message_dialog_add_responses (ADW_MESSAGE_DIALOG (dialog),
@@ -108,8 +107,7 @@ import kotlin.Unit
  *                                   "replace", _("_Replace"),
  *                                   NULL);
  *
- * adw_message_dialog_set_response_appearance (ADW_MESSAGE_DIALOG (dialog), "replace",
- * ADW_RESPONSE_DESTRUCTIVE);
+ * adw_message_dialog_set_response_appearance (ADW_MESSAGE_DIALOG (dialog), "replace", ADW_RESPONSE_DESTRUCTIVE);
  *
  * adw_message_dialog_set_default_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
  * adw_message_dialog_set_close_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
@@ -144,8 +142,7 @@ import kotlin.Unit
  *   dialog = adw_message_dialog_new (GTK_WINDOW (self), _("Replace File?"), NULL);
  *
  *   adw_message_dialog_format_body (ADW_MESSAGE_DIALOG (dialog),
- *                                   _("A file named “%s” already exists. Do you want to replace
- * it?"),
+ *                                   _("A file named “%s” already exists. Do you want to replace it?"),
  *                                   filename);
  *
  *   adw_message_dialog_add_responses (ADW_MESSAGE_DIALOG (dialog),
@@ -153,14 +150,12 @@ import kotlin.Unit
  *                                     "replace", _("_Replace"),
  *                                     NULL);
  *
- *   adw_message_dialog_set_response_appearance (ADW_MESSAGE_DIALOG (dialog), "replace",
- * ADW_RESPONSE_DESTRUCTIVE);
+ *   adw_message_dialog_set_response_appearance (ADW_MESSAGE_DIALOG (dialog), "replace", ADW_RESPONSE_DESTRUCTIVE);
  *
  *   adw_message_dialog_set_default_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
  *   adw_message_dialog_set_close_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
  *
- *   adw_message_dialog_choose (ADW_MESSAGE_DIALOG (dialog), NULL, (GAsyncReadyCallback) dialog_cb,
- * self);
+ *   adw_message_dialog_choose (ADW_MESSAGE_DIALOG (dialog), NULL, (GAsyncReadyCallback) dialog_cb, self);
  * }
  * ```
  *
@@ -185,16 +180,14 @@ import kotlin.Unit
  * ```xml
  * <object class="AdwMessageDialog" id="dialog">
  *   <property name="heading" translatable="yes">Save Changes?</property>
- *   <property name="body" translatable="yes">Open documents contain unsaved changes. Changes which
- * are not saved will be permanently lost.</property>
+ *   <property name="body" translatable="yes">Open documents contain unsaved changes. Changes which are not saved will be permanently lost.</property>
  *   <property name="default-response">save</property>
  *   <property name="close-response">cancel</property>
  *   <signal name="response" handler="response_cb"/>
  *   <responses>
  *     <response id="cancel" translatable="yes">_Cancel</response>
  *     <response id="discard" translatable="yes" appearance="destructive">_Discard</response>
- *     <response id="save" translatable="yes" appearance="suggested"
- * enabled="false">_Save</response>
+ *     <response id="save" translatable="yes" appearance="suggested" enabled="false">_Save</response>
  *   </responses>
  * </object>
  * ```
@@ -206,7 +199,8 @@ import kotlin.Unit
  */
 public open class MessageDialog(
     pointer: CPointer<AdwMessageDialog>,
-) : Window(pointer.reinterpret()), KGTyped {
+) : Window(pointer.reinterpret()),
+    KGTyped {
     public val adwMessageDialogPointer: CPointer<AdwMessageDialog>
         get() = gPointer.reinterpret()
 
@@ -266,8 +260,7 @@ public open class MessageDialog(
          * @return whether @self uses markup for body text
          * @since 1.2
          */
-        get() =
-            adw_message_dialog_get_body_use_markup(adwMessageDialogPointer.reinterpret()).asBoolean()
+        get() = adw_message_dialog_get_body_use_markup(adwMessageDialogPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the body text of @self includes Pango markup.
@@ -277,11 +270,9 @@ public open class MessageDialog(
          * @param useMarkup whether to use markup for body text
          * @since 1.2
          */
-        set(useMarkup) =
-            adw_message_dialog_set_body_use_markup(
-                adwMessageDialogPointer.reinterpret(),
-                useMarkup.asGBoolean()
-            )
+        set(
+            useMarkup
+        ) = adw_message_dialog_set_body_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
      * The ID of the close response.
@@ -319,11 +310,7 @@ public open class MessageDialog(
          * @param response the close response ID
          * @since 1.2
          */
-        set(response) =
-            adw_message_dialog_set_close_response(
-                adwMessageDialogPointer.reinterpret(),
-                response
-            )
+        set(response) = adw_message_dialog_set_close_response(adwMessageDialogPointer.reinterpret(), response)
 
     /**
      * The response ID of the default response.
@@ -342,8 +329,7 @@ public open class MessageDialog(
          * @return the default response ID
          * @since 1.2
          */
-        get() =
-            adw_message_dialog_get_default_response(adwMessageDialogPointer.reinterpret())?.toKString()
+        get() = adw_message_dialog_get_default_response(adwMessageDialogPointer.reinterpret())?.toKString()
 
         /**
          * Sets the ID of the default response of @self.
@@ -356,11 +342,7 @@ public open class MessageDialog(
          * @param response the default response ID
          * @since 1.2
          */
-        set(response) =
-            adw_message_dialog_set_default_response(
-                adwMessageDialogPointer.reinterpret(),
-                response
-            )
+        set(response) = adw_message_dialog_set_default_response(adwMessageDialogPointer.reinterpret(), response)
 
     /**
      * The child widget.
@@ -389,7 +371,9 @@ public open class MessageDialog(
          * @param child the child widget
          * @since 1.2
          */
-        set(child) =
+        set(
+            child
+        ) =
             adw_message_dialog_set_extra_child(
                 adwMessageDialogPointer.reinterpret(),
                 child?.gtkWidgetPointer?.reinterpret()
@@ -415,11 +399,7 @@ public open class MessageDialog(
          * @param heading the heading of @self
          * @since 1.2
          */
-        set(heading) =
-            adw_message_dialog_set_heading(
-                adwMessageDialogPointer.reinterpret(),
-                heading
-            )
+        set(heading) = adw_message_dialog_set_heading(adwMessageDialogPointer.reinterpret(), heading)
 
     /**
      * Whether the heading includes Pango markup.
@@ -435,8 +415,7 @@ public open class MessageDialog(
          * @return whether @self uses markup for heading
          * @since 1.2
          */
-        get() =
-            adw_message_dialog_get_heading_use_markup(adwMessageDialogPointer.reinterpret()).asBoolean()
+        get() = adw_message_dialog_get_heading_use_markup(adwMessageDialogPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the heading of @self includes Pango markup.
@@ -446,11 +425,9 @@ public open class MessageDialog(
          * @param useMarkup whether to use markup for heading
          * @since 1.2
          */
-        set(useMarkup) =
-            adw_message_dialog_set_heading_use_markup(
-                adwMessageDialogPointer.reinterpret(),
-                useMarkup.asGBoolean()
-            )
+        set(
+            useMarkup
+        ) = adw_message_dialog_set_heading_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
      * Creates a new `AdwMessageDialog`.
@@ -464,8 +441,7 @@ public open class MessageDialog(
      *
      * dialog = adw_message_dialog_new (parent, _("Replace File?"), NULL);
      * adw_message_dialog_format_body (ADW_MESSAGE_DIALOG (dialog),
-     *                                 _("A file named “%s” already exists.  Do you want to replace
-     * it?"),
+     *                                 _("A file named “%s” already exists.  Do you want to replace it?"),
      *                                 filename);
      * ```
      *
@@ -479,13 +455,7 @@ public open class MessageDialog(
         parent: Window? = null,
         heading: String? = null,
         body: String? = null,
-    ) : this(
-        adw_message_dialog_new(
-            parent?.gtkWindowPointer?.reinterpret(),
-            heading,
-            body
-        )!!.reinterpret()
-    )
+    ) : this(adw_message_dialog_new(parent?.gtkWindowPointer?.reinterpret(), heading, body)!!.reinterpret())
 
     /**
      * Adds a response with @id and @label to @self.
@@ -547,7 +517,8 @@ public open class MessageDialog(
         adw_message_dialog_choose_finish(
             adwMessageDialogPointer.reinterpret(),
             result.gioAsyncResultPointer
-        )?.toKString() ?: error("Expected not null string")
+        )?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Gets the body text of @self.
@@ -626,10 +597,7 @@ public open class MessageDialog(
      * @since 1.2
      */
     public open fun getResponseAppearance(response: String): ResponseAppearance =
-        adw_message_dialog_get_response_appearance(
-            adwMessageDialogPointer.reinterpret(),
-            response
-        ).run {
+        adw_message_dialog_get_response_appearance(adwMessageDialogPointer.reinterpret(), response).run {
             ResponseAppearance.fromNativeValue(this)
         }
 
@@ -643,10 +611,7 @@ public open class MessageDialog(
      * @since 1.2
      */
     public open fun getResponseEnabled(response: String): Boolean =
-        adw_message_dialog_get_response_enabled(
-            adwMessageDialogPointer.reinterpret(),
-            response
-        ).asBoolean()
+        adw_message_dialog_get_response_enabled(adwMessageDialogPointer.reinterpret(), response).asBoolean()
 
     /**
      * Gets the label of @response.
@@ -658,10 +623,8 @@ public open class MessageDialog(
      * @since 1.2
      */
     public open fun getResponseLabel(response: String): String =
-        adw_message_dialog_get_response_label(
-            adwMessageDialogPointer.reinterpret(),
-            response
-        )?.toKString() ?: error("Expected not null string")
+        adw_message_dialog_get_response_label(adwMessageDialogPointer.reinterpret(), response)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Gets whether @self has a response with the ID @response.
@@ -671,10 +634,7 @@ public open class MessageDialog(
      * @since 1.2
      */
     public open fun hasResponse(response: String): Boolean =
-        adw_message_dialog_has_response(
-            adwMessageDialogPointer.reinterpret(),
-            response
-        ).asBoolean()
+        adw_message_dialog_has_response(adwMessageDialogPointer.reinterpret(), response).asBoolean()
 
     /**
      * Removes a response from @self.
@@ -714,10 +674,7 @@ public open class MessageDialog(
      * @since 1.2
      */
     public open fun setBodyUseMarkup(useMarkup: Boolean): Unit =
-        adw_message_dialog_set_body_use_markup(
-            adwMessageDialogPointer.reinterpret(),
-            useMarkup.asGBoolean()
-        )
+        adw_message_dialog_set_body_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
      * Sets the ID of the close response of @self.
@@ -781,10 +738,7 @@ public open class MessageDialog(
      * @since 1.2
      */
     public open fun setHeadingUseMarkup(useMarkup: Boolean): Unit =
-        adw_message_dialog_set_heading_use_markup(
-            adwMessageDialogPointer.reinterpret(),
-            useMarkup.asGBoolean()
-        )
+        adw_message_dialog_set_heading_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
      * Sets the appearance for @response.
@@ -839,11 +793,7 @@ public open class MessageDialog(
         response: String,
         enabled: Boolean,
     ): Unit =
-        adw_message_dialog_set_response_enabled(
-            adwMessageDialogPointer.reinterpret(),
-            response,
-            enabled.asGBoolean()
-        )
+        adw_message_dialog_set_response_enabled(adwMessageDialogPointer.reinterpret(), response, enabled.asGBoolean())
 
     /**
      * Sets the label of @response to @label.
@@ -858,12 +808,7 @@ public open class MessageDialog(
     public open fun setResponseLabel(
         response: String,
         label: String,
-    ): Unit =
-        adw_message_dialog_set_response_label(
-            adwMessageDialogPointer.reinterpret(),
-            response,
-            label
-        )
+    ): Unit = adw_message_dialog_set_response_label(adwMessageDialogPointer.reinterpret(), response, label)
 
     /**
      * This signal is emitted when the dialog is closed.
@@ -894,9 +839,7 @@ public open class MessageDialog(
 
     public companion object : TypeCompanion<MessageDialog> {
         override val type: GeneratedClassKGType<MessageDialog> =
-            GeneratedClassKGType(adw_message_dialog_get_type()) {
-                MessageDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_message_dialog_get_type()) { MessageDialog(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -911,8 +854,6 @@ private val connectResponseFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>
             userData: COpaquePointer,
         ->
         userData.asStableRef<(response: String) -> Unit>().get().invoke(
-            response?.toKString()
-                ?: error("Expected not null string")
+            response?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()

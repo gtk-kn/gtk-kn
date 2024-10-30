@@ -23,7 +23,8 @@ import kotlin.collections.List
  */
 public open class IOModule(
     pointer: CPointer<GIOModule>,
-) : TypeModule(pointer.reinterpret()), KGTyped {
+) : TypeModule(pointer.reinterpret()),
+    KGTyped {
     public val gioIOModulePointer: CPointer<GIOModule>
         get() = gPointer.reinterpret()
 
@@ -87,7 +88,6 @@ public open class IOModule(
          * @since 2.24
          */
         public fun query(): List<String> =
-            g_io_module_query()?.toKStringList()
-                ?: error("Expected not null string array")
+            g_io_module_query()?.toKStringList() ?: error("Expected not null string array")
     }
 }

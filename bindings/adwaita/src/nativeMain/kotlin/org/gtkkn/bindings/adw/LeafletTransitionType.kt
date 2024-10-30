@@ -15,20 +15,17 @@ public enum class LeafletTransitionType(
     public val nativeValue: AdwLeafletTransitionType,
 ) {
     /**
-     * Cover the old page or uncover the new page, sliding from or towards the end according to
-     * orientation, text direction and children order
+     * Cover the old page or uncover the new page, sliding from or towards the end according to orientation, text direction and children order
      */
     OVER(ADW_LEAFLET_TRANSITION_TYPE_OVER),
 
     /**
-     * Uncover the new page or cover the old page, sliding from or towards the start according to
-     * orientation, text direction and children order
+     * Uncover the new page or cover the old page, sliding from or towards the start according to orientation, text direction and children order
      */
     UNDER(ADW_LEAFLET_TRANSITION_TYPE_UNDER),
 
     /**
-     * Slide from left, right, up or down according to the orientation, text direction and the
-     * children order
+     * Slide from left, right, up or down according to the orientation, text direction and the children order
      */
     SLIDE(ADW_LEAFLET_TRANSITION_TYPE_SLIDE),
     ;

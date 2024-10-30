@@ -49,7 +49,8 @@ import kotlin.Unit
  */
 public class StatusPage(
     pointer: CPointer<AdwStatusPage>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwStatusPagePointer: CPointer<AdwStatusPage>
         get() = gPointer.reinterpret()
 
@@ -81,11 +82,9 @@ public class StatusPage(
          *
          * @param child the child widget
          */
-        set(child) =
-            adw_status_page_set_child(
-                adwStatusPagePointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = adw_status_page_set_child(adwStatusPagePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The description markup to be displayed below the title.
@@ -105,11 +104,7 @@ public class StatusPage(
          *
          * @param description the description
          */
-        set(description) =
-            adw_status_page_set_description(
-                adwStatusPagePointer.reinterpret(),
-                description
-            )
+        set(description) = adw_status_page_set_description(adwStatusPagePointer.reinterpret(), description)
 
     /**
      * The name of the icon to be used.
@@ -156,11 +151,9 @@ public class StatusPage(
          *
          * @param paintable the paintable
          */
-        set(paintable) =
-            adw_status_page_set_paintable(
-                adwStatusPagePointer.reinterpret(),
-                paintable?.gdkPaintablePointer
-            )
+        set(
+            paintable
+        ) = adw_status_page_set_paintable(adwStatusPagePointer.reinterpret(), paintable?.gdkPaintablePointer)
 
     /**
      * The title to be displayed below the icon.
@@ -234,8 +227,7 @@ public class StatusPage(
      * @return the title
      */
     public fun getTitle(): String =
-        adw_status_page_get_title(adwStatusPagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        adw_status_page_get_title(adwStatusPagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Sets the child widget of @self.
@@ -243,10 +235,7 @@ public class StatusPage(
      * @param child the child widget
      */
     public fun setChild(child: Widget? = null): Unit =
-        adw_status_page_set_child(
-            adwStatusPagePointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_status_page_set_child(adwStatusPagePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the description markup for @self.
@@ -276,10 +265,7 @@ public class StatusPage(
      * @param paintable the paintable
      */
     public fun setPaintable(paintable: Paintable? = null): Unit =
-        adw_status_page_set_paintable(
-            adwStatusPagePointer.reinterpret(),
-            paintable?.gdkPaintablePointer
-        )
+        adw_status_page_set_paintable(adwStatusPagePointer.reinterpret(), paintable?.gdkPaintablePointer)
 
     /**
      * Sets the title for @self.

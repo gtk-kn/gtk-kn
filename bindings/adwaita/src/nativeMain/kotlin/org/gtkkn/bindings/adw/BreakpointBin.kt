@@ -136,7 +136,8 @@ import kotlin.Unit
  */
 public open class BreakpointBin(
     pointer: CPointer<AdwBreakpointBin>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwBreakpointBinPointer: CPointer<AdwBreakpointBin>
         get() = gPointer.reinterpret()
 
@@ -172,11 +173,9 @@ public open class BreakpointBin(
          * @param child the child widget
          * @since 1.4
          */
-        set(child) =
-            adw_breakpoint_bin_set_child(
-                adwBreakpointBinPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = adw_breakpoint_bin_set_child(adwBreakpointBinPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The current breakpoint.
@@ -256,16 +255,11 @@ public open class BreakpointBin(
      * @since 1.4
      */
     public open fun setChild(child: Widget? = null): Unit =
-        adw_breakpoint_bin_set_child(
-            adwBreakpointBinPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_breakpoint_bin_set_child(adwBreakpointBinPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<BreakpointBin> {
         override val type: GeneratedClassKGType<BreakpointBin> =
-            GeneratedClassKGType(adw_breakpoint_bin_get_type()) {
-                BreakpointBin(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_breakpoint_bin_get_type()) { BreakpointBin(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

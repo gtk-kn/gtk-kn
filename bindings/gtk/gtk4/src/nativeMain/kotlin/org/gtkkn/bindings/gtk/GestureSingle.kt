@@ -41,7 +41,8 @@ import kotlin.Unit
  */
 public open class GestureSingle(
     pointer: CPointer<GtkGestureSingle>,
-) : Gesture(pointer.reinterpret()), KGTyped {
+) : Gesture(pointer.reinterpret()),
+    KGTyped {
     public val gtkGestureSinglePointer: CPointer<GtkGestureSingle>
         get() = gPointer.reinterpret()
 
@@ -93,11 +94,7 @@ public open class GestureSingle(
          *
          * @param exclusive true to make @gesture exclusive
          */
-        set(exclusive) =
-            gtk_gesture_single_set_exclusive(
-                gtkGestureSinglePointer.reinterpret(),
-                exclusive.asGBoolean()
-            )
+        set(exclusive) = gtk_gesture_single_set_exclusive(gtkGestureSinglePointer.reinterpret(), exclusive.asGBoolean())
 
     /**
      * Whether the gesture handles only touch events.
@@ -119,11 +116,9 @@ public open class GestureSingle(
          *
          * @param touchOnly whether @gesture handles only touch events
          */
-        set(touchOnly) =
-            gtk_gesture_single_set_touch_only(
-                gtkGestureSinglePointer.reinterpret(),
-                touchOnly.asGBoolean()
-            )
+        set(
+            touchOnly
+        ) = gtk_gesture_single_set_touch_only(gtkGestureSinglePointer.reinterpret(), touchOnly.asGBoolean())
 
     /**
      * Returns the button number @gesture listens for.
@@ -196,10 +191,7 @@ public open class GestureSingle(
      * @param exclusive true to make @gesture exclusive
      */
     public open fun setExclusive(exclusive: Boolean): Unit =
-        gtk_gesture_single_set_exclusive(
-            gtkGestureSinglePointer.reinterpret(),
-            exclusive.asGBoolean()
-        )
+        gtk_gesture_single_set_exclusive(gtkGestureSinglePointer.reinterpret(), exclusive.asGBoolean())
 
     /**
      * Sets whether to handle only touch events.
@@ -211,16 +203,11 @@ public open class GestureSingle(
      * @param touchOnly whether @gesture handles only touch events
      */
     public open fun setTouchOnly(touchOnly: Boolean): Unit =
-        gtk_gesture_single_set_touch_only(
-            gtkGestureSinglePointer.reinterpret(),
-            touchOnly.asGBoolean()
-        )
+        gtk_gesture_single_set_touch_only(gtkGestureSinglePointer.reinterpret(), touchOnly.asGBoolean())
 
     public companion object : TypeCompanion<GestureSingle> {
         override val type: GeneratedClassKGType<GestureSingle> =
-            GeneratedClassKGType(gtk_gesture_single_get_type()) {
-                GestureSingle(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_gesture_single_get_type()) { GestureSingle(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

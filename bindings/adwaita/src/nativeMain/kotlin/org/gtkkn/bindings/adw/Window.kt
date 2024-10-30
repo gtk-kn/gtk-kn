@@ -103,7 +103,8 @@ import kotlin.Unit
  */
 public open class Window(
     pointer: CPointer<AdwWindow>,
-) : org.gtkkn.bindings.gtk.Window(pointer.reinterpret()), KGTyped {
+) : org.gtkkn.bindings.gtk.Window(pointer.reinterpret()),
+    KGTyped {
     public val adwWindowPointer: CPointer<AdwWindow>
         get() = gPointer.reinterpret()
 
@@ -150,11 +151,7 @@ public open class Window(
          *
          * @param content the content widget
          */
-        set(content) =
-            adw_window_set_content(
-                adwWindowPointer.reinterpret(),
-                content?.gtkWidgetPointer?.reinterpret()
-            )
+        set(content) = adw_window_set_content(adwWindowPointer.reinterpret(), content?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The current breakpoint.
@@ -223,10 +220,7 @@ public open class Window(
      * @since 1.4
      */
     public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
-        adw_window_add_breakpoint(
-            adwWindowPointer.reinterpret(),
-            breakpoint.adwBreakpointPointer.reinterpret()
-        )
+        adw_window_add_breakpoint(adwWindowPointer.reinterpret(), breakpoint.adwBreakpointPointer.reinterpret())
 
     /**
      * Gets the content widget of @self.
@@ -283,10 +277,7 @@ public open class Window(
      * @param content the content widget
      */
     public open fun setContent(content: Widget? = null): Unit =
-        adw_window_set_content(
-            adwWindowPointer.reinterpret(),
-            content?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_window_set_content(adwWindowPointer.reinterpret(), content?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<Window> {
         override val type: GeneratedClassKGType<Window> =

@@ -46,7 +46,10 @@ import kotlin.Unit
  */
 public open class FilterListModel(
     pointer: CPointer<GtkFilterListModel>,
-) : Object(pointer.reinterpret()), ListModel, SectionModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    SectionModel,
+    KGTyped {
     public val gtkFilterListModelPointer: CPointer<GtkFilterListModel>
         get() = gPointer.reinterpret()
 
@@ -75,7 +78,9 @@ public open class FilterListModel(
          *
          * @param filter filter to use
          */
-        set(filter) =
+        set(
+            filter
+        ) =
             gtk_filter_list_model_set_filter(
                 gtkFilterListModelPointer.reinterpret(),
                 filter?.gtkFilterPointer?.reinterpret()
@@ -92,8 +97,7 @@ public open class FilterListModel(
          *
          * @return true if incremental filtering is enabled
          */
-        get() =
-            gtk_filter_list_model_get_incremental(gtkFilterListModelPointer.reinterpret()).asBoolean()
+        get() = gtk_filter_list_model_get_incremental(gtkFilterListModelPointer.reinterpret()).asBoolean()
 
         /**
          * Sets the filter model to do an incremental sort.
@@ -115,11 +119,9 @@ public open class FilterListModel(
          *
          * @param incremental true to enable incremental filtering
          */
-        set(incremental) =
-            gtk_filter_list_model_set_incremental(
-                gtkFilterListModelPointer.reinterpret(),
-                incremental.asGBoolean()
-            )
+        set(
+            incremental
+        ) = gtk_filter_list_model_set_incremental(gtkFilterListModelPointer.reinterpret(), incremental.asGBoolean())
 
     /**
      * The model being filtered.
@@ -145,11 +147,9 @@ public open class FilterListModel(
          *
          * @param model The model to be filtered
          */
-        set(model) =
-            gtk_filter_list_model_set_model(
-                gtkFilterListModelPointer.reinterpret(),
-                model?.gioListModelPointer
-            )
+        set(
+            model
+        ) = gtk_filter_list_model_set_model(gtkFilterListModelPointer.reinterpret(), model?.gioListModelPointer)
 
     /**
      * Number of items not yet filtered.
@@ -185,13 +185,12 @@ public open class FilterListModel(
      * @param filter filter
      * @return a new `GtkFilterListModel`
      */
-    public constructor(model: ListModel? = null, filter: Filter? = null) :
-        this(
-            gtk_filter_list_model_new(
-                model?.gioListModelPointer,
-                filter?.gtkFilterPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        model: ListModel? = null,
+        filter: Filter? = null,
+    ) : this(
+        gtk_filter_list_model_new(model?.gioListModelPointer, filter?.gtkFilterPointer?.reinterpret())!!.reinterpret()
+    )
 
     /**
      * Gets the `GtkFilter` currently set on @self.
@@ -277,10 +276,7 @@ public open class FilterListModel(
      * @param incremental true to enable incremental filtering
      */
     public open fun setIncremental(incremental: Boolean): Unit =
-        gtk_filter_list_model_set_incremental(
-            gtkFilterListModelPointer.reinterpret(),
-            incremental.asGBoolean()
-        )
+        gtk_filter_list_model_set_incremental(gtkFilterListModelPointer.reinterpret(), incremental.asGBoolean())
 
     /**
      * Sets the model to be filtered.
@@ -293,16 +289,11 @@ public open class FilterListModel(
      * @param model The model to be filtered
      */
     public open fun setModel(model: ListModel? = null): Unit =
-        gtk_filter_list_model_set_model(
-            gtkFilterListModelPointer.reinterpret(),
-            model?.gioListModelPointer
-        )
+        gtk_filter_list_model_set_model(gtkFilterListModelPointer.reinterpret(), model?.gioListModelPointer)
 
     public companion object : TypeCompanion<FilterListModel> {
         override val type: GeneratedClassKGType<FilterListModel> =
-            GeneratedClassKGType(gtk_filter_list_model_get_type()) {
-                FilterListModel(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_filter_list_model_get_type()) { FilterListModel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

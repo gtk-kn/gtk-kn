@@ -74,7 +74,9 @@ import kotlin.Unit
  */
 public open class AppChooserWidget(
     pointer: CPointer<GtkAppChooserWidget>,
-) : Widget(pointer.reinterpret()), AppChooser, KGTyped {
+) : Widget(pointer.reinterpret()),
+    AppChooser,
+    KGTyped {
     public val gtkAppChooserWidgetPointer: CPointer<GtkAppChooserWidget>
         get() = gPointer.reinterpret()
 
@@ -102,8 +104,7 @@ public open class AppChooserWidget(
          *
          * @return the value of [property@Gtk.AppChooserWidget:show-all]
          */
-        get() =
-            gtk_app_chooser_widget_get_show_all(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
+        get() = gtk_app_chooser_widget_get_show_all(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the app chooser should show all applications
@@ -111,11 +112,9 @@ public open class AppChooserWidget(
          *
          * @param setting the new value for [property@Gtk.AppChooserWidget:show-all]
          */
-        set(setting) =
-            gtk_app_chooser_widget_set_show_all(
-                gtkAppChooserWidgetPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(
+            setting
+        ) = gtk_app_chooser_widget_set_show_all(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Determines whether the app chooser should show the default
@@ -131,8 +130,7 @@ public open class AppChooserWidget(
          *
          * @return the value of [property@Gtk.AppChooserWidget:show-default]
          */
-        get() =
-            gtk_app_chooser_widget_get_show_default(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
+        get() = gtk_app_chooser_widget_get_show_default(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the app chooser should show the default handler
@@ -140,11 +138,9 @@ public open class AppChooserWidget(
          *
          * @param setting the new value for [property@Gtk.AppChooserWidget:show-default]
          */
-        set(setting) =
-            gtk_app_chooser_widget_set_show_default(
-                gtkAppChooserWidgetPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(
+            setting
+        ) = gtk_app_chooser_widget_set_show_default(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Determines whether the app chooser should show a section
@@ -160,8 +156,7 @@ public open class AppChooserWidget(
          *
          * @return the value of [property@Gtk.AppChooserWidget:show-fallback]
          */
-        get() =
-            gtk_app_chooser_widget_get_show_fallback(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
+        get() = gtk_app_chooser_widget_get_show_fallback(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the app chooser should show related applications
@@ -169,11 +164,9 @@ public open class AppChooserWidget(
          *
          * @param setting the new value for [property@Gtk.AppChooserWidget:show-fallback]
          */
-        set(setting) =
-            gtk_app_chooser_widget_set_show_fallback(
-                gtkAppChooserWidgetPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(
+            setting
+        ) = gtk_app_chooser_widget_set_show_fallback(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Determines whether the app chooser should show a section
@@ -186,8 +179,7 @@ public open class AppChooserWidget(
          *
          * @return the value of [property@Gtk.AppChooserWidget:show-other]
          */
-        get() =
-            gtk_app_chooser_widget_get_show_other(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
+        get() = gtk_app_chooser_widget_get_show_other(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the app chooser should show applications
@@ -195,11 +187,9 @@ public open class AppChooserWidget(
          *
          * @param setting the new value for [property@Gtk.AppChooserWidget:show-other]
          */
-        set(setting) =
-            gtk_app_chooser_widget_set_show_other(
-                gtkAppChooserWidgetPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(
+            setting
+        ) = gtk_app_chooser_widget_set_show_other(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Determines whether the app chooser should show a section
@@ -215,8 +205,7 @@ public open class AppChooserWidget(
          *
          * @return the value of [property@Gtk.AppChooserWidget:show-recommended]
          */
-        get() =
-            gtk_app_chooser_widget_get_show_recommended(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
+        get() = gtk_app_chooser_widget_get_show_recommended(gtkAppChooserWidgetPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the app chooser should show recommended applications
@@ -224,11 +213,9 @@ public open class AppChooserWidget(
          *
          * @param setting the new value for [property@Gtk.AppChooserWidget:show-recommended]
          */
-        set(setting) =
-            gtk_app_chooser_widget_set_show_recommended(
-                gtkAppChooserWidgetPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(
+            setting
+        ) = gtk_app_chooser_widget_set_show_recommended(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Creates a new `GtkAppChooserWidget` for applications
@@ -237,8 +224,7 @@ public open class AppChooserWidget(
      * @param contentType the content type to show applications for
      * @return a newly created `GtkAppChooserWidget`
      */
-    public constructor(contentType: String) :
-        this(gtk_app_chooser_widget_new(contentType)!!.reinterpret())
+    public constructor(contentType: String) : this(gtk_app_chooser_widget_new(contentType)!!.reinterpret())
 
     /**
      * Returns the text that is shown if there are not applications
@@ -310,10 +296,7 @@ public open class AppChooserWidget(
      * @param setting the new value for [property@Gtk.AppChooserWidget:show-all]
      */
     public open fun setShowAll(setting: Boolean): Unit =
-        gtk_app_chooser_widget_set_show_all(
-            gtkAppChooserWidgetPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_app_chooser_widget_set_show_all(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Sets whether the app chooser should show the default handler
@@ -322,10 +305,7 @@ public open class AppChooserWidget(
      * @param setting the new value for [property@Gtk.AppChooserWidget:show-default]
      */
     public open fun setShowDefault(setting: Boolean): Unit =
-        gtk_app_chooser_widget_set_show_default(
-            gtkAppChooserWidgetPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_app_chooser_widget_set_show_default(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Sets whether the app chooser should show related applications
@@ -334,10 +314,7 @@ public open class AppChooserWidget(
      * @param setting the new value for [property@Gtk.AppChooserWidget:show-fallback]
      */
     public open fun setShowFallback(setting: Boolean): Unit =
-        gtk_app_chooser_widget_set_show_fallback(
-            gtkAppChooserWidgetPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_app_chooser_widget_set_show_fallback(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Sets whether the app chooser should show applications
@@ -346,10 +323,7 @@ public open class AppChooserWidget(
      * @param setting the new value for [property@Gtk.AppChooserWidget:show-other]
      */
     public open fun setShowOther(setting: Boolean): Unit =
-        gtk_app_chooser_widget_set_show_other(
-            gtkAppChooserWidgetPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_app_chooser_widget_set_show_other(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Sets whether the app chooser should show recommended applications
@@ -358,10 +332,7 @@ public open class AppChooserWidget(
      * @param setting the new value for [property@Gtk.AppChooserWidget:show-recommended]
      */
     public open fun setShowRecommended(setting: Boolean): Unit =
-        gtk_app_chooser_widget_set_show_recommended(
-            gtkAppChooserWidgetPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_app_chooser_widget_set_show_recommended(gtkAppChooserWidgetPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Emitted when an application item is activated from the widget's list.
@@ -407,9 +378,7 @@ public open class AppChooserWidget(
 
     public companion object : TypeCompanion<AppChooserWidget> {
         override val type: GeneratedClassKGType<AppChooserWidget> =
-            GeneratedClassKGType(gtk_app_chooser_widget_get_type()) {
-                AppChooserWidget(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_app_chooser_widget_get_type()) { AppChooserWidget(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -428,8 +397,7 @@ private val connectApplicationActivatedFunc: CPointer<CFunction<(CPointer<GAppIn
                 AppInfo.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectApplicationSelectedFunc: CPointer<CFunction<(CPointer<GAppInfo>) -> Unit>> =
     staticCFunction {
@@ -442,5 +410,4 @@ private val connectApplicationSelectedFunc: CPointer<CFunction<(CPointer<GAppInf
                 AppInfo.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

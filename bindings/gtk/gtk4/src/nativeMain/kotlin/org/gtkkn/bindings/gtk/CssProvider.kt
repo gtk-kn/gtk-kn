@@ -73,7 +73,9 @@ import kotlin.Unit
  */
 public open class CssProvider(
     pointer: CPointer<GtkCssProvider>,
-) : Object(pointer.reinterpret()), StyleProvider, KGTyped {
+) : Object(pointer.reinterpret()),
+    StyleProvider,
+    KGTyped {
     public val gtkCssProviderPointer: CPointer<GtkCssProvider>
         get() = gPointer.reinterpret()
 
@@ -96,10 +98,7 @@ public open class CssProvider(
      * @since 4.12
      */
     public open fun loadFromBytes(`data`: Bytes): Unit =
-        gtk_css_provider_load_from_bytes(
-            gtkCssProviderPointer.reinterpret(),
-            `data`.glibBytesPointer
-        )
+        gtk_css_provider_load_from_bytes(gtkCssProviderPointer.reinterpret(), `data`.glibBytesPointer)
 
     /**
      * Loads @data into @css_provider.
@@ -122,10 +121,7 @@ public open class CssProvider(
      * @param file `GFile` pointing to a file to load
      */
     public open fun loadFromFile(`file`: File): Unit =
-        gtk_css_provider_load_from_file(
-            gtkCssProviderPointer.reinterpret(),
-            `file`.gioFilePointer
-        )
+        gtk_css_provider_load_from_file(gtkCssProviderPointer.reinterpret(), `file`.gioFilePointer)
 
     /**
      * Loads the data contained in @path into @css_provider.
@@ -191,8 +187,7 @@ public open class CssProvider(
      * than when a loading function was called.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `section` section the error happened in;
-     * `error` The parsing error
+     * @param handler the Callback to connect. Params: `section` section the error happened in; `error` The parsing error
      */
     public fun connectParsingError(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -217,14 +212,8 @@ public open class CssProvider(
     }
 }
 
-private val connectParsingErrorFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkCssSection>,
-            CPointer<GError>,
-        ) -> Unit
-    >
-> =
+private val connectParsingErrorFunc:
+    CPointer<CFunction<(CPointer<GtkCssSection>, CPointer<GError>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             section: CPointer<GtkCssSection>?,
@@ -239,5 +228,4 @@ private val connectParsingErrorFunc: CPointer<
                 Error(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

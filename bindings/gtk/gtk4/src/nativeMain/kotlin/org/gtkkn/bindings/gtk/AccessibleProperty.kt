@@ -188,10 +188,6 @@ public enum class AccessibleProperty(
         public fun initValue(
             `property`: AccessibleProperty,
             `value`: Value,
-        ): Unit =
-            gtk_accessible_property_init_value(
-                `property`.nativeValue,
-                `value`.gobjectValuePointer
-            )
+        ): Unit = gtk_accessible_property_init_value(`property`.nativeValue, `value`.gobjectValuePointer)
     }
 }

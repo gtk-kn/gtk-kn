@@ -49,8 +49,7 @@ import kotlin.String
  * in sync with the property value — its state is the property value.
  *
  * For example, it might be useful to create a [iface@Gio.Action] corresponding
- * to the `visible-child-name` property of a
- * [`GtkStack`](https://docs.gtk.org/gtk4/class.Stack.html)
+ * to the `visible-child-name` property of a [`GtkStack`](https://docs.gtk.org/gtk4/class.Stack.html)
  * so that the current page can be switched from a menu.  The active radio
  * indication in the menu is then directly determined from the active page of
  * the `GtkStack`.
@@ -83,7 +82,9 @@ import kotlin.String
  */
 public open class PropertyAction(
     pointer: CPointer<GPropertyAction>,
-) : Object(pointer.reinterpret()), Action, KGTyped {
+) : Object(pointer.reinterpret()),
+    Action,
+    KGTyped {
     public val gioPropertyActionPointer: CPointer<GPropertyAction>
         get() = gPointer.reinterpret()
 
@@ -111,19 +112,11 @@ public open class PropertyAction(
         name: String,
         `object`: Object,
         propertyName: String,
-    ) : this(
-        g_property_action_new(
-            name,
-            `object`.gPointer.reinterpret(),
-            propertyName
-        )!!.reinterpret()
-    )
+    ) : this(g_property_action_new(name, `object`.gPointer.reinterpret(), propertyName)!!.reinterpret())
 
     public companion object : TypeCompanion<PropertyAction> {
         override val type: GeneratedClassKGType<PropertyAction> =
-            GeneratedClassKGType(g_property_action_get_type()) {
-                PropertyAction(it.reinterpret())
-            }
+            GeneratedClassKGType(g_property_action_get_type()) { PropertyAction(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

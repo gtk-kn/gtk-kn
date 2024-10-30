@@ -31,7 +31,8 @@ import kotlin.Unit
  */
 public open class GestureZoom(
     pointer: CPointer<GtkGestureZoom>,
-) : Gesture(pointer.reinterpret()), KGTyped {
+) : Gesture(pointer.reinterpret()),
+    KGTyped {
     public val gtkGestureZoomPointer: CPointer<GtkGestureZoom>
         get() = gPointer.reinterpret()
 
@@ -59,8 +60,7 @@ public open class GestureZoom(
      * Emitted whenever the distance between both tracked sequences changes.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `scale` Scale delta, taking the initial state
-     * as 1:1
+     * @param handler the Callback to connect. Params: `scale` Scale delta, taking the initial state as 1:1
      */
     public fun connectScaleChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -92,5 +92,4 @@ private val connectScaleChangedFunc: CPointer<CFunction<(Double) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(scale: Double) -> Unit>().get().invoke(scale)
-    }
-        .reinterpret()
+    }.reinterpret()

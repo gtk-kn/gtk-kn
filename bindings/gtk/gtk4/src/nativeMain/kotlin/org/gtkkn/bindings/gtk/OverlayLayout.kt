@@ -21,7 +21,8 @@ import org.gtkkn.native.gtk.gtk_overlay_layout_new
  */
 public open class OverlayLayout(
     pointer: CPointer<GtkOverlayLayout>,
-) : LayoutManager(pointer.reinterpret()), KGTyped {
+) : LayoutManager(pointer.reinterpret()),
+    KGTyped {
     public val gtkOverlayLayoutPointer: CPointer<GtkOverlayLayout>
         get() = gPointer.reinterpret()
 
@@ -34,9 +35,7 @@ public open class OverlayLayout(
 
     public companion object : TypeCompanion<OverlayLayout> {
         override val type: GeneratedClassKGType<OverlayLayout> =
-            GeneratedClassKGType(gtk_overlay_layout_get_type()) {
-                OverlayLayout(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_overlay_layout_get_type()) { OverlayLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

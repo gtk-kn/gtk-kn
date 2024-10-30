@@ -84,8 +84,7 @@ import kotlin.Unit
  * The following attributes are used when constructing menu items:
  *
  * - "label": a user-visible string to display
- * - "use-markup": whether the text in the menu item includes [Pango
- * markup](https://docs.gtk.org/Pango/pango_markup.html)
+ * - "use-markup": whether the text in the menu item includes [Pango markup](https://docs.gtk.org/Pango/pango_markup.html)
  * - "action": the prefixed name of the action to trigger
  * - "target": the parameter to use when activating the action
  * - "icon" and "verb-icon": names of icons that may be displayed
@@ -146,7 +145,8 @@ import kotlin.Unit
  */
 public open class PopoverMenu(
     pointer: CPointer<GtkPopoverMenu>,
-) : Popover(pointer.reinterpret()), KGTyped {
+) : Popover(pointer.reinterpret()),
+    KGTyped {
     public val gtkPopoverMenuPointer: CPointer<GtkPopoverMenu>
         get() = gPointer.reinterpret()
 
@@ -219,7 +219,9 @@ public open class PopoverMenu(
          *
          * @param model a `GMenuModel`
          */
-        set(model) =
+        set(
+            model
+        ) =
             gtk_popover_menu_set_menu_model(
                 gtkPopoverMenuPointer.reinterpret(),
                 model?.gioMenuModelPointer?.reinterpret()
@@ -243,8 +245,9 @@ public open class PopoverMenu(
      * @param model a `GMenuModel`
      * @return the new `GtkPopoverMenu`
      */
-    public constructor(model: MenuModel? = null) :
-        this(gtk_popover_menu_new_from_model(model?.gioMenuModelPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        model: MenuModel? = null,
+    ) : this(gtk_popover_menu_new_from_model(model?.gioMenuModelPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Creates a `GtkPopoverMenu` and populates it according to @model.
@@ -259,13 +262,10 @@ public open class PopoverMenu(
      * @param flags flags that affect how the menu is created
      * @return the new `GtkPopoverMenu`
      */
-    public constructor(model: MenuModel, flags: PopoverMenuFlags) :
-        this(
-            gtk_popover_menu_new_from_model_full(
-                model.gioMenuModelPointer.reinterpret(),
-                flags.mask
-            )!!.reinterpret()
-        )
+    public constructor(
+        model: MenuModel,
+        flags: PopoverMenuFlags,
+    ) : this(gtk_popover_menu_new_from_model_full(model.gioMenuModelPointer.reinterpret(), flags.mask)!!.reinterpret())
 
     /**
      * Adds a custom widget to a generated menu.
@@ -343,10 +343,7 @@ public open class PopoverMenu(
      * @param model a `GMenuModel`
      */
     public open fun setMenuModel(model: MenuModel? = null): Unit =
-        gtk_popover_menu_set_menu_model(
-            gtkPopoverMenuPointer.reinterpret(),
-            model?.gioMenuModelPointer?.reinterpret()
-        )
+        gtk_popover_menu_set_menu_model(gtkPopoverMenuPointer.reinterpret(), model?.gioMenuModelPointer?.reinterpret())
 
     public companion object : TypeCompanion<PopoverMenu> {
         override val type: GeneratedClassKGType<PopoverMenu> =

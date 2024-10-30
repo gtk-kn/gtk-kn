@@ -19,7 +19,8 @@ import kotlin.Unit
  */
 public open class CustomFilter(
     pointer: CPointer<GtkCustomFilter>,
-) : Filter(pointer.reinterpret()), KGTyped {
+) : Filter(pointer.reinterpret()),
+    KGTyped {
     public val gtkCustomFilterPointer: CPointer<GtkCustomFilter>
         get() = gPointer.reinterpret()
 
@@ -35,14 +36,15 @@ public open class CustomFilter(
      * @param matchFunc function to filter items
      * @return a new `GtkCustomFilter`
      */
-    public constructor(matchFunc: CustomFilterFunc) :
-        this(
-            gtk_custom_filter_new(
-                CustomFilterFuncFunc.reinterpret(),
-                StableRef.create(matchFunc).asCPointer(),
-                staticStableRefDestroy.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        matchFunc: CustomFilterFunc,
+    ) : this(
+        gtk_custom_filter_new(
+            CustomFilterFuncFunc.reinterpret(),
+            StableRef.create(matchFunc).asCPointer(),
+            staticStableRefDestroy.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Sets the function used for filtering items.
@@ -67,9 +69,7 @@ public open class CustomFilter(
 
     public companion object : TypeCompanion<CustomFilter> {
         override val type: GeneratedClassKGType<CustomFilter> =
-            GeneratedClassKGType(gtk_custom_filter_get_type()) {
-                CustomFilter(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_custom_filter_get_type()) { CustomFilter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

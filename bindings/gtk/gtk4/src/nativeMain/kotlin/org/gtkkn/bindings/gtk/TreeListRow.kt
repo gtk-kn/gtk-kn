@@ -44,7 +44,8 @@ import kotlin.Unit
  */
 public open class TreeListRow(
     pointer: CPointer<GtkTreeListRow>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkTreeListRowPointer: CPointer<GtkTreeListRow>
         get() = gPointer.reinterpret()
 
@@ -108,11 +109,7 @@ public open class TreeListRow(
          *
          * @param expanded true if the row should be expanded
          */
-        set(expanded) =
-            gtk_tree_list_row_set_expanded(
-                gtkTreeListRowPointer.reinterpret(),
-                expanded.asGBoolean()
-            )
+        set(expanded) = gtk_tree_list_row_set_expanded(gtkTreeListRowPointer.reinterpret(), expanded.asGBoolean())
 
     /**
      * The item held in this row.
@@ -246,10 +243,7 @@ public open class TreeListRow(
      * @param expanded true if the row should be expanded
      */
     public open fun setExpanded(expanded: Boolean): Unit =
-        gtk_tree_list_row_set_expanded(
-            gtkTreeListRowPointer.reinterpret(),
-            expanded.asGBoolean()
-        )
+        gtk_tree_list_row_set_expanded(gtkTreeListRowPointer.reinterpret(), expanded.asGBoolean())
 
     public companion object : TypeCompanion<TreeListRow> {
         override val type: GeneratedClassKGType<TreeListRow> =

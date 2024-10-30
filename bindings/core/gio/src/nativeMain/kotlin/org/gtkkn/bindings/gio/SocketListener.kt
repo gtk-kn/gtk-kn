@@ -72,7 +72,8 @@ import kotlin.Unit
  */
 public open class SocketListener(
     pointer: CPointer<GSocketListener>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioSocketListenerPointer: CPointer<GSocketListener>
         get() = gPointer.reinterpret()
 
@@ -268,8 +269,7 @@ public open class SocketListener(
      * the order they happen in is undefined.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `event` the event that is occurring; `socket`
-     * the #GSocket the event is occurring on
+     * @param handler the Callback to connect. Params: `event` the event that is occurring; `socket` the #GSocket the event is occurring on
      * @since 2.46
      */
     public fun connectEvent(
@@ -287,9 +287,7 @@ public open class SocketListener(
 
     public companion object : TypeCompanion<SocketListener> {
         override val type: GeneratedClassKGType<SocketListener> =
-            GeneratedClassKGType(g_socket_listener_get_type()) {
-                SocketListener(it.reinterpret())
-            }
+            GeneratedClassKGType(g_socket_listener_get_type()) { SocketListener(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -304,12 +302,7 @@ private val connectEventFunc: CPointer<CFunction<(GSocketListenerEvent, CPointer
             socket: CPointer<GSocket>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                event: SocketListenerEvent,
-                socket: Socket,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(event: SocketListenerEvent, socket: Socket) -> Unit>().get().invoke(
             event.run {
                 SocketListenerEvent.fromNativeValue(this)
             },
@@ -317,5 +310,4 @@ private val connectEventFunc: CPointer<CFunction<(GSocketListenerEvent, CPointer
                 Socket(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

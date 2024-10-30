@@ -92,7 +92,8 @@ import kotlin.Unit
  */
 public class ViewSwitcherTitle(
     pointer: CPointer<AdwViewSwitcherTitle>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwViewSwitcherTitlePointer: CPointer<AdwViewSwitcherTitle>
         get() = gPointer.reinterpret()
 
@@ -124,7 +125,9 @@ public class ViewSwitcherTitle(
          *
          * @param stack a stack
          */
-        set(stack) =
+        set(
+            stack
+        ) =
             adw_view_switcher_title_set_stack(
                 adwViewSwitcherTitlePointer.reinterpret(),
                 stack?.adwViewStackPointer?.reinterpret()
@@ -152,11 +155,7 @@ public class ViewSwitcherTitle(
          *
          * @param subtitle a subtitle
          */
-        set(subtitle) =
-            adw_view_switcher_title_set_subtitle(
-                adwViewSwitcherTitlePointer.reinterpret(),
-                subtitle
-            )
+        set(subtitle) = adw_view_switcher_title_set_subtitle(adwViewSwitcherTitlePointer.reinterpret(), subtitle)
 
     /**
      * The title to display.
@@ -182,11 +181,7 @@ public class ViewSwitcherTitle(
          *
          * @param title a title
          */
-        set(title) =
-            adw_view_switcher_title_set_title(
-                adwViewSwitcherTitlePointer.reinterpret(),
-                title
-            )
+        set(title) = adw_view_switcher_title_set_title(adwViewSwitcherTitlePointer.reinterpret(), title)
 
     /**
      * Whether the title is currently visible.
@@ -203,8 +198,7 @@ public class ViewSwitcherTitle(
          *
          * @return whether the title of @self is currently visible
          */
-        get() =
-            adw_view_switcher_title_get_title_visible(adwViewSwitcherTitlePointer.reinterpret()).asBoolean()
+        get() = adw_view_switcher_title_get_title_visible(adwViewSwitcherTitlePointer.reinterpret()).asBoolean()
 
     /**
      * Whether the view switcher is enabled.
@@ -222,8 +216,7 @@ public class ViewSwitcherTitle(
          *
          * @return whether the view switcher is enabled
          */
-        get() =
-            adw_view_switcher_title_get_view_switcher_enabled(adwViewSwitcherTitlePointer.reinterpret()).asBoolean()
+        get() = adw_view_switcher_title_get_view_switcher_enabled(adwViewSwitcherTitlePointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self's view switcher is enabled.
@@ -237,7 +230,9 @@ public class ViewSwitcherTitle(
          *
          * @param enabled whether the view switcher is enabled
          */
-        set(enabled) =
+        set(
+            enabled
+        ) =
             adw_view_switcher_title_set_view_switcher_enabled(
                 adwViewSwitcherTitlePointer.reinterpret(),
                 enabled.asGBoolean()
@@ -316,10 +311,7 @@ public class ViewSwitcherTitle(
      * @param subtitle a subtitle
      */
     public fun setSubtitle(subtitle: String): Unit =
-        adw_view_switcher_title_set_subtitle(
-            adwViewSwitcherTitlePointer.reinterpret(),
-            subtitle
-        )
+        adw_view_switcher_title_set_subtitle(adwViewSwitcherTitlePointer.reinterpret(), subtitle)
 
     /**
      * Sets the title of @self.
@@ -352,9 +344,7 @@ public class ViewSwitcherTitle(
 
     public companion object : TypeCompanion<ViewSwitcherTitle> {
         override val type: GeneratedClassKGType<ViewSwitcherTitle> =
-            GeneratedClassKGType(adw_view_switcher_title_get_type()) {
-                ViewSwitcherTitle(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_view_switcher_title_get_type()) { ViewSwitcherTitle(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

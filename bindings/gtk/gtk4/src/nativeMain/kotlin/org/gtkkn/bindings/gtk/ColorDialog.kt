@@ -56,7 +56,8 @@ import kotlin.Unit
  */
 public open class ColorDialog(
     pointer: CPointer<GtkColorDialog>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkColorDialogPointer: CPointer<GtkColorDialog>
         get() = gPointer.reinterpret()
 
@@ -84,11 +85,7 @@ public open class ColorDialog(
          * @param modal the new value
          * @since 4.10
          */
-        set(modal) =
-            gtk_color_dialog_set_modal(
-                gtkColorDialogPointer.reinterpret(),
-                modal.asGBoolean()
-            )
+        set(modal) = gtk_color_dialog_set_modal(gtkColorDialogPointer.reinterpret(), modal.asGBoolean())
 
     /**
      * A title that may be shown on the color chooser
@@ -140,11 +137,7 @@ public open class ColorDialog(
          * @param withAlpha the new value
          * @since 4.10
          */
-        set(withAlpha) =
-            gtk_color_dialog_set_with_alpha(
-                gtkColorDialogPointer.reinterpret(),
-                withAlpha.asGBoolean()
-            )
+        set(withAlpha) = gtk_color_dialog_set_with_alpha(gtkColorDialogPointer.reinterpret(), withAlpha.asGBoolean())
 
     /**
      * Creates a new `GtkColorDialog` object.
@@ -269,10 +262,7 @@ public open class ColorDialog(
      * @since 4.10
      */
     public open fun setWithAlpha(withAlpha: Boolean): Unit =
-        gtk_color_dialog_set_with_alpha(
-            gtkColorDialogPointer.reinterpret(),
-            withAlpha.asGBoolean()
-        )
+        gtk_color_dialog_set_with_alpha(gtkColorDialogPointer.reinterpret(), withAlpha.asGBoolean())
 
     public companion object : TypeCompanion<ColorDialog> {
         override val type: GeneratedClassKGType<ColorDialog> =

@@ -28,7 +28,8 @@ import kotlin.UShort
  */
 public open class InetSocketAddress(
     pointer: CPointer<GInetSocketAddress>,
-) : SocketAddress(pointer.reinterpret()), KGTyped {
+) : SocketAddress(pointer.reinterpret()),
+    KGTyped {
     public val gioInetSocketAddressPointer: CPointer<GInetSocketAddress>
         get() = gPointer.reinterpret()
 
@@ -105,13 +106,10 @@ public open class InetSocketAddress(
      * @return a new #GInetSocketAddress
      * @since 2.22
      */
-    public constructor(address: InetAddress, port: UShort) :
-        this(
-            g_inet_socket_address_new(
-                address.gioInetAddressPointer.reinterpret(),
-                port
-            )!!.reinterpret()
-        )
+    public constructor(
+        address: InetAddress,
+        port: UShort,
+    ) : this(g_inet_socket_address_new(address.gioInetAddressPointer.reinterpret(), port)!!.reinterpret())
 
     /**
      * Creates a new #GInetSocketAddress for @address and @port.
@@ -125,8 +123,10 @@ public open class InetSocketAddress(
      * or null if @address cannot be parsed.
      * @since 2.40
      */
-    public constructor(address: String, port: UInt) :
-        this(g_inet_socket_address_new_from_string(address, port)!!.reinterpret())
+    public constructor(
+        address: String,
+        port: UInt,
+    ) : this(g_inet_socket_address_new_from_string(address, port)!!.reinterpret())
 
     /**
      * Gets @address's #GInetAddress.
@@ -168,9 +168,7 @@ public open class InetSocketAddress(
 
     public companion object : TypeCompanion<InetSocketAddress> {
         override val type: GeneratedClassKGType<InetSocketAddress> =
-            GeneratedClassKGType(g_inet_socket_address_get_type()) {
-                InetSocketAddress(it.reinterpret())
-            }
+            GeneratedClassKGType(g_inet_socket_address_get_type()) { InetSocketAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

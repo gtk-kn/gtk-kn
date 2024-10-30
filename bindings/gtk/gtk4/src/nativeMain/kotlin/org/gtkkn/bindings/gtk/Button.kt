@@ -83,7 +83,9 @@ import kotlin.Unit
  */
 public open class Button(
     pointer: CPointer<GtkButton>,
-) : Widget(pointer.reinterpret()), Actionable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Actionable,
+    KGTyped {
     public val gtkButtonPointer: CPointer<GtkButton>
         get() = gPointer.reinterpret()
 
@@ -131,11 +133,7 @@ public open class Button(
          * @param canShrink whether the button can shrink
          * @since 4.12
          */
-        set(canShrink) =
-            gtk_button_set_can_shrink(
-                gtkButtonPointer.reinterpret(),
-                canShrink.asGBoolean()
-            )
+        set(canShrink) = gtk_button_set_can_shrink(gtkButtonPointer.reinterpret(), canShrink.asGBoolean())
 
     /**
      * The child widget.
@@ -162,11 +160,7 @@ public open class Button(
          *
          * @param child the child widget
          */
-        set(child) =
-            gtk_button_set_child(
-                gtkButtonPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = gtk_button_set_child(gtkButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether the button has a frame.
@@ -186,11 +180,7 @@ public open class Button(
          *
          * @param hasFrame whether the button should have a visible frame
          */
-        set(hasFrame) =
-            gtk_button_set_has_frame(
-                gtkButtonPointer.reinterpret(),
-                hasFrame.asGBoolean()
-            )
+        set(hasFrame) = gtk_button_set_has_frame(gtkButtonPointer.reinterpret(), hasFrame.asGBoolean())
 
     /**
      * If set, an underline in the text indicates that the following character is
@@ -215,11 +205,7 @@ public open class Button(
          *
          * @param useUnderline true if underlines in the text indicate mnemonics
          */
-        set(useUnderline) =
-            gtk_button_set_use_underline(
-                gtkButtonPointer.reinterpret(),
-                useUnderline.asGBoolean()
-            )
+        set(useUnderline) = gtk_button_set_use_underline(gtkButtonPointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Creates a new `GtkButton` widget.
@@ -324,10 +310,7 @@ public open class Button(
      * @param child the child widget
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_button_set_child(
-            gtkButtonPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_button_set_child(gtkButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the style of the button.
@@ -466,8 +449,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectClickedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -475,5 +457,4 @@ private val connectClickedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

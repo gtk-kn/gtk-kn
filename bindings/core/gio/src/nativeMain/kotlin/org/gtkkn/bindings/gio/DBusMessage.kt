@@ -84,7 +84,8 @@ import kotlin.Unit
  */
 public open class DBusMessage(
     pointer: CPointer<GDBusMessage>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioDBusMessagePointer: CPointer<GDBusMessage>
         get() = gPointer.reinterpret()
 
@@ -233,8 +234,7 @@ public open class DBusMessage(
     /**
      * Gets the flags for @message.
      *
-     * @return Flags that are set (typically values from the #GDBusMessageFlags enumeration bitwise
-     * ORed together).
+     * @return Flags that are set (typically values from the #GDBusMessageFlags enumeration bitwise ORed together).
      * @since 2.26
      */
     public open fun getFlags(): DBusMessageFlags =
@@ -248,17 +248,13 @@ public open class DBusMessage(
      * The caller is responsible for checking the type of the returned #GVariant
      * matches what is expected.
      *
-     * @param headerField A 8-bit unsigned integer (typically a value from the
-     * #GDBusMessageHeaderField enumeration)
+     * @param headerField A 8-bit unsigned integer (typically a value from the #GDBusMessageHeaderField enumeration)
      * @return A #GVariant with the value if the header was found, null
      * otherwise. Do not free, it is owned by @message.
      * @since 2.26
      */
     public open fun getHeader(headerField: DBusMessageHeaderField): Variant? =
-        g_dbus_message_get_header(
-            gioDBusMessagePointer.reinterpret(),
-            headerField.nativeValue
-        )?.run {
+        g_dbus_message_get_header(gioDBusMessagePointer.reinterpret(), headerField.nativeValue)?.run {
             Variant(reinterpret())
         }
 
@@ -391,11 +387,7 @@ public open class DBusMessage(
         errorName: String,
         errorMessage: String,
     ): DBusMessage =
-        g_dbus_message_new_method_error_literal(
-            gioDBusMessagePointer.reinterpret(),
-            errorName,
-            errorMessage
-        )!!.run {
+        g_dbus_message_new_method_error_literal(gioDBusMessagePointer.reinterpret(), errorName, errorMessage)!!.run {
             DBusMessage(reinterpret())
         }
 
@@ -441,8 +433,7 @@ public open class DBusMessage(
      *   num-unix-fds -> uint32 1
      * Body: ()
      * UNIX File Descriptors:
-     *   fd 12:
-     * dev=0:10,mode=020620,ino=5,uid=500,gid=5,rdev=136:2,size=0,atime=1273085037,mtime=1273085851,ctime=1272982635
+     *   fd 12: dev=0:10,mode=020620,ino=5,uid=500,gid=5,rdev=136:2,size=0,atime=1273085037,mtime=1273085851,ctime=1272982635
      * ```
      *
      * @param indent Indentation level.
@@ -472,10 +463,7 @@ public open class DBusMessage(
      * @param byteOrder The byte order.
      */
     public open fun setByteOrder(byteOrder: DBusMessageByteOrder): Unit =
-        g_dbus_message_set_byte_order(
-            gioDBusMessagePointer.reinterpret(),
-            byteOrder.nativeValue
-        )
+        g_dbus_message_set_byte_order(gioDBusMessagePointer.reinterpret(), byteOrder.nativeValue)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_DESTINATION header field.
@@ -510,8 +498,7 @@ public open class DBusMessage(
      *
      * If @value is floating, @message assumes ownership of @value.
      *
-     * @param headerField A 8-bit unsigned integer (typically a value from the
-     * #GDBusMessageHeaderField enumeration)
+     * @param headerField A 8-bit unsigned integer (typically a value from the #GDBusMessageHeaderField enumeration)
      * @param value A #GVariant to set the header field or null to clear the header field.
      * @since 2.26
      */
@@ -546,8 +533,7 @@ public open class DBusMessage(
     /**
      * Sets @message to be of @type.
      *
-     * @param type A 8-bit unsigned integer (typically a value from the #GDBusMessageType
-     * enumeration).
+     * @param type A 8-bit unsigned integer (typically a value from the #GDBusMessageType enumeration).
      * @since 2.26
      */
     public open fun setMessageType(type: DBusMessageType): Unit =
@@ -644,11 +630,7 @@ public open class DBusMessage(
     public open fun toGerror(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_dbus_message_to_gerror(
-                    gioDBusMessagePointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
+            val gResult = g_dbus_message_to_gerror(gioDBusMessagePointer.reinterpret(), gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {

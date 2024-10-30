@@ -116,10 +116,7 @@ public class Path(
      * @since 4.14
      */
     public fun getBounds(bounds: Rect): Boolean =
-        gsk_path_get_bounds(
-            gskPathPointer.reinterpret(),
-            bounds.grapheneRectPointer
-        ).asBoolean()
+        gsk_path_get_bounds(gskPathPointer.reinterpret(), bounds.grapheneRectPointer).asBoolean()
 
     /**
      * Gets the end point of the path.
@@ -132,10 +129,7 @@ public class Path(
      * @since 4.14
      */
     public fun getEndPoint(result: PathPoint): Boolean =
-        gsk_path_get_end_point(
-            gskPathPointer.reinterpret(),
-            result.gskPathPointPointer
-        ).asBoolean()
+        gsk_path_get_end_point(gskPathPointer.reinterpret(), result.gskPathPointPointer).asBoolean()
 
     /**
      * Gets the start point of the path.
@@ -148,10 +142,7 @@ public class Path(
      * @since 4.14
      */
     public fun getStartPoint(result: PathPoint): Boolean =
-        gsk_path_get_start_point(
-            gskPathPointer.reinterpret(),
-            result.gskPathPointPointer
-        ).asBoolean()
+        gsk_path_get_start_point(gskPathPointer.reinterpret(), result.gskPathPointPointer).asBoolean()
 
     /**
      * Computes the bounds for stroking the given path with the
@@ -195,11 +186,7 @@ public class Path(
         point: Point,
         fillRule: FillRule,
     ): Boolean =
-        gsk_path_in_fill(
-            gskPathPointer.reinterpret(),
-            point.graphenePointPointer,
-            fillRule.nativeValue
-        ).asBoolean()
+        gsk_path_in_fill(gskPathPointer.reinterpret(), point.graphenePointPointer, fillRule.nativeValue).asBoolean()
 
     /**
      * Returns if the path represents a single closed
@@ -229,11 +216,7 @@ public class Path(
      * @param string The string to print into
      * @since 4.14
      */
-    public fun print(string: GlibString): Unit =
-        gsk_path_print(
-            gskPathPointer.reinterpret(),
-            string.glibStringPointer
-        )
+    public fun print(string: GlibString): Unit = gsk_path_print(gskPathPointer.reinterpret(), string.glibStringPointer)
 
     /**
      * Increases the reference count of a `GskPath` by one.
@@ -268,21 +251,15 @@ public class Path(
          *
          * - `M x y` Move to `(x, y)`
          * - `L x y` Add a line from the current point to `(x, y)`
-         * - `Q x1 y1 x2 y2` Add a quadratic Bézier from the current point to `(x2, y2)`, with
-         * control point `(x1, y1)`
-         * - `C x1 y1 x2 y2 x3 y3` Add a cubic Bézier from the current point to `(x3, y3)`, with
-         * control points `(x1, y1)` and `(x2, y2)`
+         * - `Q x1 y1 x2 y2` Add a quadratic Bézier from the current point to `(x2, y2)`, with control point `(x1, y1)`
+         * - `C x1 y1 x2 y2 x3 y3` Add a cubic Bézier from the current point to `(x3, y3)`, with control points `(x1, y1)` and `(x2, y2)`
          * - `Z` Close the contour by drawing a line back to the start point
          * - `H x` Add a horizontal line from the current point to the given x value
          * - `V y` Add a vertical line from the current point to the given y value
-         * - `T x2 y2` Add a quadratic Bézier, using the reflection of the previous segments'
-         * control point as control point
-         * - `S x2 y2 x3 y3` Add a cubic Bézier, using the reflection of the previous segments'
-         * second control point as first control point
-         * - `A rx ry r l s x y` Add an elliptical arc from the current point to `(x, y)` with radii
-         * rx and ry. See the SVG documentation for how the other parameters influence the arc.
-         * - `O x1 y1 x2 y2 w` Add a rational quadratic Bézier from the current point to `(x2, y2)`
-         * with control point `(x1, y1)` and weight `w`.
+         * - `T x2 y2` Add a quadratic Bézier, using the reflection of the previous segments' control point as control point
+         * - `S x2 y2 x3 y3` Add a cubic Bézier, using the reflection of the previous segments' second control point as first control point
+         * - `A rx ry r l s x y` Add an elliptical arc from the current point to `(x, y)` with radii rx and ry. See the SVG documentation for how the other parameters influence the arc.
+         * - `O x1 y1 x2 y2 w` Add a rational quadratic Bézier from the current point to `(x2, y2)` with control point `(x1, y1)` and weight `w`.
          *
          * All the commands have lowercase variants that interpret coordinates
          * relative to the current point.

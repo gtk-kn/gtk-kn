@@ -31,7 +31,11 @@ import kotlin.Result
  *
  * @since 2.48
  */
-public interface DtlsServerConnection : Interface, DatagramBased, DtlsConnection, KGTyped {
+public interface DtlsServerConnection :
+    Interface,
+    DatagramBased,
+    DtlsConnection,
+    KGTyped {
     public val gioDtlsServerConnectionPointer: CPointer<GDtlsServerConnection>
 
     override val gioDatagramBasedPointer: CPointer<GDatagramBased>
@@ -48,9 +52,7 @@ public interface DtlsServerConnection : Interface, DatagramBased, DtlsConnection
 
     public companion object : TypeCompanion<DtlsServerConnection> {
         override val type: GeneratedInterfaceKGType<DtlsServerConnection> =
-            GeneratedInterfaceKGType(g_dtls_server_connection_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(g_dtls_server_connection_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

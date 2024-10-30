@@ -66,7 +66,8 @@ import kotlin.Unit
  */
 public open class SignalListItemFactory(
     pointer: CPointer<GtkSignalListItemFactory>,
-) : ListItemFactory(pointer.reinterpret()), KGTyped {
+) : ListItemFactory(pointer.reinterpret()),
+    KGTyped {
     public val gtkSignalListItemFactoryPointer: CPointer<GtkSignalListItemFactory>
         get() = gPointer.reinterpret()
 
@@ -181,9 +182,9 @@ public open class SignalListItemFactory(
 
     public companion object : TypeCompanion<SignalListItemFactory> {
         override val type: GeneratedClassKGType<SignalListItemFactory> =
-            GeneratedClassKGType(gtk_signal_list_item_factory_get_type()) {
-                SignalListItemFactory(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                gtk_signal_list_item_factory_get_type()
+            ) { SignalListItemFactory(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -202,8 +203,7 @@ private val connectBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
                 Object(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSetupFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
     staticCFunction {
@@ -216,8 +216,7 @@ private val connectSetupFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
                 Object(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectTeardownFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
     staticCFunction {
@@ -230,8 +229,7 @@ private val connectTeardownFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>
                 Object(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectUnbindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
     staticCFunction {
@@ -244,5 +242,4 @@ private val connectUnbindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> 
                 Object(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

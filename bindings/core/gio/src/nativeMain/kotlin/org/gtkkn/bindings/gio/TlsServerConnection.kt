@@ -29,7 +29,9 @@ import kotlin.Result
  *
  * @since 2.28
  */
-public interface TlsServerConnection : Interface, KGTyped {
+public interface TlsServerConnection :
+    Interface,
+    KGTyped {
     public val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection>
 
     private data class Wrapper(
@@ -40,9 +42,7 @@ public interface TlsServerConnection : Interface, KGTyped {
 
     public companion object : TypeCompanion<TlsServerConnection> {
         override val type: GeneratedInterfaceKGType<TlsServerConnection> =
-            GeneratedInterfaceKGType(g_tls_server_connection_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(g_tls_server_connection_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

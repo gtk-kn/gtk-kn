@@ -244,8 +244,7 @@ public enum class UnicodeBreakType(
     HANGUL_LVT_SYLLABLE(G_UNICODE_BREAK_HANGUL_LVT_SYLLABLE),
 
     /**
-     * Closing Parenthesis (CP). Since 2.28. Deprecated: 2.70: Use
-     * %G_UNICODE_BREAK_CLOSE_PARENTHESIS instead.
+     * Closing Parenthesis (CP). Since 2.28. Deprecated: 2.70: Use %G_UNICODE_BREAK_CLOSE_PARENTHESIS instead.
      */
     CLOSE_PARANTHESIS(G_UNICODE_BREAK_CLOSE_PARANTHESIS),
 

@@ -22,7 +22,9 @@ import kotlin.Unit
  * (see [class@Gio.DBusProxy]).
  * @since 2.30
  */
-public interface DBusInterface : Interface, KGTyped {
+public interface DBusInterface :
+    Interface,
+    KGTyped {
     public val gioDBusInterfacePointer: CPointer<GDBusInterface>
 
     /**
@@ -58,10 +60,7 @@ public interface DBusInterface : Interface, KGTyped {
      * @since 2.30
      */
     public fun setObject(`object`: DBusObject? = null): Unit =
-        g_dbus_interface_set_object(
-            gioDBusInterfacePointer.reinterpret(),
-            `object`?.gioDBusObjectPointer
-        )
+        g_dbus_interface_set_object(gioDBusInterfacePointer.reinterpret(), `object`?.gioDBusObjectPointer)
 
     private data class Wrapper(
         private val pointer: CPointer<GDBusInterface>,

@@ -59,7 +59,8 @@ import kotlin.Unit
  */
 public open class GraphicsOffload(
     pointer: CPointer<GtkGraphicsOffload>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkGraphicsOffloadPointer: CPointer<GtkGraphicsOffload>
         get() = gPointer.reinterpret()
 
@@ -95,7 +96,9 @@ public open class GraphicsOffload(
          * @param child the child widget
          * @since 4.14
          */
-        set(child) =
+        set(
+            child
+        ) =
             gtk_graphics_offload_set_child(
                 gtkGraphicsOffloadPointer.reinterpret(),
                 child?.gtkWidgetPointer?.reinterpret()
@@ -125,11 +128,7 @@ public open class GraphicsOffload(
          * @param enabled whether to enable offload
          * @since 4.14
          */
-        set(enabled) =
-            gtk_graphics_offload_set_enabled(
-                gtkGraphicsOffloadPointer.reinterpret(),
-                enabled.nativeValue
-            )
+        set(enabled) = gtk_graphics_offload_set_enabled(gtkGraphicsOffloadPointer.reinterpret(), enabled.nativeValue)
 
     /**
      * Creates a new GtkGraphicsOffload widget.
@@ -138,8 +137,9 @@ public open class GraphicsOffload(
      * @return the new widget
      * @since 4.14
      */
-    public constructor(child: Widget? = null) :
-        this(gtk_graphics_offload_new(child?.gtkWidgetPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        child: Widget? = null,
+    ) : this(gtk_graphics_offload_new(child?.gtkWidgetPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Gets the child of @self.
@@ -170,10 +170,7 @@ public open class GraphicsOffload(
      * @since 4.14
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_graphics_offload_set_child(
-            gtkGraphicsOffloadPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_graphics_offload_set_child(gtkGraphicsOffloadPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether this GtkGraphicsOffload widget will attempt
@@ -183,16 +180,11 @@ public open class GraphicsOffload(
      * @since 4.14
      */
     public open fun setEnabled(enabled: GraphicsOffloadEnabled): Unit =
-        gtk_graphics_offload_set_enabled(
-            gtkGraphicsOffloadPointer.reinterpret(),
-            enabled.nativeValue
-        )
+        gtk_graphics_offload_set_enabled(gtkGraphicsOffloadPointer.reinterpret(), enabled.nativeValue)
 
     public companion object : TypeCompanion<GraphicsOffload> {
         override val type: GeneratedClassKGType<GraphicsOffload> =
-            GeneratedClassKGType(gtk_graphics_offload_get_type()) {
-                GraphicsOffload(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_graphics_offload_get_type()) { GraphicsOffload(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

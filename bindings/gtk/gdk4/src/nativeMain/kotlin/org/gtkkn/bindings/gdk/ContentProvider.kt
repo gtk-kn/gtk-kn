@@ -66,7 +66,8 @@ import kotlin.Unit
  */
 public open class ContentProvider(
     pointer: CPointer<GdkContentProvider>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkContentProviderPointer: CPointer<GdkContentProvider>
         get() = gPointer.reinterpret()
 
@@ -78,13 +79,10 @@ public open class ContentProvider(
      * @param bytes a `GBytes` with the data for @mime_type
      * @return a new `GdkContentProvider`
      */
-    public constructor(mimeType: String, bytes: Bytes) :
-        this(
-            gdk_content_provider_new_for_bytes(
-                mimeType,
-                bytes.glibBytesPointer
-            )!!.reinterpret()
-        )
+    public constructor(
+        mimeType: String,
+        bytes: Bytes,
+    ) : this(gdk_content_provider_new_for_bytes(mimeType, bytes.glibBytesPointer)!!.reinterpret())
 
     /**
      * Create a content provider that provides the given @value.
@@ -92,8 +90,9 @@ public open class ContentProvider(
      * @param value a `GValue`
      * @return a new `GdkContentProvider`
      */
-    public constructor(`value`: Value) :
-        this(gdk_content_provider_new_for_value(`value`.gobjectValuePointer)!!.reinterpret())
+    public constructor(
+        `value`: Value,
+    ) : this(gdk_content_provider_new_for_value(`value`.gobjectValuePointer)!!.reinterpret())
 
     /**
      * Emits the ::content-changed signal.
@@ -238,9 +237,7 @@ public open class ContentProvider(
 
     public companion object : TypeCompanion<ContentProvider> {
         override val type: GeneratedClassKGType<ContentProvider> =
-            GeneratedClassKGType(gdk_content_provider_get_type()) {
-                ContentProvider(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_content_provider_get_type()) { ContentProvider(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -254,5 +251,4 @@ private val connectContentChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

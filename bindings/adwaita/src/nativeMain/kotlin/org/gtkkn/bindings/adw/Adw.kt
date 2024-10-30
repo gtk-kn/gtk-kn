@@ -209,11 +209,7 @@ public object Adw {
     public fun easingEase(
         self: Easing,
         `value`: Double,
-    ): Double =
-        adw_easing_ease(
-            self.nativeValue,
-            `value`
-        )
+    ): Double = adw_easing_ease(self.nativeValue, `value`)
 
     /**
      * Checks whether animations are enabled for @widget.
@@ -305,12 +301,7 @@ public object Adw {
         unit: LengthUnit,
         `value`: Double,
         settings: Settings? = null,
-    ): Double =
-        adw_length_unit_from_px(
-            unit.nativeValue,
-            `value`,
-            settings?.gtkSettingsPointer?.reinterpret()
-        )
+    ): Double = adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
     /**
      * Converts @value from @unit to pixels.
@@ -325,12 +316,7 @@ public object Adw {
         unit: LengthUnit,
         `value`: Double,
         settings: Settings? = null,
-    ): Double =
-        adw_length_unit_to_px(
-            unit.nativeValue,
-            `value`,
-            settings?.gtkSettingsPointer?.reinterpret()
-        )
+    ): Double = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
     /**
      * Computes the linear interpolation between @a and @b for @t.
@@ -353,8 +339,7 @@ public val AnimationTargetFuncFunc: CPointer<CFunction<(Double) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)
-    }
-        .reinterpret()
+    }.reinterpret()
 
 /**
  * Prototype for animation targets based on user callbacks.

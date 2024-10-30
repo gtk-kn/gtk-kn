@@ -100,7 +100,8 @@ import kotlin.Unit
  */
 public class ViewStack(
     pointer: CPointer<AdwViewStack>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwViewStackPointer: CPointer<AdwViewStack>
         get() = gPointer.reinterpret()
 
@@ -141,11 +142,9 @@ public class ViewStack(
          *
          * @param hhomogeneous whether to make @self horizontally homogeneous
          */
-        set(hhomogeneous) =
-            adw_view_stack_set_hhomogeneous(
-                adwViewStackPointer.reinterpret(),
-                hhomogeneous.asGBoolean()
-            )
+        set(
+            hhomogeneous
+        ) = adw_view_stack_set_hhomogeneous(adwViewStackPointer.reinterpret(), hhomogeneous.asGBoolean())
 
     /**
      * A selection model with the stack's pages.
@@ -197,11 +196,9 @@ public class ViewStack(
          *
          * @param vhomogeneous whether to make @self vertically homogeneous
          */
-        set(vhomogeneous) =
-            adw_view_stack_set_vhomogeneous(
-                adwViewStackPointer.reinterpret(),
-                vhomogeneous.asGBoolean()
-            )
+        set(
+            vhomogeneous
+        ) = adw_view_stack_set_vhomogeneous(adwViewStackPointer.reinterpret(), vhomogeneous.asGBoolean())
 
     /**
      * Creates a new `AdwViewStack`.
@@ -217,10 +214,7 @@ public class ViewStack(
      * @return the [class@ViewStackPage] for @child
      */
     public fun add(child: Widget): ViewStackPage =
-        adw_view_stack_add(
-            adwViewStackPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )!!.run {
+        adw_view_stack_add(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
             ViewStackPage(reinterpret())
         }
 
@@ -237,11 +231,7 @@ public class ViewStack(
         child: Widget,
         name: String? = null,
     ): ViewStackPage =
-        adw_view_stack_add_named(
-            adwViewStackPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            name
-        )!!.run {
+        adw_view_stack_add_named(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), name)!!.run {
             ViewStackPage(reinterpret())
         }
 
@@ -325,10 +315,7 @@ public class ViewStack(
      * @return the page object for @child
      */
     public fun getPage(child: Widget): ViewStackPage =
-        adw_view_stack_get_page(
-            adwViewStackPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )!!.run {
+        adw_view_stack_get_page(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
             ViewStackPage(reinterpret())
         }
 
@@ -378,10 +365,7 @@ public class ViewStack(
      * @param child the child to remove
      */
     public fun remove(child: Widget): Unit =
-        adw_view_stack_remove(
-            adwViewStackPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        adw_view_stack_remove(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets @self to be horizontally homogeneous or not.
@@ -395,10 +379,7 @@ public class ViewStack(
      * @param hhomogeneous whether to make @self horizontally homogeneous
      */
     public fun setHhomogeneous(hhomogeneous: Boolean): Unit =
-        adw_view_stack_set_hhomogeneous(
-            adwViewStackPointer.reinterpret(),
-            hhomogeneous.asGBoolean()
-        )
+        adw_view_stack_set_hhomogeneous(adwViewStackPointer.reinterpret(), hhomogeneous.asGBoolean())
 
     /**
      * Sets @self to be vertically homogeneous or not.
@@ -412,10 +393,7 @@ public class ViewStack(
      * @param vhomogeneous whether to make @self vertically homogeneous
      */
     public fun setVhomogeneous(vhomogeneous: Boolean): Unit =
-        adw_view_stack_set_vhomogeneous(
-            adwViewStackPointer.reinterpret(),
-            vhomogeneous.asGBoolean()
-        )
+        adw_view_stack_set_vhomogeneous(adwViewStackPointer.reinterpret(), vhomogeneous.asGBoolean())
 
     /**
      * Makes @child the visible child of @self.
@@ -423,10 +401,7 @@ public class ViewStack(
      * @param child a child of @self
      */
     public fun setVisibleChild(child: Widget): Unit =
-        adw_view_stack_set_visible_child(
-            adwViewStackPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        adw_view_stack_set_visible_child(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Makes the child with @name visible.

@@ -79,9 +79,7 @@ public enum class BookmarkFileError(
         public fun quark(): UInt = g_quark_from_string("g-bookmark-file-error-quark")
 
         public fun fromErrorOrNull(error: Error): BookmarkFileError? =
-            if (error.domain !=
-                quark()
-            ) {
+            if (error.domain != quark()) {
                 null
             } else {
                 BookmarkFileError.values().find { it.nativeValue.value.toInt() == error.code }

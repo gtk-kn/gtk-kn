@@ -50,15 +50,13 @@ import kotlin.Unit
  * peers to use the D-Bus protocol for their own specialized communication.
  * A server instance provided in this way will not perform message routing or
  * implement the
- * [`org.freedesktop.DBus`
- * interface](https://dbus.freedesktop.org/doc/dbus-specification.html#message-bus-messages).
+ * [`org.freedesktop.DBus` interface](https://dbus.freedesktop.org/doc/dbus-specification.html#message-bus-messages).
  *
  * To just export an object on a well-known name on a message bus, such as the
  * session or system bus, you should instead use [func@Gio.bus_own_name].
  *
  * An example of peer-to-peer communication with GDBus can be found
- * in
- * [gdbus-example-peer.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gdbus-example-peer.c).
+ * in [gdbus-example-peer.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gdbus-example-peer.c).
  *
  * Note that a minimal `GDBusServer` will accept connections from any
  * peer. In many use-cases it will be necessary to add a
@@ -78,7 +76,9 @@ import kotlin.Unit
  */
 public open class DBusServer(
     pointer: CPointer<GDBusServer>,
-) : Object(pointer.reinterpret()), Initable, KGTyped {
+) : Object(pointer.reinterpret()),
+    Initable,
+    KGTyped {
     public val gioDBusServerPointer: CPointer<GDBusServer>
         get() = gPointer.reinterpret()
 
@@ -231,8 +231,7 @@ public open class DBusServer(
      * @since 2.26
      */
     public open fun getGuid(): String =
-        g_dbus_server_get_guid(gioDBusServerPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_dbus_server_get_guid(gioDBusServerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets whether @server is active.
@@ -280,8 +279,7 @@ public open class DBusServer(
      * similar from the signal handler.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `connection` A #GDBusConnection for the new
-     * connection.. Returns true to claim @connection, false to let other handlers
+     * @param handler the Callback to connect. Params: `connection` A #GDBusConnection for the new connection.. Returns true to claim @connection, false to let other handlers
      * run.
      * @since 2.26
      */
@@ -314,10 +312,12 @@ private val connectNewConnectionFunc: CPointer<CFunction<(CPointer<GDBusConnecti
             connection: CPointer<GDBusConnection>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(connection: DBusConnection) -> Boolean>().get().invoke(
-            connection!!.run {
-                DBusConnection(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(connection: DBusConnection) -> Boolean>()
+            .get()
+            .invoke(
+                connection!!.run {
+                    DBusConnection(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()

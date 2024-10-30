@@ -6,8 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.native.gobject.GParamSpecUnichar
 
 /**
- * A #GParamSpec derived structure that contains the meta data for unichar (unsigned integer)
- * properties.
+ * A #GParamSpec derived structure that contains the meta data for unichar (unsigned integer) properties.
  */
 public open class ParamSpecUnichar(
     pointer: CPointer<GParamSpecUnichar>,

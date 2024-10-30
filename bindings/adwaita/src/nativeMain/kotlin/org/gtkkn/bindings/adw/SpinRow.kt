@@ -95,7 +95,9 @@ import kotlin.Unit
  */
 public class SpinRow(
     pointer: CPointer<AdwSpinRow>,
-) : ActionRow(pointer.reinterpret()), Editable, KGTyped {
+) : ActionRow(pointer.reinterpret()),
+    Editable,
+    KGTyped {
     public val adwSpinRowPointer: CPointer<AdwSpinRow>
         get() = gPointer.reinterpret()
 
@@ -178,11 +180,7 @@ public class SpinRow(
          * @param numeric whether non-numeric characters should be ignored
          * @since 1.4
          */
-        set(numeric) =
-            adw_spin_row_set_numeric(
-                adwSpinRowPointer.reinterpret(),
-                numeric.asGBoolean()
-            )
+        set(numeric) = adw_spin_row_set_numeric(adwSpinRowPointer.reinterpret(), numeric.asGBoolean())
 
     /**
      * Whether invalid values are snapped to the nearest step increment.
@@ -204,11 +202,7 @@ public class SpinRow(
          * @param snapToTicks whether invalid values are snapped to the nearest step increment
          * @since 1.4
          */
-        set(snapToTicks) =
-            adw_spin_row_set_snap_to_ticks(
-                adwSpinRowPointer.reinterpret(),
-                snapToTicks.asGBoolean()
-            )
+        set(snapToTicks) = adw_spin_row_set_snap_to_ticks(adwSpinRowPointer.reinterpret(), snapToTicks.asGBoolean())
 
     /**
      * The policy for updating the spin row.
@@ -237,11 +231,7 @@ public class SpinRow(
          * @param policy the policy for updating the spin row
          * @since 1.4
          */
-        set(policy) =
-            adw_spin_row_set_update_policy(
-                adwSpinRowPointer.reinterpret(),
-                policy.nativeValue
-            )
+        set(policy) = adw_spin_row_set_update_policy(adwSpinRowPointer.reinterpret(), policy.nativeValue)
 
     /**
      * The current value.
@@ -300,13 +290,7 @@ public class SpinRow(
         adjustment: Adjustment? = null,
         climbRate: Double,
         digits: UInt,
-    ) : this(
-        adw_spin_row_new(
-            adjustment?.gtkAdjustmentPointer?.reinterpret(),
-            climbRate,
-            digits
-        )!!.reinterpret()
-    )
+    ) : this(adw_spin_row_new(adjustment?.gtkAdjustmentPointer?.reinterpret(), climbRate, digits)!!.reinterpret())
 
     /**
      * Creates a new `AdwSpinRow` with the given properties.
@@ -433,10 +417,7 @@ public class SpinRow(
      * @since 1.4
      */
     public fun setAdjustment(adjustment: Adjustment? = null): Unit =
-        adw_spin_row_set_adjustment(
-            adwSpinRowPointer.reinterpret(),
-            adjustment?.gtkAdjustmentPointer?.reinterpret()
-        )
+        adw_spin_row_set_adjustment(adwSpinRowPointer.reinterpret(), adjustment?.gtkAdjustmentPointer?.reinterpret())
 
     /**
      * Sets the acceleration rate when you hold down a button or key.
@@ -486,10 +467,7 @@ public class SpinRow(
      * @since 1.4
      */
     public fun setSnapToTicks(snapToTicks: Boolean): Unit =
-        adw_spin_row_set_snap_to_ticks(
-            adwSpinRowPointer.reinterpret(),
-            snapToTicks.asGBoolean()
-        )
+        adw_spin_row_set_snap_to_ticks(adwSpinRowPointer.reinterpret(), snapToTicks.asGBoolean())
 
     /**
      * Sets the policy for updating the spin row.
@@ -516,11 +494,7 @@ public class SpinRow(
      * @param wrap whether the spin row should wrap upon reaching its limits
      * @since 1.4
      */
-    public fun setWrap(wrap: Boolean): Unit =
-        adw_spin_row_set_wrap(
-            adwSpinRowPointer.reinterpret(),
-            wrap.asGBoolean()
-        )
+    public fun setWrap(wrap: Boolean): Unit = adw_spin_row_set_wrap(adwSpinRowPointer.reinterpret(), wrap.asGBoolean())
 
     /**
      * Manually force an update of the spin row.
@@ -588,9 +562,12 @@ private val connectOutputFunc: CPointer<CFunction<() -> Int>> =
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectWrappedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -598,5 +575,4 @@ private val connectWrappedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

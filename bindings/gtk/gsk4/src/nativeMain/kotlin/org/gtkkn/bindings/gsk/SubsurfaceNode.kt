@@ -16,7 +16,8 @@ import org.gtkkn.native.gsk.gsk_subsurface_node_get_type
  */
 public open class SubsurfaceNode(
     pointer: CPointer<GskSubsurfaceNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskSubsurfaceNodePointer: CPointer<GskSubsurfaceNode>
         get() = gPointer.reinterpret()
 
@@ -33,9 +34,7 @@ public open class SubsurfaceNode(
 
     public companion object : TypeCompanion<SubsurfaceNode> {
         override val type: GeneratedClassKGType<SubsurfaceNode> =
-            GeneratedClassKGType(gsk_subsurface_node_get_type()) {
-                SubsurfaceNode(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_subsurface_node_get_type()) { SubsurfaceNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

@@ -64,9 +64,7 @@ public enum class ConstraintVflParserError(
         public fun quark(): UInt = gtk_constraint_vfl_parser_error_quark()
 
         public fun fromErrorOrNull(error: Error): ConstraintVflParserError? =
-            if (error.domain !=
-                quark()
-            ) {
+            if (error.domain != quark()) {
                 null
             } else {
                 ConstraintVflParserError.values().find { it.nativeValue.value.toInt() == error.code }

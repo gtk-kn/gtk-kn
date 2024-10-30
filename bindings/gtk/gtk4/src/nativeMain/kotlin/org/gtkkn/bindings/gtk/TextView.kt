@@ -159,7 +159,10 @@ import kotlin.Unit
  */
 public open class TextView(
     pointer: CPointer<GtkTextView>,
-) : Widget(pointer.reinterpret()), AccessibleText, Scrollable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    AccessibleText,
+    Scrollable,
+    KGTyped {
     public val gtkTextViewPointer: CPointer<GtkTextView>
         get() = gPointer.reinterpret()
 
@@ -205,11 +208,7 @@ public open class TextView(
          *    character, false, if pressing the Tab key should move the
          *    keyboard focus.
          */
-        set(acceptsTab) =
-            gtk_text_view_set_accepts_tab(
-                gtkTextViewPointer.reinterpret(),
-                acceptsTab.asGBoolean()
-            )
+        set(acceptsTab) = gtk_text_view_set_accepts_tab(gtkTextViewPointer.reinterpret(), acceptsTab.asGBoolean())
 
     /**
      * The bottom margin for text in the text view.
@@ -236,11 +235,7 @@ public open class TextView(
          *
          * @param bottomMargin bottom margin in pixels
          */
-        set(bottomMargin) =
-            gtk_text_view_set_bottom_margin(
-                gtkTextViewPointer.reinterpret(),
-                bottomMargin
-            )
+        set(bottomMargin) = gtk_text_view_set_bottom_margin(gtkTextViewPointer.reinterpret(), bottomMargin)
 
     /**
      * If the insertion cursor is shown.
@@ -264,11 +259,7 @@ public open class TextView(
          *
          * @param setting whether to show the insertion cursor
          */
-        set(setting) =
-            gtk_text_view_set_cursor_visible(
-                gtkTextViewPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_text_view_set_cursor_visible(gtkTextViewPointer.reinterpret(), setting.asGBoolean())
 
     public open var editable: Boolean
         /**
@@ -288,11 +279,7 @@ public open class TextView(
          *
          * @param setting whether it’s editable
          */
-        set(setting) =
-            gtk_text_view_set_editable(
-                gtkTextViewPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_text_view_set_editable(gtkTextViewPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Amount to indent the paragraph, in pixels.
@@ -367,11 +354,7 @@ public open class TextView(
          *
          * @param purpose the purpose
          */
-        set(purpose) =
-            gtk_text_view_set_input_purpose(
-                gtkTextViewPointer.reinterpret(),
-                purpose.nativeValue
-            )
+        set(purpose) = gtk_text_view_set_input_purpose(gtkTextViewPointer.reinterpret(), purpose.nativeValue)
 
     public open var justification: Justification
         /**
@@ -393,11 +376,9 @@ public open class TextView(
          *
          * @param justification justification
          */
-        set(justification) =
-            gtk_text_view_set_justification(
-                gtkTextViewPointer.reinterpret(),
-                justification.nativeValue
-            )
+        set(
+            justification
+        ) = gtk_text_view_set_justification(gtkTextViewPointer.reinterpret(), justification.nativeValue)
 
     /**
      * The default left margin for text in the text view.
@@ -428,11 +409,7 @@ public open class TextView(
          *
          * @param leftMargin left margin in pixels
          */
-        set(leftMargin) =
-            gtk_text_view_set_left_margin(
-                gtkTextViewPointer.reinterpret(),
-                leftMargin
-            )
+        set(leftMargin) = gtk_text_view_set_left_margin(gtkTextViewPointer.reinterpret(), leftMargin)
 
     /**
      * Whether text should be displayed in a monospace font.
@@ -454,11 +431,7 @@ public open class TextView(
          *
          * @param monospace true to request monospace styling
          */
-        set(monospace) =
-            gtk_text_view_set_monospace(
-                gtkTextViewPointer.reinterpret(),
-                monospace.asGBoolean()
-            )
+        set(monospace) = gtk_text_view_set_monospace(gtkTextViewPointer.reinterpret(), monospace.asGBoolean())
 
     /**
      * Whether entered text overwrites existing contents.
@@ -476,11 +449,7 @@ public open class TextView(
          *
          * @param overwrite true to turn on overwrite mode, false to turn it off
          */
-        set(overwrite) =
-            gtk_text_view_set_overwrite(
-                gtkTextViewPointer.reinterpret(),
-                overwrite.asGBoolean()
-            )
+        set(overwrite) = gtk_text_view_set_overwrite(gtkTextViewPointer.reinterpret(), overwrite.asGBoolean())
 
     public open var pixelsAboveLines: Int
         /**
@@ -500,11 +469,7 @@ public open class TextView(
          *
          * @param pixelsAboveLines pixels above paragraphs
          */
-        set(pixelsAboveLines) =
-            gtk_text_view_set_pixels_above_lines(
-                gtkTextViewPointer.reinterpret(),
-                pixelsAboveLines
-            )
+        set(pixelsAboveLines) = gtk_text_view_set_pixels_above_lines(gtkTextViewPointer.reinterpret(), pixelsAboveLines)
 
     public open var pixelsBelowLines: Int
         /**
@@ -525,11 +490,7 @@ public open class TextView(
          *
          * @param pixelsBelowLines pixels below paragraphs
          */
-        set(pixelsBelowLines) =
-            gtk_text_view_set_pixels_below_lines(
-                gtkTextViewPointer.reinterpret(),
-                pixelsBelowLines
-            )
+        set(pixelsBelowLines) = gtk_text_view_set_pixels_below_lines(gtkTextViewPointer.reinterpret(), pixelsBelowLines)
 
     public open var pixelsInsideWrap: Int
         /**
@@ -548,11 +509,7 @@ public open class TextView(
          *
          * @param pixelsInsideWrap default number of pixels between wrapped lines
          */
-        set(pixelsInsideWrap) =
-            gtk_text_view_set_pixels_inside_wrap(
-                gtkTextViewPointer.reinterpret(),
-                pixelsInsideWrap
-            )
+        set(pixelsInsideWrap) = gtk_text_view_set_pixels_inside_wrap(gtkTextViewPointer.reinterpret(), pixelsInsideWrap)
 
     /**
      * The default right margin for text in the text view.
@@ -583,11 +540,7 @@ public open class TextView(
          *
          * @param rightMargin right margin in pixels
          */
-        set(rightMargin) =
-            gtk_text_view_set_right_margin(
-                gtkTextViewPointer.reinterpret(),
-                rightMargin
-            )
+        set(rightMargin) = gtk_text_view_set_right_margin(gtkTextViewPointer.reinterpret(), rightMargin)
 
     /**
      * The top margin for text in the text view.
@@ -632,11 +585,7 @@ public open class TextView(
          *
          * @param wrapMode a `GtkWrapMode`
          */
-        set(wrapMode) =
-            gtk_text_view_set_wrap_mode(
-                gtkTextViewPointer.reinterpret(),
-                wrapMode.nativeValue
-            )
+        set(wrapMode) = gtk_text_view_set_wrap_mode(gtkTextViewPointer.reinterpret(), wrapMode.nativeValue)
 
     /**
      * Creates a new `GtkTextView`.
@@ -661,8 +610,9 @@ public open class TextView(
      * @param buffer a `GtkTextBuffer`
      * @return a new `GtkTextView`.
      */
-    public constructor(buffer: TextBuffer) :
-        this(gtk_text_view_new_with_buffer(buffer.gtkTextBufferPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        buffer: TextBuffer,
+    ) : this(gtk_text_view_new_with_buffer(buffer.gtkTextBufferPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds a child widget in the text buffer, at the given @anchor.
@@ -701,12 +651,7 @@ public open class TextView(
         xpos: Int,
         ypos: Int,
     ): Unit =
-        gtk_text_view_add_overlay(
-            gtkTextViewPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            xpos,
-            ypos
-        )
+        gtk_text_view_add_overlay(gtkTextViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), xpos, ypos)
 
     /**
      * Moves the given @iter backward by one display (wrapped) line.
@@ -723,10 +668,7 @@ public open class TextView(
      * @return true if @iter was moved and is not on the end iterator
      */
     public open fun backwardDisplayLine(iter: TextIter): Boolean =
-        gtk_text_view_backward_display_line(
-            gtkTextViewPointer.reinterpret(),
-            iter.gtkTextIterPointer
-        ).asBoolean()
+        gtk_text_view_backward_display_line(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer).asBoolean()
 
     /**
      * Moves the given @iter backward to the next display line start.
@@ -743,10 +685,7 @@ public open class TextView(
      * @return true if @iter was moved and is not on the end iterator
      */
     public open fun backwardDisplayLineStart(iter: TextIter): Boolean =
-        gtk_text_view_backward_display_line_start(
-            gtkTextViewPointer.reinterpret(),
-            iter.gtkTextIterPointer
-        ).asBoolean()
+        gtk_text_view_backward_display_line_start(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer).asBoolean()
 
     /**
      * Moves the given @iter forward by one display (wrapped) line.
@@ -763,10 +702,7 @@ public open class TextView(
      * @return true if @iter was moved and is not on the end iterator
      */
     public open fun forwardDisplayLine(iter: TextIter): Boolean =
-        gtk_text_view_forward_display_line(
-            gtkTextViewPointer.reinterpret(),
-            iter.gtkTextIterPointer
-        ).asBoolean()
+        gtk_text_view_forward_display_line(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer).asBoolean()
 
     /**
      * Moves the given @iter forward to the next display line end.
@@ -783,10 +719,7 @@ public open class TextView(
      * @return true if @iter was moved and is not on the end iterator
      */
     public open fun forwardDisplayLineEnd(iter: TextIter): Boolean =
-        gtk_text_view_forward_display_line_end(
-            gtkTextViewPointer.reinterpret(),
-            iter.gtkTextIterPointer
-        ).asBoolean()
+        gtk_text_view_forward_display_line_end(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer).asBoolean()
 
     /**
      * Returns whether pressing the <kbd>Tab</kbd> key inserts a tab characters.
@@ -945,12 +878,7 @@ public open class TextView(
         x: Int,
         y: Int,
     ): Boolean =
-        gtk_text_view_get_iter_at_location(
-            gtkTextViewPointer.reinterpret(),
-            iter.gtkTextIterPointer,
-            x,
-            y
-        ).asBoolean()
+        gtk_text_view_get_iter_at_location(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer, x, y).asBoolean()
 
     /**
      * Gets a rectangle which roughly contains the character at @iter.
@@ -1077,10 +1005,7 @@ public open class TextView(
      * @param visibleRect rectangle to fill
      */
     public open fun getVisibleRect(visibleRect: Rectangle): Unit =
-        gtk_text_view_get_visible_rect(
-            gtkTextViewPointer.reinterpret(),
-            visibleRect.gdkRectanglePointer
-        )
+        gtk_text_view_get_visible_rect(gtkTextViewPointer.reinterpret(), visibleRect.gdkRectanglePointer)
 
     /**
      * Gets the line wrapping for the view.
@@ -1161,12 +1086,7 @@ public open class TextView(
         xpos: Int,
         ypos: Int,
     ): Unit =
-        gtk_text_view_move_overlay(
-            gtkTextViewPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            xpos,
-            ypos
-        )
+        gtk_text_view_move_overlay(gtkTextViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), xpos, ypos)
 
     /**
      * Move the iterator a given number of characters visually, treating
@@ -1191,11 +1111,7 @@ public open class TextView(
         iter: TextIter,
         count: Int,
     ): Boolean =
-        gtk_text_view_move_visually(
-            gtkTextViewPointer.reinterpret(),
-            iter.gtkTextIterPointer,
-            count
-        ).asBoolean()
+        gtk_text_view_move_visually(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer, count).asBoolean()
 
     /**
      * Moves the cursor to the currently visible region of the
@@ -1212,10 +1128,7 @@ public open class TextView(
      * @param child the child to remove
      */
     public open fun remove(child: Widget): Unit =
-        gtk_text_view_remove(
-            gtkTextViewPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_text_view_remove(gtkTextViewPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Ensures that the cursor is shown.
@@ -1244,10 +1157,7 @@ public open class TextView(
      * @param mark a mark in the buffer for @text_view
      */
     public open fun scrollMarkOnscreen(mark: TextMark): Unit =
-        gtk_text_view_scroll_mark_onscreen(
-            gtkTextViewPointer.reinterpret(),
-            mark.gtkTextMarkPointer.reinterpret()
-        )
+        gtk_text_view_scroll_mark_onscreen(gtkTextViewPointer.reinterpret(), mark.gtkTextMarkPointer.reinterpret())
 
     /**
      * Scrolls @text_view so that @iter is on the screen in the position
@@ -1361,10 +1271,7 @@ public open class TextView(
      * @param buffer a `GtkTextBuffer`
      */
     public open fun setBuffer(buffer: TextBuffer? = null): Unit =
-        gtk_text_view_set_buffer(
-            gtkTextViewPointer.reinterpret(),
-            buffer?.gtkTextBufferPointer?.reinterpret()
-        )
+        gtk_text_view_set_buffer(gtkTextViewPointer.reinterpret(), buffer?.gtkTextBufferPointer?.reinterpret())
 
     /**
      * Toggles whether the insertion point should be displayed.
@@ -1400,10 +1307,7 @@ public open class TextView(
      * @param model a `GMenuModel`
      */
     public open fun setExtraMenu(model: MenuModel? = null): Unit =
-        gtk_text_view_set_extra_menu(
-            gtkTextViewPointer.reinterpret(),
-            model?.gioMenuModelPointer?.reinterpret()
-        )
+        gtk_text_view_set_extra_menu(gtkTextViewPointer.reinterpret(), model?.gioMenuModelPointer?.reinterpret())
 
     /**
      * Places @widget into the gutter specified by @win.
@@ -1463,10 +1367,7 @@ public open class TextView(
      * @param justification justification
      */
     public open fun setJustification(justification: Justification): Unit =
-        gtk_text_view_set_justification(
-            gtkTextViewPointer.reinterpret(),
-            justification.nativeValue
-        )
+        gtk_text_view_set_justification(gtkTextViewPointer.reinterpret(), justification.nativeValue)
 
     /**
      * Sets the default left margin for text in @text_view.
@@ -1582,10 +1483,7 @@ public open class TextView(
      * @return true if @iter begins a wrapped line
      */
     public open fun startsDisplayLine(iter: TextIter): Boolean =
-        gtk_text_view_starts_display_line(
-            gtkTextViewPointer.reinterpret(),
-            iter.gtkTextIterPointer
-        ).asBoolean()
+        gtk_text_view_starts_display_line(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer).asBoolean()
 
     /**
      * Gets emitted when the user asks for it.
@@ -1676,8 +1574,7 @@ public open class TextView(
      * deleting a word backwards.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `type` the granularity of the deletion, as a
-     * `GtkDeleteType`; `count` the number of @type units to delete
+     * @param handler the Callback to connect. Params: `type` the granularity of the deletion, as a `GtkDeleteType`; `count` the number of @type units to delete
      */
     public fun connectDeleteFromCursor(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1696,10 +1593,7 @@ public open class TextView(
      * Emitted when the selection needs to be extended at @location.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `granularity` the granularity type;
-     * `location` the location where to extend the selection; `start` where the selection should start;
-     * `end` where the selection should end. Returns %GDK_EVENT_STOP to stop other handlers from being
-     * invoked for the
+     * @param handler the Callback to connect. Params: `granularity` the granularity type; `location` the location where to extend the selection; `start` where the selection should start; `end` where the selection should end. Returns %GDK_EVENT_STOP to stop other handlers from being invoked for the
      *   event. %GDK_EVENT_PROPAGATE to propagate the event further.
      */
     public fun connectExtendSelection(
@@ -1795,9 +1689,7 @@ public open class TextView(
      *   move horizontally by pages
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a
-     * `GtkMovementStep`; `count` the number of @step units to move; `extendSelection` true if the move
-     * should extend the selection
+     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a `GtkMovementStep`; `count` the number of @step units to move; `extendSelection` true if the move should extend the selection
      */
     public fun connectMoveCursor(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1827,8 +1719,7 @@ public open class TextView(
      * There are no default bindings for this signal.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `step` the granularity of the movement, as a
-     * `GtkScrollStep`; `count` the number of @step units to move
+     * @param handler the Callback to connect. Params: `step` the granularity of the movement, as a `GtkScrollStep`; `count` the number of @step units to move
      */
     public fun connectMoveViewport(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -2011,8 +1902,7 @@ private val connectBackspaceFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectCopyClipboardFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -2020,8 +1910,7 @@ private val connectCopyClipboardFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectCutClipboardFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -2029,8 +1918,7 @@ private val connectCutClipboardFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDeleteFromCursorFunc: CPointer<CFunction<(GtkDeleteType, Int) -> Unit>> =
     staticCFunction {
@@ -2045,8 +1933,7 @@ private val connectDeleteFromCursorFunc: CPointer<CFunction<(GtkDeleteType, Int)
             },
             count
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectExtendSelectionFunc: CPointer<
     CFunction<
@@ -2066,29 +1953,31 @@ private val connectExtendSelectionFunc: CPointer<
             end: CPointer<GtkTextIter>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                granularity: TextExtendSelection,
-                location: TextIter,
-                start: TextIter,
-                end: TextIter,
-            ) -> Boolean
-        >().get().invoke(
-            granularity.run {
-                TextExtendSelection.fromNativeValue(this)
-            },
-            location!!.run {
-                TextIter(reinterpret())
-            },
-            start!!.run {
-                TextIter(reinterpret())
-            },
-            end!!.run {
-                TextIter(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    granularity: TextExtendSelection,
+                    location: TextIter,
+                    start: TextIter,
+                    end: TextIter,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(
+                granularity.run {
+                    TextExtendSelection.fromNativeValue(this)
+                },
+                location!!.run {
+                    TextIter(reinterpret())
+                },
+                start!!.run {
+                    TextIter(reinterpret())
+                },
+                end!!.run {
+                    TextIter(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 private val connectInsertAtCursorFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -2097,11 +1986,9 @@ private val connectInsertAtCursorFunc: CPointer<CFunction<(CPointer<ByteVar>) ->
             userData: COpaquePointer,
         ->
         userData.asStableRef<(string: String) -> Unit>().get().invoke(
-            string?.toKString()
-                ?: error("Expected not null string")
+            string?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectInsertEmojiFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -2109,8 +1996,7 @@ private val connectInsertEmojiFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMoveCursorFunc: CPointer<
     CFunction<
@@ -2128,21 +2014,23 @@ private val connectMoveCursorFunc: CPointer<
             extendSelection: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                step: MovementStep,
-                count: Int,
-                extendSelection: Boolean,
-            ) -> Unit
-        >().get().invoke(
-            step.run {
-                MovementStep.fromNativeValue(this)
-            },
-            count,
-            extendSelection.asBoolean()
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    step: MovementStep,
+                    count: Int,
+                    extendSelection: Boolean,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                step.run {
+                    MovementStep.fromNativeValue(this)
+                },
+                count,
+                extendSelection.asBoolean()
+            )
+    }.reinterpret()
 
 private val connectMoveViewportFunc: CPointer<CFunction<(GtkScrollStep, Int) -> Unit>> =
     staticCFunction {
@@ -2157,8 +2045,7 @@ private val connectMoveViewportFunc: CPointer<CFunction<(GtkScrollStep, Int) -> 
             },
             count
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPasteClipboardFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -2166,8 +2053,7 @@ private val connectPasteClipboardFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPreeditChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -2176,11 +2062,9 @@ private val connectPreeditChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) ->
             userData: COpaquePointer,
         ->
         userData.asStableRef<(preedit: String) -> Unit>().get().invoke(
-            preedit?.toKString()
-                ?: error("Expected not null string")
+            preedit?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSelectAllFunc: CPointer<CFunction<(Int) -> Unit>> =
     staticCFunction {
@@ -2189,8 +2073,7 @@ private val connectSelectAllFunc: CPointer<CFunction<(Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(select: Boolean) -> Unit>().get().invoke(select.asBoolean())
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSetAnchorFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -2198,8 +2081,7 @@ private val connectSetAnchorFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectToggleCursorVisibleFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -2207,8 +2089,7 @@ private val connectToggleCursorVisibleFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectToggleOverwriteFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -2216,5 +2097,4 @@ private val connectToggleOverwriteFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

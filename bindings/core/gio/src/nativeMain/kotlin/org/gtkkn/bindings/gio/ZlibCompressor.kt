@@ -27,7 +27,9 @@ import kotlin.Unit
  */
 public open class ZlibCompressor(
     pointer: CPointer<GZlibCompressor>,
-) : Object(pointer.reinterpret()), Converter, KGTyped {
+) : Object(pointer.reinterpret()),
+    Converter,
+    KGTyped {
     public val gioZlibCompressorPointer: CPointer<GZlibCompressor>
         get() = gPointer.reinterpret()
 
@@ -66,7 +68,9 @@ public open class ZlibCompressor(
          * @param fileInfo a #GFileInfo
          * @since 2.26
          */
-        set(fileInfo) =
+        set(
+            fileInfo
+        ) =
             g_zlib_compressor_set_file_info(
                 gioZlibCompressorPointer.reinterpret(),
                 fileInfo?.gioFileInfoPointer?.reinterpret()
@@ -80,8 +84,10 @@ public open class ZlibCompressor(
      * @return a new #GZlibCompressor
      * @since 2.24
      */
-    public constructor(format: ZlibCompressorFormat, level: Int) :
-        this(g_zlib_compressor_new(format.nativeValue, level)!!.reinterpret())
+    public constructor(
+        format: ZlibCompressorFormat,
+        level: Int,
+    ) : this(g_zlib_compressor_new(format.nativeValue, level)!!.reinterpret())
 
     /**
      * Returns the #GZlibCompressor:file-info property.
@@ -115,9 +121,7 @@ public open class ZlibCompressor(
 
     public companion object : TypeCompanion<ZlibCompressor> {
         override val type: GeneratedClassKGType<ZlibCompressor> =
-            GeneratedClassKGType(g_zlib_compressor_get_type()) {
-                ZlibCompressor(it.reinterpret())
-            }
+            GeneratedClassKGType(g_zlib_compressor_get_type()) { ZlibCompressor(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

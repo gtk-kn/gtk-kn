@@ -50,7 +50,8 @@ import kotlin.ULong
  */
 public open class InetAddress(
     pointer: CPointer<GInetAddress>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioInetAddressPointer: CPointer<GInetAddress>
         get() = gPointer.reinterpret()
 
@@ -236,8 +237,7 @@ public open class InetAddress(
      *     Free the returned object with g_object_unref().
      * @since 2.22
      */
-    public constructor(family: SocketFamily) :
-        this(g_inet_address_new_any(family.nativeValue)!!.reinterpret())
+    public constructor(family: SocketFamily) : this(g_inet_address_new_any(family.nativeValue)!!.reinterpret())
 
     /**
      * Parses @string as an IP address and creates a new #GInetAddress.
@@ -248,8 +248,7 @@ public open class InetAddress(
      *     Free the returned object with g_object_unref().
      * @since 2.22
      */
-    public constructor(string: String) :
-        this(g_inet_address_new_from_string(string)!!.reinterpret())
+    public constructor(string: String) : this(g_inet_address_new_from_string(string)!!.reinterpret())
 
     /**
      * Checks if two #GInetAddress instances are equal, e.g. the same address.

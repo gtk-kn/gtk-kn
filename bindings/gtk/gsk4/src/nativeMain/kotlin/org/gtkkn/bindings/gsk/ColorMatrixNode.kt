@@ -20,7 +20,8 @@ import org.gtkkn.native.gsk.gsk_color_matrix_node_new
  */
 public open class ColorMatrixNode(
     pointer: CPointer<GskColorMatrixNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskColorMatrixNodePointer: CPointer<GskColorMatrixNode>
         get() = gPointer.reinterpret()
 
@@ -84,9 +85,7 @@ public open class ColorMatrixNode(
 
     public companion object : TypeCompanion<ColorMatrixNode> {
         override val type: GeneratedClassKGType<ColorMatrixNode> =
-            GeneratedClassKGType(gsk_color_matrix_node_get_type()) {
-                ColorMatrixNode(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_color_matrix_node_get_type()) { ColorMatrixNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

@@ -62,7 +62,10 @@ import kotlin.Unit
  */
 public open class MapListModel(
     pointer: CPointer<GtkMapListModel>,
-) : Object(pointer.reinterpret()), ListModel, SectionModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    SectionModel,
+    KGTyped {
     public val gtkMapListModelPointer: CPointer<GtkMapListModel>
         get() = gPointer.reinterpret()
 
@@ -93,15 +96,17 @@ public open class MapListModel(
      * @param mapFunc map function
      * @return a new `GtkMapListModel`
      */
-    public constructor(model: ListModel? = null, mapFunc: MapListModelMapFunc) :
-        this(
-            gtk_map_list_model_new(
-                model?.gioListModelPointer,
-                MapListModelMapFuncFunc.reinterpret(),
-                StableRef.create(mapFunc).asCPointer(),
-                staticStableRefDestroy.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        model: ListModel? = null,
+        mapFunc: MapListModelMapFunc,
+    ) : this(
+        gtk_map_list_model_new(
+            model?.gioListModelPointer,
+            MapListModelMapFuncFunc.reinterpret(),
+            StableRef.create(mapFunc).asCPointer(),
+            staticStableRefDestroy.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Gets the model that is currently being mapped or null if none.
@@ -153,16 +158,11 @@ public open class MapListModel(
      * @param model The model to be mapped
      */
     public open fun setModel(model: ListModel? = null): Unit =
-        gtk_map_list_model_set_model(
-            gtkMapListModelPointer.reinterpret(),
-            model?.gioListModelPointer
-        )
+        gtk_map_list_model_set_model(gtkMapListModelPointer.reinterpret(), model?.gioListModelPointer)
 
     public companion object : TypeCompanion<MapListModel> {
         override val type: GeneratedClassKGType<MapListModel> =
-            GeneratedClassKGType(gtk_map_list_model_get_type()) {
-                MapListModel(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_map_list_model_get_type()) { MapListModel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

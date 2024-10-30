@@ -45,7 +45,8 @@ import kotlin.String
  */
 public open class Application(
     pointer: CPointer<AdwApplication>,
-) : org.gtkkn.bindings.gtk.Application(pointer.reinterpret()), KGTyped {
+) : org.gtkkn.bindings.gtk.Application(pointer.reinterpret()),
+    KGTyped {
     public val adwApplicationPointer: CPointer<AdwApplication>
         get() = gPointer.reinterpret()
 
@@ -88,8 +89,10 @@ public open class Application(
      * @param flags The application flags
      * @return the newly created `AdwApplication`
      */
-    public constructor(applicationId: String? = null, flags: ApplicationFlags) :
-        this(adw_application_new(applicationId, flags.mask)!!.reinterpret())
+    public constructor(
+        applicationId: String? = null,
+        flags: ApplicationFlags,
+    ) : this(adw_application_new(applicationId, flags.mask)!!.reinterpret())
 
     /**
      * Gets the style manager for @self.

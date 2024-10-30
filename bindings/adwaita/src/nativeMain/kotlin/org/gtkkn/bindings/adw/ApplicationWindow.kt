@@ -63,7 +63,8 @@ import kotlin.Unit
  */
 public open class ApplicationWindow(
     pointer: CPointer<AdwApplicationWindow>,
-) : org.gtkkn.bindings.gtk.ApplicationWindow(pointer.reinterpret()), KGTyped {
+) : org.gtkkn.bindings.gtk.ApplicationWindow(pointer.reinterpret()),
+    KGTyped {
     public val adwApplicationWindowPointer: CPointer<AdwApplicationWindow>
         get() = gPointer.reinterpret()
 
@@ -116,7 +117,9 @@ public open class ApplicationWindow(
          *
          * @param content the content widget
          */
-        set(content) =
+        set(
+            content
+        ) =
             adw_application_window_set_content(
                 adwApplicationWindowPointer.reinterpret(),
                 content?.gtkWidgetPointer?.reinterpret()
@@ -181,8 +184,9 @@ public open class ApplicationWindow(
      * @param app an application instance
      * @return the newly created `AdwApplicationWindow`
      */
-    public constructor(app: Application) :
-        this(adw_application_window_new(app.gtkApplicationPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        app: Application,
+    ) : this(adw_application_window_new(app.gtkApplicationPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds @breakpoint to @self.
@@ -258,9 +262,7 @@ public open class ApplicationWindow(
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =
-            GeneratedClassKGType(adw_application_window_get_type()) {
-                ApplicationWindow(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_application_window_get_type()) { ApplicationWindow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

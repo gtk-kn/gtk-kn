@@ -14,7 +14,8 @@ import org.gtkkn.native.gdk.gdk_delete_event_get_type
  */
 public open class DeleteEvent(
     pointer: CPointer<GdkDeleteEvent>,
-) : Event(pointer.reinterpret()), KGTyped {
+) : Event(pointer.reinterpret()),
+    KGTyped {
     public val gdkDeleteEventPointer: CPointer<GdkDeleteEvent>
         get() = gPointer.reinterpret()
 

@@ -41,7 +41,8 @@ import kotlin.Unit
  */
 public open class StringFilter(
     pointer: CPointer<GtkStringFilter>,
-) : Filter(pointer.reinterpret()), KGTyped {
+) : Filter(pointer.reinterpret()),
+    KGTyped {
     public val gtkStringFilterPointer: CPointer<GtkStringFilter>
         get() = gPointer.reinterpret()
 
@@ -68,11 +69,9 @@ public open class StringFilter(
          *
          * @param expression a `GtkExpression`
          */
-        set(expression) =
-            gtk_string_filter_set_expression(
-                gtkStringFilterPointer.reinterpret(),
-                expression?.gPointer?.reinterpret()
-            )
+        set(
+            expression
+        ) = gtk_string_filter_set_expression(gtkStringFilterPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * If matching is case sensitive.
@@ -90,11 +89,9 @@ public open class StringFilter(
          *
          * @param ignoreCase true to ignore case
          */
-        set(ignoreCase) =
-            gtk_string_filter_set_ignore_case(
-                gtkStringFilterPointer.reinterpret(),
-                ignoreCase.asGBoolean()
-            )
+        set(
+            ignoreCase
+        ) = gtk_string_filter_set_ignore_case(gtkStringFilterPointer.reinterpret(), ignoreCase.asGBoolean())
 
     /**
      * If exact matches are necessary or if substrings are allowed.
@@ -115,11 +112,7 @@ public open class StringFilter(
          *
          * @param mode the new match mode
          */
-        set(mode) =
-            gtk_string_filter_set_match_mode(
-                gtkStringFilterPointer.reinterpret(),
-                mode.nativeValue
-            )
+        set(mode) = gtk_string_filter_set_match_mode(gtkStringFilterPointer.reinterpret(), mode.nativeValue)
 
     /**
      * The search term.
@@ -149,8 +142,9 @@ public open class StringFilter(
      * @param expression The expression to evaluate
      * @return a new `GtkStringFilter`
      */
-    public constructor(expression: Expression? = null) :
-        this(gtk_string_filter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        expression: Expression? = null,
+    ) : this(gtk_string_filter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Gets the expression that the string filter uses to
@@ -198,10 +192,7 @@ public open class StringFilter(
      * @param expression a `GtkExpression`
      */
     public open fun setExpression(expression: Expression? = null): Unit =
-        gtk_string_filter_set_expression(
-            gtkStringFilterPointer.reinterpret(),
-            expression?.gPointer?.reinterpret()
-        )
+        gtk_string_filter_set_expression(gtkStringFilterPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * Sets whether the filter ignores case differences.
@@ -209,10 +200,7 @@ public open class StringFilter(
      * @param ignoreCase true to ignore case
      */
     public open fun setIgnoreCase(ignoreCase: Boolean): Unit =
-        gtk_string_filter_set_ignore_case(
-            gtkStringFilterPointer.reinterpret(),
-            ignoreCase.asGBoolean()
-        )
+        gtk_string_filter_set_ignore_case(gtkStringFilterPointer.reinterpret(), ignoreCase.asGBoolean())
 
     /**
      * Sets the match mode for the filter.
@@ -233,9 +221,7 @@ public open class StringFilter(
 
     public companion object : TypeCompanion<StringFilter> {
         override val type: GeneratedClassKGType<StringFilter> =
-            GeneratedClassKGType(gtk_string_filter_get_type()) {
-                StringFilter(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_string_filter_get_type()) { StringFilter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

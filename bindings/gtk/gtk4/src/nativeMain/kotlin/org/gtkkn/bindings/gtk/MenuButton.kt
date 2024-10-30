@@ -128,7 +128,8 @@ import kotlin.Unit
  */
 public open class MenuButton(
     pointer: CPointer<GtkMenuButton>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkMenuButtonPointer: CPointer<GtkMenuButton>
         get() = gPointer.reinterpret()
 
@@ -161,11 +162,7 @@ public open class MenuButton(
          * @param active whether the menu button is active
          * @since 4.10
          */
-        set(active) =
-            gtk_menu_button_set_active(
-                gtkMenuButtonPointer.reinterpret(),
-                active.asGBoolean()
-            )
+        set(active) = gtk_menu_button_set_active(gtkMenuButtonPointer.reinterpret(), active.asGBoolean())
 
     /**
      * Whether to show a dropdown arrow even when using an icon or a custom child.
@@ -181,8 +178,7 @@ public open class MenuButton(
          * child.
          * @since 4.4
          */
-        get() =
-            gtk_menu_button_get_always_show_arrow(gtkMenuButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_menu_button_get_always_show_arrow(gtkMenuButtonPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether to show a dropdown arrow even when using an icon or a custom
@@ -192,11 +188,9 @@ public open class MenuButton(
          * or a custom child
          * @since 4.4
          */
-        set(alwaysShowArrow) =
-            gtk_menu_button_set_always_show_arrow(
-                gtkMenuButtonPointer.reinterpret(),
-                alwaysShowArrow.asGBoolean()
-            )
+        set(
+            alwaysShowArrow
+        ) = gtk_menu_button_set_always_show_arrow(gtkMenuButtonPointer.reinterpret(), alwaysShowArrow.asGBoolean())
 
     /**
      * Whether the size of the button can be made smaller than the natural
@@ -225,11 +219,7 @@ public open class MenuButton(
          * @param canShrink whether the button can shrink
          * @since 4.12
          */
-        set(canShrink) =
-            gtk_menu_button_set_can_shrink(
-                gtkMenuButtonPointer.reinterpret(),
-                canShrink.asGBoolean()
-            )
+        set(canShrink) = gtk_menu_button_set_can_shrink(gtkMenuButtonPointer.reinterpret(), canShrink.asGBoolean())
 
     /**
      * The child widget.
@@ -261,11 +251,9 @@ public open class MenuButton(
          * @param child the child widget
          * @since 4.6
          */
-        set(child) =
-            gtk_menu_button_set_child(
-                gtkMenuButtonPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = gtk_menu_button_set_child(gtkMenuButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The `GtkArrowType` representing the direction in which the
@@ -296,11 +284,7 @@ public open class MenuButton(
          *
          * @param direction a `GtkArrowType`
          */
-        set(direction) =
-            gtk_menu_button_set_direction(
-                gtkMenuButtonPointer.reinterpret(),
-                direction.nativeValue
-            )
+        set(direction) = gtk_menu_button_set_direction(gtkMenuButtonPointer.reinterpret(), direction.nativeValue)
 
     /**
      * Whether the button has a frame.
@@ -318,11 +302,7 @@ public open class MenuButton(
          *
          * @param hasFrame whether the button should have a visible frame
          */
-        set(hasFrame) =
-            gtk_menu_button_set_has_frame(
-                gtkMenuButtonPointer.reinterpret(),
-                hasFrame.asGBoolean()
-            )
+        set(hasFrame) = gtk_menu_button_set_has_frame(gtkMenuButtonPointer.reinterpret(), hasFrame.asGBoolean())
 
     /**
      * The `GMenuModel` from which the popup will be created.
@@ -356,7 +336,9 @@ public open class MenuButton(
          * @param menuModel a `GMenuModel`, or null to unset and disable the
          *   button
          */
-        set(menuModel) =
+        set(
+            menuModel
+        ) =
             gtk_menu_button_set_menu_model(
                 gtkMenuButtonPointer.reinterpret(),
                 menuModel?.gioMenuModelPointer?.reinterpret()
@@ -386,11 +368,7 @@ public open class MenuButton(
          * @param primary whether the menubutton should act as a primary menu
          * @since 4.4
          */
-        set(primary) =
-            gtk_menu_button_set_primary(
-                gtkMenuButtonPointer.reinterpret(),
-                primary.asGBoolean()
-            )
+        set(primary) = gtk_menu_button_set_primary(gtkMenuButtonPointer.reinterpret(), primary.asGBoolean())
 
     /**
      * If set an underscore in the text indicates a mnemonic.
@@ -410,11 +388,9 @@ public open class MenuButton(
          *
          * @param useUnderline true if underlines in the text indicate mnemonics
          */
-        set(useUnderline) =
-            gtk_menu_button_set_use_underline(
-                gtkMenuButtonPointer.reinterpret(),
-                useUnderline.asGBoolean()
-            )
+        set(
+            useUnderline
+        ) = gtk_menu_button_set_use_underline(gtkMenuButtonPointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Creates a new `GtkMenuButton` widget with downwards-pointing
@@ -569,10 +545,7 @@ public open class MenuButton(
      * @since 4.4
      */
     public open fun setAlwaysShowArrow(alwaysShowArrow: Boolean): Unit =
-        gtk_menu_button_set_always_show_arrow(
-            gtkMenuButtonPointer.reinterpret(),
-            alwaysShowArrow.asGBoolean()
-        )
+        gtk_menu_button_set_always_show_arrow(gtkMenuButtonPointer.reinterpret(), alwaysShowArrow.asGBoolean())
 
     /**
      * Sets whether the button size can be smaller than the natural size of
@@ -586,10 +559,7 @@ public open class MenuButton(
      * @since 4.12
      */
     public open fun setCanShrink(canShrink: Boolean): Unit =
-        gtk_menu_button_set_can_shrink(
-            gtkMenuButtonPointer.reinterpret(),
-            canShrink.asGBoolean()
-        )
+        gtk_menu_button_set_can_shrink(gtkMenuButtonPointer.reinterpret(), canShrink.asGBoolean())
 
     /**
      * Sets the child widget of @menu_button.
@@ -605,10 +575,7 @@ public open class MenuButton(
      * @since 4.6
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_menu_button_set_child(
-            gtkMenuButtonPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_menu_button_set_child(gtkMenuButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets @func to be called when a popup is about to be shown.
@@ -721,10 +688,7 @@ public open class MenuButton(
      * @param popover a `GtkPopover`, or null to unset and disable the button
      */
     public open fun setPopover(popover: Widget? = null): Unit =
-        gtk_menu_button_set_popover(
-            gtkMenuButtonPointer.reinterpret(),
-            popover?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_menu_button_set_popover(gtkMenuButtonPointer.reinterpret(), popover?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether menu button acts as a primary menu.
@@ -743,10 +707,7 @@ public open class MenuButton(
      * @param useUnderline true if underlines in the text indicate mnemonics
      */
     public open fun setUseUnderline(useUnderline: Boolean): Unit =
-        gtk_menu_button_set_use_underline(
-            gtkMenuButtonPointer.reinterpret(),
-            useUnderline.asGBoolean()
-        )
+        gtk_menu_button_set_use_underline(gtkMenuButtonPointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Emitted to when the menu button is activated.
@@ -787,5 +748,4 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

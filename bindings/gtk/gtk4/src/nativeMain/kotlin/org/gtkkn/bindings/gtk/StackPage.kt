@@ -41,7 +41,9 @@ import kotlin.Unit
  */
 public open class StackPage(
     pointer: CPointer<GtkStackPage>,
-) : Object(pointer.reinterpret()), Accessible, KGTyped {
+) : Object(pointer.reinterpret()),
+    Accessible,
+    KGTyped {
     public val gtkStackPagePointer: CPointer<GtkStackPage>
         get() = gPointer.reinterpret()
 
@@ -83,11 +85,7 @@ public open class StackPage(
          *
          * @param setting the new value to set
          */
-        set(setting) =
-            gtk_stack_page_set_needs_attention(
-                gtkStackPagePointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_stack_page_set_needs_attention(gtkStackPagePointer.reinterpret(), setting.asGBoolean())
 
     /**
      * If set, an underline in the title indicates a mnemonic.
@@ -105,11 +103,7 @@ public open class StackPage(
          *
          * @param setting the new value to set
          */
-        set(setting) =
-            gtk_stack_page_set_use_underline(
-                gtkStackPagePointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_stack_page_set_use_underline(gtkStackPagePointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Whether this page is visible.
@@ -130,11 +124,7 @@ public open class StackPage(
          *
          * @param visible The new property value
          */
-        set(visible) =
-            gtk_stack_page_set_visible(
-                gtkStackPagePointer.reinterpret(),
-                visible.asGBoolean()
-            )
+        set(visible) = gtk_stack_page_set_visible(gtkStackPagePointer.reinterpret(), visible.asGBoolean())
 
     /**
      * Returns the stack child to which @self belongs.
@@ -216,10 +206,7 @@ public open class StackPage(
      * @param setting the new value to set
      */
     public open fun setNeedsAttention(setting: Boolean): Unit =
-        gtk_stack_page_set_needs_attention(
-            gtkStackPagePointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_stack_page_set_needs_attention(gtkStackPagePointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Sets the page title.
@@ -235,10 +222,7 @@ public open class StackPage(
      * @param setting the new value to set
      */
     public open fun setUseUnderline(setting: Boolean): Unit =
-        gtk_stack_page_set_use_underline(
-            gtkStackPagePointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_stack_page_set_use_underline(gtkStackPagePointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Sets whether @page is visible in its `GtkStack`.

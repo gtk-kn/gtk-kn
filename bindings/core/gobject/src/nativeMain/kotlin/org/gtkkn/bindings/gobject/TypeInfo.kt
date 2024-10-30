@@ -54,8 +54,7 @@ public class TypeInfo(
         }
 
     /**
-     * Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve
-     * memory for (0 indicates no caching). Since GLib 2.10 this field is ignored.
+     * Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10 this field is ignored.
      */
     public var nPreallocs: UShort
         get() = gobjectTypeInfoPointer.pointed.n_preallocs

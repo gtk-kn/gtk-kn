@@ -16,7 +16,9 @@ public class LayoutDeserializeFlags(
     public val mask: PangoLayoutDeserializeFlags,
 ) : Bitfield<LayoutDeserializeFlags> {
     override infix fun or(other: LayoutDeserializeFlags): LayoutDeserializeFlags =
-        LayoutDeserializeFlags(mask or other.mask)
+        LayoutDeserializeFlags(
+            mask or other.mask
+        )
 
     public companion object {
         /**

@@ -77,7 +77,9 @@ import kotlin.Unit
  */
 public open class AppChooserButton(
     pointer: CPointer<GtkAppChooserButton>,
-) : Widget(pointer.reinterpret()), AppChooser, KGTyped {
+) : Widget(pointer.reinterpret()),
+    AppChooser,
+    KGTyped {
     public val gtkAppChooserButtonPointer: CPointer<GtkAppChooserButton>
         get() = gPointer.reinterpret()
 
@@ -102,19 +104,14 @@ public open class AppChooserButton(
          *
          * @return true if the dialog is modal
          */
-        get() =
-            gtk_app_chooser_button_get_modal(gtkAppChooserButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_app_chooser_button_get_modal(gtkAppChooserButtonPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the dialog should be modal.
          *
          * @param modal true to make the dialog modal
          */
-        set(modal) =
-            gtk_app_chooser_button_set_modal(
-                gtkAppChooserButtonPointer.reinterpret(),
-                modal.asGBoolean()
-            )
+        set(modal) = gtk_app_chooser_button_set_modal(gtkAppChooserButtonPointer.reinterpret(), modal.asGBoolean())
 
     /**
      * Determines whether the dropdown menu shows the default application
@@ -127,8 +124,7 @@ public open class AppChooserButton(
          *
          * @return the value of [property@Gtk.AppChooserButton:show-default-item]
          */
-        get() =
-            gtk_app_chooser_button_get_show_default_item(gtkAppChooserButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_app_chooser_button_get_show_default_item(gtkAppChooserButtonPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the dropdown menu of this button should show the
@@ -136,11 +132,9 @@ public open class AppChooserButton(
          *
          * @param setting the new value for [property@Gtk.AppChooserButton:show-default-item]
          */
-        set(setting) =
-            gtk_app_chooser_button_set_show_default_item(
-                gtkAppChooserButtonPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(
+            setting
+        ) = gtk_app_chooser_button_set_show_default_item(gtkAppChooserButtonPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Determines whether the dropdown menu shows an item to open
@@ -153,8 +147,7 @@ public open class AppChooserButton(
          *
          * @return the value of [property@Gtk.AppChooserButton:show-dialog-item]
          */
-        get() =
-            gtk_app_chooser_button_get_show_dialog_item(gtkAppChooserButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_app_chooser_button_get_show_dialog_item(gtkAppChooserButtonPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the dropdown menu of this button should show an
@@ -162,11 +155,9 @@ public open class AppChooserButton(
          *
          * @param setting the new value for [property@Gtk.AppChooserButton:show-dialog-item]
          */
-        set(setting) =
-            gtk_app_chooser_button_set_show_dialog_item(
-                gtkAppChooserButtonPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(
+            setting
+        ) = gtk_app_chooser_button_set_show_dialog_item(gtkAppChooserButtonPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Creates a new `GtkAppChooserButton` for applications
@@ -175,8 +166,7 @@ public open class AppChooserButton(
      * @param contentType the content type to show applications for
      * @return a newly created `GtkAppChooserButton`
      */
-    public constructor(contentType: String) :
-        this(gtk_app_chooser_button_new(contentType)!!.reinterpret())
+    public constructor(contentType: String) : this(gtk_app_chooser_button_new(contentType)!!.reinterpret())
 
     /**
      * Appends a custom item to the list of applications that is shown
@@ -258,10 +248,7 @@ public open class AppChooserButton(
      * @param name the name of the custom item
      */
     public open fun setActiveCustomItem(name: String): Unit =
-        gtk_app_chooser_button_set_active_custom_item(
-            gtkAppChooserButtonPointer.reinterpret(),
-            name
-        )
+        gtk_app_chooser_button_set_active_custom_item(gtkAppChooserButtonPointer.reinterpret(), name)
 
     /**
      * Sets the text to display at the top of the dialog.
@@ -279,10 +266,7 @@ public open class AppChooserButton(
      * @param modal true to make the dialog modal
      */
     public open fun setModal(modal: Boolean): Unit =
-        gtk_app_chooser_button_set_modal(
-            gtkAppChooserButtonPointer.reinterpret(),
-            modal.asGBoolean()
-        )
+        gtk_app_chooser_button_set_modal(gtkAppChooserButtonPointer.reinterpret(), modal.asGBoolean())
 
     /**
      * Sets whether the dropdown menu of this button should show the
@@ -291,10 +275,7 @@ public open class AppChooserButton(
      * @param setting the new value for [property@Gtk.AppChooserButton:show-default-item]
      */
     public open fun setShowDefaultItem(setting: Boolean): Unit =
-        gtk_app_chooser_button_set_show_default_item(
-            gtkAppChooserButtonPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_app_chooser_button_set_show_default_item(gtkAppChooserButtonPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Sets whether the dropdown menu of this button should show an
@@ -303,10 +284,7 @@ public open class AppChooserButton(
      * @param setting the new value for [property@Gtk.AppChooserButton:show-dialog-item]
      */
     public open fun setShowDialogItem(setting: Boolean): Unit =
-        gtk_app_chooser_button_set_show_dialog_item(
-            gtkAppChooserButtonPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_app_chooser_button_set_show_dialog_item(gtkAppChooserButtonPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Emitted to when the button is activated.
@@ -374,9 +352,7 @@ public open class AppChooserButton(
 
     public companion object : TypeCompanion<AppChooserButton> {
         override val type: GeneratedClassKGType<AppChooserButton> =
-            GeneratedClassKGType(gtk_app_chooser_button_get_type()) {
-                AppChooserButton(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_app_chooser_button_get_type()) { AppChooserButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -390,8 +366,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -399,8 +374,7 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectCustomItemActivatedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -409,8 +383,6 @@ private val connectCustomItemActivatedFunc: CPointer<CFunction<(CPointer<ByteVar
             userData: COpaquePointer,
         ->
         userData.asStableRef<(itemName: String) -> Unit>().get().invoke(
-            itemName?.toKString()
-                ?: error("Expected not null string")
+            itemName?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()

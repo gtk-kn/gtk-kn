@@ -18,7 +18,8 @@ import kotlin.Float
  */
 public open class BlurNode(
     pointer: CPointer<GskBlurNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskBlurNodePointer: CPointer<GskBlurNode>
         get() = gPointer.reinterpret()
 
@@ -29,8 +30,10 @@ public open class BlurNode(
      * @param radius the blur radius. Must be positive
      * @return a new `GskRenderNode`
      */
-    public constructor(child: RenderNode, radius: Float) :
-        this(gsk_blur_node_new(child.gPointer.reinterpret(), radius)!!.reinterpret())
+    public constructor(
+        child: RenderNode,
+        radius: Float,
+    ) : this(gsk_blur_node_new(child.gPointer.reinterpret(), radius)!!.reinterpret())
 
     /**
      * Retrieves the child `GskRenderNode` of the blur @node.

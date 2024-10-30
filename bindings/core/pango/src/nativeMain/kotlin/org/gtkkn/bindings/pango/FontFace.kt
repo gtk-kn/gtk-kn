@@ -28,7 +28,8 @@ import kotlin.String
  */
 public open class FontFace(
     pointer: CPointer<PangoFontFace>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val pangoFontFacePointer: CPointer<PangoFontFace>
         get() = gPointer.reinterpret()
 

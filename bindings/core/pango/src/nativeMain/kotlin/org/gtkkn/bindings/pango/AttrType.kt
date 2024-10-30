@@ -223,14 +223,12 @@ public enum class AttrType(
     TEXT_TRANSFORM(PANGO_ATTR_TEXT_TRANSFORM),
 
     /**
-     * override segmentation to classify the range of the attribute as a single word
-     * ([struct@Pango.AttrInt]). Since 1.50
+     * override segmentation to classify the range of the attribute as a single word ([struct@Pango.AttrInt]). Since 1.50
      */
     WORD(PANGO_ATTR_WORD),
 
     /**
-     * override segmentation to classify the range of the attribute as a single sentence
-     * ([struct@Pango.AttrInt]). Since 1.50
+     * override segmentation to classify the range of the attribute as a single sentence ([struct@Pango.AttrInt]). Since 1.50
      */
     SENTENCE(PANGO_ATTR_SENTENCE),
 

@@ -60,7 +60,8 @@ import kotlin.Unit
  */
 public open class SignalGroup(
     pointer: CPointer<GSignalGroup>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gobjectSignalGroupPointer: CPointer<GSignalGroup>
         get() = gPointer.reinterpret()
 
@@ -155,10 +156,7 @@ public open class SignalGroup(
      * @since 2.72
      */
     public open fun setTarget(target: Object? = null): Unit =
-        g_signal_group_set_target(
-            gobjectSignalGroupPointer.reinterpret(),
-            target?.gPointer?.reinterpret()
-        )
+        g_signal_group_set_target(gobjectSignalGroupPointer.reinterpret(), target?.gPointer?.reinterpret())
 
     /**
      * Unblocks all signal handlers managed by @self so they will be
@@ -177,8 +175,7 @@ public open class SignalGroup(
      * receiving the #GObject without a data-race.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `instance` a #GObject containing the new
-     * value for #GSignalGroup:target
+     * @param handler the Callback to connect. Params: `instance` a #GObject containing the new value for #GSignalGroup:target
      * @since 2.72
      */
     public fun connectBind(
@@ -239,8 +236,7 @@ private val connectBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
                 Object(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectUnbindFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -248,5 +244,4 @@ private val connectUnbindFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

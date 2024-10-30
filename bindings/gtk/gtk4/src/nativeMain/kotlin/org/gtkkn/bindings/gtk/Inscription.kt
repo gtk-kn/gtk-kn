@@ -64,7 +64,9 @@ import kotlin.Unit
  */
 public open class Inscription(
     pointer: CPointer<GtkInscription>,
-) : Widget(pointer.reinterpret()), AccessibleText, KGTyped {
+) : Widget(pointer.reinterpret()),
+    AccessibleText,
+    KGTyped {
     public val gtkInscriptionPointer: CPointer<GtkInscription>
         get() = gPointer.reinterpret()
 
@@ -105,11 +107,7 @@ public open class Inscription(
          * @param attrs a [struct@Pango.AttrList]
          * @since 4.8
          */
-        set(attrs) =
-            gtk_inscription_set_attributes(
-                gtkInscriptionPointer.reinterpret(),
-                attrs?.pangoAttrListPointer
-            )
+        set(attrs) = gtk_inscription_set_attributes(gtkInscriptionPointer.reinterpret(), attrs?.pangoAttrListPointer)
 
     /**
      * The number of characters that should fit into the inscription at minimum.
@@ -293,11 +291,7 @@ public open class Inscription(
          * @param overflow the overflow method to use
          * @since 4.8
          */
-        set(overflow) =
-            gtk_inscription_set_text_overflow(
-                gtkInscriptionPointer.reinterpret(),
-                overflow.nativeValue
-            )
+        set(overflow) = gtk_inscription_set_text_overflow(gtkInscriptionPointer.reinterpret(), overflow.nativeValue)
 
     /**
      * Controls how the line wrapping is done.
@@ -326,11 +320,7 @@ public open class Inscription(
          * @param wrapMode the line wrapping mode
          * @since 4.8
          */
-        set(wrapMode) =
-            gtk_inscription_set_wrap_mode(
-                gtkInscriptionPointer.reinterpret(),
-                wrapMode.nativeValue
-            )
+        set(wrapMode) = gtk_inscription_set_wrap_mode(gtkInscriptionPointer.reinterpret(), wrapMode.nativeValue)
 
     /**
      * The horizontal alignment of the text inside the allocated size.
@@ -511,10 +501,7 @@ public open class Inscription(
      * @since 4.8
      */
     public open fun setAttributes(attrs: AttrList? = null): Unit =
-        gtk_inscription_set_attributes(
-            gtkInscriptionPointer.reinterpret(),
-            attrs?.pangoAttrListPointer
-        )
+        gtk_inscription_set_attributes(gtkInscriptionPointer.reinterpret(), attrs?.pangoAttrListPointer)
 
     /**
      * Utility function to set the text and attributes to be displayed.
@@ -587,10 +574,7 @@ public open class Inscription(
      * @since 4.8
      */
     public open fun setTextOverflow(overflow: InscriptionOverflow): Unit =
-        gtk_inscription_set_text_overflow(
-            gtkInscriptionPointer.reinterpret(),
-            overflow.nativeValue
-        )
+        gtk_inscription_set_text_overflow(gtkInscriptionPointer.reinterpret(), overflow.nativeValue)
 
     /**
      * Controls how line wrapping is done.

@@ -67,7 +67,8 @@ import kotlin.Throws
  */
 public open class TlsCertificate(
     pointer: CPointer<GTlsCertificate>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioTlsCertificatePointer: CPointer<GTlsCertificate>
         get() = gPointer.reinterpret()
 
@@ -272,24 +273,20 @@ public open class TlsCertificate(
 
     /**
      * Creates a #GTlsCertificate from a
-     * [PKCS \#11](https://docs.oasis-open.org/pkcs11/pkcs11-base/v3.0/os/pkcs11-base-v3.0-os.html)
-     * URI.
+     * [PKCS \#11](https://docs.oasis-open.org/pkcs11/pkcs11-base/v3.0/os/pkcs11-base-v3.0-os.html) URI.
      *
-     * An example @pkcs11_uri would be
-     * `pkcs11:model=Model;manufacturer=Manufacture;serial=1;token=My%20Client%20Certificate;id=%01`
+     * An example @pkcs11_uri would be `pkcs11:model=Model;manufacturer=Manufacture;serial=1;token=My%20Client%20Certificate;id=%01`
      *
      * Where the token’s layout is:
      *
      * |[
      * Object 0:
-     *   URL:
-     * pkcs11:model=Model;manufacturer=Manufacture;serial=1;token=My%20Client%20Certificate;id=%01;object=private%20key;type=private
+     *   URL: pkcs11:model=Model;manufacturer=Manufacture;serial=1;token=My%20Client%20Certificate;id=%01;object=private%20key;type=private
      *   Type: Private key (RSA-2048)
      *   ID: 01
      *
      * Object 1:
-     *   URL:
-     * pkcs11:model=Model;manufacturer=Manufacture;serial=1;token=My%20Client%20Certificate;id=%01;object=Certificate%20for%20Authentication;type=cert
+     *   URL: pkcs11:model=Model;manufacturer=Manufacture;serial=1;token=My%20Client%20Certificate;id=%01;object=Certificate%20for%20Authentication;type=cert
      *   Type: X.509 Certificate (RSA-2048)
      *   ID: 01
      * ]|
@@ -309,12 +306,7 @@ public open class TlsCertificate(
     public constructor(pkcs11Uri: String, privateKeyPkcs11Uri: String? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_tls_certificate_new_from_pkcs11_uris(
-                    pkcs11Uri,
-                    privateKeyPkcs11Uri,
-                    gError.ptr
-                )
+            val gResult = g_tls_certificate_new_from_pkcs11_uris(pkcs11Uri, privateKeyPkcs11Uri, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -448,9 +440,7 @@ public open class TlsCertificate(
 
     public companion object : TypeCompanion<TlsCertificate> {
         override val type: GeneratedClassKGType<TlsCertificate> =
-            GeneratedClassKGType(g_tls_certificate_get_type()) {
-                TlsCertificate(it.reinterpret())
-            }
+            GeneratedClassKGType(g_tls_certificate_get_type()) { TlsCertificate(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -514,12 +504,7 @@ public open class TlsCertificate(
         ): Result<TlsCertificate> =
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_tls_certificate_new_from_file_with_password(
-                        `file`,
-                        password,
-                        gError.ptr
-                    )
+                val gResult = g_tls_certificate_new_from_file_with_password(`file`, password, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {

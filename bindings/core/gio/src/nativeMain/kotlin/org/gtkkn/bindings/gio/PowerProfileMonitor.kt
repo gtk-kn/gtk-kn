@@ -41,7 +41,10 @@ import kotlin.Boolean
  * `GPowerProfileMonitor` itself when exiting.
  * @since 2.70
  */
-public interface PowerProfileMonitor : Interface, Initable, KGTyped {
+public interface PowerProfileMonitor :
+    Interface,
+    Initable,
+    KGTyped {
     public val gioPowerProfileMonitorPointer: CPointer<GPowerProfileMonitor>
 
     override val gioInitablePointer: CPointer<GInitable>
@@ -63,8 +66,7 @@ public interface PowerProfileMonitor : Interface, Initable, KGTyped {
          * @return Whether the system is in “Power Saver” mode.
          * @since 2.70
          */
-        get() =
-            g_power_profile_monitor_get_power_saver_enabled(gioPowerProfileMonitorPointer.reinterpret()).asBoolean()
+        get() = g_power_profile_monitor_get_power_saver_enabled(gioPowerProfileMonitorPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether the system is in “Power Saver” mode.
@@ -87,9 +89,7 @@ public interface PowerProfileMonitor : Interface, Initable, KGTyped {
 
     public companion object : TypeCompanion<PowerProfileMonitor> {
         override val type: GeneratedInterfaceKGType<PowerProfileMonitor> =
-            GeneratedInterfaceKGType(g_power_profile_monitor_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(g_power_profile_monitor_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

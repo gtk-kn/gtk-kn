@@ -99,7 +99,9 @@ import kotlin.Unit
  */
 public class SplitButton(
     pointer: CPointer<AdwSplitButton>,
-) : Widget(pointer.reinterpret()), Actionable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Actionable,
+    KGTyped {
     public val adwSplitButtonPointer: CPointer<AdwSplitButton>
         get() = gPointer.reinterpret()
 
@@ -145,11 +147,7 @@ public class SplitButton(
          * @param canShrink whether the button can shrink
          * @since 1.4
          */
-        set(canShrink) =
-            adw_split_button_set_can_shrink(
-                adwSplitButtonPointer.reinterpret(),
-                canShrink.asGBoolean()
-            )
+        set(canShrink) = adw_split_button_set_can_shrink(adwSplitButtonPointer.reinterpret(), canShrink.asGBoolean())
 
     /**
      * The child widget.
@@ -176,11 +174,9 @@ public class SplitButton(
          *
          * @param child the new child widget
          */
-        set(child) =
-            adw_split_button_set_child(
-                adwSplitButtonPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = adw_split_button_set_child(adwSplitButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The direction in which the popup will be popped up.
@@ -215,11 +211,7 @@ public class SplitButton(
          *
          * @param direction the direction
          */
-        set(direction) =
-            adw_split_button_set_direction(
-                adwSplitButtonPointer.reinterpret(),
-                direction.nativeValue
-            )
+        set(direction) = adw_split_button_set_direction(adwSplitButtonPointer.reinterpret(), direction.nativeValue)
 
     /**
      * The tooltip of the dropdown button.
@@ -247,11 +239,7 @@ public class SplitButton(
          * @param tooltip the dropdown tooltip of @self
          * @since 1.2
          */
-        set(tooltip) =
-            adw_split_button_set_dropdown_tooltip(
-                adwSplitButtonPointer.reinterpret(),
-                tooltip
-            )
+        set(tooltip) = adw_split_button_set_dropdown_tooltip(adwSplitButtonPointer.reinterpret(), tooltip)
 
     /**
      * The `GMenuModel` from which the popup will be created.
@@ -290,7 +278,9 @@ public class SplitButton(
          *
          * @param menuModel the menu model
          */
-        set(menuModel) =
+        set(
+            menuModel
+        ) =
             adw_split_button_set_menu_model(
                 adwSplitButtonPointer.reinterpret(),
                 menuModel?.gioMenuModelPointer?.reinterpret()
@@ -325,11 +315,9 @@ public class SplitButton(
          *
          * @param popover the popover
          */
-        set(popover) =
-            adw_split_button_set_popover(
-                adwSplitButtonPointer.reinterpret(),
-                popover?.gtkPopoverPointer?.reinterpret()
-            )
+        set(
+            popover
+        ) = adw_split_button_set_popover(adwSplitButtonPointer.reinterpret(), popover?.gtkPopoverPointer?.reinterpret())
 
     /**
      * Whether an underline in the text indicates a mnemonic.
@@ -351,11 +339,9 @@ public class SplitButton(
          *
          * @param useUnderline whether an underline in the text indicates a mnemonic
          */
-        set(useUnderline) =
-            adw_split_button_set_use_underline(
-                adwSplitButtonPointer.reinterpret(),
-                useUnderline.asGBoolean()
-            )
+        set(
+            useUnderline
+        ) = adw_split_button_set_use_underline(adwSplitButtonPointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Creates a new `AdwSplitButton`.
@@ -467,10 +453,7 @@ public class SplitButton(
      * @since 1.4
      */
     public fun setCanShrink(canShrink: Boolean): Unit =
-        adw_split_button_set_can_shrink(
-            adwSplitButtonPointer.reinterpret(),
-            canShrink.asGBoolean()
-        )
+        adw_split_button_set_can_shrink(adwSplitButtonPointer.reinterpret(), canShrink.asGBoolean())
 
     /**
      * Sets the child widget.
@@ -481,10 +464,7 @@ public class SplitButton(
      * @param child the new child widget
      */
     public fun setChild(child: Widget? = null): Unit =
-        adw_split_button_set_child(
-            adwSplitButtonPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_split_button_set_child(adwSplitButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the direction in which the popup will be popped up.
@@ -499,10 +479,7 @@ public class SplitButton(
      * @param direction the direction
      */
     public fun setDirection_(direction: ArrowType): Unit =
-        adw_split_button_set_direction(
-            adwSplitButtonPointer.reinterpret(),
-            direction.nativeValue
-        )
+        adw_split_button_set_direction(adwSplitButtonPointer.reinterpret(), direction.nativeValue)
 
     /**
      * Sets the tooltip of the dropdown button of @self.
@@ -567,10 +544,7 @@ public class SplitButton(
      * @param popover the popover
      */
     public fun setPopover(popover: Popover? = null): Unit =
-        adw_split_button_set_popover(
-            adwSplitButtonPointer.reinterpret(),
-            popover?.gtkPopoverPointer?.reinterpret()
-        )
+        adw_split_button_set_popover(adwSplitButtonPointer.reinterpret(), popover?.gtkPopoverPointer?.reinterpret())
 
     /**
      * Sets whether an underline in the text indicates a mnemonic.
@@ -580,10 +554,7 @@ public class SplitButton(
      * @param useUnderline whether an underline in the text indicates a mnemonic
      */
     public fun setUseUnderline(useUnderline: Boolean): Unit =
-        adw_split_button_set_use_underline(
-            adwSplitButtonPointer.reinterpret(),
-            useUnderline.asGBoolean()
-        )
+        adw_split_button_set_use_underline(adwSplitButtonPointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Emitted to animate press then release.
@@ -642,8 +613,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectClickedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -651,5 +621,4 @@ private val connectClickedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

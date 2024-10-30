@@ -46,7 +46,8 @@ import kotlin.Unit
  */
 public open class AspectFrame(
     pointer: CPointer<GtkAspectFrame>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkAspectFramePointer: CPointer<GtkAspectFrame>
         get() = gPointer.reinterpret()
 
@@ -78,11 +79,9 @@ public open class AspectFrame(
          *
          * @param child the child widget
          */
-        set(child) =
-            gtk_aspect_frame_set_child(
-                gtkAspectFramePointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = gtk_aspect_frame_set_child(gtkAspectFramePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether the `GtkAspectFrame` should use the aspect ratio of its child.
@@ -104,11 +103,7 @@ public open class AspectFrame(
          * @param obeyChild If true, @ratio is ignored, and the aspect
          *    ratio is taken from the requisition of the child.
          */
-        set(obeyChild) =
-            gtk_aspect_frame_set_obey_child(
-                gtkAspectFramePointer.reinterpret(),
-                obeyChild.asGBoolean()
-            )
+        set(obeyChild) = gtk_aspect_frame_set_obey_child(gtkAspectFramePointer.reinterpret(), obeyChild.asGBoolean())
 
     /**
      * The aspect ratio to be used by the `GtkAspectFrame`.
@@ -238,10 +233,7 @@ public open class AspectFrame(
      * @param child the child widget
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_aspect_frame_set_child(
-            gtkAspectFramePointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_aspect_frame_set_child(gtkAspectFramePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether the aspect ratio of the child's size
@@ -252,10 +244,7 @@ public open class AspectFrame(
      *    ratio is taken from the requisition of the child.
      */
     public open fun setObeyChild(obeyChild: Boolean): Unit =
-        gtk_aspect_frame_set_obey_child(
-            gtkAspectFramePointer.reinterpret(),
-            obeyChild.asGBoolean()
-        )
+        gtk_aspect_frame_set_obey_child(gtkAspectFramePointer.reinterpret(), obeyChild.asGBoolean())
 
     /**
      * Sets the desired aspect ratio of the child.

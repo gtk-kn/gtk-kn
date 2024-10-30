@@ -29,7 +29,11 @@ import kotlin.Unit
  */
 public open class MultiSelection(
     pointer: CPointer<GtkMultiSelection>,
-) : Object(pointer.reinterpret()), ListModel, SectionModel, SelectionModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    SectionModel,
+    SelectionModel,
+    KGTyped {
     public val gtkMultiSelectionPointer: CPointer<GtkMultiSelection>
         get() = gPointer.reinterpret()
 
@@ -63,11 +67,7 @@ public open class MultiSelection(
          *
          * @param model A `GListModel` to wrap
          */
-        set(model) =
-            gtk_multi_selection_set_model(
-                gtkMultiSelectionPointer.reinterpret(),
-                model?.gioListModelPointer
-            )
+        set(model) = gtk_multi_selection_set_model(gtkMultiSelectionPointer.reinterpret(), model?.gioListModelPointer)
 
     /**
      * Creates a new selection to handle @model.
@@ -75,8 +75,9 @@ public open class MultiSelection(
      * @param model the `GListModel` to manage
      * @return a new `GtkMultiSelection`
      */
-    public constructor(model: ListModel? = null) :
-        this(gtk_multi_selection_new(model?.gioListModelPointer)!!.reinterpret())
+    public constructor(
+        model: ListModel? = null,
+    ) : this(gtk_multi_selection_new(model?.gioListModelPointer)!!.reinterpret())
 
     /**
      * Returns the underlying model of @self.
@@ -96,16 +97,11 @@ public open class MultiSelection(
      * @param model A `GListModel` to wrap
      */
     public open fun setModel(model: ListModel? = null): Unit =
-        gtk_multi_selection_set_model(
-            gtkMultiSelectionPointer.reinterpret(),
-            model?.gioListModelPointer
-        )
+        gtk_multi_selection_set_model(gtkMultiSelectionPointer.reinterpret(), model?.gioListModelPointer)
 
     public companion object : TypeCompanion<MultiSelection> {
         override val type: GeneratedClassKGType<MultiSelection> =
-            GeneratedClassKGType(gtk_multi_selection_get_type()) {
-                MultiSelection(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_multi_selection_get_type()) { MultiSelection(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

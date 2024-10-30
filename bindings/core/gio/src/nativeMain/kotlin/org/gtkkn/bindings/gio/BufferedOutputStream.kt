@@ -38,7 +38,9 @@ import kotlin.Unit
  */
 public open class BufferedOutputStream(
     pointer: CPointer<GBufferedOutputStream>,
-) : FilterOutputStream(pointer.reinterpret()), Seekable, KGTyped {
+) : FilterOutputStream(pointer.reinterpret()),
+    Seekable,
+    KGTyped {
     public val gioBufferedOutputStreamPointer: CPointer<GBufferedOutputStream>
         get() = gPointer.reinterpret()
 
@@ -55,8 +57,7 @@ public open class BufferedOutputStream(
          * @return true if the @stream's buffer automatically grows,
          * false otherwise.
          */
-        get() =
-            g_buffered_output_stream_get_auto_grow(gioBufferedOutputStreamPointer.reinterpret()).asBoolean()
+        get() = g_buffered_output_stream_get_auto_grow(gioBufferedOutputStreamPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether or not the @stream's buffer should automatically grow.
@@ -66,11 +67,9 @@ public open class BufferedOutputStream(
          *
          * @param autoGrow a #gboolean.
          */
-        set(autoGrow) =
-            g_buffered_output_stream_set_auto_grow(
-                gioBufferedOutputStreamPointer.reinterpret(),
-                autoGrow.asGBoolean()
-            )
+        set(
+            autoGrow
+        ) = g_buffered_output_stream_set_auto_grow(gioBufferedOutputStreamPointer.reinterpret(), autoGrow.asGBoolean())
 
     /**
      * The size of the backend buffer, in bytes.
@@ -81,19 +80,14 @@ public open class BufferedOutputStream(
          *
          * @return the current size of the buffer.
          */
-        get() =
-            g_buffered_output_stream_get_buffer_size(gioBufferedOutputStreamPointer.reinterpret())
+        get() = g_buffered_output_stream_get_buffer_size(gioBufferedOutputStreamPointer.reinterpret())
 
         /**
          * Sets the size of the internal buffer to @size.
          *
          * @param size a #gsize.
          */
-        set(size) =
-            g_buffered_output_stream_set_buffer_size(
-                gioBufferedOutputStreamPointer.reinterpret(),
-                size
-            )
+        set(size) = g_buffered_output_stream_set_buffer_size(gioBufferedOutputStreamPointer.reinterpret(), size)
 
     /**
      * Creates a new buffered output stream for a base stream.
@@ -101,8 +95,9 @@ public open class BufferedOutputStream(
      * @param baseStream a #GOutputStream.
      * @return a #GOutputStream for the given @base_stream.
      */
-    public constructor(baseStream: OutputStream) :
-        this(g_buffered_output_stream_new(baseStream.gioOutputStreamPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        baseStream: OutputStream,
+    ) : this(g_buffered_output_stream_new(baseStream.gioOutputStreamPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new buffered output stream with a given buffer size.
@@ -111,13 +106,10 @@ public open class BufferedOutputStream(
      * @param size a #gsize.
      * @return a #GOutputStream with an internal buffer set to @size.
      */
-    public constructor(baseStream: OutputStream, size: ULong) :
-        this(
-            g_buffered_output_stream_new_sized(
-                baseStream.gioOutputStreamPointer.reinterpret(),
-                size
-            )!!.reinterpret()
-        )
+    public constructor(
+        baseStream: OutputStream,
+        size: ULong,
+    ) : this(g_buffered_output_stream_new_sized(baseStream.gioOutputStreamPointer.reinterpret(), size)!!.reinterpret())
 
     /**
      * Checks if the buffer automatically grows as data is added.
@@ -145,10 +137,7 @@ public open class BufferedOutputStream(
      * @param autoGrow a #gboolean.
      */
     public open fun setAutoGrow(autoGrow: Boolean): Unit =
-        g_buffered_output_stream_set_auto_grow(
-            gioBufferedOutputStreamPointer.reinterpret(),
-            autoGrow.asGBoolean()
-        )
+        g_buffered_output_stream_set_auto_grow(gioBufferedOutputStreamPointer.reinterpret(), autoGrow.asGBoolean())
 
     /**
      * Sets the size of the internal buffer to @size.
@@ -156,16 +145,11 @@ public open class BufferedOutputStream(
      * @param size a #gsize.
      */
     public open fun setBufferSize(size: ULong): Unit =
-        g_buffered_output_stream_set_buffer_size(
-            gioBufferedOutputStreamPointer.reinterpret(),
-            size
-        )
+        g_buffered_output_stream_set_buffer_size(gioBufferedOutputStreamPointer.reinterpret(), size)
 
     public companion object : TypeCompanion<BufferedOutputStream> {
         override val type: GeneratedClassKGType<BufferedOutputStream> =
-            GeneratedClassKGType(g_buffered_output_stream_get_type()) {
-                BufferedOutputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(g_buffered_output_stream_get_type()) { BufferedOutputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

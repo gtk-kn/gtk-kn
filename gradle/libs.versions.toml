@@ -1,16 +1,14 @@
 # Sharing dependency versions between projects
 # https://docs.gradle.org/current/userguide/platforms.html
 [versions]
-detekt = "1.23.5"
+detekt = "1.23.7"
 dokka = "1.9.20"
 gradle = "8.10.2"
 java = "17"
-kotlin = "2.0.21"  # 1.9.2x breaks harfbuzz.def
-kotlin-logging = "6.0.3"
-ktlint = "1.1.1"
-log4j = "2.22.1"
-prettier = "2.4.1"
-xmlutil = "0.84.3"
+kotlin = "2.0.21"
+kotlin-logging = "7.0.0"
+ktlint = "1.3.1"
+log4j = "2.24.1"
 
 [libraries]
 detekt = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
@@ -23,9 +21,9 @@ kotlin-logging-mingw-x64 = { module = "io.github.oshai:kotlin-logging-mingwx64",
 kotlin-test-annotations = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
 kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
-kotlinpoet = "com.squareup:kotlinpoet:1.16.0"
+kotlinpoet = "com.squareup:kotlinpoet:2.0.0"
 kotlinx-cli = "org.jetbrains.kotlinx:kotlinx-cli:0.3.6"
-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
 ktlint-cli-ruleset-core = { module = "com.pinterest.ktlint:ktlint-cli-ruleset-core", version.ref = "ktlint" }
 ktlint-rule-engine = { module = "com.pinterest.ktlint:ktlint-rule-engine", version.ref = "ktlint" }
 ktlint-rule-engine-core = { module = "com.pinterest.ktlint:ktlint-rule-engine-core", version.ref = "ktlint" }
@@ -38,7 +36,7 @@ log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", ver
 plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-plugin-spotless = "com.diffplug.spotless:spotless-plugin-gradle:6.22.0"
+plugin-spotless = "com.diffplug.spotless:spotless-plugin-gradle:6.25.0"
 plugin-versions = "com.github.ben-manes:gradle-versions-plugin:0.50.0"
 plugin-versions-update = "nl.littlerobots.vcu:plugin:0.8.1"
 
@@ -57,10 +55,10 @@ ktlint = [
 ]
 
 [plugins]
-buildConfig = "com.github.gmazzo.buildconfig:4.2.0"
+buildConfig = "com.github.gmazzo.buildconfig:5.5.0"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-gradle-publish = "com.gradle.plugin-publish:0.21.0"
-gradledoctor = "com.osacky.doctor:0.8.1"
+gradle-publish = "com.gradle.plugin-publish:1.3.0"
+gradledoctor = "com.osacky.doctor:0.10.0"
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

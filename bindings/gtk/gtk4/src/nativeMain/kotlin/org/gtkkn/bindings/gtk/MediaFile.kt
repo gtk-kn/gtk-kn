@@ -38,7 +38,8 @@ import kotlin.Unit
  */
 public open class MediaFile(
     pointer: CPointer<GtkMediaFile>,
-) : MediaStream(pointer.reinterpret()), KGTyped {
+) : MediaStream(pointer.reinterpret()),
+    KGTyped {
     public val gtkMediaFilePointer: CPointer<GtkMediaFile>
         get() = gPointer.reinterpret()
 
@@ -69,11 +70,7 @@ public open class MediaFile(
          *
          * @param file the file to play
          */
-        set(`file`) =
-            gtk_media_file_set_file(
-                gtkMediaFilePointer.reinterpret(),
-                `file`?.gioFilePointer
-            )
+        set(`file`) = gtk_media_file_set_file(gtkMediaFilePointer.reinterpret(), `file`?.gioFilePointer)
 
     /**
      * The stream being played back or null if not playing a stream.
@@ -104,7 +101,9 @@ public open class MediaFile(
          *
          * @param stream the stream to play from
          */
-        set(stream) =
+        set(
+            stream
+        ) =
             gtk_media_file_set_input_stream(
                 gtkMediaFilePointer.reinterpret(),
                 stream?.gioInputStreamPointer?.reinterpret()
@@ -123,8 +122,7 @@ public open class MediaFile(
      * @param file The file to play
      * @return a new `GtkMediaFile` playing @file
      */
-    public constructor(`file`: File) :
-        this(gtk_media_file_new_for_file(`file`.gioFilePointer)!!.reinterpret())
+    public constructor(`file`: File) : this(gtk_media_file_new_for_file(`file`.gioFilePointer)!!.reinterpret())
 
     /**
      * Creates a new media file for the given filename.
@@ -135,8 +133,7 @@ public open class MediaFile(
      * @param filename filename to open
      * @return a new `GtkMediaFile` playing @filename
      */
-    public constructor(filename: String) :
-        this(gtk_media_file_new_for_filename(filename)!!.reinterpret())
+    public constructor(filename: String) : this(gtk_media_file_new_for_filename(filename)!!.reinterpret())
 
     /**
      * Creates a new media file to play @stream.
@@ -147,8 +144,9 @@ public open class MediaFile(
      * @param stream The stream to play
      * @return a new `GtkMediaFile`
      */
-    public constructor(stream: InputStream) :
-        this(gtk_media_file_new_for_input_stream(stream.gioInputStreamPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        stream: InputStream,
+    ) : this(gtk_media_file_new_for_input_stream(stream.gioInputStreamPointer.reinterpret())!!.reinterpret())
 
     /**
      * Resets the media file to be empty.
@@ -213,10 +211,7 @@ public open class MediaFile(
      * @param stream the stream to play from
      */
     public open fun setInputStream(stream: InputStream? = null): Unit =
-        gtk_media_file_set_input_stream(
-            gtkMediaFilePointer.reinterpret(),
-            stream?.gioInputStreamPointer?.reinterpret()
-        )
+        gtk_media_file_set_input_stream(gtkMediaFilePointer.reinterpret(), stream?.gioInputStreamPointer?.reinterpret())
 
     /**
      * Sets the `GtkMediaFile to play the given resource.

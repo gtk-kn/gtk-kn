@@ -113,7 +113,8 @@ import kotlin.collections.List
  */
 public open class DropDown(
     pointer: CPointer<GtkDropDown>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkDropDownPointer: CPointer<GtkDropDown>
         get() = gPointer.reinterpret()
 
@@ -149,11 +150,7 @@ public open class DropDown(
          *
          * @param enableSearch whether to enable search
          */
-        set(enableSearch) =
-            gtk_drop_down_set_enable_search(
-                gtkDropDownPointer.reinterpret(),
-                enableSearch.asGBoolean()
-            )
+        set(enableSearch) = gtk_drop_down_set_enable_search(gtkDropDownPointer.reinterpret(), enableSearch.asGBoolean())
 
     /**
      * An expression to evaluate to obtain strings to match against the search
@@ -184,11 +181,9 @@ public open class DropDown(
          *
          * @param expression a `GtkExpression`
          */
-        set(expression) =
-            gtk_drop_down_set_expression(
-                gtkDropDownPointer.reinterpret(),
-                expression?.gPointer?.reinterpret()
-            )
+        set(
+            expression
+        ) = gtk_drop_down_set_expression(gtkDropDownPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * Factory for populating list items.
@@ -213,7 +208,9 @@ public open class DropDown(
          *
          * @param factory the factory to use
          */
-        set(factory) =
+        set(
+            factory
+        ) =
             gtk_drop_down_set_factory(
                 gtkDropDownPointer.reinterpret(),
                 factory?.gtkListItemFactoryPointer?.reinterpret()
@@ -242,7 +239,9 @@ public open class DropDown(
          * @param factory the factory to use
          * @since 4.12
          */
-        set(factory) =
+        set(
+            factory
+        ) =
             gtk_drop_down_set_header_factory(
                 gtkDropDownPointer.reinterpret(),
                 factory?.gtkListItemFactoryPointer?.reinterpret()
@@ -269,7 +268,9 @@ public open class DropDown(
          *
          * @param factory the factory to use
          */
-        set(factory) =
+        set(
+            factory
+        ) =
             gtk_drop_down_set_list_factory(
                 gtkDropDownPointer.reinterpret(),
                 factory?.gtkListItemFactoryPointer?.reinterpret()
@@ -294,11 +295,7 @@ public open class DropDown(
          *
          * @param model the model to use
          */
-        set(model) =
-            gtk_drop_down_set_model(
-                gtkDropDownPointer.reinterpret(),
-                model?.gioListModelPointer
-            )
+        set(model) = gtk_drop_down_set_model(gtkDropDownPointer.reinterpret(), model?.gioListModelPointer)
 
     /**
      * The match mode for the search filter.
@@ -323,11 +320,9 @@ public open class DropDown(
          * @param searchMatchMode the new match mode
          * @since 4.12
          */
-        set(searchMatchMode) =
-            gtk_drop_down_set_search_match_mode(
-                gtkDropDownPointer.reinterpret(),
-                searchMatchMode.nativeValue
-            )
+        set(
+            searchMatchMode
+        ) = gtk_drop_down_set_search_match_mode(gtkDropDownPointer.reinterpret(), searchMatchMode.nativeValue)
 
     /**
      * The position of the selected item.
@@ -385,11 +380,7 @@ public open class DropDown(
          * @param showArrow whether to show an arrow within the widget
          * @since 4.6
          */
-        set(showArrow) =
-            gtk_drop_down_set_show_arrow(
-                gtkDropDownPointer.reinterpret(),
-                showArrow.asGBoolean()
-            )
+        set(showArrow) = gtk_drop_down_set_show_arrow(gtkDropDownPointer.reinterpret(), showArrow.asGBoolean())
 
     /**
      * Creates a new `GtkDropDown`.
@@ -401,13 +392,10 @@ public open class DropDown(
      * @param expression the expression to use
      * @return a new `GtkDropDown`
      */
-    public constructor(model: ListModel? = null, expression: Expression? = null) :
-        this(
-            gtk_drop_down_new(
-                model?.gioListModelPointer,
-                expression?.gPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        model: ListModel? = null,
+        expression: Expression? = null,
+    ) : this(gtk_drop_down_new(model?.gioListModelPointer, expression?.gPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new `GtkDropDown` that is populated with
@@ -534,10 +522,7 @@ public open class DropDown(
      * @param enableSearch whether to enable search
      */
     public open fun setEnableSearch(enableSearch: Boolean): Unit =
-        gtk_drop_down_set_enable_search(
-            gtkDropDownPointer.reinterpret(),
-            enableSearch.asGBoolean()
-        )
+        gtk_drop_down_set_enable_search(gtkDropDownPointer.reinterpret(), enableSearch.asGBoolean())
 
     /**
      * Sets the expression that gets evaluated to obtain strings from items.
@@ -548,10 +533,7 @@ public open class DropDown(
      * @param expression a `GtkExpression`
      */
     public open fun setExpression(expression: Expression? = null): Unit =
-        gtk_drop_down_set_expression(
-            gtkDropDownPointer.reinterpret(),
-            expression?.gPointer?.reinterpret()
-        )
+        gtk_drop_down_set_expression(gtkDropDownPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * Sets the `GtkListItemFactory` to use for populating list items.
@@ -559,10 +541,7 @@ public open class DropDown(
      * @param factory the factory to use
      */
     public open fun setFactory(factory: ListItemFactory? = null): Unit =
-        gtk_drop_down_set_factory(
-            gtkDropDownPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
+        gtk_drop_down_set_factory(gtkDropDownPointer.reinterpret(), factory?.gtkListItemFactoryPointer?.reinterpret())
 
     /**
      * Sets the `GtkListItemFactory` to use for creating header widgets for the popup.
@@ -602,10 +581,7 @@ public open class DropDown(
      * @since 4.12
      */
     public open fun setSearchMatchMode(searchMatchMode: StringFilterMatchMode): Unit =
-        gtk_drop_down_set_search_match_mode(
-            gtkDropDownPointer.reinterpret(),
-            searchMatchMode.nativeValue
-        )
+        gtk_drop_down_set_search_match_mode(gtkDropDownPointer.reinterpret(), searchMatchMode.nativeValue)
 
     /**
      * Selects the item at the given position.
@@ -663,5 +639,4 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

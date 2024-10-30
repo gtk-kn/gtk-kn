@@ -17,7 +17,8 @@ import org.gtkkn.native.gdk.gdk_snapshot_get_type
  */
 public open class Snapshot(
     pointer: CPointer<GdkSnapshot>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkSnapshotPointer: CPointer<GdkSnapshot>
         get() = gPointer.reinterpret()
 

@@ -21,7 +21,8 @@ import kotlin.ULong
  */
 public open class PropertyExpression(
     pointer: CPointer<GtkPropertyExpression>,
-) : Expression(pointer.reinterpret()), KGTyped {
+) : Expression(pointer.reinterpret()),
+    KGTyped {
     public val gtkPropertyExpressionPointer: CPointer<GtkPropertyExpression>
         get() = gPointer.reinterpret()
 
@@ -48,13 +49,7 @@ public open class PropertyExpression(
         thisType: ULong,
         expression: Expression? = null,
         propertyName: String,
-    ) : this(
-        gtk_property_expression_new(
-            thisType,
-            expression?.gPointer?.reinterpret(),
-            propertyName
-        )!!.reinterpret()
-    )
+    ) : this(gtk_property_expression_new(thisType, expression?.gPointer?.reinterpret(), propertyName)!!.reinterpret())
 
     /**
      * Creates an expression that looks up a property.
@@ -72,13 +67,15 @@ public open class PropertyExpression(
      * @param pspec the `GParamSpec` for the property to query
      * @return a new `GtkExpression`
      */
-    public constructor(expression: Expression? = null, pspec: ParamSpec) :
-        this(
-            gtk_property_expression_new_for_pspec(
-                expression?.gPointer?.reinterpret(),
-                pspec.gPointer.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        expression: Expression? = null,
+        pspec: ParamSpec,
+    ) : this(
+        gtk_property_expression_new_for_pspec(
+            expression?.gPointer?.reinterpret(),
+            pspec.gPointer.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Gets the expression specifying the object of
@@ -104,9 +101,7 @@ public open class PropertyExpression(
 
     public companion object : TypeCompanion<PropertyExpression> {
         override val type: GeneratedClassKGType<PropertyExpression> =
-            GeneratedClassKGType(gtk_property_expression_get_type()) {
-                PropertyExpression(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_property_expression_get_type()) { PropertyExpression(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

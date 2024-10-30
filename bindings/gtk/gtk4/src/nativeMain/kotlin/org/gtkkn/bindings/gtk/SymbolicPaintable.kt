@@ -32,7 +32,10 @@ import org.gtkkn.native.gtk.gtk_symbolic_paintable_get_type
  *
  * @since 4.6
  */
-public interface SymbolicPaintable : Interface, Paintable, KGTyped {
+public interface SymbolicPaintable :
+    Interface,
+    Paintable,
+    KGTyped {
     public val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable>
 
     override val gdkPaintablePointer: CPointer<GdkPaintable>
@@ -46,9 +49,7 @@ public interface SymbolicPaintable : Interface, Paintable, KGTyped {
 
     public companion object : TypeCompanion<SymbolicPaintable> {
         override val type: GeneratedInterfaceKGType<SymbolicPaintable> =
-            GeneratedInterfaceKGType(gtk_symbolic_paintable_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_symbolic_paintable_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

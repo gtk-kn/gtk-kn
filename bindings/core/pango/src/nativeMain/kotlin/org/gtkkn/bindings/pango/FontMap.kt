@@ -37,7 +37,9 @@ import kotlin.Unit
  */
 public open class FontMap(
     pointer: CPointer<PangoFontMap>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    KGTyped {
     public val pangoFontMapPointer: CPointer<PangoFontMap>
         get() = gPointer.reinterpret()
 

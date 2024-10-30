@@ -164,7 +164,8 @@ import kotlin.Unit
  */
 public open class GLArea(
     pointer: CPointer<GtkGLArea>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkGLAreaPointer: CPointer<GtkGLArea>
         get() = gPointer.reinterpret()
 
@@ -263,11 +264,7 @@ public open class GLArea(
          *
          * @param autoRender a boolean
          */
-        set(autoRender) =
-            gtk_gl_area_set_auto_render(
-                gtkGLAreaPointer.reinterpret(),
-                autoRender.asGBoolean()
-            )
+        set(autoRender) = gtk_gl_area_set_auto_render(gtkGLAreaPointer.reinterpret(), autoRender.asGBoolean())
 
     /**
      * The `GdkGLContext` used by the `GtkGLArea` widget.
@@ -312,11 +309,9 @@ public open class GLArea(
          *
          * @param hasDepthBuffer true to add a depth buffer
          */
-        set(hasDepthBuffer) =
-            gtk_gl_area_set_has_depth_buffer(
-                gtkGLAreaPointer.reinterpret(),
-                hasDepthBuffer.asGBoolean()
-            )
+        set(
+            hasDepthBuffer
+        ) = gtk_gl_area_set_has_depth_buffer(gtkGLAreaPointer.reinterpret(), hasDepthBuffer.asGBoolean())
 
     /**
      * If set to true the widget will allocate and enable a stencil buffer for the
@@ -339,11 +334,9 @@ public open class GLArea(
          *
          * @param hasStencilBuffer true to add a stencil buffer
          */
-        set(hasStencilBuffer) =
-            gtk_gl_area_set_has_stencil_buffer(
-                gtkGLAreaPointer.reinterpret(),
-                hasStencilBuffer.asGBoolean()
-            )
+        set(
+            hasStencilBuffer
+        ) = gtk_gl_area_set_has_stencil_buffer(gtkGLAreaPointer.reinterpret(), hasStencilBuffer.asGBoolean())
 
     /**
      * If set to true the widget will try to create a `GdkGLContext` using
@@ -546,10 +539,7 @@ public open class GLArea(
      * @param hasDepthBuffer true to add a depth buffer
      */
     public open fun setHasDepthBuffer(hasDepthBuffer: Boolean): Unit =
-        gtk_gl_area_set_has_depth_buffer(
-            gtkGLAreaPointer.reinterpret(),
-            hasDepthBuffer.asGBoolean()
-        )
+        gtk_gl_area_set_has_depth_buffer(gtkGLAreaPointer.reinterpret(), hasDepthBuffer.asGBoolean())
 
     /**
      * Sets whether the `GtkGLArea` should use a stencil buffer.
@@ -561,10 +551,7 @@ public open class GLArea(
      * @param hasStencilBuffer true to add a stencil buffer
      */
     public open fun setHasStencilBuffer(hasStencilBuffer: Boolean): Unit =
-        gtk_gl_area_set_has_stencil_buffer(
-            gtkGLAreaPointer.reinterpret(),
-            hasStencilBuffer.asGBoolean()
-        )
+        gtk_gl_area_set_has_stencil_buffer(gtkGLAreaPointer.reinterpret(), hasStencilBuffer.asGBoolean())
 
     /**
      * Sets the required version of OpenGL to be used when creating
@@ -633,15 +620,11 @@ public open class GLArea(
      * The default handler sets up the GL viewport.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `width` the width of the viewport; `height`
-     * the height of the viewport
+     * @param handler the Callback to connect. Params: `width` the width of the viewport; `height` the height of the viewport
      */
     public fun connectResize(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            width: Int,
-            height: Int,
-        ) -> Unit,
+        handler: (width: Int, height: Int) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -667,9 +650,12 @@ private val connectCreateContextFunc: CPointer<CFunction<() -> CPointer<GdkGLCon
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> GLContext>().get().invoke().gdkGLContextPointer
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> GLContext>()
+            .get()
+            .invoke()
+            .gdkGLContextPointer
+    }.reinterpret()
 
 private val connectResizeFunc: CPointer<CFunction<(Int, Int) -> Unit>> =
     staticCFunction {
@@ -679,5 +665,4 @@ private val connectResizeFunc: CPointer<CFunction<(Int, Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)
-    }
-        .reinterpret()
+    }.reinterpret()

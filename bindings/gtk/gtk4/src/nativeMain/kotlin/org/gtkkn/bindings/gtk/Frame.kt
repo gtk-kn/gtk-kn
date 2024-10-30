@@ -79,7 +79,8 @@ import kotlin.Unit
  */
 public open class Frame(
     pointer: CPointer<GtkFrame>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkFramePointer: CPointer<GtkFrame>
         get() = gPointer.reinterpret()
 
@@ -111,11 +112,7 @@ public open class Frame(
          *
          * @param child the child widget
          */
-        set(child) =
-            gtk_frame_set_child(
-                gtkFramePointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = gtk_frame_set_child(gtkFramePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Text of the frame's label.
@@ -163,11 +160,9 @@ public open class Frame(
          *
          * @param labelWidget the new label widget
          */
-        set(labelWidget) =
-            gtk_frame_set_label_widget(
-                gtkFramePointer.reinterpret(),
-                labelWidget?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            labelWidget
+        ) = gtk_frame_set_label_widget(gtkFramePointer.reinterpret(), labelWidget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new `GtkFrame`, with optional label @label.
@@ -224,10 +219,7 @@ public open class Frame(
      * @param child the child widget
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_frame_set_child(
-            gtkFramePointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_frame_set_child(gtkFramePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new `GtkLabel` with the @label and sets it as the frame's
@@ -258,10 +250,7 @@ public open class Frame(
      * @param labelWidget the new label widget
      */
     public open fun setLabelWidget(labelWidget: Widget? = null): Unit =
-        gtk_frame_set_label_widget(
-            gtkFramePointer.reinterpret(),
-            labelWidget?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_frame_set_label_widget(gtkFramePointer.reinterpret(), labelWidget?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<Frame> {
         override val type: GeneratedClassKGType<Frame> =

@@ -44,7 +44,9 @@ import kotlin.Unit
  */
 public open class ListBoxRow(
     pointer: CPointer<GtkListBoxRow>,
-) : Widget(pointer.reinterpret()), Actionable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Actionable,
+    KGTyped {
     public val gtkListBoxRowPointer: CPointer<GtkListBoxRow>
         get() = gPointer.reinterpret()
 
@@ -77,11 +79,9 @@ public open class ListBoxRow(
          *
          * @param activatable true to mark the row as activatable
          */
-        set(activatable) =
-            gtk_list_box_row_set_activatable(
-                gtkListBoxRowPointer.reinterpret(),
-                activatable.asGBoolean()
-            )
+        set(
+            activatable
+        ) = gtk_list_box_row_set_activatable(gtkListBoxRowPointer.reinterpret(), activatable.asGBoolean())
 
     /**
      * The child widget.
@@ -102,11 +102,9 @@ public open class ListBoxRow(
          *
          * @param child the child widget
          */
-        set(child) =
-            gtk_list_box_row_set_child(
-                gtkListBoxRowPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = gtk_list_box_row_set_child(gtkListBoxRowPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Determines whether this row can be selected.
@@ -124,11 +122,7 @@ public open class ListBoxRow(
          *
          * @param selectable true to mark the row as selectable
          */
-        set(selectable) =
-            gtk_list_box_row_set_selectable(
-                gtkListBoxRowPointer.reinterpret(),
-                selectable.asGBoolean()
-            )
+        set(selectable) = gtk_list_box_row_set_selectable(gtkListBoxRowPointer.reinterpret(), selectable.asGBoolean())
 
     /**
      * Creates a new `GtkListBoxRow`.
@@ -221,10 +215,7 @@ public open class ListBoxRow(
      * @param activatable true to mark the row as activatable
      */
     public open fun setActivatable(activatable: Boolean): Unit =
-        gtk_list_box_row_set_activatable(
-            gtkListBoxRowPointer.reinterpret(),
-            activatable.asGBoolean()
-        )
+        gtk_list_box_row_set_activatable(gtkListBoxRowPointer.reinterpret(), activatable.asGBoolean())
 
     /**
      * Sets the child widget of @self.
@@ -232,10 +223,7 @@ public open class ListBoxRow(
      * @param child the child widget
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_list_box_row_set_child(
-            gtkListBoxRowPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_list_box_row_set_child(gtkListBoxRowPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the current header of the @row.
@@ -248,10 +236,7 @@ public open class ListBoxRow(
      * @param header the header
      */
     public open fun setHeader(`header`: Widget? = null): Unit =
-        gtk_list_box_row_set_header(
-            gtkListBoxRowPointer.reinterpret(),
-            `header`?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_list_box_row_set_header(gtkListBoxRowPointer.reinterpret(), `header`?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Set whether the row can be selected.
@@ -259,10 +244,7 @@ public open class ListBoxRow(
      * @param selectable true to mark the row as selectable
      */
     public open fun setSelectable(selectable: Boolean): Unit =
-        gtk_list_box_row_set_selectable(
-            gtkListBoxRowPointer.reinterpret(),
-            selectable.asGBoolean()
-        )
+        gtk_list_box_row_set_selectable(gtkListBoxRowPointer.reinterpret(), selectable.asGBoolean())
 
     /**
      * This is a keybinding signal, which will cause this row to be activated.
@@ -303,5 +285,4 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

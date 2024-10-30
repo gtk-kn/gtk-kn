@@ -70,10 +70,7 @@ public class Transform(
      * @return true if the two transforms perform the same operation
      */
     public fun equal(second: Transform? = null): Boolean =
-        gsk_transform_equal(
-            gskTransformPointer.reinterpret(),
-            second?.gskTransformPointer
-        ).asBoolean()
+        gsk_transform_equal(gskTransformPointer.reinterpret(), second?.gskTransformPointer).asBoolean()
 
     /**
      * Returns the category this transform belongs to.
@@ -108,10 +105,7 @@ public class Transform(
      * @return The new transform
      */
     public fun matrix(matrix: Matrix): Transform =
-        gsk_transform_matrix(
-            gskTransformPointer.reinterpret(),
-            matrix.grapheneMatrixPointer
-        )!!.run {
+        gsk_transform_matrix(gskTransformPointer.reinterpret(), matrix.grapheneMatrixPointer)!!.run {
             Transform(reinterpret())
         }
 
@@ -143,10 +137,7 @@ public class Transform(
      * @param string The string to print into
      */
     public fun print(string: String): Unit =
-        gsk_transform_print(
-            gskTransformPointer.reinterpret(),
-            string.glibStringPointer
-        )
+        gsk_transform_print(gskTransformPointer.reinterpret(), string.glibStringPointer)
 
     /**
      * Acquires a reference on the given `GskTransform`.
@@ -183,11 +174,7 @@ public class Transform(
         angle: Float,
         axis: Vec3,
     ): Transform? =
-        gsk_transform_rotate_3d(
-            gskTransformPointer.reinterpret(),
-            angle,
-            axis.grapheneVec3Pointer
-        )?.run {
+        gsk_transform_rotate_3d(gskTransformPointer.reinterpret(), angle, axis.grapheneVec3Pointer)?.run {
             Transform(reinterpret())
         }
 
@@ -221,12 +208,7 @@ public class Transform(
         factorY: Float,
         factorZ: Float,
     ): Transform? =
-        gsk_transform_scale_3d(
-            gskTransformPointer.reinterpret(),
-            factorX,
-            factorY,
-            factorZ
-        )?.run {
+        gsk_transform_scale_3d(gskTransformPointer.reinterpret(), factorX, factorY, factorZ)?.run {
             Transform(reinterpret())
         }
 
@@ -254,10 +236,7 @@ public class Transform(
      * @param outMatrix The matrix to set
      */
     public fun toMatrix(outMatrix: Matrix): Unit =
-        gsk_transform_to_matrix(
-            gskTransformPointer.reinterpret(),
-            outMatrix.grapheneMatrixPointer
-        )
+        gsk_transform_to_matrix(gskTransformPointer.reinterpret(), outMatrix.grapheneMatrixPointer)
 
     /**
      * Applies all the operations from @other to @next.
@@ -266,10 +245,7 @@ public class Transform(
      * @return The new transform
      */
     public fun transform(other: Transform? = null): Transform? =
-        gsk_transform_transform(
-            gskTransformPointer.reinterpret(),
-            other?.gskTransformPointer
-        )?.run {
+        gsk_transform_transform(gskTransformPointer.reinterpret(), other?.gskTransformPointer)?.run {
             Transform(reinterpret())
         }
 
@@ -316,10 +292,7 @@ public class Transform(
      * @return The new transform
      */
     public fun translate(point: Point): Transform? =
-        gsk_transform_translate(
-            gskTransformPointer.reinterpret(),
-            point.graphenePointPointer
-        )?.run {
+        gsk_transform_translate(gskTransformPointer.reinterpret(), point.graphenePointPointer)?.run {
             Transform(reinterpret())
         }
 
@@ -330,10 +303,7 @@ public class Transform(
      * @return The new transform
      */
     public fun translate3d(point: Point3D): Transform? =
-        gsk_transform_translate_3d(
-            gskTransformPointer.reinterpret(),
-            point.graphenePoint3DPointer
-        )?.run {
+        gsk_transform_translate_3d(gskTransformPointer.reinterpret(), point.graphenePoint3DPointer)?.run {
             Transform(reinterpret())
         }
 

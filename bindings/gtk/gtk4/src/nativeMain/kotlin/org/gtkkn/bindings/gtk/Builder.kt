@@ -393,8 +393,7 @@ import kotlin.collections.List
  * the UI definition when instantiating the type, and bind children and
  * signal handlers to instance fields and function symbols.
  *
- * For more information, see the [`GtkWidget`
- * documentation](class.Widget.html#building-composite-widgets-from-template-xml)
+ * For more information, see the [`GtkWidget` documentation](class.Widget.html#building-composite-widgets-from-template-xml)
  * for details.
  *
  * ## Skipped during bindings generation
@@ -403,7 +402,8 @@ import kotlin.collections.List
  */
 public open class Builder(
     pointer: CPointer<GtkBuilder>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkBuilderPointer: CPointer<GtkBuilder>
         get() = gPointer.reinterpret()
 
@@ -434,11 +434,9 @@ public open class Builder(
          *
          * @param currentObject the new current object
          */
-        set(currentObject) =
-            gtk_builder_set_current_object(
-                gtkBuilderPointer.reinterpret(),
-                currentObject?.gPointer?.reinterpret()
-            )
+        set(
+            currentObject
+        ) = gtk_builder_set_current_object(gtkBuilderPointer.reinterpret(), currentObject?.gPointer?.reinterpret())
 
     /**
      * The translation domain used when translating property values that
@@ -500,12 +498,7 @@ public open class Builder(
      * @param length the length of @string, or -1
      * @return a `GtkBuilder` containing the interface described by @string
      */
-    public constructor(string: String, length: Long) : this(
-        gtk_builder_new_from_string(
-            string,
-            length
-        )!!.reinterpret()
-    )
+    public constructor(string: String, length: Long) : this(gtk_builder_new_from_string(string, length)!!.reinterpret())
 
     /**
      * Parses a file containing a UI definition and merges it with
@@ -533,12 +526,7 @@ public open class Builder(
     public open fun addFromFile(filename: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_builder_add_from_file(
-                    gtkBuilderPointer.reinterpret(),
-                    filename,
-                    gError.ptr
-                ).asBoolean()
+            val gResult = gtk_builder_add_from_file(gtkBuilderPointer.reinterpret(), filename, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -790,12 +778,7 @@ public open class Builder(
     public open fun exposeObject(
         name: String,
         `object`: Object,
-    ): Unit =
-        gtk_builder_expose_object(
-            gtkBuilderPointer.reinterpret(),
-            name,
-            `object`.gPointer.reinterpret()
-        )
+    ): Unit = gtk_builder_expose_object(gtkBuilderPointer.reinterpret(), name, `object`.gPointer.reinterpret())
 
     /**
      * Main private entry point for building composite components
@@ -920,10 +903,7 @@ public open class Builder(
      * @param currentObject the new current object
      */
     public open fun setCurrentObject(currentObject: Object? = null): Unit =
-        gtk_builder_set_current_object(
-            gtkBuilderPointer.reinterpret(),
-            currentObject?.gPointer?.reinterpret()
-        )
+        gtk_builder_set_current_object(gtkBuilderPointer.reinterpret(), currentObject?.gPointer?.reinterpret())
 
     /**
      * Sets the scope the builder should operate in.

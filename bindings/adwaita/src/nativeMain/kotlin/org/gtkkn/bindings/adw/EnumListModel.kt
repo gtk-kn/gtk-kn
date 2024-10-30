@@ -25,7 +25,9 @@ import kotlin.ULong
  */
 public class EnumListModel(
     pointer: CPointer<AdwEnumListModel>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    KGTyped {
     public val adwEnumListModelPointer: CPointer<AdwEnumListModel>
         get() = gPointer.reinterpret()
 
@@ -70,9 +72,7 @@ public class EnumListModel(
 
     public companion object : TypeCompanion<EnumListModel> {
         override val type: GeneratedClassKGType<EnumListModel> =
-            GeneratedClassKGType(adw_enum_list_model_get_type()) {
-                EnumListModel(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_enum_list_model_get_type()) { EnumListModel(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

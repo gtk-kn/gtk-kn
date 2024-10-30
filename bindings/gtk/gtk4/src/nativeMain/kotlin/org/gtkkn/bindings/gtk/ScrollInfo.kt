@@ -69,10 +69,7 @@ public class ScrollInfo(
      * @since 4.12
      */
     public fun setEnableHorizontal(horizontal: Boolean): Unit =
-        gtk_scroll_info_set_enable_horizontal(
-            gtkScrollInfoPointer.reinterpret(),
-            horizontal.asGBoolean()
-        )
+        gtk_scroll_info_set_enable_horizontal(gtkScrollInfoPointer.reinterpret(), horizontal.asGBoolean())
 
     /**
      * Turns vertical scrolling on or off.
@@ -82,10 +79,7 @@ public class ScrollInfo(
      * @since 4.12
      */
     public fun setEnableVertical(vertical: Boolean): Unit =
-        gtk_scroll_info_set_enable_vertical(
-            gtkScrollInfoPointer.reinterpret(),
-            vertical.asGBoolean()
-        )
+        gtk_scroll_info_set_enable_vertical(gtkScrollInfoPointer.reinterpret(), vertical.asGBoolean())
 
     /**
      * Decreases the reference count of a `GtkScrollInfo` by one.

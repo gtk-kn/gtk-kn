@@ -33,7 +33,8 @@ import kotlin.ULong
  */
 public open class EventControllerLegacy(
     pointer: CPointer<GtkEventControllerLegacy>,
-) : EventController(pointer.reinterpret()), KGTyped {
+) : EventController(pointer.reinterpret()),
+    KGTyped {
     public val gtkEventControllerLegacyPointer: CPointer<GtkEventControllerLegacy>
         get() = gPointer.reinterpret()
 
@@ -48,8 +49,7 @@ public open class EventControllerLegacy(
      * Emitted for each GDK event delivered to @controller.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `event` the `GdkEvent` which triggered this
-     * signal. Returns true to stop other handlers from being invoked for the event
+     * @param handler the Callback to connect. Params: `event` the `GdkEvent` which triggered this signal. Returns true to stop other handlers from being invoked for the event
      *   and the emission of this signal. false to propagate the event further.
      */
     public fun connectEvent(
@@ -67,9 +67,7 @@ public open class EventControllerLegacy(
 
     public companion object : TypeCompanion<EventControllerLegacy> {
         override val type: GeneratedClassKGType<EventControllerLegacy> =
-            GeneratedClassKGType(gtk_event_controller_legacy_get_type()) {
-                EventControllerLegacy(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_event_controller_legacy_get_type()) { EventControllerLegacy(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -83,10 +81,12 @@ private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> Int>> =
             event: CPointer<GdkEvent>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(event: Event) -> Boolean>().get().invoke(
-            event!!.run {
-                Event(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(event: Event) -> Boolean>()
+            .get()
+            .invoke(
+                event!!.run {
+                    Event(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()

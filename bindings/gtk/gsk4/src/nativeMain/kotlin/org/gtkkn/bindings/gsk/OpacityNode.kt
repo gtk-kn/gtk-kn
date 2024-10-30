@@ -18,7 +18,8 @@ import kotlin.Float
  */
 public open class OpacityNode(
     pointer: CPointer<GskOpacityNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskOpacityNodePointer: CPointer<GskOpacityNode>
         get() = gPointer.reinterpret()
 
@@ -30,8 +31,10 @@ public open class OpacityNode(
      * @param opacity The opacity to apply
      * @return A new `GskRenderNode`
      */
-    public constructor(child: RenderNode, opacity: Float) :
-        this(gsk_opacity_node_new(child.gPointer.reinterpret(), opacity)!!.reinterpret())
+    public constructor(
+        child: RenderNode,
+        opacity: Float,
+    ) : this(gsk_opacity_node_new(child.gPointer.reinterpret(), opacity)!!.reinterpret())
 
     /**
      * Gets the child node that is getting opacityed by the given @node.

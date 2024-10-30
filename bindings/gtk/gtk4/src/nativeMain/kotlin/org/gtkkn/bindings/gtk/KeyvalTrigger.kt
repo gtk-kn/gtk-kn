@@ -19,7 +19,8 @@ import kotlin.UInt
  */
 public open class KeyvalTrigger(
     pointer: CPointer<GtkKeyvalTrigger>,
-) : ShortcutTrigger(pointer.reinterpret()), KGTyped {
+) : ShortcutTrigger(pointer.reinterpret()),
+    KGTyped {
     public val gtkKeyvalTriggerPointer: CPointer<GtkKeyvalTrigger>
         get() = gPointer.reinterpret()
 
@@ -58,12 +59,10 @@ public open class KeyvalTrigger(
      * @param modifiers the modifiers that need to be present
      * @return A new `GtkShortcutTrigger`
      */
-    public constructor(keyval: UInt, modifiers: ModifierType) : this(
-        gtk_keyval_trigger_new(
-            keyval,
-            modifiers.mask
-        )!!.reinterpret()
-    )
+    public constructor(
+        keyval: UInt,
+        modifiers: ModifierType,
+    ) : this(gtk_keyval_trigger_new(keyval, modifiers.mask)!!.reinterpret())
 
     /**
      * Gets the keyval that must be pressed to succeed
@@ -86,9 +85,7 @@ public open class KeyvalTrigger(
 
     public companion object : TypeCompanion<KeyvalTrigger> {
         override val type: GeneratedClassKGType<KeyvalTrigger> =
-            GeneratedClassKGType(gtk_keyval_trigger_get_type()) {
-                KeyvalTrigger(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_keyval_trigger_get_type()) { KeyvalTrigger(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

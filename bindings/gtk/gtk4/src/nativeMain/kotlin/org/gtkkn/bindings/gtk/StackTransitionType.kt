@@ -145,8 +145,7 @@ public enum class StackTransitionType(
     ROTATE_RIGHT(GTK_STACK_TRANSITION_TYPE_ROTATE_RIGHT),
 
     /**
-     * Pretend the pages are sides of a cube and rotate that cube to the left or right according to
-     * the children order
+     * Pretend the pages are sides of a cube and rotate that cube to the left or right according to the children order
      */
     ROTATE_LEFT_RIGHT(GTK_STACK_TRANSITION_TYPE_ROTATE_LEFT_RIGHT),
     ;

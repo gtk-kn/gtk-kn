@@ -18,7 +18,8 @@ import org.gtkkn.native.gsk.gsk_texture_node_new
  */
 public open class TextureNode(
     pointer: CPointer<GskTextureNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskTextureNodePointer: CPointer<GskTextureNode>
         get() = gPointer.reinterpret()
 
@@ -34,13 +35,10 @@ public open class TextureNode(
      * @param bounds the rectangle to render the texture into
      * @return A new `GskRenderNode`
      */
-    public constructor(texture: Texture, bounds: Rect) :
-        this(
-            gsk_texture_node_new(
-                texture.gdkTexturePointer.reinterpret(),
-                bounds.grapheneRectPointer
-            )!!.reinterpret()
-        )
+    public constructor(
+        texture: Texture,
+        bounds: Rect,
+    ) : this(gsk_texture_node_new(texture.gdkTexturePointer.reinterpret(), bounds.grapheneRectPointer)!!.reinterpret())
 
     /**
      * Retrieves the `GdkTexture` used when creating this `GskRenderNode`.

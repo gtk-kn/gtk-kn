@@ -36,7 +36,9 @@ import kotlin.Unit
  * [signal@Gtk.PrintOperation::preview] signal by
  * [class@Gtk.PrintOperation].
  */
-public interface PrintOperationPreview : Interface, KGTyped {
+public interface PrintOperationPreview :
+    Interface,
+    KGTyped {
     public val gtkPrintOperationPreviewPointer: CPointer<GtkPrintOperationPreview>
 
     /**
@@ -55,10 +57,7 @@ public interface PrintOperationPreview : Interface, KGTyped {
      * @return true if the page has been selected for printing
      */
     public fun isSelected(pageNr: Int): Boolean =
-        gtk_print_operation_preview_is_selected(
-            gtkPrintOperationPreviewPointer.reinterpret(),
-            pageNr
-        ).asBoolean()
+        gtk_print_operation_preview_is_selected(gtkPrintOperationPreviewPointer.reinterpret(), pageNr).asBoolean()
 
     /**
      * Renders a page to the preview.
@@ -76,10 +75,7 @@ public interface PrintOperationPreview : Interface, KGTyped {
      * @param pageNr the page to render
      */
     public fun renderPage(pageNr: Int): Unit =
-        gtk_print_operation_preview_render_page(
-            gtkPrintOperationPreviewPointer.reinterpret(),
-            pageNr
-        )
+        gtk_print_operation_preview_render_page(gtkPrintOperationPreviewPointer.reinterpret(), pageNr)
 
     /**
      * Emitted once for each page that gets rendered to the preview.
@@ -89,8 +85,7 @@ public interface PrintOperationPreview : Interface, KGTyped {
      * context, using [method@Gtk.PrintContext.set_cairo_context].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `context` the current `GtkPrintContext`;
-     * `pageSetup` the `GtkPageSetup` for the current page
+     * @param handler the Callback to connect. Params: `context` the current `GtkPrintContext`; `pageSetup` the `GtkPageSetup` for the current page
      */
     public fun connectGotPageSize(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -135,9 +130,7 @@ public interface PrintOperationPreview : Interface, KGTyped {
 
     public companion object : TypeCompanion<PrintOperationPreview> {
         override val type: GeneratedInterfaceKGType<PrintOperationPreview> =
-            GeneratedInterfaceKGType(gtk_print_operation_preview_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_print_operation_preview_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -147,26 +140,15 @@ public interface PrintOperationPreview : Interface, KGTyped {
     }
 }
 
-private val connectGotPageSizeFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkPrintContext>,
-            CPointer<GtkPageSetup>,
-        ) -> Unit
-    >
-> =
+private val connectGotPageSizeFunc:
+    CPointer<CFunction<(CPointer<GtkPrintContext>, CPointer<GtkPageSetup>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             context: CPointer<GtkPrintContext>?,
             pageSetup: CPointer<GtkPageSetup>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                context: PrintContext,
-                pageSetup: PageSetup,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(context: PrintContext, pageSetup: PageSetup) -> Unit>().get().invoke(
             context!!.run {
                 PrintContext(reinterpret())
             },
@@ -174,8 +156,7 @@ private val connectGotPageSizeFunc: CPointer<
                 PageSetup(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectReadyFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> Unit>> =
     staticCFunction {
@@ -188,5 +169,4 @@ private val connectReadyFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> 
                 PrintContext(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

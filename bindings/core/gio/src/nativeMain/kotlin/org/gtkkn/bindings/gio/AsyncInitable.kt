@@ -135,7 +135,9 @@ import kotlin.Unit
  * ```
  * @since 2.22
  */
-public interface AsyncInitable : Interface, KGTyped {
+public interface AsyncInitable :
+    Interface,
+    KGTyped {
     public val gioAsyncInitablePointer: CPointer<GAsyncInitable>
 
     /**

@@ -24,7 +24,8 @@ import kotlin.Unit
  */
 public open class FilterInputStream(
     pointer: CPointer<GFilterInputStream>,
-) : InputStream(pointer.reinterpret()), KGTyped {
+) : InputStream(pointer.reinterpret()),
+    KGTyped {
     public val gioFilterInputStreamPointer: CPointer<GFilterInputStream>
         get() = gPointer.reinterpret()
 
@@ -52,15 +53,16 @@ public open class FilterInputStream(
          *
          * @return true if the base stream will be closed.
          */
-        get() =
-            g_filter_input_stream_get_close_base_stream(gioFilterInputStreamPointer.reinterpret()).asBoolean()
+        get() = g_filter_input_stream_get_close_base_stream(gioFilterInputStreamPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the base stream will be closed when @stream is closed.
          *
          * @param closeBase true to close the base stream.
          */
-        set(closeBase) =
+        set(
+            closeBase
+        ) =
             g_filter_input_stream_set_close_base_stream(
                 gioFilterInputStreamPointer.reinterpret(),
                 closeBase.asGBoolean()
@@ -91,16 +93,11 @@ public open class FilterInputStream(
      * @param closeBase true to close the base stream.
      */
     public open fun setCloseBaseStream(closeBase: Boolean): Unit =
-        g_filter_input_stream_set_close_base_stream(
-            gioFilterInputStreamPointer.reinterpret(),
-            closeBase.asGBoolean()
-        )
+        g_filter_input_stream_set_close_base_stream(gioFilterInputStreamPointer.reinterpret(), closeBase.asGBoolean())
 
     public companion object : TypeCompanion<FilterInputStream> {
         override val type: GeneratedClassKGType<FilterInputStream> =
-            GeneratedClassKGType(g_filter_input_stream_get_type()) {
-                FilterInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(g_filter_input_stream_get_type()) { FilterInputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

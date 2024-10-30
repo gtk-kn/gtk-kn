@@ -35,7 +35,8 @@ import kotlin.Unit
  */
 public open class DrawContext(
     pointer: CPointer<GdkDrawContext>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkDrawContextPointer: CPointer<GdkDrawContext>
         get() = gPointer.reinterpret()
 

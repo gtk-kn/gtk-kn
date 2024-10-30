@@ -66,7 +66,9 @@ import kotlin.Unit
  * already implements most of this except for the actual module loading and
  * unloading. It even handles multiple registered types per module.
  */
-public interface TypePlugin : Interface, KGTyped {
+public interface TypePlugin :
+    Interface,
+    KGTyped {
     public val gobjectTypePluginPointer: CPointer<GTypePlugin>
 
     /**

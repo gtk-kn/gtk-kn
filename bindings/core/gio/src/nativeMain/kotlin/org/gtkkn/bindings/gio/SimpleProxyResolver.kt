@@ -39,7 +39,9 @@ import kotlin.collections.List
  */
 public open class SimpleProxyResolver(
     pointer: CPointer<GSimpleProxyResolver>,
-) : Object(pointer.reinterpret()), ProxyResolver, KGTyped {
+) : Object(pointer.reinterpret()),
+    ProxyResolver,
+    KGTyped {
     public val gioSimpleProxyResolverPointer: CPointer<GSimpleProxyResolver>
         get() = gPointer.reinterpret()
 
@@ -59,10 +61,7 @@ public open class SimpleProxyResolver(
      * @since 2.36
      */
     public open fun setDefaultProxy(defaultProxy: String? = null): Unit =
-        g_simple_proxy_resolver_set_default_proxy(
-            gioSimpleProxyResolverPointer.reinterpret(),
-            defaultProxy
-        )
+        g_simple_proxy_resolver_set_default_proxy(gioSimpleProxyResolverPointer.reinterpret(), defaultProxy)
 
     /**
      * Sets the list of ignored hosts.
@@ -99,18 +98,11 @@ public open class SimpleProxyResolver(
     public open fun setUriProxy(
         uriScheme: String,
         proxy: String,
-    ): Unit =
-        g_simple_proxy_resolver_set_uri_proxy(
-            gioSimpleProxyResolverPointer.reinterpret(),
-            uriScheme,
-            proxy
-        )
+    ): Unit = g_simple_proxy_resolver_set_uri_proxy(gioSimpleProxyResolverPointer.reinterpret(), uriScheme, proxy)
 
     public companion object : TypeCompanion<SimpleProxyResolver> {
         override val type: GeneratedClassKGType<SimpleProxyResolver> =
-            GeneratedClassKGType(g_simple_proxy_resolver_get_type()) {
-                SimpleProxyResolver(it.reinterpret())
-            }
+            GeneratedClassKGType(g_simple_proxy_resolver_get_type()) { SimpleProxyResolver(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -134,10 +126,7 @@ public open class SimpleProxyResolver(
             ignoreHosts: List<String>? = null,
         ): ProxyResolver =
             memScoped {
-                return g_simple_proxy_resolver_new(
-                    defaultProxy,
-                    ignoreHosts?.toCStringList(this)
-                )!!.run {
+                return g_simple_proxy_resolver_new(defaultProxy, ignoreHosts?.toCStringList(this))!!.run {
                     ProxyResolver.wrap(reinterpret())
                 }
             }

@@ -69,7 +69,10 @@ import kotlin.Unit
  */
 public open class Range(
     pointer: CPointer<GtkRange>,
-) : Widget(pointer.reinterpret()), AccessibleRange, Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    AccessibleRange,
+    Orientable,
+    KGTyped {
     public val gtkRangePointer: CPointer<GtkRange>
         get() = gPointer.reinterpret()
 
@@ -115,11 +118,9 @@ public open class Range(
          *
          * @param adjustment a `GtkAdjustment`
          */
-        set(adjustment) =
-            gtk_range_set_adjustment(
-                gtkRangePointer.reinterpret(),
-                adjustment.gtkAdjustmentPointer.reinterpret()
-            )
+        set(
+            adjustment
+        ) = gtk_range_set_adjustment(gtkRangePointer.reinterpret(), adjustment.gtkAdjustmentPointer.reinterpret())
 
     /**
      * The fill level (e.g. prebuffering of a network stream).
@@ -200,11 +201,9 @@ public open class Range(
          *
          * @param restrictToFillLevel Whether the fill level restricts slider movement.
          */
-        set(restrictToFillLevel) =
-            gtk_range_set_restrict_to_fill_level(
-                gtkRangePointer.reinterpret(),
-                restrictToFillLevel.asGBoolean()
-            )
+        set(
+            restrictToFillLevel
+        ) = gtk_range_set_restrict_to_fill_level(gtkRangePointer.reinterpret(), restrictToFillLevel.asGBoolean())
 
     /**
      * The number of digits to round the value to when
@@ -253,11 +252,7 @@ public open class Range(
          *
          * @param showFillLevel Whether a fill level indicator graphics is shown.
          */
-        set(showFillLevel) =
-            gtk_range_set_show_fill_level(
-                gtkRangePointer.reinterpret(),
-                showFillLevel.asGBoolean()
-            )
+        set(showFillLevel) = gtk_range_set_show_fill_level(gtkRangePointer.reinterpret(), showFillLevel.asGBoolean())
 
     /**
      * Get the adjustment which is the “model” object for `GtkRange`.
@@ -362,10 +357,7 @@ public open class Range(
      * @param adjustment a `GtkAdjustment`
      */
     public open fun setAdjustment(adjustment: Adjustment): Unit =
-        gtk_range_set_adjustment(
-            gtkRangePointer.reinterpret(),
-            adjustment.gtkAdjustmentPointer.reinterpret()
-        )
+        gtk_range_set_adjustment(gtkRangePointer.reinterpret(), adjustment.gtkAdjustmentPointer.reinterpret())
 
     /**
      * Set the new position of the fill level indicator.
@@ -456,10 +448,7 @@ public open class Range(
      * @param restrictToFillLevel Whether the fill level restricts slider movement.
      */
     public open fun setRestrictToFillLevel(restrictToFillLevel: Boolean): Unit =
-        gtk_range_set_restrict_to_fill_level(
-            gtkRangePointer.reinterpret(),
-            restrictToFillLevel.asGBoolean()
-        )
+        gtk_range_set_restrict_to_fill_level(gtkRangePointer.reinterpret(), restrictToFillLevel.asGBoolean())
 
     /**
      * Sets the number of digits to round the value to when
@@ -540,9 +529,7 @@ public open class Range(
      * handler clamps the value based on [property@Gtk.Range:round-digits].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `scroll` the type of scroll action that was
-     * performed; `value` the new value resulting from the scroll action. Returns true to prevent other
-     * handlers from being invoked for
+     * @param handler the Callback to connect. Params: `scroll` the type of scroll action that was performed; `value` the new value resulting from the scroll action. Returns true to prevent other handlers from being invoked for
      *     the signal, false to propagate the signal further
      */
     public fun connectChangeValue(
@@ -615,8 +602,7 @@ private val connectAdjustBoundsFunc: CPointer<CFunction<(Double) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectChangeValueFunc: CPointer<CFunction<(GtkScrollType, Double) -> Int>> =
     staticCFunction {
@@ -625,19 +611,16 @@ private val connectChangeValueFunc: CPointer<CFunction<(GtkScrollType, Double) -
             `value`: Double,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                scroll: ScrollType,
-                `value`: Double,
-            ) -> Boolean
-        >().get().invoke(
-            scroll.run {
-                ScrollType.fromNativeValue(this)
-            },
-            `value`
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(scroll: ScrollType, `value`: Double) -> Boolean>()
+            .get()
+            .invoke(
+                scroll.run {
+                    ScrollType.fromNativeValue(this)
+                },
+                `value`
+            ).asGBoolean()
+    }.reinterpret()
 
 private val connectMoveSliderFunc: CPointer<CFunction<(GtkScrollType) -> Unit>> =
     staticCFunction {
@@ -650,8 +633,7 @@ private val connectMoveSliderFunc: CPointer<CFunction<(GtkScrollType) -> Unit>> 
                 ScrollType.fromNativeValue(this)
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectValueChangedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -659,5 +641,4 @@ private val connectValueChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

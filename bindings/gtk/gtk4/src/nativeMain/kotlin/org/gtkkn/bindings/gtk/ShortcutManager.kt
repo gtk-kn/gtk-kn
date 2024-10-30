@@ -24,7 +24,9 @@ import org.gtkkn.native.gtk.gtk_shortcut_manager_get_type
  * Every widget that implements `GtkShortcutManager` will be used as a
  * %GTK_SHORTCUT_SCOPE_MANAGED.
  */
-public interface ShortcutManager : Interface, KGTyped {
+public interface ShortcutManager :
+    Interface,
+    KGTyped {
     public val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
 
     private data class Wrapper(
@@ -35,9 +37,7 @@ public interface ShortcutManager : Interface, KGTyped {
 
     public companion object : TypeCompanion<ShortcutManager> {
         override val type: GeneratedInterfaceKGType<ShortcutManager> =
-            GeneratedInterfaceKGType(gtk_shortcut_manager_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_shortcut_manager_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

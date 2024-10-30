@@ -94,11 +94,7 @@ public class Color(
      * @return true if parsing of the specifier succeeded,
      *   otherwise false
      */
-    public fun parse(spec: String): Boolean =
-        pango_color_parse(
-            pangoColorPointer.reinterpret(),
-            spec
-        ).asBoolean()
+    public fun parse(spec: String): Boolean = pango_color_parse(pangoColorPointer.reinterpret(), spec).asBoolean()
 
     public companion object : RecordCompanion<Color, PangoColor> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Color = Color(pointer.reinterpret())

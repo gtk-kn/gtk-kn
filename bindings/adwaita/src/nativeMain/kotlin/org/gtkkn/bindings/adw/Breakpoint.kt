@@ -84,7 +84,9 @@ import kotlin.Unit
  */
 public class Breakpoint(
     pointer: CPointer<AdwBreakpoint>,
-) : Object(pointer.reinterpret()), Buildable, KGTyped {
+) : Object(pointer.reinterpret()),
+    Buildable,
+    KGTyped {
     public val adwBreakpointPointer: CPointer<AdwBreakpoint>
         get() = gPointer.reinterpret()
 
@@ -114,11 +116,9 @@ public class Breakpoint(
          * @param condition the new condition
          * @since 1.4
          */
-        set(condition) =
-            adw_breakpoint_set_condition(
-                adwBreakpointPointer.reinterpret(),
-                condition?.adwBreakpointConditionPointer
-            )
+        set(
+            condition
+        ) = adw_breakpoint_set_condition(adwBreakpointPointer.reinterpret(), condition?.adwBreakpointConditionPointer)
 
     /**
      * Creates a new `AdwBreakpoint` with @condition.
@@ -127,8 +127,9 @@ public class Breakpoint(
      * @return the newly created `AdwBreakpoint`
      * @since 1.4
      */
-    public constructor(condition: BreakpointCondition) :
-        this(adw_breakpoint_new(condition.adwBreakpointConditionPointer)!!.reinterpret())
+    public constructor(
+        condition: BreakpointCondition,
+    ) : this(adw_breakpoint_new(condition.adwBreakpointConditionPointer)!!.reinterpret())
 
     /**
      * Adds a setter to @self.
@@ -203,10 +204,7 @@ public class Breakpoint(
      * @since 1.4
      */
     public fun setCondition(condition: BreakpointCondition? = null): Unit =
-        adw_breakpoint_set_condition(
-            adwBreakpointPointer.reinterpret(),
-            condition?.adwBreakpointConditionPointer
-        )
+        adw_breakpoint_set_condition(adwBreakpointPointer.reinterpret(), condition?.adwBreakpointConditionPointer)
 
     /**
      * Emitted when the breakpoint is applied.
@@ -268,8 +266,7 @@ private val connectApplyFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectUnapplyFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -277,5 +274,4 @@ private val connectUnapplyFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -73,7 +73,9 @@ import kotlin.Unit
  */
 public open class PasswordEntry(
     pointer: CPointer<GtkPasswordEntry>,
-) : Widget(pointer.reinterpret()), Editable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Editable,
+    KGTyped {
     public val gtkPasswordEntryPointer: CPointer<GtkPasswordEntry>
         get() = gPointer.reinterpret()
 
@@ -110,7 +112,9 @@ public open class PasswordEntry(
          *
          * @param model a `GMenuModel`
          */
-        set(model) =
+        set(
+            model
+        ) =
             gtk_password_entry_set_extra_menu(
                 gtkPasswordEntryPointer.reinterpret(),
                 model?.gioMenuModelPointer?.reinterpret()
@@ -126,8 +130,7 @@ public open class PasswordEntry(
          *
          * @return true if an icon is shown
          */
-        get() =
-            gtk_password_entry_get_show_peek_icon(gtkPasswordEntryPointer.reinterpret()).asBoolean()
+        get() = gtk_password_entry_get_show_peek_icon(gtkPasswordEntryPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the entry should have a clickable icon
@@ -137,11 +140,9 @@ public open class PasswordEntry(
          *
          * @param showPeekIcon whether to show the peek icon
          */
-        set(showPeekIcon) =
-            gtk_password_entry_set_show_peek_icon(
-                gtkPasswordEntryPointer.reinterpret(),
-                showPeekIcon.asGBoolean()
-            )
+        set(
+            showPeekIcon
+        ) = gtk_password_entry_set_show_peek_icon(gtkPasswordEntryPointer.reinterpret(), showPeekIcon.asGBoolean())
 
     /**
      * Creates a `GtkPasswordEntry`.
@@ -190,10 +191,7 @@ public open class PasswordEntry(
      * @param showPeekIcon whether to show the peek icon
      */
     public open fun setShowPeekIcon(showPeekIcon: Boolean): Unit =
-        gtk_password_entry_set_show_peek_icon(
-            gtkPasswordEntryPointer.reinterpret(),
-            showPeekIcon.asGBoolean()
-        )
+        gtk_password_entry_set_show_peek_icon(gtkPasswordEntryPointer.reinterpret(), showPeekIcon.asGBoolean())
 
     /**
      * Emitted when the entry is activated.
@@ -218,9 +216,7 @@ public open class PasswordEntry(
 
     public companion object : TypeCompanion<PasswordEntry> {
         override val type: GeneratedClassKGType<PasswordEntry> =
-            GeneratedClassKGType(gtk_password_entry_get_type()) {
-                PasswordEntry(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_password_entry_get_type()) { PasswordEntry(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -234,5 +230,4 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

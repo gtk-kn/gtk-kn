@@ -68,7 +68,8 @@ import kotlin.Unit
  */
 public class SpringAnimation(
     pointer: CPointer<AdwSpringAnimation>,
-) : Animation(pointer.reinterpret()), KGTyped {
+) : Animation(pointer.reinterpret()),
+    KGTyped {
     public val adwSpringAnimationPointer: CPointer<AdwSpringAnimation>
         get() = gPointer.reinterpret()
 
@@ -100,11 +101,7 @@ public class SpringAnimation(
          *
          * @param clamp the new value
          */
-        set(clamp) =
-            adw_spring_animation_set_clamp(
-                adwSpringAnimationPointer.reinterpret(),
-                clamp.asGBoolean()
-            )
+        set(clamp) = adw_spring_animation_set_clamp(adwSpringAnimationPointer.reinterpret(), clamp.asGBoolean())
 
     /**
      * Precision of the spring.
@@ -144,11 +141,7 @@ public class SpringAnimation(
          *
          * @param epsilon the new value
          */
-        set(epsilon) =
-            adw_spring_animation_set_epsilon(
-                adwSpringAnimationPointer.reinterpret(),
-                epsilon
-            )
+        set(epsilon) = adw_spring_animation_set_epsilon(adwSpringAnimationPointer.reinterpret(), epsilon)
 
     /**
      * Estimated duration of the animation, in milliseconds.
@@ -185,11 +178,7 @@ public class SpringAnimation(
          *
          * @param velocity the initial velocity
          */
-        set(velocity) =
-            adw_spring_animation_set_initial_velocity(
-                adwSpringAnimationPointer.reinterpret(),
-                velocity
-            )
+        set(velocity) = adw_spring_animation_set_initial_velocity(adwSpringAnimationPointer.reinterpret(), velocity)
 
     /**
      * Physical parameters describing the spring.
@@ -210,7 +199,9 @@ public class SpringAnimation(
          *
          * @param springParams the new spring parameters
          */
-        set(springParams) =
+        set(
+            springParams
+        ) =
             adw_spring_animation_set_spring_params(
                 adwSpringAnimationPointer.reinterpret(),
                 springParams.adwSpringParamsPointer
@@ -238,11 +229,7 @@ public class SpringAnimation(
          *
          * @param value the value to animate from
          */
-        set(`value`) =
-            adw_spring_animation_set_value_from(
-                adwSpringAnimationPointer.reinterpret(),
-                `value`
-            )
+        set(`value`) = adw_spring_animation_set_value_from(adwSpringAnimationPointer.reinterpret(), `value`)
 
     /**
      * The value to animate to.
@@ -266,11 +253,7 @@ public class SpringAnimation(
          *
          * @param value the value to animate to
          */
-        set(`value`) =
-            adw_spring_animation_set_value_to(
-                adwSpringAnimationPointer.reinterpret(),
-                `value`
-            )
+        set(`value`) = adw_spring_animation_set_value_to(adwSpringAnimationPointer.reinterpret(), `value`)
 
     /**
      * Current velocity of the animation.
@@ -417,10 +400,7 @@ public class SpringAnimation(
      * @param clamp the new value
      */
     public fun setClamp(clamp: Boolean): Unit =
-        adw_spring_animation_set_clamp(
-            adwSpringAnimationPointer.reinterpret(),
-            clamp.asGBoolean()
-        )
+        adw_spring_animation_set_clamp(adwSpringAnimationPointer.reinterpret(), clamp.asGBoolean())
 
     /**
      * Sets the precision of the spring.
@@ -449,10 +429,7 @@ public class SpringAnimation(
      * @param velocity the initial velocity
      */
     public fun setInitialVelocity(velocity: Double): Unit =
-        adw_spring_animation_set_initial_velocity(
-            adwSpringAnimationPointer.reinterpret(),
-            velocity
-        )
+        adw_spring_animation_set_initial_velocity(adwSpringAnimationPointer.reinterpret(), velocity)
 
     /**
      * Sets the physical parameters of the spring of @self.
@@ -489,9 +466,7 @@ public class SpringAnimation(
 
     public companion object : TypeCompanion<SpringAnimation> {
         override val type: GeneratedClassKGType<SpringAnimation> =
-            GeneratedClassKGType(adw_spring_animation_get_type()) {
-                SpringAnimation(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_spring_animation_get_type()) { SpringAnimation(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

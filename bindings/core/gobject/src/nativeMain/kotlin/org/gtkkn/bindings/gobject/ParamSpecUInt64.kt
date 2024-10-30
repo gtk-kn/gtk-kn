@@ -6,8 +6,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.native.gobject.GParamSpecUInt64
 
 /**
- * A #GParamSpec derived structure that contains the meta data for unsigned 64bit integer
- * properties.
+ * A #GParamSpec derived structure that contains the meta data for unsigned 64bit integer properties.
  */
 public open class ParamSpecUInt64(
     pointer: CPointer<GParamSpecUInt64>,

@@ -18,15 +18,16 @@ import org.gtkkn.native.gsk.gsk_repeating_radial_gradient_node_get_type
  */
 public open class RepeatingRadialGradientNode(
     pointer: CPointer<GskRepeatingRadialGradientNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskRepeatingRadialGradientNodePointer: CPointer<GskRepeatingRadialGradientNode>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<RepeatingRadialGradientNode> {
         override val type: GeneratedClassKGType<RepeatingRadialGradientNode> =
-            GeneratedClassKGType(gsk_repeating_radial_gradient_node_get_type()) {
-                RepeatingRadialGradientNode(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                gsk_repeating_radial_gradient_node_get_type()
+            ) { RepeatingRadialGradientNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

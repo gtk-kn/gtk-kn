@@ -72,7 +72,8 @@ import kotlin.Unit
  */
 public open class Statusbar(
     pointer: CPointer<GtkStatusbar>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkStatusbarPointer: CPointer<GtkStatusbar>
         get() = gPointer.reinterpret()
 
@@ -156,8 +157,7 @@ public open class Statusbar(
      * Emitted whenever a new message is popped off a statusbar's stack.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `contextId` the context id of the relevant
-     * message/statusbar; `text` the message that was just popped
+     * @param handler the Callback to connect. Params: `contextId` the context id of the relevant message/statusbar; `text` the message that was just popped
      */
     public fun connectTextPopped(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -176,8 +176,7 @@ public open class Statusbar(
      * Emitted whenever a new message gets pushed onto a statusbar's stack.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `contextId` the context id of the relevant
-     * message/statusbar; `text` the message that was pushed
+     * @param handler the Callback to connect. Params: `contextId` the context id of the relevant message/statusbar; `text` the message that was pushed
      */
     public fun connectTextPushed(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -213,8 +212,7 @@ private val connectTextPoppedFunc: CPointer<CFunction<(UInt, CPointer<ByteVar>) 
             contextId,
             text?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectTextPushedFunc: CPointer<CFunction<(UInt, CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -227,5 +225,4 @@ private val connectTextPushedFunc: CPointer<CFunction<(UInt, CPointer<ByteVar>) 
             contextId,
             text?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()

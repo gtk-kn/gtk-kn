@@ -21,7 +21,9 @@ import kotlin.Int
  *
  * - signal `compute-size`: Unsupported parameter `size` : DragSurfaceSize
  */
-public interface DragSurface : Interface, KGTyped {
+public interface DragSurface :
+    Interface,
+    KGTyped {
     public val gdkDragSurfacePointer: CPointer<GdkDragSurface>
 
     /**

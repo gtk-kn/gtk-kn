@@ -145,10 +145,7 @@ public class Node(
      * @return true if @node is an ancestor of @descendant
      */
     public fun isAncestor(descendant: Node): Boolean =
-        g_node_is_ancestor(
-            glibNodePointer.reinterpret(),
-            descendant.glibNodePointer
-        ).asBoolean()
+        g_node_is_ancestor(glibNodePointer.reinterpret(), descendant.glibNodePointer).asBoolean()
 
     /**
      * Gets the maximum height of all branches beneath a #GNode.
@@ -175,11 +172,7 @@ public class Node(
      *     %G_TRAVERSE_ALL, %G_TRAVERSE_LEAVES and %G_TRAVERSE_NON_LEAVES
      * @return the number of nodes in the tree
      */
-    public fun nNodes(flags: TraverseFlags): UInt =
-        g_node_n_nodes(
-            glibNodePointer.reinterpret(),
-            flags.mask
-        )
+    public fun nNodes(flags: TraverseFlags): UInt = g_node_n_nodes(glibNodePointer.reinterpret(), flags.mask)
 
     /**
      * Reverses the order of the children of a #GNode.

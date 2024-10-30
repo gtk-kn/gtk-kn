@@ -28,7 +28,8 @@ import kotlin.ULong
  */
 public open class RadialGradientNode(
     pointer: CPointer<GskRadialGradientNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskRadialGradientNodePointer: CPointer<GskRadialGradientNode>
         get() = gPointer.reinterpret()
 
@@ -82,9 +83,7 @@ public open class RadialGradientNode(
 
     public companion object : TypeCompanion<RadialGradientNode> {
         override val type: GeneratedClassKGType<RadialGradientNode> =
-            GeneratedClassKGType(gsk_radial_gradient_node_get_type()) {
-                RadialGradientNode(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_radial_gradient_node_get_type()) { RadialGradientNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

@@ -39,7 +39,8 @@ import kotlin.Unit
  */
 public open class GestureDrag(
     pointer: CPointer<GtkGestureDrag>,
-) : GestureSingle(pointer.reinterpret()), KGTyped {
+) : GestureSingle(pointer.reinterpret()),
+    KGTyped {
     public val gtkGestureDragPointer: CPointer<GtkGestureDrag>
         get() = gPointer.reinterpret()
 
@@ -54,8 +55,7 @@ public open class GestureDrag(
      * Emitted whenever dragging starts.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `startX` X coordinate, relative to the widget
-     * allocation; `startY` Y coordinate, relative to the widget allocation
+     * @param handler the Callback to connect. Params: `startX` X coordinate, relative to the widget allocation; `startY` Y coordinate, relative to the widget allocation
      */
     public fun connectDragBegin(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -74,8 +74,7 @@ public open class GestureDrag(
      * Emitted whenever the dragging is finished.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `offsetX` X offset, relative to the start
-     * point; `offsetY` Y offset, relative to the start point
+     * @param handler the Callback to connect. Params: `offsetX` X offset, relative to the start point; `offsetY` Y offset, relative to the start point
      */
     public fun connectDragEnd(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -94,8 +93,7 @@ public open class GestureDrag(
      * Emitted whenever the dragging point moves.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `offsetX` X offset, relative to the start
-     * point; `offsetY` Y offset, relative to the start point
+     * @param handler the Callback to connect. Params: `offsetX` X offset, relative to the start point; `offsetY` Y offset, relative to the start point
      */
     public fun connectDragUpdate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -128,8 +126,7 @@ private val connectDragBeginFunc: CPointer<CFunction<(Double, Double) -> Unit>> 
             userData: COpaquePointer,
         ->
         userData.asStableRef<(startX: Double, startY: Double) -> Unit>().get().invoke(startX, startY)
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDragEndFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
     staticCFunction {
@@ -138,12 +135,8 @@ private val connectDragEndFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
             offsetY: Double,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(offsetX: Double, offsetY: Double) -> Unit>().get().invoke(
-            offsetX,
-            offsetY
-        )
-    }
-        .reinterpret()
+        userData.asStableRef<(offsetX: Double, offsetY: Double) -> Unit>().get().invoke(offsetX, offsetY)
+    }.reinterpret()
 
 private val connectDragUpdateFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
     staticCFunction {
@@ -152,9 +145,5 @@ private val connectDragUpdateFunc: CPointer<CFunction<(Double, Double) -> Unit>>
             offsetY: Double,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(offsetX: Double, offsetY: Double) -> Unit>().get().invoke(
-            offsetX,
-            offsetY
-        )
-    }
-        .reinterpret()
+        userData.asStableRef<(offsetX: Double, offsetY: Double) -> Unit>().get().invoke(offsetX, offsetY)
+    }.reinterpret()

@@ -21,7 +21,9 @@ import org.gtkkn.native.gio.g_converter_input_stream_new
  */
 public open class ConverterInputStream(
     pointer: CPointer<GConverterInputStream>,
-) : FilterInputStream(pointer.reinterpret()), PollableInputStream, KGTyped {
+) : FilterInputStream(pointer.reinterpret()),
+    PollableInputStream,
+    KGTyped {
     public val gioConverterInputStreamPointer: CPointer<GConverterInputStream>
         get() = gPointer.reinterpret()
 
@@ -50,13 +52,15 @@ public open class ConverterInputStream(
      * @param converter a #GConverter
      * @return a new #GInputStream.
      */
-    public constructor(baseStream: InputStream, converter: Converter) :
-        this(
-            g_converter_input_stream_new(
-                baseStream.gioInputStreamPointer.reinterpret(),
-                converter.gioConverterPointer
-            )!!.reinterpret()
-        )
+    public constructor(
+        baseStream: InputStream,
+        converter: Converter,
+    ) : this(
+        g_converter_input_stream_new(
+            baseStream.gioInputStreamPointer.reinterpret(),
+            converter.gioConverterPointer
+        )!!.reinterpret()
+    )
 
     /**
      * Gets the #GConverter that is used by @converter_stream.
@@ -71,9 +75,7 @@ public open class ConverterInputStream(
 
     public companion object : TypeCompanion<ConverterInputStream> {
         override val type: GeneratedClassKGType<ConverterInputStream> =
-            GeneratedClassKGType(g_converter_input_stream_get_type()) {
-                ConverterInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(g_converter_input_stream_get_type()) { ConverterInputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

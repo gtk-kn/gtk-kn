@@ -38,7 +38,9 @@ import kotlin.Unit
  */
 public open class FileInputStream(
     pointer: CPointer<GFileInputStream>,
-) : InputStream(pointer.reinterpret()), Seekable, KGTyped {
+) : InputStream(pointer.reinterpret()),
+    Seekable,
+    KGTyped {
     public val gioFileInputStreamPointer: CPointer<GFileInputStream>
         get() = gPointer.reinterpret()
 
@@ -140,9 +142,7 @@ public open class FileInputStream(
 
     public companion object : TypeCompanion<FileInputStream> {
         override val type: GeneratedClassKGType<FileInputStream> =
-            GeneratedClassKGType(g_file_input_stream_get_type()) {
-                FileInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(g_file_input_stream_get_type()) { FileInputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

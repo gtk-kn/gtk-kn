@@ -33,7 +33,9 @@ import kotlin.Boolean
  *
  * @since 2.28
  */
-public interface PollableInputStream : Interface, KGTyped {
+public interface PollableInputStream :
+    Interface,
+    KGTyped {
     public val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
 
     /**
@@ -106,9 +108,7 @@ public interface PollableInputStream : Interface, KGTyped {
 
     public companion object : TypeCompanion<PollableInputStream> {
         override val type: GeneratedInterfaceKGType<PollableInputStream> =
-            GeneratedInterfaceKGType(g_pollable_input_stream_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(g_pollable_input_stream_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

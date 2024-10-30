@@ -15,15 +15,14 @@ import org.gtkkn.native.gtk.gtk_mnemonic_action_get_type
  */
 public open class MnemonicAction(
     pointer: CPointer<GtkMnemonicAction>,
-) : ShortcutAction(pointer.reinterpret()), KGTyped {
+) : ShortcutAction(pointer.reinterpret()),
+    KGTyped {
     public val gtkMnemonicActionPointer: CPointer<GtkMnemonicAction>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<MnemonicAction> {
         override val type: GeneratedClassKGType<MnemonicAction> =
-            GeneratedClassKGType(gtk_mnemonic_action_get_type()) {
-                MnemonicAction(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_mnemonic_action_get_type()) { MnemonicAction(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

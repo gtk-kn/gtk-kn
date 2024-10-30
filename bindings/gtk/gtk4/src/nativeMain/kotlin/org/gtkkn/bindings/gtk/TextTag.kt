@@ -133,7 +133,8 @@ import kotlin.Unit
  */
 public open class TextTag(
     pointer: CPointer<GtkTextTag>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkTextTagPointer: CPointer<GtkTextTag>
         get() = gPointer.reinterpret()
 

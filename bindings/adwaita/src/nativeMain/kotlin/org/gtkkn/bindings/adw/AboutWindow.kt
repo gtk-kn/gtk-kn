@@ -107,8 +107,7 @@ import kotlin.collections.List
  * notes, set with the [property@AboutWindow:release-notes] property.
  *
  * Release notes are formatted the same way as
- * [AppStream
- * descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+ * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
  *
  * The supported formatting options are:
  *
@@ -253,7 +252,8 @@ import kotlin.collections.List
  */
 public class AboutWindow(
     pointer: CPointer<AdwAboutWindow>,
-) : Window(pointer.reinterpret()), KGTyped {
+) : Window(pointer.reinterpret()),
+    KGTyped {
     public val adwAboutWindowPointer: CPointer<AdwAboutWindow>
         get() = gPointer.reinterpret()
 
@@ -301,11 +301,9 @@ public class AboutWindow(
          * @param applicationIcon the application icon name
          * @since 1.2
          */
-        set(applicationIcon) =
-            adw_about_window_set_application_icon(
-                adwAboutWindowPointer.reinterpret(),
-                applicationIcon
-            )
+        set(
+            applicationIcon
+        ) = adw_about_window_set_application_icon(adwAboutWindowPointer.reinterpret(), applicationIcon)
 
     /**
      * The name of the application.
@@ -333,11 +331,9 @@ public class AboutWindow(
          * @param applicationName the application name
          * @since 1.2
          */
-        set(applicationName) =
-            adw_about_window_set_application_name(
-                adwAboutWindowPointer.reinterpret(),
-                applicationName
-            )
+        set(
+            applicationName
+        ) = adw_about_window_set_application_name(adwAboutWindowPointer.reinterpret(), applicationName)
 
     /**
      * The list of artists of the application.
@@ -389,10 +385,7 @@ public class AboutWindow(
          */
         set(artists) =
             memScoped {
-                return adw_about_window_set_artists(
-                    adwAboutWindowPointer.reinterpret(),
-                    artists?.toCStringList(this)
-                )
+                return adw_about_window_set_artists(adwAboutWindowPointer.reinterpret(), artists?.toCStringList(this))
             }
 
     /**
@@ -469,11 +462,7 @@ public class AboutWindow(
          * @param copyright the copyright information
          * @since 1.2
          */
-        set(copyright) =
-            adw_about_window_set_copyright(
-                adwAboutWindowPointer.reinterpret(),
-                copyright
-            )
+        set(copyright) = adw_about_window_set_copyright(adwAboutWindowPointer.reinterpret(), copyright)
 
     /**
      * The debug information.
@@ -517,11 +506,7 @@ public class AboutWindow(
          * @param debugInfo the debug information
          * @since 1.2
          */
-        set(debugInfo) =
-            adw_about_window_set_debug_info(
-                adwAboutWindowPointer.reinterpret(),
-                debugInfo
-            )
+        set(debugInfo) = adw_about_window_set_debug_info(adwAboutWindowPointer.reinterpret(), debugInfo)
 
     /**
      * The debug information filename.
@@ -555,11 +540,7 @@ public class AboutWindow(
          * @param filename the debug info filename
          * @since 1.2
          */
-        set(filename) =
-            adw_about_window_set_debug_info_filename(
-                adwAboutWindowPointer.reinterpret(),
-                filename
-            )
+        set(filename) = adw_about_window_set_debug_info_filename(adwAboutWindowPointer.reinterpret(), filename)
 
     /**
      * The list of designers of the application.
@@ -655,11 +636,7 @@ public class AboutWindow(
          * @param developerName the developer name
          * @since 1.2
          */
-        set(developerName) =
-            adw_about_window_set_developer_name(
-                adwAboutWindowPointer.reinterpret(),
-                developerName
-            )
+        set(developerName) = adw_about_window_set_developer_name(adwAboutWindowPointer.reinterpret(), developerName)
 
     /**
      * The list of developers of the application.
@@ -687,8 +664,7 @@ public class AboutWindow(
          * @return The list of developers
          * @since 1.2
          */
-        get() =
-            adw_about_window_get_developers(adwAboutWindowPointer.reinterpret())?.toKStringList()
+        get() = adw_about_window_get_developers(adwAboutWindowPointer.reinterpret())?.toKStringList()
 
         /**
          * Sets the list of developers of the application.
@@ -744,8 +720,7 @@ public class AboutWindow(
          * @return The list of documenters
          * @since 1.2
          */
-        get() =
-            adw_about_window_get_documenters(adwAboutWindowPointer.reinterpret())?.toKStringList()
+        get() = adw_about_window_get_documenters(adwAboutWindowPointer.reinterpret())?.toKStringList()
 
         /**
          * Sets the list of documenters of the application.
@@ -801,11 +776,7 @@ public class AboutWindow(
          * @param issueUrl the issue tracker URL
          * @since 1.2
          */
-        set(issueUrl) =
-            adw_about_window_set_issue_url(
-                adwAboutWindowPointer.reinterpret(),
-                issueUrl
-            )
+        set(issueUrl) = adw_about_window_set_issue_url(adwAboutWindowPointer.reinterpret(), issueUrl)
 
     /**
      * The license text.
@@ -914,11 +885,9 @@ public class AboutWindow(
          * @param licenseType the license type
          * @since 1.2
          */
-        set(licenseType) =
-            adw_about_window_set_license_type(
-                adwAboutWindowPointer.reinterpret(),
-                licenseType.nativeValue
-            )
+        set(
+            licenseType
+        ) = adw_about_window_set_license_type(adwAboutWindowPointer.reinterpret(), licenseType.nativeValue)
 
     /**
      * The release notes of the application.
@@ -926,8 +895,7 @@ public class AboutWindow(
      * Release notes are displayed on the the What's New page.
      *
      * Release notes are formatted the same way as
-     * [AppStream
-     * descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+     * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
      *
      * The supported formatting options are:
      *
@@ -966,8 +934,7 @@ public class AboutWindow(
          * Release notes are displayed on the the What's New page.
          *
          * Release notes are formatted the same way as
-         * [AppStream
-         * descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+         * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
          *
          * The supported formatting options are:
          *
@@ -990,11 +957,7 @@ public class AboutWindow(
          * @param releaseNotes the release notes
          * @since 1.2
          */
-        set(releaseNotes) =
-            adw_about_window_set_release_notes(
-                adwAboutWindowPointer.reinterpret(),
-                releaseNotes
-            )
+        set(releaseNotes) = adw_about_window_set_release_notes(adwAboutWindowPointer.reinterpret(), releaseNotes)
 
     /**
      * The version described by the application's release notes.
@@ -1040,11 +1003,7 @@ public class AboutWindow(
          * @param version the release notes version
          * @since 1.2
          */
-        set(version) =
-            adw_about_window_set_release_notes_version(
-                adwAboutWindowPointer.reinterpret(),
-                version
-            )
+        set(version) = adw_about_window_set_release_notes_version(adwAboutWindowPointer.reinterpret(), version)
 
     /**
      * The URL of the application's support page.
@@ -1072,11 +1031,7 @@ public class AboutWindow(
          * @param supportUrl the support page URL
          * @since 1.2
          */
-        set(supportUrl) =
-            adw_about_window_set_support_url(
-                adwAboutWindowPointer.reinterpret(),
-                supportUrl
-            )
+        set(supportUrl) = adw_about_window_set_support_url(adwAboutWindowPointer.reinterpret(), supportUrl)
 
     /**
      * The translator credits string.
@@ -1134,11 +1089,9 @@ public class AboutWindow(
          * @param translatorCredits the translator credits
          * @since 1.2
          */
-        set(translatorCredits) =
-            adw_about_window_set_translator_credits(
-                adwAboutWindowPointer.reinterpret(),
-                translatorCredits
-            )
+        set(
+            translatorCredits
+        ) = adw_about_window_set_translator_credits(adwAboutWindowPointer.reinterpret(), translatorCredits)
 
     /**
      * The version of the application.
@@ -1243,13 +1196,10 @@ public class AboutWindow(
      * @return the newly created `AdwAboutWindow`
      * @since 1.4
      */
-    public constructor(resourcePath: String, releaseNotesVersion: String? = null) :
-        this(
-            adw_about_window_new_from_appdata(
-                resourcePath,
-                releaseNotesVersion
-            )!!.reinterpret()
-        )
+    public constructor(
+        resourcePath: String,
+        releaseNotesVersion: String? = null,
+    ) : this(adw_about_window_new_from_appdata(resourcePath, releaseNotesVersion)!!.reinterpret())
 
     /**
      * Adds a section to the Acknowledgements page.
@@ -1605,10 +1555,7 @@ public class AboutWindow(
      * @since 1.2
      */
     public fun setApplicationIcon(applicationIcon: String): Unit =
-        adw_about_window_set_application_icon(
-            adwAboutWindowPointer.reinterpret(),
-            applicationIcon
-        )
+        adw_about_window_set_application_icon(adwAboutWindowPointer.reinterpret(), applicationIcon)
 
     /**
      * Sets the application name for @self.
@@ -1619,10 +1566,7 @@ public class AboutWindow(
      * @since 1.2
      */
     public fun setApplicationName(applicationName: String): Unit =
-        adw_about_window_set_application_name(
-            adwAboutWindowPointer.reinterpret(),
-            applicationName
-        )
+        adw_about_window_set_application_name(adwAboutWindowPointer.reinterpret(), applicationName)
 
     /**
      * Sets the list of artists of the application.
@@ -1646,10 +1590,7 @@ public class AboutWindow(
      */
     public fun setArtists(artists: List<String>? = null): Unit =
         memScoped {
-            return adw_about_window_set_artists(
-                adwAboutWindowPointer.reinterpret(),
-                artists?.toCStringList(this)
-            )
+            return adw_about_window_set_artists(adwAboutWindowPointer.reinterpret(), artists?.toCStringList(this))
         }
 
     /**
@@ -1739,10 +1680,7 @@ public class AboutWindow(
      */
     public fun setDesigners(designers: List<String>? = null): Unit =
         memScoped {
-            return adw_about_window_set_designers(
-                adwAboutWindowPointer.reinterpret(),
-                designers?.toCStringList(this)
-            )
+            return adw_about_window_set_designers(adwAboutWindowPointer.reinterpret(), designers?.toCStringList(this))
         }
 
     /**
@@ -1783,10 +1721,7 @@ public class AboutWindow(
      */
     public fun setDevelopers(developers: List<String>? = null): Unit =
         memScoped {
-            return adw_about_window_set_developers(
-                adwAboutWindowPointer.reinterpret(),
-                developers?.toCStringList(this)
-            )
+            return adw_about_window_set_developers(adwAboutWindowPointer.reinterpret(), developers?.toCStringList(this))
         }
 
     /**
@@ -1873,10 +1808,7 @@ public class AboutWindow(
      * @since 1.2
      */
     public fun setLicenseType(licenseType: License): Unit =
-        adw_about_window_set_license_type(
-            adwAboutWindowPointer.reinterpret(),
-            licenseType.nativeValue
-        )
+        adw_about_window_set_license_type(adwAboutWindowPointer.reinterpret(), licenseType.nativeValue)
 
     /**
      * Sets the release notes for @self.
@@ -1884,8 +1816,7 @@ public class AboutWindow(
      * Release notes are displayed on the the What's New page.
      *
      * Release notes are formatted the same way as
-     * [AppStream
-     * descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+     * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
      *
      * The supported formatting options are:
      *
@@ -1966,10 +1897,7 @@ public class AboutWindow(
      * @since 1.2
      */
     public fun setTranslatorCredits(translatorCredits: String): Unit =
-        adw_about_window_set_translator_credits(
-            adwAboutWindowPointer.reinterpret(),
-            translatorCredits
-        )
+        adw_about_window_set_translator_credits(adwAboutWindowPointer.reinterpret(), translatorCredits)
 
     /**
      * Sets the version for @self.
@@ -2006,8 +1934,7 @@ public class AboutWindow(
      * to call [func@Gtk.show_uri].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `uri` the URI to activate. Returns `TRUE` if
-     * the link has been activated
+     * @param handler the Callback to connect. Params: `uri` the URI to activate. Returns `TRUE` if the link has been activated
      * @since 1.2
      */
     public fun connectActivateLink(
@@ -2039,9 +1966,13 @@ private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> I
             uri: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(uri: String) -> Boolean>().get().invoke(
-            uri?.toKString()
-                ?: error("Expected not null string")
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    uri: String,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(uri?.toKString() ?: error("Expected not null string"))
+            .asGBoolean()
+    }.reinterpret()

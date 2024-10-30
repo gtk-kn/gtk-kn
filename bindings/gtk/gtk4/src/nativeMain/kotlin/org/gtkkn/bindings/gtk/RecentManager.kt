@@ -108,7 +108,8 @@ import kotlin.Unit
  */
 public open class RecentManager(
     pointer: CPointer<GtkRecentManager>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkRecentManagerPointer: CPointer<GtkRecentManager>
         get() = gPointer.reinterpret()
 
@@ -220,11 +221,7 @@ public open class RecentManager(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                gtk_recent_manager_lookup_item(
-                    gtkRecentManagerPointer.reinterpret(),
-                    uri,
-                    gError.ptr
-                )?.run {
+                gtk_recent_manager_lookup_item(gtkRecentManagerPointer.reinterpret(), uri, gError.ptr)?.run {
                     RecentInfo(reinterpret())
                 }
 
@@ -275,11 +272,7 @@ public open class RecentManager(
     public open fun purgeItems(): Result<Int> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_recent_manager_purge_items(
-                    gtkRecentManagerPointer.reinterpret(),
-                    gError.ptr
-                )
+            val gResult = gtk_recent_manager_purge_items(gtkRecentManagerPointer.reinterpret(), gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -336,9 +329,7 @@ public open class RecentManager(
 
     public companion object : TypeCompanion<RecentManager> {
         override val type: GeneratedClassKGType<RecentManager> =
-            GeneratedClassKGType(gtk_recent_manager_get_type()) {
-                RecentManager(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_recent_manager_get_type()) { RecentManager(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -364,5 +355,4 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

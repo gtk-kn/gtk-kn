@@ -117,7 +117,8 @@ import kotlin.Unit
  */
 public open class ToggleButton(
     pointer: CPointer<GtkToggleButton>,
-) : Button(pointer.reinterpret()), KGTyped {
+) : Button(pointer.reinterpret()),
+    KGTyped {
     public val gtkToggleButtonPointer: CPointer<GtkToggleButton>
         get() = gPointer.reinterpret()
 
@@ -158,11 +159,7 @@ public open class ToggleButton(
          *
          * @param isActive true or false.
          */
-        set(isActive) =
-            gtk_toggle_button_set_active(
-                gtkToggleButtonPointer.reinterpret(),
-                isActive.asGBoolean()
-            )
+        set(isActive) = gtk_toggle_button_set_active(gtkToggleButtonPointer.reinterpret(), isActive.asGBoolean())
 
     /**
      * Creates a new toggle button.
@@ -179,8 +176,7 @@ public open class ToggleButton(
      * @param label a string containing the message to be placed in the toggle button.
      * @return a new toggle button.
      */
-    public constructor(label: String) :
-        this(gtk_toggle_button_new_with_label(label)!!.reinterpret())
+    public constructor(label: String) : this(gtk_toggle_button_new_with_label(label)!!.reinterpret())
 
     /**
      * Queries a `GtkToggleButton` and returns its current state.
@@ -205,10 +201,7 @@ public open class ToggleButton(
      * @param isActive true or false.
      */
     public open fun setActive(isActive: Boolean): Unit =
-        gtk_toggle_button_set_active(
-            gtkToggleButtonPointer.reinterpret(),
-            isActive.asGBoolean()
-        )
+        gtk_toggle_button_set_active(gtkToggleButtonPointer.reinterpret(), isActive.asGBoolean())
 
     /**
      * Adds @self to the group of @group.
@@ -227,10 +220,7 @@ public open class ToggleButton(
      *   form a group with
      */
     public open fun setGroup(group: ToggleButton? = null): Unit =
-        gtk_toggle_button_set_group(
-            gtkToggleButtonPointer.reinterpret(),
-            group?.gtkToggleButtonPointer?.reinterpret()
-        )
+        gtk_toggle_button_set_group(gtkToggleButtonPointer.reinterpret(), group?.gtkToggleButtonPointer?.reinterpret())
 
     /**
      * Emits the ::toggled signal on the `GtkToggleButton`.
@@ -258,9 +248,7 @@ public open class ToggleButton(
 
     public companion object : TypeCompanion<ToggleButton> {
         override val type: GeneratedClassKGType<ToggleButton> =
-            GeneratedClassKGType(gtk_toggle_button_get_type()) {
-                ToggleButton(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_toggle_button_get_type()) { ToggleButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -296,5 +284,4 @@ private val connectToggledFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

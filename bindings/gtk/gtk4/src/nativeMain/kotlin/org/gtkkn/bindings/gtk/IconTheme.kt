@@ -88,7 +88,8 @@ import kotlin.collections.List
  */
 public open class IconTheme(
     pointer: CPointer<GtkIconTheme>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkIconThemePointer: CPointer<GtkIconTheme>
         get() = gPointer.reinterpret()
 
@@ -162,10 +163,7 @@ public open class IconTheme(
          */
         set(path) =
             memScoped {
-                return gtk_icon_theme_set_resource_path(
-                    gtkIconThemePointer.reinterpret(),
-                    path?.toCStringList(this)
-                )
+                return gtk_icon_theme_set_resource_path(gtkIconThemePointer.reinterpret(), path?.toCStringList(this))
             }
 
     /**
@@ -210,10 +208,7 @@ public open class IconTheme(
          */
         set(path) =
             memScoped {
-                return gtk_icon_theme_set_search_path(
-                    gtkIconThemePointer.reinterpret(),
-                    path?.toCStringList(this)
-                )
+                return gtk_icon_theme_set_search_path(gtkIconThemePointer.reinterpret(), path?.toCStringList(this))
             }
 
     /**
@@ -314,10 +309,7 @@ public open class IconTheme(
      * @since 4.2
      */
     public open fun hasGicon(gicon: Icon): Boolean =
-        gtk_icon_theme_has_gicon(
-            gtkIconThemePointer.reinterpret(),
-            gicon.gioIconPointer
-        ).asBoolean()
+        gtk_icon_theme_has_gicon(gtkIconThemePointer.reinterpret(), gicon.gioIconPointer).asBoolean()
 
     /**
      * Checks whether an icon theme includes an icon
@@ -430,10 +422,7 @@ public open class IconTheme(
      */
     public open fun setResourcePath(path: List<String>? = null): Unit =
         memScoped {
-            return gtk_icon_theme_set_resource_path(
-                gtkIconThemePointer.reinterpret(),
-                path?.toCStringList(this)
-            )
+            return gtk_icon_theme_set_resource_path(gtkIconThemePointer.reinterpret(), path?.toCStringList(this))
         }
 
     /**
@@ -458,10 +447,7 @@ public open class IconTheme(
      */
     public open fun setSearchPath(path: List<String>? = null): Unit =
         memScoped {
-            return gtk_icon_theme_set_search_path(
-                gtkIconThemePointer.reinterpret(),
-                path?.toCStringList(this)
-            )
+            return gtk_icon_theme_set_search_path(gtkIconThemePointer.reinterpret(), path?.toCStringList(this))
         }
 
     /**
@@ -536,5 +522,4 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

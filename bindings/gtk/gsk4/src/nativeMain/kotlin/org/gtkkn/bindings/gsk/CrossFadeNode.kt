@@ -19,7 +19,8 @@ import kotlin.Float
  */
 public open class CrossFadeNode(
     pointer: CPointer<GskCrossFadeNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskCrossFadeNodePointer: CPointer<GskCrossFadeNode>
         get() = gPointer.reinterpret()
 
@@ -37,11 +38,7 @@ public open class CrossFadeNode(
         end: RenderNode,
         progress: Float,
     ) : this(
-        gsk_cross_fade_node_new(
-            start.gPointer.reinterpret(),
-            end.gPointer.reinterpret(),
-            progress
-        )!!.reinterpret()
+        gsk_cross_fade_node_new(start.gPointer.reinterpret(), end.gPointer.reinterpret(), progress)!!.reinterpret()
     )
 
     /**
@@ -73,9 +70,7 @@ public open class CrossFadeNode(
 
     public companion object : TypeCompanion<CrossFadeNode> {
         override val type: GeneratedClassKGType<CrossFadeNode> =
-            GeneratedClassKGType(gsk_cross_fade_node_get_type()) {
-                CrossFadeNode(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_cross_fade_node_get_type()) { CrossFadeNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

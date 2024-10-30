@@ -87,7 +87,8 @@ import kotlin.Unit
  */
 public class ViewSwitcherBar(
     pointer: CPointer<AdwViewSwitcherBar>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwViewSwitcherBarPointer: CPointer<AdwViewSwitcherBar>
         get() = gPointer.reinterpret()
 
@@ -109,19 +110,14 @@ public class ViewSwitcherBar(
          *
          * @return whether @self is revealed
          */
-        get() =
-            adw_view_switcher_bar_get_reveal(adwViewSwitcherBarPointer.reinterpret()).asBoolean()
+        get() = adw_view_switcher_bar_get_reveal(adwViewSwitcherBarPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self should be revealed or hidden.
          *
          * @param reveal whether to reveal @self
          */
-        set(reveal) =
-            adw_view_switcher_bar_set_reveal(
-                adwViewSwitcherBarPointer.reinterpret(),
-                reveal.asGBoolean()
-            )
+        set(reveal) = adw_view_switcher_bar_set_reveal(adwViewSwitcherBarPointer.reinterpret(), reveal.asGBoolean())
 
     /**
      * The stack the view switcher controls.
@@ -142,7 +138,9 @@ public class ViewSwitcherBar(
          *
          * @param stack a stack
          */
-        set(stack) =
+        set(
+            stack
+        ) =
             adw_view_switcher_bar_set_stack(
                 adwViewSwitcherBarPointer.reinterpret(),
                 stack?.adwViewStackPointer?.reinterpret()
@@ -179,10 +177,7 @@ public class ViewSwitcherBar(
      * @param reveal whether to reveal @self
      */
     public fun setReveal(reveal: Boolean): Unit =
-        adw_view_switcher_bar_set_reveal(
-            adwViewSwitcherBarPointer.reinterpret(),
-            reveal.asGBoolean()
-        )
+        adw_view_switcher_bar_set_reveal(adwViewSwitcherBarPointer.reinterpret(), reveal.asGBoolean())
 
     /**
      * Sets the stack controlled by @self.
@@ -197,9 +192,7 @@ public class ViewSwitcherBar(
 
     public companion object : TypeCompanion<ViewSwitcherBar> {
         override val type: GeneratedClassKGType<ViewSwitcherBar> =
-            GeneratedClassKGType(adw_view_switcher_bar_get_type()) {
-                ViewSwitcherBar(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_view_switcher_bar_get_type()) { ViewSwitcherBar(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

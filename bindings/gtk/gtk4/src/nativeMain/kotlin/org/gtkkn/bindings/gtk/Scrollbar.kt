@@ -67,7 +67,9 @@ import kotlin.Unit
  */
 public open class Scrollbar(
     pointer: CPointer<GtkScrollbar>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val gtkScrollbarPointer: CPointer<GtkScrollbar>
         get() = gPointer.reinterpret()
 
@@ -91,13 +93,12 @@ public open class Scrollbar(
      *   to create a new adjustment.
      * @return the new `GtkScrollbar`.
      */
-    public constructor(orientation: Orientation, adjustment: Adjustment? = null) :
-        this(
-            gtk_scrollbar_new(
-                orientation.nativeValue,
-                adjustment?.gtkAdjustmentPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        orientation: Orientation,
+        adjustment: Adjustment? = null,
+    ) : this(
+        gtk_scrollbar_new(orientation.nativeValue, adjustment?.gtkAdjustmentPointer?.reinterpret())!!.reinterpret()
+    )
 
     /**
      * Returns the scrollbar's adjustment.
@@ -115,10 +116,7 @@ public open class Scrollbar(
      * @param adjustment the adjustment to set
      */
     public open fun setAdjustment(adjustment: Adjustment? = null): Unit =
-        gtk_scrollbar_set_adjustment(
-            gtkScrollbarPointer.reinterpret(),
-            adjustment?.gtkAdjustmentPointer?.reinterpret()
-        )
+        gtk_scrollbar_set_adjustment(gtkScrollbarPointer.reinterpret(), adjustment?.gtkAdjustmentPointer?.reinterpret())
 
     public companion object : TypeCompanion<Scrollbar> {
         override val type: GeneratedClassKGType<Scrollbar> =

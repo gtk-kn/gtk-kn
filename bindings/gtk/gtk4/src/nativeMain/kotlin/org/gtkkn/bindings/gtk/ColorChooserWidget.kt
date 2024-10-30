@@ -46,7 +46,9 @@ import org.gtkkn.native.gtk.gtk_color_chooser_widget_new
  */
 public open class ColorChooserWidget(
     pointer: CPointer<GtkColorChooserWidget>,
-) : Widget(pointer.reinterpret()), ColorChooser, KGTyped {
+) : Widget(pointer.reinterpret()),
+    ColorChooser,
+    KGTyped {
     public val gtkColorChooserWidgetPointer: CPointer<GtkColorChooserWidget>
         get() = gPointer.reinterpret()
 
@@ -71,9 +73,7 @@ public open class ColorChooserWidget(
 
     public companion object : TypeCompanion<ColorChooserWidget> {
         override val type: GeneratedClassKGType<ColorChooserWidget> =
-            GeneratedClassKGType(gtk_color_chooser_widget_get_type()) {
-                ColorChooserWidget(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_color_chooser_widget_get_type()) { ColorChooserWidget(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

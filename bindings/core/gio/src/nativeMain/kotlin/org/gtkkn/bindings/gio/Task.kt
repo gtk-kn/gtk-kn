@@ -594,7 +594,9 @@ import kotlin.Unit
  */
 public open class Task(
     pointer: CPointer<GTask>,
-) : Object(pointer.reinterpret()), AsyncResult, KGTyped {
+) : Object(pointer.reinterpret()),
+    AsyncResult,
+    KGTyped {
     public val gioTaskPointer: CPointer<GTask>
         get() = gPointer.reinterpret()
 
@@ -892,11 +894,7 @@ public open class Task(
      * @param result the integer (#gssize) result of a task function.
      * @since 2.36
      */
-    public open fun returnInt(result: Long): Unit =
-        g_task_return_int(
-            gioTaskPointer.reinterpret(),
-            result
-        )
+    public open fun returnInt(result: Long): Unit = g_task_return_int(gioTaskPointer.reinterpret(), result)
 
     /**
      * Sets @task’s result to a new [type@GLib.Error] created from @domain, @code,
@@ -956,10 +954,7 @@ public open class Task(
      * @since 2.36
      */
     public open fun setCheckCancellable(checkCancellable: Boolean): Unit =
-        g_task_set_check_cancellable(
-            gioTaskPointer.reinterpret(),
-            checkCancellable.asGBoolean()
-        )
+        g_task_set_check_cancellable(gioTaskPointer.reinterpret(), checkCancellable.asGBoolean())
 
     /**
      * Sets @task’s name, used in debugging and profiling. The name defaults to
@@ -1030,10 +1025,7 @@ public open class Task(
      * @since 2.36
      */
     public open fun setReturnOnCancel(returnOnCancel: Boolean): Boolean =
-        g_task_set_return_on_cancel(
-            gioTaskPointer.reinterpret(),
-            returnOnCancel.asGBoolean()
-        ).asBoolean()
+        g_task_set_return_on_cancel(gioTaskPointer.reinterpret(), returnOnCancel.asGBoolean()).asBoolean()
 
     /**
      * Sets @task’s name, used in debugging and profiling.
@@ -1048,9 +1040,7 @@ public open class Task(
 
     public companion object : TypeCompanion<Task> {
         override val type: GeneratedClassKGType<Task> =
-            GeneratedClassKGType(g_task_get_type()) {
-                Task(it.reinterpret())
-            }
+            GeneratedClassKGType(g_task_get_type()) { Task(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -1071,10 +1061,6 @@ public open class Task(
         public fun isValid(
             result: AsyncResult,
             sourceObject: Object? = null,
-        ): Boolean =
-            g_task_is_valid(
-                result.gioAsyncResultPointer,
-                sourceObject?.gPointer?.reinterpret()
-            ).asBoolean()
+        ): Boolean = g_task_is_valid(result.gioAsyncResultPointer, sourceObject?.gPointer?.reinterpret()).asBoolean()
     }
 }

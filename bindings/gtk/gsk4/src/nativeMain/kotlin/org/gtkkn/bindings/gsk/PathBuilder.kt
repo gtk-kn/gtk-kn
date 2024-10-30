@@ -110,12 +110,7 @@ public class PathBuilder(
     public fun addCircle(
         center: Point,
         radius: Float,
-    ): Unit =
-        gsk_path_builder_add_circle(
-            gskPathBuilderPointer.reinterpret(),
-            center.graphenePointPointer,
-            radius
-        )
+    ): Unit = gsk_path_builder_add_circle(gskPathBuilderPointer.reinterpret(), center.graphenePointPointer, radius)
 
     /**
      * Adds the outlines for the glyphs in @layout to the builder.
@@ -124,10 +119,7 @@ public class PathBuilder(
      * @since 4.14
      */
     public fun addLayout(layout: Layout): Unit =
-        gsk_path_builder_add_layout(
-            gskPathBuilderPointer.reinterpret(),
-            layout.pangoLayoutPointer.reinterpret()
-        )
+        gsk_path_builder_add_layout(gskPathBuilderPointer.reinterpret(), layout.pangoLayoutPointer.reinterpret())
 
     /**
      * Appends all of @path to the builder.
@@ -159,10 +151,7 @@ public class PathBuilder(
      * @since 4.14
      */
     public fun addReversePath(path: Path): Unit =
-        gsk_path_builder_add_reverse_path(
-            gskPathBuilderPointer.reinterpret(),
-            path.gskPathPointer
-        )
+        gsk_path_builder_add_reverse_path(gskPathBuilderPointer.reinterpret(), path.gskPathPointer)
 
     /**
      * Adds @rect as a new contour to the path built in @self.
@@ -173,10 +162,7 @@ public class PathBuilder(
      * @since 4.14
      */
     public fun addRoundedRect(rect: RoundedRect): Unit =
-        gsk_path_builder_add_rounded_rect(
-            gskPathBuilderPointer.reinterpret(),
-            rect.gskRoundedRectPointer
-        )
+        gsk_path_builder_add_rounded_rect(gskPathBuilderPointer.reinterpret(), rect.gskRoundedRectPointer)
 
     /**
      * Adds to @self the segment of @path from @start to @end.
@@ -352,15 +338,7 @@ public class PathBuilder(
         x2: Float,
         y2: Float,
         radius: Float,
-    ): Unit =
-        gsk_path_builder_html_arc_to(
-            gskPathBuilderPointer.reinterpret(),
-            x1,
-            y1,
-            x2,
-            y2,
-            radius
-        )
+    ): Unit = gsk_path_builder_html_arc_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, radius)
 
     /**
      * Draws a line from the current point to @x, @y and makes it
@@ -478,15 +456,7 @@ public class PathBuilder(
         x2: Float,
         y2: Float,
         weight: Float,
-    ): Unit =
-        gsk_path_builder_rel_conic_to(
-            gskPathBuilderPointer.reinterpret(),
-            x1,
-            y1,
-            x2,
-            y2,
-            weight
-        )
+    ): Unit = gsk_path_builder_rel_conic_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, weight)
 
     /**
      * Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
@@ -512,16 +482,7 @@ public class PathBuilder(
         y2: Float,
         x3: Float,
         y3: Float,
-    ): Unit =
-        gsk_path_builder_rel_cubic_to(
-            gskPathBuilderPointer.reinterpret(),
-            x1,
-            y1,
-            x2,
-            y2,
-            x3,
-            y3
-        )
+    ): Unit = gsk_path_builder_rel_cubic_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, x3, y3)
 
     /**
      * Implements arc-to according to the HTML Canvas spec.
@@ -543,15 +504,7 @@ public class PathBuilder(
         x2: Float,
         y2: Float,
         radius: Float,
-    ): Unit =
-        gsk_path_builder_rel_html_arc_to(
-            gskPathBuilderPointer.reinterpret(),
-            x1,
-            y1,
-            x2,
-            y2,
-            radius
-        )
+    ): Unit = gsk_path_builder_rel_html_arc_to(gskPathBuilderPointer.reinterpret(), x1, y1, x2, y2, radius)
 
     /**
      * Draws a line from the current point to a point offset from it

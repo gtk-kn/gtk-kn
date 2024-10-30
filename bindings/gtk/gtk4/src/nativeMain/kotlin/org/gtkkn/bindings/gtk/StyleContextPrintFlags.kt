@@ -17,7 +17,9 @@ public class StyleContextPrintFlags(
     public val mask: GtkStyleContextPrintFlags,
 ) : Bitfield<StyleContextPrintFlags> {
     override infix fun or(other: StyleContextPrintFlags): StyleContextPrintFlags =
-        StyleContextPrintFlags(mask or other.mask)
+        StyleContextPrintFlags(
+            mask or other.mask
+        )
 
     public companion object {
         /**

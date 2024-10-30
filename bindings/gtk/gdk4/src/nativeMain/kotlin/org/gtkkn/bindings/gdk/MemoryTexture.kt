@@ -21,7 +21,8 @@ import kotlin.ULong
  */
 public open class MemoryTexture(
     pointer: CPointer<GdkMemoryTexture>,
-) : Texture(pointer.reinterpret()), KGTyped {
+) : Texture(pointer.reinterpret()),
+    KGTyped {
     public val gdkMemoryTexturePointer: CPointer<GdkMemoryTexture>
         get() = gPointer.reinterpret()
 
@@ -53,21 +54,11 @@ public open class MemoryTexture(
         format: MemoryFormat,
         bytes: Bytes,
         stride: ULong,
-    ) : this(
-        gdk_memory_texture_new(
-            width,
-            height,
-            format.nativeValue,
-            bytes.glibBytesPointer,
-            stride
-        )!!.reinterpret()
-    )
+    ) : this(gdk_memory_texture_new(width, height, format.nativeValue, bytes.glibBytesPointer, stride)!!.reinterpret())
 
     public companion object : TypeCompanion<MemoryTexture> {
         override val type: GeneratedClassKGType<MemoryTexture> =
-            GeneratedClassKGType(gdk_memory_texture_get_type()) {
-                MemoryTexture(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_memory_texture_get_type()) { MemoryTexture(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

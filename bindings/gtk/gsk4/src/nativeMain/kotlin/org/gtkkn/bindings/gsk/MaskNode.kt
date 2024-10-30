@@ -19,7 +19,8 @@ import org.gtkkn.native.gsk.gsk_mask_node_new
  */
 public open class MaskNode(
     pointer: CPointer<GskMaskNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskMaskNodePointer: CPointer<GskMaskNode>
         get() = gPointer.reinterpret()
 

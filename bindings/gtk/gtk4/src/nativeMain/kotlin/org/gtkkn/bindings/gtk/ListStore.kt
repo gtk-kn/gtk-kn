@@ -240,12 +240,7 @@ public open class ListStore(
     public open fun insert(
         iter: TreeIter,
         position: Int,
-    ): Unit =
-        gtk_list_store_insert(
-            gtkListStorePointer.reinterpret(),
-            iter.gtkTreeIterPointer,
-            position
-        )
+    ): Unit = gtk_list_store_insert(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer, position)
 
     /**
      * Inserts a new row after @sibling. If @sibling is null, then the row will be
@@ -295,10 +290,7 @@ public open class ListStore(
      * @return true if the iter is valid, false if the iter is invalid.
      */
     public open fun iterIsValid(iter: TreeIter): Boolean =
-        gtk_list_store_iter_is_valid(
-            gtkListStorePointer.reinterpret(),
-            iter.gtkTreeIterPointer
-        ).asBoolean()
+        gtk_list_store_iter_is_valid(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer).asBoolean()
 
     /**
      * Moves @iter in @store to the position after @position. Note that this
@@ -355,10 +347,7 @@ public open class ListStore(
      * @return true if @iter is valid, false if not.
      */
     public open fun remove(iter: TreeIter): Boolean =
-        gtk_list_store_remove(
-            gtkListStorePointer.reinterpret(),
-            iter.gtkTreeIterPointer
-        ).asBoolean()
+        gtk_list_store_remove(gtkListStorePointer.reinterpret(), iter.gtkTreeIterPointer).asBoolean()
 
     /**
      * Sets the data in the cell specified by @iter and @column.
@@ -391,12 +380,7 @@ public open class ListStore(
     public open fun swap(
         a: TreeIter,
         b: TreeIter,
-    ): Unit =
-        gtk_list_store_swap(
-            gtkListStorePointer.reinterpret(),
-            a.gtkTreeIterPointer,
-            b.gtkTreeIterPointer
-        )
+    ): Unit = gtk_list_store_swap(gtkListStorePointer.reinterpret(), a.gtkTreeIterPointer, b.gtkTreeIterPointer)
 
     public companion object : TypeCompanion<ListStore> {
         override val type: GeneratedClassKGType<ListStore> =

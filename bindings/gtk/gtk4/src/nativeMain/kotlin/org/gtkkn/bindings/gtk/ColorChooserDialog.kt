@@ -45,7 +45,9 @@ import kotlin.String
  */
 public open class ColorChooserDialog(
     pointer: CPointer<GtkColorChooserDialog>,
-) : Dialog(pointer.reinterpret()), ColorChooser, KGTyped {
+) : Dialog(pointer.reinterpret()),
+    ColorChooser,
+    KGTyped {
     public val gtkColorChooserDialogPointer: CPointer<GtkColorChooserDialog>
         get() = gPointer.reinterpret()
 
@@ -77,19 +79,14 @@ public open class ColorChooserDialog(
      * @param parent Transient parent of the dialog
      * @return a new `GtkColorChooserDialog`
      */
-    public constructor(title: String? = null, parent: Window? = null) :
-        this(
-            gtk_color_chooser_dialog_new(
-                title,
-                parent?.gtkWindowPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        title: String? = null,
+        parent: Window? = null,
+    ) : this(gtk_color_chooser_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<ColorChooserDialog> {
         override val type: GeneratedClassKGType<ColorChooserDialog> =
-            GeneratedClassKGType(gtk_color_chooser_dialog_get_type()) {
-                ColorChooserDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_color_chooser_dialog_get_type()) { ColorChooserDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

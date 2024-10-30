@@ -58,7 +58,8 @@ import kotlin.Unit
  */
 public open class Cancellable(
     pointer: CPointer<GCancellable>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioCancellablePointer: CPointer<GCancellable>
         get() = gPointer.reinterpret()
 
@@ -205,10 +206,7 @@ public open class Cancellable(
      * @since 2.22
      */
     public open fun makePollfd(pollfd: PollFD): Boolean =
-        g_cancellable_make_pollfd(
-            gioCancellablePointer.reinterpret(),
-            pollfd.glibPollFDPointer
-        ).asBoolean()
+        g_cancellable_make_pollfd(gioCancellablePointer.reinterpret(), pollfd.glibPollFDPointer).asBoolean()
 
     /**
      * Pops @cancellable off the cancellable stack (verifying that @cancellable
@@ -394,5 +392,4 @@ private val connectCancelledFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

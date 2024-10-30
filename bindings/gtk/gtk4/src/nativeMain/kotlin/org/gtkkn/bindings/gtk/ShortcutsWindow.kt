@@ -54,8 +54,7 @@ import kotlin.Unit
  * are arranged in columns, and spread across several pages if there are too
  * many to find on a single page.
  *
- * The .ui file for this example can be found
- * [here](https://gitlab.gnome.org/GNOME/gtk/tree/main/demos/gtk-demo/shortcuts-gedit.ui).
+ * The .ui file for this example can be found [here](https://gitlab.gnome.org/GNOME/gtk/tree/main/demos/gtk-demo/shortcuts-gedit.ui).
  *
  * # An example with multiple views:
  *
@@ -64,8 +63,7 @@ import kotlin.Unit
  * This example shows a `GtkShortcutsWindow` that has been configured to show only
  * the shortcuts relevant to the "stopwatch" view.
  *
- * The .ui file for this example can be found
- * [here](https://gitlab.gnome.org/GNOME/gtk/tree/main/demos/gtk-demo/shortcuts-clocks.ui).
+ * The .ui file for this example can be found [here](https://gitlab.gnome.org/GNOME/gtk/tree/main/demos/gtk-demo/shortcuts-clocks.ui).
  *
  * # An example with multiple sections:
  *
@@ -74,8 +72,7 @@ import kotlin.Unit
  * This example shows a `GtkShortcutsWindow` with two sections, "Editor Shortcuts"
  * and "Terminal Shortcuts".
  *
- * The .ui file for this example can be found
- * [here](https://gitlab.gnome.org/GNOME/gtk/tree/main/demos/gtk-demo/shortcuts-builder.ui).
+ * The .ui file for this example can be found [here](https://gitlab.gnome.org/GNOME/gtk/tree/main/demos/gtk-demo/shortcuts-builder.ui).
  *
  * ## CSS nodes
  *
@@ -89,7 +86,8 @@ import kotlin.Unit
  */
 public open class ShortcutsWindow(
     pointer: CPointer<GtkShortcutsWindow>,
-) : Window(pointer.reinterpret()), KGTyped {
+) : Window(pointer.reinterpret()),
+    KGTyped {
     public val gtkShortcutsWindowPointer: CPointer<GtkShortcutsWindow>
         get() = gPointer.reinterpret()
 
@@ -177,9 +175,7 @@ public open class ShortcutsWindow(
 
     public companion object : TypeCompanion<ShortcutsWindow> {
         override val type: GeneratedClassKGType<ShortcutsWindow> =
-            GeneratedClassKGType(gtk_shortcuts_window_get_type()) {
-                ShortcutsWindow(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_shortcuts_window_get_type()) { ShortcutsWindow(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -193,8 +189,7 @@ private val connectCloseFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSearchFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -202,5 +197,4 @@ private val connectSearchFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

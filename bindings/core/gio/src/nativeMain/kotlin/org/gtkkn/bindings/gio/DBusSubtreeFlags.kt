@@ -23,10 +23,8 @@ public class DBusSubtreeFlags(
 
         /**
          * Method calls to objects not in the enumerated range
-         *                                                       will still be dispatched. This is
-         * useful if you want
-         *                                                       to dynamically spawn objects in the
-         * subtree.
+         *                                                       will still be dispatched. This is useful if you want
+         *                                                       to dynamically spawn objects in the subtree.
          */
         public val DISPATCH_TO_UNENUMERATED_NODES: DBusSubtreeFlags =
             DBusSubtreeFlags(G_DBUS_SUBTREE_FLAGS_DISPATCH_TO_UNENUMERATED_NODES)

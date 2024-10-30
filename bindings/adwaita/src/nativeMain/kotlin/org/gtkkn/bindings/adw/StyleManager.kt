@@ -38,7 +38,8 @@ import kotlin.Unit
  */
 public class StyleManager(
     pointer: CPointer<AdwStyleManager>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val adwStyleManagerPointer: CPointer<AdwStyleManager>
         get() = gPointer.reinterpret()
 
@@ -121,11 +122,9 @@ public class StyleManager(
          *
          * @param colorScheme the color scheme
          */
-        set(colorScheme) =
-            adw_style_manager_set_color_scheme(
-                adwStyleManagerPointer.reinterpret(),
-                colorScheme.nativeValue
-            )
+        set(
+            colorScheme
+        ) = adw_style_manager_set_color_scheme(adwStyleManagerPointer.reinterpret(), colorScheme.nativeValue)
 
     /**
      * Whether the application is using dark appearance.
@@ -177,8 +176,7 @@ public class StyleManager(
          *
          * @return whether the application is using high contrast appearance
          */
-        get() =
-            adw_style_manager_get_high_contrast(adwStyleManagerPointer.reinterpret()).asBoolean()
+        get() = adw_style_manager_get_high_contrast(adwStyleManagerPointer.reinterpret()).asBoolean()
 
     /**
      * Whether the system supports color schemes.
@@ -199,8 +197,7 @@ public class StyleManager(
          *
          * @return whether the system supports color schemes
          */
-        get() =
-            adw_style_manager_get_system_supports_color_schemes(adwStyleManagerPointer.reinterpret()).asBoolean()
+        get() = adw_style_manager_get_system_supports_color_schemes(adwStyleManagerPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the requested application color scheme.
@@ -293,16 +290,11 @@ public class StyleManager(
      * @param colorScheme the color scheme
      */
     public fun setColorScheme(colorScheme: ColorScheme): Unit =
-        adw_style_manager_set_color_scheme(
-            adwStyleManagerPointer.reinterpret(),
-            colorScheme.nativeValue
-        )
+        adw_style_manager_set_color_scheme(adwStyleManagerPointer.reinterpret(), colorScheme.nativeValue)
 
     public companion object : TypeCompanion<StyleManager> {
         override val type: GeneratedClassKGType<StyleManager> =
-            GeneratedClassKGType(adw_style_manager_get_type()) {
-                StyleManager(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_style_manager_get_type()) { StyleManager(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -55,7 +55,8 @@ import kotlin.Unit
  */
 public open class Monitor(
     pointer: CPointer<GdkMonitor>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkMonitorPointer: CPointer<GdkMonitor>
         get() = gPointer.reinterpret()
 
@@ -398,5 +399,4 @@ private val connectInvalidateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

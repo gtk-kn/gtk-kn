@@ -76,9 +76,7 @@ public enum class TlsChannelBindingError(
         public fun quark(): UInt = g_tls_channel_binding_error_quark()
 
         public fun fromErrorOrNull(error: Error): TlsChannelBindingError? =
-            if (error.domain !=
-                quark()
-            ) {
+            if (error.domain != quark()) {
                 null
             } else {
                 TlsChannelBindingError.values().find { it.nativeValue.value.toInt() == error.code }

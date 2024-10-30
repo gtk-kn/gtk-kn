@@ -40,7 +40,9 @@ import kotlin.Unit
  */
 public open class WidgetPaintable(
     pointer: CPointer<GtkWidgetPaintable>,
-) : Object(pointer.reinterpret()), Paintable, KGTyped {
+) : Object(pointer.reinterpret()),
+    Paintable,
+    KGTyped {
     public val gtkWidgetPaintablePointer: CPointer<GtkWidgetPaintable>
         get() = gPointer.reinterpret()
 
@@ -66,7 +68,9 @@ public open class WidgetPaintable(
          *
          * @param widget the widget to observe
          */
-        set(widget) =
+        set(
+            widget
+        ) =
             gtk_widget_paintable_set_widget(
                 gtkWidgetPaintablePointer.reinterpret(),
                 widget?.gtkWidgetPointer?.reinterpret()
@@ -78,8 +82,9 @@ public open class WidgetPaintable(
      * @param widget a `GtkWidget`
      * @return a new `GtkWidgetPaintable`
      */
-    public constructor(widget: Widget? = null) :
-        this(gtk_widget_paintable_new(widget?.gtkWidgetPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        widget: Widget? = null,
+    ) : this(gtk_widget_paintable_new(widget?.gtkWidgetPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Returns the widget that is observed or null if none.
@@ -104,9 +109,7 @@ public open class WidgetPaintable(
 
     public companion object : TypeCompanion<WidgetPaintable> {
         override val type: GeneratedClassKGType<WidgetPaintable> =
-            GeneratedClassKGType(gtk_widget_paintable_get_type()) {
-                WidgetPaintable(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_widget_paintable_get_type()) { WidgetPaintable(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -14,7 +14,8 @@ import org.gtkkn.native.gdk.gdk_motion_event_get_type
  */
 public open class MotionEvent(
     pointer: CPointer<GdkMotionEvent>,
-) : Event(pointer.reinterpret()), KGTyped {
+) : Event(pointer.reinterpret()),
+    KGTyped {
     public val gdkMotionEventPointer: CPointer<GdkMotionEvent>
         get() = gPointer.reinterpret()
 

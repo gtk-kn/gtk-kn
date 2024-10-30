@@ -62,7 +62,9 @@ import kotlin.Unit
  *
  * - parameter `action_name`: action_name: Out parameter is not supported
  */
-public interface Action : Interface, KGTyped {
+public interface Action :
+    Interface,
+    KGTyped {
     public val gioActionPointer: CPointer<GAction>
 
     /**
@@ -98,9 +100,7 @@ public interface Action : Interface, KGTyped {
          * @return the name of the action
          * @since 2.28
          */
-        get() =
-            g_action_get_name(gioActionPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_action_get_name(gioActionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The type of the parameter that must be given when activating the
@@ -232,8 +232,7 @@ public interface Action : Interface, KGTyped {
      * @since 2.28
      */
     public fun getName(): String =
-        g_action_get_name(gioActionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_action_get_name(gioActionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Queries the type of the parameter that must be given when activating
@@ -373,9 +372,7 @@ public interface Action : Interface, KGTyped {
             actionName: String,
             targetValue: Variant? = null,
         ): String =
-            g_action_print_detailed_name(
-                actionName,
-                targetValue?.glibVariantPointer
-            )?.toKString() ?: error("Expected not null string")
+            g_action_print_detailed_name(actionName, targetValue?.glibVariantPointer)?.toKString()
+                ?: error("Expected not null string")
     }
 }

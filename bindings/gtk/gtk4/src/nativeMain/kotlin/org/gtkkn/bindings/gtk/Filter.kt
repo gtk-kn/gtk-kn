@@ -48,7 +48,8 @@ import kotlin.Unit
  */
 public open class Filter(
     pointer: CPointer<GtkFilter>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkFilterPointer: CPointer<GtkFilter>
         get() = gPointer.reinterpret()
 
@@ -97,10 +98,7 @@ public open class Filter(
      *   keep it, false if not.
      */
     public open fun match(item: Object): Boolean =
-        gtk_filter_match(
-            gtkFilterPointer.reinterpret(),
-            item.gPointer.reinterpret()
-        ).asBoolean()
+        gtk_filter_match(gtkFilterPointer.reinterpret(), item.gPointer.reinterpret()).asBoolean()
 
     /**
      * Emitted whenever the filter changed.
@@ -151,5 +149,4 @@ private val connectChangedFunc: CPointer<CFunction<(GtkFilterChange) -> Unit>> =
                 FilterChange.fromNativeValue(this)
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

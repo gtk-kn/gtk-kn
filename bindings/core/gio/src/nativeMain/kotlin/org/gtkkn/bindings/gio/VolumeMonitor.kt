@@ -47,7 +47,8 @@ import kotlin.Unit
  */
 public open class VolumeMonitor(
     pointer: CPointer<GVolumeMonitor>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioVolumeMonitorPointer: CPointer<GVolumeMonitor>
         get() = gPointer.reinterpret()
 
@@ -175,8 +176,7 @@ public open class VolumeMonitor(
      * Emitted when the eject button is pressed on @drive.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `drive` the drive where the eject button was
-     * pressed
+     * @param handler the Callback to connect. Params: `drive` the drive where the eject button was pressed
      * @since 2.18
      */
     public fun connectDriveEjectButton(
@@ -196,8 +196,7 @@ public open class VolumeMonitor(
      * Emitted when the stop button is pressed on @drive.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `drive` the drive where the stop button was
-     * pressed
+     * @param handler the Callback to connect. Params: `drive` the drive where the stop button was pressed
      * @since 2.22
      */
     public fun connectDriveStopButton(
@@ -351,9 +350,7 @@ public open class VolumeMonitor(
 
     public companion object : TypeCompanion<VolumeMonitor> {
         override val type: GeneratedClassKGType<VolumeMonitor> =
-            GeneratedClassKGType(g_volume_monitor_get_type()) {
-                VolumeMonitor(it.reinterpret())
-            }
+            GeneratedClassKGType(g_volume_monitor_get_type()) { VolumeMonitor(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -422,8 +419,7 @@ private val connectDriveChangedFunc: CPointer<CFunction<(CPointer<GDrive>) -> Un
                 Drive.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDriveConnectedFunc: CPointer<CFunction<(CPointer<GDrive>) -> Unit>> =
     staticCFunction {
@@ -436,8 +432,7 @@ private val connectDriveConnectedFunc: CPointer<CFunction<(CPointer<GDrive>) -> 
                 Drive.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDriveDisconnectedFunc: CPointer<CFunction<(CPointer<GDrive>) -> Unit>> =
     staticCFunction {
@@ -450,8 +445,7 @@ private val connectDriveDisconnectedFunc: CPointer<CFunction<(CPointer<GDrive>) 
                 Drive.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDriveEjectButtonFunc: CPointer<CFunction<(CPointer<GDrive>) -> Unit>> =
     staticCFunction {
@@ -464,8 +458,7 @@ private val connectDriveEjectButtonFunc: CPointer<CFunction<(CPointer<GDrive>) -
                 Drive.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDriveStopButtonFunc: CPointer<CFunction<(CPointer<GDrive>) -> Unit>> =
     staticCFunction {
@@ -478,8 +471,7 @@ private val connectDriveStopButtonFunc: CPointer<CFunction<(CPointer<GDrive>) ->
                 Drive.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMountAddedFunc: CPointer<CFunction<(CPointer<GMount>) -> Unit>> =
     staticCFunction {
@@ -492,8 +484,7 @@ private val connectMountAddedFunc: CPointer<CFunction<(CPointer<GMount>) -> Unit
                 Mount.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMountChangedFunc: CPointer<CFunction<(CPointer<GMount>) -> Unit>> =
     staticCFunction {
@@ -506,8 +497,7 @@ private val connectMountChangedFunc: CPointer<CFunction<(CPointer<GMount>) -> Un
                 Mount.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMountPreUnmountFunc: CPointer<CFunction<(CPointer<GMount>) -> Unit>> =
     staticCFunction {
@@ -520,8 +510,7 @@ private val connectMountPreUnmountFunc: CPointer<CFunction<(CPointer<GMount>) ->
                 Mount.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMountRemovedFunc: CPointer<CFunction<(CPointer<GMount>) -> Unit>> =
     staticCFunction {
@@ -534,8 +523,7 @@ private val connectMountRemovedFunc: CPointer<CFunction<(CPointer<GMount>) -> Un
                 Mount.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectVolumeAddedFunc: CPointer<CFunction<(CPointer<GVolume>) -> Unit>> =
     staticCFunction {
@@ -548,8 +536,7 @@ private val connectVolumeAddedFunc: CPointer<CFunction<(CPointer<GVolume>) -> Un
                 Volume.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectVolumeChangedFunc: CPointer<CFunction<(CPointer<GVolume>) -> Unit>> =
     staticCFunction {
@@ -562,8 +549,7 @@ private val connectVolumeChangedFunc: CPointer<CFunction<(CPointer<GVolume>) -> 
                 Volume.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectVolumeRemovedFunc: CPointer<CFunction<(CPointer<GVolume>) -> Unit>> =
     staticCFunction {
@@ -576,5 +562,4 @@ private val connectVolumeRemovedFunc: CPointer<CFunction<(CPointer<GVolume>) -> 
                 Volume.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

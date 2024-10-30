@@ -82,8 +82,7 @@ public class Checksum(
      * @since 2.16
      */
     public fun getString(): String =
-        g_checksum_get_string(glibChecksumPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_checksum_get_string(glibChecksumPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Resets the state of the @checksum back to its initial state.

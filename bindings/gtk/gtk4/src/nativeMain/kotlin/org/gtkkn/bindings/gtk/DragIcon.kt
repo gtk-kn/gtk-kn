@@ -39,7 +39,10 @@ import kotlin.Unit
  */
 public open class DragIcon(
     pointer: CPointer<GtkDragIcon>,
-) : Widget(pointer.reinterpret()), Native, Root, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Native,
+    Root,
+    KGTyped {
     public val gtkDragIconPointer: CPointer<GtkDragIcon>
         get() = gPointer.reinterpret()
 
@@ -77,11 +80,7 @@ public open class DragIcon(
          *
          * @param child a `GtkWidget`
          */
-        set(child) =
-            gtk_drag_icon_set_child(
-                gtkDragIconPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = gtk_drag_icon_set_child(gtkDragIconPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Gets the widget currently used as drag icon.
@@ -99,10 +98,7 @@ public open class DragIcon(
      * @param child a `GtkWidget`
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_drag_icon_set_child(
-            gtkDragIconPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_drag_icon_set_child(gtkDragIconPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<DragIcon> {
         override val type: GeneratedClassKGType<DragIcon> =

@@ -1002,8 +1002,7 @@ public object Glib {
     /**
      * A key under %G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
      * stating whether the application supports the
-     * [Startup Notification Protocol
-     * Specification](http://www.freedesktop.org/Standards/startup-notification-spec).
+     * [Startup Notification Protocol Specification](http://www.freedesktop.org/Standards/startup-notification-spec).
      *
      * @since 2.14
      */
@@ -1556,11 +1555,7 @@ public object Glib {
         cmp: kotlin.String,
         arg2: ULong,
         numtype: Char,
-    ): Unit =
-        g_assertion_message_cmpint(
-            domain, `file`, line, func, expr, arg1, cmp, arg2,
-            numtype.code.toByte()
-        )
+    ): Unit = g_assertion_message_cmpint(domain, `file`, line, func, expr, arg1, cmp, arg2, numtype.code.toByte())
 
     /**
      *
@@ -1607,16 +1602,7 @@ public object Glib {
         errorDomain: UInt,
         errorCode: Int,
     ): Unit =
-        g_assertion_message_error(
-            domain,
-            `file`,
-            line,
-            func,
-            expr,
-            error.glibErrorPointer,
-            errorDomain,
-            errorCode
-        )
+        g_assertion_message_error(domain, `file`, line, func, expr, error.glibErrorPointer, errorDomain, errorCode)
 
     /**
      * Gets the name of the file without any leading directory
@@ -1628,8 +1614,7 @@ public object Glib {
      *   directory components
      */
     public fun basename(fileName: kotlin.String): kotlin.String =
-        g_basename(fileName)?.toKString()
-            ?: error("Expected not null string")
+        g_basename(fileName)?.toKString() ?: error("Expected not null string")
 
     /**
      * Find the position of the first bit set in @mask, searching
@@ -1695,8 +1680,7 @@ public object Glib {
      */
     public fun buildFilenamev(args: List<kotlin.String>): kotlin.String =
         memScoped {
-            return g_build_filenamev(args.toCStringList(this))?.toKString()
-                ?: error("Expected not null string")
+            return g_build_filenamev(args.toCStringList(this))?.toKString() ?: error("Expected not null string")
         }
 
     /**
@@ -1717,8 +1701,7 @@ public object Glib {
         args: List<kotlin.String>,
     ): kotlin.String =
         memScoped {
-            return g_build_pathv(separator, args.toCStringList(this))?.toKString()
-                ?: error("Expected not null string")
+            return g_build_pathv(separator, args.toCStringList(this))?.toKString() ?: error("Expected not null string")
         }
 
     /**
@@ -1747,9 +1730,7 @@ public object Glib {
     public fun canonicalizeFilename(
         filename: kotlin.String,
         relativeTo: kotlin.String? = null,
-    ): kotlin.String =
-        g_canonicalize_filename(filename, relativeTo)?.toKString()
-            ?: error("Expected not null string")
+    ): kotlin.String = g_canonicalize_filename(filename, relativeTo)?.toKString() ?: error("Expected not null string")
 
     /**
      * A wrapper for the POSIX chdir() function. The function changes the
@@ -1816,7 +1797,10 @@ public object Glib {
             val gError = allocPointerTo<GError>()
             val gResult = g_clear_error(gError.ptr)
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -1850,7 +1834,10 @@ public object Glib {
             val gError = allocPointerTo<GError>()
             val gResult = g_close(fd, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -1898,10 +1885,8 @@ public object Glib {
         checksumType: ChecksumType,
         `data`: Bytes,
     ): kotlin.String =
-        g_compute_checksum_for_bytes(
-            checksumType.nativeValue,
-            `data`.glibBytesPointer
-        )?.toKString() ?: error("Expected not null string")
+        g_compute_checksum_for_bytes(checksumType.nativeValue, `data`.glibBytesPointer)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Computes the checksum of a string.
@@ -1921,11 +1906,8 @@ public object Glib {
         str: kotlin.String,
         length: Long,
     ): kotlin.String =
-        g_compute_checksum_for_string(
-            checksumType.nativeValue,
-            str,
-            length
-        )?.toKString() ?: error("Expected not null string")
+        g_compute_checksum_for_string(checksumType.nativeValue, str, length)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Computes the HMAC for a binary @data. This is a
@@ -1946,11 +1928,8 @@ public object Glib {
         key: Bytes,
         `data`: Bytes,
     ): kotlin.String =
-        g_compute_hmac_for_bytes(
-            digestType.nativeValue,
-            key.glibBytesPointer,
-            `data`.glibBytesPointer
-        )?.toKString() ?: error("Expected not null string")
+        g_compute_hmac_for_bytes(digestType.nativeValue, key.glibBytesPointer, `data`.glibBytesPointer)?.toKString()
+            ?: error("Expected not null string")
 
     public fun convertErrorQuark(): UInt = g_convert_error_quark()
 
@@ -1998,9 +1977,7 @@ public object Glib {
         domain: kotlin.String? = null,
         msgid: kotlin.String,
         category: Int,
-    ): kotlin.String =
-        g_dcgettext(domain, msgid, category)?.toKString()
-            ?: error("Expected not null string")
+    ): kotlin.String = g_dcgettext(domain, msgid, category)?.toKString() ?: error("Expected not null string")
 
     /**
      * This function is a wrapper of dgettext() which does not translate
@@ -2073,7 +2050,10 @@ public object Glib {
             val gError = allocPointerTo<GError>()
             val gResult = g_dir_make_tmp(tmpl, gError.ptr)?.toKString()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -2100,9 +2080,7 @@ public object Glib {
         msgid: kotlin.String,
         msgidPlural: kotlin.String,
         n: ULong,
-    ): kotlin.String =
-        g_dngettext(domain, msgid, msgidPlural, n)?.toKString()
-            ?: error("Expected not null string")
+    ): kotlin.String = g_dngettext(domain, msgid, msgidPlural, n)?.toKString() ?: error("Expected not null string")
 
     /**
      * This function is a variant of g_dgettext() which supports
@@ -2131,9 +2109,7 @@ public object Glib {
         domain: kotlin.String? = null,
         msgctxtid: kotlin.String,
         msgidoffset: ULong,
-    ): kotlin.String =
-        g_dpgettext(domain, msgctxtid, msgidoffset)?.toKString()
-            ?: error("Expected not null string")
+    ): kotlin.String = g_dpgettext(domain, msgctxtid, msgidoffset)?.toKString() ?: error("Expected not null string")
 
     /**
      * This function is a variant of g_dgettext() which supports
@@ -2158,9 +2134,7 @@ public object Glib {
         domain: kotlin.String? = null,
         context: kotlin.String,
         msgid: kotlin.String,
-    ): kotlin.String =
-        g_dpgettext2(domain, context, msgid)?.toKString()
-            ?: error("Expected not null string")
+    ): kotlin.String = g_dpgettext2(domain, context, msgid)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the value of the environment variable @variable in the
@@ -2212,7 +2186,8 @@ public object Glib {
                 variable,
                 `value`,
                 overwrite.asGBoolean()
-            )?.toKStringList() ?: error("Expected not null string array")
+            )?.toKStringList()
+                ?: error("Expected not null string array")
         }
 
     /**
@@ -2315,7 +2290,10 @@ public object Glib {
             val gError = allocPointerTo<GError>()
             val gResult = g_file_read_link(filename, gError.ptr)?.toKString()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -2390,11 +2368,7 @@ public object Glib {
     public fun fileTest(
         filename: kotlin.String,
         test: FileTest,
-    ): Boolean =
-        g_file_test(
-            filename,
-            test.mask
-        ).asBoolean()
+    ): Boolean = g_file_test(filename, test.mask).asBoolean()
 
     /**
      * Returns the display basename for the particular filename, guaranteed
@@ -2468,7 +2442,10 @@ public object Glib {
             val gError = allocPointerTo<GError>()
             val gResult = g_filename_to_uri(filename, hostname, gError.ptr)?.toKString()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -2521,8 +2498,7 @@ public object Glib {
      * @since 2.30
      */
     public fun formatSize(size: ULong): kotlin.String =
-        g_format_size(size)?.toKString()
-            ?: error("Expected not null string")
+        g_format_size(size)?.toKString() ?: error("Expected not null string")
 
     /**
      * Formats a size (for example the size of a file) into a human
@@ -2581,9 +2557,7 @@ public object Glib {
      * @return a newly allocated string containing the name
      *     of the character set. This string must be freed with g_free().
      */
-    public fun getCodeset(): kotlin.String =
-        g_get_codeset()?.toKString()
-            ?: error("Expected not null string")
+    public fun getCodeset(): kotlin.String = g_get_codeset()?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the current directory.
@@ -2599,9 +2573,7 @@ public object Glib {
      *
      * @return the current directory
      */
-    public fun getCurrentDir(): kotlin.String =
-        g_get_current_dir()?.toKString()
-            ?: error("Expected not null string")
+    public fun getCurrentDir(): kotlin.String = g_get_current_dir()?.toKString() ?: error("Expected not null string")
 
     /**
      * Equivalent to the UNIX gettimeofday() function, but portable.
@@ -2629,8 +2601,7 @@ public object Glib {
      * @since 2.28
      */
     public fun getEnviron(): List<kotlin.String> =
-        g_get_environ()?.toKStringList()
-            ?: error("Expected not null string array")
+        g_get_environ()?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Gets the current user's home directory.
@@ -2656,9 +2627,7 @@ public object Glib {
      *
      * @return the current user's home directory
      */
-    public fun getHomeDir(): kotlin.String =
-        g_get_home_dir()?.toKString()
-            ?: error("Expected not null string")
+    public fun getHomeDir(): kotlin.String = g_get_home_dir()?.toKString() ?: error("Expected not null string")
 
     /**
      * Return a name for the machine.
@@ -2679,9 +2648,7 @@ public object Glib {
      * @return the host name of the machine.
      * @since 2.8
      */
-    public fun getHostName(): kotlin.String =
-        g_get_host_name()?.toKString()
-            ?: error("Expected not null string")
+    public fun getHostName(): kotlin.String = g_get_host_name()?.toKString() ?: error("Expected not null string")
 
     /**
      * Computes a list of applicable locale names, which can be used to
@@ -2701,8 +2668,7 @@ public object Glib {
      * @since 2.6
      */
     public fun getLanguageNames(): List<kotlin.String> =
-        g_get_language_names()?.toKStringList()
-            ?: error("Expected not null string array")
+        g_get_language_names()?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Computes a list of applicable locale names with a locale category name,
@@ -2719,13 +2685,11 @@ public object Glib {
      * @param categoryName a locale category name
      * @return a null-terminated array of strings owned by
      *    the thread g_get_language_names_with_category was called from.
-     *    It must not be modified or freed. It must be copied if planned to be used in another
-     * thread.
+     *    It must not be modified or freed. It must be copied if planned to be used in another thread.
      * @since 2.58
      */
     public fun getLanguageNamesWithCategory(categoryName: kotlin.String): List<kotlin.String> =
-        g_get_language_names_with_category(categoryName)?.toKStringList()
-            ?: error("Expected not null string array")
+        g_get_language_names_with_category(categoryName)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Returns a list of derived variants of @locale, which can be used to
@@ -2751,8 +2715,7 @@ public object Glib {
      * @since 2.28
      */
     public fun getLocaleVariants(locale: kotlin.String): List<kotlin.String> =
-        g_get_locale_variants(locale)?.toKStringList()
-            ?: error("Expected not null string array")
+        g_get_locale_variants(locale)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Queries the system monotonic time.
@@ -2825,9 +2788,7 @@ public object Glib {
      *
      * @return the user's real name.
      */
-    public fun getRealName(): kotlin.String =
-        g_get_real_name()?.toKString()
-            ?: error("Expected not null string")
+    public fun getRealName(): kotlin.String = g_get_real_name()?.toKString() ?: error("Expected not null string")
 
     /**
      * Queries the system wall-clock time.
@@ -2917,8 +2878,7 @@ public object Glib {
      * @since 2.6
      */
     public fun getSystemDataDirs(): List<kotlin.String> =
-        g_get_system_data_dirs()?.toKStringList()
-            ?: error("Expected not null string array")
+        g_get_system_data_dirs()?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Gets the directory to use for temporary files.
@@ -2938,9 +2898,7 @@ public object Glib {
      *
      * @return the directory to use for temporary files.
      */
-    public fun getTmpDir(): kotlin.String =
-        g_get_tmp_dir()?.toKString()
-            ?: error("Expected not null string")
+    public fun getTmpDir(): kotlin.String = g_get_tmp_dir()?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns a base directory in which to store non-essential, cached
@@ -2955,8 +2913,7 @@ public object Glib {
      * If `XDG_CACHE_HOME` is undefined, the directory that serves as a common
      * repository for temporary Internet files is used instead. A typical path is
      * `C:\Documents and Settings\username\Local Settings\Temporary Internet Files`.
-     * See the [documentation for
-     * `FOLDERID_InternetCache`](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
+     * See the [documentation for `FOLDERID_InternetCache`](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
      *
      * The return value is cached and modifying it at runtime is not supported, as
      * it’s not thread-safe to modify environment variables at runtime.
@@ -2966,8 +2923,7 @@ public object Glib {
      * @since 2.6
      */
     public fun getUserCacheDir(): kotlin.String =
-        g_get_user_cache_dir()?.toKString()
-            ?: error("Expected not null string")
+        g_get_user_cache_dir()?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns a base directory in which to store user-specific application
@@ -2981,8 +2937,7 @@ public object Glib {
      * On Windows it follows XDG Base Directory Specification if `XDG_CONFIG_HOME` is defined.
      * If `XDG_CONFIG_HOME` is undefined, the folder to use for local (as opposed
      * to roaming) application data is used instead. See the
-     * [documentation for
-     * `FOLDERID_LocalAppData`](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
+     * [documentation for `FOLDERID_LocalAppData`](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
      * Note that in this case on Windows it will be  the same
      * as what g_get_user_data_dir() returns.
      *
@@ -2994,8 +2949,7 @@ public object Glib {
      * @since 2.6
      */
     public fun getUserConfigDir(): kotlin.String =
-        g_get_user_config_dir()?.toKString()
-            ?: error("Expected not null string")
+        g_get_user_config_dir()?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns a base directory in which to access application data such
@@ -3009,8 +2963,7 @@ public object Glib {
      * On Windows it follows XDG Base Directory Specification if `XDG_DATA_HOME`
      * is defined. If `XDG_DATA_HOME` is undefined, the folder to use for local (as
      * opposed to roaming) application data is used instead. See the
-     * [documentation for
-     * `FOLDERID_LocalAppData`](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
+     * [documentation for `FOLDERID_LocalAppData`](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
      * Note that in this case on Windows it will be the same
      * as what g_get_user_config_dir() returns.
      *
@@ -3021,9 +2974,7 @@ public object Glib {
      *   not be modified or freed.
      * @since 2.6
      */
-    public fun getUserDataDir(): kotlin.String =
-        g_get_user_data_dir()?.toKString()
-            ?: error("Expected not null string")
+    public fun getUserDataDir(): kotlin.String = g_get_user_data_dir()?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the user name of the current user. The encoding of the returned
@@ -3033,9 +2984,7 @@ public object Glib {
      *
      * @return the user name of the current user.
      */
-    public fun getUserName(): kotlin.String =
-        g_get_user_name()?.toKString()
-            ?: error("Expected not null string")
+    public fun getUserName(): kotlin.String = g_get_user_name()?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns a directory that is unique to the current user on the local
@@ -3057,8 +3006,7 @@ public object Glib {
      * @since 2.28
      */
     public fun getUserRuntimeDir(): kotlin.String =
-        g_get_user_runtime_dir()?.toKString()
-            ?: error("Expected not null string")
+        g_get_user_runtime_dir()?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the full path of a special directory using its logical id.
@@ -3093,8 +3041,7 @@ public object Glib {
      * On Windows it follows XDG Base Directory Specification if `XDG_STATE_HOME` is defined.
      * If `XDG_STATE_HOME` is undefined, the folder to use for local (as opposed
      * to roaming) application data is used instead. See the
-     * [documentation for
-     * `FOLDERID_LocalAppData`](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
+     * [documentation for `FOLDERID_LocalAppData`](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
      * Note that in this case on Windows it will be the same
      * as what g_get_user_data_dir() returns.
      *
@@ -3106,8 +3053,7 @@ public object Glib {
      * @since 2.72
      */
     public fun getUserStateDir(): kotlin.String =
-        g_get_user_state_dir()?.toKString()
-            ?: error("Expected not null string")
+        g_get_user_state_dir()?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the value of an environment variable.
@@ -3332,12 +3278,7 @@ public object Glib {
         hookList: HookList,
         sibling: Hook? = null,
         hook: Hook,
-    ): Unit =
-        g_hook_insert_before(
-            hookList.glibHookListPointer,
-            sibling?.glibHookPointer,
-            hook.glibHookPointer
-        )
+    ): Unit = g_hook_insert_before(hookList.glibHookListPointer, sibling?.glibHookPointer, hook.glibHookPointer)
 
     /**
      * Prepends a #GHook on the start of a #GHookList.
@@ -3552,9 +3493,7 @@ public object Glib {
      *     g_strfreev().
      * @since 2.8
      */
-    public fun listenv(): List<kotlin.String> =
-        g_listenv()?.toKStringList()
-            ?: error("Expected not null string array")
+    public fun listenv(): List<kotlin.String> = g_listenv()?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Return whether debug output from the GLib logging system is enabled.
@@ -3564,8 +3503,7 @@ public object Glib {
      * implementations.
      *
      * Note also that the value of this does not depend on `G_MESSAGES_DEBUG`, nor
-     * [func@GLib.log_writer_default_set_debug_domains]; see the docs for
-     * [func@GLib.log_set_debug_enabled].
+     * [func@GLib.log_writer_default_set_debug_domains]; see the docs for [func@GLib.log_set_debug_enabled].
      *
      * @return `TRUE` if debug output is enabled, `FALSE` otherwise
      * @since 2.72
@@ -3643,8 +3581,7 @@ public object Glib {
      *
      * This function is mostly intended to be used with
      * [flags@GLib.LogLevelFlags.LEVEL_CRITICAL].  You should typically not set
-     * [flags@GLib.LogLevelFlags.LEVEL_WARNING], [flags@GLib.LogLevelFlags.LEVEL_MESSAGE],
-     * [flags@GLib.LogLevelFlags.LEVEL_INFO] or
+     * [flags@GLib.LogLevelFlags.LEVEL_WARNING], [flags@GLib.LogLevelFlags.LEVEL_MESSAGE], [flags@GLib.LogLevelFlags.LEVEL_INFO] or
      * [flags@GLib.LogLevelFlags.LEVEL_DEBUG] as fatal except inside of test programs.
      *
      * @param logDomain the log domain
@@ -3771,8 +3708,7 @@ public object Glib {
      *
      * As with [func@GLib.log_default_handler], this function drops debug and informational
      * messages unless their log domain (or `all`) is listed in the space-separated
-     * `G_MESSAGES_DEBUG` environment variable, or by
-     * [func@GLib.log_writer_default_set_debug_domains].
+     * `G_MESSAGES_DEBUG` environment variable, or by [func@GLib.log_writer_default_set_debug_domains].
      *
      * This can be used when implementing log writers with the same filtering
      * behaviour as the default, but a different destination or output format:
@@ -4348,11 +4284,7 @@ public object Glib {
     public fun randomDoubleRange(
         begin: Double,
         end: Double,
-    ): Double =
-        g_random_double_range(
-            begin,
-            end
-        )
+    ): Double = g_random_double_range(begin, end)
 
     /**
      * Return a random #guint32 equally distributed over the range
@@ -4392,8 +4324,7 @@ public object Glib {
      * @since 2.58
      */
     public fun refStringNew(str: kotlin.String): kotlin.String =
-        g_ref_string_new(str)?.toKString()
-            ?: error("Expected not null string")
+        g_ref_string_new(str)?.toKString() ?: error("Expected not null string")
 
     /**
      * Creates a new reference counted string and copies the content of @str
@@ -4490,13 +4421,7 @@ public object Glib {
         string: kotlin.String,
         compileOptions: RegexCompileFlags,
         matchOptions: RegexMatchFlags,
-    ): Boolean =
-        g_regex_match_simple(
-            pattern,
-            string,
-            compileOptions.mask,
-            matchOptions.mask
-        ).asBoolean()
+    ): Boolean = g_regex_match_simple(pattern, string, compileOptions.mask, matchOptions.mask).asBoolean()
 
     /**
      * Breaks the string on the pattern, and returns an array of
@@ -4541,12 +4466,8 @@ public object Glib {
         compileOptions: RegexCompileFlags,
         matchOptions: RegexMatchFlags,
     ): List<kotlin.String> =
-        g_regex_split_simple(
-            pattern,
-            string,
-            compileOptions.mask,
-            matchOptions.mask
-        )?.toKStringList() ?: error("Expected not null string array")
+        g_regex_split_simple(pattern, string, compileOptions.mask, matchOptions.mask)?.toKStringList()
+            ?: error("Expected not null string array")
 
     /**
      * Resets the cache used for g_get_user_special_dir(), so
@@ -4704,7 +4625,10 @@ public object Glib {
             val gError = allocPointerTo<GError>()
             val gResult = g_shell_unquote(quotedString, gError.ptr)?.toKString()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -4817,7 +4741,10 @@ public object Glib {
             val gError = allocPointerTo<GError>()
             val gResult = g_spawn_check_exit_status(waitStatus, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -4874,7 +4801,10 @@ public object Glib {
             val gError = allocPointerTo<GError>()
             val gResult = g_spawn_check_wait_status(waitStatus, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -4900,7 +4830,10 @@ public object Glib {
             val gError = allocPointerTo<GError>()
             val gResult = g_spawn_command_line_async(commandLine, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -5091,9 +5024,7 @@ public object Glib {
      * @return the test path for the test currently being run
      * @since 2.68
      */
-    public fun testGetPath(): kotlin.String =
-        g_test_get_path()?.toKString()
-            ?: error("Expected not null string")
+    public fun testGetPath(): kotlin.String = g_test_get_path()?.toKString() ?: error("Expected not null string")
 
     /**
      * Indicates that a test failed because of some incomplete
@@ -5118,8 +5049,7 @@ public object Glib {
      * @param logType
      */
     public fun testLogTypeName(logType: TestLogType): kotlin.String =
-        g_test_log_type_name(logType.nativeValue)?.toKString()
-            ?: error("Expected not null string")
+        g_test_log_type_name(logType.nativeValue)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get a reproducible random floating point number,
@@ -5507,12 +5437,7 @@ public object Glib {
         testFlags: TestSubprocessFlags,
     ): Unit =
         memScoped {
-            return g_test_trap_subprocess_with_envp(
-                testPath,
-                envp?.toCStringList(this),
-                usecTimeout,
-                testFlags.mask
-            )
+            return g_test_trap_subprocess_with_envp(testPath, envp?.toCStringList(this), usecTimeout, testFlags.mask)
         }
 
     public fun threadErrorQuark(): UInt = g_thread_error_quark()
@@ -6101,8 +6026,7 @@ public object Glib {
      * 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
      *
      * See
-     * [Codes for the representation of names of
-     * scripts](http://unicode.org/iso15924/codelists.html)
+     * [Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
      * for details.
      *
      * @param iso15924 a Unicode script
@@ -6124,8 +6048,7 @@ public object Glib {
      * 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
      *
      * See
-     * [Codes for the representation of names of
-     * scripts](http://unicode.org/iso15924/codelists.html)
+     * [Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
      * for details.
      *
      * @param script a Unicode script
@@ -6156,7 +6079,10 @@ public object Glib {
             val gError = allocPointerTo<GError>()
             val gResult = g_unix_set_fd_nonblocking(fd, nonblock.asGBoolean(), gError.ptr).asBoolean()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -6330,10 +6256,7 @@ public object Glib {
         query: kotlin.String? = null,
         fragment: kotlin.String? = null,
     ): Uri =
-        g_uri_build_with_user(
-            flags.mask, scheme, user, password, authParams, host, port, path,
-            query, fragment
-        )!!.run {
+        g_uri_build_with_user(flags.mask, scheme, user, password, authParams, host, port, path, query, fragment)!!.run {
             Uri(reinterpret())
         }
 
@@ -6362,11 +6285,8 @@ public object Glib {
         reservedCharsAllowed: kotlin.String? = null,
         allowUtf8: Boolean,
     ): kotlin.String =
-        g_uri_escape_string(
-            unescaped,
-            reservedCharsAllowed,
-            allowUtf8.asGBoolean()
-        )?.toKString() ?: error("Expected not null string")
+        g_uri_escape_string(unescaped, reservedCharsAllowed, allowUtf8.asGBoolean())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Parses @uri_string according to @flags, to determine whether it is a valid
@@ -6391,7 +6311,10 @@ public object Glib {
             val gError = allocPointerTo<GError>()
             val gResult = g_uri_is_valid(uriString, flags.mask, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -6434,16 +6357,8 @@ public object Glib {
         query: kotlin.String? = null,
         fragment: kotlin.String? = null,
     ): kotlin.String =
-        g_uri_join(
-            flags.mask,
-            scheme,
-            userinfo,
-            host,
-            port,
-            path,
-            query,
-            fragment
-        )?.toKString() ?: error("Expected not null string")
+        g_uri_join(flags.mask, scheme, userinfo, host, port, path, query, fragment)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Joins the given components together according to @flags to create
@@ -6484,9 +6399,18 @@ public object Glib {
         fragment: kotlin.String? = null,
     ): kotlin.String =
         g_uri_join_with_user(
-            flags.mask, scheme, user, password, authParams, host,
-            port, path, query, fragment
-        )?.toKString() ?: error("Expected not null string")
+            flags.mask,
+            scheme,
+            user,
+            password,
+            authParams,
+            host,
+            port,
+            path,
+            query,
+            fragment
+        )?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Splits an URI list conforming to the text/uri-list
@@ -6500,8 +6424,7 @@ public object Glib {
      * @since 2.6
      */
     public fun uriListExtractUris(uriList: kotlin.String): List<kotlin.String> =
-        g_uri_list_extract_uris(uriList)?.toKStringList()
-            ?: error("Expected not null string array")
+        g_uri_list_extract_uris(uriList)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Parses @uri_string according to @flags. If the result is not a
@@ -6525,7 +6448,10 @@ public object Glib {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -6585,7 +6511,10 @@ public object Glib {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -6650,15 +6579,12 @@ public object Glib {
     ): Result<kotlin.String> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_uri_resolve_relative(
-                    baseUriString,
-                    uriRef,
-                    flags.mask,
-                    gError.ptr
-                )?.toKString()
+            val gResult = g_uri_resolve_relative(baseUriString, uriRef, flags.mask, gError.ptr)?.toKString()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -6694,17 +6620,15 @@ public object Glib {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_uri_unescape_bytes(
-                    escapedString,
-                    length,
-                    illegalCharacters,
-                    gError.ptr
-                )?.run {
+                g_uri_unescape_bytes(escapedString, length, illegalCharacters, gError.ptr)?.run {
                     Bytes(reinterpret())
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.glib.Glib.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.glib.Glib
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -6737,12 +6661,7 @@ public object Glib {
         escapedString: kotlin.String? = null,
         escapedStringEnd: kotlin.String? = null,
         illegalCharacters: kotlin.String? = null,
-    ): kotlin.String? =
-        g_uri_unescape_segment(
-            escapedString,
-            escapedStringEnd,
-            illegalCharacters
-        )?.toKString()
+    ): kotlin.String? = g_uri_unescape_segment(escapedString, escapedStringEnd, illegalCharacters)?.toKString()
 
     /**
      * Unescapes a whole escaped string.
@@ -6762,13 +6681,8 @@ public object Glib {
      */
     public fun uriUnescapeString(
         escapedString: kotlin.String,
-        illegalCharacters: kotlin.String? =
-            null,
-    ): kotlin.String? =
-        g_uri_unescape_string(
-            escapedString,
-            illegalCharacters
-        )?.toKString()
+        illegalCharacters: kotlin.String? = null,
+    ): kotlin.String? = g_uri_unescape_string(escapedString, illegalCharacters)?.toKString()
 
     /**
      * Pauses the current thread for the given number of microseconds.
@@ -6807,8 +6721,7 @@ public object Glib {
      * @since 2.52
      */
     public fun uuidStringRandom(): kotlin.String =
-        g_uuid_string_random()?.toKString()
-            ?: error("Expected not null string")
+        g_uuid_string_random()?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines if a given string is a valid D-Bus object path.  You
@@ -6925,72 +6838,86 @@ public object Glib {
         val ex =
             when (error.domain) {
                 BookmarkFileError.quark() ->
-                    BookmarkFileError.fromErrorOrNull(error)
+                    BookmarkFileError
+                        .fromErrorOrNull(error)
                         ?.let {
                             BookmarkFileErrorException(error, it)
                         }
                 ConvertError.quark() ->
-                    ConvertError.fromErrorOrNull(error)
+                    ConvertError
+                        .fromErrorOrNull(error)
                         ?.let {
                             ConvertErrorException(error, it)
                         }
                 FileError.quark() ->
-                    FileError.fromErrorOrNull(error)
+                    FileError
+                        .fromErrorOrNull(error)
                         ?.let {
                             FileErrorException(error, it)
                         }
                 IOChannelError.quark() ->
-                    IOChannelError.fromErrorOrNull(error)
+                    IOChannelError
+                        .fromErrorOrNull(error)
                         ?.let {
                             IOChannelErrorException(error, it)
                         }
                 KeyFileError.quark() ->
-                    KeyFileError.fromErrorOrNull(error)
+                    KeyFileError
+                        .fromErrorOrNull(error)
                         ?.let {
                             KeyFileErrorException(error, it)
                         }
                 MarkupError.quark() ->
-                    MarkupError.fromErrorOrNull(error)
+                    MarkupError
+                        .fromErrorOrNull(error)
                         ?.let {
                             MarkupErrorException(error, it)
                         }
                 NumberParserError.quark() ->
-                    NumberParserError.fromErrorOrNull(error)
+                    NumberParserError
+                        .fromErrorOrNull(error)
                         ?.let {
                             NumberParserErrorException(error, it)
                         }
                 OptionError.quark() ->
-                    OptionError.fromErrorOrNull(error)
+                    OptionError
+                        .fromErrorOrNull(error)
                         ?.let {
                             OptionErrorException(error, it)
                         }
                 RegexError.quark() ->
-                    RegexError.fromErrorOrNull(error)
+                    RegexError
+                        .fromErrorOrNull(error)
                         ?.let {
                             RegexErrorException(error, it)
                         }
                 ShellError.quark() ->
-                    ShellError.fromErrorOrNull(error)
+                    ShellError
+                        .fromErrorOrNull(error)
                         ?.let {
                             ShellErrorException(error, it)
                         }
                 SpawnError.quark() ->
-                    SpawnError.fromErrorOrNull(error)
+                    SpawnError
+                        .fromErrorOrNull(error)
                         ?.let {
                             SpawnErrorException(error, it)
                         }
                 ThreadError.quark() ->
-                    ThreadError.fromErrorOrNull(error)
+                    ThreadError
+                        .fromErrorOrNull(error)
                         ?.let {
                             ThreadErrorException(error, it)
                         }
                 UriError.quark() ->
-                    UriError.fromErrorOrNull(error)
+                    UriError
+                        .fromErrorOrNull(error)
                         ?.let {
                             UriErrorException(error, it)
                         }
                 VariantParseError.quark() ->
-                    VariantParseError.fromErrorOrNull(error)
+                    VariantParseError
+                        .fromErrorOrNull(error)
                         ?.let {
                             VariantParseErrorException(error, it)
                         }
@@ -7001,12 +6928,9 @@ public object Glib {
 }
 
 public val CacheDestroyFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val ChildWatchFuncFunc: CPointer<CFunction<(Int) -> Unit>> =
     staticCFunction {
@@ -7014,8 +6938,7 @@ public val ChildWatchFuncFunc: CPointer<CFunction<(Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(waitStatus: Int) -> Unit>().get().invoke(waitStatus)
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val ClearHandleFuncFunc: CPointer<CFunction<(UInt) -> Unit>> =
     staticCFunction {
@@ -7023,24 +6946,17 @@ public val ClearHandleFuncFunc: CPointer<CFunction<(UInt) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(handleId: UInt) -> Unit>().get().invoke(handleId)
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val CompareDataFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Int>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val CompareFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Int>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val CompletionStrncmpFuncFunc: CPointer<
     CFunction<
@@ -7057,20 +6973,21 @@ public val CompletionStrncmpFuncFunc: CPointer<
             n: ULong,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                s1: kotlin.String,
-                s2: kotlin.String,
-                n: ULong,
-            ) -> Int
-        >().get().invoke(
-            s1?.toKString() ?: error("Expected not null string"),
-            s2?.toKString()
-                ?: error("Expected not null string"),
-            n
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    s1: kotlin.String,
+                    s2: kotlin.String,
+                    n: ULong,
+                ) -> Int
+            >()
+            .get()
+            .invoke(
+                s1?.toKString() ?: error("Expected not null string"),
+                s2?.toKString() ?: error("Expected not null string"),
+                n
+            )
+    }.reinterpret()
 
 public val DataForeachFuncFunc: CPointer<CFunction<(UInt) -> Unit>> =
     staticCFunction {
@@ -7078,32 +6995,30 @@ public val DataForeachFuncFunc: CPointer<CFunction<(UInt) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(keyId: UInt) -> Unit>().get().invoke(keyId)
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val DestroyNotifyFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val EqualFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+    staticCFunction { userData: COpaquePointer ->
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 public val EqualFuncFullFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+    staticCFunction { userData: COpaquePointer ->
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 public val ErrorClearFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.glib.GError>) -> Unit>> =
     staticCFunction {
@@ -7115,28 +7030,16 @@ public val ErrorClearFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.gli
                 Error(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-public val ErrorCopyFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<org.gtkkn.native.glib.GError>,
-            CPointer<org.gtkkn.native.glib.GError>,
-        ) -> Unit
-    >
-> =
+public val ErrorCopyFuncFunc:
+    CPointer<CFunction<(CPointer<org.gtkkn.native.glib.GError>, CPointer<org.gtkkn.native.glib.GError>) -> Unit>> =
     staticCFunction {
             srcError: CPointer<org.gtkkn.native.glib.GError>?,
             destError: CPointer<org.gtkkn.native.glib.GError>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                srcError: Error,
-                destError: Error,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(srcError: Error, destError: Error) -> Unit>().get().invoke(
             srcError!!.run {
                 Error(reinterpret())
             },
@@ -7144,8 +7047,7 @@ public val ErrorCopyFuncFunc: CPointer<
                 Error(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val ErrorInitFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.glib.GError>) -> Unit>> =
     staticCFunction {
@@ -7157,69 +7059,60 @@ public val ErrorInitFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.glib
                 Error(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val FreeFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val FuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val HFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val HRFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+    staticCFunction { userData: COpaquePointer ->
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 public val HashFuncFunc: CPointer<CFunction<() -> UInt>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> UInt>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val HookCheckFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+    staticCFunction { userData: COpaquePointer ->
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 public val HookCheckMarshallerFunc: CPointer<CFunction<(CPointer<GHook>) -> Int>> =
     staticCFunction {
             hook: CPointer<GHook>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(hook: Hook) -> Boolean>().get().invoke(
-            hook!!.run {
-                Hook(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(hook: Hook) -> Boolean>()
+            .get()
+            .invoke(
+                hook!!.run {
+                    Hook(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val HookCompareFuncFunc: CPointer<CFunction<(CPointer<GHook>, CPointer<GHook>) -> Int>> =
     staticCFunction {
@@ -7235,8 +7128,7 @@ public val HookCompareFuncFunc: CPointer<CFunction<(CPointer<GHook>, CPointer<GH
                 Hook(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val HookFinalizeFuncFunc: CPointer<CFunction<(CPointer<GHookList>, CPointer<GHook>) -> Unit>> =
     staticCFunction {
@@ -7252,29 +7144,27 @@ public val HookFinalizeFuncFunc: CPointer<CFunction<(CPointer<GHookList>, CPoint
                 Hook(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val HookFindFuncFunc: CPointer<CFunction<(CPointer<GHook>) -> Int>> =
     staticCFunction {
             hook: CPointer<GHook>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(hook: Hook) -> Boolean>().get().invoke(
-            hook!!.run {
-                Hook(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(hook: Hook) -> Boolean>()
+            .get()
+            .invoke(
+                hook!!.run {
+                    Hook(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val HookFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val HookMarshallerFunc: CPointer<CFunction<(CPointer<GHook>) -> Unit>> =
     staticCFunction {
@@ -7286,21 +7176,22 @@ public val HookMarshallerFunc: CPointer<CFunction<(CPointer<GHook>) -> Unit>> =
                 Hook(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val IOFuncFunc: CPointer<CFunction<(CPointer<GIOChannel>) -> Int>> =
     staticCFunction {
             source: CPointer<GIOChannel>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(source: IOChannel) -> Boolean>().get().invoke(
-            source!!.run {
-                IOChannel(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(source: IOChannel) -> Boolean>()
+            .get()
+            .invoke(
+                source!!.run {
+                    IOChannel(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val LogFuncFunc: CPointer<
     CFunction<
@@ -7317,21 +7208,23 @@ public val LogFuncFunc: CPointer<
             message: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                logDomain: kotlin.String,
-                logLevel: LogLevelFlags,
-                message: kotlin.String,
-            ) -> Unit
-        >().get().invoke(
-            logDomain?.toKString() ?: error("Expected not null string"),
-            logLevel.run {
-                LogLevelFlags(this)
-            },
-            message?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    logDomain: kotlin.String,
+                    logLevel: LogLevelFlags,
+                    message: kotlin.String,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                logDomain?.toKString() ?: error("Expected not null string"),
+                logLevel.run {
+                    LogLevelFlags(this)
+                },
+                message?.toKString() ?: error("Expected not null string")
+            )
+    }.reinterpret()
 
 public val LogWriterFuncFunc: CPointer<CFunction<(GLogLevelFlags, ULong) -> GLogWriterOutput>> =
     staticCFunction {
@@ -7339,19 +7232,16 @@ public val LogWriterFuncFunc: CPointer<CFunction<(GLogLevelFlags, ULong) -> GLog
             nFields: ULong,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                logLevel: LogLevelFlags,
-                nFields: ULong,
-            ) -> LogWriterOutput
-        >().get().invoke(
-            logLevel.run {
-                LogLevelFlags(this)
-            },
-            nFields
-        ).nativeValue
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(logLevel: LogLevelFlags, nFields: ULong) -> LogWriterOutput>()
+            .get()
+            .invoke(
+                logLevel.run {
+                    LogLevelFlags(this)
+                },
+                nFields
+            ).nativeValue
+    }.reinterpret()
 
 public val NodeForeachFuncFunc: CPointer<CFunction<(CPointer<GNode>) -> Unit>> =
     staticCFunction {
@@ -7363,21 +7253,22 @@ public val NodeForeachFuncFunc: CPointer<CFunction<(CPointer<GNode>) -> Unit>> =
                 Node(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val NodeTraverseFuncFunc: CPointer<CFunction<(CPointer<GNode>) -> Int>> =
     staticCFunction {
             node: CPointer<GNode>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(node: Node) -> Boolean>().get().invoke(
-            node!!.run {
-                Node(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(node: Node) -> Boolean>()
+            .get()
+            .invoke(
+                node!!.run {
+                    Node(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val PollFuncFunc: CPointer<
     CFunction<
@@ -7394,21 +7285,23 @@ public val PollFuncFunc: CPointer<
             timeout: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                ufds: PollFD,
-                nfsd: UInt,
-                timeout: Int,
-            ) -> Int
-        >().get().invoke(
-            ufds!!.run {
-                PollFD(reinterpret())
-            },
-            nfsd,
-            timeout
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    ufds: PollFD,
+                    nfsd: UInt,
+                    timeout: Int,
+                ) -> Int
+            >()
+            .get()
+            .invoke(
+                ufds!!.run {
+                    PollFD(reinterpret())
+                },
+                nfsd,
+                timeout
+            )
+    }.reinterpret()
 
 public val PrintFuncFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -7416,40 +7309,29 @@ public val PrintFuncFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(string: kotlin.String) -> Unit>().get().invoke(
-            string?.toKString()
-                ?: error("Expected not null string")
+            string?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-public val RegexEvalCallbackFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GMatchInfo>,
-            CPointer<GString>,
-        ) -> Int
-    >
-> =
+public val RegexEvalCallbackFunc:
+    CPointer<CFunction<(CPointer<GMatchInfo>, CPointer<GString>) -> Int>> =
     staticCFunction {
             matchInfo: CPointer<GMatchInfo>?,
             result: CPointer<GString>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                matchInfo: MatchInfo,
-                result: String,
-            ) -> Boolean
-        >().get().invoke(
-            matchInfo!!.run {
-                MatchInfo(reinterpret())
-            },
-            result!!.run {
-                String(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(matchInfo: MatchInfo, result: String) -> Boolean>()
+            .get()
+            .invoke(
+                matchInfo!!.run {
+                    MatchInfo(reinterpret())
+                },
+                result!!.run {
+                    String(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val ScannerMsgFuncFunc: CPointer<
     CFunction<
@@ -7466,29 +7348,28 @@ public val ScannerMsgFuncFunc: CPointer<
             error: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                scanner: Scanner,
-                message: kotlin.String,
-                error: Boolean,
-            ) -> Unit
-        >().get().invoke(
-            scanner!!.run {
-                Scanner(reinterpret())
-            },
-            message?.toKString() ?: error("Expected not null string"),
-            error.asBoolean()
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    scanner: Scanner,
+                    message: kotlin.String,
+                    error: Boolean,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                scanner!!.run {
+                    Scanner(reinterpret())
+                },
+                message?.toKString() ?: error("Expected not null string"),
+                error.asBoolean()
+            )
+    }.reinterpret()
 
 public val SequenceIterCompareFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Int>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val SourceDisposeFuncFunc: CPointer<CFunction<(CPointer<GSource>) -> Unit>> =
     staticCFunction {
@@ -7500,64 +7381,46 @@ public val SourceDisposeFuncFunc: CPointer<CFunction<(CPointer<GSource>) -> Unit
                 Source(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val SourceDummyMarshalFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val SourceFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+    staticCFunction { userData: COpaquePointer ->
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 public val SourceOnceFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val SpawnChildSetupFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val TestDataFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val TestFixtureFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val TestFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val TestLogFatalFuncFunc: CPointer<
     CFunction<
@@ -7574,54 +7437,58 @@ public val TestLogFatalFuncFunc: CPointer<
             message: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                logDomain: kotlin.String,
-                logLevel: LogLevelFlags,
-                message: kotlin.String,
-            ) -> Boolean
-        >().get().invoke(
-            logDomain?.toKString() ?: error("Expected not null string"),
-            logLevel.run {
-                LogLevelFlags(this)
-            },
-            message?.toKString() ?: error("Expected not null string")
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    logDomain: kotlin.String,
+                    logLevel: LogLevelFlags,
+                    message: kotlin.String,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(
+                logDomain?.toKString() ?: error("Expected not null string"),
+                logLevel.run {
+                    LogLevelFlags(this)
+                },
+                message?.toKString() ?: error("Expected not null string")
+            ).asGBoolean()
+    }.reinterpret()
 
 public val TraverseFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+    staticCFunction { userData: COpaquePointer ->
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 public val TraverseNodeFuncFunc: CPointer<CFunction<() -> Int>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+    staticCFunction { userData: COpaquePointer ->
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 public val UnixFDSourceFuncFunc: CPointer<CFunction<(Int) -> Int>> =
     staticCFunction {
             fd: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(fd: Int) -> Boolean>().get().invoke(fd).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(fd: Int) -> Boolean>()
+            .get()
+            .invoke(fd)
+            .asGBoolean()
+    }.reinterpret()
 
 public val VoidFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 /**
  * Specifies the type of the @value_destroy_func and @key_destroy_func

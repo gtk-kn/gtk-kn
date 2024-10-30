@@ -31,7 +31,9 @@ import kotlin.String
  *
  * @since 2.30
  */
-public interface TlsFileDatabase : Interface, KGTyped {
+public interface TlsFileDatabase :
+    Interface,
+    KGTyped {
     public val gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase>
 
     private data class Wrapper(
@@ -42,9 +44,7 @@ public interface TlsFileDatabase : Interface, KGTyped {
 
     public companion object : TypeCompanion<TlsFileDatabase> {
         override val type: GeneratedInterfaceKGType<TlsFileDatabase> =
-            GeneratedInterfaceKGType(g_tls_file_database_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(g_tls_file_database_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

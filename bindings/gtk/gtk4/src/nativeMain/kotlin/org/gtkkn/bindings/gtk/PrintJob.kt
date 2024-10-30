@@ -85,7 +85,8 @@ import kotlin.Unit
  */
 public open class PrintJob(
     pointer: CPointer<GtkPrintJob>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkPrintJobPointer: CPointer<GtkPrintJob>
         get() = gPointer.reinterpret()
 
@@ -156,11 +157,9 @@ public open class PrintJob(
          *
          * @param trackStatus true to track status after printing
          */
-        set(trackStatus) =
-            gtk_print_job_set_track_print_status(
-                gtkPrintJobPointer.reinterpret(),
-                trackStatus.asGBoolean()
-            )
+        set(
+            trackStatus
+        ) = gtk_print_job_set_track_print_status(gtkPrintJobPointer.reinterpret(), trackStatus.asGBoolean())
 
     /**
      * Creates a new `GtkPrintJob`.
@@ -293,8 +292,7 @@ public open class PrintJob(
      * @return the title of @job
      */
     public open fun getTitle(): String =
-        gtk_print_job_get_title(gtkPrintJobPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_print_job_get_title(gtkPrintJobPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns whether jobs will be tracked after printing.
@@ -410,12 +408,7 @@ public open class PrintJob(
     public open fun setSourceFd(fd: Int): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                gtk_print_job_set_source_fd(
-                    gtkPrintJobPointer.reinterpret(),
-                    fd,
-                    gError.ptr
-                ).asBoolean()
+            val gResult = gtk_print_job_set_source_fd(gtkPrintJobPointer.reinterpret(), fd, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -464,10 +457,7 @@ public open class PrintJob(
      * @param trackStatus true to track status after printing
      */
     public open fun setTrackPrintStatus(trackStatus: Boolean): Unit =
-        gtk_print_job_set_track_print_status(
-            gtkPrintJobPointer.reinterpret(),
-            trackStatus.asGBoolean()
-        )
+        gtk_print_job_set_track_print_status(gtkPrintJobPointer.reinterpret(), trackStatus.asGBoolean())
 
     /**
      * Emitted when the status of a job changes.
@@ -507,5 +497,4 @@ private val connectStatusChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

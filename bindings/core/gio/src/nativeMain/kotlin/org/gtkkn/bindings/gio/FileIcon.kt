@@ -22,7 +22,10 @@ import org.gtkkn.native.gio.g_file_icon_new
  */
 public open class FileIcon(
     pointer: CPointer<GFileIcon>,
-) : Object(pointer.reinterpret()), Icon, LoadableIcon, KGTyped {
+) : Object(pointer.reinterpret()),
+    Icon,
+    LoadableIcon,
+    KGTyped {
     public val gioFileIconPointer: CPointer<GFileIcon>
         get() = gPointer.reinterpret()
 

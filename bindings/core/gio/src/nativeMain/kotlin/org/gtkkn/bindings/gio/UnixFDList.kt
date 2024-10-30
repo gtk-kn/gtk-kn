@@ -47,7 +47,8 @@ import kotlin.Result
  */
 public open class UnixFDList(
     pointer: CPointer<GUnixFDList>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioUnixFDListPointer: CPointer<GUnixFDList>
         get() = gPointer.reinterpret()
 

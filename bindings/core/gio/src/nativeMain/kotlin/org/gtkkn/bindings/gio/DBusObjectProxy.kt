@@ -29,7 +29,9 @@ import kotlin.String
  */
 public open class DBusObjectProxy(
     pointer: CPointer<GDBusObjectProxy>,
-) : Object(pointer.reinterpret()), DBusObject, KGTyped {
+) : Object(pointer.reinterpret()),
+    DBusObject,
+    KGTyped {
     public val gioDBusObjectProxyPointer: CPointer<GDBusObjectProxy>
         get() = gPointer.reinterpret()
 
@@ -45,13 +47,10 @@ public open class DBusObjectProxy(
      * @return a new #GDBusObjectProxy
      * @since 2.30
      */
-    public constructor(connection: DBusConnection, objectPath: String) :
-        this(
-            g_dbus_object_proxy_new(
-                connection.gioDBusConnectionPointer.reinterpret(),
-                objectPath
-            )!!.reinterpret()
-        )
+    public constructor(
+        connection: DBusConnection,
+        objectPath: String,
+    ) : this(g_dbus_object_proxy_new(connection.gioDBusConnectionPointer.reinterpret(), objectPath)!!.reinterpret())
 
     /**
      * Gets the connection that @proxy is for.
@@ -67,9 +66,7 @@ public open class DBusObjectProxy(
 
     public companion object : TypeCompanion<DBusObjectProxy> {
         override val type: GeneratedClassKGType<DBusObjectProxy> =
-            GeneratedClassKGType(g_dbus_object_proxy_get_type()) {
-                DBusObjectProxy(it.reinterpret())
-            }
+            GeneratedClassKGType(g_dbus_object_proxy_get_type()) { DBusObjectProxy(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

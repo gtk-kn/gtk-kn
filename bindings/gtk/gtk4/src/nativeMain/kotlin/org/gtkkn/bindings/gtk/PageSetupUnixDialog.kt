@@ -39,7 +39,8 @@ import kotlin.Unit
  */
 public open class PageSetupUnixDialog(
     pointer: CPointer<GtkPageSetupUnixDialog>,
-) : Dialog(pointer.reinterpret()), KGTyped {
+) : Dialog(pointer.reinterpret()),
+    KGTyped {
     public val gtkPageSetupUnixDialogPointer: CPointer<GtkPageSetupUnixDialog>
         get() = gPointer.reinterpret()
 
@@ -68,13 +69,10 @@ public open class PageSetupUnixDialog(
      * @param parent transient parent of the dialog
      * @return the new `GtkPageSetupUnixDialog`
      */
-    public constructor(title: String? = null, parent: Window? = null) :
-        this(
-            gtk_page_setup_unix_dialog_new(
-                title,
-                parent?.gtkWindowPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        title: String? = null,
+        parent: Window? = null,
+    ) : this(gtk_page_setup_unix_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Gets the currently selected page setup from the dialog.
@@ -122,9 +120,7 @@ public open class PageSetupUnixDialog(
 
     public companion object : TypeCompanion<PageSetupUnixDialog> {
         override val type: GeneratedClassKGType<PageSetupUnixDialog> =
-            GeneratedClassKGType(gtk_page_setup_unix_dialog_get_type()) {
-                PageSetupUnixDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_page_setup_unix_dialog_get_type()) { PageSetupUnixDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

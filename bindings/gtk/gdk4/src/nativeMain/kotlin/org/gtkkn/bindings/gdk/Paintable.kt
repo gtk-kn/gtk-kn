@@ -82,7 +82,9 @@ import kotlin.Unit
  *
  * - parameter `concrete_width`: concrete_width: Out parameter is not supported
  */
-public interface Paintable : Interface, KGTyped {
+public interface Paintable :
+    Interface,
+    KGTyped {
     public val gdkPaintablePointer: CPointer<GdkPaintable>
 
     /**
@@ -317,8 +319,7 @@ private val connectInvalidateContentsFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectInvalidateSizeFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -326,5 +327,4 @@ private val connectInvalidateSizeFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

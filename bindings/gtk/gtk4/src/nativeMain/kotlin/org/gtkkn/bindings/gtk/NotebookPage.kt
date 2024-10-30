@@ -28,7 +28,8 @@ import org.gtkkn.native.gtk.gtk_notebook_page_get_type
  */
 public open class NotebookPage(
     pointer: CPointer<GtkNotebookPage>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkNotebookPagePointer: CPointer<GtkNotebookPage>
         get() = gPointer.reinterpret()
 
@@ -58,9 +59,7 @@ public open class NotebookPage(
 
     public companion object : TypeCompanion<NotebookPage> {
         override val type: GeneratedClassKGType<NotebookPage> =
-            GeneratedClassKGType(gtk_notebook_page_get_type()) {
-                NotebookPage(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_notebook_page_get_type()) { NotebookPage(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

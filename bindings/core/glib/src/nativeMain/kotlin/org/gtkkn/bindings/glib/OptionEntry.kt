@@ -46,7 +46,10 @@ public class OptionEntry(
      *     short name.
      */
     public var shortName: Char
-        get() = glibOptionEntryPointer.pointed.short_name.toInt().toChar()
+        get() =
+            glibOptionEntryPointer.pointed.short_name
+                .toInt()
+                .toChar()
         set(`value`) {
             glibOptionEntryPointer.pointed.short_name = value.code.toByte()
         }

@@ -225,10 +225,7 @@ public class Attribute(
      * @return true if the two attributes have the same value
      */
     public fun equal(attr2: Attribute): Boolean =
-        pango_attribute_equal(
-            pangoAttributePointer.reinterpret(),
-            attr2.pangoAttributePointer
-        ).asBoolean()
+        pango_attribute_equal(pangoAttributePointer.reinterpret(), attr2.pangoAttributePointer).asBoolean()
 
     /**
      * Initializes @attr's klass to @klass, it's start_index to

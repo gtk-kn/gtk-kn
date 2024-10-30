@@ -30,15 +30,14 @@ import org.gtkkn.native.gio.g_proxy_address_enumerator_get_type
  */
 public open class ProxyAddressEnumerator(
     pointer: CPointer<GProxyAddressEnumerator>,
-) : SocketAddressEnumerator(pointer.reinterpret()), KGTyped {
+) : SocketAddressEnumerator(pointer.reinterpret()),
+    KGTyped {
     public val gioProxyAddressEnumeratorPointer: CPointer<GProxyAddressEnumerator>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<ProxyAddressEnumerator> {
         override val type: GeneratedClassKGType<ProxyAddressEnumerator> =
-            GeneratedClassKGType(g_proxy_address_enumerator_get_type()) {
-                ProxyAddressEnumerator(it.reinterpret())
-            }
+            GeneratedClassKGType(g_proxy_address_enumerator_get_type()) { ProxyAddressEnumerator(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -187,11 +187,7 @@ public class Date(
      *
      * @param nMonths number of months to move forward
      */
-    public fun addMonths(nMonths: UInt): Unit =
-        g_date_add_months(
-            glibDatePointer.reinterpret(),
-            nMonths
-        )
+    public fun addMonths(nMonths: UInt): Unit = g_date_add_months(glibDatePointer.reinterpret(), nMonths)
 
     /**
      * Increments a date by some number of years.
@@ -201,11 +197,7 @@ public class Date(
      *
      * @param nYears number of years to move forward
      */
-    public fun addYears(nYears: UInt): Unit =
-        g_date_add_years(
-            glibDatePointer.reinterpret(),
-            nYears
-        )
+    public fun addYears(nYears: UInt): Unit = g_date_add_years(glibDatePointer.reinterpret(), nYears)
 
     /**
      * If @date is prior to @min_date, sets @date equal to @min_date.
@@ -220,12 +212,7 @@ public class Date(
     public fun clamp(
         minDate: Date,
         maxDate: Date,
-    ): Unit =
-        g_date_clamp(
-            glibDatePointer.reinterpret(),
-            minDate.glibDatePointer,
-            maxDate.glibDatePointer
-        )
+    ): Unit = g_date_clamp(glibDatePointer.reinterpret(), minDate.glibDatePointer, maxDate.glibDatePointer)
 
     /**
      * Initializes one or more #GDate structs to a safe but invalid
@@ -245,11 +232,7 @@ public class Date(
      * @return 0 for equal, less than zero if @lhs is less than @rhs,
      *     greater than zero if @lhs is greater than @rhs
      */
-    public fun compare(rhs: Date): Int =
-        g_date_compare(
-            glibDatePointer.reinterpret(),
-            rhs.glibDatePointer
-        )
+    public fun compare(rhs: Date): Int = g_date_compare(glibDatePointer.reinterpret(), rhs.glibDatePointer)
 
     /**
      * Copies a GDate to a newly-allocated GDate. If the input was invalid
@@ -272,11 +255,7 @@ public class Date(
      * @param date2 the second date
      * @return the number of days between @date1 and @date2
      */
-    public fun daysBetween(date2: Date): Int =
-        g_date_days_between(
-            glibDatePointer.reinterpret(),
-            date2.glibDatePointer
-        )
+    public fun daysBetween(date2: Date): Int = g_date_days_between(glibDatePointer.reinterpret(), date2.glibDatePointer)
 
     /**
      * Frees a #GDate returned from g_date_new().
@@ -370,22 +349,14 @@ public class Date(
      *
      * @param date2 the second date
      */
-    public fun order(date2: Date): Unit =
-        g_date_order(
-            glibDatePointer.reinterpret(),
-            date2.glibDatePointer
-        )
+    public fun order(date2: Date): Unit = g_date_order(glibDatePointer.reinterpret(), date2.glibDatePointer)
 
     /**
      * Sets the value of a #GDate from a Julian day number.
      *
      * @param julianDate Julian day number (days since January 1, Year 1)
      */
-    public fun setJulian(julianDate: UInt): Unit =
-        g_date_set_julian(
-            glibDatePointer.reinterpret(),
-            julianDate
-        )
+    public fun setJulian(julianDate: UInt): Unit = g_date_set_julian(glibDatePointer.reinterpret(), julianDate)
 
     /**
      * Sets the month of the year for a #GDate.  If the resulting
@@ -393,11 +364,7 @@ public class Date(
      *
      * @param month month to set
      */
-    public fun setMonth(month: DateMonth): Unit =
-        g_date_set_month(
-            glibDatePointer.reinterpret(),
-            month.nativeValue
-        )
+    public fun setMonth(month: DateMonth): Unit = g_date_set_month(glibDatePointer.reinterpret(), month.nativeValue)
 
     /**
      * Parses a user-inputted string @str, and try to figure out what date it
@@ -436,11 +403,7 @@ public class Date(
      *
      * @param nDays number of days to move
      */
-    public fun subtractDays(nDays: UInt): Unit =
-        g_date_subtract_days(
-            glibDatePointer.reinterpret(),
-            nDays
-        )
+    public fun subtractDays(nDays: UInt): Unit = g_date_subtract_days(glibDatePointer.reinterpret(), nDays)
 
     /**
      * Moves a date some number of months into the past.

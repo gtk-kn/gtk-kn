@@ -60,8 +60,7 @@ public class UriParamsIter(
      * GError *error = NULL;
      * gchar *unowned_attr, *unowned_value;
      *
-     * g_uri_params_iter_init (&iter, "foo=bar&baz=bar&Foo=frob&baz=bar2", -1, "&",
-     * G_URI_PARAMS_NONE);
+     * g_uri_params_iter_init (&iter, "foo=bar&baz=bar&Foo=frob&baz=bar2", -1, "&", G_URI_PARAMS_NONE);
      * while (g_uri_params_iter_next (&iter, &unowned_attr, &unowned_value, &error))
      *   {
      *     g_autofree gchar *attr = g_steal_pointer (&unowned_attr);
@@ -90,14 +89,7 @@ public class UriParamsIter(
         length: Long,
         separators: String,
         flags: UriParamsFlags,
-    ): Unit =
-        g_uri_params_iter_init(
-            glibUriParamsIterPointer.reinterpret(),
-            params,
-            length,
-            separators,
-            flags.mask
-        )
+    ): Unit = g_uri_params_iter_init(glibUriParamsIterPointer.reinterpret(), params, length, separators, flags.mask)
 
     public companion object : RecordCompanion<UriParamsIter, GUriParamsIter> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): UriParamsIter =

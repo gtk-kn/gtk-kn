@@ -85,7 +85,9 @@ import kotlin.collections.List
  * [method@Gio.Mount.unmount_with_operation_finish] is called, then it will be
  * filled with any error information.
  */
-public interface Mount : Interface, KGTyped {
+public interface Mount :
+    Interface,
+    KGTyped {
     public val gioMountPointer: CPointer<GMount>
 
     /**
@@ -248,8 +250,7 @@ public interface Mount : Interface, KGTyped {
      *     when no longer needed.
      */
     public fun getName(): String =
-        g_mount_get_name(gioMountPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_mount_get_name(gioMountPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the root directory on @mount.
@@ -698,8 +699,7 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPreUnmountFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -707,8 +707,7 @@ private val connectPreUnmountFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectUnmountedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -716,5 +715,4 @@ private val connectUnmountedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

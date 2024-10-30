@@ -29,7 +29,9 @@ import kotlin.Unit
  *
  * @since 2.24
  */
-public interface Converter : Interface, KGTyped {
+public interface Converter :
+    Interface,
+    KGTyped {
     public val gioConverterPointer: CPointer<GConverter>
 
     /**

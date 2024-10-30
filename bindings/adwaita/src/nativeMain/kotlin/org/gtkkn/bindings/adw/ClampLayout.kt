@@ -46,7 +46,9 @@ import kotlin.Unit
  */
 public class ClampLayout(
     pointer: CPointer<AdwClampLayout>,
-) : LayoutManager(pointer.reinterpret()), Orientable, KGTyped {
+) : LayoutManager(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val adwClampLayoutPointer: CPointer<AdwClampLayout>
         get() = gPointer.reinterpret()
 
@@ -74,11 +76,7 @@ public class ClampLayout(
          *
          * @param maximumSize the maximum size
          */
-        set(maximumSize) =
-            adw_clamp_layout_set_maximum_size(
-                adwClampLayoutPointer.reinterpret(),
-                maximumSize
-            )
+        set(maximumSize) = adw_clamp_layout_set_maximum_size(adwClampLayoutPointer.reinterpret(), maximumSize)
 
     /**
      * The size above which the children are clamped.
@@ -122,11 +120,9 @@ public class ClampLayout(
          *
          * @param tighteningThreshold the tightening threshold
          */
-        set(tighteningThreshold) =
-            adw_clamp_layout_set_tightening_threshold(
-                adwClampLayoutPointer.reinterpret(),
-                tighteningThreshold
-            )
+        set(
+            tighteningThreshold
+        ) = adw_clamp_layout_set_tightening_threshold(adwClampLayoutPointer.reinterpret(), tighteningThreshold)
 
     /**
      * The length unit for maximum size and tightening threshold.
@@ -219,10 +215,7 @@ public class ClampLayout(
      * @param tighteningThreshold the tightening threshold
      */
     public fun setTighteningThreshold(tighteningThreshold: Int): Unit =
-        adw_clamp_layout_set_tightening_threshold(
-            adwClampLayoutPointer.reinterpret(),
-            tighteningThreshold
-        )
+        adw_clamp_layout_set_tightening_threshold(adwClampLayoutPointer.reinterpret(), tighteningThreshold)
 
     /**
      * Sets the length unit for maximum size and tightening threshold.

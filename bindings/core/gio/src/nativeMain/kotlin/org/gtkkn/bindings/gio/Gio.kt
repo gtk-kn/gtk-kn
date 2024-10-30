@@ -199,11 +199,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - class `ThreadedResolver`: C Type GThreadedResolver is ignored
  * - parameter `action_name`: action_name: Out parameter is not supported
  * - function `bus_own_name`: g_bus_own_name is shadowedBy bus_own_name_with_closures
- * - function `bus_own_name_on_connection`: g_bus_own_name_on_connection is shadowedBy
- * bus_own_name_on_connection_with_closures
+ * - function `bus_own_name_on_connection`: g_bus_own_name_on_connection is shadowedBy bus_own_name_on_connection_with_closures
  * - function `bus_watch_name`: g_bus_watch_name is shadowedBy bus_watch_name_with_closures
- * - function `bus_watch_name_on_connection`: g_bus_watch_name_on_connection is shadowedBy
- * bus_watch_name_on_connection_with_closures
+ * - function `bus_watch_name_on_connection`: g_bus_watch_name_on_connection is shadowedBy bus_watch_name_on_connection_with_closures
  * - parameter `data`: guint8
  * - parameter `out_guid`: out_guid: Out parameter is not supported
  * - parameter `out_guid`: out_guid: Out parameter is not supported
@@ -229,8 +227,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `time_read`: time_read: Out parameter is not supported
  * - parameter `time_read`: time_read: Out parameter is not supported
  * - parameter `time_read`: time_read: Out parameter is not supported
- * - callback `DBusSubtreeIntrospectFunc`: Array parameter of type DBusInterfaceInfo is not
- * supported
+ * - callback `DBusSubtreeIntrospectFunc`: Array parameter of type DBusInterfaceInfo is not supported
  * - callback `ReallocFunc`: Return type gpointer is unsupported
  * - record `ActionGroupInterface`: glib type struct are ignored
  * - record `ActionInterface`: glib type struct are ignored
@@ -1761,8 +1758,7 @@ public object Gio {
      * Creates a new #GAppInfo from the given information.
      *
      * Note that for @commandline, the quoting rules of the Exec key of the
-     * [freedesktop.org Desktop Entry
-     * Specification](http://freedesktop.org/Standards/desktop-entry-spec)
+     * [freedesktop.org Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec)
      * are applied. For example, if the @commandline contains
      * percent-encoded URIs, the percent-character must be doubled in order to prevent it from
      * being swallowed by Exec key unquoting. See the specification for exact quoting rules.
@@ -1780,17 +1776,15 @@ public object Gio {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_app_info_create_from_commandline(
-                    commandline,
-                    applicationName,
-                    flags.mask,
-                    gError.ptr
-                )?.run {
+                g_app_info_create_from_commandline(commandline, applicationName, flags.mask, gError.ptr)?.run {
                     AppInfo.wrap(reinterpret())
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -1884,15 +1878,15 @@ public object Gio {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_app_info_get_default_for_type_finish(
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
+                g_app_info_get_default_for_type_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
                     AppInfo.wrap(reinterpret())
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -1951,15 +1945,15 @@ public object Gio {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_app_info_get_default_for_uri_scheme_finish(
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
+                g_app_info_get_default_for_uri_scheme_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
                     AppInfo.wrap(reinterpret())
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -2025,7 +2019,10 @@ public object Gio {
                     gError.ptr
                 ).asBoolean()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -2073,13 +2070,12 @@ public object Gio {
     public fun appInfoLaunchDefaultForUriFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_app_info_launch_default_for_uri_finish(
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
+            val gResult = g_app_info_launch_default_for_uri_finish(result.gioAsyncResultPointer, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -2187,7 +2183,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -2235,7 +2234,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -2427,8 +2429,7 @@ public object Gio {
      * @since 2.18
      */
     public fun contentTypeFromMimeType(mimeType: String): String =
-        g_content_type_from_mime_type(mimeType)?.toKString()
-            ?: error("Expected not null string")
+        g_content_type_from_mime_type(mimeType)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the human readable description of the content type.
@@ -2453,8 +2454,7 @@ public object Gio {
      * @since 2.34
      */
     public fun contentTypeGetGenericIconName(type: String): String =
-        g_content_type_get_generic_icon_name(type)?.toKString()
-            ?: error("Expected not null string")
+        g_content_type_get_generic_icon_name(type)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the icon for a content type.
@@ -2478,8 +2478,7 @@ public object Gio {
      * @since 2.60
      */
     public fun contentTypeGetMimeDirs(): CollectionsList<String> =
-        g_content_type_get_mime_dirs()?.toKStringList()
-            ?: error("Expected not null string array")
+        g_content_type_get_mime_dirs()?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Gets the mime type for the content type, if one is registered.
@@ -2524,8 +2523,7 @@ public object Gio {
      * @since 2.18
      */
     public fun contentTypeGuessForTree(root: File): CollectionsList<String> =
-        g_content_type_guess_for_tree(root.gioFilePointer)?.toKStringList()
-            ?: error("Expected not null string array")
+        g_content_type_guess_for_tree(root.gioFilePointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Determines if @type is a subset of @supertype.
@@ -2538,11 +2536,7 @@ public object Gio {
     public fun contentTypeIsA(
         type: String,
         supertype: String,
-    ): Boolean =
-        g_content_type_is_a(
-            type,
-            supertype
-        ).asBoolean()
+    ): Boolean = g_content_type_is_a(type, supertype).asBoolean()
 
     /**
      * Determines if @type is a subset of @mime_type.
@@ -2663,7 +2657,10 @@ public object Gio {
                     gError.ptr
                 )?.toKString()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -2718,8 +2715,7 @@ public object Gio {
      * @since 2.26
      */
     public fun dbusErrorEncodeGerror(error: Error): String =
-        g_dbus_error_encode_gerror(error.glibErrorPointer)?.toKString()
-            ?: error("Expected not null string")
+        g_dbus_error_encode_gerror(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the D-Bus error name used for @error, if any.
@@ -2735,8 +2731,7 @@ public object Gio {
      * @since 2.26
      */
     public fun dbusErrorGetRemoteError(error: Error): String =
-        g_dbus_error_get_remote_error(error.glibErrorPointer)?.toKString()
-            ?: error("Expected not null string")
+        g_dbus_error_get_remote_error(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Checks if @error represents an error received via D-Bus from a remote peer. If so,
@@ -2851,8 +2846,7 @@ public object Gio {
      * @since 2.68
      */
     public fun dbusEscapeObjectPath(s: String): String =
-        g_dbus_escape_object_path(s)?.toKString()
-            ?: error("Expected not null string")
+        g_dbus_escape_object_path(s)?.toKString() ?: error("Expected not null string")
 
     /**
      * Generate a D-Bus GUID that can be used with
@@ -2870,9 +2864,7 @@ public object Gio {
      * @return A valid D-Bus GUID. Free with g_free().
      * @since 2.26
      */
-    public fun dbusGenerateGuid(): String =
-        g_dbus_generate_guid()?.toKString()
-            ?: error("Expected not null string")
+    public fun dbusGenerateGuid(): String = g_dbus_generate_guid()?.toKString() ?: error("Expected not null string")
 
     /**
      * Converts a #GValue to a #GVariant of the type indicated by the @type
@@ -2915,10 +2907,7 @@ public object Gio {
         gvalue: Value,
         type: VariantType,
     ): Variant =
-        g_dbus_gvalue_to_gvariant(
-            gvalue.gobjectValuePointer,
-            type.glibVariantTypePointer
-        )!!.run {
+        g_dbus_gvalue_to_gvariant(gvalue.gobjectValuePointer, type.glibVariantTypePointer)!!.run {
             Variant(reinterpret())
         }
 
@@ -3026,7 +3015,10 @@ public object Gio {
             val gError = allocPointerTo<GError>()
             val gResult = g_dbus_is_supported_address(string, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -3053,8 +3045,7 @@ public object Gio {
      */
     public fun dtlsClientConnectionNew(
         baseSocket: DatagramBased,
-        serverIdentity: SocketConnectable? =
-            null,
+        serverIdentity: SocketConnectable? = null,
     ): Result<DtlsClientConnection> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3068,7 +3059,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -3085,8 +3079,7 @@ public object Gio {
      */
     public fun dtlsServerConnectionNew(
         baseSocket: DatagramBased,
-        certificate: TlsCertificate? =
-            null,
+        certificate: TlsCertificate? = null,
     ): Result<DtlsServerConnection> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3100,7 +3093,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -3282,7 +3278,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -3336,7 +3335,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -3704,7 +3706,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -3729,14 +3734,12 @@ public object Gio {
     ): Result<CollectionsList<String>> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_resources_enumerate_children(
-                    path,
-                    lookupFlags.mask,
-                    gError.ptr
-                )?.toKStringList()
+            val gResult = g_resources_enumerate_children(path, lookupFlags.mask, gError.ptr)?.toKStringList()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -3776,7 +3779,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -3807,7 +3813,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -3912,8 +3921,7 @@ public object Gio {
      */
     public fun tlsClientConnectionNew(
         baseIoStream: IOStream,
-        serverIdentity: SocketConnectable? =
-            null,
+        serverIdentity: SocketConnectable? = null,
     ): Result<TlsClientConnection> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3927,7 +3935,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -3961,7 +3972,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -3997,7 +4011,10 @@ public object Gio {
                 }
 
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gio.Gio
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(checkNotNull(gResult))
             }
@@ -4097,8 +4114,7 @@ public object Gio {
      * @return a string containing the file system type.
      */
     public fun unixMountGetFsType(mountEntry: UnixMountEntry): String =
-        g_unix_mount_get_fs_type(mountEntry.gioUnixMountEntryPointer)?.toKString()
-            ?: error("Expected not null string")
+        g_unix_mount_get_fs_type(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the mount path for a unix mount.
@@ -4169,8 +4185,7 @@ public object Gio {
      *     be freed with g_free()
      */
     public fun unixMountGuessName(mountEntry: UnixMountEntry): String =
-        g_unix_mount_guess_name(mountEntry.gioUnixMountEntryPointer)?.toKString()
-            ?: error("Expected not null string")
+        g_unix_mount_guess_name(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Guesses whether a Unix mount should be displayed in the UI.
@@ -4236,32 +4251,38 @@ public object Gio {
         val ex =
             when (error.domain) {
                 DBusError.quark() ->
-                    DBusError.fromErrorOrNull(error)
+                    DBusError
+                        .fromErrorOrNull(error)
                         ?.let {
                             DBusErrorException(error, it)
                         }
                 IOErrorEnum.quark() ->
-                    IOErrorEnum.fromErrorOrNull(error)
+                    IOErrorEnum
+                        .fromErrorOrNull(error)
                         ?.let {
                             IOErrorEnumException(error, it)
                         }
                 ResolverError.quark() ->
-                    ResolverError.fromErrorOrNull(error)
+                    ResolverError
+                        .fromErrorOrNull(error)
                         ?.let {
                             ResolverErrorException(error, it)
                         }
                 ResourceError.quark() ->
-                    ResourceError.fromErrorOrNull(error)
+                    ResourceError
+                        .fromErrorOrNull(error)
                         ?.let {
                             ResourceErrorException(error, it)
                         }
                 TlsChannelBindingError.quark() ->
-                    TlsChannelBindingError.fromErrorOrNull(error)
+                    TlsChannelBindingError
+                        .fromErrorOrNull(error)
                         ?.let {
                             TlsChannelBindingErrorException(error, it)
                         }
                 TlsError.quark() ->
-                    TlsError.fromErrorOrNull(error)
+                    TlsError
+                        .fromErrorOrNull(error)
                         ?.let {
                             TlsErrorException(error, it)
                         }
@@ -4271,25 +4292,14 @@ public object Gio {
     }
 }
 
-public val AsyncReadyCallbackFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GObject>?,
-            CPointer<GAsyncResult>,
-        ) -> Unit
-    >
-> =
+public val AsyncReadyCallbackFunc:
+    CPointer<CFunction<(CPointer<GObject>?, CPointer<GAsyncResult>) -> Unit>> =
     staticCFunction {
             sourceObject: CPointer<GObject>?,
             res: CPointer<GAsyncResult>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                sourceObject: Object?,
-                res: AsyncResult,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(sourceObject: Object?, res: AsyncResult) -> Unit>().get().invoke(
             sourceObject?.run {
                 Object(reinterpret())
             },
@@ -4297,62 +4307,37 @@ public val AsyncReadyCallbackFunc: CPointer<
                 AsyncResult.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-public val BusAcquiredCallbackFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<ByteVar>,
-        ) -> Unit
-    >
-> =
+public val BusAcquiredCallbackFunc:
+    CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: DBusConnection,
-                name: String,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
             name?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-public val BusNameAcquiredCallbackFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<ByteVar>,
-        ) -> Unit
-    >
-> =
+public val BusNameAcquiredCallbackFunc:
+    CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: DBusConnection,
-                name: String,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
             name?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val BusNameAppearedCallbackFunc: CPointer<
     CFunction<
@@ -4369,89 +4354,68 @@ public val BusNameAppearedCallbackFunc: CPointer<
             nameOwner: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: DBusConnection,
-                name: String,
-                nameOwner: String,
-            ) -> Unit
-        >().get().invoke(
-            connection!!.run {
-                DBusConnection(reinterpret())
-            },
-            name?.toKString() ?: error("Expected not null string"),
-            nameOwner?.toKString()
-                ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    connection: DBusConnection,
+                    name: String,
+                    nameOwner: String,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                connection!!.run {
+                    DBusConnection(reinterpret())
+                },
+                name?.toKString() ?: error("Expected not null string"),
+                nameOwner?.toKString() ?: error("Expected not null string")
+            )
+    }.reinterpret()
 
-public val BusNameLostCallbackFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<ByteVar>,
-        ) -> Unit
-    >
-> =
+public val BusNameLostCallbackFunc:
+    CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: DBusConnection,
-                name: String,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
             name?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-public val BusNameVanishedCallbackFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<ByteVar>,
-        ) -> Unit
-    >
-> =
+public val BusNameVanishedCallbackFunc:
+    CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: DBusConnection,
-                name: String,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
             name?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val CancellableSourceFuncFunc: CPointer<CFunction<(CPointer<GCancellable>?) -> Int>> =
     staticCFunction {
             cancellable: CPointer<GCancellable>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(cancellable: Cancellable?) -> Boolean>().get().invoke(
-            cancellable?.run {
-                Cancellable(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(cancellable: Cancellable?) -> Boolean>()
+            .get()
+            .invoke(
+                cancellable?.run {
+                    Cancellable(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val DBusInterfaceGetPropertyFuncFunc: CPointer<
     CFunction<
@@ -4474,32 +4438,31 @@ public val DBusInterfaceGetPropertyFuncFunc: CPointer<
             error: CPointer<org.gtkkn.native.glib.GError>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: DBusConnection,
-                sender: String,
-                objectPath: String,
-                interfaceName: String,
-                propertyName: String,
-                error: Error,
-            ) -> Variant
-        >().get().invoke(
-            connection!!.run {
-                DBusConnection(reinterpret())
-            },
-            sender?.toKString() ?: error("Expected not null string"),
-            objectPath?.toKString()
-                ?: error("Expected not null string"),
-            interfaceName?.toKString()
-                ?: error("Expected not null string"),
-            propertyName?.toKString()
-                ?: error("Expected not null string"),
-            error!!.run {
-                Error(reinterpret())
-            }
-        ).glibVariantPointer
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    connection: DBusConnection,
+                    sender: String,
+                    objectPath: String,
+                    interfaceName: String,
+                    propertyName: String,
+                    error: Error,
+                ) -> Variant
+            >()
+            .get()
+            .invoke(
+                connection!!.run {
+                    DBusConnection(reinterpret())
+                },
+                sender?.toKString() ?: error("Expected not null string"),
+                objectPath?.toKString() ?: error("Expected not null string"),
+                interfaceName?.toKString() ?: error("Expected not null string"),
+                propertyName?.toKString() ?: error("Expected not null string"),
+                error!!.run {
+                    Error(reinterpret())
+                }
+            ).glibVariantPointer
+    }.reinterpret()
 
 public val DBusInterfaceMethodCallFuncFunc: CPointer<
     CFunction<
@@ -4524,36 +4487,35 @@ public val DBusInterfaceMethodCallFuncFunc: CPointer<
             invocation: CPointer<GDBusMethodInvocation>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: DBusConnection,
-                sender: String,
-                objectPath: String,
-                interfaceName: String,
-                methodName: String,
-                parameters: Variant,
-                invocation: DBusMethodInvocation,
-            ) -> Unit
-        >().get().invoke(
-            connection!!.run {
-                DBusConnection(reinterpret())
-            },
-            sender?.toKString() ?: error("Expected not null string"),
-            objectPath?.toKString()
-                ?: error("Expected not null string"),
-            interfaceName?.toKString()
-                ?: error("Expected not null string"),
-            methodName?.toKString()
-                ?: error("Expected not null string"),
-            parameters!!.run {
-                Variant(reinterpret())
-            },
-            invocation!!.run {
-                DBusMethodInvocation(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    connection: DBusConnection,
+                    sender: String,
+                    objectPath: String,
+                    interfaceName: String,
+                    methodName: String,
+                    parameters: Variant,
+                    invocation: DBusMethodInvocation,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                connection!!.run {
+                    DBusConnection(reinterpret())
+                },
+                sender?.toKString() ?: error("Expected not null string"),
+                objectPath?.toKString() ?: error("Expected not null string"),
+                interfaceName?.toKString() ?: error("Expected not null string"),
+                methodName?.toKString() ?: error("Expected not null string"),
+                parameters!!.run {
+                    Variant(reinterpret())
+                },
+                invocation!!.run {
+                    DBusMethodInvocation(reinterpret())
+                }
+            )
+    }.reinterpret()
 
 public val DBusInterfaceSetPropertyFuncFunc: CPointer<
     CFunction<
@@ -4578,36 +4540,35 @@ public val DBusInterfaceSetPropertyFuncFunc: CPointer<
             error: CPointer<org.gtkkn.native.glib.GError>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: DBusConnection,
-                sender: String,
-                objectPath: String,
-                interfaceName: String,
-                propertyName: String,
-                `value`: Variant,
-                error: Error,
-            ) -> Boolean
-        >().get().invoke(
-            connection!!.run {
-                DBusConnection(reinterpret())
-            },
-            sender?.toKString() ?: error("Expected not null string"),
-            objectPath?.toKString()
-                ?: error("Expected not null string"),
-            interfaceName?.toKString()
-                ?: error("Expected not null string"),
-            propertyName?.toKString()
-                ?: error("Expected not null string"),
-            `value`!!.run {
-                Variant(reinterpret())
-            },
-            error!!.run {
-                Error(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    connection: DBusConnection,
+                    sender: String,
+                    objectPath: String,
+                    interfaceName: String,
+                    propertyName: String,
+                    `value`: Variant,
+                    error: Error,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(
+                connection!!.run {
+                    DBusConnection(reinterpret())
+                },
+                sender?.toKString() ?: error("Expected not null string"),
+                objectPath?.toKString() ?: error("Expected not null string"),
+                interfaceName?.toKString() ?: error("Expected not null string"),
+                propertyName?.toKString() ?: error("Expected not null string"),
+                `value`!!.run {
+                    Variant(reinterpret())
+                },
+                error!!.run {
+                    Error(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val DBusMessageFilterFunctionFunc: CPointer<
     CFunction<
@@ -4624,23 +4585,25 @@ public val DBusMessageFilterFunctionFunc: CPointer<
             incoming: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: DBusConnection,
-                message: DBusMessage,
-                incoming: Boolean,
-            ) -> DBusMessage?
-        >().get().invoke(
-            connection!!.run {
-                DBusConnection(reinterpret())
-            },
-            message!!.run {
-                DBusMessage(reinterpret())
-            },
-            incoming.asBoolean()
-        )?.gioDBusMessagePointer
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    connection: DBusConnection,
+                    message: DBusMessage,
+                    incoming: Boolean,
+                ) -> DBusMessage?
+            >()
+            .get()
+            .invoke(
+                connection!!.run {
+                    DBusConnection(reinterpret())
+                },
+                message!!.run {
+                    DBusMessage(reinterpret())
+                },
+                incoming.asBoolean()
+            )?.gioDBusMessagePointer
+    }.reinterpret()
 
 public val DBusProxyTypeFuncFunc: CPointer<
     CFunction<
@@ -4657,21 +4620,23 @@ public val DBusProxyTypeFuncFunc: CPointer<
             interfaceName: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                manager: DBusObjectManagerClient,
-                objectPath: String,
-                interfaceName: String?,
-            ) -> ULong
-        >().get().invoke(
-            manager!!.run {
-                DBusObjectManagerClient(reinterpret())
-            },
-            objectPath?.toKString() ?: error("Expected not null string"),
-            interfaceName?.toKString()
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    manager: DBusObjectManagerClient,
+                    objectPath: String,
+                    interfaceName: String?,
+                ) -> ULong
+            >()
+            .get()
+            .invoke(
+                manager!!.run {
+                    DBusObjectManagerClient(reinterpret())
+                },
+                objectPath?.toKString() ?: error("Expected not null string"),
+                interfaceName?.toKString()
+            )
+    }.reinterpret()
 
 public val DBusSignalCallbackFunc: CPointer<
     CFunction<
@@ -4694,30 +4659,31 @@ public val DBusSignalCallbackFunc: CPointer<
             parameters: CPointer<GVariant>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: DBusConnection,
-                senderName: String?,
-                objectPath: String,
-                interfaceName: String,
-                signalName: String,
-                parameters: Variant,
-            ) -> Unit
-        >().get().invoke(
-            connection!!.run {
-                DBusConnection(reinterpret())
-            },
-            senderName?.toKString(),
-            objectPath?.toKString() ?: error("Expected not null string"),
-            interfaceName?.toKString() ?: error("Expected not null string"),
-            signalName?.toKString()
-                ?: error("Expected not null string"),
-            parameters!!.run {
-                Variant(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    connection: DBusConnection,
+                    senderName: String?,
+                    objectPath: String,
+                    interfaceName: String,
+                    signalName: String,
+                    parameters: Variant,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                connection!!.run {
+                    DBusConnection(reinterpret())
+                },
+                senderName?.toKString(),
+                objectPath?.toKString() ?: error("Expected not null string"),
+                interfaceName?.toKString() ?: error("Expected not null string"),
+                signalName?.toKString() ?: error("Expected not null string"),
+                parameters!!.run {
+                    Variant(reinterpret())
+                }
+            )
+    }.reinterpret()
 
 public val DBusSubtreeDispatchFuncFunc: CPointer<
     CFunction<
@@ -4738,28 +4704,27 @@ public val DBusSubtreeDispatchFuncFunc: CPointer<
             node: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: DBusConnection,
-                sender: String,
-                objectPath: String,
-                interfaceName: String,
-                node: String,
-            ) -> DBusInterfaceVTable?
-        >().get().invoke(
-            connection!!.run {
-                DBusConnection(reinterpret())
-            },
-            sender?.toKString() ?: error("Expected not null string"),
-            objectPath?.toKString()
-                ?: error("Expected not null string"),
-            interfaceName?.toKString()
-                ?: error("Expected not null string"),
-            node?.toKString()
-                ?: error("Expected not null string")
-        )?.gioDBusInterfaceVTablePointer
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    connection: DBusConnection,
+                    sender: String,
+                    objectPath: String,
+                    interfaceName: String,
+                    node: String,
+                ) -> DBusInterfaceVTable?
+            >()
+            .get()
+            .invoke(
+                connection!!.run {
+                    DBusConnection(reinterpret())
+                },
+                sender?.toKString() ?: error("Expected not null string"),
+                objectPath?.toKString() ?: error("Expected not null string"),
+                interfaceName?.toKString() ?: error("Expected not null string"),
+                node?.toKString() ?: error("Expected not null string")
+            )?.gioDBusInterfaceVTablePointer
+    }.reinterpret()
 
 public val DBusSubtreeEnumerateFuncFunc: CPointer<
     CFunction<
@@ -4777,36 +4742,39 @@ public val DBusSubtreeEnumerateFuncFunc: CPointer<
             userData: COpaquePointer,
         ->
         memScoped {
-            userData.asStableRef<
-                (
-                    connection: DBusConnection,
-                    sender: String,
-                    objectPath: String,
-                ) -> CollectionsList<String>
-            >().get().invoke(
-                connection!!.run {
-                    DBusConnection(reinterpret())
-                },
-                sender?.toKString() ?: error("Expected not null string"),
-                objectPath?.toKString()
-                    ?: error("Expected not null string")
-            ).toCStringList(this)
+            userData
+                .asStableRef<
+                    (
+                        connection: DBusConnection,
+                        sender: String,
+                        objectPath: String,
+                    ) -> CollectionsList<String>
+                >()
+                .get()
+                .invoke(
+                    connection!!.run {
+                        DBusConnection(reinterpret())
+                    },
+                    sender?.toKString() ?: error("Expected not null string"),
+                    objectPath?.toKString() ?: error("Expected not null string")
+                ).toCStringList(this)
         }
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val DatagramBasedSourceFuncFunc: CPointer<CFunction<(CPointer<GDatagramBased>) -> Int>> =
     staticCFunction {
             datagramBased: CPointer<GDatagramBased>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(datagramBased: DatagramBased) -> Boolean>().get().invoke(
-            datagramBased!!.run {
-                DatagramBased.wrap(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(datagramBased: DatagramBased) -> Boolean>()
+            .get()
+            .invoke(
+                datagramBased!!.run {
+                    DatagramBased.wrap(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val DesktopAppLaunchCallbackFunc: CPointer<CFunction<(CPointer<GDesktopAppInfo>) -> Unit>> =
     staticCFunction {
@@ -4818,8 +4786,7 @@ public val DesktopAppLaunchCallbackFunc: CPointer<CFunction<(CPointer<GDesktopAp
                 DesktopAppInfo(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val FileMeasureProgressCallbackFunc: CPointer<
     CFunction<
@@ -4838,16 +4805,18 @@ public val FileMeasureProgressCallbackFunc: CPointer<
             numFiles: ULong,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                reporting: Boolean,
-                currentSize: ULong,
-                numDirs: ULong,
-                numFiles: ULong,
-            ) -> Unit
-        >().get().invoke(reporting.asBoolean(), currentSize, numDirs, numFiles)
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    reporting: Boolean,
+                    currentSize: ULong,
+                    numDirs: ULong,
+                    numFiles: ULong,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(reporting.asBoolean(), currentSize, numDirs, numFiles)
+    }.reinterpret()
 
 public val FileProgressCallbackFunc: CPointer<CFunction<(Long, Long) -> Unit>> =
     staticCFunction {
@@ -4855,14 +4824,16 @@ public val FileProgressCallbackFunc: CPointer<CFunction<(Long, Long) -> Unit>> =
             totalNumBytes: Long,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                currentNumBytes: Long,
-                totalNumBytes: Long,
-            ) -> Unit
-        >().get().invoke(currentNumBytes, totalNumBytes)
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    currentNumBytes: Long,
+                    totalNumBytes: Long,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(currentNumBytes, totalNumBytes)
+    }.reinterpret()
 
 public val FileReadMoreCallbackFunc: CPointer<CFunction<(CPointer<ByteVar>, Long) -> Int>> =
     staticCFunction {
@@ -4870,115 +4841,99 @@ public val FileReadMoreCallbackFunc: CPointer<CFunction<(CPointer<ByteVar>, Long
             fileSize: Long,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                fileContents: String,
-                fileSize: Long,
-            ) -> Boolean
-        >().get().invoke(
-            fileContents?.toKString()
-                ?: error("Expected not null string"),
-            fileSize
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(fileContents: String, fileSize: Long) -> Boolean>()
+            .get()
+            .invoke(
+                fileContents?.toKString() ?: error("Expected not null string"),
+                fileSize
+            ).asGBoolean()
+    }.reinterpret()
 
 public val IOSchedulerJobFuncFunc: CPointer<CFunction<(CPointer<GCancellable>?) -> Int>> =
     staticCFunction {
             cancellable: CPointer<GCancellable>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(cancellable: Cancellable?) -> Boolean>().get().invoke(
-            cancellable?.run {
-                Cancellable(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(cancellable: Cancellable?) -> Boolean>()
+            .get()
+            .invoke(
+                cancellable?.run {
+                    Cancellable(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val PollableSourceFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Int>> =
     staticCFunction {
             pollableStream: CPointer<GObject>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(pollableStream: Object) -> Boolean>().get().invoke(
-            pollableStream!!.run {
-                Object(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(pollableStream: Object) -> Boolean>()
+            .get()
+            .invoke(
+                pollableStream!!.run {
+                    Object(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
-public val SettingsBindGetMappingFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GValue>,
-            CPointer<GVariant>,
-        ) -> Int
-    >
-> =
+public val SettingsBindGetMappingFunc:
+    CPointer<CFunction<(CPointer<GValue>, CPointer<GVariant>) -> Int>> =
     staticCFunction {
             `value`: CPointer<GValue>?,
             variant: CPointer<GVariant>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                `value`: Value,
-                variant: Variant,
-            ) -> Boolean
-        >().get().invoke(
-            `value`!!.run {
-                Value(reinterpret())
-            },
-            variant!!.run {
-                Variant(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(`value`: Value, variant: Variant) -> Boolean>()
+            .get()
+            .invoke(
+                `value`!!.run {
+                    Value(reinterpret())
+                },
+                variant!!.run {
+                    Variant(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
-public val SettingsBindSetMappingFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GValue>,
-            CPointer<GVariantType>,
-        ) -> CPointer<GVariant>
-    >
-> =
+public val SettingsBindSetMappingFunc:
+    CPointer<CFunction<(CPointer<GValue>, CPointer<GVariantType>) -> CPointer<GVariant>>> =
     staticCFunction {
             `value`: CPointer<GValue>?,
             expectedType: CPointer<GVariantType>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                `value`: Value,
-                expectedType: VariantType,
-            ) -> Variant
-        >().get().invoke(
-            `value`!!.run {
-                Value(reinterpret())
-            },
-            expectedType!!.run {
-                VariantType(reinterpret())
-            }
-        ).glibVariantPointer
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(`value`: Value, expectedType: VariantType) -> Variant>()
+            .get()
+            .invoke(
+                `value`!!.run {
+                    Value(reinterpret())
+                },
+                expectedType!!.run {
+                    VariantType(reinterpret())
+                }
+            ).glibVariantPointer
+    }.reinterpret()
 
 public val SettingsGetMappingFunc: CPointer<CFunction<(CPointer<GVariant>) -> Int>> =
     staticCFunction {
             `value`: CPointer<GVariant>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(`value`: Variant) -> Boolean>().get().invoke(
-            `value`!!.run {
-                Variant(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(`value`: Variant) -> Boolean>()
+            .get()
+            .invoke(
+                `value`!!.run {
+                    Variant(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val SimpleAsyncThreadFuncFunc: CPointer<
     CFunction<
@@ -4995,38 +4950,42 @@ public val SimpleAsyncThreadFuncFunc: CPointer<
             cancellable: CPointer<GCancellable>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                res: SimpleAsyncResult,
-                `object`: Object,
-                cancellable: Cancellable?,
-            ) -> Unit
-        >().get().invoke(
-            res!!.run {
-                SimpleAsyncResult(reinterpret())
-            },
-            `object`!!.run {
-                Object(reinterpret())
-            },
-            cancellable?.run {
-                Cancellable(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    res: SimpleAsyncResult,
+                    `object`: Object,
+                    cancellable: Cancellable?,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                res!!.run {
+                    SimpleAsyncResult(reinterpret())
+                },
+                `object`!!.run {
+                    Object(reinterpret())
+                },
+                cancellable?.run {
+                    Cancellable(reinterpret())
+                }
+            )
+    }.reinterpret()
 
 public val SocketSourceFuncFunc: CPointer<CFunction<(CPointer<GSocket>) -> Int>> =
     staticCFunction {
             socket: CPointer<GSocket>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(socket: Socket) -> Boolean>().get().invoke(
-            socket!!.run {
-                Socket(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(socket: Socket) -> Boolean>()
+            .get()
+            .invoke(
+                socket!!.run {
+                    Socket(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val TaskThreadFuncFunc: CPointer<
     CFunction<
@@ -5043,47 +5002,45 @@ public val TaskThreadFuncFunc: CPointer<
             cancellable: CPointer<GCancellable>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                task: Task,
-                sourceObject: Object,
-                cancellable: Cancellable?,
-            ) -> Unit
-        >().get().invoke(
-            task!!.run {
-                Task(reinterpret())
-            },
-            sourceObject!!.run {
-                Object(reinterpret())
-            },
-            cancellable?.run {
-                Cancellable(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    task: Task,
+                    sourceObject: Object,
+                    cancellable: Cancellable?,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                task!!.run {
+                    Task(reinterpret())
+                },
+                sourceObject!!.run {
+                    Object(reinterpret())
+                },
+                cancellable?.run {
+                    Cancellable(reinterpret())
+                }
+            )
+    }.reinterpret()
 
-public val VfsFileLookupFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GVfs>,
-            CPointer<ByteVar>,
-        ) -> CPointer<GFile>
-    >
-> =
+public val VfsFileLookupFuncFunc:
+    CPointer<CFunction<(CPointer<GVfs>, CPointer<ByteVar>) -> CPointer<GFile>>> =
     staticCFunction {
             vfs: CPointer<GVfs>?,
             identifier: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(vfs: Vfs, identifier: String) -> File>().get().invoke(
-            vfs!!.run {
-                Vfs(reinterpret())
-            },
-            identifier?.toKString() ?: error("Expected not null string")
-        ).gioFilePointer
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(vfs: Vfs, identifier: String) -> File>()
+            .get()
+            .invoke(
+                vfs!!.run {
+                    Vfs(reinterpret())
+                },
+                identifier?.toKString() ?: error("Expected not null string")
+            ).gioFilePointer
+    }.reinterpret()
 
 /**
  * Type definition for a function that will be called back when an asynchronous
@@ -5195,8 +5152,7 @@ public typealias DBusInterfaceGetPropertyFunc = (
  * - param `interfaceName` The D-Bus interface name the method was invoked on.
  * - param `methodName` The name of the method that was invoked.
  * - param `parameters` A #GVariant tuple with parameters.
- * - param `invocation` A #GDBusMethodInvocation object that must be used to return a value or
- * error.
+ * - param `invocation` A #GDBusMethodInvocation object that must be used to return a value or error.
  */
 public typealias DBusInterfaceMethodCallFunc = (
     connection: DBusConnection,
@@ -5316,8 +5272,7 @@ public typealias DBusMessageFilterFunction = (
  *
  * - param `manager` A #GDBusObjectManagerClient.
  * - param `objectPath` The object path of the remote object.
- * - param `interfaceName` The interface name of the remote object or null if a #GDBusObjectProxy
- * #GType is requested.
+ * - param `interfaceName` The interface name of the remote object or null if a #GDBusObjectProxy #GType is requested.
  * - return A #GType to use for the remote object. The returned type
  *   must be a #GDBusProxy or #GDBusObjectProxy -derived
  *   type.
@@ -5356,11 +5311,9 @@ public typealias DBusSignalCallback = (
  *
  * - param `connection` A #GDBusConnection.
  * - param `sender` The unique bus name of the remote caller.
- * - param `objectPath` The object path that was registered with
- * g_dbus_connection_register_subtree().
+ * - param `objectPath` The object path that was registered with g_dbus_connection_register_subtree().
  * - param `interfaceName` The D-Bus interface name that the method call or property access is for.
- * - param `node` A node that is a child of @object_path (relative to @object_path) or null for the
- * root of the subtree.
+ * - param `node` A node that is a child of @object_path (relative to @object_path) or null for the root of the subtree.
  * - return A #GDBusInterfaceVTable or null if you don't want to handle the methods.
  */
 public typealias DBusSubtreeDispatchFunc = (
@@ -5386,8 +5339,7 @@ public typealias DBusSubtreeDispatchFunc = (
  *
  * - param `connection` A #GDBusConnection.
  * - param `sender` The unique bus name of the remote caller.
- * - param `objectPath` The object path that was registered with
- * g_dbus_connection_register_subtree().
+ * - param `objectPath` The object path that was registered with g_dbus_connection_register_subtree().
  * - return A newly allocated array of strings for node names that are children of @object_path.
  */
 public typealias DBusSubtreeEnumerateFunc = (

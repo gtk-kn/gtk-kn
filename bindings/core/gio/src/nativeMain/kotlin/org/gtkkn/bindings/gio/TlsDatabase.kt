@@ -54,7 +54,8 @@ import kotlin.Unit
  */
 public open class TlsDatabase(
     pointer: CPointer<GTlsDatabase>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioTlsDatabasePointer: CPointer<GTlsDatabase>
         get() = gPointer.reinterpret()
 
@@ -457,10 +458,13 @@ public open class TlsDatabase(
     ): Unit =
         g_tls_database_verify_chain_async(
             gioTlsDatabasePointer.reinterpret(),
-            chain.gioTlsCertificatePointer.reinterpret(), purpose,
+            chain.gioTlsCertificatePointer.reinterpret(),
+            purpose,
             identity?.gioSocketConnectablePointer,
-            interaction?.gioTlsInteractionPointer?.reinterpret(), flags.mask,
-            cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(),
+            interaction?.gioTlsInteractionPointer?.reinterpret(),
+            flags.mask,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()
         )
 

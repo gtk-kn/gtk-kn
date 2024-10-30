@@ -76,9 +76,7 @@ public enum class RecentManagerError(
         public fun quark(): UInt = gtk_recent_manager_error_quark()
 
         public fun fromErrorOrNull(error: Error): RecentManagerError? =
-            if (error.domain !=
-                quark()
-            ) {
+            if (error.domain != quark()) {
                 null
             } else {
                 RecentManagerError.values().find { it.nativeValue.value.toInt() == error.code }

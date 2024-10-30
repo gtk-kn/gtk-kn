@@ -53,8 +53,7 @@ public class SettingsBindFlags(
 
         /**
          * When passed to g_settings_bind(), uses a pair of mapping functions that invert
-         *     the boolean value when mapping between the setting and the property.  The setting and
-         * property must both
+         *     the boolean value when mapping between the setting and the property.  The setting and property must both
          *     be booleans.  You cannot pass this flag to g_settings_bind_with_mapping().
          */
         public val INVERT_BOOLEAN: SettingsBindFlags =

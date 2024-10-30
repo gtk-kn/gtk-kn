@@ -18,7 +18,8 @@ import org.gtkkn.native.adw.adw_callback_animation_target_new
  */
 public class CallbackAnimationTarget(
     pointer: CPointer<AdwCallbackAnimationTarget>,
-) : AnimationTarget(pointer.reinterpret()), KGTyped {
+) : AnimationTarget(pointer.reinterpret()),
+    KGTyped {
     public val adwCallbackAnimationTargetPointer: CPointer<AdwCallbackAnimationTarget>
         get() = gPointer.reinterpret()
 
@@ -29,20 +30,21 @@ public class CallbackAnimationTarget(
      * @param callback the callback to call
      * @return the newly created callback target
      */
-    public constructor(callback: AnimationTargetFunc) :
-        this(
-            adw_callback_animation_target_new(
-                AnimationTargetFuncFunc.reinterpret(),
-                StableRef.create(callback).asCPointer(),
-                staticStableRefDestroy.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        callback: AnimationTargetFunc,
+    ) : this(
+        adw_callback_animation_target_new(
+            AnimationTargetFuncFunc.reinterpret(),
+            StableRef.create(callback).asCPointer(),
+            staticStableRefDestroy.reinterpret()
+        )!!.reinterpret()
+    )
 
     public companion object : TypeCompanion<CallbackAnimationTarget> {
         override val type: GeneratedClassKGType<CallbackAnimationTarget> =
-            GeneratedClassKGType(adw_callback_animation_target_get_type()) {
-                CallbackAnimationTarget(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                adw_callback_animation_target_get_type()
+            ) { CallbackAnimationTarget(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

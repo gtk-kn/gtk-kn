@@ -70,7 +70,9 @@ import kotlin.Unit
  */
 public open class Box(
     pointer: CPointer<GtkBox>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val gtkBoxPointer: CPointer<GtkBox>
         get() = gPointer.reinterpret()
 
@@ -135,11 +137,7 @@ public open class Box(
          *
          * @param position a `GtkBaselinePosition`
          */
-        set(position) =
-            gtk_box_set_baseline_position(
-                gtkBoxPointer.reinterpret(),
-                position.nativeValue
-            )
+        set(position) = gtk_box_set_baseline_position(gtkBoxPointer.reinterpret(), position.nativeValue)
 
     /**
      * Whether the children should all be the same size.
@@ -160,11 +158,7 @@ public open class Box(
          * @param homogeneous a boolean value, true to create equal allotments,
          *   false for variable allotments
          */
-        set(homogeneous) =
-            gtk_box_set_homogeneous(
-                gtkBoxPointer.reinterpret(),
-                homogeneous.asGBoolean()
-            )
+        set(homogeneous) = gtk_box_set_homogeneous(gtkBoxPointer.reinterpret(), homogeneous.asGBoolean())
 
     /**
      * The amount of space between children.
@@ -191,8 +185,10 @@ public open class Box(
      * @param spacing the number of pixels to place by default between children
      * @return a new `GtkBox`.
      */
-    public constructor(orientation: Orientation, spacing: Int) :
-        this(gtk_box_new(orientation.nativeValue, spacing)!!.reinterpret())
+    public constructor(
+        orientation: Orientation,
+        spacing: Int,
+    ) : this(gtk_box_new(orientation.nativeValue, spacing)!!.reinterpret())
 
     /**
      * Adds @child as the last child to @box.
@@ -200,10 +196,7 @@ public open class Box(
      * @param child the `GtkWidget` to append
      */
     public open fun append(child: Widget): Unit =
-        gtk_box_append(
-            gtkBoxPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_box_append(gtkBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets the value set by gtk_box_set_baseline_child().
@@ -263,10 +256,7 @@ public open class Box(
      * @param child the `GtkWidget` to prepend
      */
     public open fun prepend(child: Widget): Unit =
-        gtk_box_prepend(
-            gtkBoxPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_box_prepend(gtkBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes a child widget from @box.
@@ -278,10 +268,7 @@ public open class Box(
      * @param child the child to remove
      */
     public open fun remove(child: Widget): Unit =
-        gtk_box_remove(
-            gtkBoxPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_box_remove(gtkBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Moves @child to the position after @sibling in the list
@@ -345,9 +332,7 @@ public open class Box(
 
     public companion object : TypeCompanion<Box> {
         override val type: GeneratedClassKGType<Box> =
-            GeneratedClassKGType(gtk_box_get_type()) {
-                Box(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_box_get_type()) { Box(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -40,8 +40,7 @@ public enum class Gravity(
     SOUTH(PANGO_GRAVITY_SOUTH),
 
     /**
-     * Glyphs are rotated 90 degrees counter-clockwise. <img align="right" valign="center"
-     * src="m-east.png">
+     * Glyphs are rotated 90 degrees counter-clockwise. <img align="right" valign="center" src="m-east.png">
      */
     EAST(PANGO_GRAVITY_EAST),
 
@@ -107,11 +106,7 @@ public enum class Gravity(
             baseGravity: Gravity,
             hint: GravityHint,
         ): Gravity =
-            pango_gravity_get_for_script(
-                script.nativeValue,
-                baseGravity.nativeValue,
-                hint.nativeValue
-            ).run {
+            pango_gravity_get_for_script(script.nativeValue, baseGravity.nativeValue, hint.nativeValue).run {
                 Gravity.fromNativeValue(this)
             }
 

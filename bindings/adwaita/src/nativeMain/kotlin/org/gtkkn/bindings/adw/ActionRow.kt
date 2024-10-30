@@ -89,7 +89,8 @@ import kotlin.Unit
  */
 public open class ActionRow(
     pointer: CPointer<AdwActionRow>,
-) : PreferencesRow(pointer.reinterpret()), KGTyped {
+) : PreferencesRow(pointer.reinterpret()),
+    KGTyped {
     public val adwActionRowPointer: CPointer<AdwActionRow>
         get() = gPointer.reinterpret()
 
@@ -139,7 +140,9 @@ public open class ActionRow(
          *
          * @param widget the target widget
          */
-        set(widget) =
+        set(
+            widget
+        ) =
             adw_action_row_set_activatable_widget(
                 adwActionRowPointer.reinterpret(),
                 widget?.gtkWidgetPointer?.reinterpret()
@@ -185,14 +188,9 @@ public open class ActionRow(
          *
          * If the value is 0, the number of lines won't be limited.
          *
-         * @param subtitleLines the number of lines at the end of which the subtitle label will be
-         * ellipsized
+         * @param subtitleLines the number of lines at the end of which the subtitle label will be ellipsized
          */
-        set(subtitleLines) =
-            adw_action_row_set_subtitle_lines(
-                adwActionRowPointer.reinterpret(),
-                subtitleLines
-            )
+        set(subtitleLines) = adw_action_row_set_subtitle_lines(adwActionRowPointer.reinterpret(), subtitleLines)
 
     /**
      * Whether the user can copy the subtitle from the label.
@@ -208,8 +206,7 @@ public open class ActionRow(
          * @return whether the user can copy the subtitle from the label
          * @since 1.3
          */
-        get() =
-            adw_action_row_get_subtitle_selectable(adwActionRowPointer.reinterpret()).asBoolean()
+        get() = adw_action_row_get_subtitle_selectable(adwActionRowPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the user can copy the subtitle from the label
@@ -219,11 +216,9 @@ public open class ActionRow(
          * @param subtitleSelectable `TRUE` if the user can copy the subtitle from the label
          * @since 1.3
          */
-        set(subtitleSelectable) =
-            adw_action_row_set_subtitle_selectable(
-                adwActionRowPointer.reinterpret(),
-                subtitleSelectable.asGBoolean()
-            )
+        set(
+            subtitleSelectable
+        ) = adw_action_row_set_subtitle_selectable(adwActionRowPointer.reinterpret(), subtitleSelectable.asGBoolean())
 
     /**
      * The number of lines at the end of which the title label will be ellipsized.
@@ -246,14 +241,9 @@ public open class ActionRow(
          *
          * If the value is 0, the number of lines won't be limited.
          *
-         * @param titleLines the number of lines at the end of which the title label will be
-         * ellipsized
+         * @param titleLines the number of lines at the end of which the title label will be ellipsized
          */
-        set(titleLines) =
-            adw_action_row_set_title_lines(
-                adwActionRowPointer.reinterpret(),
-                titleLines
-            )
+        set(titleLines) = adw_action_row_set_title_lines(adwActionRowPointer.reinterpret(), titleLines)
 
     /**
      * Creates a new `AdwActionRow`.
@@ -273,10 +263,7 @@ public open class ActionRow(
      * @param widget a widget
      */
     public open fun addPrefix(widget: Widget): Unit =
-        adw_action_row_add_prefix(
-            adwActionRowPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        adw_action_row_add_prefix(adwActionRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Adds a suffix widget to @self.
@@ -284,10 +271,7 @@ public open class ActionRow(
      * @param widget a widget
      */
     public open fun addSuffix(widget: Widget): Unit =
-        adw_action_row_add_suffix(
-            adwActionRowPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        adw_action_row_add_suffix(adwActionRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets the widget activated when @self is activated.
@@ -347,10 +331,7 @@ public open class ActionRow(
      * @param widget the child to be removed
      */
     public open fun remove(widget: Widget): Unit =
-        adw_action_row_remove(
-            adwActionRowPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        adw_action_row_remove(adwActionRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets the widget to activate when @self is activated.
@@ -395,8 +376,7 @@ public open class ActionRow(
      *
      * If the value is 0, the number of lines won't be limited.
      *
-     * @param subtitleLines the number of lines at the end of which the subtitle label will be
-     * ellipsized
+     * @param subtitleLines the number of lines at the end of which the subtitle label will be ellipsized
      */
     public open fun setSubtitleLines(subtitleLines: Int): Unit =
         adw_action_row_set_subtitle_lines(adwActionRowPointer.reinterpret(), subtitleLines)
@@ -410,10 +390,7 @@ public open class ActionRow(
      * @since 1.3
      */
     public open fun setSubtitleSelectable(subtitleSelectable: Boolean): Unit =
-        adw_action_row_set_subtitle_selectable(
-            adwActionRowPointer.reinterpret(),
-            subtitleSelectable.asGBoolean()
-        )
+        adw_action_row_set_subtitle_selectable(adwActionRowPointer.reinterpret(), subtitleSelectable.asGBoolean())
 
     /**
      * Sets the number of lines at the end of which the title label will be
@@ -461,5 +438,4 @@ private val connectActivatedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

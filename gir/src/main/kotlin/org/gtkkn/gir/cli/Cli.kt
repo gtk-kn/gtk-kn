@@ -105,10 +105,10 @@ private fun getLicenseFromEnv(): Config.License? = try {
     null
 }
 
-private fun getSkipFormatFromEnv(): Boolean? = System.getenv(ENV_GTK_KN_SKIP_FORMAT)?.let {
+private fun getSkipFormatFromEnv(): Boolean? = System.getenv(ENV_GTK_KN_SKIP_FORMAT)?.let { envValue ->
     when {
-        it.lowercase() == "true" -> true
-        it.lowercase() == "false" -> false
+        envValue.lowercase() == "true" -> true
+        envValue.lowercase() == "false" -> false
         else -> null
     }
 }

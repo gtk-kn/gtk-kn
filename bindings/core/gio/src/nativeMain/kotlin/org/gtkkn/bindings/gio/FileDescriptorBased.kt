@@ -23,7 +23,9 @@ import kotlin.Int
  * file or the `GioUnix-2.0` GIR namespace when using it.
  * @since 2.24
  */
-public interface FileDescriptorBased : Interface, KGTyped {
+public interface FileDescriptorBased :
+    Interface,
+    KGTyped {
     public val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased>
 
     /**
@@ -42,9 +44,7 @@ public interface FileDescriptorBased : Interface, KGTyped {
 
     public companion object : TypeCompanion<FileDescriptorBased> {
         override val type: GeneratedInterfaceKGType<FileDescriptorBased> =
-            GeneratedInterfaceKGType(g_file_descriptor_based_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(g_file_descriptor_based_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -35,7 +35,8 @@ import kotlin.Unit
  */
 public open class Seat(
     pointer: CPointer<GdkSeat>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkSeatPointer: CPointer<GdkSeat>
         get() = gPointer.reinterpret()
 
@@ -169,8 +170,7 @@ public open class Seat(
      * A same tool may be used by several devices.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `tool` the new `GdkDeviceTool` known to the
-     * seat
+     * @param handler the Callback to connect. Params: `tool` the new `GdkDeviceTool` known to the seat
      */
     public fun connectToolAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -206,9 +206,7 @@ public open class Seat(
 
     public companion object : TypeCompanion<Seat> {
         override val type: GeneratedClassKGType<Seat> =
-            GeneratedClassKGType(gdk_seat_get_type()) {
-                Seat(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_seat_get_type()) { Seat(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -227,8 +225,7 @@ private val connectDeviceAddedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> 
                 Device(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDeviceRemovedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> Unit>> =
     staticCFunction {
@@ -241,8 +238,7 @@ private val connectDeviceRemovedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -
                 Device(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectToolAddedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Unit>> =
     staticCFunction {
@@ -255,8 +251,7 @@ private val connectToolAddedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -
                 DeviceTool(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectToolRemovedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Unit>> =
     staticCFunction {
@@ -269,5 +264,4 @@ private val connectToolRemovedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>)
                 DeviceTool(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

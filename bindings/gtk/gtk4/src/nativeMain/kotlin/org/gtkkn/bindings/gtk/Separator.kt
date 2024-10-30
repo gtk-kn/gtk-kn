@@ -34,7 +34,9 @@ import org.gtkkn.native.gtk.gtk_separator_new
  */
 public open class Separator(
     pointer: CPointer<GtkSeparator>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val gtkSeparatorPointer: CPointer<GtkSeparator>
         get() = gPointer.reinterpret()
 
@@ -56,8 +58,7 @@ public open class Separator(
      * @param orientation the separator’s orientation.
      * @return a new `GtkSeparator`.
      */
-    public constructor(orientation: Orientation) :
-        this(gtk_separator_new(orientation.nativeValue)!!.reinterpret())
+    public constructor(orientation: Orientation) : this(gtk_separator_new(orientation.nativeValue)!!.reinterpret())
 
     public companion object : TypeCompanion<Separator> {
         override val type: GeneratedClassKGType<Separator> =

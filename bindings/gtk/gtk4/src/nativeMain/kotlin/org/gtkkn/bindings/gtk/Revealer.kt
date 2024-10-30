@@ -52,7 +52,8 @@ import kotlin.Unit
  */
 public open class Revealer(
     pointer: CPointer<GtkRevealer>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkRevealerPointer: CPointer<GtkRevealer>
         get() = gPointer.reinterpret()
 
@@ -84,11 +85,7 @@ public open class Revealer(
          *
          * @param child the child widget
          */
-        set(child) =
-            gtk_revealer_set_child(
-                gtkRevealerPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = gtk_revealer_set_child(gtkRevealerPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether the child is revealed and the animation target reached.
@@ -128,11 +125,7 @@ public open class Revealer(
          *
          * @param revealChild true to reveal the child
          */
-        set(revealChild) =
-            gtk_revealer_set_reveal_child(
-                gtkRevealerPointer.reinterpret(),
-                revealChild.asGBoolean()
-            )
+        set(revealChild) = gtk_revealer_set_reveal_child(gtkRevealerPointer.reinterpret(), revealChild.asGBoolean())
 
     /**
      * The animation duration, in milliseconds.
@@ -151,11 +144,7 @@ public open class Revealer(
          *
          * @param duration the new duration, in milliseconds
          */
-        set(duration) =
-            gtk_revealer_set_transition_duration(
-                gtkRevealerPointer.reinterpret(),
-                duration
-            )
+        set(duration) = gtk_revealer_set_transition_duration(gtkRevealerPointer.reinterpret(), duration)
 
     /**
      * The type of animation used to transition.
@@ -180,11 +169,7 @@ public open class Revealer(
          *
          * @param transition the new transition type
          */
-        set(transition) =
-            gtk_revealer_set_transition_type(
-                gtkRevealerPointer.reinterpret(),
-                transition.nativeValue
-            )
+        set(transition) = gtk_revealer_set_transition_type(gtkRevealerPointer.reinterpret(), transition.nativeValue)
 
     /**
      * Creates a new `GtkRevealer`.
@@ -253,10 +238,7 @@ public open class Revealer(
      * @param child the child widget
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_revealer_set_child(
-            gtkRevealerPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_revealer_set_child(gtkRevealerPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Tells the `GtkRevealer` to reveal or conceal its child.
@@ -267,10 +249,7 @@ public open class Revealer(
      * @param revealChild true to reveal the child
      */
     public open fun setRevealChild(revealChild: Boolean): Unit =
-        gtk_revealer_set_reveal_child(
-            gtkRevealerPointer.reinterpret(),
-            revealChild.asGBoolean()
-        )
+        gtk_revealer_set_reveal_child(gtkRevealerPointer.reinterpret(), revealChild.asGBoolean())
 
     /**
      * Sets the duration that transitions will take.
@@ -289,10 +268,7 @@ public open class Revealer(
      * @param transition the new transition type
      */
     public open fun setTransitionType(transition: RevealerTransitionType): Unit =
-        gtk_revealer_set_transition_type(
-            gtkRevealerPointer.reinterpret(),
-            transition.nativeValue
-        )
+        gtk_revealer_set_transition_type(gtkRevealerPointer.reinterpret(), transition.nativeValue)
 
     public companion object : TypeCompanion<Revealer> {
         override val type: GeneratedClassKGType<Revealer> =

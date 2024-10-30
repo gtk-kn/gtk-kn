@@ -22,7 +22,8 @@ import kotlin.ULong
  */
 public open class ShadowNode(
     pointer: CPointer<GskShadowNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskShadowNodePointer: CPointer<GskShadowNode>
         get() = gPointer.reinterpret()
 

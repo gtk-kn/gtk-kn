@@ -36,7 +36,10 @@ import kotlin.Unit
  * all that’s needed to dynamically enable or disable debug output.
  * @since 2.72
  */
-public interface DebugController : Interface, Initable, KGTyped {
+public interface DebugController :
+    Interface,
+    Initable,
+    KGTyped {
     public val gioDebugControllerPointer: CPointer<GDebugController>
 
     override val gioInitablePointer: CPointer<GInitable>
@@ -55,8 +58,7 @@ public interface DebugController : Interface, Initable, KGTyped {
          * @return true if debug output should be exposed, false otherwise
          * @since 2.72
          */
-        get() =
-            g_debug_controller_get_debug_enabled(gioDebugControllerPointer.reinterpret()).asBoolean()
+        get() = g_debug_controller_get_debug_enabled(gioDebugControllerPointer.reinterpret()).asBoolean()
 
         /**
          * Set the value of #GDebugController:debug-enabled.
@@ -64,11 +66,9 @@ public interface DebugController : Interface, Initable, KGTyped {
          * @param debugEnabled true if debug output should be exposed, false otherwise
          * @since 2.72
          */
-        set(debugEnabled) =
-            g_debug_controller_set_debug_enabled(
-                gioDebugControllerPointer.reinterpret(),
-                debugEnabled.asGBoolean()
-            )
+        set(
+            debugEnabled
+        ) = g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
 
     /**
      * Get the value of #GDebugController:debug-enabled.
@@ -86,10 +86,7 @@ public interface DebugController : Interface, Initable, KGTyped {
      * @since 2.72
      */
     public fun setDebugEnabled(debugEnabled: Boolean): Unit =
-        g_debug_controller_set_debug_enabled(
-            gioDebugControllerPointer.reinterpret(),
-            debugEnabled.asGBoolean()
-        )
+        g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
 
     private data class Wrapper(
         private val pointer: CPointer<GDebugController>,
@@ -99,9 +96,7 @@ public interface DebugController : Interface, Initable, KGTyped {
 
     public companion object : TypeCompanion<DebugController> {
         override val type: GeneratedInterfaceKGType<DebugController> =
-            GeneratedInterfaceKGType(g_debug_controller_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(g_debug_controller_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

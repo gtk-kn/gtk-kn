@@ -23,15 +23,14 @@ import org.gtkkn.native.gtk.gtk_custom_layout_get_type
  */
 public open class CustomLayout(
     pointer: CPointer<GtkCustomLayout>,
-) : LayoutManager(pointer.reinterpret()), KGTyped {
+) : LayoutManager(pointer.reinterpret()),
+    KGTyped {
     public val gtkCustomLayoutPointer: CPointer<GtkCustomLayout>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<CustomLayout> {
         override val type: GeneratedClassKGType<CustomLayout> =
-            GeneratedClassKGType(gtk_custom_layout_get_type()) {
-                CustomLayout(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_custom_layout_get_type()) { CustomLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

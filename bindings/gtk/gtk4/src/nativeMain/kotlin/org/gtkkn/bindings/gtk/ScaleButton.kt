@@ -68,7 +68,10 @@ import kotlin.collections.List
  */
 public open class ScaleButton(
     pointer: CPointer<GtkScaleButton>,
-) : Widget(pointer.reinterpret()), AccessibleRange, Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    AccessibleRange,
+    Orientable,
+    KGTyped {
     public val gtkScaleButtonPointer: CPointer<GtkScaleButton>
         get() = gPointer.reinterpret()
 
@@ -128,7 +131,9 @@ public open class ScaleButton(
          *
          * @param adjustment a `GtkAdjustment`
          */
-        set(adjustment) =
+        set(
+            adjustment
+        ) =
             gtk_scale_button_set_adjustment(
                 gtkScaleButtonPointer.reinterpret(),
                 adjustment.gtkAdjustmentPointer.reinterpret()
@@ -154,11 +159,7 @@ public open class ScaleButton(
          * @param hasFrame whether the button should have a visible frame
          * @since 4.14
          */
-        set(hasFrame) =
-            gtk_scale_button_set_has_frame(
-                gtkScaleButtonPointer.reinterpret(),
-                hasFrame.asGBoolean()
-            )
+        set(hasFrame) = gtk_scale_button_set_has_frame(gtkScaleButtonPointer.reinterpret(), hasFrame.asGBoolean())
 
     /**
      * The value of the scale.
@@ -302,10 +303,7 @@ public open class ScaleButton(
      * @since 4.14
      */
     public open fun setHasFrame(hasFrame: Boolean): Unit =
-        gtk_scale_button_set_has_frame(
-            gtkScaleButtonPointer.reinterpret(),
-            hasFrame.asGBoolean()
-        )
+        gtk_scale_button_set_has_frame(gtkScaleButtonPointer.reinterpret(), hasFrame.asGBoolean())
 
     /**
      * Sets the icons to be used by the scale button.
@@ -314,10 +312,7 @@ public open class ScaleButton(
      */
     public open fun setIcons(icons: List<String>): Unit =
         memScoped {
-            return gtk_scale_button_set_icons(
-                gtkScaleButtonPointer.reinterpret(),
-                icons.toCStringList(this)
-            )
+            return gtk_scale_button_set_icons(gtkScaleButtonPointer.reinterpret(), icons.toCStringList(this))
         }
 
     /**
@@ -416,8 +411,7 @@ private val connectPopdownFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPopupFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -425,8 +419,7 @@ private val connectPopupFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectValueChangedFunc: CPointer<CFunction<(Double) -> Unit>> =
     staticCFunction {
@@ -435,5 +428,4 @@ private val connectValueChangedFunc: CPointer<CFunction<(Double) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(`value`: Double) -> Unit>().get().invoke(`value`)
-    }
-        .reinterpret()
+    }.reinterpret()

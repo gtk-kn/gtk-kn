@@ -96,7 +96,9 @@ import kotlin.collections.List
  * identifier, which can be used to obtain a hal device by means of
  * `libhal_manager_find_device_string_match()`.
  */
-public interface Volume : Interface, KGTyped {
+public interface Volume :
+    Interface,
+    KGTyped {
     public val gioVolumePointer: CPointer<GVolume>
 
     /**
@@ -313,8 +315,7 @@ public interface Volume : Interface, KGTyped {
      *     be freed with g_free() when no longer needed.
      */
     public fun getName(): String =
-        g_volume_get_name(gioVolumePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_volume_get_name(gioVolumePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the sort key for @volume, if any.
@@ -474,8 +475,7 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectRemovedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -483,5 +483,4 @@ private val connectRemovedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

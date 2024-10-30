@@ -88,7 +88,8 @@ import kotlin.Unit
  */
 public open class MessageDialog(
     pointer: CPointer<GtkMessageDialog>,
-) : Dialog(pointer.reinterpret()), KGTyped {
+) : Dialog(pointer.reinterpret()),
+    KGTyped {
     public val gtkMessageDialogPointer: CPointer<GtkMessageDialog>
         get() = gPointer.reinterpret()
 
@@ -159,9 +160,7 @@ public open class MessageDialog(
 
     public companion object : TypeCompanion<MessageDialog> {
         override val type: GeneratedClassKGType<MessageDialog> =
-            GeneratedClassKGType(gtk_message_dialog_get_type()) {
-                MessageDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_message_dialog_get_type()) { MessageDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -42,7 +42,8 @@ import kotlin.Unit
  */
 public open class PreferencesRow(
     pointer: CPointer<AdwPreferencesRow>,
-) : ListBoxRow(pointer.reinterpret()), KGTyped {
+) : ListBoxRow(pointer.reinterpret()),
+    KGTyped {
     public val adwPreferencesRowPointer: CPointer<AdwPreferencesRow>
         get() = gPointer.reinterpret()
 
@@ -98,8 +99,7 @@ public open class PreferencesRow(
          * @return whether the user can copy the title from the label
          * @since 1.1
          */
-        get() =
-            adw_preferences_row_get_title_selectable(adwPreferencesRowPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_row_get_title_selectable(adwPreferencesRowPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the user can copy the title from the label
@@ -109,7 +109,9 @@ public open class PreferencesRow(
          * @param titleSelectable `TRUE` if the user can copy the title from the label
          * @since 1.1
          */
-        set(titleSelectable) =
+        set(
+            titleSelectable
+        ) =
             adw_preferences_row_set_title_selectable(
                 adwPreferencesRowPointer.reinterpret(),
                 titleSelectable.asGBoolean()
@@ -131,8 +133,7 @@ public open class PreferencesRow(
          * @return whether to use markup
          * @since 1.2
          */
-        get() =
-            adw_preferences_row_get_use_markup(adwPreferencesRowPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_row_get_use_markup(adwPreferencesRowPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether to use Pango markup for the title label.
@@ -144,11 +145,9 @@ public open class PreferencesRow(
          * @param useMarkup whether to use markup
          * @since 1.2
          */
-        set(useMarkup) =
-            adw_preferences_row_set_use_markup(
-                adwPreferencesRowPointer.reinterpret(),
-                useMarkup.asGBoolean()
-            )
+        set(
+            useMarkup
+        ) = adw_preferences_row_set_use_markup(adwPreferencesRowPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
      * Whether an embedded underline in the title indicates a mnemonic.
@@ -159,19 +158,16 @@ public open class PreferencesRow(
          *
          * @return whether an embedded underline in the title indicates a mnemonic
          */
-        get() =
-            adw_preferences_row_get_use_underline(adwPreferencesRowPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_row_get_use_underline(adwPreferencesRowPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether an embedded underline in the title indicates a mnemonic.
          *
          * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
          */
-        set(useUnderline) =
-            adw_preferences_row_set_use_underline(
-                adwPreferencesRowPointer.reinterpret(),
-                useUnderline.asGBoolean()
-            )
+        set(
+            useUnderline
+        ) = adw_preferences_row_set_use_underline(adwPreferencesRowPointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Creates a new `AdwPreferencesRow`.
@@ -235,10 +231,7 @@ public open class PreferencesRow(
      * @since 1.1
      */
     public open fun setTitleSelectable(titleSelectable: Boolean): Unit =
-        adw_preferences_row_set_title_selectable(
-            adwPreferencesRowPointer.reinterpret(),
-            titleSelectable.asGBoolean()
-        )
+        adw_preferences_row_set_title_selectable(adwPreferencesRowPointer.reinterpret(), titleSelectable.asGBoolean())
 
     /**
      * Sets whether to use Pango markup for the title label.
@@ -251,10 +244,7 @@ public open class PreferencesRow(
      * @since 1.2
      */
     public open fun setUseMarkup(useMarkup: Boolean): Unit =
-        adw_preferences_row_set_use_markup(
-            adwPreferencesRowPointer.reinterpret(),
-            useMarkup.asGBoolean()
-        )
+        adw_preferences_row_set_use_markup(adwPreferencesRowPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
      * Sets whether an embedded underline in the title indicates a mnemonic.
@@ -262,16 +252,11 @@ public open class PreferencesRow(
      * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
      */
     public open fun setUseUnderline(useUnderline: Boolean): Unit =
-        adw_preferences_row_set_use_underline(
-            adwPreferencesRowPointer.reinterpret(),
-            useUnderline.asGBoolean()
-        )
+        adw_preferences_row_set_use_underline(adwPreferencesRowPointer.reinterpret(), useUnderline.asGBoolean())
 
     public companion object : TypeCompanion<PreferencesRow> {
         override val type: GeneratedClassKGType<PreferencesRow> =
-            GeneratedClassKGType(adw_preferences_row_get_type()) {
-                PreferencesRow(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_preferences_row_get_type()) { PreferencesRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -14,15 +14,14 @@ import org.gtkkn.native.gdk.gdk_proximity_event_get_type
  */
 public open class ProximityEvent(
     pointer: CPointer<GdkProximityEvent>,
-) : Event(pointer.reinterpret()), KGTyped {
+) : Event(pointer.reinterpret()),
+    KGTyped {
     public val gdkProximityEventPointer: CPointer<GdkProximityEvent>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<ProximityEvent> {
         override val type: GeneratedClassKGType<ProximityEvent> =
-            GeneratedClassKGType(gdk_proximity_event_get_type()) {
-                ProximityEvent(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_proximity_event_get_type()) { ProximityEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

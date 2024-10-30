@@ -23,7 +23,10 @@ import kotlin.String
  */
 public open class DBusActionGroup(
     pointer: CPointer<GDBusActionGroup>,
-) : Object(pointer.reinterpret()), ActionGroup, RemoteActionGroup, KGTyped {
+) : Object(pointer.reinterpret()),
+    ActionGroup,
+    RemoteActionGroup,
+    KGTyped {
     public val gioDBusActionGroupPointer: CPointer<GDBusActionGroup>
         get() = gPointer.reinterpret()
 
@@ -35,9 +38,7 @@ public open class DBusActionGroup(
 
     public companion object : TypeCompanion<DBusActionGroup> {
         override val type: GeneratedClassKGType<DBusActionGroup> =
-            GeneratedClassKGType(g_dbus_action_group_get_type()) {
-                DBusActionGroup(it.reinterpret())
-            }
+            GeneratedClassKGType(g_dbus_action_group_get_type()) { DBusActionGroup(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -70,11 +71,7 @@ public open class DBusActionGroup(
             busName: String? = null,
             objectPath: String,
         ): DBusActionGroup =
-            g_dbus_action_group_get(
-                connection.gioDBusConnectionPointer.reinterpret(),
-                busName,
-                objectPath
-            )!!.run {
+            g_dbus_action_group_get(connection.gioDBusConnectionPointer.reinterpret(), busName, objectPath)!!.run {
                 DBusActionGroup(reinterpret())
             }
     }

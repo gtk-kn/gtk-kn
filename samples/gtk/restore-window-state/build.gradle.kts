@@ -20,17 +20,14 @@
  * SOFTWARE.
  */
 
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     id("detekt-conventions")
     id("org.gtkkn.gtk")
 }
 
-@OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
     linuxX64 {
         binaries {
             executable {

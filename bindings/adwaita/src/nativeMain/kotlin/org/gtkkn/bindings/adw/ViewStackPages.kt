@@ -30,7 +30,10 @@ import kotlin.Unit
  */
 public class ViewStackPages(
     pointer: CPointer<AdwViewStackPages>,
-) : Object(pointer.reinterpret()), ListModel, SelectionModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    SelectionModel,
+    KGTyped {
     public val adwViewStackPagesPointer: CPointer<AdwViewStackPages>
         get() = gPointer.reinterpret()
 
@@ -71,9 +74,7 @@ public class ViewStackPages(
 
     public companion object : TypeCompanion<ViewStackPages> {
         override val type: GeneratedClassKGType<ViewStackPages> =
-            GeneratedClassKGType(adw_view_stack_pages_get_type()) {
-                ViewStackPages(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_view_stack_pages_get_type()) { ViewStackPages(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

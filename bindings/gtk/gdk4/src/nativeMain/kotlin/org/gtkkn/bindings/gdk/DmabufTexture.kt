@@ -23,7 +23,8 @@ import org.gtkkn.native.gio.GLoadableIcon
  */
 public open class DmabufTexture(
     pointer: CPointer<GdkDmabufTexture>,
-) : Texture(pointer.reinterpret()), KGTyped {
+) : Texture(pointer.reinterpret()),
+    KGTyped {
     public val gdkDmabufTexturePointer: CPointer<GdkDmabufTexture>
         get() = gPointer.reinterpret()
 
@@ -38,9 +39,7 @@ public open class DmabufTexture(
 
     public companion object : TypeCompanion<DmabufTexture> {
         override val type: GeneratedClassKGType<DmabufTexture> =
-            GeneratedClassKGType(gdk_dmabuf_texture_get_type()) {
-                DmabufTexture(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_dmabuf_texture_get_type()) { DmabufTexture(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

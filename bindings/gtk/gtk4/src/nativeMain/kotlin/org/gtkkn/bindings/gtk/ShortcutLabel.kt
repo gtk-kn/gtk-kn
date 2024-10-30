@@ -32,7 +32,8 @@ import kotlin.Unit
  */
 public open class ShortcutLabel(
     pointer: CPointer<GtkShortcutLabel>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkShortcutLabelPointer: CPointer<GtkShortcutLabel>
         get() = gPointer.reinterpret()
 
@@ -51,8 +52,7 @@ public open class ShortcutLabel(
      * @param accelerator the initial accelerator
      * @return a newly-allocated `GtkShortcutLabel`
      */
-    public constructor(accelerator: String) :
-        this(gtk_shortcut_label_new(accelerator)!!.reinterpret())
+    public constructor(accelerator: String) : this(gtk_shortcut_label_new(accelerator)!!.reinterpret())
 
     /**
      * Retrieves the current accelerator of @self.
@@ -85,16 +85,11 @@ public open class ShortcutLabel(
      * @param disabledText the text to be displayed when no accelerator is set
      */
     public open fun setDisabledText(disabledText: String): Unit =
-        gtk_shortcut_label_set_disabled_text(
-            gtkShortcutLabelPointer.reinterpret(),
-            disabledText
-        )
+        gtk_shortcut_label_set_disabled_text(gtkShortcutLabelPointer.reinterpret(), disabledText)
 
     public companion object : TypeCompanion<ShortcutLabel> {
         override val type: GeneratedClassKGType<ShortcutLabel> =
-            GeneratedClassKGType(gtk_shortcut_label_get_type()) {
-                ShortcutLabel(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_shortcut_label_get_type()) { ShortcutLabel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

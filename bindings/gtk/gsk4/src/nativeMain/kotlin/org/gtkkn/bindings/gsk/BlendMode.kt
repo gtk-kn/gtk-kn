@@ -95,26 +95,22 @@ public enum class BlendMode(
     EXCLUSION(GSK_BLEND_MODE_EXCLUSION),
 
     /**
-     * Creates a color with the hue and saturation of the source color and the luminosity of the
-     * destination color
+     * Creates a color with the hue and saturation of the source color and the luminosity of the destination color
      */
     COLOR(GSK_BLEND_MODE_COLOR),
 
     /**
-     * Creates a color with the hue of the source color and the saturation and luminosity of the
-     * destination color
+     * Creates a color with the hue of the source color and the saturation and luminosity of the destination color
      */
     HUE(GSK_BLEND_MODE_HUE),
 
     /**
-     * Creates a color with the saturation of the source color and the hue and luminosity of the
-     * destination color
+     * Creates a color with the saturation of the source color and the hue and luminosity of the destination color
      */
     SATURATION(GSK_BLEND_MODE_SATURATION),
 
     /**
-     * Creates a color with the luminosity of the source color and the hue and saturation of the
-     * destination color
+     * Creates a color with the luminosity of the source color and the hue and saturation of the destination color
      */
     LUMINOSITY(GSK_BLEND_MODE_LUMINOSITY),
     ;

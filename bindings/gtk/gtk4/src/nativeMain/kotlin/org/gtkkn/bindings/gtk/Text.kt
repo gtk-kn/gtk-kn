@@ -147,7 +147,10 @@ import kotlin.Unit
  */
 public open class Text(
     pointer: CPointer<GtkText>,
-) : Widget(pointer.reinterpret()), AccessibleText, Editable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    AccessibleText,
+    Editable,
+    KGTyped {
     public val gtkTextPointer: CPointer<GtkText>
         get() = gPointer.reinterpret()
 
@@ -190,11 +193,7 @@ public open class Text(
          *
          * @param activates true to activate window’s default widget on Enter keypress
          */
-        set(activates) =
-            gtk_text_set_activates_default(
-                gtkTextPointer.reinterpret(),
-                activates.asGBoolean()
-            )
+        set(activates) = gtk_text_set_activates_default(gtkTextPointer.reinterpret(), activates.asGBoolean())
 
     /**
      * A list of Pango attributes to apply to the text of the `GtkText`.
@@ -222,11 +221,7 @@ public open class Text(
          *
          * @param attrs a `PangoAttrList`
          */
-        set(attrs) =
-            gtk_text_set_attributes(
-                gtkTextPointer.reinterpret(),
-                attrs?.pangoAttrListPointer
-            )
+        set(attrs) = gtk_text_set_attributes(gtkTextPointer.reinterpret(), attrs?.pangoAttrListPointer)
 
     /**
      * The `GtkEntryBuffer` object which stores the text.
@@ -249,11 +244,7 @@ public open class Text(
          *
          * @param buffer a `GtkEntryBuffer`
          */
-        set(buffer) =
-            gtk_text_set_buffer(
-                gtkTextPointer.reinterpret(),
-                buffer.gtkEntryBufferPointer.reinterpret()
-            )
+        set(buffer) = gtk_text_set_buffer(gtkTextPointer.reinterpret(), buffer.gtkEntryBufferPointer.reinterpret())
 
     /**
      * Whether to suggest Emoji replacements.
@@ -276,11 +267,9 @@ public open class Text(
          *
          * @param enableEmojiCompletion true to enable Emoji completion
          */
-        set(enableEmojiCompletion) =
-            gtk_text_set_enable_emoji_completion(
-                gtkTextPointer.reinterpret(),
-                enableEmojiCompletion.asGBoolean()
-            )
+        set(
+            enableEmojiCompletion
+        ) = gtk_text_set_enable_emoji_completion(gtkTextPointer.reinterpret(), enableEmojiCompletion.asGBoolean())
 
     /**
      * A menu model whose contents will be appended to
@@ -305,11 +294,7 @@ public open class Text(
          *
          * @param model a `GMenuModel`
          */
-        set(model) =
-            gtk_text_set_extra_menu(
-                gtkTextPointer.reinterpret(),
-                model?.gioMenuModelPointer?.reinterpret()
-            )
+        set(model) = gtk_text_set_extra_menu(gtkTextPointer.reinterpret(), model?.gioMenuModelPointer?.reinterpret())
 
     /**
      * Additional hints that allow input methods to fine-tune
@@ -442,11 +427,7 @@ public open class Text(
          *
          * @param overwrite new value
          */
-        set(overwrite) =
-            gtk_text_set_overwrite_mode(
-                gtkTextPointer.reinterpret(),
-                overwrite.asGBoolean()
-            )
+        set(overwrite) = gtk_text_set_overwrite_mode(gtkTextPointer.reinterpret(), overwrite.asGBoolean())
 
     /**
      * The text that will be displayed in the `GtkText` when it is empty
@@ -491,11 +472,9 @@ public open class Text(
          *
          * @param propagateTextWidth true to propagate the text width
          */
-        set(propagateTextWidth) =
-            gtk_text_set_propagate_text_width(
-                gtkTextPointer.reinterpret(),
-                propagateTextWidth.asGBoolean()
-            )
+        set(
+            propagateTextWidth
+        ) = gtk_text_set_propagate_text_width(gtkTextPointer.reinterpret(), propagateTextWidth.asGBoolean())
 
     /**
      * A list of tabstops to apply to the text of the `GtkText`.
@@ -538,11 +517,9 @@ public open class Text(
          *
          * @param truncateMultiline true to truncate multi-line text
          */
-        set(truncateMultiline) =
-            gtk_text_set_truncate_multiline(
-                gtkTextPointer.reinterpret(),
-                truncateMultiline.asGBoolean()
-            )
+        set(
+            truncateMultiline
+        ) = gtk_text_set_truncate_multiline(gtkTextPointer.reinterpret(), truncateMultiline.asGBoolean())
 
     /**
      * If false, the text is masked with the “invisible char”.
@@ -589,8 +566,9 @@ public open class Text(
      * @param buffer The buffer to use for the new `GtkText`.
      * @return a new `GtkText`
      */
-    public constructor(buffer: EntryBuffer) :
-        this(gtk_text_new_with_buffer(buffer.gtkEntryBufferPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        buffer: EntryBuffer,
+    ) : this(gtk_text_new_with_buffer(buffer.gtkEntryBufferPointer.reinterpret())!!.reinterpret())
 
     /**
      * Determine the positions of the strong and weak cursors if the
@@ -827,10 +805,7 @@ public open class Text(
      * @param buffer a `GtkEntryBuffer`
      */
     public open fun setBuffer(buffer: EntryBuffer): Unit =
-        gtk_text_set_buffer(
-            gtkTextPointer.reinterpret(),
-            buffer.gtkEntryBufferPointer.reinterpret()
-        )
+        gtk_text_set_buffer(gtkTextPointer.reinterpret(), buffer.gtkEntryBufferPointer.reinterpret())
 
     /**
      * Sets whether Emoji completion is enabled.
@@ -842,10 +817,7 @@ public open class Text(
      * @param enableEmojiCompletion true to enable Emoji completion
      */
     public open fun setEnableEmojiCompletion(enableEmojiCompletion: Boolean): Unit =
-        gtk_text_set_enable_emoji_completion(
-            gtkTextPointer.reinterpret(),
-            enableEmojiCompletion.asGBoolean()
-        )
+        gtk_text_set_enable_emoji_completion(gtkTextPointer.reinterpret(), enableEmojiCompletion.asGBoolean())
 
     /**
      * Sets a menu model to add when constructing
@@ -854,10 +826,7 @@ public open class Text(
      * @param model a `GMenuModel`
      */
     public open fun setExtraMenu(model: MenuModel? = null): Unit =
-        gtk_text_set_extra_menu(
-            gtkTextPointer.reinterpret(),
-            model?.gioMenuModelPointer?.reinterpret()
-        )
+        gtk_text_set_extra_menu(gtkTextPointer.reinterpret(), model?.gioMenuModelPointer?.reinterpret())
 
     /**
      * Sets input hints that allow input methods
@@ -933,10 +902,7 @@ public open class Text(
      * @param propagateTextWidth true to propagate the text width
      */
     public open fun setPropagateTextWidth(propagateTextWidth: Boolean): Unit =
-        gtk_text_set_propagate_text_width(
-            gtkTextPointer.reinterpret(),
-            propagateTextWidth.asGBoolean()
-        )
+        gtk_text_set_propagate_text_width(gtkTextPointer.reinterpret(), propagateTextWidth.asGBoolean())
 
     /**
      * Sets tabstops that are applied to the text.
@@ -953,10 +919,7 @@ public open class Text(
      * @param truncateMultiline true to truncate multi-line text
      */
     public open fun setTruncateMultiline(truncateMultiline: Boolean): Unit =
-        gtk_text_set_truncate_multiline(
-            gtkTextPointer.reinterpret(),
-            truncateMultiline.asGBoolean()
-        )
+        gtk_text_set_truncate_multiline(gtkTextPointer.reinterpret(), truncateMultiline.asGBoolean())
 
     /**
      * Sets whether the contents of the `GtkText` are visible or not.
@@ -1098,8 +1061,7 @@ public open class Text(
      * for deleting a word.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `type` the granularity of the deletion, as a
-     * `GtkDeleteType`; `count` the number of @type units to delete
+     * @param handler the Callback to connect. Params: `type` the granularity of the deletion, as a `GtkDeleteType`; `count` the number of @type units to delete
      */
     public fun connectDeleteFromCursor(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1186,9 +1148,7 @@ public open class Text(
      * - <kbd>Home</kbd> and <kbd>End</kbd> move to the ends of the buffer
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a
-     * `GtkMovementStep`; `count` the number of @step units to move; `extend` true if the move should
-     * extend the selection
+     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a `GtkMovementStep`; `count` the number of @step units to move; `extend` true if the move should extend the selection
      */
     public fun connectMoveCursor(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1279,9 +1239,7 @@ public open class Text(
 
     public companion object : TypeCompanion<Text> {
         override val type: GeneratedClassKGType<Text> =
-            GeneratedClassKGType(gtk_text_get_type()) {
-                Text(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_text_get_type()) { Text(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -1295,8 +1253,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectBackspaceFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1304,8 +1261,7 @@ private val connectBackspaceFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectCopyClipboardFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1313,8 +1269,7 @@ private val connectCopyClipboardFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectCutClipboardFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1322,8 +1277,7 @@ private val connectCutClipboardFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDeleteFromCursorFunc: CPointer<CFunction<(GtkDeleteType, Int) -> Unit>> =
     staticCFunction {
@@ -1338,8 +1292,7 @@ private val connectDeleteFromCursorFunc: CPointer<CFunction<(GtkDeleteType, Int)
             },
             count
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectInsertAtCursorFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -1348,11 +1301,9 @@ private val connectInsertAtCursorFunc: CPointer<CFunction<(CPointer<ByteVar>) ->
             userData: COpaquePointer,
         ->
         userData.asStableRef<(string: String) -> Unit>().get().invoke(
-            string?.toKString()
-                ?: error("Expected not null string")
+            string?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectInsertEmojiFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1360,8 +1311,7 @@ private val connectInsertEmojiFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMoveCursorFunc: CPointer<
     CFunction<
@@ -1379,21 +1329,23 @@ private val connectMoveCursorFunc: CPointer<
             extend: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                step: MovementStep,
-                count: Int,
-                extend: Boolean,
-            ) -> Unit
-        >().get().invoke(
-            step.run {
-                MovementStep.fromNativeValue(this)
-            },
-            count,
-            extend.asBoolean()
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    step: MovementStep,
+                    count: Int,
+                    extend: Boolean,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                step.run {
+                    MovementStep.fromNativeValue(this)
+                },
+                count,
+                extend.asBoolean()
+            )
+    }.reinterpret()
 
 private val connectPasteClipboardFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1401,8 +1353,7 @@ private val connectPasteClipboardFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPreeditChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -1411,11 +1362,9 @@ private val connectPreeditChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) ->
             userData: COpaquePointer,
         ->
         userData.asStableRef<(preedit: String) -> Unit>().get().invoke(
-            preedit?.toKString()
-                ?: error("Expected not null string")
+            preedit?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectToggleOverwriteFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1423,5 +1372,4 @@ private val connectToggleOverwriteFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

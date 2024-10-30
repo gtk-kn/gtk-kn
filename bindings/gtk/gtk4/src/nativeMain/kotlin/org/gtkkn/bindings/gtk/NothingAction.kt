@@ -15,15 +15,14 @@ import org.gtkkn.native.gtk.gtk_nothing_action_get_type
  */
 public open class NothingAction(
     pointer: CPointer<GtkNothingAction>,
-) : ShortcutAction(pointer.reinterpret()), KGTyped {
+) : ShortcutAction(pointer.reinterpret()),
+    KGTyped {
     public val gtkNothingActionPointer: CPointer<GtkNothingAction>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<NothingAction> {
         override val type: GeneratedClassKGType<NothingAction> =
-            GeneratedClassKGType(gtk_nothing_action_get_type()) {
-                NothingAction(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_nothing_action_get_type()) { NothingAction(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

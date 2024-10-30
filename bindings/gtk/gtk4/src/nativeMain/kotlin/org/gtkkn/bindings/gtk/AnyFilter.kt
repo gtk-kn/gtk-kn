@@ -19,7 +19,8 @@ import org.gtkkn.native.gtk.gtk_any_filter_new
  */
 public open class AnyFilter(
     pointer: CPointer<GtkAnyFilter>,
-) : MultiFilter(pointer.reinterpret()), KGTyped {
+) : MultiFilter(pointer.reinterpret()),
+    KGTyped {
     public val gtkAnyFilterPointer: CPointer<GtkAnyFilter>
         get() = gPointer.reinterpret()
 

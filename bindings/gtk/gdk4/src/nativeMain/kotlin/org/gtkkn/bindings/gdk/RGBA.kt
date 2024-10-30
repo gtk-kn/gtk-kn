@@ -148,11 +148,7 @@ public class RGBA(
      * @param spec the string specifying the color
      * @return true if the parsing succeeded
      */
-    public fun parse(spec: String): Boolean =
-        gdk_rgba_parse(
-            gdkRGBAPointer.reinterpret(),
-            spec
-        ).asBoolean()
+    public fun parse(spec: String): Boolean = gdk_rgba_parse(gdkRGBAPointer.reinterpret(), spec).asBoolean()
 
     public companion object : RecordCompanion<RGBA, GdkRGBA> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): RGBA = RGBA(pointer.reinterpret())

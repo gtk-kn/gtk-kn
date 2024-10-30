@@ -23,7 +23,8 @@ import kotlin.Unit
  */
 public open class FontsetSimple(
     pointer: CPointer<PangoFontsetSimple>,
-) : Fontset(pointer.reinterpret()), KGTyped {
+) : Fontset(pointer.reinterpret()),
+    KGTyped {
     public val pangoFontsetSimplePointer: CPointer<PangoFontsetSimple>
         get() = gPointer.reinterpret()
 
@@ -33,8 +34,9 @@ public open class FontsetSimple(
      * @param language a `PangoLanguage` tag
      * @return the newly allocated `PangoFontsetSimple`
      */
-    public constructor(language: Language) :
-        this(pango_fontset_simple_new(language.pangoLanguagePointer)!!.reinterpret())
+    public constructor(
+        language: Language,
+    ) : this(pango_fontset_simple_new(language.pangoLanguagePointer)!!.reinterpret())
 
     /**
      * Adds a font to the fontset.
@@ -44,10 +46,7 @@ public open class FontsetSimple(
      * @param font a `PangoFont`.
      */
     public open fun append(font: Font): Unit =
-        pango_fontset_simple_append(
-            pangoFontsetSimplePointer.reinterpret(),
-            font.pangoFontPointer.reinterpret()
-        )
+        pango_fontset_simple_append(pangoFontsetSimplePointer.reinterpret(), font.pangoFontPointer.reinterpret())
 
     /**
      * Returns the number of fonts in the fontset.
@@ -58,9 +57,7 @@ public open class FontsetSimple(
 
     public companion object : TypeCompanion<FontsetSimple> {
         override val type: GeneratedClassKGType<FontsetSimple> =
-            GeneratedClassKGType(pango_fontset_simple_get_type()) {
-                FontsetSimple(it.reinterpret())
-            }
+            GeneratedClassKGType(pango_fontset_simple_get_type()) { FontsetSimple(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()

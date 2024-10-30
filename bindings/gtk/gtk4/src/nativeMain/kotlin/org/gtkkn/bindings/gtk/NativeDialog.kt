@@ -61,7 +61,8 @@ import kotlin.Unit
  */
 public open class NativeDialog(
     pointer: CPointer<GtkNativeDialog>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkNativeDialogPointer: CPointer<GtkNativeDialog>
         get() = gPointer.reinterpret()
 
@@ -87,11 +88,7 @@ public open class NativeDialog(
          *
          * @param modal whether the window is modal
          */
-        set(modal) =
-            gtk_native_dialog_set_modal(
-                gtkNativeDialogPointer.reinterpret(),
-                modal.asGBoolean()
-            )
+        set(modal) = gtk_native_dialog_set_modal(gtkNativeDialogPointer.reinterpret(), modal.asGBoolean())
 
     /**
      * The transient parent of the dialog, or null for none.
@@ -119,7 +116,9 @@ public open class NativeDialog(
          *
          * @param parent parent window
          */
-        set(parent) =
+        set(
+            parent
+        ) =
             gtk_native_dialog_set_transient_for(
                 gtkNativeDialogPointer.reinterpret(),
                 parent?.gtkWindowPointer?.reinterpret()
@@ -273,9 +272,7 @@ public open class NativeDialog(
 
     public companion object : TypeCompanion<NativeDialog> {
         override val type: GeneratedClassKGType<NativeDialog> =
-            GeneratedClassKGType(gtk_native_dialog_get_type()) {
-                NativeDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_native_dialog_get_type()) { NativeDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -290,5 +287,4 @@ private val connectResponseFunc: CPointer<CFunction<(Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(responseId: Int) -> Unit>().get().invoke(responseId)
-    }
-        .reinterpret()
+    }.reinterpret()

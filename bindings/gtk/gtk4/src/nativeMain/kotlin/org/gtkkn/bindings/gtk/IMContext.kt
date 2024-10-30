@@ -86,7 +86,8 @@ import kotlin.Unit
  */
 public open class IMContext(
     pointer: CPointer<GtkIMContext>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkIMContextPointer: CPointer<GtkIMContext>
         get() = gPointer.reinterpret()
 
@@ -102,10 +103,7 @@ public open class IMContext(
      * @since 4.14
      */
     public open fun activateOsk(event: Event? = null): Boolean =
-        gtk_im_context_activate_osk(
-            gtkIMContextPointer.reinterpret(),
-            event?.gPointer?.reinterpret()
-        ).asBoolean()
+        gtk_im_context_activate_osk(gtkIMContextPointer.reinterpret(), event?.gPointer?.reinterpret()).asBoolean()
 
     /**
      * Asks the widget that the input context is attached to delete
@@ -134,12 +132,7 @@ public open class IMContext(
     public open fun deleteSurrounding(
         offset: Int,
         nChars: Int,
-    ): Boolean =
-        gtk_im_context_delete_surrounding(
-            gtkIMContextPointer.reinterpret(),
-            offset,
-            nChars
-        ).asBoolean()
+    ): Boolean = gtk_im_context_delete_surrounding(gtkIMContextPointer.reinterpret(), offset, nChars).asBoolean()
 
     /**
      * Allow an input method to forward key press and release events
@@ -186,10 +179,7 @@ public open class IMContext(
      * @return true if the input method handled the key event.
      */
     public open fun filterKeypress(event: Event): Boolean =
-        gtk_im_context_filter_keypress(
-            gtkIMContextPointer.reinterpret(),
-            event.gPointer.reinterpret()
-        ).asBoolean()
+        gtk_im_context_filter_keypress(gtkIMContextPointer.reinterpret(), event.gPointer.reinterpret()).asBoolean()
 
     /**
      * Notify the input method that the widget to which this
@@ -228,10 +218,7 @@ public open class IMContext(
      *   that the previous client widget no longer exists.
      */
     public open fun setClientWidget(widget: Widget? = null): Unit =
-        gtk_im_context_set_client_widget(
-            gtkIMContextPointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_im_context_set_client_widget(gtkIMContextPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Notify the input method that a change in cursor
@@ -242,10 +229,7 @@ public open class IMContext(
      * @param area new location
      */
     public open fun setCursorLocation(area: Rectangle): Unit =
-        gtk_im_context_set_cursor_location(
-            gtkIMContextPointer.reinterpret(),
-            area.gdkRectanglePointer
-        )
+        gtk_im_context_set_cursor_location(gtkIMContextPointer.reinterpret(), area.gdkRectanglePointer)
 
     /**
      * Sets surrounding context around the insertion point and preedit
@@ -264,13 +248,7 @@ public open class IMContext(
         text: String,
         len: Int,
         cursorIndex: Int,
-    ): Unit =
-        gtk_im_context_set_surrounding(
-            gtkIMContextPointer.reinterpret(),
-            text,
-            len,
-            cursorIndex
-        )
+    ): Unit = gtk_im_context_set_surrounding(gtkIMContextPointer.reinterpret(), text, len, cursorIndex)
 
     /**
      * Sets surrounding context around the insertion point and preedit
@@ -310,10 +288,7 @@ public open class IMContext(
      * @param usePreedit whether the IM context should use the preedit string.
      */
     public open fun setUsePreedit(usePreedit: Boolean): Unit =
-        gtk_im_context_set_use_preedit(
-            gtkIMContextPointer.reinterpret(),
-            usePreedit.asGBoolean()
-        )
+        gtk_im_context_set_use_preedit(gtkIMContextPointer.reinterpret(), usePreedit.asGBoolean())
 
     /**
      * The ::commit signal is emitted when a complete input sequence
@@ -326,8 +301,7 @@ public open class IMContext(
      * the final result of preediting.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `str` the completed character(s) entered by
-     * the user
+     * @param handler the Callback to connect. Params: `str` the completed character(s) entered by the user
      */
     public fun connectCommit(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -347,11 +321,9 @@ public open class IMContext(
      * needs to delete all or part of the context surrounding the cursor.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `offset` the character offset from the cursor
-     * position of the text
+     * @param handler the Callback to connect. Params: `offset` the character offset from the cursor position of the text
      *   to be deleted. A negative value indicates a position before
-     *   the cursor.; `nChars` the number of characters to be deleted. Returns true if the signal
-     * was handled.
+     *   the cursor.; `nChars` the number of characters to be deleted. Returns true if the signal was handled.
      */
     public fun connectDeleteSurrounding(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -468,12 +440,15 @@ private val connectCommitFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> 
             str: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(str: String) -> Unit>().get().invoke(
-            str?.toKString()
-                ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    str: String,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(str?.toKString() ?: error("Expected not null string"))
+    }.reinterpret()
 
 private val connectDeleteSurroundingFunc: CPointer<CFunction<(Int, Int) -> Int>> =
     staticCFunction {
@@ -482,12 +457,12 @@ private val connectDeleteSurroundingFunc: CPointer<CFunction<(Int, Int) -> Int>>
             nChars: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(offset: Int, nChars: Int) -> Boolean>().get().invoke(
-            offset,
-            nChars
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(offset: Int, nChars: Int) -> Boolean>()
+            .get()
+            .invoke(offset, nChars)
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectPreeditChangedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -495,8 +470,7 @@ private val connectPreeditChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPreeditEndFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -504,8 +478,7 @@ private val connectPreeditEndFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPreeditStartFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -513,14 +486,16 @@ private val connectPreeditStartFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectRetrieveSurroundingFunc: CPointer<CFunction<() -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()

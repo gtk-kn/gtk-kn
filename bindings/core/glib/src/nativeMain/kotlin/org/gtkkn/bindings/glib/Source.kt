@@ -101,10 +101,7 @@ public class Source(
      * @since 2.28
      */
     public fun addChildSource(childSource: Source): Unit =
-        g_source_add_child_source(
-            glibSourcePointer.reinterpret(),
-            childSource.glibSourcePointer
-        )
+        g_source_add_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer)
 
     /**
      * Adds a file descriptor to the set of file descriptors polled for
@@ -123,11 +120,7 @@ public class Source(
      * @param fd a #GPollFD structure holding information about a file
      *      descriptor to watch.
      */
-    public fun addPoll(fd: PollFD): Unit =
-        g_source_add_poll(
-            glibSourcePointer.reinterpret(),
-            fd.glibPollFDPointer
-        )
+    public fun addPoll(fd: PollFD): Unit = g_source_add_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer)
 
     /**
      * Adds a #GSource to a @context so that it will be executed within
@@ -360,10 +353,7 @@ public class Source(
      * @since 2.28
      */
     public fun removeChildSource(childSource: Source): Unit =
-        g_source_remove_child_source(
-            glibSourcePointer.reinterpret(),
-            childSource.glibSourcePointer
-        )
+        g_source_remove_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer)
 
     /**
      * Removes a file descriptor from the set of file descriptors polled for
@@ -375,10 +365,7 @@ public class Source(
      * @param fd a #GPollFD structure previously passed to g_source_add_poll().
      */
     public fun removePoll(fd: PollFD): Unit =
-        g_source_remove_poll(
-            glibSourcePointer.reinterpret(),
-            fd.glibPollFDPointer
-        )
+        g_source_remove_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer)
 
     /**
      * Sets the callback function for a source. The callback for a source is
@@ -456,11 +443,7 @@ public class Source(
      * @param name debug name for the source
      * @since 2.26
      */
-    public fun setName(name: String): Unit =
-        g_source_set_name(
-            glibSourcePointer.reinterpret(),
-            name
-        )
+    public fun setName(name: String): Unit = g_source_set_name(glibSourcePointer.reinterpret(), name)
 
     /**
      * Sets the priority of a source. While the main loop is being run, a

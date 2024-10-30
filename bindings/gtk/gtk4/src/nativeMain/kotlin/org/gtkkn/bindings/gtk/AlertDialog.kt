@@ -67,7 +67,8 @@ import kotlin.collections.List
  */
 public open class AlertDialog(
     pointer: CPointer<GtkAlertDialog>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkAlertDialogPointer: CPointer<GtkAlertDialog>
         get() = gPointer.reinterpret()
 
@@ -102,11 +103,7 @@ public open class AlertDialog(
          * @param button the new cancel button
          * @since 4.10
          */
-        set(button) =
-            gtk_alert_dialog_set_cancel_button(
-                gtkAlertDialogPointer.reinterpret(),
-                button
-            )
+        set(button) = gtk_alert_dialog_set_cancel_button(gtkAlertDialogPointer.reinterpret(), button)
 
     /**
      * This property determines what happens when the Return key is
@@ -139,11 +136,7 @@ public open class AlertDialog(
          * @param button the new default button
          * @since 4.10
          */
-        set(button) =
-            gtk_alert_dialog_set_default_button(
-                gtkAlertDialogPointer.reinterpret(),
-                button
-            )
+        set(button) = gtk_alert_dialog_set_default_button(gtkAlertDialogPointer.reinterpret(), button)
 
     /**
      * The detail text for the alert.
@@ -215,11 +208,7 @@ public open class AlertDialog(
          * @param modal the new value
          * @since 4.10
          */
-        set(modal) =
-            gtk_alert_dialog_set_modal(
-                gtkAlertDialogPointer.reinterpret(),
-                modal.asGBoolean()
-            )
+        set(modal) = gtk_alert_dialog_set_modal(gtkAlertDialogPointer.reinterpret(), modal.asGBoolean())
 
     /**
      * This function shows the alert to the user.
@@ -338,10 +327,7 @@ public open class AlertDialog(
      */
     public open fun setButtons(labels: List<String>): Unit =
         memScoped {
-            return gtk_alert_dialog_set_buttons(
-                gtkAlertDialogPointer.reinterpret(),
-                labels.toCStringList(this)
-            )
+            return gtk_alert_dialog_set_buttons(gtkAlertDialogPointer.reinterpret(), labels.toCStringList(this))
         }
 
     /**
@@ -409,10 +395,7 @@ public open class AlertDialog(
      * @since 4.10
      */
     public open fun show(parent: Window? = null): Unit =
-        gtk_alert_dialog_show(
-            gtkAlertDialogPointer.reinterpret(),
-            parent?.gtkWindowPointer?.reinterpret()
-        )
+        gtk_alert_dialog_show(gtkAlertDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret())
 
     public companion object : TypeCompanion<AlertDialog> {
         override val type: GeneratedClassKGType<AlertDialog> =

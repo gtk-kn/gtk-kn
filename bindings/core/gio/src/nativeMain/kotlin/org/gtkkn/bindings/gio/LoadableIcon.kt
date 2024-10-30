@@ -24,7 +24,10 @@ import kotlin.Unit
  * - parameter `type`: type: Out parameter is not supported
  * - parameter `type`: type: Out parameter is not supported
  */
-public interface LoadableIcon : Interface, Icon, KGTyped {
+public interface LoadableIcon :
+    Interface,
+    Icon,
+    KGTyped {
     public val gioLoadableIconPointer: CPointer<GLoadableIcon>
 
     override val gioIconPointer: CPointer<GIcon>

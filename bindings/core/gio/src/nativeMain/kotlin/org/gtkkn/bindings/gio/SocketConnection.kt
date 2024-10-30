@@ -53,7 +53,8 @@ import kotlin.Unit
  */
 public open class SocketConnection(
     pointer: CPointer<GSocketConnection>,
-) : IOStream(pointer.reinterpret()), KGTyped {
+) : IOStream(pointer.reinterpret()),
+    KGTyped {
     public val gioSocketConnectionPointer: CPointer<GSocketConnection>
         get() = gPointer.reinterpret()
 
@@ -168,10 +169,7 @@ public open class SocketConnection(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_socket_connection_get_local_address(
-                    gioSocketConnectionPointer.reinterpret(),
-                    gError.ptr
-                )?.run {
+                g_socket_connection_get_local_address(gioSocketConnectionPointer.reinterpret(), gError.ptr)?.run {
                     SocketAddress(reinterpret())
                 }
 
@@ -200,10 +198,7 @@ public open class SocketConnection(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_socket_connection_get_remote_address(
-                    gioSocketConnectionPointer.reinterpret(),
-                    gError.ptr
-                )?.run {
+                g_socket_connection_get_remote_address(gioSocketConnectionPointer.reinterpret(), gError.ptr)?.run {
                     SocketAddress(reinterpret())
                 }
 
@@ -239,9 +234,7 @@ public open class SocketConnection(
 
     public companion object : TypeCompanion<SocketConnection> {
         override val type: GeneratedClassKGType<SocketConnection> =
-            GeneratedClassKGType(g_socket_connection_get_type()) {
-                SocketConnection(it.reinterpret())
-            }
+            GeneratedClassKGType(g_socket_connection_get_type()) { SocketConnection(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -263,12 +256,7 @@ public open class SocketConnection(
             family: SocketFamily,
             type: SocketType,
             protocolId: Int,
-        ): ULong =
-            g_socket_connection_factory_lookup_type(
-                family.nativeValue,
-                type.nativeValue,
-                protocolId
-            )
+        ): ULong = g_socket_connection_factory_lookup_type(family.nativeValue, type.nativeValue, protocolId)
 
         /**
          * Looks up the #GType to be used when creating socket connections on
@@ -287,12 +275,6 @@ public open class SocketConnection(
             family: SocketFamily,
             type: SocketType,
             protocol: Int,
-        ): Unit =
-            g_socket_connection_factory_register_type(
-                gType,
-                family.nativeValue,
-                type.nativeValue,
-                protocol
-            )
+        ): Unit = g_socket_connection_factory_register_type(gType, family.nativeValue, type.nativeValue, protocol)
     }
 }

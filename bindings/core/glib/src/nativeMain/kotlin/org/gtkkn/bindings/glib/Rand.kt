@@ -93,12 +93,7 @@ public class Rand(
     public fun intRange(
         begin: Int,
         end: Int,
-    ): Int =
-        g_rand_int_range(
-            glibRandPointer.reinterpret(),
-            begin,
-            end
-        )
+    ): Int = g_rand_int_range(glibRandPointer.reinterpret(), begin, end)
 
     /**
      * Sets the seed for the random number generator #GRand to @seed.

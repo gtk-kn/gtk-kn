@@ -50,7 +50,8 @@ import kotlin.Unit
  */
 public open class SettingsBackend(
     pointer: CPointer<GSettingsBackend>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioSettingsBackendPointer: CPointer<GSettingsBackend>
         get() = gPointer.reinterpret()
 
@@ -81,9 +82,7 @@ public open class SettingsBackend(
 
     public companion object : TypeCompanion<SettingsBackend> {
         override val type: GeneratedClassKGType<SettingsBackend> =
-            GeneratedClassKGType(g_settings_backend_get_type()) {
-                SettingsBackend(it.reinterpret())
-            }
+            GeneratedClassKGType(g_settings_backend_get_type()) { SettingsBackend(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

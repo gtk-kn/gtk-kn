@@ -33,7 +33,11 @@ import kotlin.Unit
  * [iface@Gio.DtlsConnection], representing a client-side DTLS connection.
  * @since 2.48
  */
-public interface DtlsClientConnection : Interface, DatagramBased, DtlsConnection, KGTyped {
+public interface DtlsClientConnection :
+    Interface,
+    DatagramBased,
+    DtlsConnection,
+    KGTyped {
     public val gioDtlsClientConnectionPointer: CPointer<GDtlsClientConnection>
 
     override val gioDatagramBasedPointer: CPointer<GDatagramBased>
@@ -114,7 +118,9 @@ public interface DtlsClientConnection : Interface, DatagramBased, DtlsConnection
          * @param identity a #GSocketConnectable describing the expected server identity
          * @since 2.48
          */
-        set(identity) =
+        set(
+            identity
+        ) =
             g_dtls_client_connection_set_server_identity(
                 gioDtlsClientConnectionPointer.reinterpret(),
                 identity.gioSocketConnectablePointer
@@ -168,11 +174,9 @@ public interface DtlsClientConnection : Interface, DatagramBased, DtlsConnection
          * @param flags the #GTlsCertificateFlags to use
          * @since 2.48
          */
-        set(flags) =
-            g_dtls_client_connection_set_validation_flags(
-                gioDtlsClientConnectionPointer.reinterpret(),
-                flags.mask
-            )
+        set(
+            flags
+        ) = g_dtls_client_connection_set_validation_flags(gioDtlsClientConnectionPointer.reinterpret(), flags.mask)
 
     /**
      * Gets the list of distinguished names of the Certificate Authorities
@@ -249,10 +253,7 @@ public interface DtlsClientConnection : Interface, DatagramBased, DtlsConnection
      * @since 2.48
      */
     public fun setValidationFlags(flags: TlsCertificateFlags): Unit =
-        g_dtls_client_connection_set_validation_flags(
-            gioDtlsClientConnectionPointer.reinterpret(),
-            flags.mask
-        )
+        g_dtls_client_connection_set_validation_flags(gioDtlsClientConnectionPointer.reinterpret(), flags.mask)
 
     private data class Wrapper(
         private val pointer: CPointer<GDtlsClientConnection>,
@@ -262,9 +263,7 @@ public interface DtlsClientConnection : Interface, DatagramBased, DtlsConnection
 
     public companion object : TypeCompanion<DtlsClientConnection> {
         override val type: GeneratedInterfaceKGType<DtlsClientConnection> =
-            GeneratedInterfaceKGType(g_dtls_client_connection_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(g_dtls_client_connection_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -57,7 +57,9 @@ import kotlin.Unit
  */
 public open class TypeModule(
     pointer: CPointer<GTypeModule>,
-) : Object(pointer.reinterpret()), TypePlugin, KGTyped {
+) : Object(pointer.reinterpret()),
+    TypePlugin,
+    KGTyped {
     public val gobjectTypeModulePointer: CPointer<GTypeModule>
         get() = gPointer.reinterpret()
 

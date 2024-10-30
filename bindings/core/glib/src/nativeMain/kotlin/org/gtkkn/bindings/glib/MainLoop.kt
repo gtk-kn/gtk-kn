@@ -92,13 +92,7 @@ public class MainLoop(
         public fun new(
             context: MainContext? = null,
             isRunning: Boolean,
-        ): MainLoop =
-            MainLoop(
-                g_main_loop_new(
-                    context?.glibMainContextPointer,
-                    isRunning.asGBoolean()
-                )!!.reinterpret()
-            )
+        ): MainLoop = MainLoop(g_main_loop_new(context?.glibMainContextPointer, isRunning.asGBoolean())!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MainLoop = MainLoop(pointer.reinterpret())
     }

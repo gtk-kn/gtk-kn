@@ -181,7 +181,12 @@ import kotlin.Unit
  */
 public open class SpinButton(
     pointer: CPointer<GtkSpinButton>,
-) : Widget(pointer.reinterpret()), AccessibleRange, CellEditable, Editable, Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    AccessibleRange,
+    CellEditable,
+    Editable,
+    Orientable,
+    KGTyped {
     public val gtkSpinButtonPointer: CPointer<GtkSpinButton>
         get() = gPointer.reinterpret()
 
@@ -220,8 +225,7 @@ public open class SpinButton(
          * @return true if the spin button will activate the default widget
          * @since 4.14
          */
-        get() =
-            gtk_spin_button_get_activates_default(gtkSpinButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_spin_button_get_activates_default(gtkSpinButtonPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether activating the spin button will activate the default
@@ -232,11 +236,9 @@ public open class SpinButton(
          * @param activatesDefault true to activate window’s default widget on activation
          * @since 4.14
          */
-        set(activatesDefault) =
-            gtk_spin_button_set_activates_default(
-                gtkSpinButtonPointer.reinterpret(),
-                activatesDefault.asGBoolean()
-            )
+        set(
+            activatesDefault
+        ) = gtk_spin_button_set_activates_default(gtkSpinButtonPointer.reinterpret(), activatesDefault.asGBoolean())
 
     /**
      * The adjustment that holds the value of the spin button.
@@ -257,7 +259,9 @@ public open class SpinButton(
          *
          * @param adjustment a `GtkAdjustment` to replace the existing adjustment
          */
-        set(adjustment) =
+        set(
+            adjustment
+        ) =
             gtk_spin_button_set_adjustment(
                 gtkSpinButtonPointer.reinterpret(),
                 adjustment.gtkAdjustmentPointer.reinterpret()
@@ -280,11 +284,7 @@ public open class SpinButton(
          *
          * @param climbRate the rate of acceleration, must be >= 0
          */
-        set(climbRate) =
-            gtk_spin_button_set_climb_rate(
-                gtkSpinButtonPointer.reinterpret(),
-                climbRate
-            )
+        set(climbRate) = gtk_spin_button_set_climb_rate(gtkSpinButtonPointer.reinterpret(), climbRate)
 
     /**
      * The number of decimal places to display.
@@ -324,11 +324,7 @@ public open class SpinButton(
          *
          * @param numeric flag indicating if only numeric entry is allowed
          */
-        set(numeric) =
-            gtk_spin_button_set_numeric(
-                gtkSpinButtonPointer.reinterpret(),
-                numeric.asGBoolean()
-            )
+        set(numeric) = gtk_spin_button_set_numeric(gtkSpinButtonPointer.reinterpret(), numeric.asGBoolean())
 
     /**
      * Whether erroneous values are automatically changed to the spin buttons
@@ -349,11 +345,9 @@ public open class SpinButton(
          *
          * @param snapToTicks a flag indicating if invalid values should be corrected
          */
-        set(snapToTicks) =
-            gtk_spin_button_set_snap_to_ticks(
-                gtkSpinButtonPointer.reinterpret(),
-                snapToTicks.asGBoolean()
-            )
+        set(
+            snapToTicks
+        ) = gtk_spin_button_set_snap_to_ticks(gtkSpinButtonPointer.reinterpret(), snapToTicks.asGBoolean())
 
     /**
      * Whether the spin button should update always, or only when the value
@@ -380,11 +374,7 @@ public open class SpinButton(
          *
          * @param policy a `GtkSpinButtonUpdatePolicy` value
          */
-        set(policy) =
-            gtk_spin_button_set_update_policy(
-                gtkSpinButtonPointer.reinterpret(),
-                policy.nativeValue
-            )
+        set(policy) = gtk_spin_button_set_update_policy(gtkSpinButtonPointer.reinterpret(), policy.nativeValue)
 
     /**
      * The current value.
@@ -439,13 +429,7 @@ public open class SpinButton(
         adjustment: Adjustment? = null,
         climbRate: Double,
         digits: UInt,
-    ) : this(
-        gtk_spin_button_new(
-            adjustment?.gtkAdjustmentPointer?.reinterpret(),
-            climbRate,
-            digits
-        )!!.reinterpret()
-    )
+    ) : this(gtk_spin_button_new(adjustment?.gtkAdjustmentPointer?.reinterpret(), climbRate, digits)!!.reinterpret())
 
     /**
      * Creates a new `GtkSpinButton` with the given properties.
@@ -589,10 +573,7 @@ public open class SpinButton(
      * @since 4.14
      */
     public open fun setActivatesDefault(activatesDefault: Boolean): Unit =
-        gtk_spin_button_set_activates_default(
-            gtkSpinButtonPointer.reinterpret(),
-            activatesDefault.asGBoolean()
-        )
+        gtk_spin_button_set_activates_default(gtkSpinButtonPointer.reinterpret(), activatesDefault.asGBoolean())
 
     /**
      * Replaces the `GtkAdjustment` associated with @spin_button.
@@ -670,10 +651,7 @@ public open class SpinButton(
      * @param snapToTicks a flag indicating if invalid values should be corrected
      */
     public open fun setSnapToTicks(snapToTicks: Boolean): Unit =
-        gtk_spin_button_set_snap_to_ticks(
-            gtkSpinButtonPointer.reinterpret(),
-            snapToTicks.asGBoolean()
-        )
+        gtk_spin_button_set_snap_to_ticks(gtkSpinButtonPointer.reinterpret(), snapToTicks.asGBoolean())
 
     /**
      * Sets the update behavior of a spin button.
@@ -684,10 +662,7 @@ public open class SpinButton(
      * @param policy a `GtkSpinButtonUpdatePolicy` value
      */
     public open fun setUpdatePolicy(policy: SpinButtonUpdatePolicy): Unit =
-        gtk_spin_button_set_update_policy(
-            gtkSpinButtonPointer.reinterpret(),
-            policy.nativeValue
-        )
+        gtk_spin_button_set_update_policy(gtkSpinButtonPointer.reinterpret(), policy.nativeValue)
 
     /**
      * Sets the value of @spin_button.
@@ -717,12 +692,7 @@ public open class SpinButton(
     public open fun spin(
         direction: SpinType,
         increment: Double,
-    ): Unit =
-        gtk_spin_button_spin(
-            gtkSpinButtonPointer.reinterpret(),
-            direction.nativeValue,
-            increment
-        )
+    ): Unit = gtk_spin_button_spin(gtkSpinButtonPointer.reinterpret(), direction.nativeValue, increment)
 
     /**
      * Manually force an update of the spin button.
@@ -767,8 +737,7 @@ public open class SpinButton(
      * The default bindings for this signal are Up/Down and PageUp/PageDown.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `scroll` a `GtkScrollType` to specify the
-     * speed and amount of change
+     * @param handler the Callback to connect. Params: `scroll` a `GtkScrollType` to specify the speed and amount of change
      */
     public fun connectChangeValue(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -877,8 +846,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectChangeValueFunc: CPointer<CFunction<(GtkScrollType) -> Unit>> =
     staticCFunction {
@@ -891,17 +859,19 @@ private val connectChangeValueFunc: CPointer<CFunction<(GtkScrollType) -> Unit>>
                 ScrollType.fromNativeValue(this)
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectOutputFunc: CPointer<CFunction<() -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectValueChangedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -909,8 +879,7 @@ private val connectValueChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectWrappedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -918,5 +887,4 @@ private val connectWrappedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

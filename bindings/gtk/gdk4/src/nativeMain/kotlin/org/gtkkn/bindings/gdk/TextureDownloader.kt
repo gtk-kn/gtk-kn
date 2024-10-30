@@ -91,10 +91,7 @@ public class TextureDownloader(
      * @since 4.10
      */
     public fun setFormat(format: MemoryFormat): Unit =
-        gdk_texture_downloader_set_format(
-            gdkTextureDownloaderPointer.reinterpret(),
-            format.nativeValue
-        )
+        gdk_texture_downloader_set_format(gdkTextureDownloaderPointer.reinterpret(), format.nativeValue)
 
     /**
      * Changes the texture the downloader will download.

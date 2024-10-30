@@ -54,7 +54,8 @@ import kotlin.Unit
  */
 public open class ColumnViewColumn(
     pointer: CPointer<GtkColumnViewColumn>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkColumnViewColumnPointer: CPointer<GtkColumnViewColumn>
         get() = gPointer.reinterpret()
 
@@ -83,8 +84,7 @@ public open class ColumnViewColumn(
          *
          * @return true if this column expands
          */
-        get() =
-            gtk_column_view_column_get_expand(gtkColumnViewColumnPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_column_get_expand(gtkColumnViewColumnPointer.reinterpret()).asBoolean()
 
         /**
          * Sets the column to take available extra space.
@@ -94,11 +94,7 @@ public open class ColumnViewColumn(
          *
          * @param expand true if this column should expand to fill available sace
          */
-        set(expand) =
-            gtk_column_view_column_set_expand(
-                gtkColumnViewColumnPointer.reinterpret(),
-                expand.asGBoolean()
-            )
+        set(expand) = gtk_column_view_column_set_expand(gtkColumnViewColumnPointer.reinterpret(), expand.asGBoolean())
 
     /**
      * Factory for populating list items.
@@ -121,7 +117,9 @@ public open class ColumnViewColumn(
          *
          * @param factory the factory to use
          */
-        set(factory) =
+        set(
+            factory
+        ) =
             gtk_column_view_column_set_factory(
                 gtkColumnViewColumnPointer.reinterpret(),
                 factory?.gtkListItemFactoryPointer?.reinterpret()
@@ -148,11 +146,7 @@ public open class ColumnViewColumn(
          *
          * @param fixedWidth the new fixed width, or -1
          */
-        set(fixedWidth) =
-            gtk_column_view_column_set_fixed_width(
-                gtkColumnViewColumnPointer.reinterpret(),
-                fixedWidth
-            )
+        set(fixedWidth) = gtk_column_view_column_set_fixed_width(gtkColumnViewColumnPointer.reinterpret(), fixedWidth)
 
     /**
      * Menu model used to create the context menu for the column header.
@@ -175,7 +169,9 @@ public open class ColumnViewColumn(
          *
          * @param menu a `GMenuModel`
          */
-        set(menu) =
+        set(
+            menu
+        ) =
             gtk_column_view_column_set_header_menu(
                 gtkColumnViewColumnPointer.reinterpret(),
                 menu?.gioMenuModelPointer?.reinterpret()
@@ -223,19 +219,16 @@ public open class ColumnViewColumn(
          *
          * @return true if this column is resizable
          */
-        get() =
-            gtk_column_view_column_get_resizable(gtkColumnViewColumnPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_column_get_resizable(gtkColumnViewColumnPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether this column should be resizable by dragging.
          *
          * @param resizable whether this column should be resizable
          */
-        set(resizable) =
-            gtk_column_view_column_set_resizable(
-                gtkColumnViewColumnPointer.reinterpret(),
-                resizable.asGBoolean()
-            )
+        set(
+            resizable
+        ) = gtk_column_view_column_set_resizable(gtkColumnViewColumnPointer.reinterpret(), resizable.asGBoolean())
 
     /**
      * Sorter for sorting items according to this column.
@@ -265,7 +258,9 @@ public open class ColumnViewColumn(
          *
          * @param sorter the `GtkSorter` to associate with @column
          */
-        set(sorter) =
+        set(
+            sorter
+        ) =
             gtk_column_view_column_set_sorter(
                 gtkColumnViewColumnPointer.reinterpret(),
                 sorter?.gtkSorterPointer?.reinterpret()
@@ -280,8 +275,7 @@ public open class ColumnViewColumn(
          *
          * @return The column's title
          */
-        get() =
-            gtk_column_view_column_get_title(gtkColumnViewColumnPointer.reinterpret())?.toKString()
+        get() = gtk_column_view_column_get_title(gtkColumnViewColumnPointer.reinterpret())?.toKString()
 
         /**
          * Sets the title of this column.
@@ -292,11 +286,7 @@ public open class ColumnViewColumn(
          *
          * @param title Title to use for this column
          */
-        set(title) =
-            gtk_column_view_column_set_title(
-                gtkColumnViewColumnPointer.reinterpret(),
-                title
-            )
+        set(title) = gtk_column_view_column_set_title(gtkColumnViewColumnPointer.reinterpret(), title)
 
     /**
      * Whether this column is visible.
@@ -307,19 +297,16 @@ public open class ColumnViewColumn(
          *
          * @return true if this column is visible
          */
-        get() =
-            gtk_column_view_column_get_visible(gtkColumnViewColumnPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_column_get_visible(gtkColumnViewColumnPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether this column should be visible in views.
          *
          * @param visible whether this column should be visible
          */
-        set(visible) =
-            gtk_column_view_column_set_visible(
-                gtkColumnViewColumnPointer.reinterpret(),
-                visible.asGBoolean()
-            )
+        set(
+            visible
+        ) = gtk_column_view_column_set_visible(gtkColumnViewColumnPointer.reinterpret(), visible.asGBoolean())
 
     /**
      * Creates a new `GtkColumnViewColumn` that uses the given @factory for
@@ -338,13 +325,10 @@ public open class ColumnViewColumn(
      * @param factory The factory to populate items with
      * @return a new `GtkColumnViewColumn` using the given @factory
      */
-    public constructor(title: String? = null, factory: ListItemFactory? = null) :
-        this(
-            gtk_column_view_column_new(
-                title,
-                factory?.gtkListItemFactoryPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        title: String? = null,
+        factory: ListItemFactory? = null,
+    ) : this(gtk_column_view_column_new(title, factory?.gtkListItemFactoryPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Gets the column view that's currently displaying this column.
@@ -448,10 +432,7 @@ public open class ColumnViewColumn(
      * @param expand true if this column should expand to fill available sace
      */
     public open fun setExpand(expand: Boolean): Unit =
-        gtk_column_view_column_set_expand(
-            gtkColumnViewColumnPointer.reinterpret(),
-            expand.asGBoolean()
-        )
+        gtk_column_view_column_set_expand(gtkColumnViewColumnPointer.reinterpret(), expand.asGBoolean())
 
     /**
      * Sets the `GtkListItemFactory` to use for populating list items for this
@@ -475,10 +456,7 @@ public open class ColumnViewColumn(
      * @param fixedWidth the new fixed width, or -1
      */
     public open fun setFixedWidth(fixedWidth: Int): Unit =
-        gtk_column_view_column_set_fixed_width(
-            gtkColumnViewColumnPointer.reinterpret(),
-            fixedWidth
-        )
+        gtk_column_view_column_set_fixed_width(gtkColumnViewColumnPointer.reinterpret(), fixedWidth)
 
     /**
      * Sets the menu model that is used to create the context menu
@@ -512,10 +490,7 @@ public open class ColumnViewColumn(
      * @param resizable whether this column should be resizable
      */
     public open fun setResizable(resizable: Boolean): Unit =
-        gtk_column_view_column_set_resizable(
-            gtkColumnViewColumnPointer.reinterpret(),
-            resizable.asGBoolean()
-        )
+        gtk_column_view_column_set_resizable(gtkColumnViewColumnPointer.reinterpret(), resizable.asGBoolean())
 
     /**
      * Associates a sorter with the column.
@@ -555,16 +530,11 @@ public open class ColumnViewColumn(
      * @param visible whether this column should be visible
      */
     public open fun setVisible(visible: Boolean): Unit =
-        gtk_column_view_column_set_visible(
-            gtkColumnViewColumnPointer.reinterpret(),
-            visible.asGBoolean()
-        )
+        gtk_column_view_column_set_visible(gtkColumnViewColumnPointer.reinterpret(), visible.asGBoolean())
 
     public companion object : TypeCompanion<ColumnViewColumn> {
         override val type: GeneratedClassKGType<ColumnViewColumn> =
-            GeneratedClassKGType(gtk_column_view_column_get_type()) {
-                ColumnViewColumn(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_column_view_column_get_type()) { ColumnViewColumn(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

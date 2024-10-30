@@ -51,7 +51,8 @@ import kotlin.Unit
  */
 public class TimedAnimation(
     pointer: CPointer<AdwTimedAnimation>,
-) : Animation(pointer.reinterpret()), KGTyped {
+) : Animation(pointer.reinterpret()),
+    KGTyped {
     public val adwTimedAnimationPointer: CPointer<AdwTimedAnimation>
         get() = gPointer.reinterpret()
 
@@ -64,19 +65,16 @@ public class TimedAnimation(
          *
          * @return whether @self alternates
          */
-        get() =
-            adw_timed_animation_get_alternate(adwTimedAnimationPointer.reinterpret()).asBoolean()
+        get() = adw_timed_animation_get_alternate(adwTimedAnimationPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self changes direction on every iteration.
          *
          * @param alternate whether @self alternates
          */
-        set(alternate) =
-            adw_timed_animation_set_alternate(
-                adwTimedAnimationPointer.reinterpret(),
-                alternate.asGBoolean()
-            )
+        set(
+            alternate
+        ) = adw_timed_animation_set_alternate(adwTimedAnimationPointer.reinterpret(), alternate.asGBoolean())
 
     /**
      * Duration of the animation, in milliseconds.
@@ -101,11 +99,7 @@ public class TimedAnimation(
          *
          * @param duration the duration to use, in milliseconds
          */
-        set(duration) =
-            adw_timed_animation_set_duration(
-                adwTimedAnimationPointer.reinterpret(),
-                duration
-            )
+        set(duration) = adw_timed_animation_set_duration(adwTimedAnimationPointer.reinterpret(), duration)
 
     /**
      * Easing function used in the animation.
@@ -132,11 +126,7 @@ public class TimedAnimation(
          *
          * @param easing the easing function to use
          */
-        set(easing) =
-            adw_timed_animation_set_easing(
-                adwTimedAnimationPointer.reinterpret(),
-                easing.nativeValue
-            )
+        set(easing) = adw_timed_animation_set_easing(adwTimedAnimationPointer.reinterpret(), easing.nativeValue)
 
     /**
      * Number of times the animation will play.
@@ -158,11 +148,7 @@ public class TimedAnimation(
          *
          * @param repeatCount the number of times @self will play
          */
-        set(repeatCount) =
-            adw_timed_animation_set_repeat_count(
-                adwTimedAnimationPointer.reinterpret(),
-                repeatCount
-            )
+        set(repeatCount) = adw_timed_animation_set_repeat_count(adwTimedAnimationPointer.reinterpret(), repeatCount)
 
     /**
      * Whether the animation plays backwards.
@@ -180,11 +166,7 @@ public class TimedAnimation(
          *
          * @param reverse whether @self plays backwards
          */
-        set(reverse) =
-            adw_timed_animation_set_reverse(
-                adwTimedAnimationPointer.reinterpret(),
-                reverse.asGBoolean()
-            )
+        set(reverse) = adw_timed_animation_set_reverse(adwTimedAnimationPointer.reinterpret(), reverse.asGBoolean())
 
     /**
      * The value to animate from.
@@ -214,11 +196,7 @@ public class TimedAnimation(
          *
          * @param value the value to animate from
          */
-        set(`value`) =
-            adw_timed_animation_set_value_from(
-                adwTimedAnimationPointer.reinterpret(),
-                `value`
-            )
+        set(`value`) = adw_timed_animation_set_value_from(adwTimedAnimationPointer.reinterpret(), `value`)
 
     /**
      * The value to animate to.
@@ -248,11 +226,7 @@ public class TimedAnimation(
          *
          * @param value the value to animate to
          */
-        set(`value`) =
-            adw_timed_animation_set_value_to(
-                adwTimedAnimationPointer.reinterpret(),
-                `value`
-            )
+        set(`value`) = adw_timed_animation_set_value_to(adwTimedAnimationPointer.reinterpret(), `value`)
 
     /**
      * Creates a new `AdwTimedAnimation` on @widget to animate @target from @from
@@ -341,10 +315,7 @@ public class TimedAnimation(
      * @param alternate whether @self alternates
      */
     public fun setAlternate(alternate: Boolean): Unit =
-        adw_timed_animation_set_alternate(
-            adwTimedAnimationPointer.reinterpret(),
-            alternate.asGBoolean()
-        )
+        adw_timed_animation_set_alternate(adwTimedAnimationPointer.reinterpret(), alternate.asGBoolean())
 
     /**
      * Sets the duration of @self.
@@ -364,10 +335,7 @@ public class TimedAnimation(
      * @param easing the easing function to use
      */
     public fun setEasing(easing: Easing): Unit =
-        adw_timed_animation_set_easing(
-            adwTimedAnimationPointer.reinterpret(),
-            easing.nativeValue
-        )
+        adw_timed_animation_set_easing(adwTimedAnimationPointer.reinterpret(), easing.nativeValue)
 
     /**
      * Sets the number of times @self will play.
@@ -377,10 +345,7 @@ public class TimedAnimation(
      * @param repeatCount the number of times @self will play
      */
     public fun setRepeatCount(repeatCount: UInt): Unit =
-        adw_timed_animation_set_repeat_count(
-            adwTimedAnimationPointer.reinterpret(),
-            repeatCount
-        )
+        adw_timed_animation_set_repeat_count(adwTimedAnimationPointer.reinterpret(), repeatCount)
 
     /**
      * Sets whether @self plays backwards.
@@ -388,10 +353,7 @@ public class TimedAnimation(
      * @param reverse whether @self plays backwards
      */
     public fun setReverse(reverse: Boolean): Unit =
-        adw_timed_animation_set_reverse(
-            adwTimedAnimationPointer.reinterpret(),
-            reverse.asGBoolean()
-        )
+        adw_timed_animation_set_reverse(adwTimedAnimationPointer.reinterpret(), reverse.asGBoolean())
 
     /**
      * Sets the value @self will animate from.
@@ -423,9 +385,7 @@ public class TimedAnimation(
 
     public companion object : TypeCompanion<TimedAnimation> {
         override val type: GeneratedClassKGType<TimedAnimation> =
-            GeneratedClassKGType(adw_timed_animation_get_type()) {
-                TimedAnimation(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_timed_animation_get_type()) { TimedAnimation(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

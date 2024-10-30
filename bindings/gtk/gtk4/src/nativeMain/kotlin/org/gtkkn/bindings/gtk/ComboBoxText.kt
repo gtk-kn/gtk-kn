@@ -88,7 +88,8 @@ import kotlin.Unit
  */
 public open class ComboBoxText(
     pointer: CPointer<GtkComboBoxText>,
-) : ComboBox(pointer.reinterpret()), KGTyped {
+) : ComboBox(pointer.reinterpret()),
+    KGTyped {
     public val gtkComboBoxTextPointer: CPointer<GtkComboBoxText>
         get() = gPointer.reinterpret()
 
@@ -232,9 +233,7 @@ public open class ComboBoxText(
 
     public companion object : TypeCompanion<ComboBoxText> {
         override val type: GeneratedClassKGType<ComboBoxText> =
-            GeneratedClassKGType(gtk_combo_box_text_get_type()) {
-                ComboBoxText(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_combo_box_text_get_type()) { ComboBoxText(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

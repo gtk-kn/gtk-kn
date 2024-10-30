@@ -179,7 +179,8 @@ import kotlin.Unit
  */
 public open class Notebook(
     pointer: CPointer<GtkNotebook>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkNotebookPointer: CPointer<GtkNotebook>
         get() = gPointer.reinterpret()
 
@@ -252,11 +253,7 @@ public open class Notebook(
          *
          * @param scrollable true if scroll arrows should be added
          */
-        set(scrollable) =
-            gtk_notebook_set_scrollable(
-                gtkNotebookPointer.reinterpret(),
-                scrollable.asGBoolean()
-            )
+        set(scrollable) = gtk_notebook_set_scrollable(gtkNotebookPointer.reinterpret(), scrollable.asGBoolean())
 
     /**
      * Whether the border should be shown.
@@ -276,11 +273,7 @@ public open class Notebook(
          *
          * @param showBorder true if a bevel should be drawn around the notebook
          */
-        set(showBorder) =
-            gtk_notebook_set_show_border(
-                gtkNotebookPointer.reinterpret(),
-                showBorder.asGBoolean()
-            )
+        set(showBorder) = gtk_notebook_set_show_border(gtkNotebookPointer.reinterpret(), showBorder.asGBoolean())
 
     /**
      * Whether tabs should be shown.
@@ -298,11 +291,7 @@ public open class Notebook(
          *
          * @param showTabs true if the tabs should be shown
          */
-        set(showTabs) =
-            gtk_notebook_set_show_tabs(
-                gtkNotebookPointer.reinterpret(),
-                showTabs.asGBoolean()
-            )
+        set(showTabs) = gtk_notebook_set_show_tabs(gtkNotebookPointer.reinterpret(), showTabs.asGBoolean())
 
     /**
      * Which side of the notebook holds the tabs.
@@ -390,10 +379,7 @@ public open class Notebook(
      * @param child a child
      */
     public open fun detachTab(child: Widget): Unit =
-        gtk_notebook_detach_tab(
-            gtkNotebookPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_notebook_detach_tab(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets one of the action widgets.
@@ -406,10 +392,7 @@ public open class Notebook(
      *   widget has not been set
      */
     public open fun getActionWidget(packType: PackType): Widget? =
-        gtk_notebook_get_action_widget(
-            gtkNotebookPointer.reinterpret(),
-            packType.nativeValue
-        )?.run {
+        gtk_notebook_get_action_widget(gtkNotebookPointer.reinterpret(), packType.nativeValue)?.run {
             Widget(reinterpret())
         }
 
@@ -439,10 +422,7 @@ public open class Notebook(
      *   the default (the tab label).
      */
     public open fun getMenuLabel(child: Widget): Widget? =
-        gtk_notebook_get_menu_label(
-            gtkNotebookPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )?.run {
+        gtk_notebook_get_menu_label(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())?.run {
             Widget(reinterpret())
         }
 
@@ -489,10 +469,7 @@ public open class Notebook(
      * @return the `GtkNotebookPage` for @child
      */
     public open fun getPage(child: Widget): NotebookPage =
-        gtk_notebook_get_page(
-            gtkNotebookPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )!!.run {
+        gtk_notebook_get_page(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
             NotebookPage(reinterpret())
         }
 
@@ -555,10 +532,7 @@ public open class Notebook(
      * @return the tab label
      */
     public open fun getTabLabel(child: Widget): Widget? =
-        gtk_notebook_get_tab_label(
-            gtkNotebookPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )?.run {
+        gtk_notebook_get_tab_label(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())?.run {
             Widget(reinterpret())
         }
 
@@ -670,10 +644,7 @@ public open class Notebook(
      *   -1 if @child is not in the notebook
      */
     public open fun pageNum(child: Widget): Int =
-        gtk_notebook_page_num(
-            gtkNotebookPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_notebook_page_num(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Disables the popup menu.
@@ -765,11 +736,7 @@ public open class Notebook(
         child: Widget,
         position: Int,
     ): Unit =
-        gtk_notebook_reorder_child(
-            gtkNotebookPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            position
-        )
+        gtk_notebook_reorder_child(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Sets @widget as one of the action widgets.
@@ -970,11 +937,7 @@ public open class Notebook(
         child: Widget,
         tabText: String,
     ): Unit =
-        gtk_notebook_set_tab_label_text(
-            gtkNotebookPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            tabText
-        )
+        gtk_notebook_set_tab_label_text(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), tabText)
 
     /**
      * Sets the edge at which the tabs are drawn.
@@ -1031,8 +994,7 @@ public open class Notebook(
      * `GtkNotebook`:group-name ).
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `page` the tab of @notebook that is being
-     * detached. Returns a `GtkNotebook` that
+     * @param handler the Callback to connect. Params: `page` the tab of @notebook that is being detached. Returns a `GtkNotebook` that
      *   @page should be added to
      */
     public fun connectCreateWindow(
@@ -1091,8 +1053,7 @@ public open class Notebook(
      * right after a page is added to the notebook.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `child` the child `GtkWidget` affected;
-     * `pageNum` the new page number for @child
+     * @param handler the Callback to connect. Params: `child` the child `GtkWidget` affected; `pageNum` the new page number for @child
      */
     public fun connectPageAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1112,8 +1073,7 @@ public open class Notebook(
      * right after a page is removed from the notebook.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `child` the child `GtkWidget` affected;
-     * `pageNum` the @child page number
+     * @param handler the Callback to connect. Params: `child` the child `GtkWidget` affected; `pageNum` the @child page number
      */
     public fun connectPageRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1133,8 +1093,7 @@ public open class Notebook(
      * right after a page has been reordered.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `child` the child `GtkWidget` affected;
-     * `pageNum` the new page number for @child
+     * @param handler the Callback to connect. Params: `child` the child `GtkWidget` affected; `pageNum` the new page number for @child
      */
     public fun connectPageReordered(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1191,8 +1150,7 @@ public open class Notebook(
      * Emitted when the user or a function changes the current page.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `page` the new current page; `pageNum` the
-     * index of the page
+     * @param handler the Callback to connect. Params: `page` the new current page; `pageNum` the index of the page
      */
     public fun connectSwitchPage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1223,9 +1181,12 @@ private val connectChangeCurrentPageFunc: CPointer<CFunction<(Int) -> Int>> =
             `object`: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(`object`: Int) -> Boolean>().get().invoke(`object`).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(`object`: Int) -> Boolean>()
+            .get()
+            .invoke(`object`)
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectCreateWindowFunc:
     CPointer<CFunction<(CPointer<GtkWidget>) -> CPointer<GtkNotebook>?>> =
@@ -1234,13 +1195,15 @@ private val connectCreateWindowFunc:
             page: CPointer<GtkWidget>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(page: Widget) -> Notebook?>().get().invoke(
-            page!!.run {
-                Widget(reinterpret())
-            }
-        )?.gtkNotebookPointer
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(page: Widget) -> Notebook?>()
+            .get()
+            .invoke(
+                page!!.run {
+                    Widget(reinterpret())
+                }
+            )?.gtkNotebookPointer
+    }.reinterpret()
 
 private val connectFocusTabFunc: CPointer<CFunction<(GtkNotebookTab) -> Int>> =
     staticCFunction {
@@ -1248,13 +1211,15 @@ private val connectFocusTabFunc: CPointer<CFunction<(GtkNotebookTab) -> Int>> =
             `object`: GtkNotebookTab,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(`object`: NotebookTab) -> Boolean>().get().invoke(
-            `object`.run {
-                NotebookTab.fromNativeValue(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(`object`: NotebookTab) -> Boolean>()
+            .get()
+            .invoke(
+                `object`.run {
+                    NotebookTab.fromNativeValue(this)
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 private val connectMoveFocusOutFunc: CPointer<CFunction<(GtkDirectionType) -> Unit>> =
     staticCFunction {
@@ -1267,8 +1232,7 @@ private val connectMoveFocusOutFunc: CPointer<CFunction<(GtkDirectionType) -> Un
                 DirectionType.fromNativeValue(this)
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPageAddedFunc: CPointer<CFunction<(CPointer<GtkWidget>, UInt) -> Unit>> =
     staticCFunction {
@@ -1283,8 +1247,7 @@ private val connectPageAddedFunc: CPointer<CFunction<(CPointer<GtkWidget>, UInt)
             },
             pageNum
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPageRemovedFunc: CPointer<CFunction<(CPointer<GtkWidget>, UInt) -> Unit>> =
     staticCFunction {
@@ -1299,8 +1262,7 @@ private val connectPageRemovedFunc: CPointer<CFunction<(CPointer<GtkWidget>, UIn
             },
             pageNum
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPageReorderedFunc: CPointer<CFunction<(CPointer<GtkWidget>, UInt) -> Unit>> =
     staticCFunction {
@@ -1315,8 +1277,7 @@ private val connectPageReorderedFunc: CPointer<CFunction<(CPointer<GtkWidget>, U
             },
             pageNum
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectReorderTabFunc: CPointer<CFunction<(GtkDirectionType, Int) -> Int>> =
     staticCFunction {
@@ -1325,19 +1286,16 @@ private val connectReorderTabFunc: CPointer<CFunction<(GtkDirectionType, Int) ->
             p0: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                `object`: DirectionType,
-                p0: Boolean,
-            ) -> Boolean
-        >().get().invoke(
-            `object`.run {
-                DirectionType.fromNativeValue(this)
-            },
-            p0.asBoolean()
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(`object`: DirectionType, p0: Boolean) -> Boolean>()
+            .get()
+            .invoke(
+                `object`.run {
+                    DirectionType.fromNativeValue(this)
+                },
+                p0.asBoolean()
+            ).asGBoolean()
+    }.reinterpret()
 
 private val connectSelectPageFunc: CPointer<CFunction<(Int) -> Int>> =
     staticCFunction {
@@ -1345,9 +1303,12 @@ private val connectSelectPageFunc: CPointer<CFunction<(Int) -> Int>> =
             `object`: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(`object`: Boolean) -> Boolean>().get().invoke(`object`.asBoolean()).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(`object`: Boolean) -> Boolean>()
+            .get()
+            .invoke(`object`.asBoolean())
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectSwitchPageFunc: CPointer<CFunction<(CPointer<GtkWidget>, UInt) -> Unit>> =
     staticCFunction {
@@ -1362,5 +1323,4 @@ private val connectSwitchPageFunc: CPointer<CFunction<(CPointer<GtkWidget>, UInt
             },
             pageNum
         )
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -31,7 +31,9 @@ import kotlin.Unit
  * GTK uses the `GtkStyleProvider` implementation for CSS in
  * [class@Gtk.CssProvider].
  */
-public interface StyleProvider : Interface, KGTyped {
+public interface StyleProvider :
+    Interface,
+    KGTyped {
     public val gtkStyleProviderPointer: CPointer<GtkStyleProvider>
 
     /**
@@ -61,9 +63,7 @@ public interface StyleProvider : Interface, KGTyped {
 
     public companion object : TypeCompanion<StyleProvider> {
         override val type: GeneratedInterfaceKGType<StyleProvider> =
-            GeneratedInterfaceKGType(gtk_style_provider_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_style_provider_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -79,5 +79,4 @@ private val connectGtkPrivateChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

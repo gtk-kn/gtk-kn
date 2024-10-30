@@ -36,7 +36,8 @@ import kotlin.Unit
  */
 public open class WindowGroup(
     pointer: CPointer<GtkWindowGroup>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkWindowGroupPointer: CPointer<GtkWindowGroup>
         get() = gPointer.reinterpret()
 
@@ -56,10 +57,7 @@ public open class WindowGroup(
      * @param window the `GtkWindow` to add
      */
     public open fun addWindow(window: Window): Unit =
-        gtk_window_group_add_window(
-            gtkWindowGroupPointer.reinterpret(),
-            window.gtkWindowPointer.reinterpret()
-        )
+        gtk_window_group_add_window(gtkWindowGroupPointer.reinterpret(), window.gtkWindowPointer.reinterpret())
 
     /**
      * Returns a list of the `GtkWindows` that belong to @window_group.
@@ -78,10 +76,7 @@ public open class WindowGroup(
      * @param window the `GtkWindow` to remove
      */
     public open fun removeWindow(window: Window): Unit =
-        gtk_window_group_remove_window(
-            gtkWindowGroupPointer.reinterpret(),
-            window.gtkWindowPointer.reinterpret()
-        )
+        gtk_window_group_remove_window(gtkWindowGroupPointer.reinterpret(), window.gtkWindowPointer.reinterpret())
 
     public companion object : TypeCompanion<WindowGroup> {
         override val type: GeneratedClassKGType<WindowGroup> =

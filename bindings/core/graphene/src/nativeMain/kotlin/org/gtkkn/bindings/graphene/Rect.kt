@@ -99,11 +99,7 @@ public class Rect(
      * @return `true` if the rectangles are equal
      * @since 1.0
      */
-    public fun equal(b: Rect): Boolean =
-        graphene_rect_equal(
-            grapheneRectPointer.reinterpret(),
-            b.grapheneRectPointer
-        )
+    public fun equal(b: Rect): Boolean = graphene_rect_equal(grapheneRectPointer.reinterpret(), b.grapheneRectPointer)
 
     /**
      * Expands a #graphene_rect_t to contain the given #graphene_point_t.
@@ -115,12 +111,7 @@ public class Rect(
     public fun expand(
         p: Point,
         res: Rect,
-    ): Unit =
-        graphene_rect_expand(
-            grapheneRectPointer.reinterpret(),
-            p.graphenePointPointer,
-            res.grapheneRectPointer
-        )
+    ): Unit = graphene_rect_expand(grapheneRectPointer.reinterpret(), p.graphenePointPointer, res.grapheneRectPointer)
 
     /**
      * Frees the resources allocated by graphene_rect_alloc().
@@ -153,10 +144,7 @@ public class Rect(
      * @since 1.0
      */
     public fun getBottomRight(p: Point): Unit =
-        graphene_rect_get_bottom_right(
-            grapheneRectPointer.reinterpret(),
-            p.graphenePointPointer
-        )
+        graphene_rect_get_bottom_right(grapheneRectPointer.reinterpret(), p.graphenePointPointer)
 
     /**
      * Retrieves the coordinates of the center of the given rectangle.
@@ -253,10 +241,7 @@ public class Rect(
      * @since 1.0
      */
     public fun initFromRect(src: Rect): Rect =
-        graphene_rect_init_from_rect(
-            grapheneRectPointer.reinterpret(),
-            src.grapheneRectPointer
-        )!!.run {
+        graphene_rect_init_from_rect(grapheneRectPointer.reinterpret(), src.grapheneRectPointer)!!.run {
             Rect(reinterpret())
         }
 
@@ -314,13 +299,7 @@ public class Rect(
         dX: Float,
         dY: Float,
         res: Rect,
-    ): Unit =
-        graphene_rect_inset_r(
-            grapheneRectPointer.reinterpret(),
-            dX,
-            dY,
-            res.grapheneRectPointer
-        )
+    ): Unit = graphene_rect_inset_r(grapheneRectPointer.reinterpret(), dX, dY, res.grapheneRectPointer)
 
     /**
      * Linearly interpolates the origin and size of the two given
@@ -364,11 +343,7 @@ public class Rect(
         b: Rect,
         res: Rect?,
     ): Boolean =
-        graphene_rect_intersection(
-            grapheneRectPointer.reinterpret(),
-            b.grapheneRectPointer,
-            res?.grapheneRectPointer
-        )
+        graphene_rect_intersection(grapheneRectPointer.reinterpret(), b.grapheneRectPointer, res?.grapheneRectPointer)
 
     /**
      * Normalizes the passed rectangle.
@@ -432,13 +407,7 @@ public class Rect(
         dX: Float,
         dY: Float,
         res: Rect,
-    ): Unit =
-        graphene_rect_offset_r(
-            grapheneRectPointer.reinterpret(),
-            dX,
-            dY,
-            res.grapheneRectPointer
-        )
+    ): Unit = graphene_rect_offset_r(grapheneRectPointer.reinterpret(), dX, dY, res.grapheneRectPointer)
 
     /**
      * Rounds the origin and size of the given rectangle to
@@ -455,11 +424,7 @@ public class Rect(
      *   rounded rectangle
      * @since 1.4
      */
-    public fun round(res: Rect): Unit =
-        graphene_rect_round(
-            grapheneRectPointer.reinterpret(),
-            res.grapheneRectPointer
-        )
+    public fun round(res: Rect): Unit = graphene_rect_round(grapheneRectPointer.reinterpret(), res.grapheneRectPointer)
 
     /**
      * Rounds the origin of the given rectangle to its nearest
@@ -518,13 +483,7 @@ public class Rect(
         sH: Float,
         sV: Float,
         res: Rect,
-    ): Unit =
-        graphene_rect_scale(
-            grapheneRectPointer.reinterpret(),
-            sH,
-            sV,
-            res.grapheneRectPointer
-        )
+    ): Unit = graphene_rect_scale(grapheneRectPointer.reinterpret(), sH, sV, res.grapheneRectPointer)
 
     /**
      * Computes the union of the two given rectangles.
@@ -540,12 +499,7 @@ public class Rect(
     public fun union(
         b: Rect,
         res: Rect,
-    ): Unit =
-        graphene_rect_union(
-            grapheneRectPointer.reinterpret(),
-            b.grapheneRectPointer,
-            res.grapheneRectPointer
-        )
+    ): Unit = graphene_rect_union(grapheneRectPointer.reinterpret(), b.grapheneRectPointer, res.grapheneRectPointer)
 
     public companion object : RecordCompanion<Rect, graphene_rect_t> {
         /**

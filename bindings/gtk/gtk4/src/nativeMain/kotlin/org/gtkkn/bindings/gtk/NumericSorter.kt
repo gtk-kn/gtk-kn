@@ -23,7 +23,8 @@ import kotlin.Unit
  */
 public open class NumericSorter(
     pointer: CPointer<GtkNumericSorter>,
-) : Sorter(pointer.reinterpret()), KGTyped {
+) : Sorter(pointer.reinterpret()),
+    KGTyped {
     public val gtkNumericSorterPointer: CPointer<GtkNumericSorter>
         get() = gPointer.reinterpret()
 
@@ -52,7 +53,9 @@ public open class NumericSorter(
          *
          * @param expression a `GtkExpression`
          */
-        set(expression) =
+        set(
+            expression
+        ) =
             gtk_numeric_sorter_set_expression(
                 gtkNumericSorterPointer.reinterpret(),
                 expression?.gPointer?.reinterpret()
@@ -77,11 +80,7 @@ public open class NumericSorter(
          *
          * @param sortOrder whether to sort smaller numbers first
          */
-        set(sortOrder) =
-            gtk_numeric_sorter_set_sort_order(
-                gtkNumericSorterPointer.reinterpret(),
-                sortOrder.nativeValue
-            )
+        set(sortOrder) = gtk_numeric_sorter_set_sort_order(gtkNumericSorterPointer.reinterpret(), sortOrder.nativeValue)
 
     /**
      * Creates a new numeric sorter using the given @expression.
@@ -92,8 +91,9 @@ public open class NumericSorter(
      * @param expression The expression to evaluate
      * @return a new `GtkNumericSorter`
      */
-    public constructor(expression: Expression? = null) :
-        this(gtk_numeric_sorter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        expression: Expression? = null,
+    ) : this(gtk_numeric_sorter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Gets the expression that is evaluated to obtain numbers from items.
@@ -127,10 +127,7 @@ public open class NumericSorter(
      * @param expression a `GtkExpression`
      */
     public open fun setExpression(expression: Expression? = null): Unit =
-        gtk_numeric_sorter_set_expression(
-            gtkNumericSorterPointer.reinterpret(),
-            expression?.gPointer?.reinterpret()
-        )
+        gtk_numeric_sorter_set_expression(gtkNumericSorterPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * Sets whether to sort smaller numbers before larger ones.
@@ -138,16 +135,11 @@ public open class NumericSorter(
      * @param sortOrder whether to sort smaller numbers first
      */
     public open fun setSortOrder(sortOrder: SortType): Unit =
-        gtk_numeric_sorter_set_sort_order(
-            gtkNumericSorterPointer.reinterpret(),
-            sortOrder.nativeValue
-        )
+        gtk_numeric_sorter_set_sort_order(gtkNumericSorterPointer.reinterpret(), sortOrder.nativeValue)
 
     public companion object : TypeCompanion<NumericSorter> {
         override val type: GeneratedClassKGType<NumericSorter> =
-            GeneratedClassKGType(gtk_numeric_sorter_get_type()) {
-                NumericSorter(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_numeric_sorter_get_type()) { NumericSorter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

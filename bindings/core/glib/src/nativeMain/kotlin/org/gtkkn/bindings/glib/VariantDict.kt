@@ -177,12 +177,7 @@ public class VariantDict(
     public fun insertValue(
         key: String,
         `value`: Variant,
-    ): Unit =
-        g_variant_dict_insert_value(
-            glibVariantDictPointer.reinterpret(),
-            key,
-            `value`.glibVariantPointer
-        )
+    ): Unit = g_variant_dict_insert_value(glibVariantDictPointer.reinterpret(), key, `value`.glibVariantPointer)
 
     /**
      * Looks up a value in a #GVariantDict.

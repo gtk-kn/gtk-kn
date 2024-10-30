@@ -61,10 +61,7 @@ public class PatternSpec(
      * @return Whether the compiled patterns are equal
      */
     public fun equal(pspec2: PatternSpec): Boolean =
-        g_pattern_spec_equal(
-            glibPatternSpecPointer.reinterpret(),
-            pspec2.glibPatternSpecPointer
-        ).asBoolean()
+        g_pattern_spec_equal(glibPatternSpecPointer.reinterpret(), pspec2.glibPatternSpecPointer).asBoolean()
 
     /**
      * Frees the memory allocated for the #GPatternSpec.
@@ -102,12 +99,7 @@ public class PatternSpec(
         string: String,
         stringReversed: String? = null,
     ): Boolean =
-        g_pattern_spec_match(
-            glibPatternSpecPointer.reinterpret(),
-            stringLength,
-            string,
-            stringReversed
-        ).asBoolean()
+        g_pattern_spec_match(glibPatternSpecPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
 
     /**
      * Matches a string against a compiled pattern. If the string is to be

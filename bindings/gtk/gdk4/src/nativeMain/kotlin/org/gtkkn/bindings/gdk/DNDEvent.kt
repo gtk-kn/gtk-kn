@@ -15,7 +15,8 @@ import org.gtkkn.native.gdk.gdk_dnd_event_get_type
  */
 public open class DNDEvent(
     pointer: CPointer<GdkDNDEvent>,
-) : Event(pointer.reinterpret()), KGTyped {
+) : Event(pointer.reinterpret()),
+    KGTyped {
     public val gdkDNDEventPointer: CPointer<GdkDNDEvent>
         get() = gPointer.reinterpret()
 

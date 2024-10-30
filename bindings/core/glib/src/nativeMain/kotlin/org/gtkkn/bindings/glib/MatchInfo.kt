@@ -113,10 +113,8 @@ public class MatchInfo(
      * @since 2.14
      */
     public fun fetch(matchNum: Int): String =
-        g_match_info_fetch(
-            glibMatchInfoPointer.reinterpret(),
-            matchNum
-        )?.toKString() ?: error("Expected not null string")
+        g_match_info_fetch(glibMatchInfoPointer.reinterpret(), matchNum)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Bundles up pointers to each of the matching substrings from a match
@@ -209,8 +207,7 @@ public class MatchInfo(
      * @since 2.14
      */
     public fun getString(): String =
-        g_match_info_get_string(glibMatchInfoPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_match_info_get_string(glibMatchInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Usually if the string passed to g_regex_match*() matches as far as

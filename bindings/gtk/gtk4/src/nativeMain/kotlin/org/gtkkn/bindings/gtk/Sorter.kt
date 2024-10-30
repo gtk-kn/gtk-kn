@@ -48,7 +48,8 @@ import kotlin.Unit
  */
 public open class Sorter(
     pointer: CPointer<GtkSorter>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkSorterPointer: CPointer<GtkSorter>
         get() = gPointer.reinterpret()
 
@@ -167,5 +168,4 @@ private val connectChangedFunc: CPointer<CFunction<(GtkSorterChange) -> Unit>> =
                 SorterChange.fromNativeValue(this)
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

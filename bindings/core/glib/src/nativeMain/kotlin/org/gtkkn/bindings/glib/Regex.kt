@@ -185,8 +185,7 @@ public class Regex(
      * @since 2.14
      */
     public fun getPattern(): String =
-        g_regex_get_pattern(glibRegexPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_regex_get_pattern(glibRegexPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the number of the subexpression named @name.
@@ -238,11 +237,8 @@ public class Regex(
         string: String,
         matchOptions: RegexMatchFlags,
     ): List<String> =
-        g_regex_split(
-            glibRegexPointer.reinterpret(),
-            string,
-            matchOptions.mask
-        )?.toKStringList() ?: error("Expected not null string array")
+        g_regex_split(glibRegexPointer.reinterpret(), string, matchOptions.mask)?.toKStringList()
+            ?: error("Expected not null string array")
 
     /**
      * Decreases reference count of @regex by 1. When reference count drops
@@ -271,13 +267,7 @@ public class Regex(
         ): Result<Regex?> {
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_regex_new(
-                        pattern,
-                        compileOptions.mask,
-                        matchOptions.mask,
-                        gError.ptr
-                    )
+                val gResult = g_regex_new(pattern, compileOptions.mask, matchOptions.mask, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
@@ -303,11 +293,7 @@ public class Regex(
         public fun escapeNul(
             string: String,
             length: Int,
-        ): String =
-            g_regex_escape_nul(
-                string,
-                length
-            )?.toKString() ?: error("Expected not null string")
+        ): String = g_regex_escape_nul(string, length)?.toKString() ?: error("Expected not null string")
 
         /**
          * Escapes the special characters used for regular expressions
@@ -326,11 +312,7 @@ public class Regex(
         public fun escapeString(
             string: String,
             length: Int,
-        ): String =
-            g_regex_escape_string(
-                string,
-                length
-            )?.toKString() ?: error("Expected not null string")
+        ): String = g_regex_escape_string(string, length)?.toKString() ?: error("Expected not null string")
 
         /**
          * Scans for a match in @string for @pattern.
@@ -356,13 +338,7 @@ public class Regex(
             string: String,
             compileOptions: RegexCompileFlags,
             matchOptions: RegexMatchFlags,
-        ): Boolean =
-            g_regex_match_simple(
-                pattern,
-                string,
-                compileOptions.mask,
-                matchOptions.mask
-            ).asBoolean()
+        ): Boolean = g_regex_match_simple(pattern, string, compileOptions.mask, matchOptions.mask).asBoolean()
 
         /**
          * Breaks the string on the pattern, and returns an array of
@@ -407,12 +383,8 @@ public class Regex(
             compileOptions: RegexCompileFlags,
             matchOptions: RegexMatchFlags,
         ): List<String> =
-            g_regex_split_simple(
-                pattern,
-                string,
-                compileOptions.mask,
-                matchOptions.mask
-            )?.toKStringList() ?: error("Expected not null string array")
+            g_regex_split_simple(pattern, string, compileOptions.mask, matchOptions.mask)?.toKStringList()
+                ?: error("Expected not null string array")
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Regex = Regex(pointer.reinterpret())
     }

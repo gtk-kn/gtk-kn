@@ -41,7 +41,9 @@ import kotlin.String
  */
 public open class FontChooserDialog(
     pointer: CPointer<GtkFontChooserDialog>,
-) : Dialog(pointer.reinterpret()), FontChooser, KGTyped {
+) : Dialog(pointer.reinterpret()),
+    FontChooser,
+    KGTyped {
     public val gtkFontChooserDialogPointer: CPointer<GtkFontChooserDialog>
         get() = gPointer.reinterpret()
 
@@ -73,19 +75,14 @@ public open class FontChooserDialog(
      * @param parent Transient parent of the dialog
      * @return a new `GtkFontChooserDialog`
      */
-    public constructor(title: String? = null, parent: Window? = null) :
-        this(
-            gtk_font_chooser_dialog_new(
-                title,
-                parent?.gtkWindowPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        title: String? = null,
+        parent: Window? = null,
+    ) : this(gtk_font_chooser_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<FontChooserDialog> {
         override val type: GeneratedClassKGType<FontChooserDialog> =
-            GeneratedClassKGType(gtk_font_chooser_dialog_get_type()) {
-                FontChooserDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_font_chooser_dialog_get_type()) { FontChooserDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

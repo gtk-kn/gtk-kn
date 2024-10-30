@@ -97,10 +97,7 @@ public class AttrList(
      * @since 1.46
      */
     public fun equal(otherList: AttrList): Boolean =
-        pango_attr_list_equal(
-            pangoAttrListPointer.reinterpret(),
-            otherList.pangoAttrListPointer
-        ).asBoolean()
+        pango_attr_list_equal(pangoAttrListPointer.reinterpret(), otherList.pangoAttrListPointer).asBoolean()
 
     /**
      * Given a `PangoAttrList` and callback function, removes
@@ -171,10 +168,7 @@ public class AttrList(
      * @param attr the attribute to insert
      */
     public fun insertBefore(attr: Attribute): Unit =
-        pango_attr_list_insert_before(
-            pangoAttrListPointer.reinterpret(),
-            attr.pangoAttributePointer
-        )
+        pango_attr_list_insert_before(pangoAttrListPointer.reinterpret(), attr.pangoAttributePointer)
 
     /**
      * Increase the reference count of the given attribute
@@ -218,13 +212,7 @@ public class AttrList(
         other: AttrList,
         pos: Int,
         len: Int,
-    ): Unit =
-        pango_attr_list_splice(
-            pangoAttrListPointer.reinterpret(),
-            other.pangoAttrListPointer,
-            pos,
-            len
-        )
+    ): Unit = pango_attr_list_splice(pangoAttrListPointer.reinterpret(), other.pangoAttrListPointer, pos, len)
 
     /**
      * Decrease the reference count of the given attribute

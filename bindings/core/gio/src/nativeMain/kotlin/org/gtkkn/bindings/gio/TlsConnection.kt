@@ -79,7 +79,8 @@ import kotlin.collections.List
  */
 public open class TlsConnection(
     pointer: CPointer<GTlsConnection>,
-) : IOStream(pointer.reinterpret()), KGTyped {
+) : IOStream(pointer.reinterpret()),
+    KGTyped {
     public val gioTlsConnectionPointer: CPointer<GTlsConnection>
         get() = gPointer.reinterpret()
 
@@ -155,7 +156,9 @@ public open class TlsConnection(
          * @param database a #GTlsDatabase
          * @since 2.30
          */
-        set(database) =
+        set(
+            database
+        ) =
             g_tls_connection_set_database(
                 gioTlsConnectionPointer.reinterpret(),
                 database?.gioTlsDatabasePointer?.reinterpret()
@@ -193,7 +196,9 @@ public open class TlsConnection(
          * @param interaction an interaction object, or null
          * @since 2.30
          */
-        set(interaction) =
+        set(
+            interaction
+        ) =
             g_tls_connection_set_interaction(
                 gioTlsConnectionPointer.reinterpret(),
                 interaction?.gioTlsInteractionPointer?.reinterpret()
@@ -218,8 +223,7 @@ public open class TlsConnection(
          * @return the negotiated protocol, or null
          * @since 2.60
          */
-        get() =
-            g_tls_connection_get_negotiated_protocol(gioTlsConnectionPointer.reinterpret())?.toKString()
+        get() = g_tls_connection_get_negotiated_protocol(gioTlsConnectionPointer.reinterpret())?.toKString()
 
     /**
      * The connection's peer's certificate, after the TLS handshake has
@@ -327,11 +331,7 @@ public open class TlsConnection(
          * @param mode the rehandshaking mode
          * @since 2.28
          */
-        set(mode) =
-            g_tls_connection_set_rehandshake_mode(
-                gioTlsConnectionPointer.reinterpret(),
-                mode.nativeValue
-            )
+        set(mode) = g_tls_connection_set_rehandshake_mode(gioTlsConnectionPointer.reinterpret(), mode.nativeValue)
 
     /**
      * Whether or not proper TLS close notification is required.
@@ -349,8 +349,7 @@ public open class TlsConnection(
          * notification.
          * @since 2.28
          */
-        get() =
-            g_tls_connection_get_require_close_notify(gioTlsConnectionPointer.reinterpret()).asBoolean()
+        get() = g_tls_connection_get_require_close_notify(gioTlsConnectionPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether or not @conn expects a proper TLS close notification
@@ -384,7 +383,9 @@ public open class TlsConnection(
          * @param requireCloseNotify whether or not to require close notification
          * @since 2.28
          */
-        set(requireCloseNotify) =
+        set(
+            requireCloseNotify
+        ) =
             g_tls_connection_set_require_close_notify(
                 gioTlsConnectionPointer.reinterpret(),
                 requireCloseNotify.asGBoolean()
@@ -402,8 +403,7 @@ public open class TlsConnection(
          *
          * @return whether @conn uses the system certificate database
          */
-        get() =
-            g_tls_connection_get_use_system_certdb(gioTlsConnectionPointer.reinterpret()).asBoolean()
+        get() = g_tls_connection_get_use_system_certdb(gioTlsConnectionPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @conn uses the system certificate database to verify
@@ -416,11 +416,9 @@ public open class TlsConnection(
          *
          * @param useSystemCertdb whether to use the system certificate database
          */
-        set(useSystemCertdb) =
-            g_tls_connection_set_use_system_certdb(
-                gioTlsConnectionPointer.reinterpret(),
-                useSystemCertdb.asGBoolean()
-            )
+        set(
+            useSystemCertdb
+        ) = g_tls_connection_set_use_system_certdb(gioTlsConnectionPointer.reinterpret(), useSystemCertdb.asGBoolean())
 
     /**
      * Used by #GTlsConnection implementations to emit the
@@ -695,8 +693,7 @@ public open class TlsConnection(
      * protocol after the handshake.  Specifying null for the the value
      * of @protocols will disable ALPN negotiation.
      *
-     * See [IANA TLS ALPN Protocol
-     * IDs](https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids)
+     * See [IANA TLS ALPN Protocol IDs](https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids)
      * for a list of registered protocol IDs.
      *
      * @param protocols a null-terminated
@@ -789,10 +786,7 @@ public open class TlsConnection(
      * @since 2.28
      */
     public open fun setRehandshakeMode(mode: TlsRehandshakeMode): Unit =
-        g_tls_connection_set_rehandshake_mode(
-            gioTlsConnectionPointer.reinterpret(),
-            mode.nativeValue
-        )
+        g_tls_connection_set_rehandshake_mode(gioTlsConnectionPointer.reinterpret(), mode.nativeValue)
 
     /**
      * Sets whether or not @conn expects a proper TLS close notification
@@ -844,10 +838,7 @@ public open class TlsConnection(
      * @param useSystemCertdb whether to use the system certificate database
      */
     public open fun setUseSystemCertdb(useSystemCertdb: Boolean): Unit =
-        g_tls_connection_set_use_system_certdb(
-            gioTlsConnectionPointer.reinterpret(),
-            useSystemCertdb.asGBoolean()
-        )
+        g_tls_connection_set_use_system_certdb(gioTlsConnectionPointer.reinterpret(), useSystemCertdb.asGBoolean())
 
     /**
      * Emitted during the TLS handshake after the peer certificate has
@@ -894,8 +885,7 @@ public open class TlsConnection(
      * handler until the UI thread returns an answer.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `peerCert` the peer's #GTlsCertificate;
-     * `errors` the problems with @peer_cert.. Returns true to accept @peer_cert (which will also
+     * @param handler the Callback to connect. Params: `peerCert` the peer's #GTlsCertificate; `errors` the problems with @peer_cert.. Returns true to accept @peer_cert (which will also
      * immediately end the signal emission). false to allow the signal
      * emission to continue, which will cause the handshake to fail if
      * no one else overrides it.
@@ -916,9 +906,7 @@ public open class TlsConnection(
 
     public companion object : TypeCompanion<TlsConnection> {
         override val type: GeneratedClassKGType<TlsConnection> =
-            GeneratedClassKGType(g_tls_connection_get_type()) {
-                TlsConnection(it.reinterpret())
-            }
+            GeneratedClassKGType(g_tls_connection_get_type()) { TlsConnection(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -926,32 +914,23 @@ public open class TlsConnection(
     }
 }
 
-private val connectAcceptCertificateFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GTlsCertificate>,
-            GTlsCertificateFlags,
-        ) -> Int
-    >
-> =
+private val connectAcceptCertificateFunc:
+    CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             peerCert: CPointer<GTlsCertificate>?,
             errors: GTlsCertificateFlags,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                peerCert: TlsCertificate,
-                errors: TlsCertificateFlags,
-            ) -> Boolean
-        >().get().invoke(
-            peerCert!!.run {
-                TlsCertificate(reinterpret())
-            },
-            errors.run {
-                TlsCertificateFlags(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(peerCert: TlsCertificate, errors: TlsCertificateFlags) -> Boolean>()
+            .get()
+            .invoke(
+                peerCert!!.run {
+                    TlsCertificate(reinterpret())
+                },
+                errors.run {
+                    TlsCertificateFlags(this)
+                }
+            ).asGBoolean()
+    }.reinterpret()

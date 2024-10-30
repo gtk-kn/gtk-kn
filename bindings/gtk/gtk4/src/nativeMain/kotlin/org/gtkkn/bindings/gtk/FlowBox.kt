@@ -121,7 +121,9 @@ import kotlin.Unit
  */
 public open class FlowBox(
     pointer: CPointer<GtkFlowBox>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val gtkFlowBoxPointer: CPointer<GtkFlowBox>
         get() = gPointer.reinterpret()
 
@@ -148,8 +150,7 @@ public open class FlowBox(
          * @return true if children are activated on single click,
          *   false otherwise
          */
-        get() =
-            gtk_flow_box_get_activate_on_single_click(gtkFlowBoxPointer.reinterpret()).asBoolean()
+        get() = gtk_flow_box_get_activate_on_single_click(gtkFlowBoxPointer.reinterpret()).asBoolean()
 
         /**
          * If @single is true, children will be activated when you click
@@ -157,11 +158,7 @@ public open class FlowBox(
          *
          * @param single true to emit child-activated on a single click
          */
-        set(single) =
-            gtk_flow_box_set_activate_on_single_click(
-                gtkFlowBoxPointer.reinterpret(),
-                single.asGBoolean()
-            )
+        set(single) = gtk_flow_box_set_activate_on_single_click(gtkFlowBoxPointer.reinterpret(), single.asGBoolean())
 
     /**
      * The amount of horizontal space between two children.
@@ -200,11 +197,7 @@ public open class FlowBox(
          * @param homogeneous true to create equal allotments,
          *   false for variable allotments
          */
-        set(homogeneous) =
-            gtk_flow_box_set_homogeneous(
-                gtkFlowBoxPointer.reinterpret(),
-                homogeneous.asGBoolean()
-            )
+        set(homogeneous) = gtk_flow_box_set_homogeneous(gtkFlowBoxPointer.reinterpret(), homogeneous.asGBoolean())
 
     /**
      * The maximum amount of children to request space for consecutively
@@ -228,11 +221,7 @@ public open class FlowBox(
          *
          * @param nChildren the maximum number of children per line
          */
-        set(nChildren) =
-            gtk_flow_box_set_max_children_per_line(
-                gtkFlowBoxPointer.reinterpret(),
-                nChildren
-            )
+        set(nChildren) = gtk_flow_box_set_max_children_per_line(gtkFlowBoxPointer.reinterpret(), nChildren)
 
     /**
      * The minimum number of children to allocate consecutively
@@ -256,11 +245,7 @@ public open class FlowBox(
          *
          * @param nChildren the minimum number of children per line
          */
-        set(nChildren) =
-            gtk_flow_box_set_min_children_per_line(
-                gtkFlowBoxPointer.reinterpret(),
-                nChildren
-            )
+        set(nChildren) = gtk_flow_box_set_min_children_per_line(gtkFlowBoxPointer.reinterpret(), nChildren)
 
     /**
      * The amount of vertical space between two children.
@@ -299,11 +284,7 @@ public open class FlowBox(
          *
          * @param mode the new selection mode
          */
-        set(mode) =
-            gtk_flow_box_set_selection_mode(
-                gtkFlowBoxPointer.reinterpret(),
-                mode.nativeValue
-            )
+        set(mode) = gtk_flow_box_set_selection_mode(gtkFlowBoxPointer.reinterpret(), mode.nativeValue)
 
     /**
      * Creates a `GtkFlowBox`.
@@ -324,10 +305,7 @@ public open class FlowBox(
      * @since 4.6
      */
     public open fun append(child: Widget): Unit =
-        gtk_flow_box_append(
-            gtkFlowBoxPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_flow_box_append(gtkFlowBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Binds @model to @box.
@@ -477,12 +455,7 @@ public open class FlowBox(
     public open fun insert(
         widget: Widget,
         position: Int,
-    ): Unit =
-        gtk_flow_box_insert(
-            gtkFlowBoxPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret(),
-            position
-        )
+    ): Unit = gtk_flow_box_insert(gtkFlowBoxPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Updates the filtering for all children.
@@ -515,10 +488,7 @@ public open class FlowBox(
      * @since 4.6
      */
     public open fun prepend(child: Widget): Unit =
-        gtk_flow_box_prepend(
-            gtkFlowBoxPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_flow_box_prepend(gtkFlowBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes a child from @box.
@@ -526,10 +496,7 @@ public open class FlowBox(
      * @param widget the child widget to remove
      */
     public open fun remove(widget: Widget): Unit =
-        gtk_flow_box_remove(
-            gtkFlowBoxPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        gtk_flow_box_remove(gtkFlowBoxPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes all children from @box.
@@ -553,10 +520,7 @@ public open class FlowBox(
      * @param child a child of @box
      */
     public open fun selectChild(child: FlowBoxChild): Unit =
-        gtk_flow_box_select_child(
-            gtkFlowBoxPointer.reinterpret(),
-            child.gtkFlowBoxChildPointer.reinterpret()
-        )
+        gtk_flow_box_select_child(gtkFlowBoxPointer.reinterpret(), child.gtkFlowBoxChildPointer.reinterpret())
 
     /**
      * Calls a function for each selected child.
@@ -580,10 +544,7 @@ public open class FlowBox(
      * @param single true to emit child-activated on a single click
      */
     public open fun setActivateOnSingleClick(single: Boolean): Unit =
-        gtk_flow_box_set_activate_on_single_click(
-            gtkFlowBoxPointer.reinterpret(),
-            single.asGBoolean()
-        )
+        gtk_flow_box_set_activate_on_single_click(gtkFlowBoxPointer.reinterpret(), single.asGBoolean())
 
     /**
      * Sets the horizontal space to add between children.
@@ -636,10 +597,7 @@ public open class FlowBox(
      *    when the focus is moved among the descendents of @container
      */
     public open fun setHadjustment(adjustment: Adjustment): Unit =
-        gtk_flow_box_set_hadjustment(
-            gtkFlowBoxPointer.reinterpret(),
-            adjustment.gtkAdjustmentPointer.reinterpret()
-        )
+        gtk_flow_box_set_hadjustment(gtkFlowBoxPointer.reinterpret(), adjustment.gtkAdjustmentPointer.reinterpret())
 
     /**
      * Sets whether or not all children of @box are given
@@ -729,10 +687,7 @@ public open class FlowBox(
      *    when the focus is moved among the descendents of @container
      */
     public open fun setVadjustment(adjustment: Adjustment): Unit =
-        gtk_flow_box_set_vadjustment(
-            gtkFlowBoxPointer.reinterpret(),
-            adjustment.gtkAdjustmentPointer.reinterpret()
-        )
+        gtk_flow_box_set_vadjustment(gtkFlowBoxPointer.reinterpret(), adjustment.gtkAdjustmentPointer.reinterpret())
 
     /**
      * Unselect all children of @box, if the selection
@@ -747,10 +702,7 @@ public open class FlowBox(
      * @param child a child of @box
      */
     public open fun unselectChild(child: FlowBoxChild): Unit =
-        gtk_flow_box_unselect_child(
-            gtkFlowBoxPointer.reinterpret(),
-            child.gtkFlowBoxChildPointer.reinterpret()
-        )
+        gtk_flow_box_unselect_child(gtkFlowBoxPointer.reinterpret(), child.gtkFlowBoxChildPointer.reinterpret())
 
     /**
      * Emitted when the user activates the @box.
@@ -811,10 +763,7 @@ public open class FlowBox(
      * - <kbd>PgUp</kbd>, <kbd>PgDn</kbd> move vertically by pages
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a
-     * `GtkMovementStep`; `count` the number of @step units to move; `extend` whether to extend the
-     * selection; `modify` whether to modify the selection. Returns true to stop other handlers from
-     * being invoked for the event.
+     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a `GtkMovementStep`; `count` the number of @step units to move; `extend` whether to extend the selection; `modify` whether to modify the selection. Returns true to stop other handlers from being invoked for the event.
      * false to propagate the event further.
      */
     public fun connectMoveCursor(
@@ -945,8 +894,7 @@ private val connectActivateCursorChildFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectChildActivatedFunc: CPointer<CFunction<(CPointer<GtkFlowBoxChild>) -> Unit>> =
     staticCFunction {
@@ -959,8 +907,7 @@ private val connectChildActivatedFunc: CPointer<CFunction<(CPointer<GtkFlowBoxCh
                 FlowBoxChild(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMoveCursorFunc: CPointer<
     CFunction<
@@ -980,23 +927,25 @@ private val connectMoveCursorFunc: CPointer<
             modify: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                step: MovementStep,
-                count: Int,
-                extend: Boolean,
-                modify: Boolean,
-            ) -> Boolean
-        >().get().invoke(
-            step.run {
-                MovementStep.fromNativeValue(this)
-            },
-            count,
-            extend.asBoolean(),
-            modify.asBoolean()
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    step: MovementStep,
+                    count: Int,
+                    extend: Boolean,
+                    modify: Boolean,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(
+                step.run {
+                    MovementStep.fromNativeValue(this)
+                },
+                count,
+                extend.asBoolean(),
+                modify.asBoolean()
+            ).asGBoolean()
+    }.reinterpret()
 
 private val connectSelectAllFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1004,8 +953,7 @@ private val connectSelectAllFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSelectedChildrenChangedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1013,8 +961,7 @@ private val connectSelectedChildrenChangedFunc: CPointer<CFunction<() -> Unit>> 
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectToggleCursorChildFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1022,8 +969,7 @@ private val connectToggleCursorChildFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectUnselectAllFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1031,5 +977,4 @@ private val connectUnselectAllFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

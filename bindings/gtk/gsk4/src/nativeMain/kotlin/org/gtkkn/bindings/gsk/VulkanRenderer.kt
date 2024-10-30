@@ -17,7 +17,8 @@ import org.gtkkn.native.gsk.gsk_vulkan_renderer_new
  */
 public open class VulkanRenderer(
     pointer: CPointer<GskVulkanRenderer>,
-) : Renderer(pointer.reinterpret()), KGTyped {
+) : Renderer(pointer.reinterpret()),
+    KGTyped {
     public val gskVulkanRendererPointer: CPointer<GskVulkanRenderer>
         get() = gPointer.reinterpret()
 
@@ -25,9 +26,7 @@ public open class VulkanRenderer(
 
     public companion object : TypeCompanion<VulkanRenderer> {
         override val type: GeneratedClassKGType<VulkanRenderer> =
-            GeneratedClassKGType(gsk_vulkan_renderer_get_type()) {
-                VulkanRenderer(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_vulkan_renderer_get_type()) { VulkanRenderer(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

@@ -60,7 +60,8 @@ import kotlin.Unit
  */
 public open class PreferencesGroup(
     pointer: CPointer<AdwPreferencesGroup>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwPreferencesGroupPointer: CPointer<AdwPreferencesGroup>
         get() = gPointer.reinterpret()
 
@@ -82,19 +83,14 @@ public open class PreferencesGroup(
          *
          * @return the description of @self
          */
-        get() =
-            adw_preferences_group_get_description(adwPreferencesGroupPointer.reinterpret())?.toKString()
+        get() = adw_preferences_group_get_description(adwPreferencesGroupPointer.reinterpret())?.toKString()
 
         /**
          * Sets the description for @self.
          *
          * @param description the description
          */
-        set(description) =
-            adw_preferences_group_set_description(
-                adwPreferencesGroupPointer.reinterpret(),
-                description
-            )
+        set(description) = adw_preferences_group_set_description(adwPreferencesGroupPointer.reinterpret(), description)
 
     /**
      * The header suffix widget.
@@ -128,7 +124,9 @@ public open class PreferencesGroup(
          * @param suffix the suffix to set
          * @since 1.1
          */
-        set(suffix) =
+        set(
+            suffix
+        ) =
             adw_preferences_group_set_header_suffix(
                 adwPreferencesGroupPointer.reinterpret(),
                 suffix?.gtkWidgetPointer?.reinterpret()
@@ -152,11 +150,7 @@ public open class PreferencesGroup(
          *
          * @param title the title
          */
-        set(title) =
-            adw_preferences_group_set_title(
-                adwPreferencesGroupPointer.reinterpret(),
-                title
-            )
+        set(title) = adw_preferences_group_set_title(adwPreferencesGroupPointer.reinterpret(), title)
 
     /**
      * Creates a new `AdwPreferencesGroup`.
@@ -171,10 +165,7 @@ public open class PreferencesGroup(
      * @param child the widget to add
      */
     public open fun add(child: Widget): Unit =
-        adw_preferences_group_add(
-            adwPreferencesGroupPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        adw_preferences_group_add(adwPreferencesGroupPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets the description of @self.
@@ -210,10 +201,7 @@ public open class PreferencesGroup(
      * @param child the child to remove
      */
     public open fun remove(child: Widget): Unit =
-        adw_preferences_group_remove(
-            adwPreferencesGroupPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        adw_preferences_group_remove(adwPreferencesGroupPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets the description for @self.
@@ -221,10 +209,7 @@ public open class PreferencesGroup(
      * @param description the description
      */
     public open fun setDescription(description: String? = null): Unit =
-        adw_preferences_group_set_description(
-            adwPreferencesGroupPointer.reinterpret(),
-            description
-        )
+        adw_preferences_group_set_description(adwPreferencesGroupPointer.reinterpret(), description)
 
     /**
      * Sets the suffix for @self's header.
@@ -252,9 +237,7 @@ public open class PreferencesGroup(
 
     public companion object : TypeCompanion<PreferencesGroup> {
         override val type: GeneratedClassKGType<PreferencesGroup> =
-            GeneratedClassKGType(adw_preferences_group_get_type()) {
-                PreferencesGroup(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_preferences_group_get_type()) { PreferencesGroup(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

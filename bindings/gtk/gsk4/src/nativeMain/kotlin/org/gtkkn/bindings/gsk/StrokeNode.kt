@@ -20,7 +20,8 @@ import org.gtkkn.native.gsk.gsk_stroke_node_new
  */
 public open class StrokeNode(
     pointer: CPointer<GskStrokeNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskStrokeNodePointer: CPointer<GskStrokeNode>
         get() = gPointer.reinterpret()
 
@@ -41,11 +42,7 @@ public open class StrokeNode(
         path: Path,
         stroke: Stroke,
     ) : this(
-        gsk_stroke_node_new(
-            child.gPointer.reinterpret(),
-            path.gskPathPointer,
-            stroke.gskStrokePointer
-        )!!.reinterpret()
+        gsk_stroke_node_new(child.gPointer.reinterpret(), path.gskPathPointer, stroke.gskStrokePointer)!!.reinterpret()
     )
 
     /**

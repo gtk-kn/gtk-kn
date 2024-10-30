@@ -34,7 +34,8 @@ import kotlin.Unit
  */
 public open class WindowHandle(
     pointer: CPointer<GtkWindowHandle>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkWindowHandlePointer: CPointer<GtkWindowHandle>
         get() = gPointer.reinterpret()
 
@@ -66,11 +67,9 @@ public open class WindowHandle(
          *
          * @param child the child widget
          */
-        set(child) =
-            gtk_window_handle_set_child(
-                gtkWindowHandlePointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = gtk_window_handle_set_child(gtkWindowHandlePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new `GtkWindowHandle`.
@@ -95,16 +94,11 @@ public open class WindowHandle(
      * @param child the child widget
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_window_handle_set_child(
-            gtkWindowHandlePointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_window_handle_set_child(gtkWindowHandlePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<WindowHandle> {
         override val type: GeneratedClassKGType<WindowHandle> =
-            GeneratedClassKGType(gtk_window_handle_get_type()) {
-                WindowHandle(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_window_handle_get_type()) { WindowHandle(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

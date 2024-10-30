@@ -53,7 +53,8 @@ import kotlin.Unit
  */
 public open class TlsInteraction(
     pointer: CPointer<GTlsInteraction>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioTlsInteractionPointer: CPointer<GTlsInteraction>
         get() = gPointer.reinterpret()
 
@@ -388,9 +389,7 @@ public open class TlsInteraction(
 
     public companion object : TypeCompanion<TlsInteraction> {
         override val type: GeneratedClassKGType<TlsInteraction> =
-            GeneratedClassKGType(g_tls_interaction_get_type()) {
-                TlsInteraction(it.reinterpret())
-            }
+            GeneratedClassKGType(g_tls_interaction_get_type()) { TlsInteraction(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

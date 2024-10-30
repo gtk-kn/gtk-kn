@@ -55,7 +55,8 @@ import kotlin.Unit
  */
 public open class PopoverMenuBar(
     pointer: CPointer<GtkPopoverMenuBar>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkPopoverMenuBarPointer: CPointer<GtkPopoverMenuBar>
         get() = gPointer.reinterpret()
 
@@ -90,7 +91,9 @@ public open class PopoverMenuBar(
          *
          * @param model a `GMenuModel`
          */
-        set(model) =
+        set(
+            model
+        ) =
             gtk_popover_menu_bar_set_menu_model(
                 gtkPopoverMenuBarPointer.reinterpret(),
                 model?.gioMenuModelPointer?.reinterpret()
@@ -102,8 +105,9 @@ public open class PopoverMenuBar(
      * @param model a `GMenuModel`
      * @return a new `GtkPopoverMenuBar`
      */
-    public constructor(model: MenuModel? = null) :
-        this(gtk_popover_menu_bar_new_from_model(model?.gioMenuModelPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        model: MenuModel? = null,
+    ) : this(gtk_popover_menu_bar_new_from_model(model?.gioMenuModelPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Adds a custom widget to a generated menubar.
@@ -162,9 +166,7 @@ public open class PopoverMenuBar(
 
     public companion object : TypeCompanion<PopoverMenuBar> {
         override val type: GeneratedClassKGType<PopoverMenuBar> =
-            GeneratedClassKGType(gtk_popover_menu_bar_get_type()) {
-                PopoverMenuBar(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_popover_menu_bar_get_type()) { PopoverMenuBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

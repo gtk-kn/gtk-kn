@@ -20,7 +20,8 @@ import kotlin.UInt
  */
 public open class MnemonicTrigger(
     pointer: CPointer<GtkMnemonicTrigger>,
-) : ShortcutTrigger(pointer.reinterpret()), KGTyped {
+) : ShortcutTrigger(pointer.reinterpret()),
+    KGTyped {
     public val gtkMnemonicTriggerPointer: CPointer<GtkMnemonicTrigger>
         get() = gPointer.reinterpret()
 
@@ -56,9 +57,7 @@ public open class MnemonicTrigger(
 
     public companion object : TypeCompanion<MnemonicTrigger> {
         override val type: GeneratedClassKGType<MnemonicTrigger> =
-            GeneratedClassKGType(gtk_mnemonic_trigger_get_type()) {
-                MnemonicTrigger(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_mnemonic_trigger_get_type()) { MnemonicTrigger(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

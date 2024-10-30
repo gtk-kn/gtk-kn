@@ -21,7 +21,8 @@ import kotlin.UInt
  */
 public open class PadEvent(
     pointer: CPointer<GdkPadEvent>,
-) : Event(pointer.reinterpret()), KGTyped {
+) : Event(pointer.reinterpret()),
+    KGTyped {
     public val gdkPadEventPointer: CPointer<GdkPadEvent>
         get() = gPointer.reinterpret()
 

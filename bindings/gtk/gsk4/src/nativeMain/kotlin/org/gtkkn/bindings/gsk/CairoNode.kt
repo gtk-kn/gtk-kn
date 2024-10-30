@@ -21,7 +21,8 @@ import org.gtkkn.native.gsk.gsk_cairo_node_new
  */
 public open class CairoNode(
     pointer: CPointer<GskCairoNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskCairoNodePointer: CPointer<GskCairoNode>
         get() = gPointer.reinterpret()
 
@@ -34,8 +35,7 @@ public open class CairoNode(
      * @param bounds the rectangle to render to
      * @return A new `GskRenderNode`
      */
-    public constructor(bounds: Rect) :
-        this(gsk_cairo_node_new(bounds.grapheneRectPointer)!!.reinterpret())
+    public constructor(bounds: Rect) : this(gsk_cairo_node_new(bounds.grapheneRectPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<CairoNode> {
         override val type: GeneratedClassKGType<CairoNode> =

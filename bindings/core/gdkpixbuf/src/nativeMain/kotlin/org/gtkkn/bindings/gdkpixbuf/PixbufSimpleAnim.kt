@@ -24,7 +24,8 @@ import kotlin.Unit
  */
 public open class PixbufSimpleAnim(
     pointer: CPointer<GdkPixbufSimpleAnim>,
-) : PixbufAnimation(pointer.reinterpret()), KGTyped {
+) : PixbufAnimation(pointer.reinterpret()),
+    KGTyped {
     public val gdkpixbufPixbufSimpleAnimPointer: CPointer<GdkPixbufSimpleAnim>
         get() = gPointer.reinterpret()
 
@@ -40,8 +41,7 @@ public open class PixbufSimpleAnim(
          * @return true if the animation loops forever, false otherwise
          * @since 2.18
          */
-        get() =
-            gdk_pixbuf_simple_anim_get_loop(gdkpixbufPixbufSimpleAnimPointer.reinterpret()).asBoolean()
+        get() = gdk_pixbuf_simple_anim_get_loop(gdkpixbufPixbufSimpleAnimPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @animation should loop indefinitely when it reaches the end.
@@ -49,11 +49,7 @@ public open class PixbufSimpleAnim(
          * @param loop whether to loop the animation
          * @since 2.18
          */
-        set(loop) =
-            gdk_pixbuf_simple_anim_set_loop(
-                gdkpixbufPixbufSimpleAnimPointer.reinterpret(),
-                loop.asGBoolean()
-            )
+        set(loop) = gdk_pixbuf_simple_anim_set_loop(gdkpixbufPixbufSimpleAnimPointer.reinterpret(), loop.asGBoolean())
 
     /**
      * Creates a new, empty animation.
@@ -100,16 +96,11 @@ public open class PixbufSimpleAnim(
      * @since 2.18
      */
     public open fun setLoop(loop: Boolean): Unit =
-        gdk_pixbuf_simple_anim_set_loop(
-            gdkpixbufPixbufSimpleAnimPointer.reinterpret(),
-            loop.asGBoolean()
-        )
+        gdk_pixbuf_simple_anim_set_loop(gdkpixbufPixbufSimpleAnimPointer.reinterpret(), loop.asGBoolean())
 
     public companion object : TypeCompanion<PixbufSimpleAnim> {
         override val type: GeneratedClassKGType<PixbufSimpleAnim> =
-            GeneratedClassKGType(gdk_pixbuf_simple_anim_get_type()) {
-                PixbufSimpleAnim(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_pixbuf_simple_anim_get_type()) { PixbufSimpleAnim(it.reinterpret()) }
 
         init {
             GdkpixbufTypeProvider.register()

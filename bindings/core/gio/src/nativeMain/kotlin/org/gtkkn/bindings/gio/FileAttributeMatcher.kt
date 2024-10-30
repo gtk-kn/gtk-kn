@@ -46,10 +46,7 @@ public class FileAttributeMatcher(
      * in the given @ns, false otherwise.
      */
     public fun enumerateNamespace(ns: String): Boolean =
-        g_file_attribute_matcher_enumerate_namespace(
-            gioFileAttributeMatcherPointer.reinterpret(),
-            ns
-        ).asBoolean()
+        g_file_attribute_matcher_enumerate_namespace(gioFileAttributeMatcherPointer.reinterpret(), ns).asBoolean()
 
     /**
      * Gets the next matched attribute from a #GFileAttributeMatcher.
@@ -69,10 +66,7 @@ public class FileAttributeMatcher(
      * @return true if @attribute matches @matcher. false otherwise.
      */
     public fun matches(attribute: String): Boolean =
-        g_file_attribute_matcher_matches(
-            gioFileAttributeMatcherPointer.reinterpret(),
-            attribute
-        ).asBoolean()
+        g_file_attribute_matcher_matches(gioFileAttributeMatcherPointer.reinterpret(), attribute).asBoolean()
 
     /**
      * Checks if an attribute matcher only matches a given attribute. Always
@@ -82,10 +76,7 @@ public class FileAttributeMatcher(
      * @return true if the matcher only matches @attribute. false otherwise.
      */
     public fun matchesOnly(attribute: String): Boolean =
-        g_file_attribute_matcher_matches_only(
-            gioFileAttributeMatcherPointer.reinterpret(),
-            attribute
-        ).asBoolean()
+        g_file_attribute_matcher_matches_only(gioFileAttributeMatcherPointer.reinterpret(), attribute).asBoolean()
 
     /**
      * References a file attribute matcher.

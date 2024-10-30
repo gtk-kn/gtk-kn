@@ -171,7 +171,11 @@ import kotlin.Unit
  */
 public open class Window(
     pointer: CPointer<GtkWindow>,
-) : Widget(pointer.reinterpret()), Native, Root, ShortcutManager, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Native,
+    Root,
+    ShortcutManager,
+    KGTyped {
     public val gtkWindowPointer: CPointer<GtkWindow>
         get() = gPointer.reinterpret()
 
@@ -232,7 +236,9 @@ public open class Window(
          *
          * @param application a `GtkApplication`, or null to unset
          */
-        set(application) =
+        set(
+            application
+        ) =
             gtk_window_set_application(
                 gtkWindowPointer.reinterpret(),
                 application?.gtkApplicationPointer?.reinterpret()
@@ -257,11 +263,7 @@ public open class Window(
          *
          * @param child the child widget
          */
-        set(child) =
-            gtk_window_set_child(
-                gtkWindowPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = gtk_window_set_child(gtkWindowPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether the window should have a frame (also known as *decorations*).
@@ -291,11 +293,7 @@ public open class Window(
          *
          * @param setting true to decorate the window
          */
-        set(setting) =
-            gtk_window_set_decorated(
-                gtkWindowPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_window_set_decorated(gtkWindowPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * The default widget.
@@ -320,7 +318,9 @@ public open class Window(
          * @param defaultWidget widget to be the default
          *   to unset the default widget for the toplevel
          */
-        set(defaultWidget) =
+        set(
+            defaultWidget
+        ) =
             gtk_window_set_default_widget(
                 gtkWindowPointer.reinterpret(),
                 defaultWidget?.gtkWidgetPointer?.reinterpret()
@@ -353,11 +353,7 @@ public open class Window(
          *
          * @param setting true to decorate the window as deletable
          */
-        set(setting) =
-            gtk_window_set_deletable(
-                gtkWindowPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_window_set_deletable(gtkWindowPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * If this window should be destroyed when the parent is destroyed.
@@ -379,11 +375,7 @@ public open class Window(
          *
          * @param setting whether to destroy @window with its transient parent
          */
-        set(setting) =
-            gtk_window_set_destroy_with_parent(
-                gtkWindowPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_window_set_destroy_with_parent(gtkWindowPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Whether 'focus rectangles' are currently visible in this window.
@@ -408,11 +400,7 @@ public open class Window(
          *
          * @param setting the new value
          */
-        set(setting) =
-            gtk_window_set_focus_visible(
-                gtkWindowPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_window_set_focus_visible(gtkWindowPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Whether the window frame should handle F10 for activating
@@ -437,11 +425,9 @@ public open class Window(
          * @param handleMenubarAccel true to make @window handle F10
          * @since 4.2
          */
-        set(handleMenubarAccel) =
-            gtk_window_set_handle_menubar_accel(
-                gtkWindowPointer.reinterpret(),
-                handleMenubarAccel.asGBoolean()
-            )
+        set(
+            handleMenubarAccel
+        ) = gtk_window_set_handle_menubar_accel(gtkWindowPointer.reinterpret(), handleMenubarAccel.asGBoolean())
 
     /**
      * If this window should be hidden when the users clicks the close button.
@@ -460,11 +446,7 @@ public open class Window(
          *
          * @param setting whether to hide the window when it is closed
          */
-        set(setting) =
-            gtk_window_set_hide_on_close(
-                gtkWindowPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_window_set_hide_on_close(gtkWindowPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Specifies the name of the themed icon to use as the window icon.
@@ -515,11 +497,7 @@ public open class Window(
          *
          * @param setting the new value
          */
-        set(setting) =
-            gtk_window_set_mnemonics_visible(
-                gtkWindowPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_window_set_mnemonics_visible(gtkWindowPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * If true, the window is modal.
@@ -564,11 +542,7 @@ public open class Window(
          *
          * @param resizable true if the user can resize this window
          */
-        set(resizable) =
-            gtk_window_set_resizable(
-                gtkWindowPointer.reinterpret(),
-                resizable.asGBoolean()
-            )
+        set(resizable) = gtk_window_set_resizable(gtkWindowPointer.reinterpret(), resizable.asGBoolean())
 
     /**
      * The title of the window.
@@ -629,11 +603,9 @@ public open class Window(
          *
          * @param titlebar the widget to use as titlebar
          */
-        set(titlebar) =
-            gtk_window_set_titlebar(
-                gtkWindowPointer.reinterpret(),
-                titlebar?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            titlebar
+        ) = gtk_window_set_titlebar(gtkWindowPointer.reinterpret(), titlebar?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The transient parent of the window.
@@ -664,11 +636,9 @@ public open class Window(
          *
          * @param parent parent window
          */
-        set(parent) =
-            gtk_window_set_transient_for(
-                gtkWindowPointer.reinterpret(),
-                parent?.gtkWindowPointer?.reinterpret()
-            )
+        set(
+            parent
+        ) = gtk_window_set_transient_for(gtkWindowPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret())
 
     /**
      * Creates a new `GtkWindow`.
@@ -732,10 +702,7 @@ public open class Window(
      * @param monitor which monitor to go fullscreen on
      */
     public open fun fullscreenOnMonitor(monitor: Monitor): Unit =
-        gtk_window_fullscreen_on_monitor(
-            gtkWindowPointer.reinterpret(),
-            monitor.gdkMonitorPointer.reinterpret()
-        )
+        gtk_window_fullscreen_on_monitor(gtkWindowPointer.reinterpret(), monitor.gdkMonitorPointer.reinterpret())
 
     /**
      * Gets the `GtkApplication` associated with the window.
@@ -1047,10 +1014,7 @@ public open class Window(
      * @param application a `GtkApplication`, or null to unset
      */
     public open fun setApplication(application: Application? = null): Unit =
-        gtk_window_set_application(
-            gtkWindowPointer.reinterpret(),
-            application?.gtkApplicationPointer?.reinterpret()
-        )
+        gtk_window_set_application(gtkWindowPointer.reinterpret(), application?.gtkApplicationPointer?.reinterpret())
 
     /**
      * Sets the child widget of @window.
@@ -1058,10 +1022,7 @@ public open class Window(
      * @param child the child widget
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_window_set_child(
-            gtkWindowPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_window_set_child(gtkWindowPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether the window should be decorated.
@@ -1132,10 +1093,7 @@ public open class Window(
      *   to unset the default widget for the toplevel
      */
     public open fun setDefaultWidget(defaultWidget: Widget? = null): Unit =
-        gtk_window_set_default_widget(
-            gtkWindowPointer.reinterpret(),
-            defaultWidget?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_window_set_default_widget(gtkWindowPointer.reinterpret(), defaultWidget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether the window should be deletable.
@@ -1177,10 +1135,7 @@ public open class Window(
      * @param display a `GdkDisplay`
      */
     public open fun setDisplay(display: Display): Unit =
-        gtk_window_set_display(
-            gtkWindowPointer.reinterpret(),
-            display.gdkDisplayPointer.reinterpret()
-        )
+        gtk_window_set_display(gtkWindowPointer.reinterpret(), display.gdkDisplayPointer.reinterpret())
 
     /**
      * Sets the focus widget.
@@ -1195,10 +1150,7 @@ public open class Window(
      *   any focus widget for the toplevel window.
      */
     open override fun setFocus(focus: Widget?): Unit =
-        gtk_window_set_focus(
-            gtkWindowPointer.reinterpret(),
-            focus?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_window_set_focus(gtkWindowPointer.reinterpret(), focus?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether “focus rectangles” are supposed to be visible.
@@ -1219,10 +1171,7 @@ public open class Window(
      * @since 4.2
      */
     public open fun setHandleMenubarAccel(handleMenubarAccel: Boolean): Unit =
-        gtk_window_set_handle_menubar_accel(
-            gtkWindowPointer.reinterpret(),
-            handleMenubarAccel.asGBoolean()
-        )
+        gtk_window_set_handle_menubar_accel(gtkWindowPointer.reinterpret(), handleMenubarAccel.asGBoolean())
 
     /**
      * If @setting is true, then clicking the close button on the window
@@ -1335,10 +1284,7 @@ public open class Window(
      * @param titlebar the widget to use as titlebar
      */
     public open fun setTitlebar(titlebar: Widget? = null): Unit =
-        gtk_window_set_titlebar(
-            gtkWindowPointer.reinterpret(),
-            titlebar?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_window_set_titlebar(gtkWindowPointer.reinterpret(), titlebar?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Dialog windows should be set transient for the main application
@@ -1356,10 +1302,7 @@ public open class Window(
      * @param parent parent window
      */
     public open fun setTransientFor(parent: Window? = null): Unit =
-        gtk_window_set_transient_for(
-            gtkWindowPointer.reinterpret(),
-            parent?.gtkWindowPointer?.reinterpret()
-        )
+        gtk_window_set_transient_for(gtkWindowPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret())
 
     /**
      * Asks to remove the fullscreen state for @window, and return to
@@ -1454,8 +1397,7 @@ public open class Window(
      * Emitted when the user clicks on the close button of the window.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Returns true to stop other handlers from being
-     * invoked for the signal
+     * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the signal
      */
     public fun connectCloseRequest(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1483,8 +1425,7 @@ public open class Window(
      * and Ctrl-Shift-D.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `toggle` toggle the debugger. Returns true if
-     * the key binding was handled
+     * @param handler the Callback to connect. Params: `toggle` toggle the debugger. Returns true if the key binding was handled
      */
     public fun connectEnableDebugging(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1619,8 +1560,7 @@ private val connectActivateDefaultFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectActivateFocusFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1628,17 +1568,19 @@ private val connectActivateFocusFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectCloseRequestFunc: CPointer<CFunction<() -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectEnableDebuggingFunc: CPointer<CFunction<(Int) -> Int>> =
     staticCFunction {
@@ -1646,9 +1588,12 @@ private val connectEnableDebuggingFunc: CPointer<CFunction<(Int) -> Int>> =
             toggle: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(toggle: Boolean) -> Boolean>().get().invoke(toggle.asBoolean()).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(toggle: Boolean) -> Boolean>()
+            .get()
+            .invoke(toggle.asBoolean())
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectKeysChangedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1656,5 +1601,4 @@ private val connectKeysChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

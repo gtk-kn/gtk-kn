@@ -127,8 +127,7 @@ import kotlin.collections.List
  *
  * If used, the expected form of an application identifier is the
  * same as that of a
- * [D-Bus well-known bus
- * name](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
+ * [D-Bus well-known bus name](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
  * Examples include: `com.example.MyApp`, `org.example.internal_apps.Calculator`,
  * `org._7_zip.Archiver`.
  * For details on valid application identifiers, see [func@Gio.Application.id_is_valid].
@@ -221,7 +220,10 @@ import kotlin.collections.List
  */
 public open class Application(
     pointer: CPointer<GApplication>,
-) : Object(pointer.reinterpret()), ActionGroup, ActionMap, KGTyped {
+) : Object(pointer.reinterpret()),
+    ActionGroup,
+    ActionMap,
+    KGTyped {
     public val gioApplicationPointer: CPointer<GApplication>
         get() = gPointer.reinterpret()
 
@@ -257,11 +259,7 @@ public open class Application(
          * @param applicationId the identifier for @application
          * @since 2.28
          */
-        set(applicationId) =
-            g_application_set_application_id(
-                gioApplicationPointer.reinterpret(),
-                applicationId
-            )
+        set(applicationId) = g_application_set_application_id(gioApplicationPointer.reinterpret(), applicationId)
 
     /**
      * Flags specifying the behaviour of the application.
@@ -325,11 +323,9 @@ public open class Application(
          * @param inactivityTimeout the timeout, in milliseconds
          * @since 2.28
          */
-        set(inactivityTimeout) =
-            g_application_set_inactivity_timeout(
-                gioApplicationPointer.reinterpret(),
-                inactivityTimeout
-            )
+        set(
+            inactivityTimeout
+        ) = g_application_set_inactivity_timeout(gioApplicationPointer.reinterpret(), inactivityTimeout)
 
     /**
      * Whether the application is currently marked as busy through
@@ -401,8 +397,7 @@ public open class Application(
          * @return the base resource path, if one is set
          * @since 2.42
          */
-        get() =
-            g_application_get_resource_base_path(gioApplicationPointer.reinterpret())?.toKString()
+        get() = g_application_get_resource_base_path(gioApplicationPointer.reinterpret())?.toKString()
 
         /**
          * Sets (or unsets) the base resource path of @application.
@@ -442,11 +437,7 @@ public open class Application(
          * @param resourcePath the resource path to use
          * @since 2.42
          */
-        set(resourcePath) =
-            g_application_set_resource_base_path(
-                gioApplicationPointer.reinterpret(),
-                resourcePath
-            )
+        set(resourcePath) = g_application_set_resource_base_path(gioApplicationPointer.reinterpret(), resourcePath)
 
     /**
      * Creates a new #GApplication instance.
@@ -461,8 +452,10 @@ public open class Application(
      * @param flags the application flags
      * @return a new #GApplication instance
      */
-    public constructor(applicationId: String? = null, flags: ApplicationFlags) :
-        this(g_application_new(applicationId, flags.mask)!!.reinterpret())
+    public constructor(
+        applicationId: String? = null,
+        flags: ApplicationFlags,
+    ) : this(g_application_new(applicationId, flags.mask)!!.reinterpret())
 
     /**
      * Activates the application.
@@ -549,10 +542,7 @@ public open class Application(
      * @since 2.40
      */
     public open fun addOptionGroup(group: OptionGroup): Unit =
-        g_application_add_option_group(
-            gioApplicationPointer.reinterpret(),
-            group.glibOptionGroupPointer
-        )
+        g_application_add_option_group(gioApplicationPointer.reinterpret(), group.glibOptionGroupPointer)
 
     /**
      * Marks @application as busy (see g_application_mark_busy()) while
@@ -911,11 +901,7 @@ public open class Application(
         argv: List<String>? = null,
     ): Int =
         memScoped {
-            return g_application_run(
-                gioApplicationPointer.reinterpret(),
-                argc,
-                argv?.toCStringList(this)
-            )
+            return g_application_run(gioApplicationPointer.reinterpret(), argc, argv?.toCStringList(this))
         }
 
     /**
@@ -971,10 +957,7 @@ public open class Application(
      * @since 2.28
      */
     public open fun setActionGroup(actionGroup: ActionGroup? = null): Unit =
-        g_application_set_action_group(
-            gioApplicationPointer.reinterpret(),
-            actionGroup?.gioActionGroupPointer
-        )
+        g_application_set_action_group(gioApplicationPointer.reinterpret(), actionGroup?.gioActionGroupPointer)
 
     /**
      * Sets the unique identifier for @application.
@@ -1031,10 +1014,7 @@ public open class Application(
      * @since 2.28
      */
     public open fun setInactivityTimeout(inactivityTimeout: UInt): Unit =
-        g_application_set_inactivity_timeout(
-            gioApplicationPointer.reinterpret(),
-            inactivityTimeout
-        )
+        g_application_set_inactivity_timeout(gioApplicationPointer.reinterpret(), inactivityTimeout)
 
     /**
      * Adds a description to the @application option context.
@@ -1046,10 +1026,7 @@ public open class Application(
      * @since 2.56
      */
     public open fun setOptionContextDescription(description: String? = null): Unit =
-        g_application_set_option_context_description(
-            gioApplicationPointer.reinterpret(),
-            description
-        )
+        g_application_set_option_context_description(gioApplicationPointer.reinterpret(), description)
 
     /**
      * Sets the parameter string to be used by the commandline handling of @application.
@@ -1064,10 +1041,7 @@ public open class Application(
      * @since 2.56
      */
     public open fun setOptionContextParameterString(parameterString: String? = null): Unit =
-        g_application_set_option_context_parameter_string(
-            gioApplicationPointer.reinterpret(),
-            parameterString
-        )
+        g_application_set_option_context_parameter_string(gioApplicationPointer.reinterpret(), parameterString)
 
     /**
      * Adds a summary to the @application option context.
@@ -1214,8 +1188,7 @@ public open class Application(
      * the #GApplicationCommandLine documentation for more information.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `commandLine` a #GApplicationCommandLine
-     * representing the
+     * @param handler the Callback to connect. Params: `commandLine` a #GApplicationCommandLine representing the
      *     passed commandline. Returns An integer that is set as the exit status for the calling
      *   process. See g_application_command_line_set_exit_status().
      */
@@ -1276,8 +1249,7 @@ public open class Application(
      * normally be required.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `options` the options dictionary. Returns an
-     * exit code. If you have handled your options and want
+     * @param handler the Callback to connect. Params: `options` the options dictionary. Returns an exit code. If you have handled your options and want
      * to exit the process, return a non-negative option, 0 for success,
      * and a positive value for failure. To continue, return -1 to let
      * the default option processing continue.
@@ -1392,8 +1364,7 @@ public open class Application(
          * g_application_set_application_id().
          *
          * Application identifiers follow the same format as
-         * [D-Bus well-known bus
-         * names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
+         * [D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
          * For convenience, the restrictions on application identifiers are
          * reproduced here:
          *
@@ -1414,11 +1385,9 @@ public open class Application(
          * Note that the hyphen (`-`) character is allowed in application identifiers,
          * but is problematic or not allowed in various specifications and APIs that
          * refer to D-Bus, such as
-         * [Flatpak application
-         * IDs](http://docs.flatpak.org/en/latest/introduction.html#identifiers),
+         * [Flatpak application IDs](http://docs.flatpak.org/en/latest/introduction.html#identifiers),
          * the
-         * [`DBusActivatable` interface in the Desktop Entry
-         * Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus),
+         * [`DBusActivatable` interface in the Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus),
          * and the convention that an application's "main" interface and object path
          * resemble its application identifier and bus name. To avoid situations that
          * require special-case handling, it is recommended that new application
@@ -1448,8 +1417,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectCommandLineFunc: CPointer<CFunction<(CPointer<GApplicationCommandLine>) -> Int>> =
     staticCFunction {
@@ -1462,8 +1430,7 @@ private val connectCommandLineFunc: CPointer<CFunction<(CPointer<GApplicationCom
                 ApplicationCommandLine(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectHandleLocalOptionsFunc: CPointer<CFunction<(CPointer<GVariantDict>) -> Int>> =
     staticCFunction {
@@ -1476,17 +1443,19 @@ private val connectHandleLocalOptionsFunc: CPointer<CFunction<(CPointer<GVariant
                 VariantDict(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectNameLostFunc: CPointer<CFunction<() -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectShutdownFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1494,8 +1463,7 @@ private val connectShutdownFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectStartupFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1503,5 +1471,4 @@ private val connectStartupFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

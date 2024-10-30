@@ -24,7 +24,8 @@ import kotlin.UInt
  */
 public open class GLShaderNode(
     pointer: CPointer<GskGLShaderNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskGLShaderNodePointer: CPointer<GskGLShaderNode>
         get() = gPointer.reinterpret()
 
@@ -68,9 +69,7 @@ public open class GLShaderNode(
 
     public companion object : TypeCompanion<GLShaderNode> {
         override val type: GeneratedClassKGType<GLShaderNode> =
-            GeneratedClassKGType(gsk_gl_shader_node_get_type()) {
-                GLShaderNode(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_gl_shader_node_get_type()) { GLShaderNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

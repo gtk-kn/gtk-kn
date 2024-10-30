@@ -104,8 +104,7 @@ import kotlin.collections.List
  * notes, set with the [property@AboutDialog:release-notes] property.
  *
  * Release notes are formatted the same way as
- * [AppStream
- * descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+ * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
  *
  * The supported formatting options are:
  *
@@ -250,7 +249,8 @@ import kotlin.collections.List
  */
 public class AboutDialog(
     pointer: CPointer<AdwAboutDialog>,
-) : Dialog(pointer.reinterpret()), KGTyped {
+) : Dialog(pointer.reinterpret()),
+    KGTyped {
     public val adwAboutDialogPointer: CPointer<AdwAboutDialog>
         get() = gPointer.reinterpret()
 
@@ -289,11 +289,9 @@ public class AboutDialog(
          * @param applicationIcon the application icon name
          * @since 1.5
          */
-        set(applicationIcon) =
-            adw_about_dialog_set_application_icon(
-                adwAboutDialogPointer.reinterpret(),
-                applicationIcon
-            )
+        set(
+            applicationIcon
+        ) = adw_about_dialog_set_application_icon(adwAboutDialogPointer.reinterpret(), applicationIcon)
 
     /**
      * The name of the application.
@@ -321,11 +319,9 @@ public class AboutDialog(
          * @param applicationName the application name
          * @since 1.5
          */
-        set(applicationName) =
-            adw_about_dialog_set_application_name(
-                adwAboutDialogPointer.reinterpret(),
-                applicationName
-            )
+        set(
+            applicationName
+        ) = adw_about_dialog_set_application_name(adwAboutDialogPointer.reinterpret(), applicationName)
 
     /**
      * The list of artists of the application.
@@ -377,10 +373,7 @@ public class AboutDialog(
          */
         set(artists) =
             memScoped {
-                return adw_about_dialog_set_artists(
-                    adwAboutDialogPointer.reinterpret(),
-                    artists?.toCStringList(this)
-                )
+                return adw_about_dialog_set_artists(adwAboutDialogPointer.reinterpret(), artists?.toCStringList(this))
             }
 
     /**
@@ -457,11 +450,7 @@ public class AboutDialog(
          * @param copyright the copyright information
          * @since 1.5
          */
-        set(copyright) =
-            adw_about_dialog_set_copyright(
-                adwAboutDialogPointer.reinterpret(),
-                copyright
-            )
+        set(copyright) = adw_about_dialog_set_copyright(adwAboutDialogPointer.reinterpret(), copyright)
 
     /**
      * The debug information.
@@ -505,11 +494,7 @@ public class AboutDialog(
          * @param debugInfo the debug information
          * @since 1.5
          */
-        set(debugInfo) =
-            adw_about_dialog_set_debug_info(
-                adwAboutDialogPointer.reinterpret(),
-                debugInfo
-            )
+        set(debugInfo) = adw_about_dialog_set_debug_info(adwAboutDialogPointer.reinterpret(), debugInfo)
 
     /**
      * The debug information filename.
@@ -543,11 +528,7 @@ public class AboutDialog(
          * @param filename the debug info filename
          * @since 1.5
          */
-        set(filename) =
-            adw_about_dialog_set_debug_info_filename(
-                adwAboutDialogPointer.reinterpret(),
-                filename
-            )
+        set(filename) = adw_about_dialog_set_debug_info_filename(adwAboutDialogPointer.reinterpret(), filename)
 
     /**
      * The list of designers of the application.
@@ -643,11 +624,7 @@ public class AboutDialog(
          * @param developerName the developer name
          * @since 1.5
          */
-        set(developerName) =
-            adw_about_dialog_set_developer_name(
-                adwAboutDialogPointer.reinterpret(),
-                developerName
-            )
+        set(developerName) = adw_about_dialog_set_developer_name(adwAboutDialogPointer.reinterpret(), developerName)
 
     /**
      * The list of developers of the application.
@@ -675,8 +652,7 @@ public class AboutDialog(
          * @return The list of developers
          * @since 1.5
          */
-        get() =
-            adw_about_dialog_get_developers(adwAboutDialogPointer.reinterpret())?.toKStringList()
+        get() = adw_about_dialog_get_developers(adwAboutDialogPointer.reinterpret())?.toKStringList()
 
         /**
          * Sets the list of developers of the application.
@@ -732,8 +708,7 @@ public class AboutDialog(
          * @return The list of documenters
          * @since 1.5
          */
-        get() =
-            adw_about_dialog_get_documenters(adwAboutDialogPointer.reinterpret())?.toKStringList()
+        get() = adw_about_dialog_get_documenters(adwAboutDialogPointer.reinterpret())?.toKStringList()
 
         /**
          * Sets the list of documenters of the application.
@@ -789,11 +764,7 @@ public class AboutDialog(
          * @param issueUrl the issue tracker URL
          * @since 1.5
          */
-        set(issueUrl) =
-            adw_about_dialog_set_issue_url(
-                adwAboutDialogPointer.reinterpret(),
-                issueUrl
-            )
+        set(issueUrl) = adw_about_dialog_set_issue_url(adwAboutDialogPointer.reinterpret(), issueUrl)
 
     /**
      * The license text.
@@ -902,11 +873,9 @@ public class AboutDialog(
          * @param licenseType the license type
          * @since 1.5
          */
-        set(licenseType) =
-            adw_about_dialog_set_license_type(
-                adwAboutDialogPointer.reinterpret(),
-                licenseType.nativeValue
-            )
+        set(
+            licenseType
+        ) = adw_about_dialog_set_license_type(adwAboutDialogPointer.reinterpret(), licenseType.nativeValue)
 
     /**
      * The release notes of the application.
@@ -914,8 +883,7 @@ public class AboutDialog(
      * Release notes are displayed on the the What's New page.
      *
      * Release notes are formatted the same way as
-     * [AppStream
-     * descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+     * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
      *
      * The supported formatting options are:
      *
@@ -954,8 +922,7 @@ public class AboutDialog(
          * Release notes are displayed on the the What's New page.
          *
          * Release notes are formatted the same way as
-         * [AppStream
-         * descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+         * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
          *
          * The supported formatting options are:
          *
@@ -978,11 +945,7 @@ public class AboutDialog(
          * @param releaseNotes the release notes
          * @since 1.5
          */
-        set(releaseNotes) =
-            adw_about_dialog_set_release_notes(
-                adwAboutDialogPointer.reinterpret(),
-                releaseNotes
-            )
+        set(releaseNotes) = adw_about_dialog_set_release_notes(adwAboutDialogPointer.reinterpret(), releaseNotes)
 
     /**
      * The version described by the application's release notes.
@@ -1028,11 +991,7 @@ public class AboutDialog(
          * @param version the release notes version
          * @since 1.5
          */
-        set(version) =
-            adw_about_dialog_set_release_notes_version(
-                adwAboutDialogPointer.reinterpret(),
-                version
-            )
+        set(version) = adw_about_dialog_set_release_notes_version(adwAboutDialogPointer.reinterpret(), version)
 
     /**
      * The URL of the application's support page.
@@ -1060,11 +1019,7 @@ public class AboutDialog(
          * @param supportUrl the support page URL
          * @since 1.5
          */
-        set(supportUrl) =
-            adw_about_dialog_set_support_url(
-                adwAboutDialogPointer.reinterpret(),
-                supportUrl
-            )
+        set(supportUrl) = adw_about_dialog_set_support_url(adwAboutDialogPointer.reinterpret(), supportUrl)
 
     /**
      * The translator credits string.
@@ -1122,11 +1077,9 @@ public class AboutDialog(
          * @param translatorCredits the translator credits
          * @since 1.5
          */
-        set(translatorCredits) =
-            adw_about_dialog_set_translator_credits(
-                adwAboutDialogPointer.reinterpret(),
-                translatorCredits
-            )
+        set(
+            translatorCredits
+        ) = adw_about_dialog_set_translator_credits(adwAboutDialogPointer.reinterpret(), translatorCredits)
 
     /**
      * The version of the application.
@@ -1231,13 +1184,10 @@ public class AboutDialog(
      * @return the newly created `AdwAboutDialog`
      * @since 1.5
      */
-    public constructor(resourcePath: String, releaseNotesVersion: String? = null) :
-        this(
-            adw_about_dialog_new_from_appdata(
-                resourcePath,
-                releaseNotesVersion
-            )!!.reinterpret()
-        )
+    public constructor(
+        resourcePath: String,
+        releaseNotesVersion: String? = null,
+    ) : this(adw_about_dialog_new_from_appdata(resourcePath, releaseNotesVersion)!!.reinterpret())
 
     /**
      * Adds a section to the Acknowledgements page.
@@ -1593,10 +1543,7 @@ public class AboutDialog(
      * @since 1.5
      */
     public fun setApplicationIcon(applicationIcon: String): Unit =
-        adw_about_dialog_set_application_icon(
-            adwAboutDialogPointer.reinterpret(),
-            applicationIcon
-        )
+        adw_about_dialog_set_application_icon(adwAboutDialogPointer.reinterpret(), applicationIcon)
 
     /**
      * Sets the application name for @self.
@@ -1607,10 +1554,7 @@ public class AboutDialog(
      * @since 1.5
      */
     public fun setApplicationName(applicationName: String): Unit =
-        adw_about_dialog_set_application_name(
-            adwAboutDialogPointer.reinterpret(),
-            applicationName
-        )
+        adw_about_dialog_set_application_name(adwAboutDialogPointer.reinterpret(), applicationName)
 
     /**
      * Sets the list of artists of the application.
@@ -1634,10 +1578,7 @@ public class AboutDialog(
      */
     public fun setArtists(artists: List<String>? = null): Unit =
         memScoped {
-            return adw_about_dialog_set_artists(
-                adwAboutDialogPointer.reinterpret(),
-                artists?.toCStringList(this)
-            )
+            return adw_about_dialog_set_artists(adwAboutDialogPointer.reinterpret(), artists?.toCStringList(this))
         }
 
     /**
@@ -1727,10 +1668,7 @@ public class AboutDialog(
      */
     public fun setDesigners(designers: List<String>? = null): Unit =
         memScoped {
-            return adw_about_dialog_set_designers(
-                adwAboutDialogPointer.reinterpret(),
-                designers?.toCStringList(this)
-            )
+            return adw_about_dialog_set_designers(adwAboutDialogPointer.reinterpret(), designers?.toCStringList(this))
         }
 
     /**
@@ -1771,10 +1709,7 @@ public class AboutDialog(
      */
     public fun setDevelopers(developers: List<String>? = null): Unit =
         memScoped {
-            return adw_about_dialog_set_developers(
-                adwAboutDialogPointer.reinterpret(),
-                developers?.toCStringList(this)
-            )
+            return adw_about_dialog_set_developers(adwAboutDialogPointer.reinterpret(), developers?.toCStringList(this))
         }
 
     /**
@@ -1861,10 +1796,7 @@ public class AboutDialog(
      * @since 1.5
      */
     public fun setLicenseType(licenseType: License): Unit =
-        adw_about_dialog_set_license_type(
-            adwAboutDialogPointer.reinterpret(),
-            licenseType.nativeValue
-        )
+        adw_about_dialog_set_license_type(adwAboutDialogPointer.reinterpret(), licenseType.nativeValue)
 
     /**
      * Sets the release notes for @self.
@@ -1872,8 +1804,7 @@ public class AboutDialog(
      * Release notes are displayed on the the What's New page.
      *
      * Release notes are formatted the same way as
-     * [AppStream
-     * descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
+     * [AppStream descriptions](https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
      *
      * The supported formatting options are:
      *
@@ -1954,10 +1885,7 @@ public class AboutDialog(
      * @since 1.5
      */
     public fun setTranslatorCredits(translatorCredits: String): Unit =
-        adw_about_dialog_set_translator_credits(
-            adwAboutDialogPointer.reinterpret(),
-            translatorCredits
-        )
+        adw_about_dialog_set_translator_credits(adwAboutDialogPointer.reinterpret(), translatorCredits)
 
     /**
      * Sets the version for @self.
@@ -1994,8 +1922,7 @@ public class AboutDialog(
      * to call [func@Gtk.show_uri].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `uri` the URI to activate. Returns `TRUE` if
-     * the link has been activated
+     * @param handler the Callback to connect. Params: `uri` the URI to activate. Returns `TRUE` if the link has been activated
      * @since 1.5
      */
     public fun connectActivateLink(
@@ -2027,9 +1954,13 @@ private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> I
             uri: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(uri: String) -> Boolean>().get().invoke(
-            uri?.toKString()
-                ?: error("Expected not null string")
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    uri: String,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(uri?.toKString() ?: error("Expected not null string"))
+            .asGBoolean()
+    }.reinterpret()

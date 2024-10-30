@@ -22,7 +22,8 @@ import kotlin.Unit
  */
 public open class CustomSorter(
     pointer: CPointer<GtkCustomSorter>,
-) : Sorter(pointer.reinterpret()), KGTyped {
+) : Sorter(pointer.reinterpret()),
+    KGTyped {
     public val gtkCustomSorterPointer: CPointer<GtkCustomSorter>
         get() = gPointer.reinterpret()
 
@@ -35,14 +36,15 @@ public open class CustomSorter(
      * @param sortFunc the `GCompareDataFunc` to use for sorting
      * @return a new `GtkCustomSorter`
      */
-    public constructor(sortFunc: CompareDataFunc) :
-        this(
-            gtk_custom_sorter_new(
-                CompareDataFuncFunc.reinterpret(),
-                StableRef.create(sortFunc).asCPointer(),
-                staticStableRefDestroy.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        sortFunc: CompareDataFunc,
+    ) : this(
+        gtk_custom_sorter_new(
+            CompareDataFuncFunc.reinterpret(),
+            StableRef.create(sortFunc).asCPointer(),
+            staticStableRefDestroy.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Sets (or unsets) the function used for sorting items.
@@ -67,9 +69,7 @@ public open class CustomSorter(
 
     public companion object : TypeCompanion<CustomSorter> {
         override val type: GeneratedClassKGType<CustomSorter> =
-            GeneratedClassKGType(gtk_custom_sorter_get_type()) {
-                CustomSorter(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_custom_sorter_get_type()) { CustomSorter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

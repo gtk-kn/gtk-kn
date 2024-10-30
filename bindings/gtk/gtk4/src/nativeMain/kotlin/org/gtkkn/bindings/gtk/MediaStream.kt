@@ -79,7 +79,9 @@ import kotlin.Unit
  */
 public open class MediaStream(
     pointer: CPointer<GtkMediaStream>,
-) : Object(pointer.reinterpret()), Paintable, KGTyped {
+) : Object(pointer.reinterpret()),
+    Paintable,
+    KGTyped {
     public val gtkMediaStreamPointer: CPointer<GtkMediaStream>
         get() = gPointer.reinterpret()
 
@@ -153,11 +155,7 @@ public open class MediaStream(
          *
          * @param loop true if the stream should loop
          */
-        set(loop) =
-            gtk_media_stream_set_loop(
-                gtkMediaStreamPointer.reinterpret(),
-                loop.asGBoolean()
-            )
+        set(loop) = gtk_media_stream_set_loop(gtkMediaStreamPointer.reinterpret(), loop.asGBoolean())
 
     /**
      * Whether the audio stream should be muted.
@@ -184,11 +182,7 @@ public open class MediaStream(
          *
          * @param muted true if the stream should be muted
          */
-        set(muted) =
-            gtk_media_stream_set_muted(
-                gtkMediaStreamPointer.reinterpret(),
-                muted.asGBoolean()
-            )
+        set(muted) = gtk_media_stream_set_muted(gtkMediaStreamPointer.reinterpret(), muted.asGBoolean())
 
     /**
      * Whether the stream is currently playing.
@@ -206,11 +200,7 @@ public open class MediaStream(
          *
          * @param playing whether to start or pause playback
          */
-        set(playing) =
-            gtk_media_stream_set_playing(
-                gtkMediaStreamPointer.reinterpret(),
-                playing.asGBoolean()
-            )
+        set(playing) = gtk_media_stream_set_playing(gtkMediaStreamPointer.reinterpret(), playing.asGBoolean())
 
     /**
      * The current presentation timestamp in microseconds.
@@ -436,10 +426,7 @@ public open class MediaStream(
      * @param surface a `GdkSurface`
      */
     public open fun realize(surface: Surface): Unit =
-        gtk_media_stream_realize(
-            gtkMediaStreamPointer.reinterpret(),
-            surface.gdkSurfacePointer.reinterpret()
-        )
+        gtk_media_stream_realize(gtkMediaStreamPointer.reinterpret(), surface.gdkSurfacePointer.reinterpret())
 
     /**
      * Start a seek operation on @self to @timestamp.
@@ -600,10 +587,7 @@ public open class MediaStream(
      * @param surface the `GdkSurface` the stream was realized with
      */
     public open fun unrealize(surface: Surface): Unit =
-        gtk_media_stream_unrealize(
-            gtkMediaStreamPointer.reinterpret(),
-            surface.gdkSurfacePointer.reinterpret()
-        )
+        gtk_media_stream_unrealize(gtkMediaStreamPointer.reinterpret(), surface.gdkSurfacePointer.reinterpret())
 
     /**
      * Media stream implementations should regularly call this

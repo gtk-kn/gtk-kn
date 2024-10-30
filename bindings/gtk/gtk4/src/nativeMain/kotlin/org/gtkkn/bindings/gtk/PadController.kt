@@ -73,7 +73,8 @@ import kotlin.Unit
  */
 public open class PadController(
     pointer: CPointer<GtkPadController>,
-) : EventController(pointer.reinterpret()), KGTyped {
+) : EventController(pointer.reinterpret()),
+    KGTyped {
     public val gtkPadControllerPointer: CPointer<GtkPadController>
         get() = gPointer.reinterpret()
 
@@ -97,13 +98,10 @@ public open class PadController(
      * @param pad A %GDK_SOURCE_TABLET_PAD device, or null to handle all pads
      * @return A newly created `GtkPadController`
      */
-    public constructor(group: ActionGroup, pad: Device? = null) :
-        this(
-            gtk_pad_controller_new(
-                group.gioActionGroupPointer,
-                pad?.gdkDevicePointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        group: ActionGroup,
+        pad: Device? = null,
+    ) : this(gtk_pad_controller_new(group.gioActionGroupPointer, pad?.gdkDevicePointer?.reinterpret())!!.reinterpret())
 
     /**
      * Adds an individual action to @controller.
@@ -141,9 +139,7 @@ public open class PadController(
 
     public companion object : TypeCompanion<PadController> {
         override val type: GeneratedClassKGType<PadController> =
-            GeneratedClassKGType(gtk_pad_controller_get_type()) {
-                PadController(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_pad_controller_get_type()) { PadController(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

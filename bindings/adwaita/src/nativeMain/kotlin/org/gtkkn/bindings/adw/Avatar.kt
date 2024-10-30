@@ -61,7 +61,8 @@ import kotlin.Unit
  */
 public class Avatar(
     pointer: CPointer<AdwAvatar>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwAvatarPointer: CPointer<AdwAvatar>
         get() = gPointer.reinterpret()
 
@@ -97,11 +98,7 @@ public class Avatar(
          *
          * @param customImage a custom image
          */
-        set(customImage) =
-            adw_avatar_set_custom_image(
-                adwAvatarPointer.reinterpret(),
-                customImage?.gdkPaintablePointer
-            )
+        set(customImage) = adw_avatar_set_custom_image(adwAvatarPointer.reinterpret(), customImage?.gdkPaintablePointer)
 
     /**
      * The name of an icon to use as a fallback.
@@ -145,11 +142,7 @@ public class Avatar(
          *
          * @param showInitials whether to use initials instead of an icon as fallback
          */
-        set(showInitials) =
-            adw_avatar_set_show_initials(
-                adwAvatarPointer.reinterpret(),
-                showInitials.asGBoolean()
-            )
+        set(showInitials) = adw_avatar_set_show_initials(adwAvatarPointer.reinterpret(), showInitials.asGBoolean())
 
     /**
      * The size of the avatar.
@@ -268,10 +261,7 @@ public class Avatar(
      * @param customImage a custom image
      */
     public fun setCustomImage(customImage: Paintable? = null): Unit =
-        adw_avatar_set_custom_image(
-            adwAvatarPointer.reinterpret(),
-            customImage?.gdkPaintablePointer
-        )
+        adw_avatar_set_custom_image(adwAvatarPointer.reinterpret(), customImage?.gdkPaintablePointer)
 
     /**
      * Sets the name of an icon to use as a fallback.

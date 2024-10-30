@@ -38,7 +38,10 @@ import kotlin.Unit
  */
 public open class SliceListModel(
     pointer: CPointer<GtkSliceListModel>,
-) : Object(pointer.reinterpret()), ListModel, SectionModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    SectionModel,
+    KGTyped {
     public val gtkSliceListModelPointer: CPointer<GtkSliceListModel>
         get() = gPointer.reinterpret()
 
@@ -69,11 +72,7 @@ public open class SliceListModel(
          *
          * @param model The model to be sliced
          */
-        set(model) =
-            gtk_slice_list_model_set_model(
-                gtkSliceListModelPointer.reinterpret(),
-                model?.gioListModelPointer
-            )
+        set(model) = gtk_slice_list_model_set_model(gtkSliceListModelPointer.reinterpret(), model?.gioListModelPointer)
 
     /**
      * Offset of slice.
@@ -94,11 +93,7 @@ public open class SliceListModel(
          *
          * @param offset the new offset to use
          */
-        set(offset) =
-            gtk_slice_list_model_set_offset(
-                gtkSliceListModelPointer.reinterpret(),
-                offset
-            )
+        set(offset) = gtk_slice_list_model_set_offset(gtkSliceListModelPointer.reinterpret(), offset)
 
     /**
      * Maximum size of slice.
@@ -171,10 +166,7 @@ public open class SliceListModel(
      * @param model The model to be sliced
      */
     public open fun setModel(model: ListModel? = null): Unit =
-        gtk_slice_list_model_set_model(
-            gtkSliceListModelPointer.reinterpret(),
-            model?.gioListModelPointer
-        )
+        gtk_slice_list_model_set_model(gtkSliceListModelPointer.reinterpret(), model?.gioListModelPointer)
 
     /**
      * Sets the offset into the original model for this slice.
@@ -201,9 +193,7 @@ public open class SliceListModel(
 
     public companion object : TypeCompanion<SliceListModel> {
         override val type: GeneratedClassKGType<SliceListModel> =
-            GeneratedClassKGType(gtk_slice_list_model_get_type()) {
-                SliceListModel(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_slice_list_model_get_type()) { SliceListModel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

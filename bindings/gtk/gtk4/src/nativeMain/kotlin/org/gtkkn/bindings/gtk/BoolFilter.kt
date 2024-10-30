@@ -24,7 +24,8 @@ import kotlin.Unit
  */
 public open class BoolFilter(
     pointer: CPointer<GtkBoolFilter>,
-) : Filter(pointer.reinterpret()), KGTyped {
+) : Filter(pointer.reinterpret()),
+    KGTyped {
     public val gtkBoolFilterPointer: CPointer<GtkBoolFilter>
         get() = gPointer.reinterpret()
 
@@ -51,11 +52,9 @@ public open class BoolFilter(
          *
          * @param expression a `GtkExpression`
          */
-        set(expression) =
-            gtk_bool_filter_set_expression(
-                gtkBoolFilterPointer.reinterpret(),
-                expression?.gPointer?.reinterpret()
-            )
+        set(
+            expression
+        ) = gtk_bool_filter_set_expression(gtkBoolFilterPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * If the expression result should be inverted.
@@ -73,11 +72,7 @@ public open class BoolFilter(
          *
          * @param invert true to invert
          */
-        set(invert) =
-            gtk_bool_filter_set_invert(
-                gtkBoolFilterPointer.reinterpret(),
-                invert.asGBoolean()
-            )
+        set(invert) = gtk_bool_filter_set_invert(gtkBoolFilterPointer.reinterpret(), invert.asGBoolean())
 
     /**
      * Creates a new bool filter.
@@ -85,8 +80,9 @@ public open class BoolFilter(
      * @param expression The expression to evaluate
      * @return a new `GtkBoolFilter`
      */
-    public constructor(expression: Expression? = null) :
-        this(gtk_bool_filter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        expression: Expression? = null,
+    ) : this(gtk_bool_filter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Gets the expression that the filter uses to evaluate if
@@ -115,10 +111,7 @@ public open class BoolFilter(
      * @param expression a `GtkExpression`
      */
     public open fun setExpression(expression: Expression? = null): Unit =
-        gtk_bool_filter_set_expression(
-            gtkBoolFilterPointer.reinterpret(),
-            expression?.gPointer?.reinterpret()
-        )
+        gtk_bool_filter_set_expression(gtkBoolFilterPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * Sets whether the filter should invert the expression.

@@ -18,7 +18,8 @@ import org.gtkkn.native.gsk.gsk_cairo_renderer_new
  */
 public open class CairoRenderer(
     pointer: CPointer<GskCairoRenderer>,
-) : Renderer(pointer.reinterpret()), KGTyped {
+) : Renderer(pointer.reinterpret()),
+    KGTyped {
     public val gskCairoRendererPointer: CPointer<GskCairoRenderer>
         get() = gPointer.reinterpret()
 
@@ -38,9 +39,7 @@ public open class CairoRenderer(
 
     public companion object : TypeCompanion<CairoRenderer> {
         override val type: GeneratedClassKGType<CairoRenderer> =
-            GeneratedClassKGType(gsk_cairo_renderer_get_type()) {
-                CairoRenderer(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_cairo_renderer_get_type()) { CairoRenderer(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

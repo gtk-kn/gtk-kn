@@ -47,7 +47,8 @@ import kotlin.Unit
  */
 public open class UnixConnection(
     pointer: CPointer<GUnixConnection>,
-) : SocketConnection(pointer.reinterpret()), KGTyped {
+) : SocketConnection(pointer.reinterpret()),
+    KGTyped {
     public val gioUnixConnectionPointer: CPointer<GUnixConnection>
         get() = gPointer.reinterpret()
 
@@ -303,9 +304,7 @@ public open class UnixConnection(
 
     public companion object : TypeCompanion<UnixConnection> {
         override val type: GeneratedClassKGType<UnixConnection> =
-            GeneratedClassKGType(g_unix_connection_get_type()) {
-                UnixConnection(it.reinterpret())
-            }
+            GeneratedClassKGType(g_unix_connection_get_type()) { UnixConnection(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

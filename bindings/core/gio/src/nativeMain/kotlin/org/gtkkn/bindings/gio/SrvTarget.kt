@@ -70,8 +70,7 @@ public class SrvTarget(
      * @since 2.22
      */
     public fun getHostname(): String =
-        g_srv_target_get_hostname(gioSrvTargetPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_srv_target_get_hostname(gioSrvTargetPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets @target's port

@@ -45,7 +45,9 @@ import kotlin.UInt
  */
 public open class InetAddressMask(
     pointer: CPointer<GInetAddressMask>,
-) : Object(pointer.reinterpret()), Initable, KGTyped {
+) : Object(pointer.reinterpret()),
+    Initable,
+    KGTyped {
     public val gioInetAddressMaskPointer: CPointer<GInetAddressMask>
         get() = gPointer.reinterpret()
 
@@ -113,12 +115,7 @@ public open class InetAddressMask(
     public constructor(addr: InetAddress, length: UInt) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_inet_address_mask_new(
-                    addr.gioInetAddressPointer.reinterpret(),
-                    length,
-                    gError.ptr
-                )
+            val gResult = g_inet_address_mask_new(addr.gioInetAddressPointer.reinterpret(), length, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -208,9 +205,7 @@ public open class InetAddressMask(
 
     public companion object : TypeCompanion<InetAddressMask> {
         override val type: GeneratedClassKGType<InetAddressMask> =
-            GeneratedClassKGType(g_inet_address_mask_get_type()) {
-                InetAddressMask(it.reinterpret())
-            }
+            GeneratedClassKGType(g_inet_address_mask_get_type()) { InetAddressMask(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -140,7 +140,8 @@ import kotlin.Unit
  */
 public open class Layout(
     pointer: CPointer<PangoLayout>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val pangoLayoutPointer: CPointer<PangoLayout>
         get() = gPointer.reinterpret()
 
@@ -580,8 +581,7 @@ public open class Layout(
      * @return the text in the @layout
      */
     public open fun getText(): String =
-        pango_layout_get_text(pangoLayoutPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        pango_layout_get_text(pangoLayoutPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Counts the number of unknown glyphs in @layout.
@@ -632,12 +632,7 @@ public open class Layout(
     public open fun indexToPos(
         index: Int,
         pos: Rectangle,
-    ): Unit =
-        pango_layout_index_to_pos(
-            pangoLayoutPointer.reinterpret(),
-            index,
-            pos.pangoRectanglePointer
-        )
+    ): Unit = pango_layout_index_to_pos(pangoLayoutPointer.reinterpret(), index, pos.pangoRectanglePointer)
 
     /**
      * Queries whether the layout had to ellipsize any paragraphs.
@@ -705,10 +700,7 @@ public open class Layout(
      * @param attrs a `PangoAttrList`
      */
     public open fun setAttributes(attrs: AttrList? = null): Unit =
-        pango_layout_set_attributes(
-            pangoLayoutPointer.reinterpret(),
-            attrs?.pangoAttrListPointer
-        )
+        pango_layout_set_attributes(pangoLayoutPointer.reinterpret(), attrs?.pangoAttrListPointer)
 
     /**
      * Sets whether to calculate the base direction
@@ -768,10 +760,7 @@ public open class Layout(
      *   to unset the current font description
      */
     public open fun setFontDescription(desc: FontDescription? = null): Unit =
-        pango_layout_set_font_description(
-            pangoLayoutPointer.reinterpret(),
-            desc?.pangoFontDescriptionPointer
-        )
+        pango_layout_set_font_description(pangoLayoutPointer.reinterpret(), desc?.pangoFontDescriptionPointer)
 
     /**
      * Sets the height to which the `PangoLayout` should be ellipsized at.
@@ -859,10 +848,7 @@ public open class Layout(
      * @since 1.50
      */
     public open fun setJustifyLastLine(justify: Boolean): Unit =
-        pango_layout_set_justify_last_line(
-            pangoLayoutPointer.reinterpret(),
-            justify.asGBoolean()
-        )
+        pango_layout_set_justify_last_line(pangoLayoutPointer.reinterpret(), justify.asGBoolean())
 
     /**
      * Sets a factor for line spacing.
@@ -920,10 +906,7 @@ public open class Layout(
      * @param setting new setting
      */
     public open fun setSingleParagraphMode(setting: Boolean): Unit =
-        pango_layout_set_single_paragraph_mode(
-            pangoLayoutPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        pango_layout_set_single_paragraph_mode(pangoLayoutPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Sets the amount of spacing in Pango units between

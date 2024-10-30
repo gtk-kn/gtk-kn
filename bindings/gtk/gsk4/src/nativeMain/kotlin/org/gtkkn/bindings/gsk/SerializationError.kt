@@ -45,9 +45,7 @@ public enum class SerializationError(
         public fun quark(): UInt = gsk_serialization_error_quark()
 
         public fun fromErrorOrNull(error: Error): SerializationError? =
-            if (error.domain !=
-                quark()
-            ) {
+            if (error.domain != quark()) {
                 null
             } else {
                 SerializationError.values().find { it.nativeValue.value.toInt() == error.code }

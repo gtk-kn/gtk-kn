@@ -42,7 +42,8 @@ import kotlin.Unit
  */
 public open class GesturePan(
     pointer: CPointer<GtkGesturePan>,
-) : GestureDrag(pointer.reinterpret()), KGTyped {
+) : GestureDrag(pointer.reinterpret()),
+    KGTyped {
     public val gtkGesturePanPointer: CPointer<GtkGesturePan>
         get() = gPointer.reinterpret()
 
@@ -65,11 +66,7 @@ public open class GesturePan(
          *
          * @param orientation expected orientation
          */
-        set(orientation) =
-            gtk_gesture_pan_set_orientation(
-                gtkGesturePanPointer.reinterpret(),
-                orientation.nativeValue
-            )
+        set(orientation) = gtk_gesture_pan_set_orientation(gtkGesturePanPointer.reinterpret(), orientation.nativeValue)
 
     /**
      * Returns a newly created `GtkGesture` that recognizes pan gestures.
@@ -77,8 +74,7 @@ public open class GesturePan(
      * @param orientation expected orientation
      * @return a newly created `GtkGesturePan`
      */
-    public constructor(orientation: Orientation) :
-        this(gtk_gesture_pan_new(orientation.nativeValue)!!.reinterpret())
+    public constructor(orientation: Orientation) : this(gtk_gesture_pan_new(orientation.nativeValue)!!.reinterpret())
 
     /**
      * Returns the orientation of the pan gestures that this @gesture expects.
@@ -96,17 +92,13 @@ public open class GesturePan(
      * @param orientation expected orientation
      */
     public open fun setOrientation(orientation: Orientation): Unit =
-        gtk_gesture_pan_set_orientation(
-            gtkGesturePanPointer.reinterpret(),
-            orientation.nativeValue
-        )
+        gtk_gesture_pan_set_orientation(gtkGesturePanPointer.reinterpret(), orientation.nativeValue)
 
     /**
      * Emitted once a panning gesture along the expected axis is detected.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `direction` current direction of the pan
-     * gesture; `offset` Offset along the gesture orientation
+     * @param handler the Callback to connect. Params: `direction` current direction of the pan gesture; `offset` Offset along the gesture orientation
      */
     public fun connectPan(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -138,16 +130,10 @@ private val connectPanFunc: CPointer<CFunction<(GtkPanDirection, Double) -> Unit
             offset: Double,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                direction: PanDirection,
-                offset: Double,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(direction: PanDirection, offset: Double) -> Unit>().get().invoke(
             direction.run {
                 PanDirection.fromNativeValue(this)
             },
             offset
         )
-    }
-        .reinterpret()
+    }.reinterpret()

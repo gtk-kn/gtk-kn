@@ -34,7 +34,8 @@ import kotlin.Unit
  */
 public open class BindingGroup(
     pointer: CPointer<GBindingGroup>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gobjectBindingGroupPointer: CPointer<GBindingGroup>
         get() = gPointer.reinterpret()
 
@@ -139,10 +140,7 @@ public open class BindingGroup(
      * @since 2.72
      */
     public open fun setSource(source: Object? = null): Unit =
-        g_binding_group_set_source(
-            gobjectBindingGroupPointer.reinterpret(),
-            source?.gPointer?.reinterpret()
-        )
+        g_binding_group_set_source(gobjectBindingGroupPointer.reinterpret(), source?.gPointer?.reinterpret())
 
     public companion object : TypeCompanion<BindingGroup> {
         override val type: GeneratedClassKGType<BindingGroup> =

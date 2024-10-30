@@ -55,7 +55,8 @@ import kotlin.Unit
  */
 public open class PreferencesDialog(
     pointer: CPointer<AdwPreferencesDialog>,
-) : Dialog(pointer.reinterpret()), KGTyped {
+) : Dialog(pointer.reinterpret()),
+    KGTyped {
     public val adwPreferencesDialogPointer: CPointer<AdwPreferencesDialog>
         get() = gPointer.reinterpret()
 
@@ -80,8 +81,7 @@ public open class PreferencesDialog(
          * @return whether search is enabled for @self.
          * @since 1.5
          */
-        get() =
-            adw_preferences_dialog_get_search_enabled(adwPreferencesDialogPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_dialog_get_search_enabled(adwPreferencesDialogPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether search is enabled for @self.
@@ -89,7 +89,9 @@ public open class PreferencesDialog(
          * @param searchEnabled whether search is enabled
          * @since 1.5
          */
-        set(searchEnabled) =
+        set(
+            searchEnabled
+        ) =
             adw_preferences_dialog_set_search_enabled(
                 adwPreferencesDialogPointer.reinterpret(),
                 searchEnabled.asGBoolean()
@@ -124,10 +126,7 @@ public open class PreferencesDialog(
      * @since 1.5
      */
     public open fun addToast(toast: Toast): Unit =
-        adw_preferences_dialog_add_toast(
-            adwPreferencesDialogPointer.reinterpret(),
-            toast.adwToastPointer.reinterpret()
-        )
+        adw_preferences_dialog_add_toast(adwPreferencesDialogPointer.reinterpret(), toast.adwToastPointer.reinterpret())
 
     /**
      * Gets whether search is enabled for @self.
@@ -200,10 +199,7 @@ public open class PreferencesDialog(
      * @since 1.5
      */
     public open fun setSearchEnabled(searchEnabled: Boolean): Unit =
-        adw_preferences_dialog_set_search_enabled(
-            adwPreferencesDialogPointer.reinterpret(),
-            searchEnabled.asGBoolean()
-        )
+        adw_preferences_dialog_set_search_enabled(adwPreferencesDialogPointer.reinterpret(), searchEnabled.asGBoolean())
 
     /**
      * Makes @page the visible page of @self.
@@ -226,16 +222,11 @@ public open class PreferencesDialog(
      * @since 1.5
      */
     public open fun setVisiblePageName(name: String): Unit =
-        adw_preferences_dialog_set_visible_page_name(
-            adwPreferencesDialogPointer.reinterpret(),
-            name
-        )
+        adw_preferences_dialog_set_visible_page_name(adwPreferencesDialogPointer.reinterpret(), name)
 
     public companion object : TypeCompanion<PreferencesDialog> {
         override val type: GeneratedClassKGType<PreferencesDialog> =
-            GeneratedClassKGType(adw_preferences_dialog_get_type()) {
-                PreferencesDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_preferences_dialog_get_type()) { PreferencesDialog(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

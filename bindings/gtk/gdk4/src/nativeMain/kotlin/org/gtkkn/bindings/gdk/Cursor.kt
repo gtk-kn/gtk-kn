@@ -30,8 +30,7 @@ import kotlin.String
  * Cursors by themselves are not very interesting: they must be bound to a
  * window for users to see them. This is done with [method@Gdk.Surface.set_cursor]
  * or [method@Gdk.Surface.set_device_cursor]. Applications will typically
- * use higher-level GTK functions such as
- * [gtk_widget_set_cursor()](../gtk4/method.Widget.set_cursor.html)
+ * use higher-level GTK functions such as [gtk_widget_set_cursor()](../gtk4/method.Widget.set_cursor.html)
  * instead.
  *
  * Cursors are not bound to a given [class@Gdk.Display], so they can be shared.
@@ -59,7 +58,8 @@ import kotlin.String
  */
 public open class Cursor(
     pointer: CPointer<GdkCursor>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkCursorPointer: CPointer<GdkCursor>
         get() = gPointer.reinterpret()
 
@@ -162,24 +162,15 @@ public open class Cursor(
      *
      * | | | | |
      * | --- | --- | ---- | --- |
-     * | "none" | ![](default_cursor.png) "default" | ![](help_cursor.png) "help" |
-     * ![](pointer_cursor.png) "pointer" |
-     * | ![](context_menu_cursor.png) "context-menu" | ![](progress_cursor.png) "progress" |
-     * ![](wait_cursor.png) "wait" | ![](cell_cursor.png) "cell" |
-     * | ![](crosshair_cursor.png) "crosshair" | ![](text_cursor.png) "text" |
-     * ![](vertical_text_cursor.png) "vertical-text" | ![](alias_cursor.png) "alias" |
-     * | ![](copy_cursor.png) "copy" | ![](no_drop_cursor.png) "no-drop" | ![](move_cursor.png)
-     * "move" | ![](not_allowed_cursor.png) "not-allowed" |
-     * | ![](grab_cursor.png) "grab" | ![](grabbing_cursor.png) "grabbing" |
-     * ![](all_scroll_cursor.png) "all-scroll" | ![](col_resize_cursor.png) "col-resize" |
-     * | ![](row_resize_cursor.png) "row-resize" | ![](n_resize_cursor.png) "n-resize" |
-     * ![](e_resize_cursor.png) "e-resize" | ![](s_resize_cursor.png) "s-resize" |
-     * | ![](w_resize_cursor.png) "w-resize" | ![](ne_resize_cursor.png) "ne-resize" |
-     * ![](nw_resize_cursor.png) "nw-resize" | ![](sw_resize_cursor.png) "sw-resize" |
-     * | ![](se_resize_cursor.png) "se-resize" | ![](ew_resize_cursor.png) "ew-resize" |
-     * ![](ns_resize_cursor.png) "ns-resize" | ![](nesw_resize_cursor.png) "nesw-resize" |
-     * | ![](nwse_resize_cursor.png) "nwse-resize" | ![](zoom_in_cursor.png) "zoom-in" |
-     * ![](zoom_out_cursor.png) "zoom-out" | |
+     * | "none" | ![](default_cursor.png) "default" | ![](help_cursor.png) "help" | ![](pointer_cursor.png) "pointer" |
+     * | ![](context_menu_cursor.png) "context-menu" | ![](progress_cursor.png) "progress" | ![](wait_cursor.png) "wait" | ![](cell_cursor.png) "cell" |
+     * | ![](crosshair_cursor.png) "crosshair" | ![](text_cursor.png) "text" | ![](vertical_text_cursor.png) "vertical-text" | ![](alias_cursor.png) "alias" |
+     * | ![](copy_cursor.png) "copy" | ![](no_drop_cursor.png) "no-drop" | ![](move_cursor.png) "move" | ![](not_allowed_cursor.png) "not-allowed" |
+     * | ![](grab_cursor.png) "grab" | ![](grabbing_cursor.png) "grabbing" | ![](all_scroll_cursor.png) "all-scroll" | ![](col_resize_cursor.png) "col-resize" |
+     * | ![](row_resize_cursor.png) "row-resize" | ![](n_resize_cursor.png) "n-resize" | ![](e_resize_cursor.png) "e-resize" | ![](s_resize_cursor.png) "s-resize" |
+     * | ![](w_resize_cursor.png) "w-resize" | ![](ne_resize_cursor.png) "ne-resize" | ![](nw_resize_cursor.png) "nw-resize" | ![](sw_resize_cursor.png) "sw-resize" |
+     * | ![](se_resize_cursor.png) "se-resize" | ![](ew_resize_cursor.png) "ew-resize" | ![](ns_resize_cursor.png) "ns-resize" | ![](nesw_resize_cursor.png) "nesw-resize" |
+     * | ![](nwse_resize_cursor.png) "nwse-resize" | ![](zoom_in_cursor.png) "zoom-in" | ![](zoom_out_cursor.png) "zoom-out" | |
      *
      * @param name the name of the cursor
      * @param fallback null or the `GdkCursor` to fall back to when
@@ -187,12 +178,10 @@ public open class Cursor(
      * @return a new `GdkCursor`, or null if there is no
      *   cursor with the given name
      */
-    public constructor(name: String, fallback: Cursor? = null) : this(
-        gdk_cursor_new_from_name(
-            name,
-            fallback?.gdkCursorPointer?.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(
+        name: String,
+        fallback: Cursor? = null,
+    ) : this(gdk_cursor_new_from_name(name, fallback?.gdkCursorPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new cursor from a `GdkTexture`.

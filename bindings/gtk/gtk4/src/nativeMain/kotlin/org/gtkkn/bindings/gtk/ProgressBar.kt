@@ -86,7 +86,10 @@ import kotlin.Unit
  */
 public open class ProgressBar(
     pointer: CPointer<GtkProgressBar>,
-) : Widget(pointer.reinterpret()), AccessibleRange, Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    AccessibleRange,
+    Orientable,
+    KGTyped {
     public val gtkProgressBarPointer: CPointer<GtkProgressBar>
         get() = gPointer.reinterpret()
 
@@ -137,11 +140,7 @@ public open class ProgressBar(
          *
          * @param mode a `PangoEllipsizeMode`
          */
-        set(mode) =
-            gtk_progress_bar_set_ellipsize(
-                gtkProgressBarPointer.reinterpret(),
-                mode.nativeValue
-            )
+        set(mode) = gtk_progress_bar_set_ellipsize(gtkProgressBarPointer.reinterpret(), mode.nativeValue)
 
     /**
      * The fraction of total work that has been completed.
@@ -183,11 +182,7 @@ public open class ProgressBar(
          *
          * @param inverted true to invert the progress bar
          */
-        set(inverted) =
-            gtk_progress_bar_set_inverted(
-                gtkProgressBarPointer.reinterpret(),
-                inverted.asGBoolean()
-            )
+        set(inverted) = gtk_progress_bar_set_inverted(gtkProgressBarPointer.reinterpret(), inverted.asGBoolean())
 
     /**
      * The fraction of total progress to move the bounding block when pulsed.
@@ -211,11 +206,7 @@ public open class ProgressBar(
          *
          * @param fraction fraction between 0.0 and 1.0
          */
-        set(fraction) =
-            gtk_progress_bar_set_pulse_step(
-                gtkProgressBarPointer.reinterpret(),
-                fraction
-            )
+        set(fraction) = gtk_progress_bar_set_pulse_step(gtkProgressBarPointer.reinterpret(), fraction)
 
     /**
      * Sets whether the progress bar will show a text in addition
@@ -252,11 +243,7 @@ public open class ProgressBar(
          *
          * @param showText whether to show text
          */
-        set(showText) =
-            gtk_progress_bar_set_show_text(
-                gtkProgressBarPointer.reinterpret(),
-                showText.asGBoolean()
-            )
+        set(showText) = gtk_progress_bar_set_show_text(gtkProgressBarPointer.reinterpret(), showText.asGBoolean())
 
     /**
      * Text to be displayed in the progress bar.
@@ -393,10 +380,7 @@ public open class ProgressBar(
      * @param inverted true to invert the progress bar
      */
     public open fun setInverted(inverted: Boolean): Unit =
-        gtk_progress_bar_set_inverted(
-            gtkProgressBarPointer.reinterpret(),
-            inverted.asGBoolean()
-        )
+        gtk_progress_bar_set_inverted(gtkProgressBarPointer.reinterpret(), inverted.asGBoolean())
 
     /**
      * Sets the fraction of total progress bar length to move the
@@ -424,10 +408,7 @@ public open class ProgressBar(
      * @param showText whether to show text
      */
     public open fun setShowText(showText: Boolean): Unit =
-        gtk_progress_bar_set_show_text(
-            gtkProgressBarPointer.reinterpret(),
-            showText.asGBoolean()
-        )
+        gtk_progress_bar_set_show_text(gtkProgressBarPointer.reinterpret(), showText.asGBoolean())
 
     /**
      * Causes the given @text to appear next to the progress bar.

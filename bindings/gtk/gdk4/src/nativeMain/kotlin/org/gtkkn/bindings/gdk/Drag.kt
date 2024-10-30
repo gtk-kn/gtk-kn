@@ -50,7 +50,8 @@ import kotlin.Unit
  */
 public open class Drag(
     pointer: CPointer<GdkDrag>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkDragPointer: CPointer<GdkDrag>
         get() = gPointer.reinterpret()
 
@@ -331,9 +332,7 @@ public open class Drag(
 
     public companion object : TypeCompanion<Drag> {
         override val type: GeneratedClassKGType<Drag> =
-            GeneratedClassKGType(gdk_drag_get_type()) {
-                Drag(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_drag_get_type()) { Drag(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -395,8 +394,7 @@ private val connectCancelFunc: CPointer<CFunction<(GdkDragCancelReason) -> Unit>
                 DragCancelReason.fromNativeValue(this)
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDndFinishedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -404,8 +402,7 @@ private val connectDndFinishedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDropPerformedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -413,5 +410,4 @@ private val connectDropPerformedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

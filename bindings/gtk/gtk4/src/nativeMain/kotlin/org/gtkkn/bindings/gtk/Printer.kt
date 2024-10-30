@@ -70,7 +70,8 @@ import kotlin.Unit
  */
 public open class Printer(
     pointer: CPointer<GtkPrinter>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkPrinterPointer: CPointer<GtkPrinter>
         get() = gPointer.reinterpret()
 
@@ -120,9 +121,7 @@ public open class Printer(
          *
          * @return the name of @printer
          */
-        get() =
-            gtk_printer_get_name(gtkPrinterPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_printer_get_name(gtkPrinterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * String giving the current status of the printer.
@@ -162,10 +161,7 @@ public open class Printer(
      *   or a positive value if @a > @b
      */
     public open fun compare(b: Printer): Int =
-        gtk_printer_compare(
-            gtkPrinterPointer.reinterpret(),
-            b.gtkPrinterPointer.reinterpret()
-        )
+        gtk_printer_compare(gtkPrinterPointer.reinterpret(), b.gtkPrinterPointer.reinterpret())
 
     /**
      * Returns the printer’s capabilities.
@@ -202,8 +198,7 @@ public open class Printer(
      * @return the description of @printer
      */
     public open fun getDescription(): String =
-        gtk_printer_get_description(gtkPrinterPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_printer_get_description(gtkPrinterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the name of the icon to use for the printer.
@@ -211,8 +206,7 @@ public open class Printer(
      * @return the icon name for @printer
      */
     public open fun getIconName(): String =
-        gtk_printer_get_icon_name(gtkPrinterPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_printer_get_icon_name(gtkPrinterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the number of jobs currently queued on the printer.
@@ -227,8 +221,7 @@ public open class Printer(
      * @return the location of @printer
      */
     public open fun getLocation(): String =
-        gtk_printer_get_location(gtkPrinterPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_printer_get_location(gtkPrinterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the name of the printer.
@@ -236,8 +229,7 @@ public open class Printer(
      * @return the name of @printer
      */
     public open fun getName(): String =
-        gtk_printer_get_name(gtkPrinterPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_printer_get_name(gtkPrinterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the state message describing the current state
@@ -246,8 +238,7 @@ public open class Printer(
      * @return the state message of @printer
      */
     public open fun getStateMessage(): String =
-        gtk_printer_get_state_message(gtkPrinterPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_printer_get_state_message(gtkPrinterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns whether the printer details are available.
@@ -330,8 +321,7 @@ public open class Printer(
      * actually obtained.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `success` true if the details were
-     * successfully acquired
+     * @param handler the Callback to connect. Params: `success` true if the details were successfully acquired
      */
     public fun connectDetailsAcquired(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -363,5 +353,4 @@ private val connectDetailsAcquiredFunc: CPointer<CFunction<(Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(success: Boolean) -> Unit>().get().invoke(success.asBoolean())
-    }
-        .reinterpret()
+    }.reinterpret()

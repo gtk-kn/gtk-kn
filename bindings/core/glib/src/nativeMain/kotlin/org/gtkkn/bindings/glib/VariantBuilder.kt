@@ -46,10 +46,7 @@ public class VariantBuilder(
      * @since 2.24
      */
     public fun addValue(`value`: Variant): Unit =
-        g_variant_builder_add_value(
-            glibVariantBuilderPointer.reinterpret(),
-            `value`.glibVariantPointer
-        )
+        g_variant_builder_add_value(glibVariantBuilderPointer.reinterpret(), `value`.glibVariantPointer)
 
     /**
      * Closes the subcontainer inside the given @builder that was opened by
@@ -132,10 +129,7 @@ public class VariantBuilder(
      * @since 2.24
      */
     public fun `open`(type: VariantType): Unit =
-        g_variant_builder_open(
-            glibVariantBuilderPointer.reinterpret(),
-            type.glibVariantTypePointer
-        )
+        g_variant_builder_open(glibVariantBuilderPointer.reinterpret(), type.glibVariantTypePointer)
 
     /**
      * Increases the reference count on @builder.

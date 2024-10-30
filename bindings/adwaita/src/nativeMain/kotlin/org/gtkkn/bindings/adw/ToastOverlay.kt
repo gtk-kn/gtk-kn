@@ -61,7 +61,8 @@ import kotlin.Unit
  */
 public class ToastOverlay(
     pointer: CPointer<AdwToastOverlay>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwToastOverlayPointer: CPointer<AdwToastOverlay>
         get() = gPointer.reinterpret()
 
@@ -93,11 +94,9 @@ public class ToastOverlay(
          *
          * @param child the child widget
          */
-        set(child) =
-            adw_toast_overlay_set_child(
-                adwToastOverlayPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = adw_toast_overlay_set_child(adwToastOverlayPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new `AdwToastOverlay`.
@@ -121,10 +120,7 @@ public class ToastOverlay(
      * @param toast a toast
      */
     public fun addToast(toast: Toast): Unit =
-        adw_toast_overlay_add_toast(
-            adwToastOverlayPointer.reinterpret(),
-            toast.adwToastPointer.reinterpret()
-        )
+        adw_toast_overlay_add_toast(adwToastOverlayPointer.reinterpret(), toast.adwToastPointer.reinterpret())
 
     /**
      * Gets the child widget of @self.
@@ -142,16 +138,11 @@ public class ToastOverlay(
      * @param child the child widget
      */
     public fun setChild(child: Widget? = null): Unit =
-        adw_toast_overlay_set_child(
-            adwToastOverlayPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_toast_overlay_set_child(adwToastOverlayPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<ToastOverlay> {
         override val type: GeneratedClassKGType<ToastOverlay> =
-            GeneratedClassKGType(adw_toast_overlay_get_type()) {
-                ToastOverlay(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_toast_overlay_get_type()) { ToastOverlay(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

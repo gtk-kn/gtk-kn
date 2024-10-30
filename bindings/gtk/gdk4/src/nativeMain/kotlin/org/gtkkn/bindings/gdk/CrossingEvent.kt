@@ -19,7 +19,8 @@ import kotlin.Boolean
  */
 public open class CrossingEvent(
     pointer: CPointer<GdkCrossingEvent>,
-) : Event(pointer.reinterpret()), KGTyped {
+) : Event(pointer.reinterpret()),
+    KGTyped {
     public val gdkCrossingEventPointer: CPointer<GdkCrossingEvent>
         get() = gPointer.reinterpret()
 
@@ -53,9 +54,7 @@ public open class CrossingEvent(
 
     public companion object : TypeCompanion<CrossingEvent> {
         override val type: GeneratedClassKGType<CrossingEvent> =
-            GeneratedClassKGType(gdk_crossing_event_get_type()) {
-                CrossingEvent(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_crossing_event_get_type()) { CrossingEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

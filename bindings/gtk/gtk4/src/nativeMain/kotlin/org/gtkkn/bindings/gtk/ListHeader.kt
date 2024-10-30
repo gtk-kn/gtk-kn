@@ -29,7 +29,8 @@ import kotlin.Unit
  */
 public open class ListHeader(
     pointer: CPointer<GtkListHeader>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkListHeaderPointer: CPointer<GtkListHeader>
         get() = gPointer.reinterpret()
 
@@ -61,11 +62,9 @@ public open class ListHeader(
          * @param child The list item's child or null to unset
          * @since 4.12
          */
-        set(child) =
-            gtk_list_header_set_child(
-                gtkListHeaderPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = gtk_list_header_set_child(gtkListHeaderPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The first position no longer part of this section.
@@ -208,10 +207,7 @@ public open class ListHeader(
      * @since 4.12
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_list_header_set_child(
-            gtkListHeaderPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_list_header_set_child(gtkListHeaderPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<ListHeader> {
         override val type: GeneratedClassKGType<ListHeader> =

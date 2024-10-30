@@ -36,7 +36,8 @@ import kotlin.UInt
  */
 public open class Font(
     pointer: CPointer<PangoFont>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val pangoFontPointer: CPointer<PangoFont>
         get() = gPointer.reinterpret()
 
@@ -75,10 +76,7 @@ public open class Font(
      *   object.
      */
     public open fun getCoverage(language: Language): Coverage =
-        pango_font_get_coverage(
-            pangoFontPointer.reinterpret(),
-            language.pangoLanguagePointer
-        )!!.run {
+        pango_font_get_coverage(pangoFontPointer.reinterpret(), language.pangoLanguagePointer)!!.run {
             Coverage(reinterpret())
         }
 
@@ -132,10 +130,7 @@ public open class Font(
      *   [method@Pango.FontMetrics.unref] when finished using the object.
      */
     public open fun getMetrics(language: Language? = null): FontMetrics =
-        pango_font_get_metrics(
-            pangoFontPointer.reinterpret(),
-            language?.pangoLanguagePointer
-        )!!.run {
+        pango_font_get_metrics(pangoFontPointer.reinterpret(), language?.pangoLanguagePointer)!!.run {
             FontMetrics(reinterpret())
         }
 
@@ -146,11 +141,7 @@ public open class Font(
      * @return `TRUE` if @font can render @wc
      * @since 1.44
      */
-    public open fun hasChar(wc: UInt): Boolean =
-        pango_font_has_char(
-            pangoFontPointer.reinterpret(),
-            wc
-        ).asBoolean()
+    public open fun hasChar(wc: UInt): Boolean = pango_font_has_char(pangoFontPointer.reinterpret(), wc).asBoolean()
 
     /**
      * Serializes the @font in a way that can be uniquely identified.

@@ -87,7 +87,9 @@ import kotlin.Unit
  */
 public open class SizeGroup(
     pointer: CPointer<GtkSizeGroup>,
-) : Object(pointer.reinterpret()), Buildable, KGTyped {
+) : Object(pointer.reinterpret()),
+    Buildable,
+    KGTyped {
     public val gtkSizeGroupPointer: CPointer<GtkSizeGroup>
         get() = gPointer.reinterpret()
 
@@ -127,8 +129,7 @@ public open class SizeGroup(
      * @param mode the mode for the new size group.
      * @return a newly created `GtkSizeGroup`
      */
-    public constructor(mode: SizeGroupMode) :
-        this(gtk_size_group_new(mode.nativeValue)!!.reinterpret())
+    public constructor(mode: SizeGroupMode) : this(gtk_size_group_new(mode.nativeValue)!!.reinterpret())
 
     /**
      * Adds a widget to a `GtkSizeGroup`.
@@ -146,10 +147,7 @@ public open class SizeGroup(
      * @param widget the `GtkWidget` to add
      */
     public open fun addWidget(widget: Widget): Unit =
-        gtk_size_group_add_widget(
-            gtkSizeGroupPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        gtk_size_group_add_widget(gtkSizeGroupPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets the current mode of the size group.
@@ -178,10 +176,7 @@ public open class SizeGroup(
      * @param widget the `GtkWidget` to remove
      */
     public open fun removeWidget(widget: Widget): Unit =
-        gtk_size_group_remove_widget(
-            gtkSizeGroupPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        gtk_size_group_remove_widget(gtkSizeGroupPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets the `GtkSizeGroupMode` of the size group.

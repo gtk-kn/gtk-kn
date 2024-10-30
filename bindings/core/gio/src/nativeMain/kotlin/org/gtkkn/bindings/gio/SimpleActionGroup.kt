@@ -31,7 +31,10 @@ import kotlin.Unit
  */
 public open class SimpleActionGroup(
     pointer: CPointer<GSimpleActionGroup>,
-) : Object(pointer.reinterpret()), ActionGroup, ActionMap, KGTyped {
+) : Object(pointer.reinterpret()),
+    ActionGroup,
+    ActionMap,
+    KGTyped {
     public val gioSimpleActionGroupPointer: CPointer<GSimpleActionGroup>
         get() = gPointer.reinterpret()
 
@@ -61,10 +64,7 @@ public open class SimpleActionGroup(
      * @since 2.28
      */
     public open fun insert(action: Action): Unit =
-        g_simple_action_group_insert(
-            gioSimpleActionGroupPointer.reinterpret(),
-            action.gioActionPointer
-        )
+        g_simple_action_group_insert(gioSimpleActionGroupPointer.reinterpret(), action.gioActionPointer)
 
     /**
      * Looks up the action with the name @action_name in the group.
@@ -76,10 +76,7 @@ public open class SimpleActionGroup(
      * @since 2.28
      */
     public open fun lookup(actionName: String): Action =
-        g_simple_action_group_lookup(
-            gioSimpleActionGroupPointer.reinterpret(),
-            actionName
-        )!!.run {
+        g_simple_action_group_lookup(gioSimpleActionGroupPointer.reinterpret(), actionName)!!.run {
             Action.wrap(reinterpret())
         }
 
@@ -96,9 +93,7 @@ public open class SimpleActionGroup(
 
     public companion object : TypeCompanion<SimpleActionGroup> {
         override val type: GeneratedClassKGType<SimpleActionGroup> =
-            GeneratedClassKGType(g_simple_action_group_get_type()) {
-                SimpleActionGroup(it.reinterpret())
-            }
+            GeneratedClassKGType(g_simple_action_group_get_type()) { SimpleActionGroup(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

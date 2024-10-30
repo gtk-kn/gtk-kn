@@ -37,7 +37,9 @@ import kotlin.Unit
  * [method@Gio.IOExtensionPoint.get_extension_by_name].
  * @since 2.26
  */
-public interface Proxy : Interface, KGTyped {
+public interface Proxy :
+    Interface,
+    KGTyped {
     public val gioProxyPointer: CPointer<GProxy>
 
     /**
@@ -114,11 +116,7 @@ public interface Proxy : Interface, KGTyped {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_proxy_connect_finish(
-                    gioProxyPointer.reinterpret(),
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
+                g_proxy_connect_finish(gioProxyPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
                     IOStream(reinterpret())
                 }
 

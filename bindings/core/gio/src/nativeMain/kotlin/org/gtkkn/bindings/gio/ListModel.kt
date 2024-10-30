@@ -92,7 +92,9 @@ import kotlin.Unit
  *                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
  * ```
  */
-public interface ListModel : Interface, KGTyped {
+public interface ListModel :
+    Interface,
+    KGTyped {
     public val gioListModelPointer: CPointer<GListModel>
 
     /**
@@ -176,13 +178,7 @@ public interface ListModel : Interface, KGTyped {
         position: UInt,
         removed: UInt,
         added: UInt,
-    ): Unit =
-        g_list_model_items_changed(
-            gioListModelPointer.reinterpret(),
-            position,
-            removed,
-            added
-        )
+    ): Unit = g_list_model_items_changed(gioListModelPointer.reinterpret(), position, removed, added)
 
     /**
      * This signal is emitted whenever items were added to or removed
@@ -193,8 +189,7 @@ public interface ListModel : Interface, KGTyped {
      * in the model change.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `position` the position at which @list
-     * changed; `removed` the number of items removed; `added` the number of items added
+     * @param handler the Callback to connect. Params: `position` the position at which @list changed; `removed` the number of items removed; `added` the number of items added
      * @since 2.44
      */
     public fun connectItemsChanged(
@@ -248,12 +243,14 @@ private val connectItemsChangedFunc: CPointer<
             added: UInt,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                position: UInt,
-                removed: UInt,
-                added: UInt,
-            ) -> Unit
-        >().get().invoke(position, removed, added)
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    position: UInt,
+                    removed: UInt,
+                    added: UInt,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(position, removed, added)
+    }.reinterpret()

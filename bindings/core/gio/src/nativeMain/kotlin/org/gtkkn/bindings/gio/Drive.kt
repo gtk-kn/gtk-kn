@@ -91,7 +91,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  * For [porting from GnomeVFS](migrating-gnome-vfs.html) note that there is no
  * equivalent of `GDrive` in that API.
  */
-public interface Drive : Interface, KGTyped {
+public interface Drive :
+    Interface,
+    KGTyped {
     public val gioDrivePointer: CPointer<GDrive>
 
     /**
@@ -275,8 +277,7 @@ public interface Drive : Interface, KGTyped {
      *     string should be freed when no longer needed.
      */
     public fun getName(): String =
-        g_drive_get_name(gioDrivePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_drive_get_name(gioDrivePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the sort key for @drive, if any.
@@ -619,8 +620,7 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDisconnectedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -628,8 +628,7 @@ private val connectDisconnectedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectEjectButtonFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -637,8 +636,7 @@ private val connectEjectButtonFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectStopButtonFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -646,5 +644,4 @@ private val connectStopButtonFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

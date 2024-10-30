@@ -54,7 +54,8 @@ import org.gtkkn.bindings.glib.String as GlibString
  */
 public open class ShortcutAction(
     pointer: CPointer<GtkShortcutAction>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkShortcutActionPointer: CPointer<GtkShortcutAction>
         get() = gPointer.reinterpret()
 
@@ -75,8 +76,7 @@ public open class ShortcutAction(
      * @param string the string to parse
      * @return a new `GtkShortcutAction`
      */
-    public constructor(string: KotlinString) :
-        this(gtk_shortcut_action_parse_string(string)!!.reinterpret())
+    public constructor(string: KotlinString) : this(gtk_shortcut_action_parse_string(string)!!.reinterpret())
 
     /**
      * Activates the action on the @widget with the given @args.
@@ -115,16 +115,11 @@ public open class ShortcutAction(
      * @param string a `GString` to print into
      */
     public open fun print(string: GlibString): Unit =
-        gtk_shortcut_action_print(
-            gtkShortcutActionPointer.reinterpret(),
-            string.glibStringPointer
-        )
+        gtk_shortcut_action_print(gtkShortcutActionPointer.reinterpret(), string.glibStringPointer)
 
     public companion object : TypeCompanion<ShortcutAction> {
         override val type: GeneratedClassKGType<ShortcutAction> =
-            GeneratedClassKGType(gtk_shortcut_action_get_type()) {
-                ShortcutAction(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_shortcut_action_get_type()) { ShortcutAction(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -77,10 +77,7 @@ public class PathPoint(
      * @since 4.14
      */
     public fun equal(point2: PathPoint): Boolean =
-        gsk_path_point_equal(
-            gskPathPointPointer.reinterpret(),
-            point2.gskPathPointPointer
-        ).asBoolean()
+        gsk_path_point_equal(gskPathPointPointer.reinterpret(), point2.gskPathPointPointer).asBoolean()
 
     public fun free(): Unit = gsk_path_point_free(gskPathPointPointer.reinterpret())
 
@@ -134,10 +131,7 @@ public class PathPoint(
      * @since 4.14
      */
     public fun getDistance(measure: PathMeasure): Float =
-        gsk_path_point_get_distance(
-            gskPathPointPointer.reinterpret(),
-            measure.gskPathMeasurePointer
-        )
+        gsk_path_point_get_distance(gskPathPointPointer.reinterpret(), measure.gskPathMeasurePointer)
 
     /**
      * Gets the position of the point.
@@ -174,11 +168,7 @@ public class PathPoint(
         path: Path,
         direction: PathDirection,
     ): Float =
-        gsk_path_point_get_rotation(
-            gskPathPointPointer.reinterpret(),
-            path.gskPathPointer,
-            direction.nativeValue
-        )
+        gsk_path_point_get_rotation(gskPathPointPointer.reinterpret(), path.gskPathPointer, direction.nativeValue)
 
     /**
      * Gets the tangent of the path at the point.

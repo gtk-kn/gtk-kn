@@ -23,7 +23,8 @@ import kotlin.Boolean
  */
 public open class ScrollEvent(
     pointer: CPointer<GdkScrollEvent>,
-) : Event(pointer.reinterpret()), KGTyped {
+) : Event(pointer.reinterpret()),
+    KGTyped {
     public val gdkScrollEventPointer: CPointer<GdkScrollEvent>
         get() = gPointer.reinterpret()
 

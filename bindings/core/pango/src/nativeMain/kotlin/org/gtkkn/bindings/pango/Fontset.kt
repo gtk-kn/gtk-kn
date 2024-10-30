@@ -26,7 +26,8 @@ import kotlin.Unit
  */
 public open class Fontset(
     pointer: CPointer<PangoFontset>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val pangoFontsetPointer: CPointer<PangoFontset>
         get() = gPointer.reinterpret()
 

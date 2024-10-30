@@ -182,10 +182,6 @@ public enum class AccessibleRelation(
         public fun initValue(
             relation: AccessibleRelation,
             `value`: Value,
-        ): Unit =
-            gtk_accessible_relation_init_value(
-                relation.nativeValue,
-                `value`.gobjectValuePointer
-            )
+        ): Unit = gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer)
     }
 }

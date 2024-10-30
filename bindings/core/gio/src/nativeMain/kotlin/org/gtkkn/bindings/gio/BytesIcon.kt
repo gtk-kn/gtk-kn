@@ -22,7 +22,10 @@ import org.gtkkn.native.gio.g_bytes_icon_new
  */
 public open class BytesIcon(
     pointer: CPointer<GBytesIcon>,
-) : Object(pointer.reinterpret()), Icon, LoadableIcon, KGTyped {
+) : Object(pointer.reinterpret()),
+    Icon,
+    LoadableIcon,
+    KGTyped {
     public val gioBytesIconPointer: CPointer<GBytesIcon>
         get() = gPointer.reinterpret()
 
@@ -58,8 +61,7 @@ public open class BytesIcon(
      *   @bytes.
      * @since 2.38
      */
-    public constructor(bytes: Bytes) :
-        this(g_bytes_icon_new(bytes.glibBytesPointer)!!.reinterpret())
+    public constructor(bytes: Bytes) : this(g_bytes_icon_new(bytes.glibBytesPointer)!!.reinterpret())
 
     /**
      * Gets the #GBytes associated with the given @icon.

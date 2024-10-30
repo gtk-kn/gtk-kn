@@ -85,10 +85,7 @@ public class FileAttributeInfoList(
      * attribute isn't found.
      */
     public fun lookup(name: String): FileAttributeInfo =
-        g_file_attribute_info_list_lookup(
-            gioFileAttributeInfoListPointer.reinterpret(),
-            name
-        )!!.run {
+        g_file_attribute_info_list_lookup(gioFileAttributeInfoListPointer.reinterpret(), name)!!.run {
             FileAttributeInfo(reinterpret())
         }
 

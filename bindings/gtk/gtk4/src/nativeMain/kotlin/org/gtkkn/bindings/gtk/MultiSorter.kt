@@ -31,7 +31,10 @@ import kotlin.Unit
  */
 public open class MultiSorter(
     pointer: CPointer<GtkMultiSorter>,
-) : Sorter(pointer.reinterpret()), ListModel, Buildable, KGTyped {
+) : Sorter(pointer.reinterpret()),
+    ListModel,
+    Buildable,
+    KGTyped {
     public val gtkMultiSorterPointer: CPointer<GtkMultiSorter>
         get() = gPointer.reinterpret()
 
@@ -62,10 +65,7 @@ public open class MultiSorter(
      * @param sorter a sorter to add
      */
     public open fun append(sorter: Sorter): Unit =
-        gtk_multi_sorter_append(
-            gtkMultiSorterPointer.reinterpret(),
-            sorter.gtkSorterPointer.reinterpret()
-        )
+        gtk_multi_sorter_append(gtkMultiSorterPointer.reinterpret(), sorter.gtkSorterPointer.reinterpret())
 
     /**
      * Removes the sorter at the given @position from the list of sorter

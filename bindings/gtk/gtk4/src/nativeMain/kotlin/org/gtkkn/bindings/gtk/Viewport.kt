@@ -45,7 +45,9 @@ import kotlin.Unit
  */
 public open class Viewport(
     pointer: CPointer<GtkViewport>,
-) : Widget(pointer.reinterpret()), Scrollable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Scrollable,
+    KGTyped {
     public val gtkViewportPointer: CPointer<GtkViewport>
         get() = gPointer.reinterpret()
 
@@ -80,11 +82,7 @@ public open class Viewport(
          *
          * @param child the child widget
          */
-        set(child) =
-            gtk_viewport_set_child(
-                gtkViewportPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = gtk_viewport_set_child(gtkViewportPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether to scroll when the focus changes.
@@ -108,11 +106,9 @@ public open class Viewport(
          *
          * @param scrollToFocus whether to keep the focus widget scrolled to view
          */
-        set(scrollToFocus) =
-            gtk_viewport_set_scroll_to_focus(
-                gtkViewportPointer.reinterpret(),
-                scrollToFocus.asGBoolean()
-            )
+        set(
+            scrollToFocus
+        ) = gtk_viewport_set_scroll_to_focus(gtkViewportPointer.reinterpret(), scrollToFocus.asGBoolean())
 
     /**
      * Creates a new `GtkViewport`.
@@ -124,13 +120,15 @@ public open class Viewport(
      * @param vadjustment vertical adjustment
      * @return a new `GtkViewport`
      */
-    public constructor(hadjustment: Adjustment? = null, vadjustment: Adjustment? = null) :
-        this(
-            gtk_viewport_new(
-                hadjustment?.gtkAdjustmentPointer?.reinterpret(),
-                vadjustment?.gtkAdjustmentPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        hadjustment: Adjustment? = null,
+        vadjustment: Adjustment? = null,
+    ) : this(
+        gtk_viewport_new(
+            hadjustment?.gtkAdjustmentPointer?.reinterpret(),
+            vadjustment?.gtkAdjustmentPointer?.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Gets the child widget of @viewport.
@@ -178,10 +176,7 @@ public open class Viewport(
      * @param child the child widget
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_viewport_set_child(
-            gtkViewportPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_viewport_set_child(gtkViewportPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether the viewport should automatically scroll
@@ -190,10 +185,7 @@ public open class Viewport(
      * @param scrollToFocus whether to keep the focus widget scrolled to view
      */
     public open fun setScrollToFocus(scrollToFocus: Boolean): Unit =
-        gtk_viewport_set_scroll_to_focus(
-            gtkViewportPointer.reinterpret(),
-            scrollToFocus.asGBoolean()
-        )
+        gtk_viewport_set_scroll_to_focus(gtkViewportPointer.reinterpret(), scrollToFocus.asGBoolean())
 
     public companion object : TypeCompanion<Viewport> {
         override val type: GeneratedClassKGType<Viewport> =

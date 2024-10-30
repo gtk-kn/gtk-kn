@@ -93,7 +93,8 @@ import kotlin.Unit
  */
 public open class SocketClient(
     pointer: CPointer<GSocketClient>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioSocketClientPointer: CPointer<GSocketClient>
         get() = gPointer.reinterpret()
 
@@ -122,11 +123,7 @@ public open class SocketClient(
          * @param enable whether to enable proxies
          * @since 2.26
          */
-        set(enable) =
-            g_socket_client_set_enable_proxy(
-                gioSocketClientPointer.reinterpret(),
-                enable.asGBoolean()
-            )
+        set(enable) = g_socket_client_set_enable_proxy(gioSocketClientPointer.reinterpret(), enable.asGBoolean())
 
     /**
      * The address family to use for socket construction.
@@ -160,11 +157,7 @@ public open class SocketClient(
          * @param family a #GSocketFamily
          * @since 2.22
          */
-        set(family) =
-            g_socket_client_set_family(
-                gioSocketClientPointer.reinterpret(),
-                family.nativeValue
-            )
+        set(family) = g_socket_client_set_family(gioSocketClientPointer.reinterpret(), family.nativeValue)
 
     /**
      * The local address constructed sockets will be bound to.
@@ -197,7 +190,9 @@ public open class SocketClient(
          * @param address a #GSocketAddress, or null
          * @since 2.22
          */
-        set(address) =
+        set(
+            address
+        ) =
             g_socket_client_set_local_address(
                 gioSocketClientPointer.reinterpret(),
                 address?.gioSocketAddressPointer?.reinterpret()
@@ -233,11 +228,7 @@ public open class SocketClient(
          * @param protocol a #GSocketProtocol
          * @since 2.22
          */
-        set(protocol) =
-            g_socket_client_set_protocol(
-                gioSocketClientPointer.reinterpret(),
-                protocol.nativeValue
-            )
+        set(protocol) = g_socket_client_set_protocol(gioSocketClientPointer.reinterpret(), protocol.nativeValue)
 
     /**
      * The I/O timeout for sockets, in seconds, or `0` for none.
@@ -354,11 +345,7 @@ public open class SocketClient(
          * @param flags the validation flags
          * @since 2.28
          */
-        set(flags) =
-            g_socket_client_set_tls_validation_flags(
-                gioSocketClientPointer.reinterpret(),
-                flags.mask
-            )
+        set(flags) = g_socket_client_set_tls_validation_flags(gioSocketClientPointer.reinterpret(), flags.mask)
 
     /**
      * Creates a new #GSocketClient with the default options.
@@ -947,10 +934,7 @@ public open class SocketClient(
      * @since 2.26
      */
     public open fun setEnableProxy(enable: Boolean): Unit =
-        g_socket_client_set_enable_proxy(
-            gioSocketClientPointer.reinterpret(),
-            enable.asGBoolean()
-        )
+        g_socket_client_set_enable_proxy(gioSocketClientPointer.reinterpret(), enable.asGBoolean())
 
     /**
      * Sets the socket family of the socket client.
@@ -1014,10 +998,7 @@ public open class SocketClient(
      * @since 2.36
      */
     public open fun setProxyResolver(proxyResolver: ProxyResolver? = null): Unit =
-        g_socket_client_set_proxy_resolver(
-            gioSocketClientPointer.reinterpret(),
-            proxyResolver?.gioProxyResolverPointer
-        )
+        g_socket_client_set_proxy_resolver(gioSocketClientPointer.reinterpret(), proxyResolver?.gioProxyResolverPointer)
 
     /**
      * Sets the socket type of the socket client.
@@ -1085,10 +1066,7 @@ public open class SocketClient(
      * @since 2.28
      */
     public open fun setTlsValidationFlags(flags: TlsCertificateFlags): Unit =
-        g_socket_client_set_tls_validation_flags(
-            gioSocketClientPointer.reinterpret(),
-            flags.mask
-        )
+        g_socket_client_set_tls_validation_flags(gioSocketClientPointer.reinterpret(), flags.mask)
 
     /**
      * Emitted when @client's activity on @connectable changes state.
@@ -1142,9 +1120,7 @@ public open class SocketClient(
      * the future; unrecognized @event values should be ignored.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `event` the event that is occurring;
-     * `connectable` the #GSocketConnectable that @event is occurring on; `connection` the current
-     * representation of the connection
+     * @param handler the Callback to connect. Params: `event` the event that is occurring; `connectable` the #GSocketConnectable that @event is occurring on; `connection` the current representation of the connection
      * @since 2.32
      */
     public fun connectEvent(
@@ -1190,22 +1166,24 @@ private val connectEventFunc: CPointer<
             connection: CPointer<GIOStream>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                event: SocketClientEvent,
-                connectable: SocketConnectable,
-                connection: IOStream?,
-            ) -> Unit
-        >().get().invoke(
-            event.run {
-                SocketClientEvent.fromNativeValue(this)
-            },
-            connectable!!.run {
-                SocketConnectable.wrap(reinterpret())
-            },
-            connection?.run {
-                IOStream(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    event: SocketClientEvent,
+                    connectable: SocketConnectable,
+                    connection: IOStream?,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                event.run {
+                    SocketClientEvent.fromNativeValue(this)
+                },
+                connectable!!.run {
+                    SocketConnectable.wrap(reinterpret())
+                },
+                connection?.run {
+                    IOStream(reinterpret())
+                }
+            )
+    }.reinterpret()

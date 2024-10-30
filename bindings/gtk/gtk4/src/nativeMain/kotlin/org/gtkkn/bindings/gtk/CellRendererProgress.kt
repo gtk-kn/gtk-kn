@@ -28,7 +28,9 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_progress_new
  */
 public open class CellRendererProgress(
     pointer: CPointer<GtkCellRendererProgress>,
-) : CellRenderer(pointer.reinterpret()), Orientable, KGTyped {
+) : CellRenderer(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val gtkCellRendererProgressPointer: CPointer<GtkCellRendererProgress>
         get() = gPointer.reinterpret()
 
@@ -44,9 +46,7 @@ public open class CellRendererProgress(
 
     public companion object : TypeCompanion<CellRendererProgress> {
         override val type: GeneratedClassKGType<CellRendererProgress> =
-            GeneratedClassKGType(gtk_cell_renderer_progress_get_type()) {
-                CellRendererProgress(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_cell_renderer_progress_get_type()) { CellRendererProgress(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

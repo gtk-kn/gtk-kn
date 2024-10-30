@@ -137,7 +137,9 @@ import kotlin.Unit
  * problematic calls out of `init()` and into a `constructor()`
  * for your class.
  */
-public interface CellLayout : Interface, KGTyped {
+public interface CellLayout :
+    Interface,
+    KGTyped {
     public val gtkCellLayoutPointer: CPointer<GtkCellLayout>
 
     /**
@@ -178,10 +180,7 @@ public interface CellLayout : Interface, KGTyped {
      * @param cell a `GtkCellRenderer` to clear the attribute mapping on
      */
     public fun clearAttributes(cell: CellRenderer): Unit =
-        gtk_cell_layout_clear_attributes(
-            gtkCellLayoutPointer.reinterpret(),
-            cell.gtkCellRendererPointer.reinterpret()
-        )
+        gtk_cell_layout_clear_attributes(gtkCellLayoutPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret())
 
     /**
      * Returns the underlying `GtkCellArea` which might be @cell_layout
@@ -261,11 +260,7 @@ public interface CellLayout : Interface, KGTyped {
         cell: CellRenderer,
         position: Int,
     ): Unit =
-        gtk_cell_layout_reorder(
-            gtkCellLayoutPointer.reinterpret(),
-            cell.gtkCellRendererPointer.reinterpret(),
-            position
-        )
+        gtk_cell_layout_reorder(gtkCellLayoutPointer.reinterpret(), cell.gtkCellRendererPointer.reinterpret(), position)
 
     /**
      * Sets the `GtkCellLayout`DataFunc to use for @cell_layout.

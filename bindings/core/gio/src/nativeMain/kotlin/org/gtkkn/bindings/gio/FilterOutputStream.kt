@@ -24,7 +24,8 @@ import kotlin.Unit
  */
 public open class FilterOutputStream(
     pointer: CPointer<GFilterOutputStream>,
-) : OutputStream(pointer.reinterpret()), KGTyped {
+) : OutputStream(pointer.reinterpret()),
+    KGTyped {
     public val gioFilterOutputStreamPointer: CPointer<GFilterOutputStream>
         get() = gPointer.reinterpret()
 
@@ -49,8 +50,7 @@ public open class FilterOutputStream(
          *
          * @return true if the base stream will be closed.
          */
-        get() =
-            g_filter_output_stream_get_close_base_stream(gioFilterOutputStreamPointer.reinterpret()).asBoolean()
+        get() = g_filter_output_stream_get_close_base_stream(gioFilterOutputStreamPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the base stream for the filter stream.
@@ -77,16 +77,11 @@ public open class FilterOutputStream(
      * @param closeBase true to close the base stream.
      */
     public open fun setCloseBaseStream(closeBase: Boolean): Unit =
-        g_filter_output_stream_set_close_base_stream(
-            gioFilterOutputStreamPointer.reinterpret(),
-            closeBase.asGBoolean()
-        )
+        g_filter_output_stream_set_close_base_stream(gioFilterOutputStreamPointer.reinterpret(), closeBase.asGBoolean())
 
     public companion object : TypeCompanion<FilterOutputStream> {
         override val type: GeneratedClassKGType<FilterOutputStream> =
-            GeneratedClassKGType(g_filter_output_stream_get_type()) {
-                FilterOutputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(g_filter_output_stream_get_type()) { FilterOutputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

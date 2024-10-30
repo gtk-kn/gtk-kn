@@ -46,9 +46,7 @@ public enum class LayoutDeserializeError(
         public fun quark(): UInt = pango_layout_deserialize_error_quark()
 
         public fun fromErrorOrNull(error: Error): LayoutDeserializeError? =
-            if (error.domain !=
-                quark()
-            ) {
+            if (error.domain != quark()) {
                 null
             } else {
                 LayoutDeserializeError.values().find { it.nativeValue.value.toInt() == error.code }

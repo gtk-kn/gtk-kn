@@ -48,10 +48,7 @@ public class Sphere(
      * @since 1.2
      */
     public fun containsPoint(point: Point3D): Boolean =
-        graphene_sphere_contains_point(
-            grapheneSpherePointer.reinterpret(),
-            point.graphenePoint3DPointer
-        )
+        graphene_sphere_contains_point(grapheneSpherePointer.reinterpret(), point.graphenePoint3DPointer)
 
     /**
      * Computes the distance of the given @point from the surface of
@@ -62,10 +59,7 @@ public class Sphere(
      * @since 1.2
      */
     public fun distance(point: Point3D): Float =
-        graphene_sphere_distance(
-            grapheneSpherePointer.reinterpret(),
-            point.graphenePoint3DPointer
-        )
+        graphene_sphere_distance(grapheneSpherePointer.reinterpret(), point.graphenePoint3DPointer)
 
     /**
      * Checks whether two #graphene_sphere_t are equal.
@@ -92,10 +86,7 @@ public class Sphere(
      * @since 1.2
      */
     public fun getBoundingBox(box: Box): Unit =
-        graphene_sphere_get_bounding_box(
-            grapheneSpherePointer.reinterpret(),
-            box.grapheneBoxPointer
-        )
+        graphene_sphere_get_bounding_box(grapheneSpherePointer.reinterpret(), box.grapheneBoxPointer)
 
     /**
      * Retrieves the coordinates of the center of a #graphene_sphere_t.
@@ -105,10 +96,7 @@ public class Sphere(
      * @since 1.2
      */
     public fun getCenter(center: Point3D): Unit =
-        graphene_sphere_get_center(
-            grapheneSpherePointer.reinterpret(),
-            center.graphenePoint3DPointer
-        )
+        graphene_sphere_get_center(grapheneSpherePointer.reinterpret(), center.graphenePoint3DPointer)
 
     /**
      * Retrieves the radius of a #graphene_sphere_t.
@@ -130,11 +118,7 @@ public class Sphere(
         center: Point3D? = null,
         radius: Float,
     ): Sphere =
-        graphene_sphere_init(
-            grapheneSpherePointer.reinterpret(),
-            center?.graphenePoint3DPointer,
-            radius
-        )!!.run {
+        graphene_sphere_init(grapheneSpherePointer.reinterpret(), center?.graphenePoint3DPointer, radius)!!.run {
             Sphere(reinterpret())
         }
 

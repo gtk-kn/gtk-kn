@@ -168,7 +168,8 @@ import kotlin.Unit
  */
 public open class Dialog(
     pointer: CPointer<GtkDialog>,
-) : Window(pointer.reinterpret()), KGTyped {
+) : Window(pointer.reinterpret()),
+    KGTyped {
     public val gtkDialogPointer: CPointer<GtkDialog>
         get() = gPointer.reinterpret()
 
@@ -219,11 +220,7 @@ public open class Dialog(
         child: Widget,
         responseId: Int,
     ): Unit =
-        gtk_dialog_add_action_widget(
-            gtkDialogPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            responseId
-        )
+        gtk_dialog_add_action_widget(gtkDialogPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), responseId)
 
     /**
      * Adds a button with the given text.
@@ -277,10 +274,7 @@ public open class Dialog(
      *  if @widget doesn’t have a response id set.
      */
     public open fun getResponseForWidget(widget: Widget): Int =
-        gtk_dialog_get_response_for_widget(
-            gtkDialogPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        gtk_dialog_get_response_for_widget(gtkDialogPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets the widget button that uses the given response ID in the action area
@@ -326,12 +320,7 @@ public open class Dialog(
     public open fun setResponseSensitive(
         responseId: Int,
         setting: Boolean,
-    ): Unit =
-        gtk_dialog_set_response_sensitive(
-            gtkDialogPointer.reinterpret(),
-            responseId,
-            setting.asGBoolean()
-        )
+    ): Unit = gtk_dialog_set_response_sensitive(gtkDialogPointer.reinterpret(), responseId, setting.asGBoolean())
 
     /**
      * Emitted when the user uses a keybinding to close the dialog.
@@ -396,8 +385,7 @@ private val connectCloseFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectResponseFunc: CPointer<CFunction<(Int) -> Unit>> =
     staticCFunction {
@@ -406,5 +394,4 @@ private val connectResponseFunc: CPointer<CFunction<(Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(responseId: Int) -> Unit>().get().invoke(responseId)
-    }
-        .reinterpret()
+    }.reinterpret()
