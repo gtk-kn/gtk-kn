@@ -41,7 +41,8 @@ import kotlin.Unit
  */
 public open class GestureSwipe(
     pointer: CPointer<GtkGestureSwipe>,
-) : GestureSingle(pointer.reinterpret()), KGTyped {
+) : GestureSingle(pointer.reinterpret()),
+    KGTyped {
     public val gtkGestureSwipePointer: CPointer<GtkGestureSwipe>
         get() = gPointer.reinterpret()
 
@@ -58,8 +59,7 @@ public open class GestureSwipe(
      * Velocity and direction are a product of previously recorded events.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `velocityX` velocity in the X axis, in
-     * pixels/sec; `velocityY` velocity in the Y axis, in pixels/sec
+     * @param handler the Callback to connect. Params: `velocityX` velocity in the X axis, in pixels/sec; `velocityY` velocity in the Y axis, in pixels/sec
      */
     public fun connectSwipe(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -76,9 +76,7 @@ public open class GestureSwipe(
 
     public companion object : TypeCompanion<GestureSwipe> {
         override val type: GeneratedClassKGType<GestureSwipe> =
-            GeneratedClassKGType(gtk_gesture_swipe_get_type()) {
-                GestureSwipe(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_gesture_swipe_get_type()) { GestureSwipe(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -93,9 +91,5 @@ private val connectSwipeFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
             velocityY: Double,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(velocityX: Double, velocityY: Double) -> Unit>().get().invoke(
-            velocityX,
-            velocityY
-        )
-    }
-        .reinterpret()
+        userData.asStableRef<(velocityX: Double, velocityY: Double) -> Unit>().get().invoke(velocityX, velocityY)
+    }.reinterpret()

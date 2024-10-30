@@ -30,7 +30,8 @@ import kotlin.Unit
  */
 public open class GestureRotate(
     pointer: CPointer<GtkGestureRotate>,
-) : Gesture(pointer.reinterpret()), KGTyped {
+) : Gesture(pointer.reinterpret()),
+    KGTyped {
     public val gtkGestureRotatePointer: CPointer<GtkGestureRotate>
         get() = gPointer.reinterpret()
 
@@ -57,8 +58,7 @@ public open class GestureRotate(
      * Emitted when the angle between both tracked points changes.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `angle` Current angle in radians;
-     * `angleDelta` Difference with the starting angle, in radians
+     * @param handler the Callback to connect. Params: `angle` Current angle in radians; `angleDelta` Difference with the starting angle, in radians
      */
     public fun connectAngleChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -75,9 +75,7 @@ public open class GestureRotate(
 
     public companion object : TypeCompanion<GestureRotate> {
         override val type: GeneratedClassKGType<GestureRotate> =
-            GeneratedClassKGType(gtk_gesture_rotate_get_type()) {
-                GestureRotate(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_gesture_rotate_get_type()) { GestureRotate(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -92,9 +90,5 @@ private val connectAngleChangedFunc: CPointer<CFunction<(Double, Double) -> Unit
             angleDelta: Double,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(angle: Double, angleDelta: Double) -> Unit>().get().invoke(
-            angle,
-            angleDelta
-        )
-    }
-        .reinterpret()
+        userData.asStableRef<(angle: Double, angleDelta: Double) -> Unit>().get().invoke(angle, angleDelta)
+    }.reinterpret()

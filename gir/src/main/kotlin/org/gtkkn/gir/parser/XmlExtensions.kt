@@ -81,9 +81,9 @@ fun Node.childNodesWithName(nodeName: String): List<Node> = this.childNodes.asLi
  *
  * @return List of child nodes or [emptyList] when no child nodes match.
  */
-fun Node.childNodesWithNames(vararg nodeNames: String): List<Node> = this.childNodes.asList().filter {
+fun Node.childNodesWithNames(vararg nodeNames: String): List<Node> = this.childNodes.asList().filter { node ->
     nodeNames.contains(
-        it.nodeName,
+        node.nodeName,
     )
 }
 

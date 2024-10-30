@@ -78,7 +78,8 @@ import kotlin.Unit
  */
 public class TabBar(
     pointer: CPointer<AdwTabBar>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwTabBarPointer: CPointer<AdwTabBar>
         get() = gPointer.reinterpret()
 
@@ -117,11 +118,7 @@ public class TabBar(
          *
          * @param autohide whether the tabs automatically hide
          */
-        set(autohide) =
-            adw_tab_bar_set_autohide(
-                adwTabBarPointer.reinterpret(),
-                autohide.asGBoolean()
-            )
+        set(autohide) = adw_tab_bar_set_autohide(adwTabBarPointer.reinterpret(), autohide.asGBoolean())
 
     /**
      * The widget shown after the tabs.
@@ -142,11 +139,9 @@ public class TabBar(
          *
          * @param widget the widget to show after the tabs
          */
-        set(widget) =
-            adw_tab_bar_set_end_action_widget(
-                adwTabBarPointer.reinterpret(),
-                widget?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            widget
+        ) = adw_tab_bar_set_end_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether tabs expand to full width.
@@ -170,11 +165,7 @@ public class TabBar(
          *
          * @param expandTabs whether to expand tabs
          */
-        set(expandTabs) =
-            adw_tab_bar_set_expand_tabs(
-                adwTabBarPointer.reinterpret(),
-                expandTabs.asGBoolean()
-            )
+        set(expandTabs) = adw_tab_bar_set_expand_tabs(adwTabBarPointer.reinterpret(), expandTabs.asGBoolean())
 
     /**
      * The unique action on the `current-drop` of the
@@ -222,11 +213,7 @@ public class TabBar(
          * @param preload whether to preload drop data
          * @since 1.3
          */
-        set(preload) =
-            adw_tab_bar_set_extra_drag_preload(
-                adwTabBarPointer.reinterpret(),
-                preload.asGBoolean()
-            )
+        set(preload) = adw_tab_bar_set_extra_drag_preload(adwTabBarPointer.reinterpret(), preload.asGBoolean())
 
     /**
      * Whether tabs use inverted layout.
@@ -250,11 +237,7 @@ public class TabBar(
          *
          * @param inverted whether tabs use inverted layout
          */
-        set(inverted) =
-            adw_tab_bar_set_inverted(
-                adwTabBarPointer.reinterpret(),
-                inverted.asGBoolean()
-            )
+        set(inverted) = adw_tab_bar_set_inverted(adwTabBarPointer.reinterpret(), inverted.asGBoolean())
 
     /**
      * Whether the tab bar is overflowing.
@@ -290,11 +273,9 @@ public class TabBar(
          *
          * @param widget the widget to show before the tabs
          */
-        set(widget) =
-            adw_tab_bar_set_start_action_widget(
-                adwTabBarPointer.reinterpret(),
-                widget?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            widget
+        ) = adw_tab_bar_set_start_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether the tabs are currently revealed.
@@ -330,11 +311,7 @@ public class TabBar(
          *
          * @param view a tab view
          */
-        set(view) =
-            adw_tab_bar_set_view(
-                adwTabBarPointer.reinterpret(),
-                view?.adwTabViewPointer?.reinterpret()
-            )
+        set(view) = adw_tab_bar_set_view(adwTabBarPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
 
     /**
      * Creates a new `AdwTabBar`.
@@ -451,10 +428,7 @@ public class TabBar(
      * @param widget the widget to show after the tabs
      */
     public fun setEndActionWidget(widget: Widget? = null): Unit =
-        adw_tab_bar_set_end_action_widget(
-            adwTabBarPointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_tab_bar_set_end_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether tabs expand to full width.
@@ -495,10 +469,7 @@ public class TabBar(
      * @param widget the widget to show before the tabs
      */
     public fun setStartActionWidget(widget: Widget? = null): Unit =
-        adw_tab_bar_set_start_action_widget(
-            adwTabBarPointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_tab_bar_set_start_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the tab view @self controls.
@@ -506,10 +477,7 @@ public class TabBar(
      * @param view a tab view
      */
     public fun setView(view: TabView? = null): Unit =
-        adw_tab_bar_set_view(
-            adwTabBarPointer.reinterpret(),
-            view?.adwTabViewPointer?.reinterpret()
-        )
+        adw_tab_bar_set_view(adwTabBarPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
 
     /**
      * This signal is emitted when content is dropped onto a tab.
@@ -520,9 +488,7 @@ public class TabBar(
      * See [signal@Gtk.DropTarget::drop].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `page` the page matching the tab the content
-     * was dropped onto; `value` the `GValue` being dropped. Returns whether the drop was accepted for
-     * @page
+     * @param handler the Callback to connect. Params: `page` the page matching the tab the content was dropped onto; `value` the `GValue` being dropped. Returns whether the drop was accepted for @page
      */
     public fun connectExtraDragDrop(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -549,9 +515,7 @@ public class TabBar(
      * See [property@Gtk.DropTarget:value].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `page` the page matching the tab the content
-     * was dropped onto; `value` the `GValue` being dropped. Returns the preferred action for the drop
-     * on @page
+     * @param handler the Callback to connect. Params: `page` the page matching the tab the content was dropped onto; `value` the `GValue` being dropped. Returns the preferred action for the drop on @page
      * @since 1.3
      */
     public fun connectExtraDragValue(
@@ -577,52 +541,44 @@ public class TabBar(
     }
 }
 
-private val connectExtraDragDropFunc: CPointer<
-    CFunction<
-        (
-            CPointer<AdwTabPage>,
-            CPointer<GValue>,
-        ) -> Int
-    >
-> =
+private val connectExtraDragDropFunc:
+    CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             page: CPointer<AdwTabPage>?,
             `value`: CPointer<GValue>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(page: TabPage, `value`: Value) -> Boolean>().get().invoke(
-            page!!.run {
-                TabPage(reinterpret())
-            },
-            `value`!!.run {
-                Value(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(page: TabPage, `value`: Value) -> Boolean>()
+            .get()
+            .invoke(
+                page!!.run {
+                    TabPage(reinterpret())
+                },
+                `value`!!.run {
+                    Value(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
-private val connectExtraDragValueFunc: CPointer<
-    CFunction<
-        (
-            CPointer<AdwTabPage>,
-            CPointer<GValue>,
-        ) -> GdkDragAction
-    >
-> =
+private val connectExtraDragValueFunc:
+    CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> GdkDragAction>> =
     staticCFunction {
             _: COpaquePointer,
             page: CPointer<AdwTabPage>?,
             `value`: CPointer<GValue>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(page: TabPage, `value`: Value) -> DragAction>().get().invoke(
-            page!!.run {
-                TabPage(reinterpret())
-            },
-            `value`!!.run {
-                Value(reinterpret())
-            }
-        ).mask
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(page: TabPage, `value`: Value) -> DragAction>()
+            .get()
+            .invoke(
+                page!!.run {
+                    TabPage(reinterpret())
+                },
+                `value`!!.run {
+                    Value(reinterpret())
+                }
+            ).mask
+    }.reinterpret()

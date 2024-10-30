@@ -34,7 +34,9 @@ import kotlin.Int
  * out through [method@Gdk.DevicePad.get_group_n_modes], and the current mode
  * for a given group will be notified through events of type `GDK_PAD_GROUP_MODE`.
  */
-public interface DevicePad : Interface, KGTyped {
+public interface DevicePad :
+    Interface,
+    KGTyped {
     public val gdkDevicePadPointer: CPointer<GdkDevicePad>
 
     /**
@@ -49,12 +51,7 @@ public interface DevicePad : Interface, KGTyped {
     public fun getFeatureGroup(
         feature: DevicePadFeature,
         featureIdx: Int,
-    ): Int =
-        gdk_device_pad_get_feature_group(
-            gdkDevicePadPointer.reinterpret(),
-            feature.nativeValue,
-            featureIdx
-        )
+    ): Int = gdk_device_pad_get_feature_group(gdkDevicePadPointer.reinterpret(), feature.nativeValue, featureIdx)
 
     /**
      * Returns the number of modes that @group may have.

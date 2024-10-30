@@ -17,7 +17,8 @@ import kotlin.Boolean
  */
 public open class FocusEvent(
     pointer: CPointer<GdkFocusEvent>,
-) : Event(pointer.reinterpret()), KGTyped {
+) : Event(pointer.reinterpret()),
+    KGTyped {
     public val gdkFocusEventPointer: CPointer<GdkFocusEvent>
         get() = gPointer.reinterpret()
 

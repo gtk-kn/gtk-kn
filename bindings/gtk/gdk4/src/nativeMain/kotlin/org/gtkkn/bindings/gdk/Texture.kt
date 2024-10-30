@@ -67,7 +67,11 @@ import kotlin.Throws
  */
 public open class Texture(
     pointer: CPointer<GdkTexture>,
-) : Object(pointer.reinterpret()), Paintable, Icon, LoadableIcon, KGTyped {
+) : Object(pointer.reinterpret()),
+    Paintable,
+    Icon,
+    LoadableIcon,
+    KGTyped {
     public val gdkTexturePointer: CPointer<GdkTexture>
         get() = gPointer.reinterpret()
 
@@ -112,8 +116,9 @@ public open class Texture(
      * @param pixbuf a `GdkPixbuf`
      * @return a new `GdkTexture`
      */
-    public constructor(pixbuf: Pixbuf) :
-        this(gdk_texture_new_for_pixbuf(pixbuf.gdkpixbufPixbufPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        pixbuf: Pixbuf,
+    ) : this(gdk_texture_new_for_pixbuf(pixbuf.gdkpixbufPixbufPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new texture by loading an image from memory,

@@ -74,7 +74,10 @@ import kotlin.Unit
  * signal, and unref the `GMemoryMonitor` itself when exiting.
  * @since 2.64
  */
-public interface MemoryMonitor : Interface, Initable, KGTyped {
+public interface MemoryMonitor :
+    Interface,
+    Initable,
+    KGTyped {
     public val gioMemoryMonitorPointer: CPointer<GMemoryMonitor>
 
     override val gioInitablePointer: CPointer<GInitable>
@@ -87,8 +90,7 @@ public interface MemoryMonitor : Interface, Initable, KGTyped {
      * details.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `level` the #GMemoryMonitorWarningLevel
-     * warning level
+     * @param handler the Callback to connect. Params: `level` the #GMemoryMonitorWarningLevel warning level
      * @since 2.64
      */
     public fun connectLowMemoryWarning(
@@ -144,5 +146,4 @@ private val connectLowMemoryWarningFunc: CPointer<CFunction<(GMemoryMonitorWarni
                 MemoryMonitorWarningLevel.fromNativeValue(this)
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

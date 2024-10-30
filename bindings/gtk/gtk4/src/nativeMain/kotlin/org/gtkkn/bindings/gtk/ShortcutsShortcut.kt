@@ -34,7 +34,8 @@ import org.gtkkn.native.gtk.gtk_shortcuts_shortcut_get_type
  */
 public open class ShortcutsShortcut(
     pointer: CPointer<GtkShortcutsShortcut>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkShortcutsShortcutPointer: CPointer<GtkShortcutsShortcut>
         get() = gPointer.reinterpret()
 
@@ -49,9 +50,7 @@ public open class ShortcutsShortcut(
 
     public companion object : TypeCompanion<ShortcutsShortcut> {
         override val type: GeneratedClassKGType<ShortcutsShortcut> =
-            GeneratedClassKGType(gtk_shortcuts_shortcut_get_type()) {
-                ShortcutsShortcut(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_shortcuts_shortcut_get_type()) { ShortcutsShortcut(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

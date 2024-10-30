@@ -18,15 +18,14 @@ import kotlin.String
  */
 public open class DBusMenuModel(
     pointer: CPointer<GDBusMenuModel>,
-) : MenuModel(pointer.reinterpret()), KGTyped {
+) : MenuModel(pointer.reinterpret()),
+    KGTyped {
     public val gioDBusMenuModelPointer: CPointer<GDBusMenuModel>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<DBusMenuModel> {
         override val type: GeneratedClassKGType<DBusMenuModel> =
-            GeneratedClassKGType(g_dbus_menu_model_get_type()) {
-                DBusMenuModel(it.reinterpret())
-            }
+            GeneratedClassKGType(g_dbus_menu_model_get_type()) { DBusMenuModel(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -55,11 +54,7 @@ public open class DBusMenuModel(
             busName: String? = null,
             objectPath: String,
         ): DBusMenuModel =
-            g_dbus_menu_model_get(
-                connection.gioDBusConnectionPointer.reinterpret(),
-                busName,
-                objectPath
-            )!!.run {
+            g_dbus_menu_model_get(connection.gioDBusConnectionPointer.reinterpret(), busName, objectPath)!!.run {
                 DBusMenuModel(reinterpret())
             }
     }

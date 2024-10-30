@@ -132,7 +132,11 @@ import kotlin.collections.List
  */
 public open class DBusProxy(
     pointer: CPointer<GDBusProxy>,
-) : Object(pointer.reinterpret()), AsyncInitable, DBusInterface, Initable, KGTyped {
+) : Object(pointer.reinterpret()),
+    AsyncInitable,
+    DBusInterface,
+    Initable,
+    KGTyped {
     public val gioDBusProxyPointer: CPointer<GDBusProxy>
         get() = gPointer.reinterpret()
 
@@ -148,8 +152,7 @@ public open class DBusProxy(
     /**
      * Finishes creating a #GDBusProxy.
      *
-     * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback function passed to
-     * g_dbus_proxy_new().
+     * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback function passed to g_dbus_proxy_new().
      * @return A #GDBusProxy or null if @error is set.
      *    Free with g_object_unref().
      * @since 2.26
@@ -228,8 +231,7 @@ public open class DBusProxy(
      * guaranteed to return immediately without blocking.
      *
      * If @name is a well-known name and the
-     * %G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START and
-     * %G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START_AT_CONSTRUCTION
+     * %G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START and %G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START_AT_CONSTRUCTION
      * flags aren't set and no name owner currently exists, the message bus
      * will be requested to launch a name owner for the name.
      *
@@ -240,10 +242,8 @@ public open class DBusProxy(
      *
      * @param connection A #GDBusConnection.
      * @param flags Flags used when constructing the proxy.
-     * @param info A #GDBusInterfaceInfo specifying the minimal interface that @proxy conforms to or
-     * null.
-     * @param name A bus name (well-known or unique) or null if @connection is not a message bus
-     * connection.
+     * @param info A #GDBusInterfaceInfo specifying the minimal interface that @proxy conforms to or null.
+     * @param name A bus name (well-known or unique) or null if @connection is not a message bus connection.
      * @param objectPath An object path.
      * @param interfaceName A D-Bus interface name.
      * @param cancellable A #GCancellable or null.
@@ -326,14 +326,12 @@ public open class DBusProxy(
      * the %G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED flag set.
      *
      * @param methodName Name of method to invoke.
-     * @param parameters A #GVariant tuple with parameters for the signal or null if not passing
-     * parameters.
+     * @param parameters A #GVariant tuple with parameters for the signal or null if not passing parameters.
      * @param flags Flags from the #GDBusCallFlags enumeration.
      * @param timeoutMsec The timeout in milliseconds (with %G_MAXINT meaning
      *                "infinite") or -1 to use the proxy default timeout.
      * @param cancellable A #GCancellable or null.
-     * @param callback A #GAsyncReadyCallback to call when the request is satisfied or null if you
-     * don't
+     * @param callback A #GAsyncReadyCallback to call when the request is satisfied or null if you don't
      * care about the result of the method invocation.
      * @since 2.26
      */
@@ -359,8 +357,7 @@ public open class DBusProxy(
     /**
      * Finishes an operation started with g_dbus_proxy_call().
      *
-     * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-     * g_dbus_proxy_call().
+     * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to g_dbus_proxy_call().
      * @return null if @error is set. Otherwise a #GVariant tuple with
      * return values. Free with g_variant_unref().
      * @since 2.26
@@ -466,15 +463,13 @@ public open class DBusProxy(
      * This method is only available on UNIX.
      *
      * @param methodName Name of method to invoke.
-     * @param parameters A #GVariant tuple with parameters for the signal or null if not passing
-     * parameters.
+     * @param parameters A #GVariant tuple with parameters for the signal or null if not passing parameters.
      * @param flags Flags from the #GDBusCallFlags enumeration.
      * @param timeoutMsec The timeout in milliseconds (with %G_MAXINT meaning
      *                "infinite") or -1 to use the proxy default timeout.
      * @param fdList A #GUnixFDList or null.
      * @param cancellable A #GCancellable or null.
-     * @param callback A #GAsyncReadyCallback to call when the request is satisfied or null if you
-     * don't
+     * @param callback A #GAsyncReadyCallback to call when the request is satisfied or null if you don't
      * care about the result of the method invocation.
      * @since 2.30
      */
@@ -488,10 +483,14 @@ public open class DBusProxy(
         callback: AsyncReadyCallback,
     ): Unit =
         g_dbus_proxy_call_with_unix_fd_list(
-            gioDBusProxyPointer.reinterpret(), methodName,
-            parameters?.glibVariantPointer, flags.mask, timeoutMsec,
+            gioDBusProxyPointer.reinterpret(),
+            methodName,
+            parameters?.glibVariantPointer,
+            flags.mask,
+            timeoutMsec,
             fdList?.gioUnixFDListPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(),
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()
         )
 
@@ -607,8 +606,7 @@ public open class DBusProxy(
      * @since 2.26
      */
     public open fun getNameOwner(): String =
-        g_dbus_proxy_get_name_owner(gioDBusProxyPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_dbus_proxy_get_name_owner(gioDBusProxyPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the object path @proxy is for.
@@ -663,11 +661,7 @@ public open class DBusProxy(
         propertyName: String,
         `value`: Variant? = null,
     ): Unit =
-        g_dbus_proxy_set_cached_property(
-            gioDBusProxyPointer.reinterpret(),
-            propertyName,
-            `value`?.glibVariantPointer
-        )
+        g_dbus_proxy_set_cached_property(gioDBusProxyPointer.reinterpret(), propertyName, `value`?.glibVariantPointer)
 
     /**
      * Sets the timeout to use if -1 (specifying default timeout) is
@@ -692,10 +686,7 @@ public open class DBusProxy(
      * @since 2.26
      */
     public open fun setInterfaceInfo(info: DBusInterfaceInfo? = null): Unit =
-        g_dbus_proxy_set_interface_info(
-            gioDBusProxyPointer.reinterpret(),
-            info?.gioDBusInterfaceInfoPointer
-        )
+        g_dbus_proxy_set_interface_info(gioDBusProxyPointer.reinterpret(), info?.gioDBusInterfaceInfoPointer)
 
     /**
      * Emitted when one or more D-Bus properties on @proxy changes. The
@@ -712,9 +703,7 @@ public open class DBusProxy(
      * `org.freedesktop.DBus.Properties` interface.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `changedProperties` A #GVariant containing
-     * the properties that changed (type: `a{sv}`); `invalidatedProperties` A null terminated array of
-     * properties that was invalidated
+     * @param handler the Callback to connect. Params: `changedProperties` A #GVariant containing the properties that changed (type: `a{sv}`); `invalidatedProperties` A null terminated array of properties that was invalidated
      * @since 2.26
      */
     public fun connectGPropertiesChanged(
@@ -731,17 +720,14 @@ public open class DBusProxy(
         )
 
     /**
-     * Emitted when a signal from the remote object and interface that @proxy is for, has been
-     * received.
+     * Emitted when a signal from the remote object and interface that @proxy is for, has been received.
      *
      * Since 2.72 this signal supports detailed connections. You can connect to
      * the detailed signal `g-signal::x` in order to receive callbacks only when
      * signal `x` is received from the remote object.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `senderName` The sender of the signal or null
-     * if the connection is not a bus connection.; `signalName` The name of the signal.; `parameters` A
-     * #GVariant tuple with parameters for the signal.
+     * @param handler the Callback to connect. Params: `senderName` The sender of the signal or null if the connection is not a bus connection.; `signalName` The name of the signal.; `parameters` A #GVariant tuple with parameters for the signal.
      * @since 2.26
      */
     public fun connectGSignal(
@@ -772,8 +758,7 @@ public open class DBusProxy(
         /**
          * Finishes creating a #GDBusProxy.
          *
-         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback function passed to
-         * g_dbus_proxy_new().
+         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback function passed to g_dbus_proxy_new().
          * @return A #GDBusProxy or null if @error is set.
          *    Free with g_object_unref().
          * @since 2.26
@@ -792,8 +777,7 @@ public open class DBusProxy(
         /**
          * Finishes creating a #GDBusProxy.
          *
-         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback function passed to
-         * g_dbus_proxy_new_for_bus().
+         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback function passed to g_dbus_proxy_new_for_bus().
          * @return A #GDBusProxy or null if @error is set.
          *    Free with g_object_unref().
          * @since 2.26
@@ -826,8 +810,7 @@ public open class DBusProxy(
          * guaranteed to complete immediately without blocking.
          *
          * If @name is a well-known name and the
-         * %G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START and
-         * %G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START_AT_CONSTRUCTION
+         * %G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START and %G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START_AT_CONSTRUCTION
          * flags aren't set and no name owner currently exists, the message bus
          * will be requested to launch a name owner for the name.
          *
@@ -841,10 +824,8 @@ public open class DBusProxy(
          *
          * @param connection A #GDBusConnection.
          * @param flags Flags used when constructing the proxy.
-         * @param info A #GDBusInterfaceInfo specifying the minimal interface that @proxy conforms
-         * to or null.
-         * @param name A bus name (well-known or unique) or null if @connection is not a message bus
-         * connection.
+         * @param info A #GDBusInterfaceInfo specifying the minimal interface that @proxy conforms to or null.
+         * @param name A bus name (well-known or unique) or null if @connection is not a message bus connection.
          * @param objectPath An object path.
          * @param interfaceName A D-Bus interface name.
          * @param cancellable A #GCancellable or null.
@@ -862,10 +843,15 @@ public open class DBusProxy(
             callback: AsyncReadyCallback,
         ): Unit =
             g_dbus_proxy_new(
-                connection.gioDBusConnectionPointer.reinterpret(), flags.mask,
-                info?.gioDBusInterfaceInfoPointer, name, objectPath, interfaceName,
+                connection.gioDBusConnectionPointer.reinterpret(),
+                flags.mask,
+                info?.gioDBusInterfaceInfoPointer,
+                name,
+                objectPath,
+                interfaceName,
                 cancellable?.gioCancellablePointer?.reinterpret(),
-                AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer()
+                AsyncReadyCallbackFunc.reinterpret(),
+                StableRef.create(callback).asCPointer()
             )
 
         /**
@@ -875,8 +861,7 @@ public open class DBusProxy(
          *
          * @param busType A #GBusType.
          * @param flags Flags used when constructing the proxy.
-         * @param info A #GDBusInterfaceInfo specifying the minimal interface that @proxy conforms
-         * to or null.
+         * @param info A #GDBusInterfaceInfo specifying the minimal interface that @proxy conforms to or null.
          * @param name A bus name (well-known or unique).
          * @param objectPath An object path.
          * @param interfaceName A D-Bus interface name.
@@ -895,22 +880,21 @@ public open class DBusProxy(
             callback: AsyncReadyCallback,
         ): Unit =
             g_dbus_proxy_new_for_bus(
-                busType.nativeValue, flags.mask,
-                info?.gioDBusInterfaceInfoPointer, name, objectPath, interfaceName,
+                busType.nativeValue,
+                flags.mask,
+                info?.gioDBusInterfaceInfoPointer,
+                name,
+                objectPath,
+                interfaceName,
                 cancellable?.gioCancellablePointer?.reinterpret(),
-                AsyncReadyCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer()
+                AsyncReadyCallbackFunc.reinterpret(),
+                StableRef.create(callback).asCPointer()
             )
     }
 }
 
-private val connectGPropertiesChangedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GVariant>,
-            CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>,
-        ) -> Unit
-    >
-> =
+private val connectGPropertiesChangedFunc:
+    CPointer<CFunction<(CPointer<GVariant>, CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             changedProperties: CPointer<GVariant>?,
@@ -918,20 +902,22 @@ private val connectGPropertiesChangedFunc: CPointer<
             userData: COpaquePointer,
         ->
         memScoped {
-            userData.asStableRef<
-                (
-                    changedProperties: Variant,
-                    invalidatedProperties: List<String>,
-                ) -> Unit
-            >().get().invoke(
-                changedProperties!!.run {
-                    Variant(reinterpret())
-                },
-                invalidatedProperties?.toKStringList() ?: error("Expected not null string array")
-            )
+            userData
+                .asStableRef<
+                    (
+                        changedProperties: Variant,
+                        invalidatedProperties: List<String>,
+                    ) -> Unit
+                >()
+                .get()
+                .invoke(
+                    changedProperties!!.run {
+                        Variant(reinterpret())
+                    },
+                    invalidatedProperties?.toKStringList() ?: error("Expected not null string array")
+                )
         }
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectGSignalFunc: CPointer<
     CFunction<
@@ -949,18 +935,20 @@ private val connectGSignalFunc: CPointer<
             parameters: CPointer<GVariant>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                senderName: String,
-                signalName: String,
-                parameters: Variant,
-            ) -> Unit
-        >().get().invoke(
-            senderName?.toKString() ?: error("Expected not null string"),
-            signalName?.toKString() ?: error("Expected not null string"),
-            parameters!!.run {
-                Variant(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    senderName: String,
+                    signalName: String,
+                    parameters: Variant,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                senderName?.toKString() ?: error("Expected not null string"),
+                signalName?.toKString() ?: error("Expected not null string"),
+                parameters!!.run {
+                    Variant(reinterpret())
+                }
+            )
+    }.reinterpret()

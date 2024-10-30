@@ -249,7 +249,10 @@ import kotlin.collections.List
  */
 public open class Pixbuf(
     pointer: CPointer<GdkPixbuf>,
-) : Object(pointer.reinterpret()), Icon, LoadableIcon, KGTyped {
+) : Object(pointer.reinterpret()),
+    Icon,
+    LoadableIcon,
+    KGTyped {
     public val gdkpixbufPixbufPointer: CPointer<GdkPixbuf>
         get() = gPointer.reinterpret()
 
@@ -372,13 +375,7 @@ public open class Pixbuf(
         width: Int,
         height: Int,
     ) : this(
-        gdk_pixbuf_new(
-            colorspace.nativeValue,
-            hasAlpha.asGBoolean(),
-            bitsPerSample,
-            width,
-            height
-        )!!.reinterpret()
+        gdk_pixbuf_new(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)!!.reinterpret()
     )
 
     /**
@@ -491,13 +488,7 @@ public open class Pixbuf(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                gdk_pixbuf_new_from_file_at_scale(
-                    filename,
-                    width,
-                    height,
-                    preserveAspectRatio.asGBoolean(),
-                    gError.ptr
-                )
+                gdk_pixbuf_new_from_file_at_scale(filename, width, height, preserveAspectRatio.asGBoolean(), gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -653,11 +644,7 @@ public open class Pixbuf(
     public constructor(asyncResult: AsyncResult) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_pixbuf_new_from_stream_finish(
-                    asyncResult.gioAsyncResultPointer,
-                    gError.ptr
-                )
+            val gResult = gdk_pixbuf_new_from_stream_finish(asyncResult.gioAsyncResultPointer, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -742,8 +729,17 @@ public open class Pixbuf(
     ): Unit =
         gdk_pixbuf_composite(
             gdkpixbufPixbufPointer.reinterpret(),
-            dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX,
-            offsetY, scaleX, scaleY, interpType.nativeValue, overallAlpha
+            dest.gdkpixbufPixbufPointer.reinterpret(),
+            destX,
+            destY,
+            destWidth,
+            destHeight,
+            offsetX,
+            offsetY,
+            scaleX,
+            scaleY,
+            interpType.nativeValue,
+            overallAlpha
         )
 
     /**
@@ -771,8 +767,7 @@ public open class Pixbuf(
      * @param scaleY the scale factor in the Y direction
      * @param interpType the interpolation type for the transformation.
      * @param overallAlpha overall alpha for source image (0..255)
-     * @param checkX the X offset for the checkboard (origin of checkboard is
-     * at -@check_x, -@check_y)
+     * @param checkX the X offset for the checkboard (origin of checkboard is at -@check_x, -@check_y)
      * @param checkY the Y offset for the checkboard
      * @param checkSize the size of checks in the checkboard (must be a power of two)
      * @param color1 the color of check at upper left
@@ -798,9 +793,22 @@ public open class Pixbuf(
     ): Unit =
         gdk_pixbuf_composite_color(
             gdkpixbufPixbufPointer.reinterpret(),
-            dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX,
-            offsetY, scaleX, scaleY, interpType.nativeValue, overallAlpha, checkX, checkY,
-            checkSize, color1, color2
+            dest.gdkpixbufPixbufPointer.reinterpret(),
+            destX,
+            destY,
+            destWidth,
+            destHeight,
+            offsetX,
+            offsetY,
+            scaleX,
+            scaleY,
+            interpType.nativeValue,
+            overallAlpha,
+            checkX,
+            checkY,
+            checkSize,
+            color1,
+            color2
         )
 
     /**
@@ -918,11 +926,7 @@ public open class Pixbuf(
      * @param pixel RGBA pixel to used to clear (`0xffffffff` is opaque white,
      *   `0x00000000` transparent black)
      */
-    public open fun fill(pixel: UInt): Unit =
-        gdk_pixbuf_fill(
-            gdkpixbufPixbufPointer.reinterpret(),
-            pixel
-        )
+    public open fun fill(pixel: UInt): Unit = gdk_pixbuf_fill(gdkpixbufPixbufPointer.reinterpret(), pixel)
 
     /**
      * Flips a pixbuf horizontally or vertically and returns the
@@ -1058,13 +1062,7 @@ public open class Pixbuf(
         width: Int,
         height: Int,
     ): Pixbuf =
-        gdk_pixbuf_new_subpixbuf(
-            gdkpixbufPixbufPointer.reinterpret(),
-            srcX,
-            srcY,
-            width,
-            height
-        )!!.run {
+        gdk_pixbuf_new_subpixbuf(gdkpixbufPixbufPointer.reinterpret(), srcX, srcY, width, height)!!.run {
             Pixbuf(reinterpret())
         }
 
@@ -1348,8 +1346,16 @@ public open class Pixbuf(
     ): Unit =
         gdk_pixbuf_scale(
             gdkpixbufPixbufPointer.reinterpret(),
-            dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX,
-            offsetY, scaleX, scaleY, interpType.nativeValue
+            dest.gdkpixbufPixbufPointer.reinterpret(),
+            destX,
+            destY,
+            destWidth,
+            destHeight,
+            offsetX,
+            offsetY,
+            scaleX,
+            scaleY,
+            interpType.nativeValue
         )
 
     /**
@@ -1587,13 +1593,7 @@ public open class Pixbuf(
             width: Int,
             height: Int,
         ): Int =
-            gdk_pixbuf_calculate_rowstride(
-                colorspace.nativeValue,
-                hasAlpha.asGBoolean(),
-                bitsPerSample,
-                width,
-                height
-            )
+            gdk_pixbuf_calculate_rowstride(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)
 
         /**
          * Asynchronously parses an image file far enough to determine its

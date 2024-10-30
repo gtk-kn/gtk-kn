@@ -78,7 +78,8 @@ import kotlin.Unit
  */
 public open class DisplayManager(
     pointer: CPointer<GdkDisplayManager>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkDisplayManagerPointer: CPointer<GdkDisplayManager>
         get() = gPointer.reinterpret()
 
@@ -147,9 +148,7 @@ public open class DisplayManager(
 
     public companion object : TypeCompanion<DisplayManager> {
         override val type: GeneratedClassKGType<DisplayManager> =
-            GeneratedClassKGType(gdk_display_manager_get_type()) {
-                DisplayManager(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_display_manager_get_type()) { DisplayManager(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -186,5 +185,4 @@ private val connectDisplayOpenedFunc: CPointer<CFunction<(CPointer<GdkDisplay>) 
                 Display(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

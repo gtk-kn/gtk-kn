@@ -53,7 +53,9 @@ import kotlin.Result
  *
  * @since 2.22
  */
-public interface Initable : Interface, KGTyped {
+public interface Initable :
+    Interface,
+    KGTyped {
     public val gioInitablePointer: CPointer<GInitable>
 
     /**

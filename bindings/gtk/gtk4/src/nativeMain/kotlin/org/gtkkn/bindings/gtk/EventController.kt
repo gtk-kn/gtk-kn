@@ -46,7 +46,8 @@ import kotlin.Unit
  */
 public open class EventController(
     pointer: CPointer<GtkEventController>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkEventControllerPointer: CPointer<GtkEventController>
         get() = gPointer.reinterpret()
 
@@ -91,11 +92,9 @@ public open class EventController(
          *
          * @param limit the propagation limit
          */
-        set(limit) =
-            gtk_event_controller_set_propagation_limit(
-                gtkEventControllerPointer.reinterpret(),
-                limit.nativeValue
-            )
+        set(
+            limit
+        ) = gtk_event_controller_set_propagation_limit(gtkEventControllerPointer.reinterpret(), limit.nativeValue)
 
     /**
      * The propagation phase at which this controller will handle events.
@@ -119,11 +118,9 @@ public open class EventController(
          *
          * @param phase a propagation phase
          */
-        set(phase) =
-            gtk_event_controller_set_propagation_phase(
-                gtkEventControllerPointer.reinterpret(),
-                phase.nativeValue
-            )
+        set(
+            phase
+        ) = gtk_event_controller_set_propagation_phase(gtkEventControllerPointer.reinterpret(), phase.nativeValue)
 
     /**
      * The widget receiving the `GdkEvents` that the controller will handle.
@@ -251,10 +248,7 @@ public open class EventController(
      * @param limit the propagation limit
      */
     public open fun setPropagationLimit(limit: PropagationLimit): Unit =
-        gtk_event_controller_set_propagation_limit(
-            gtkEventControllerPointer.reinterpret(),
-            limit.nativeValue
-        )
+        gtk_event_controller_set_propagation_limit(gtkEventControllerPointer.reinterpret(), limit.nativeValue)
 
     /**
      * Sets the propagation phase at which a controller handles events.
@@ -265,10 +259,7 @@ public open class EventController(
      * @param phase a propagation phase
      */
     public open fun setPropagationPhase(phase: PropagationPhase): Unit =
-        gtk_event_controller_set_propagation_phase(
-            gtkEventControllerPointer.reinterpret(),
-            phase.nativeValue
-        )
+        gtk_event_controller_set_propagation_phase(gtkEventControllerPointer.reinterpret(), phase.nativeValue)
 
     /**
      * Sets a name on the controller that can be used for debugging.
@@ -281,9 +272,7 @@ public open class EventController(
 
     public companion object : TypeCompanion<EventController> {
         override val type: GeneratedClassKGType<EventController> =
-            GeneratedClassKGType(gtk_event_controller_get_type()) {
-                EventController(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_event_controller_get_type()) { EventController(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -14,7 +14,9 @@ public class OutputStreamSpliceFlags(
     public val mask: GOutputStreamSpliceFlags,
 ) : Bitfield<OutputStreamSpliceFlags> {
     override infix fun or(other: OutputStreamSpliceFlags): OutputStreamSpliceFlags =
-        OutputStreamSpliceFlags(mask or other.mask)
+        OutputStreamSpliceFlags(
+            mask or other.mask
+        )
 
     public companion object {
         /**

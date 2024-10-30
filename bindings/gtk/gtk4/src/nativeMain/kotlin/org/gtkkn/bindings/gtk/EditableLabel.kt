@@ -54,7 +54,9 @@ import kotlin.Unit
  */
 public open class EditableLabel(
     pointer: CPointer<GtkEditableLabel>,
-) : Widget(pointer.reinterpret()), Editable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Editable,
+    KGTyped {
     public val gtkEditableLabelPointer: CPointer<GtkEditableLabel>
         get() = gPointer.reinterpret()
 
@@ -113,16 +115,11 @@ public open class EditableLabel(
      * @param commit whether to set the edited text on the label
      */
     public open fun stopEditing(commit: Boolean): Unit =
-        gtk_editable_label_stop_editing(
-            gtkEditableLabelPointer.reinterpret(),
-            commit.asGBoolean()
-        )
+        gtk_editable_label_stop_editing(gtkEditableLabelPointer.reinterpret(), commit.asGBoolean())
 
     public companion object : TypeCompanion<EditableLabel> {
         override val type: GeneratedClassKGType<EditableLabel> =
-            GeneratedClassKGType(gtk_editable_label_get_type()) {
-                EditableLabel(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_editable_label_get_type()) { EditableLabel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

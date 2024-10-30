@@ -33,7 +33,8 @@ import kotlin.Unit
  */
 public open class Bin(
     pointer: CPointer<AdwBin>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwBinPointer: CPointer<AdwBin>
         get() = gPointer.reinterpret()
 
@@ -65,11 +66,7 @@ public open class Bin(
          *
          * @param child the child widget
          */
-        set(child) =
-            adw_bin_set_child(
-                adwBinPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = adw_bin_set_child(adwBinPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new `AdwBin`.
@@ -98,9 +95,7 @@ public open class Bin(
 
     public companion object : TypeCompanion<Bin> {
         override val type: GeneratedClassKGType<Bin> =
-            GeneratedClassKGType(adw_bin_get_type()) {
-                Bin(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_bin_get_type()) { Bin(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

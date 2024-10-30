@@ -122,7 +122,8 @@ import kotlin.Unit
  */
 public class TabOverview(
     pointer: CPointer<AdwTabOverview>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwTabOverviewPointer: CPointer<AdwTabOverview>
         get() = gPointer.reinterpret()
 
@@ -158,11 +159,9 @@ public class TabOverview(
          * @param child the child widget
          * @since 1.3
          */
-        set(child) =
-            adw_tab_overview_set_child(
-                adwTabOverviewPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = adw_tab_overview_set_child(adwTabOverviewPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether to enable new tab button.
@@ -188,11 +187,9 @@ public class TabOverview(
          * @param enableNewTab whether to enable new tab button
          * @since 1.3
          */
-        set(enableNewTab) =
-            adw_tab_overview_set_enable_new_tab(
-                adwTabOverviewPointer.reinterpret(),
-                enableNewTab.asGBoolean()
-            )
+        set(
+            enableNewTab
+        ) = adw_tab_overview_set_enable_new_tab(adwTabOverviewPointer.reinterpret(), enableNewTab.asGBoolean())
 
     /**
      * Whether to enable search in tabs.
@@ -232,11 +229,9 @@ public class TabOverview(
          * @param enableSearch whether to enable search
          * @since 1.3
          */
-        set(enableSearch) =
-            adw_tab_overview_set_enable_search(
-                adwTabOverviewPointer.reinterpret(),
-                enableSearch.asGBoolean()
-            )
+        set(
+            enableSearch
+        ) = adw_tab_overview_set_enable_search(adwTabOverviewPointer.reinterpret(), enableSearch.asGBoolean())
 
     /**
      * The unique action on the `current-drop` of the
@@ -274,8 +269,7 @@ public class TabOverview(
          * @return whether drop data should be preloaded on hover
          * @since 1.3
          */
-        get() =
-            adw_tab_overview_get_extra_drag_preload(adwTabOverviewPointer.reinterpret()).asBoolean()
+        get() = adw_tab_overview_get_extra_drag_preload(adwTabOverviewPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether drop data should be preloaded on hover.
@@ -285,11 +279,9 @@ public class TabOverview(
          * @param preload whether to preload drop data
          * @since 1.3
          */
-        set(preload) =
-            adw_tab_overview_set_extra_drag_preload(
-                adwTabOverviewPointer.reinterpret(),
-                preload.asGBoolean()
-            )
+        set(
+            preload
+        ) = adw_tab_overview_set_extra_drag_preload(adwTabOverviewPointer.reinterpret(), preload.asGBoolean())
 
     /**
      * Whether thumbnails use inverted layout.
@@ -317,11 +309,7 @@ public class TabOverview(
          * @param inverted whether thumbnails use inverted layout
          * @since 1.3
          */
-        set(inverted) =
-            adw_tab_overview_set_inverted(
-                adwTabOverviewPointer.reinterpret(),
-                inverted.asGBoolean()
-            )
+        set(inverted) = adw_tab_overview_set_inverted(adwTabOverviewPointer.reinterpret(), inverted.asGBoolean())
 
     /**
      * Whether the overview is open.
@@ -343,11 +331,7 @@ public class TabOverview(
          * @param open whether the overview is open
          * @since 1.3
          */
-        set(`open`) =
-            adw_tab_overview_set_open(
-                adwTabOverviewPointer.reinterpret(),
-                `open`.asGBoolean()
-            )
+        set(`open`) = adw_tab_overview_set_open(adwTabOverviewPointer.reinterpret(), `open`.asGBoolean())
 
     /**
      * Whether search is currently active.
@@ -394,7 +378,9 @@ public class TabOverview(
          * @param secondaryMenu a menu model
          * @since 1.3
          */
-        set(secondaryMenu) =
+        set(
+            secondaryMenu
+        ) =
             adw_tab_overview_set_secondary_menu(
                 adwTabOverviewPointer.reinterpret(),
                 secondaryMenu?.gioMenuModelPointer?.reinterpret()
@@ -414,8 +400,7 @@ public class TabOverview(
          * @return whether end title buttons are shown
          * @since 1.3
          */
-        get() =
-            adw_tab_overview_get_show_end_title_buttons(adwTabOverviewPointer.reinterpret()).asBoolean()
+        get() = adw_tab_overview_get_show_end_title_buttons(adwTabOverviewPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether to show end title buttons in @self's header bar.
@@ -425,7 +410,9 @@ public class TabOverview(
          * @param showEndTitleButtons whether to show end title buttons
          * @since 1.3
          */
-        set(showEndTitleButtons) =
+        set(
+            showEndTitleButtons
+        ) =
             adw_tab_overview_set_show_end_title_buttons(
                 adwTabOverviewPointer.reinterpret(),
                 showEndTitleButtons.asGBoolean()
@@ -445,8 +432,7 @@ public class TabOverview(
          * @return whether start title buttons are shown
          * @since 1.3
          */
-        get() =
-            adw_tab_overview_get_show_start_title_buttons(adwTabOverviewPointer.reinterpret()).asBoolean()
+        get() = adw_tab_overview_get_show_start_title_buttons(adwTabOverviewPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether to show start title buttons in @self's header bar.
@@ -456,7 +442,9 @@ public class TabOverview(
          * @param showStartTitleButtons whether to show start title buttons
          * @since 1.3
          */
-        set(showStartTitleButtons) =
+        set(
+            showStartTitleButtons
+        ) =
             adw_tab_overview_set_show_start_title_buttons(
                 adwTabOverviewPointer.reinterpret(),
                 showStartTitleButtons.asGBoolean()
@@ -489,11 +477,9 @@ public class TabOverview(
          * @param view a tab view
          * @since 1.3
          */
-        set(view) =
-            adw_tab_overview_set_view(
-                adwTabOverviewPointer.reinterpret(),
-                view?.adwTabViewPointer?.reinterpret()
-            )
+        set(
+            view
+        ) = adw_tab_overview_set_view(adwTabOverviewPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
 
     /**
      * Creates a new `AdwTabOverview`.
@@ -626,10 +612,7 @@ public class TabOverview(
      * @since 1.3
      */
     public fun setChild(child: Widget? = null): Unit =
-        adw_tab_overview_set_child(
-            adwTabOverviewPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_tab_overview_set_child(adwTabOverviewPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether to enable new tab button for @self.
@@ -640,10 +623,7 @@ public class TabOverview(
      * @since 1.3
      */
     public fun setEnableNewTab(enableNewTab: Boolean): Unit =
-        adw_tab_overview_set_enable_new_tab(
-            adwTabOverviewPointer.reinterpret(),
-            enableNewTab.asGBoolean()
-        )
+        adw_tab_overview_set_enable_new_tab(adwTabOverviewPointer.reinterpret(), enableNewTab.asGBoolean())
 
     /**
      * Sets whether to enable search in tabs for @self.
@@ -661,10 +641,7 @@ public class TabOverview(
      * @since 1.3
      */
     public fun setEnableSearch(enableSearch: Boolean): Unit =
-        adw_tab_overview_set_enable_search(
-            adwTabOverviewPointer.reinterpret(),
-            enableSearch.asGBoolean()
-        )
+        adw_tab_overview_set_enable_search(adwTabOverviewPointer.reinterpret(), enableSearch.asGBoolean())
 
     /**
      * Sets whether drop data should be preloaded on hover.
@@ -675,10 +652,7 @@ public class TabOverview(
      * @since 1.3
      */
     public fun setExtraDragPreload(preload: Boolean): Unit =
-        adw_tab_overview_set_extra_drag_preload(
-            adwTabOverviewPointer.reinterpret(),
-            preload.asGBoolean()
-        )
+        adw_tab_overview_set_extra_drag_preload(adwTabOverviewPointer.reinterpret(), preload.asGBoolean())
 
     /**
      * Sets whether thumbnails use inverted layout.
@@ -690,10 +664,7 @@ public class TabOverview(
      * @since 1.3
      */
     public fun setInverted(inverted: Boolean): Unit =
-        adw_tab_overview_set_inverted(
-            adwTabOverviewPointer.reinterpret(),
-            inverted.asGBoolean()
-        )
+        adw_tab_overview_set_inverted(adwTabOverviewPointer.reinterpret(), inverted.asGBoolean())
 
     /**
      * Sets whether the to open @self.
@@ -755,10 +726,7 @@ public class TabOverview(
      * @since 1.3
      */
     public fun setView(view: TabView? = null): Unit =
-        adw_tab_overview_set_view(
-            adwTabOverviewPointer.reinterpret(),
-            view?.adwTabViewPointer?.reinterpret()
-        )
+        adw_tab_overview_set_view(adwTabOverviewPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
 
     /**
      * Emitted when a tab needs to be created;
@@ -795,9 +763,7 @@ public class TabOverview(
      * See [signal@Gtk.DropTarget::drop].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `page` the page matching the tab the content
-     * was dropped onto; `value` the `GValue` being dropped. Returns whether the drop was accepted for
-     * @page
+     * @param handler the Callback to connect. Params: `page` the page matching the tab the content was dropped onto; `value` the `GValue` being dropped. Returns whether the drop was accepted for @page
      * @since 1.3
      */
     public fun connectExtraDragDrop(
@@ -825,9 +791,7 @@ public class TabOverview(
      * See [property@Gtk.DropTarget:value].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `page` the page matching the tab the content
-     * was dropped onto; `value` the `GValue` being dropped. Returns the preferred action for the drop
-     * on @page
+     * @param handler the Callback to connect. Params: `page` the page matching the tab the content was dropped onto; `value` the `GValue` being dropped. Returns the preferred action for the drop on @page
      * @since 1.3
      */
     public fun connectExtraDragValue(
@@ -858,56 +822,51 @@ private val connectCreateTabFunc: CPointer<CFunction<() -> CPointer<AdwTabPage>>
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> TabPage>().get().invoke().adwTabPagePointer
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> TabPage>()
+            .get()
+            .invoke()
+            .adwTabPagePointer
+    }.reinterpret()
 
-private val connectExtraDragDropFunc: CPointer<
-    CFunction<
-        (
-            CPointer<AdwTabPage>,
-            CPointer<GValue>,
-        ) -> Int
-    >
-> =
+private val connectExtraDragDropFunc:
+    CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             page: CPointer<AdwTabPage>?,
             `value`: CPointer<GValue>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(page: TabPage, `value`: Value) -> Boolean>().get().invoke(
-            page!!.run {
-                TabPage(reinterpret())
-            },
-            `value`!!.run {
-                Value(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(page: TabPage, `value`: Value) -> Boolean>()
+            .get()
+            .invoke(
+                page!!.run {
+                    TabPage(reinterpret())
+                },
+                `value`!!.run {
+                    Value(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
-private val connectExtraDragValueFunc: CPointer<
-    CFunction<
-        (
-            CPointer<AdwTabPage>,
-            CPointer<GValue>,
-        ) -> GdkDragAction
-    >
-> =
+private val connectExtraDragValueFunc:
+    CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> GdkDragAction>> =
     staticCFunction {
             _: COpaquePointer,
             page: CPointer<AdwTabPage>?,
             `value`: CPointer<GValue>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(page: TabPage, `value`: Value) -> DragAction>().get().invoke(
-            page!!.run {
-                TabPage(reinterpret())
-            },
-            `value`!!.run {
-                Value(reinterpret())
-            }
-        ).mask
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(page: TabPage, `value`: Value) -> DragAction>()
+            .get()
+            .invoke(
+                page!!.run {
+                    TabPage(reinterpret())
+                },
+                `value`!!.run {
+                    Value(reinterpret())
+                }
+            ).mask
+    }.reinterpret()

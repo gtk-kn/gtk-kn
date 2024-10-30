@@ -60,7 +60,8 @@ import kotlin.collections.List
  */
 public open class SubprocessLauncher(
     pointer: CPointer<GSubprocessLauncher>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioSubprocessLauncherPointer: CPointer<GSubprocessLauncher>
         get() = gPointer.reinterpret()
 
@@ -74,15 +75,13 @@ public open class SubprocessLauncher(
      * @param flags #GSubprocessFlags
      * @since 2.40
      */
-    public constructor(flags: SubprocessFlags) :
-        this(g_subprocess_launcher_new(flags.mask)!!.reinterpret())
+    public constructor(flags: SubprocessFlags) : this(g_subprocess_launcher_new(flags.mask)!!.reinterpret())
 
     /**
      * Closes all the file descriptors previously passed to the object with
      * g_subprocess_launcher_take_fd(), g_subprocess_launcher_take_stderr_fd(), etc.
      *
-     * After calling this method, any subsequent calls to g_subprocess_launcher_spawn() or
-     * g_subprocess_launcher_spawnv() will
+     * After calling this method, any subsequent calls to g_subprocess_launcher_spawn() or g_subprocess_launcher_spawnv() will
      * return %G_IO_ERROR_CLOSED. This method is idempotent if
      * called more than once.
      *
@@ -107,10 +106,7 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     public open fun getenv(variable: String): String? =
-        g_subprocess_launcher_getenv(
-            gioSubprocessLauncherPointer.reinterpret(),
-            variable
-        )?.toKString()
+        g_subprocess_launcher_getenv(gioSubprocessLauncherPointer.reinterpret(), variable)?.toKString()
 
     /**
      * Sets the current working directory that processes will be launched
@@ -198,10 +194,7 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     public open fun setStderrFilePath(path: String? = null): Unit =
-        g_subprocess_launcher_set_stderr_file_path(
-            gioSubprocessLauncherPointer.reinterpret(),
-            path
-        )
+        g_subprocess_launcher_set_stderr_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
 
     /**
      * Sets the file path to use as the stdin for spawned processes.
@@ -219,10 +212,7 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     public open fun setStdinFilePath(path: String? = null): Unit =
-        g_subprocess_launcher_set_stdin_file_path(
-            gioSubprocessLauncherPointer.reinterpret(),
-            path
-        )
+        g_subprocess_launcher_set_stdin_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
 
     /**
      * Sets the file path to use as the stdout for spawned processes.
@@ -241,10 +231,7 @@ public open class SubprocessLauncher(
      * @since 2.40
      */
     public open fun setStdoutFilePath(path: String? = null): Unit =
-        g_subprocess_launcher_set_stdout_file_path(
-            gioSubprocessLauncherPointer.reinterpret(),
-            path
-        )
+        g_subprocess_launcher_set_stdout_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
 
     /**
      * Sets the environment variable @variable in the environment of
@@ -318,12 +305,7 @@ public open class SubprocessLauncher(
     public open fun takeFd(
         sourceFd: Int,
         targetFd: Int,
-    ): Unit =
-        g_subprocess_launcher_take_fd(
-            gioSubprocessLauncherPointer.reinterpret(),
-            sourceFd,
-            targetFd
-        )
+    ): Unit = g_subprocess_launcher_take_fd(gioSubprocessLauncherPointer.reinterpret(), sourceFd, targetFd)
 
     /**
      * Sets the file descriptor to use as the stderr for spawned processes.
@@ -416,9 +398,7 @@ public open class SubprocessLauncher(
 
     public companion object : TypeCompanion<SubprocessLauncher> {
         override val type: GeneratedClassKGType<SubprocessLauncher> =
-            GeneratedClassKGType(g_subprocess_launcher_get_type()) {
-                SubprocessLauncher(it.reinterpret())
-            }
+            GeneratedClassKGType(g_subprocess_launcher_get_type()) { SubprocessLauncher(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -28,7 +28,8 @@ import kotlin.String
  */
 public open class TextChildAnchor(
     pointer: CPointer<GtkTextChildAnchor>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkTextChildAnchorPointer: CPointer<GtkTextChildAnchor>
         get() = gPointer.reinterpret()
 
@@ -54,8 +55,7 @@ public open class TextChildAnchor(
      * @return a new `GtkTextChildAnchor`
      * @since 4.6
      */
-    public constructor(character: String) :
-        this(gtk_text_child_anchor_new_with_replacement(character)!!.reinterpret())
+    public constructor(character: String) : this(gtk_text_child_anchor_new_with_replacement(character)!!.reinterpret())
 
     /**
      * Determines whether a child anchor has been deleted from
@@ -74,9 +74,7 @@ public open class TextChildAnchor(
 
     public companion object : TypeCompanion<TextChildAnchor> {
         override val type: GeneratedClassKGType<TextChildAnchor> =
-            GeneratedClassKGType(gtk_text_child_anchor_get_type()) {
-                TextChildAnchor(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_text_child_anchor_get_type()) { TextChildAnchor(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

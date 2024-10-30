@@ -54,7 +54,9 @@ import kotlin.Unit
  */
 public open class StackSwitcher(
     pointer: CPointer<GtkStackSwitcher>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val gtkStackSwitcherPointer: CPointer<GtkStackSwitcher>
         get() = gPointer.reinterpret()
 
@@ -89,11 +91,9 @@ public open class StackSwitcher(
          *
          * @param stack a `GtkStack`
          */
-        set(stack) =
-            gtk_stack_switcher_set_stack(
-                gtkStackSwitcherPointer.reinterpret(),
-                stack?.gtkStackPointer?.reinterpret()
-            )
+        set(
+            stack
+        ) = gtk_stack_switcher_set_stack(gtkStackSwitcherPointer.reinterpret(), stack?.gtkStackPointer?.reinterpret())
 
     /**
      * Create a new `GtkStackSwitcher`.
@@ -118,16 +118,11 @@ public open class StackSwitcher(
      * @param stack a `GtkStack`
      */
     public open fun setStack(stack: Stack? = null): Unit =
-        gtk_stack_switcher_set_stack(
-            gtkStackSwitcherPointer.reinterpret(),
-            stack?.gtkStackPointer?.reinterpret()
-        )
+        gtk_stack_switcher_set_stack(gtkStackSwitcherPointer.reinterpret(), stack?.gtkStackPointer?.reinterpret())
 
     public companion object : TypeCompanion<StackSwitcher> {
         override val type: GeneratedClassKGType<StackSwitcher> =
-            GeneratedClassKGType(gtk_stack_switcher_get_type()) {
-                StackSwitcher(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_stack_switcher_get_type()) { StackSwitcher(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

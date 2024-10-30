@@ -216,8 +216,7 @@ public object Gobject {
     public const val PARAM_MASK: Int = 255
 
     /**
-     * #GParamFlags value alias for %G_PARAM_STATIC_NAME | %G_PARAM_STATIC_NICK |
-     * %G_PARAM_STATIC_BLURB.
+     * #GParamFlags value alias for %G_PARAM_STATIC_NAME | %G_PARAM_STATIC_NICK | %G_PARAM_STATIC_BLURB.
      *
      * It is recommended to use this for all properties by default, as it allows for
      * internal performance improvements in GObject.
@@ -466,13 +465,7 @@ public object Gobject {
         defaultValue: Boolean,
         flags: ParamFlags,
     ): ParamSpec =
-        g_param_spec_boolean(
-            name,
-            nick,
-            blurb,
-            defaultValue.asGBoolean(),
-            flags.mask
-        )!!.run {
+        g_param_spec_boolean(name, nick, blurb, defaultValue.asGBoolean(), flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 
@@ -524,15 +517,7 @@ public object Gobject {
         defaultValue: Double,
         flags: ParamFlags,
     ): ParamSpec =
-        g_param_spec_double(
-            name,
-            nick,
-            blurb,
-            minimum,
-            maximum,
-            defaultValue,
-            flags.mask
-        )!!.run {
+        g_param_spec_double(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 
@@ -584,14 +569,7 @@ public object Gobject {
         defaultValue: UInt,
         flags: ParamFlags,
     ): ParamSpec =
-        g_param_spec_flags(
-            name,
-            nick,
-            blurb,
-            flagsType,
-            defaultValue,
-            flags.mask
-        )!!.run {
+        g_param_spec_flags(name, nick, blurb, flagsType, defaultValue, flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 
@@ -618,15 +596,7 @@ public object Gobject {
         defaultValue: Float,
         flags: ParamFlags,
     ): ParamSpec =
-        g_param_spec_float(
-            name,
-            nick,
-            blurb,
-            minimum,
-            maximum,
-            defaultValue,
-            flags.mask
-        )!!.run {
+        g_param_spec_float(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 
@@ -679,15 +649,7 @@ public object Gobject {
         defaultValue: Int,
         flags: ParamFlags,
     ): ParamSpec =
-        g_param_spec_int(
-            name,
-            nick,
-            blurb,
-            minimum,
-            maximum,
-            defaultValue,
-            flags.mask
-        )!!.run {
+        g_param_spec_int(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 
@@ -714,15 +676,7 @@ public object Gobject {
         defaultValue: Long,
         flags: ParamFlags,
     ): ParamSpec =
-        g_param_spec_int64(
-            name,
-            nick,
-            blurb,
-            minimum,
-            maximum,
-            defaultValue,
-            flags.mask
-        )!!.run {
+        g_param_spec_int64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 
@@ -749,15 +703,7 @@ public object Gobject {
         defaultValue: Long,
         flags: ParamFlags,
     ): ParamSpec =
-        g_param_spec_long(
-            name,
-            nick,
-            blurb,
-            minimum,
-            maximum,
-            defaultValue,
-            flags.mask
-        )!!.run {
+        g_param_spec_long(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 
@@ -878,15 +824,7 @@ public object Gobject {
         defaultValue: UInt,
         flags: ParamFlags,
     ): ParamSpec =
-        g_param_spec_uint(
-            name,
-            nick,
-            blurb,
-            minimum,
-            maximum,
-            defaultValue,
-            flags.mask
-        )!!.run {
+        g_param_spec_uint(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 
@@ -914,15 +852,7 @@ public object Gobject {
         defaultValue: ULong,
         flags: ParamFlags,
     ): ParamSpec =
-        g_param_spec_uint64(
-            name,
-            nick,
-            blurb,
-            minimum,
-            maximum,
-            defaultValue,
-            flags.mask
-        )!!.run {
+        g_param_spec_uint64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 
@@ -950,15 +880,7 @@ public object Gobject {
         defaultValue: ULong,
         flags: ParamFlags,
     ): ParamSpec =
-        g_param_spec_ulong(
-            name,
-            nick,
-            blurb,
-            minimum,
-            maximum,
-            defaultValue,
-            flags.mask
-        )!!.run {
+        g_param_spec_ulong(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 
@@ -1081,11 +1003,7 @@ public object Gobject {
     public fun paramValueDefaults(
         pspec: ParamSpec,
         `value`: Value,
-    ): Boolean =
-        g_param_value_defaults(
-            pspec.gPointer.reinterpret(),
-            `value`.gobjectValuePointer
-        ).asBoolean()
+    ): Boolean = g_param_value_defaults(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer).asBoolean()
 
     /**
      * Return whether the contents of @value comply with the specifications
@@ -1100,11 +1018,7 @@ public object Gobject {
     public fun paramValueIsValid(
         pspec: ParamSpec,
         `value`: Value,
-    ): Boolean =
-        g_param_value_is_valid(
-            pspec.gPointer.reinterpret(),
-            `value`.gobjectValuePointer
-        ).asBoolean()
+    ): Boolean = g_param_value_is_valid(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer).asBoolean()
 
     /**
      * Sets @value to its default value as specified in @pspec.
@@ -1133,11 +1047,7 @@ public object Gobject {
     public fun paramValueValidate(
         pspec: ParamSpec,
         `value`: Value,
-    ): Boolean =
-        g_param_value_validate(
-            pspec.gPointer.reinterpret(),
-            `value`.gobjectValuePointer
-        ).asBoolean()
+    ): Boolean = g_param_value_validate(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer).asBoolean()
 
     /**
      * Compares @value1 with @value2 according to @pspec, and return -1, 0 or +1,
@@ -1153,12 +1063,7 @@ public object Gobject {
         pspec: ParamSpec,
         value1: Value,
         value2: Value,
-    ): Int =
-        g_param_values_cmp(
-            pspec.gPointer.reinterpret(),
-            value1.gobjectValuePointer,
-            value2.gobjectValuePointer
-        )
+    ): Int = g_param_values_cmp(pspec.gPointer.reinterpret(), value1.gobjectValuePointer, value2.gobjectValuePointer)
 
     /**
      * Creates a new %G_TYPE_POINTER derived type id for a new
@@ -1446,12 +1351,7 @@ public object Gobject {
         signalId: UInt,
         instanceType: ULong,
         classClosure: Closure,
-    ): Unit =
-        g_signal_override_class_closure(
-            signalId,
-            instanceType,
-            classClosure.gobjectClosurePointer
-        )
+    ): Unit = g_signal_override_class_closure(signalId, instanceType, classClosure.gobjectClosurePointer)
 
     /**
      * Queries the signal system for in-depth information about a
@@ -1468,11 +1368,7 @@ public object Gobject {
     public fun signalQuery(
         signalId: UInt,
         query: SignalQuery,
-    ): Unit =
-        g_signal_query(
-            signalId,
-            query.gobjectSignalQueryPointer
-        )
+    ): Unit = g_signal_query(signalId, query.gobjectSignalQueryPointer)
 
     /**
      * Deletes an emission hook.
@@ -1613,12 +1509,7 @@ public object Gobject {
         instanceType: ULong,
         interfaceType: ULong,
         plugin: TypePlugin,
-    ): Unit =
-        g_type_add_interface_dynamic(
-            instanceType,
-            interfaceType,
-            plugin.gobjectTypePluginPointer
-        )
+    ): Unit = g_type_add_interface_dynamic(instanceType, interfaceType, plugin.gobjectTypePluginPointer)
 
     /**
      * Adds @interface_type to the static @instance_type.
@@ -1634,12 +1525,7 @@ public object Gobject {
         instanceType: ULong,
         interfaceType: ULong,
         info: InterfaceInfo,
-    ): Unit =
-        g_type_add_interface_static(
-            instanceType,
-            interfaceType,
-            info.gobjectInterfaceInfoPointer
-        )
+    ): Unit = g_type_add_interface_static(instanceType, interfaceType, info.gobjectInterfaceInfoPointer)
 
     /**
      *
@@ -1683,10 +1569,7 @@ public object Gobject {
         instance: TypeInstance,
         fundamentalType: ULong,
     ): Boolean =
-        g_type_check_instance_is_fundamentally_a(
-            instance.gobjectTypeInstancePointer,
-            fundamentalType
-        ).asBoolean()
+        g_type_check_instance_is_fundamentally_a(instance.gobjectTypeInstancePointer, fundamentalType).asBoolean()
 
     /**
      *
@@ -2019,11 +1902,7 @@ public object Gobject {
     public fun typeIsA(
         type: ULong,
         isAType: ULong,
-    ): Boolean =
-        g_type_is_a(
-            type,
-            isAType
-        ).asBoolean()
+    ): Boolean = g_type_is_a(type, isAType).asBoolean()
 
     /**
      * Get the unique name that is assigned to a type ID.  Note that this
@@ -2043,8 +1922,7 @@ public object Gobject {
      * @param gClass
      */
     public fun typeNameFromClass(gClass: TypeClass): String =
-        g_type_name_from_class(gClass.gobjectTypeClassPointer)?.toKString()
-            ?: error("Expected not null string")
+        g_type_name_from_class(gClass.gobjectTypeClassPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      *
@@ -2052,8 +1930,7 @@ public object Gobject {
      * @param instance
      */
     public fun typeNameFromInstance(instance: TypeInstance): String =
-        g_type_name_from_instance(instance.gobjectTypeInstancePointer)?.toKString()
-            ?: error("Expected not null string")
+        g_type_name_from_instance(instance.gobjectTypeInstancePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Given a @leaf_type and a @root_type which is contained in its
@@ -2071,11 +1948,7 @@ public object Gobject {
     public fun typeNextBase(
         leafType: ULong,
         rootType: ULong,
-    ): ULong =
-        g_type_next_base(
-            leafType,
-            rootType
-        )
+    ): ULong = g_type_next_base(leafType, rootType)
 
     /**
      * Return the direct parent type of the passed in type. If the passed
@@ -2113,11 +1986,7 @@ public object Gobject {
     public fun typeQuery(
         type: ULong,
         query: TypeQuery,
-    ): Unit =
-        g_type_query(
-            type,
-            query.gobjectTypeQueryPointer
-        )
+    ): Unit = g_type_query(type, query.gobjectTypeQueryPointer)
 
     /**
      * Registers @type_name as the name of a new dynamic type derived from
@@ -2137,13 +2006,7 @@ public object Gobject {
         typeName: String,
         plugin: TypePlugin,
         flags: TypeFlags,
-    ): ULong =
-        g_type_register_dynamic(
-            parentType,
-            typeName,
-            plugin.gobjectTypePluginPointer,
-            flags.mask
-        )
+    ): ULong = g_type_register_dynamic(parentType, typeName, plugin.gobjectTypePluginPointer, flags.mask)
 
     /**
      * Registers @type_id as the predefined identifier and @type_name as the
@@ -2205,11 +2068,7 @@ public object Gobject {
     public fun typeTestFlags(
         type: ULong,
         flags: UInt,
-    ): Boolean =
-        g_type_test_flags(
-            type,
-            flags
-        ).asBoolean()
+    ): Boolean = g_type_test_flags(type, flags).asBoolean()
 
     /**
      * Returns whether a #GValue of type @src_type can be copied into
@@ -2250,8 +2109,7 @@ public val BaseFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Un
                 TypeClass(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val BaseInitFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =
     staticCFunction {
@@ -2263,8 +2121,7 @@ public val BaseInitFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>>
                 TypeClass(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val BindingTransformFuncFunc: CPointer<
     CFunction<
@@ -2281,41 +2138,37 @@ public val BindingTransformFuncFunc: CPointer<
             toValue: CPointer<GValue>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                binding: Binding,
-                fromValue: Value,
-                toValue: Value,
-            ) -> Boolean
-        >().get().invoke(
-            binding!!.run {
-                Binding(reinterpret())
-            },
-            fromValue!!.run {
-                Value(reinterpret())
-            },
-            toValue!!.run {
-                Value(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    binding: Binding,
+                    fromValue: Value,
+                    toValue: Value,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(
+                binding!!.run {
+                    Binding(reinterpret())
+                },
+                fromValue!!.run {
+                    Value(reinterpret())
+                },
+                toValue!!.run {
+                    Value(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val BoxedFreeFuncFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val CallbackFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val ClassFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =
     staticCFunction {
@@ -2327,8 +2180,7 @@ public val ClassFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> U
                 TypeClass(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val ClassInitFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =
     staticCFunction {
@@ -2340,8 +2192,7 @@ public val ClassInitFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>
                 TypeClass(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val ClosureMarshalFunc: CPointer<
     CFunction<
@@ -2358,23 +2209,25 @@ public val ClosureMarshalFunc: CPointer<
             nParamValues: UInt,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                closure: Closure,
-                returnValue: Value?,
-                nParamValues: UInt,
-            ) -> Unit
-        >().get().invoke(
-            closure!!.run {
-                Closure(reinterpret())
-            },
-            returnValue?.run {
-                Value(reinterpret())
-            },
-            nParamValues
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    closure: Closure,
+                    returnValue: Value?,
+                    nParamValues: UInt,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                closure!!.run {
+                    Closure(reinterpret())
+                },
+                returnValue?.run {
+                    Value(reinterpret())
+                },
+                nParamValues
+            )
+    }.reinterpret()
 
 public val ClosureNotifyFunc: CPointer<CFunction<(CPointer<GClosure>) -> Unit>> =
     staticCFunction {
@@ -2386,28 +2239,16 @@ public val ClosureNotifyFunc: CPointer<CFunction<(CPointer<GClosure>) -> Unit>> 
                 Closure(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-public val InstanceInitFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GTypeInstance>,
-            CPointer<GTypeClass>,
-        ) -> Unit
-    >
-> =
+public val InstanceInitFuncFunc:
+    CPointer<CFunction<(CPointer<GTypeInstance>, CPointer<GTypeClass>) -> Unit>> =
     staticCFunction {
             instance: CPointer<GTypeInstance>?,
             gClass: CPointer<GTypeClass>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                instance: TypeInstance,
-                gClass: TypeClass,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(instance: TypeInstance, gClass: TypeClass) -> Unit>().get().invoke(
             instance!!.run {
                 TypeInstance(reinterpret())
             },
@@ -2415,8 +2256,7 @@ public val InstanceInitFuncFunc: CPointer<
                 TypeClass(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val InterfaceFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>) -> Unit>> =
     staticCFunction {
@@ -2428,8 +2268,7 @@ public val InterfaceFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeInterfac
                 TypeInterface(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val InterfaceInitFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>) -> Unit>> =
     staticCFunction {
@@ -2441,8 +2280,7 @@ public val InterfaceInitFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>) 
                 TypeInterface(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val ObjectFinalizeFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
     staticCFunction {
@@ -2454,8 +2292,7 @@ public val ObjectFinalizeFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Uni
                 Object(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val ObjectGetPropertyFuncFunc: CPointer<
     CFunction<
@@ -2474,27 +2311,29 @@ public val ObjectGetPropertyFuncFunc: CPointer<
             pspec: CPointer<GParamSpec>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                `object`: Object,
-                propertyId: UInt,
-                `value`: Value,
-                pspec: ParamSpec,
-            ) -> Unit
-        >().get().invoke(
-            `object`!!.run {
-                Object(reinterpret())
-            },
-            propertyId,
-            `value`!!.run {
-                Value(reinterpret())
-            },
-            pspec!!.run {
-                ParamSpec(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    `object`: Object,
+                    propertyId: UInt,
+                    `value`: Value,
+                    pspec: ParamSpec,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                `object`!!.run {
+                    Object(reinterpret())
+                },
+                propertyId,
+                `value`!!.run {
+                    Value(reinterpret())
+                },
+                pspec!!.run {
+                    ParamSpec(reinterpret())
+                }
+            )
+    }.reinterpret()
 
 public val ObjectSetPropertyFuncFunc: CPointer<
     CFunction<
@@ -2513,27 +2352,29 @@ public val ObjectSetPropertyFuncFunc: CPointer<
             pspec: CPointer<GParamSpec>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                `object`: Object,
-                propertyId: UInt,
-                `value`: Value,
-                pspec: ParamSpec,
-            ) -> Unit
-        >().get().invoke(
-            `object`!!.run {
-                Object(reinterpret())
-            },
-            propertyId,
-            `value`!!.run {
-                Value(reinterpret())
-            },
-            pspec!!.run {
-                ParamSpec(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    `object`: Object,
+                    propertyId: UInt,
+                    `value`: Value,
+                    pspec: ParamSpec,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                `object`!!.run {
+                    Object(reinterpret())
+                },
+                propertyId,
+                `value`!!.run {
+                    Value(reinterpret())
+                },
+                pspec!!.run {
+                    ParamSpec(reinterpret())
+                }
+            )
+    }.reinterpret()
 
 public val SignalAccumulatorFunc: CPointer<
     CFunction<
@@ -2550,52 +2391,45 @@ public val SignalAccumulatorFunc: CPointer<
             handlerReturn: CPointer<GValue>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                ihint: SignalInvocationHint,
-                returnAccu: Value,
-                handlerReturn: Value,
-            ) -> Boolean
-        >().get().invoke(
-            ihint!!.run {
-                SignalInvocationHint(reinterpret())
-            },
-            returnAccu!!.run {
-                Value(reinterpret())
-            },
-            handlerReturn!!.run {
-                Value(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    ihint: SignalInvocationHint,
+                    returnAccu: Value,
+                    handlerReturn: Value,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(
+                ihint!!.run {
+                    SignalInvocationHint(reinterpret())
+                },
+                returnAccu!!.run {
+                    Value(reinterpret())
+                },
+                handlerReturn!!.run {
+                    Value(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
-public val SignalEmissionHookFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GSignalInvocationHint>,
-            UInt,
-        ) -> Int
-    >
-> =
+public val SignalEmissionHookFunc:
+    CPointer<CFunction<(CPointer<GSignalInvocationHint>, UInt) -> Int>> =
     staticCFunction {
             ihint: CPointer<GSignalInvocationHint>?,
             nParamValues: UInt,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                ihint: SignalInvocationHint,
-                nParamValues: UInt,
-            ) -> Boolean
-        >().get().invoke(
-            ihint!!.run {
-                SignalInvocationHint(reinterpret())
-            },
-            nParamValues
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(ihint: SignalInvocationHint, nParamValues: UInt) -> Boolean>()
+            .get()
+            .invoke(
+                ihint!!.run {
+                    SignalInvocationHint(reinterpret())
+                },
+                nParamValues
+            ).asGBoolean()
+    }.reinterpret()
 
 public val ToggleNotifyFunc: CPointer<CFunction<(CPointer<GObject>, Int) -> Unit>> =
     staticCFunction {
@@ -2603,32 +2437,28 @@ public val ToggleNotifyFunc: CPointer<CFunction<(CPointer<GObject>, Int) -> Unit
             isLastRef: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                `object`: Object,
-                isLastRef: Boolean,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(`object`: Object, isLastRef: Boolean) -> Unit>().get().invoke(
             `object`!!.run {
                 Object(reinterpret())
             },
             isLastRef.asBoolean()
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val TypeClassCacheFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Int>> =
     staticCFunction {
             gClass: CPointer<GTypeClass>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(gClass: TypeClass) -> Boolean>().get().invoke(
-            gClass!!.run {
-                TypeClass(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(gClass: TypeClass) -> Boolean>()
+            .get()
+            .invoke(
+                gClass!!.run {
+                    TypeClass(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 public val TypeInterfaceCheckFuncFunc: CPointer<CFunction<(CPointer<GTypeInterface>) -> Unit>> =
     staticCFunction {
@@ -2640,8 +2470,7 @@ public val TypeInterfaceCheckFuncFunc: CPointer<CFunction<(CPointer<GTypeInterfa
                 TypeInterface(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val TypePluginCompleteInterfaceInfoFunc: CPointer<
     CFunction<
@@ -2660,25 +2489,27 @@ public val TypePluginCompleteInterfaceInfoFunc: CPointer<
             info: CPointer<GInterfaceInfo>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                plugin: TypePlugin,
-                instanceType: ULong,
-                interfaceType: ULong,
-                info: InterfaceInfo,
-            ) -> Unit
-        >().get().invoke(
-            plugin!!.run {
-                TypePlugin.wrap(reinterpret())
-            },
-            instanceType,
-            interfaceType,
-            info!!.run {
-                InterfaceInfo(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    plugin: TypePlugin,
+                    instanceType: ULong,
+                    interfaceType: ULong,
+                    info: InterfaceInfo,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                plugin!!.run {
+                    TypePlugin.wrap(reinterpret())
+                },
+                instanceType,
+                interfaceType,
+                info!!.run {
+                    InterfaceInfo(reinterpret())
+                }
+            )
+    }.reinterpret()
 
 public val TypePluginCompleteTypeInfoFunc: CPointer<
     CFunction<
@@ -2697,27 +2528,29 @@ public val TypePluginCompleteTypeInfoFunc: CPointer<
             valueTable: CPointer<GTypeValueTable>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                plugin: TypePlugin,
-                gType: ULong,
-                info: TypeInfo,
-                valueTable: TypeValueTable,
-            ) -> Unit
-        >().get().invoke(
-            plugin!!.run {
-                TypePlugin.wrap(reinterpret())
-            },
-            gType,
-            info!!.run {
-                TypeInfo(reinterpret())
-            },
-            valueTable!!.run {
-                TypeValueTable(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    plugin: TypePlugin,
+                    gType: ULong,
+                    info: TypeInfo,
+                    valueTable: TypeValueTable,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                plugin!!.run {
+                    TypePlugin.wrap(reinterpret())
+                },
+                gType,
+                info!!.run {
+                    TypeInfo(reinterpret())
+                },
+                valueTable!!.run {
+                    TypeValueTable(reinterpret())
+                }
+            )
+    }.reinterpret()
 
 public val TypePluginUnuseFunc: CPointer<CFunction<(CPointer<GTypePlugin>) -> Unit>> =
     staticCFunction {
@@ -2729,8 +2562,7 @@ public val TypePluginUnuseFunc: CPointer<CFunction<(CPointer<GTypePlugin>) -> Un
                 TypePlugin.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val TypePluginUseFunc: CPointer<CFunction<(CPointer<GTypePlugin>) -> Unit>> =
     staticCFunction {
@@ -2742,8 +2574,7 @@ public val TypePluginUseFunc: CPointer<CFunction<(CPointer<GTypePlugin>) -> Unit
                 TypePlugin.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val TypeValueCopyFuncFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GValue>) -> Unit>> =
     staticCFunction {
@@ -2751,12 +2582,7 @@ public val TypeValueCopyFuncFunc: CPointer<CFunction<(CPointer<GValue>, CPointer
             destValue: CPointer<GValue>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                srcValue: Value,
-                destValue: Value,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(srcValue: Value, destValue: Value) -> Unit>().get().invoke(
             srcValue!!.run {
                 Value(reinterpret())
             },
@@ -2764,8 +2590,7 @@ public val TypeValueCopyFuncFunc: CPointer<CFunction<(CPointer<GValue>, CPointer
                 Value(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val TypeValueFreeFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>> =
     staticCFunction {
@@ -2777,8 +2602,7 @@ public val TypeValueFreeFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>
                 Value(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val TypeValueInitFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>> =
     staticCFunction {
@@ -2790,8 +2614,7 @@ public val TypeValueInitFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>
                 Value(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val ValueTransformFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GValue>) -> Unit>> =
     staticCFunction {
@@ -2799,12 +2622,7 @@ public val ValueTransformFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GV
             destValue: CPointer<GValue>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                srcValue: Value,
-                destValue: Value,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(srcValue: Value, destValue: Value) -> Unit>().get().invoke(
             srcValue!!.run {
                 Value(reinterpret())
             },
@@ -2812,8 +2630,7 @@ public val ValueTransformFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GV
                 Value(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val WeakNotifyFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
     staticCFunction {
@@ -2825,8 +2642,7 @@ public val WeakNotifyFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
                 Object(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 /**
  * A callback function used by the type system to finalize those portions

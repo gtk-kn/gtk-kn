@@ -121,7 +121,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  * Different launcher applications (e.g. file managers) may have
  * different ideas of what a given URI means.
  */
-public interface AppInfo : Interface, KGTyped {
+public interface AppInfo :
+    Interface,
+    KGTyped {
     public val gioAppInfoPointer: CPointer<GAppInfo>
 
     /**
@@ -198,10 +200,7 @@ public interface AppInfo : Interface, KGTyped {
      * @return true if @appinfo1 is equal to @appinfo2. false otherwise.
      */
     public fun equal(appinfo2: AppInfo): Boolean =
-        g_app_info_equal(
-            gioAppInfoPointer.reinterpret(),
-            appinfo2.gioAppInfoPointer
-        ).asBoolean()
+        g_app_info_equal(gioAppInfoPointer.reinterpret(), appinfo2.gioAppInfoPointer).asBoolean()
 
     /**
      * Gets the commandline with which the application will be
@@ -230,8 +229,7 @@ public interface AppInfo : Interface, KGTyped {
      * @since 2.24
      */
     public fun getDisplayName(): String =
-        g_app_info_get_display_name(gioAppInfoPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_app_info_get_display_name(gioAppInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the executable's name for the installed application.
@@ -244,8 +242,7 @@ public interface AppInfo : Interface, KGTyped {
      * binaries name
      */
     public fun getExecutable(): String =
-        g_app_info_get_executable(gioAppInfoPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_app_info_get_executable(gioAppInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the icon for the application.
@@ -277,8 +274,7 @@ public interface AppInfo : Interface, KGTyped {
      * @return the name of the application for @appinfo.
      */
     public fun getName(): String =
-        g_app_info_get_name(gioAppInfoPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_app_info_get_name(gioAppInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the list of content types that @app_info claims to support.
@@ -573,8 +569,7 @@ public interface AppInfo : Interface, KGTyped {
          * Creates a new #GAppInfo from the given information.
          *
          * Note that for @commandline, the quoting rules of the Exec key of the
-         * [freedesktop.org Desktop Entry
-         * Specification](http://freedesktop.org/Standards/desktop-entry-spec)
+         * [freedesktop.org Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec)
          * are applied. For example, if the @commandline contains
          * percent-encoded URIs, the percent-character must be doubled in order to prevent it from
          * being swallowed by Exec key unquoting. See the specification for exact quoting rules.
@@ -592,12 +587,7 @@ public interface AppInfo : Interface, KGTyped {
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult =
-                    g_app_info_create_from_commandline(
-                        commandline,
-                        applicationName,
-                        flags.mask,
-                        gError.ptr
-                    )?.run {
+                    g_app_info_create_from_commandline(commandline, applicationName, flags.mask, gError.ptr)?.run {
                         AppInfo.wrap(reinterpret())
                     }
 
@@ -696,10 +686,7 @@ public interface AppInfo : Interface, KGTyped {
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult =
-                    g_app_info_get_default_for_type_finish(
-                        result.gioAsyncResultPointer,
-                        gError.ptr
-                    )?.run {
+                    g_app_info_get_default_for_type_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
                         AppInfo.wrap(reinterpret())
                     }
 
@@ -763,10 +750,7 @@ public interface AppInfo : Interface, KGTyped {
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult =
-                    g_app_info_get_default_for_uri_scheme_finish(
-                        result.gioAsyncResultPointer,
-                        gError.ptr
-                    )?.run {
+                    g_app_info_get_default_for_uri_scheme_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
                         AppInfo.wrap(reinterpret())
                     }
 

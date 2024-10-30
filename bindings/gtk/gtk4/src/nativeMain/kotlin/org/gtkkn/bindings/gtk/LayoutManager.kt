@@ -73,7 +73,8 @@ import kotlin.Unit
  */
 public open class LayoutManager(
     pointer: CPointer<GtkLayoutManager>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkLayoutManagerPointer: CPointer<GtkLayoutManager>
         get() = gPointer.reinterpret()
 
@@ -152,9 +153,7 @@ public open class LayoutManager(
 
     public companion object : TypeCompanion<LayoutManager> {
         override val type: GeneratedClassKGType<LayoutManager> =
-            GeneratedClassKGType(gtk_layout_manager_get_type()) {
-                LayoutManager(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_layout_manager_get_type()) { LayoutManager(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

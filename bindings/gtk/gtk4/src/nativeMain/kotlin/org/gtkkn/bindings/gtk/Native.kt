@@ -39,7 +39,9 @@ import kotlin.Unit
  *
  * - parameter `x`: x: Out parameter is not supported
  */
-public interface Native : Interface, KGTyped {
+public interface Native :
+    Interface,
+    KGTyped {
     public val gtkNativePointer: CPointer<GtkNative>
 
     /**

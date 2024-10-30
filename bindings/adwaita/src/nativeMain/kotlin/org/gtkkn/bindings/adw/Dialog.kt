@@ -116,7 +116,8 @@ import kotlin.Unit
  */
 public open class Dialog(
     pointer: CPointer<AdwDialog>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwDialogPointer: CPointer<AdwDialog>
         get() = gPointer.reinterpret()
 
@@ -159,11 +160,7 @@ public open class Dialog(
          * @param canClose whether to allow closing
          * @since 1.5
          */
-        set(canClose) =
-            adw_dialog_set_can_close(
-                adwDialogPointer.reinterpret(),
-                canClose.asGBoolean()
-            )
+        set(canClose) = adw_dialog_set_can_close(adwDialogPointer.reinterpret(), canClose.asGBoolean())
 
     /**
      * The child widget of the `AdwDialog`.
@@ -188,11 +185,7 @@ public open class Dialog(
          * @param child the child widget
          * @since 1.5
          */
-        set(child) =
-            adw_dialog_set_child(
-                adwDialogPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = adw_dialog_set_child(adwDialogPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The height of the dialog's contents.
@@ -222,11 +215,7 @@ public open class Dialog(
          * @param contentHeight the content height
          * @since 1.5
          */
-        set(contentHeight) =
-            adw_dialog_set_content_height(
-                adwDialogPointer.reinterpret(),
-                contentHeight
-            )
+        set(contentHeight) = adw_dialog_set_content_height(adwDialogPointer.reinterpret(), contentHeight)
 
     /**
      * The width of the dialog's contents.
@@ -256,11 +245,7 @@ public open class Dialog(
          * @param contentWidth the content width
          * @since 1.5
          */
-        set(contentWidth) =
-            adw_dialog_set_content_width(
-                adwDialogPointer.reinterpret(),
-                contentWidth
-            )
+        set(contentWidth) = adw_dialog_set_content_width(adwDialogPointer.reinterpret(), contentWidth)
 
     /**
      * The current breakpoint.
@@ -306,7 +291,9 @@ public open class Dialog(
          * @param defaultWidget the default widget
          * @since 1.5
          */
-        set(defaultWidget) =
+        set(
+            defaultWidget
+        ) =
             adw_dialog_set_default_widget(
                 adwDialogPointer.reinterpret(),
                 defaultWidget?.gtkWidgetPointer?.reinterpret()
@@ -344,11 +331,9 @@ public open class Dialog(
          * @param followsContentSize whether to size content automatically
          * @since 1.5
          */
-        set(followsContentSize) =
-            adw_dialog_set_follows_content_size(
-                adwDialogPointer.reinterpret(),
-                followsContentSize.asGBoolean()
-            )
+        set(
+            followsContentSize
+        ) = adw_dialog_set_follows_content_size(adwDialogPointer.reinterpret(), followsContentSize.asGBoolean())
 
     /**
      * The dialog's presentation mode.
@@ -393,11 +378,9 @@ public open class Dialog(
          * @param presentationMode the new presentation mode
          * @since 1.5
          */
-        set(presentationMode) =
-            adw_dialog_set_presentation_mode(
-                adwDialogPointer.reinterpret(),
-                presentationMode.nativeValue
-            )
+        set(
+            presentationMode
+        ) = adw_dialog_set_presentation_mode(adwDialogPointer.reinterpret(), presentationMode.nativeValue)
 
     /**
      * The title of the dialog.
@@ -411,9 +394,7 @@ public open class Dialog(
          * @return the title
          * @since 1.5
          */
-        get() =
-            adw_dialog_get_title(adwDialogPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_dialog_get_title(adwDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the title of @self.
@@ -438,10 +419,7 @@ public open class Dialog(
      * @since 1.5
      */
     public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
-        adw_dialog_add_breakpoint(
-            adwDialogPointer.reinterpret(),
-            breakpoint.adwBreakpointPointer.reinterpret()
-        )
+        adw_dialog_add_breakpoint(adwDialogPointer.reinterpret(), breakpoint.adwBreakpointPointer.reinterpret())
 
     /**
      * Attempts to close @self.
@@ -561,8 +539,7 @@ public open class Dialog(
      * @since 1.5
      */
     public open fun getTitle(): String =
-        adw_dialog_get_title(adwDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        adw_dialog_get_title(adwDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Presents @self within @parent's window.
@@ -576,10 +553,7 @@ public open class Dialog(
      * @since 1.5
      */
     public open fun present(parent: Widget? = null): Unit =
-        adw_dialog_present(
-            adwDialogPointer.reinterpret(),
-            parent?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_dialog_present(adwDialogPointer.reinterpret(), parent?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether @self can be closed.
@@ -602,10 +576,7 @@ public open class Dialog(
      * @since 1.5
      */
     public open fun setChild(child: Widget? = null): Unit =
-        adw_dialog_set_child(
-            adwDialogPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_dialog_set_child(adwDialogPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the height of the dialog's contents.
@@ -642,10 +613,7 @@ public open class Dialog(
      * @since 1.5
      */
     public open fun setDefaultWidget(defaultWidget: Widget? = null): Unit =
-        adw_dialog_set_default_widget(
-            adwDialogPointer.reinterpret(),
-            defaultWidget?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_dialog_set_default_widget(adwDialogPointer.reinterpret(), defaultWidget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the focus widget for @self.
@@ -661,10 +629,7 @@ public open class Dialog(
      * @since 1.5
      */
     public open fun setFocus(focus: Widget? = null): Unit =
-        adw_dialog_set_focus(
-            adwDialogPointer.reinterpret(),
-            focus?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_dialog_set_focus(adwDialogPointer.reinterpret(), focus?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether to size content of @self automatically.
@@ -679,10 +644,7 @@ public open class Dialog(
      * @since 1.5
      */
     public open fun setFollowsContentSize(followsContentSize: Boolean): Unit =
-        adw_dialog_set_follows_content_size(
-            adwDialogPointer.reinterpret(),
-            followsContentSize.asGBoolean()
-        )
+        adw_dialog_set_follows_content_size(adwDialogPointer.reinterpret(), followsContentSize.asGBoolean())
 
     /**
      * Sets presentation mode for @self.
@@ -701,10 +663,7 @@ public open class Dialog(
      * @since 1.5
      */
     public open fun setPresentationMode(presentationMode: DialogPresentationMode): Unit =
-        adw_dialog_set_presentation_mode(
-            adwDialogPointer.reinterpret(),
-            presentationMode.nativeValue
-        )
+        adw_dialog_set_presentation_mode(adwDialogPointer.reinterpret(), presentationMode.nativeValue)
 
     /**
      * Sets the title of @self.
@@ -772,8 +731,7 @@ private val connectCloseAttemptFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectClosedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -781,5 +739,4 @@ private val connectClosedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

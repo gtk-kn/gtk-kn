@@ -29,7 +29,8 @@ import kotlin.String
  */
 public open class MenuLinkIter(
     pointer: CPointer<GMenuLinkIter>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioMenuLinkIterPointer: CPointer<GMenuLinkIter>
         get() = gPointer.reinterpret()
 

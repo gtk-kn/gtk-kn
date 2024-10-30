@@ -66,7 +66,8 @@ import kotlin.Unit
  */
 public open class Fixed(
     pointer: CPointer<GtkFixed>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkFixedPointer: CPointer<GtkFixed>
         get() = gPointer.reinterpret()
 
@@ -94,10 +95,7 @@ public open class Fixed(
      * @return a `GskTransform`
      */
     public open fun getChildTransform(widget: Widget): Transform? =
-        gtk_fixed_get_child_transform(
-            gtkFixedPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )?.run {
+        gtk_fixed_get_child_transform(gtkFixedPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())?.run {
             Transform(reinterpret())
         }
 
@@ -113,13 +111,7 @@ public open class Fixed(
         widget: Widget,
         x: Double,
         y: Double,
-    ): Unit =
-        gtk_fixed_move(
-            gtkFixedPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret(),
-            x,
-            y
-        )
+    ): Unit = gtk_fixed_move(gtkFixedPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), x, y)
 
     /**
      * Adds a widget to a `GtkFixed` at the given position.
@@ -132,13 +124,7 @@ public open class Fixed(
         widget: Widget,
         x: Double,
         y: Double,
-    ): Unit =
-        gtk_fixed_put(
-            gtkFixedPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret(),
-            x,
-            y
-        )
+    ): Unit = gtk_fixed_put(gtkFixedPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), x, y)
 
     /**
      * Removes a child from @fixed.
@@ -146,10 +132,7 @@ public open class Fixed(
      * @param widget the child widget to remove
      */
     public open fun remove(widget: Widget): Unit =
-        gtk_fixed_remove(
-            gtkFixedPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        gtk_fixed_remove(gtkFixedPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets the transformation for @widget.

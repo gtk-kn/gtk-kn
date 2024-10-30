@@ -19,15 +19,14 @@ import org.gtkkn.native.gtk.gtk_closure_expression_get_type
  */
 public open class ClosureExpression(
     pointer: CPointer<GtkClosureExpression>,
-) : Expression(pointer.reinterpret()), KGTyped {
+) : Expression(pointer.reinterpret()),
+    KGTyped {
     public val gtkClosureExpressionPointer: CPointer<GtkClosureExpression>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<ClosureExpression> {
         override val type: GeneratedClassKGType<ClosureExpression> =
-            GeneratedClassKGType(gtk_closure_expression_get_type()) {
-                ClosureExpression(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_closure_expression_get_type()) { ClosureExpression(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

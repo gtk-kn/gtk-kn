@@ -46,7 +46,8 @@ import kotlin.ULong
  */
 public open class SocketControlMessage(
     pointer: CPointer<GSocketControlMessage>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioSocketControlMessagePointer: CPointer<GSocketControlMessage>
         get() = gPointer.reinterpret()
 
@@ -80,9 +81,7 @@ public open class SocketControlMessage(
 
     public companion object : TypeCompanion<SocketControlMessage> {
         override val type: GeneratedClassKGType<SocketControlMessage> =
-            GeneratedClassKGType(g_socket_control_message_get_type()) {
-                SocketControlMessage(it.reinterpret())
-            }
+            GeneratedClassKGType(g_socket_control_message_get_type()) { SocketControlMessage(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

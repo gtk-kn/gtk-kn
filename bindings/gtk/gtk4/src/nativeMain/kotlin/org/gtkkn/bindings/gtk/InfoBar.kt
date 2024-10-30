@@ -119,7 +119,8 @@ import kotlin.Unit
  */
 public open class InfoBar(
     pointer: CPointer<GtkInfoBar>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkInfoBarPointer: CPointer<GtkInfoBar>
         get() = gPointer.reinterpret()
 
@@ -155,11 +156,7 @@ public open class InfoBar(
          *
          * @param messageType a `GtkMessageType`
          */
-        set(messageType) =
-            gtk_info_bar_set_message_type(
-                gtkInfoBarPointer.reinterpret(),
-                messageType.nativeValue
-            )
+        set(messageType) = gtk_info_bar_set_message_type(gtkInfoBarPointer.reinterpret(), messageType.nativeValue)
 
     /**
      * Whether the info bar shows its contents.
@@ -184,11 +181,7 @@ public open class InfoBar(
          *
          * @param revealed The new value of the property
          */
-        set(revealed) =
-            gtk_info_bar_set_revealed(
-                gtkInfoBarPointer.reinterpret(),
-                revealed.asGBoolean()
-            )
+        set(revealed) = gtk_info_bar_set_revealed(gtkInfoBarPointer.reinterpret(), revealed.asGBoolean())
 
     /**
      * Whether to include a standard close button.
@@ -208,11 +201,7 @@ public open class InfoBar(
          *
          * @param setting true to include a close button
          */
-        set(setting) =
-            gtk_info_bar_set_show_close_button(
-                gtkInfoBarPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_info_bar_set_show_close_button(gtkInfoBarPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Creates a new `GtkInfoBar` object.
@@ -269,10 +258,7 @@ public open class InfoBar(
      * @param widget the child to be added
      */
     public open fun addChild(widget: Widget): Unit =
-        gtk_info_bar_add_child(
-            gtkInfoBarPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        gtk_info_bar_add_child(gtkInfoBarPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Returns the message type of the message area.
@@ -308,10 +294,7 @@ public open class InfoBar(
      * @param widget an action widget to remove
      */
     public open fun removeActionWidget(widget: Widget): Unit =
-        gtk_info_bar_remove_action_widget(
-            gtkInfoBarPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        gtk_info_bar_remove_action_widget(gtkInfoBarPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes a widget from the content area of the info bar.
@@ -319,10 +302,7 @@ public open class InfoBar(
      * @param widget a child that has been added to the content area
      */
     public open fun removeChild(widget: Widget): Unit =
-        gtk_info_bar_remove_child(
-            gtkInfoBarPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        gtk_info_bar_remove_child(gtkInfoBarPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Emits the “response” signal with the given @response_id.
@@ -368,12 +348,7 @@ public open class InfoBar(
     public open fun setResponseSensitive(
         responseId: Int,
         setting: Boolean,
-    ): Unit =
-        gtk_info_bar_set_response_sensitive(
-            gtkInfoBarPointer.reinterpret(),
-            responseId,
-            setting.asGBoolean()
-        )
+    ): Unit = gtk_info_bar_set_response_sensitive(gtkInfoBarPointer.reinterpret(), responseId, setting.asGBoolean())
 
     /**
      * Sets whether the `GtkInfoBar` is revealed.
@@ -398,10 +373,7 @@ public open class InfoBar(
      * @param setting true to include a close button
      */
     public open fun setShowCloseButton(setting: Boolean): Unit =
-        gtk_info_bar_set_show_close_button(
-            gtkInfoBarPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_info_bar_set_show_close_button(gtkInfoBarPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Gets emitted when the user uses a keybinding to dismiss the info bar.
@@ -465,8 +437,7 @@ private val connectCloseFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectResponseFunc: CPointer<CFunction<(Int) -> Unit>> =
     staticCFunction {
@@ -475,5 +446,4 @@ private val connectResponseFunc: CPointer<CFunction<(Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(responseId: Int) -> Unit>().get().invoke(responseId)
-    }
-        .reinterpret()
+    }.reinterpret()

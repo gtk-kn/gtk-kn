@@ -21,7 +21,8 @@ import kotlin.String
  */
 public open class SignalAction(
     pointer: CPointer<GtkSignalAction>,
-) : ShortcutAction(pointer.reinterpret()), KGTyped {
+) : ShortcutAction(pointer.reinterpret()),
+    KGTyped {
     public val gtkSignalActionPointer: CPointer<GtkSignalAction>
         get() = gPointer.reinterpret()
 
@@ -60,9 +61,7 @@ public open class SignalAction(
 
     public companion object : TypeCompanion<SignalAction> {
         override val type: GeneratedClassKGType<SignalAction> =
-            GeneratedClassKGType(gtk_signal_action_get_type()) {
-                SignalAction(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_signal_action_get_type()) { SignalAction(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

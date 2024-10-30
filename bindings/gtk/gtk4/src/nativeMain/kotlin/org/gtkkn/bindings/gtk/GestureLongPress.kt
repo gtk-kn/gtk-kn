@@ -42,7 +42,8 @@ import kotlin.Unit
  */
 public open class GestureLongPress(
     pointer: CPointer<GtkGestureLongPress>,
-) : GestureSingle(pointer.reinterpret()), KGTyped {
+) : GestureSingle(pointer.reinterpret()),
+    KGTyped {
     public val gtkGestureLongPressPointer: CPointer<GtkGestureLongPress>
         get() = gPointer.reinterpret()
 
@@ -65,11 +66,9 @@ public open class GestureLongPress(
          *
          * @param delayFactor The delay factor to apply
          */
-        set(delayFactor) =
-            gtk_gesture_long_press_set_delay_factor(
-                gtkGestureLongPressPointer.reinterpret(),
-                delayFactor
-            )
+        set(
+            delayFactor
+        ) = gtk_gesture_long_press_set_delay_factor(gtkGestureLongPressPointer.reinterpret(), delayFactor)
 
     /**
      * Returns a newly created `GtkGesture` that recognizes long presses.
@@ -95,10 +94,7 @@ public open class GestureLongPress(
      * @param delayFactor The delay factor to apply
      */
     public open fun setDelayFactor(delayFactor: Double): Unit =
-        gtk_gesture_long_press_set_delay_factor(
-            gtkGestureLongPressPointer.reinterpret(),
-            delayFactor
-        )
+        gtk_gesture_long_press_set_delay_factor(gtkGestureLongPressPointer.reinterpret(), delayFactor)
 
     /**
      * Emitted whenever a press moved too far, or was released
@@ -125,16 +121,11 @@ public open class GestureLongPress(
      * what the GTK defaults tell.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `x` the X coordinate where the press
-     * happened, relative to the widget allocation; `y` the Y coordinate where the press happened,
-     * relative to the widget allocation
+     * @param handler the Callback to connect. Params: `x` the X coordinate where the press happened, relative to the widget allocation; `y` the Y coordinate where the press happened, relative to the widget allocation
      */
     public fun connectPressed(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            x: Double,
-            y: Double,
-        ) -> Unit,
+        handler: (x: Double, y: Double) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -147,9 +138,7 @@ public open class GestureLongPress(
 
     public companion object : TypeCompanion<GestureLongPress> {
         override val type: GeneratedClassKGType<GestureLongPress> =
-            GeneratedClassKGType(gtk_gesture_long_press_get_type()) {
-                GestureLongPress(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_gesture_long_press_get_type()) { GestureLongPress(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -163,8 +152,7 @@ private val connectCancelledFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPressedFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
     staticCFunction {
@@ -174,5 +162,4 @@ private val connectPressedFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(x: Double, y: Double) -> Unit>().get().invoke(x, y)
-    }
-        .reinterpret()
+    }.reinterpret()

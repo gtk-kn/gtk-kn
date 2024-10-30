@@ -18,7 +18,9 @@ import kotlin.Boolean
 /**
  * Interface for Drag-and-Drop destinations in `GtkTreeView`.
  */
-public interface TreeDragDest : Interface, KGTyped {
+public interface TreeDragDest :
+    Interface,
+    KGTyped {
     public val gtkTreeDragDestPointer: CPointer<GtkTreeDragDest>
 
     /**
@@ -72,9 +74,7 @@ public interface TreeDragDest : Interface, KGTyped {
 
     public companion object : TypeCompanion<TreeDragDest> {
         override val type: GeneratedInterfaceKGType<TreeDragDest> =
-            GeneratedInterfaceKGType(gtk_tree_drag_dest_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_tree_drag_dest_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

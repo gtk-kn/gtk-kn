@@ -52,7 +52,8 @@ import kotlin.Unit
  */
 public open class Permission(
     pointer: CPointer<GPermission>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioPermissionPointer: CPointer<GPermission>
         get() = gPointer.reinterpret()
 

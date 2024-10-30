@@ -61,7 +61,10 @@ import kotlin.Unit
  */
 public open class CellView(
     pointer: CPointer<GtkCellView>,
-) : Widget(pointer.reinterpret()), CellLayout, Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    CellLayout,
+    Orientable,
+    KGTyped {
     public val gtkCellViewPointer: CPointer<GtkCellView>
         get() = gPointer.reinterpret()
 
@@ -105,11 +108,9 @@ public open class CellView(
          *
          * @param drawSensitive whether to draw all cells in a sensitive state.
          */
-        set(drawSensitive) =
-            gtk_cell_view_set_draw_sensitive(
-                gtkCellViewPointer.reinterpret(),
-                drawSensitive.asGBoolean()
-            )
+        set(
+            drawSensitive
+        ) = gtk_cell_view_set_draw_sensitive(gtkCellViewPointer.reinterpret(), drawSensitive.asGBoolean())
 
     /**
      * Whether the view should request enough space to always fit
@@ -138,11 +139,7 @@ public open class CellView(
          *
          * @param fitModel whether @cell_view should request space for the whole model.
          */
-        set(fitModel) =
-            gtk_cell_view_set_fit_model(
-                gtkCellViewPointer.reinterpret(),
-                fitModel.asGBoolean()
-            )
+        set(fitModel) = gtk_cell_view_set_fit_model(gtkCellViewPointer.reinterpret(), fitModel.asGBoolean())
 
     /**
      * The model for cell view
@@ -168,11 +165,7 @@ public open class CellView(
          *
          * @param model a `GtkTreeModel`
          */
-        set(model) =
-            gtk_cell_view_set_model(
-                gtkCellViewPointer.reinterpret(),
-                model?.gtkTreeModelPointer
-            )
+        set(model) = gtk_cell_view_set_model(gtkCellViewPointer.reinterpret(), model?.gtkTreeModelPointer)
 
     /**
      * Creates a new `GtkCellView` widget.
@@ -194,13 +187,15 @@ public open class CellView(
      * @param context the `GtkCellAreaContext` in which to calculate cell geometry
      * @return A newly created `GtkCellView` widget.
      */
-    public constructor(area: CellArea, context: CellAreaContext) :
-        this(
-            gtk_cell_view_new_with_context(
-                area.gtkCellAreaPointer.reinterpret(),
-                context.gtkCellAreaContextPointer.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        area: CellArea,
+        context: CellAreaContext,
+    ) : this(
+        gtk_cell_view_new_with_context(
+            area.gtkCellAreaPointer.reinterpret(),
+            context.gtkCellAreaContextPointer.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
@@ -218,8 +213,9 @@ public open class CellView(
      * @param texture the image to display in the cell view
      * @return A newly created `GtkCellView` widget.
      */
-    public constructor(texture: Texture) :
-        this(gtk_cell_view_new_with_texture(texture.gdkTexturePointer.reinterpret())!!.reinterpret())
+    public constructor(
+        texture: Texture,
+    ) : this(gtk_cell_view_new_with_texture(texture.gdkTexturePointer.reinterpret())!!.reinterpret())
 
     /**
      * Returns a `GtkTreePath` referring to the currently
@@ -274,10 +270,7 @@ public open class CellView(
      * @param path a `GtkTreePath` or null to unset.
      */
     public open fun setDisplayedRow(path: TreePath? = null): Unit =
-        gtk_cell_view_set_displayed_row(
-            gtkCellViewPointer.reinterpret(),
-            path?.gtkTreePathPointer
-        )
+        gtk_cell_view_set_displayed_row(gtkCellViewPointer.reinterpret(), path?.gtkTreePathPointer)
 
     /**
      * Sets whether @cell_view should draw all of its
@@ -288,10 +281,7 @@ public open class CellView(
      * @param drawSensitive whether to draw all cells in a sensitive state.
      */
     public open fun setDrawSensitive(drawSensitive: Boolean): Unit =
-        gtk_cell_view_set_draw_sensitive(
-            gtkCellViewPointer.reinterpret(),
-            drawSensitive.asGBoolean()
-        )
+        gtk_cell_view_set_draw_sensitive(gtkCellViewPointer.reinterpret(), drawSensitive.asGBoolean())
 
     /**
      * Sets whether @cell_view should request space to fit the entire `GtkTreeModel`.

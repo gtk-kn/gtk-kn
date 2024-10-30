@@ -46,7 +46,8 @@ import kotlin.Unit
  */
 public open class CellRendererCombo(
     pointer: CPointer<GtkCellRendererCombo>,
-) : CellRendererText(pointer.reinterpret()), KGTyped {
+) : CellRendererText(pointer.reinterpret()),
+    KGTyped {
     public val gtkCellRendererComboPointer: CPointer<GtkCellRendererCombo>
         get() = gPointer.reinterpret()
 
@@ -77,10 +78,8 @@ public open class CellRendererCombo(
      * until the combo cell renderer emits the edited or editing_canceled signal.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `pathString` a string of the path identifying
-     * the edited cell
-     *               (relative to the tree view model); `newIter` the new iter selected in the combo
-     * box
+     * @param handler the Callback to connect. Params: `pathString` a string of the path identifying the edited cell
+     *               (relative to the tree view model); `newIter` the new iter selected in the combo box
      *            (relative to the combo box model)
      */
     public fun connectChanged(
@@ -98,9 +97,7 @@ public open class CellRendererCombo(
 
     public companion object : TypeCompanion<CellRendererCombo> {
         override val type: GeneratedClassKGType<CellRendererCombo> =
-            GeneratedClassKGType(gtk_cell_renderer_combo_get_type()) {
-                CellRendererCombo(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_cell_renderer_combo_get_type()) { CellRendererCombo(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -108,31 +105,18 @@ public open class CellRendererCombo(
     }
 }
 
-private val connectChangedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<ByteVar>,
-            CPointer<GtkTreeIter>,
-        ) -> Unit
-    >
-> =
+private val connectChangedFunc:
+    CPointer<CFunction<(CPointer<ByteVar>, CPointer<GtkTreeIter>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             pathString: CPointer<ByteVar>?,
             newIter: CPointer<GtkTreeIter>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                pathString: String,
-                newIter: TreeIter,
-            ) -> Unit
-        >().get().invoke(
-            pathString?.toKString()
-                ?: error("Expected not null string"),
+        userData.asStableRef<(pathString: String, newIter: TreeIter) -> Unit>().get().invoke(
+            pathString?.toKString() ?: error("Expected not null string"),
             newIter!!.run {
                 TreeIter(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

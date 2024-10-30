@@ -15,15 +15,14 @@ import org.gtkkn.native.adw.adw_animation_target_get_type
  */
 public open class AnimationTarget(
     pointer: CPointer<AdwAnimationTarget>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val adwAnimationTargetPointer: CPointer<AdwAnimationTarget>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<AnimationTarget> {
         override val type: GeneratedClassKGType<AnimationTarget> =
-            GeneratedClassKGType(adw_animation_target_get_type()) {
-                AnimationTarget(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_animation_target_get_type()) { AnimationTarget(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

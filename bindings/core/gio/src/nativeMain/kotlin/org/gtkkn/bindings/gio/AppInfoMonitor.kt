@@ -41,13 +41,10 @@ import kotlin.Unit
  *  - [func@Gio.AppInfo.get_default_for_type]
  *  - [func@Gio.AppInfo.get_fallback_for_type]
  *  - [func@Gio.AppInfo.get_recommended_for_type]
- *  -
- * [`g_desktop_app_info_get_implementations()`](../gio-unix/type_func.DesktopAppInfo.get_implementation.html)
+ *  - [`g_desktop_app_info_get_implementations()`](../gio-unix/type_func.DesktopAppInfo.get_implementation.html)
  *  - [`g_desktop_app_info_new()`](../gio-unix/ctor.DesktopAppInfo.new.html)
- *  -
- * [`g_desktop_app_info_new_from_filename()`](../gio-unix/ctor.DesktopAppInfo.new_from_filename.html)
- *  -
- * [`g_desktop_app_info_new_from_keyfile()`](../gio-unix/ctor.DesktopAppInfo.new_from_keyfile.html)
+ *  - [`g_desktop_app_info_new_from_filename()`](../gio-unix/ctor.DesktopAppInfo.new_from_filename.html)
+ *  - [`g_desktop_app_info_new_from_keyfile()`](../gio-unix/ctor.DesktopAppInfo.new_from_keyfile.html)
  *  - [`g_desktop_app_info_search()`](../gio-unix/type_func.DesktopAppInfo.search.html)
  *
  * The latter functions are available if using
@@ -68,7 +65,8 @@ import kotlin.Unit
  */
 public open class AppInfoMonitor(
     pointer: CPointer<GAppInfoMonitor>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioAppInfoMonitorPointer: CPointer<GAppInfoMonitor>
         get() = gPointer.reinterpret()
 
@@ -95,9 +93,7 @@ public open class AppInfoMonitor(
 
     public companion object : TypeCompanion<AppInfoMonitor> {
         override val type: GeneratedClassKGType<AppInfoMonitor> =
-            GeneratedClassKGType(g_app_info_monitor_get_type()) {
-                AppInfoMonitor(it.reinterpret())
-            }
+            GeneratedClassKGType(g_app_info_monitor_get_type()) { AppInfoMonitor(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -134,5 +130,4 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

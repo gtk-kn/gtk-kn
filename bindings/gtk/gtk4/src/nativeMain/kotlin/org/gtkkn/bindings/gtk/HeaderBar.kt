@@ -103,7 +103,8 @@ import kotlin.Unit
  */
 public open class HeaderBar(
     pointer: CPointer<GtkHeaderBar>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkHeaderBarPointer: CPointer<GtkHeaderBar>
         get() = gPointer.reinterpret()
 
@@ -151,11 +152,7 @@ public open class HeaderBar(
          *
          * @param layout a decoration layout, or null to unset the layout
          */
-        set(layout) =
-            gtk_header_bar_set_decoration_layout(
-                gtkHeaderBarPointer.reinterpret(),
-                layout
-            )
+        set(layout) = gtk_header_bar_set_decoration_layout(gtkHeaderBarPointer.reinterpret(), layout)
 
     /**
      * Whether to show title buttons like close, minimize, maximize.
@@ -180,11 +177,7 @@ public open class HeaderBar(
          *
          * @param setting true to show standard title buttons
          */
-        set(setting) =
-            gtk_header_bar_set_show_title_buttons(
-                gtkHeaderBarPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_header_bar_set_show_title_buttons(gtkHeaderBarPointer.reinterpret(), setting.asGBoolean())
 
     public open var titleWidget: Widget?
         /**
@@ -214,7 +207,9 @@ public open class HeaderBar(
          *
          * @param titleWidget a widget to use for a title
          */
-        set(titleWidget) =
+        set(
+            titleWidget
+        ) =
             gtk_header_bar_set_title_widget(
                 gtkHeaderBarPointer.reinterpret(),
                 titleWidget?.gtkWidgetPointer?.reinterpret()
@@ -263,10 +258,7 @@ public open class HeaderBar(
      * @param child the `GtkWidget` to be added to @bar
      */
     public open fun packEnd(child: Widget): Unit =
-        gtk_header_bar_pack_end(
-            gtkHeaderBarPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_header_bar_pack_end(gtkHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Adds @child to @bar, packed with reference to the
@@ -275,10 +267,7 @@ public open class HeaderBar(
      * @param child the `GtkWidget` to be added to @bar
      */
     public open fun packStart(child: Widget): Unit =
-        gtk_header_bar_pack_start(
-            gtkHeaderBarPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_header_bar_pack_start(gtkHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes a child from the `GtkHeaderBar`.
@@ -291,10 +280,7 @@ public open class HeaderBar(
      * @param child the child to remove
      */
     public open fun remove(child: Widget): Unit =
-        gtk_header_bar_remove(
-            gtkHeaderBarPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_header_bar_remove(gtkHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets the decoration layout for this header bar.
@@ -327,10 +313,7 @@ public open class HeaderBar(
      * @param setting true to show standard title buttons
      */
     public open fun setShowTitleButtons(setting: Boolean): Unit =
-        gtk_header_bar_set_show_title_buttons(
-            gtkHeaderBarPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_header_bar_set_show_title_buttons(gtkHeaderBarPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Sets the title for the `GtkHeaderBar`.
@@ -348,10 +331,7 @@ public open class HeaderBar(
      * @param titleWidget a widget to use for a title
      */
     public open fun setTitleWidget(titleWidget: Widget? = null): Unit =
-        gtk_header_bar_set_title_widget(
-            gtkHeaderBarPointer.reinterpret(),
-            titleWidget?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_header_bar_set_title_widget(gtkHeaderBarPointer.reinterpret(), titleWidget?.gtkWidgetPointer?.reinterpret())
 
     public companion object : TypeCompanion<HeaderBar> {
         override val type: GeneratedClassKGType<HeaderBar> =

@@ -73,7 +73,8 @@ import kotlin.UInt
  */
 public open class Credentials(
     pointer: CPointer<GCredentials>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioCredentialsPointer: CPointer<GCredentials>
         get() = gPointer.reinterpret()
 
@@ -173,12 +174,7 @@ public open class Credentials(
     public open fun setUnixUser(uid: UInt): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_credentials_set_unix_user(
-                    gioCredentialsPointer.reinterpret(),
-                    uid,
-                    gError.ptr
-                ).asBoolean()
+            val gResult = g_credentials_set_unix_user(gioCredentialsPointer.reinterpret(), uid, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {

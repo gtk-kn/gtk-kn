@@ -73,7 +73,8 @@ import kotlin.Unit
  */
 public open class FileDialog(
     pointer: CPointer<GtkFileDialog>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkFileDialogPointer: CPointer<GtkFileDialog>
         get() = gPointer.reinterpret()
 
@@ -100,11 +101,7 @@ public open class FileDialog(
          * @param acceptLabel the new accept label
          * @since 4.10
          */
-        set(acceptLabel) =
-            gtk_file_dialog_set_accept_label(
-                gtkFileDialogPointer.reinterpret(),
-                acceptLabel
-            )
+        set(acceptLabel) = gtk_file_dialog_set_accept_label(gtkFileDialogPointer.reinterpret(), acceptLabel)
 
     /**
      * The default filter, that is, the filter that is initially
@@ -143,7 +140,9 @@ public open class FileDialog(
          * @param filter a `GtkFileFilter`
          * @since 4.10
          */
-        set(filter) =
+        set(
+            filter
+        ) =
             gtk_file_dialog_set_default_filter(
                 gtkFileDialogPointer.reinterpret(),
                 filter?.gtkFileFilterPointer?.reinterpret()
@@ -177,11 +176,7 @@ public open class FileDialog(
          * @param filters a `GListModel` of `GtkFileFilters`
          * @since 4.10
          */
-        set(filters) =
-            gtk_file_dialog_set_filters(
-                gtkFileDialogPointer.reinterpret(),
-                filters?.gioListModelPointer
-            )
+        set(filters) = gtk_file_dialog_set_filters(gtkFileDialogPointer.reinterpret(), filters?.gioListModelPointer)
 
     /**
      * The initial file, that is, the file that is initially selected
@@ -217,11 +212,7 @@ public open class FileDialog(
          * @param file a `GFile`
          * @since 4.10
          */
-        set(`file`) =
-            gtk_file_dialog_set_initial_file(
-                gtkFileDialogPointer.reinterpret(),
-                `file`?.gioFilePointer
-            )
+        set(`file`) = gtk_file_dialog_set_initial_file(gtkFileDialogPointer.reinterpret(), `file`?.gioFilePointer)
 
     /**
      * The initial folder, that is, the directory that is initially
@@ -249,11 +240,7 @@ public open class FileDialog(
          * @param folder a `GFile`
          * @since 4.10
          */
-        set(folder) =
-            gtk_file_dialog_set_initial_folder(
-                gtkFileDialogPointer.reinterpret(),
-                folder?.gioFilePointer
-            )
+        set(folder) = gtk_file_dialog_set_initial_folder(gtkFileDialogPointer.reinterpret(), folder?.gioFilePointer)
 
     /**
      * The initial name, that is, the filename that is initially
@@ -306,11 +293,7 @@ public open class FileDialog(
          * @param modal the new value
          * @since 4.10
          */
-        set(modal) =
-            gtk_file_dialog_set_modal(
-                gtkFileDialogPointer.reinterpret(),
-                modal.asGBoolean()
-            )
+        set(modal) = gtk_file_dialog_set_modal(gtkFileDialogPointer.reinterpret(), modal.asGBoolean())
 
     /**
      * A title that may be shown on the file chooser dialog.
@@ -431,8 +414,7 @@ public open class FileDialog(
      * @since 4.10
      */
     public open fun getTitle(): String =
-        gtk_file_dialog_get_title(gtkFileDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_file_dialog_get_title(gtkFileDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * This function initiates a file selection operation by
@@ -753,10 +735,7 @@ public open class FileDialog(
      * @since 4.10
      */
     public open fun setFilters(filters: ListModel? = null): Unit =
-        gtk_file_dialog_set_filters(
-            gtkFileDialogPointer.reinterpret(),
-            filters?.gioListModelPointer
-        )
+        gtk_file_dialog_set_filters(gtkFileDialogPointer.reinterpret(), filters?.gioListModelPointer)
 
     /**
      * Sets the file that will be initially selected in
@@ -771,10 +750,7 @@ public open class FileDialog(
      * @since 4.10
      */
     public open fun setInitialFile(`file`: File? = null): Unit =
-        gtk_file_dialog_set_initial_file(
-            gtkFileDialogPointer.reinterpret(),
-            `file`?.gioFilePointer
-        )
+        gtk_file_dialog_set_initial_file(gtkFileDialogPointer.reinterpret(), `file`?.gioFilePointer)
 
     /**
      * Sets the folder that will be set as the
@@ -784,10 +760,7 @@ public open class FileDialog(
      * @since 4.10
      */
     public open fun setInitialFolder(folder: File? = null): Unit =
-        gtk_file_dialog_set_initial_folder(
-            gtkFileDialogPointer.reinterpret(),
-            folder?.gioFilePointer
-        )
+        gtk_file_dialog_set_initial_folder(gtkFileDialogPointer.reinterpret(), folder?.gioFilePointer)
 
     /**
      * Sets the name for the file that should be initially set.

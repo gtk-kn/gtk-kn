@@ -92,7 +92,8 @@ import kotlin.Unit
  */
 public open class Picture(
     pointer: CPointer<GtkPicture>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkPicturePointer: CPointer<GtkPicture>
         get() = gPointer.reinterpret()
 
@@ -129,11 +130,7 @@ public open class Picture(
          *
          * @param alternativeText a textual description of the contents
          */
-        set(alternativeText) =
-            gtk_picture_set_alternative_text(
-                gtkPicturePointer.reinterpret(),
-                alternativeText
-            )
+        set(alternativeText) = gtk_picture_set_alternative_text(gtkPicturePointer.reinterpret(), alternativeText)
 
     /**
      * If the `GtkPicture` can be made smaller than the natural size of its contents.
@@ -160,11 +157,7 @@ public open class Picture(
          *
          * @param canShrink if @self can be made smaller than its contents
          */
-        set(canShrink) =
-            gtk_picture_set_can_shrink(
-                gtkPicturePointer.reinterpret(),
-                canShrink.asGBoolean()
-            )
+        set(canShrink) = gtk_picture_set_can_shrink(gtkPicturePointer.reinterpret(), canShrink.asGBoolean())
 
     /**
      * How the content should be resized to fit inside the `GtkPicture`.
@@ -193,11 +186,7 @@ public open class Picture(
          * @param contentFit the content fit mode
          * @since 4.8
          */
-        set(contentFit) =
-            gtk_picture_set_content_fit(
-                gtkPicturePointer.reinterpret(),
-                contentFit.nativeValue
-            )
+        set(contentFit) = gtk_picture_set_content_fit(gtkPicturePointer.reinterpret(), contentFit.nativeValue)
 
     /**
      * The `GFile` that is displayed or null if none.
@@ -249,11 +238,9 @@ public open class Picture(
          *
          * @param keepAspectRatio whether to keep aspect ratio
          */
-        set(keepAspectRatio) =
-            gtk_picture_set_keep_aspect_ratio(
-                gtkPicturePointer.reinterpret(),
-                keepAspectRatio.asGBoolean()
-            )
+        set(
+            keepAspectRatio
+        ) = gtk_picture_set_keep_aspect_ratio(gtkPicturePointer.reinterpret(), keepAspectRatio.asGBoolean())
 
     /**
      * The `GdkPaintable` to be displayed by this `GtkPicture`.
@@ -278,11 +265,7 @@ public open class Picture(
          *
          * @param paintable a `GdkPaintable`
          */
-        set(paintable) =
-            gtk_picture_set_paintable(
-                gtkPicturePointer.reinterpret(),
-                paintable?.gdkPaintablePointer
-            )
+        set(paintable) = gtk_picture_set_paintable(gtkPicturePointer.reinterpret(), paintable?.gdkPaintablePointer)
 
     /**
      * Creates a new empty `GtkPicture` widget.
@@ -304,8 +287,7 @@ public open class Picture(
      * @param file a `GFile`
      * @return a new `GtkPicture`
      */
-    public constructor(`file`: File? = null) :
-        this(gtk_picture_new_for_file(`file`?.gioFilePointer)!!.reinterpret())
+    public constructor(`file`: File? = null) : this(gtk_picture_new_for_file(`file`?.gioFilePointer)!!.reinterpret())
 
     /**
      * Creates a new `GtkPicture` displaying the file @filename.
@@ -316,8 +298,7 @@ public open class Picture(
      * @param filename a filename
      * @return a new `GtkPicture`
      */
-    public constructor(filename: String? = null) :
-        this(gtk_picture_new_for_filename(filename)!!.reinterpret())
+    public constructor(filename: String? = null) : this(gtk_picture_new_for_filename(filename)!!.reinterpret())
 
     /**
      * Creates a new `GtkPicture` displaying @paintable.
@@ -328,8 +309,9 @@ public open class Picture(
      * @param paintable a `GdkPaintable`
      * @return a new `GtkPicture`
      */
-    public constructor(paintable: Paintable? = null) :
-        this(gtk_picture_new_for_paintable(paintable?.gdkPaintablePointer)!!.reinterpret())
+    public constructor(
+        paintable: Paintable? = null,
+    ) : this(gtk_picture_new_for_paintable(paintable?.gdkPaintablePointer)!!.reinterpret())
 
     /**
      * Creates a new `GtkPicture` displaying @pixbuf.
@@ -342,8 +324,9 @@ public open class Picture(
      * @param pixbuf a `GdkPixbuf`
      * @return a new `GtkPicture`
      */
-    public constructor(pixbuf: Pixbuf? = null) :
-        this(gtk_picture_new_for_pixbuf(pixbuf?.gdkpixbufPixbufPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        pixbuf: Pixbuf? = null,
+    ) : this(gtk_picture_new_for_pixbuf(pixbuf?.gdkpixbufPixbufPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Gets the alternative textual description of the picture.
@@ -481,10 +464,7 @@ public open class Picture(
      * @param keepAspectRatio whether to keep aspect ratio
      */
     public open fun setKeepAspectRatio(keepAspectRatio: Boolean): Unit =
-        gtk_picture_set_keep_aspect_ratio(
-            gtkPicturePointer.reinterpret(),
-            keepAspectRatio.asGBoolean()
-        )
+        gtk_picture_set_keep_aspect_ratio(gtkPicturePointer.reinterpret(), keepAspectRatio.asGBoolean())
 
     /**
      * Makes @self display the given @paintable.
@@ -496,10 +476,7 @@ public open class Picture(
      * @param paintable a `GdkPaintable`
      */
     public open fun setPaintable(paintable: Paintable? = null): Unit =
-        gtk_picture_set_paintable(
-            gtkPicturePointer.reinterpret(),
-            paintable?.gdkPaintablePointer
-        )
+        gtk_picture_set_paintable(gtkPicturePointer.reinterpret(), paintable?.gdkPaintablePointer)
 
     /**
      * Sets a `GtkPicture` to show a `GdkPixbuf`.
@@ -511,10 +488,7 @@ public open class Picture(
      * @param pixbuf a `GdkPixbuf`
      */
     public open fun setPixbuf(pixbuf: Pixbuf? = null): Unit =
-        gtk_picture_set_pixbuf(
-            gtkPicturePointer.reinterpret(),
-            pixbuf?.gdkpixbufPixbufPointer?.reinterpret()
-        )
+        gtk_picture_set_pixbuf(gtkPicturePointer.reinterpret(), pixbuf?.gdkpixbufPixbufPointer?.reinterpret())
 
     /**
      * Makes @self load and display the resource at the given

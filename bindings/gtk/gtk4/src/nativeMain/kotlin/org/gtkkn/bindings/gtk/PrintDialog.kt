@@ -61,7 +61,8 @@ import kotlin.Unit
  */
 public open class PrintDialog(
     pointer: CPointer<GtkPrintDialog>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkPrintDialogPointer: CPointer<GtkPrintDialog>
         get() = gPointer.reinterpret()
 
@@ -91,11 +92,7 @@ public open class PrintDialog(
          * @param acceptLabel the new accept label
          * @since 4.14
          */
-        set(acceptLabel) =
-            gtk_print_dialog_set_accept_label(
-                gtkPrintDialogPointer.reinterpret(),
-                acceptLabel
-            )
+        set(acceptLabel) = gtk_print_dialog_set_accept_label(gtkPrintDialogPointer.reinterpret(), acceptLabel)
 
     /**
      * Whether the print dialog is modal.
@@ -121,11 +118,7 @@ public open class PrintDialog(
          * @param modal the new value
          * @since 4.14
          */
-        set(modal) =
-            gtk_print_dialog_set_modal(
-                gtkPrintDialogPointer.reinterpret(),
-                modal.asGBoolean()
-            )
+        set(modal) = gtk_print_dialog_set_modal(gtkPrintDialogPointer.reinterpret(), modal.asGBoolean())
 
     /**
      * The page setup to use.
@@ -150,7 +143,9 @@ public open class PrintDialog(
          * @param pageSetup the new page setup
          * @since 4.14
          */
-        set(pageSetup) =
+        set(
+            pageSetup
+        ) =
             gtk_print_dialog_set_page_setup(
                 gtkPrintDialogPointer.reinterpret(),
                 pageSetup.gtkPageSetupPointer.reinterpret()
@@ -179,7 +174,9 @@ public open class PrintDialog(
          * @param printSettings the new print settings
          * @since 4.14
          */
-        set(printSettings) =
+        set(
+            printSettings
+        ) =
             gtk_print_dialog_set_print_settings(
                 gtkPrintDialogPointer.reinterpret(),
                 printSettings.gtkPrintSettingsPointer.reinterpret()

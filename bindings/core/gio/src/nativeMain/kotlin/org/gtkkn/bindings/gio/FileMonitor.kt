@@ -51,7 +51,8 @@ import kotlin.Unit
  */
 public open class FileMonitor(
     pointer: CPointer<GFileMonitor>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioFileMonitorPointer: CPointer<GFileMonitor>
         get() = gPointer.reinterpret()
 
@@ -136,8 +137,7 @@ public open class FileMonitor(
      * In all the other cases, @other_file will be set to #NULL.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `file` a #GFile.; `otherFile` a #GFile or
-     * #NULL.; `eventType` a #GFileMonitorEvent.
+     * @param handler the Callback to connect. Params: `file` a #GFile.; `otherFile` a #GFile or #NULL.; `eventType` a #GFileMonitorEvent.
      */
     public fun connectChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -182,22 +182,24 @@ private val connectChangedFunc: CPointer<
             eventType: GFileMonitorEvent,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                `file`: File,
-                otherFile: File?,
-                eventType: FileMonitorEvent,
-            ) -> Unit
-        >().get().invoke(
-            `file`!!.run {
-                File.wrap(reinterpret())
-            },
-            otherFile?.run {
-                File.wrap(reinterpret())
-            },
-            eventType.run {
-                FileMonitorEvent.fromNativeValue(this)
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    `file`: File,
+                    otherFile: File?,
+                    eventType: FileMonitorEvent,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                `file`!!.run {
+                    File.wrap(reinterpret())
+                },
+                otherFile?.run {
+                    File.wrap(reinterpret())
+                },
+                eventType.run {
+                    FileMonitorEvent.fromNativeValue(this)
+                }
+            )
+    }.reinterpret()

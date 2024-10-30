@@ -50,7 +50,9 @@ import kotlin.Unit
  */
 public open class ContentDeserializer(
     pointer: CPointer<GdkContentDeserializer>,
-) : Object(pointer.reinterpret()), AsyncResult, KGTyped {
+) : Object(pointer.reinterpret()),
+    AsyncResult,
+    KGTyped {
     public val gdkContentDeserializerPointer: CPointer<GdkContentDeserializer>
         get() = gPointer.reinterpret()
 
@@ -125,10 +127,7 @@ public open class ContentDeserializer(
      * @param error a `GError`
      */
     public open fun returnError(error: Error): Unit =
-        gdk_content_deserializer_return_error(
-            gdkContentDeserializerPointer.reinterpret(),
-            error.glibErrorPointer
-        )
+        gdk_content_deserializer_return_error(gdkContentDeserializerPointer.reinterpret(), error.glibErrorPointer)
 
     /**
      * Indicate that the deserialization has been successfully completed.
@@ -138,9 +137,7 @@ public open class ContentDeserializer(
 
     public companion object : TypeCompanion<ContentDeserializer> {
         override val type: GeneratedClassKGType<ContentDeserializer> =
-            GeneratedClassKGType(gdk_content_deserializer_get_type()) {
-                ContentDeserializer(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_content_deserializer_get_type()) { ContentDeserializer(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

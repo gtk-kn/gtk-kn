@@ -57,21 +57,15 @@ public object Gsk {
      *
      * - `M x y` Move to `(x, y)`
      * - `L x y` Add a line from the current point to `(x, y)`
-     * - `Q x1 y1 x2 y2` Add a quadratic Bézier from the current point to `(x2, y2)`, with control
-     * point `(x1, y1)`
-     * - `C x1 y1 x2 y2 x3 y3` Add a cubic Bézier from the current point to `(x3, y3)`, with control
-     * points `(x1, y1)` and `(x2, y2)`
+     * - `Q x1 y1 x2 y2` Add a quadratic Bézier from the current point to `(x2, y2)`, with control point `(x1, y1)`
+     * - `C x1 y1 x2 y2 x3 y3` Add a cubic Bézier from the current point to `(x3, y3)`, with control points `(x1, y1)` and `(x2, y2)`
      * - `Z` Close the contour by drawing a line back to the start point
      * - `H x` Add a horizontal line from the current point to the given x value
      * - `V y` Add a vertical line from the current point to the given y value
-     * - `T x2 y2` Add a quadratic Bézier, using the reflection of the previous segments' control
-     * point as control point
-     * - `S x2 y2 x3 y3` Add a cubic Bézier, using the reflection of the previous segments' second
-     * control point as first control point
-     * - `A rx ry r l s x y` Add an elliptical arc from the current point to `(x, y)` with radii rx
-     * and ry. See the SVG documentation for how the other parameters influence the arc.
-     * - `O x1 y1 x2 y2 w` Add a rational quadratic Bézier from the current point to `(x2, y2)` with
-     * control point `(x1, y1)` and weight `w`.
+     * - `T x2 y2` Add a quadratic Bézier, using the reflection of the previous segments' control point as control point
+     * - `S x2 y2 x3 y3` Add a cubic Bézier, using the reflection of the previous segments' second control point as first control point
+     * - `A rx ry r l s x y` Add an elliptical arc from the current point to `(x, y)` with radii rx and ry. See the SVG documentation for how the other parameters influence the arc.
+     * - `O x1 y1 x2 y2 w` Add a rational quadratic Bézier from the current point to `(x2, y2)` with control point `(x1, y1)` and weight `w`.
      *
      * All the commands have lowercase variants that interpret coordinates
      * relative to the current point.
@@ -146,7 +140,8 @@ public object Gsk {
         val ex =
             when (error.domain) {
                 SerializationError.quark() ->
-                    SerializationError.fromErrorOrNull(error)
+                    SerializationError
+                        .fromErrorOrNull(error)
                         ?.let {
                             SerializationErrorException(error, it)
                         }
@@ -171,25 +166,27 @@ public val ParseErrorFuncFunc: CPointer<
             error: CPointer<GError>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                start: ParseLocation,
-                end: ParseLocation,
-                error: Error,
-            ) -> Unit
-        >().get().invoke(
-            start!!.run {
-                ParseLocation(reinterpret())
-            },
-            end!!.run {
-                ParseLocation(reinterpret())
-            },
-            error!!.run {
-                Error(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    start: ParseLocation,
+                    end: ParseLocation,
+                    error: Error,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                start!!.run {
+                    ParseLocation(reinterpret())
+                },
+                end!!.run {
+                    ParseLocation(reinterpret())
+                },
+                error!!.run {
+                    Error(reinterpret())
+                }
+            )
+    }.reinterpret()
 
 public val PathForeachFuncFunc: CPointer<
     CFunction<
@@ -208,25 +205,27 @@ public val PathForeachFuncFunc: CPointer<
             weight: Float,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                op: PathOperation,
-                pts: Point,
-                nPts: ULong,
-                weight: Float,
-            ) -> Boolean
-        >().get().invoke(
-            op.run {
-                PathOperation.fromNativeValue(this)
-            },
-            pts!!.run {
-                Point(reinterpret())
-            },
-            nPts,
-            weight
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    op: PathOperation,
+                    pts: Point,
+                    nPts: ULong,
+                    weight: Float,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(
+                op.run {
+                    PathOperation.fromNativeValue(this)
+                },
+                pts!!.run {
+                    Point(reinterpret())
+                },
+                nPts,
+                weight
+            ).asGBoolean()
+    }.reinterpret()
 
 /**
  * Type of callback that is called when an error occurs

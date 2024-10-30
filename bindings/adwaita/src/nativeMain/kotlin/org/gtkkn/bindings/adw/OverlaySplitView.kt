@@ -183,7 +183,9 @@ import kotlin.Unit
  */
 public class OverlaySplitView(
     pointer: CPointer<AdwOverlaySplitView>,
-) : Widget(pointer.reinterpret()), Swipeable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Swipeable,
+    KGTyped {
     public val adwOverlaySplitViewPointer: CPointer<AdwOverlaySplitView>
         get() = gPointer.reinterpret()
 
@@ -214,8 +216,7 @@ public class OverlaySplitView(
          * @return whether @self is collapsed
          * @since 1.4
          */
-        get() =
-            adw_overlay_split_view_get_collapsed(adwOverlaySplitViewPointer.reinterpret()).asBoolean()
+        get() = adw_overlay_split_view_get_collapsed(adwOverlaySplitViewPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self view is collapsed.
@@ -226,11 +227,9 @@ public class OverlaySplitView(
          * @param collapsed whether @self is collapsed
          * @since 1.4
          */
-        set(collapsed) =
-            adw_overlay_split_view_set_collapsed(
-                adwOverlaySplitViewPointer.reinterpret(),
-                collapsed.asGBoolean()
-            )
+        set(
+            collapsed
+        ) = adw_overlay_split_view_set_collapsed(adwOverlaySplitViewPointer.reinterpret(), collapsed.asGBoolean())
 
     /**
      * The content widget.
@@ -255,7 +254,9 @@ public class OverlaySplitView(
          * @param content the content widget
          * @since 1.4
          */
-        set(content) =
+        set(
+            content
+        ) =
             adw_overlay_split_view_set_content(
                 adwOverlaySplitViewPointer.reinterpret(),
                 content?.gtkWidgetPointer?.reinterpret()
@@ -275,8 +276,7 @@ public class OverlaySplitView(
          * @return `TRUE` if @self can be closed with a swipe gesture
          * @since 1.4
          */
-        get() =
-            adw_overlay_split_view_get_enable_hide_gesture(adwOverlaySplitViewPointer.reinterpret()).asBoolean()
+        get() = adw_overlay_split_view_get_enable_hide_gesture(adwOverlaySplitViewPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self can be closed with a swipe gesture.
@@ -286,7 +286,9 @@ public class OverlaySplitView(
          * @param enableHideGesture whether @self can be closed with a swipe gesture
          * @since 1.4
          */
-        set(enableHideGesture) =
+        set(
+            enableHideGesture
+        ) =
             adw_overlay_split_view_set_enable_hide_gesture(
                 adwOverlaySplitViewPointer.reinterpret(),
                 enableHideGesture.asGBoolean()
@@ -306,8 +308,7 @@ public class OverlaySplitView(
          * @return `TRUE` if @self can be opened with a swipe gesture
          * @since 1.4
          */
-        get() =
-            adw_overlay_split_view_get_enable_show_gesture(adwOverlaySplitViewPointer.reinterpret()).asBoolean()
+        get() = adw_overlay_split_view_get_enable_show_gesture(adwOverlaySplitViewPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self can be opened with an edge swipe gesture.
@@ -317,7 +318,9 @@ public class OverlaySplitView(
          * @param enableShowGesture whether @self can be opened with a swipe gesture
          * @since 1.4
          */
-        set(enableShowGesture) =
+        set(
+            enableShowGesture
+        ) =
             adw_overlay_split_view_set_enable_show_gesture(
                 adwOverlaySplitViewPointer.reinterpret(),
                 enableShowGesture.asGBoolean()
@@ -341,8 +344,7 @@ public class OverlaySplitView(
          * @return the maximum width
          * @since 1.4
          */
-        get() =
-            adw_overlay_split_view_get_max_sidebar_width(adwOverlaySplitViewPointer.reinterpret())
+        get() = adw_overlay_split_view_get_max_sidebar_width(adwOverlaySplitViewPointer.reinterpret())
 
         /**
          * Sets the maximum sidebar width for @self.
@@ -355,11 +357,7 @@ public class OverlaySplitView(
          * @param width the maximum width
          * @since 1.4
          */
-        set(width) =
-            adw_overlay_split_view_set_max_sidebar_width(
-                adwOverlaySplitViewPointer.reinterpret(),
-                width
-            )
+        set(width) = adw_overlay_split_view_set_max_sidebar_width(adwOverlaySplitViewPointer.reinterpret(), width)
 
     /**
      * The minimum sidebar width.
@@ -379,8 +377,7 @@ public class OverlaySplitView(
          * @return the minimum width
          * @since 1.4
          */
-        get() =
-            adw_overlay_split_view_get_min_sidebar_width(adwOverlaySplitViewPointer.reinterpret())
+        get() = adw_overlay_split_view_get_min_sidebar_width(adwOverlaySplitViewPointer.reinterpret())
 
         /**
          * Sets the minimum sidebar width for @self.
@@ -393,11 +390,7 @@ public class OverlaySplitView(
          * @param width the minimum width
          * @since 1.4
          */
-        set(width) =
-            adw_overlay_split_view_set_min_sidebar_width(
-                adwOverlaySplitViewPointer.reinterpret(),
-                width
-            )
+        set(width) = adw_overlay_split_view_set_min_sidebar_width(adwOverlaySplitViewPointer.reinterpret(), width)
 
     /**
      * Whether the sidebar widget is pinned.
@@ -415,8 +408,7 @@ public class OverlaySplitView(
          * @return whether if the sidebar widget is pinned
          * @since 1.4
          */
-        get() =
-            adw_overlay_split_view_get_pin_sidebar(adwOverlaySplitViewPointer.reinterpret()).asBoolean()
+        get() = adw_overlay_split_view_get_pin_sidebar(adwOverlaySplitViewPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the sidebar widget is pinned for @self.
@@ -428,11 +420,9 @@ public class OverlaySplitView(
          * @param pinSidebar whether to pin the sidebar widget
          * @since 1.4
          */
-        set(pinSidebar) =
-            adw_overlay_split_view_set_pin_sidebar(
-                adwOverlaySplitViewPointer.reinterpret(),
-                pinSidebar.asGBoolean()
-            )
+        set(
+            pinSidebar
+        ) = adw_overlay_split_view_set_pin_sidebar(adwOverlaySplitViewPointer.reinterpret(), pinSidebar.asGBoolean())
 
     /**
      * Whether the sidebar widget is shown.
@@ -446,8 +436,7 @@ public class OverlaySplitView(
          * @return `TRUE` if the sidebar widget is shown
          * @since 1.4
          */
-        get() =
-            adw_overlay_split_view_get_show_sidebar(adwOverlaySplitViewPointer.reinterpret()).asBoolean()
+        get() = adw_overlay_split_view_get_show_sidebar(adwOverlaySplitViewPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the sidebar widget is shown for @self.
@@ -455,11 +444,9 @@ public class OverlaySplitView(
          * @param showSidebar whether to show the sidebar widget
          * @since 1.4
          */
-        set(showSidebar) =
-            adw_overlay_split_view_set_show_sidebar(
-                adwOverlaySplitViewPointer.reinterpret(),
-                showSidebar.asGBoolean()
-            )
+        set(
+            showSidebar
+        ) = adw_overlay_split_view_set_show_sidebar(adwOverlaySplitViewPointer.reinterpret(), showSidebar.asGBoolean())
 
     /**
      * The sidebar widget.
@@ -484,7 +471,9 @@ public class OverlaySplitView(
          * @param sidebar the sidebar widget
          * @since 1.4
          */
-        set(sidebar) =
+        set(
+            sidebar
+        ) =
             adw_overlay_split_view_set_sidebar(
                 adwOverlaySplitViewPointer.reinterpret(),
                 sidebar?.gtkWidgetPointer?.reinterpret()
@@ -519,11 +508,9 @@ public class OverlaySplitView(
          * @param position the new position
          * @since 1.4
          */
-        set(position) =
-            adw_overlay_split_view_set_sidebar_position(
-                adwOverlaySplitViewPointer.reinterpret(),
-                position.nativeValue
-            )
+        set(
+            position
+        ) = adw_overlay_split_view_set_sidebar_position(adwOverlaySplitViewPointer.reinterpret(), position.nativeValue)
 
     /**
      * The preferred sidebar width as a fraction of the total width.
@@ -544,8 +531,7 @@ public class OverlaySplitView(
          * @return the preferred width fraction
          * @since 1.4
          */
-        get() =
-            adw_overlay_split_view_get_sidebar_width_fraction(adwOverlaySplitViewPointer.reinterpret())
+        get() = adw_overlay_split_view_get_sidebar_width_fraction(adwOverlaySplitViewPointer.reinterpret())
 
         /**
          * Sets the preferred sidebar width as a fraction of the total width of @self.
@@ -560,11 +546,9 @@ public class OverlaySplitView(
          * @param fraction the preferred width fraction
          * @since 1.4
          */
-        set(fraction) =
-            adw_overlay_split_view_set_sidebar_width_fraction(
-                adwOverlaySplitViewPointer.reinterpret(),
-                fraction
-            )
+        set(
+            fraction
+        ) = adw_overlay_split_view_set_sidebar_width_fraction(adwOverlaySplitViewPointer.reinterpret(), fraction)
 
     /**
      * The length unit for minimum and maximum sidebar widths.
@@ -595,11 +579,9 @@ public class OverlaySplitView(
          * @param unit the length unit
          * @since 1.4
          */
-        set(unit) =
-            adw_overlay_split_view_set_sidebar_width_unit(
-                adwOverlaySplitViewPointer.reinterpret(),
-                unit.nativeValue
-            )
+        set(
+            unit
+        ) = adw_overlay_split_view_set_sidebar_width_unit(adwOverlaySplitViewPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Creates a new `AdwOverlaySplitView`.
@@ -735,10 +717,7 @@ public class OverlaySplitView(
      * @since 1.4
      */
     public fun setCollapsed(collapsed: Boolean): Unit =
-        adw_overlay_split_view_set_collapsed(
-            adwOverlaySplitViewPointer.reinterpret(),
-            collapsed.asGBoolean()
-        )
+        adw_overlay_split_view_set_collapsed(adwOverlaySplitViewPointer.reinterpret(), collapsed.asGBoolean())
 
     /**
      * Sets the content widget for @self.
@@ -792,10 +771,7 @@ public class OverlaySplitView(
      * @since 1.4
      */
     public fun setMaxSidebarWidth(width: Double): Unit =
-        adw_overlay_split_view_set_max_sidebar_width(
-            adwOverlaySplitViewPointer.reinterpret(),
-            width
-        )
+        adw_overlay_split_view_set_max_sidebar_width(adwOverlaySplitViewPointer.reinterpret(), width)
 
     /**
      * Sets the minimum sidebar width for @self.
@@ -809,10 +785,7 @@ public class OverlaySplitView(
      * @since 1.4
      */
     public fun setMinSidebarWidth(width: Double): Unit =
-        adw_overlay_split_view_set_min_sidebar_width(
-            adwOverlaySplitViewPointer.reinterpret(),
-            width
-        )
+        adw_overlay_split_view_set_min_sidebar_width(adwOverlaySplitViewPointer.reinterpret(), width)
 
     /**
      * Sets whether the sidebar widget is pinned for @self.
@@ -825,10 +798,7 @@ public class OverlaySplitView(
      * @since 1.4
      */
     public fun setPinSidebar(pinSidebar: Boolean): Unit =
-        adw_overlay_split_view_set_pin_sidebar(
-            adwOverlaySplitViewPointer.reinterpret(),
-            pinSidebar.asGBoolean()
-        )
+        adw_overlay_split_view_set_pin_sidebar(adwOverlaySplitViewPointer.reinterpret(), pinSidebar.asGBoolean())
 
     /**
      * Sets whether the sidebar widget is shown for @self.
@@ -837,10 +807,7 @@ public class OverlaySplitView(
      * @since 1.4
      */
     public fun setShowSidebar(showSidebar: Boolean): Unit =
-        adw_overlay_split_view_set_show_sidebar(
-            adwOverlaySplitViewPointer.reinterpret(),
-            showSidebar.asGBoolean()
-        )
+        adw_overlay_split_view_set_show_sidebar(adwOverlaySplitViewPointer.reinterpret(), showSidebar.asGBoolean())
 
     /**
      * Sets the sidebar widget for @self.
@@ -864,10 +831,7 @@ public class OverlaySplitView(
      * @since 1.4
      */
     public fun setSidebarPosition(position: PackType): Unit =
-        adw_overlay_split_view_set_sidebar_position(
-            adwOverlaySplitViewPointer.reinterpret(),
-            position.nativeValue
-        )
+        adw_overlay_split_view_set_sidebar_position(adwOverlaySplitViewPointer.reinterpret(), position.nativeValue)
 
     /**
      * Sets the preferred sidebar width as a fraction of the total width of @self.
@@ -883,10 +847,7 @@ public class OverlaySplitView(
      * @since 1.4
      */
     public fun setSidebarWidthFraction(fraction: Double): Unit =
-        adw_overlay_split_view_set_sidebar_width_fraction(
-            adwOverlaySplitViewPointer.reinterpret(),
-            fraction
-        )
+        adw_overlay_split_view_set_sidebar_width_fraction(adwOverlaySplitViewPointer.reinterpret(), fraction)
 
     /**
      * Sets the length unit for minimum and maximum sidebar widths.
@@ -898,16 +859,11 @@ public class OverlaySplitView(
      * @since 1.4
      */
     public fun setSidebarWidthUnit(unit: LengthUnit): Unit =
-        adw_overlay_split_view_set_sidebar_width_unit(
-            adwOverlaySplitViewPointer.reinterpret(),
-            unit.nativeValue
-        )
+        adw_overlay_split_view_set_sidebar_width_unit(adwOverlaySplitViewPointer.reinterpret(), unit.nativeValue)
 
     public companion object : TypeCompanion<OverlaySplitView> {
         override val type: GeneratedClassKGType<OverlaySplitView> =
-            GeneratedClassKGType(adw_overlay_split_view_get_type()) {
-                OverlaySplitView(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_overlay_split_view_get_type()) { OverlaySplitView(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

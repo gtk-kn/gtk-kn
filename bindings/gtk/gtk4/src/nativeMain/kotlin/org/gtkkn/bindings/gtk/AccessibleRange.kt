@@ -35,7 +35,10 @@ import org.gtkkn.native.gtk.gtk_accessible_range_get_type
  * - `GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT`
  * @since 4.10
  */
-public interface AccessibleRange : Interface, Accessible, KGTyped {
+public interface AccessibleRange :
+    Interface,
+    Accessible,
+    KGTyped {
     public val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
@@ -49,9 +52,7 @@ public interface AccessibleRange : Interface, Accessible, KGTyped {
 
     public companion object : TypeCompanion<AccessibleRange> {
         override val type: GeneratedInterfaceKGType<AccessibleRange> =
-            GeneratedInterfaceKGType(gtk_accessible_range_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_accessible_range_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

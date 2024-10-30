@@ -51,7 +51,9 @@ import kotlin.Unit
  */
 public open class FileIOStream(
     pointer: CPointer<GFileIOStream>,
-) : IOStream(pointer.reinterpret()), Seekable, KGTyped {
+) : IOStream(pointer.reinterpret()),
+    Seekable,
+    KGTyped {
     public val gioFileIOStreamPointer: CPointer<GFileIOStream>
         get() = gPointer.reinterpret()
 

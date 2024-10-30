@@ -222,7 +222,9 @@ import kotlin.Unit
  */
 public open class TreeView(
     pointer: CPointer<GtkTreeView>,
-) : Widget(pointer.reinterpret()), Scrollable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Scrollable,
+    KGTyped {
     public val gtkTreeViewPointer: CPointer<GtkTreeView>
         get() = gPointer.reinterpret()
 
@@ -248,8 +250,7 @@ public open class TreeView(
          *
          * @return true if row-activated will be emitted on a single click
          */
-        get() =
-            gtk_tree_view_get_activate_on_single_click(gtkTreeViewPointer.reinterpret()).asBoolean()
+        get() = gtk_tree_view_get_activate_on_single_click(gtkTreeViewPointer.reinterpret()).asBoolean()
 
         /**
          * Cause the `GtkTreeView`::row-activated signal to be emitted
@@ -257,11 +258,7 @@ public open class TreeView(
          *
          * @param single true to emit row-activated on a single click
          */
-        set(single) =
-            gtk_tree_view_set_activate_on_single_click(
-                gtkTreeViewPointer.reinterpret(),
-                single.asGBoolean()
-            )
+        set(single) = gtk_tree_view_set_activate_on_single_click(gtkTreeViewPointer.reinterpret(), single.asGBoolean())
 
     public open var enableSearch: Boolean
         /**
@@ -281,11 +278,7 @@ public open class TreeView(
          *
          * @param enableSearch true, if the user can search interactively
          */
-        set(enableSearch) =
-            gtk_tree_view_set_enable_search(
-                gtkTreeViewPointer.reinterpret(),
-                enableSearch.asGBoolean()
-            )
+        set(enableSearch) = gtk_tree_view_set_enable_search(gtkTreeViewPointer.reinterpret(), enableSearch.asGBoolean())
 
     public open var enableTreeLines: Boolean
         /**
@@ -302,11 +295,7 @@ public open class TreeView(
          *
          * @param enabled true to enable tree line drawing, false otherwise.
          */
-        set(enabled) =
-            gtk_tree_view_set_enable_tree_lines(
-                gtkTreeViewPointer.reinterpret(),
-                enabled.asGBoolean()
-            )
+        set(enabled) = gtk_tree_view_set_enable_tree_lines(gtkTreeViewPointer.reinterpret(), enabled.asGBoolean())
 
     public open var expanderColumn: TreeViewColumn?
         /**
@@ -331,7 +320,9 @@ public open class TreeView(
          *
          * @param column null, or the column to draw the expander arrow at.
          */
-        set(column) =
+        set(
+            column
+        ) =
             gtk_tree_view_set_expander_column(
                 gtkTreeViewPointer.reinterpret(),
                 column?.gtkTreeViewColumnPointer?.reinterpret()
@@ -361,11 +352,7 @@ public open class TreeView(
          *
          * @param enable true to enable fixed height mode
          */
-        set(enable) =
-            gtk_tree_view_set_fixed_height_mode(
-                gtkTreeViewPointer.reinterpret(),
-                enable.asGBoolean()
-            )
+        set(enable) = gtk_tree_view_set_fixed_height_mode(gtkTreeViewPointer.reinterpret(), enable.asGBoolean())
 
     public open var headersClickable: Boolean
         /**
@@ -380,11 +367,7 @@ public open class TreeView(
          *
          * @param setting true if the columns are clickable.
          */
-        set(setting) =
-            gtk_tree_view_set_headers_clickable(
-                gtkTreeViewPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_tree_view_set_headers_clickable(gtkTreeViewPointer.reinterpret(), setting.asGBoolean())
 
     public open var headersVisible: Boolean
         /**
@@ -399,11 +382,9 @@ public open class TreeView(
          *
          * @param headersVisible true if the headers are visible
          */
-        set(headersVisible) =
-            gtk_tree_view_set_headers_visible(
-                gtkTreeViewPointer.reinterpret(),
-                headersVisible.asGBoolean()
-            )
+        set(
+            headersVisible
+        ) = gtk_tree_view_set_headers_visible(gtkTreeViewPointer.reinterpret(), headersVisible.asGBoolean())
 
     /**
      * Enables or disables the hover expansion mode of @tree_view.
@@ -428,11 +409,7 @@ public open class TreeView(
          *
          * @param expand true to enable hover selection mode
          */
-        set(expand) =
-            gtk_tree_view_set_hover_expand(
-                gtkTreeViewPointer.reinterpret(),
-                expand.asGBoolean()
-            )
+        set(expand) = gtk_tree_view_set_hover_expand(gtkTreeViewPointer.reinterpret(), expand.asGBoolean())
 
     /**
      * Enables or disables the hover selection mode of @tree_view.
@@ -459,11 +436,7 @@ public open class TreeView(
          *
          * @param hover true to enable hover selection mode
          */
-        set(hover) =
-            gtk_tree_view_set_hover_selection(
-                gtkTreeViewPointer.reinterpret(),
-                hover.asGBoolean()
-            )
+        set(hover) = gtk_tree_view_set_hover_selection(gtkTreeViewPointer.reinterpret(), hover.asGBoolean())
 
     /**
      * Extra indentation for each level.
@@ -487,11 +460,7 @@ public open class TreeView(
          *
          * @param indentation the amount, in pixels, of extra indentation in @tree_view.
          */
-        set(indentation) =
-            gtk_tree_view_set_level_indentation(
-                gtkTreeViewPointer.reinterpret(),
-                indentation
-            )
+        set(indentation) = gtk_tree_view_set_level_indentation(gtkTreeViewPointer.reinterpret(), indentation)
 
     public open var model: TreeModel?
         /**
@@ -512,11 +481,7 @@ public open class TreeView(
          *
          * @param model The model.
          */
-        set(model) =
-            gtk_tree_view_set_model(
-                gtkTreeViewPointer.reinterpret(),
-                model?.gtkTreeModelPointer
-            )
+        set(model) = gtk_tree_view_set_model(gtkTreeViewPointer.reinterpret(), model?.gtkTreeModelPointer)
 
     public open var reorderable: Boolean
         /**
@@ -545,11 +510,7 @@ public open class TreeView(
          *
          * @param reorderable true, if the tree can be reordered.
          */
-        set(reorderable) =
-            gtk_tree_view_set_reorderable(
-                gtkTreeViewPointer.reinterpret(),
-                reorderable.asGBoolean()
-            )
+        set(reorderable) = gtk_tree_view_set_reorderable(gtkTreeViewPointer.reinterpret(), reorderable.asGBoolean())
 
     public open var rubberBanding: Boolean
         /**
@@ -568,11 +529,7 @@ public open class TreeView(
          *
          * @param enable true to enable rubber banding
          */
-        set(enable) =
-            gtk_tree_view_set_rubber_banding(
-                gtkTreeViewPointer.reinterpret(),
-                enable.asGBoolean()
-            )
+        set(enable) = gtk_tree_view_set_rubber_banding(gtkTreeViewPointer.reinterpret(), enable.asGBoolean())
 
     public open var searchColumn: Int
         /**
@@ -620,11 +577,7 @@ public open class TreeView(
          *
          * @param enabled true to enable expander drawing, false otherwise.
          */
-        set(enabled) =
-            gtk_tree_view_set_show_expanders(
-                gtkTreeViewPointer.reinterpret(),
-                enabled.asGBoolean()
-            )
+        set(enabled) = gtk_tree_view_set_show_expanders(gtkTreeViewPointer.reinterpret(), enabled.asGBoolean())
 
     public open var tooltipColumn: Int
         /**
@@ -665,8 +618,7 @@ public open class TreeView(
      * @param model the model.
      * @return A newly created `GtkTreeView` widget.
      */
-    public constructor(model: TreeModel) :
-        this(gtk_tree_view_new_with_model(model.gtkTreeModelPointer)!!.reinterpret())
+    public constructor(model: TreeModel) : this(gtk_tree_view_new_with_model(model.gtkTreeModelPointer)!!.reinterpret())
 
     /**
      * Appends @column to the list of columns. If @tree_view has “fixed_height”
@@ -677,10 +629,7 @@ public open class TreeView(
      * @return The number of columns in @tree_view after appending.
      */
     public open fun appendColumn(column: TreeViewColumn): Int =
-        gtk_tree_view_append_column(
-            gtkTreeViewPointer.reinterpret(),
-            column.gtkTreeViewColumnPointer.reinterpret()
-        )
+        gtk_tree_view_append_column(gtkTreeViewPointer.reinterpret(), column.gtkTreeViewColumnPointer.reinterpret())
 
     /**
      * Recursively collapses all visible, expanded nodes in @tree_view.
@@ -694,10 +643,7 @@ public open class TreeView(
      * @return true if the row was collapsed.
      */
     public open fun collapseRow(path: TreePath): Boolean =
-        gtk_tree_view_collapse_row(
-            gtkTreeViewPointer.reinterpret(),
-            path.gtkTreePathPointer
-        ).asBoolean()
+        gtk_tree_view_collapse_row(gtkTreeViewPointer.reinterpret(), path.gtkTreePathPointer).asBoolean()
 
     /**
      * Resizes all columns to their optimal width. Only works after the
@@ -713,10 +659,7 @@ public open class TreeView(
      * @return a newly-allocated surface of the drag icon.
      */
     public open fun createRowDragIcon(path: TreePath): Paintable? =
-        gtk_tree_view_create_row_drag_icon(
-            gtkTreeViewPointer.reinterpret(),
-            path.gtkTreePathPointer
-        )?.run {
+        gtk_tree_view_create_row_drag_icon(gtkTreeViewPointer.reinterpret(), path.gtkTreePathPointer)?.run {
             Paintable.wrap(reinterpret())
         }
 
@@ -1059,10 +1002,7 @@ public open class TreeView(
      * @param visibleRect rectangle to fill
      */
     public open fun getVisibleRect(visibleRect: Rectangle): Unit =
-        gtk_tree_view_get_visible_rect(
-            gtkTreeViewPointer.reinterpret(),
-            visibleRect.gdkRectanglePointer
-        )
+        gtk_tree_view_get_visible_rect(gtkTreeViewPointer.reinterpret(), visibleRect.gdkRectanglePointer)
 
     /**
      * This inserts the @column into the @tree_view at @position.  If @position is
@@ -1160,10 +1100,7 @@ public open class TreeView(
      * @return The number of columns in @tree_view after removing.
      */
     public open fun removeColumn(column: TreeViewColumn): Int =
-        gtk_tree_view_remove_column(
-            gtkTreeViewPointer.reinterpret(),
-            column.gtkTreeViewColumnPointer.reinterpret()
-        )
+        gtk_tree_view_remove_column(gtkTreeViewPointer.reinterpret(), column.gtkTreeViewColumnPointer.reinterpret())
 
     /**
      * Activates the cell determined by @path and @column.
@@ -1188,10 +1125,7 @@ public open class TreeView(
      * @return true if #path is expanded.
      */
     public open fun rowExpanded(path: TreePath): Boolean =
-        gtk_tree_view_row_expanded(
-            gtkTreeViewPointer.reinterpret(),
-            path.gtkTreePathPointer
-        ).asBoolean()
+        gtk_tree_view_row_expanded(gtkTreeViewPointer.reinterpret(), path.gtkTreePathPointer).asBoolean()
 
     /**
      * Moves the alignments of @tree_view to the position specified by @column and
@@ -1257,10 +1191,7 @@ public open class TreeView(
      * @param single true to emit row-activated on a single click
      */
     public open fun setActivateOnSingleClick(single: Boolean): Unit =
-        gtk_tree_view_set_activate_on_single_click(
-            gtkTreeViewPointer.reinterpret(),
-            single.asGBoolean()
-        )
+        gtk_tree_view_set_activate_on_single_click(gtkTreeViewPointer.reinterpret(), single.asGBoolean())
 
     /**
      * Sets a user function for determining where a column may be dropped when
@@ -1358,11 +1289,7 @@ public open class TreeView(
         path: TreePath? = null,
         pos: TreeViewDropPosition,
     ): Unit =
-        gtk_tree_view_set_drag_dest_row(
-            gtkTreeViewPointer.reinterpret(),
-            path?.gtkTreePathPointer,
-            pos.nativeValue
-        )
+        gtk_tree_view_set_drag_dest_row(gtkTreeViewPointer.reinterpret(), path?.gtkTreePathPointer, pos.nativeValue)
 
     /**
      * If @enable_search is set, then the user can type in text to search through
@@ -1374,10 +1301,7 @@ public open class TreeView(
      * @param enableSearch true, if the user can search interactively
      */
     public open fun setEnableSearch(enableSearch: Boolean): Unit =
-        gtk_tree_view_set_enable_search(
-            gtkTreeViewPointer.reinterpret(),
-            enableSearch.asGBoolean()
-        )
+        gtk_tree_view_set_enable_search(gtkTreeViewPointer.reinterpret(), enableSearch.asGBoolean())
 
     /**
      * Sets whether to draw lines interconnecting the expanders in @tree_view.
@@ -1386,10 +1310,7 @@ public open class TreeView(
      * @param enabled true to enable tree line drawing, false otherwise.
      */
     public open fun setEnableTreeLines(enabled: Boolean): Unit =
-        gtk_tree_view_set_enable_tree_lines(
-            gtkTreeViewPointer.reinterpret(),
-            enabled.asGBoolean()
-        )
+        gtk_tree_view_set_enable_tree_lines(gtkTreeViewPointer.reinterpret(), enabled.asGBoolean())
 
     /**
      * Sets the column to draw the expander arrow at. It must be in @tree_view.
@@ -1417,10 +1338,7 @@ public open class TreeView(
      * @param enable true to enable fixed height mode
      */
     public open fun setFixedHeightMode(enable: Boolean): Unit =
-        gtk_tree_view_set_fixed_height_mode(
-            gtkTreeViewPointer.reinterpret(),
-            enable.asGBoolean()
-        )
+        gtk_tree_view_set_fixed_height_mode(gtkTreeViewPointer.reinterpret(), enable.asGBoolean())
 
     /**
      * Sets which grid lines to draw in @tree_view.
@@ -1437,10 +1355,7 @@ public open class TreeView(
      * @param setting true if the columns are clickable.
      */
     public open fun setHeadersClickable(setting: Boolean): Unit =
-        gtk_tree_view_set_headers_clickable(
-            gtkTreeViewPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_tree_view_set_headers_clickable(gtkTreeViewPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Sets the visibility state of the headers.
@@ -1448,10 +1363,7 @@ public open class TreeView(
      * @param headersVisible true if the headers are visible
      */
     public open fun setHeadersVisible(headersVisible: Boolean): Unit =
-        gtk_tree_view_set_headers_visible(
-            gtkTreeViewPointer.reinterpret(),
-            headersVisible.asGBoolean()
-        )
+        gtk_tree_view_set_headers_visible(gtkTreeViewPointer.reinterpret(), headersVisible.asGBoolean())
 
     /**
      * Enables or disables the hover expansion mode of @tree_view.
@@ -1515,10 +1427,7 @@ public open class TreeView(
      * @param reorderable true, if the tree can be reordered.
      */
     public open fun setReorderable(reorderable: Boolean): Unit =
-        gtk_tree_view_set_reorderable(
-            gtkTreeViewPointer.reinterpret(),
-            reorderable.asGBoolean()
-        )
+        gtk_tree_view_set_reorderable(gtkTreeViewPointer.reinterpret(), reorderable.asGBoolean())
 
     /**
      * Sets the row separator function, which is used to determine
@@ -1571,10 +1480,7 @@ public open class TreeView(
      * @param entry the entry the interactive search code of @tree_view should use
      */
     public open fun setSearchEntry(entry: Editable? = null): Unit =
-        gtk_tree_view_set_search_entry(
-            gtkTreeViewPointer.reinterpret(),
-            entry?.gtkEditablePointer
-        )
+        gtk_tree_view_set_search_entry(gtkTreeViewPointer.reinterpret(), entry?.gtkEditablePointer)
 
     /**
      * Sets the compare function for the interactive search capabilities; note
@@ -1759,17 +1665,13 @@ public open class TreeView(
      * `GtkTreeView`::move-cursor does not reset the current selection.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a
-     * `GtkMovementStep`.
+     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a `GtkMovementStep`.
      *     %GTK_MOVEMENT_LOGICAL_POSITIONS, %GTK_MOVEMENT_VISUAL_POSITIONS,
      *     %GTK_MOVEMENT_DISPLAY_LINES, %GTK_MOVEMENT_PAGES and
      *     %GTK_MOVEMENT_BUFFER_ENDS are supported.
      *     %GTK_MOVEMENT_LOGICAL_POSITIONS and %GTK_MOVEMENT_VISUAL_POSITIONS
-     *     are treated identically.; `direction` the direction to move: +1 to move forwards; -1 to
-     * move
-     *     backwards. The resulting movement is undefined for all other values.; `extend` whether to
-     * extend the selection; `modify` whether to modify the selection. Returns true if @step is
-     * supported, false otherwise.
+     *     are treated identically.; `direction` the direction to move: +1 to move forwards; -1 to move
+     *     backwards. The resulting movement is undefined for all other values.; `extend` whether to extend the selection; `modify` whether to modify the selection. Returns true if @step is supported, false otherwise.
      */
     public fun connectMoveCursor(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1806,8 +1708,7 @@ public open class TreeView(
      * as well as `GtkTreeSelection`.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `path` the `GtkTreePath` for the activated
-     * row; `column` the `GtkTreeViewColumn` in which the activation occurred
+     * @param handler the Callback to connect. Params: `path` the `GtkTreePath` for the activated row; `column` the `GtkTreeViewColumn` in which the activation occurred
      */
     public fun connectRowActivated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1826,8 +1727,7 @@ public open class TreeView(
      * The given row has been collapsed (child nodes are hidden).
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `iter` the tree iter of the collapsed row;
-     * `path` a tree path that points to the row
+     * @param handler the Callback to connect. Params: `iter` the tree iter of the collapsed row; `path` a tree path that points to the row
      */
     public fun connectRowCollapsed(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1846,8 +1746,7 @@ public open class TreeView(
      * The given row has been expanded (child nodes are shown).
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `iter` the tree iter of the expanded row;
-     * `path` a tree path that points to the row
+     * @param handler the Callback to connect. Params: `iter` the tree iter of the expanded row; `path` a tree path that points to the row
      */
     public fun connectRowExpanded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1943,8 +1842,7 @@ public open class TreeView(
      * signal if you need to control the collapsibility of individual rows.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `iter` the tree iter of the row to collapse;
-     * `path` a tree path that points to the row. Returns false to allow collapsing, true to reject
+     * @param handler the Callback to connect. Params: `iter` the tree iter of the row to collapse; `path` a tree path that points to the row. Returns false to allow collapsing, true to reject
      */
     public fun connectTestCollapseRow(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1964,8 +1862,7 @@ public open class TreeView(
      * signal if you need to control the expandability of individual rows.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `iter` the tree iter of the row to expand;
-     * `path` a tree path that points to the row. Returns false to allow expansion, true to reject
+     * @param handler the Callback to connect. Params: `iter` the tree iter of the row to expand; `path` a tree path that points to the row. Returns false to allow expansion, true to reject
      */
     public fun connectTestExpandRow(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -2034,8 +1931,7 @@ private val connectColumnsChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectCursorChangedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -2043,8 +1939,7 @@ private val connectCursorChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectExpandCollapseCursorRowFunc: CPointer<
     CFunction<
@@ -2062,15 +1957,18 @@ private val connectExpandCollapseCursorRowFunc: CPointer<
             p1: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                `object`: Boolean,
-                p0: Boolean,
-                p1: Boolean,
-            ) -> Boolean
-        >().get().invoke(`object`.asBoolean(), p0.asBoolean(), p1.asBoolean()).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    `object`: Boolean,
+                    p0: Boolean,
+                    p1: Boolean,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(`object`.asBoolean(), p0.asBoolean(), p1.asBoolean())
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectMoveCursorFunc: CPointer<
     CFunction<
@@ -2090,44 +1988,35 @@ private val connectMoveCursorFunc: CPointer<
             modify: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                step: MovementStep,
-                direction: Int,
-                extend: Boolean,
-                modify: Boolean,
-            ) -> Boolean
-        >().get().invoke(
-            step.run {
-                MovementStep.fromNativeValue(this)
-            },
-            direction,
-            extend.asBoolean(),
-            modify.asBoolean()
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    step: MovementStep,
+                    direction: Int,
+                    extend: Boolean,
+                    modify: Boolean,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(
+                step.run {
+                    MovementStep.fromNativeValue(this)
+                },
+                direction,
+                extend.asBoolean(),
+                modify.asBoolean()
+            ).asGBoolean()
+    }.reinterpret()
 
-private val connectRowActivatedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkTreePath>,
-            CPointer<GtkTreeViewColumn>?,
-        ) -> Unit
-    >
-> =
+private val connectRowActivatedFunc:
+    CPointer<CFunction<(CPointer<GtkTreePath>, CPointer<GtkTreeViewColumn>?) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             path: CPointer<GtkTreePath>?,
             column: CPointer<GtkTreeViewColumn>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                path: TreePath,
-                column: TreeViewColumn?,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(path: TreePath, column: TreeViewColumn?) -> Unit>().get().invoke(
             path!!.run {
                 TreePath(reinterpret())
             },
@@ -2135,17 +2024,10 @@ private val connectRowActivatedFunc: CPointer<
                 TreeViewColumn(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-private val connectRowCollapsedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkTreeIter>,
-            CPointer<GtkTreePath>,
-        ) -> Unit
-    >
-> =
+private val connectRowCollapsedFunc:
+    CPointer<CFunction<(CPointer<GtkTreeIter>, CPointer<GtkTreePath>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             iter: CPointer<GtkTreeIter>?,
@@ -2160,17 +2042,10 @@ private val connectRowCollapsedFunc: CPointer<
                 TreePath(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-private val connectRowExpandedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkTreeIter>,
-            CPointer<GtkTreePath>,
-        ) -> Unit
-    >
-> =
+private val connectRowExpandedFunc:
+    CPointer<CFunction<(CPointer<GtkTreeIter>, CPointer<GtkTreePath>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             iter: CPointer<GtkTreeIter>?,
@@ -2185,26 +2060,31 @@ private val connectRowExpandedFunc: CPointer<
                 TreePath(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSelectAllFunc: CPointer<CFunction<() -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectSelectCursorParentFunc: CPointer<CFunction<() -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectSelectCursorRowFunc: CPointer<CFunction<(Int) -> Int>> =
     staticCFunction {
@@ -2212,83 +2092,87 @@ private val connectSelectCursorRowFunc: CPointer<CFunction<(Int) -> Int>> =
             `object`: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(`object`: Boolean) -> Boolean>().get().invoke(`object`.asBoolean()).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(`object`: Boolean) -> Boolean>()
+            .get()
+            .invoke(`object`.asBoolean())
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectStartInteractiveSearchFunc: CPointer<CFunction<() -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
-private val connectTestCollapseRowFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkTreeIter>,
-            CPointer<GtkTreePath>,
-        ) -> Int
-    >
-> =
+private val connectTestCollapseRowFunc:
+    CPointer<CFunction<(CPointer<GtkTreeIter>, CPointer<GtkTreePath>) -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             iter: CPointer<GtkTreeIter>?,
             path: CPointer<GtkTreePath>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(iter: TreeIter, path: TreePath) -> Boolean>().get().invoke(
-            iter!!.run {
-                TreeIter(reinterpret())
-            },
-            path!!.run {
-                TreePath(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(iter: TreeIter, path: TreePath) -> Boolean>()
+            .get()
+            .invoke(
+                iter!!.run {
+                    TreeIter(reinterpret())
+                },
+                path!!.run {
+                    TreePath(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
-private val connectTestExpandRowFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkTreeIter>,
-            CPointer<GtkTreePath>,
-        ) -> Int
-    >
-> =
+private val connectTestExpandRowFunc:
+    CPointer<CFunction<(CPointer<GtkTreeIter>, CPointer<GtkTreePath>) -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             iter: CPointer<GtkTreeIter>?,
             path: CPointer<GtkTreePath>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(iter: TreeIter, path: TreePath) -> Boolean>().get().invoke(
-            iter!!.run {
-                TreeIter(reinterpret())
-            },
-            path!!.run {
-                TreePath(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(iter: TreeIter, path: TreePath) -> Boolean>()
+            .get()
+            .invoke(
+                iter!!.run {
+                    TreeIter(reinterpret())
+                },
+                path!!.run {
+                    TreePath(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 private val connectToggleCursorRowFunc: CPointer<CFunction<() -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectUnselectAllFunc: CPointer<CFunction<() -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()

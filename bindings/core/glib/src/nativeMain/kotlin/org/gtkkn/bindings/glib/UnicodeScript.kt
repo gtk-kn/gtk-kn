@@ -1197,8 +1197,7 @@ public enum class UnicodeScript(
          * 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
          *
          * See
-         * [Codes for the representation of names of
-         * scripts](http://unicode.org/iso15924/codelists.html)
+         * [Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
          * for details.
          *
          * @param iso15924 a Unicode script
@@ -1220,8 +1219,7 @@ public enum class UnicodeScript(
          * 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
          *
          * See
-         * [Codes for the representation of names of
-         * scripts](http://unicode.org/iso15924/codelists.html)
+         * [Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
          * for details.
          *
          * @param script a Unicode script

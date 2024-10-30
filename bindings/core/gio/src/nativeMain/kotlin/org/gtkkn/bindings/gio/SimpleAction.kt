@@ -47,7 +47,9 @@ import kotlin.Unit
  */
 public open class SimpleAction(
     pointer: CPointer<GSimpleAction>,
-) : Object(pointer.reinterpret()), Action, KGTyped {
+) : Object(pointer.reinterpret()),
+    Action,
+    KGTyped {
     public val gioSimpleActionPointer: CPointer<GSimpleAction>
         get() = gPointer.reinterpret()
 
@@ -66,8 +68,10 @@ public open class SimpleAction(
      * @return a new #GSimpleAction
      * @since 2.28
      */
-    public constructor(name: String, parameterType: VariantType? = null) :
-        this(g_simple_action_new(name, parameterType?.glibVariantTypePointer)!!.reinterpret())
+    public constructor(
+        name: String,
+        parameterType: VariantType? = null,
+    ) : this(g_simple_action_new(name, parameterType?.glibVariantTypePointer)!!.reinterpret())
 
     /**
      * Creates a new stateful action.
@@ -127,10 +131,7 @@ public open class SimpleAction(
      * @since 2.30
      */
     public open fun setState(`value`: Variant): Unit =
-        g_simple_action_set_state(
-            gioSimpleActionPointer.reinterpret(),
-            `value`.glibVariantPointer
-        )
+        g_simple_action_set_state(gioSimpleActionPointer.reinterpret(), `value`.glibVariantPointer)
 
     /**
      * Sets the state hint for the action.
@@ -142,10 +143,7 @@ public open class SimpleAction(
      * @since 2.44
      */
     public open fun setStateHint(stateHint: Variant? = null): Unit =
-        g_simple_action_set_state_hint(
-            gioSimpleActionPointer.reinterpret(),
-            stateHint?.glibVariantPointer
-        )
+        g_simple_action_set_state_hint(gioSimpleActionPointer.reinterpret(), stateHint?.glibVariantPointer)
 
     /**
      * Indicates that the action was just activated.
@@ -163,8 +161,7 @@ public open class SimpleAction(
      * of #GSimpleAction to connect only one handler or the other.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `parameter` the parameter to the activation,
-     * or null if it has
+     * @param handler the Callback to connect. Params: `parameter` the parameter to the activation, or null if it has
      *   no parameter
      * @since 2.28
      */
@@ -254,8 +251,7 @@ private val connectActivateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> Uni
                 Variant(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectChangeStateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> Unit>> =
     staticCFunction {
@@ -268,5 +264,4 @@ private val connectChangeStateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> 
                 Variant(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

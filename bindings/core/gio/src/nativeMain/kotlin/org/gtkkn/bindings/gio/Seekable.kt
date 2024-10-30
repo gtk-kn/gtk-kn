@@ -43,7 +43,9 @@ import kotlin.Result
  * [`lseek()`](man:lseek(2)) on a normal file.  Seeking past the end and writing
  * data will usually cause the stream to resize by introducing zero bytes.
  */
-public interface Seekable : Interface, KGTyped {
+public interface Seekable :
+    Interface,
+    KGTyped {
     public val gioSeekablePointer: CPointer<GSeekable>
 
     /**

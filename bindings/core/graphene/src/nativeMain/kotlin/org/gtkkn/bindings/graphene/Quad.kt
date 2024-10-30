@@ -42,11 +42,7 @@ public class Quad(
      * @param r return location for a #graphene_rect_t
      * @since 1.0
      */
-    public fun bounds(r: Rect): Unit =
-        graphene_quad_bounds(
-            grapheneQuadPointer.reinterpret(),
-            r.grapheneRectPointer
-        )
+    public fun bounds(r: Rect): Unit = graphene_quad_bounds(grapheneQuadPointer.reinterpret(), r.grapheneRectPointer)
 
     /**
      * Checks if the given #graphene_quad_t contains the given #graphene_point_t.
@@ -112,10 +108,7 @@ public class Quad(
      * @since 1.0
      */
     public fun initFromRect(r: Rect): Quad =
-        graphene_quad_init_from_rect(
-            grapheneQuadPointer.reinterpret(),
-            r.grapheneRectPointer
-        )!!.run {
+        graphene_quad_init_from_rect(grapheneQuadPointer.reinterpret(), r.grapheneRectPointer)!!.run {
             Quad(reinterpret())
         }
 

@@ -15,7 +15,6 @@
  */
 
 import org.jetbrains.dokka.gradle.AbstractDokkaTask
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     kotlin("multiplatform")
@@ -23,10 +22,9 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
-@OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     explicitApi()
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
     linuxX64()
 
     sourceSets {

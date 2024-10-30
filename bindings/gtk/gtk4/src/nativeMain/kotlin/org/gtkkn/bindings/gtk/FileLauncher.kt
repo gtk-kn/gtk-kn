@@ -56,7 +56,8 @@ import kotlin.Unit
  */
 public open class FileLauncher(
     pointer: CPointer<GtkFileLauncher>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkFileLauncherPointer: CPointer<GtkFileLauncher>
         get() = gPointer.reinterpret()
 
@@ -82,11 +83,7 @@ public open class FileLauncher(
          * @param alwaysAsk a `gboolean`
          * @since 4.12
          */
-        set(alwaysAsk) =
-            gtk_file_launcher_set_always_ask(
-                gtkFileLauncherPointer.reinterpret(),
-                alwaysAsk.asGBoolean()
-            )
+        set(alwaysAsk) = gtk_file_launcher_set_always_ask(gtkFileLauncherPointer.reinterpret(), alwaysAsk.asGBoolean())
 
     /**
      * The file to launch.
@@ -111,11 +108,7 @@ public open class FileLauncher(
          * @param file a `GFile`
          * @since 4.10
          */
-        set(`file`) =
-            gtk_file_launcher_set_file(
-                gtkFileLauncherPointer.reinterpret(),
-                `file`?.gioFilePointer
-            )
+        set(`file`) = gtk_file_launcher_set_file(gtkFileLauncherPointer.reinterpret(), `file`?.gioFilePointer)
 
     /**
      * Whether to make the file writable for the handler.
@@ -137,11 +130,7 @@ public open class FileLauncher(
          * @param writable a `gboolean`
          * @since 4.14
          */
-        set(writable) =
-            gtk_file_launcher_set_writable(
-                gtkFileLauncherPointer.reinterpret(),
-                writable.asGBoolean()
-            )
+        set(writable) = gtk_file_launcher_set_writable(gtkFileLauncherPointer.reinterpret(), writable.asGBoolean())
 
     /**
      * Creates a new `GtkFileLauncher` object.
@@ -150,8 +139,7 @@ public open class FileLauncher(
      * @return the new `GtkFileLauncher`
      * @since 4.10
      */
-    public constructor(`file`: File? = null) :
-        this(gtk_file_launcher_new(`file`?.gioFilePointer)!!.reinterpret())
+    public constructor(`file`: File? = null) : this(gtk_file_launcher_new(`file`?.gioFilePointer)!!.reinterpret())
 
     /**
      * Returns whether to ask the user to choose an app for opening the file.
@@ -295,10 +283,7 @@ public open class FileLauncher(
      * @since 4.12
      */
     public open fun setAlwaysAsk(alwaysAsk: Boolean): Unit =
-        gtk_file_launcher_set_always_ask(
-            gtkFileLauncherPointer.reinterpret(),
-            alwaysAsk.asGBoolean()
-        )
+        gtk_file_launcher_set_always_ask(gtkFileLauncherPointer.reinterpret(), alwaysAsk.asGBoolean())
 
     /**
      * Sets the file that will be opened.
@@ -316,16 +301,11 @@ public open class FileLauncher(
      * @since 4.14
      */
     public open fun setWritable(writable: Boolean): Unit =
-        gtk_file_launcher_set_writable(
-            gtkFileLauncherPointer.reinterpret(),
-            writable.asGBoolean()
-        )
+        gtk_file_launcher_set_writable(gtkFileLauncherPointer.reinterpret(), writable.asGBoolean())
 
     public companion object : TypeCompanion<FileLauncher> {
         override val type: GeneratedClassKGType<FileLauncher> =
-            GeneratedClassKGType(gtk_file_launcher_get_type()) {
-                FileLauncher(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_file_launcher_get_type()) { FileLauncher(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

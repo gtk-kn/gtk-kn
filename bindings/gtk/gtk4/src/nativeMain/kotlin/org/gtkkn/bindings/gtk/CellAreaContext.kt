@@ -45,7 +45,8 @@ import kotlin.Unit
  */
 public open class CellAreaContext(
     pointer: CPointer<GtkCellAreaContext>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkCellAreaContextPointer: CPointer<GtkCellAreaContext>
         get() = gPointer.reinterpret()
 
@@ -151,11 +152,7 @@ public open class CellAreaContext(
         minimumWidth: Int,
         naturalWidth: Int,
     ): Unit =
-        gtk_cell_area_context_push_preferred_width(
-            gtkCellAreaContextPointer.reinterpret(),
-            minimumWidth,
-            naturalWidth
-        )
+        gtk_cell_area_context_push_preferred_width(gtkCellAreaContextPointer.reinterpret(), minimumWidth, naturalWidth)
 
     /**
      * Resets any previously cached request and allocation
@@ -185,9 +182,7 @@ public open class CellAreaContext(
 
     public companion object : TypeCompanion<CellAreaContext> {
         override val type: GeneratedClassKGType<CellAreaContext> =
-            GeneratedClassKGType(gtk_cell_area_context_get_type()) {
-                CellAreaContext(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_cell_area_context_get_type()) { CellAreaContext(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

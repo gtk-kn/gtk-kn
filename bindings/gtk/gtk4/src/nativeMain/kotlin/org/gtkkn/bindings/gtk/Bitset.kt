@@ -71,11 +71,7 @@ public class Bitset(
      * @return true if @value was not part of @self and @self
      *   was changed
      */
-    public fun add(`value`: UInt): Boolean =
-        gtk_bitset_add(
-            gtkBitsetPointer.reinterpret(),
-            `value`
-        ).asBoolean()
+    public fun add(`value`: UInt): Boolean = gtk_bitset_add(gtkBitsetPointer.reinterpret(), `value`).asBoolean()
 
     /**
      * Adds all values from @start (inclusive) to @start + @n_items
@@ -159,10 +155,7 @@ public class Bitset(
      * @return true if @self and @other contain the same values
      */
     public fun equals(other: Bitset): Boolean =
-        gtk_bitset_equals(
-            gtkBitsetPointer.reinterpret(),
-            other.gtkBitsetPointer
-        ).asBoolean()
+        gtk_bitset_equals(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer).asBoolean()
 
     /**
      * Returns the largest value in @self.
@@ -234,10 +227,7 @@ public class Bitset(
      * @param other the `GtkBitset` to intersect with
      */
     public fun intersect(other: Bitset): Unit =
-        gtk_bitset_intersect(
-            gtkBitsetPointer.reinterpret(),
-            other.gtkBitsetPointer
-        )
+        gtk_bitset_intersect(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer)
 
     /**
      * Check if no value is contained in bitset.
@@ -263,11 +253,7 @@ public class Bitset(
      * @return true if @value was part of @self and @self
      *   was changed
      */
-    public fun remove(`value`: UInt): Boolean =
-        gtk_bitset_remove(
-            gtkBitsetPointer.reinterpret(),
-            `value`
-        ).asBoolean()
+    public fun remove(`value`: UInt): Boolean = gtk_bitset_remove(gtkBitsetPointer.reinterpret(), `value`).asBoolean()
 
     /**
      * Removes all values from the bitset so that it is empty again.
@@ -312,14 +298,7 @@ public class Bitset(
         width: UInt,
         height: UInt,
         stride: UInt,
-    ): Unit =
-        gtk_bitset_remove_rectangle(
-            gtkBitsetPointer.reinterpret(),
-            start,
-            width,
-            height,
-            stride
-        )
+    ): Unit = gtk_bitset_remove_rectangle(gtkBitsetPointer.reinterpret(), start, width, height, stride)
 
     /**
      * Shifts all values in @self to the left by @amount.
@@ -328,11 +307,7 @@ public class Bitset(
      *
      * @param amount amount to shift all values to the left
      */
-    public fun shiftLeft(amount: UInt): Unit =
-        gtk_bitset_shift_left(
-            gtkBitsetPointer.reinterpret(),
-            amount
-        )
+    public fun shiftLeft(amount: UInt): Unit = gtk_bitset_shift_left(gtkBitsetPointer.reinterpret(), amount)
 
     /**
      * Shifts all values in @self to the right by @amount.
@@ -376,10 +351,7 @@ public class Bitset(
      * @param other the `GtkBitset` to subtract
      */
     public fun subtract(other: Bitset): Unit =
-        gtk_bitset_subtract(
-            gtkBitsetPointer.reinterpret(),
-            other.gtkBitsetPointer
-        )
+        gtk_bitset_subtract(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer)
 
     /**
      * Sets @self to be the union of @self and @other.
@@ -391,11 +363,7 @@ public class Bitset(
      *
      * @param other the `GtkBitset` to union with
      */
-    public fun union(other: Bitset): Unit =
-        gtk_bitset_union(
-            gtkBitsetPointer.reinterpret(),
-            other.gtkBitsetPointer
-        )
+    public fun union(other: Bitset): Unit = gtk_bitset_union(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer)
 
     /**
      * Releases a reference on the given `GtkBitset`.
@@ -423,13 +391,7 @@ public class Bitset(
         public fun newRange(
             start: UInt,
             nItems: UInt,
-        ): Bitset =
-            Bitset(
-                gtk_bitset_new_range(
-                    start,
-                    nItems
-                )!!.reinterpret()
-            )
+        ): Bitset = Bitset(gtk_bitset_new_range(start, nItems)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Bitset = Bitset(pointer.reinterpret())
     }

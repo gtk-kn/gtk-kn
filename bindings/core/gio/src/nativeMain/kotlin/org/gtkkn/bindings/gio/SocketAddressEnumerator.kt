@@ -42,7 +42,8 @@ import kotlin.Unit
  */
 public open class SocketAddressEnumerator(
     pointer: CPointer<GSocketAddressEnumerator>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioSocketAddressEnumeratorPointer: CPointer<GSocketAddressEnumerator>
         get() = gPointer.reinterpret()
 
@@ -139,9 +140,9 @@ public open class SocketAddressEnumerator(
 
     public companion object : TypeCompanion<SocketAddressEnumerator> {
         override val type: GeneratedClassKGType<SocketAddressEnumerator> =
-            GeneratedClassKGType(g_socket_address_enumerator_get_type()) {
-                SocketAddressEnumerator(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                g_socket_address_enumerator_get_type()
+            ) { SocketAddressEnumerator(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

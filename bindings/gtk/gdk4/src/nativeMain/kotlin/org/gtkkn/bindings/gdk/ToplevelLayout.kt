@@ -61,10 +61,7 @@ public class ToplevelLayout(
      *   otherwise false.
      */
     public fun equal(other: ToplevelLayout): Boolean =
-        gdk_toplevel_layout_equal(
-            gdkToplevelLayoutPointer.reinterpret(),
-            other.gdkToplevelLayoutPointer
-        ).asBoolean()
+        gdk_toplevel_layout_equal(gdkToplevelLayoutPointer.reinterpret(), other.gdkToplevelLayoutPointer).asBoolean()
 
     /**
      * Returns the monitor that the layout is fullscreening
@@ -120,10 +117,7 @@ public class ToplevelLayout(
      * @param maximized true to maximize
      */
     public fun setMaximized(maximized: Boolean): Unit =
-        gdk_toplevel_layout_set_maximized(
-            gdkToplevelLayoutPointer.reinterpret(),
-            maximized.asGBoolean()
-        )
+        gdk_toplevel_layout_set_maximized(gdkToplevelLayoutPointer.reinterpret(), maximized.asGBoolean())
 
     /**
      * Sets whether the layout should allow the user
@@ -132,10 +126,7 @@ public class ToplevelLayout(
      * @param resizable true to allow resizing
      */
     public fun setResizable(resizable: Boolean): Unit =
-        gdk_toplevel_layout_set_resizable(
-            gdkToplevelLayoutPointer.reinterpret(),
-            resizable.asGBoolean()
-        )
+        gdk_toplevel_layout_set_resizable(gdkToplevelLayoutPointer.reinterpret(), resizable.asGBoolean())
 
     /**
      * Decreases the reference count of @layout.

@@ -377,8 +377,7 @@ public enum class DBusError(
          * @since 2.26
          */
         public fun encodeGerror(error: Error): String =
-            g_dbus_error_encode_gerror(error.glibErrorPointer)?.toKString()
-                ?: error("Expected not null string")
+            g_dbus_error_encode_gerror(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Gets the D-Bus error name used for @error, if any.
@@ -394,8 +393,7 @@ public enum class DBusError(
          * @since 2.26
          */
         public fun getRemoteError(error: Error): String =
-            g_dbus_error_get_remote_error(error.glibErrorPointer)?.toKString()
-                ?: error("Expected not null string")
+            g_dbus_error_get_remote_error(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Checks if @error represents an error received via D-Bus from a remote peer. If so,
@@ -500,12 +498,7 @@ public enum class DBusError(
             errorDomain: UInt,
             errorCode: Int,
             dbusErrorName: String,
-        ): Boolean =
-            g_dbus_error_unregister_error(
-                errorDomain,
-                errorCode,
-                dbusErrorName
-            ).asBoolean()
+        ): Boolean = g_dbus_error_unregister_error(errorDomain, errorCode, dbusErrorName).asBoolean()
 
         public fun fromErrorOrNull(error: Error): DBusError? =
             if (error.domain != quark()) {

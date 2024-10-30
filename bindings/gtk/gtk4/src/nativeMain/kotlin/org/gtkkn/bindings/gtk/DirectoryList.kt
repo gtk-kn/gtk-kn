@@ -64,7 +64,9 @@ import kotlin.Unit
  */
 public open class DirectoryList(
     pointer: CPointer<GtkDirectoryList>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    KGTyped {
     public val gtkDirectoryListPointer: CPointer<GtkDirectoryList>
         get() = gPointer.reinterpret()
 
@@ -80,8 +82,7 @@ public open class DirectoryList(
          *
          * @return The queried attributes
          */
-        get() =
-            gtk_directory_list_get_attributes(gtkDirectoryListPointer.reinterpret())?.toKString()
+        get() = gtk_directory_list_get_attributes(gtkDirectoryListPointer.reinterpret())?.toKString()
 
         /**
          * Sets the @attributes to be enumerated and starts the enumeration.
@@ -91,11 +92,7 @@ public open class DirectoryList(
          *
          * @param attributes the attributes to enumerate
          */
-        set(attributes) =
-            gtk_directory_list_set_attributes(
-                gtkDirectoryListPointer.reinterpret(),
-                attributes
-            )
+        set(attributes) = gtk_directory_list_set_attributes(gtkDirectoryListPointer.reinterpret(), attributes)
 
     /**
      * Error encountered while loading files.
@@ -140,11 +137,7 @@ public open class DirectoryList(
          *
          * @param file the `GFile` to be enumerated
          */
-        set(`file`) =
-            gtk_directory_list_set_file(
-                gtkDirectoryListPointer.reinterpret(),
-                `file`?.gioFilePointer
-            )
+        set(`file`) = gtk_directory_list_set_file(gtkDirectoryListPointer.reinterpret(), `file`?.gioFilePointer)
 
     /**
      * Priority used when loading.
@@ -170,11 +163,7 @@ public open class DirectoryList(
          *
          * @param ioPriority IO priority to use
          */
-        set(ioPriority) =
-            gtk_directory_list_set_io_priority(
-                gtkDirectoryListPointer.reinterpret(),
-                ioPriority
-            )
+        set(ioPriority) = gtk_directory_list_set_io_priority(gtkDirectoryListPointer.reinterpret(), ioPriority)
 
     /**
      * true if the directory is monitored for changed.
@@ -203,11 +192,7 @@ public open class DirectoryList(
          *
          * @param monitored true to monitor the directory for changes
          */
-        set(monitored) =
-            gtk_directory_list_set_monitored(
-                gtkDirectoryListPointer.reinterpret(),
-                monitored.asGBoolean()
-            )
+        set(monitored) = gtk_directory_list_set_monitored(gtkDirectoryListPointer.reinterpret(), monitored.asGBoolean())
 
     /**
      * Creates a new `GtkDirectoryList`.
@@ -219,8 +204,10 @@ public open class DirectoryList(
      * @param file The file to query
      * @return a new `GtkDirectoryList`
      */
-    public constructor(attributes: String? = null, `file`: File? = null) :
-        this(gtk_directory_list_new(attributes, `file`?.gioFilePointer)!!.reinterpret())
+    public constructor(
+        attributes: String? = null,
+        `file`: File? = null,
+    ) : this(gtk_directory_list_new(attributes, `file`?.gioFilePointer)!!.reinterpret())
 
     /**
      * Gets the attributes queried on the children.
@@ -306,10 +293,7 @@ public open class DirectoryList(
      * @param file the `GFile` to be enumerated
      */
     public open fun setFile(`file`: File? = null): Unit =
-        gtk_directory_list_set_file(
-            gtkDirectoryListPointer.reinterpret(),
-            `file`?.gioFilePointer
-        )
+        gtk_directory_list_set_file(gtkDirectoryListPointer.reinterpret(), `file`?.gioFilePointer)
 
     /**
      * Sets the IO priority to use while loading directories.
@@ -343,16 +327,11 @@ public open class DirectoryList(
      * @param monitored true to monitor the directory for changes
      */
     public open fun setMonitored(monitored: Boolean): Unit =
-        gtk_directory_list_set_monitored(
-            gtkDirectoryListPointer.reinterpret(),
-            monitored.asGBoolean()
-        )
+        gtk_directory_list_set_monitored(gtkDirectoryListPointer.reinterpret(), monitored.asGBoolean())
 
     public companion object : TypeCompanion<DirectoryList> {
         override val type: GeneratedClassKGType<DirectoryList> =
-            GeneratedClassKGType(gtk_directory_list_get_type()) {
-                DirectoryList(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_directory_list_get_type()) { DirectoryList(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

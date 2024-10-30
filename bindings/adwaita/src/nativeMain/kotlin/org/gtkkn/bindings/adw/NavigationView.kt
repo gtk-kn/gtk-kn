@@ -218,7 +218,9 @@ import kotlin.collections.List
  */
 public class NavigationView(
     pointer: CPointer<AdwNavigationView>,
-) : Widget(pointer.reinterpret()), Swipeable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Swipeable,
+    KGTyped {
     public val adwNavigationViewPointer: CPointer<AdwNavigationView>
         get() = gPointer.reinterpret()
 
@@ -248,8 +250,7 @@ public class NavigationView(
          * @return whether to animate page transitions
          * @since 1.4
          */
-        get() =
-            adw_navigation_view_get_animate_transitions(adwNavigationViewPointer.reinterpret()).asBoolean()
+        get() = adw_navigation_view_get_animate_transitions(adwNavigationViewPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether @self should animate page transitions.
@@ -259,7 +260,9 @@ public class NavigationView(
          * @param animateTransitions whether to animate page transitions
          * @since 1.4
          */
-        set(animateTransitions) =
+        set(
+            animateTransitions
+        ) =
             adw_navigation_view_set_animate_transitions(
                 adwNavigationViewPointer.reinterpret(),
                 animateTransitions.asGBoolean()
@@ -305,8 +308,7 @@ public class NavigationView(
          * @return whether to pop the current page
          * @since 1.4
          */
-        get() =
-            adw_navigation_view_get_pop_on_escape(adwNavigationViewPointer.reinterpret()).asBoolean()
+        get() = adw_navigation_view_get_pop_on_escape(adwNavigationViewPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether pressing Escape pops the current page on @self.
@@ -317,11 +319,9 @@ public class NavigationView(
          * @param popOnEscape whether to pop the current page when pressing Escape
          * @since 1.4
          */
-        set(popOnEscape) =
-            adw_navigation_view_set_pop_on_escape(
-                adwNavigationViewPointer.reinterpret(),
-                popOnEscape.asGBoolean()
-            )
+        set(
+            popOnEscape
+        ) = adw_navigation_view_set_pop_on_escape(adwNavigationViewPointer.reinterpret(), popOnEscape.asGBoolean())
 
     /**
      * The currently visible page.
@@ -363,10 +363,7 @@ public class NavigationView(
      * @since 1.4
      */
     public fun add(page: NavigationPage): Unit =
-        adw_navigation_view_add(
-            adwNavigationViewPointer.reinterpret(),
-            page.adwNavigationPagePointer.reinterpret()
-        )
+        adw_navigation_view_add(adwNavigationViewPointer.reinterpret(), page.adwNavigationPagePointer.reinterpret())
 
     /**
      * Finds a page in @self by its tag.
@@ -520,10 +517,7 @@ public class NavigationView(
      * @since 1.4
      */
     public fun push(page: NavigationPage): Unit =
-        adw_navigation_view_push(
-            adwNavigationViewPointer.reinterpret(),
-            page.adwNavigationPagePointer.reinterpret()
-        )
+        adw_navigation_view_push(adwNavigationViewPointer.reinterpret(), page.adwNavigationPagePointer.reinterpret())
 
     /**
      * Pushes the page with the tag @tag onto the navigation stack.
@@ -553,10 +547,7 @@ public class NavigationView(
      * @since 1.4
      */
     public fun remove(page: NavigationPage): Unit =
-        adw_navigation_view_remove(
-            adwNavigationViewPointer.reinterpret(),
-            page.adwNavigationPagePointer.reinterpret()
-        )
+        adw_navigation_view_remove(adwNavigationViewPointer.reinterpret(), page.adwNavigationPagePointer.reinterpret())
 
     /**
      * Replaces the current navigation stack with pages with the tags @tags.
@@ -616,10 +607,7 @@ public class NavigationView(
      * @since 1.4
      */
     public fun setPopOnEscape(popOnEscape: Boolean): Unit =
-        adw_navigation_view_set_pop_on_escape(
-            adwNavigationViewPointer.reinterpret(),
-            popOnEscape.asGBoolean()
-        )
+        adw_navigation_view_set_pop_on_escape(adwNavigationViewPointer.reinterpret(), popOnEscape.asGBoolean())
 
     /**
      * Emitted when a push shortcut or a gesture is triggered.
@@ -723,9 +711,7 @@ public class NavigationView(
 
     public companion object : TypeCompanion<NavigationView> {
         override val type: GeneratedClassKGType<NavigationView> =
-            GeneratedClassKGType(adw_navigation_view_get_type()) {
-                NavigationView(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_navigation_view_get_type()) { NavigationView(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -738,9 +724,12 @@ private val connectGetNextPageFunc: CPointer<CFunction<() -> CPointer<AdwNavigat
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> NavigationPage?>().get().invoke()?.adwNavigationPagePointer
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> NavigationPage?>()
+            .get()
+            .invoke()
+            ?.adwNavigationPagePointer
+    }.reinterpret()
 
 private val connectPoppedFunc: CPointer<CFunction<(CPointer<AdwNavigationPage>) -> Unit>> =
     staticCFunction {
@@ -753,8 +742,7 @@ private val connectPoppedFunc: CPointer<CFunction<(CPointer<AdwNavigationPage>) 
                 NavigationPage(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPushedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -762,8 +750,7 @@ private val connectPushedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectReplacedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -771,5 +758,4 @@ private val connectReplacedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

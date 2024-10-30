@@ -73,8 +73,7 @@ public class Hmac(
      * @since 2.30
      */
     public fun getString(): String =
-        g_hmac_get_string(glibHmacPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_hmac_get_string(glibHmacPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Atomically increments the reference count of @hmac by one.

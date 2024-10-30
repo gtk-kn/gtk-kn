@@ -53,8 +53,7 @@ public class DBusNodeInfo(
         }
 
     /**
-     * The path of the node or null if omitted. Note that this may be a relative path. See the D-Bus
-     * specification for more details.
+     * The path of the node or null if omitted. Note that this may be a relative path. See the D-Bus specification for more details.
      *
      * Note: this property is writeable but the setter binding is not supported yet.
      */
@@ -75,11 +74,7 @@ public class DBusNodeInfo(
         indent: UInt,
         stringBuilder: GlibString,
     ): Unit =
-        g_dbus_node_info_generate_xml(
-            gioDBusNodeInfoPointer.reinterpret(),
-            indent,
-            stringBuilder.glibStringPointer
-        )
+        g_dbus_node_info_generate_xml(gioDBusNodeInfoPointer.reinterpret(), indent, stringBuilder.glibStringPointer)
 
     /**
      * Looks up information about an interface.

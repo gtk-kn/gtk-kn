@@ -48,7 +48,10 @@ import kotlin.Unit
  * There is also an implementation for use inside Flatpak sandboxes.
  * @since 2.32
  */
-public interface NetworkMonitor : Interface, Initable, KGTyped {
+public interface NetworkMonitor :
+    Interface,
+    Initable,
+    KGTyped {
     public val gioNetworkMonitorPointer: CPointer<GNetworkMonitor>
 
     override val gioInitablePointer: CPointer<GInitable>
@@ -122,8 +125,7 @@ public interface NetworkMonitor : Interface, Initable, KGTyped {
          * @return whether the network is available
          * @since 2.32
          */
-        get() =
-            g_network_monitor_get_network_available(gioNetworkMonitorPointer.reinterpret()).asBoolean()
+        get() = g_network_monitor_get_network_available(gioNetworkMonitorPointer.reinterpret()).asBoolean()
 
     /**
      * Whether the network is considered metered.
@@ -158,8 +160,7 @@ public interface NetworkMonitor : Interface, Initable, KGTyped {
          * @return whether the connection is metered
          * @since 2.46
          */
-        get() =
-            g_network_monitor_get_network_metered(gioNetworkMonitorPointer.reinterpret()).asBoolean()
+        get() = g_network_monitor_get_network_metered(gioNetworkMonitorPointer.reinterpret()).asBoolean()
 
     /**
      * Attempts to determine whether or not the host pointed to by
@@ -312,8 +313,7 @@ public interface NetworkMonitor : Interface, Initable, KGTyped {
      * Emitted when the network configuration changes.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `networkAvailable` the current value of
-     * #GNetworkMonitor:network-available
+     * @param handler the Callback to connect. Params: `networkAvailable` the current value of #GNetworkMonitor:network-available
      * @since 2.32
      */
     public fun connectNetworkChanged(
@@ -366,5 +366,4 @@ private val connectNetworkChangedFunc: CPointer<CFunction<(Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(networkAvailable: Boolean) -> Unit>().get().invoke(networkAvailable.asBoolean())
-    }
-        .reinterpret()
+    }.reinterpret()

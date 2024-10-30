@@ -59,11 +59,7 @@ public class TimeVal(
      *
      * @param microseconds number of microseconds to add to @time
      */
-    public fun add(microseconds: Long): Unit =
-        g_time_val_add(
-            glibTimeValPointer.reinterpret(),
-            microseconds
-        )
+    public fun add(microseconds: Long): Unit = g_time_val_add(glibTimeValPointer.reinterpret(), microseconds)
 
     /**
      * Converts @time_ into an RFC 3339 encoded string, relative to the
@@ -106,8 +102,7 @@ public class TimeVal(
      * @since 2.12
      */
     public fun toIso8601(): String =
-        g_time_val_to_iso8601(glibTimeValPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_time_val_to_iso8601(glibTimeValPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : RecordCompanion<TimeVal, GTimeVal> {
         /**

@@ -40,7 +40,8 @@ import kotlin.Unit
  */
 public open class Spinner(
     pointer: CPointer<GtkSpinner>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkSpinnerPointer: CPointer<GtkSpinner>
         get() = gPointer.reinterpret()
 
@@ -69,11 +70,7 @@ public open class Spinner(
          *
          * @param spinning whether the spinner should be spinning
          */
-        set(spinning) =
-            gtk_spinner_set_spinning(
-                gtkSpinnerPointer.reinterpret(),
-                spinning.asGBoolean()
-            )
+        set(spinning) = gtk_spinner_set_spinning(gtkSpinnerPointer.reinterpret(), spinning.asGBoolean())
 
     /**
      * Returns a new spinner widget. Not yet started.

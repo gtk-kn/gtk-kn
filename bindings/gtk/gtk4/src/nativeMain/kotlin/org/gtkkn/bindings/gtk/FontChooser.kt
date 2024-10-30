@@ -63,7 +63,9 @@ import kotlin.Unit
  * - method `font`: Property TypeInfo of getter and setter do not match
  * - method `font-desc`: Property TypeInfo of getter and setter do not match
  */
-public interface FontChooser : Interface, KGTyped {
+public interface FontChooser :
+    Interface,
+    KGTyped {
     public val gtkFontChooserPointer: CPointer<GtkFontChooser>
 
     /**
@@ -158,19 +160,16 @@ public interface FontChooser : Interface, KGTyped {
          *
          * @return true if the preview entry is shown or false if it is hidden.
          */
-        get() =
-            gtk_font_chooser_get_show_preview_entry(gtkFontChooserPointer.reinterpret()).asBoolean()
+        get() = gtk_font_chooser_get_show_preview_entry(gtkFontChooserPointer.reinterpret()).asBoolean()
 
         /**
          * Shows or hides the editable preview entry.
          *
          * @param showPreviewEntry whether to show the editable preview entry or not
          */
-        set(showPreviewEntry) =
-            gtk_font_chooser_set_show_preview_entry(
-                gtkFontChooserPointer.reinterpret(),
-                showPreviewEntry.asGBoolean()
-            )
+        set(
+            showPreviewEntry
+        ) = gtk_font_chooser_set_show_preview_entry(gtkFontChooserPointer.reinterpret(), showPreviewEntry.asGBoolean())
 
     /**
      * Gets the currently-selected font name.
@@ -334,10 +333,7 @@ public interface FontChooser : Interface, KGTyped {
      * @param fontDesc a `PangoFontDescription`
      */
     public fun setFontDesc(fontDesc: FontDescription): Unit =
-        gtk_font_chooser_set_font_desc(
-            gtkFontChooserPointer.reinterpret(),
-            fontDesc.pangoFontDescriptionPointer
-        )
+        gtk_font_chooser_set_font_desc(gtkFontChooserPointer.reinterpret(), fontDesc.pangoFontDescriptionPointer)
 
     /**
      * Sets a custom font map to use for this font chooser widget.
@@ -369,10 +365,7 @@ public interface FontChooser : Interface, KGTyped {
      * @param fontmap a `PangoFontMap`
      */
     public fun setFontMap_(fontmap: FontMap? = null): Unit =
-        gtk_font_chooser_set_font_map(
-            gtkFontChooserPointer.reinterpret(),
-            fontmap?.pangoFontMapPointer?.reinterpret()
-        )
+        gtk_font_chooser_set_font_map(gtkFontChooserPointer.reinterpret(), fontmap?.pangoFontMapPointer?.reinterpret())
 
     /**
      * Sets the language to use for font features.
@@ -406,10 +399,7 @@ public interface FontChooser : Interface, KGTyped {
      * @param showPreviewEntry whether to show the editable preview entry or not
      */
     public fun setShowPreviewEntry(showPreviewEntry: Boolean): Unit =
-        gtk_font_chooser_set_show_preview_entry(
-            gtkFontChooserPointer.reinterpret(),
-            showPreviewEntry.asGBoolean()
-        )
+        gtk_font_chooser_set_show_preview_entry(gtkFontChooserPointer.reinterpret(), showPreviewEntry.asGBoolean())
 
     /**
      * Emitted when a font is activated.
@@ -459,8 +449,6 @@ private val connectFontActivatedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> 
             userData: COpaquePointer,
         ->
         userData.asStableRef<(fontname: String) -> Unit>().get().invoke(
-            fontname?.toKString()
-                ?: error("Expected not null string")
+            fontname?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()

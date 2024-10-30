@@ -36,9 +36,7 @@ public enum class NumberParserError(
         public fun quark(): UInt = g_quark_from_string("g-number-parser-error-quark")
 
         public fun fromErrorOrNull(error: Error): NumberParserError? =
-            if (error.domain !=
-                quark()
-            ) {
+            if (error.domain != quark()) {
                 null
             } else {
                 NumberParserError.values().find { it.nativeValue.value.toInt() == error.code }

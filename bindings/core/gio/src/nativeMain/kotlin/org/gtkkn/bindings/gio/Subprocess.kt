@@ -124,7 +124,9 @@ import kotlin.collections.List
  */
 public open class Subprocess(
     pointer: CPointer<GSubprocess>,
-) : Object(pointer.reinterpret()), Initable, KGTyped {
+) : Object(pointer.reinterpret()),
+    Initable,
+    KGTyped {
     public val gioSubprocessPointer: CPointer<GSubprocess>
         get() = gPointer.reinterpret()
 

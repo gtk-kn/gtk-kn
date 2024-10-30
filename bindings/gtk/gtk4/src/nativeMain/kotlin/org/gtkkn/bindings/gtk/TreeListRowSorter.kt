@@ -30,7 +30,8 @@ import kotlin.Unit
  */
 public open class TreeListRowSorter(
     pointer: CPointer<GtkTreeListRowSorter>,
-) : Sorter(pointer.reinterpret()), KGTyped {
+) : Sorter(pointer.reinterpret()),
+    KGTyped {
     public val gtkTreeListRowSorterPointer: CPointer<GtkTreeListRowSorter>
         get() = gPointer.reinterpret()
 
@@ -56,7 +57,9 @@ public open class TreeListRowSorter(
          *
          * @param sorter The sorter to use
          */
-        set(sorter) =
+        set(
+            sorter
+        ) =
             gtk_tree_list_row_sorter_set_sorter(
                 gtkTreeListRowSorterPointer.reinterpret(),
                 sorter?.gtkSorterPointer?.reinterpret()
@@ -72,8 +75,9 @@ public open class TreeListRowSorter(
      * @param sorter a `GtkSorter`
      * @return a new `GtkTreeListRowSorter`
      */
-    public constructor(sorter: Sorter? = null) :
-        this(gtk_tree_list_row_sorter_new(sorter?.gtkSorterPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        sorter: Sorter? = null,
+    ) : this(gtk_tree_list_row_sorter_new(sorter?.gtkSorterPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Returns the sorter used by @self.
@@ -101,9 +105,7 @@ public open class TreeListRowSorter(
 
     public companion object : TypeCompanion<TreeListRowSorter> {
         override val type: GeneratedClassKGType<TreeListRowSorter> =
-            GeneratedClassKGType(gtk_tree_list_row_sorter_get_type()) {
-                TreeListRowSorter(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_tree_list_row_sorter_get_type()) { TreeListRowSorter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

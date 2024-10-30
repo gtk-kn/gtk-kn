@@ -28,7 +28,8 @@ import kotlin.UInt
  */
 public open class KeyEvent(
     pointer: CPointer<GdkKeyEvent>,
-) : Event(pointer.reinterpret()), KGTyped {
+) : Event(pointer.reinterpret()),
+    KGTyped {
     public val gdkKeyEventPointer: CPointer<GdkKeyEvent>
         get() = gPointer.reinterpret()
 

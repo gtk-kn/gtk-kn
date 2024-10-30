@@ -76,7 +76,10 @@ import kotlin.Unit
  * Selections may happen asynchronously, so the only reliable way to find out
  * when an item was selected is to listen to the signals that indicate selection.
  */
-public interface SelectionModel : Interface, ListModel, KGTyped {
+public interface SelectionModel :
+    Interface,
+    ListModel,
+    KGTyped {
     public val gtkSelectionModelPointer: CPointer<GtkSelectionModel>
 
     override val gioListModelPointer: CPointer<GListModel>
@@ -117,11 +120,7 @@ public interface SelectionModel : Interface, ListModel, KGTyped {
         position: UInt,
         nItems: UInt,
     ): Bitset =
-        gtk_selection_model_get_selection_in_range(
-            gtkSelectionModelPointer.reinterpret(),
-            position,
-            nItems
-        )!!.run {
+        gtk_selection_model_get_selection_in_range(gtkSelectionModelPointer.reinterpret(), position, nItems)!!.run {
             Bitset(reinterpret())
         }
 
@@ -132,10 +131,7 @@ public interface SelectionModel : Interface, ListModel, KGTyped {
      * @return true if the item is selected
      */
     public fun isSelected(position: UInt): Boolean =
-        gtk_selection_model_is_selected(
-            gtkSelectionModelPointer.reinterpret(),
-            position
-        ).asBoolean()
+        gtk_selection_model_is_selected(gtkSelectionModelPointer.reinterpret(), position).asBoolean()
 
     /**
      * Requests to select all items in the model.
@@ -196,12 +192,7 @@ public interface SelectionModel : Interface, ListModel, KGTyped {
     public fun selectionChanged(
         position: UInt,
         nItems: UInt,
-    ): Unit =
-        gtk_selection_model_selection_changed(
-            gtkSelectionModelPointer.reinterpret(),
-            position,
-            nItems
-        )
+    ): Unit = gtk_selection_model_selection_changed(gtkSelectionModelPointer.reinterpret(), position, nItems)
 
     /**
      * Make selection changes.
@@ -271,10 +262,7 @@ public interface SelectionModel : Interface, ListModel, KGTyped {
      *   tried. This does not mean the item was unselected.
      */
     public fun unselectItem(position: UInt): Boolean =
-        gtk_selection_model_unselect_item(
-            gtkSelectionModelPointer.reinterpret(),
-            position
-        ).asBoolean()
+        gtk_selection_model_unselect_item(gtkSelectionModelPointer.reinterpret(), position).asBoolean()
 
     /**
      * Requests to unselect a range of items in the model.
@@ -288,11 +276,7 @@ public interface SelectionModel : Interface, ListModel, KGTyped {
         position: UInt,
         nItems: UInt,
     ): Boolean =
-        gtk_selection_model_unselect_range(
-            gtkSelectionModelPointer.reinterpret(),
-            position,
-            nItems
-        ).asBoolean()
+        gtk_selection_model_unselect_range(gtkSelectionModelPointer.reinterpret(), position, nItems).asBoolean()
 
     /**
      * Emitted when the selection state of some of the items in @model changes.
@@ -303,8 +287,7 @@ public interface SelectionModel : Interface, ListModel, KGTyped {
      * model, though it would be rather useless to emit such a signal.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `position` The first item that may have
-     * changed; `nItems` number of items with changes
+     * @param handler the Callback to connect. Params: `position` The first item that may have changed; `nItems` number of items with changes
      */
     public fun connectSelectionChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -327,9 +310,7 @@ public interface SelectionModel : Interface, ListModel, KGTyped {
 
     public companion object : TypeCompanion<SelectionModel> {
         override val type: GeneratedInterfaceKGType<SelectionModel> =
-            GeneratedInterfaceKGType(gtk_selection_model_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_selection_model_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -347,5 +328,4 @@ private val connectSelectionChangedFunc: CPointer<CFunction<(UInt, UInt) -> Unit
             userData: COpaquePointer,
         ->
         userData.asStableRef<(position: UInt, nItems: UInt) -> Unit>().get().invoke(position, nItems)
-    }
-        .reinterpret()
+    }.reinterpret()

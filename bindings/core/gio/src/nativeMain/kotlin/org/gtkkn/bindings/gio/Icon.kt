@@ -64,7 +64,9 @@ import kotlin.UInt
  *
  * - method `to_string`: C function g_icon_to_string is ignored
  */
-public interface Icon : Interface, KGTyped {
+public interface Icon :
+    Interface,
+    KGTyped {
     public val gioIconPointer: CPointer<GIcon>
 
     /**
@@ -74,10 +76,7 @@ public interface Icon : Interface, KGTyped {
      * @return true if @icon1 is equal to @icon2. false otherwise.
      */
     public fun equal(icon2: Icon? = null): Boolean =
-        g_icon_equal(
-            gioIconPointer.reinterpret(),
-            icon2?.gioIconPointer
-        ).asBoolean()
+        g_icon_equal(gioIconPointer.reinterpret(), icon2?.gioIconPointer).asBoolean()
 
     /**
      * Gets a hash for an icon.

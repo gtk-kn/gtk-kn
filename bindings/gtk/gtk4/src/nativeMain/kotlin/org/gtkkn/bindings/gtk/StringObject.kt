@@ -23,7 +23,8 @@ import kotlin.String
  */
 public open class StringObject(
     pointer: CPointer<GtkStringObject>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkStringObjectPointer: CPointer<GtkStringObject>
         get() = gPointer.reinterpret()
 
@@ -59,9 +60,7 @@ public open class StringObject(
 
     public companion object : TypeCompanion<StringObject> {
         override val type: GeneratedClassKGType<StringObject> =
-            GeneratedClassKGType(gtk_string_object_get_type()) {
-                StringObject(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_string_object_get_type()) { StringObject(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

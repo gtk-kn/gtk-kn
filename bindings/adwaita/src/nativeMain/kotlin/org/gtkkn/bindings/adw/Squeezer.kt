@@ -71,7 +71,9 @@ import kotlin.Unit
  */
 public class Squeezer(
     pointer: CPointer<AdwSqueezer>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val adwSqueezerPointer: CPointer<AdwSqueezer>
         get() = gPointer.reinterpret()
 
@@ -111,11 +113,7 @@ public class Squeezer(
          *
          * @param allowNone whether @self allows squeezing beyond the last child
          */
-        set(allowNone) =
-            adw_squeezer_set_allow_none(
-                adwSqueezerPointer.reinterpret(),
-                allowNone.asGBoolean()
-            )
+        set(allowNone) = adw_squeezer_set_allow_none(adwSqueezerPointer.reinterpret(), allowNone.asGBoolean())
 
     /**
      * Whether all children have the same size for the opposite orientation.
@@ -141,11 +139,7 @@ public class Squeezer(
          *
          * @param homogeneous whether @self is homogeneous
          */
-        set(homogeneous) =
-            adw_squeezer_set_homogeneous(
-                adwSqueezerPointer.reinterpret(),
-                homogeneous.asGBoolean()
-            )
+        set(homogeneous) = adw_squeezer_set_homogeneous(adwSqueezerPointer.reinterpret(), homogeneous.asGBoolean())
 
     /**
      * Whether the squeezer interpolates its size when changing the visible child.
@@ -173,11 +167,9 @@ public class Squeezer(
          *
          * @param interpolateSize whether to interpolate the size
          */
-        set(interpolateSize) =
-            adw_squeezer_set_interpolate_size(
-                adwSqueezerPointer.reinterpret(),
-                interpolateSize.asGBoolean()
-            )
+        set(
+            interpolateSize
+        ) = adw_squeezer_set_interpolate_size(adwSqueezerPointer.reinterpret(), interpolateSize.asGBoolean())
 
     /**
      * A selection model with the squeezer's pages.
@@ -234,11 +226,7 @@ public class Squeezer(
          *
          * @param policy the policy to use
          */
-        set(policy) =
-            adw_squeezer_set_switch_threshold_policy(
-                adwSqueezerPointer.reinterpret(),
-                policy.nativeValue
-            )
+        set(policy) = adw_squeezer_set_switch_threshold_policy(adwSqueezerPointer.reinterpret(), policy.nativeValue)
 
     /**
      * The transition animation duration, in milliseconds.
@@ -256,11 +244,7 @@ public class Squeezer(
          *
          * @param duration the new duration, in milliseconds
          */
-        set(duration) =
-            adw_squeezer_set_transition_duration(
-                adwSqueezerPointer.reinterpret(),
-                duration
-            )
+        set(duration) = adw_squeezer_set_transition_duration(adwSqueezerPointer.reinterpret(), duration)
 
     /**
      * Whether a transition is currently running.
@@ -300,11 +284,7 @@ public class Squeezer(
          *
          * @param transition the new transition type
          */
-        set(transition) =
-            adw_squeezer_set_transition_type(
-                adwSqueezerPointer.reinterpret(),
-                transition.nativeValue
-            )
+        set(transition) = adw_squeezer_set_transition_type(adwSqueezerPointer.reinterpret(), transition.nativeValue)
 
     /**
      * The currently visible child.
@@ -394,10 +374,7 @@ public class Squeezer(
      * @return the [class@SqueezerPage] for @child
      */
     public fun add(child: Widget): SqueezerPage =
-        adw_squeezer_add(
-            adwSqueezerPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )!!.run {
+        adw_squeezer_add(adwSqueezerPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
             SqueezerPage(reinterpret())
         }
 
@@ -430,10 +407,7 @@ public class Squeezer(
      * @return the page object for @child
      */
     public fun getPage(child: Widget): SqueezerPage =
-        adw_squeezer_get_page(
-            adwSqueezerPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )!!.run {
+        adw_squeezer_get_page(adwSqueezerPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
             SqueezerPage(reinterpret())
         }
 
@@ -517,10 +491,7 @@ public class Squeezer(
      * @param child the child to remove
      */
     public fun remove(child: Widget): Unit =
-        adw_squeezer_remove(
-            adwSqueezerPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        adw_squeezer_remove(adwSqueezerPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets whether to allow squeezing beyond the last child's minimum size.
@@ -557,10 +528,7 @@ public class Squeezer(
      * @param interpolateSize whether to interpolate the size
      */
     public fun setInterpolateSize(interpolateSize: Boolean): Unit =
-        adw_squeezer_set_interpolate_size(
-            adwSqueezerPointer.reinterpret(),
-            interpolateSize.asGBoolean()
-        )
+        adw_squeezer_set_interpolate_size(adwSqueezerPointer.reinterpret(), interpolateSize.asGBoolean())
 
     /**
      * Sets the switch threshold policy for @self.
@@ -577,10 +545,7 @@ public class Squeezer(
      * @param policy the policy to use
      */
     public fun setSwitchThresholdPolicy(policy: FoldThresholdPolicy): Unit =
-        adw_squeezer_set_switch_threshold_policy(
-            adwSqueezerPointer.reinterpret(),
-            policy.nativeValue
-        )
+        adw_squeezer_set_switch_threshold_policy(adwSqueezerPointer.reinterpret(), policy.nativeValue)
 
     /**
      * Sets the transition animation duration for @self.
@@ -596,10 +561,7 @@ public class Squeezer(
      * @param transition the new transition type
      */
     public fun setTransitionType(transition: SqueezerTransitionType): Unit =
-        adw_squeezer_set_transition_type(
-            adwSqueezerPointer.reinterpret(),
-            transition.nativeValue
-        )
+        adw_squeezer_set_transition_type(adwSqueezerPointer.reinterpret(), transition.nativeValue)
 
     /**
      * Sets the horizontal alignment, from 0 (start) to 1 (end).

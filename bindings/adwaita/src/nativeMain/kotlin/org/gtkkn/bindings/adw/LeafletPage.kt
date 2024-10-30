@@ -27,7 +27,8 @@ import kotlin.Unit
  */
 public class LeafletPage(
     pointer: CPointer<AdwLeafletPage>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val adwLeafletPagePointer: CPointer<AdwLeafletPage>
         get() = gPointer.reinterpret()
 
@@ -90,11 +91,9 @@ public class LeafletPage(
          *
          * @param navigatable whether @self can be navigated to when folded
          */
-        set(navigatable) =
-            adw_leaflet_page_set_navigatable(
-                adwLeafletPagePointer.reinterpret(),
-                navigatable.asGBoolean()
-            )
+        set(
+            navigatable
+        ) = adw_leaflet_page_set_navigatable(adwLeafletPagePointer.reinterpret(), navigatable.asGBoolean())
 
     /**
      * Gets the leaflet child to which @self belongs.
@@ -140,10 +139,7 @@ public class LeafletPage(
      * @param navigatable whether @self can be navigated to when folded
      */
     public fun setNavigatable(navigatable: Boolean): Unit =
-        adw_leaflet_page_set_navigatable(
-            adwLeafletPagePointer.reinterpret(),
-            navigatable.asGBoolean()
-        )
+        adw_leaflet_page_set_navigatable(adwLeafletPagePointer.reinterpret(), navigatable.asGBoolean())
 
     public companion object : TypeCompanion<LeafletPage> {
         override val type: GeneratedClassKGType<LeafletPage> =

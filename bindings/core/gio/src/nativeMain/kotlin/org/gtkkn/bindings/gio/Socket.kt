@@ -173,7 +173,10 @@ import kotlin.Unit
  */
 public open class Socket(
     pointer: CPointer<GSocket>,
-) : Object(pointer.reinterpret()), DatagramBased, Initable, KGTyped {
+) : Object(pointer.reinterpret()),
+    DatagramBased,
+    Initable,
+    KGTyped {
     public val gioSocketPointer: CPointer<GSocket>
         get() = gPointer.reinterpret()
 
@@ -238,11 +241,7 @@ public open class Socket(
          *     addresses
          * @since 2.32
          */
-        set(broadcast) =
-            g_socket_set_broadcast(
-                gioSocketPointer.reinterpret(),
-                broadcast.asGBoolean()
-            )
+        set(broadcast) = g_socket_set_broadcast(gioSocketPointer.reinterpret(), broadcast.asGBoolean())
 
     /**
      * The socket’s address family.
@@ -314,11 +313,7 @@ public open class Socket(
          * @param keepalive Value for the keepalive flag
          * @since 2.22
          */
-        set(keepalive) =
-            g_socket_set_keepalive(
-                gioSocketPointer.reinterpret(),
-                keepalive.asGBoolean()
-            )
+        set(keepalive) = g_socket_set_keepalive(gioSocketPointer.reinterpret(), keepalive.asGBoolean())
 
     /**
      * The number of outstanding connections in the listen queue.
@@ -374,11 +369,7 @@ public open class Socket(
          *   multicast groups from the local host
          * @since 2.32
          */
-        set(loopback) =
-            g_socket_set_multicast_loopback(
-                gioSocketPointer.reinterpret(),
-                loopback.asGBoolean()
-            )
+        set(loopback) = g_socket_set_multicast_loopback(gioSocketPointer.reinterpret(), loopback.asGBoolean())
 
     /**
      * Time-to-live out outgoing multicast packets
@@ -519,13 +510,7 @@ public open class Socket(
     ) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_new(
-                    family.nativeValue,
-                    type.nativeValue,
-                    protocol.nativeValue,
-                    gError.ptr
-                )
+            val gResult = g_socket_new(family.nativeValue, type.nativeValue, protocol.nativeValue, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -662,11 +647,7 @@ public open class Socket(
     public open fun checkConnectResult(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_socket_check_connect_result(
-                    gioSocketPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
+            val gResult = g_socket_check_connect_result(gioSocketPointer.reinterpret(), gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {

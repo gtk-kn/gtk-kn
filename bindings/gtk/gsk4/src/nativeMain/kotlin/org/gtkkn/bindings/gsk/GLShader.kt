@@ -167,7 +167,8 @@ import kotlin.Unit
  */
 public open class GLShader(
     pointer: CPointer<GskGLShader>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gskGLShaderPointer: CPointer<GskGLShader>
         get() = gPointer.reinterpret()
 
@@ -203,8 +204,9 @@ public open class GLShader(
      * @param sourcecode GLSL sourcecode for the shader, as a `GBytes`
      * @return A new `GskGLShader`
      */
-    public constructor(sourcecode: Bytes) :
-        this(gsk_gl_shader_new_from_bytes(sourcecode.glibBytesPointer)!!.reinterpret())
+    public constructor(
+        sourcecode: Bytes,
+    ) : this(gsk_gl_shader_new_from_bytes(sourcecode.glibBytesPointer)!!.reinterpret())
 
     /**
      * Creates a `GskGLShader` that will render pixels using the specified code.
@@ -213,8 +215,7 @@ public open class GLShader(
      *     the shader
      * @return A new `GskGLShader`
      */
-    public constructor(resourcePath: String) :
-        this(gsk_gl_shader_new_from_resource(resourcePath)!!.reinterpret())
+    public constructor(resourcePath: String) : this(gsk_gl_shader_new_from_resource(resourcePath)!!.reinterpret())
 
     /**
      * Tries to compile the @shader for the given @renderer.
@@ -271,12 +272,7 @@ public open class GLShader(
     public open fun getArgBool(
         args: Bytes,
         idx: Int,
-    ): Boolean =
-        gsk_gl_shader_get_arg_bool(
-            gskGLShaderPointer.reinterpret(),
-            args.glibBytesPointer,
-            idx
-        ).asBoolean()
+    ): Boolean = gsk_gl_shader_get_arg_bool(gskGLShaderPointer.reinterpret(), args.glibBytesPointer, idx).asBoolean()
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -290,12 +286,7 @@ public open class GLShader(
     public open fun getArgFloat(
         args: Bytes,
         idx: Int,
-    ): Float =
-        gsk_gl_shader_get_arg_float(
-            gskGLShaderPointer.reinterpret(),
-            args.glibBytesPointer,
-            idx
-        )
+    ): Float = gsk_gl_shader_get_arg_float(gskGLShaderPointer.reinterpret(), args.glibBytesPointer, idx)
 
     /**
      * Gets the value of the uniform @idx in the @args block.

@@ -34,7 +34,8 @@ import kotlin.Unit
  */
 public open class TlsPassword(
     pointer: CPointer<GTlsPassword>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioTlsPasswordPointer: CPointer<GTlsPassword>
         get() = gPointer.reinterpret()
 
@@ -60,11 +61,7 @@ public open class TlsPassword(
          * @param description The description of the password
          * @since 2.30
          */
-        set(description) =
-            g_tls_password_set_description(
-                gioTlsPasswordPointer.reinterpret(),
-                description
-            )
+        set(description) = g_tls_password_set_description(gioTlsPasswordPointer.reinterpret(), description)
 
     /**
      * Flags about the password.
@@ -126,8 +123,10 @@ public open class TlsPassword(
      * @param description description of what the password is for
      * @return The newly allocated password object
      */
-    public constructor(flags: TlsPasswordFlags, description: String) :
-        this(g_tls_password_new(flags.mask, description)!!.reinterpret())
+    public constructor(
+        flags: TlsPasswordFlags,
+        description: String,
+    ) : this(g_tls_password_new(flags.mask, description)!!.reinterpret())
 
     /**
      * Get a description string about what the password will be used for.

@@ -20,7 +20,8 @@ import org.gtkkn.native.gsk.gsk_texture_scale_node_new
  */
 public open class TextureScaleNode(
     pointer: CPointer<GskTextureScaleNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskTextureScaleNodePointer: CPointer<GskTextureScaleNode>
         get() = gPointer.reinterpret()
 
@@ -80,9 +81,7 @@ public open class TextureScaleNode(
 
     public companion object : TypeCompanion<TextureScaleNode> {
         override val type: GeneratedClassKGType<TextureScaleNode> =
-            GeneratedClassKGType(gsk_texture_scale_node_get_type()) {
-                TextureScaleNode(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_texture_scale_node_get_type()) { TextureScaleNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

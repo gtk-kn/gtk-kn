@@ -209,13 +209,7 @@ public class Closure(
         public fun newObject(
             sizeofClosure: UInt,
             `object`: Object,
-        ): Closure =
-            Closure(
-                g_closure_new_object(
-                    sizeofClosure,
-                    `object`.gPointer.reinterpret()
-                )!!.reinterpret()
-            )
+        ): Closure = Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Closure = Closure(pointer.reinterpret())
     }

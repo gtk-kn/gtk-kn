@@ -22,7 +22,8 @@ import kotlin.Boolean
  */
 public open class SimplePermission(
     pointer: CPointer<GSimplePermission>,
-) : Permission(pointer.reinterpret()), KGTyped {
+) : Permission(pointer.reinterpret()),
+    KGTyped {
     public val gioSimplePermissionPointer: CPointer<GSimplePermission>
         get() = gPointer.reinterpret()
 
@@ -34,14 +35,11 @@ public open class SimplePermission(
      * @return the #GSimplePermission, as a #GPermission
      * @since 2.26
      */
-    public constructor(allowed: Boolean) :
-        this(g_simple_permission_new(allowed.asGBoolean())!!.reinterpret())
+    public constructor(allowed: Boolean) : this(g_simple_permission_new(allowed.asGBoolean())!!.reinterpret())
 
     public companion object : TypeCompanion<SimplePermission> {
         override val type: GeneratedClassKGType<SimplePermission> =
-            GeneratedClassKGType(g_simple_permission_get_type()) {
-                SimplePermission(it.reinterpret())
-            }
+            GeneratedClassKGType(g_simple_permission_get_type()) { SimplePermission(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

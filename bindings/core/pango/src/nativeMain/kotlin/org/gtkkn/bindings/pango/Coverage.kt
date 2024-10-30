@@ -36,7 +36,8 @@ import kotlin.Unit
  */
 public open class Coverage(
     pointer: CPointer<PangoCoverage>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val pangoCoveragePointer: CPointer<PangoCoverage>
         get() = gPointer.reinterpret()
 
@@ -80,10 +81,7 @@ public open class Coverage(
      * @param other another `PangoCoverage`
      */
     public open fun max(other: Coverage): Unit =
-        pango_coverage_max(
-            pangoCoveragePointer.reinterpret(),
-            other.pangoCoveragePointer.reinterpret()
-        )
+        pango_coverage_max(pangoCoveragePointer.reinterpret(), other.pangoCoveragePointer.reinterpret())
 
     /**
      * Increase the reference count on the `PangoCoverage` by one.

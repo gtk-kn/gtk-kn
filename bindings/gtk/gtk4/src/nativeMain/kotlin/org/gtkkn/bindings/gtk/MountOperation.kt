@@ -40,7 +40,8 @@ import kotlin.Unit
  */
 public open class MountOperation(
     pointer: CPointer<GtkMountOperation>,
-) : org.gtkkn.bindings.gio.MountOperation(pointer.reinterpret()), KGTyped {
+) : org.gtkkn.bindings.gio.MountOperation(pointer.reinterpret()),
+    KGTyped {
     public val gtkMountOperationPointer: CPointer<GtkMountOperation>
         get() = gPointer.reinterpret()
 
@@ -64,7 +65,9 @@ public open class MountOperation(
          *
          * @param display a `GdkDisplay`
          */
-        set(display) =
+        set(
+            display
+        ) =
             gtk_mount_operation_set_display(
                 gtkMountOperationPointer.reinterpret(),
                 display.gdkDisplayPointer.reinterpret()
@@ -90,7 +93,9 @@ public open class MountOperation(
          *
          * @param parent transient parent of the window
          */
-        set(parent) =
+        set(
+            parent
+        ) =
             gtk_mount_operation_set_parent(
                 gtkMountOperationPointer.reinterpret(),
                 parent?.gtkWindowPointer?.reinterpret()
@@ -102,8 +107,9 @@ public open class MountOperation(
      * @param parent transient parent of the window
      * @return a new `GtkMountOperation`
      */
-    public constructor(parent: Window? = null) :
-        this(gtk_mount_operation_new(parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        parent: Window? = null,
+    ) : this(gtk_mount_operation_new(parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Gets the display on which windows of the `GtkMountOperation`
@@ -141,10 +147,7 @@ public open class MountOperation(
      * @param display a `GdkDisplay`
      */
     public open fun setDisplay(display: Display): Unit =
-        gtk_mount_operation_set_display(
-            gtkMountOperationPointer.reinterpret(),
-            display.gdkDisplayPointer.reinterpret()
-        )
+        gtk_mount_operation_set_display(gtkMountOperationPointer.reinterpret(), display.gdkDisplayPointer.reinterpret())
 
     /**
      * Sets the transient parent for windows shown by the
@@ -153,16 +156,11 @@ public open class MountOperation(
      * @param parent transient parent of the window
      */
     public open fun setParent(parent: Window? = null): Unit =
-        gtk_mount_operation_set_parent(
-            gtkMountOperationPointer.reinterpret(),
-            parent?.gtkWindowPointer?.reinterpret()
-        )
+        gtk_mount_operation_set_parent(gtkMountOperationPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret())
 
     public companion object : TypeCompanion<MountOperation> {
         override val type: GeneratedClassKGType<MountOperation> =
-            GeneratedClassKGType(gtk_mount_operation_get_type()) {
-                MountOperation(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_mount_operation_get_type()) { MountOperation(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

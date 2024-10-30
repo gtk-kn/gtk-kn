@@ -36,7 +36,9 @@ import org.gtkkn.native.gtk.gtk_builder_cscope_new
  */
 public open class BuilderCScope(
     pointer: CPointer<GtkBuilderCScope>,
-) : Object(pointer.reinterpret()), BuilderScope, KGTyped {
+) : Object(pointer.reinterpret()),
+    BuilderScope,
+    KGTyped {
     public val gtkBuilderCScopePointer: CPointer<GtkBuilderCScope>
         get() = gPointer.reinterpret()
 
@@ -56,9 +58,7 @@ public open class BuilderCScope(
 
     public companion object : TypeCompanion<BuilderCScope> {
         override val type: GeneratedClassKGType<BuilderCScope> =
-            GeneratedClassKGType(gtk_builder_cscope_get_type()) {
-                BuilderCScope(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_builder_cscope_get_type()) { BuilderCScope(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

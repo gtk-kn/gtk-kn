@@ -168,7 +168,9 @@ import kotlin.Unit
  */
 public open class FileChooserNative(
     pointer: CPointer<GtkFileChooserNative>,
-) : NativeDialog(pointer.reinterpret()), FileChooser, KGTyped {
+) : NativeDialog(pointer.reinterpret()),
+    FileChooser,
+    KGTyped {
     public val gtkFileChooserNativePointer: CPointer<GtkFileChooserNative>
         get() = gPointer.reinterpret()
 
@@ -185,8 +187,7 @@ public open class FileChooserNative(
          *
          * @return The custom label
          */
-        get() =
-            gtk_file_chooser_native_get_accept_label(gtkFileChooserNativePointer.reinterpret())?.toKString()
+        get() = gtk_file_chooser_native_get_accept_label(gtkFileChooserNativePointer.reinterpret())?.toKString()
 
         /**
          * Sets the custom label text for the accept button.
@@ -200,11 +201,9 @@ public open class FileChooserNative(
          *
          * @param acceptLabel custom label
          */
-        set(acceptLabel) =
-            gtk_file_chooser_native_set_accept_label(
-                gtkFileChooserNativePointer.reinterpret(),
-                acceptLabel
-            )
+        set(
+            acceptLabel
+        ) = gtk_file_chooser_native_set_accept_label(gtkFileChooserNativePointer.reinterpret(), acceptLabel)
 
     /**
      * The text used for the label on the cancel button in the dialog, or
@@ -216,8 +215,7 @@ public open class FileChooserNative(
          *
          * @return The custom label
          */
-        get() =
-            gtk_file_chooser_native_get_cancel_label(gtkFileChooserNativePointer.reinterpret())?.toKString()
+        get() = gtk_file_chooser_native_get_cancel_label(gtkFileChooserNativePointer.reinterpret())?.toKString()
 
         /**
          * Sets the custom label text for the cancel button.
@@ -231,11 +229,9 @@ public open class FileChooserNative(
          *
          * @param cancelLabel custom label
          */
-        set(cancelLabel) =
-            gtk_file_chooser_native_set_cancel_label(
-                gtkFileChooserNativePointer.reinterpret(),
-                cancelLabel
-            )
+        set(
+            cancelLabel
+        ) = gtk_file_chooser_native_set_cancel_label(gtkFileChooserNativePointer.reinterpret(), cancelLabel)
 
     /**
      * Creates a new `GtkFileChooserNative`.
@@ -292,10 +288,7 @@ public open class FileChooserNative(
      * @param acceptLabel custom label
      */
     public open fun setAcceptLabel(acceptLabel: String? = null): Unit =
-        gtk_file_chooser_native_set_accept_label(
-            gtkFileChooserNativePointer.reinterpret(),
-            acceptLabel
-        )
+        gtk_file_chooser_native_set_accept_label(gtkFileChooserNativePointer.reinterpret(), acceptLabel)
 
     /**
      * Sets the custom label text for the cancel button.
@@ -310,16 +303,11 @@ public open class FileChooserNative(
      * @param cancelLabel custom label
      */
     public open fun setCancelLabel(cancelLabel: String? = null): Unit =
-        gtk_file_chooser_native_set_cancel_label(
-            gtkFileChooserNativePointer.reinterpret(),
-            cancelLabel
-        )
+        gtk_file_chooser_native_set_cancel_label(gtkFileChooserNativePointer.reinterpret(), cancelLabel)
 
     public companion object : TypeCompanion<FileChooserNative> {
         override val type: GeneratedClassKGType<FileChooserNative> =
-            GeneratedClassKGType(gtk_file_chooser_native_get_type()) {
-                FileChooserNative(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_file_chooser_native_get_type()) { FileChooserNative(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

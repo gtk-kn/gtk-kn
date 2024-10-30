@@ -25,8 +25,7 @@ public class ShapeFlags(
 
         /**
          * Round glyph positions and widths to whole device units
-         *   This option should be set if the target renderer can't do subpixel positioning of
-         * glyphs
+         *   This option should be set if the target renderer can't do subpixel positioning of glyphs
          */
         public val ROUND_POSITIONS: ShapeFlags = ShapeFlags(PANGO_SHAPE_ROUND_POSITIONS)
     }

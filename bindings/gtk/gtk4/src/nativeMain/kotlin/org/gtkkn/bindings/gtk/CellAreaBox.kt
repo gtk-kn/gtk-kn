@@ -44,7 +44,9 @@ import kotlin.Unit
  */
 public open class CellAreaBox(
     pointer: CPointer<GtkCellAreaBox>,
-) : CellArea(pointer.reinterpret()), Orientable, KGTyped {
+) : CellArea(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val gtkCellAreaBoxPointer: CPointer<GtkCellAreaBox>
         get() = gPointer.reinterpret()
 

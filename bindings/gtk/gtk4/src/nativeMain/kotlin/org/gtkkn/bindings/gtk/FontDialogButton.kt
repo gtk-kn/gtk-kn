@@ -72,7 +72,8 @@ import kotlin.Unit
  */
 public open class FontDialogButton(
     pointer: CPointer<GtkFontDialogButton>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkFontDialogButtonPointer: CPointer<GtkFontDialogButton>
         get() = gPointer.reinterpret()
 
@@ -111,8 +112,7 @@ public open class FontDialogButton(
          * @return the font features
          * @since 4.10
          */
-        get() =
-            gtk_font_dialog_button_get_font_features(gtkFontDialogButtonPointer.reinterpret())?.toKString()
+        get() = gtk_font_dialog_button_get_font_features(gtkFontDialogButtonPointer.reinterpret())?.toKString()
 
         /**
          * Sets the font features of the button.
@@ -120,11 +120,9 @@ public open class FontDialogButton(
          * @param fontFeatures the font features
          * @since 4.10
          */
-        set(fontFeatures) =
-            gtk_font_dialog_button_set_font_features(
-                gtkFontDialogButtonPointer.reinterpret(),
-                fontFeatures
-            )
+        set(
+            fontFeatures
+        ) = gtk_font_dialog_button_set_font_features(gtkFontDialogButtonPointer.reinterpret(), fontFeatures)
 
     /**
      * The selected language for font features.
@@ -155,7 +153,9 @@ public open class FontDialogButton(
          * @param language the new language
          * @since 4.10
          */
-        set(language) =
+        set(
+            language
+        ) =
             gtk_font_dialog_button_set_language(
                 gtkFontDialogButtonPointer.reinterpret(),
                 language?.pangoLanguagePointer
@@ -184,11 +184,7 @@ public open class FontDialogButton(
          * @param level the level of detail
          * @since 4.10
          */
-        set(level) =
-            gtk_font_dialog_button_set_level(
-                gtkFontDialogButtonPointer.reinterpret(),
-                level.nativeValue
-            )
+        set(level) = gtk_font_dialog_button_set_level(gtkFontDialogButtonPointer.reinterpret(), level.nativeValue)
 
     /**
      * Whether the buttons label will be drawn in the selected font.
@@ -200,8 +196,7 @@ public open class FontDialogButton(
          * @return whether the selected font is used in the label
          * @since 4.10
          */
-        get() =
-            gtk_font_dialog_button_get_use_font(gtkFontDialogButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_font_dialog_button_get_use_font(gtkFontDialogButtonPointer.reinterpret()).asBoolean()
 
         /**
          * If @use_font is `TRUE`, the font name will be written
@@ -211,11 +206,9 @@ public open class FontDialogButton(
          *   the chosen font
          * @since 4.10
          */
-        set(useFont) =
-            gtk_font_dialog_button_set_use_font(
-                gtkFontDialogButtonPointer.reinterpret(),
-                useFont.asGBoolean()
-            )
+        set(
+            useFont
+        ) = gtk_font_dialog_button_set_use_font(gtkFontDialogButtonPointer.reinterpret(), useFont.asGBoolean())
 
     /**
      * Whether the buttons label will use the selected font size.
@@ -227,8 +220,7 @@ public open class FontDialogButton(
          * @return whether the selected font size is used in the label
          * @since 4.10
          */
-        get() =
-            gtk_font_dialog_button_get_use_size(gtkFontDialogButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_font_dialog_button_get_use_size(gtkFontDialogButtonPointer.reinterpret()).asBoolean()
 
         /**
          * If @use_size is `TRUE`, the font name will be written
@@ -238,11 +230,9 @@ public open class FontDialogButton(
          *   the chosen font size
          * @since 4.10
          */
-        set(useSize) =
-            gtk_font_dialog_button_set_use_size(
-                gtkFontDialogButtonPointer.reinterpret(),
-                useSize.asGBoolean()
-            )
+        set(
+            useSize
+        ) = gtk_font_dialog_button_set_use_size(gtkFontDialogButtonPointer.reinterpret(), useSize.asGBoolean())
 
     /**
      * Creates a new `GtkFontDialogButton` with the
@@ -255,8 +245,9 @@ public open class FontDialogButton(
      * @return the new `GtkFontDialogButton`
      * @since 4.10
      */
-    public constructor(dialog: FontDialog? = null) :
-        this(gtk_font_dialog_button_new(dialog?.gtkFontDialogPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        dialog: FontDialog? = null,
+    ) : this(gtk_font_dialog_button_new(dialog?.gtkFontDialogPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Returns the `GtkFontDialog` of @self.
@@ -375,10 +366,7 @@ public open class FontDialogButton(
      * @since 4.10
      */
     public open fun setFontFeatures(fontFeatures: String? = null): Unit =
-        gtk_font_dialog_button_set_font_features(
-            gtkFontDialogButtonPointer.reinterpret(),
-            fontFeatures
-        )
+        gtk_font_dialog_button_set_font_features(gtkFontDialogButtonPointer.reinterpret(), fontFeatures)
 
     /**
      * Sets the language to use for font features.
@@ -387,10 +375,7 @@ public open class FontDialogButton(
      * @since 4.10
      */
     public open fun setLanguage(language: Language? = null): Unit =
-        gtk_font_dialog_button_set_language(
-            gtkFontDialogButtonPointer.reinterpret(),
-            language?.pangoLanguagePointer
-        )
+        gtk_font_dialog_button_set_language(gtkFontDialogButtonPointer.reinterpret(), language?.pangoLanguagePointer)
 
     /**
      * Sets the level of detail at which this dialog
@@ -400,10 +385,7 @@ public open class FontDialogButton(
      * @since 4.10
      */
     public open fun setLevel(level: FontLevel): Unit =
-        gtk_font_dialog_button_set_level(
-            gtkFontDialogButtonPointer.reinterpret(),
-            level.nativeValue
-        )
+        gtk_font_dialog_button_set_level(gtkFontDialogButtonPointer.reinterpret(), level.nativeValue)
 
     /**
      * If @use_font is `TRUE`, the font name will be written
@@ -414,10 +396,7 @@ public open class FontDialogButton(
      * @since 4.10
      */
     public open fun setUseFont(useFont: Boolean): Unit =
-        gtk_font_dialog_button_set_use_font(
-            gtkFontDialogButtonPointer.reinterpret(),
-            useFont.asGBoolean()
-        )
+        gtk_font_dialog_button_set_use_font(gtkFontDialogButtonPointer.reinterpret(), useFont.asGBoolean())
 
     /**
      * If @use_size is `TRUE`, the font name will be written
@@ -428,10 +407,7 @@ public open class FontDialogButton(
      * @since 4.10
      */
     public open fun setUseSize(useSize: Boolean): Unit =
-        gtk_font_dialog_button_set_use_size(
-            gtkFontDialogButtonPointer.reinterpret(),
-            useSize.asGBoolean()
-        )
+        gtk_font_dialog_button_set_use_size(gtkFontDialogButtonPointer.reinterpret(), useSize.asGBoolean())
 
     /**
      * Emitted when the font dialog button is activated.
@@ -458,9 +434,7 @@ public open class FontDialogButton(
 
     public companion object : TypeCompanion<FontDialogButton> {
         override val type: GeneratedClassKGType<FontDialogButton> =
-            GeneratedClassKGType(gtk_font_dialog_button_get_type()) {
-                FontDialogButton(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_font_dialog_button_get_type()) { FontDialogButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -474,5 +448,4 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

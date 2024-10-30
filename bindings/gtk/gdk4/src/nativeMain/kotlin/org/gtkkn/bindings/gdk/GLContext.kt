@@ -99,7 +99,8 @@ import kotlin.Unit
  */
 public open class GLContext(
     pointer: CPointer<GdkGLContext>,
-) : DrawContext(pointer.reinterpret()), KGTyped {
+) : DrawContext(pointer.reinterpret()),
+    KGTyped {
     public val gdkGLContextPointer: CPointer<GdkGLContext>
         get() = gPointer.reinterpret()
 
@@ -300,10 +301,7 @@ public open class GLContext(
      * @since 4.4
      */
     public open fun isShared(other: GLContext): Boolean =
-        gdk_gl_context_is_shared(
-            gdkGLContextPointer.reinterpret(),
-            other.gdkGLContextPointer.reinterpret()
-        ).asBoolean()
+        gdk_gl_context_is_shared(gdkGLContextPointer.reinterpret(), other.gdkGLContextPointer.reinterpret()).asBoolean()
 
     /**
      * Makes the @context the current one.
@@ -320,11 +318,7 @@ public open class GLContext(
     public open fun realize(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_gl_context_realize(
-                    gdkGLContextPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
+            val gResult = gdk_gl_context_realize(gdkGLContextPointer.reinterpret(), gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -359,10 +353,7 @@ public open class GLContext(
      * @param enabled whether to enable debugging in the context
      */
     public open fun setDebugEnabled(enabled: Boolean): Unit =
-        gdk_gl_context_set_debug_enabled(
-            gdkGLContextPointer.reinterpret(),
-            enabled.asGBoolean()
-        )
+        gdk_gl_context_set_debug_enabled(gdkGLContextPointer.reinterpret(), enabled.asGBoolean())
 
     /**
      * Sets whether the `GdkGLContext` should be forward-compatible.
@@ -378,10 +369,7 @@ public open class GLContext(
      * @param compatible whether the context should be forward-compatible
      */
     public open fun setForwardCompatible(compatible: Boolean): Unit =
-        gdk_gl_context_set_forward_compatible(
-            gdkGLContextPointer.reinterpret(),
-            compatible.asGBoolean()
-        )
+        gdk_gl_context_set_forward_compatible(gdkGLContextPointer.reinterpret(), compatible.asGBoolean())
 
     /**
      * Sets the major and minor version of OpenGL to request.

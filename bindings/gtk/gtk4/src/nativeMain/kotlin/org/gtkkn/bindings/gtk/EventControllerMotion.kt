@@ -43,7 +43,8 @@ import kotlin.Unit
  */
 public open class EventControllerMotion(
     pointer: CPointer<GtkEventControllerMotion>,
-) : EventController(pointer.reinterpret()), KGTyped {
+) : EventController(pointer.reinterpret()),
+    KGTyped {
     public val gtkEventControllerMotionPointer: CPointer<GtkEventControllerMotion>
         get() = gPointer.reinterpret()
 
@@ -74,15 +75,11 @@ public open class EventControllerMotion(
      * Signals that the pointer has entered the widget.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `x` coordinates of pointer location; `y`
-     * coordinates of pointer location
+     * @param handler the Callback to connect. Params: `x` coordinates of pointer location; `y` coordinates of pointer location
      */
     public fun connectEnter(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            x: Double,
-            y: Double,
-        ) -> Unit,
+        handler: (x: Double, y: Double) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -120,10 +117,7 @@ public open class EventControllerMotion(
      */
     public fun connectMotion(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            x: Double,
-            y: Double,
-        ) -> Unit,
+        handler: (x: Double, y: Double) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -136,9 +130,7 @@ public open class EventControllerMotion(
 
     public companion object : TypeCompanion<EventControllerMotion> {
         override val type: GeneratedClassKGType<EventControllerMotion> =
-            GeneratedClassKGType(gtk_event_controller_motion_get_type()) {
-                EventControllerMotion(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_event_controller_motion_get_type()) { EventControllerMotion(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -154,8 +146,7 @@ private val connectEnterFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(x: Double, y: Double) -> Unit>().get().invoke(x, y)
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -163,8 +154,7 @@ private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMotionFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
     staticCFunction {
@@ -174,5 +164,4 @@ private val connectMotionFunc: CPointer<CFunction<(Double, Double) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(x: Double, y: Double) -> Unit>().get().invoke(x, y)
-    }
-        .reinterpret()
+    }.reinterpret()

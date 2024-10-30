@@ -34,7 +34,11 @@ import kotlin.Unit
  */
 public open class NoSelection(
     pointer: CPointer<GtkNoSelection>,
-) : Object(pointer.reinterpret()), ListModel, SectionModel, SelectionModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    SectionModel,
+    SelectionModel,
+    KGTyped {
     public val gtkNoSelectionPointer: CPointer<GtkNoSelection>
         get() = gPointer.reinterpret()
 
@@ -68,11 +72,7 @@ public open class NoSelection(
          *
          * @param model A `GListModel` to wrap
          */
-        set(model) =
-            gtk_no_selection_set_model(
-                gtkNoSelectionPointer.reinterpret(),
-                model?.gioListModelPointer
-            )
+        set(model) = gtk_no_selection_set_model(gtkNoSelectionPointer.reinterpret(), model?.gioListModelPointer)
 
     /**
      * Creates a new selection to handle @model.
@@ -80,8 +80,9 @@ public open class NoSelection(
      * @param model the `GListModel` to manage
      * @return a new `GtkNoSelection`
      */
-    public constructor(model: ListModel? = null) :
-        this(gtk_no_selection_new(model?.gioListModelPointer)!!.reinterpret())
+    public constructor(
+        model: ListModel? = null,
+    ) : this(gtk_no_selection_new(model?.gioListModelPointer)!!.reinterpret())
 
     /**
      * Gets the model that @self is wrapping.
@@ -101,10 +102,7 @@ public open class NoSelection(
      * @param model A `GListModel` to wrap
      */
     public open fun setModel(model: ListModel? = null): Unit =
-        gtk_no_selection_set_model(
-            gtkNoSelectionPointer.reinterpret(),
-            model?.gioListModelPointer
-        )
+        gtk_no_selection_set_model(gtkNoSelectionPointer.reinterpret(), model?.gioListModelPointer)
 
     public companion object : TypeCompanion<NoSelection> {
         override val type: GeneratedClassKGType<NoSelection> =

@@ -66,8 +66,7 @@ public class Dir(
      *   must not be modified or freed.
      */
     public fun readName(): String =
-        g_dir_read_name(glibDirPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_dir_read_name(glibDirPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Increment the reference count of `dir`.

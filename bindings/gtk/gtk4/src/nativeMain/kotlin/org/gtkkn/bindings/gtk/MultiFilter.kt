@@ -26,7 +26,10 @@ import kotlin.Unit
  */
 public open class MultiFilter(
     pointer: CPointer<GtkMultiFilter>,
-) : Filter(pointer.reinterpret()), ListModel, Buildable, KGTyped {
+) : Filter(pointer.reinterpret()),
+    ListModel,
+    Buildable,
+    KGTyped {
     public val gtkMultiFilterPointer: CPointer<GtkMultiFilter>
         get() = gPointer.reinterpret()
 
@@ -42,10 +45,7 @@ public open class MultiFilter(
      * @param filter A new filter to use
      */
     public open fun append(filter: Filter): Unit =
-        gtk_multi_filter_append(
-            gtkMultiFilterPointer.reinterpret(),
-            filter.gtkFilterPointer.reinterpret()
-        )
+        gtk_multi_filter_append(gtkMultiFilterPointer.reinterpret(), filter.gtkFilterPointer.reinterpret())
 
     /**
      * Removes the filter at the given @position from the list of filters used

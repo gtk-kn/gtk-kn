@@ -40,7 +40,10 @@ import kotlin.Unit
  * invocations that arrive by way of D-Bus.
  * @since 2.32
  */
-public interface RemoteActionGroup : Interface, ActionGroup, KGTyped {
+public interface RemoteActionGroup :
+    Interface,
+    ActionGroup,
+    KGTyped {
     public val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup>
 
     override val gioActionGroupPointer: CPointer<GActionGroup>
@@ -110,9 +113,7 @@ public interface RemoteActionGroup : Interface, ActionGroup, KGTyped {
 
     public companion object : TypeCompanion<RemoteActionGroup> {
         override val type: GeneratedInterfaceKGType<RemoteActionGroup> =
-            GeneratedInterfaceKGType(g_remote_action_group_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(g_remote_action_group_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

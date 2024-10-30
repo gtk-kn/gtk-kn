@@ -42,7 +42,9 @@ import kotlin.collections.List
  */
 public open class ThemedIcon(
     pointer: CPointer<GThemedIcon>,
-) : Object(pointer.reinterpret()), Icon, KGTyped {
+) : Object(pointer.reinterpret()),
+    Icon,
+    KGTyped {
     public val gioThemedIconPointer: CPointer<GThemedIcon>
         get() = gPointer.reinterpret()
 

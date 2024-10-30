@@ -22,7 +22,8 @@ import org.gtkkn.native.gtk.gtk_assistant_page_get_type
  */
 public open class AssistantPage(
     pointer: CPointer<GtkAssistantPage>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkAssistantPagePointer: CPointer<GtkAssistantPage>
         get() = gPointer.reinterpret()
 
@@ -52,9 +53,7 @@ public open class AssistantPage(
 
     public companion object : TypeCompanion<AssistantPage> {
         override val type: GeneratedClassKGType<AssistantPage> =
-            GeneratedClassKGType(gtk_assistant_page_get_type()) {
-                AssistantPage(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_assistant_page_get_type()) { AssistantPage(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

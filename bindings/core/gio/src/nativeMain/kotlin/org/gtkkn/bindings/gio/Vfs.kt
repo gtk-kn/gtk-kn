@@ -32,7 +32,8 @@ import kotlin.collections.List
  */
 public open class Vfs(
     pointer: CPointer<GVfs>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioVfsPointer: CPointer<GVfs>
         get() = gPointer.reinterpret()
 
@@ -111,9 +112,7 @@ public open class Vfs(
 
     public companion object : TypeCompanion<Vfs> {
         override val type: GeneratedClassKGType<Vfs> =
-            GeneratedClassKGType(g_vfs_get_type()) {
-                Vfs(it.reinterpret())
-            }
+            GeneratedClassKGType(g_vfs_get_type()) { Vfs(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

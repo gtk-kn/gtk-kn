@@ -410,11 +410,7 @@ public class Variant(
         formatString: String,
         copyOnly: Boolean,
     ): Boolean =
-        g_variant_check_format_string(
-            glibVariantPointer.reinterpret(),
-            formatString,
-            copyOnly.asGBoolean()
-        ).asBoolean()
+        g_variant_check_format_string(glibVariantPointer.reinterpret(), formatString, copyOnly.asGBoolean()).asBoolean()
 
     /**
      * Classifies @value according to its top-level type.
@@ -633,8 +629,7 @@ public class Variant(
      * @since 2.24
      */
     public fun getTypeString(): String =
-        g_variant_get_type_string(glibVariantPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_variant_get_type_string(glibVariantPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the 16-bit unsigned integer value of @value.
@@ -749,10 +744,7 @@ public class Variant(
      * @since 2.24
      */
     public fun isOfType(type: VariantType): Boolean =
-        g_variant_is_of_type(
-            glibVariantPointer.reinterpret(),
-            type.glibVariantTypePointer
-        ).asBoolean()
+        g_variant_is_of_type(glibVariantPointer.reinterpret(), type.glibVariantTypePointer).asBoolean()
 
     /**
      * Looks up a value in a dictionary #GVariant.
@@ -786,11 +778,7 @@ public class Variant(
         key: String,
         expectedType: VariantType? = null,
     ): Variant =
-        g_variant_lookup_value(
-            glibVariantPointer.reinterpret(),
-            key,
-            expectedType?.glibVariantTypePointer
-        )!!.run {
+        g_variant_lookup_value(glibVariantPointer.reinterpret(), key, expectedType?.glibVariantTypePointer)!!.run {
             Variant(reinterpret())
         }
 
@@ -826,10 +814,8 @@ public class Variant(
      * @since 2.24
      */
     public fun print(typeAnnotate: Boolean): String =
-        g_variant_print(
-            glibVariantPointer.reinterpret(),
-            typeAnnotate.asGBoolean()
-        )?.toKString() ?: error("Expected not null string")
+        g_variant_print(glibVariantPointer.reinterpret(), typeAnnotate.asGBoolean())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Increases the reference count of @value.
@@ -950,12 +936,7 @@ public class Variant(
             length: Long,
         ): Variant {
             memScoped {
-                return Variant(
-                    g_variant_new_bytestring_array(
-                        strv.toCStringList(this),
-                        length
-                    )!!.reinterpret()
-                )
+                return Variant(g_variant_new_bytestring_array(strv.toCStringList(this), length)!!.reinterpret())
             }
         }
 
@@ -975,12 +956,7 @@ public class Variant(
             key: Variant,
             `value`: Variant,
         ): Variant =
-            Variant(
-                g_variant_new_dict_entry(
-                    key.glibVariantPointer,
-                    `value`.glibVariantPointer
-                )!!.reinterpret()
-            )
+            Variant(g_variant_new_dict_entry(key.glibVariantPointer, `value`.glibVariantPointer)!!.reinterpret())
 
         /**
          * Creates a new double #GVariant instance.
@@ -1082,12 +1058,7 @@ public class Variant(
             childType: VariantType? = null,
             child: Variant? = null,
         ): Variant =
-            Variant(
-                g_variant_new_maybe(
-                    childType?.glibVariantTypePointer,
-                    child?.glibVariantPointer
-                )!!.reinterpret()
-            )
+            Variant(g_variant_new_maybe(childType?.glibVariantTypePointer, child?.glibVariantPointer)!!.reinterpret())
 
         /**
          * Creates a D-Bus object path #GVariant with the contents of @object_path.
@@ -1120,12 +1091,7 @@ public class Variant(
             length: Long,
         ): Variant {
             memScoped {
-                return Variant(
-                    g_variant_new_objv(
-                        strv.toCStringList(this),
-                        length
-                    )!!.reinterpret()
-                )
+                return Variant(g_variant_new_objv(strv.toCStringList(this), length)!!.reinterpret())
             }
         }
 
@@ -1170,12 +1136,7 @@ public class Variant(
             length: Long,
         ): Variant {
             memScoped {
-                return Variant(
-                    g_variant_new_strv(
-                        strv.toCStringList(this),
-                        length
-                    )!!.reinterpret()
-                )
+                return Variant(g_variant_new_strv(strv.toCStringList(this), length)!!.reinterpret())
             }
         }
 

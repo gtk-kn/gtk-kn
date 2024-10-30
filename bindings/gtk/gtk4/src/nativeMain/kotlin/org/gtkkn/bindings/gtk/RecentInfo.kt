@@ -76,11 +76,7 @@ public class RecentInfo(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                gtk_recent_info_create_app_info(
-                    gtkRecentInfoPointer.reinterpret(),
-                    appName,
-                    gError.ptr
-                )?.run {
+                gtk_recent_info_create_app_info(gtkRecentInfoPointer.reinterpret(), appName, gError.ptr)?.run {
                     AppInfo.wrap(reinterpret())
                 }
 
@@ -209,8 +205,7 @@ public class RecentInfo(
      *   owned by the recent manager, and should not be freed.
      */
     public fun getUri(): String =
-        gtk_recent_info_get_uri(gtkRecentInfoPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_recent_info_get_uri(gtkRecentInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a displayable version of the resource’s URI.
@@ -283,10 +278,7 @@ public class RecentInfo(
      *   resource, false otherwise
      */
     public fun match(infoB: RecentInfo): Boolean =
-        gtk_recent_info_match(
-            gtkRecentInfoPointer.reinterpret(),
-            infoB.gtkRecentInfoPointer
-        ).asBoolean()
+        gtk_recent_info_match(gtkRecentInfoPointer.reinterpret(), infoB.gtkRecentInfoPointer).asBoolean()
 
     /**
      * Increases the reference count of @recent_info by one.

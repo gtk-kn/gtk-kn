@@ -15,15 +15,14 @@ import org.gtkkn.native.gtk.gtk_activate_action_get_type
  */
 public open class ActivateAction(
     pointer: CPointer<GtkActivateAction>,
-) : ShortcutAction(pointer.reinterpret()), KGTyped {
+) : ShortcutAction(pointer.reinterpret()),
+    KGTyped {
     public val gtkActivateActionPointer: CPointer<GtkActivateAction>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<ActivateAction> {
         override val type: GeneratedClassKGType<ActivateAction> =
-            GeneratedClassKGType(gtk_activate_action_get_type()) {
-                ActivateAction(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_activate_action_get_type()) { ActivateAction(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

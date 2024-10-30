@@ -47,7 +47,10 @@ import kotlin.Unit
  *
  * @since 4.12
  */
-public interface SectionModel : Interface, ListModel, KGTyped {
+public interface SectionModel :
+    Interface,
+    ListModel,
+    KGTyped {
     public val gtkSectionModelPointer: CPointer<GtkSectionModel>
 
     override val gioListModelPointer: CPointer<GListModel>
@@ -62,12 +65,7 @@ public interface SectionModel : Interface, ListModel, KGTyped {
     public fun sectionsChanged(
         position: UInt,
         nItems: UInt,
-    ): Unit =
-        gtk_section_model_sections_changed(
-            gtkSectionModelPointer.reinterpret(),
-            position,
-            nItems
-        )
+    ): Unit = gtk_section_model_sections_changed(gtkSectionModelPointer.reinterpret(), position, nItems)
 
     /**
      * Emitted when the start-of-section state of some of the items in @model changes.
@@ -82,8 +80,7 @@ public interface SectionModel : Interface, ListModel, KGTyped {
      * it covers.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `position` The first item that may have
-     * changed; `nItems` number of items with changes
+     * @param handler the Callback to connect. Params: `position` The first item that may have changed; `nItems` number of items with changes
      * @since 4.12
      */
     public fun connectSectionsChanged(
@@ -125,5 +122,4 @@ private val connectSectionsChangedFunc: CPointer<CFunction<(UInt, UInt) -> Unit>
             userData: COpaquePointer,
         ->
         userData.asStableRef<(position: UInt, nItems: UInt) -> Unit>().get().invoke(position, nItems)
-    }
-        .reinterpret()
+    }.reinterpret()

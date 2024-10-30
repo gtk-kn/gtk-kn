@@ -57,7 +57,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  */
 public open class DesktopAppInfo(
     pointer: CPointer<GDesktopAppInfo>,
-) : Object(pointer.reinterpret()), AppInfo, KGTyped {
+) : Object(pointer.reinterpret()),
+    AppInfo,
+    KGTyped {
     public val gioDesktopAppInfoPointer: CPointer<GDesktopAppInfo>
         get() = gPointer.reinterpret()
 
@@ -105,8 +107,9 @@ public open class DesktopAppInfo(
      * @return a new #GDesktopAppInfo or null on error.
      * @since 2.18
      */
-    public constructor(keyFile: KeyFile) :
-        this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer)!!.reinterpret())
+    public constructor(
+        keyFile: KeyFile,
+    ) : this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer)!!.reinterpret())
 
     /**
      * Gets the user-visible display name of the "additional application
@@ -121,10 +124,8 @@ public open class DesktopAppInfo(
      * @since 2.38
      */
     public open fun getActionName(actionName: String): String =
-        g_desktop_app_info_get_action_name(
-            gioDesktopAppInfoPointer.reinterpret(),
-            actionName
-        )?.toKString() ?: error("Expected not null string")
+        g_desktop_app_info_get_action_name(gioDesktopAppInfoPointer.reinterpret(), actionName)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Looks up a boolean value in the keyfile backing @info.
@@ -199,10 +200,7 @@ public open class DesktopAppInfo(
      * @since 2.56
      */
     public open fun getLocaleString(key: String): String? =
-        g_desktop_app_info_get_locale_string(
-            gioDesktopAppInfoPointer.reinterpret(),
-            key
-        )?.toKString()
+        g_desktop_app_info_get_locale_string(gioDesktopAppInfoPointer.reinterpret(), key)?.toKString()
 
     /**
      * Gets the value of the NoDisplay key, which helps determine if the
@@ -235,10 +233,7 @@ public open class DesktopAppInfo(
      * @since 2.30
      */
     public open fun getShowIn(desktopEnv: String? = null): Boolean =
-        g_desktop_app_info_get_show_in(
-            gioDesktopAppInfoPointer.reinterpret(),
-            desktopEnv
-        ).asBoolean()
+        g_desktop_app_info_get_show_in(gioDesktopAppInfoPointer.reinterpret(), desktopEnv).asBoolean()
 
     /**
      * Retrieves the StartupWMClass field from @info. This represents the
@@ -324,9 +319,7 @@ public open class DesktopAppInfo(
 
     public companion object : TypeCompanion<DesktopAppInfo> {
         override val type: GeneratedClassKGType<DesktopAppInfo> =
-            GeneratedClassKGType(g_desktop_app_info_get_type()) {
-                DesktopAppInfo(it.reinterpret())
-            }
+            GeneratedClassKGType(g_desktop_app_info_get_type()) { DesktopAppInfo(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

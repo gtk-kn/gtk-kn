@@ -87,10 +87,7 @@ public class ContentFormats(
      * @return true if the `GType` was found
      */
     public fun containGtype(type: ULong): Boolean =
-        gdk_content_formats_contain_gtype(
-            gdkContentFormatsPointer.reinterpret(),
-            type
-        ).asBoolean()
+        gdk_content_formats_contain_gtype(gdkContentFormatsPointer.reinterpret(), type).asBoolean()
 
     /**
      * Checks if a given mime type is part of the given @formats.
@@ -99,10 +96,7 @@ public class ContentFormats(
      * @return true if the mime_type was found
      */
     public fun containMimeType(mimeType: KotlinString): Boolean =
-        gdk_content_formats_contain_mime_type(
-            gdkContentFormatsPointer.reinterpret(),
-            mimeType
-        ).asBoolean()
+        gdk_content_formats_contain_mime_type(gdkContentFormatsPointer.reinterpret(), mimeType).asBoolean()
 
     /**
      * Checks if @first and @second have any matching formats.
@@ -111,10 +105,7 @@ public class ContentFormats(
      * @return true if a matching format was found.
      */
     public fun match(second: ContentFormats): Boolean =
-        gdk_content_formats_match(
-            gdkContentFormatsPointer.reinterpret(),
-            second.gdkContentFormatsPointer
-        ).asBoolean()
+        gdk_content_formats_match(gdkContentFormatsPointer.reinterpret(), second.gdkContentFormatsPointer).asBoolean()
 
     /**
      * Finds the first `GType` from @first that is also contained
@@ -126,10 +117,7 @@ public class ContentFormats(
      * @return The first common `GType` or %G_TYPE_INVALID if none.
      */
     public fun matchGtype(second: ContentFormats): ULong =
-        gdk_content_formats_match_gtype(
-            gdkContentFormatsPointer.reinterpret(),
-            second.gdkContentFormatsPointer
-        )
+        gdk_content_formats_match_gtype(gdkContentFormatsPointer.reinterpret(), second.gdkContentFormatsPointer)
 
     /**
      * Finds the first mime type from @first that is also contained
@@ -155,10 +143,7 @@ public class ContentFormats(
      * @param string a `GString` to print into
      */
     public fun print(string: GlibString): Unit =
-        gdk_content_formats_print(
-            gdkContentFormatsPointer.reinterpret(),
-            string.glibStringPointer
-        )
+        gdk_content_formats_print(gdkContentFormatsPointer.reinterpret(), string.glibStringPointer)
 
     /**
      * Increases the reference count of a `GdkContentFormats` by one.
@@ -178,10 +163,7 @@ public class ContentFormats(
      * @return a new `GdkContentFormats`
      */
     public fun union(second: ContentFormats): ContentFormats =
-        gdk_content_formats_union(
-            gdkContentFormatsPointer.reinterpret(),
-            second.gdkContentFormatsPointer
-        )!!.run {
+        gdk_content_formats_union(gdkContentFormatsPointer.reinterpret(), second.gdkContentFormatsPointer)!!.run {
             ContentFormats(reinterpret())
         }
 
@@ -255,10 +237,7 @@ public class ContentFormats(
         ): ContentFormats {
             memScoped {
                 return ContentFormats(
-                    gdk_content_formats_new(
-                        mimeTypes?.toCStringList(this),
-                        nMimeTypes
-                    )!!.reinterpret()
+                    gdk_content_formats_new(mimeTypes?.toCStringList(this), nMimeTypes)!!.reinterpret()
                 )
             }
         }

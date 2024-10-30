@@ -60,7 +60,8 @@ import kotlin.Unit
  */
 public open class EmojiChooser(
     pointer: CPointer<GtkEmojiChooser>,
-) : Popover(pointer.reinterpret()), KGTyped {
+) : Popover(pointer.reinterpret()),
+    KGTyped {
     public val gtkEmojiChooserPointer: CPointer<GtkEmojiChooser>
         get() = gPointer.reinterpret()
 
@@ -90,8 +91,7 @@ public open class EmojiChooser(
      * Emitted when the user selects an Emoji.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `text` the Unicode sequence for the picked
-     * Emoji, in UTF-8
+     * @param handler the Callback to connect. Params: `text` the Unicode sequence for the picked Emoji, in UTF-8
      */
     public fun connectEmojiPicked(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -108,9 +108,7 @@ public open class EmojiChooser(
 
     public companion object : TypeCompanion<EmojiChooser> {
         override val type: GeneratedClassKGType<EmojiChooser> =
-            GeneratedClassKGType(gtk_emoji_chooser_get_type()) {
-                EmojiChooser(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_emoji_chooser_get_type()) { EmojiChooser(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -124,9 +122,12 @@ private val connectEmojiPickedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Un
             text: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(text: String) -> Unit>().get().invoke(
-            text?.toKString()
-                ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    text: String,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(text?.toKString() ?: error("Expected not null string"))
+    }.reinterpret()

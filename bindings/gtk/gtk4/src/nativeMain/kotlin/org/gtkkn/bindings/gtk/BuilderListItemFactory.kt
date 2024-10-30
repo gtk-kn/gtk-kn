@@ -44,7 +44,8 @@ import kotlin.String
  */
 public open class BuilderListItemFactory(
     pointer: CPointer<GtkBuilderListItemFactory>,
-) : ListItemFactory(pointer.reinterpret()), KGTyped {
+) : ListItemFactory(pointer.reinterpret()),
+    KGTyped {
     public val gtkBuilderListItemFactoryPointer: CPointer<GtkBuilderListItemFactory>
         get() = gPointer.reinterpret()
 
@@ -72,8 +73,7 @@ public open class BuilderListItemFactory(
          *
          * @return The path to the resource
          */
-        get() =
-            gtk_builder_list_item_factory_get_resource(gtkBuilderListItemFactoryPointer.reinterpret())?.toKString()
+        get() = gtk_builder_list_item_factory_get_resource(gtkBuilderListItemFactoryPointer.reinterpret())?.toKString()
 
     /**
      * `GtkBuilderScope` to use when instantiating listitems
@@ -97,13 +97,15 @@ public open class BuilderListItemFactory(
      * @param bytes the `GBytes` containing the ui file to instantiate
      * @return a new `GtkBuilderListItemFactory`
      */
-    public constructor(scope: BuilderScope? = null, bytes: Bytes) :
-        this(
-            gtk_builder_list_item_factory_new_from_bytes(
-                scope?.gtkBuilderScopePointer,
-                bytes.glibBytesPointer
-            )!!.reinterpret()
-        )
+    public constructor(
+        scope: BuilderScope? = null,
+        bytes: Bytes,
+    ) : this(
+        gtk_builder_list_item_factory_new_from_bytes(
+            scope?.gtkBuilderScopePointer,
+            bytes.glibBytesPointer
+        )!!.reinterpret()
+    )
 
     /**
      * Creates a new `GtkBuilderListItemFactory` that instantiates widgets
@@ -113,13 +115,12 @@ public open class BuilderListItemFactory(
      * @param resourcePath valid path to a resource that contains the data
      * @return a new `GtkBuilderListItemFactory`
      */
-    public constructor(scope: BuilderScope? = null, resourcePath: String) :
-        this(
-            gtk_builder_list_item_factory_new_from_resource(
-                scope?.gtkBuilderScopePointer,
-                resourcePath
-            )!!.reinterpret()
-        )
+    public constructor(
+        scope: BuilderScope? = null,
+        resourcePath: String,
+    ) : this(
+        gtk_builder_list_item_factory_new_from_resource(scope?.gtkBuilderScopePointer, resourcePath)!!.reinterpret()
+    )
 
     /**
      * Gets the data used as the `GtkBuilder` UI template for constructing
@@ -152,9 +153,9 @@ public open class BuilderListItemFactory(
 
     public companion object : TypeCompanion<BuilderListItemFactory> {
         override val type: GeneratedClassKGType<BuilderListItemFactory> =
-            GeneratedClassKGType(gtk_builder_list_item_factory_get_type()) {
-                BuilderListItemFactory(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                gtk_builder_list_item_factory_get_type()
+            ) { BuilderListItemFactory(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

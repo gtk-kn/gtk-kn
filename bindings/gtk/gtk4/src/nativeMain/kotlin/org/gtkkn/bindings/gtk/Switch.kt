@@ -69,7 +69,9 @@ import kotlin.Unit
  */
 public open class Switch(
     pointer: CPointer<GtkSwitch>,
-) : Widget(pointer.reinterpret()), Actionable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Actionable,
+    KGTyped {
     public val gtkSwitchPointer: CPointer<GtkSwitch>
         get() = gPointer.reinterpret()
 
@@ -210,8 +212,7 @@ public open class Switch(
      * represented by the position of the switch.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `state` the new state of the switch. Returns
-     * true to stop the signal emission
+     * @param handler the Callback to connect. Params: `state` the new state of the switch. Returns true to stop the signal emission
      */
     public fun connectStateSet(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -242,8 +243,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectStateSetFunc: CPointer<CFunction<(Int) -> Int>> =
     staticCFunction {
@@ -251,6 +251,9 @@ private val connectStateSetFunc: CPointer<CFunction<(Int) -> Int>> =
             state: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(state: Boolean) -> Boolean>().get().invoke(state.asBoolean()).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(state: Boolean) -> Boolean>()
+            .get()
+            .invoke(state.asBoolean())
+            .asGBoolean()
+    }.reinterpret()

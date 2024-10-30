@@ -62,7 +62,9 @@ import kotlin.Unit
  */
 public open class DBusInterfaceSkeleton(
     pointer: CPointer<GDBusInterfaceSkeleton>,
-) : Object(pointer.reinterpret()), DBusInterface, KGTyped {
+) : Object(pointer.reinterpret()),
+    DBusInterface,
+    KGTyped {
     public val gioDBusInterfaceSkeletonPointer: CPointer<GDBusInterfaceSkeleton>
         get() = gPointer.reinterpret()
 
@@ -224,10 +226,7 @@ public open class DBusInterfaceSkeleton(
      * @since 2.30
      */
     public open fun setFlags(flags: DBusInterfaceSkeletonFlags): Unit =
-        g_dbus_interface_skeleton_set_flags(
-            gioDBusInterfaceSkeletonPointer.reinterpret(),
-            flags.mask
-        )
+        g_dbus_interface_skeleton_set_flags(gioDBusInterfaceSkeletonPointer.reinterpret(), flags.mask)
 
     /**
      * Stops exporting @interface_ on all connections it is exported on.
@@ -290,8 +289,7 @@ public open class DBusInterfaceSkeleton(
      * to was exported in.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `invocation` A #GDBusMethodInvocation..
-     * Returns true if the call is authorized, false otherwise.
+     * @param handler the Callback to connect. Params: `invocation` A #GDBusMethodInvocation.. Returns true if the call is authorized, false otherwise.
      * @since 2.30
      */
     public fun connectGAuthorizeMethod(
@@ -309,9 +307,7 @@ public open class DBusInterfaceSkeleton(
 
     public companion object : TypeCompanion<DBusInterfaceSkeleton> {
         override val type: GeneratedClassKGType<DBusInterfaceSkeleton> =
-            GeneratedClassKGType(g_dbus_interface_skeleton_get_type()) {
-                DBusInterfaceSkeleton(it.reinterpret())
-            }
+            GeneratedClassKGType(g_dbus_interface_skeleton_get_type()) { DBusInterfaceSkeleton(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -326,10 +322,12 @@ private val connectGAuthorizeMethodFunc:
             invocation: CPointer<GDBusMethodInvocation>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(
-            invocation!!.run {
-                DBusMethodInvocation(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(invocation: DBusMethodInvocation) -> Boolean>()
+            .get()
+            .invoke(
+                invocation!!.run {
+                    DBusMethodInvocation(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()

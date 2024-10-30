@@ -61,7 +61,9 @@ import kotlin.Unit
  */
 public open class ColorButton(
     pointer: CPointer<GtkColorButton>,
-) : Widget(pointer.reinterpret()), ColorChooser, KGTyped {
+) : Widget(pointer.reinterpret()),
+    ColorChooser,
+    KGTyped {
     public val gtkColorButtonPointer: CPointer<GtkColorButton>
         get() = gPointer.reinterpret()
 
@@ -93,11 +95,7 @@ public open class ColorButton(
          *
          * @param modal true to make the dialog modal
          */
-        set(modal) =
-            gtk_color_button_set_modal(
-                gtkColorButtonPointer.reinterpret(),
-                modal.asGBoolean()
-            )
+        set(modal) = gtk_color_button_set_modal(gtkColorButtonPointer.reinterpret(), modal.asGBoolean())
 
     /**
      * The title of the color chooser dialog
@@ -138,8 +136,7 @@ public open class ColorButton(
      * @param rgba A `GdkRGBA` to set the current color with
      * @return a new color button
      */
-    public constructor(rgba: RGBA) :
-        this(gtk_color_button_new_with_rgba(rgba.gdkRGBAPointer)!!.reinterpret())
+    public constructor(rgba: RGBA) : this(gtk_color_button_new_with_rgba(rgba.gdkRGBAPointer)!!.reinterpret())
 
     /**
      * Gets whether the dialog is modal.
@@ -238,8 +235,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectColorSetFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -247,5 +243,4 @@ private val connectColorSetFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

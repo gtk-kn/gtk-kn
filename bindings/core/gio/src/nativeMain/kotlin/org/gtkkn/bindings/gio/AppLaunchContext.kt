@@ -43,7 +43,8 @@ import org.gtkkn.bindings.glib.List as GlibList
  */
 public open class AppLaunchContext(
     pointer: CPointer<GAppLaunchContext>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioAppLaunchContextPointer: CPointer<GAppLaunchContext>
         get() = gPointer.reinterpret()
 
@@ -95,14 +96,11 @@ public open class AppLaunchContext(
      *
      * The returned token may be referred to equivalently as an ‘activation token’
      * (using Wayland terminology) or a ‘startup sequence ID’ (using X11 terminology).
-     * The two [are
-     * interoperable](https://gitlab.freedesktop.org/wayland/wayland-protocols/-/blob/main/staging/xdg-activation/x11-interoperation.rst).
+     * The two [are interoperable](https://gitlab.freedesktop.org/wayland/wayland-protocols/-/blob/main/staging/xdg-activation/x11-interoperation.rst).
      *
-     * Activation tokens are defined in the [XDG Activation
-     * Protocol](https://wayland.app/protocols/xdg-activation-v1),
+     * Activation tokens are defined in the [XDG Activation Protocol](https://wayland.app/protocols/xdg-activation-v1),
      * and startup notification IDs are defined in the
-     * [freedesktop.org Startup Notification
-     * Protocol](http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt).
+     * [freedesktop.org Startup Notification Protocol](http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt).
      *
      * Support for the XDG Activation Protocol was added in GLib 2.76.
      *
@@ -125,14 +123,10 @@ public open class AppLaunchContext(
      * Called when an application has failed to launch, so that it can cancel
      * the application startup notification started in g_app_launch_context_get_startup_notify_id().
      *
-     * @param startupNotifyId the startup notification id that was returned by
-     * g_app_launch_context_get_startup_notify_id().
+     * @param startupNotifyId the startup notification id that was returned by g_app_launch_context_get_startup_notify_id().
      */
     public open fun launchFailed(startupNotifyId: String): Unit =
-        g_app_launch_context_launch_failed(
-            gioAppLaunchContextPointer.reinterpret(),
-            startupNotifyId
-        )
+        g_app_launch_context_launch_failed(gioAppLaunchContextPointer.reinterpret(), startupNotifyId)
 
     /**
      * Arranges for @variable to be set to @value in the child's
@@ -167,8 +161,7 @@ public open class AppLaunchContext(
      * times, one for each spawned instance.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `startupNotifyId` the startup notification id
-     * for the failed launch
+     * @param handler the Callback to connect. Params: `startupNotifyId` the startup notification id for the failed launch
      * @since 2.36
      */
     public fun connectLaunchFailed(
@@ -205,8 +198,7 @@ public open class AppLaunchContext(
      * times, one for each spawned instance.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `info` the #GAppInfo that is about to be
-     * launched; `platformData` additional platform-specific data for this launch
+     * @param handler the Callback to connect. Params: `info` the #GAppInfo that is about to be launched; `platformData` additional platform-specific data for this launch
      * @since 2.72
      */
     public fun connectLaunchStarted(
@@ -245,8 +237,7 @@ public open class AppLaunchContext(
      * signal has been emitted, then you can duplicate `pid` using `DuplicateHandle()`.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `info` the #GAppInfo that was just launched;
-     * `platformData` additional platform-specific data for this launch
+     * @param handler the Callback to connect. Params: `info` the #GAppInfo that was just launched; `platformData` additional platform-specific data for this launch
      * @since 2.36
      */
     public fun connectLaunched(
@@ -264,9 +255,7 @@ public open class AppLaunchContext(
 
     public companion object : TypeCompanion<AppLaunchContext> {
         override val type: GeneratedClassKGType<AppLaunchContext> =
-            GeneratedClassKGType(g_app_launch_context_get_type()) {
-                AppLaunchContext(it.reinterpret())
-            }
+            GeneratedClassKGType(g_app_launch_context_get_type()) { AppLaunchContext(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -281,32 +270,19 @@ private val connectLaunchFailedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> U
             userData: COpaquePointer,
         ->
         userData.asStableRef<(startupNotifyId: String) -> Unit>().get().invoke(
-            startupNotifyId?.toKString()
-                ?: error("Expected not null string")
+            startupNotifyId?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-private val connectLaunchStartedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GAppInfo>,
-            CPointer<GVariant>?,
-        ) -> Unit
-    >
-> =
+private val connectLaunchStartedFunc:
+    CPointer<CFunction<(CPointer<GAppInfo>, CPointer<GVariant>?) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             info: CPointer<GAppInfo>?,
             platformData: CPointer<GVariant>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                info: AppInfo,
-                platformData: Variant?,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(info: AppInfo, platformData: Variant?) -> Unit>().get().invoke(
             info!!.run {
                 AppInfo.wrap(reinterpret())
             },
@@ -314,17 +290,10 @@ private val connectLaunchStartedFunc: CPointer<
                 Variant(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-private val connectLaunchedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GAppInfo>,
-            CPointer<GVariant>,
-        ) -> Unit
-    >
-> =
+private val connectLaunchedFunc:
+    CPointer<CFunction<(CPointer<GAppInfo>, CPointer<GVariant>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             info: CPointer<GAppInfo>?,
@@ -339,5 +308,4 @@ private val connectLaunchedFunc: CPointer<
                 Variant(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -30,7 +30,10 @@ import kotlin.Unit
  */
 public open class MemoryInputStream(
     pointer: CPointer<GMemoryInputStream>,
-) : InputStream(pointer.reinterpret()), PollableInputStream, Seekable, KGTyped {
+) : InputStream(pointer.reinterpret()),
+    PollableInputStream,
+    Seekable,
+    KGTyped {
     public val gioMemoryInputStreamPointer: CPointer<GMemoryInputStream>
         get() = gPointer.reinterpret()
 
@@ -54,8 +57,9 @@ public open class MemoryInputStream(
      * @return new #GInputStream read from @bytes
      * @since 2.34
      */
-    public constructor(bytes: Bytes) :
-        this(g_memory_input_stream_new_from_bytes(bytes.glibBytesPointer)!!.reinterpret())
+    public constructor(
+        bytes: Bytes,
+    ) : this(g_memory_input_stream_new_from_bytes(bytes.glibBytesPointer)!!.reinterpret())
 
     /**
      * Appends @bytes to data that can be read from the input stream.
@@ -64,16 +68,11 @@ public open class MemoryInputStream(
      * @since 2.34
      */
     public open fun addBytes(bytes: Bytes): Unit =
-        g_memory_input_stream_add_bytes(
-            gioMemoryInputStreamPointer.reinterpret(),
-            bytes.glibBytesPointer
-        )
+        g_memory_input_stream_add_bytes(gioMemoryInputStreamPointer.reinterpret(), bytes.glibBytesPointer)
 
     public companion object : TypeCompanion<MemoryInputStream> {
         override val type: GeneratedClassKGType<MemoryInputStream> =
-            GeneratedClassKGType(g_memory_input_stream_get_type()) {
-                MemoryInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(g_memory_input_stream_get_type()) { MemoryInputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

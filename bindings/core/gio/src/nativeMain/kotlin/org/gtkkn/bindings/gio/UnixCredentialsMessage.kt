@@ -39,7 +39,8 @@ import kotlin.Boolean
  */
 public open class UnixCredentialsMessage(
     pointer: CPointer<GUnixCredentialsMessage>,
-) : SocketControlMessage(pointer.reinterpret()), KGTyped {
+) : SocketControlMessage(pointer.reinterpret()),
+    KGTyped {
     public val gioUnixCredentialsMessagePointer: CPointer<GUnixCredentialsMessage>
         get() = gPointer.reinterpret()
 
@@ -75,12 +76,11 @@ public open class UnixCredentialsMessage(
      * @return a new #GUnixCredentialsMessage
      * @since 2.26
      */
-    public constructor(credentials: Credentials) :
-        this(
-            g_unix_credentials_message_new_with_credentials(
-                credentials.gioCredentialsPointer.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        credentials: Credentials,
+    ) : this(
+        g_unix_credentials_message_new_with_credentials(credentials.gioCredentialsPointer.reinterpret())!!.reinterpret()
+    )
 
     /**
      * Gets the credentials stored in @message.
@@ -95,9 +95,7 @@ public open class UnixCredentialsMessage(
 
     public companion object : TypeCompanion<UnixCredentialsMessage> {
         override val type: GeneratedClassKGType<UnixCredentialsMessage> =
-            GeneratedClassKGType(g_unix_credentials_message_get_type()) {
-                UnixCredentialsMessage(it.reinterpret())
-            }
+            GeneratedClassKGType(g_unix_credentials_message_get_type()) { UnixCredentialsMessage(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -114,12 +114,12 @@ abstract class CallableBlueprintBuilder<T : Any>(
             logger.debug { "Found destroy notify param for ${blueprintObjectType()} ${blueprintObjectName()}" }
         }
 
-        return parameters.parameters.mapNotNull {
-            when (it) {
+        return parameters.parameters.mapNotNull { param ->
+            when (param) {
                 destroyDataParam -> null // bundled into callback param
                 userDataParam -> null  // bundled into callback param
-                closureParam -> CallbackParam(closureParam.type, it, userDataParam, destroyDataParam)
-                else -> SimpleParam(it)
+                closureParam -> CallbackParam(closureParam.type, param, userDataParam, destroyDataParam)
+                else -> SimpleParam(param)
             }
         }
     }

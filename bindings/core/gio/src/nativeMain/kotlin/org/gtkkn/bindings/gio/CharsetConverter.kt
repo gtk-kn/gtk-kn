@@ -42,7 +42,10 @@ import kotlin.Unit
  */
 public open class CharsetConverter(
     pointer: CPointer<GCharsetConverter>,
-) : Object(pointer.reinterpret()), Converter, Initable, KGTyped {
+) : Object(pointer.reinterpret()),
+    Converter,
+    Initable,
+    KGTyped {
     public val gioCharsetConverterPointer: CPointer<GCharsetConverter>
         get() = gPointer.reinterpret()
 
@@ -64,8 +67,7 @@ public open class CharsetConverter(
          * @return true if fallbacks are used by @converter
          * @since 2.24
          */
-        get() =
-            g_charset_converter_get_use_fallback(gioCharsetConverterPointer.reinterpret()).asBoolean()
+        get() = g_charset_converter_get_use_fallback(gioCharsetConverterPointer.reinterpret()).asBoolean()
 
         /**
          * Sets the #GCharsetConverter:use-fallback property.
@@ -73,11 +75,9 @@ public open class CharsetConverter(
          * @param useFallback true to use fallbacks
          * @since 2.24
          */
-        set(useFallback) =
-            g_charset_converter_set_use_fallback(
-                gioCharsetConverterPointer.reinterpret(),
-                useFallback.asGBoolean()
-            )
+        set(
+            useFallback
+        ) = g_charset_converter_set_use_fallback(gioCharsetConverterPointer.reinterpret(), useFallback.asGBoolean())
 
     /**
      * Creates a new #GCharsetConverter.
@@ -124,16 +124,11 @@ public open class CharsetConverter(
      * @since 2.24
      */
     public open fun setUseFallback(useFallback: Boolean): Unit =
-        g_charset_converter_set_use_fallback(
-            gioCharsetConverterPointer.reinterpret(),
-            useFallback.asGBoolean()
-        )
+        g_charset_converter_set_use_fallback(gioCharsetConverterPointer.reinterpret(), useFallback.asGBoolean())
 
     public companion object : TypeCompanion<CharsetConverter> {
         override val type: GeneratedClassKGType<CharsetConverter> =
-            GeneratedClassKGType(g_charset_converter_get_type()) {
-                CharsetConverter(it.reinterpret())
-            }
+            GeneratedClassKGType(g_charset_converter_get_type()) { CharsetConverter(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

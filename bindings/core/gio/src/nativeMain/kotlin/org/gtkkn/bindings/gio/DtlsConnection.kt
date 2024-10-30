@@ -97,7 +97,10 @@ import kotlin.collections.List
  *
  * @since 2.48
  */
-public interface DtlsConnection : Interface, DatagramBased, KGTyped {
+public interface DtlsConnection :
+    Interface,
+    DatagramBased,
+    KGTyped {
     public val gioDtlsConnectionPointer: CPointer<GDtlsConnection>
 
     override val gioDatagramBasedPointer: CPointer<GDatagramBased>
@@ -175,7 +178,9 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
          * @param database a #GTlsDatabase
          * @since 2.48
          */
-        set(database) =
+        set(
+            database
+        ) =
             g_dtls_connection_set_database(
                 gioDtlsConnectionPointer.reinterpret(),
                 database?.gioTlsDatabasePointer?.reinterpret()
@@ -213,7 +218,9 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
          * @param interaction an interaction object, or null
          * @since 2.48
          */
-        set(interaction) =
+        set(
+            interaction
+        ) =
             g_dtls_connection_set_interaction(
                 gioDtlsConnectionPointer.reinterpret(),
                 interaction?.gioTlsInteractionPointer?.reinterpret()
@@ -238,8 +245,7 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
          * @return the negotiated protocol, or null
          * @since 2.60
          */
-        get() =
-            g_dtls_connection_get_negotiated_protocol(gioDtlsConnectionPointer.reinterpret())?.toKString()
+        get() = g_dtls_connection_get_negotiated_protocol(gioDtlsConnectionPointer.reinterpret())?.toKString()
 
     /**
      * The connection's peer's certificate, after the TLS handshake has
@@ -345,11 +351,7 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
          * @param mode the rehandshaking mode
          * @since 2.48
          */
-        set(mode) =
-            g_dtls_connection_set_rehandshake_mode(
-                gioDtlsConnectionPointer.reinterpret(),
-                mode.nativeValue
-            )
+        set(mode) = g_dtls_connection_set_rehandshake_mode(gioDtlsConnectionPointer.reinterpret(), mode.nativeValue)
 
     /**
      * Whether or not proper TLS close notification is required.
@@ -366,8 +368,7 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
          * @return true if @conn requires a proper TLS close notification.
          * @since 2.48
          */
-        get() =
-            g_dtls_connection_get_require_close_notify(gioDtlsConnectionPointer.reinterpret()).asBoolean()
+        get() = g_dtls_connection_get_require_close_notify(gioDtlsConnectionPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether or not @conn expects a proper TLS close notification
@@ -399,7 +400,9 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
          * @param requireCloseNotify whether or not to require close notification
          * @since 2.48
          */
-        set(requireCloseNotify) =
+        set(
+            requireCloseNotify
+        ) =
             g_dtls_connection_set_require_close_notify(
                 gioDtlsConnectionPointer.reinterpret(),
                 requireCloseNotify.asGBoolean()
@@ -749,8 +752,7 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
      * protocol after the handshake.  Specifying null for the the value
      * of @protocols will disable ALPN negotiation.
      *
-     * See [IANA TLS ALPN Protocol
-     * IDs](https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids)
+     * See [IANA TLS ALPN Protocol IDs](https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids)
      * for a list of registered protocol IDs.
      *
      * @param protocols a null-terminated
@@ -843,10 +845,7 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
      * @since 2.48
      */
     public fun setRehandshakeMode(mode: TlsRehandshakeMode): Unit =
-        g_dtls_connection_set_rehandshake_mode(
-            gioDtlsConnectionPointer.reinterpret(),
-            mode.nativeValue
-        )
+        g_dtls_connection_set_rehandshake_mode(gioDtlsConnectionPointer.reinterpret(), mode.nativeValue)
 
     /**
      * Sets whether or not @conn expects a proper TLS close notification
@@ -1028,8 +1027,7 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
      * handler until the UI thread returns an answer.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `peerCert` the peer's #GTlsCertificate;
-     * `errors` the problems with @peer_cert.. Returns true to accept @peer_cert (which will also
+     * @param handler the Callback to connect. Params: `peerCert` the peer's #GTlsCertificate; `errors` the problems with @peer_cert.. Returns true to accept @peer_cert (which will also
      * immediately end the signal emission). false to allow the signal
      * emission to continue, which will cause the handshake to fail if
      * no one else overrides it.
@@ -1066,32 +1064,23 @@ public interface DtlsConnection : Interface, DatagramBased, KGTyped {
     }
 }
 
-private val connectAcceptCertificateFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GTlsCertificate>,
-            GTlsCertificateFlags,
-        ) -> Int
-    >
-> =
+private val connectAcceptCertificateFunc:
+    CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             peerCert: CPointer<GTlsCertificate>?,
             errors: GTlsCertificateFlags,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                peerCert: TlsCertificate,
-                errors: TlsCertificateFlags,
-            ) -> Boolean
-        >().get().invoke(
-            peerCert!!.run {
-                TlsCertificate(reinterpret())
-            },
-            errors.run {
-                TlsCertificateFlags(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(peerCert: TlsCertificate, errors: TlsCertificateFlags) -> Boolean>()
+            .get()
+            .invoke(
+                peerCert!!.run {
+                    TlsCertificate(reinterpret())
+                },
+                errors.run {
+                    TlsCertificateFlags(this)
+                }
+            ).asGBoolean()
+    }.reinterpret()

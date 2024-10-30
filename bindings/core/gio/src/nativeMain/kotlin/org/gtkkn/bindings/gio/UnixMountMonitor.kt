@@ -29,7 +29,8 @@ import kotlin.Unit
  */
 public open class UnixMountMonitor(
     pointer: CPointer<GUnixMountMonitor>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioUnixMountMonitorPointer: CPointer<GUnixMountMonitor>
         get() = gPointer.reinterpret()
 
@@ -99,9 +100,7 @@ public open class UnixMountMonitor(
 
     public companion object : TypeCompanion<UnixMountMonitor> {
         override val type: GeneratedClassKGType<UnixMountMonitor> =
-            GeneratedClassKGType(g_unix_mount_monitor_get_type()) {
-                UnixMountMonitor(it.reinterpret())
-            }
+            GeneratedClassKGType(g_unix_mount_monitor_get_type()) { UnixMountMonitor(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -134,8 +133,7 @@ private val connectMountpointsChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMountsChangedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -143,5 +141,4 @@ private val connectMountsChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

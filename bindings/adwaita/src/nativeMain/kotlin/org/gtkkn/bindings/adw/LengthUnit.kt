@@ -64,12 +64,7 @@ public enum class LengthUnit(
             unit: LengthUnit,
             `value`: Double,
             settings: Settings? = null,
-        ): Double =
-            adw_length_unit_from_px(
-                unit.nativeValue,
-                `value`,
-                settings?.gtkSettingsPointer?.reinterpret()
-            )
+        ): Double = adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
 
         /**
          * Converts @value from @unit to pixels.
@@ -84,11 +79,6 @@ public enum class LengthUnit(
             unit: LengthUnit,
             `value`: Double,
             settings: Settings? = null,
-        ): Double =
-            adw_length_unit_to_px(
-                unit.nativeValue,
-                `value`,
-                settings?.gtkSettingsPointer?.reinterpret()
-            )
+        ): Double = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
     }
 }

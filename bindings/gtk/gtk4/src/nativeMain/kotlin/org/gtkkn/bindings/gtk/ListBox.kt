@@ -124,7 +124,8 @@ import kotlin.Unit
  */
 public open class ListBox(
     pointer: CPointer<GtkListBox>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkListBoxPointer: CPointer<GtkListBox>
         get() = gPointer.reinterpret()
 
@@ -147,8 +148,7 @@ public open class ListBox(
          *
          * @return true if rows are activated on single click, false otherwise
          */
-        get() =
-            gtk_list_box_get_activate_on_single_click(gtkListBoxPointer.reinterpret()).asBoolean()
+        get() = gtk_list_box_get_activate_on_single_click(gtkListBoxPointer.reinterpret()).asBoolean()
 
         /**
          * If @single is true, rows will be activated when you click on them,
@@ -156,11 +156,7 @@ public open class ListBox(
          *
          * @param single a boolean
          */
-        set(single) =
-            gtk_list_box_set_activate_on_single_click(
-                gtkListBoxPointer.reinterpret(),
-                single.asGBoolean()
-            )
+        set(single) = gtk_list_box_set_activate_on_single_click(gtkListBoxPointer.reinterpret(), single.asGBoolean())
 
     /**
      * The selection mode used by the list box.
@@ -181,11 +177,7 @@ public open class ListBox(
          *
          * @param mode The `GtkSelectionMode`
          */
-        set(mode) =
-            gtk_list_box_set_selection_mode(
-                gtkListBoxPointer.reinterpret(),
-                mode.nativeValue
-            )
+        set(mode) = gtk_list_box_set_selection_mode(gtkListBoxPointer.reinterpret(), mode.nativeValue)
 
     /**
      * Whether to show separators between rows.
@@ -205,11 +197,9 @@ public open class ListBox(
          *
          * @param showSeparators true to show separators
          */
-        set(showSeparators) =
-            gtk_list_box_set_show_separators(
-                gtkListBoxPointer.reinterpret(),
-                showSeparators.asGBoolean()
-            )
+        set(
+            showSeparators
+        ) = gtk_list_box_set_show_separators(gtkListBoxPointer.reinterpret(), showSeparators.asGBoolean())
 
     /**
      * Creates a new `GtkListBox` container.
@@ -227,10 +217,7 @@ public open class ListBox(
      * @param child the `GtkWidget` to add
      */
     public open fun append(child: Widget): Unit =
-        gtk_list_box_append(
-            gtkListBoxPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_list_box_append(gtkListBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Binds @model to @box.
@@ -279,10 +266,7 @@ public open class ListBox(
      * @param row a `GtkListBoxRow`
      */
     public open fun dragHighlightRow(row: ListBoxRow): Unit =
-        gtk_list_box_drag_highlight_row(
-            gtkListBoxPointer.reinterpret(),
-            row.gtkListBoxRowPointer.reinterpret()
-        )
+        gtk_list_box_drag_highlight_row(gtkListBoxPointer.reinterpret(), row.gtkListBoxRowPointer.reinterpret())
 
     /**
      * If a row has previously been highlighted via gtk_list_box_drag_highlight_row(),
@@ -394,12 +378,7 @@ public open class ListBox(
     public open fun insert(
         child: Widget,
         position: Int,
-    ): Unit =
-        gtk_list_box_insert(
-            gtkListBoxPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            position
-        )
+    ): Unit = gtk_list_box_insert(gtkListBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Update the filtering for all rows.
@@ -439,10 +418,7 @@ public open class ListBox(
      * @param child the `GtkWidget` to add
      */
     public open fun prepend(child: Widget): Unit =
-        gtk_list_box_prepend(
-            gtkListBoxPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_list_box_prepend(gtkListBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes a child from @box.
@@ -450,10 +426,7 @@ public open class ListBox(
      * @param child the child to remove
      */
     public open fun remove(child: Widget): Unit =
-        gtk_list_box_remove(
-            gtkListBoxPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_list_box_remove(gtkListBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes all rows from @box.
@@ -475,10 +448,7 @@ public open class ListBox(
      * @param row The row to select
      */
     public open fun selectRow(row: ListBoxRow? = null): Unit =
-        gtk_list_box_select_row(
-            gtkListBoxPointer.reinterpret(),
-            row?.gtkListBoxRowPointer?.reinterpret()
-        )
+        gtk_list_box_select_row(gtkListBoxPointer.reinterpret(), row?.gtkListBoxRowPointer?.reinterpret())
 
     /**
      * Calls a function for each selected child.
@@ -501,10 +471,7 @@ public open class ListBox(
      * @param single a boolean
      */
     public open fun setActivateOnSingleClick(single: Boolean): Unit =
-        gtk_list_box_set_activate_on_single_click(
-            gtkListBoxPointer.reinterpret(),
-            single.asGBoolean()
-        )
+        gtk_list_box_set_activate_on_single_click(gtkListBoxPointer.reinterpret(), single.asGBoolean())
 
     /**
      * Sets the adjustment (if any) that the widget uses to
@@ -521,10 +488,7 @@ public open class ListBox(
      * @param adjustment the adjustment
      */
     public open fun setAdjustment(adjustment: Adjustment? = null): Unit =
-        gtk_list_box_set_adjustment(
-            gtkListBoxPointer.reinterpret(),
-            adjustment?.gtkAdjustmentPointer?.reinterpret()
-        )
+        gtk_list_box_set_adjustment(gtkListBoxPointer.reinterpret(), adjustment?.gtkAdjustmentPointer?.reinterpret())
 
     /**
      * By setting a filter function on the @box one can decide dynamically which
@@ -595,10 +559,7 @@ public open class ListBox(
      * @param placeholder a `GtkWidget`
      */
     public open fun setPlaceholder(placeholder: Widget? = null): Unit =
-        gtk_list_box_set_placeholder(
-            gtkListBoxPointer.reinterpret(),
-            placeholder?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_list_box_set_placeholder(gtkListBoxPointer.reinterpret(), placeholder?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets how selection works in the listbox.
@@ -615,10 +576,7 @@ public open class ListBox(
      * @param showSeparators true to show separators
      */
     public open fun setShowSeparators(showSeparators: Boolean): Unit =
-        gtk_list_box_set_show_separators(
-            gtkListBoxPointer.reinterpret(),
-            showSeparators.asGBoolean()
-        )
+        gtk_list_box_set_show_separators(gtkListBoxPointer.reinterpret(), showSeparators.asGBoolean())
 
     /**
      * Sets a sort function.
@@ -655,10 +613,7 @@ public open class ListBox(
      * @param row the row to unselect
      */
     public open fun unselectRow(row: ListBoxRow): Unit =
-        gtk_list_box_unselect_row(
-            gtkListBoxPointer.reinterpret(),
-            row.gtkListBoxRowPointer.reinterpret()
-        )
+        gtk_list_box_unselect_row(gtkListBoxPointer.reinterpret(), row.gtkListBoxRowPointer.reinterpret())
 
     /**
      *
@@ -849,8 +804,7 @@ private val connectActivateCursorRowFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMoveCursorFunc: CPointer<
     CFunction<
@@ -870,23 +824,25 @@ private val connectMoveCursorFunc: CPointer<
             p2: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                `object`: MovementStep,
-                p0: Int,
-                p1: Boolean,
-                p2: Boolean,
-            ) -> Unit
-        >().get().invoke(
-            `object`.run {
-                MovementStep.fromNativeValue(this)
-            },
-            p0,
-            p1.asBoolean(),
-            p2.asBoolean()
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    `object`: MovementStep,
+                    p0: Int,
+                    p1: Boolean,
+                    p2: Boolean,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                `object`.run {
+                    MovementStep.fromNativeValue(this)
+                },
+                p0,
+                p1.asBoolean(),
+                p2.asBoolean()
+            )
+    }.reinterpret()
 
 private val connectRowActivatedFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>) -> Unit>> =
     staticCFunction {
@@ -899,8 +855,7 @@ private val connectRowActivatedFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>
                 ListBoxRow(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectRowSelectedFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>?) -> Unit>> =
     staticCFunction {
@@ -913,8 +868,7 @@ private val connectRowSelectedFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>?
                 ListBoxRow(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSelectAllFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -922,8 +876,7 @@ private val connectSelectAllFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSelectedRowsChangedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -931,8 +884,7 @@ private val connectSelectedRowsChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectToggleCursorRowFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -940,8 +892,7 @@ private val connectToggleCursorRowFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectUnselectAllFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -949,5 +900,4 @@ private val connectUnselectAllFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

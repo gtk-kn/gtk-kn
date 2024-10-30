@@ -32,7 +32,8 @@ import kotlin.Unit
  */
 public open class StringSorter(
     pointer: CPointer<GtkStringSorter>,
-) : Sorter(pointer.reinterpret()), KGTyped {
+) : Sorter(pointer.reinterpret()),
+    KGTyped {
     public val gtkStringSorterPointer: CPointer<GtkStringSorter>
         get() = gPointer.reinterpret()
 
@@ -65,11 +66,7 @@ public open class StringSorter(
          * @param collation the collation method
          * @since 4.10
          */
-        set(collation) =
-            gtk_string_sorter_set_collation(
-                gtkStringSorterPointer.reinterpret(),
-                collation.nativeValue
-            )
+        set(collation) = gtk_string_sorter_set_collation(gtkStringSorterPointer.reinterpret(), collation.nativeValue)
 
     /**
      * The expression to evaluate on item to get a string to compare with.
@@ -92,11 +89,9 @@ public open class StringSorter(
          *
          * @param expression a `GtkExpression`
          */
-        set(expression) =
-            gtk_string_sorter_set_expression(
-                gtkStringSorterPointer.reinterpret(),
-                expression?.gPointer?.reinterpret()
-            )
+        set(
+            expression
+        ) = gtk_string_sorter_set_expression(gtkStringSorterPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * If sorting is case sensitive.
@@ -114,11 +109,9 @@ public open class StringSorter(
          *
          * @param ignoreCase true to ignore case differences
          */
-        set(ignoreCase) =
-            gtk_string_sorter_set_ignore_case(
-                gtkStringSorterPointer.reinterpret(),
-                ignoreCase.asGBoolean()
-            )
+        set(
+            ignoreCase
+        ) = gtk_string_sorter_set_ignore_case(gtkStringSorterPointer.reinterpret(), ignoreCase.asGBoolean())
 
     /**
      * Creates a new string sorter that compares items using the given
@@ -130,8 +123,9 @@ public open class StringSorter(
      * @param expression The expression to evaluate
      * @return a new `GtkStringSorter`
      */
-    public constructor(expression: Expression? = null) :
-        this(gtk_string_sorter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        expression: Expression? = null,
+    ) : this(gtk_string_sorter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Gets which collation method the sorter uses.
@@ -169,10 +163,7 @@ public open class StringSorter(
      * @since 4.10
      */
     public open fun setCollation(collation: Collation): Unit =
-        gtk_string_sorter_set_collation(
-            gtkStringSorterPointer.reinterpret(),
-            collation.nativeValue
-        )
+        gtk_string_sorter_set_collation(gtkStringSorterPointer.reinterpret(), collation.nativeValue)
 
     /**
      * Sets the expression that is evaluated to obtain strings from items.
@@ -182,10 +173,7 @@ public open class StringSorter(
      * @param expression a `GtkExpression`
      */
     public open fun setExpression(expression: Expression? = null): Unit =
-        gtk_string_sorter_set_expression(
-            gtkStringSorterPointer.reinterpret(),
-            expression?.gPointer?.reinterpret()
-        )
+        gtk_string_sorter_set_expression(gtkStringSorterPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * Sets whether the sorter will ignore case differences.
@@ -193,16 +181,11 @@ public open class StringSorter(
      * @param ignoreCase true to ignore case differences
      */
     public open fun setIgnoreCase(ignoreCase: Boolean): Unit =
-        gtk_string_sorter_set_ignore_case(
-            gtkStringSorterPointer.reinterpret(),
-            ignoreCase.asGBoolean()
-        )
+        gtk_string_sorter_set_ignore_case(gtkStringSorterPointer.reinterpret(), ignoreCase.asGBoolean())
 
     public companion object : TypeCompanion<StringSorter> {
         override val type: GeneratedClassKGType<StringSorter> =
-            GeneratedClassKGType(gtk_string_sorter_get_type()) {
-                StringSorter(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_string_sorter_get_type()) { StringSorter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

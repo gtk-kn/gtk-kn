@@ -78,7 +78,8 @@ import kotlin.Unit
  */
 public open class ExpanderRow(
     pointer: CPointer<AdwExpanderRow>,
-) : PreferencesRow(pointer.reinterpret()), KGTyped {
+) : PreferencesRow(pointer.reinterpret()),
+    KGTyped {
     public val adwExpanderRowPointer: CPointer<AdwExpanderRow>
         get() = gPointer.reinterpret()
 
@@ -103,19 +104,16 @@ public open class ExpanderRow(
          *
          * @return whether the expansion of @self is enabled.
          */
-        get() =
-            adw_expander_row_get_enable_expansion(adwExpanderRowPointer.reinterpret()).asBoolean()
+        get() = adw_expander_row_get_enable_expansion(adwExpanderRowPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the expansion of @self is enabled.
          *
          * @param enableExpansion whether to enable the expansion
          */
-        set(enableExpansion) =
-            adw_expander_row_set_enable_expansion(
-                adwExpanderRowPointer.reinterpret(),
-                enableExpansion.asGBoolean()
-            )
+        set(
+            enableExpansion
+        ) = adw_expander_row_set_enable_expansion(adwExpanderRowPointer.reinterpret(), enableExpansion.asGBoolean())
 
     /**
      * Whether the row is expanded.
@@ -133,11 +131,7 @@ public open class ExpanderRow(
          *
          * @param expanded whether to expand the row
          */
-        set(expanded) =
-            adw_expander_row_set_expanded(
-                adwExpanderRowPointer.reinterpret(),
-                expanded.asGBoolean()
-            )
+        set(expanded) = adw_expander_row_set_expanded(adwExpanderRowPointer.reinterpret(), expanded.asGBoolean())
 
     /**
      * The icon name for this row.
@@ -155,11 +149,7 @@ public open class ExpanderRow(
          *
          * @param iconName the icon name
          */
-        set(iconName) =
-            adw_expander_row_set_icon_name(
-                adwExpanderRowPointer.reinterpret(),
-                iconName
-            )
+        set(iconName) = adw_expander_row_set_icon_name(adwExpanderRowPointer.reinterpret(), iconName)
 
     /**
      * Whether the switch enabling the expansion is visible.
@@ -170,19 +160,16 @@ public open class ExpanderRow(
          *
          * @return whether the switch enabling the expansion is visible
          */
-        get() =
-            adw_expander_row_get_show_enable_switch(adwExpanderRowPointer.reinterpret()).asBoolean()
+        get() = adw_expander_row_get_show_enable_switch(adwExpanderRowPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the switch enabling the expansion of @self is visible.
          *
          * @param showEnableSwitch whether to show the switch enabling the expansion
          */
-        set(showEnableSwitch) =
-            adw_expander_row_set_show_enable_switch(
-                adwExpanderRowPointer.reinterpret(),
-                showEnableSwitch.asGBoolean()
-            )
+        set(
+            showEnableSwitch
+        ) = adw_expander_row_set_show_enable_switch(adwExpanderRowPointer.reinterpret(), showEnableSwitch.asGBoolean())
 
     /**
      * The subtitle for this row.
@@ -223,10 +210,7 @@ public open class ExpanderRow(
      * @param widget a widget
      */
     public open fun addAction(widget: Widget): Unit =
-        adw_expander_row_add_action(
-            adwExpanderRowPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        adw_expander_row_add_action(adwExpanderRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Adds a prefix widget to @self.
@@ -234,10 +218,7 @@ public open class ExpanderRow(
      * @param widget a widget
      */
     public open fun addPrefix(widget: Widget): Unit =
-        adw_expander_row_add_prefix(
-            adwExpanderRowPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        adw_expander_row_add_prefix(adwExpanderRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Adds a widget to @self.
@@ -247,10 +228,7 @@ public open class ExpanderRow(
      * @param child a widget
      */
     public open fun addRow(child: Widget): Unit =
-        adw_expander_row_add_row(
-            adwExpanderRowPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        adw_expander_row_add_row(adwExpanderRowPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Adds an suffix widget to @self.
@@ -259,10 +237,7 @@ public open class ExpanderRow(
      * @since 1.4
      */
     public open fun addSuffix(widget: Widget): Unit =
-        adw_expander_row_add_suffix(
-            adwExpanderRowPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        adw_expander_row_add_suffix(adwExpanderRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets whether the expansion of @self is enabled.
@@ -333,10 +308,7 @@ public open class ExpanderRow(
      * @param child
      */
     public open fun remove(child: Widget): Unit =
-        adw_expander_row_remove(
-            adwExpanderRowPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        adw_expander_row_remove(adwExpanderRowPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets whether the expansion of @self is enabled.
@@ -344,10 +316,7 @@ public open class ExpanderRow(
      * @param enableExpansion whether to enable the expansion
      */
     public open fun setEnableExpansion(enableExpansion: Boolean): Unit =
-        adw_expander_row_set_enable_expansion(
-            adwExpanderRowPointer.reinterpret(),
-            enableExpansion.asGBoolean()
-        )
+        adw_expander_row_set_enable_expansion(adwExpanderRowPointer.reinterpret(), enableExpansion.asGBoolean())
 
     /**
      * Sets whether @self is expanded.
@@ -355,10 +324,7 @@ public open class ExpanderRow(
      * @param expanded whether to expand the row
      */
     public open fun setExpanded(expanded: Boolean): Unit =
-        adw_expander_row_set_expanded(
-            adwExpanderRowPointer.reinterpret(),
-            expanded.asGBoolean()
-        )
+        adw_expander_row_set_expanded(adwExpanderRowPointer.reinterpret(), expanded.asGBoolean())
 
     /**
      * Sets the icon name for @self.
@@ -374,10 +340,7 @@ public open class ExpanderRow(
      * @param showEnableSwitch whether to show the switch enabling the expansion
      */
     public open fun setShowEnableSwitch(showEnableSwitch: Boolean): Unit =
-        adw_expander_row_set_show_enable_switch(
-            adwExpanderRowPointer.reinterpret(),
-            showEnableSwitch.asGBoolean()
-        )
+        adw_expander_row_set_show_enable_switch(adwExpanderRowPointer.reinterpret(), showEnableSwitch.asGBoolean())
 
     /**
      * Sets the subtitle for @self.
@@ -396,8 +359,7 @@ public open class ExpanderRow(
      *
      * If the value is 0, the number of lines won't be limited.
      *
-     * @param subtitleLines the number of lines at the end of which the subtitle label will be
-     * ellipsized
+     * @param subtitleLines the number of lines at the end of which the subtitle label will be ellipsized
      * @since 1.3
      */
     public open fun setSubtitleLines(subtitleLines: Int): Unit =

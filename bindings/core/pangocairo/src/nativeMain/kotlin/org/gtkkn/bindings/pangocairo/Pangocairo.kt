@@ -130,8 +130,7 @@ public val ShapeRendererFuncFunc: CPointer<CFunction<(CPointer<PangoAttrShape>, 
             },
             doPath.asBoolean()
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 /**
  * Function type for rendering attributes of type %PANGO_ATTR_SHAPE

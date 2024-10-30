@@ -66,7 +66,8 @@ import kotlin.Unit
  */
 public open class SocketService(
     pointer: CPointer<GSocketService>,
-) : SocketListener(pointer.reinterpret()), KGTyped {
+) : SocketListener(pointer.reinterpret()),
+    KGTyped {
     public val gioSocketServicePointer: CPointer<GSocketService>
         get() = gPointer.reinterpret()
 
@@ -139,8 +140,7 @@ public open class SocketService(
      * so you need to ref it yourself if you are planning to use it.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `connection` a new #GSocketConnection object;
-     * `sourceObject` the source_object passed to
+     * @param handler the Callback to connect. Params: `connection` a new #GSocketConnection object; `sourceObject` the source_object passed to
      *     g_socket_listener_add_address(). Returns true to stop other handlers from being called
      * @since 2.22
      */
@@ -159,9 +159,7 @@ public open class SocketService(
 
     public companion object : TypeCompanion<SocketService> {
         override val type: GeneratedClassKGType<SocketService> =
-            GeneratedClassKGType(g_socket_service_get_type()) {
-                SocketService(it.reinterpret())
-            }
+            GeneratedClassKGType(g_socket_service_get_type()) { SocketService(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -169,32 +167,23 @@ public open class SocketService(
     }
 }
 
-private val connectIncomingFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GSocketConnection>,
-            CPointer<GObject>?,
-        ) -> Int
-    >
-> =
+private val connectIncomingFunc:
+    CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             connection: CPointer<GSocketConnection>?,
             sourceObject: CPointer<GObject>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: SocketConnection,
-                sourceObject: Object?,
-            ) -> Boolean
-        >().get().invoke(
-            connection!!.run {
-                SocketConnection(reinterpret())
-            },
-            sourceObject?.run {
-                Object(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(connection: SocketConnection, sourceObject: Object?) -> Boolean>()
+            .get()
+            .invoke(
+                connection!!.run {
+                    SocketConnection(reinterpret())
+                },
+                sourceObject?.run {
+                    Object(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()

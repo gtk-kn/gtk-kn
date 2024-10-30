@@ -30,7 +30,9 @@ import kotlin.Unit
  *
  * - parameter `n_snap_points`: n_snap_points: Out parameter is not supported
  */
-public interface Swipeable : Interface, KGTyped {
+public interface Swipeable :
+    Interface,
+    KGTyped {
     public val adwSwipeablePointer: CPointer<AdwSwipeable>
 
     /**

@@ -115,10 +115,7 @@ public class DBusInterfaceInfo(
      * @since 2.26
      */
     public fun lookupMethod(name: KotlinString): DBusMethodInfo? =
-        g_dbus_interface_info_lookup_method(
-            gioDBusInterfaceInfoPointer.reinterpret(),
-            name
-        )?.run {
+        g_dbus_interface_info_lookup_method(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
             DBusMethodInfo(reinterpret())
         }
 
@@ -133,10 +130,7 @@ public class DBusInterfaceInfo(
      * @since 2.26
      */
     public fun lookupProperty(name: KotlinString): DBusPropertyInfo? =
-        g_dbus_interface_info_lookup_property(
-            gioDBusInterfaceInfoPointer.reinterpret(),
-            name
-        )?.run {
+        g_dbus_interface_info_lookup_property(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
             DBusPropertyInfo(reinterpret())
         }
 
@@ -151,10 +145,7 @@ public class DBusInterfaceInfo(
      * @since 2.26
      */
     public fun lookupSignal(name: KotlinString): DBusSignalInfo? =
-        g_dbus_interface_info_lookup_signal(
-            gioDBusInterfaceInfoPointer.reinterpret(),
-            name
-        )?.run {
+        g_dbus_interface_info_lookup_signal(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
             DBusSignalInfo(reinterpret())
         }
 

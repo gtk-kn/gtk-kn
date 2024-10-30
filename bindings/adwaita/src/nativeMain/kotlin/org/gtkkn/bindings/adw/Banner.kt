@@ -66,7 +66,9 @@ import kotlin.Unit
  */
 public class Banner(
     pointer: CPointer<AdwBanner>,
-) : Widget(pointer.reinterpret()), Actionable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Actionable,
+    KGTyped {
     public val adwBannerPointer: CPointer<AdwBanner>
         get() = gPointer.reinterpret()
 
@@ -134,11 +136,7 @@ public class Banner(
          * @param revealed whether a banner should be revealed
          * @since 1.3
          */
-        set(revealed) =
-            adw_banner_set_revealed(
-                adwBannerPointer.reinterpret(),
-                revealed.asGBoolean()
-            )
+        set(revealed) = adw_banner_set_revealed(adwBannerPointer.reinterpret(), revealed.asGBoolean())
 
     /**
      * The title for this banner.
@@ -154,9 +152,7 @@ public class Banner(
          * @return the title for @self
          * @since 1.3
          */
-        get() =
-            adw_banner_get_title(adwBannerPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = adw_banner_get_title(adwBannerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the title for this banner.
@@ -192,11 +188,7 @@ public class Banner(
          * @param useMarkup whether to use markup
          * @since 1.3
          */
-        set(useMarkup) =
-            adw_banner_set_use_markup(
-                adwBannerPointer.reinterpret(),
-                useMarkup.asGBoolean()
-            )
+        set(useMarkup) = adw_banner_set_use_markup(adwBannerPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
      * Creates a new `AdwBanner`.
@@ -230,8 +222,7 @@ public class Banner(
      * @since 1.3
      */
     public fun getTitle(): String =
-        adw_banner_get_title(adwBannerPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        adw_banner_get_title(adwBannerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets whether to use Pango markup for the banner title.
@@ -272,11 +263,7 @@ public class Banner(
      * @param title the title
      * @since 1.3
      */
-    public fun setTitle(title: String): Unit =
-        adw_banner_set_title(
-            adwBannerPointer.reinterpret(),
-            title
-        )
+    public fun setTitle(title: String): Unit = adw_banner_set_title(adwBannerPointer.reinterpret(), title)
 
     /**
      * Sets whether to use Pango markup for the banner title.
@@ -327,5 +314,4 @@ private val connectButtonClickedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

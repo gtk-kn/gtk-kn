@@ -31,7 +31,10 @@ import kotlin.Unit
  * `GtkRoot` also maintains the location of keyboard focus inside its widget
  * hierarchy, with [method@Gtk.Root.set_focus] and [method@Gtk.Root.get_focus].
  */
-public interface Root : Interface, Native, KGTyped {
+public interface Root :
+    Interface,
+    Native,
+    KGTyped {
     public val gtkRootPointer: CPointer<GtkRoot>
 
     override val gtkNativePointer: CPointer<GtkNative>

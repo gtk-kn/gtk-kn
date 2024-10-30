@@ -104,7 +104,10 @@ import kotlin.Unit
  */
 public open class TreeModelFilter(
     pointer: CPointer<GtkTreeModelFilter>,
-) : Object(pointer.reinterpret()), TreeDragSource, TreeModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    TreeDragSource,
+    TreeModel,
+    KGTyped {
     public val gtkTreeModelFilterPointer: CPointer<GtkTreeModelFilter>
         get() = gPointer.reinterpret()
 
@@ -224,10 +227,7 @@ public open class TreeModelFilter(
      * @param column A `int` which is the column containing the visible information
      */
     public open fun setVisibleColumn(column: Int): Unit =
-        gtk_tree_model_filter_set_visible_column(
-            gtkTreeModelFilterPointer.reinterpret(),
-            column
-        )
+        gtk_tree_model_filter_set_visible_column(gtkTreeModelFilterPointer.reinterpret(), column)
 
     /**
      * Sets the visible function used when filtering the @filter to be @func.
@@ -278,9 +278,7 @@ public open class TreeModelFilter(
 
     public companion object : TypeCompanion<TreeModelFilter> {
         override val type: GeneratedClassKGType<TreeModelFilter> =
-            GeneratedClassKGType(gtk_tree_model_filter_get_type()) {
-                TreeModelFilter(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_tree_model_filter_get_type()) { TreeModelFilter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

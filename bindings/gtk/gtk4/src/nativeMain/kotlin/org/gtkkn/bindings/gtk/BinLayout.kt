@@ -21,7 +21,8 @@ import org.gtkkn.native.gtk.gtk_bin_layout_new
  */
 public open class BinLayout(
     pointer: CPointer<GtkBinLayout>,
-) : LayoutManager(pointer.reinterpret()), KGTyped {
+) : LayoutManager(pointer.reinterpret()),
+    KGTyped {
     public val gtkBinLayoutPointer: CPointer<GtkBinLayout>
         get() = gPointer.reinterpret()
 

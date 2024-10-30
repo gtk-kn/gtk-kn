@@ -111,7 +111,8 @@ import kotlin.Unit
  */
 public open class DrawingArea(
     pointer: CPointer<GtkDrawingArea>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkDrawingAreaPointer: CPointer<GtkDrawingArea>
         get() = gPointer.reinterpret()
 
@@ -147,11 +148,7 @@ public open class DrawingArea(
          *
          * @param height the height of contents
          */
-        set(height) =
-            gtk_drawing_area_set_content_height(
-                gtkDrawingAreaPointer.reinterpret(),
-                height
-            )
+        set(height) = gtk_drawing_area_set_content_height(gtkDrawingAreaPointer.reinterpret(), height)
 
     /**
      * The content width.
@@ -264,15 +261,11 @@ public open class DrawingArea(
      * like for instance a backing surface.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `width` the width of the viewport; `height`
-     * the height of the viewport
+     * @param handler the Callback to connect. Params: `width` the width of the viewport; `height` the height of the viewport
      */
     public fun connectResize(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            width: Int,
-            height: Int,
-        ) -> Unit,
+        handler: (width: Int, height: Int) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -301,5 +294,4 @@ private val connectResizeFunc: CPointer<CFunction<(Int, Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -143,15 +143,7 @@ public class DateTime(
         minutes: Int,
         seconds: Double,
     ): DateTime? =
-        g_date_time_add_full(
-            glibDateTimePointer.reinterpret(),
-            years,
-            months,
-            days,
-            hours,
-            minutes,
-            seconds
-        )?.run {
+        g_date_time_add_full(glibDateTimePointer.reinterpret(), years, months, days, hours, minutes, seconds)?.run {
             DateTime(reinterpret())
         }
 
@@ -382,8 +374,7 @@ public class DateTime(
      * @since 2.26
      */
     public fun format(format: String): String =
-        g_date_time_format(glibDateTimePointer.reinterpret(), format)?.toKString()
-            ?: error("Expected not null string")
+        g_date_time_format(glibDateTimePointer.reinterpret(), format)?.toKString() ?: error("Expected not null string")
 
     /**
      * Format @datetime in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601),
@@ -398,8 +389,7 @@ public class DateTime(
      * @since 2.62
      */
     public fun formatIso8601(): String =
-        g_date_time_format_iso8601(glibDateTimePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_date_time_format_iso8601(glibDateTimePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the day of the month represented by @datetime in the gregorian
@@ -639,10 +629,7 @@ public class DateTime(
      * @since 2.26
      */
     public fun toTimeval(tv: TimeVal): Boolean =
-        g_date_time_to_timeval(
-            glibDateTimePointer.reinterpret(),
-            tv.glibTimeValPointer
-        ).asBoolean()
+        g_date_time_to_timeval(glibDateTimePointer.reinterpret(), tv.glibTimeValPointer).asBoolean()
 
     /**
      * Create a new #GDateTime corresponding to the same instant in time as
@@ -658,10 +645,7 @@ public class DateTime(
      * @since 2.26
      */
     public fun toTimezone(tz: TimeZone): DateTime? =
-        g_date_time_to_timezone(
-            glibDateTimePointer.reinterpret(),
-            tz.glibTimeZonePointer
-        )?.run {
+        g_date_time_to_timezone(glibDateTimePointer.reinterpret(), tz.glibTimeZonePointer)?.run {
             DateTime(reinterpret())
         }
 
@@ -764,17 +748,7 @@ public class DateTime(
             minute: Int,
             seconds: Double,
         ): DateTime? =
-            DateTime(
-                g_date_time_new(
-                    tz.glibTimeZonePointer,
-                    year,
-                    month,
-                    day,
-                    hour,
-                    minute,
-                    seconds
-                )!!.reinterpret()
-            )
+            DateTime(g_date_time_new(tz.glibTimeZonePointer, year, month, day, hour, minute, seconds)!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to the given
@@ -830,13 +804,7 @@ public class DateTime(
         public fun newFromIso8601(
             text: String,
             defaultTz: TimeZone? = null,
-        ): DateTime? =
-            DateTime(
-                g_date_time_new_from_iso8601(
-                    text,
-                    defaultTz?.glibTimeZonePointer
-                )!!.reinterpret()
-            )
+        ): DateTime? = DateTime(g_date_time_new_from_iso8601(text, defaultTz?.glibTimeZonePointer)!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to the given #GTimeVal @tv in the
@@ -977,17 +945,7 @@ public class DateTime(
             hour: Int,
             minute: Int,
             seconds: Double,
-        ): DateTime? =
-            DateTime(
-                g_date_time_new_local(
-                    year,
-                    month,
-                    day,
-                    hour,
-                    minute,
-                    seconds
-                )!!.reinterpret()
-            )
+        ): DateTime? = DateTime(g_date_time_new_local(year, month, day, hour, minute, seconds)!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to this exact instant in the given
@@ -1053,17 +1011,7 @@ public class DateTime(
             hour: Int,
             minute: Int,
             seconds: Double,
-        ): DateTime? =
-            DateTime(
-                g_date_time_new_utc(
-                    year,
-                    month,
-                    day,
-                    hour,
-                    minute,
-                    seconds
-                )!!.reinterpret()
-            )
+        ): DateTime? = DateTime(g_date_time_new_utc(year, month, day, hour, minute, seconds)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): DateTime = DateTime(pointer.reinterpret())
     }

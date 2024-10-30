@@ -130,12 +130,7 @@ public class PathMeasure(
             path: Path,
             tolerance: Float,
         ): PathMeasure =
-            PathMeasure(
-                gsk_path_measure_new_with_tolerance(
-                    path.gskPathPointer,
-                    tolerance
-                )!!.reinterpret()
-            )
+            PathMeasure(gsk_path_measure_new_with_tolerance(path.gskPathPointer, tolerance)!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PathMeasure =
             PathMeasure(pointer.reinterpret())

@@ -51,10 +51,7 @@ public class Triangle(
      * @since 1.2
      */
     public fun containsPoint(p: Point3D): Boolean =
-        graphene_triangle_contains_point(
-            grapheneTrianglePointer.reinterpret(),
-            p.graphenePoint3DPointer
-        )
+        graphene_triangle_contains_point(grapheneTrianglePointer.reinterpret(), p.graphenePoint3DPointer)
 
     /**
      * Checks whether the two given #graphene_triangle_t are equal.
@@ -64,10 +61,7 @@ public class Triangle(
      * @since 1.2
      */
     public fun equal(b: Triangle): Boolean =
-        graphene_triangle_equal(
-            grapheneTrianglePointer.reinterpret(),
-            b.grapheneTrianglePointer
-        )
+        graphene_triangle_equal(grapheneTrianglePointer.reinterpret(), b.grapheneTrianglePointer)
 
     /**
      * Frees the resources allocated by graphene_triangle_alloc().
@@ -85,8 +79,7 @@ public class Triangle(
     public fun getArea(): Float = graphene_triangle_get_area(grapheneTrianglePointer.reinterpret())
 
     /**
-     * Computes the [barycentric
-     * coordinates](http://en.wikipedia.org/wiki/Barycentric_coordinate_system)
+     * Computes the [barycentric coordinates](http://en.wikipedia.org/wiki/Barycentric_coordinate_system)
      * of the given point @p.
      *
      * The point @p must lie on the same plane as the triangle @t; if the
@@ -126,10 +119,7 @@ public class Triangle(
      * @since 1.2
      */
     public fun getBoundingBox(res: Box): Unit =
-        graphene_triangle_get_bounding_box(
-            grapheneTrianglePointer.reinterpret(),
-            res.grapheneBoxPointer
-        )
+        graphene_triangle_get_bounding_box(grapheneTrianglePointer.reinterpret(), res.grapheneBoxPointer)
 
     /**
      * Computes the coordinates of the midpoint of the given #graphene_triangle_t.
@@ -142,10 +132,7 @@ public class Triangle(
      * @since 1.2
      */
     public fun getMidpoint(res: Point3D): Unit =
-        graphene_triangle_get_midpoint(
-            grapheneTrianglePointer.reinterpret(),
-            res.graphenePoint3DPointer
-        )
+        graphene_triangle_get_midpoint(grapheneTrianglePointer.reinterpret(), res.graphenePoint3DPointer)
 
     /**
      * Computes the normal vector of the given #graphene_triangle_t.
@@ -154,10 +141,7 @@ public class Triangle(
      * @since 1.2
      */
     public fun getNormal(res: Vec3): Unit =
-        graphene_triangle_get_normal(
-            grapheneTrianglePointer.reinterpret(),
-            res.grapheneVec3Pointer
-        )
+        graphene_triangle_get_normal(grapheneTrianglePointer.reinterpret(), res.grapheneVec3Pointer)
 
     /**
      * Computes the plane based on the vertices of the given #graphene_triangle_t.
@@ -166,10 +150,7 @@ public class Triangle(
      * @since 1.2
      */
     public fun getPlane(res: Plane): Unit =
-        graphene_triangle_get_plane(
-            grapheneTrianglePointer.reinterpret(),
-            res.graphenePlanePointer
-        )
+        graphene_triangle_get_plane(grapheneTrianglePointer.reinterpret(), res.graphenePlanePointer)
 
     /**
      * Retrieves the three vertices of the given #graphene_triangle_t and returns

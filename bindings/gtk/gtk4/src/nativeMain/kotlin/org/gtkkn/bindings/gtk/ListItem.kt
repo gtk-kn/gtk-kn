@@ -51,7 +51,8 @@ import kotlin.Unit
  */
 public open class ListItem(
     pointer: CPointer<GtkListItem>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkListItemPointer: CPointer<GtkListItem>
         get() = gPointer.reinterpret()
 
@@ -78,11 +79,7 @@ public open class ListItem(
          * @param description the description
          * @since 4.12
          */
-        set(description) =
-            gtk_list_item_set_accessible_description(
-                gtkListItemPointer.reinterpret(),
-                description
-            )
+        set(description) = gtk_list_item_set_accessible_description(gtkListItemPointer.reinterpret(), description)
 
     /**
      * The accessible label to set on the list item.
@@ -134,11 +131,7 @@ public open class ListItem(
          *
          * @param activatable if the item should be activatable
          */
-        set(activatable) =
-            gtk_list_item_set_activatable(
-                gtkListItemPointer.reinterpret(),
-                activatable.asGBoolean()
-            )
+        set(activatable) = gtk_list_item_set_activatable(gtkListItemPointer.reinterpret(), activatable.asGBoolean())
 
     /**
      * Widget used for display.
@@ -164,11 +157,7 @@ public open class ListItem(
          *
          * @param child The list item's child or null to unset
          */
-        set(child) =
-            gtk_list_item_set_child(
-                gtkListItemPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = gtk_list_item_set_child(gtkListItemPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * If the item can be focused with the keyboard.
@@ -199,11 +188,7 @@ public open class ListItem(
          * @param focusable if the item should be focusable
          * @since 4.12
          */
-        set(focusable) =
-            gtk_list_item_set_focusable(
-                gtkListItemPointer.reinterpret(),
-                focusable.asGBoolean()
-            )
+        set(focusable) = gtk_list_item_set_focusable(gtkListItemPointer.reinterpret(), focusable.asGBoolean())
 
     /**
      * Displayed item.
@@ -264,11 +249,7 @@ public open class ListItem(
          *
          * @param selectable if the item should be selectable
          */
-        set(selectable) =
-            gtk_list_item_set_selectable(
-                gtkListItemPointer.reinterpret(),
-                selectable.asGBoolean()
-            )
+        set(selectable) = gtk_list_item_set_selectable(gtkListItemPointer.reinterpret(), selectable.asGBoolean())
 
     /**
      * If the item is currently selected.
@@ -409,10 +390,7 @@ public open class ListItem(
      * @param activatable if the item should be activatable
      */
     public open fun setActivatable(activatable: Boolean): Unit =
-        gtk_list_item_set_activatable(
-            gtkListItemPointer.reinterpret(),
-            activatable.asGBoolean()
-        )
+        gtk_list_item_set_activatable(gtkListItemPointer.reinterpret(), activatable.asGBoolean())
 
     /**
      * Sets the child to be used for this listitem.
@@ -424,10 +402,7 @@ public open class ListItem(
      * @param child The list item's child or null to unset
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_list_item_set_child(
-            gtkListItemPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_list_item_set_child(gtkListItemPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets @self to be focusable.

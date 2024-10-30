@@ -99,11 +99,7 @@ public class Queue(
      * @since 2.4
      */
     public fun foreach(func: Func): Unit =
-        g_queue_foreach(
-            glibQueuePointer.reinterpret(),
-            FuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+        g_queue_foreach(glibQueuePointer.reinterpret(), FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Frees the memory allocated for the #GQueue. Only call this function

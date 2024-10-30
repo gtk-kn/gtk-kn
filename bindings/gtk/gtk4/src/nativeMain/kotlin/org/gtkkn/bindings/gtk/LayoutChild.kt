@@ -25,7 +25,8 @@ import org.gtkkn.native.gtk.gtk_layout_child_get_type
  */
 public open class LayoutChild(
     pointer: CPointer<GtkLayoutChild>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkLayoutChildPointer: CPointer<GtkLayoutChild>
         get() = gPointer.reinterpret()
 

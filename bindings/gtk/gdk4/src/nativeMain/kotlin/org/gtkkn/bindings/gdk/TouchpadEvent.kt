@@ -29,7 +29,8 @@ import kotlin.UInt
  */
 public open class TouchpadEvent(
     pointer: CPointer<GdkTouchpadEvent>,
-) : Event(pointer.reinterpret()), KGTyped {
+) : Event(pointer.reinterpret()),
+    KGTyped {
     public val gdkTouchpadEventPointer: CPointer<GdkTouchpadEvent>
         get() = gPointer.reinterpret()
 
@@ -67,9 +68,7 @@ public open class TouchpadEvent(
 
     public companion object : TypeCompanion<TouchpadEvent> {
         override val type: GeneratedClassKGType<TouchpadEvent> =
-            GeneratedClassKGType(gdk_touchpad_event_get_type()) {
-                TouchpadEvent(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_touchpad_event_get_type()) { TouchpadEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

@@ -23,7 +23,8 @@ import kotlin.Unit
  */
 public open class GLTexture(
     pointer: CPointer<GdkGLTexture>,
-) : Texture(pointer.reinterpret()), KGTyped {
+) : Texture(pointer.reinterpret()),
+    KGTyped {
     public val gdkGLTexturePointer: CPointer<GdkGLTexture>
         get() = gPointer.reinterpret()
 

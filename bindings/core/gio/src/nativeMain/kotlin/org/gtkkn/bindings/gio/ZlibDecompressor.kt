@@ -23,7 +23,9 @@ import org.gtkkn.native.gio.g_zlib_decompressor_new
  */
 public open class ZlibDecompressor(
     pointer: CPointer<GZlibDecompressor>,
-) : Object(pointer.reinterpret()), Converter, KGTyped {
+) : Object(pointer.reinterpret()),
+    Converter,
+    KGTyped {
     public val gioZlibDecompressorPointer: CPointer<GZlibDecompressor>
         get() = gPointer.reinterpret()
 
@@ -61,8 +63,7 @@ public open class ZlibDecompressor(
      * @return a new #GZlibDecompressor
      * @since 2.24
      */
-    public constructor(format: ZlibCompressorFormat) :
-        this(g_zlib_decompressor_new(format.nativeValue)!!.reinterpret())
+    public constructor(format: ZlibCompressorFormat) : this(g_zlib_decompressor_new(format.nativeValue)!!.reinterpret())
 
     /**
      * Retrieves the #GFileInfo constructed from the GZIP header data
@@ -81,9 +82,7 @@ public open class ZlibDecompressor(
 
     public companion object : TypeCompanion<ZlibDecompressor> {
         override val type: GeneratedClassKGType<ZlibDecompressor> =
-            GeneratedClassKGType(g_zlib_decompressor_get_type()) {
-                ZlibDecompressor(it.reinterpret())
-            }
+            GeneratedClassKGType(g_zlib_decompressor_get_type()) { ZlibDecompressor(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

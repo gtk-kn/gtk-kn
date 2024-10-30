@@ -16,7 +16,9 @@ import kotlin.String
  * #GDesktopAppInfoLookup is an opaque data structure and can only be accessed
  * using the following functions.
  */
-public interface DesktopAppInfoLookup : Interface, KGTyped {
+public interface DesktopAppInfoLookup :
+    Interface,
+    KGTyped {
     public val gioDesktopAppInfoLookupPointer: CPointer<GDesktopAppInfoLookup>
 
     /**
@@ -49,9 +51,7 @@ public interface DesktopAppInfoLookup : Interface, KGTyped {
 
     public companion object : TypeCompanion<DesktopAppInfoLookup> {
         override val type: GeneratedInterfaceKGType<DesktopAppInfoLookup> =
-            GeneratedInterfaceKGType(g_desktop_app_info_lookup_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(g_desktop_app_info_lookup_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

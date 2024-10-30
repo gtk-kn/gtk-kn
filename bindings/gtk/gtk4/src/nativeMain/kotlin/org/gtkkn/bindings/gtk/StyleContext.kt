@@ -83,7 +83,8 @@ import kotlin.Unit
  */
 public open class StyleContext(
     pointer: CPointer<GtkStyleContext>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkStyleContextPointer: CPointer<GtkStyleContext>
         get() = gPointer.reinterpret()
 
@@ -110,11 +111,9 @@ public open class StyleContext(
          *
          * @param display a `GdkDisplay`
          */
-        set(display) =
-            gtk_style_context_set_display(
-                gtkStyleContextPointer.reinterpret(),
-                display.gdkDisplayPointer.reinterpret()
-            )
+        set(
+            display
+        ) = gtk_style_context_set_display(gtkStyleContextPointer.reinterpret(), display.gdkDisplayPointer.reinterpret())
 
     /**
      * Adds a style class to @context, so later uses of the
@@ -161,11 +160,7 @@ public open class StyleContext(
         provider: StyleProvider,
         priority: UInt,
     ): Unit =
-        gtk_style_context_add_provider(
-            gtkStyleContextPointer.reinterpret(),
-            provider.gtkStyleProviderPointer,
-            priority
-        )
+        gtk_style_context_add_provider(gtkStyleContextPointer.reinterpret(), provider.gtkStyleProviderPointer, priority)
 
     /**
      * Gets the border for a given state as a `GtkBorder`.
@@ -173,10 +168,7 @@ public open class StyleContext(
      * @param border return value for the border settings
      */
     public open fun getBorder(border: Border): Unit =
-        gtk_style_context_get_border(
-            gtkStyleContextPointer.reinterpret(),
-            border.gtkBorderPointer
-        )
+        gtk_style_context_get_border(gtkStyleContextPointer.reinterpret(), border.gtkBorderPointer)
 
     /**
      * Gets the foreground color for a given state.
@@ -202,10 +194,7 @@ public open class StyleContext(
      * @param margin return value for the margin settings
      */
     public open fun getMargin(margin: Border): Unit =
-        gtk_style_context_get_margin(
-            gtkStyleContextPointer.reinterpret(),
-            margin.gtkBorderPointer
-        )
+        gtk_style_context_get_margin(gtkStyleContextPointer.reinterpret(), margin.gtkBorderPointer)
 
     /**
      * Gets the padding for a given state as a `GtkBorder`.
@@ -213,10 +202,7 @@ public open class StyleContext(
      * @param padding return value for the padding settings
      */
     public open fun getPadding(padding: Border): Unit =
-        gtk_style_context_get_padding(
-            gtkStyleContextPointer.reinterpret(),
-            padding.gtkBorderPointer
-        )
+        gtk_style_context_get_padding(gtkStyleContextPointer.reinterpret(), padding.gtkBorderPointer)
 
     /**
      * Returns the scale used for assets.
@@ -282,10 +268,7 @@ public open class StyleContext(
      * @param provider a `GtkStyleProvider`
      */
     public open fun removeProvider(provider: StyleProvider): Unit =
-        gtk_style_context_remove_provider(
-            gtkStyleContextPointer.reinterpret(),
-            provider.gtkStyleProviderPointer
-        )
+        gtk_style_context_remove_provider(gtkStyleContextPointer.reinterpret(), provider.gtkStyleProviderPointer)
 
     /**
      * Restores @context state to a previous stage.
@@ -321,10 +304,7 @@ public open class StyleContext(
      * @param display a `GdkDisplay`
      */
     public open fun setDisplay(display: Display): Unit =
-        gtk_style_context_set_display(
-            gtkStyleContextPointer.reinterpret(),
-            display.gdkDisplayPointer.reinterpret()
-        )
+        gtk_style_context_set_display(gtkStyleContextPointer.reinterpret(), display.gdkDisplayPointer.reinterpret())
 
     /**
      * Sets the scale to use when getting image assets for the style.
@@ -344,9 +324,7 @@ public open class StyleContext(
 
     public companion object : TypeCompanion<StyleContext> {
         override val type: GeneratedClassKGType<StyleContext> =
-            GeneratedClassKGType(gtk_style_context_get_type()) {
-                StyleContext(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_style_context_get_type()) { StyleContext(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

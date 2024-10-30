@@ -38,7 +38,9 @@ import kotlin.Unit
  *
  * - method `action-target`: Property has no getter nor setter
  */
-public interface Actionable : Interface, KGTyped {
+public interface Actionable :
+    Interface,
+    KGTyped {
     public val gtkActionablePointer: CPointer<GtkActionable>
 
     public var actionName: String?
@@ -66,11 +68,7 @@ public interface Actionable : Interface, KGTyped {
          *
          * @param actionName an action name
          */
-        set(actionName) =
-            gtk_actionable_set_action_name(
-                gtkActionablePointer.reinterpret(),
-                actionName
-            )
+        set(actionName) = gtk_actionable_set_action_name(gtkActionablePointer.reinterpret(), actionName)
 
     /**
      * Gets the action name for @actionable.
@@ -133,10 +131,7 @@ public interface Actionable : Interface, KGTyped {
      * @param targetValue a [struct@GLib.Variant] to set as the target value
      */
     public fun setActionTargetValue(targetValue: Variant? = null): Unit =
-        gtk_actionable_set_action_target_value(
-            gtkActionablePointer.reinterpret(),
-            targetValue?.glibVariantPointer
-        )
+        gtk_actionable_set_action_target_value(gtkActionablePointer.reinterpret(), targetValue?.glibVariantPointer)
 
     /**
      * Sets the action-name and associated string target value of an
@@ -148,10 +143,7 @@ public interface Actionable : Interface, KGTyped {
      * @param detailedActionName the detailed action name
      */
     public fun setDetailedActionName(detailedActionName: String): Unit =
-        gtk_actionable_set_detailed_action_name(
-            gtkActionablePointer.reinterpret(),
-            detailedActionName
-        )
+        gtk_actionable_set_detailed_action_name(gtkActionablePointer.reinterpret(), detailedActionName)
 
     private data class Wrapper(
         private val pointer: CPointer<GtkActionable>,

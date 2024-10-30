@@ -66,7 +66,8 @@ import kotlin.Unit
  */
 public open class ActionBar(
     pointer: CPointer<GtkActionBar>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkActionBarPointer: CPointer<GtkActionBar>
         get() = gPointer.reinterpret()
 
@@ -100,11 +101,7 @@ public open class ActionBar(
          *
          * @param revealed The new value of the property
          */
-        set(revealed) =
-            gtk_action_bar_set_revealed(
-                gtkActionBarPointer.reinterpret(),
-                revealed.asGBoolean()
-            )
+        set(revealed) = gtk_action_bar_set_revealed(gtkActionBarPointer.reinterpret(), revealed.asGBoolean())
 
     /**
      * Creates a new `GtkActionBar` widget.
@@ -138,10 +135,7 @@ public open class ActionBar(
      * @param child the `GtkWidget` to be added to @action_bar
      */
     public open fun packEnd(child: Widget): Unit =
-        gtk_action_bar_pack_end(
-            gtkActionBarPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_action_bar_pack_end(gtkActionBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Adds @child to @action_bar, packed with reference to the
@@ -150,10 +144,7 @@ public open class ActionBar(
      * @param child the `GtkWidget` to be added to @action_bar
      */
     public open fun packStart(child: Widget): Unit =
-        gtk_action_bar_pack_start(
-            gtkActionBarPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_action_bar_pack_start(gtkActionBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes a child from @action_bar.
@@ -161,10 +152,7 @@ public open class ActionBar(
      * @param child the `GtkWidget` to be removed
      */
     public open fun remove(child: Widget): Unit =
-        gtk_action_bar_remove(
-            gtkActionBarPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_action_bar_remove(gtkActionBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets the center widget for the `GtkActionBar`.

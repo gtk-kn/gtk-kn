@@ -278,7 +278,9 @@ import kotlin.Unit
  */
 public open class Label(
     pointer: CPointer<GtkLabel>,
-) : Widget(pointer.reinterpret()), AccessibleText, KGTyped {
+) : Widget(pointer.reinterpret()),
+    AccessibleText,
+    KGTyped {
     public val gtkLabelPointer: CPointer<GtkLabel>
         get() = gPointer.reinterpret()
 
@@ -327,11 +329,7 @@ public open class Label(
          *
          * @param attrs a [struct@Pango.AttrList]
          */
-        set(attrs) =
-            gtk_label_set_attributes(
-                gtkLabelPointer.reinterpret(),
-                attrs?.pangoAttrListPointer
-            )
+        set(attrs) = gtk_label_set_attributes(gtkLabelPointer.reinterpret(), attrs?.pangoAttrListPointer)
 
     /**
      * The preferred place to ellipsize the string, if the label does
@@ -390,11 +388,7 @@ public open class Label(
          *
          * @param model a `GMenuModel`
          */
-        set(model) =
-            gtk_label_set_extra_menu(
-                gtkLabelPointer.reinterpret(),
-                model?.gioMenuModelPointer?.reinterpret()
-            )
+        set(model) = gtk_label_set_extra_menu(gtkLabelPointer.reinterpret(), model?.gioMenuModelPointer?.reinterpret())
 
     /**
      * The alignment of the lines in the text of the label, relative to each other.
@@ -453,9 +447,7 @@ public open class Label(
          * @return the text of the label widget. This string is
          *   owned by the widget and must not be modified or freed.
          */
-        get() =
-            gtk_label_get_label(gtkLabelPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gtk_label_get_label(gtkLabelPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the text of the label.
@@ -577,11 +569,9 @@ public open class Label(
          *
          * @param widget the target `GtkWidget`, or null to unset
          */
-        set(widget) =
-            gtk_label_set_mnemonic_widget(
-                gtkLabelPointer.reinterpret(),
-                widget?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            widget
+        ) = gtk_label_set_mnemonic_widget(gtkLabelPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Select the line wrapping for the natural size request.
@@ -617,11 +607,7 @@ public open class Label(
          * @param wrapMode the line wrapping mode
          * @since 4.6
          */
-        set(wrapMode) =
-            gtk_label_set_natural_wrap_mode(
-                gtkLabelPointer.reinterpret(),
-                wrapMode.nativeValue
-            )
+        set(wrapMode) = gtk_label_set_natural_wrap_mode(gtkLabelPointer.reinterpret(), wrapMode.nativeValue)
 
     /**
      * Whether the label text can be selected with the mouse.
@@ -665,11 +651,7 @@ public open class Label(
          *
          * @param singleLineMode true if the label should be in single line mode
          */
-        set(singleLineMode) =
-            gtk_label_set_single_line_mode(
-                gtkLabelPointer.reinterpret(),
-                singleLineMode.asGBoolean()
-            )
+        set(singleLineMode) = gtk_label_set_single_line_mode(gtkLabelPointer.reinterpret(), singleLineMode.asGBoolean())
 
     /**
      * Custom tabs for this label.
@@ -745,11 +727,7 @@ public open class Label(
          *
          * @param setting true if underlines in the text indicate mnemonics
          */
-        set(setting) =
-            gtk_label_set_use_underline(
-                gtkLabelPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_label_set_use_underline(gtkLabelPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * The desired width of the label, in characters.
@@ -981,8 +959,7 @@ public open class Label(
      *   owned by the widget and must not be modified or freed.
      */
     public open fun getLabel(): String =
-        gtk_label_get_label(gtkLabelPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_label_get_label(gtkLabelPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the `PangoLayout` used to display the label.
@@ -1099,8 +1076,7 @@ public open class Label(
      *   string used by the label, and must not be modified.
      */
     public open fun getText(): String =
-        gtk_label_get_text(gtkLabelPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_label_get_text(gtkLabelPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns whether the label’s text is interpreted as Pango markup.
@@ -1217,10 +1193,7 @@ public open class Label(
      * @param model a `GMenuModel`
      */
     public open fun setExtraMenu(model: MenuModel? = null): Unit =
-        gtk_label_set_extra_menu(
-            gtkLabelPointer.reinterpret(),
-            model?.gioMenuModelPointer?.reinterpret()
-        )
+        gtk_label_set_extra_menu(gtkLabelPointer.reinterpret(), model?.gioMenuModelPointer?.reinterpret())
 
     /**
      * Sets the alignment of the lines in the text of the label relative to
@@ -1246,11 +1219,7 @@ public open class Label(
      *
      * @param str the new text to set for the label
      */
-    public open fun setLabel(str: String): Unit =
-        gtk_label_set_label(
-            gtkLabelPointer.reinterpret(),
-            str
-        )
+    public open fun setLabel(str: String): Unit = gtk_label_set_label(gtkLabelPointer.reinterpret(), str)
 
     /**
      * Sets the number of lines to which an ellipsized, wrapping label
@@ -1261,11 +1230,7 @@ public open class Label(
      *
      * @param lines the desired number of lines, or -1
      */
-    public open fun setLines(lines: Int): Unit =
-        gtk_label_set_lines(
-            gtkLabelPointer.reinterpret(),
-            lines
-        )
+    public open fun setLines(lines: Int): Unit = gtk_label_set_lines(gtkLabelPointer.reinterpret(), lines)
 
     /**
      * Sets the labels text and attributes from markup.
@@ -1346,10 +1311,7 @@ public open class Label(
      * @param widget the target `GtkWidget`, or null to unset
      */
     public open fun setMnemonicWidget(widget: Widget? = null): Unit =
-        gtk_label_set_mnemonic_widget(
-            gtkLabelPointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_label_set_mnemonic_widget(gtkLabelPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Select the line wrapping for the natural size request.
@@ -1380,10 +1342,7 @@ public open class Label(
      * @param singleLineMode true if the label should be in single line mode
      */
     public open fun setSingleLineMode(singleLineMode: Boolean): Unit =
-        gtk_label_set_single_line_mode(
-            gtkLabelPointer.reinterpret(),
-            singleLineMode.asGBoolean()
-        )
+        gtk_label_set_single_line_mode(gtkLabelPointer.reinterpret(), singleLineMode.asGBoolean())
 
     /**
      * Sets the default tab stops for paragraphs in @self.
@@ -1410,11 +1369,7 @@ public open class Label(
      *
      * @param str The text you want to set
      */
-    public open fun setText(str: String): Unit =
-        gtk_label_set_text(
-            gtkLabelPointer.reinterpret(),
-            str
-        )
+    public open fun setText(str: String): Unit = gtk_label_set_text(gtkLabelPointer.reinterpret(), str)
 
     /**
      * Sets the label’s text from the string @str.
@@ -1469,11 +1424,7 @@ public open class Label(
      *
      * @param wrap the setting
      */
-    public open fun setWrap(wrap: Boolean): Unit =
-        gtk_label_set_wrap(
-            gtkLabelPointer.reinterpret(),
-            wrap.asGBoolean()
-        )
+    public open fun setWrap(wrap: Boolean): Unit = gtk_label_set_wrap(gtkLabelPointer.reinterpret(), wrap.asGBoolean())
 
     /**
      * Controls how line wrapping is done.
@@ -1541,8 +1492,7 @@ public open class Label(
      * which is to call [method@Gtk.FileLauncher.launch].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `uri` the URI that is activated. Returns true
-     * if the link has been activated
+     * @param handler the Callback to connect. Params: `uri` the URI that is activated. Returns true if the link has been activated
      */
     public fun connectActivateLink(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1602,9 +1552,7 @@ public open class Label(
      * - <kbd>Home</kbd> and <kbd>End</kbd> move to the ends of the buffer
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a
-     * `GtkMovementStep`; `count` the number of @step units to move; `extendSelection` true if the move
-     * should extend the selection
+     * @param handler the Callback to connect. Params: `step` the granularity of the move, as a `GtkMovementStep`; `count` the number of @step units to move; `extendSelection` true if the move should extend the selection
      */
     public fun connectMoveCursor(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1671,8 +1619,7 @@ private val connectActivateCurrentLinkFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Int>> =
     staticCFunction {
@@ -1680,12 +1627,16 @@ private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> I
             uri: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(uri: String) -> Boolean>().get().invoke(
-            uri?.toKString()
-                ?: error("Expected not null string")
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    uri: String,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(uri?.toKString() ?: error("Expected not null string"))
+            .asGBoolean()
+    }.reinterpret()
 
 private val connectCopyClipboardFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -1693,8 +1644,7 @@ private val connectCopyClipboardFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMoveCursorFunc: CPointer<
     CFunction<
@@ -1712,18 +1662,20 @@ private val connectMoveCursorFunc: CPointer<
             extendSelection: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                step: MovementStep,
-                count: Int,
-                extendSelection: Boolean,
-            ) -> Unit
-        >().get().invoke(
-            step.run {
-                MovementStep.fromNativeValue(this)
-            },
-            count,
-            extendSelection.asBoolean()
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    step: MovementStep,
+                    count: Int,
+                    extendSelection: Boolean,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                step.run {
+                    MovementStep.fromNativeValue(this)
+                },
+                count,
+                extendSelection.asBoolean()
+            )
+    }.reinterpret()

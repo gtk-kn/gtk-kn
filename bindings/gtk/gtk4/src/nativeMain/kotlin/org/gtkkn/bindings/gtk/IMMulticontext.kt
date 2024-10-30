@@ -25,7 +25,8 @@ import kotlin.Unit
  */
 public open class IMMulticontext(
     pointer: CPointer<GtkIMMulticontext>,
-) : IMContext(pointer.reinterpret()), KGTyped {
+) : IMContext(pointer.reinterpret()),
+    KGTyped {
     public val gtkIMMulticontextPointer: CPointer<GtkIMMulticontext>
         get() = gPointer.reinterpret()
 
@@ -62,9 +63,7 @@ public open class IMMulticontext(
 
     public companion object : TypeCompanion<IMMulticontext> {
         override val type: GeneratedClassKGType<IMMulticontext> =
-            GeneratedClassKGType(gtk_im_multicontext_get_type()) {
-                IMMulticontext(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_im_multicontext_get_type()) { IMMulticontext(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -121,8 +121,7 @@ public enum class VariantParseError(
     VALUE_EXPECTED(G_VARIANT_PARSE_ERROR_VALUE_EXPECTED),
 
     /**
-     * variant was too deeply nested; #GVariant is only guaranteed to handle nesting up to 64 levels
-     * (Since: 2.64)
+     * variant was too deeply nested; #GVariant is only guaranteed to handle nesting up to 64 levels (Since: 2.64)
      */
     RECURSION(G_VARIANT_PARSE_ERROR_RECURSION),
     ;
@@ -155,9 +154,7 @@ public enum class VariantParseError(
         public fun quark(): UInt = g_quark_from_string("g-variant-parse-error-quark")
 
         public fun fromErrorOrNull(error: Error): VariantParseError? =
-            if (error.domain !=
-                quark()
-            ) {
+            if (error.domain != quark()) {
                 null
             } else {
                 VariantParseError.values().find { it.nativeValue.value.toInt() == error.code }

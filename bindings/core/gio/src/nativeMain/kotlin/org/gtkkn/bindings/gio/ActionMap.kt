@@ -35,7 +35,9 @@ import kotlin.Unit
  *
  * @since 2.32
  */
-public interface ActionMap : Interface, KGTyped {
+public interface ActionMap :
+    Interface,
+    KGTyped {
     public val gioActionMapPointer: CPointer<GActionMap>
 
     /**

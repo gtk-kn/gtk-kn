@@ -100,7 +100,8 @@ import kotlin.Unit
  */
 public open class Binding(
     pointer: CPointer<GBinding>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gobjectBindingPointer: CPointer<GBinding>
         get() = gPointer.reinterpret()
 

@@ -86,7 +86,8 @@ import kotlin.Unit
  */
 public open class Animation(
     pointer: CPointer<AdwAnimation>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val adwAnimationPointer: CPointer<AdwAnimation>
         get() = gPointer.reinterpret()
 
@@ -110,8 +111,7 @@ public open class Animation(
          * @return whether to follow the global setting
          * @since 1.3
          */
-        get() =
-            adw_animation_get_follow_enable_animations_setting(adwAnimationPointer.reinterpret()).asBoolean()
+        get() = adw_animation_get_follow_enable_animations_setting(adwAnimationPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether to skip @self when animations are globally disabled.
@@ -127,11 +127,9 @@ public open class Animation(
          * @param setting whether to follow the global setting
          * @since 1.3
          */
-        set(setting) =
-            adw_animation_set_follow_enable_animations_setting(
-                adwAnimationPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(
+            setting
+        ) = adw_animation_set_follow_enable_animations_setting(adwAnimationPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * The animation state.
@@ -172,11 +170,9 @@ public open class Animation(
          *
          * @param target an animation target
          */
-        set(target) =
-            adw_animation_set_target(
-                adwAnimationPointer.reinterpret(),
-                target.adwAnimationTargetPointer.reinterpret()
-            )
+        set(
+            target
+        ) = adw_animation_set_target(adwAnimationPointer.reinterpret(), target.adwAnimationTargetPointer.reinterpret())
 
     /**
      * The current value of the animation.
@@ -333,10 +329,7 @@ public open class Animation(
      * @since 1.3
      */
     public open fun setFollowEnableAnimationsSetting(setting: Boolean): Unit =
-        adw_animation_set_follow_enable_animations_setting(
-            adwAnimationPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        adw_animation_set_follow_enable_animations_setting(adwAnimationPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Sets the target @self animates to @target.
@@ -344,10 +337,7 @@ public open class Animation(
      * @param target an animation target
      */
     public open fun setTarget(target: AnimationTarget): Unit =
-        adw_animation_set_target(
-            adwAnimationPointer.reinterpret(),
-            target.adwAnimationTargetPointer.reinterpret()
-        )
+        adw_animation_set_target(adwAnimationPointer.reinterpret(), target.adwAnimationTargetPointer.reinterpret())
 
     /**
      * Skips the animation for @self.
@@ -396,5 +386,4 @@ private val connectDoneFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

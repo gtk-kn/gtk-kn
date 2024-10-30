@@ -51,7 +51,9 @@ import kotlin.Unit
  */
 public open class ContentSerializer(
     pointer: CPointer<GdkContentSerializer>,
-) : Object(pointer.reinterpret()), AsyncResult, KGTyped {
+) : Object(pointer.reinterpret()),
+    AsyncResult,
+    KGTyped {
     public val gdkContentSerializerPointer: CPointer<GdkContentSerializer>
         get() = gPointer.reinterpret()
 
@@ -125,10 +127,7 @@ public open class ContentSerializer(
      * @param error a `GError`
      */
     public open fun returnError(error: Error): Unit =
-        gdk_content_serializer_return_error(
-            gdkContentSerializerPointer.reinterpret(),
-            error.glibErrorPointer
-        )
+        gdk_content_serializer_return_error(gdkContentSerializerPointer.reinterpret(), error.glibErrorPointer)
 
     /**
      * Indicate that the serialization has been successfully completed.
@@ -138,9 +137,7 @@ public open class ContentSerializer(
 
     public companion object : TypeCompanion<ContentSerializer> {
         override val type: GeneratedClassKGType<ContentSerializer> =
-            GeneratedClassKGType(gdk_content_serializer_get_type()) {
-                ContentSerializer(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_content_serializer_get_type()) { ContentSerializer(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

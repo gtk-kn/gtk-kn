@@ -41,7 +41,8 @@ import kotlin.Unit
  */
 public open class Menu(
     pointer: CPointer<GMenu>,
-) : MenuModel(pointer.reinterpret()), KGTyped {
+) : MenuModel(pointer.reinterpret()),
+    KGTyped {
     public val gioMenuPointer: CPointer<GMenu>
         get() = gPointer.reinterpret()
 
@@ -92,12 +93,7 @@ public open class Menu(
     public open fun appendSection(
         label: String? = null,
         section: MenuModel,
-    ): Unit =
-        g_menu_append_section(
-            gioMenuPointer.reinterpret(),
-            label,
-            section.gioMenuModelPointer.reinterpret()
-        )
+    ): Unit = g_menu_append_section(gioMenuPointer.reinterpret(), label, section.gioMenuModelPointer.reinterpret())
 
     /**
      * Convenience function for appending a submenu menu item to the end of
@@ -111,12 +107,7 @@ public open class Menu(
     public open fun appendSubmenu(
         label: String? = null,
         submenu: MenuModel,
-    ): Unit =
-        g_menu_append_submenu(
-            gioMenuPointer.reinterpret(),
-            label,
-            submenu.gioMenuModelPointer.reinterpret()
-        )
+    ): Unit = g_menu_append_submenu(gioMenuPointer.reinterpret(), label, submenu.gioMenuModelPointer.reinterpret())
 
     /**
      * Marks @menu as frozen.
@@ -174,12 +165,7 @@ public open class Menu(
     public open fun insertItem(
         position: Int,
         item: MenuItem,
-    ): Unit =
-        g_menu_insert_item(
-            gioMenuPointer.reinterpret(),
-            position,
-            item.gioMenuItemPointer.reinterpret()
-        )
+    ): Unit = g_menu_insert_item(gioMenuPointer.reinterpret(), position, item.gioMenuItemPointer.reinterpret())
 
     /**
      * Convenience function for inserting a section menu item into @menu.
@@ -196,12 +182,7 @@ public open class Menu(
         label: String? = null,
         section: MenuModel,
     ): Unit =
-        g_menu_insert_section(
-            gioMenuPointer.reinterpret(),
-            position,
-            label,
-            section.gioMenuModelPointer.reinterpret()
-        )
+        g_menu_insert_section(gioMenuPointer.reinterpret(), position, label, section.gioMenuModelPointer.reinterpret())
 
     /**
      * Convenience function for inserting a submenu menu item into @menu.
@@ -218,12 +199,7 @@ public open class Menu(
         label: String? = null,
         submenu: MenuModel,
     ): Unit =
-        g_menu_insert_submenu(
-            gioMenuPointer.reinterpret(),
-            position,
-            label,
-            submenu.gioMenuModelPointer.reinterpret()
-        )
+        g_menu_insert_submenu(gioMenuPointer.reinterpret(), position, label, submenu.gioMenuModelPointer.reinterpret())
 
     /**
      * Convenience function for prepending a normal menu item to the start
@@ -262,12 +238,7 @@ public open class Menu(
     public open fun prependSection(
         label: String? = null,
         section: MenuModel,
-    ): Unit =
-        g_menu_prepend_section(
-            gioMenuPointer.reinterpret(),
-            label,
-            section.gioMenuModelPointer.reinterpret()
-        )
+    ): Unit = g_menu_prepend_section(gioMenuPointer.reinterpret(), label, section.gioMenuModelPointer.reinterpret())
 
     /**
      * Convenience function for prepending a submenu menu item to the start
@@ -281,12 +252,7 @@ public open class Menu(
     public open fun prependSubmenu(
         label: String? = null,
         submenu: MenuModel,
-    ): Unit =
-        g_menu_prepend_submenu(
-            gioMenuPointer.reinterpret(),
-            label,
-            submenu.gioMenuModelPointer.reinterpret()
-        )
+    ): Unit = g_menu_prepend_submenu(gioMenuPointer.reinterpret(), label, submenu.gioMenuModelPointer.reinterpret())
 
     /**
      * Removes an item from the menu.
@@ -303,11 +269,7 @@ public open class Menu(
      * @param position the position of the item to remove
      * @since 2.32
      */
-    public open fun remove(position: Int): Unit =
-        g_menu_remove(
-            gioMenuPointer.reinterpret(),
-            position
-        )
+    public open fun remove(position: Int): Unit = g_menu_remove(gioMenuPointer.reinterpret(), position)
 
     /**
      * Removes all items in the menu.
@@ -318,9 +280,7 @@ public open class Menu(
 
     public companion object : TypeCompanion<Menu> {
         override val type: GeneratedClassKGType<Menu> =
-            GeneratedClassKGType(g_menu_get_type()) {
-                Menu(it.reinterpret())
-            }
+            GeneratedClassKGType(g_menu_get_type()) { Menu(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

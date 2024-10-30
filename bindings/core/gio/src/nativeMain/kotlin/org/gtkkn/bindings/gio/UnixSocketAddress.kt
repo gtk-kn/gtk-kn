@@ -51,7 +51,8 @@ import kotlin.ULong
  */
 public open class UnixSocketAddress(
     pointer: CPointer<GUnixSocketAddress>,
-) : SocketAddress(pointer.reinterpret()), KGTyped {
+) : SocketAddress(pointer.reinterpret()),
+    KGTyped {
     public val gioUnixSocketAddressPointer: CPointer<GUnixSocketAddress>
         get() = gPointer.reinterpret()
 
@@ -155,9 +156,7 @@ public open class UnixSocketAddress(
 
     public companion object : TypeCompanion<UnixSocketAddress> {
         override val type: GeneratedClassKGType<UnixSocketAddress> =
-            GeneratedClassKGType(g_unix_socket_address_get_type()) {
-                UnixSocketAddress(it.reinterpret())
-            }
+            GeneratedClassKGType(g_unix_socket_address_get_type()) { UnixSocketAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -63,12 +63,7 @@ public class DmabufFormats(
     public fun contains(
         fourcc: UInt,
         modifier: ULong,
-    ): Boolean =
-        gdk_dmabuf_formats_contains(
-            gdkDmabufFormatsPointer.reinterpret(),
-            fourcc,
-            modifier
-        ).asBoolean()
+    ): Boolean = gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer.reinterpret(), fourcc, modifier).asBoolean()
 
     /**
      * Returns whether @formats1 and @formats2 contain the
@@ -79,10 +74,7 @@ public class DmabufFormats(
      * @since 4.14
      */
     public fun equal(formats2: DmabufFormats? = null): Boolean =
-        gdk_dmabuf_formats_equal(
-            gdkDmabufFormatsPointer.reinterpret(),
-            formats2?.gdkDmabufFormatsPointer
-        ).asBoolean()
+        gdk_dmabuf_formats_equal(gdkDmabufFormatsPointer.reinterpret(), formats2?.gdkDmabufFormatsPointer).asBoolean()
 
     /**
      * Returns the number of formats that the @formats object

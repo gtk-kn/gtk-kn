@@ -66,8 +66,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `bind_property_full`: g_object_bind_property_full is shadowedBy
- * bind_property_with_closures
+ * - method `bind_property_full`: g_object_bind_property_full is shadowedBy bind_property_with_closures
  * - method `get_data`: Return type gpointer is unsupported
  * - method `get_qdata`: Return type gpointer is unsupported
  * - parameter `values`: Value
@@ -259,11 +258,7 @@ public open class Object(
      *
      * @param propertyName the name of a property installed on the class of @object.
      */
-    public open fun notify(propertyName: String): Unit =
-        g_object_notify(
-            gPointer.reinterpret(),
-            propertyName
-        )
+    public open fun notify(propertyName: String): Unit = g_object_notify(gPointer.reinterpret(), propertyName)
 
     /**
      * Emits a "notify" signal for the property specified by @pspec on @object.
@@ -433,8 +428,7 @@ public open class Object(
      * detail strings for the notify signal.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `pspec` the #GParamSpec of the property which
-     * changed.
+     * @param handler the Callback to connect. Params: `pspec` the #GParamSpec of the property which changed.
      */
     public fun connectNotify(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -476,10 +470,7 @@ public open class Object(
             gIface: TypeInterface,
             propertyName: String,
         ): ParamSpec =
-            g_object_interface_find_property(
-                gIface.gobjectTypeInterfacePointer,
-                propertyName
-            )!!.run {
+            g_object_interface_find_property(gIface.gobjectTypeInterfacePointer, propertyName)!!.run {
                 ParamSpec(reinterpret())
             }
 
@@ -510,11 +501,7 @@ public open class Object(
         public fun interfaceInstallProperty(
             gIface: TypeInterface,
             pspec: ParamSpec,
-        ): Unit =
-            g_object_interface_install_property(
-                gIface.gobjectTypeInterfacePointer,
-                pspec.gPointer.reinterpret()
-            )
+        ): Unit = g_object_interface_install_property(gIface.gobjectTypeInterfacePointer, pspec.gPointer.reinterpret())
     }
 }
 
@@ -529,5 +516,4 @@ private val connectNotifyFunc: CPointer<CFunction<(CPointer<GParamSpec>) -> Unit
                 ParamSpec(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

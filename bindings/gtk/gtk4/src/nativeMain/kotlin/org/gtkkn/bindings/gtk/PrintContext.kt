@@ -100,7 +100,8 @@ import kotlin.Double
  */
 public open class PrintContext(
     pointer: CPointer<GtkPrintContext>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkPrintContextPointer: CPointer<GtkPrintContext>
         get() = gPointer.reinterpret()
 
@@ -169,9 +170,7 @@ public open class PrintContext(
 
     public companion object : TypeCompanion<PrintContext> {
         override val type: GeneratedClassKGType<PrintContext> =
-            GeneratedClassKGType(gtk_print_context_get_type()) {
-                PrintContext(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_print_context_get_type()) { PrintContext(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

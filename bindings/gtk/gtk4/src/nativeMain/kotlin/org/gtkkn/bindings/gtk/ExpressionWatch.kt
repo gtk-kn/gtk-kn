@@ -38,10 +38,7 @@ public class ExpressionWatch(
      * @return `TRUE` if the expression could be evaluated and `value` was set
      */
     public fun evaluate(`value`: Value): Boolean =
-        gtk_expression_watch_evaluate(
-            gtkExpressionWatchPointer.reinterpret(),
-            `value`.gobjectValuePointer
-        ).asBoolean()
+        gtk_expression_watch_evaluate(gtkExpressionWatchPointer.reinterpret(), `value`.gobjectValuePointer).asBoolean()
 
     /**
      * Acquires a reference on the given `GtkExpressionWatch`.

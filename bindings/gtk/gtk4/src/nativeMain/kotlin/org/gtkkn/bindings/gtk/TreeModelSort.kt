@@ -125,7 +125,11 @@ import kotlin.Unit
  */
 public open class TreeModelSort(
     pointer: CPointer<GtkTreeModelSort>,
-) : Object(pointer.reinterpret()), TreeDragSource, TreeModel, TreeSortable, KGTyped {
+) : Object(pointer.reinterpret()),
+    TreeDragSource,
+    TreeModel,
+    TreeSortable,
+    KGTyped {
     public val gtkTreeModelSortPointer: CPointer<GtkTreeModelSort>
         get() = gPointer.reinterpret()
 
@@ -155,8 +159,9 @@ public open class TreeModelSort(
      * @param childModel A `GtkTreeModel`
      * @return A new `GtkTreeModelSort`.
      */
-    public constructor(childModel: TreeModel) :
-        this(gtk_tree_model_sort_new_with_model(childModel.gtkTreeModelPointer)!!.reinterpret())
+    public constructor(
+        childModel: TreeModel,
+    ) : this(gtk_tree_model_sort_new_with_model(childModel.gtkTreeModelPointer)!!.reinterpret())
 
     /**
      * This function should almost never be called.  It clears the @tree_model_sort
@@ -259,10 +264,7 @@ public open class TreeModelSort(
      * @return true if the iter is valid, false if the iter is invalid.
      */
     public open fun iterIsValid(iter: TreeIter): Boolean =
-        gtk_tree_model_sort_iter_is_valid(
-            gtkTreeModelSortPointer.reinterpret(),
-            iter.gtkTreeIterPointer
-        ).asBoolean()
+        gtk_tree_model_sort_iter_is_valid(gtkTreeModelSortPointer.reinterpret(), iter.gtkTreeIterPointer).asBoolean()
 
     /**
      * This resets the default sort function to be in the “unsorted” state.  That
@@ -275,9 +277,7 @@ public open class TreeModelSort(
 
     public companion object : TypeCompanion<TreeModelSort> {
         override val type: GeneratedClassKGType<TreeModelSort> =
-            GeneratedClassKGType(gtk_tree_model_sort_get_type()) {
-                TreeModelSort(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_tree_model_sort_get_type()) { TreeModelSort(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

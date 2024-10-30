@@ -19,7 +19,9 @@ import kotlin.Boolean
 /**
  * Interface for Drag-and-Drop destinations in `GtkTreeView`.
  */
-public interface TreeDragSource : Interface, KGTyped {
+public interface TreeDragSource :
+    Interface,
+    KGTyped {
     public val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>
 
     /**
@@ -48,10 +50,7 @@ public interface TreeDragSource : Interface, KGTyped {
      *    given @path
      */
     public fun dragDataGet(path: TreePath): ContentProvider? =
-        gtk_tree_drag_source_drag_data_get(
-            gtkTreeDragSourcePointer.reinterpret(),
-            path.gtkTreePathPointer
-        )?.run {
+        gtk_tree_drag_source_drag_data_get(gtkTreeDragSourcePointer.reinterpret(), path.gtkTreePathPointer)?.run {
             ContentProvider(reinterpret())
         }
 
@@ -64,10 +63,7 @@ public interface TreeDragSource : Interface, KGTyped {
      * @return true if the row can be dragged
      */
     public fun rowDraggable(path: TreePath): Boolean =
-        gtk_tree_drag_source_row_draggable(
-            gtkTreeDragSourcePointer.reinterpret(),
-            path.gtkTreePathPointer
-        ).asBoolean()
+        gtk_tree_drag_source_row_draggable(gtkTreeDragSourcePointer.reinterpret(), path.gtkTreePathPointer).asBoolean()
 
     private data class Wrapper(
         private val pointer: CPointer<GtkTreeDragSource>,
@@ -77,9 +73,7 @@ public interface TreeDragSource : Interface, KGTyped {
 
     public companion object : TypeCompanion<TreeDragSource> {
         override val type: GeneratedInterfaceKGType<TreeDragSource> =
-            GeneratedInterfaceKGType(gtk_tree_drag_source_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_tree_drag_source_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

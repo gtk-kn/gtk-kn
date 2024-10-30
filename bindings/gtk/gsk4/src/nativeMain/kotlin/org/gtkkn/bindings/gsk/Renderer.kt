@@ -52,7 +52,8 @@ import kotlin.Unit
  */
 public open class Renderer(
     pointer: CPointer<GskRenderer>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gskRendererPointer: CPointer<GskRenderer>
         get() = gPointer.reinterpret()
 
@@ -84,8 +85,9 @@ public open class Renderer(
      * @param surface a `GdkSurface`
      * @return a `GskRenderer`
      */
-    public constructor(surface: Surface) :
-        this(gsk_renderer_new_for_surface(surface.gdkSurfacePointer.reinterpret())!!.reinterpret())
+    public constructor(
+        surface: Surface,
+    ) : this(gsk_renderer_new_for_surface(surface.gdkSurfacePointer.reinterpret())!!.reinterpret())
 
     /**
      * Retrieves the `GdkSurface` set using gsk_enderer_realize().

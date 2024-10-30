@@ -82,7 +82,9 @@ import kotlin.collections.List
  */
 public open class FileFilter(
     pointer: CPointer<GtkFileFilter>,
-) : Filter(pointer.reinterpret()), Buildable, KGTyped {
+) : Filter(pointer.reinterpret()),
+    Buildable,
+    KGTyped {
     public val gtkFileFilterPointer: CPointer<GtkFileFilter>
         get() = gPointer.reinterpret()
 
@@ -145,8 +147,9 @@ public open class FileFilter(
      * @param variant an `a{sv}` `GVariant`
      * @return a new `GtkFileFilter` object
      */
-    public constructor(variant: Variant) :
-        this(gtk_file_filter_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
+    public constructor(
+        variant: Variant,
+    ) : this(gtk_file_filter_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
 
     /**
      * Adds a rule allowing a given mime type to @filter.

@@ -45,7 +45,8 @@ import org.gtkkn.native.gtk.gtk_fixed_layout_new
  */
 public open class FixedLayout(
     pointer: CPointer<GtkFixedLayout>,
-) : LayoutManager(pointer.reinterpret()), KGTyped {
+) : LayoutManager(pointer.reinterpret()),
+    KGTyped {
     public val gtkFixedLayoutPointer: CPointer<GtkFixedLayout>
         get() = gPointer.reinterpret()
 

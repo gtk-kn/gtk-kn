@@ -104,8 +104,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `attrs`: LogAttr
  * - parameter `data`: gpointer
  * - parameter `attrs`: LogAttr
- * - parameter `paragraph_delimiter_index`: paragraph_delimiter_index: Out parameter is not
- * supported
+ * - parameter `paragraph_delimiter_index`: paragraph_delimiter_index: Out parameter is not supported
  * - parameter `attrs`: LogAttr
  * - parameter `mirrored_ch`: Unsupported pointer to primitive type
  * - parameter `context`: C Type PangoContext is ignored
@@ -628,10 +627,7 @@ public object Pango {
         inkRect: Rectangle,
         logicalRect: Rectangle,
     ): Attribute =
-        pango_attr_shape_new(
-            inkRect.pangoRectanglePointer,
-            logicalRect.pangoRectanglePointer
-        )!!.run {
+        pango_attr_shape_new(inkRect.pangoRectanglePointer, logicalRect.pangoRectanglePointer)!!.run {
             Attribute(reinterpret())
         }
 
@@ -884,8 +880,7 @@ public object Pango {
     /**
      * This is the default break algorithm.
      *
-     * It applies rules from the [Unicode Line Breaking
-     * Algorithm](http://www.unicode.org/unicode/reports/tr14/)
+     * It applies rules from the [Unicode Line Breaking Algorithm](http://www.unicode.org/unicode/reports/tr14/)
      * without language-specific tailoring, therefore the @analyis argument is unused
      * and can be null.
      *
@@ -905,14 +900,7 @@ public object Pango {
         analysis: Analysis? = null,
         attrs: LogAttr,
         attrsLen: Int,
-    ): Unit =
-        pango_default_break(
-            text,
-            length,
-            analysis?.pangoAnalysisPointer,
-            attrs.pangoLogAttrPointer,
-            attrsLen
-        )
+    ): Unit = pango_default_break(text, length, analysis?.pangoAnalysisPointer, attrs.pangoLogAttrPointer, attrsLen)
 
     /**
      * Converts extents from Pango units to device units.
@@ -940,11 +928,7 @@ public object Pango {
     public fun extentsToPixels(
         inclusive: Rectangle? = null,
         nearest: Rectangle? = null,
-    ): Unit =
-        pango_extents_to_pixels(
-            inclusive?.pangoRectanglePointer,
-            nearest?.pangoRectanglePointer
-        )
+    ): Unit = pango_extents_to_pixels(inclusive?.pangoRectanglePointer, nearest?.pangoRectanglePointer)
 
     /**
      * Searches a string the first character that has a strong
@@ -960,10 +944,7 @@ public object Pango {
         text: String,
         length: Int,
     ): Direction =
-        pango_find_base_dir(
-            text,
-            length
-        ).run {
+        pango_find_base_dir(text, length).run {
             Direction.fromNativeValue(this)
         }
 
@@ -1056,11 +1037,7 @@ public object Pango {
         baseGravity: Gravity,
         hint: GravityHint,
     ): Gravity =
-        pango_gravity_get_for_script(
-            script.nativeValue,
-            baseGravity.nativeValue,
-            hint.nativeValue
-        ).run {
+        pango_gravity_get_for_script(script.nativeValue, baseGravity.nativeValue, hint.nativeValue).run {
             Gravity.fromNativeValue(this)
         }
 
@@ -1344,13 +1321,7 @@ public object Pango {
         length: Int,
         analysis: Analysis,
         glyphs: GlyphString,
-    ): Unit =
-        pango_shape(
-            text,
-            length,
-            analysis.pangoAnalysisPointer,
-            glyphs.pangoGlyphStringPointer
-        )
+    ): Unit = pango_shape(text, length, analysis.pangoAnalysisPointer, glyphs.pangoGlyphStringPointer)
 
     /**
      * Convert the characters in @text into glyphs.
@@ -1378,8 +1349,7 @@ public object Pango {
      * @param itemText valid UTF-8 text to shape.
      * @param itemLength the length (in bytes) of @item_text. -1 means nul-terminated text.
      * @param paragraphText text of the paragraph (see details).
-     * @param paragraphLength the length (in bytes) of @paragraph_text. -1 means nul-terminated
-     * text.
+     * @param paragraphLength the length (in bytes) of @paragraph_text. -1 means nul-terminated text.
      * @param analysis `PangoAnalysis` structure from [func@Pango.itemize].
      * @param glyphs glyph string in which to store results.
      * @since 1.32
@@ -1525,8 +1495,7 @@ public object Pango {
      * @return A newly-allocated string that must be freed with g_free()
      */
     public fun trimString(str: String): String =
-        pango_trim_string(str)?.toKString()
-            ?: error("Expected not null string")
+        pango_trim_string(str)?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines the inherent direction of a character.
@@ -1627,15 +1596,14 @@ public object Pango {
      *   be modified or freed.
      * @since 1.16
      */
-    public fun versionString(): String =
-        pango_version_string()?.toKString()
-            ?: error("Expected not null string")
+    public fun versionString(): String = pango_version_string()?.toKString() ?: error("Expected not null string")
 
     public fun resolveException(error: Error): GlibException {
         val ex =
             when (error.domain) {
                 LayoutDeserializeError.quark() ->
-                    LayoutDeserializeError.fromErrorOrNull(error)
+                    LayoutDeserializeError
+                        .fromErrorOrNull(error)
                         ?.let {
                             LayoutDeserializeErrorException(error, it)
                         }
@@ -1650,37 +1618,35 @@ public val AttrFilterFuncFunc: CPointer<CFunction<(CPointer<PangoAttribute>) -> 
             attribute: CPointer<PangoAttribute>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(attribute: Attribute) -> Boolean>().get().invoke(
-            attribute!!.run {
-                Attribute(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(attribute: Attribute) -> Boolean>()
+            .get()
+            .invoke(
+                attribute!!.run {
+                    Attribute(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
-public val FontsetForeachFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<PangoFontset>,
-            CPointer<PangoFont>,
-        ) -> Int
-    >
-> =
+public val FontsetForeachFuncFunc:
+    CPointer<CFunction<(CPointer<PangoFontset>, CPointer<PangoFont>) -> Int>> =
     staticCFunction {
             fontset: CPointer<PangoFontset>?,
             font: CPointer<PangoFont>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(fontset: Fontset, font: Font) -> Boolean>().get().invoke(
-            fontset!!.run {
-                Fontset(reinterpret())
-            },
-            font!!.run {
-                Font(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(fontset: Fontset, font: Font) -> Boolean>()
+            .get()
+            .invoke(
+                fontset!!.run {
+                    Fontset(reinterpret())
+                },
+                font!!.run {
+                    Font(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 /**
  * Type of a function filtering a list of attributes.

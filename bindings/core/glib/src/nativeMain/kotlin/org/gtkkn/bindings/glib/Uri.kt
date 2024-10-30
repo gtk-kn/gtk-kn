@@ -84,16 +84,14 @@ import kotlin.collections.List
  * For example, with the encoded flag:
  *
  * ```c
- * g_autoptr(GUri) uri = g_uri_parse
- * ("http://host/path?query=http%3A%2F%2Fhost%2Fpath%3Fparam%3Dvalue", G_URI_FLAGS_ENCODED, &err);
+ * g_autoptr(GUri) uri = g_uri_parse ("http://host/path?query=http%3A%2F%2Fhost%2Fpath%3Fparam%3Dvalue", G_URI_FLAGS_ENCODED, &err);
  * g_assert_cmpstr (g_uri_get_query (uri), ==, "query=http%3A%2F%2Fhost%2Fpath%3Fparam%3Dvalue");
  * ```
  *
  * While the default `%`-decoding behaviour would give:
  *
  * ```c
- * g_autoptr(GUri) uri = g_uri_parse
- * ("http://host/path?query=http%3A%2F%2Fhost%2Fpath%3Fparam%3Dvalue", G_URI_FLAGS_NONE, &err);
+ * g_autoptr(GUri) uri = g_uri_parse ("http://host/path?query=http%3A%2F%2Fhost%2Fpath%3Fparam%3Dvalue", G_URI_FLAGS_NONE, &err);
  * g_assert_cmpstr (g_uri_get_query (uri), ==, "query=http://host/path?param=value");
  * ```
  *
@@ -101,8 +99,7 @@ import kotlin.collections.List
  * with an error indicating the bad string location:
  *
  * ```c
- * g_autoptr(GUri) uri = g_uri_parse
- * ("http://host/path?query=http%3A%2F%2Fhost%2Fpath%3Fbad%3D%00alue", G_URI_FLAGS_NONE, &err);
+ * g_autoptr(GUri) uri = g_uri_parse ("http://host/path?query=http%3A%2F%2Fhost%2Fpath%3Fbad%3D%00alue", G_URI_FLAGS_NONE, &err);
  * g_assert_error (err, G_URI_ERROR, G_URI_ERROR_BAD_QUERY);
  * ```
  *
@@ -303,8 +300,7 @@ public class Uri(
      * @since 2.66
      */
     public fun getPath(): String =
-        g_uri_get_path(glibUriPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_uri_get_path(glibUriPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets @uri's port.
@@ -334,8 +330,7 @@ public class Uri(
      * @since 2.66
      */
     public fun getScheme(): String =
-        g_uri_get_scheme(glibUriPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_uri_get_scheme(glibUriPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the ‘username’ component of @uri's userinfo, which may contain
@@ -375,12 +370,7 @@ public class Uri(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_uri_parse_relative(
-                    glibUriPointer.reinterpret(),
-                    uriRef,
-                    flags.mask,
-                    gError.ptr
-                )?.run {
+                g_uri_parse_relative(glibUriPointer.reinterpret(), uriRef, flags.mask, gError.ptr)?.run {
                     Uri(reinterpret())
                 }
 
@@ -432,16 +422,7 @@ public class Uri(
             query: String? = null,
             fragment: String? = null,
         ): Uri =
-            g_uri_build(
-                flags.mask,
-                scheme,
-                userinfo,
-                host,
-                port,
-                path,
-                query,
-                fragment
-            )!!.run {
+            g_uri_build(flags.mask, scheme, userinfo, host, port, path, query, fragment)!!.run {
                 Uri(reinterpret())
             }
 
@@ -481,8 +462,16 @@ public class Uri(
             fragment: String? = null,
         ): Uri =
             g_uri_build_with_user(
-                flags.mask, scheme, user, password, authParams, host, port,
-                path, query, fragment
+                flags.mask,
+                scheme,
+                user,
+                password,
+                authParams,
+                host,
+                port,
+                path,
+                query,
+                fragment
             )!!.run {
                 Uri(reinterpret())
             }
@@ -512,11 +501,8 @@ public class Uri(
             reservedCharsAllowed: String? = null,
             allowUtf8: Boolean,
         ): String =
-            g_uri_escape_string(
-                unescaped,
-                reservedCharsAllowed,
-                allowUtf8.asGBoolean()
-            )?.toKString() ?: error("Expected not null string")
+            g_uri_escape_string(unescaped, reservedCharsAllowed, allowUtf8.asGBoolean())?.toKString()
+                ?: error("Expected not null string")
 
         /**
          * Parses @uri_string according to @flags, to determine whether it is a valid
@@ -584,16 +570,8 @@ public class Uri(
             query: String? = null,
             fragment: String? = null,
         ): String =
-            g_uri_join(
-                flags.mask,
-                scheme,
-                userinfo,
-                host,
-                port,
-                path,
-                query,
-                fragment
-            )?.toKString() ?: error("Expected not null string")
+            g_uri_join(flags.mask, scheme, userinfo, host, port, path, query, fragment)?.toKString()
+                ?: error("Expected not null string")
 
         /**
          * Joins the given components together according to @flags to create
@@ -634,9 +612,18 @@ public class Uri(
             fragment: String? = null,
         ): String =
             g_uri_join_with_user(
-                flags.mask, scheme, user, password, authParams, host, port,
-                path, query, fragment
-            )?.toKString() ?: error("Expected not null string")
+                flags.mask,
+                scheme,
+                user,
+                password,
+                authParams,
+                host,
+                port,
+                path,
+                query,
+                fragment
+            )?.toKString()
+                ?: error("Expected not null string")
 
         /**
          * Splits an URI list conforming to the text/uri-list
@@ -650,8 +637,7 @@ public class Uri(
          * @since 2.6
          */
         public fun listExtractUris(uriList: String): List<String> =
-            g_uri_list_extract_uris(uriList)?.toKStringList()
-                ?: error("Expected not null string array")
+            g_uri_list_extract_uris(uriList)?.toKStringList() ?: error("Expected not null string array")
 
         /**
          * Parses @uri_string according to @flags. If the result is not a
@@ -730,13 +716,7 @@ public class Uri(
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult =
-                    g_uri_parse_params(
-                        params,
-                        length,
-                        separators,
-                        flags.mask,
-                        gError.ptr
-                    )?.run {
+                    g_uri_parse_params(params, length, separators, flags.mask, gError.ptr)?.run {
                         HashTable(reinterpret())
                     }
 
@@ -806,13 +786,7 @@ public class Uri(
         ): Result<String> =
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_uri_resolve_relative(
-                        baseUriString,
-                        uriRef,
-                        flags.mask,
-                        gError.ptr
-                    )?.toKString()
+                val gResult = g_uri_resolve_relative(baseUriString, uriRef, flags.mask, gError.ptr)?.toKString()
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
@@ -850,12 +824,7 @@ public class Uri(
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult =
-                    g_uri_unescape_bytes(
-                        escapedString,
-                        length,
-                        illegalCharacters,
-                        gError.ptr
-                    )?.run {
+                    g_uri_unescape_bytes(escapedString, length, illegalCharacters, gError.ptr)?.run {
                         Bytes(reinterpret())
                     }
 
@@ -893,12 +862,7 @@ public class Uri(
             escapedString: String? = null,
             escapedStringEnd: String? = null,
             illegalCharacters: String? = null,
-        ): String? =
-            g_uri_unescape_segment(
-                escapedString,
-                escapedStringEnd,
-                illegalCharacters
-            )?.toKString()
+        ): String? = g_uri_unescape_segment(escapedString, escapedStringEnd, illegalCharacters)?.toKString()
 
         /**
          * Unescapes a whole escaped string.

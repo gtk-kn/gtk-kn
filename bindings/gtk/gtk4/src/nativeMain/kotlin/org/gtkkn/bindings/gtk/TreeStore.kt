@@ -118,11 +118,7 @@ public open class TreeStore(
         iter: TreeIter,
         parent: TreeIter? = null,
     ): Unit =
-        gtk_tree_store_append(
-            gtkTreeStorePointer.reinterpret(),
-            iter.gtkTreeIterPointer,
-            parent?.gtkTreeIterPointer
-        )
+        gtk_tree_store_append(gtkTreeStorePointer.reinterpret(), iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer)
 
     /**
      * Removes all rows from @tree_store
@@ -259,10 +255,7 @@ public open class TreeStore(
      * @return true if the iter is valid, and false otherwise
      */
     public open fun iterIsValid(iter: TreeIter): Boolean =
-        gtk_tree_store_iter_is_valid(
-            gtkTreeStorePointer.reinterpret(),
-            iter.gtkTreeIterPointer
-        ).asBoolean()
+        gtk_tree_store_iter_is_valid(gtkTreeStorePointer.reinterpret(), iter.gtkTreeIterPointer).asBoolean()
 
     /**
      * Moves @iter in @tree_store to the position after @position.
@@ -324,11 +317,7 @@ public open class TreeStore(
         iter: TreeIter,
         parent: TreeIter? = null,
     ): Unit =
-        gtk_tree_store_prepend(
-            gtkTreeStorePointer.reinterpret(),
-            iter.gtkTreeIterPointer,
-            parent?.gtkTreeIterPointer
-        )
+        gtk_tree_store_prepend(gtkTreeStorePointer.reinterpret(), iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer)
 
     /**
      * Removes @iter from @tree_store.
@@ -340,10 +329,7 @@ public open class TreeStore(
      * @return true if @iter is still valid, and false otherwise
      */
     public open fun remove(iter: TreeIter): Boolean =
-        gtk_tree_store_remove(
-            gtkTreeStorePointer.reinterpret(),
-            iter.gtkTreeIterPointer
-        ).asBoolean()
+        gtk_tree_store_remove(gtkTreeStorePointer.reinterpret(), iter.gtkTreeIterPointer).asBoolean()
 
     /**
      * Sets the data in the cell specified by @iter and @column.
@@ -378,12 +364,7 @@ public open class TreeStore(
     public open fun swap(
         a: TreeIter,
         b: TreeIter,
-    ): Unit =
-        gtk_tree_store_swap(
-            gtkTreeStorePointer.reinterpret(),
-            a.gtkTreeIterPointer,
-            b.gtkTreeIterPointer
-        )
+    ): Unit = gtk_tree_store_swap(gtkTreeStorePointer.reinterpret(), a.gtkTreeIterPointer, b.gtkTreeIterPointer)
 
     public companion object : TypeCompanion<TreeStore> {
         override val type: GeneratedClassKGType<TreeStore> =

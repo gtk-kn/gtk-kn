@@ -71,7 +71,8 @@ import kotlin.Unit
  */
 public open class FileEnumerator(
     pointer: CPointer<GFileEnumerator>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioFileEnumeratorPointer: CPointer<GFileEnumerator>
         get() = gPointer.reinterpret()
 
@@ -371,16 +372,11 @@ public open class FileEnumerator(
      * @param pending a boolean value.
      */
     public open fun setPending(pending: Boolean): Unit =
-        g_file_enumerator_set_pending(
-            gioFileEnumeratorPointer.reinterpret(),
-            pending.asGBoolean()
-        )
+        g_file_enumerator_set_pending(gioFileEnumeratorPointer.reinterpret(), pending.asGBoolean())
 
     public companion object : TypeCompanion<FileEnumerator> {
         override val type: GeneratedClassKGType<FileEnumerator> =
-            GeneratedClassKGType(g_file_enumerator_get_type()) {
-                FileEnumerator(it.reinterpret())
-            }
+            GeneratedClassKGType(g_file_enumerator_get_type()) { FileEnumerator(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

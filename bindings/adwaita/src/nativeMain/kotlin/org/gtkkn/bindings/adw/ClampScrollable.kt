@@ -39,7 +39,10 @@ import kotlin.Unit
  */
 public class ClampScrollable(
     pointer: CPointer<AdwClampScrollable>,
-) : Widget(pointer.reinterpret()), Orientable, Scrollable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Orientable,
+    Scrollable,
+    KGTyped {
     public val adwClampScrollablePointer: CPointer<AdwClampScrollable>
         get() = gPointer.reinterpret()
 
@@ -77,7 +80,9 @@ public class ClampScrollable(
          *
          * @param child the child widget
          */
-        set(child) =
+        set(
+            child
+        ) =
             adw_clamp_scrollable_set_child(
                 adwClampScrollablePointer.reinterpret(),
                 child?.gtkWidgetPointer?.reinterpret()
@@ -103,11 +108,7 @@ public class ClampScrollable(
          *
          * @param maximumSize the maximum size
          */
-        set(maximumSize) =
-            adw_clamp_scrollable_set_maximum_size(
-                adwClampScrollablePointer.reinterpret(),
-                maximumSize
-            )
+        set(maximumSize) = adw_clamp_scrollable_set_maximum_size(adwClampScrollablePointer.reinterpret(), maximumSize)
 
     /**
      * The size above which the child is clamped.
@@ -131,8 +132,7 @@ public class ClampScrollable(
          *
          * @return the size above which the child is clamped
          */
-        get() =
-            adw_clamp_scrollable_get_tightening_threshold(adwClampScrollablePointer.reinterpret())
+        get() = adw_clamp_scrollable_get_tightening_threshold(adwClampScrollablePointer.reinterpret())
 
         /**
          * Sets the size above which the child is clamped.
@@ -152,11 +152,9 @@ public class ClampScrollable(
          *
          * @param tighteningThreshold the tightening threshold
          */
-        set(tighteningThreshold) =
-            adw_clamp_scrollable_set_tightening_threshold(
-                adwClampScrollablePointer.reinterpret(),
-                tighteningThreshold
-            )
+        set(
+            tighteningThreshold
+        ) = adw_clamp_scrollable_set_tightening_threshold(adwClampScrollablePointer.reinterpret(), tighteningThreshold)
 
     /**
      * The length unit for maximum size and tightening threshold.
@@ -185,11 +183,7 @@ public class ClampScrollable(
          * @param unit the length unit
          * @since 1.4
          */
-        set(unit) =
-            adw_clamp_scrollable_set_unit(
-                adwClampScrollablePointer.reinterpret(),
-                unit.nativeValue
-            )
+        set(unit) = adw_clamp_scrollable_set_unit(adwClampScrollablePointer.reinterpret(), unit.nativeValue)
 
     /**
      * Creates a new `AdwClampScrollable`.
@@ -240,10 +234,7 @@ public class ClampScrollable(
      * @param child the child widget
      */
     public fun setChild(child: Widget? = null): Unit =
-        adw_clamp_scrollable_set_child(
-            adwClampScrollablePointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_clamp_scrollable_set_child(adwClampScrollablePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the maximum size allocated to the child.
@@ -253,10 +244,7 @@ public class ClampScrollable(
      * @param maximumSize the maximum size
      */
     public fun setMaximumSize(maximumSize: Int): Unit =
-        adw_clamp_scrollable_set_maximum_size(
-            adwClampScrollablePointer.reinterpret(),
-            maximumSize
-        )
+        adw_clamp_scrollable_set_maximum_size(adwClampScrollablePointer.reinterpret(), maximumSize)
 
     /**
      * Sets the size above which the child is clamped.
@@ -277,10 +265,7 @@ public class ClampScrollable(
      * @param tighteningThreshold the tightening threshold
      */
     public fun setTighteningThreshold(tighteningThreshold: Int): Unit =
-        adw_clamp_scrollable_set_tightening_threshold(
-            adwClampScrollablePointer.reinterpret(),
-            tighteningThreshold
-        )
+        adw_clamp_scrollable_set_tightening_threshold(adwClampScrollablePointer.reinterpret(), tighteningThreshold)
 
     /**
      * Sets the length unit for maximum size and tightening threshold.
@@ -295,9 +280,7 @@ public class ClampScrollable(
 
     public companion object : TypeCompanion<ClampScrollable> {
         override val type: GeneratedClassKGType<ClampScrollable> =
-            GeneratedClassKGType(adw_clamp_scrollable_get_type()) {
-                ClampScrollable(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_clamp_scrollable_get_type()) { ClampScrollable(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

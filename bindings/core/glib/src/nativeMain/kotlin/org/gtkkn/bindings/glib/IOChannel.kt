@@ -189,8 +189,7 @@ public class IOChannel(
      *   owned by GLib and must not be freed.
      */
     public fun getEncoding(): String =
-        g_io_channel_get_encoding(glibIOChannelPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_io_channel_get_encoding(glibIOChannelPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the current flags for a #GIOChannel, including read-only
@@ -326,10 +325,7 @@ public class IOChannel(
      *            the GIOChannel data structure.
      */
     public fun setCloseOnUnref(doClose: Boolean): Unit =
-        g_io_channel_set_close_on_unref(
-            glibIOChannelPointer.reinterpret(),
-            doClose.asGBoolean()
-        )
+        g_io_channel_set_close_on_unref(glibIOChannelPointer.reinterpret(), doClose.asGBoolean())
 
     /**
      * Sets the encoding for the input/output of the channel.
@@ -374,11 +370,7 @@ public class IOChannel(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_io_channel_set_encoding(
-                    glibIOChannelPointer.reinterpret(),
-                    encoding,
-                    gError.ptr
-                ).run {
+                g_io_channel_set_encoding(glibIOChannelPointer.reinterpret(), encoding, gError.ptr).run {
                     IOStatus.fromNativeValue(this)
                 }
 
@@ -399,11 +391,7 @@ public class IOChannel(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_io_channel_set_flags(
-                    glibIOChannelPointer.reinterpret(),
-                    flags.mask,
-                    gError.ptr
-                ).run {
+                g_io_channel_set_flags(glibIOChannelPointer.reinterpret(), flags.mask, gError.ptr).run {
                     IOStatus.fromNativeValue(this)
                 }
 
@@ -443,11 +431,7 @@ public class IOChannel(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_io_channel_shutdown(
-                    glibIOChannelPointer.reinterpret(),
-                    flush.asGBoolean(),
-                    gError.ptr
-                ).run {
+                g_io_channel_shutdown(glibIOChannelPointer.reinterpret(), flush.asGBoolean(), gError.ptr).run {
                     IOStatus.fromNativeValue(this)
                 }
 
@@ -484,11 +468,7 @@ public class IOChannel(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_io_channel_write_unichar(
-                    glibIOChannelPointer.reinterpret(),
-                    thechar,
-                    gError.ptr
-                ).run {
+                g_io_channel_write_unichar(glibIOChannelPointer.reinterpret(), thechar, gError.ptr).run {
                     IOStatus.fromNativeValue(this)
                 }
 

@@ -63,7 +63,10 @@ import kotlin.collections.List
  */
 public open class StringList(
     pointer: CPointer<GtkStringList>,
-) : Object(pointer.reinterpret()), ListModel, Buildable, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    Buildable,
+    KGTyped {
     public val gtkStringListPointer: CPointer<GtkStringList>
         get() = gPointer.reinterpret()
 

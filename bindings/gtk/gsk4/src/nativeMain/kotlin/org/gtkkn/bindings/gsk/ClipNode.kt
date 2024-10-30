@@ -18,7 +18,8 @@ import org.gtkkn.native.gsk.gsk_clip_node_new
  */
 public open class ClipNode(
     pointer: CPointer<GskClipNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskClipNodePointer: CPointer<GskClipNode>
         get() = gPointer.reinterpret()
 
@@ -30,13 +31,10 @@ public open class ClipNode(
      * @param clip The clip to apply
      * @return A new `GskRenderNode`
      */
-    public constructor(child: RenderNode, clip: Rect) :
-        this(
-            gsk_clip_node_new(
-                child.gPointer.reinterpret(),
-                clip.grapheneRectPointer
-            )!!.reinterpret()
-        )
+    public constructor(
+        child: RenderNode,
+        clip: Rect,
+    ) : this(gsk_clip_node_new(child.gPointer.reinterpret(), clip.grapheneRectPointer)!!.reinterpret())
 
     /**
      * Gets the child node that is getting clipped by the given @node.

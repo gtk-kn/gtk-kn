@@ -68,10 +68,7 @@ public class Point(
      * @since 1.0
      */
     public fun equal(b: Point): Boolean =
-        graphene_point_equal(
-            graphenePointPointer.reinterpret(),
-            b.graphenePointPointer
-        )
+        graphene_point_equal(graphenePointPointer.reinterpret(), b.graphenePointPointer)
 
     /**
      * Frees the resources allocated by graphene_point_alloc().
@@ -106,10 +103,7 @@ public class Point(
      * @since 1.0
      */
     public fun initFromPoint(src: Point): Point =
-        graphene_point_init_from_point(
-            graphenePointPointer.reinterpret(),
-            src.graphenePointPointer
-        )!!.run {
+        graphene_point_init_from_point(graphenePointPointer.reinterpret(), src.graphenePointPointer)!!.run {
             Point(reinterpret())
         }
 
@@ -121,10 +115,7 @@ public class Point(
      * @since 1.4
      */
     public fun initFromVec2(src: Vec2): Point =
-        graphene_point_init_from_vec2(
-            graphenePointPointer.reinterpret(),
-            src.grapheneVec2Pointer
-        )!!.run {
+        graphene_point_init_from_vec2(graphenePointPointer.reinterpret(), src.grapheneVec2Pointer)!!.run {
             Point(reinterpret())
         }
 
@@ -171,11 +162,7 @@ public class Point(
      * @param v return location for the vertex
      * @since 1.4
      */
-    public fun toVec2(v: Vec2): Unit =
-        graphene_point_to_vec2(
-            graphenePointPointer.reinterpret(),
-            v.grapheneVec2Pointer
-        )
+    public fun toVec2(v: Vec2): Unit = graphene_point_to_vec2(graphenePointPointer.reinterpret(), v.grapheneVec2Pointer)
 
     public companion object : RecordCompanion<Point, graphene_point_t> {
         /**

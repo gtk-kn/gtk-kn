@@ -59,7 +59,8 @@ import kotlin.Unit
  */
 public open class DataInputStream(
     pointer: CPointer<GDataInputStream>,
-) : BufferedInputStream(pointer.reinterpret()), KGTyped {
+) : BufferedInputStream(pointer.reinterpret()),
+    KGTyped {
     public val gioDataInputStreamPointer: CPointer<GDataInputStream>
         get() = gPointer.reinterpret()
 
@@ -88,11 +89,7 @@ public open class DataInputStream(
          *
          * @param order a #GDataStreamByteOrder to set.
          */
-        set(order) =
-            g_data_input_stream_set_byte_order(
-                gioDataInputStreamPointer.reinterpret(),
-                order.nativeValue
-            )
+        set(order) = g_data_input_stream_set_byte_order(gioDataInputStreamPointer.reinterpret(), order.nativeValue)
 
     /**
      * The :newline-type property determines what is considered
@@ -118,11 +115,7 @@ public open class DataInputStream(
          *
          * @param type the type of new line return as #GDataStreamNewlineType.
          */
-        set(type) =
-            g_data_input_stream_set_newline_type(
-                gioDataInputStreamPointer.reinterpret(),
-                type.nativeValue
-            )
+        set(type) = g_data_input_stream_set_newline_type(gioDataInputStreamPointer.reinterpret(), type.nativeValue)
 
     /**
      * Creates a new data input stream for the @base_stream.
@@ -130,8 +123,9 @@ public open class DataInputStream(
      * @param baseStream a #GInputStream.
      * @return a new #GDataInputStream.
      */
-    public constructor(baseStream: InputStream) :
-        this(g_data_input_stream_new(baseStream.gioInputStreamPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        baseStream: InputStream,
+    ) : this(g_data_input_stream_new(baseStream.gioInputStreamPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the byte order for the data input stream.
@@ -437,10 +431,7 @@ public open class DataInputStream(
      * @param order a #GDataStreamByteOrder to set.
      */
     public open fun setByteOrder(order: DataStreamByteOrder): Unit =
-        g_data_input_stream_set_byte_order(
-            gioDataInputStreamPointer.reinterpret(),
-            order.nativeValue
-        )
+        g_data_input_stream_set_byte_order(gioDataInputStreamPointer.reinterpret(), order.nativeValue)
 
     /**
      * Sets the newline type for the @stream.
@@ -452,16 +443,11 @@ public open class DataInputStream(
      * @param type the type of new line return as #GDataStreamNewlineType.
      */
     public open fun setNewlineType(type: DataStreamNewlineType): Unit =
-        g_data_input_stream_set_newline_type(
-            gioDataInputStreamPointer.reinterpret(),
-            type.nativeValue
-        )
+        g_data_input_stream_set_newline_type(gioDataInputStreamPointer.reinterpret(), type.nativeValue)
 
     public companion object : TypeCompanion<DataInputStream> {
         override val type: GeneratedClassKGType<DataInputStream> =
-            GeneratedClassKGType(g_data_input_stream_get_type()) {
-                DataInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(g_data_input_stream_get_type()) { DataInputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

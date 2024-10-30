@@ -17,7 +17,8 @@ import org.gtkkn.native.gsk.gsk_transform_node_new
  */
 public open class TransformNode(
     pointer: CPointer<GskTransformNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskTransformNodePointer: CPointer<GskTransformNode>
         get() = gPointer.reinterpret()
 
@@ -29,13 +30,10 @@ public open class TransformNode(
      * @param transform The transform to apply
      * @return A new `GskRenderNode`
      */
-    public constructor(child: RenderNode, transform: Transform) :
-        this(
-            gsk_transform_node_new(
-                child.gPointer.reinterpret(),
-                transform.gskTransformPointer
-            )!!.reinterpret()
-        )
+    public constructor(
+        child: RenderNode,
+        transform: Transform,
+    ) : this(gsk_transform_node_new(child.gPointer.reinterpret(), transform.gskTransformPointer)!!.reinterpret())
 
     /**
      * Gets the child node that is getting transformed by the given @node.
@@ -59,9 +57,7 @@ public open class TransformNode(
 
     public companion object : TypeCompanion<TransformNode> {
         override val type: GeneratedClassKGType<TransformNode> =
-            GeneratedClassKGType(gsk_transform_node_get_type()) {
-                TransformNode(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_transform_node_get_type()) { TransformNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

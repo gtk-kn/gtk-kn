@@ -94,10 +94,7 @@ public class LayoutIter(
      *   logical extents
      */
     public fun getCharExtents(logicalRect: Rectangle): Unit =
-        pango_layout_iter_get_char_extents(
-            pangoLayoutIterPointer.reinterpret(),
-            logicalRect.pangoRectanglePointer
-        )
+        pango_layout_iter_get_char_extents(pangoLayoutIterPointer.reinterpret(), logicalRect.pangoRectanglePointer)
 
     /**
      * Gets the extents of the current cluster, in layout coordinates.

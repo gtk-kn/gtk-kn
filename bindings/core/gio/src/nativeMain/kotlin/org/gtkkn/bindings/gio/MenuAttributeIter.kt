@@ -30,7 +30,8 @@ import kotlin.String
  */
 public open class MenuAttributeIter(
     pointer: CPointer<GMenuAttributeIter>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioMenuAttributeIterPointer: CPointer<GMenuAttributeIter>
         get() = gPointer.reinterpret()
 
@@ -78,9 +79,7 @@ public open class MenuAttributeIter(
 
     public companion object : TypeCompanion<MenuAttributeIter> {
         override val type: GeneratedClassKGType<MenuAttributeIter> =
-            GeneratedClassKGType(g_menu_attribute_iter_get_type()) {
-                MenuAttributeIter(it.reinterpret())
-            }
+            GeneratedClassKGType(g_menu_attribute_iter_get_type()) { MenuAttributeIter(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

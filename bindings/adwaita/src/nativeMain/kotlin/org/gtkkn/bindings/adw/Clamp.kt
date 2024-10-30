@@ -55,7 +55,9 @@ import kotlin.Unit
  */
 public class Clamp(
     pointer: CPointer<AdwClamp>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val adwClampPointer: CPointer<AdwClamp>
         get() = gPointer.reinterpret()
 
@@ -90,11 +92,7 @@ public class Clamp(
          *
          * @param child the child widget
          */
-        set(child) =
-            adw_clamp_set_child(
-                adwClampPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = adw_clamp_set_child(adwClampPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The maximum size allocated to the child.
@@ -160,11 +158,9 @@ public class Clamp(
          *
          * @param tighteningThreshold the tightening threshold
          */
-        set(tighteningThreshold) =
-            adw_clamp_set_tightening_threshold(
-                adwClampPointer.reinterpret(),
-                tighteningThreshold
-            )
+        set(
+            tighteningThreshold
+        ) = adw_clamp_set_tightening_threshold(adwClampPointer.reinterpret(), tighteningThreshold)
 
     /**
      * The length unit for maximum size and tightening threshold.
@@ -243,10 +239,7 @@ public class Clamp(
      * @param child the child widget
      */
     public fun setChild(child: Widget? = null): Unit =
-        adw_clamp_set_child(
-            adwClampPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_clamp_set_child(adwClampPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the maximum size allocated to the child.
@@ -287,11 +280,7 @@ public class Clamp(
      * @param unit the length unit
      * @since 1.4
      */
-    public fun setUnit(unit: LengthUnit): Unit =
-        adw_clamp_set_unit(
-            adwClampPointer.reinterpret(),
-            unit.nativeValue
-        )
+    public fun setUnit(unit: LengthUnit): Unit = adw_clamp_set_unit(adwClampPointer.reinterpret(), unit.nativeValue)
 
     public companion object : TypeCompanion<Clamp> {
         override val type: GeneratedClassKGType<Clamp> =

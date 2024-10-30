@@ -75,7 +75,8 @@ import kotlin.Unit
  */
 public open class FontDialog(
     pointer: CPointer<GtkFontDialog>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkFontDialogPointer: CPointer<GtkFontDialog>
         get() = gPointer.reinterpret()
 
@@ -108,11 +109,9 @@ public open class FontDialog(
          * @param filter a `GtkFilter`
          * @since 4.10
          */
-        set(filter) =
-            gtk_font_dialog_set_filter(
-                gtkFontDialogPointer.reinterpret(),
-                filter?.gtkFilterPointer?.reinterpret()
-            )
+        set(
+            filter
+        ) = gtk_font_dialog_set_filter(gtkFontDialogPointer.reinterpret(), filter?.gtkFilterPointer?.reinterpret())
 
     /**
      * Sets a custom font map to select fonts from.
@@ -143,7 +142,9 @@ public open class FontDialog(
          * @param fontmap the fontmap
          * @since 4.10
          */
-        set(fontmap) =
+        set(
+            fontmap
+        ) =
             gtk_font_dialog_set_font_map(
                 gtkFontDialogPointer.reinterpret(),
                 fontmap?.pangoFontMapPointer?.reinterpret()
@@ -173,11 +174,7 @@ public open class FontDialog(
          * @param modal the new value
          * @since 4.10
          */
-        set(modal) =
-            gtk_font_dialog_set_modal(
-                gtkFontDialogPointer.reinterpret(),
-                modal.asGBoolean()
-            )
+        set(modal) = gtk_font_dialog_set_modal(gtkFontDialogPointer.reinterpret(), modal.asGBoolean())
 
     /**
      * A title that may be shown on the font chooser
@@ -476,8 +473,7 @@ public open class FontDialog(
      * @since 4.10
      */
     public open fun getTitle(): String =
-        gtk_font_dialog_get_title(gtkFontDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_font_dialog_get_title(gtkFontDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Adds a filter that decides which fonts to display
@@ -490,10 +486,7 @@ public open class FontDialog(
      * @since 4.10
      */
     public open fun setFilter(filter: Filter? = null): Unit =
-        gtk_font_dialog_set_filter(
-            gtkFontDialogPointer.reinterpret(),
-            filter?.gtkFilterPointer?.reinterpret()
-        )
+        gtk_font_dialog_set_filter(gtkFontDialogPointer.reinterpret(), filter?.gtkFilterPointer?.reinterpret())
 
     /**
      * Sets the fontmap from which fonts are selected.
@@ -504,10 +497,7 @@ public open class FontDialog(
      * @since 4.10
      */
     public open fun setFontMap(fontmap: FontMap? = null): Unit =
-        gtk_font_dialog_set_font_map(
-            gtkFontDialogPointer.reinterpret(),
-            fontmap?.pangoFontMapPointer?.reinterpret()
-        )
+        gtk_font_dialog_set_font_map(gtkFontDialogPointer.reinterpret(), fontmap?.pangoFontMapPointer?.reinterpret())
 
     /**
      * Sets the language for which font features are applied.
@@ -516,10 +506,7 @@ public open class FontDialog(
      * @since 4.10
      */
     public open fun setLanguage(language: Language): Unit =
-        gtk_font_dialog_set_language(
-            gtkFontDialogPointer.reinterpret(),
-            language.pangoLanguagePointer
-        )
+        gtk_font_dialog_set_language(gtkFontDialogPointer.reinterpret(), language.pangoLanguagePointer)
 
     /**
      * Sets whether the font chooser dialog

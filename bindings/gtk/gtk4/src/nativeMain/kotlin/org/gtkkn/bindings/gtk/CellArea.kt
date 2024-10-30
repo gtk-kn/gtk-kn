@@ -88,8 +88,7 @@ import kotlin.Unit
  * ## Requesting area sizes
  *
  * As outlined in
- * [GtkWidget’s geometry management
- * section](class.Widget.html#height-for-width-geometry-management),
+ * [GtkWidget’s geometry management section](class.Widget.html#height-for-width-geometry-management),
  * GTK uses a height-for-width
  * geometry management system to compute the sizes of widgets and user
  * interfaces. `GtkCellArea` uses the same semantics to calculate the
@@ -398,7 +397,10 @@ import kotlin.Unit
  */
 public open class CellArea(
     pointer: CPointer<GtkCellArea>,
-) : InitiallyUnowned(pointer.reinterpret()), Buildable, CellLayout, KGTyped {
+) : InitiallyUnowned(pointer.reinterpret()),
+    Buildable,
+    CellLayout,
+    KGTyped {
     public val gtkCellAreaPointer: CPointer<GtkCellArea>
         get() = gPointer.reinterpret()
 
@@ -468,7 +470,9 @@ public open class CellArea(
          *
          * @param renderer the `GtkCellRenderer` to give focus to
          */
-        set(renderer) =
+        set(
+            renderer
+        ) =
             gtk_cell_area_set_focus_cell(
                 gtkCellAreaPointer.reinterpret(),
                 renderer?.gtkCellRendererPointer?.reinterpret()
@@ -539,10 +543,7 @@ public open class CellArea(
      * @param renderer the `GtkCellRenderer` to add to @area
      */
     public open fun add(renderer: CellRenderer): Unit =
-        gtk_cell_area_add(
-            gtkCellAreaPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret()
-        )
+        gtk_cell_area_add(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret())
 
     /**
      * Adds @sibling to @renderer’s focusable area, focus will be drawn
@@ -1024,10 +1025,7 @@ public open class CellArea(
      * @param renderer the `GtkCellRenderer` to remove from @area
      */
     public open fun remove(renderer: CellRenderer): Unit =
-        gtk_cell_area_remove(
-            gtkCellAreaPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret()
-        )
+        gtk_cell_area_remove(gtkCellAreaPointer.reinterpret(), renderer.gtkCellRendererPointer.reinterpret())
 
     /**
      * Removes @sibling from @renderer’s focus sibling list
@@ -1057,10 +1055,7 @@ public open class CellArea(
      * @param renderer the `GtkCellRenderer` to give focus to
      */
     public open fun setFocusCell(renderer: CellRenderer? = null): Unit =
-        gtk_cell_area_set_focus_cell(
-            gtkCellAreaPointer.reinterpret(),
-            renderer?.gtkCellRendererPointer?.reinterpret()
-        )
+        gtk_cell_area_set_focus_cell(gtkCellAreaPointer.reinterpret(), renderer?.gtkCellRendererPointer?.reinterpret())
 
     /**
      * Explicitly stops the editing of the currently edited cell.
@@ -1082,11 +1077,8 @@ public open class CellArea(
      * should be added to the owning cell-layouting widget at @cell_area.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `renderer` the `GtkCellRenderer` that started
-     * the edited; `editable` the `GtkCellEditable` widget to add; `cellArea` the `GtkWidget` relative
-     * `GdkRectangle` coordinates
-     *             where @editable should be added; `path` the `GtkTreePath` string this edit was
-     * initiated for
+     * @param handler the Callback to connect. Params: `renderer` the `GtkCellRenderer` that started the edited; `editable` the `GtkCellEditable` widget to add; `cellArea` the `GtkWidget` relative `GdkRectangle` coordinates
+     *             where @editable should be added; `path` the `GtkTreePath` string this edit was initiated for
      */
     public fun connectAddEditable(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1110,10 +1102,7 @@ public open class CellArea(
      * This signal is emitted whenever applying attributes to @area from @model
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `model` the `GtkTreeModel` to apply the
-     * attributes from; `iter` the `GtkTreeIter` indicating which row to apply the attributes of;
-     * `isExpander` whether the view shows children for this row; `isExpanded` whether the view is
-     * currently showing the children of this row
+     * @param handler the Callback to connect. Params: `model` the `GtkTreeModel` to apply the attributes from; `iter` the `GtkTreeIter` indicating which row to apply the attributes of; `isExpander` whether the view shows children for this row; `isExpanded` whether the view is currently showing the children of this row
      */
     public fun connectApplyAttributes(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1144,8 +1133,7 @@ public open class CellArea(
      * same cell area for a different row of data.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `renderer` the `GtkCellRenderer` that has
-     * focus; `path` the current `GtkTreePath` string set for @area
+     * @param handler the Callback to connect. Params: `renderer` the `GtkCellRenderer` that has focus; `path` the current `GtkTreePath` string set for @area
      */
     public fun connectFocusChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1165,8 +1153,7 @@ public open class CellArea(
      * should be removed from the owning cell-layouting widget.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `renderer` the `GtkCellRenderer` that
-     * finished editeding; `editable` the `GtkCellEditable` widget to remove
+     * @param handler the Callback to connect. Params: `renderer` the `GtkCellRenderer` that finished editeding; `editable` the `GtkCellEditable` widget to remove
      */
     public fun connectRemoveEditable(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -1209,27 +1196,29 @@ private val connectAddEditableFunc: CPointer<
             path: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                renderer: CellRenderer,
-                editable: CellEditable,
-                cellArea: Rectangle,
-                path: String,
-            ) -> Unit
-        >().get().invoke(
-            renderer!!.run {
-                CellRenderer(reinterpret())
-            },
-            editable!!.run {
-                CellEditable.wrap(reinterpret())
-            },
-            cellArea!!.run {
-                Rectangle(reinterpret())
-            },
-            path?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    renderer: CellRenderer,
+                    editable: CellEditable,
+                    cellArea: Rectangle,
+                    path: String,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                renderer!!.run {
+                    CellRenderer(reinterpret())
+                },
+                editable!!.run {
+                    CellEditable.wrap(reinterpret())
+                },
+                cellArea!!.run {
+                    Rectangle(reinterpret())
+                },
+                path?.toKString() ?: error("Expected not null string")
+            )
+    }.reinterpret()
 
 private val connectApplyAttributesFunc: CPointer<
     CFunction<
@@ -1249,74 +1238,53 @@ private val connectApplyAttributesFunc: CPointer<
             isExpanded: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                model: TreeModel,
-                iter: TreeIter,
-                isExpander: Boolean,
-                isExpanded: Boolean,
-            ) -> Unit
-        >().get().invoke(
-            model!!.run {
-                TreeModel.wrap(reinterpret())
-            },
-            iter!!.run {
-                TreeIter(reinterpret())
-            },
-            isExpander.asBoolean(),
-            isExpanded.asBoolean()
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    model: TreeModel,
+                    iter: TreeIter,
+                    isExpander: Boolean,
+                    isExpanded: Boolean,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                model!!.run {
+                    TreeModel.wrap(reinterpret())
+                },
+                iter!!.run {
+                    TreeIter(reinterpret())
+                },
+                isExpander.asBoolean(),
+                isExpanded.asBoolean()
+            )
+    }.reinterpret()
 
-private val connectFocusChangedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkCellRenderer>,
-            CPointer<ByteVar>,
-        ) -> Unit
-    >
-> =
+private val connectFocusChangedFunc:
+    CPointer<CFunction<(CPointer<GtkCellRenderer>, CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             renderer: CPointer<GtkCellRenderer>?,
             path: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                renderer: CellRenderer,
-                path: String,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(renderer: CellRenderer, path: String) -> Unit>().get().invoke(
             renderer!!.run {
                 CellRenderer(reinterpret())
             },
             path?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-private val connectRemoveEditableFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkCellRenderer>,
-            CPointer<GtkCellEditable>,
-        ) -> Unit
-    >
-> =
+private val connectRemoveEditableFunc:
+    CPointer<CFunction<(CPointer<GtkCellRenderer>, CPointer<GtkCellEditable>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             renderer: CPointer<GtkCellRenderer>?,
             editable: CPointer<GtkCellEditable>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                renderer: CellRenderer,
-                editable: CellEditable,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(renderer: CellRenderer, editable: CellEditable) -> Unit>().get().invoke(
             renderer!!.run {
                 CellRenderer(reinterpret())
             },
@@ -1324,5 +1292,4 @@ private val connectRemoveEditableFunc: CPointer<
                 CellEditable.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

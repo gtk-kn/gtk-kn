@@ -54,7 +54,9 @@ import kotlin.Unit
  */
 public open class BufferedInputStream(
     pointer: CPointer<GBufferedInputStream>,
-) : FilterInputStream(pointer.reinterpret()), Seekable, KGTyped {
+) : FilterInputStream(pointer.reinterpret()),
+    Seekable,
+    KGTyped {
     public val gioBufferedInputStreamPointer: CPointer<GBufferedInputStream>
         get() = gPointer.reinterpret()
 
@@ -79,11 +81,7 @@ public open class BufferedInputStream(
          *
          * @param size a #gsize
          */
-        set(size) =
-            g_buffered_input_stream_set_buffer_size(
-                gioBufferedInputStreamPointer.reinterpret(),
-                size
-            )
+        set(size) = g_buffered_input_stream_set_buffer_size(gioBufferedInputStreamPointer.reinterpret(), size)
 
     /**
      * Creates a new #GInputStream from the given @base_stream, with
@@ -92,8 +90,9 @@ public open class BufferedInputStream(
      * @param baseStream a #GInputStream
      * @return a #GInputStream for the given @base_stream.
      */
-    public constructor(baseStream: InputStream) :
-        this(g_buffered_input_stream_new(baseStream.gioInputStreamPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        baseStream: InputStream,
+    ) : this(g_buffered_input_stream_new(baseStream.gioInputStreamPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new #GBufferedInputStream from the given @base_stream,
@@ -103,13 +102,10 @@ public open class BufferedInputStream(
      * @param size a #gsize
      * @return a #GInputStream.
      */
-    public constructor(baseStream: InputStream, size: ULong) :
-        this(
-            g_buffered_input_stream_new_sized(
-                baseStream.gioInputStreamPointer.reinterpret(),
-                size
-            )!!.reinterpret()
-        )
+    public constructor(
+        baseStream: InputStream,
+        size: ULong,
+    ) : this(g_buffered_input_stream_new_sized(baseStream.gioInputStreamPointer.reinterpret(), size)!!.reinterpret())
 
     /**
      * Tries to read @count bytes from the stream into the buffer.
@@ -270,16 +266,11 @@ public open class BufferedInputStream(
      * @param size a #gsize
      */
     public open fun setBufferSize(size: ULong): Unit =
-        g_buffered_input_stream_set_buffer_size(
-            gioBufferedInputStreamPointer.reinterpret(),
-            size
-        )
+        g_buffered_input_stream_set_buffer_size(gioBufferedInputStreamPointer.reinterpret(), size)
 
     public companion object : TypeCompanion<BufferedInputStream> {
         override val type: GeneratedClassKGType<BufferedInputStream> =
-            GeneratedClassKGType(g_buffered_input_stream_get_type()) {
-                BufferedInputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(g_buffered_input_stream_get_type()) { BufferedInputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

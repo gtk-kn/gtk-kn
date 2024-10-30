@@ -57,7 +57,9 @@ import kotlin.Unit
  */
 public open class TextTagTable(
     pointer: CPointer<GtkTextTagTable>,
-) : Object(pointer.reinterpret()), Buildable, KGTyped {
+) : Object(pointer.reinterpret()),
+    Buildable,
+    KGTyped {
     public val gtkTextTagTablePointer: CPointer<GtkTextTagTable>
         get() = gPointer.reinterpret()
 
@@ -85,10 +87,7 @@ public open class TextTagTable(
      * @return true on success.
      */
     public open fun add(tag: TextTag): Boolean =
-        gtk_text_tag_table_add(
-            gtkTextTagTablePointer.reinterpret(),
-            tag.gtkTextTagPointer.reinterpret()
-        ).asBoolean()
+        gtk_text_tag_table_add(gtkTextTagTablePointer.reinterpret(), tag.gtkTextTagPointer.reinterpret()).asBoolean()
 
     /**
      * Calls @func on each tag in @table, with user data @data.
@@ -134,10 +133,7 @@ public open class TextTagTable(
      * @param tag a `GtkTextTag`
      */
     public open fun remove(tag: TextTag): Unit =
-        gtk_text_tag_table_remove(
-            gtkTextTagTablePointer.reinterpret(),
-            tag.gtkTextTagPointer.reinterpret()
-        )
+        gtk_text_tag_table_remove(gtkTextTagTablePointer.reinterpret(), tag.gtkTextTagPointer.reinterpret())
 
     /**
      * Emitted every time a new tag is added in the `GtkTextTagTable`.
@@ -162,8 +158,7 @@ public open class TextTagTable(
      * Emitted every time a tag in the `GtkTextTagTable` changes.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `tag` the changed tag.; `sizeChanged` whether
-     * the change affects the `GtkTextView` layout.
+     * @param handler the Callback to connect. Params: `tag` the changed tag.; `sizeChanged` whether the change affects the `GtkTextView` layout.
      */
     public fun connectTagChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -202,9 +197,7 @@ public open class TextTagTable(
 
     public companion object : TypeCompanion<TextTagTable> {
         override val type: GeneratedClassKGType<TextTagTable> =
-            GeneratedClassKGType(gtk_text_tag_table_get_type()) {
-                TextTagTable(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_text_tag_table_get_type()) { TextTagTable(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -223,8 +216,7 @@ private val connectTagAddedFunc: CPointer<CFunction<(CPointer<GtkTextTag>) -> Un
                 TextTag(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectTagChangedFunc: CPointer<CFunction<(CPointer<GtkTextTag>, Int) -> Unit>> =
     staticCFunction {
@@ -239,8 +231,7 @@ private val connectTagChangedFunc: CPointer<CFunction<(CPointer<GtkTextTag>, Int
             },
             sizeChanged.asBoolean()
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectTagRemovedFunc: CPointer<CFunction<(CPointer<GtkTextTag>) -> Unit>> =
     staticCFunction {
@@ -253,5 +244,4 @@ private val connectTagRemovedFunc: CPointer<CFunction<(CPointer<GtkTextTag>) -> 
                 TextTag(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

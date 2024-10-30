@@ -59,7 +59,8 @@ import kotlin.Unit
  */
 public open class PixbufAnimation(
     pointer: CPointer<GdkPixbufAnimation>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkpixbufPixbufAnimationPointer: CPointer<GdkPixbufAnimation>
         get() = gPointer.reinterpret()
 
@@ -137,11 +138,7 @@ public open class PixbufAnimation(
     public constructor(asyncResult: AsyncResult) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_pixbuf_animation_new_from_stream_finish(
-                    asyncResult.gioAsyncResultPointer,
-                    gError.ptr
-                )
+            val gResult = gdk_pixbuf_animation_new_from_stream_finish(asyncResult.gioAsyncResultPointer, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -245,9 +242,7 @@ public open class PixbufAnimation(
 
     public companion object : TypeCompanion<PixbufAnimation> {
         override val type: GeneratedClassKGType<PixbufAnimation> =
-            GeneratedClassKGType(gdk_pixbuf_animation_get_type()) {
-                PixbufAnimation(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_pixbuf_animation_get_type()) { PixbufAnimation(it.reinterpret()) }
 
         init {
             GdkpixbufTypeProvider.register()

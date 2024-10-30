@@ -76,7 +76,10 @@ import kotlin.Unit
  */
 public class Carousel(
     pointer: CPointer<AdwCarousel>,
-) : Widget(pointer.reinterpret()), Swipeable, Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Swipeable,
+    Orientable,
+    KGTyped {
     public val adwCarouselPointer: CPointer<AdwCarousel>
         get() = gPointer.reinterpret()
 
@@ -116,11 +119,9 @@ public class Carousel(
          *
          * @param allowLongSwipes whether to allow long swipes
          */
-        set(allowLongSwipes) =
-            adw_carousel_set_allow_long_swipes(
-                adwCarouselPointer.reinterpret(),
-                allowLongSwipes.asGBoolean()
-            )
+        set(
+            allowLongSwipes
+        ) = adw_carousel_set_allow_long_swipes(adwCarouselPointer.reinterpret(), allowLongSwipes.asGBoolean())
 
     /**
      * Sets whether the `AdwCarousel` can be dragged with mouse pointer.
@@ -142,11 +143,9 @@ public class Carousel(
          *
          * @param allowMouseDrag whether @self can be dragged with mouse pointer
          */
-        set(allowMouseDrag) =
-            adw_carousel_set_allow_mouse_drag(
-                adwCarouselPointer.reinterpret(),
-                allowMouseDrag.asGBoolean()
-            )
+        set(
+            allowMouseDrag
+        ) = adw_carousel_set_allow_mouse_drag(adwCarouselPointer.reinterpret(), allowMouseDrag.asGBoolean())
 
     /**
      * Whether the widget will respond to scroll wheel events.
@@ -168,11 +167,9 @@ public class Carousel(
          *
          * @param allowScrollWheel whether @self will respond to scroll wheel events
          */
-        set(allowScrollWheel) =
-            adw_carousel_set_allow_scroll_wheel(
-                adwCarouselPointer.reinterpret(),
-                allowScrollWheel.asGBoolean()
-            )
+        set(
+            allowScrollWheel
+        ) = adw_carousel_set_allow_scroll_wheel(adwCarouselPointer.reinterpret(), allowScrollWheel.asGBoolean())
 
     /**
      * Whether the carousel can be navigated.
@@ -196,11 +193,7 @@ public class Carousel(
          *
          * @param interactive whether @self can be navigated
          */
-        set(interactive) =
-            adw_carousel_set_interactive(
-                adwCarouselPointer.reinterpret(),
-                interactive.asGBoolean()
-            )
+        set(interactive) = adw_carousel_set_interactive(adwCarouselPointer.reinterpret(), interactive.asGBoolean())
 
     /**
      * The number of pages in a `AdwCarousel`.
@@ -248,11 +241,7 @@ public class Carousel(
          *
          * @param revealDuration the new reveal duration value
          */
-        set(revealDuration) =
-            adw_carousel_set_reveal_duration(
-                adwCarouselPointer.reinterpret(),
-                revealDuration
-            )
+        set(revealDuration) = adw_carousel_set_reveal_duration(adwCarouselPointer.reinterpret(), revealDuration)
 
     /**
      * Scroll animation spring parameters.
@@ -285,11 +274,7 @@ public class Carousel(
          *
          * @param params the new parameters
          */
-        set(params) =
-            adw_carousel_set_scroll_params(
-                adwCarouselPointer.reinterpret(),
-                params.adwSpringParamsPointer
-            )
+        set(params) = adw_carousel_set_scroll_params(adwCarouselPointer.reinterpret(), params.adwSpringParamsPointer)
 
     /**
      * Spacing between pages in pixels.
@@ -322,10 +307,7 @@ public class Carousel(
      * @param child a widget to add
      */
     public fun append(child: Widget): Unit =
-        adw_carousel_append(
-            adwCarouselPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        adw_carousel_append(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets whether to allow swiping for more than one page at a time.
@@ -421,12 +403,7 @@ public class Carousel(
     public fun insert(
         child: Widget,
         position: Int,
-    ): Unit =
-        adw_carousel_insert(
-            adwCarouselPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            position
-        )
+    ): Unit = adw_carousel_insert(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Prepends @child to @self.
@@ -434,10 +411,7 @@ public class Carousel(
      * @param child a widget to add
      */
     public fun prepend(child: Widget): Unit =
-        adw_carousel_prepend(
-            adwCarouselPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        adw_carousel_prepend(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes @child from @self.
@@ -445,10 +419,7 @@ public class Carousel(
      * @param child a widget to remove
      */
     public fun remove(child: Widget): Unit =
-        adw_carousel_remove(
-            adwCarouselPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        adw_carousel_remove(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Moves @child into position @position.
@@ -462,12 +433,7 @@ public class Carousel(
     public fun reorder(
         child: Widget,
         position: Int,
-    ): Unit =
-        adw_carousel_reorder(
-            adwCarouselPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            position
-        )
+    ): Unit = adw_carousel_reorder(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
 
     /**
      * Scrolls to @widget.
@@ -496,10 +462,7 @@ public class Carousel(
      * @param allowLongSwipes whether to allow long swipes
      */
     public fun setAllowLongSwipes(allowLongSwipes: Boolean): Unit =
-        adw_carousel_set_allow_long_swipes(
-            adwCarouselPointer.reinterpret(),
-            allowLongSwipes.asGBoolean()
-        )
+        adw_carousel_set_allow_long_swipes(adwCarouselPointer.reinterpret(), allowLongSwipes.asGBoolean())
 
     /**
      * Sets whether @self can be dragged with mouse pointer.
@@ -509,10 +472,7 @@ public class Carousel(
      * @param allowMouseDrag whether @self can be dragged with mouse pointer
      */
     public fun setAllowMouseDrag(allowMouseDrag: Boolean): Unit =
-        adw_carousel_set_allow_mouse_drag(
-            adwCarouselPointer.reinterpret(),
-            allowMouseDrag.asGBoolean()
-        )
+        adw_carousel_set_allow_mouse_drag(adwCarouselPointer.reinterpret(), allowMouseDrag.asGBoolean())
 
     /**
      * Sets whether @self will respond to scroll wheel events.
@@ -522,10 +482,7 @@ public class Carousel(
      * @param allowScrollWheel whether @self will respond to scroll wheel events
      */
     public fun setAllowScrollWheel(allowScrollWheel: Boolean): Unit =
-        adw_carousel_set_allow_scroll_wheel(
-            adwCarouselPointer.reinterpret(),
-            allowScrollWheel.asGBoolean()
-        )
+        adw_carousel_set_allow_scroll_wheel(adwCarouselPointer.reinterpret(), allowScrollWheel.asGBoolean())
 
     /**
      * Sets whether @self can be navigated.
@@ -560,10 +517,7 @@ public class Carousel(
      * @param params the new parameters
      */
     public fun setScrollParams(params: SpringParams): Unit =
-        adw_carousel_set_scroll_params(
-            adwCarouselPointer.reinterpret(),
-            params.adwSpringParamsPointer
-        )
+        adw_carousel_set_scroll_params(adwCarouselPointer.reinterpret(), params.adwSpringParamsPointer)
 
     /**
      * Sets spacing between pages in pixels.
@@ -614,5 +568,4 @@ private val connectPageChangedFunc: CPointer<CFunction<(UInt) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(index: UInt) -> Unit>().get().invoke(index)
-    }
-        .reinterpret()
+    }.reinterpret()

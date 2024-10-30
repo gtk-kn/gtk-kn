@@ -43,7 +43,9 @@ import kotlin.Unit
  */
 public open class BoxLayout(
     pointer: CPointer<GtkBoxLayout>,
-) : LayoutManager(pointer.reinterpret()), Orientable, KGTyped {
+) : LayoutManager(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val gtkBoxLayoutPointer: CPointer<GtkBoxLayout>
         get() = gPointer.reinterpret()
 
@@ -108,11 +110,7 @@ public open class BoxLayout(
          *
          * @param position a `GtkBaselinePosition`
          */
-        set(position) =
-            gtk_box_layout_set_baseline_position(
-                gtkBoxLayoutPointer.reinterpret(),
-                position.nativeValue
-            )
+        set(position) = gtk_box_layout_set_baseline_position(gtkBoxLayoutPointer.reinterpret(), position.nativeValue)
 
     /**
      * Whether the box layout should distribute the available space
@@ -132,11 +130,7 @@ public open class BoxLayout(
          *
          * @param homogeneous true to set the box layout as homogeneous
          */
-        set(homogeneous) =
-            gtk_box_layout_set_homogeneous(
-                gtkBoxLayoutPointer.reinterpret(),
-                homogeneous.asGBoolean()
-            )
+        set(homogeneous) = gtk_box_layout_set_homogeneous(gtkBoxLayoutPointer.reinterpret(), homogeneous.asGBoolean())
 
     /**
      * The space to put between the children.
@@ -162,8 +156,7 @@ public open class BoxLayout(
      * @param orientation the orientation for the new layout
      * @return a new box layout
      */
-    public constructor(orientation: Orientation) :
-        this(gtk_box_layout_new(orientation.nativeValue)!!.reinterpret())
+    public constructor(orientation: Orientation) : this(gtk_box_layout_new(orientation.nativeValue)!!.reinterpret())
 
     /**
      * Gets the value set by gtk_box_layout_set_baseline_child().
@@ -221,10 +214,7 @@ public open class BoxLayout(
      * @param position a `GtkBaselinePosition`
      */
     public open fun setBaselinePosition(position: BaselinePosition): Unit =
-        gtk_box_layout_set_baseline_position(
-            gtkBoxLayoutPointer.reinterpret(),
-            position.nativeValue
-        )
+        gtk_box_layout_set_baseline_position(gtkBoxLayoutPointer.reinterpret(), position.nativeValue)
 
     /**
      * Sets whether the box layout will allocate the same
@@ -233,10 +223,7 @@ public open class BoxLayout(
      * @param homogeneous true to set the box layout as homogeneous
      */
     public open fun setHomogeneous(homogeneous: Boolean): Unit =
-        gtk_box_layout_set_homogeneous(
-            gtkBoxLayoutPointer.reinterpret(),
-            homogeneous.asGBoolean()
-        )
+        gtk_box_layout_set_homogeneous(gtkBoxLayoutPointer.reinterpret(), homogeneous.asGBoolean())
 
     /**
      * Sets how much spacing to put between children.

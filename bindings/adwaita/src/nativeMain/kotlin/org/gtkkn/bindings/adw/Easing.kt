@@ -265,10 +265,6 @@ public enum class Easing(
         public fun ease(
             self: Easing,
             `value`: Double,
-        ): Double =
-            adw_easing_ease(
-                self.nativeValue,
-                `value`
-            )
+        ): Double = adw_easing_ease(self.nativeValue, `value`)
     }
 }

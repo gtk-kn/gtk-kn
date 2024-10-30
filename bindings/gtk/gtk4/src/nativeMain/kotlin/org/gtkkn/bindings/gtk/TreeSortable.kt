@@ -40,7 +40,10 @@ import kotlin.Unit
  *
  * - parameter `sort_column_id`: sort_column_id: Out parameter is not supported
  */
-public interface TreeSortable : Interface, TreeModel, KGTyped {
+public interface TreeSortable :
+    Interface,
+    TreeModel,
+    KGTyped {
     public val gtkTreeSortablePointer: CPointer<GtkTreeSortable>
 
     override val gtkTreeModelPointer: CPointer<GtkTreeModel>
@@ -95,11 +98,7 @@ public interface TreeSortable : Interface, TreeModel, KGTyped {
         sortColumnId: Int,
         order: SortType,
     ): Unit =
-        gtk_tree_sortable_set_sort_column_id(
-            gtkTreeSortablePointer.reinterpret(),
-            sortColumnId,
-            order.nativeValue
-        )
+        gtk_tree_sortable_set_sort_column_id(gtkTreeSortablePointer.reinterpret(), sortColumnId, order.nativeValue)
 
     /**
      * Sets the comparison function used when sorting to be @sort_func. If the
@@ -171,5 +170,4 @@ private val connectSortColumnChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -1,5 +1,5 @@
 import com.diffplug.gradle.spotless.SpotlessTask
-import com.github.gmazzo.gradle.plugins.BuildConfigTask
+import com.github.gmazzo.buildconfig.BuildConfigTask
 import io.gitlab.arturbosch.detekt.Detekt
 
 /*

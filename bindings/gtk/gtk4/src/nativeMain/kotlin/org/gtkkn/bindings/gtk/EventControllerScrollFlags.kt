@@ -17,7 +17,9 @@ public class EventControllerScrollFlags(
     public val mask: GtkEventControllerScrollFlags,
 ) : Bitfield<EventControllerScrollFlags> {
     override infix fun or(other: EventControllerScrollFlags): EventControllerScrollFlags =
-        EventControllerScrollFlags(mask or other.mask)
+        EventControllerScrollFlags(
+            mask or other.mask
+        )
 
     public companion object {
         /**

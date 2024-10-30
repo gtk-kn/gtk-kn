@@ -79,7 +79,8 @@ import kotlin.Unit
  */
 public class ButtonContent(
     pointer: CPointer<AdwButtonContent>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwButtonContentPointer: CPointer<AdwButtonContent>
         get() = gPointer.reinterpret()
 
@@ -120,11 +121,9 @@ public class ButtonContent(
          * @param canShrink whether the button can shrink
          * @since 1.4
          */
-        set(canShrink) =
-            adw_button_content_set_can_shrink(
-                adwButtonContentPointer.reinterpret(),
-                canShrink.asGBoolean()
-            )
+        set(
+            canShrink
+        ) = adw_button_content_set_can_shrink(adwButtonContentPointer.reinterpret(), canShrink.asGBoolean())
 
     /**
      * The name of the displayed icon.
@@ -148,11 +147,7 @@ public class ButtonContent(
          *
          * @param iconName the new icon name
          */
-        set(iconName) =
-            adw_button_content_set_icon_name(
-                adwButtonContentPointer.reinterpret(),
-                iconName
-            )
+        set(iconName) = adw_button_content_set_icon_name(adwButtonContentPointer.reinterpret(), iconName)
 
     /**
      * The displayed label.
@@ -187,8 +182,7 @@ public class ButtonContent(
          *
          * @return whether an underline in the text indicates a mnemonic
          */
-        get() =
-            adw_button_content_get_use_underline(adwButtonContentPointer.reinterpret()).asBoolean()
+        get() = adw_button_content_get_use_underline(adwButtonContentPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether an underline in the text indicates a mnemonic.
@@ -199,11 +193,9 @@ public class ButtonContent(
          *
          * @param useUnderline whether an underline in the text indicates a mnemonic
          */
-        set(useUnderline) =
-            adw_button_content_set_use_underline(
-                adwButtonContentPointer.reinterpret(),
-                useUnderline.asGBoolean()
-            )
+        set(
+            useUnderline
+        ) = adw_button_content_set_use_underline(adwButtonContentPointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Creates a new `AdwButtonContent`.
@@ -258,10 +250,7 @@ public class ButtonContent(
      * @since 1.4
      */
     public fun setCanShrink(canShrink: Boolean): Unit =
-        adw_button_content_set_can_shrink(
-            adwButtonContentPointer.reinterpret(),
-            canShrink.asGBoolean()
-        )
+        adw_button_content_set_can_shrink(adwButtonContentPointer.reinterpret(), canShrink.asGBoolean())
 
     /**
      * Sets the name of the displayed icon.
@@ -291,16 +280,11 @@ public class ButtonContent(
      * @param useUnderline whether an underline in the text indicates a mnemonic
      */
     public fun setUseUnderline(useUnderline: Boolean): Unit =
-        adw_button_content_set_use_underline(
-            adwButtonContentPointer.reinterpret(),
-            useUnderline.asGBoolean()
-        )
+        adw_button_content_set_use_underline(adwButtonContentPointer.reinterpret(), useUnderline.asGBoolean())
 
     public companion object : TypeCompanion<ButtonContent> {
         override val type: GeneratedClassKGType<ButtonContent> =
-            GeneratedClassKGType(adw_button_content_get_type()) {
-                ButtonContent(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_button_content_get_type()) { ButtonContent(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

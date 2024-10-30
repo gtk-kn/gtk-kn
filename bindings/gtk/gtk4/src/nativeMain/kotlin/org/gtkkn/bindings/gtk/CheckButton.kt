@@ -107,7 +107,9 @@ import kotlin.Unit
  */
 public open class CheckButton(
     pointer: CPointer<GtkCheckButton>,
-) : Widget(pointer.reinterpret()), Actionable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Actionable,
+    KGTyped {
     public val gtkCheckButtonPointer: CPointer<GtkCheckButton>
         get() = gPointer.reinterpret()
 
@@ -142,11 +144,7 @@ public open class CheckButton(
          *
          * @param setting the new value to set
          */
-        set(setting) =
-            gtk_check_button_set_active(
-                gtkCheckButtonPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_check_button_set_active(gtkCheckButtonPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * The child widget.
@@ -177,11 +175,9 @@ public open class CheckButton(
          * @param child the child widget
          * @since 4.8
          */
-        set(child) =
-            gtk_check_button_set_child(
-                gtkCheckButtonPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = gtk_check_button_set_child(gtkCheckButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * If the check button is in an “in between” state.
@@ -205,11 +201,9 @@ public open class CheckButton(
          *
          * @param inconsistent true if state is inconsistent
          */
-        set(inconsistent) =
-            gtk_check_button_set_inconsistent(
-                gtkCheckButtonPointer.reinterpret(),
-                inconsistent.asGBoolean()
-            )
+        set(
+            inconsistent
+        ) = gtk_check_button_set_inconsistent(gtkCheckButtonPointer.reinterpret(), inconsistent.asGBoolean())
 
     /**
      * Text of the label inside the check button, if it contains a label widget.
@@ -258,11 +252,7 @@ public open class CheckButton(
          *
          * @param setting the new value to set
          */
-        set(setting) =
-            gtk_check_button_set_use_underline(
-                gtkCheckButtonPointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(setting) = gtk_check_button_set_use_underline(gtkCheckButtonPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Creates a new `GtkCheckButton`.
@@ -277,8 +267,7 @@ public open class CheckButton(
      * @param label the text for the check button.
      * @return a new `GtkCheckButton`
      */
-    public constructor(label: String? = null) :
-        this(gtk_check_button_new_with_label(label)!!.reinterpret())
+    public constructor(label: String? = null) : this(gtk_check_button_new_with_label(label)!!.reinterpret())
 
     /**
      * Returns whether the check button is active.
@@ -345,10 +334,7 @@ public open class CheckButton(
      * @since 4.8
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_check_button_set_child(
-            gtkCheckButtonPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_check_button_set_child(gtkCheckButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Adds @self to the group of @group.
@@ -371,10 +357,7 @@ public open class CheckButton(
      *   form a group with
      */
     public open fun setGroup(group: CheckButton? = null): Unit =
-        gtk_check_button_set_group(
-            gtkCheckButtonPointer.reinterpret(),
-            group?.gtkCheckButtonPointer?.reinterpret()
-        )
+        gtk_check_button_set_group(gtkCheckButtonPointer.reinterpret(), group?.gtkCheckButtonPointer?.reinterpret())
 
     /**
      * Sets the `GtkCheckButton` to inconsistent state.
@@ -385,10 +368,7 @@ public open class CheckButton(
      * @param inconsistent true if state is inconsistent
      */
     public open fun setInconsistent(inconsistent: Boolean): Unit =
-        gtk_check_button_set_inconsistent(
-            gtkCheckButtonPointer.reinterpret(),
-            inconsistent.asGBoolean()
-        )
+        gtk_check_button_set_inconsistent(gtkCheckButtonPointer.reinterpret(), inconsistent.asGBoolean())
 
     /**
      * Sets the text of @self.
@@ -413,10 +393,7 @@ public open class CheckButton(
      * @param setting the new value to set
      */
     public open fun setUseUnderline(setting: Boolean): Unit =
-        gtk_check_button_set_use_underline(
-            gtkCheckButtonPointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_check_button_set_use_underline(gtkCheckButtonPointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Emitted to when the check button is activated.
@@ -502,8 +479,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectToggledFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -511,5 +487,4 @@ private val connectToggledFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -150,7 +150,10 @@ import kotlin.Unit
  */
 public open class LevelBar(
     pointer: CPointer<GtkLevelBar>,
-) : Widget(pointer.reinterpret()), AccessibleRange, Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    AccessibleRange,
+    Orientable,
+    KGTyped {
     public val gtkLevelBarPointer: CPointer<GtkLevelBar>
         get() = gPointer.reinterpret()
 
@@ -188,11 +191,7 @@ public open class LevelBar(
          *
          * @param inverted true to invert the level bar
          */
-        set(inverted) =
-            gtk_level_bar_set_inverted(
-                gtkLevelBarPointer.reinterpret(),
-                inverted.asGBoolean()
-            )
+        set(inverted) = gtk_level_bar_set_inverted(gtkLevelBarPointer.reinterpret(), inverted.asGBoolean())
 
     /**
      * Determines the maximum value of the interval that can be displayed by the bar.
@@ -300,8 +299,10 @@ public open class LevelBar(
      * @param maxValue a positive value
      * @return a `GtkLevelBar`
      */
-    public constructor(minValue: Double, maxValue: Double) :
-        this(gtk_level_bar_new_for_interval(minValue, maxValue)!!.reinterpret())
+    public constructor(
+        minValue: Double,
+        maxValue: Double,
+    ) : this(gtk_level_bar_new_for_interval(minValue, maxValue)!!.reinterpret())
 
     /**
      * Adds a new offset marker on @self at the position specified by @value.
@@ -429,8 +430,7 @@ public open class LevelBar(
      * the value of offset "x" changes.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `name` the name of the offset that changed
-     * value
+     * @param handler the Callback to connect. Params: `name` the name of the offset that changed value
      */
     public fun connectOffsetChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -461,9 +461,12 @@ private val connectOffsetChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> 
             name: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(name: String) -> Unit>().get().invoke(
-            name?.toKString()
-                ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    name: String,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(name?.toKString() ?: error("Expected not null string"))
+    }.reinterpret()

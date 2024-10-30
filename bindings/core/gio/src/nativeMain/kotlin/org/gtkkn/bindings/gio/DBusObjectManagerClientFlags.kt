@@ -14,7 +14,9 @@ public class DBusObjectManagerClientFlags(
     public val mask: GDBusObjectManagerClientFlags,
 ) : Bitfield<DBusObjectManagerClientFlags> {
     override infix fun or(other: DBusObjectManagerClientFlags): DBusObjectManagerClientFlags =
-        DBusObjectManagerClientFlags(mask or other.mask)
+        DBusObjectManagerClientFlags(
+            mask or other.mask
+        )
 
     public companion object {
         /**

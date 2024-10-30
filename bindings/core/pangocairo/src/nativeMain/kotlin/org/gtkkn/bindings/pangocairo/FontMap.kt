@@ -28,7 +28,9 @@ import kotlin.Unit
  * font technology Cairo was compiled to use.
  * @since 1.10
  */
-public interface FontMap : Interface, KGTyped {
+public interface FontMap :
+    Interface,
+    KGTyped {
     public val pangocairoFontMapPointer: CPointer<PangoCairoFontMap>
 
     /**
@@ -96,9 +98,7 @@ public interface FontMap : Interface, KGTyped {
 
     public companion object : TypeCompanion<FontMap> {
         override val type: GeneratedInterfaceKGType<FontMap> =
-            GeneratedInterfaceKGType(pango_cairo_font_map_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(pango_cairo_font_map_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             PangocairoTypeProvider.register()
@@ -130,7 +130,8 @@ public interface FontMap : Interface, KGTyped {
          */
         public fun getDefault(): org.gtkkn.bindings.pango.FontMap =
             pango_cairo_font_map_get_default()!!.run {
-                org.gtkkn.bindings.pango.FontMap(reinterpret())
+                org.gtkkn.bindings.pango
+                    .FontMap(reinterpret())
             }
 
         /**
@@ -159,7 +160,8 @@ public interface FontMap : Interface, KGTyped {
          */
         public fun new(): org.gtkkn.bindings.pango.FontMap =
             pango_cairo_font_map_new()!!.run {
-                org.gtkkn.bindings.pango.FontMap(reinterpret())
+                org.gtkkn.bindings.pango
+                    .FontMap(reinterpret())
             }
 
         /**
@@ -178,7 +180,8 @@ public interface FontMap : Interface, KGTyped {
          */
         public fun newForFontType(fonttype: FontType): org.gtkkn.bindings.pango.FontMap? =
             pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
-                org.gtkkn.bindings.pango.FontMap(reinterpret())
+                org.gtkkn.bindings.pango
+                    .FontMap(reinterpret())
             }
     }
 }

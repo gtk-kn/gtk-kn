@@ -65,7 +65,8 @@ import kotlin.Unit
  */
 public open class LinkButton(
     pointer: CPointer<GtkLinkButton>,
-) : Button(pointer.reinterpret()), KGTyped {
+) : Button(pointer.reinterpret()),
+    KGTyped {
     public val gtkLinkButtonPointer: CPointer<GtkLinkButton>
         get() = gPointer.reinterpret()
 
@@ -129,11 +130,7 @@ public open class LinkButton(
          *
          * @param visited the new “visited” state
          */
-        set(visited) =
-            gtk_link_button_set_visited(
-                gtkLinkButtonPointer.reinterpret(),
-                visited.asGBoolean()
-            )
+        set(visited) = gtk_link_button_set_visited(gtkLinkButtonPointer.reinterpret(), visited.asGBoolean())
 
     /**
      * Creates a new `GtkLinkButton` with the URI as its text.
@@ -150,8 +147,10 @@ public open class LinkButton(
      * @param label the text of the button
      * @return a new link button widget.
      */
-    public constructor(uri: String, label: String? = null) :
-        this(gtk_link_button_new_with_label(uri, label)!!.reinterpret())
+    public constructor(
+        uri: String,
+        label: String? = null,
+    ) : this(gtk_link_button_new_with_label(uri, label)!!.reinterpret())
 
     /**
      * Retrieves the URI of the `GtkLinkButton`.
@@ -160,8 +159,7 @@ public open class LinkButton(
      *   and should not be modified or freed.
      */
     public open fun getUri(): String =
-        gtk_link_button_get_uri(gtkLinkButtonPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_link_button_get_uri(gtkLinkButtonPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the “visited” state of the `GtkLinkButton`.
@@ -235,6 +233,9 @@ private val connectActivateLinkFunc: CPointer<CFunction<() -> Int>> =
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<() -> Boolean>()
+            .get()
+            .invoke()
+            .asGBoolean()
+    }.reinterpret()

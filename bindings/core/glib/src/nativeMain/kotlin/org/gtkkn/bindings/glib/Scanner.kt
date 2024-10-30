@@ -297,11 +297,7 @@ public class Scanner(
      * @param scopeId the new scope id
      * @return the old scope id
      */
-    public fun setScope(scopeId: UInt): UInt =
-        g_scanner_set_scope(
-            glibScannerPointer.reinterpret(),
-            scopeId
-        )
+    public fun setScope(scopeId: UInt): UInt = g_scanner_set_scope(glibScannerPointer.reinterpret(), scopeId)
 
     /**
      * Rewinds the filedescriptor to the current buffer position

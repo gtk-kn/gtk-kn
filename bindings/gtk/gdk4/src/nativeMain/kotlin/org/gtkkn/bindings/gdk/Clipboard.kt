@@ -81,7 +81,8 @@ import kotlin.collections.List
  */
 public open class Clipboard(
     pointer: CPointer<GdkClipboard>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkClipboardPointer: CPointer<GdkClipboard>
         get() = gPointer.reinterpret()
 
@@ -492,5 +493,4 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -152,7 +152,8 @@ import kotlin.Unit
  */
 public open class MenuModel(
     pointer: CPointer<GMenuModel>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioMenuModelPointer: CPointer<GMenuModel>
         get() = gPointer.reinterpret()
 
@@ -256,13 +257,7 @@ public open class MenuModel(
         position: Int,
         removed: Int,
         added: Int,
-    ): Unit =
-        g_menu_model_items_changed(
-            gioMenuModelPointer.reinterpret(),
-            position,
-            removed,
-            added
-        )
+    ): Unit = g_menu_model_items_changed(gioMenuModelPointer.reinterpret(), position, removed, added)
 
     /**
      * Creates a #GMenuAttributeIter to iterate over the attributes of
@@ -275,10 +270,7 @@ public open class MenuModel(
      * @since 2.32
      */
     public open fun iterateItemAttributes(itemIndex: Int): MenuAttributeIter =
-        g_menu_model_iterate_item_attributes(
-            gioMenuModelPointer.reinterpret(),
-            itemIndex
-        )!!.run {
+        g_menu_model_iterate_item_attributes(gioMenuModelPointer.reinterpret(), itemIndex)!!.run {
             MenuAttributeIter(reinterpret())
         }
 
@@ -320,8 +312,7 @@ public open class MenuModel(
      * reported.  The signal is emitted after the modification.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `position` the position of the change;
-     * `removed` the number of items removed; `added` the number of items added
+     * @param handler the Callback to connect. Params: `position` the position of the change; `removed` the number of items removed; `added` the number of items added
      */
     public fun connectItemsChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -366,12 +357,14 @@ private val connectItemsChangedFunc: CPointer<
             added: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                position: Int,
-                removed: Int,
-                added: Int,
-            ) -> Unit
-        >().get().invoke(position, removed, added)
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    position: Int,
+                    removed: Int,
+                    added: Int,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(position, removed, added)
+    }.reinterpret()

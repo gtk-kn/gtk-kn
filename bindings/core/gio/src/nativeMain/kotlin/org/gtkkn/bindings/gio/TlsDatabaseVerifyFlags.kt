@@ -13,7 +13,9 @@ public class TlsDatabaseVerifyFlags(
     public val mask: GTlsDatabaseVerifyFlags,
 ) : Bitfield<TlsDatabaseVerifyFlags> {
     override infix fun or(other: TlsDatabaseVerifyFlags): TlsDatabaseVerifyFlags =
-        TlsDatabaseVerifyFlags(mask or other.mask)
+        TlsDatabaseVerifyFlags(
+            mask or other.mask
+        )
 
     public companion object {
         /**

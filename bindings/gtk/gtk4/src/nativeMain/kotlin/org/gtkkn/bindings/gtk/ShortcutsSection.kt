@@ -60,7 +60,8 @@ import kotlin.Unit
  */
 public open class ShortcutsSection(
     pointer: CPointer<GtkShortcutsSection>,
-) : Box(pointer.reinterpret()), KGTyped {
+) : Box(pointer.reinterpret()),
+    KGTyped {
     public val gtkShortcutsSectionPointer: CPointer<GtkShortcutsSection>
         get() = gPointer.reinterpret()
 
@@ -115,9 +116,7 @@ public open class ShortcutsSection(
 
     public companion object : TypeCompanion<ShortcutsSection> {
         override val type: GeneratedClassKGType<ShortcutsSection> =
-            GeneratedClassKGType(gtk_shortcuts_section_get_type()) {
-                ShortcutsSection(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_shortcuts_section_get_type()) { ShortcutsSection(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -131,6 +130,9 @@ private val connectChangeCurrentPageFunc: CPointer<CFunction<(Int) -> Int>> =
             `object`: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(`object`: Int) -> Boolean>().get().invoke(`object`).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(`object`: Int) -> Boolean>()
+            .get()
+            .invoke(`object`)
+            .asGBoolean()
+    }.reinterpret()

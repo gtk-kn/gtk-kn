@@ -16,7 +16,9 @@ import org.gtkkn.native.gtk.gtk_constraint_target_get_type
  *
  * Besides `GtkWidget`, it is also implemented by `GtkConstraintGuide`.
  */
-public interface ConstraintTarget : Interface, KGTyped {
+public interface ConstraintTarget :
+    Interface,
+    KGTyped {
     public val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
 
     private data class Wrapper(
@@ -27,9 +29,7 @@ public interface ConstraintTarget : Interface, KGTyped {
 
     public companion object : TypeCompanion<ConstraintTarget> {
         override val type: GeneratedInterfaceKGType<ConstraintTarget> =
-            GeneratedInterfaceKGType(gtk_constraint_target_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_constraint_target_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

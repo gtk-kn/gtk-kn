@@ -33,7 +33,9 @@ import kotlin.Unit
  * (see [class@Gio.DBusObjectProxy]). It is essentially just a container of
  * interfaces.
  */
-public interface DBusObject : Interface, KGTyped {
+public interface DBusObject :
+    Interface,
+    KGTyped {
     public val gioDBusObjectPointer: CPointer<GDBusObject>
 
     /**
@@ -77,8 +79,7 @@ public interface DBusObject : Interface, KGTyped {
      * Emitted when @interface is added to @object.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `interface` The #GDBusInterface that was
-     * added.
+     * @param handler the Callback to connect. Params: `interface` The #GDBusInterface that was added.
      * @since 2.30
      */
     public fun connectInterfaceAdded(
@@ -98,8 +99,7 @@ public interface DBusObject : Interface, KGTyped {
      * Emitted when @interface is removed from @object.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `interface` The #GDBusInterface that was
-     * removed.
+     * @param handler the Callback to connect. Params: `interface` The #GDBusInterface that was removed.
      * @since 2.30
      */
     public fun connectInterfaceRemoved(
@@ -144,8 +144,7 @@ private val connectInterfaceAddedFunc: CPointer<CFunction<(CPointer<GDBusInterfa
                 DBusInterface.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectInterfaceRemovedFunc: CPointer<CFunction<(CPointer<GDBusInterface>) -> Unit>> =
     staticCFunction {
@@ -158,5 +157,4 @@ private val connectInterfaceRemovedFunc: CPointer<CFunction<(CPointer<GDBusInter
                 DBusInterface.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

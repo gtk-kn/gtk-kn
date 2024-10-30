@@ -88,12 +88,7 @@ public class MainContext(
     public fun addPoll(
         fd: PollFD,
         priority: Int,
-    ): Unit =
-        g_main_context_add_poll(
-            glibMainContextPointer.reinterpret(),
-            fd.glibPollFDPointer,
-            priority
-        )
+    ): Unit = g_main_context_add_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer, priority)
 
     /**
      * Dispatches all pending sources.
@@ -184,10 +179,7 @@ public class MainContext(
      * @return true if events were dispatched.
      */
     public fun iteration(mayBlock: Boolean): Boolean =
-        g_main_context_iteration(
-            glibMainContextPointer.reinterpret(),
-            mayBlock.asGBoolean()
-        ).asBoolean()
+        g_main_context_iteration(glibMainContextPointer.reinterpret(), mayBlock.asGBoolean()).asBoolean()
 
     /**
      * Checks if any sources have pending events for the given context.

@@ -105,7 +105,8 @@ import kotlin.Unit
  */
 public open class TestDBus(
     pointer: CPointer<GTestDBus>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioTestDBusPointer: CPointer<GTestDBus>
         get() = gPointer.reinterpret()
 

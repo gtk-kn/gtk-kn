@@ -22,7 +22,8 @@ import org.gtkkn.native.gsk.gsk_border_node_get_type
  */
 public open class BorderNode(
     pointer: CPointer<GskBorderNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskBorderNodePointer: CPointer<GskBorderNode>
         get() = gPointer.reinterpret()
 

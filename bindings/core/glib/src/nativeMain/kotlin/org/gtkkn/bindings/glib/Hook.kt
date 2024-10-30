@@ -95,10 +95,7 @@ public class Hook(
      * @return a value <= 0 if the id of @sibling is >= the id of @new_hook
      */
     public fun compareIds(sibling: Hook): Int =
-        g_hook_compare_ids(
-            glibHookPointer.reinterpret(),
-            sibling.glibHookPointer
-        )
+        g_hook_compare_ids(glibHookPointer.reinterpret(), sibling.glibHookPointer)
 
     public companion object : RecordCompanion<Hook, GHook> {
         /**
@@ -148,12 +145,7 @@ public class Hook(
             hookList: HookList,
             sibling: Hook? = null,
             hook: Hook,
-        ): Unit =
-            g_hook_insert_before(
-                hookList.glibHookListPointer,
-                sibling?.glibHookPointer,
-                hook.glibHookPointer
-            )
+        ): Unit = g_hook_insert_before(hookList.glibHookListPointer, sibling?.glibHookPointer, hook.glibHookPointer)
 
         /**
          * Prepends a #GHook on the start of a #GHookList.

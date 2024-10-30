@@ -120,7 +120,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
                 )
                 embed.whenObjectAdded {
                     cinterops.register("${this@gresource.name}GResource") {
-                        defFileProperty.set(defFile.map(RegularFile::getAsFile))
+                        definitionFile.set(defFile.map(RegularFile::getAsFile).get())
                         dependencyFiles = project.files(compileSourceTask)
                         project.tasks.named<CInteropProcess>(interopProcessingTaskName) {
                             dependsOn(generateDefTask)

@@ -58,10 +58,7 @@ public class Euler(
      * @since 1.2
      */
     public fun equal(b: Euler): Boolean =
-        graphene_euler_equal(
-            grapheneEulerPointer.reinterpret(),
-            b.grapheneEulerPointer
-        )
+        graphene_euler_equal(grapheneEulerPointer.reinterpret(), b.grapheneEulerPointer)
 
     /**
      * Frees the resources allocated by graphene_euler_alloc().
@@ -176,10 +173,7 @@ public class Euler(
      * @since 1.2
      */
     public fun initFromEuler(src: Euler? = null): Euler =
-        graphene_euler_init_from_euler(
-            grapheneEulerPointer.reinterpret(),
-            src?.grapheneEulerPointer
-        )!!.run {
+        graphene_euler_init_from_euler(grapheneEulerPointer.reinterpret(), src?.grapheneEulerPointer)!!.run {
             Euler(reinterpret())
         }
 
@@ -246,13 +240,7 @@ public class Euler(
         z: Float,
         order: EulerOrder,
     ): Euler =
-        graphene_euler_init_from_radians(
-            grapheneEulerPointer.reinterpret(),
-            x,
-            y,
-            z,
-            order.nativeValue
-        )!!.run {
+        graphene_euler_init_from_radians(grapheneEulerPointer.reinterpret(), x, y, z, order.nativeValue)!!.run {
             Euler(reinterpret())
         }
 
@@ -297,13 +285,7 @@ public class Euler(
         z: Float,
         order: EulerOrder,
     ): Euler =
-        graphene_euler_init_with_order(
-            grapheneEulerPointer.reinterpret(),
-            x,
-            y,
-            z,
-            order.nativeValue
-        )!!.run {
+        graphene_euler_init_with_order(grapheneEulerPointer.reinterpret(), x, y, z, order.nativeValue)!!.run {
             Euler(reinterpret())
         }
 
@@ -322,12 +304,7 @@ public class Euler(
     public fun reorder(
         order: EulerOrder,
         res: Euler,
-    ): Unit =
-        graphene_euler_reorder(
-            grapheneEulerPointer.reinterpret(),
-            order.nativeValue,
-            res.grapheneEulerPointer
-        )
+    ): Unit = graphene_euler_reorder(grapheneEulerPointer.reinterpret(), order.nativeValue, res.grapheneEulerPointer)
 
     /**
      * Converts a #graphene_euler_t into a transformation matrix expressing
@@ -360,10 +337,7 @@ public class Euler(
      * @since 1.10
      */
     public fun toQuaternion(res: Quaternion): Unit =
-        graphene_euler_to_quaternion(
-            grapheneEulerPointer.reinterpret(),
-            res.grapheneQuaternionPointer
-        )
+        graphene_euler_to_quaternion(grapheneEulerPointer.reinterpret(), res.grapheneQuaternionPointer)
 
     /**
      * Retrieves the angles of a #graphene_euler_t and initializes a
@@ -373,10 +347,7 @@ public class Euler(
      * @since 1.2
      */
     public fun toVec3(res: Vec3): Unit =
-        graphene_euler_to_vec3(
-            grapheneEulerPointer.reinterpret(),
-            res.grapheneVec3Pointer
-        )
+        graphene_euler_to_vec3(grapheneEulerPointer.reinterpret(), res.grapheneVec3Pointer)
 
     public companion object : RecordCompanion<Euler, graphene_euler_t> {
         /**

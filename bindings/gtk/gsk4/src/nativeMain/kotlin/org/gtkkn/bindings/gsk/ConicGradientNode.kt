@@ -26,7 +26,8 @@ import kotlin.ULong
  */
 public open class ConicGradientNode(
     pointer: CPointer<GskConicGradientNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskConicGradientNodePointer: CPointer<GskConicGradientNode>
         get() = gPointer.reinterpret()
 
@@ -71,9 +72,7 @@ public open class ConicGradientNode(
 
     public companion object : TypeCompanion<ConicGradientNode> {
         override val type: GeneratedClassKGType<ConicGradientNode> =
-            GeneratedClassKGType(gsk_conic_gradient_node_get_type()) {
-                ConicGradientNode(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_conic_gradient_node_get_type()) { ConicGradientNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

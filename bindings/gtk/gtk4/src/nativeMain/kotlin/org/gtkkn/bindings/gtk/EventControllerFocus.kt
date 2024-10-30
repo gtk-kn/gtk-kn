@@ -42,7 +42,8 @@ import kotlin.Unit
  */
 public open class EventControllerFocus(
     pointer: CPointer<GtkEventControllerFocus>,
-) : EventController(pointer.reinterpret()), KGTyped {
+) : EventController(pointer.reinterpret()),
+    KGTyped {
     public val gtkEventControllerFocusPointer: CPointer<GtkEventControllerFocus>
         get() = gPointer.reinterpret()
 
@@ -126,9 +127,7 @@ public open class EventControllerFocus(
 
     public companion object : TypeCompanion<EventControllerFocus> {
         override val type: GeneratedClassKGType<EventControllerFocus> =
-            GeneratedClassKGType(gtk_event_controller_focus_get_type()) {
-                EventControllerFocus(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_event_controller_focus_get_type()) { EventControllerFocus(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -142,8 +141,7 @@ private val connectEnterFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -151,5 +149,4 @@ private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

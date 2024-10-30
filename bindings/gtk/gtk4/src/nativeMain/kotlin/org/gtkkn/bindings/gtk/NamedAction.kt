@@ -18,7 +18,8 @@ import kotlin.String
  */
 public open class NamedAction(
     pointer: CPointer<GtkNamedAction>,
-) : ShortcutAction(pointer.reinterpret()), KGTyped {
+) : ShortcutAction(pointer.reinterpret()),
+    KGTyped {
     public val gtkNamedActionPointer: CPointer<GtkNamedAction>
         get() = gPointer.reinterpret()
 

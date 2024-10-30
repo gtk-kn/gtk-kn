@@ -211,7 +211,9 @@ import kotlin.Unit
  */
 public open class SimpleAsyncResult(
     pointer: CPointer<GSimpleAsyncResult>,
-) : Object(pointer.reinterpret()), AsyncResult, KGTyped {
+) : Object(pointer.reinterpret()),
+    AsyncResult,
+    KGTyped {
     public val gioSimpleAsyncResultPointer: CPointer<GSimpleAsyncResult>
         get() = gPointer.reinterpret()
 
@@ -336,10 +338,7 @@ public open class SimpleAsyncResult(
      * @param error #GError.
      */
     public open fun setFromError(error: Error): Unit =
-        g_simple_async_result_set_from_error(
-            gioSimpleAsyncResultPointer.reinterpret(),
-            error.glibErrorPointer
-        )
+        g_simple_async_result_set_from_error(gioSimpleAsyncResultPointer.reinterpret(), error.glibErrorPointer)
 
     /**
      * Sets whether to handle cancellation within the asynchronous operation.
@@ -362,10 +361,7 @@ public open class SimpleAsyncResult(
      * @param opRes a #gboolean.
      */
     public open fun setOpResGboolean(opRes: Boolean): Unit =
-        g_simple_async_result_set_op_res_gboolean(
-            gioSimpleAsyncResultPointer.reinterpret(),
-            opRes.asGBoolean()
-        )
+        g_simple_async_result_set_op_res_gboolean(gioSimpleAsyncResultPointer.reinterpret(), opRes.asGBoolean())
 
     /**
      * Sets the operation result within the asynchronous result to
@@ -374,16 +370,11 @@ public open class SimpleAsyncResult(
      * @param opRes a #gssize.
      */
     public open fun setOpResGssize(opRes: Long): Unit =
-        g_simple_async_result_set_op_res_gssize(
-            gioSimpleAsyncResultPointer.reinterpret(),
-            opRes
-        )
+        g_simple_async_result_set_op_res_gssize(gioSimpleAsyncResultPointer.reinterpret(), opRes)
 
     public companion object : TypeCompanion<SimpleAsyncResult> {
         override val type: GeneratedClassKGType<SimpleAsyncResult> =
-            GeneratedClassKGType(g_simple_async_result_get_type()) {
-                SimpleAsyncResult(it.reinterpret())
-            }
+            GeneratedClassKGType(g_simple_async_result_get_type()) { SimpleAsyncResult(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

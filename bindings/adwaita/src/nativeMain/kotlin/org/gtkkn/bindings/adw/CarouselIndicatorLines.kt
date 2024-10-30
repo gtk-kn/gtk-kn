@@ -40,7 +40,9 @@ import kotlin.Unit
  */
 public class CarouselIndicatorLines(
     pointer: CPointer<AdwCarouselIndicatorLines>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val adwCarouselIndicatorLinesPointer: CPointer<AdwCarouselIndicatorLines>
         get() = gPointer.reinterpret()
 
@@ -75,7 +77,9 @@ public class CarouselIndicatorLines(
          *
          * @param carousel a carousel
          */
-        set(carousel) =
+        set(
+            carousel
+        ) =
             adw_carousel_indicator_lines_set_carousel(
                 adwCarouselIndicatorLinesPointer.reinterpret(),
                 carousel?.adwCarouselPointer?.reinterpret()
@@ -111,9 +115,9 @@ public class CarouselIndicatorLines(
 
     public companion object : TypeCompanion<CarouselIndicatorLines> {
         override val type: GeneratedClassKGType<CarouselIndicatorLines> =
-            GeneratedClassKGType(adw_carousel_indicator_lines_get_type()) {
-                CarouselIndicatorLines(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                adw_carousel_indicator_lines_get_type()
+            ) { CarouselIndicatorLines(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -36,7 +36,8 @@ import kotlin.Unit
  */
 public open class FlowBoxChild(
     pointer: CPointer<GtkFlowBoxChild>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkFlowBoxChildPointer: CPointer<GtkFlowBoxChild>
         get() = gPointer.reinterpret()
 
@@ -68,11 +69,9 @@ public open class FlowBoxChild(
          *
          * @param child the child widget
          */
-        set(child) =
-            gtk_flow_box_child_set_child(
-                gtkFlowBoxChildPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(
+            child
+        ) = gtk_flow_box_child_set_child(gtkFlowBoxChildPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new `GtkFlowBoxChild`.
@@ -139,10 +138,7 @@ public open class FlowBoxChild(
      * @param child the child widget
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_flow_box_child_set_child(
-            gtkFlowBoxChildPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_flow_box_child_set_child(gtkFlowBoxChildPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Emitted when the user activates a child widget in a `GtkFlowBox`.
@@ -173,9 +169,7 @@ public open class FlowBoxChild(
 
     public companion object : TypeCompanion<FlowBoxChild> {
         override val type: GeneratedClassKGType<FlowBoxChild> =
-            GeneratedClassKGType(gtk_flow_box_child_get_type()) {
-                FlowBoxChild(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_flow_box_child_get_type()) { FlowBoxChild(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -189,5 +183,4 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -47,7 +47,9 @@ import kotlin.Unit
  */
 public open class FileChooserWidget(
     pointer: CPointer<GtkFileChooserWidget>,
-) : Widget(pointer.reinterpret()), FileChooser, KGTyped {
+) : Widget(pointer.reinterpret()),
+    FileChooser,
+    KGTyped {
     public val gtkFileChooserWidgetPointer: CPointer<GtkFileChooserWidget>
         get() = gPointer.reinterpret()
 
@@ -73,8 +75,9 @@ public open class FileChooserWidget(
      * @param action Open or save mode for the widget
      * @return a new `GtkFileChooserWidget`
      */
-    public constructor(action: FileChooserAction) :
-        this(gtk_file_chooser_widget_new(action.nativeValue)!!.reinterpret())
+    public constructor(
+        action: FileChooserAction,
+    ) : this(gtk_file_chooser_widget_new(action.nativeValue)!!.reinterpret())
 
     /**
      * Emitted when the user asks for it.
@@ -174,8 +177,7 @@ public open class FileChooserWidget(
      * access to home directories.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `path` a string that gets put in the text
-     * entry for the file name
+     * @param handler the Callback to connect. Params: `path` a string that gets put in the text entry for the file name
      */
     public fun connectLocationPopup(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -285,8 +287,7 @@ public open class FileChooserWidget(
      * successively.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `bookmarkIndex` the number of the bookmark to
-     * switch to
+     * @param handler the Callback to connect. Params: `bookmarkIndex` the number of the bookmark to switch to
      */
     public fun connectQuickBookmark(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -404,9 +405,7 @@ public open class FileChooserWidget(
 
     public companion object : TypeCompanion<FileChooserWidget> {
         override val type: GeneratedClassKGType<FileChooserWidget> =
-            GeneratedClassKGType(gtk_file_chooser_widget_get_type()) {
-                FileChooserWidget(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_file_chooser_widget_get_type()) { FileChooserWidget(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -420,8 +419,7 @@ private val connectDesktopFolderFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDownFolderFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -429,8 +427,7 @@ private val connectDownFolderFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectHomeFolderFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -438,8 +435,7 @@ private val connectHomeFolderFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectLocationPopupFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -447,12 +443,15 @@ private val connectLocationPopupFunc: CPointer<CFunction<(CPointer<ByteVar>) -> 
             path: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(path: String) -> Unit>().get().invoke(
-            path?.toKString()
-                ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    path: String,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(path?.toKString() ?: error("Expected not null string"))
+    }.reinterpret()
 
 private val connectLocationPopupOnPasteFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -460,8 +459,7 @@ private val connectLocationPopupOnPasteFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectLocationTogglePopupFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -469,8 +467,7 @@ private val connectLocationTogglePopupFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPlacesShortcutFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -478,8 +475,7 @@ private val connectPlacesShortcutFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectQuickBookmarkFunc: CPointer<CFunction<(Int) -> Unit>> =
     staticCFunction {
@@ -488,8 +484,7 @@ private val connectQuickBookmarkFunc: CPointer<CFunction<(Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(bookmarkIndex: Int) -> Unit>().get().invoke(bookmarkIndex)
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectRecentShortcutFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -497,8 +492,7 @@ private val connectRecentShortcutFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSearchShortcutFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -506,8 +500,7 @@ private val connectSearchShortcutFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectShowHiddenFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -515,8 +508,7 @@ private val connectShowHiddenFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectUpFolderFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -524,5 +516,4 @@ private val connectUpFolderFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

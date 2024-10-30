@@ -64,7 +64,9 @@ import kotlin.Unit
  * - parameter `relations`: Array parameter of type AccessibleRelation is not supported
  * - parameter `states`: Array parameter of type AccessibleState is not supported
  */
-public interface Accessible : Interface, KGTyped {
+public interface Accessible :
+    Interface,
+    KGTyped {
     public val gtkAccessiblePointer: CPointer<GtkAccessible>
 
     /**
@@ -101,12 +103,7 @@ public interface Accessible : Interface, KGTyped {
     public fun announce(
         message: String,
         priority: AccessibleAnnouncementPriority,
-    ): Unit =
-        gtk_accessible_announce(
-            gtkAccessiblePointer.reinterpret(),
-            message,
-            priority.nativeValue
-        )
+    ): Unit = gtk_accessible_announce(gtkAccessiblePointer.reinterpret(), message, priority.nativeValue)
 
     /**
      * Retrieves the accessible parent for an accessible object.
@@ -178,10 +175,7 @@ public interface Accessible : Interface, KGTyped {
      * @since 4.10
      */
     public fun getPlatformState(state: AccessiblePlatformState): Boolean =
-        gtk_accessible_get_platform_state(
-            gtkAccessiblePointer.reinterpret(),
-            state.nativeValue
-        ).asBoolean()
+        gtk_accessible_get_platform_state(gtkAccessiblePointer.reinterpret(), state.nativeValue).asBoolean()
 
     /**
      * Resets the accessible @property to its default value.
@@ -189,10 +183,7 @@ public interface Accessible : Interface, KGTyped {
      * @param property a `GtkAccessibleProperty`
      */
     public fun resetProperty(`property`: AccessibleProperty): Unit =
-        gtk_accessible_reset_property(
-            gtkAccessiblePointer.reinterpret(),
-            `property`.nativeValue
-        )
+        gtk_accessible_reset_property(gtkAccessiblePointer.reinterpret(), `property`.nativeValue)
 
     /**
      * Resets the accessible @relation to its default value.

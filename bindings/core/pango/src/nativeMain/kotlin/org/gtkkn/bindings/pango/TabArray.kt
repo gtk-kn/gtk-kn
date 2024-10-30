@@ -120,12 +120,7 @@ public class TabArray(
     public fun setDecimalPoint(
         tabIndex: Int,
         decimalPoint: UInt,
-    ): Unit =
-        pango_tab_array_set_decimal_point(
-            pangoTabArrayPointer.reinterpret(),
-            tabIndex,
-            decimalPoint
-        )
+    ): Unit = pango_tab_array_set_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex, decimalPoint)
 
     /**
      * Sets whether positions in this array are specified in
@@ -135,10 +130,7 @@ public class TabArray(
      * @since 1.50
      */
     public fun setPositionsInPixels(positionsInPixels: Boolean): Unit =
-        pango_tab_array_set_positions_in_pixels(
-            pangoTabArrayPointer.reinterpret(),
-            positionsInPixels.asGBoolean()
-        )
+        pango_tab_array_set_positions_in_pixels(pangoTabArrayPointer.reinterpret(), positionsInPixels.asGBoolean())
 
     /**
      * Sets the alignment and location of a tab stop.
@@ -151,13 +143,7 @@ public class TabArray(
         tabIndex: Int,
         alignment: TabAlign,
         location: Int,
-    ): Unit =
-        pango_tab_array_set_tab(
-            pangoTabArrayPointer.reinterpret(),
-            tabIndex,
-            alignment.nativeValue,
-            location
-        )
+    ): Unit = pango_tab_array_set_tab(pangoTabArrayPointer.reinterpret(), tabIndex, alignment.nativeValue, location)
 
     /**
      * Utility function to ensure that the tab stops are in increasing order.
@@ -181,13 +167,7 @@ public class TabArray(
         public fun new(
             initialSize: Int,
             positionsInPixels: Boolean,
-        ): TabArray =
-            TabArray(
-                pango_tab_array_new(
-                    initialSize,
-                    positionsInPixels.asGBoolean()
-                )!!.reinterpret()
-            )
+        ): TabArray = TabArray(pango_tab_array_new(initialSize, positionsInPixels.asGBoolean())!!.reinterpret())
 
         /**
          * Deserializes a `PangoTabArray` from a string.

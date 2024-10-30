@@ -59,7 +59,9 @@ import kotlin.Unit
  */
 public open class FontButton(
     pointer: CPointer<GtkFontButton>,
-) : Widget(pointer.reinterpret()), FontChooser, KGTyped {
+) : Widget(pointer.reinterpret()),
+    FontChooser,
+    KGTyped {
     public val gtkFontButtonPointer: CPointer<GtkFontButton>
         get() = gPointer.reinterpret()
 
@@ -91,11 +93,7 @@ public open class FontButton(
          *
          * @param modal true to make the dialog modal
          */
-        set(modal) =
-            gtk_font_button_set_modal(
-                gtkFontButtonPointer.reinterpret(),
-                modal.asGBoolean()
-            )
+        set(modal) = gtk_font_button_set_modal(gtkFontButtonPointer.reinterpret(), modal.asGBoolean())
 
     /**
      * The title of the font chooser dialog.
@@ -135,11 +133,7 @@ public open class FontButton(
          *
          * @param useFont If true, font name will be written using font chosen.
          */
-        set(useFont) =
-            gtk_font_button_set_use_font(
-                gtkFontButtonPointer.reinterpret(),
-                useFont.asGBoolean()
-            )
+        set(useFont) = gtk_font_button_set_use_font(gtkFontButtonPointer.reinterpret(), useFont.asGBoolean())
 
     /**
      * Whether the buttons label will use the selected font size.
@@ -159,11 +153,7 @@ public open class FontButton(
          * @param useSize If true, font name will be written using the
          *   selected size.
          */
-        set(useSize) =
-            gtk_font_button_set_use_size(
-                gtkFontButtonPointer.reinterpret(),
-                useSize.asGBoolean()
-            )
+        set(useSize) = gtk_font_button_set_use_size(gtkFontButtonPointer.reinterpret(), useSize.asGBoolean())
 
     /**
      * Creates a new font picker widget.
@@ -178,8 +168,7 @@ public open class FontButton(
      * @param fontname Name of font to display in font chooser dialog
      * @return a new font picker widget.
      */
-    public constructor(fontname: String) :
-        this(gtk_font_button_new_with_font(fontname)!!.reinterpret())
+    public constructor(fontname: String) : this(gtk_font_button_new_with_font(fontname)!!.reinterpret())
 
     /**
      * Gets whether the dialog is modal.
@@ -195,8 +184,7 @@ public open class FontButton(
      *   which must not be freed.
      */
     public open fun getTitle(): String =
-        gtk_font_button_get_title(gtkFontButtonPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_font_button_get_title(gtkFontButtonPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns whether the selected font is used in the label.
@@ -311,8 +299,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectFontSetFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -320,5 +307,4 @@ private val connectFontSetFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

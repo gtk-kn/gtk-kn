@@ -15,7 +15,9 @@ public class DBusPropertyInfoFlags(
     public val mask: GDBusPropertyInfoFlags,
 ) : Bitfield<DBusPropertyInfoFlags> {
     override infix fun or(other: DBusPropertyInfoFlags): DBusPropertyInfoFlags =
-        DBusPropertyInfoFlags(mask or other.mask)
+        DBusPropertyInfoFlags(
+            mask or other.mask
+        )
 
     public companion object {
         /**

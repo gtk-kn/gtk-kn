@@ -51,7 +51,9 @@ import kotlin.Unit
  */
 public open class AppChooserDialog(
     pointer: CPointer<GtkAppChooserDialog>,
-) : Dialog(pointer.reinterpret()), AppChooser, KGTyped {
+) : Dialog(pointer.reinterpret()),
+    AppChooser,
+    KGTyped {
     public val gtkAppChooserDialogPointer: CPointer<GtkAppChooserDialog>
         get() = gPointer.reinterpret()
 
@@ -151,9 +153,7 @@ public open class AppChooserDialog(
 
     public companion object : TypeCompanion<AppChooserDialog> {
         override val type: GeneratedClassKGType<AppChooserDialog> =
-            GeneratedClassKGType(gtk_app_chooser_dialog_get_type()) {
-                AppChooserDialog(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_app_chooser_dialog_get_type()) { AppChooserDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

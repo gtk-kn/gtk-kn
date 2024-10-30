@@ -59,7 +59,8 @@ import kotlin.Unit
  */
 public open class Device(
     pointer: CPointer<GdkDevice>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkDevicePointer: CPointer<GdkDevice>
         get() = gPointer.reinterpret()
 
@@ -156,9 +157,7 @@ public open class Device(
          *
          * @return a name
          */
-        get() =
-            gdk_device_get_name(gdkDevicePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = gdk_device_get_name(gdkDevicePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Whether Num Lock is on.
@@ -362,8 +361,7 @@ public open class Device(
      * @return a name
      */
     public open fun getName(): String =
-        gdk_device_get_name(gdkDevicePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gdk_device_get_name(gdkDevicePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves whether the Num Lock modifier of the keyboard is locked.
@@ -538,8 +536,7 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectToolChangedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Unit>> =
     staticCFunction {
@@ -552,5 +549,4 @@ private val connectToolChangedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>)
                 DeviceTool(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

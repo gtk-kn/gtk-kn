@@ -308,13 +308,7 @@ public class KeyFile(
     ): Result<Double> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_get_double(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    gError.ptr
-                )
+            val gResult = g_key_file_get_double(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -339,13 +333,7 @@ public class KeyFile(
     ): Result<Long> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_get_int64(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    gError.ptr
-                )
+            val gResult = g_key_file_get_int64(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -375,13 +363,7 @@ public class KeyFile(
     ): Result<Int> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_get_integer(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    gError.ptr
-                )
+            val gResult = g_key_file_get_integer(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -412,12 +394,8 @@ public class KeyFile(
         key: String,
         locale: String? = null,
     ): String =
-        g_key_file_get_locale_for_key(
-            glibKeyFilePointer.reinterpret(),
-            groupName,
-            key,
-            locale
-        )?.toKString() ?: error("Expected not null string")
+        g_key_file_get_locale_for_key(glibKeyFilePointer.reinterpret(), groupName, key, locale)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Returns the value associated with @key under @group_name
@@ -469,8 +447,7 @@ public class KeyFile(
      * @since 2.6
      */
     public fun getStartGroup(): String =
-        g_key_file_get_start_group(glibKeyFilePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_key_file_get_start_group(glibKeyFilePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the string value associated with @key under @group_name.
@@ -525,13 +502,7 @@ public class KeyFile(
     ): Result<ULong> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_get_uint64(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    key,
-                    gError.ptr
-                )
+            val gResult = g_key_file_get_uint64(glibKeyFilePointer.reinterpret(), groupName, key, gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -723,12 +694,7 @@ public class KeyFile(
     public fun removeGroup(groupName: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_remove_group(
-                    glibKeyFilePointer.reinterpret(),
-                    groupName,
-                    gError.ptr
-                ).asBoolean()
+            val gResult = g_key_file_remove_group(glibKeyFilePointer.reinterpret(), groupName, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -780,12 +746,7 @@ public class KeyFile(
     public fun saveToFile(filename: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                g_key_file_save_to_file(
-                    glibKeyFilePointer.reinterpret(),
-                    filename,
-                    gError.ptr
-                ).asBoolean()
+            val gResult = g_key_file_save_to_file(glibKeyFilePointer.reinterpret(), filename, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -806,13 +767,7 @@ public class KeyFile(
         groupName: String,
         key: String,
         `value`: Boolean,
-    ): Unit =
-        g_key_file_set_boolean(
-            glibKeyFilePointer.reinterpret(),
-            groupName,
-            key,
-            `value`.asGBoolean()
-        )
+    ): Unit = g_key_file_set_boolean(glibKeyFilePointer.reinterpret(), groupName, key, `value`.asGBoolean())
 
     /**
      * Places a comment above @key from @group_name.
@@ -923,14 +878,7 @@ public class KeyFile(
         key: String,
         locale: String,
         string: String,
-    ): Unit =
-        g_key_file_set_locale_string(
-            glibKeyFilePointer.reinterpret(),
-            groupName,
-            key,
-            locale,
-            string
-        )
+    ): Unit = g_key_file_set_locale_string(glibKeyFilePointer.reinterpret(), groupName, key, locale, string)
 
     /**
      * Associates a list of string values for @key and @locale under

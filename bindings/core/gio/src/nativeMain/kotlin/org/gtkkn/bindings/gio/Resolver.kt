@@ -74,7 +74,8 @@ import kotlin.Unit
  */
 public open class Resolver(
     pointer: CPointer<GResolver>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioResolverPointer: CPointer<GResolver>
         get() = gPointer.reinterpret()
 
@@ -724,5 +725,4 @@ private val connectReloadFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

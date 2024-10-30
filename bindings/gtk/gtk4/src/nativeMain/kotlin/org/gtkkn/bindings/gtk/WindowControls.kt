@@ -77,7 +77,8 @@ import kotlin.Unit
  */
 public open class WindowControls(
     pointer: CPointer<GtkWindowControls>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkWindowControlsPointer: CPointer<GtkWindowControls>
         get() = gPointer.reinterpret()
 
@@ -102,8 +103,7 @@ public open class WindowControls(
          *
          * @return the decoration layout or null if it is unset
          */
-        get() =
-            gtk_window_controls_get_decoration_layout(gtkWindowControlsPointer.reinterpret())?.toKString()
+        get() = gtk_window_controls_get_decoration_layout(gtkWindowControlsPointer.reinterpret())?.toKString()
 
         /**
          * Sets the decoration layout for the title buttons.
@@ -124,11 +124,7 @@ public open class WindowControls(
          *
          * @param layout a decoration layout, or null to unset the layout
          */
-        set(layout) =
-            gtk_window_controls_set_decoration_layout(
-                gtkWindowControlsPointer.reinterpret(),
-                layout
-            )
+        set(layout) = gtk_window_controls_set_decoration_layout(gtkWindowControlsPointer.reinterpret(), layout)
 
     /**
      * Whether the widget has any window buttons.
@@ -164,11 +160,7 @@ public open class WindowControls(
          *
          * @param side a side
          */
-        set(side) =
-            gtk_window_controls_set_side(
-                gtkWindowControlsPointer.reinterpret(),
-                side.nativeValue
-            )
+        set(side) = gtk_window_controls_set_side(gtkWindowControlsPointer.reinterpret(), side.nativeValue)
 
     /**
      * Creates a new `GtkWindowControls`.
@@ -176,8 +168,7 @@ public open class WindowControls(
      * @param side the side
      * @return a new `GtkWindowControls`.
      */
-    public constructor(side: PackType) :
-        this(gtk_window_controls_new(side.nativeValue)!!.reinterpret())
+    public constructor(side: PackType) : this(gtk_window_controls_new(side.nativeValue)!!.reinterpret())
 
     /**
      * Gets the decoration layout of this `GtkWindowControls`.
@@ -225,10 +216,7 @@ public open class WindowControls(
      * @param layout a decoration layout, or null to unset the layout
      */
     public open fun setDecorationLayout(layout: String? = null): Unit =
-        gtk_window_controls_set_decoration_layout(
-            gtkWindowControlsPointer.reinterpret(),
-            layout
-        )
+        gtk_window_controls_set_decoration_layout(gtkWindowControlsPointer.reinterpret(), layout)
 
     /**
      * Determines which part of decoration layout the `GtkWindowControls` uses.
@@ -242,9 +230,7 @@ public open class WindowControls(
 
     public companion object : TypeCompanion<WindowControls> {
         override val type: GeneratedClassKGType<WindowControls> =
-            GeneratedClassKGType(gtk_window_controls_get_type()) {
-                WindowControls(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_window_controls_get_type()) { WindowControls(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

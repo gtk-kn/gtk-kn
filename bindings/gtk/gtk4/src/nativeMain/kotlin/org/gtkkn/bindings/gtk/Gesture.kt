@@ -142,7 +142,8 @@ import kotlin.Unit
  */
 public open class Gesture(
     pointer: CPointer<GtkGesture>,
-) : EventController(pointer.reinterpret()), KGTyped {
+) : EventController(pointer.reinterpret()),
+    KGTyped {
     public val gtkGesturePointer: CPointer<GtkGesture>
         get() = gPointer.reinterpret()
 
@@ -163,10 +164,7 @@ public open class Gesture(
      * @return true if there are active touches, false otherwise
      */
     public open fun getBoundingBox(rect: Rectangle): Boolean =
-        gtk_gesture_get_bounding_box(
-            gtkGesturePointer.reinterpret(),
-            rect.gdkRectanglePointer
-        ).asBoolean()
+        gtk_gesture_get_bounding_box(gtkGesturePointer.reinterpret(), rect.gdkRectanglePointer).asBoolean()
 
     /**
      * Returns the logical `GdkDevice` that is currently operating
@@ -203,10 +201,7 @@ public open class Gesture(
      * @return The last event from @sequence
      */
     public open fun getLastEvent(sequence: EventSequence? = null): Event? =
-        gtk_gesture_get_last_event(
-            gtkGesturePointer.reinterpret(),
-            sequence?.gdkEventSequencePointer
-        )?.run {
+        gtk_gesture_get_last_event(gtkGesturePointer.reinterpret(), sequence?.gdkEventSequencePointer)?.run {
             Event(reinterpret())
         }
 
@@ -227,10 +222,7 @@ public open class Gesture(
      * @return The sequence state in @gesture
      */
     public open fun getSequenceState(sequence: EventSequence): EventSequenceState =
-        gtk_gesture_get_sequence_state(
-            gtkGesturePointer.reinterpret(),
-            sequence.gdkEventSequencePointer
-        ).run {
+        gtk_gesture_get_sequence_state(gtkGesturePointer.reinterpret(), sequence.gdkEventSequencePointer).run {
             EventSequenceState.fromNativeValue(this)
         }
 
@@ -270,10 +262,7 @@ public open class Gesture(
      * @param gesture a `GtkGesture`
      */
     public open fun group(gesture: Gesture): Unit =
-        gtk_gesture_group(
-            gtkGesturePointer.reinterpret(),
-            gesture.gtkGesturePointer.reinterpret()
-        )
+        gtk_gesture_group(gtkGesturePointer.reinterpret(), gesture.gtkGesturePointer.reinterpret())
 
     /**
      * Returns true if @gesture is currently handling events
@@ -283,10 +272,7 @@ public open class Gesture(
      * @return true if @gesture is handling @sequence, false otherwise
      */
     public open fun handlesSequence(sequence: EventSequence? = null): Boolean =
-        gtk_gesture_handles_sequence(
-            gtkGesturePointer.reinterpret(),
-            sequence?.gdkEventSequencePointer
-        ).asBoolean()
+        gtk_gesture_handles_sequence(gtkGesturePointer.reinterpret(), sequence?.gdkEventSequencePointer).asBoolean()
 
     /**
      * Returns true if the gesture is currently active.
@@ -305,10 +291,7 @@ public open class Gesture(
      * @return whether the gestures are grouped
      */
     public open fun isGroupedWith(other: Gesture): Boolean =
-        gtk_gesture_is_grouped_with(
-            gtkGesturePointer.reinterpret(),
-            other.gtkGesturePointer.reinterpret()
-        ).asBoolean()
+        gtk_gesture_is_grouped_with(gtkGesturePointer.reinterpret(), other.gtkGesturePointer.reinterpret()).asBoolean()
 
     /**
      * Returns true if the gesture is currently recognized.
@@ -448,8 +431,7 @@ public open class Gesture(
      * touches, so don't rely on this being true.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `sequence` the `GdkEventSequence` that made
-     * the gesture
+     * @param handler the Callback to connect. Params: `sequence` the `GdkEventSequence` that made the gesture
      *   to be recognized
      */
     public fun connectBegin(
@@ -478,8 +460,7 @@ public open class Gesture(
      * response to this signal.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `sequence` the `GdkEventSequence` that was
-     * cancelled
+     * @param handler the Callback to connect. Params: `sequence` the `GdkEventSequence` that was cancelled
      */
     public fun connectCancel(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -506,8 +487,7 @@ public open class Gesture(
      * [method@Gtk.Gesture.handles_sequence].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `sequence` the `GdkEventSequence` that made
-     * gesture
+     * @param handler the Callback to connect. Params: `sequence` the `GdkEventSequence` that made gesture
      *   recognition to finish
      */
     public fun connectEnd(
@@ -530,8 +510,7 @@ public open class Gesture(
      * more about the expectable sequence lifetimes.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `sequence` the `GdkEventSequence` that was
-     * cancelled; `state` the new sequence state
+     * @param handler the Callback to connect. Params: `sequence` the `GdkEventSequence` that was cancelled; `state` the new sequence state
      */
     public fun connectSequenceStateChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -552,8 +531,7 @@ public open class Gesture(
      * @sequence is guaranteed to pertain to the set of active touches.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `sequence` the `GdkEventSequence` that was
-     * updated
+     * @param handler the Callback to connect. Params: `sequence` the `GdkEventSequence` that was updated
      */
     public fun connectUpdate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -589,8 +567,7 @@ private val connectBeginFunc: CPointer<CFunction<(CPointer<GdkEventSequence>?) -
                 EventSequence(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectCancelFunc: CPointer<CFunction<(CPointer<GdkEventSequence>?) -> Unit>> =
     staticCFunction {
@@ -603,8 +580,7 @@ private val connectCancelFunc: CPointer<CFunction<(CPointer<GdkEventSequence>?) 
                 EventSequence(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectEndFunc: CPointer<CFunction<(CPointer<GdkEventSequence>?) -> Unit>> =
     staticCFunction {
@@ -617,29 +593,17 @@ private val connectEndFunc: CPointer<CFunction<(CPointer<GdkEventSequence>?) -> 
                 EventSequence(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
-private val connectSequenceStateChangedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GdkEventSequence>?,
-            GtkEventSequenceState,
-        ) -> Unit
-    >
-> =
+private val connectSequenceStateChangedFunc:
+    CPointer<CFunction<(CPointer<GdkEventSequence>?, GtkEventSequenceState) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             sequence: CPointer<GdkEventSequence>?,
             state: GtkEventSequenceState,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                sequence: EventSequence?,
-                state: EventSequenceState,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(sequence: EventSequence?, state: EventSequenceState) -> Unit>().get().invoke(
             sequence?.run {
                 EventSequence(reinterpret())
             },
@@ -647,8 +611,7 @@ private val connectSequenceStateChangedFunc: CPointer<
                 EventSequenceState.fromNativeValue(this)
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectUpdateFunc: CPointer<CFunction<(CPointer<GdkEventSequence>?) -> Unit>> =
     staticCFunction {
@@ -661,5 +624,4 @@ private val connectUpdateFunc: CPointer<CFunction<(CPointer<GdkEventSequence>?) 
                 EventSequence(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

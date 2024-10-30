@@ -266,7 +266,9 @@ import kotlin.collections.List
  * - parameter `iostream`: iostream: Out parameter is not supported
  * - parameter `iostream`: iostream: Out parameter is not supported
  */
-public interface File : Interface, KGTyped {
+public interface File :
+    Interface,
+    KGTyped {
     public val gioFilePointer: CPointer<GFile>
 
     /**
@@ -362,11 +364,7 @@ public interface File : Interface, KGTyped {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_file_append_to_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
+                g_file_append_to_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
                     FileOutputStream(reinterpret())
                 }
 
@@ -647,11 +645,7 @@ public interface File : Interface, KGTyped {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_file_create_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
+                g_file_create_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
                     FileOutputStream(reinterpret())
                 }
 
@@ -786,8 +780,7 @@ public interface File : Interface, KGTyped {
      *
      * If @file doesn’t exist, %G_IO_ERROR_NOT_FOUND will be returned. This allows
      * for deletion to be implemented avoiding
-     * [time-of-check to time-of-use
-     * races](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use):
+     * [time-of-check to time-of-use races](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use):
      * |[
      * g_autoptr(GError) local_error = NULL;
      * if (!g_file_delete (my_file, my_cancellable, &local_error) &&
@@ -1141,10 +1134,7 @@ public interface File : Interface, KGTyped {
      * @return true if @file1 and @file2 are equal.
      */
     public fun equal(file2: File): Boolean =
-        g_file_equal(
-            gioFilePointer.reinterpret(),
-            file2.gioFilePointer
-        ).asBoolean()
+        g_file_equal(gioFilePointer.reinterpret(), file2.gioFilePointer).asBoolean()
 
     /**
      * Gets a #GMount for the #GFile.
@@ -1273,10 +1263,7 @@ public interface File : Interface, KGTyped {
      *   Free the returned object with g_object_unref().
      */
     public fun getChild(name: String): File =
-        g_file_get_child(
-            gioFilePointer.reinterpret(),
-            name
-        )!!.run {
+        g_file_get_child(gioFilePointer.reinterpret(), name)!!.run {
             File.wrap(reinterpret())
         }
 
@@ -1299,11 +1286,7 @@ public interface File : Interface, KGTyped {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_file_get_child_for_display_name(
-                    gioFilePointer.reinterpret(),
-                    displayName,
-                    gError.ptr
-                )?.run {
+                g_file_get_child_for_display_name(gioFilePointer.reinterpret(), displayName, gError.ptr)?.run {
                     File.wrap(reinterpret())
                 }
 
@@ -1351,8 +1334,7 @@ public interface File : Interface, KGTyped {
      *   when no longer needed.
      */
     public fun getParseName(): String =
-        g_file_get_parse_name(gioFilePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_file_get_parse_name(gioFilePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the local pathname for #GFile, if one exists. If non-null, this is
@@ -1378,10 +1360,7 @@ public interface File : Interface, KGTyped {
      *   no longer needed.
      */
     public fun getRelativePath(descendant: File): String? =
-        g_file_get_relative_path(
-            gioFilePointer.reinterpret(),
-            descendant.gioFilePointer
-        )?.toKString()
+        g_file_get_relative_path(gioFilePointer.reinterpret(), descendant.gioFilePointer)?.toKString()
 
     /**
      * Gets the URI for the @file.
@@ -1394,8 +1373,7 @@ public interface File : Interface, KGTyped {
      *   when no longer needed.
      */
     public fun getUri(): String =
-        g_file_get_uri(gioFilePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_file_get_uri(gioFilePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the URI scheme for a #GFile.
@@ -1452,10 +1430,7 @@ public interface File : Interface, KGTyped {
      *   false otherwise.
      */
     public fun hasPrefix(prefix: File): Boolean =
-        g_file_has_prefix(
-            gioFilePointer.reinterpret(),
-            prefix.gioFilePointer
-        ).asBoolean()
+        g_file_has_prefix(gioFilePointer.reinterpret(), prefix.gioFilePointer).asBoolean()
 
     /**
      * Checks to see if a #GFile has a given URI scheme.
@@ -2191,11 +2166,7 @@ public interface File : Interface, KGTyped {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_file_open_readwrite_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
+                g_file_open_readwrite_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
                     FileIOStream(reinterpret())
                 }
 
@@ -2360,8 +2331,7 @@ public interface File : Interface, KGTyped {
      * Utility function to check if a particular file exists. This is
      * implemented using g_file_query_info() and as such does blocking I/O.
      *
-     * Note that in many cases it is [racy to first check for file
-     * existence](https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use)
+     * Note that in many cases it is [racy to first check for file existence](https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use)
      * and then execute something based on the outcome of that, because the
      * file might have been created or removed in between the operations. The
      * general approach to handling that is to not check, but just do the
@@ -2387,10 +2357,7 @@ public interface File : Interface, KGTyped {
      *   false otherwise (or if cancelled).
      */
     public fun queryExists(cancellable: Cancellable? = null): Boolean =
-        g_file_query_exists(
-            gioFilePointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret()
-        ).asBoolean()
+        g_file_query_exists(gioFilePointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret()).asBoolean()
 
     /**
      * Utility function to inspect the #GFileType of a file. This is
@@ -2650,11 +2617,7 @@ public interface File : Interface, KGTyped {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_file_query_info_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
+                g_file_query_info_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
                     FileInfo(reinterpret())
                 }
 
@@ -2813,11 +2776,7 @@ public interface File : Interface, KGTyped {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_file_read_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
+                g_file_read_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
                     FileInputStream(reinterpret())
                 }
 
@@ -2996,11 +2955,7 @@ public interface File : Interface, KGTyped {
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                g_file_replace_finish(
-                    gioFilePointer.reinterpret(),
-                    res.gioAsyncResultPointer,
-                    gError.ptr
-                )?.run {
+                g_file_replace_finish(gioFilePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
                     FileOutputStream(reinterpret())
                 }
 

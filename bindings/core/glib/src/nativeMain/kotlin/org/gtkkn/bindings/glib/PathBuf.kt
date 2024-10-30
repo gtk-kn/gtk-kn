@@ -198,10 +198,7 @@ public class PathBuf(
      * @since 2.76
      */
     public fun push(path: String): PathBuf =
-        g_path_buf_push(
-            glibPathBufPointer.reinterpret(),
-            path
-        )!!.run {
+        g_path_buf_push(glibPathBufPointer.reinterpret(), path)!!.run {
             PathBuf(reinterpret())
         }
 

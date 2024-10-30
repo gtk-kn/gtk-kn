@@ -23,7 +23,8 @@ import kotlin.Unit
  */
 public class SqueezerPage(
     pointer: CPointer<AdwSqueezerPage>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val adwSqueezerPagePointer: CPointer<AdwSqueezerPage>
         get() = gPointer.reinterpret()
 
@@ -75,11 +76,7 @@ public class SqueezerPage(
          *
          * @param enabled whether @self is enabled
          */
-        set(enabled) =
-            adw_squeezer_page_set_enabled(
-                adwSqueezerPagePointer.reinterpret(),
-                enabled.asGBoolean()
-            )
+        set(enabled) = adw_squeezer_page_set_enabled(adwSqueezerPagePointer.reinterpret(), enabled.asGBoolean())
 
     /**
      * Returns the squeezer child to which @self belongs.
@@ -113,16 +110,11 @@ public class SqueezerPage(
      * @param enabled whether @self is enabled
      */
     public fun setEnabled(enabled: Boolean): Unit =
-        adw_squeezer_page_set_enabled(
-            adwSqueezerPagePointer.reinterpret(),
-            enabled.asGBoolean()
-        )
+        adw_squeezer_page_set_enabled(adwSqueezerPagePointer.reinterpret(), enabled.asGBoolean())
 
     public companion object : TypeCompanion<SqueezerPage> {
         override val type: GeneratedClassKGType<SqueezerPage> =
-            GeneratedClassKGType(adw_squeezer_page_get_type()) {
-                SqueezerPage(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_squeezer_page_get_type()) { SqueezerPage(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

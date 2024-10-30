@@ -25,7 +25,9 @@ import org.gtkkn.native.gio.g_emblem_new_with_origin
  */
 public open class Emblem(
     pointer: CPointer<GEmblem>,
-) : Object(pointer.reinterpret()), Icon, KGTyped {
+) : Object(pointer.reinterpret()),
+    Icon,
+    KGTyped {
     public val gioEmblemPointer: CPointer<GEmblem>
         get() = gPointer.reinterpret()
 
@@ -84,8 +86,10 @@ public open class Emblem(
      * @return a new #GEmblem.
      * @since 2.18
      */
-    public constructor(icon: Icon, origin: EmblemOrigin) :
-        this(g_emblem_new_with_origin(icon.gioIconPointer, origin.nativeValue)!!.reinterpret())
+    public constructor(
+        icon: Icon,
+        origin: EmblemOrigin,
+    ) : this(g_emblem_new_with_origin(icon.gioIconPointer, origin.nativeValue)!!.reinterpret())
 
     /**
      * Gives back the icon from @emblem.

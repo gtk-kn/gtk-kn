@@ -17,7 +17,8 @@ import org.gtkkn.native.gtk.gtk_object_expression_new
  */
 public open class ObjectExpression(
     pointer: CPointer<GtkObjectExpression>,
-) : Expression(pointer.reinterpret()), KGTyped {
+) : Expression(pointer.reinterpret()),
+    KGTyped {
     public val gtkObjectExpressionPointer: CPointer<GtkObjectExpression>
         get() = gPointer.reinterpret()
 
@@ -33,8 +34,9 @@ public open class ObjectExpression(
      * @param object object to watch
      * @return a new `GtkExpression`
      */
-    public constructor(`object`: Object) :
-        this(gtk_object_expression_new(`object`.gPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        `object`: Object,
+    ) : this(gtk_object_expression_new(`object`.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the object that the expression evaluates to.
@@ -48,9 +50,7 @@ public open class ObjectExpression(
 
     public companion object : TypeCompanion<ObjectExpression> {
         override val type: GeneratedClassKGType<ObjectExpression> =
-            GeneratedClassKGType(gtk_object_expression_get_type()) {
-                ObjectExpression(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_object_expression_get_type()) { ObjectExpression(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

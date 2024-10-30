@@ -61,7 +61,8 @@ import kotlin.Unit
  */
 public open class PreferencesWindow(
     pointer: CPointer<AdwPreferencesWindow>,
-) : Window(pointer.reinterpret()), KGTyped {
+) : Window(pointer.reinterpret()),
+    KGTyped {
     public val adwPreferencesWindowPointer: CPointer<AdwPreferencesWindow>
         get() = gPointer.reinterpret()
 
@@ -103,8 +104,7 @@ public open class PreferencesWindow(
          *
          * @return whether gestures and shortcuts are enabled.
          */
-        get() =
-            adw_preferences_window_get_can_navigate_back(adwPreferencesWindowPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_window_get_can_navigate_back(adwPreferencesWindowPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether gestures and shortcuts for closing subpages are enabled.
@@ -122,7 +122,9 @@ public open class PreferencesWindow(
          *
          * @param canNavigateBack the new value
          */
-        set(canNavigateBack) =
+        set(
+            canNavigateBack
+        ) =
             adw_preferences_window_set_can_navigate_back(
                 adwPreferencesWindowPointer.reinterpret(),
                 canNavigateBack.asGBoolean()
@@ -137,15 +139,16 @@ public open class PreferencesWindow(
          *
          * @return whether search is enabled for @self.
          */
-        get() =
-            adw_preferences_window_get_search_enabled(adwPreferencesWindowPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_window_get_search_enabled(adwPreferencesWindowPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether search is enabled for @self.
          *
          * @param searchEnabled whether search is enabled
          */
-        set(searchEnabled) =
+        set(
+            searchEnabled
+        ) =
             adw_preferences_window_set_search_enabled(
                 adwPreferencesWindowPointer.reinterpret(),
                 searchEnabled.asGBoolean()
@@ -177,10 +180,7 @@ public open class PreferencesWindow(
      * @param toast a toast
      */
     public open fun addToast(toast: Toast): Unit =
-        adw_preferences_window_add_toast(
-            adwPreferencesWindowPointer.reinterpret(),
-            toast.adwToastPointer.reinterpret()
-        )
+        adw_preferences_window_add_toast(adwPreferencesWindowPointer.reinterpret(), toast.adwToastPointer.reinterpret())
 
     /**
      * Closes the current subpage.
@@ -300,10 +300,7 @@ public open class PreferencesWindow(
      * @param searchEnabled whether search is enabled
      */
     public open fun setSearchEnabled(searchEnabled: Boolean): Unit =
-        adw_preferences_window_set_search_enabled(
-            adwPreferencesWindowPointer.reinterpret(),
-            searchEnabled.asGBoolean()
-        )
+        adw_preferences_window_set_search_enabled(adwPreferencesWindowPointer.reinterpret(), searchEnabled.asGBoolean())
 
     /**
      * Makes @page the visible page of @self.
@@ -324,16 +321,11 @@ public open class PreferencesWindow(
      * @param name the name of the page to make visible
      */
     public open fun setVisiblePageName(name: String): Unit =
-        adw_preferences_window_set_visible_page_name(
-            adwPreferencesWindowPointer.reinterpret(),
-            name
-        )
+        adw_preferences_window_set_visible_page_name(adwPreferencesWindowPointer.reinterpret(), name)
 
     public companion object : TypeCompanion<PreferencesWindow> {
         override val type: GeneratedClassKGType<PreferencesWindow> =
-            GeneratedClassKGType(adw_preferences_window_get_type()) {
-                PreferencesWindow(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_preferences_window_get_type()) { PreferencesWindow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

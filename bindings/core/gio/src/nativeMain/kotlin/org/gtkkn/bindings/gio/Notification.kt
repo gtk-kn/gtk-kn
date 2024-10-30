@@ -76,7 +76,8 @@ import kotlin.Unit
  */
 public open class Notification(
     pointer: CPointer<GNotification>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioNotificationPointer: CPointer<GNotification>
         get() = gPointer.reinterpret()
 
@@ -152,8 +153,7 @@ public open class Notification(
      * by a `.`, e.g. `im.received` or `email.arrived`. Setting the category
      * helps the notification server to select proper feedback to the user.
      *
-     * Standard categories are [listed in the
-     * specification](https://specifications.freedesktop.org/notification-spec/latest/ar01s06.html).
+     * Standard categories are [listed in the specification](https://specifications.freedesktop.org/notification-spec/latest/ar01s06.html).
      *
      * @param category the category for @notification, or null for no category
      * @since 2.70

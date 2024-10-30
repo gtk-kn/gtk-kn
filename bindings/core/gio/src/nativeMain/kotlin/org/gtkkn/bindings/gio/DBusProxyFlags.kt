@@ -47,13 +47,7 @@ public class DBusProxyFlags(
             DBusProxyFlags(G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START)
 
         /**
-         * If set, the property value for any __invalidated property__ will be (asynchronously)
-         * retrieved upon receiving the
-         * [`PropertiesChanged`](http://dbus.freedesktop.org/doc/dbus-specification.html#standard-interfaces-properties)
-         * D-Bus signal and the property will not cause emission of the
-         * #GDBusProxy::g-properties-changed signal. When the value is received the
-         * #GDBusProxy::g-properties-changed signal is emitted for the property along with the
-         * retrieved value. Since 2.32.
+         * If set, the property value for any __invalidated property__ will be (asynchronously) retrieved upon receiving the [`PropertiesChanged`](http://dbus.freedesktop.org/doc/dbus-specification.html#standard-interfaces-properties) D-Bus signal and the property will not cause emission of the #GDBusProxy::g-properties-changed signal. When the value is received the #GDBusProxy::g-properties-changed signal is emitted for the property along with the retrieved value. Since 2.32.
          */
         public val GET_INVALIDATED_PROPERTIES: DBusProxyFlags =
             DBusProxyFlags(G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES)
@@ -61,8 +55,7 @@ public class DBusProxyFlags(
         /**
          * If the proxy is for a well-known name,
          * do not ask the bus to launch an owner during proxy initialization, but allow it to be
-         * autostarted by a method call. This flag is only meaningful in proxies for well-known
-         * names,
+         * autostarted by a method call. This flag is only meaningful in proxies for well-known names,
          * and only if %G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START is not also specified.
          */
         public val DO_NOT_AUTO_START_AT_CONSTRUCTION: DBusProxyFlags =

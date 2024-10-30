@@ -75,7 +75,9 @@ import org.gtkkn.native.gio.g_socket_connectable_proxy_enumerate
  *
  * - method `to_string`: C function g_socket_connectable_to_string is ignored
  */
-public interface SocketConnectable : Interface, KGTyped {
+public interface SocketConnectable :
+    Interface,
+    KGTyped {
     public val gioSocketConnectablePointer: CPointer<GSocketConnectable>
 
     /**
@@ -114,9 +116,7 @@ public interface SocketConnectable : Interface, KGTyped {
 
     public companion object : TypeCompanion<SocketConnectable> {
         override val type: GeneratedInterfaceKGType<SocketConnectable> =
-            GeneratedInterfaceKGType(g_socket_connectable_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(g_socket_connectable_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

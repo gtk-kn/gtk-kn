@@ -69,7 +69,8 @@ import kotlin.Unit
  */
 public open class NavigationPage(
     pointer: CPointer<AdwNavigationPage>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwNavigationPagePointer: CPointer<AdwNavigationPage>
         get() = gPointer.reinterpret()
 
@@ -120,11 +121,7 @@ public open class NavigationPage(
          * @param canPop whether the page can be popped from navigation stack
          * @since 1.4
          */
-        set(canPop) =
-            adw_navigation_page_set_can_pop(
-                adwNavigationPagePointer.reinterpret(),
-                canPop.asGBoolean()
-            )
+        set(canPop) = adw_navigation_page_set_can_pop(adwNavigationPagePointer.reinterpret(), canPop.asGBoolean())
 
     /**
      * The child widget.
@@ -149,7 +146,9 @@ public open class NavigationPage(
          * @param child the child widget
          * @since 1.4
          */
-        set(child) =
+        set(
+            child
+        ) =
             adw_navigation_page_set_child(
                 adwNavigationPagePointer.reinterpret(),
                 child?.gtkWidgetPointer?.reinterpret()
@@ -233,13 +232,10 @@ public open class NavigationPage(
      * @return the new created `AdwNavigationPage`
      * @since 1.4
      */
-    public constructor(child: Widget, title: String) :
-        this(
-            adw_navigation_page_new(
-                child.gtkWidgetPointer.reinterpret(),
-                title
-            )!!.reinterpret()
-        )
+    public constructor(
+        child: Widget,
+        title: String,
+    ) : this(adw_navigation_page_new(child.gtkWidgetPointer.reinterpret(), title)!!.reinterpret())
 
     /**
      * Creates a new `AdwNavigationPage` with provided tag.
@@ -254,13 +250,7 @@ public open class NavigationPage(
         child: Widget,
         title: String,
         tag: String,
-    ) : this(
-        adw_navigation_page_new_with_tag(
-            child.gtkWidgetPointer.reinterpret(),
-            title,
-            tag
-        )!!.reinterpret()
-    )
+    ) : this(adw_navigation_page_new_with_tag(child.gtkWidgetPointer.reinterpret(), title, tag)!!.reinterpret())
 
     /**
      * Gets whether @self can be popped from navigation stack.
@@ -316,10 +306,7 @@ public open class NavigationPage(
      * @since 1.4
      */
     public open fun setCanPop(canPop: Boolean): Unit =
-        adw_navigation_page_set_can_pop(
-            adwNavigationPagePointer.reinterpret(),
-            canPop.asGBoolean()
-        )
+        adw_navigation_page_set_can_pop(adwNavigationPagePointer.reinterpret(), canPop.asGBoolean())
 
     /**
      * Sets the child widget of @self.
@@ -328,10 +315,7 @@ public open class NavigationPage(
      * @since 1.4
      */
     public open fun setChild(child: Widget? = null): Unit =
-        adw_navigation_page_set_child(
-            adwNavigationPagePointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        adw_navigation_page_set_child(adwNavigationPagePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the tag for @self.
@@ -461,9 +445,7 @@ public open class NavigationPage(
 
     public companion object : TypeCompanion<NavigationPage> {
         override val type: GeneratedClassKGType<NavigationPage> =
-            GeneratedClassKGType(adw_navigation_page_get_type()) {
-                NavigationPage(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_navigation_page_get_type()) { NavigationPage(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
@@ -477,8 +459,7 @@ private val connectHiddenFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectHidingFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -486,8 +467,7 @@ private val connectHidingFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectShowingFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -495,8 +475,7 @@ private val connectShowingFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectShownFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -504,5 +483,4 @@ private val connectShownFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -52,7 +52,8 @@ import kotlin.Unit
  */
 public open class Adjustment(
     pointer: CPointer<GtkAdjustment>,
-) : InitiallyUnowned(pointer.reinterpret()), KGTyped {
+) : InitiallyUnowned(pointer.reinterpret()),
+    KGTyped {
     public val gtkAdjustmentPointer: CPointer<GtkAdjustment>
         get() = gPointer.reinterpret()
 
@@ -106,11 +107,7 @@ public open class Adjustment(
          *
          * @param pageIncrement the new page increment
          */
-        set(pageIncrement) =
-            gtk_adjustment_set_page_increment(
-                gtkAdjustmentPointer.reinterpret(),
-                pageIncrement
-            )
+        set(pageIncrement) = gtk_adjustment_set_page_increment(gtkAdjustmentPointer.reinterpret(), pageIncrement)
 
     /**
      * The page size of the adjustment.
@@ -158,11 +155,7 @@ public open class Adjustment(
          *
          * @param stepIncrement the new step increment
          */
-        set(stepIncrement) =
-            gtk_adjustment_set_step_increment(
-                gtkAdjustmentPointer.reinterpret(),
-                stepIncrement
-            )
+        set(stepIncrement) = gtk_adjustment_set_step_increment(gtkAdjustmentPointer.reinterpret(), stepIncrement)
 
     /**
      * The maximum value of the adjustment.
@@ -236,16 +229,7 @@ public open class Adjustment(
         stepIncrement: Double,
         pageIncrement: Double,
         pageSize: Double,
-    ) : this(
-        gtk_adjustment_new(
-            `value`,
-            lower,
-            upper,
-            stepIncrement,
-            pageIncrement,
-            pageSize
-        )!!.reinterpret()
-    )
+    ) : this(gtk_adjustment_new(`value`, lower, upper, stepIncrement, pageIncrement, pageSize)!!.reinterpret())
 
     /**
      * Updates the value property to ensure that the range
@@ -493,8 +477,7 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectValueChangedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -502,5 +485,4 @@ private val connectValueChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

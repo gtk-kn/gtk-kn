@@ -10,25 +10,28 @@ permissions:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 17.0.6
+          java-version: 17.0.10
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .ci/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/actions/wrapper-validation@v3
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.x
 
@@ -38,16 +41,12 @@ jobs:
           pip install -r mkdocs-requirements.txt
 
       - name: Generate bindings
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: gir:run
+        run: ./gradlew gir:run
 
       - name: Run Dokka
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: dokkaHtmlMultiModule
+        run: ./gradlew dokkaHtmlMultiModule
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           key: ${{ github.ref }}
           path: .cache

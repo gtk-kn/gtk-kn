@@ -80,10 +80,7 @@ public class Quaternion(
      * @since 1.0
      */
     public fun dot(b: Quaternion): Float =
-        graphene_quaternion_dot(
-            grapheneQuaternionPointer.reinterpret(),
-            b.grapheneQuaternionPointer
-        )
+        graphene_quaternion_dot(grapheneQuaternionPointer.reinterpret(), b.grapheneQuaternionPointer)
 
     /**
      * Checks whether the given quaternions are equal.
@@ -93,10 +90,7 @@ public class Quaternion(
      * @since 1.0
      */
     public fun equal(b: Quaternion): Boolean =
-        graphene_quaternion_equal(
-            grapheneQuaternionPointer.reinterpret(),
-            b.grapheneQuaternionPointer
-        )
+        graphene_quaternion_equal(grapheneQuaternionPointer.reinterpret(), b.grapheneQuaternionPointer)
 
     /**
      * Releases the resources allocated by graphene_quaternion_alloc().
@@ -121,13 +115,7 @@ public class Quaternion(
         z: Float,
         w: Float,
     ): Quaternion =
-        graphene_quaternion_init(
-            grapheneQuaternionPointer.reinterpret(),
-            x,
-            y,
-            z,
-            w
-        )!!.run {
+        graphene_quaternion_init(grapheneQuaternionPointer.reinterpret(), x, y, z, w)!!.run {
             Quaternion(reinterpret())
         }
 
@@ -170,12 +158,7 @@ public class Quaternion(
         degY: Float,
         degZ: Float,
     ): Quaternion =
-        graphene_quaternion_init_from_angles(
-            grapheneQuaternionPointer.reinterpret(),
-            degX,
-            degY,
-            degZ
-        )!!.run {
+        graphene_quaternion_init_from_angles(grapheneQuaternionPointer.reinterpret(), degX, degY, degZ)!!.run {
             Quaternion(reinterpret())
         }
 
@@ -187,10 +170,7 @@ public class Quaternion(
      * @since 1.2
      */
     public fun initFromEuler(e: Euler): Quaternion =
-        graphene_quaternion_init_from_euler(
-            grapheneQuaternionPointer.reinterpret(),
-            e.grapheneEulerPointer
-        )!!.run {
+        graphene_quaternion_init_from_euler(grapheneQuaternionPointer.reinterpret(), e.grapheneEulerPointer)!!.run {
             Quaternion(reinterpret())
         }
 
@@ -203,10 +183,7 @@ public class Quaternion(
      * @since 1.0
      */
     public fun initFromMatrix(m: Matrix): Quaternion =
-        graphene_quaternion_init_from_matrix(
-            grapheneQuaternionPointer.reinterpret(),
-            m.grapheneMatrixPointer
-        )!!.run {
+        graphene_quaternion_init_from_matrix(grapheneQuaternionPointer.reinterpret(), m.grapheneMatrixPointer)!!.run {
             Quaternion(reinterpret())
         }
 
@@ -243,12 +220,7 @@ public class Quaternion(
         radY: Float,
         radZ: Float,
     ): Quaternion =
-        graphene_quaternion_init_from_radians(
-            grapheneQuaternionPointer.reinterpret(),
-            radX,
-            radY,
-            radZ
-        )!!.run {
+        graphene_quaternion_init_from_radians(grapheneQuaternionPointer.reinterpret(), radX, radY, radZ)!!.run {
             Quaternion(reinterpret())
         }
 
@@ -260,10 +232,7 @@ public class Quaternion(
      * @since 1.0
      */
     public fun initFromVec4(src: Vec4): Quaternion =
-        graphene_quaternion_init_from_vec4(
-            grapheneQuaternionPointer.reinterpret(),
-            src.grapheneVec4Pointer
-        )!!.run {
+        graphene_quaternion_init_from_vec4(grapheneQuaternionPointer.reinterpret(), src.grapheneVec4Pointer)!!.run {
             Quaternion(reinterpret())
         }
 
@@ -288,10 +257,7 @@ public class Quaternion(
      * @since 1.0
      */
     public fun invert(res: Quaternion): Unit =
-        graphene_quaternion_invert(
-            grapheneQuaternionPointer.reinterpret(),
-            res.grapheneQuaternionPointer
-        )
+        graphene_quaternion_invert(grapheneQuaternionPointer.reinterpret(), res.grapheneQuaternionPointer)
 
     /**
      * Multiplies two #graphene_quaternion_t @a and @b.
@@ -318,10 +284,7 @@ public class Quaternion(
      * @since 1.0
      */
     public fun normalize(res: Quaternion): Unit =
-        graphene_quaternion_normalize(
-            grapheneQuaternionPointer.reinterpret(),
-            res.grapheneQuaternionPointer
-        )
+        graphene_quaternion_normalize(grapheneQuaternionPointer.reinterpret(), res.grapheneQuaternionPointer)
 
     /**
      * Scales all the elements of a #graphene_quaternion_t @q using
@@ -334,12 +297,7 @@ public class Quaternion(
     public fun scale(
         factor: Float,
         res: Quaternion,
-    ): Unit =
-        graphene_quaternion_scale(
-            grapheneQuaternionPointer.reinterpret(),
-            factor,
-            res.grapheneQuaternionPointer
-        )
+    ): Unit = graphene_quaternion_scale(grapheneQuaternionPointer.reinterpret(), factor, res.grapheneQuaternionPointer)
 
     /**
      * Interpolates between the two given quaternions using a spherical
@@ -372,10 +330,7 @@ public class Quaternion(
      * @since 1.0
      */
     public fun toMatrix(m: Matrix): Unit =
-        graphene_quaternion_to_matrix(
-            grapheneQuaternionPointer.reinterpret(),
-            m.grapheneMatrixPointer
-        )
+        graphene_quaternion_to_matrix(grapheneQuaternionPointer.reinterpret(), m.grapheneMatrixPointer)
 
     /**
      * Copies the components of a #graphene_quaternion_t into a
@@ -386,10 +341,7 @@ public class Quaternion(
      * @since 1.0
      */
     public fun toVec4(res: Vec4): Unit =
-        graphene_quaternion_to_vec4(
-            grapheneQuaternionPointer.reinterpret(),
-            res.grapheneVec4Pointer
-        )
+        graphene_quaternion_to_vec4(grapheneQuaternionPointer.reinterpret(), res.grapheneVec4Pointer)
 
     public companion object : RecordCompanion<Quaternion, graphene_quaternion_t> {
         /**

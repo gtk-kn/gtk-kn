@@ -51,7 +51,8 @@ import kotlin.Unit
  */
 public class SwitchRow(
     pointer: CPointer<AdwSwitchRow>,
-) : ActionRow(pointer.reinterpret()), KGTyped {
+) : ActionRow(pointer.reinterpret()),
+    KGTyped {
     public val adwSwitchRowPointer: CPointer<AdwSwitchRow>
         get() = gPointer.reinterpret()
 
@@ -87,11 +88,7 @@ public class SwitchRow(
          * @param isActive whether @self should be active
          * @since 1.4
          */
-        set(isActive) =
-            adw_switch_row_set_active(
-                adwSwitchRowPointer.reinterpret(),
-                isActive.asGBoolean()
-            )
+        set(isActive) = adw_switch_row_set_active(adwSwitchRowPointer.reinterpret(), isActive.asGBoolean())
 
     /**
      * Creates a new `AdwSwitchRow`.

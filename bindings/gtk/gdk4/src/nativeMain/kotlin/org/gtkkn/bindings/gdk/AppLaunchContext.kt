@@ -42,7 +42,8 @@ import kotlin.Unit
  */
 public open class AppLaunchContext(
     pointer: CPointer<GdkAppLaunchContext>,
-) : org.gtkkn.bindings.gio.AppLaunchContext(pointer.reinterpret()), KGTyped {
+) : org.gtkkn.bindings.gio.AppLaunchContext(pointer.reinterpret()),
+    KGTyped {
     public val gdkAppLaunchContextPointer: CPointer<GdkAppLaunchContext>
         get() = gPointer.reinterpret()
 
@@ -102,10 +103,7 @@ public open class AppLaunchContext(
      * @param icon a `GIcon`
      */
     public open fun setIcon(icon: Icon? = null): Unit =
-        gdk_app_launch_context_set_icon(
-            gdkAppLaunchContextPointer.reinterpret(),
-            icon?.gioIconPointer
-        )
+        gdk_app_launch_context_set_icon(gdkAppLaunchContextPointer.reinterpret(), icon?.gioIconPointer)
 
     /**
      * Sets the icon for applications that are launched with this context.
@@ -137,16 +135,11 @@ public open class AppLaunchContext(
      * @param timestamp a timestamp
      */
     public open fun setTimestamp(timestamp: UInt): Unit =
-        gdk_app_launch_context_set_timestamp(
-            gdkAppLaunchContextPointer.reinterpret(),
-            timestamp
-        )
+        gdk_app_launch_context_set_timestamp(gdkAppLaunchContextPointer.reinterpret(), timestamp)
 
     public companion object : TypeCompanion<AppLaunchContext> {
         override val type: GeneratedClassKGType<AppLaunchContext> =
-            GeneratedClassKGType(gdk_app_launch_context_get_type()) {
-                AppLaunchContext(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_app_launch_context_get_type()) { AppLaunchContext(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

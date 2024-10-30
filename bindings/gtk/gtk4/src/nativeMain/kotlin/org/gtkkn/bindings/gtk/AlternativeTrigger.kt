@@ -21,7 +21,8 @@ import org.gtkkn.native.gtk.gtk_alternative_trigger_new
  */
 public open class AlternativeTrigger(
     pointer: CPointer<GtkAlternativeTrigger>,
-) : ShortcutTrigger(pointer.reinterpret()), KGTyped {
+) : ShortcutTrigger(pointer.reinterpret()),
+    KGTyped {
     public val gtkAlternativeTriggerPointer: CPointer<GtkAlternativeTrigger>
         get() = gPointer.reinterpret()
 
@@ -72,13 +73,15 @@ public open class AlternativeTrigger(
      * @param second The second trigger that may trigger
      * @return a new `GtkShortcutTrigger`
      */
-    public constructor(first: ShortcutTrigger, second: ShortcutTrigger) :
-        this(
-            gtk_alternative_trigger_new(
-                first.gtkShortcutTriggerPointer.reinterpret(),
-                second.gtkShortcutTriggerPointer.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        first: ShortcutTrigger,
+        second: ShortcutTrigger,
+    ) : this(
+        gtk_alternative_trigger_new(
+            first.gtkShortcutTriggerPointer.reinterpret(),
+            second.gtkShortcutTriggerPointer.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Gets the first of the two alternative triggers that may
@@ -110,9 +113,7 @@ public open class AlternativeTrigger(
 
     public companion object : TypeCompanion<AlternativeTrigger> {
         override val type: GeneratedClassKGType<AlternativeTrigger> =
-            GeneratedClassKGType(gtk_alternative_trigger_get_type()) {
-                AlternativeTrigger(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_alternative_trigger_get_type()) { AlternativeTrigger(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

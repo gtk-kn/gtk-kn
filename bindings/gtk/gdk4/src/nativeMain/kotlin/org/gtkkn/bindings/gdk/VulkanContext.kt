@@ -34,7 +34,9 @@ import kotlin.Unit
  */
 public open class VulkanContext(
     pointer: CPointer<GdkVulkanContext>,
-) : DrawContext(pointer.reinterpret()), Initable, KGTyped {
+) : DrawContext(pointer.reinterpret()),
+    Initable,
+    KGTyped {
     public val gdkVulkanContextPointer: CPointer<GdkVulkanContext>
         get() = gPointer.reinterpret()
 
@@ -65,9 +67,7 @@ public open class VulkanContext(
 
     public companion object : TypeCompanion<VulkanContext> {
         override val type: GeneratedClassKGType<VulkanContext> =
-            GeneratedClassKGType(gdk_vulkan_context_get_type()) {
-                VulkanContext(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_vulkan_context_get_type()) { VulkanContext(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -81,5 +81,4 @@ private val connectImagesUpdatedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

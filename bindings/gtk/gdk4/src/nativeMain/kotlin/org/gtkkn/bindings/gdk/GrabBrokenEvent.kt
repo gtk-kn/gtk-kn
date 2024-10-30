@@ -18,7 +18,8 @@ import kotlin.Boolean
  */
 public open class GrabBrokenEvent(
     pointer: CPointer<GdkGrabBrokenEvent>,
-) : Event(pointer.reinterpret()), KGTyped {
+) : Event(pointer.reinterpret()),
+    KGTyped {
     public val gdkGrabBrokenEventPointer: CPointer<GdkGrabBrokenEvent>
         get() = gPointer.reinterpret()
 
@@ -42,9 +43,7 @@ public open class GrabBrokenEvent(
 
     public companion object : TypeCompanion<GrabBrokenEvent> {
         override val type: GeneratedClassKGType<GrabBrokenEvent> =
-            GeneratedClassKGType(gdk_grab_broken_event_get_type()) {
-                GrabBrokenEvent(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_grab_broken_event_get_type()) { GrabBrokenEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

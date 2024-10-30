@@ -27,7 +27,10 @@ import kotlin.Unit
  * objects containing simple, unformatted text.
  * @since 4.14
  */
-public interface AccessibleText : Interface, Accessible, KGTyped {
+public interface AccessibleText :
+    Interface,
+    Accessible,
+    KGTyped {
     public val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
@@ -66,12 +69,7 @@ public interface AccessibleText : Interface, Accessible, KGTyped {
         start: UInt,
         end: UInt,
     ): Unit =
-        gtk_accessible_text_update_contents(
-            gtkAccessibleTextPointer.reinterpret(),
-            change.nativeValue,
-            start,
-            end
-        )
+        gtk_accessible_text_update_contents(gtkAccessibleTextPointer.reinterpret(), change.nativeValue, start, end)
 
     /**
      * Updates the boundary of the selection.
@@ -93,9 +91,7 @@ public interface AccessibleText : Interface, Accessible, KGTyped {
 
     public companion object : TypeCompanion<AccessibleText> {
         override val type: GeneratedInterfaceKGType<AccessibleText> =
-            GeneratedInterfaceKGType(gtk_accessible_text_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_accessible_text_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

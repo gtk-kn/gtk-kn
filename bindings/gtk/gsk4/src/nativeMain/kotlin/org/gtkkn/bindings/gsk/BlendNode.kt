@@ -18,7 +18,8 @@ import org.gtkkn.native.gsk.gsk_blend_node_new
  */
 public open class BlendNode(
     pointer: CPointer<GskBlendNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskBlendNodePointer: CPointer<GskBlendNode>
         get() = gPointer.reinterpret()
 

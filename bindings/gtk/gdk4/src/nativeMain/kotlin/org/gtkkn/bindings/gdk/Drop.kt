@@ -63,7 +63,8 @@ import kotlin.collections.List
  */
 public open class Drop(
     pointer: CPointer<GdkDrop>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkDropPointer: CPointer<GdkDrop>
         get() = gPointer.reinterpret()
 
@@ -176,11 +177,7 @@ public open class Drop(
      *
      * @param action the action performed by the destination or 0 if the drop failed
      */
-    public open fun finish(action: DragAction): Unit =
-        gdk_drop_finish(
-            gdkDropPointer.reinterpret(),
-            action.mask
-        )
+    public open fun finish(action: DragAction): Unit = gdk_drop_finish(gdkDropPointer.reinterpret(), action.mask)
 
     /**
      * Returns the possible actions for this `GdkDrop`.
@@ -373,9 +370,7 @@ public open class Drop(
 
     public companion object : TypeCompanion<Drop> {
         override val type: GeneratedClassKGType<Drop> =
-            GeneratedClassKGType(gdk_drop_get_type()) {
-                Drop(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_drop_get_type()) { Drop(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

@@ -38,7 +38,8 @@ import kotlin.Unit
  */
 public class WindowTitle(
     pointer: CPointer<AdwWindowTitle>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwWindowTitlePointer: CPointer<AdwWindowTitle>
         get() = gPointer.reinterpret()
 
@@ -108,12 +109,7 @@ public class WindowTitle(
      * @param subtitle a subtitle
      * @return the newly created `AdwWindowTitle`
      */
-    public constructor(title: String, subtitle: String) : this(
-        adw_window_title_new(
-            title,
-            subtitle
-        )!!.reinterpret()
-    )
+    public constructor(title: String, subtitle: String) : this(adw_window_title_new(title, subtitle)!!.reinterpret())
 
     /**
      * Gets the subtitle of @self.

@@ -115,7 +115,9 @@ import kotlin.Result
  * - method `get_user_data`: Return type gpointer is unsupported
  * - parameter `source_tag`: gpointer
  */
-public interface AsyncResult : Interface, KGTyped {
+public interface AsyncResult :
+    Interface,
+    KGTyped {
     public val gioAsyncResultPointer: CPointer<GAsyncResult>
 
     /**

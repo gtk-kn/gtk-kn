@@ -17,7 +17,8 @@ import org.gtkkn.native.gtk.gtk_constant_expression_new_for_value
  */
 public open class ConstantExpression(
     pointer: CPointer<GtkConstantExpression>,
-) : Expression(pointer.reinterpret()), KGTyped {
+) : Expression(pointer.reinterpret()),
+    KGTyped {
     public val gtkConstantExpressionPointer: CPointer<GtkConstantExpression>
         get() = gPointer.reinterpret()
 
@@ -27,8 +28,9 @@ public open class ConstantExpression(
      * @param value a `GValue`
      * @return a new `GtkExpression`
      */
-    public constructor(`value`: Value) :
-        this(gtk_constant_expression_new_for_value(`value`.gobjectValuePointer)!!.reinterpret())
+    public constructor(
+        `value`: Value,
+    ) : this(gtk_constant_expression_new_for_value(`value`.gobjectValuePointer)!!.reinterpret())
 
     /**
      * Gets the value that a constant expression evaluates to.
@@ -42,9 +44,7 @@ public open class ConstantExpression(
 
     public companion object : TypeCompanion<ConstantExpression> {
         override val type: GeneratedClassKGType<ConstantExpression> =
-            GeneratedClassKGType(gtk_constant_expression_get_type()) {
-                ConstantExpression(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_constant_expression_get_type()) { ConstantExpression(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

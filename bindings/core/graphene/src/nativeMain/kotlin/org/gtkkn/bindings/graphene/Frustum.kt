@@ -46,10 +46,7 @@ public class Frustum(
      * @since 1.2
      */
     public fun containsPoint(point: Point3D): Boolean =
-        graphene_frustum_contains_point(
-            grapheneFrustumPointer.reinterpret(),
-            point.graphenePoint3DPointer
-        )
+        graphene_frustum_contains_point(grapheneFrustumPointer.reinterpret(), point.graphenePoint3DPointer)
 
     /**
      * Checks whether the two given #graphene_frustum_t are equal.
@@ -110,10 +107,7 @@ public class Frustum(
      * @since 1.2
      */
     public fun initFromFrustum(src: Frustum): Frustum =
-        graphene_frustum_init_from_frustum(
-            grapheneFrustumPointer.reinterpret(),
-            src.grapheneFrustumPointer
-        )!!.run {
+        graphene_frustum_init_from_frustum(grapheneFrustumPointer.reinterpret(), src.grapheneFrustumPointer)!!.run {
             Frustum(reinterpret())
         }
 
@@ -125,10 +119,7 @@ public class Frustum(
      * @since 1.2
      */
     public fun initFromMatrix(matrix: Matrix): Frustum =
-        graphene_frustum_init_from_matrix(
-            grapheneFrustumPointer.reinterpret(),
-            matrix.grapheneMatrixPointer
-        )!!.run {
+        graphene_frustum_init_from_matrix(grapheneFrustumPointer.reinterpret(), matrix.grapheneMatrixPointer)!!.run {
             Frustum(reinterpret())
         }
 
@@ -141,10 +132,7 @@ public class Frustum(
      * @since 1.2
      */
     public fun intersectsBox(box: Box): Boolean =
-        graphene_frustum_intersects_box(
-            grapheneFrustumPointer.reinterpret(),
-            box.grapheneBoxPointer
-        )
+        graphene_frustum_intersects_box(grapheneFrustumPointer.reinterpret(), box.grapheneBoxPointer)
 
     /**
      * Checks whether the given @sphere intersects a plane of
@@ -155,10 +143,7 @@ public class Frustum(
      * @since 1.2
      */
     public fun intersectsSphere(sphere: Sphere): Boolean =
-        graphene_frustum_intersects_sphere(
-            grapheneFrustumPointer.reinterpret(),
-            sphere.grapheneSpherePointer
-        )
+        graphene_frustum_intersects_sphere(grapheneFrustumPointer.reinterpret(), sphere.grapheneSpherePointer)
 
     public companion object : RecordCompanion<Frustum, graphene_frustum_t> {
         /**

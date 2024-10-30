@@ -93,7 +93,8 @@ import kotlin.Unit
  */
 public class ViewSwitcher(
     pointer: CPointer<AdwViewSwitcher>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwViewSwitcherPointer: CPointer<AdwViewSwitcher>
         get() = gPointer.reinterpret()
 
@@ -125,11 +126,7 @@ public class ViewSwitcher(
          *
          * @param policy the new policy
          */
-        set(policy) =
-            adw_view_switcher_set_policy(
-                adwViewSwitcherPointer.reinterpret(),
-                policy.nativeValue
-            )
+        set(policy) = adw_view_switcher_set_policy(adwViewSwitcherPointer.reinterpret(), policy.nativeValue)
 
     /**
      * The stack the view switcher controls.
@@ -150,11 +147,9 @@ public class ViewSwitcher(
          *
          * @param stack a stack
          */
-        set(stack) =
-            adw_view_switcher_set_stack(
-                adwViewSwitcherPointer.reinterpret(),
-                stack?.adwViewStackPointer?.reinterpret()
-            )
+        set(
+            stack
+        ) = adw_view_switcher_set_stack(adwViewSwitcherPointer.reinterpret(), stack?.adwViewStackPointer?.reinterpret())
 
     /**
      * Creates a new `AdwViewSwitcher`.
@@ -197,16 +192,11 @@ public class ViewSwitcher(
      * @param stack a stack
      */
     public fun setStack(stack: ViewStack? = null): Unit =
-        adw_view_switcher_set_stack(
-            adwViewSwitcherPointer.reinterpret(),
-            stack?.adwViewStackPointer?.reinterpret()
-        )
+        adw_view_switcher_set_stack(adwViewSwitcherPointer.reinterpret(), stack?.adwViewStackPointer?.reinterpret())
 
     public companion object : TypeCompanion<ViewSwitcher> {
         override val type: GeneratedClassKGType<ViewSwitcher> =
-            GeneratedClassKGType(adw_view_switcher_get_type()) {
-                ViewSwitcher(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_view_switcher_get_type()) { ViewSwitcher(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

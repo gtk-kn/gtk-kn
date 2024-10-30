@@ -103,7 +103,9 @@ import kotlin.Unit
  */
 public open class Settings(
     pointer: CPointer<GtkSettings>,
-) : Object(pointer.reinterpret()), StyleProvider, KGTyped {
+) : Object(pointer.reinterpret()),
+    StyleProvider,
+    KGTyped {
     public val gtkSettingsPointer: CPointer<GtkSettings>
         get() = gPointer.reinterpret()
 

@@ -44,7 +44,8 @@ import kotlin.Unit
  */
 public open class DBusMethodInvocation(
     pointer: CPointer<GDBusMethodInvocation>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioDBusMethodInvocationPointer: CPointer<GDBusMethodInvocation>
         get() = gPointer.reinterpret()
 
@@ -228,10 +229,7 @@ public open class DBusMethodInvocation(
      * @since 2.26
      */
     public open fun returnGerror(error: Error): Unit =
-        g_dbus_method_invocation_return_gerror(
-            gioDBusMethodInvocationPointer.reinterpret(),
-            error.glibErrorPointer
-        )
+        g_dbus_method_invocation_return_gerror(gioDBusMethodInvocationPointer.reinterpret(), error.glibErrorPointer)
 
     /**
      * Finishes handling a D-Bus method call by returning @parameters.
@@ -267,8 +265,7 @@ public open class DBusMethodInvocation(
      * otherwise do nothing (as per the recommendations of the D-Bus
      * specification).
      *
-     * @param parameters A #GVariant tuple with out parameters for the method or null if not passing
-     * any parameters.
+     * @param parameters A #GVariant tuple with out parameters for the method or null if not passing any parameters.
      * @since 2.26
      */
     public open fun returnValue(parameters: Variant? = null): Unit =
@@ -286,15 +283,13 @@ public open class DBusMethodInvocation(
      * #GDBusInterfaceVTable for more information about the ownership of
      * @invocation.
      *
-     * @param parameters A #GVariant tuple with out parameters for the method or null if not passing
-     * any parameters.
+     * @param parameters A #GVariant tuple with out parameters for the method or null if not passing any parameters.
      * @param fdList A #GUnixFDList or null.
      * @since 2.30
      */
     public open fun returnValueWithUnixFdList(
         parameters: Variant? = null,
-        fdList: UnixFDList? =
-            null,
+        fdList: UnixFDList? = null,
     ): Unit =
         g_dbus_method_invocation_return_value_with_unix_fd_list(
             gioDBusMethodInvocationPointer.reinterpret(),
@@ -304,9 +299,7 @@ public open class DBusMethodInvocation(
 
     public companion object : TypeCompanion<DBusMethodInvocation> {
         override val type: GeneratedClassKGType<DBusMethodInvocation> =
-            GeneratedClassKGType(g_dbus_method_invocation_get_type()) {
-                DBusMethodInvocation(it.reinterpret())
-            }
+            GeneratedClassKGType(g_dbus_method_invocation_get_type()) { DBusMethodInvocation(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

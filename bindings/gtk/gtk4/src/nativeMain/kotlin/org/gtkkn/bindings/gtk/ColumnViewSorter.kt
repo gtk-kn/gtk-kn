@@ -55,7 +55,8 @@ import kotlin.UInt
  */
 public open class ColumnViewSorter(
     pointer: CPointer<GtkColumnViewSorter>,
-) : Sorter(pointer.reinterpret()), KGTyped {
+) : Sorter(pointer.reinterpret()),
+    KGTyped {
     public val gtkColumnViewSorterPointer: CPointer<GtkColumnViewSorter>
         get() = gPointer.reinterpret()
 
@@ -160,9 +161,7 @@ public open class ColumnViewSorter(
 
     public companion object : TypeCompanion<ColumnViewSorter> {
         override val type: GeneratedClassKGType<ColumnViewSorter> =
-            GeneratedClassKGType(gtk_column_view_sorter_get_type()) {
-                ColumnViewSorter(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_column_view_sorter_get_type()) { ColumnViewSorter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

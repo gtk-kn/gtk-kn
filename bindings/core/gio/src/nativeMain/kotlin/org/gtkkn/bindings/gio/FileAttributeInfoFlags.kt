@@ -14,7 +14,9 @@ public class FileAttributeInfoFlags(
     public val mask: GFileAttributeInfoFlags,
 ) : Bitfield<FileAttributeInfoFlags> {
     override infix fun or(other: FileAttributeInfoFlags): FileAttributeInfoFlags =
-        FileAttributeInfoFlags(mask or other.mask)
+        FileAttributeInfoFlags(
+            mask or other.mask
+        )
 
     public companion object {
         /**

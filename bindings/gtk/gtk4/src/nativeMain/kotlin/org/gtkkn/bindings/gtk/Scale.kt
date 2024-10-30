@@ -124,7 +124,8 @@ import kotlin.Unit
  */
 public open class Scale(
     pointer: CPointer<GtkScale>,
-) : Range(pointer.reinterpret()), KGTyped {
+) : Range(pointer.reinterpret()),
+    KGTyped {
     public val gtkScalePointer: CPointer<GtkScale>
         get() = gPointer.reinterpret()
 
@@ -191,11 +192,7 @@ public open class Scale(
          *
          * @param drawValue true to draw the value
          */
-        set(drawValue) =
-            gtk_scale_set_draw_value(
-                gtkScalePointer.reinterpret(),
-                drawValue.asGBoolean()
-            )
+        set(drawValue) = gtk_scale_set_draw_value(gtkScalePointer.reinterpret(), drawValue.asGBoolean())
 
     /**
      * Whether the scale has an origin.
@@ -217,11 +214,7 @@ public open class Scale(
          *
          * @param hasOrigin true if the scale has an origin
          */
-        set(hasOrigin) =
-            gtk_scale_set_has_origin(
-                gtkScalePointer.reinterpret(),
-                hasOrigin.asGBoolean()
-            )
+        set(hasOrigin) = gtk_scale_set_has_origin(gtkScalePointer.reinterpret(), hasOrigin.asGBoolean())
 
     /**
      * The position in which the current value is displayed.
@@ -252,13 +245,10 @@ public open class Scale(
      *   the range of the scale, or null to create a new adjustment.
      * @return a new `GtkScale`
      */
-    public constructor(orientation: Orientation, adjustment: Adjustment? = null) :
-        this(
-            gtk_scale_new(
-                orientation.nativeValue,
-                adjustment?.gtkAdjustmentPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        orientation: Orientation,
+        adjustment: Adjustment? = null,
+    ) : this(gtk_scale_new(orientation.nativeValue, adjustment?.gtkAdjustmentPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new scale widget with a range from @min to @max.
@@ -309,13 +299,7 @@ public open class Scale(
         `value`: Double,
         position: PositionType,
         markup: String? = null,
-    ): Unit =
-        gtk_scale_add_mark(
-            gtkScalePointer.reinterpret(),
-            `value`,
-            position.nativeValue,
-            markup
-        )
+    ): Unit = gtk_scale_add_mark(gtkScalePointer.reinterpret(), `value`, position.nativeValue, markup)
 
     /**
      * Removes any marks that have been added.

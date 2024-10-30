@@ -38,7 +38,8 @@ import kotlin.Unit
  */
 public open class ATContext(
     pointer: CPointer<GtkATContext>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkATContextPointer: CPointer<GtkATContext>
         get() = gPointer.reinterpret()
 
@@ -153,5 +154,4 @@ private val connectStateChangeFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

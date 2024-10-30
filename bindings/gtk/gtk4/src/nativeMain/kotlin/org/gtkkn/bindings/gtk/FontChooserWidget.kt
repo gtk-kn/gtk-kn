@@ -39,7 +39,9 @@ import org.gtkkn.native.gtk.gtk_font_chooser_widget_new
  */
 public open class FontChooserWidget(
     pointer: CPointer<GtkFontChooserWidget>,
-) : Widget(pointer.reinterpret()), FontChooser, KGTyped {
+) : Widget(pointer.reinterpret()),
+    FontChooser,
+    KGTyped {
     public val gtkFontChooserWidgetPointer: CPointer<GtkFontChooserWidget>
         get() = gPointer.reinterpret()
 
@@ -64,9 +66,7 @@ public open class FontChooserWidget(
 
     public companion object : TypeCompanion<FontChooserWidget> {
         override val type: GeneratedClassKGType<FontChooserWidget> =
-            GeneratedClassKGType(gtk_font_chooser_widget_get_type()) {
-                FontChooserWidget(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_font_chooser_widget_get_type()) { FontChooserWidget(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

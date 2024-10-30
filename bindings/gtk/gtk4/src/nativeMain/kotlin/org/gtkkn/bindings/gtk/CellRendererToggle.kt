@@ -46,7 +46,8 @@ import kotlin.Unit
  */
 public open class CellRendererToggle(
     pointer: CPointer<GtkCellRendererToggle>,
-) : CellRenderer(pointer.reinterpret()), KGTyped {
+) : CellRenderer(pointer.reinterpret()),
+    KGTyped {
     public val gtkCellRendererTogglePointer: CPointer<GtkCellRendererToggle>
         get() = gPointer.reinterpret()
 
@@ -57,19 +58,16 @@ public open class CellRendererToggle(
          *
          * @return true if the cell renderer is activatable.
          */
-        get() =
-            gtk_cell_renderer_toggle_get_activatable(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
+        get() = gtk_cell_renderer_toggle_get_activatable(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
 
         /**
          * Makes the cell renderer activatable.
          *
          * @param setting the value to set.
          */
-        set(setting) =
-            gtk_cell_renderer_toggle_set_activatable(
-                gtkCellRendererTogglePointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(
+            setting
+        ) = gtk_cell_renderer_toggle_set_activatable(gtkCellRendererTogglePointer.reinterpret(), setting.asGBoolean())
 
     public open var active: Boolean
         /**
@@ -78,19 +76,16 @@ public open class CellRendererToggle(
          *
          * @return true if the cell renderer is active.
          */
-        get() =
-            gtk_cell_renderer_toggle_get_active(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
+        get() = gtk_cell_renderer_toggle_get_active(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
 
         /**
          * Activates or deactivates a cell renderer.
          *
          * @param setting the value to set.
          */
-        set(setting) =
-            gtk_cell_renderer_toggle_set_active(
-                gtkCellRendererTogglePointer.reinterpret(),
-                setting.asGBoolean()
-            )
+        set(
+            setting
+        ) = gtk_cell_renderer_toggle_set_active(gtkCellRendererTogglePointer.reinterpret(), setting.asGBoolean())
 
     public open var radio: Boolean
         /**
@@ -98,8 +93,7 @@ public open class CellRendererToggle(
          *
          * @return true if we’re rendering radio toggles rather than checkboxes
          */
-        get() =
-            gtk_cell_renderer_toggle_get_radio(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
+        get() = gtk_cell_renderer_toggle_get_radio(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
 
         /**
          * If @radio is true, the cell renderer renders a radio toggle
@@ -112,11 +106,7 @@ public open class CellRendererToggle(
          *
          * @param radio true to make the toggle look like a radio button
          */
-        set(radio) =
-            gtk_cell_renderer_toggle_set_radio(
-                gtkCellRendererTogglePointer.reinterpret(),
-                radio.asGBoolean()
-            )
+        set(radio) = gtk_cell_renderer_toggle_set_radio(gtkCellRendererTogglePointer.reinterpret(), radio.asGBoolean())
 
     /**
      * Creates a new `GtkCellRendererToggle`. Adjust rendering
@@ -163,10 +153,7 @@ public open class CellRendererToggle(
      * @param setting the value to set.
      */
     public open fun setActivatable(setting: Boolean): Unit =
-        gtk_cell_renderer_toggle_set_activatable(
-            gtkCellRendererTogglePointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_cell_renderer_toggle_set_activatable(gtkCellRendererTogglePointer.reinterpret(), setting.asGBoolean())
 
     /**
      * Activates or deactivates a cell renderer.
@@ -174,10 +161,7 @@ public open class CellRendererToggle(
      * @param setting the value to set.
      */
     public open fun setActive(setting: Boolean): Unit =
-        gtk_cell_renderer_toggle_set_active(
-            gtkCellRendererTogglePointer.reinterpret(),
-            setting.asGBoolean()
-        )
+        gtk_cell_renderer_toggle_set_active(gtkCellRendererTogglePointer.reinterpret(), setting.asGBoolean())
 
     /**
      * If @radio is true, the cell renderer renders a radio toggle
@@ -191,10 +175,7 @@ public open class CellRendererToggle(
      * @param radio true to make the toggle look like a radio button
      */
     public open fun setRadio(radio: Boolean): Unit =
-        gtk_cell_renderer_toggle_set_radio(
-            gtkCellRendererTogglePointer.reinterpret(),
-            radio.asGBoolean()
-        )
+        gtk_cell_renderer_toggle_set_radio(gtkCellRendererTogglePointer.reinterpret(), radio.asGBoolean())
 
     /**
      * The ::toggled signal is emitted when the cell is toggled.
@@ -204,8 +185,7 @@ public open class CellRendererToggle(
      * opposite of the value currently stored at @path.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `path` string representation of `GtkTreePath`
-     * describing the
+     * @param handler the Callback to connect. Params: `path` string representation of `GtkTreePath` describing the
      *        event location
      */
     public fun connectToggled(
@@ -223,9 +203,7 @@ public open class CellRendererToggle(
 
     public companion object : TypeCompanion<CellRendererToggle> {
         override val type: GeneratedClassKGType<CellRendererToggle> =
-            GeneratedClassKGType(gtk_cell_renderer_toggle_get_type()) {
-                CellRendererToggle(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_cell_renderer_toggle_get_type()) { CellRendererToggle(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -239,9 +217,12 @@ private val connectToggledFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>>
             path: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(path: String) -> Unit>().get().invoke(
-            path?.toKString()
-                ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    path: String,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(path?.toKString() ?: error("Expected not null string"))
+    }.reinterpret()

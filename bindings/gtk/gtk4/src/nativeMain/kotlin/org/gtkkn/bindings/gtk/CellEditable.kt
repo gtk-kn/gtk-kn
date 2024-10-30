@@ -35,7 +35,9 @@ import kotlin.Unit
  *
  * - method `editing-canceled`: Property has no getter nor setter
  */
-public interface CellEditable : Interface, KGTyped {
+public interface CellEditable :
+    Interface,
+    KGTyped {
     public val gtkCellEditablePointer: CPointer<GtkCellEditable>
 
     /**
@@ -64,10 +66,7 @@ public interface CellEditable : Interface, KGTyped {
      *   null if editing was initiated programmatically
      */
     public fun startEditing(event: Event? = null): Unit =
-        gtk_cell_editable_start_editing(
-            gtkCellEditablePointer.reinterpret(),
-            event?.gPointer?.reinterpret()
-        )
+        gtk_cell_editable_start_editing(gtkCellEditablePointer.reinterpret(), event?.gPointer?.reinterpret())
 
     /**
      * This signal is a sign for the cell renderer to update its
@@ -152,8 +151,7 @@ private val connectEditingDoneFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectRemoveWidgetFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -161,5 +159,4 @@ private val connectRemoveWidgetFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

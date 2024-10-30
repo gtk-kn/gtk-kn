@@ -26,7 +26,9 @@ import kotlin.Unit
  * automatically acquire the `horizontal` or `vertical` CSS class depending on
  * the value of the [property@Gtk.Orientable:orientation] property.
  */
-public interface Orientable : Interface, KGTyped {
+public interface Orientable :
+    Interface,
+    KGTyped {
     public val gtkOrientablePointer: CPointer<GtkOrientable>
 
     /**
@@ -48,11 +50,7 @@ public interface Orientable : Interface, KGTyped {
          *
          * @param orientation the orientable’s new orientation
          */
-        set(orientation) =
-            gtk_orientable_set_orientation(
-                gtkOrientablePointer.reinterpret(),
-                orientation.nativeValue
-            )
+        set(orientation) = gtk_orientable_set_orientation(gtkOrientablePointer.reinterpret(), orientation.nativeValue)
 
     /**
      * Retrieves the orientation of the @orientable.
@@ -70,10 +68,7 @@ public interface Orientable : Interface, KGTyped {
      * @param orientation the orientable’s new orientation
      */
     public fun setOrientation(orientation: Orientation): Unit =
-        gtk_orientable_set_orientation(
-            gtkOrientablePointer.reinterpret(),
-            orientation.nativeValue
-        )
+        gtk_orientable_set_orientation(gtkOrientablePointer.reinterpret(), orientation.nativeValue)
 
     private data class Wrapper(
         private val pointer: CPointer<GtkOrientable>,

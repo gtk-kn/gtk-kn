@@ -55,11 +55,7 @@ public class Size(
      * @return `true` if the sizes are equal
      * @since 1.0
      */
-    public fun equal(b: Size): Boolean =
-        graphene_size_equal(
-            grapheneSizePointer.reinterpret(),
-            b.grapheneSizePointer
-        )
+    public fun equal(b: Size): Boolean = graphene_size_equal(grapheneSizePointer.reinterpret(), b.grapheneSizePointer)
 
     /**
      * Frees the resources allocated by graphene_size_alloc().
@@ -93,10 +89,7 @@ public class Size(
      * @since 1.0
      */
     public fun initFromSize(src: Size): Size =
-        graphene_size_init_from_size(
-            grapheneSizePointer.reinterpret(),
-            src.grapheneSizePointer
-        )!!.run {
+        graphene_size_init_from_size(grapheneSizePointer.reinterpret(), src.grapheneSizePointer)!!.run {
             Size(reinterpret())
         }
 

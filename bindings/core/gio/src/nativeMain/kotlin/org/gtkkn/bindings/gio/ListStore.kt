@@ -42,7 +42,9 @@ import kotlin.Unit
  */
 public open class ListStore(
     pointer: CPointer<GListStore>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    KGTyped {
     public val gioListStorePointer: CPointer<GListStore>
         get() = gPointer.reinterpret()
 
@@ -90,12 +92,7 @@ public open class ListStore(
     public open fun insert(
         position: UInt,
         item: Object,
-    ): Unit =
-        g_list_store_insert(
-            gioListStorePointer.reinterpret(),
-            position,
-            item.gPointer.reinterpret()
-        )
+    ): Unit = g_list_store_insert(gioListStorePointer.reinterpret(), position, item.gPointer.reinterpret())
 
     /**
      * Inserts @item into @store at a position to be determined by the

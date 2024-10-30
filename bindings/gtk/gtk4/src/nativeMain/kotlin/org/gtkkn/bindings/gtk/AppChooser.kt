@@ -38,7 +38,9 @@ import kotlin.Unit
  * To obtain the application that has been selected in a `GtkAppChooser`,
  * use [method@Gtk.AppChooser.get_app_info].
  */
-public interface AppChooser : Interface, KGTyped {
+public interface AppChooser :
+    Interface,
+    KGTyped {
     public val gtkAppChooserPointer: CPointer<GtkAppChooser>
 
     /**

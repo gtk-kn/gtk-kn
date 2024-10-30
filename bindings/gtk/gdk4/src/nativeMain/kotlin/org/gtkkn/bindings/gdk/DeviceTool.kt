@@ -20,7 +20,8 @@ import kotlin.ULong
  */
 public open class DeviceTool(
     pointer: CPointer<GdkDeviceTool>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkDeviceToolPointer: CPointer<GdkDeviceTool>
         get() = gPointer.reinterpret()
 

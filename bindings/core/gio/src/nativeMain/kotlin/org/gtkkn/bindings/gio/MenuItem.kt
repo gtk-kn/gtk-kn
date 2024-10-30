@@ -36,7 +36,8 @@ import kotlin.Unit
  */
 public open class MenuItem(
     pointer: CPointer<GMenuItem>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gioMenuItemPointer: CPointer<GMenuItem>
         get() = gPointer.reinterpret()
 
@@ -55,8 +56,10 @@ public open class MenuItem(
      * @return a new #GMenuItem
      * @since 2.32
      */
-    public constructor(label: String? = null, detailedAction: String? = null) :
-        this(g_menu_item_new(label, detailedAction)!!.reinterpret())
+    public constructor(
+        label: String? = null,
+        detailedAction: String? = null,
+    ) : this(g_menu_item_new(label, detailedAction)!!.reinterpret())
 
     /**
      * Creates a #GMenuItem as an exact copy of an existing menu item in a
@@ -70,13 +73,10 @@ public open class MenuItem(
      * @return a new #GMenuItem.
      * @since 2.34
      */
-    public constructor(model: MenuModel, itemIndex: Int) :
-        this(
-            g_menu_item_new_from_model(
-                model.gioMenuModelPointer.reinterpret(),
-                itemIndex
-            )!!.reinterpret()
-        )
+    public constructor(
+        model: MenuModel,
+        itemIndex: Int,
+    ) : this(g_menu_item_new_from_model(model.gioMenuModelPointer.reinterpret(), itemIndex)!!.reinterpret())
 
     /**
      * Creates a new #GMenuItem representing a section.
@@ -145,13 +145,10 @@ public open class MenuItem(
      * @return a new #GMenuItem
      * @since 2.32
      */
-    public constructor(label: String? = null, section: MenuModel) :
-        this(
-            g_menu_item_new_section(
-                label,
-                section.gioMenuModelPointer.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        label: String? = null,
+        section: MenuModel,
+    ) : this(g_menu_item_new_section(label, section.gioMenuModelPointer.reinterpret())!!.reinterpret())
 
     /**
      * Queries the named @attribute on @menu_item.
@@ -269,12 +266,7 @@ public open class MenuItem(
     public open fun setAttributeValue(
         attribute: String,
         `value`: Variant? = null,
-    ): Unit =
-        g_menu_item_set_attribute_value(
-            gioMenuItemPointer.reinterpret(),
-            attribute,
-            `value`?.glibVariantPointer
-        )
+    ): Unit = g_menu_item_set_attribute_value(gioMenuItemPointer.reinterpret(), attribute, `value`?.glibVariantPointer)
 
     /**
      * Sets the "action" and possibly the "target" attribute of @menu_item.
@@ -346,12 +338,7 @@ public open class MenuItem(
     public open fun setLink(
         link: String,
         model: MenuModel? = null,
-    ): Unit =
-        g_menu_item_set_link(
-            gioMenuItemPointer.reinterpret(),
-            link,
-            model?.gioMenuModelPointer?.reinterpret()
-        )
+    ): Unit = g_menu_item_set_link(gioMenuItemPointer.reinterpret(), link, model?.gioMenuModelPointer?.reinterpret())
 
     /**
      * Sets or unsets the "section" link of @menu_item to @section.
@@ -366,10 +353,7 @@ public open class MenuItem(
      * @since 2.32
      */
     public open fun setSection(section: MenuModel? = null): Unit =
-        g_menu_item_set_section(
-            gioMenuItemPointer.reinterpret(),
-            section?.gioMenuModelPointer?.reinterpret()
-        )
+        g_menu_item_set_section(gioMenuItemPointer.reinterpret(), section?.gioMenuModelPointer?.reinterpret())
 
     /**
      * Sets or unsets the "submenu" link of @menu_item to @submenu.
@@ -384,10 +368,7 @@ public open class MenuItem(
      * @since 2.32
      */
     public open fun setSubmenu(submenu: MenuModel? = null): Unit =
-        g_menu_item_set_submenu(
-            gioMenuItemPointer.reinterpret(),
-            submenu?.gioMenuModelPointer?.reinterpret()
-        )
+        g_menu_item_set_submenu(gioMenuItemPointer.reinterpret(), submenu?.gioMenuModelPointer?.reinterpret())
 
     public companion object : TypeCompanion<MenuItem> {
         override val type: GeneratedClassKGType<MenuItem> =
@@ -468,12 +449,7 @@ public open class MenuItem(
             label: String? = null,
             section: MenuModel,
         ): MenuItem =
-            MenuItem(
-                g_menu_item_new_section(
-                    label,
-                    section.gioMenuModelPointer.reinterpret()
-                )!!.reinterpret()
-            )
+            MenuItem(g_menu_item_new_section(label, section.gioMenuModelPointer.reinterpret())!!.reinterpret())
 
         /**
          * Creates a new #GMenuItem representing a submenu.
@@ -490,11 +466,6 @@ public open class MenuItem(
             label: String? = null,
             submenu: MenuModel,
         ): MenuItem =
-            MenuItem(
-                g_menu_item_new_submenu(
-                    label,
-                    submenu.gioMenuModelPointer.reinterpret()
-                )!!.reinterpret()
-            )
+            MenuItem(g_menu_item_new_submenu(label, submenu.gioMenuModelPointer.reinterpret())!!.reinterpret())
     }
 }

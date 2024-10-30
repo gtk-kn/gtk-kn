@@ -164,11 +164,7 @@ public class Matrix(
      * @param degrees degrees to rotate counter-clockwise
      * @since 1.6
      */
-    public fun rotate(degrees: Double): Unit =
-        pango_matrix_rotate(
-            pangoMatrixPointer.reinterpret(),
-            degrees
-        )
+    public fun rotate(degrees: Double): Unit = pango_matrix_rotate(pangoMatrixPointer.reinterpret(), degrees)
 
     /**
      * Changes the transformation represented by @matrix to be the

@@ -121,7 +121,8 @@ import kotlin.Unit
  */
 public open class DropTarget(
     pointer: CPointer<GtkDropTarget>,
-) : EventController(pointer.reinterpret()), KGTyped {
+) : EventController(pointer.reinterpret()),
+    KGTyped {
     public val gtkDropTargetPointer: CPointer<GtkDropTarget>
         get() = gPointer.reinterpret()
 
@@ -214,11 +215,7 @@ public open class DropTarget(
          *
          * @param preload true to preload drop data
          */
-        set(preload) =
-            gtk_drop_target_set_preload(
-                gtkDropTargetPointer.reinterpret(),
-                preload.asGBoolean()
-            )
+        set(preload) = gtk_drop_target_set_preload(gtkDropTargetPointer.reinterpret(), preload.asGBoolean())
 
     /**
      * The value for this drop operation.
@@ -253,12 +250,7 @@ public open class DropTarget(
      * @param actions the supported actions
      * @return the new `GtkDropTarget`
      */
-    public constructor(type: ULong, actions: DragAction) : this(
-        gtk_drop_target_new(
-            type,
-            actions.mask
-        )!!.reinterpret()
-    )
+    public constructor(type: ULong, actions: DragAction) : this(gtk_drop_target_new(type, actions.mask)!!.reinterpret())
 
     /**
      * Gets the actions that this drop target supports.
@@ -371,8 +363,7 @@ public open class DropTarget(
      * [method@Gtk.DropTarget.reject] if required.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `drop` the `GdkDrop`. Returns true if @drop
-     * is accepted
+     * @param handler the Callback to connect. Params: `drop` the `GdkDrop`. Returns true if @drop is accepted
      */
     public fun connectAccept(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -399,9 +390,7 @@ public open class DropTarget(
      * and performing the drop operation.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `value` the `GValue` being dropped; `x` the x
-     * coordinate of the current pointer position; `y` the y coordinate of the current pointer
-     * position. Returns whether the drop was accepted at the given pointer position
+     * @param handler the Callback to connect. Params: `value` the `GValue` being dropped; `x` the x coordinate of the current pointer position; `y` the y coordinate of the current pointer position. Returns whether the drop was accepted at the given pointer position
      */
     public fun connectDrop(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -426,17 +415,12 @@ public open class DropTarget(
      * It can be used to set up custom highlighting.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `x` the x coordinate of the current pointer
-     * position; `y` the y coordinate of the current pointer position. Returns Preferred action for
-     * this drag operation or 0 if
+     * @param handler the Callback to connect. Params: `x` the x coordinate of the current pointer position; `y` the y coordinate of the current pointer position. Returns Preferred action for this drag operation or 0 if
      *   dropping is not supported at the current @x,@y location.
      */
     public fun connectEnter(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            x: Double,
-            y: Double,
-        ) -> DragAction,
+        handler: (x: Double, y: Double) -> DragAction,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -473,17 +457,12 @@ public open class DropTarget(
      * Emitted while the pointer is moving over the drop target.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `x` the x coordinate of the current pointer
-     * position; `y` the y coordinate of the current pointer position. Returns Preferred action for
-     * this drag operation or 0 if
+     * @param handler the Callback to connect. Params: `x` the x coordinate of the current pointer position; `y` the y coordinate of the current pointer position. Returns Preferred action for this drag operation or 0 if
      *   dropping is not supported at the current @x,@y location.
      */
     public fun connectMotion(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            x: Double,
-            y: Double,
-        ) -> DragAction,
+        handler: (x: Double, y: Double) -> DragAction,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -510,13 +489,15 @@ private val connectAcceptFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> Int>> =
             drop: CPointer<GdkDrop>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(drop: Drop) -> Boolean>().get().invoke(
-            drop!!.run {
-                Drop(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(drop: Drop) -> Boolean>()
+            .get()
+            .invoke(
+                drop!!.run {
+                    Drop(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 private val connectDropFunc: CPointer<
     CFunction<
@@ -534,21 +515,23 @@ private val connectDropFunc: CPointer<
             y: Double,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                `value`: Value,
-                x: Double,
-                y: Double,
-            ) -> Boolean
-        >().get().invoke(
-            `value`!!.run {
-                Value(reinterpret())
-            },
-            x,
-            y
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    `value`: Value,
+                    x: Double,
+                    y: Double,
+                ) -> Boolean
+            >()
+            .get()
+            .invoke(
+                `value`!!.run {
+                    Value(reinterpret())
+                },
+                x,
+                y
+            ).asGBoolean()
+    }.reinterpret()
 
 private val connectEnterFunc: CPointer<CFunction<(Double, Double) -> GdkDragAction>> =
     staticCFunction {
@@ -557,9 +540,12 @@ private val connectEnterFunc: CPointer<CFunction<(Double, Double) -> GdkDragActi
             y: Double,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(x: Double, y: Double) -> DragAction>().get().invoke(x, y).mask
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(x: Double, y: Double) -> DragAction>()
+            .get()
+            .invoke(x, y)
+            .mask
+    }.reinterpret()
 
 private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -567,8 +553,7 @@ private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectMotionFunc: CPointer<CFunction<(Double, Double) -> GdkDragAction>> =
     staticCFunction {
@@ -577,6 +562,9 @@ private val connectMotionFunc: CPointer<CFunction<(Double, Double) -> GdkDragAct
             y: Double,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(x: Double, y: Double) -> DragAction>().get().invoke(x, y).mask
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(x: Double, y: Double) -> DragAction>()
+            .get()
+            .invoke(x, y)
+            .mask
+    }.reinterpret()

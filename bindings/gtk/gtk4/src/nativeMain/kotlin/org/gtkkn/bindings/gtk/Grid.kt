@@ -133,7 +133,9 @@ import kotlin.Unit
  */
 public open class Grid(
     pointer: CPointer<GtkGrid>,
-) : Widget(pointer.reinterpret()), Orientable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Orientable,
+    KGTyped {
     public val gtkGridPointer: CPointer<GtkGrid>
         get() = gPointer.reinterpret()
 
@@ -187,11 +189,7 @@ public open class Grid(
          *
          * @param homogeneous true to make columns homogeneous
          */
-        set(homogeneous) =
-            gtk_grid_set_column_homogeneous(
-                gtkGridPointer.reinterpret(),
-                homogeneous.asGBoolean()
-            )
+        set(homogeneous) = gtk_grid_set_column_homogeneous(gtkGridPointer.reinterpret(), homogeneous.asGBoolean())
 
     /**
      * The amount of space between two consecutive columns.
@@ -227,11 +225,7 @@ public open class Grid(
          *
          * @param homogeneous true to make rows homogeneous
          */
-        set(homogeneous) =
-            gtk_grid_set_row_homogeneous(
-                gtkGridPointer.reinterpret(),
-                homogeneous.asGBoolean()
-            )
+        set(homogeneous) = gtk_grid_set_row_homogeneous(gtkGridPointer.reinterpret(), homogeneous.asGBoolean())
 
     /**
      * The amount of space between two consecutive rows.
@@ -278,14 +272,7 @@ public open class Grid(
         width: Int,
         height: Int,
     ): Unit =
-        gtk_grid_attach(
-            gtkGridPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            column,
-            row,
-            width,
-            height
-        )
+        gtk_grid_attach(gtkGridPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), column, row, width, height)
 
     /**
      * Adds a widget to the grid.
@@ -414,11 +401,7 @@ public open class Grid(
         sibling: Widget,
         side: PositionType,
     ): Unit =
-        gtk_grid_insert_next_to(
-            gtkGridPointer.reinterpret(),
-            sibling.gtkWidgetPointer.reinterpret(),
-            side.nativeValue
-        )
+        gtk_grid_insert_next_to(gtkGridPointer.reinterpret(), sibling.gtkWidgetPointer.reinterpret(), side.nativeValue)
 
     /**
      * Inserts a row at the specified position.
@@ -440,10 +423,7 @@ public open class Grid(
      * @param child the child widget to remove
      */
     public open fun remove(child: Widget): Unit =
-        gtk_grid_remove(
-            gtkGridPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret()
-        )
+        gtk_grid_remove(gtkGridPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes a column from the grid.
@@ -527,9 +507,7 @@ public open class Grid(
 
     public companion object : TypeCompanion<Grid> {
         override val type: GeneratedClassKGType<Grid> =
-            GeneratedClassKGType(gtk_grid_get_type()) {
-                Grid(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_grid_get_type()) { Grid(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

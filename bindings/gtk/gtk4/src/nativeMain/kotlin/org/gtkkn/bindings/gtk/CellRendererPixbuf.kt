@@ -38,7 +38,8 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_pixbuf_new
  */
 public open class CellRendererPixbuf(
     pointer: CPointer<GtkCellRendererPixbuf>,
-) : CellRenderer(pointer.reinterpret()), KGTyped {
+) : CellRenderer(pointer.reinterpret()),
+    KGTyped {
     public val gtkCellRendererPixbufPointer: CPointer<GtkCellRendererPixbuf>
         get() = gPointer.reinterpret()
 
@@ -57,9 +58,7 @@ public open class CellRendererPixbuf(
 
     public companion object : TypeCompanion<CellRendererPixbuf> {
         override val type: GeneratedClassKGType<CellRendererPixbuf> =
-            GeneratedClassKGType(gtk_cell_renderer_pixbuf_get_type()) {
-                CellRendererPixbuf(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_cell_renderer_pixbuf_get_type()) { CellRendererPixbuf(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

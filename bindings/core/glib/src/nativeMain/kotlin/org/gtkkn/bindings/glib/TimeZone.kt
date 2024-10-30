@@ -126,8 +126,7 @@ public class TimeZone(
      * @since 2.58
      */
     public fun getIdentifier(): String =
-        g_time_zone_get_identifier(glibTimeZonePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_time_zone_get_identifier(glibTimeZonePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines the offset to UTC in effect during a particular @interval
@@ -153,10 +152,7 @@ public class TimeZone(
      * @since 2.26
      */
     public fun isDst(interval: Int): Boolean =
-        g_time_zone_is_dst(
-            glibTimeZonePointer.reinterpret(),
-            interval
-        ).asBoolean()
+        g_time_zone_is_dst(glibTimeZonePointer.reinterpret(), interval).asBoolean()
 
     /**
      * Increases the reference count on @tz.
@@ -251,8 +247,7 @@ public class TimeZone(
          * [The GNU C Library manual](http://www.gnu.org/s/libc/manual/html_node/TZ-Variable.html)
          * for an explanation of the possible
          * values of the `TZ` environment variable. See
-         * [Microsoft Time Zone Index
-         * Values](http://msdn.microsoft.com/en-us/library/ms912391%28v=winembedded.11%29.aspx)
+         * [Microsoft Time Zone Index Values](http://msdn.microsoft.com/en-us/library/ms912391%28v=winembedded.11%29.aspx)
          * for the list of time zones on Windows.
          *
          * You should release the return value by calling g_time_zone_unref()

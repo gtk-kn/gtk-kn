@@ -39,7 +39,8 @@ import kotlin.Unit
  */
 public open class StackSidebar(
     pointer: CPointer<GtkStackSidebar>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkStackSidebarPointer: CPointer<GtkStackSidebar>
         get() = gPointer.reinterpret()
 
@@ -79,16 +80,11 @@ public open class StackSidebar(
      * @param stack a `GtkStack`
      */
     public open fun setStack(stack: Stack): Unit =
-        gtk_stack_sidebar_set_stack(
-            gtkStackSidebarPointer.reinterpret(),
-            stack.gtkStackPointer.reinterpret()
-        )
+        gtk_stack_sidebar_set_stack(gtkStackSidebarPointer.reinterpret(), stack.gtkStackPointer.reinterpret())
 
     public companion object : TypeCompanion<StackSidebar> {
         override val type: GeneratedClassKGType<StackSidebar> =
-            GeneratedClassKGType(gtk_stack_sidebar_get_type()) {
-                StackSidebar(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_stack_sidebar_get_type()) { StackSidebar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

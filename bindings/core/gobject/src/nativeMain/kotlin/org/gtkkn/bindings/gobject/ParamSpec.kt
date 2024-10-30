@@ -20,8 +20,7 @@ import kotlin.UInt
 import kotlin.Unit
 
 /**
- * `GParamSpec` encapsulates the metadata required to specify parameters, such as `GObject`
- * properties.
+ * `GParamSpec` encapsulates the metadata required to specify parameters, such as `GObject` properties.
  *
  * ## Parameter names
  *
@@ -78,8 +77,7 @@ public open class ParamSpec(
      * @return the name of @pspec.
      */
     public open fun getName(): String =
-        g_param_spec_get_name(gPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_param_spec_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the GQuark for the name.
@@ -95,8 +93,7 @@ public open class ParamSpec(
      * @return the nickname of @pspec.
      */
     public open fun getNick(): String =
-        g_param_spec_get_nick(gPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_param_spec_get_nick(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * If the paramspec redirects operations to another paramspec,

@@ -49,8 +49,7 @@ public class DBusConnectionFlags(
 
         /**
          * Pass this flag if connecting to a peer that is a
-         * message bus. This means that the Hello() method will be invoked as part of the connection
-         * setup.
+         * message bus. This means that the Hello() method will be invoked as part of the connection setup.
          */
         public val MESSAGE_BUS_CONNECTION: DBusConnectionFlags =
             DBusConnectionFlags(G_DBUS_CONNECTION_FLAGS_MESSAGE_BUS_CONNECTION)
@@ -64,8 +63,7 @@ public class DBusConnectionFlags(
 
         /**
          * When authenticating
-         * as a server, require the UID of the peer to be the same as the UID of the server. (Since:
-         * 2.68)
+         * as a server, require the UID of the peer to be the same as the UID of the server. (Since: 2.68)
          */
         public val AUTHENTICATION_REQUIRE_SAME_USER: DBusConnectionFlags =
             DBusConnectionFlags(G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER)

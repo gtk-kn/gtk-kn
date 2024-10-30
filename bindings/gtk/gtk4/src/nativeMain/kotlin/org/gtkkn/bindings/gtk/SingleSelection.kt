@@ -45,7 +45,11 @@ import kotlin.Unit
  */
 public open class SingleSelection(
     pointer: CPointer<GtkSingleSelection>,
-) : Object(pointer.reinterpret()), ListModel, SectionModel, SelectionModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    SectionModel,
+    SelectionModel,
+    KGTyped {
     public val gtkSingleSelectionPointer: CPointer<GtkSingleSelection>
         get() = gPointer.reinterpret()
 
@@ -68,8 +72,7 @@ public open class SingleSelection(
          *
          * @return true if autoselect is enabled
          */
-        get() =
-            gtk_single_selection_get_autoselect(gtkSingleSelectionPointer.reinterpret()).asBoolean()
+        get() = gtk_single_selection_get_autoselect(gtkSingleSelectionPointer.reinterpret()).asBoolean()
 
         /**
          * Enables or disables autoselect.
@@ -80,11 +83,9 @@ public open class SingleSelection(
          *
          * @param autoselect true to always select an item
          */
-        set(autoselect) =
-            gtk_single_selection_set_autoselect(
-                gtkSingleSelectionPointer.reinterpret(),
-                autoselect.asGBoolean()
-            )
+        set(
+            autoselect
+        ) = gtk_single_selection_set_autoselect(gtkSingleSelectionPointer.reinterpret(), autoselect.asGBoolean())
 
     /**
      * If unselecting the selected item is allowed.
@@ -96,8 +97,7 @@ public open class SingleSelection(
          *
          * @return true to support unselecting
          */
-        get() =
-            gtk_single_selection_get_can_unselect(gtkSingleSelectionPointer.reinterpret()).asBoolean()
+        get() = gtk_single_selection_get_can_unselect(gtkSingleSelectionPointer.reinterpret()).asBoolean()
 
         /**
          * If true, unselecting the current item via
@@ -109,11 +109,9 @@ public open class SingleSelection(
          *
          * @param canUnselect true to allow unselecting
          */
-        set(canUnselect) =
-            gtk_single_selection_set_can_unselect(
-                gtkSingleSelectionPointer.reinterpret(),
-                canUnselect.asGBoolean()
-            )
+        set(
+            canUnselect
+        ) = gtk_single_selection_set_can_unselect(gtkSingleSelectionPointer.reinterpret(), canUnselect.asGBoolean())
 
     /**
      * The model being managed.
@@ -136,11 +134,7 @@ public open class SingleSelection(
          *
          * @param model A `GListModel` to wrap
          */
-        set(model) =
-            gtk_single_selection_set_model(
-                gtkSingleSelectionPointer.reinterpret(),
-                model?.gioListModelPointer
-            )
+        set(model) = gtk_single_selection_set_model(gtkSingleSelectionPointer.reinterpret(), model?.gioListModelPointer)
 
     /**
      * Position of the selected item.
@@ -167,11 +161,7 @@ public open class SingleSelection(
          *
          * @param position the item to select or %GTK_INVALID_LIST_POSITION
          */
-        set(position) =
-            gtk_single_selection_set_selected(
-                gtkSingleSelectionPointer.reinterpret(),
-                position
-            )
+        set(position) = gtk_single_selection_set_selected(gtkSingleSelectionPointer.reinterpret(), position)
 
     /**
      * The selected item.
@@ -195,8 +185,9 @@ public open class SingleSelection(
      * @param model the `GListModel` to manage
      * @return a new `GtkSingleSelection`
      */
-    public constructor(model: ListModel? = null) :
-        this(gtk_single_selection_new(model?.gioListModelPointer)!!.reinterpret())
+    public constructor(
+        model: ListModel? = null,
+    ) : this(gtk_single_selection_new(model?.gioListModelPointer)!!.reinterpret())
 
     /**
      * Checks if autoselect has been enabled or disabled via
@@ -257,10 +248,7 @@ public open class SingleSelection(
      * @param autoselect true to always select an item
      */
     public open fun setAutoselect(autoselect: Boolean): Unit =
-        gtk_single_selection_set_autoselect(
-            gtkSingleSelectionPointer.reinterpret(),
-            autoselect.asGBoolean()
-        )
+        gtk_single_selection_set_autoselect(gtkSingleSelectionPointer.reinterpret(), autoselect.asGBoolean())
 
     /**
      * If true, unselecting the current item via
@@ -273,10 +261,7 @@ public open class SingleSelection(
      * @param canUnselect true to allow unselecting
      */
     public open fun setCanUnselect(canUnselect: Boolean): Unit =
-        gtk_single_selection_set_can_unselect(
-            gtkSingleSelectionPointer.reinterpret(),
-            canUnselect.asGBoolean()
-        )
+        gtk_single_selection_set_can_unselect(gtkSingleSelectionPointer.reinterpret(), canUnselect.asGBoolean())
 
     /**
      * Sets the model that @self should wrap.
@@ -286,10 +271,7 @@ public open class SingleSelection(
      * @param model A `GListModel` to wrap
      */
     public open fun setModel(model: ListModel? = null): Unit =
-        gtk_single_selection_set_model(
-            gtkSingleSelectionPointer.reinterpret(),
-            model?.gioListModelPointer
-        )
+        gtk_single_selection_set_model(gtkSingleSelectionPointer.reinterpret(), model?.gioListModelPointer)
 
     /**
      * Selects the item at the given position.
@@ -308,9 +290,7 @@ public open class SingleSelection(
 
     public companion object : TypeCompanion<SingleSelection> {
         override val type: GeneratedClassKGType<SingleSelection> =
-            GeneratedClassKGType(gtk_single_selection_get_type()) {
-                SingleSelection(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_single_selection_get_type()) { SingleSelection(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

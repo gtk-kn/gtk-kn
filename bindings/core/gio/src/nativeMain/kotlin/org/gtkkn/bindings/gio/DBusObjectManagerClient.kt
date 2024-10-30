@@ -137,8 +137,7 @@ import kotlin.collections.List
  * - method `get-proxy-type-func`: Property has no getter nor setter
  * - method `get-proxy-type-user-data`: Property has no getter nor setter
  * - method `object-path`: Property has no getter nor setter
- * - constructor `new_for_bus_sync`: C function g_dbus_object_manager_client_new_for_bus_sync is
- * ignored
+ * - constructor `new_for_bus_sync`: C function g_dbus_object_manager_client_new_for_bus_sync is ignored
  * - constructor `new_sync`: C function g_dbus_object_manager_client_new_sync is ignored
  * - parameter `callback`: AsyncReadyCallback
  * - parameter `callback`: AsyncReadyCallback
@@ -147,7 +146,11 @@ import kotlin.collections.List
  */
 public open class DBusObjectManagerClient(
     pointer: CPointer<GDBusObjectManagerClient>,
-) : Object(pointer.reinterpret()), AsyncInitable, DBusObjectManager, Initable, KGTyped {
+) : Object(pointer.reinterpret()),
+    AsyncInitable,
+    DBusObjectManager,
+    Initable,
+    KGTyped {
     public val gioDBusObjectManagerClientPointer: CPointer<GDBusObjectManagerClient>
         get() = gPointer.reinterpret()
 
@@ -233,16 +236,13 @@ public open class DBusObjectManagerClient(
          * @since 2.30
          */
         get() =
-            g_dbus_object_manager_client_get_name_owner(
-                gioDBusObjectManagerClientPointer.reinterpret()
-            )?.toKString()
+            g_dbus_object_manager_client_get_name_owner(gioDBusObjectManagerClientPointer.reinterpret())?.toKString()
                 ?: error("Expected not null string")
 
     /**
      * Finishes an operation started with g_dbus_object_manager_client_new().
      *
-     * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-     * g_dbus_object_manager_client_new().
+     * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to g_dbus_object_manager_client_new().
      * @return A
      *   #GDBusObjectManagerClient object or null if @error is set. Free
      *   with g_object_unref().
@@ -324,10 +324,7 @@ public open class DBusObjectManagerClient(
      * that @manager was constructed in.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `objectProxy` The #GDBusObjectProxy on which
-     * an interface has properties that are changing.; `interfaceProxy` The #GDBusProxy that has
-     * properties that are changing.; `changedProperties` A #GVariant containing the properties that
-     * changed (type: `a{sv}`).; `invalidatedProperties` A null terminated
+     * @param handler the Callback to connect. Params: `objectProxy` The #GDBusObjectProxy on which an interface has properties that are changing.; `interfaceProxy` The #GDBusProxy that has properties that are changing.; `changedProperties` A #GVariant containing the properties that changed (type: `a{sv}`).; `invalidatedProperties` A null terminated
      *   array of properties that were invalidated.
      * @since 2.30
      */
@@ -360,11 +357,7 @@ public open class DBusObjectManagerClient(
      * that @manager was constructed in.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `objectProxy` The #GDBusObjectProxy on which
-     * an interface is emitting a D-Bus signal.; `interfaceProxy` The #GDBusProxy that is emitting a
-     * D-Bus signal.; `senderName` The sender of the signal or NULL if the connection is not a bus
-     * connection.; `signalName` The signal name.; `parameters` A #GVariant tuple with parameters for
-     * the signal.
+     * @param handler the Callback to connect. Params: `objectProxy` The #GDBusObjectProxy on which an interface is emitting a D-Bus signal.; `interfaceProxy` The #GDBusProxy that is emitting a D-Bus signal.; `senderName` The sender of the signal or NULL if the connection is not a bus connection.; `signalName` The signal name.; `parameters` A #GVariant tuple with parameters for the signal.
      * @since 2.30
      */
     public fun connectInterfaceProxySignal(
@@ -388,9 +381,9 @@ public open class DBusObjectManagerClient(
 
     public companion object : TypeCompanion<DBusObjectManagerClient> {
         override val type: GeneratedClassKGType<DBusObjectManagerClient> =
-            GeneratedClassKGType(g_dbus_object_manager_client_get_type()) {
-                DBusObjectManagerClient(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                g_dbus_object_manager_client_get_type()
+            ) { DBusObjectManagerClient(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -399,8 +392,7 @@ public open class DBusObjectManagerClient(
         /**
          * Finishes an operation started with g_dbus_object_manager_client_new().
          *
-         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-         * g_dbus_object_manager_client_new().
+         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to g_dbus_object_manager_client_new().
          * @return A
          *   #GDBusObjectManagerClient object or null if @error is set. Free
          *   with g_object_unref().
@@ -409,11 +401,7 @@ public open class DBusObjectManagerClient(
         public fun newFinish(res: AsyncResult): Result<DBusObjectManagerClient> =
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_dbus_object_manager_client_new_finish(
-                        res.gioAsyncResultPointer,
-                        gError.ptr
-                    )
+                val gResult = g_dbus_object_manager_client_new_finish(res.gioAsyncResultPointer, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
@@ -424,8 +412,7 @@ public open class DBusObjectManagerClient(
         /**
          * Finishes an operation started with g_dbus_object_manager_client_new_for_bus().
          *
-         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to
-         * g_dbus_object_manager_client_new_for_bus().
+         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to g_dbus_object_manager_client_new_for_bus().
          * @return A
          *   #GDBusObjectManagerClient object or null if @error is set. Free
          *   with g_object_unref().
@@ -434,11 +421,7 @@ public open class DBusObjectManagerClient(
         public fun newForBusFinish(res: AsyncResult): Result<DBusObjectManagerClient> =
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_dbus_object_manager_client_new_for_bus_finish(
-                        res.gioAsyncResultPointer,
-                        gError.ptr
-                    )
+                val gResult = g_dbus_object_manager_client_new_for_bus_finish(res.gioAsyncResultPointer, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
@@ -467,28 +450,30 @@ private val connectInterfaceProxyPropertiesChangedFunc: CPointer<
             userData: COpaquePointer,
         ->
         memScoped {
-            userData.asStableRef<
-                (
-                    objectProxy: DBusObjectProxy,
-                    interfaceProxy: DBusProxy,
-                    changedProperties: Variant,
-                    invalidatedProperties: List<String>,
-                ) -> Unit
-            >().get().invoke(
-                objectProxy!!.run {
-                    DBusObjectProxy(reinterpret())
-                },
-                interfaceProxy!!.run {
-                    DBusProxy(reinterpret())
-                },
-                changedProperties!!.run {
-                    Variant(reinterpret())
-                },
-                invalidatedProperties?.toKStringList() ?: error("Expected not null string array")
-            )
+            userData
+                .asStableRef<
+                    (
+                        objectProxy: DBusObjectProxy,
+                        interfaceProxy: DBusProxy,
+                        changedProperties: Variant,
+                        invalidatedProperties: List<String>,
+                    ) -> Unit
+                >()
+                .get()
+                .invoke(
+                    objectProxy!!.run {
+                        DBusObjectProxy(reinterpret())
+                    },
+                    interfaceProxy!!.run {
+                        DBusProxy(reinterpret())
+                    },
+                    changedProperties!!.run {
+                        Variant(reinterpret())
+                    },
+                    invalidatedProperties?.toKStringList() ?: error("Expected not null string array")
+                )
         }
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectInterfaceProxySignalFunc: CPointer<
     CFunction<
@@ -510,27 +495,28 @@ private val connectInterfaceProxySignalFunc: CPointer<
             parameters: CPointer<GVariant>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                objectProxy: DBusObjectProxy,
-                interfaceProxy: DBusProxy,
-                senderName: String,
-                signalName: String,
-                parameters: Variant,
-            ) -> Unit
-        >().get().invoke(
-            objectProxy!!.run {
-                DBusObjectProxy(reinterpret())
-            },
-            interfaceProxy!!.run {
-                DBusProxy(reinterpret())
-            },
-            senderName?.toKString() ?: error("Expected not null string"),
-            signalName?.toKString()
-                ?: error("Expected not null string"),
-            parameters!!.run {
-                Variant(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    objectProxy: DBusObjectProxy,
+                    interfaceProxy: DBusProxy,
+                    senderName: String,
+                    signalName: String,
+                    parameters: Variant,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                objectProxy!!.run {
+                    DBusObjectProxy(reinterpret())
+                },
+                interfaceProxy!!.run {
+                    DBusProxy(reinterpret())
+                },
+                senderName?.toKString() ?: error("Expected not null string"),
+                signalName?.toKString() ?: error("Expected not null string"),
+                parameters!!.run {
+                    Variant(reinterpret())
+                }
+            )
+    }.reinterpret()

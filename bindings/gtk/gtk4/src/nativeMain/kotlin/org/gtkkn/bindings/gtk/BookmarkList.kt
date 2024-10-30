@@ -43,7 +43,9 @@ import kotlin.Unit
  */
 public open class BookmarkList(
     pointer: CPointer<GtkBookmarkList>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    KGTyped {
     public val gtkBookmarkListPointer: CPointer<GtkBookmarkList>
         get() = gPointer.reinterpret()
 
@@ -69,11 +71,7 @@ public open class BookmarkList(
          *
          * @param attributes the attributes to enumerate
          */
-        set(attributes) =
-            gtk_bookmark_list_set_attributes(
-                gtkBookmarkListPointer.reinterpret(),
-                attributes
-            )
+        set(attributes) = gtk_bookmark_list_set_attributes(gtkBookmarkListPointer.reinterpret(), attributes)
 
     /**
      * The bookmark file to load.
@@ -107,11 +105,7 @@ public open class BookmarkList(
          *
          * @param ioPriority IO priority to use
          */
-        set(ioPriority) =
-            gtk_bookmark_list_set_io_priority(
-                gtkBookmarkListPointer.reinterpret(),
-                ioPriority
-            )
+        set(ioPriority) = gtk_bookmark_list_set_io_priority(gtkBookmarkListPointer.reinterpret(), ioPriority)
 
     /**
      * Creates a new `GtkBookmarkList` with the given @attributes.
@@ -120,8 +114,10 @@ public open class BookmarkList(
      * @param attributes The attributes to query
      * @return a new `GtkBookmarkList`
      */
-    public constructor(filename: String? = null, attributes: String? = null) :
-        this(gtk_bookmark_list_new(filename, attributes)!!.reinterpret())
+    public constructor(
+        filename: String? = null,
+        attributes: String? = null,
+    ) : this(gtk_bookmark_list_new(filename, attributes)!!.reinterpret())
 
     /**
      * Gets the attributes queried on the children.
@@ -183,9 +179,7 @@ public open class BookmarkList(
 
     public companion object : TypeCompanion<BookmarkList> {
         override val type: GeneratedClassKGType<BookmarkList> =
-            GeneratedClassKGType(gtk_bookmark_list_get_type()) {
-                BookmarkList(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_bookmark_list_get_type()) { BookmarkList(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

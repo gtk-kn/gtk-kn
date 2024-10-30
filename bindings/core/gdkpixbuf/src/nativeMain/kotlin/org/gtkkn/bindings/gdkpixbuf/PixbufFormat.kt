@@ -208,10 +208,7 @@ public class PixbufFormat(
      * @since 2.36
      */
     public fun isSaveOptionSupported(optionKey: String): Boolean =
-        gdk_pixbuf_format_is_save_option_supported(
-            gdkpixbufPixbufFormatPointer.reinterpret(),
-            optionKey
-        ).asBoolean()
+        gdk_pixbuf_format_is_save_option_supported(gdkpixbufPixbufFormatPointer.reinterpret(), optionKey).asBoolean()
 
     /**
      * Returns whether this image format is scalable.
@@ -248,10 +245,7 @@ public class PixbufFormat(
      * @since 2.6
      */
     public fun setDisabled(disabled: Boolean): Unit =
-        gdk_pixbuf_format_set_disabled(
-            gdkpixbufPixbufFormatPointer.reinterpret(),
-            disabled.asGBoolean()
-        )
+        gdk_pixbuf_format_set_disabled(gdkpixbufPixbufFormatPointer.reinterpret(), disabled.asGBoolean())
 
     public companion object : RecordCompanion<PixbufFormat, GdkPixbufFormat> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PixbufFormat =

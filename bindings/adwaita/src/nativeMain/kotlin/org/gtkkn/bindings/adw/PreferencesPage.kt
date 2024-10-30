@@ -58,7 +58,8 @@ import kotlin.Unit
  */
 public open class PreferencesPage(
     pointer: CPointer<AdwPreferencesPage>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val adwPreferencesPagePointer: CPointer<AdwPreferencesPage>
         get() = gPointer.reinterpret()
 
@@ -95,11 +96,7 @@ public open class PreferencesPage(
          * @param description the description
          * @since 1.4
          */
-        set(description) =
-            adw_preferences_page_set_description(
-                adwPreferencesPagePointer.reinterpret(),
-                description
-            )
+        set(description) = adw_preferences_page_set_description(adwPreferencesPagePointer.reinterpret(), description)
 
     /**
      * The icon name for this page.
@@ -110,19 +107,14 @@ public open class PreferencesPage(
          *
          * @return the icon name for @self
          */
-        get() =
-            adw_preferences_page_get_icon_name(adwPreferencesPagePointer.reinterpret())?.toKString()
+        get() = adw_preferences_page_get_icon_name(adwPreferencesPagePointer.reinterpret())?.toKString()
 
         /**
          * Sets the icon name for @self.
          *
          * @param iconName the icon name
          */
-        set(iconName) =
-            adw_preferences_page_set_icon_name(
-                adwPreferencesPagePointer.reinterpret(),
-                iconName
-            )
+        set(iconName) = adw_preferences_page_set_icon_name(adwPreferencesPagePointer.reinterpret(), iconName)
 
     /**
      * The title for this page.
@@ -153,19 +145,16 @@ public open class PreferencesPage(
          *
          * @return whether an embedded underline in the title indicates a mnemonic
          */
-        get() =
-            adw_preferences_page_get_use_underline(adwPreferencesPagePointer.reinterpret()).asBoolean()
+        get() = adw_preferences_page_get_use_underline(adwPreferencesPagePointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether an embedded underline in the title indicates a mnemonic.
          *
          * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
          */
-        set(useUnderline) =
-            adw_preferences_page_set_use_underline(
-                adwPreferencesPagePointer.reinterpret(),
-                useUnderline.asGBoolean()
-            )
+        set(
+            useUnderline
+        ) = adw_preferences_page_set_use_underline(adwPreferencesPagePointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Creates a new `AdwPreferencesPage`.
@@ -247,10 +236,7 @@ public open class PreferencesPage(
      * @since 1.4
      */
     public open fun setDescription(description: String): Unit =
-        adw_preferences_page_set_description(
-            adwPreferencesPagePointer.reinterpret(),
-            description
-        )
+        adw_preferences_page_set_description(adwPreferencesPagePointer.reinterpret(), description)
 
     /**
      * Sets the icon name for @self.
@@ -274,16 +260,11 @@ public open class PreferencesPage(
      * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
      */
     public open fun setUseUnderline(useUnderline: Boolean): Unit =
-        adw_preferences_page_set_use_underline(
-            adwPreferencesPagePointer.reinterpret(),
-            useUnderline.asGBoolean()
-        )
+        adw_preferences_page_set_use_underline(adwPreferencesPagePointer.reinterpret(), useUnderline.asGBoolean())
 
     public companion object : TypeCompanion<PreferencesPage> {
         override val type: GeneratedClassKGType<PreferencesPage> =
-            GeneratedClassKGType(adw_preferences_page_get_type()) {
-                PreferencesPage(it.reinterpret())
-            }
+            GeneratedClassKGType(adw_preferences_page_get_type()) { PreferencesPage(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

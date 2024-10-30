@@ -203,7 +203,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  */
 public open class ConstraintLayout(
     pointer: CPointer<GtkConstraintLayout>,
-) : LayoutManager(pointer.reinterpret()), Buildable, KGTyped {
+) : LayoutManager(pointer.reinterpret()),
+    Buildable,
+    KGTyped {
     public val gtkConstraintLayoutPointer: CPointer<GtkConstraintLayout>
         get() = gPointer.reinterpret()
 
@@ -243,8 +245,7 @@ public open class ConstraintLayout(
     /**
      * Creates a list of constraints from a VFL description.
      *
-     * The Visual Format Language, VFL, is based on Apple's AutoLayout
-     * [VFL](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage.html).
+     * The Visual Format Language, VFL, is based on Apple's AutoLayout [VFL](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage.html).
      *
      * The `views` dictionary is used to match [iface@Gtk.ConstraintTarget]
      * instances to the symbolic view name inside the VFL.
@@ -262,8 +263,7 @@ public open class ConstraintLayout(
      *             <predicateList> = <simplePredicate> | <predicateListWithParens>
      *           <simplePredicate> = <metricName> | <positiveNumber>
      *   <predicateListWithParens> = '(' <predicate> (',' <predicate>)* ')'
-     *                 <predicate> = (<relation>)? <objectOfPredicate> (<operatorList>)? ('@'
-     * <priority>)?
+     *                 <predicate> = (<relation>)? <objectOfPredicate> (<operatorList>)? ('@' <priority>)?
      *                  <relation> = '==' | '<=' | '>='
      *         <objectOfPredicate> = <constant> | <viewName> | ('.' <attributeName>)?
      *                  <priority> = <positiveNumber> | 'required' | 'strong' | 'medium' | 'weak'
@@ -449,9 +449,7 @@ public open class ConstraintLayout(
 
     public companion object : TypeCompanion<ConstraintLayout> {
         override val type: GeneratedClassKGType<ConstraintLayout> =
-            GeneratedClassKGType(gtk_constraint_layout_get_type()) {
-                ConstraintLayout(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_constraint_layout_get_type()) { ConstraintLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

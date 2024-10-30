@@ -14,7 +14,9 @@ public class DBusInterfaceSkeletonFlags(
     public val mask: GDBusInterfaceSkeletonFlags,
 ) : Bitfield<DBusInterfaceSkeletonFlags> {
     override infix fun or(other: DBusInterfaceSkeletonFlags): DBusInterfaceSkeletonFlags =
-        DBusInterfaceSkeletonFlags(mask or other.mask)
+        DBusInterfaceSkeletonFlags(
+            mask or other.mask
+        )
 
     public companion object {
         /**
@@ -25,10 +27,8 @@ public class DBusInterfaceSkeletonFlags(
 
         /**
          * Each method invocation is handled in
-         *   a thread dedicated to the invocation. This means that the method implementation can use
-         * blocking IO
-         *   without blocking any other part of the process. It also means that the method
-         * implementation must
+         *   a thread dedicated to the invocation. This means that the method implementation can use blocking IO
+         *   without blocking any other part of the process. It also means that the method implementation must
          *   use locking to access data structures used by other threads.
          */
         public val HANDLE_METHOD_INVOCATIONS_IN_THREAD: DBusInterfaceSkeletonFlags =

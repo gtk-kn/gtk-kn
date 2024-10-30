@@ -4762,7 +4762,10 @@ public object Gdk {
                     gError.ptr
                 ).asBoolean()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gdk.Gdk.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gdk.Gdk
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -4871,13 +4874,12 @@ public object Gdk {
     public fun contentSerializeFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_content_serialize_finish(
-                    result.gioAsyncResultPointer,
-                    gError.ptr
-                ).asBoolean()
+            val gResult = gdk_content_serialize_finish(result.gioAsyncResultPointer, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gdk.Gdk.resolveException(Error(gError.pointed!!.ptr)))
+                Result.failure(
+                    org.gtkkn.bindings.gdk.Gdk
+                        .resolveException(Error(gError.pointed!!.ptr))
+                )
             } else {
                 Result.success(gResult)
             }
@@ -5083,22 +5085,26 @@ public object Gdk {
         val ex =
             when (error.domain) {
                 DmabufError.quark() ->
-                    DmabufError.fromErrorOrNull(error)
+                    DmabufError
+                        .fromErrorOrNull(error)
                         ?.let {
                             DmabufErrorException(error, it)
                         }
                 GLError.quark() ->
-                    GLError.fromErrorOrNull(error)
+                    GLError
+                        .fromErrorOrNull(error)
                         ?.let {
                             GLErrorException(error, it)
                         }
                 TextureError.quark() ->
-                    TextureError.fromErrorOrNull(error)
+                    TextureError
+                        .fromErrorOrNull(error)
                         ?.let {
                             TextureErrorException(error, it)
                         }
                 VulkanError.quark() ->
-                    VulkanError.fromErrorOrNull(error)
+                    VulkanError
+                        .fromErrorOrNull(error)
                         ?.let {
                             VulkanErrorException(error, it)
                         }
@@ -5119,8 +5125,7 @@ public val ContentDeserializeFuncFunc:
                 ContentDeserializer(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 public val ContentSerializeFuncFunc: CPointer<CFunction<(CPointer<GdkContentSerializer>) -> Unit>> =
     staticCFunction {
@@ -5132,8 +5137,7 @@ public val ContentSerializeFuncFunc: CPointer<CFunction<(CPointer<GdkContentSeri
                 ContentSerializer(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 /**
  * The type of a function that can be registered with gdk_content_register_deserializer().

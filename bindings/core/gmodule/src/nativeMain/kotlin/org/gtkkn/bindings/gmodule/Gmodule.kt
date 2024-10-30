@@ -61,18 +61,14 @@ public object Gmodule {
     public fun moduleBuildPath(
         directory: String? = null,
         moduleName: String,
-    ): String =
-        g_module_build_path(directory, moduleName)?.toKString()
-            ?: error("Expected not null string")
+    ): String = g_module_build_path(directory, moduleName)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a string describing the last module error.
      *
      * @return a string describing the last module error
      */
-    public fun moduleError(): String =
-        g_module_error()?.toKString()
-            ?: error("Expected not null string")
+    public fun moduleError(): String = g_module_error()?.toKString() ?: error("Expected not null string")
 
     public fun moduleErrorQuark(): UInt = g_module_error_quark()
 
@@ -87,7 +83,8 @@ public object Gmodule {
         val ex =
             when (error.domain) {
                 ModuleError.quark() ->
-                    ModuleError.fromErrorOrNull(error)
+                    ModuleError
+                        .fromErrorOrNull(error)
                         ?.let {
                             ModuleErrorException(error, it)
                         }
@@ -98,12 +95,9 @@ public object Gmodule {
 }
 
 public val ModuleUnloadFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            userData: COpaquePointer,
-        ->
+    staticCFunction { userData: COpaquePointer ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 /**
  * Specifies the type of the module function called when it is unloaded.

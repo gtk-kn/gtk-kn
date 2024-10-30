@@ -115,10 +115,7 @@ public class Value(
      * @param destValue An initialized #GValue structure of the same type as @src_value.
      */
     public fun copy(destValue: Value): Unit =
-        g_value_copy(
-            gobjectValuePointer.reinterpret(),
-            destValue.gobjectValuePointer
-        )
+        g_value_copy(gobjectValuePointer.reinterpret(), destValue.gobjectValuePointer)
 
     /**
      * Get the contents of a %G_TYPE_OBJECT derived #GValue, increasing
@@ -301,10 +298,7 @@ public class Value(
      * @return the #GValue structure that has been passed in
      */
     public fun `init`(gType: ULong): Value =
-        g_value_init(
-            gobjectValuePointer.reinterpret(),
-            gType
-        )!!.run {
+        g_value_init(gobjectValuePointer.reinterpret(), gType)!!.run {
             Value(reinterpret())
         }
 
@@ -321,10 +315,7 @@ public class Value(
      * @since 2.42
      */
     public fun initFromInstance(instance: TypeInstance): Unit =
-        g_value_init_from_instance(
-            gobjectValuePointer.reinterpret(),
-            instance.gobjectTypeInstancePointer
-        )
+        g_value_init_from_instance(gobjectValuePointer.reinterpret(), instance.gobjectTypeInstancePointer)
 
     /**
      * Clears the current value in @value and resets it to the default value
@@ -350,11 +341,7 @@ public class Value(
      *
      * @param vChar character value to be set
      */
-    public fun setChar(vChar: Char): Unit =
-        g_value_set_char(
-            gobjectValuePointer.reinterpret(),
-            vChar.code.toByte()
-        )
+    public fun setChar(vChar: Char): Unit = g_value_set_char(gobjectValuePointer.reinterpret(), vChar.code.toByte())
 
     /**
      * Set the contents of a %G_TYPE_DOUBLE #GValue to @v_double.
@@ -368,33 +355,21 @@ public class Value(
      *
      * @param vEnum enum value to be set
      */
-    public fun setEnum(vEnum: Int): Unit =
-        g_value_set_enum(
-            gobjectValuePointer.reinterpret(),
-            vEnum
-        )
+    public fun setEnum(vEnum: Int): Unit = g_value_set_enum(gobjectValuePointer.reinterpret(), vEnum)
 
     /**
      * Set the contents of a %G_TYPE_FLAGS #GValue to @v_flags.
      *
      * @param vFlags flags value to be set
      */
-    public fun setFlags(vFlags: UInt): Unit =
-        g_value_set_flags(
-            gobjectValuePointer.reinterpret(),
-            vFlags
-        )
+    public fun setFlags(vFlags: UInt): Unit = g_value_set_flags(gobjectValuePointer.reinterpret(), vFlags)
 
     /**
      * Set the contents of a %G_TYPE_FLOAT #GValue to @v_float.
      *
      * @param vFloat float value to be set
      */
-    public fun setFloat(vFloat: Float): Unit =
-        g_value_set_float(
-            gobjectValuePointer.reinterpret(),
-            vFloat
-        )
+    public fun setFloat(vFloat: Float): Unit = g_value_set_float(gobjectValuePointer.reinterpret(), vFloat)
 
     /**
      * Set the contents of a %G_TYPE_GTYPE #GValue to @v_gtype.
@@ -402,11 +377,7 @@ public class Value(
      * @param vGtype #GType to be set
      * @since 2.12
      */
-    public fun setGtype(vGtype: ULong): Unit =
-        g_value_set_gtype(
-            gobjectValuePointer.reinterpret(),
-            vGtype
-        )
+    public fun setGtype(vGtype: ULong): Unit = g_value_set_gtype(gobjectValuePointer.reinterpret(), vGtype)
 
     /**
      * Set the contents of a %G_TYPE_INT #GValue to @v_int.
@@ -420,11 +391,7 @@ public class Value(
      *
      * @param vInt64 64bit integer value to be set
      */
-    public fun setInt64(vInt64: Long): Unit =
-        g_value_set_int64(
-            gobjectValuePointer.reinterpret(),
-            vInt64
-        )
+    public fun setInt64(vInt64: Long): Unit = g_value_set_int64(gobjectValuePointer.reinterpret(), vInt64)
 
     /**
      * Set the contents of a %G_TYPE_STRING #GValue to @v_string.  The string is
@@ -442,11 +409,7 @@ public class Value(
      *
      * @param vLong long integer value to be set
      */
-    public fun setLong(vLong: Long): Unit =
-        g_value_set_long(
-            gobjectValuePointer.reinterpret(),
-            vLong
-        )
+    public fun setLong(vLong: Long): Unit = g_value_set_long(gobjectValuePointer.reinterpret(), vLong)
 
     /**
      * Set the contents of a %G_TYPE_OBJECT derived #GValue to @v_object.
@@ -499,11 +462,7 @@ public class Value(
      *
      * @param vUint unsigned integer value to be set
      */
-    public fun setUint(vUint: UInt): Unit =
-        g_value_set_uint(
-            gobjectValuePointer.reinterpret(),
-            vUint
-        )
+    public fun setUint(vUint: UInt): Unit = g_value_set_uint(gobjectValuePointer.reinterpret(), vUint)
 
     /**
      * Set the contents of a %G_TYPE_UINT64 #GValue to @v_uint64.
@@ -517,11 +476,7 @@ public class Value(
      *
      * @param vUlong unsigned long integer value to be set
      */
-    public fun setUlong(vUlong: ULong): Unit =
-        g_value_set_ulong(
-            gobjectValuePointer.reinterpret(),
-            vUlong
-        )
+    public fun setUlong(vUlong: ULong): Unit = g_value_set_ulong(gobjectValuePointer.reinterpret(), vUlong)
 
     /**
      * Set the contents of a variant #GValue to @variant.
@@ -549,8 +504,7 @@ public class Value(
      * @since 2.80
      */
     public fun stealString(): String =
-        g_value_steal_string(gobjectValuePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_value_steal_string(gobjectValuePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Set the contents of a variant #GValue to @variant, and takes over
@@ -586,10 +540,7 @@ public class Value(
      *  Upon failing transformations, @dest_value is left untouched.
      */
     public fun transform(destValue: Value): Boolean =
-        g_value_transform(
-            gobjectValuePointer.reinterpret(),
-            destValue.gobjectValuePointer
-        ).asBoolean()
+        g_value_transform(gobjectValuePointer.reinterpret(), destValue.gobjectValuePointer).asBoolean()
 
     /**
      * Clears the current value in @value (if any) and "unsets" the type,

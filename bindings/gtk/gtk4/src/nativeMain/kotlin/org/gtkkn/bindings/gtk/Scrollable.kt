@@ -52,7 +52,9 @@ import kotlin.Unit
  * - When any of the adjustments emits the [signal@Gtk.Adjustment::value-changed]
  *   signal, the scrollable widget should scroll its contents.
  */
-public interface Scrollable : Interface, KGTyped {
+public interface Scrollable :
+    Interface,
+    KGTyped {
     public val gtkScrollablePointer: CPointer<GtkScrollable>
 
     /**
@@ -76,7 +78,9 @@ public interface Scrollable : Interface, KGTyped {
          *
          * @param hadjustment a `GtkAdjustment`
          */
-        set(hadjustment) =
+        set(
+            hadjustment
+        ) =
             gtk_scrollable_set_hadjustment(
                 gtkScrollablePointer.reinterpret(),
                 hadjustment?.gtkAdjustmentPointer?.reinterpret()
@@ -104,11 +108,7 @@ public interface Scrollable : Interface, KGTyped {
          *
          * @param policy the horizontal `GtkScrollablePolicy`
          */
-        set(policy) =
-            gtk_scrollable_set_hscroll_policy(
-                gtkScrollablePointer.reinterpret(),
-                policy.nativeValue
-            )
+        set(policy) = gtk_scrollable_set_hscroll_policy(gtkScrollablePointer.reinterpret(), policy.nativeValue)
 
     /**
      * Vertical `GtkAdjustment` of the scrollable widget.
@@ -131,7 +131,9 @@ public interface Scrollable : Interface, KGTyped {
          *
          * @param vadjustment a `GtkAdjustment`
          */
-        set(vadjustment) =
+        set(
+            vadjustment
+        ) =
             gtk_scrollable_set_vadjustment(
                 gtkScrollablePointer.reinterpret(),
                 vadjustment?.gtkAdjustmentPointer?.reinterpret()
@@ -159,11 +161,7 @@ public interface Scrollable : Interface, KGTyped {
          *
          * @param policy the vertical `GtkScrollablePolicy`
          */
-        set(policy) =
-            gtk_scrollable_set_vscroll_policy(
-                gtkScrollablePointer.reinterpret(),
-                policy.nativeValue
-            )
+        set(policy) = gtk_scrollable_set_vscroll_policy(gtkScrollablePointer.reinterpret(), policy.nativeValue)
 
     /**
      * Returns the size of a non-scrolling border around the
@@ -177,10 +175,7 @@ public interface Scrollable : Interface, KGTyped {
      * @return true if @border has been set
      */
     public fun getBorder(border: Border): Boolean =
-        gtk_scrollable_get_border(
-            gtkScrollablePointer.reinterpret(),
-            border.gtkBorderPointer
-        ).asBoolean()
+        gtk_scrollable_get_border(gtkScrollablePointer.reinterpret(), border.gtkBorderPointer).asBoolean()
 
     /**
      * Retrieves the `GtkAdjustment` used for horizontal scrolling.
@@ -242,10 +237,7 @@ public interface Scrollable : Interface, KGTyped {
      * @param policy the horizontal `GtkScrollablePolicy`
      */
     public fun setHscrollPolicy(policy: ScrollablePolicy): Unit =
-        gtk_scrollable_set_hscroll_policy(
-            gtkScrollablePointer.reinterpret(),
-            policy.nativeValue
-        )
+        gtk_scrollable_set_hscroll_policy(gtkScrollablePointer.reinterpret(), policy.nativeValue)
 
     /**
      * Sets the vertical adjustment of the `GtkScrollable`.
@@ -267,10 +259,7 @@ public interface Scrollable : Interface, KGTyped {
      * @param policy the vertical `GtkScrollablePolicy`
      */
     public fun setVscrollPolicy(policy: ScrollablePolicy): Unit =
-        gtk_scrollable_set_vscroll_policy(
-            gtkScrollablePointer.reinterpret(),
-            policy.nativeValue
-        )
+        gtk_scrollable_set_vscroll_policy(gtkScrollablePointer.reinterpret(), policy.nativeValue)
 
     private data class Wrapper(
         private val pointer: CPointer<GtkScrollable>,

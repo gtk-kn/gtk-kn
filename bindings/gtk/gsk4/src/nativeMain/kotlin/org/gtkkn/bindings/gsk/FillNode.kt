@@ -20,7 +20,8 @@ import org.gtkkn.native.gsk.gsk_fill_node_new
  */
 public open class FillNode(
     pointer: CPointer<GskFillNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskFillNodePointer: CPointer<GskFillNode>
         get() = gPointer.reinterpret()
 
@@ -38,13 +39,7 @@ public open class FillNode(
         child: RenderNode,
         path: Path,
         fillRule: FillRule,
-    ) : this(
-        gsk_fill_node_new(
-            child.gPointer.reinterpret(),
-            path.gskPathPointer,
-            fillRule.nativeValue
-        )!!.reinterpret()
-    )
+    ) : this(gsk_fill_node_new(child.gPointer.reinterpret(), path.gskPathPointer, fillRule.nativeValue)!!.reinterpret())
 
     /**
      * Gets the child node that is getting drawn by the given @node.

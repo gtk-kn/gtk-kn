@@ -74,7 +74,8 @@ import kotlin.Unit
  */
 public open class Overlay(
     pointer: CPointer<GtkOverlay>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkOverlayPointer: CPointer<GtkOverlay>
         get() = gPointer.reinterpret()
 
@@ -106,11 +107,7 @@ public open class Overlay(
          *
          * @param child the child widget
          */
-        set(child) =
-            gtk_overlay_set_child(
-                gtkOverlayPointer.reinterpret(),
-                child?.gtkWidgetPointer?.reinterpret()
-            )
+        set(child) = gtk_overlay_set_child(gtkOverlayPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new `GtkOverlay`.
@@ -132,10 +129,7 @@ public open class Overlay(
      * @param widget a `GtkWidget` to be added to the container
      */
     public open fun addOverlay(widget: Widget): Unit =
-        gtk_overlay_add_overlay(
-            gtkOverlayPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        gtk_overlay_add_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets the child widget of @overlay.
@@ -154,10 +148,7 @@ public open class Overlay(
      * @return whether the widget is clipped within the parent.
      */
     public open fun getClipOverlay(widget: Widget): Boolean =
-        gtk_overlay_get_clip_overlay(
-            gtkOverlayPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        ).asBoolean()
+        gtk_overlay_get_clip_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether @widget's size is included in the measurement of
@@ -178,10 +169,7 @@ public open class Overlay(
      * @param widget a `GtkWidget` to be removed
      */
     public open fun removeOverlay(widget: Widget): Unit =
-        gtk_overlay_remove_overlay(
-            gtkOverlayPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        gtk_overlay_remove_overlay(gtkOverlayPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets the child widget of @overlay.
@@ -189,10 +177,7 @@ public open class Overlay(
      * @param child the child widget
      */
     public open fun setChild(child: Widget? = null): Unit =
-        gtk_overlay_set_child(
-            gtkOverlayPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_overlay_set_child(gtkOverlayPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets whether @widget should be clipped within the parent.
@@ -247,8 +232,7 @@ public open class Overlay(
      * to its contents.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `widget` the child widget to position;
-     * `allocation` return
+     * @param handler the Callback to connect. Params: `widget` the child widget to position; `allocation` return
      *   location for the allocation. Returns true if the @allocation has been filled
      */
     public fun connectGetChildPosition(
@@ -274,32 +258,23 @@ public open class Overlay(
     }
 }
 
-private val connectGetChildPositionFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkWidget>,
-            CPointer<GdkRectangle>,
-        ) -> Int
-    >
-> =
+private val connectGetChildPositionFunc:
+    CPointer<CFunction<(CPointer<GtkWidget>, CPointer<GdkRectangle>) -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             widget: CPointer<GtkWidget>?,
             allocation: CPointer<GdkRectangle>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                widget: Widget,
-                allocation: Rectangle,
-            ) -> Boolean
-        >().get().invoke(
-            widget!!.run {
-                Widget(reinterpret())
-            },
-            allocation!!.run {
-                Rectangle(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(widget: Widget, allocation: Rectangle) -> Boolean>()
+            .get()
+            .invoke(
+                widget!!.run {
+                    Widget(reinterpret())
+                },
+                allocation!!.run {
+                    Rectangle(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()

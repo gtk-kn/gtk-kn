@@ -43,7 +43,8 @@ import kotlin.Unit
  */
 public open class ShortcutsGroup(
     pointer: CPointer<GtkShortcutsGroup>,
-) : Box(pointer.reinterpret()), KGTyped {
+) : Box(pointer.reinterpret()),
+    KGTyped {
     public val gtkShortcutsGroupPointer: CPointer<GtkShortcutsGroup>
         get() = gPointer.reinterpret()
 
@@ -77,9 +78,7 @@ public open class ShortcutsGroup(
 
     public companion object : TypeCompanion<ShortcutsGroup> {
         override val type: GeneratedClassKGType<ShortcutsGroup> =
-            GeneratedClassKGType(gtk_shortcuts_group_get_type()) {
-                ShortcutsGroup(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_shortcuts_group_get_type()) { ShortcutsGroup(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

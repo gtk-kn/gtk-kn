@@ -47,10 +47,7 @@ public class AttrShape(
             inkRect: Rectangle,
             logicalRect: Rectangle,
         ): Attribute =
-            pango_attr_shape_new(
-                inkRect.pangoRectanglePointer,
-                logicalRect.pangoRectanglePointer
-            )!!.run {
+            pango_attr_shape_new(inkRect.pangoRectanglePointer, logicalRect.pangoRectanglePointer)!!.run {
                 Attribute(reinterpret())
             }
 

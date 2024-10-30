@@ -51,7 +51,8 @@ import kotlin.ULong
  */
 public open class ThreadedSocketService(
     pointer: CPointer<GThreadedSocketService>,
-) : SocketService(pointer.reinterpret()), KGTyped {
+) : SocketService(pointer.reinterpret()),
+    KGTyped {
     public val gioThreadedSocketServicePointer: CPointer<GThreadedSocketService>
         get() = gPointer.reinterpret()
 
@@ -64,8 +65,7 @@ public open class ThreadedSocketService(
      * @return a new #GSocketService.
      * @since 2.22
      */
-    public constructor(maxThreads: Int) :
-        this(g_threaded_socket_service_new(maxThreads)!!.reinterpret())
+    public constructor(maxThreads: Int) : this(g_threaded_socket_service_new(maxThreads)!!.reinterpret())
 
     /**
      * The ::run signal is emitted in a worker thread in response to an
@@ -74,9 +74,7 @@ public open class ThreadedSocketService(
      * not return until the connection is closed.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `connection` a new #GSocketConnection
-     * object.; `sourceObject` the source_object passed to g_socket_listener_add_address().. Returns
-     * true to stop further signal handlers from being called
+     * @param handler the Callback to connect. Params: `connection` a new #GSocketConnection object.; `sourceObject` the source_object passed to g_socket_listener_add_address().. Returns true to stop further signal handlers from being called
      */
     public fun connectRun(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -93,9 +91,7 @@ public open class ThreadedSocketService(
 
     public companion object : TypeCompanion<ThreadedSocketService> {
         override val type: GeneratedClassKGType<ThreadedSocketService> =
-            GeneratedClassKGType(g_threaded_socket_service_get_type()) {
-                ThreadedSocketService(it.reinterpret())
-            }
+            GeneratedClassKGType(g_threaded_socket_service_get_type()) { ThreadedSocketService(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -103,32 +99,23 @@ public open class ThreadedSocketService(
     }
 }
 
-private val connectRunFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GSocketConnection>,
-            CPointer<GObject>?,
-        ) -> Int
-    >
-> =
+private val connectRunFunc:
+    CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             connection: CPointer<GSocketConnection>?,
             sourceObject: CPointer<GObject>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                connection: SocketConnection,
-                sourceObject: Object?,
-            ) -> Boolean
-        >().get().invoke(
-            connection!!.run {
-                SocketConnection(reinterpret())
-            },
-            sourceObject?.run {
-                Object(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(connection: SocketConnection, sourceObject: Object?) -> Boolean>()
+            .get()
+            .invoke(
+                connection!!.run {
+                    SocketConnection(reinterpret())
+                },
+                sourceObject?.run {
+                    Object(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()

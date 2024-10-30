@@ -60,7 +60,9 @@ import kotlin.Unit
  */
 public class TabPage(
     pointer: CPointer<AdwTabPage>,
-) : Object(pointer.reinterpret()), Accessible, KGTyped {
+) : Object(pointer.reinterpret()),
+    Accessible,
+    KGTyped {
     public val adwTabPagePointer: CPointer<AdwTabPage>
         get() = gPointer.reinterpret()
 
@@ -140,11 +142,9 @@ public class TabPage(
          *
          * @param activatable whether the indicator is activatable
          */
-        set(activatable) =
-            adw_tab_page_set_indicator_activatable(
-                adwTabPagePointer.reinterpret(),
-                activatable.asGBoolean()
-            )
+        set(
+            activatable
+        ) = adw_tab_page_set_indicator_activatable(adwTabPagePointer.reinterpret(), activatable.asGBoolean())
 
     /**
      * An indicator icon for the page.
@@ -197,11 +197,9 @@ public class TabPage(
          *
          * @param indicatorIcon the indicator icon of @self
          */
-        set(indicatorIcon) =
-            adw_tab_page_set_indicator_icon(
-                adwTabPagePointer.reinterpret(),
-                indicatorIcon?.gioIconPointer
-            )
+        set(
+            indicatorIcon
+        ) = adw_tab_page_set_indicator_icon(adwTabPagePointer.reinterpret(), indicatorIcon?.gioIconPointer)
 
     /**
      * The tooltip of the indicator icon.
@@ -271,11 +269,9 @@ public class TabPage(
          * @param liveThumbnail whether to enable live thumbnail
          * @since 1.3
          */
-        set(liveThumbnail) =
-            adw_tab_page_set_live_thumbnail(
-                adwTabPagePointer.reinterpret(),
-                liveThumbnail.asGBoolean()
-            )
+        set(
+            liveThumbnail
+        ) = adw_tab_page_set_live_thumbnail(adwTabPagePointer.reinterpret(), liveThumbnail.asGBoolean())
 
     /**
      * Whether the page is loading.
@@ -305,11 +301,7 @@ public class TabPage(
          *
          * @param loading whether @self is loading
          */
-        set(loading) =
-            adw_tab_page_set_loading(
-                adwTabPagePointer.reinterpret(),
-                loading.asGBoolean()
-            )
+        set(loading) = adw_tab_page_set_loading(adwTabPagePointer.reinterpret(), loading.asGBoolean())
 
     /**
      * Whether the page needs attention.
@@ -347,11 +339,9 @@ public class TabPage(
          *
          * @param needsAttention whether @self needs attention
          */
-        set(needsAttention) =
-            adw_tab_page_set_needs_attention(
-                adwTabPagePointer.reinterpret(),
-                needsAttention.asGBoolean()
-            )
+        set(
+            needsAttention
+        ) = adw_tab_page_set_needs_attention(adwTabPagePointer.reinterpret(), needsAttention.asGBoolean())
 
     /**
      * The parent page of the page.
@@ -641,8 +631,7 @@ public class TabPage(
      * @return the title of @self
      */
     public fun getTitle(): String =
-        adw_tab_page_get_title(adwTabPagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        adw_tab_page_get_title(adwTabPagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the tooltip of @self.
@@ -690,10 +679,7 @@ public class TabPage(
      * @param activatable whether the indicator is activatable
      */
     public fun setIndicatorActivatable(activatable: Boolean): Unit =
-        adw_tab_page_set_indicator_activatable(
-            adwTabPagePointer.reinterpret(),
-            activatable.asGBoolean()
-        )
+        adw_tab_page_set_indicator_activatable(adwTabPagePointer.reinterpret(), activatable.asGBoolean())
 
     /**
      * Sets the indicator icon of @self.
@@ -717,10 +703,7 @@ public class TabPage(
      * @param indicatorIcon the indicator icon of @self
      */
     public fun setIndicatorIcon(indicatorIcon: Icon? = null): Unit =
-        adw_tab_page_set_indicator_icon(
-            adwTabPagePointer.reinterpret(),
-            indicatorIcon?.gioIconPointer
-        )
+        adw_tab_page_set_indicator_icon(adwTabPagePointer.reinterpret(), indicatorIcon?.gioIconPointer)
 
     /**
      * Sets the tooltip of the indicator icon of @self.
@@ -763,10 +746,7 @@ public class TabPage(
      * @since 1.3
      */
     public fun setLiveThumbnail(liveThumbnail: Boolean): Unit =
-        adw_tab_page_set_live_thumbnail(
-            adwTabPagePointer.reinterpret(),
-            liveThumbnail.asGBoolean()
-        )
+        adw_tab_page_set_live_thumbnail(adwTabPagePointer.reinterpret(), liveThumbnail.asGBoolean())
 
     /**
      * Sets whether @self is loading.
@@ -798,10 +778,7 @@ public class TabPage(
      * @param needsAttention whether @self needs attention
      */
     public fun setNeedsAttention(needsAttention: Boolean): Unit =
-        adw_tab_page_set_needs_attention(
-            adwTabPagePointer.reinterpret(),
-            needsAttention.asGBoolean()
-        )
+        adw_tab_page_set_needs_attention(adwTabPagePointer.reinterpret(), needsAttention.asGBoolean())
 
     /**
      * Sets the horizontal alignment of the thumbnail for @self.

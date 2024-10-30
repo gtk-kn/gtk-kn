@@ -89,7 +89,9 @@ import kotlin.Unit
  */
 public open class SearchEntry(
     pointer: CPointer<GtkSearchEntry>,
-) : Widget(pointer.reinterpret()), Editable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Editable,
+    KGTyped {
     public val gtkSearchEntryPointer: CPointer<GtkSearchEntry>
         get() = gPointer.reinterpret()
 
@@ -129,11 +131,7 @@ public open class SearchEntry(
          * @param hints the new input hints
          * @since 4.14
          */
-        set(hints) =
-            gtk_search_entry_set_input_hints(
-                gtkSearchEntryPointer.reinterpret(),
-                hints.mask
-            )
+        set(hints) = gtk_search_entry_set_input_hints(gtkSearchEntryPointer.reinterpret(), hints.mask)
 
     /**
      * The purpose for the `GtkSearchEntry` input used to alter the
@@ -159,11 +157,7 @@ public open class SearchEntry(
          * @param purpose the new input purpose
          * @since 4.14
          */
-        set(purpose) =
-            gtk_search_entry_set_input_purpose(
-                gtkSearchEntryPointer.reinterpret(),
-                purpose.nativeValue
-            )
+        set(purpose) = gtk_search_entry_set_input_purpose(gtkSearchEntryPointer.reinterpret(), purpose.nativeValue)
 
     /**
      * The text that will be displayed in the `GtkSearchEntry`
@@ -176,8 +170,7 @@ public open class SearchEntry(
          * @return The placeholder text.
          * @since 4.10
          */
-        get() =
-            gtk_search_entry_get_placeholder_text(gtkSearchEntryPointer.reinterpret())?.toKString()
+        get() = gtk_search_entry_get_placeholder_text(gtkSearchEntryPointer.reinterpret())?.toKString()
 
         /**
          * Sets the placeholder text associated with @entry.
@@ -285,10 +278,7 @@ public open class SearchEntry(
      * @since 4.14
      */
     public open fun setInputPurpose(purpose: InputPurpose): Unit =
-        gtk_search_entry_set_input_purpose(
-            gtkSearchEntryPointer.reinterpret(),
-            purpose.nativeValue
-        )
+        gtk_search_entry_set_input_purpose(gtkSearchEntryPointer.reinterpret(), purpose.nativeValue)
 
     /**
      * Sets @widget as the widget that @entry will capture key
@@ -493,8 +483,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectNextMatchFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -502,8 +491,7 @@ private val connectNextMatchFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPreviousMatchFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -511,8 +499,7 @@ private val connectPreviousMatchFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSearchChangedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -520,8 +507,7 @@ private val connectSearchChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSearchStartedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -529,8 +515,7 @@ private val connectSearchStartedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectStopSearchFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -538,5 +523,4 @@ private val connectStopSearchFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

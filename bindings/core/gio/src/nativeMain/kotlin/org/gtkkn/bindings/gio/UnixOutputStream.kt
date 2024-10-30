@@ -33,7 +33,10 @@ import kotlin.Unit
  */
 public open class UnixOutputStream(
     pointer: CPointer<GUnixOutputStream>,
-) : OutputStream(pointer.reinterpret()), FileDescriptorBased, PollableOutputStream, KGTyped {
+) : OutputStream(pointer.reinterpret()),
+    FileDescriptorBased,
+    PollableOutputStream,
+    KGTyped {
     public val gioUnixOutputStreamPointer: CPointer<GUnixOutputStream>
         get() = gPointer.reinterpret()
 
@@ -56,8 +59,7 @@ public open class UnixOutputStream(
          * @return true if the file descriptor is closed when done
          * @since 2.20
          */
-        get() =
-            g_unix_output_stream_get_close_fd(gioUnixOutputStreamPointer.reinterpret()).asBoolean()
+        get() = g_unix_output_stream_get_close_fd(gioUnixOutputStreamPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the file descriptor of @stream shall be closed
@@ -66,11 +68,7 @@ public open class UnixOutputStream(
          * @param closeFd true to close the file descriptor when done
          * @since 2.20
          */
-        set(closeFd) =
-            g_unix_output_stream_set_close_fd(
-                gioUnixOutputStreamPointer.reinterpret(),
-                closeFd.asGBoolean()
-            )
+        set(closeFd) = g_unix_output_stream_set_close_fd(gioUnixOutputStreamPointer.reinterpret(), closeFd.asGBoolean())
 
     /**
      * The file descriptor that the stream writes to.
@@ -96,12 +94,10 @@ public open class UnixOutputStream(
      * @param closeFd true to close the file descriptor when done
      * @return a new #GOutputStream
      */
-    public constructor(fd: Int, closeFd: Boolean) : this(
-        g_unix_output_stream_new(
-            fd,
-            closeFd.asGBoolean()
-        )!!.reinterpret()
-    )
+    public constructor(
+        fd: Int,
+        closeFd: Boolean,
+    ) : this(g_unix_output_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
 
     /**
      * Returns whether the file descriptor of @stream will be
@@ -129,16 +125,11 @@ public open class UnixOutputStream(
      * @since 2.20
      */
     public open fun setCloseFd(closeFd: Boolean): Unit =
-        g_unix_output_stream_set_close_fd(
-            gioUnixOutputStreamPointer.reinterpret(),
-            closeFd.asGBoolean()
-        )
+        g_unix_output_stream_set_close_fd(gioUnixOutputStreamPointer.reinterpret(), closeFd.asGBoolean())
 
     public companion object : TypeCompanion<UnixOutputStream> {
         override val type: GeneratedClassKGType<UnixOutputStream> =
-            GeneratedClassKGType(g_unix_output_stream_get_type()) {
-                UnixOutputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(g_unix_output_stream_get_type()) { UnixOutputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

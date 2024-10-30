@@ -23,7 +23,9 @@ import org.gtkkn.native.pangocairo.pango_cairo_font_get_type
  *
  * @since 1.18
  */
-public interface Font : Interface, KGTyped {
+public interface Font :
+    Interface,
+    KGTyped {
     public val pangocairoFontPointer: CPointer<PangoCairoFont>
 
     private data class Wrapper(

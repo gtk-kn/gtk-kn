@@ -23,7 +23,8 @@ import kotlin.String
  */
 public open class DebugNode(
     pointer: CPointer<GskDebugNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskDebugNodePointer: CPointer<GskDebugNode>
         get() = gPointer.reinterpret()
 
@@ -43,8 +44,7 @@ public open class DebugNode(
      * @return The debug message
      */
     public open fun getMessage(): String =
-        gsk_debug_node_get_message(gskDebugNodePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gsk_debug_node_get_message(gskDebugNodePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<DebugNode> {
         override val type: GeneratedClassKGType<DebugNode> =

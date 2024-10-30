@@ -43,7 +43,9 @@ import kotlin.UShort
  */
 public open class NetworkAddress(
     pointer: CPointer<GNetworkAddress>,
-) : Object(pointer.reinterpret()), SocketConnectable, KGTyped {
+) : Object(pointer.reinterpret()),
+    SocketConnectable,
+    KGTyped {
     public val gioNetworkAddressPointer: CPointer<GNetworkAddress>
         get() = gPointer.reinterpret()
 
@@ -110,12 +112,7 @@ public open class NetworkAddress(
      * @return the new #GNetworkAddress
      * @since 2.22
      */
-    public constructor(hostname: String, port: UShort) : this(
-        g_network_address_new(
-            hostname,
-            port
-        )!!.reinterpret()
-    )
+    public constructor(hostname: String, port: UShort) : this(g_network_address_new(hostname, port)!!.reinterpret())
 
     /**
      * Creates a new #GSocketConnectable for connecting to the local host
@@ -167,9 +164,7 @@ public open class NetworkAddress(
 
     public companion object : TypeCompanion<NetworkAddress> {
         override val type: GeneratedClassKGType<NetworkAddress> =
-            GeneratedClassKGType(g_network_address_get_type()) {
-                NetworkAddress(it.reinterpret())
-            }
+            GeneratedClassKGType(g_network_address_get_type()) { NetworkAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

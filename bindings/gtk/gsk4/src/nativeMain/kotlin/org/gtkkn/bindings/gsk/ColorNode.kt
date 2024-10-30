@@ -18,7 +18,8 @@ import org.gtkkn.native.gsk.gsk_color_node_new
  */
 public open class ColorNode(
     pointer: CPointer<GskColorNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskColorNodePointer: CPointer<GskColorNode>
         get() = gPointer.reinterpret()
 
@@ -30,12 +31,10 @@ public open class ColorNode(
      * @param bounds the rectangle to render the color into
      * @return A new `GskRenderNode`
      */
-    public constructor(rgba: RGBA, bounds: Rect) : this(
-        gsk_color_node_new(
-            rgba.gdkRGBAPointer,
-            bounds.grapheneRectPointer
-        )!!.reinterpret()
-    )
+    public constructor(
+        rgba: RGBA,
+        bounds: Rect,
+    ) : this(gsk_color_node_new(rgba.gdkRGBAPointer, bounds.grapheneRectPointer)!!.reinterpret())
 
     /**
      * Retrieves the color of the given @node.

@@ -93,7 +93,8 @@ import kotlin.Unit
  */
 public open class Display(
     pointer: CPointer<GdkDisplay>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkDisplayPointer: CPointer<GdkDisplay>
         get() = gPointer.reinterpret()
 
@@ -152,10 +153,7 @@ public open class Display(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                gdk_display_create_gl_context(
-                    gdkDisplayPointer.reinterpret(),
-                    gError.ptr
-                )?.run {
+                gdk_display_create_gl_context(gdkDisplayPointer.reinterpret(), gError.ptr)?.run {
                     GLContext(reinterpret())
                 }
 
@@ -284,8 +282,7 @@ public open class Display(
      *   by GDK and should not be modified or freed.
      */
     public open fun getName(): String =
-        gdk_display_get_name(gdkDisplayPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gdk_display_get_name(gdkDisplayPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the clipboard used for the primary selection.
@@ -312,12 +309,7 @@ public open class Display(
     public open fun getSetting(
         name: String,
         `value`: Value,
-    ): Boolean =
-        gdk_display_get_setting(
-            gdkDisplayPointer.reinterpret(),
-            name,
-            `value`.gobjectValuePointer
-        ).asBoolean()
+    ): Boolean = gdk_display_get_setting(gdkDisplayPointer.reinterpret(), name, `value`.gobjectValuePointer).asBoolean()
 
     /**
      * Gets the startup notification ID for a Wayland display, or null
@@ -419,11 +411,7 @@ public open class Display(
     public open fun prepareGl(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_display_prepare_gl(
-                    gdkDisplayPointer.reinterpret(),
-                    gError.ptr
-                ).asBoolean()
+            val gResult = gdk_display_prepare_gl(gdkDisplayPointer.reinterpret(), gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -483,8 +471,7 @@ public open class Display(
      * Emitted when the connection to the windowing system for @display is closed.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `isError` true if the display was closed due
-     * to an error
+     * @param handler the Callback to connect. Params: `isError` true if the display was closed due to an error
      */
     public fun connectClosed(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -560,8 +547,7 @@ public open class Display(
      * Emitted whenever a setting changes its value.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `setting` the name of the setting that
-     * changed
+     * @param handler the Callback to connect. Params: `setting` the name of the setting that changed
      */
     public fun connectSettingChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -621,8 +607,7 @@ private val connectClosedFunc: CPointer<CFunction<(Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(isError: Boolean) -> Unit>().get().invoke(isError.asBoolean())
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectOpenedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -630,8 +615,7 @@ private val connectOpenedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSeatAddedFunc: CPointer<CFunction<(CPointer<GdkSeat>) -> Unit>> =
     staticCFunction {
@@ -644,8 +628,7 @@ private val connectSeatAddedFunc: CPointer<CFunction<(CPointer<GdkSeat>) -> Unit
                 Seat(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSeatRemovedFunc: CPointer<CFunction<(CPointer<GdkSeat>) -> Unit>> =
     staticCFunction {
@@ -658,8 +641,7 @@ private val connectSeatRemovedFunc: CPointer<CFunction<(CPointer<GdkSeat>) -> Un
                 Seat(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectSettingChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
@@ -668,8 +650,6 @@ private val connectSettingChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) ->
             userData: COpaquePointer,
         ->
         userData.asStableRef<(setting: String) -> Unit>().get().invoke(
-            setting?.toKString()
-                ?: error("Expected not null string")
+            setting?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()

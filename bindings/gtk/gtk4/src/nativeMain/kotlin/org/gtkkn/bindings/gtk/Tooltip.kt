@@ -53,7 +53,8 @@ import kotlin.Unit
  */
 public open class Tooltip(
     pointer: CPointer<GtkTooltip>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkTooltipPointer: CPointer<GtkTooltip>
         get() = gPointer.reinterpret()
 
@@ -68,10 +69,7 @@ public open class Tooltip(
      * @param customWidget a `GtkWidget`, or null to unset the old custom widget.
      */
     public open fun setCustom(customWidget: Widget? = null): Unit =
-        gtk_tooltip_set_custom(
-            gtkTooltipPointer.reinterpret(),
-            customWidget?.gtkWidgetPointer?.reinterpret()
-        )
+        gtk_tooltip_set_custom(gtkTooltipPointer.reinterpret(), customWidget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Sets the icon of the tooltip (which is in front of the text) to be

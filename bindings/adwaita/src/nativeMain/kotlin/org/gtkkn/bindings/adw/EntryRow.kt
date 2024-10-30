@@ -90,7 +90,9 @@ import kotlin.Unit
  */
 public open class EntryRow(
     pointer: CPointer<AdwEntryRow>,
-) : PreferencesRow(pointer.reinterpret()), Editable, KGTyped {
+) : PreferencesRow(pointer.reinterpret()),
+    Editable,
+    KGTyped {
     public val adwEntryRowPointer: CPointer<AdwEntryRow>
         get() = gPointer.reinterpret()
 
@@ -129,11 +131,7 @@ public open class EntryRow(
          * @param activates whether to activate the default widget
          * @since 1.2
          */
-        set(activates) =
-            adw_entry_row_set_activates_default(
-                adwEntryRowPointer.reinterpret(),
-                activates.asGBoolean()
-            )
+        set(activates) = adw_entry_row_set_activates_default(adwEntryRowPointer.reinterpret(), activates.asGBoolean())
 
     /**
      * A list of Pango attributes to apply to the text of the embedded entry.
@@ -164,11 +162,9 @@ public open class EntryRow(
          * @param attributes a list of attributes
          * @since 1.2
          */
-        set(attributes) =
-            adw_entry_row_set_attributes(
-                adwEntryRowPointer.reinterpret(),
-                attributes?.pangoAttrListPointer
-            )
+        set(
+            attributes
+        ) = adw_entry_row_set_attributes(adwEntryRowPointer.reinterpret(), attributes?.pangoAttrListPointer)
 
     /**
      * Whether to suggest emoji replacements on the entry row.
@@ -184,8 +180,7 @@ public open class EntryRow(
          * @return whether or not emoji completion is enabled
          * @since 1.2
          */
-        get() =
-            adw_entry_row_get_enable_emoji_completion(adwEntryRowPointer.reinterpret()).asBoolean()
+        get() = adw_entry_row_get_enable_emoji_completion(adwEntryRowPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether to suggest emoji replacements on @self.
@@ -195,7 +190,9 @@ public open class EntryRow(
          * @param enableEmojiCompletion Whether emoji completion should be enabled or not
          * @since 1.2
          */
-        set(enableEmojiCompletion) =
+        set(
+            enableEmojiCompletion
+        ) =
             adw_entry_row_set_enable_emoji_completion(
                 adwEntryRowPointer.reinterpret(),
                 enableEmojiCompletion.asGBoolean()
@@ -261,11 +258,7 @@ public open class EntryRow(
          * @param purpose the purpose
          * @since 1.2
          */
-        set(purpose) =
-            adw_entry_row_set_input_purpose(
-                adwEntryRowPointer.reinterpret(),
-                purpose.nativeValue
-            )
+        set(purpose) = adw_entry_row_set_input_purpose(adwEntryRowPointer.reinterpret(), purpose.nativeValue)
 
     /**
      * Whether to show the apply button.
@@ -303,11 +296,9 @@ public open class EntryRow(
          * @param showApplyButton whether to show the apply button
          * @since 1.2
          */
-        set(showApplyButton) =
-            adw_entry_row_set_show_apply_button(
-                adwEntryRowPointer.reinterpret(),
-                showApplyButton.asGBoolean()
-            )
+        set(
+            showApplyButton
+        ) = adw_entry_row_set_show_apply_button(adwEntryRowPointer.reinterpret(), showApplyButton.asGBoolean())
 
     /**
      * The length of the text in the entry row.
@@ -338,10 +329,7 @@ public open class EntryRow(
      * @since 1.2
      */
     public open fun addPrefix(widget: Widget): Unit =
-        adw_entry_row_add_prefix(
-            adwEntryRowPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        adw_entry_row_add_prefix(adwEntryRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Adds a suffix widget to @self.
@@ -350,10 +338,7 @@ public open class EntryRow(
      * @since 1.2
      */
     public open fun addSuffix(widget: Widget): Unit =
-        adw_entry_row_add_suffix(
-            adwEntryRowPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        adw_entry_row_add_suffix(adwEntryRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets whether activating the embedded entry can activate the default widget.
@@ -441,10 +426,7 @@ public open class EntryRow(
      * @since 1.2
      */
     public open fun remove(widget: Widget): Unit =
-        adw_entry_row_remove(
-            adwEntryRowPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret()
-        )
+        adw_entry_row_remove(adwEntryRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets whether activating the embedded entry can activate the default widget.
@@ -453,10 +435,7 @@ public open class EntryRow(
      * @since 1.2
      */
     public open fun setActivatesDefault(activates: Boolean): Unit =
-        adw_entry_row_set_activates_default(
-            adwEntryRowPointer.reinterpret(),
-            activates.asGBoolean()
-        )
+        adw_entry_row_set_activates_default(adwEntryRowPointer.reinterpret(), activates.asGBoolean())
 
     /**
      * Sets Pango attributes to apply to the text of the embedded entry.
@@ -468,10 +447,7 @@ public open class EntryRow(
      * @since 1.2
      */
     public open fun setAttributes(attributes: AttrList? = null): Unit =
-        adw_entry_row_set_attributes(
-            adwEntryRowPointer.reinterpret(),
-            attributes?.pangoAttrListPointer
-        )
+        adw_entry_row_set_attributes(adwEntryRowPointer.reinterpret(), attributes?.pangoAttrListPointer)
 
     /**
      * Sets whether to suggest emoji replacements on @self.
@@ -482,10 +458,7 @@ public open class EntryRow(
      * @since 1.2
      */
     public open fun setEnableEmojiCompletion(enableEmojiCompletion: Boolean): Unit =
-        adw_entry_row_set_enable_emoji_completion(
-            adwEntryRowPointer.reinterpret(),
-            enableEmojiCompletion.asGBoolean()
-        )
+        adw_entry_row_set_enable_emoji_completion(adwEntryRowPointer.reinterpret(), enableEmojiCompletion.asGBoolean())
 
     /**
      * Set additional input hints for @self.
@@ -526,10 +499,7 @@ public open class EntryRow(
      * @since 1.2
      */
     public open fun setShowApplyButton(showApplyButton: Boolean): Unit =
-        adw_entry_row_set_show_apply_button(
-            adwEntryRowPointer.reinterpret(),
-            showApplyButton.asGBoolean()
-        )
+        adw_entry_row_set_show_apply_button(adwEntryRowPointer.reinterpret(), showApplyButton.asGBoolean())
 
     /**
      * Emitted when the apply button is pressed.
@@ -589,8 +559,7 @@ private val connectApplyFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectEntryActivatedFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -598,5 +567,4 @@ private val connectEntryActivatedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

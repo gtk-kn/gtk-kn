@@ -97,8 +97,7 @@ import kotlin.Unit
  *
  * * The Linux kernel [documentation](https://docs.kernel.org/driver-api/dma-buf.html)
  *
- * * The header file
- * [drm_fourcc.h](https://gitlab.freedesktop.org/mesa/drm/-/blob/main/include/drm/drm_fourcc.h)
+ * * The header file [drm_fourcc.h](https://gitlab.freedesktop.org/mesa/drm/-/blob/main/include/drm/drm_fourcc.h)
  *
  * ## Skipped during bindings generation
  *
@@ -111,7 +110,8 @@ import kotlin.Unit
  */
 public open class DmabufTextureBuilder(
     pointer: CPointer<GdkDmabufTextureBuilder>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkDmabufTextureBuilderPointer: CPointer<GdkDmabufTextureBuilder>
         get() = gPointer.reinterpret()
 
@@ -143,7 +143,9 @@ public open class DmabufTextureBuilder(
          * @param display the display
          * @since 4.14
          */
-        set(display) =
+        set(
+            display
+        ) =
             gdk_dmabuf_texture_builder_set_display(
                 gdkDmabufTextureBuilderPointer.reinterpret(),
                 display.gdkDisplayPointer.reinterpret()
@@ -176,11 +178,7 @@ public open class DmabufTextureBuilder(
          * @param fourcc the texture's format or 0 to unset
          * @since 4.14
          */
-        set(fourcc) =
-            gdk_dmabuf_texture_builder_set_fourcc(
-                gdkDmabufTextureBuilderPointer.reinterpret(),
-                fourcc
-            )
+        set(fourcc) = gdk_dmabuf_texture_builder_set_fourcc(gdkDmabufTextureBuilderPointer.reinterpret(), fourcc)
 
     /**
      * The height of the texture.
@@ -205,11 +203,7 @@ public open class DmabufTextureBuilder(
          * @param height the texture's height or 0 to unset
          * @since 4.14
          */
-        set(height) =
-            gdk_dmabuf_texture_builder_set_height(
-                gdkDmabufTextureBuilderPointer.reinterpret(),
-                height
-            )
+        set(height) = gdk_dmabuf_texture_builder_set_height(gdkDmabufTextureBuilderPointer.reinterpret(), height)
 
     /**
      * The modifier.
@@ -223,8 +217,7 @@ public open class DmabufTextureBuilder(
          * @return the modifier
          * @since 4.14
          */
-        get() =
-            gdk_dmabuf_texture_builder_get_modifier(gdkDmabufTextureBuilderPointer.reinterpret())
+        get() = gdk_dmabuf_texture_builder_get_modifier(gdkDmabufTextureBuilderPointer.reinterpret())
 
         /**
          * Sets the modifier.
@@ -232,11 +225,7 @@ public open class DmabufTextureBuilder(
          * @param modifier the modifier value
          * @since 4.14
          */
-        set(modifier) =
-            gdk_dmabuf_texture_builder_set_modifier(
-                gdkDmabufTextureBuilderPointer.reinterpret(),
-                modifier
-            )
+        set(modifier) = gdk_dmabuf_texture_builder_set_modifier(gdkDmabufTextureBuilderPointer.reinterpret(), modifier)
 
     /**
      * The number of planes of the texture.
@@ -253,8 +242,7 @@ public open class DmabufTextureBuilder(
          * @return The number of planes
          * @since 4.14
          */
-        get() =
-            gdk_dmabuf_texture_builder_get_n_planes(gdkDmabufTextureBuilderPointer.reinterpret())
+        get() = gdk_dmabuf_texture_builder_get_n_planes(gdkDmabufTextureBuilderPointer.reinterpret())
 
         /**
          * Sets the number of planes of the texture.
@@ -262,11 +250,7 @@ public open class DmabufTextureBuilder(
          * @param nPlanes the number of planes
          * @since 4.14
          */
-        set(nPlanes) =
-            gdk_dmabuf_texture_builder_set_n_planes(
-                gdkDmabufTextureBuilderPointer.reinterpret(),
-                nPlanes
-            )
+        set(nPlanes) = gdk_dmabuf_texture_builder_set_n_planes(gdkDmabufTextureBuilderPointer.reinterpret(), nPlanes)
 
     /**
      * Whether the alpha channel is premultiplied into the others.
@@ -282,8 +266,7 @@ public open class DmabufTextureBuilder(
          * @return whether the data is premultiplied
          * @since 4.14
          */
-        get() =
-            gdk_dmabuf_texture_builder_get_premultiplied(gdkDmabufTextureBuilderPointer.reinterpret()).asBoolean()
+        get() = gdk_dmabuf_texture_builder_get_premultiplied(gdkDmabufTextureBuilderPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the data is premultiplied.
@@ -294,7 +277,9 @@ public open class DmabufTextureBuilder(
          * @param premultiplied whether the data is premultiplied
          * @since 4.14
          */
-        set(premultiplied) =
+        set(
+            premultiplied
+        ) =
             gdk_dmabuf_texture_builder_set_premultiplied(
                 gdkDmabufTextureBuilderPointer.reinterpret(),
                 premultiplied.asGBoolean()
@@ -325,7 +310,9 @@ public open class DmabufTextureBuilder(
          * @param texture the texture to update
          * @since 4.14
          */
-        set(texture) =
+        set(
+            texture
+        ) =
             gdk_dmabuf_texture_builder_set_update_texture(
                 gdkDmabufTextureBuilderPointer.reinterpret(),
                 texture?.gdkTexturePointer?.reinterpret()
@@ -354,11 +341,7 @@ public open class DmabufTextureBuilder(
          * @param width The texture's width or 0 to unset
          * @since 4.14
          */
-        set(width) =
-            gdk_dmabuf_texture_builder_set_width(
-                gdkDmabufTextureBuilderPointer.reinterpret(),
-                width
-            )
+        set(width) = gdk_dmabuf_texture_builder_set_width(gdkDmabufTextureBuilderPointer.reinterpret(), width)
 
     /**
      * Creates a new texture builder.
@@ -438,10 +421,7 @@ public open class DmabufTextureBuilder(
      * @since 4.14
      */
     public open fun getOffset(plane: UInt): UInt =
-        gdk_dmabuf_texture_builder_get_offset(
-            gdkDmabufTextureBuilderPointer.reinterpret(),
-            plane
-        )
+        gdk_dmabuf_texture_builder_get_offset(gdkDmabufTextureBuilderPointer.reinterpret(), plane)
 
     /**
      * Whether the data is premultiplied.
@@ -460,10 +440,7 @@ public open class DmabufTextureBuilder(
      * @since 4.14
      */
     public open fun getStride(plane: UInt): UInt =
-        gdk_dmabuf_texture_builder_get_stride(
-            gdkDmabufTextureBuilderPointer.reinterpret(),
-            plane
-        )
+        gdk_dmabuf_texture_builder_get_stride(gdkDmabufTextureBuilderPointer.reinterpret(), plane)
 
     /**
      * Gets the texture previously set via gdk_dmabuf_texture_builder_set_update_texture() or
@@ -513,12 +490,7 @@ public open class DmabufTextureBuilder(
     public open fun setFd(
         plane: UInt,
         fd: Int,
-    ): Unit =
-        gdk_dmabuf_texture_builder_set_fd(
-            gdkDmabufTextureBuilderPointer.reinterpret(),
-            plane,
-            fd
-        )
+    ): Unit = gdk_dmabuf_texture_builder_set_fd(gdkDmabufTextureBuilderPointer.reinterpret(), plane, fd)
 
     /**
      * Sets the format of the texture.
@@ -531,10 +503,7 @@ public open class DmabufTextureBuilder(
      * @since 4.14
      */
     public open fun setFourcc(fourcc: UInt): Unit =
-        gdk_dmabuf_texture_builder_set_fourcc(
-            gdkDmabufTextureBuilderPointer.reinterpret(),
-            fourcc
-        )
+        gdk_dmabuf_texture_builder_set_fourcc(gdkDmabufTextureBuilderPointer.reinterpret(), fourcc)
 
     /**
      * Sets the height of the texture.
@@ -545,10 +514,7 @@ public open class DmabufTextureBuilder(
      * @since 4.14
      */
     public open fun setHeight(height: UInt): Unit =
-        gdk_dmabuf_texture_builder_set_height(
-            gdkDmabufTextureBuilderPointer.reinterpret(),
-            height
-        )
+        gdk_dmabuf_texture_builder_set_height(gdkDmabufTextureBuilderPointer.reinterpret(), height)
 
     /**
      * Sets the modifier.
@@ -557,10 +523,7 @@ public open class DmabufTextureBuilder(
      * @since 4.14
      */
     public open fun setModifier(modifier: ULong): Unit =
-        gdk_dmabuf_texture_builder_set_modifier(
-            gdkDmabufTextureBuilderPointer.reinterpret(),
-            modifier
-        )
+        gdk_dmabuf_texture_builder_set_modifier(gdkDmabufTextureBuilderPointer.reinterpret(), modifier)
 
     /**
      * Sets the number of planes of the texture.
@@ -569,10 +532,7 @@ public open class DmabufTextureBuilder(
      * @since 4.14
      */
     public open fun setNPlanes(nPlanes: UInt): Unit =
-        gdk_dmabuf_texture_builder_set_n_planes(
-            gdkDmabufTextureBuilderPointer.reinterpret(),
-            nPlanes
-        )
+        gdk_dmabuf_texture_builder_set_n_planes(gdkDmabufTextureBuilderPointer.reinterpret(), nPlanes)
 
     /**
      * Sets the offset for a plane.
@@ -584,12 +544,7 @@ public open class DmabufTextureBuilder(
     public open fun setOffset(
         plane: UInt,
         offset: UInt,
-    ): Unit =
-        gdk_dmabuf_texture_builder_set_offset(
-            gdkDmabufTextureBuilderPointer.reinterpret(),
-            plane,
-            offset
-        )
+    ): Unit = gdk_dmabuf_texture_builder_set_offset(gdkDmabufTextureBuilderPointer.reinterpret(), plane, offset)
 
     /**
      * Sets whether the data is premultiplied.
@@ -618,12 +573,7 @@ public open class DmabufTextureBuilder(
     public open fun setStride(
         plane: UInt,
         stride: UInt,
-    ): Unit =
-        gdk_dmabuf_texture_builder_set_stride(
-            gdkDmabufTextureBuilderPointer.reinterpret(),
-            plane,
-            stride
-        )
+    ): Unit = gdk_dmabuf_texture_builder_set_stride(gdkDmabufTextureBuilderPointer.reinterpret(), plane, stride)
 
     /**
      * Sets the texture to be updated by this texture. See
@@ -647,16 +597,11 @@ public open class DmabufTextureBuilder(
      * @since 4.14
      */
     public open fun setWidth(width: UInt): Unit =
-        gdk_dmabuf_texture_builder_set_width(
-            gdkDmabufTextureBuilderPointer.reinterpret(),
-            width
-        )
+        gdk_dmabuf_texture_builder_set_width(gdkDmabufTextureBuilderPointer.reinterpret(), width)
 
     public companion object : TypeCompanion<DmabufTextureBuilder> {
         override val type: GeneratedClassKGType<DmabufTextureBuilder> =
-            GeneratedClassKGType(gdk_dmabuf_texture_builder_get_type()) {
-                DmabufTextureBuilder(it.reinterpret())
-            }
+            GeneratedClassKGType(gdk_dmabuf_texture_builder_get_type()) { DmabufTextureBuilder(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

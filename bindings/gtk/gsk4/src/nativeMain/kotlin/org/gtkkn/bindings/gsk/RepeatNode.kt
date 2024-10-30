@@ -18,7 +18,8 @@ import org.gtkkn.native.gsk.gsk_repeat_node_new
  */
 public open class RepeatNode(
     pointer: CPointer<GskRepeatNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskRepeatNodePointer: CPointer<GskRepeatNode>
         get() = gPointer.reinterpret()
 

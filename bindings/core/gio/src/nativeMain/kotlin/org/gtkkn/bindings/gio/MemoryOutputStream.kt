@@ -32,7 +32,10 @@ import kotlin.ULong
  */
 public open class MemoryOutputStream(
     pointer: CPointer<GMemoryOutputStream>,
-) : OutputStream(pointer.reinterpret()), PollableOutputStream, Seekable, KGTyped {
+) : OutputStream(pointer.reinterpret()),
+    PollableOutputStream,
+    Seekable,
+    KGTyped {
     public val gioMemoryOutputStreamPointer: CPointer<GMemoryOutputStream>
         get() = gPointer.reinterpret()
 
@@ -137,9 +140,7 @@ public open class MemoryOutputStream(
 
     public companion object : TypeCompanion<MemoryOutputStream> {
         override val type: GeneratedClassKGType<MemoryOutputStream> =
-            GeneratedClassKGType(g_memory_output_stream_get_type()) {
-                MemoryOutputStream(it.reinterpret())
-            }
+            GeneratedClassKGType(g_memory_output_stream_get_type()) { MemoryOutputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

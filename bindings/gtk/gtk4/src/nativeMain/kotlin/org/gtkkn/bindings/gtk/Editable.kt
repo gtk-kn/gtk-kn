@@ -192,11 +192,12 @@ import kotlin.Unit
  * - method `cursor-position`: Property has no getter nor setter
  * - method `selection-bound`: Property has no getter nor setter
  * - method `xalign`: Property has no getter nor setter
- * - signal `insert-text`: Unsupported parameter `position` : position: InOut parameter is not
- * supported
+ * - signal `insert-text`: Unsupported parameter `position` : position: InOut parameter is not supported
  * - function `install_properties`: C function gtk_editable_install_properties is ignored
  */
-public interface Editable : Interface, KGTyped {
+public interface Editable :
+    Interface,
+    KGTyped {
     public val gtkEditablePointer: CPointer<GtkEditable>
 
     /**
@@ -216,11 +217,7 @@ public interface Editable : Interface, KGTyped {
          * @param isEditable true if the user is allowed to edit the text
          *   in the widget
          */
-        set(isEditable) =
-            gtk_editable_set_editable(
-                gtkEditablePointer.reinterpret(),
-                isEditable.asGBoolean()
-            )
+        set(isEditable) = gtk_editable_set_editable(gtkEditablePointer.reinterpret(), isEditable.asGBoolean())
 
     /**
      * If undo/redo should be enabled for the editable.
@@ -243,11 +240,7 @@ public interface Editable : Interface, KGTyped {
          *
          * @param enableUndo if undo/redo should be enabled
          */
-        set(enableUndo) =
-            gtk_editable_set_enable_undo(
-                gtkEditablePointer.reinterpret(),
-                enableUndo.asGBoolean()
-            )
+        set(enableUndo) = gtk_editable_set_enable_undo(gtkEditablePointer.reinterpret(), enableUndo.asGBoolean())
 
     /**
      * The desired maximum width of the entry, in characters.
@@ -336,8 +329,7 @@ public interface Editable : Interface, KGTyped {
      * your_editable_get_accessible_platform_state (GtkAccessible *accessible,
      *                                              GtkAccessiblePlatformState state)
      * {
-     *   return gtk_editable_delegate_get_accessible_platform_state (GTK_EDITABLE (accessible),
-     * state);
+     *   return gtk_editable_delegate_get_accessible_platform_state (GTK_EDITABLE (accessible), state);
      * }
      * ```
      *
@@ -465,8 +457,7 @@ public interface Editable : Interface, KGTyped {
      * @return a pointer to the contents of the editable
      */
     public fun getText(): String =
-        gtk_editable_get_text(gtkEditablePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_editable_get_text(gtkEditablePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the number of characters of space reserved
@@ -566,11 +557,7 @@ public interface Editable : Interface, KGTyped {
      *
      * @param text the text to set
      */
-    public fun setText(text: String): Unit =
-        gtk_editable_set_text(
-            gtkEditablePointer.reinterpret(),
-            text
-        )
+    public fun setText(text: String): Unit = gtk_editable_set_text(gtkEditablePointer.reinterpret(), text)
 
     /**
      * Changes the size request of the editable to be about the
@@ -622,8 +609,7 @@ public interface Editable : Interface, KGTyped {
      * [method@Gtk.Editable.delete_text].
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `startPos` the starting position; `endPos`
-     * the end position
+     * @param handler the Callback to connect. Params: `startPos` the starting position; `endPos` the end position
      */
     public fun connectDeleteText(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -714,8 +700,7 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectDeleteTextFunc: CPointer<CFunction<(Int, Int) -> Unit>> =
     staticCFunction {
@@ -725,5 +710,4 @@ private val connectDeleteTextFunc: CPointer<CFunction<(Int, Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(startPos: Int, endPos: Int) -> Unit>().get().invoke(startPos, endPos)
-    }
-        .reinterpret()
+    }.reinterpret()

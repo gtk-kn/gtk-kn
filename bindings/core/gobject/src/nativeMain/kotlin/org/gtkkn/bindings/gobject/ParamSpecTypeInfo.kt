@@ -44,9 +44,7 @@ public class ParamSpecTypeInfo(
         }
 
     /**
-     * Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve
-     * memory for (0 indicates no caching). Since GLib 2.10, it is ignored, since instances are
-     * allocated with the [slice allocator][glib-Memory-Slices] now.
+     * Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10, it is ignored, since instances are allocated with the [slice allocator][glib-Memory-Slices] now.
      */
     public var nPreallocs: UShort
         get() = gobjectParamSpecTypeInfoPointer.pointed.n_preallocs

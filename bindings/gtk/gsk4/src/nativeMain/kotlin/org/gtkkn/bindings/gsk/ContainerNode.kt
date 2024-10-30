@@ -21,7 +21,8 @@ import kotlin.UInt
  */
 public open class ContainerNode(
     pointer: CPointer<GskContainerNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskContainerNodePointer: CPointer<GskContainerNode>
         get() = gPointer.reinterpret()
 
@@ -45,9 +46,7 @@ public open class ContainerNode(
 
     public companion object : TypeCompanion<ContainerNode> {
         override val type: GeneratedClassKGType<ContainerNode> =
-            GeneratedClassKGType(gsk_container_node_get_type()) {
-                ContainerNode(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_container_node_get_type()) { ContainerNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

@@ -92,8 +92,7 @@ import kotlin.Unit
  *   gulong debug_controller_authorize_id = 0;
  *
  *   // Set up the debug controller.
- *   debug_controller = G_DEBUG_CONTROLLER (g_debug_controller_dbus_new (priv->connection, NULL,
- * &child_error));
+ *   debug_controller = G_DEBUG_CONTROLLER (g_debug_controller_dbus_new (priv->connection, NULL, &child_error));
  *   if (debug_controller == NULL)
  *     {
  *       g_error ("Could not register debug controller on bus: %s"),
@@ -135,8 +134,7 @@ import kotlin.Unit
  *
  *     auth_result = polkit_authority_check_authorization_sync (authority,
  *                                                              subject,
- *
- * "com.example.MyService.set-debug-enabled",
+ *                                                              "com.example.MyService.set-debug-enabled",
  *                                                              NULL,
  *                                                              flags,
  *                                                              NULL,
@@ -159,7 +157,10 @@ import kotlin.Unit
  */
 public open class DebugControllerDBus(
     pointer: CPointer<GDebugControllerDBus>,
-) : Object(pointer.reinterpret()), DebugController, Initable, KGTyped {
+) : Object(pointer.reinterpret()),
+    DebugController,
+    Initable,
+    KGTyped {
     public val gioDebugControllerDBusPointer: CPointer<GDebugControllerDBus>
         get() = gPointer.reinterpret()
 
@@ -185,22 +186,21 @@ public open class DebugControllerDBus(
      * @since 2.72
      */
     @Throws(GlibException::class)
-    public constructor(connection: DBusConnection, cancellable: Cancellable? = null) :
-        this(
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_debug_controller_dbus_new(
-                        connection.gioDBusConnectionPointer.reinterpret(),
-                        cancellable?.gioCancellablePointer?.reinterpret(),
-                        gError.ptr
-                    )
-                if (gError.pointed != null) {
-                    throw resolveException(Error(gError.pointed!!.ptr))
-                }
-                gResult!!.reinterpret()
+    public constructor(connection: DBusConnection, cancellable: Cancellable? = null) : this(
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_debug_controller_dbus_new(
+                    connection.gioDBusConnectionPointer.reinterpret(),
+                    cancellable?.gioCancellablePointer?.reinterpret(),
+                    gError.ptr
+                )
+            if (gError.pointed != null) {
+                throw resolveException(Error(gError.pointed!!.ptr))
             }
-        )
+            gResult!!.reinterpret()
+        }
+    )
 
     /**
      * Stop the debug controller, unregistering its object from the bus.
@@ -244,8 +244,7 @@ public open class DebugControllerDBus(
      * The default class handler just returns true.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `invocation` A #GDBusMethodInvocation..
-     * Returns true if the call is authorized, false otherwise.
+     * @param handler the Callback to connect. Params: `invocation` A #GDBusMethodInvocation.. Returns true if the call is authorized, false otherwise.
      * @since 2.72
      */
     public fun connectAuthorize(
@@ -263,9 +262,7 @@ public open class DebugControllerDBus(
 
     public companion object : TypeCompanion<DebugControllerDBus> {
         override val type: GeneratedClassKGType<DebugControllerDBus> =
-            GeneratedClassKGType(g_debug_controller_dbus_get_type()) {
-                DebugControllerDBus(it.reinterpret())
-            }
+            GeneratedClassKGType(g_debug_controller_dbus_get_type()) { DebugControllerDBus(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -279,10 +276,12 @@ private val connectAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvoca
             invocation: CPointer<GDBusMethodInvocation>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(
-            invocation!!.run {
-                DBusMethodInvocation(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(invocation: DBusMethodInvocation) -> Boolean>()
+            .get()
+            .invoke(
+                invocation!!.run {
+                    DBusMethodInvocation(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()

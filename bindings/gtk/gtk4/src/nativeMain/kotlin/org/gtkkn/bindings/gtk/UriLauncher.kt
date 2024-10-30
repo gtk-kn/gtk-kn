@@ -50,7 +50,8 @@ import kotlin.Unit
  */
 public open class UriLauncher(
     pointer: CPointer<GtkUriLauncher>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtkUriLauncherPointer: CPointer<GtkUriLauncher>
         get() = gPointer.reinterpret()
 

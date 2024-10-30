@@ -53,7 +53,8 @@ import kotlin.Unit
  */
 public open class Video(
     pointer: CPointer<GtkVideo>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkVideoPointer: CPointer<GtkVideo>
         get() = gPointer.reinterpret()
 
@@ -134,11 +135,7 @@ public open class Video(
          * @param enabled the new graphics offload status
          * @since 4.14
          */
-        set(enabled) =
-            gtk_video_set_graphics_offload(
-                gtkVideoPointer.reinterpret(),
-                enabled.nativeValue
-            )
+        set(enabled) = gtk_video_set_graphics_offload(gtkVideoPointer.reinterpret(), enabled.nativeValue)
 
     /**
      * If new media files should be set to loop.
@@ -184,11 +181,9 @@ public open class Video(
          *
          * @param stream The media stream to play or null to unset
          */
-        set(stream) =
-            gtk_video_set_media_stream(
-                gtkVideoPointer.reinterpret(),
-                stream?.gtkMediaStreamPointer?.reinterpret()
-            )
+        set(
+            stream
+        ) = gtk_video_set_media_stream(gtkVideoPointer.reinterpret(), stream?.gtkMediaStreamPointer?.reinterpret())
 
     /**
      * Creates a new empty `GtkVideo`.
@@ -203,8 +198,7 @@ public open class Video(
      * @param file a `GFile`
      * @return a new `GtkVideo`
      */
-    public constructor(`file`: File? = null) :
-        this(gtk_video_new_for_file(`file`?.gioFilePointer)!!.reinterpret())
+    public constructor(`file`: File? = null) : this(gtk_video_new_for_file(`file`?.gioFilePointer)!!.reinterpret())
 
     /**
      * Creates a `GtkVideo` to play back the given @filename.
@@ -215,8 +209,7 @@ public open class Video(
      * @param filename filename to play back
      * @return a new `GtkVideo`
      */
-    public constructor(filename: String? = null) :
-        this(gtk_video_new_for_filename(filename)!!.reinterpret())
+    public constructor(filename: String? = null) : this(gtk_video_new_for_filename(filename)!!.reinterpret())
 
     /**
      * Creates a `GtkVideo` to play back the given @stream.
@@ -224,8 +217,9 @@ public open class Video(
      * @param stream a `GtkMediaStream`
      * @return a new `GtkVideo`
      */
-    public constructor(stream: MediaStream? = null) :
-        this(gtk_video_new_for_media_stream(stream?.gtkMediaStreamPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        stream: MediaStream? = null,
+    ) : this(gtk_video_new_for_media_stream(stream?.gtkMediaStreamPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Returns true if videos have been set to loop.
@@ -318,11 +312,7 @@ public open class Video(
      *
      * @param loop whether media streams should loop
      */
-    public open fun setLoop(loop: Boolean): Unit =
-        gtk_video_set_loop(
-            gtkVideoPointer.reinterpret(),
-            loop.asGBoolean()
-        )
+    public open fun setLoop(loop: Boolean): Unit = gtk_video_set_loop(gtkVideoPointer.reinterpret(), loop.asGBoolean())
 
     /**
      * Sets the media stream to be played back.
@@ -337,10 +327,7 @@ public open class Video(
      * @param stream The media stream to play or null to unset
      */
     public open fun setMediaStream(stream: MediaStream? = null): Unit =
-        gtk_video_set_media_stream(
-            gtkVideoPointer.reinterpret(),
-            stream?.gtkMediaStreamPointer?.reinterpret()
-        )
+        gtk_video_set_media_stream(gtkVideoPointer.reinterpret(), stream?.gtkMediaStreamPointer?.reinterpret())
 
     /**
      * Makes @self play the resource at the given @resource_path.

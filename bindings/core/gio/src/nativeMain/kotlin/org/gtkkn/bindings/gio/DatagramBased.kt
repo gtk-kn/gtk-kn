@@ -71,7 +71,9 @@ import org.gtkkn.native.gio.g_datagram_based_get_type
  *
  * @since 2.48
  */
-public interface DatagramBased : Interface, KGTyped {
+public interface DatagramBased :
+    Interface,
+    KGTyped {
     public val gioDatagramBasedPointer: CPointer<GDatagramBased>
 
     private data class Wrapper(

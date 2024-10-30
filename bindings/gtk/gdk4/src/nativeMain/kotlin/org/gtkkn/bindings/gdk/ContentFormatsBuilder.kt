@@ -45,10 +45,7 @@ public class ContentFormatsBuilder(
      * @param type a `GType`
      */
     public fun addGtype(type: ULong): Unit =
-        gdk_content_formats_builder_add_gtype(
-            gdkContentFormatsBuilderPointer.reinterpret(),
-            type
-        )
+        gdk_content_formats_builder_add_gtype(gdkContentFormatsBuilderPointer.reinterpret(), type)
 
     /**
      * Appends @mime_type to @builder if it has not already been added.
@@ -56,10 +53,7 @@ public class ContentFormatsBuilder(
      * @param mimeType a mime type
      */
     public fun addMimeType(mimeType: String): Unit =
-        gdk_content_formats_builder_add_mime_type(
-            gdkContentFormatsBuilderPointer.reinterpret(),
-            mimeType
-        )
+        gdk_content_formats_builder_add_mime_type(gdkContentFormatsBuilderPointer.reinterpret(), mimeType)
 
     /**
      * Acquires a reference on the given @builder.

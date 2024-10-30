@@ -37,7 +37,9 @@ import kotlin.String
  */
 public open class FontFamily(
     pointer: CPointer<PangoFontFamily>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    KGTyped {
     public val pangoFontFamilyPointer: CPointer<PangoFontFamily>
         get() = gPointer.reinterpret()
 

@@ -27,7 +27,9 @@ import kotlin.Unit
  */
 public open class SelectionFilterModel(
     pointer: CPointer<GtkSelectionFilterModel>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    KGTyped {
     public val gtkSelectionFilterModelPointer: CPointer<GtkSelectionFilterModel>
         get() = gPointer.reinterpret()
 
@@ -58,7 +60,9 @@ public open class SelectionFilterModel(
          *
          * @param model The model to be filtered
          */
-        set(model) =
+        set(
+            model
+        ) =
             gtk_selection_filter_model_set_model(
                 gtkSelectionFilterModelPointer.reinterpret(),
                 model?.gtkSelectionModelPointer
@@ -71,8 +75,9 @@ public open class SelectionFilterModel(
      * @param model the selection model to filter
      * @return a new `GtkSelectionFilterModel`
      */
-    public constructor(model: SelectionModel? = null) :
-        this(gtk_selection_filter_model_new(model?.gtkSelectionModelPointer)!!.reinterpret())
+    public constructor(
+        model: SelectionModel? = null,
+    ) : this(gtk_selection_filter_model_new(model?.gtkSelectionModelPointer)!!.reinterpret())
 
     /**
      * Gets the model currently filtered or null if none.
@@ -102,9 +107,7 @@ public open class SelectionFilterModel(
 
     public companion object : TypeCompanion<SelectionFilterModel> {
         override val type: GeneratedClassKGType<SelectionFilterModel> =
-            GeneratedClassKGType(gtk_selection_filter_model_get_type()) {
-                SelectionFilterModel(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_selection_filter_model_get_type()) { SelectionFilterModel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

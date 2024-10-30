@@ -111,10 +111,7 @@ public class Point3D(
      * @since 1.0
      */
     public fun dot(b: Point3D): Float =
-        graphene_point3d_dot(
-            graphenePoint3DPointer.reinterpret(),
-            b.graphenePoint3DPointer
-        )
+        graphene_point3d_dot(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer)
 
     /**
      * Checks whether two given points are equal.
@@ -160,10 +157,7 @@ public class Point3D(
      * @since 1.0
      */
     public fun initFromPoint(src: Point3D): Point3D =
-        graphene_point3d_init_from_point(
-            graphenePoint3DPointer.reinterpret(),
-            src.graphenePoint3DPointer
-        )!!.run {
+        graphene_point3d_init_from_point(graphenePoint3DPointer.reinterpret(), src.graphenePoint3DPointer)!!.run {
             Point3D(reinterpret())
         }
 
@@ -176,10 +170,7 @@ public class Point3D(
      * @since 1.0
      */
     public fun initFromVec3(v: Vec3): Point3D =
-        graphene_point3d_init_from_vec3(
-            graphenePoint3DPointer.reinterpret(),
-            v.grapheneVec3Pointer
-        )!!.run {
+        graphene_point3d_init_from_vec3(graphenePoint3DPointer.reinterpret(), v.grapheneVec3Pointer)!!.run {
             Point3D(reinterpret())
         }
 
@@ -226,12 +217,7 @@ public class Point3D(
     public fun near(
         b: Point3D,
         epsilon: Float,
-    ): Boolean =
-        graphene_point3d_near(
-            graphenePoint3DPointer.reinterpret(),
-            b.graphenePoint3DPointer,
-            epsilon
-        )
+    ): Boolean = graphene_point3d_near(graphenePoint3DPointer.reinterpret(), b.graphenePoint3DPointer, epsilon)
 
     /**
      * Computes the normalization of the vector represented by the
@@ -242,10 +228,7 @@ public class Point3D(
      * @since 1.0
      */
     public fun normalize(res: Point3D): Unit =
-        graphene_point3d_normalize(
-            graphenePoint3DPointer.reinterpret(),
-            res.graphenePoint3DPointer
-        )
+        graphene_point3d_normalize(graphenePoint3DPointer.reinterpret(), res.graphenePoint3DPointer)
 
     /**
      * Normalizes the coordinates of a #graphene_point3d_t using the
@@ -288,12 +271,7 @@ public class Point3D(
     public fun scale(
         factor: Float,
         res: Point3D,
-    ): Unit =
-        graphene_point3d_scale(
-            graphenePoint3DPointer.reinterpret(),
-            factor,
-            res.graphenePoint3DPointer
-        )
+    ): Unit = graphene_point3d_scale(graphenePoint3DPointer.reinterpret(), factor, res.graphenePoint3DPointer)
 
     /**
      * Stores the coordinates of a #graphene_point3d_t into a

@@ -357,10 +357,7 @@ public class FontDescription(
      * @since 1.8
      */
     public fun setAbsoluteSize(size: Double): Unit =
-        pango_font_description_set_absolute_size(
-            pangoFontDescriptionPointer.reinterpret(),
-            size
-        )
+        pango_font_description_set_absolute_size(pangoFontDescriptionPointer.reinterpret(), size)
 
     /**
      * Sets the family name field of a font description.
@@ -388,10 +385,7 @@ public class FontDescription(
      * @param family a string representing the family name
      */
     public fun setFamilyStatic(family: String): Unit =
-        pango_font_description_set_family_static(
-            pangoFontDescriptionPointer.reinterpret(),
-            family
-        )
+        pango_font_description_set_family_static(pangoFontDescriptionPointer.reinterpret(), family)
 
     /**
      * Sets the gravity field of a font description.
@@ -408,10 +402,7 @@ public class FontDescription(
      * @since 1.16
      */
     public fun setGravity(gravity: Gravity): Unit =
-        pango_font_description_set_gravity(
-            pangoFontDescriptionPointer.reinterpret(),
-            gravity.nativeValue
-        )
+        pango_font_description_set_gravity(pangoFontDescriptionPointer.reinterpret(), gravity.nativeValue)
 
     /**
      * Sets the size field of a font description in fractional points.
@@ -440,10 +431,7 @@ public class FontDescription(
      * @param stretch the stretch for the font description
      */
     public fun setStretch(stretch: Stretch): Unit =
-        pango_font_description_set_stretch(
-            pangoFontDescriptionPointer.reinterpret(),
-            stretch.nativeValue
-        )
+        pango_font_description_set_stretch(pangoFontDescriptionPointer.reinterpret(), stretch.nativeValue)
 
     /**
      * Sets the style field of a `PangoFontDescription`.
@@ -460,10 +448,7 @@ public class FontDescription(
      * @param style the style for the font description
      */
     public fun setStyle(style: Style): Unit =
-        pango_font_description_set_style(
-            pangoFontDescriptionPointer.reinterpret(),
-            style.nativeValue
-        )
+        pango_font_description_set_style(pangoFontDescriptionPointer.reinterpret(), style.nativeValue)
 
     /**
      * Sets the variant field of a font description.
@@ -474,10 +459,7 @@ public class FontDescription(
      * @param variant the variant type for the font description.
      */
     public fun setVariant(variant: Variant): Unit =
-        pango_font_description_set_variant(
-            pangoFontDescriptionPointer.reinterpret(),
-            variant.nativeValue
-        )
+        pango_font_description_set_variant(pangoFontDescriptionPointer.reinterpret(), variant.nativeValue)
 
     /**
      * Sets the variations field of a font description.
@@ -495,17 +477,13 @@ public class FontDescription(
      *
      * Pango does not currently have a way to find supported axes of
      * a font. Both harfbuzz and freetype have API for this. See
-     * for example
-     * [hb_ot_var_get_axis_infos](https://harfbuzz.github.io/harfbuzz-hb-ot-var.html#hb-ot-var-get-axis-infos).
+     * for example [hb_ot_var_get_axis_infos](https://harfbuzz.github.io/harfbuzz-hb-ot-var.html#hb-ot-var-get-axis-infos).
      *
      * @param variations a string representing the variations
      * @since 1.42
      */
     public fun setVariations(variations: String? = null): Unit =
-        pango_font_description_set_variations(
-            pangoFontDescriptionPointer.reinterpret(),
-            variations
-        )
+        pango_font_description_set_variations(pangoFontDescriptionPointer.reinterpret(), variations)
 
     /**
      * Sets the variations field of a font description.
@@ -521,10 +499,7 @@ public class FontDescription(
      * @since 1.42
      */
     public fun setVariationsStatic(variations: String): Unit =
-        pango_font_description_set_variations_static(
-            pangoFontDescriptionPointer.reinterpret(),
-            variations
-        )
+        pango_font_description_set_variations_static(pangoFontDescriptionPointer.reinterpret(), variations)
 
     /**
      * Sets the weight field of a font description.
@@ -537,10 +512,7 @@ public class FontDescription(
      * @param weight the weight for the font description.
      */
     public fun setWeight(weight: Weight): Unit =
-        pango_font_description_set_weight(
-            pangoFontDescriptionPointer.reinterpret(),
-            weight.nativeValue
-        )
+        pango_font_description_set_weight(pangoFontDescriptionPointer.reinterpret(), weight.nativeValue)
 
     /**
      * Creates a filename representation of a font description.
@@ -563,10 +535,7 @@ public class FontDescription(
      * @param toUnset bitmask of fields in the @desc to unset.
      */
     public fun unsetFields(toUnset: FontMask): Unit =
-        pango_font_description_unset_fields(
-            pangoFontDescriptionPointer.reinterpret(),
-            toUnset.mask
-        )
+        pango_font_description_unset_fields(pangoFontDescriptionPointer.reinterpret(), toUnset.mask)
 
     public companion object : RecordCompanion<FontDescription, PangoFontDescription> {
         /**

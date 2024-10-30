@@ -90,7 +90,8 @@ import kotlin.Unit
  */
 public open class Image(
     pointer: CPointer<GtkImage>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkImagePointer: CPointer<GtkImage>
         get() = gPointer.reinterpret()
 
@@ -263,8 +264,7 @@ public open class Image(
      * @param icon an icon
      * @return a new `GtkImage` displaying the themed icon
      */
-    public constructor(icon: Icon) :
-        this(gtk_image_new_from_gicon(icon.gioIconPointer)!!.reinterpret())
+    public constructor(icon: Icon) : this(gtk_image_new_from_gicon(icon.gioIconPointer)!!.reinterpret())
 
     /**
      * Creates a `GtkImage` displaying an icon from the current icon theme.
@@ -276,8 +276,7 @@ public open class Image(
      * @param iconName an icon name
      * @return a new `GtkImage` displaying the themed icon
      */
-    public constructor(iconName: String? = null) :
-        this(gtk_image_new_from_icon_name(iconName)!!.reinterpret())
+    public constructor(iconName: String? = null) : this(gtk_image_new_from_icon_name(iconName)!!.reinterpret())
 
     /**
      * Creates a new `GtkImage` displaying @paintable.
@@ -292,8 +291,9 @@ public open class Image(
      * @param paintable a `GdkPaintable`
      * @return a new `GtkImage`
      */
-    public constructor(paintable: Paintable? = null) :
-        this(gtk_image_new_from_paintable(paintable?.gdkPaintablePointer)!!.reinterpret())
+    public constructor(
+        paintable: Paintable? = null,
+    ) : this(gtk_image_new_from_paintable(paintable?.gdkPaintablePointer)!!.reinterpret())
 
     /**
      * Creates a new `GtkImage` displaying @pixbuf.
@@ -312,8 +312,9 @@ public open class Image(
      * @param pixbuf a `GdkPixbuf`
      * @return a new `GtkImage`
      */
-    public constructor(pixbuf: Pixbuf? = null) :
-        this(gtk_image_new_from_pixbuf(pixbuf?.gdkpixbufPixbufPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        pixbuf: Pixbuf? = null,
+    ) : this(gtk_image_new_from_pixbuf(pixbuf?.gdkpixbufPixbufPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Resets the image to be empty.
@@ -431,10 +432,7 @@ public open class Image(
      * @param paintable a `GdkPaintable`
      */
     public open fun setFromPaintable(paintable: Paintable? = null): Unit =
-        gtk_image_set_from_paintable(
-            gtkImagePointer.reinterpret(),
-            paintable?.gdkPaintablePointer
-        )
+        gtk_image_set_from_paintable(gtkImagePointer.reinterpret(), paintable?.gdkPaintablePointer)
 
     /**
      * Sets a `GtkImage` to show a `GdkPixbuf`.
@@ -448,10 +446,7 @@ public open class Image(
      * @param pixbuf a `GdkPixbuf` or `NULL`
      */
     public open fun setFromPixbuf(pixbuf: Pixbuf? = null): Unit =
-        gtk_image_set_from_pixbuf(
-            gtkImagePointer.reinterpret(),
-            pixbuf?.gdkpixbufPixbufPointer?.reinterpret()
-        )
+        gtk_image_set_from_pixbuf(gtkImagePointer.reinterpret(), pixbuf?.gdkpixbufPixbufPointer?.reinterpret())
 
     /**
      * Sets a `GtkImage` to show a resource.

@@ -29,7 +29,9 @@ import kotlin.Int
  * They can be modal, which is indicated by the [property@Gdk.Popup:autohide]
  * property.
  */
-public interface Popup : Interface, KGTyped {
+public interface Popup :
+    Interface,
+    KGTyped {
     public val gdkPopupPointer: CPointer<GdkPopup>
 
     /**
@@ -141,12 +143,7 @@ public interface Popup : Interface, KGTyped {
         height: Int,
         layout: PopupLayout,
     ): Boolean =
-        gdk_popup_present(
-            gdkPopupPointer.reinterpret(),
-            width,
-            height,
-            layout.gdkPopupLayoutPointer
-        ).asBoolean()
+        gdk_popup_present(gdkPopupPointer.reinterpret(), width, height, layout.gdkPopupLayoutPointer).asBoolean()
 
     private data class Wrapper(
         private val pointer: CPointer<GdkPopup>,

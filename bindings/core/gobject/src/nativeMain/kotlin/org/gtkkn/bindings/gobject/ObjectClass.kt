@@ -75,10 +75,7 @@ public class ObjectClass(
      *          null if the class doesn't have a property of that name
      */
     public fun findProperty(propertyName: String): ParamSpec =
-        g_object_class_find_property(
-            gobjectObjectClassPointer.reinterpret(),
-            propertyName
-        )!!.run {
+        g_object_class_find_property(gobjectObjectClassPointer.reinterpret(), propertyName)!!.run {
             ParamSpec(reinterpret())
         }
 
@@ -133,12 +130,7 @@ public class ObjectClass(
     public fun overrideProperty(
         propertyId: UInt,
         name: String,
-    ): Unit =
-        g_object_class_override_property(
-            gobjectObjectClassPointer.reinterpret(),
-            propertyId,
-            name
-        )
+    ): Unit = g_object_class_override_property(gobjectObjectClassPointer.reinterpret(), propertyId, name)
 
     public companion object : RecordCompanion<ObjectClass, GObjectClass> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): ObjectClass =

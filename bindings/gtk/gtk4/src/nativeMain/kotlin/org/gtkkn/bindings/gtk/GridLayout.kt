@@ -46,7 +46,8 @@ import kotlin.Unit
  */
 public open class GridLayout(
     pointer: CPointer<GtkGridLayout>,
-) : LayoutManager(pointer.reinterpret()), KGTyped {
+) : LayoutManager(pointer.reinterpret()),
+    KGTyped {
     public val gtkGridLayoutPointer: CPointer<GtkGridLayout>
         get() = gPointer.reinterpret()
 
@@ -82,19 +83,16 @@ public open class GridLayout(
          *
          * @return true if the columns are homogeneous, and false otherwise
          */
-        get() =
-            gtk_grid_layout_get_column_homogeneous(gtkGridLayoutPointer.reinterpret()).asBoolean()
+        get() = gtk_grid_layout_get_column_homogeneous(gtkGridLayoutPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether all columns of @grid should have the same width.
          *
          * @param homogeneous true to make columns homogeneous
          */
-        set(homogeneous) =
-            gtk_grid_layout_set_column_homogeneous(
-                gtkGridLayoutPointer.reinterpret(),
-                homogeneous.asGBoolean()
-            )
+        set(
+            homogeneous
+        ) = gtk_grid_layout_set_column_homogeneous(gtkGridLayoutPointer.reinterpret(), homogeneous.asGBoolean())
 
     /**
      * The amount of space between to consecutive columns.
@@ -112,11 +110,7 @@ public open class GridLayout(
          *
          * @param spacing the amount of space between columns, in pixels
          */
-        set(spacing) =
-            gtk_grid_layout_set_column_spacing(
-                gtkGridLayoutPointer.reinterpret(),
-                spacing
-            )
+        set(spacing) = gtk_grid_layout_set_column_spacing(gtkGridLayoutPointer.reinterpret(), spacing)
 
     /**
      * Whether all the rows in the grid have the same height.
@@ -134,11 +128,9 @@ public open class GridLayout(
          *
          * @param homogeneous true to make rows homogeneous
          */
-        set(homogeneous) =
-            gtk_grid_layout_set_row_homogeneous(
-                gtkGridLayoutPointer.reinterpret(),
-                homogeneous.asGBoolean()
-            )
+        set(
+            homogeneous
+        ) = gtk_grid_layout_set_row_homogeneous(gtkGridLayoutPointer.reinterpret(), homogeneous.asGBoolean())
 
     /**
      * The amount of space between to consecutive rows.
@@ -236,10 +228,7 @@ public open class GridLayout(
      * @param homogeneous true to make columns homogeneous
      */
     public open fun setColumnHomogeneous(homogeneous: Boolean): Unit =
-        gtk_grid_layout_set_column_homogeneous(
-            gtkGridLayoutPointer.reinterpret(),
-            homogeneous.asGBoolean()
-        )
+        gtk_grid_layout_set_column_homogeneous(gtkGridLayoutPointer.reinterpret(), homogeneous.asGBoolean())
 
     /**
      * Sets the amount of space to insert between consecutive columns.
@@ -259,12 +248,7 @@ public open class GridLayout(
     public open fun setRowBaselinePosition(
         row: Int,
         pos: BaselinePosition,
-    ): Unit =
-        gtk_grid_layout_set_row_baseline_position(
-            gtkGridLayoutPointer.reinterpret(),
-            row,
-            pos.nativeValue
-        )
+    ): Unit = gtk_grid_layout_set_row_baseline_position(gtkGridLayoutPointer.reinterpret(), row, pos.nativeValue)
 
     /**
      * Sets whether all rows of @grid should have the same height.
@@ -272,10 +256,7 @@ public open class GridLayout(
      * @param homogeneous true to make rows homogeneous
      */
     public open fun setRowHomogeneous(homogeneous: Boolean): Unit =
-        gtk_grid_layout_set_row_homogeneous(
-            gtkGridLayoutPointer.reinterpret(),
-            homogeneous.asGBoolean()
-        )
+        gtk_grid_layout_set_row_homogeneous(gtkGridLayoutPointer.reinterpret(), homogeneous.asGBoolean())
 
     /**
      * Sets the amount of space to insert between consecutive rows.

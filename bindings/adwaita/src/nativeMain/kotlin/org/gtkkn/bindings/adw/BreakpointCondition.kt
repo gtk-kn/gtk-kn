@@ -87,11 +87,7 @@ public class BreakpointCondition(
             unit: LengthUnit,
         ): BreakpointCondition =
             BreakpointCondition(
-                adw_breakpoint_condition_new_length(
-                    type.nativeValue,
-                    `value`,
-                    unit.nativeValue
-                )!!.reinterpret()
+                adw_breakpoint_condition_new_length(type.nativeValue, `value`, unit.nativeValue)!!.reinterpret()
             )
 
         /**
@@ -130,13 +126,7 @@ public class BreakpointCondition(
             width: Int,
             height: Int,
         ): BreakpointCondition =
-            BreakpointCondition(
-                adw_breakpoint_condition_new_ratio(
-                    type.nativeValue,
-                    width,
-                    height
-                )!!.reinterpret()
-            )
+            BreakpointCondition(adw_breakpoint_condition_new_ratio(type.nativeValue, width, height)!!.reinterpret())
 
         /**
          * Parses a condition from a string.

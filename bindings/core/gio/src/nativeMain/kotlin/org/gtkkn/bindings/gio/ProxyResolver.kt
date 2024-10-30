@@ -41,7 +41,9 @@ import kotlin.collections.List
  * GIO comes with an implementation for use inside Flatpak portals.
  * @since 2.26
  */
-public interface ProxyResolver : Interface, KGTyped {
+public interface ProxyResolver :
+    Interface,
+    KGTyped {
     public val gioProxyResolverPointer: CPointer<GProxyResolver>
 
     /**

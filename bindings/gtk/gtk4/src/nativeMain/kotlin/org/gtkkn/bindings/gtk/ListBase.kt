@@ -23,7 +23,10 @@ import org.gtkkn.native.gtk.gtk_list_base_get_type
  */
 public open class ListBase(
     pointer: CPointer<GtkListBase>,
-) : Widget(pointer.reinterpret()), Orientable, Scrollable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Orientable,
+    Scrollable,
+    KGTyped {
     public val gtkListBasePointer: CPointer<GtkListBase>
         get() = gPointer.reinterpret()
 

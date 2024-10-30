@@ -25,7 +25,8 @@ import kotlin.Unit
  */
 public open class MediaControls(
     pointer: CPointer<GtkMediaControls>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkMediaControlsPointer: CPointer<GtkMediaControls>
         get() = gPointer.reinterpret()
 
@@ -57,7 +58,9 @@ public open class MediaControls(
          *
          * @param stream a `GtkMediaStream`
          */
-        set(stream) =
+        set(
+            stream
+        ) =
             gtk_media_controls_set_media_stream(
                 gtkMediaControlsPointer.reinterpret(),
                 stream?.gtkMediaStreamPointer?.reinterpret()
@@ -69,8 +72,9 @@ public open class MediaControls(
      * @param stream a `GtkMediaStream` to manage
      * @return a new `GtkMediaControls`
      */
-    public constructor(stream: MediaStream? = null) :
-        this(gtk_media_controls_new(stream?.gtkMediaStreamPointer?.reinterpret())!!.reinterpret())
+    public constructor(
+        stream: MediaStream? = null,
+    ) : this(gtk_media_controls_new(stream?.gtkMediaStreamPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Gets the media stream managed by @controls or null if none.
@@ -95,9 +99,7 @@ public open class MediaControls(
 
     public companion object : TypeCompanion<MediaControls> {
         override val type: GeneratedClassKGType<MediaControls> =
-            GeneratedClassKGType(gtk_media_controls_get_type()) {
-                MediaControls(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_media_controls_get_type()) { MediaControls(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

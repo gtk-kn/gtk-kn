@@ -28,7 +28,9 @@ import kotlin.String
  * An object only needs to implement this interface if it needs to extend the
  * `GtkBuilder` XML format or run any extra routines at deserialization time.
  */
-public interface Buildable : Interface, KGTyped {
+public interface Buildable :
+    Interface,
+    KGTyped {
     public val gtkBuildablePointer: CPointer<GtkBuildable>
 
     /**

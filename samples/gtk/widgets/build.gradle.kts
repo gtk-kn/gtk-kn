@@ -14,16 +14,13 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     id("detekt-conventions")
 }
 
-@OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
     linuxX64 {
         binaries {
             executable {

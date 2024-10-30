@@ -79,7 +79,8 @@ import kotlin.Unit
  */
 public open class Surface(
     pointer: CPointer<GdkSurface>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gdkSurfacePointer: CPointer<GdkSurface>
         get() = gPointer.reinterpret()
 
@@ -115,11 +116,7 @@ public open class Surface(
          *
          * @param cursor a `GdkCursor`
          */
-        set(cursor) =
-            gdk_surface_set_cursor(
-                gdkSurfacePointer.reinterpret(),
-                cursor?.gdkCursorPointer?.reinterpret()
-            )
+        set(cursor) = gdk_surface_set_cursor(gdkSurfacePointer.reinterpret(), cursor?.gdkCursorPointer?.reinterpret())
 
     /**
      * The `GdkDisplay` connection of the surface.
@@ -252,13 +249,10 @@ public open class Surface(
      * @param autohide whether to hide the surface on outside clicks
      * @return a new `GdkSurface`
      */
-    public constructor(parent: Surface, autohide: Boolean) :
-        this(
-            gdk_surface_new_popup(
-                parent.gdkSurfacePointer.reinterpret(),
-                autohide.asGBoolean()
-            )!!.reinterpret()
-        )
+    public constructor(
+        parent: Surface,
+        autohide: Boolean,
+    ) : this(gdk_surface_new_popup(parent.gdkSurfacePointer.reinterpret(), autohide.asGBoolean())!!.reinterpret())
 
     /**
      * Creates a new toplevel surface.
@@ -266,8 +260,9 @@ public open class Surface(
      * @param display the display to create the surface on
      * @return the new `GdkSurface`
      */
-    public constructor(display: Display) :
-        this(gdk_surface_new_toplevel(display.gdkDisplayPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        display: Display,
+    ) : this(gdk_surface_new_toplevel(display.gdkDisplayPointer.reinterpret())!!.reinterpret())
 
     /**
      * Emits a short beep associated to @surface.
@@ -301,10 +296,7 @@ public open class Surface(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                gdk_surface_create_gl_context(
-                    gdkSurfacePointer.reinterpret(),
-                    gError.ptr
-                )?.run {
+                gdk_surface_create_gl_context(gdkSurfacePointer.reinterpret(), gError.ptr)?.run {
                     GLContext(reinterpret())
                 }
 
@@ -324,10 +316,7 @@ public open class Surface(
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
-                gdk_surface_create_vulkan_context(
-                    gdkSurfacePointer.reinterpret(),
-                    gError.ptr
-                )?.run {
+                gdk_surface_create_vulkan_context(gdkSurfacePointer.reinterpret(), gError.ptr)?.run {
                     VulkanContext(reinterpret())
                 }
 
@@ -380,10 +369,7 @@ public open class Surface(
      * @return a `GdkCursor`
      */
     public open fun getDeviceCursor(device: Device): Cursor? =
-        gdk_surface_get_device_cursor(
-            gdkSurfacePointer.reinterpret(),
-            device.gdkDevicePointer.reinterpret()
-        )?.run {
+        gdk_surface_get_device_cursor(gdkSurfacePointer.reinterpret(), device.gdkDevicePointer.reinterpret())?.run {
             Cursor(reinterpret())
         }
 
@@ -521,10 +507,7 @@ public open class Surface(
      * @param cursor a `GdkCursor`
      */
     public open fun setCursor(cursor: Cursor? = null): Unit =
-        gdk_surface_set_cursor(
-            gdkSurfacePointer.reinterpret(),
-            cursor?.gdkCursorPointer?.reinterpret()
-        )
+        gdk_surface_set_cursor(gdkSurfacePointer.reinterpret(), cursor?.gdkCursorPointer?.reinterpret())
 
     /**
      * Sets a specific `GdkCursor` for a given device when it gets inside @surface.
@@ -571,8 +554,7 @@ public open class Surface(
      * Emitted when GDK receives an input event for @surface.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `event` an input event. Returns true to
-     * indicate that the event has been handled
+     * @param handler the Callback to connect. Params: `event` an input event. Returns true to indicate that the event has been handled
      */
     public fun connectEvent(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -595,15 +577,11 @@ public open class Surface(
      * ”device pixels” (see gdk_surface_get_scale_factor()).
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `width` the current width; `height` the
-     * current height
+     * @param handler the Callback to connect. Params: `width` the current width; `height` the current height
      */
     public fun connectLayout(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            width: Int,
-            height: Int,
-        ) -> Unit,
+        handler: (width: Int, height: Int) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -654,8 +632,7 @@ private val connectEnterMonitorFunc: CPointer<CFunction<(CPointer<GdkMonitor>) -
                 Monitor(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> Int>> =
     staticCFunction {
@@ -663,13 +640,15 @@ private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> Int>> =
             event: CPointer<GdkEvent>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(event: Event) -> Boolean>().get().invoke(
-            event!!.run {
-                Event(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(event: Event) -> Boolean>()
+            .get()
+            .invoke(
+                event!!.run {
+                    Event(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 private val connectLayoutFunc: CPointer<CFunction<(Int, Int) -> Unit>> =
     staticCFunction {
@@ -679,8 +658,7 @@ private val connectLayoutFunc: CPointer<CFunction<(Int, Int) -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<(width: Int, height: Int) -> Unit>().get().invoke(width, height)
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectLeaveMonitorFunc: CPointer<CFunction<(CPointer<GdkMonitor>) -> Unit>> =
     staticCFunction {
@@ -693,5 +671,4 @@ private val connectLeaveMonitorFunc: CPointer<CFunction<(CPointer<GdkMonitor>) -
                 Monitor(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

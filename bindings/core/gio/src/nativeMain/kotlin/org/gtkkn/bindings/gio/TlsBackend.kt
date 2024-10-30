@@ -31,7 +31,9 @@ import kotlin.Unit
  * by a TLS backend.
  * @since 2.28
  */
-public interface TlsBackend : Interface, KGTyped {
+public interface TlsBackend :
+    Interface,
+    KGTyped {
     public val gioTlsBackendPointer: CPointer<GTlsBackend>
 
     /**

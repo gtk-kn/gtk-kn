@@ -100,7 +100,8 @@ import kotlin.Unit
  */
 public open class Calendar(
     pointer: CPointer<GtkCalendar>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtkCalendarPointer: CPointer<GtkCalendar>
         get() = gPointer.reinterpret()
 
@@ -181,11 +182,7 @@ public open class Calendar(
          *
          * @param value Whether to show day names above the day numbers
          */
-        set(`value`) =
-            gtk_calendar_set_show_day_names(
-                gtkCalendarPointer.reinterpret(),
-                `value`.asGBoolean()
-            )
+        set(`value`) = gtk_calendar_set_show_day_names(gtkCalendarPointer.reinterpret(), `value`.asGBoolean())
 
     /**
      * Determines whether a heading is displayed.
@@ -209,11 +206,7 @@ public open class Calendar(
          *
          * @param value Whether to show the heading in the calendar
          */
-        set(`value`) =
-            gtk_calendar_set_show_heading(
-                gtkCalendarPointer.reinterpret(),
-                `value`.asGBoolean()
-            )
+        set(`value`) = gtk_calendar_set_show_heading(gtkCalendarPointer.reinterpret(), `value`.asGBoolean())
 
     /**
      * Determines whether week numbers are displayed.
@@ -235,11 +228,7 @@ public open class Calendar(
          *
          * @param value whether to show week numbers on the left of the days
          */
-        set(`value`) =
-            gtk_calendar_set_show_week_numbers(
-                gtkCalendarPointer.reinterpret(),
-                `value`.asGBoolean()
-            )
+        set(`value`) = gtk_calendar_set_show_week_numbers(gtkCalendarPointer.reinterpret(), `value`.asGBoolean())
 
     /**
      * The selected year.
@@ -384,11 +373,7 @@ public open class Calendar(
      * @param day The desired day for the selected date (as a number between 1 and 31).
      * @since 4.14
      */
-    public open fun setDay(day: Int): Unit =
-        gtk_calendar_set_day(
-            gtkCalendarPointer.reinterpret(),
-            day
-        )
+    public open fun setDay(day: Int): Unit = gtk_calendar_set_day(gtkCalendarPointer.reinterpret(), day)
 
     /**
      * Sets the month for the selected date.
@@ -426,10 +411,7 @@ public open class Calendar(
      * @param value whether to show week numbers on the left of the days
      */
     public open fun setShowWeekNumbers(`value`: Boolean): Unit =
-        gtk_calendar_set_show_week_numbers(
-            gtkCalendarPointer.reinterpret(),
-            `value`.asGBoolean()
-        )
+        gtk_calendar_set_show_week_numbers(gtkCalendarPointer.reinterpret(), `value`.asGBoolean())
 
     /**
      * Sets the year for the selected date.
@@ -561,8 +543,7 @@ private val connectDaySelectedFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectNextMonthFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -570,8 +551,7 @@ private val connectNextMonthFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectNextYearFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -579,8 +559,7 @@ private val connectNextYearFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPrevMonthFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -588,8 +567,7 @@ private val connectPrevMonthFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectPrevYearFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -597,5 +575,4 @@ private val connectPrevYearFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -103,12 +103,7 @@ public class ThreadPool(
     public fun free(
         immediate: Boolean,
         wait: Boolean,
-    ): Unit =
-        g_thread_pool_free(
-            glibThreadPoolPointer.reinterpret(),
-            immediate.asGBoolean(),
-            wait.asGBoolean()
-        )
+    ): Unit = g_thread_pool_free(glibThreadPoolPointer.reinterpret(), immediate.asGBoolean(), wait.asGBoolean())
 
     /**
      * Returns the maximal number of threads for @pool.

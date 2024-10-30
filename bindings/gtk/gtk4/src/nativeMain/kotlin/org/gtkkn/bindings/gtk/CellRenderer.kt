@@ -113,7 +113,8 @@ import kotlin.Unit
  */
 public open class CellRenderer(
     pointer: CPointer<GtkCellRenderer>,
-) : InitiallyUnowned(pointer.reinterpret()), KGTyped {
+) : InitiallyUnowned(pointer.reinterpret()),
+    KGTyped {
     public val gtkCellRendererPointer: CPointer<GtkCellRenderer>
         get() = gPointer.reinterpret()
 
@@ -130,11 +131,9 @@ public open class CellRenderer(
          *
          * @param isExpanded whether @cell should be expanded
          */
-        set(isExpanded) =
-            gtk_cell_renderer_set_is_expanded(
-                gtkCellRendererPointer.reinterpret(),
-                isExpanded.asGBoolean()
-            )
+        set(
+            isExpanded
+        ) = gtk_cell_renderer_set_is_expanded(gtkCellRendererPointer.reinterpret(), isExpanded.asGBoolean())
 
     public open var isExpander: Boolean
         /**
@@ -149,11 +148,9 @@ public open class CellRenderer(
          *
          * @param isExpander whether @cell is an expander
          */
-        set(isExpander) =
-            gtk_cell_renderer_set_is_expander(
-                gtkCellRendererPointer.reinterpret(),
-                isExpander.asGBoolean()
-            )
+        set(
+            isExpander
+        ) = gtk_cell_renderer_set_is_expander(gtkCellRendererPointer.reinterpret(), isExpander.asGBoolean())
 
     public open var sensitive: Boolean
         /**
@@ -168,11 +165,7 @@ public open class CellRenderer(
          *
          * @param sensitive the sensitivity of the cell
          */
-        set(sensitive) =
-            gtk_cell_renderer_set_sensitive(
-                gtkCellRendererPointer.reinterpret(),
-                sensitive.asGBoolean()
-            )
+        set(sensitive) = gtk_cell_renderer_set_sensitive(gtkCellRendererPointer.reinterpret(), sensitive.asGBoolean())
 
     public open var visible: Boolean
         /**
@@ -187,11 +180,7 @@ public open class CellRenderer(
          *
          * @param visible the visibility of the cell
          */
-        set(visible) =
-            gtk_cell_renderer_set_visible(
-                gtkCellRendererPointer.reinterpret(),
-                visible.asGBoolean()
-            )
+        set(visible) = gtk_cell_renderer_set_visible(gtkCellRendererPointer.reinterpret(), visible.asGBoolean())
 
     /**
      * Passes an activate event to the cell renderer for possible processing.
@@ -369,10 +358,7 @@ public open class CellRenderer(
      * @param isExpanded whether @cell should be expanded
      */
     public open fun setIsExpanded(isExpanded: Boolean): Unit =
-        gtk_cell_renderer_set_is_expanded(
-            gtkCellRendererPointer.reinterpret(),
-            isExpanded.asGBoolean()
-        )
+        gtk_cell_renderer_set_is_expanded(gtkCellRendererPointer.reinterpret(), isExpanded.asGBoolean())
 
     /**
      * Sets whether the given `GtkCellRenderer` is an expander.
@@ -380,10 +366,7 @@ public open class CellRenderer(
      * @param isExpander whether @cell is an expander
      */
     public open fun setIsExpander(isExpander: Boolean): Unit =
-        gtk_cell_renderer_set_is_expander(
-            gtkCellRendererPointer.reinterpret(),
-            isExpander.asGBoolean()
-        )
+        gtk_cell_renderer_set_is_expander(gtkCellRendererPointer.reinterpret(), isExpander.asGBoolean())
 
     /**
      * Sets the renderer’s padding.
@@ -402,10 +385,7 @@ public open class CellRenderer(
      * @param sensitive the sensitivity of the cell
      */
     public open fun setSensitive(sensitive: Boolean): Unit =
-        gtk_cell_renderer_set_sensitive(
-            gtkCellRendererPointer.reinterpret(),
-            sensitive.asGBoolean()
-        )
+        gtk_cell_renderer_set_sensitive(gtkCellRendererPointer.reinterpret(), sensitive.asGBoolean())
 
     /**
      * Sets the cell renderer’s visibility.
@@ -413,10 +393,7 @@ public open class CellRenderer(
      * @param visible the visibility of the cell
      */
     public open fun setVisible(visible: Boolean): Unit =
-        gtk_cell_renderer_set_visible(
-            gtkCellRendererPointer.reinterpret(),
-            visible.asGBoolean()
-        )
+        gtk_cell_renderer_set_visible(gtkCellRendererPointer.reinterpret(), visible.asGBoolean())
 
     /**
      * Starts editing the contents of this @cell, through a new `GtkCellEditable`
@@ -464,10 +441,7 @@ public open class CellRenderer(
      * @param canceled true if the editing has been canceled
      */
     public open fun stopEditing(canceled: Boolean): Unit =
-        gtk_cell_renderer_stop_editing(
-            gtkCellRendererPointer.reinterpret(),
-            canceled.asGBoolean()
-        )
+        gtk_cell_renderer_stop_editing(gtkCellRendererPointer.reinterpret(), canceled.asGBoolean())
 
     /**
      * This signal gets emitted when the user cancels the process of editing a
@@ -524,8 +498,7 @@ public open class CellRenderer(
      * ]|
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `editable` the `GtkCellEditable`; `path` the
-     * path identifying the edited cell
+     * @param handler the Callback to connect. Params: `editable` the `GtkCellEditable`; `path` the path identifying the edited cell
      */
     public fun connectEditingStarted(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -542,9 +515,7 @@ public open class CellRenderer(
 
     public companion object : TypeCompanion<CellRenderer> {
         override val type: GeneratedClassKGType<CellRenderer> =
-            GeneratedClassKGType(gtk_cell_renderer_get_type()) {
-                CellRenderer(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_cell_renderer_get_type()) { CellRenderer(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -558,33 +529,20 @@ private val connectEditingCanceledFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
-private val connectEditingStartedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkCellEditable>,
-            CPointer<ByteVar>,
-        ) -> Unit
-    >
-> =
+private val connectEditingStartedFunc:
+    CPointer<CFunction<(CPointer<GtkCellEditable>, CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             editable: CPointer<GtkCellEditable>?,
             path: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                editable: CellEditable,
-                path: String,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(editable: CellEditable, path: String) -> Unit>().get().invoke(
             editable!!.run {
                 CellEditable.wrap(reinterpret())
             },
             path?.toKString() ?: error("Expected not null string")
         )
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -23,7 +23,8 @@ import kotlin.Float
  */
 public open class OutsetShadowNode(
     pointer: CPointer<GskOutsetShadowNode>,
-) : RenderNode(pointer.reinterpret()), KGTyped {
+) : RenderNode(pointer.reinterpret()),
+    KGTyped {
     public val gskOutsetShadowNodePointer: CPointer<GskOutsetShadowNode>
         get() = gPointer.reinterpret()
 
@@ -108,9 +109,7 @@ public open class OutsetShadowNode(
 
     public companion object : TypeCompanion<OutsetShadowNode> {
         override val type: GeneratedClassKGType<OutsetShadowNode> =
-            GeneratedClassKGType(gsk_outset_shadow_node_get_type()) {
-                OutsetShadowNode(it.reinterpret())
-            }
+            GeneratedClassKGType(gsk_outset_shadow_node_get_type()) { OutsetShadowNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
