@@ -73,9 +73,9 @@ Feel free to reach out via the [GitLab issue tracker](https://gitlab.com/gtk-kn/
 
 ## Building the Project
 
-To build the project, follow the setup [instructions here](docs/user-guide/installation.md).
+To build the project, follow the setup [instructions here](https://gtk-kn.gitlab.io/gtk-kn/get-started/).
 
-Documentation on deploying bindings to Maven local is available [here](docs/user-guide/deploy-on-mavenlocal.md).
+Documentation on deploying bindings to Maven local is available [here](https://gtk-kn.gitlab.io/gtk-kn/user-guide/deploy-on-mavenlocal/).
 
 ## Running the Examples
 

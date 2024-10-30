@@ -1,44 +1,40 @@
 # Contributing to gtk-kn
 
-Thank you for considering contributing to our project! We welcome any contributions that help make our project better.
-Whether it is fixing a bug, adding a new feature, or improving documentation, your help is appreciated.
+Thank you for considering a contribution to `gtk-kn`! We welcome contributions that help improve the project, whether
+fixing a bug, adding a feature, or enhancing documentation.
 
-Before you start, please read this guide on how to contribute to our project.
+Please read this guide before you begin contributing.
 
 ## Issues
 
-If you find a bug or have a feature request, please submit an issue on
-our [issue tracker](https://gitlab.com/gtk-kn/gtk-kn/-/issues). Before submitting an issue, please make sure that
-it has not already been reported by searching the existing issues. When submitting an issue, please provide as much
-information as possible, such as:
+If you find a bug or have a feature request, please open an issue on
+our [issue tracker](https://gitlab.com/gtk-kn/gtk-kn/-/issues). Before submitting, check for existing issues to avoid
+duplicates. When submitting an issue, please include:
 
-- A clear and concise title that summarizes the issue.
-- A detailed description of the issue, including steps to reproduce it.
-- The version of the project you are using.
-- Any relevant logs or error messages.
-- Any screenshots or videos that help illustrate the issue.
+- A clear, concise title summarizing the issue.
+- A detailed description, including steps to reproduce the issue.
+- The project version in use.
+- Relevant logs or error messages.
+- Screenshots or videos, if applicable.
 
 ## Merge Requests
 
-If you want to contribute code, please follow these steps:
+To contribute code, please follow these steps:
 
-1. Create a new issue for the feature request or bug fix you want to work on. This will allow the maintainers to review
-   and discuss the idea with you before you invest a lot of time and effort.
-2. Fork the repository and create a new branch for your changes.
-3. Write code that follows our coding standards, is well-documented, and includes tests where appropriate.
-4. Make sure the code has been tested thoroughly and works as expected.
-5. Submit a merge request on [GitLab](https://gitlab.com/gtk-kn/gtk-kn/-/merge_requests), including a clear and concise
-   title that summarizes the changes made, a detailed description of the changes, and any relevant issues that are being
-   addressed.
-6. Be patient while the maintainers review your changes. We will do our best to review and merge them as quickly as
-   possible.
+1. **Create an Issue**: Open an issue for your feature request or bug fix. This allows maintainers to review and discuss
+   your idea before significant effort is invested.
+2. **Fork and Branch**: Fork the repository and create a branch for your changes.
+3. **Follow Standards**: Write code that adheres to our coding standards, is well-documented, and includes tests where
+   needed.
+4. **Test Thoroughly**: Ensure your code works as expected.
+5. **Submit a Merge Request**: Open a merge request on [GitLab](https://gitlab.com/gtk-kn/gtk-kn/-/merge_requests) with
+   a descriptive title and detailed summary. Reference any relevant issues.
 
-When submitting a merge request, please provide as much information as possible, such as:
+In your merge request, please provide:
 
-- A clear and concise title that summarizes the merge request.
-- A detailed description of the changes made.
-- Any relevant issues that are being addressed by the merge request.
-- Screenshots or videos that help illustrate the changes, if applicable.
+- A concise title summarizing the merge request.
+- A description of changes made.
+- Links to related issues.
+- Screenshots or videos illustrating changes, if applicable.
 
-We appreciate all contributions and will do our best to review and merge them as quickly as possible. Thank you for your
-help in making our project better!
+Thank you for helping make `gtk-kn` better! We’ll review and merge contributions as promptly as possible.
