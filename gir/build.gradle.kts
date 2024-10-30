@@ -73,3 +73,13 @@ tasks {
         options.compilerArgs.add("-Xlint:unchecked")
     }
 }
+
+// Configure each subproject with cleanBindings to depend on the run task
+gradle.projectsEvaluated {
+    rootProject.subprojects.forEach { subproject ->
+        subproject.tasks.findByName("cleanBindings")?.let { cleanTask ->
+            // Add the cleanBindings task as a dependency for the gir:run task
+            rootProject.tasks.getByPath(":gir:run").dependsOn(cleanTask)
+        }
+    }
+}
