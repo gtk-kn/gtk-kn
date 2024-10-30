@@ -1,6 +1,6 @@
 # gtk-kn
 
-<img src="docs/assets/logo-256.png" width="90" align="right" hspace="32" />
+<img src="docs/assets/logo-256.png" width="80" align="right" hspace="32" />
 
 `gtk-kn` provides Kotlin/Native bindings for GTK, its dependencies, and additional GObject-based libraries. GTK is a
 cross-platform GUI toolkit offering a complete set of widgets for building graphical applications. Kotlin/Native allows
