@@ -84,8 +84,6 @@ class ProcessorContext(
      * A set of C identifiers for gir objects that should not be generated.
      */
     private val ignoredTypes = hashSetOf(
-        // not available on older ubuntu versions
-        "GskBroadwayRenderer",
         // bitfield members not found through cinterop
         "GdkPixbufFormatFlags",
         "GIOCondition",

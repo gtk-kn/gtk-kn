@@ -12,6 +12,7 @@ public object GskTypeProvider : TypeProvider {
             BlendNode::class to BlendNode.type,
             BlurNode::class to BlurNode.type,
             BorderNode::class to BorderNode.type,
+            BroadwayRenderer::class to BroadwayRenderer.type,
             CairoNode::class to CairoNode.type,
             CairoRenderer::class to CairoRenderer.type,
             ClipNode::class to ClipNode.type,
