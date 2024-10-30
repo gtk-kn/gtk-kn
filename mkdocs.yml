@@ -52,10 +52,6 @@ theme:
   logo: 'assets/logo.svg'
   favicon: 'assets/favico.ico'
 
-# Plugins
-plugins:
-  - search
-
 # Customization
 extra_css:
   - stylesheets/extra.css
@@ -63,10 +59,13 @@ extra:
   social:
     - icon: simple/matrix
       link: https://matrix.to/#/#gtk-kn:matrix.org
+      name: Matrix
     - icon: fontawesome/brands/gitlab
       link: https://gitlab.com/gtk-kn/
+      name: GitLab
     - icon: fontawesome/brands/github
       link: https://github.com/gtk-kn/
+      name: GitHub
   consent:
     title: Cookie consent
     description: >-
@@ -77,7 +76,6 @@ extra:
     actions:
       - accept
       - reject
-
 
 # Extensions
 markdown_extensions:
@@ -97,7 +95,6 @@ markdown_extensions:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
-  - pymdownx.inlinehilite
   - pymdownx.inlinehilite
   - pymdownx.magiclink
   - pymdownx.smartsymbols

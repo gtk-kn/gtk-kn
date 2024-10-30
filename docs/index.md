@@ -4,7 +4,7 @@
 ![GTK-kn logo](assets/logo-256.png)
 </figure>
 
-Kotlin/Native bindings for GTK and related GObject-based libraries.
+This project provides Kotlin/Native bindings for GTK and related GObject-based libraries.
 
 <figure markdown>
 [Get Started](get-started/index.md){ .md-button .md-button--primary }
