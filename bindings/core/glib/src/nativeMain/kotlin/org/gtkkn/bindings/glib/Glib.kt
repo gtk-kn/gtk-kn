@@ -314,6 +314,7 @@ import org.gtkkn.native.glib.g_variant_type_string_get_depth_
 import org.gtkkn.native.glib.g_variant_type_string_is_valid
 import org.gtkkn.native.glib.glib_check_version
 import kotlin.Boolean
+import kotlin.Byte
 import kotlin.Char
 import kotlin.Double
 import kotlin.Int
@@ -682,8 +683,6 @@ import kotlin.collections.List
  * - callback `ThreadFunc`: Return type gpointer is unsupported
  * - callback `TranslateFunc`: Callback with String return value is not supported
  * - bitfield `IOCondition`: C Type GIOCondition is ignored
- * - constant `MAXINT8`: gint8
- * - constant `MININT8`: gint8
  * - record `Allocator`: Disguised records are ignored
  * - record `AsyncQueue`: Disguised records are ignored
  * - record `Cache`: Disguised records are ignored
@@ -869,7 +868,7 @@ public object Glib {
 
     public const val IEEE754_DOUBLE_BIAS: Int = 1023
 
-    public const val IEEE754_FLOAT_BIAS: Int = 127
+    public const val IEEE754_FLOAT_BIAS: Byte = Byte.MAX_VALUE
 
     /**
      * The name of the main group of a desktop entry file, as defined in the
@@ -1156,6 +1155,8 @@ public object Glib {
 
     public const val MAXINT64: Long = Long.MAX_VALUE
 
+    public const val MAXINT8: Byte = Byte.MAX_VALUE
+
     public const val MAXUINT16: UShort = 65535u
 
     public const val MAXUINT32: UInt = UInt.MAX_VALUE
@@ -1191,6 +1192,13 @@ public object Glib {
      * The minimum value which can be held in a #gint64.
      */
     public const val MININT64: Long = Long.MIN_VALUE
+
+    /**
+     * The minimum value which can be held in a #gint8.
+     *
+     * @since 2.4
+     */
+    public const val MININT8: Byte = Byte.MIN_VALUE
 
     /**
      * The minor version number of the GLib library.

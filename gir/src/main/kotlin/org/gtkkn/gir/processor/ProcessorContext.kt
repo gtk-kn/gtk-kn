@@ -67,6 +67,7 @@ class ProcessorContext(
         "gint16" to TypeInfo.Primitive(SHORT),
         "gint32" to TypeInfo.Primitive(INT),
         "gint64" to TypeInfo.Primitive(LONG),
+        "gint8" to TypeInfo.Primitive(BYTE),
         "glong" to TypeInfo.Primitive(LONG),
         "gsize" to TypeInfo.Primitive(U_LONG),
         "gssize" to TypeInfo.Primitive(LONG),

@@ -39,6 +39,7 @@ import org.gtkkn.native.gobject.g_flags_register_static
 import org.gtkkn.native.gobject.g_gtype_get_type
 import org.gtkkn.native.gobject.g_param_spec_boolean
 import org.gtkkn.native.gobject.g_param_spec_boxed
+import org.gtkkn.native.gobject.g_param_spec_char
 import org.gtkkn.native.gobject.g_param_spec_double
 import org.gtkkn.native.gobject.g_param_spec_enum
 import org.gtkkn.native.gobject.g_param_spec_flags
@@ -133,6 +134,7 @@ import org.gtkkn.native.gobject.g_type_test_flags
 import org.gtkkn.native.gobject.g_value_type_compatible
 import org.gtkkn.native.gobject.g_value_type_transformable
 import kotlin.Boolean
+import kotlin.Byte
 import kotlin.Double
 import kotlin.Float
 import kotlin.Int
@@ -177,7 +179,6 @@ import kotlin.Unit
  * - function `enum_to_string`: C function g_enum_to_string is ignored
  * - parameter `info`: info: Out parameter is not supported
  * - function `flags_to_string`: C function g_flags_to_string is ignored
- * - parameter `minimum`: gint8
  * - parameter `dummy`: gpointer
  * - parameter `dummy`: gpointer
  * - parameter `instance_and_params`: Value
@@ -491,6 +492,31 @@ public object Gobject {
         flags: ParamFlags,
     ): ParamSpec =
         g_param_spec_boxed(name, nick, blurb, boxedType, flags.mask)!!.run {
+            ParamSpec(reinterpret())
+        }
+
+    /**
+     * Creates a new #GParamSpecChar instance specifying a %G_TYPE_CHAR property.
+     *
+     * @param name canonical name of the property specified
+     * @param nick nick name for the property specified
+     * @param blurb description of the property specified
+     * @param minimum minimum value for the property specified
+     * @param maximum maximum value for the property specified
+     * @param defaultValue default value for the property specified
+     * @param flags flags for the property specified
+     * @return a newly created parameter specification
+     */
+    public fun paramSpecChar(
+        name: String,
+        nick: String? = null,
+        blurb: String? = null,
+        minimum: Byte,
+        maximum: Byte,
+        defaultValue: Byte,
+        flags: ParamFlags,
+    ): ParamSpec =
+        g_param_spec_char(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 

@@ -28,6 +28,7 @@ import org.gtkkn.native.gobject.g_value_get_int64
 import org.gtkkn.native.gobject.g_value_get_long
 import org.gtkkn.native.gobject.g_value_get_object
 import org.gtkkn.native.gobject.g_value_get_param
+import org.gtkkn.native.gobject.g_value_get_schar
 import org.gtkkn.native.gobject.g_value_get_string
 import org.gtkkn.native.gobject.g_value_get_uchar
 import org.gtkkn.native.gobject.g_value_get_uint
@@ -50,6 +51,7 @@ import org.gtkkn.native.gobject.g_value_set_interned_string
 import org.gtkkn.native.gobject.g_value_set_long
 import org.gtkkn.native.gobject.g_value_set_object
 import org.gtkkn.native.gobject.g_value_set_param
+import org.gtkkn.native.gobject.g_value_set_schar
 import org.gtkkn.native.gobject.g_value_set_static_string
 import org.gtkkn.native.gobject.g_value_set_string
 import org.gtkkn.native.gobject.g_value_set_uchar
@@ -64,6 +66,7 @@ import org.gtkkn.native.gobject.g_value_type_compatible
 import org.gtkkn.native.gobject.g_value_type_transformable
 import org.gtkkn.native.gobject.g_value_unset
 import kotlin.Boolean
+import kotlin.Byte
 import kotlin.Char
 import kotlin.Double
 import kotlin.Float
@@ -91,13 +94,11 @@ import kotlin.Unit
  *
  * - method `get_boxed`: Return type gpointer is unsupported
  * - method `get_pointer`: Return type gpointer is unsupported
- * - method `get_schar`: Return type gint8 is unsupported
  * - method `peek_pointer`: Return type gpointer is unsupported
  * - parameter `v_boxed`: gpointer
  * - parameter `v_boxed`: gpointer
  * - parameter `instance`: gpointer
  * - parameter `v_pointer`: gpointer
- * - parameter `v_char`: gint8
  * - parameter `v_boxed`: gpointer
  * - method `set_string_take_ownership`: C function g_value_set_string_take_ownership is ignored
  * - parameter `v_boxed`: gpointer
@@ -252,6 +253,14 @@ public class Value(
         g_value_get_param(gobjectValuePointer.reinterpret())!!.run {
             ParamSpec(reinterpret())
         }
+
+    /**
+     * Get the contents of a %G_TYPE_CHAR #GValue.
+     *
+     * @return signed 8 bit integer contents of @value
+     * @since 2.32
+     */
+    public fun getSchar(): Byte = g_value_get_schar(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_STRING #GValue.
@@ -444,6 +453,14 @@ public class Value(
      */
     public fun setParam(`param`: ParamSpec? = null): Unit =
         g_value_set_param(gobjectValuePointer.reinterpret(), `param`?.gPointer?.reinterpret())
+
+    /**
+     * Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
+     *
+     * @param vChar signed 8 bit integer to be set
+     * @since 2.32
+     */
+    public fun setSchar(vChar: Byte): Unit = g_value_set_schar(gobjectValuePointer.reinterpret(), vChar)
 
     /**
      * Set the contents of a %G_TYPE_STRING #GValue to @v_string.
