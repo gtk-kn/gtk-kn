@@ -2,7 +2,7 @@
 # https://docs.gradle.org/current/userguide/platforms.html
 [versions]
 detekt = "1.23.5"
-dokka = "1.9.10"
+dokka = "1.9.20"
 gradle = "8.10.2"
 java = "17"
 kotlin = "2.0.21"  # 1.9.2x breaks harfbuzz.def

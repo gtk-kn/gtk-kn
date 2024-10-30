@@ -2,7 +2,7 @@ pages:
   extends: .build-base
   stage: deploy
   script:
-    - pip install -r mkdocs-requirements.txt
+    - pip install -r mkdocs-requirements.txt --break-system-packages
     - ./gradlew :gir:run
     - ./gradlew dokkaHtmlMultiModule
     - mkdocs build --strict --verbose
