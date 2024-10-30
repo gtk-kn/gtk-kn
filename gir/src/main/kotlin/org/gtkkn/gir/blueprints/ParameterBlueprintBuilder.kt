@@ -60,7 +60,7 @@ class ParameterBlueprintBuilder(
             }
 
             girParam.direction == GirDirection.IN_OUT -> {
-                throw UnresolvableTypeException("${girParam.name}: InOut parameter is not supported")
+                throw UnresolvableTypeException("${girParam.name}: In/Out parameter is not supported")
             }
 
             girParam.type is GirVarArgs -> {

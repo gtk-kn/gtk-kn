@@ -193,7 +193,7 @@ import kotlin.Unit
  * - method `cursor-position`: Property has no getter nor setter
  * - method `selection-bound`: Property has no getter nor setter
  * - method `xalign`: Property has no getter nor setter
- * - signal `insert-text`: Unsupported parameter `position` : position: InOut parameter is not supported
+ * - signal `insert-text`: Unsupported parameter `position` : position: In/Out parameter is not supported
  * - function `install_properties`: C function gtk_editable_install_properties is ignored
  */
 public interface Editable :
