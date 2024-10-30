@@ -16,6 +16,7 @@ import org.gtkkn.native.glib.g_variant_byteswap
 import org.gtkkn.native.glib.g_variant_check_format_string
 import org.gtkkn.native.glib.g_variant_classify
 import org.gtkkn.native.glib.g_variant_get_boolean
+import org.gtkkn.native.glib.g_variant_get_byte
 import org.gtkkn.native.glib.g_variant_get_child_value
 import org.gtkkn.native.glib.g_variant_get_data_as_bytes
 import org.gtkkn.native.glib.g_variant_get_double
@@ -42,6 +43,7 @@ import org.gtkkn.native.glib.g_variant_is_signature
 import org.gtkkn.native.glib.g_variant_lookup_value
 import org.gtkkn.native.glib.g_variant_n_children
 import org.gtkkn.native.glib.g_variant_new_boolean
+import org.gtkkn.native.glib.g_variant_new_byte
 import org.gtkkn.native.glib.g_variant_new_bytestring_array
 import org.gtkkn.native.glib.g_variant_new_dict_entry
 import org.gtkkn.native.glib.g_variant_new_double
@@ -74,6 +76,7 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Short
 import kotlin.String
+import kotlin.UByte
 import kotlin.UInt
 import kotlin.ULong
 import kotlin.UShort
@@ -335,8 +338,7 @@ import kotlin.collections.List
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `two`: Variant
- * - method `get_byte`: Return type guint8 is unsupported
- * - method `get_bytestring`: guint8
+ * - method `get_bytestring`: Array parameter of type guint8 is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - method `get_data`: Return type gpointer is unsupported
  * - parameter `length`: length: Out parameter is not supported
@@ -344,10 +346,9 @@ import kotlin.collections.List
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `data`: gpointer
  * - parameter `children`: Array parameter of type Variant is not supported
- * - parameter `value`: guint8
- * - parameter `string`: guint8
+ * - parameter `string`: Array parameter of type guint8 is not supported
  * - parameter `elements`: gpointer
- * - parameter `data`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `children`: Array parameter of type Variant is not supported
  * - parameter `endptr`: Unsupported string with cType const gchar**
  *
@@ -433,6 +434,17 @@ public class Variant(
      * @since 2.24
      */
     public fun getBoolean(): Boolean = g_variant_get_boolean(glibVariantPointer.reinterpret()).asBoolean()
+
+    /**
+     * Returns the byte value of @value.
+     *
+     * It is an error to call this function with a @value of any type
+     * other than %G_VARIANT_TYPE_BYTE.
+     *
+     * @return a #guint8
+     * @since 2.24
+     */
+    public fun getByte(): UByte = g_variant_get_byte(glibVariantPointer.reinterpret())
 
     /**
      * Reads a child item out of a container #GVariant instance.  This
@@ -919,6 +931,15 @@ public class Variant(
          */
         public fun newBoolean(`value`: Boolean): Variant =
             Variant(g_variant_new_boolean(`value`.asGBoolean())!!.reinterpret())
+
+        /**
+         * Creates a new byte #GVariant instance.
+         *
+         * @param value a #guint8 value
+         * @return a floating reference to a new byte #GVariant instance
+         * @since 2.24
+         */
+        public fun newByte(`value`: UByte): Variant = Variant(g_variant_new_byte(`value`)!!.reinterpret())
 
         /**
          * Constructs an array of bytestring #GVariant from the given array of

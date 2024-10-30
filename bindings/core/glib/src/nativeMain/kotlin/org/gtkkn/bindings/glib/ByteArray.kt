@@ -15,23 +15,23 @@ import kotlin.UInt
  *
  * ## Skipped during bindings generation
  *
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - function `new`: guint8
- * - parameter `data`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - function `sized_new`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - field `data`: guint8
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - function `new`: Array parameter of type guint8 is not supported
+ * - parameter `data`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - function `sized_new`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - field `data`: Unsupported pointer to primitive type
  */
 public class ByteArray(
     pointer: CPointer<GByteArray>,

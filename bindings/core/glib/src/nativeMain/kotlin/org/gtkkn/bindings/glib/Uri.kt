@@ -220,7 +220,7 @@ import kotlin.collections.List
  * ## Skipped during bindings generation
  *
  * - method `to_string`: C function g_uri_to_string is ignored
- * - parameter `unescaped`: guint8
+ * - parameter `unescaped`: Array parameter of type guint8 is not supported
  * - parameter `scheme`: scheme: Out parameter is not supported
  * - parameter `scheme`: scheme: Out parameter is not supported
  * - parameter `scheme`: scheme: Out parameter is not supported

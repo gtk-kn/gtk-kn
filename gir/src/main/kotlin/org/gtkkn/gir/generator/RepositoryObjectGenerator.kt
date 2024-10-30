@@ -64,6 +64,11 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
                 type = U_INT
             }
 
+            value == "255" -> {
+                value = "UByte.MAX_VALUE"
+                type = U_BYTE
+            }
+
             type == U_BYTE -> format = "%L.toUByte()"
             type == CHAR -> format = "'$format'"
             type == SHORT || type == INT || type == LONG || type == DOUBLE -> Unit

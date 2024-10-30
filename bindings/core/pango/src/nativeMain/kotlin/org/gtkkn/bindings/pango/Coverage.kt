@@ -32,7 +32,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `bytes`: bytes: Out parameter is not supported
- * - parameter `bytes`: guint8
+ * - parameter `bytes`: Array parameter of type guint8 is not supported
  */
 public open class Coverage(
     pointer: CPointer<PangoCoverage>,

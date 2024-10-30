@@ -40,7 +40,7 @@ import kotlin.ULong
  * ## Skipped during bindings generation
  *
  * - parameter `data`: gpointer
- * - parameter `data`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
  *
  * @since 2.22
  */

@@ -27,8 +27,8 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `length`: length: Out parameter is not supported
- * - parameter `value`: guint8
- * - parameter `value`: guint8
+ * - parameter `value`: Array parameter of type guint8 is not supported
+ * - parameter `value`: Array parameter of type guint8 is not supported
  *
  * @since 2.30
  */

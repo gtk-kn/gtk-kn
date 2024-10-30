@@ -29,6 +29,7 @@ import org.gtkkn.native.gobject.g_value_get_long
 import org.gtkkn.native.gobject.g_value_get_object
 import org.gtkkn.native.gobject.g_value_get_param
 import org.gtkkn.native.gobject.g_value_get_string
+import org.gtkkn.native.gobject.g_value_get_uchar
 import org.gtkkn.native.gobject.g_value_get_uint
 import org.gtkkn.native.gobject.g_value_get_uint64
 import org.gtkkn.native.gobject.g_value_get_ulong
@@ -51,6 +52,7 @@ import org.gtkkn.native.gobject.g_value_set_object
 import org.gtkkn.native.gobject.g_value_set_param
 import org.gtkkn.native.gobject.g_value_set_static_string
 import org.gtkkn.native.gobject.g_value_set_string
+import org.gtkkn.native.gobject.g_value_set_uchar
 import org.gtkkn.native.gobject.g_value_set_uint
 import org.gtkkn.native.gobject.g_value_set_uint64
 import org.gtkkn.native.gobject.g_value_set_ulong
@@ -68,6 +70,7 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlin.UByte
 import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
@@ -89,7 +92,6 @@ import kotlin.Unit
  * - method `get_boxed`: Return type gpointer is unsupported
  * - method `get_pointer`: Return type gpointer is unsupported
  * - method `get_schar`: Return type gint8 is unsupported
- * - method `get_uchar`: Return type guint8 is unsupported
  * - method `peek_pointer`: Return type gpointer is unsupported
  * - parameter `v_boxed`: gpointer
  * - parameter `v_boxed`: gpointer
@@ -98,7 +100,6 @@ import kotlin.Unit
  * - parameter `v_char`: gint8
  * - parameter `v_boxed`: gpointer
  * - method `set_string_take_ownership`: C function g_value_set_string_take_ownership is ignored
- * - parameter `v_uchar`: guint8
  * - parameter `v_boxed`: gpointer
  * - method `take_string`: C function g_value_take_string is ignored
  * - field `g_type`: Record field g_type is private
@@ -258,6 +259,13 @@ public class Value(
      * @return string content of @value
      */
     public fun getString(): String? = g_value_get_string(gobjectValuePointer.reinterpret())?.toKString()
+
+    /**
+     * Get the contents of a %G_TYPE_UCHAR #GValue.
+     *
+     * @return unsigned character contents of @value
+     */
+    public fun getUchar(): UByte = g_value_get_uchar(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_UINT #GValue.
@@ -456,6 +464,13 @@ public class Value(
      * @param vString caller-owned string to be duplicated for the #GValue
      */
     public fun setString(vString: String? = null): Unit = g_value_set_string(gobjectValuePointer.reinterpret(), vString)
+
+    /**
+     * Set the contents of a %G_TYPE_UCHAR #GValue to @v_uchar.
+     *
+     * @param vUchar unsigned character value to be set
+     */
+    public fun setUchar(vUchar: UByte): Unit = g_value_set_uchar(gobjectValuePointer.reinterpret(), vUchar)
 
     /**
      * Set the contents of a %G_TYPE_UINT #GValue to @v_uint.

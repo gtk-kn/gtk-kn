@@ -109,7 +109,7 @@ import kotlin.collections.List
  * - method `get_modified`: Return type time_t is unsupported
  * - parameter `length`: length: Out parameter is not supported
  * - method `get_visited`: Return type time_t is unsupported
- * - parameter `data`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `full_path`: full_path: Out parameter is not supported
  * - parameter `added`: time_t
  * - parameter `stamp`: time_t

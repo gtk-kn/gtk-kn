@@ -19,6 +19,7 @@ import org.gtkkn.native.gio.g_data_input_stream_get_byte_order
 import org.gtkkn.native.gio.g_data_input_stream_get_newline_type
 import org.gtkkn.native.gio.g_data_input_stream_get_type
 import org.gtkkn.native.gio.g_data_input_stream_new
+import org.gtkkn.native.gio.g_data_input_stream_read_byte
 import org.gtkkn.native.gio.g_data_input_stream_read_int16
 import org.gtkkn.native.gio.g_data_input_stream_read_int32
 import org.gtkkn.native.gio.g_data_input_stream_read_int64
@@ -36,6 +37,7 @@ import kotlin.Long
 import kotlin.Result
 import kotlin.Short
 import kotlin.String
+import kotlin.UByte
 import kotlin.UInt
 import kotlin.ULong
 import kotlin.UShort
@@ -47,7 +49,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `read_byte`: Return type guint8 is unsupported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
@@ -145,6 +146,29 @@ public open class DataInputStream(
     public open fun getNewlineType(): DataStreamNewlineType =
         g_data_input_stream_get_newline_type(gioDataInputStreamPointer.reinterpret()).run {
             DataStreamNewlineType.fromNativeValue(this)
+        }
+
+    /**
+     * Reads an unsigned 8-bit/1-byte value from @stream.
+     *
+     * @param cancellable optional #GCancellable object, null to ignore.
+     * @return an unsigned 8-bit/1-byte value read from the @stream or `0`
+     * if an error occurred.
+     */
+    public open fun readByte_(cancellable: Cancellable? = null): Result<UByte> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_data_input_stream_read_byte(
+                    gioDataInputStreamPointer.reinterpret(),
+                    cancellable?.gioCancellablePointer?.reinterpret(),
+                    gError.ptr
+                )
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(gResult)
+            }
         }
 
     /**

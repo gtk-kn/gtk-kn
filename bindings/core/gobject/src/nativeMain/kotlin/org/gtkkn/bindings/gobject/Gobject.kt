@@ -51,6 +51,7 @@ import org.gtkkn.native.gobject.g_param_spec_object
 import org.gtkkn.native.gobject.g_param_spec_param
 import org.gtkkn.native.gobject.g_param_spec_pointer
 import org.gtkkn.native.gobject.g_param_spec_string
+import org.gtkkn.native.gobject.g_param_spec_uchar
 import org.gtkkn.native.gobject.g_param_spec_uint
 import org.gtkkn.native.gobject.g_param_spec_uint64
 import org.gtkkn.native.gobject.g_param_spec_ulong
@@ -137,6 +138,7 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlin.UByte
 import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
@@ -176,7 +178,6 @@ import kotlin.Unit
  * - parameter `info`: info: Out parameter is not supported
  * - function `flags_to_string`: C function g_flags_to_string is ignored
  * - parameter `minimum`: gint8
- * - parameter `minimum`: guint8
  * - parameter `dummy`: gpointer
  * - parameter `dummy`: gpointer
  * - parameter `instance_and_params`: Value
@@ -213,7 +214,7 @@ public object Gobject {
     /**
      * Mask containing the bits of #GParamSpec.flags which are reserved for GLib.
      */
-    public const val PARAM_MASK: Int = 255
+    public const val PARAM_MASK: UByte = UByte.MAX_VALUE
 
     /**
      * #GParamFlags value alias for %G_PARAM_STATIC_NAME | %G_PARAM_STATIC_NICK | %G_PARAM_STATIC_BLURB.
@@ -798,6 +799,31 @@ public object Gobject {
         flags: ParamFlags,
     ): ParamSpec =
         g_param_spec_string(name, nick, blurb, defaultValue, flags.mask)!!.run {
+            ParamSpec(reinterpret())
+        }
+
+    /**
+     * Creates a new #GParamSpecUChar instance specifying a %G_TYPE_UCHAR property.
+     *
+     * @param name canonical name of the property specified
+     * @param nick nick name for the property specified
+     * @param blurb description of the property specified
+     * @param minimum minimum value for the property specified
+     * @param maximum maximum value for the property specified
+     * @param defaultValue default value for the property specified
+     * @param flags flags for the property specified
+     * @return a newly created parameter specification
+     */
+    public fun paramSpecUchar(
+        name: String,
+        nick: String? = null,
+        blurb: String? = null,
+        minimum: UByte,
+        maximum: UByte,
+        defaultValue: UByte,
+        flags: ParamFlags,
+    ): ParamSpec =
+        g_param_spec_uchar(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
             ParamSpec(reinterpret())
         }
 

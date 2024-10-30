@@ -9,6 +9,7 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoAnalysis
+import kotlin.UByte
 
 /**
  * The `PangoAnalysis` structure stores information about
@@ -18,10 +19,6 @@ import org.gtkkn.native.pango.PangoAnalysis
  *
  * - field `shape_engine`: gpointer
  * - field `lang_engine`: gpointer
- * - field `level`: guint8
- * - field `gravity`: guint8
- * - field `flags`: guint8
- * - field `script`: guint8
  */
 public class Analysis(
     pointer: CPointer<PangoAnalysis>,
@@ -38,6 +35,42 @@ public class Analysis(
             pangoAnalysisPointer.pointed.font?.run {
                 Font(reinterpret())
             }
+
+    /**
+     * the bidirectional level for this segment.
+     */
+    public var level: UByte
+        get() = pangoAnalysisPointer.pointed.level
+        set(`value`) {
+            pangoAnalysisPointer.pointed.level = value
+        }
+
+    /**
+     * the glyph orientation for this segment (A `PangoGravity`).
+     */
+    public var gravity: UByte
+        get() = pangoAnalysisPointer.pointed.gravity
+        set(`value`) {
+            pangoAnalysisPointer.pointed.gravity = value
+        }
+
+    /**
+     * boolean flags for this segment (Since: 1.16).
+     */
+    public var flags: UByte
+        get() = pangoAnalysisPointer.pointed.flags
+        set(`value`) {
+            pangoAnalysisPointer.pointed.flags = value
+        }
+
+    /**
+     * the detected script for this segment (A `PangoScript`) (Since: 1.18).
+     */
+    public var script: UByte
+        get() = pangoAnalysisPointer.pointed.script
+        set(`value`) {
+            pangoAnalysisPointer.pointed.script = value
+        }
 
     /**
      * the detected language for this segment.

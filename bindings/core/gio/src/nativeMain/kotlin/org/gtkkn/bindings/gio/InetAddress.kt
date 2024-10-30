@@ -46,7 +46,7 @@ import kotlin.ULong
  *
  * - method `to_string`: C function g_inet_address_to_string is ignored
  * - method `bytes`: Property has no getter nor setter
- * - parameter `bytes`: guint8
+ * - parameter `bytes`: Array parameter of type guint8 is not supported
  */
 public open class InetAddress(
     pointer: CPointer<GInetAddress>,

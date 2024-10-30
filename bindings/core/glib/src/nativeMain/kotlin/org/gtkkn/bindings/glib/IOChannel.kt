@@ -99,7 +99,7 @@ import kotlin.Unit
  * - parameter `str_return`: str_return: Out parameter is not supported
  * - parameter `thechar`: thechar: Out parameter is not supported
  * - parameter `bytes_written`: Unsupported pointer to primitive type
- * - parameter `buf`: guint8
+ * - parameter `buf`: Array parameter of type guint8 is not supported
  * - field `ref_count`: Record field ref_count is private
  * - field `funcs`: Record field funcs is private
  * - field `encoding`: Record field encoding is private

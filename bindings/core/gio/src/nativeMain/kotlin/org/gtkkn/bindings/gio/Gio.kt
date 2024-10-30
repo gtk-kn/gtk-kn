@@ -202,13 +202,13 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - function `bus_own_name_on_connection`: g_bus_own_name_on_connection is shadowedBy bus_own_name_on_connection_with_closures
  * - function `bus_watch_name`: g_bus_watch_name is shadowedBy bus_watch_name_with_closures
  * - function `bus_watch_name_on_connection`: g_bus_watch_name_on_connection is shadowedBy bus_watch_name_on_connection_with_closures
- * - parameter `data`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `out_guid`: out_guid: Out parameter is not supported
  * - parameter `out_guid`: out_guid: Out parameter is not supported
  * - parameter `annotations`: Array parameter of type DBusAnnotationInfo is not supported
  * - parameter `quark_volatile`: Unsupported pointer to primitive type
- * - parameter `bytes`: guint8
- * - function `dbus_unescape_object_path`: guint8
+ * - parameter `bytes`: Array parameter of type guint8 is not supported
+ * - function `dbus_unescape_object_path`: Array parameter of type guint8 is not supported
  * - parameter `iostream`: iostream: Out parameter is not supported
  * - parameter `iostream`: iostream: Out parameter is not supported
  * - parameter `parameters`: GObject.Parameter
@@ -218,9 +218,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `scope`: IOModuleScope
  * - parameter `scope`: IOModuleScope
  * - function `networking_init`: C function g_networking_init is ignored
- * - parameter `buffer`: guint8
- * - parameter `buffer`: guint8
- * - parameter `buffer`: guint8
+ * - parameter `buffer`: Array parameter of type guint8 is not supported
+ * - parameter `buffer`: Array parameter of type guint8 is not supported
+ * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `size`: size: Out parameter is not supported
  * - parameter `time_read`: time_read: Out parameter is not supported
  * - parameter `time_read`: time_read: Out parameter is not supported

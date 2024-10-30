@@ -320,6 +320,7 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.Short
+import kotlin.UByte
 import kotlin.UInt
 import kotlin.ULong
 import kotlin.UShort
@@ -384,36 +385,36 @@ import kotlin.collections.List
  * - parameter `arc`: Unsupported pointer to primitive type
  * - parameter `out_len`: out_len: Out parameter is not supported
  * - function `base64_decode_inplace`: In/Out parameter is not supported
- * - parameter `data`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
  * - function `base64_encode_close`: In/Out parameter is not supported
  * - function `base64_encode_step`: In/Out parameter is not supported
  * - parameter `address`: Unsupported pointer to primitive type
  * - parameter `address`: Unsupported pointer to primitive type
  * - parameter `address`: Unsupported pointer to primitive type
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - function `byte_array_new`: guint8
- * - parameter `data`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - function `byte_array_sized_new`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
- * - parameter `array`: guint8
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - function `byte_array_new`: Array parameter of type guint8 is not supported
+ * - parameter `data`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - function `byte_array_sized_new`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: Array parameter of type guint8 is not supported
  * - parameter `pid`: Pid
  * - parameter `pid`: Pid
  * - function `chmod`: C function g_chmod is ignored
- * - parameter `data`: guint8
- * - parameter `key`: guint8
- * - parameter `key`: guint8
- * - parameter `str`: guint8
- * - parameter `str`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
+ * - parameter `key`: Array parameter of type guint8 is not supported
+ * - parameter `key`: Array parameter of type guint8 is not supported
+ * - parameter `str`: Array parameter of type guint8 is not supported
+ * - parameter `str`: Array parameter of type guint8 is not supported
  * - function `creat`: C function g_creat is ignored
  * - parameter `datalist`: Data
  * - parameter `datalist`: Data
@@ -441,8 +442,8 @@ import kotlin.collections.List
  * - parameter `error_type_init`: ErrorInitFunc
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `name_used`: name_used: Out parameter is not supported
- * - parameter `contents`: guint8
- * - parameter `contents`: guint8
+ * - parameter `contents`: Array parameter of type guint8 is not supported
+ * - parameter `contents`: Array parameter of type guint8 is not supported
  * - parameter `hostname`: hostname: Out parameter is not supported
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
@@ -474,7 +475,7 @@ import kotlin.collections.List
  * - parameter `condition`: C Type GIOCondition is ignored
  * - parameter `allocator`: Allocator
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
- * - parameter `opsysstring`: guint8
+ * - parameter `opsysstring`: Array parameter of type guint8 is not supported
  * - parameter `unused_data`: gpointer
  * - parameter `fields`: LogField
  * - parameter `fields`: LogField
@@ -633,7 +634,7 @@ import kotlin.collections.List
  * - parameter `condition`: C Type GIOCondition is ignored
  * - function `unix_get_passwd_entry`: Return type gpointer is unsupported
  * - parameter `fds`: Array parameter of type gint is not supported
- * - parameter `unescaped`: guint8
+ * - parameter `unescaped`: Array parameter of type guint8 is not supported
  * - parameter `scheme`: scheme: Out parameter is not supported
  * - parameter `scheme`: scheme: Out parameter is not supported
  * - parameter `scheme`: scheme: Out parameter is not supported
@@ -682,7 +683,6 @@ import kotlin.collections.List
  * - callback `TranslateFunc`: Callback with String return value is not supported
  * - bitfield `IOCondition`: C Type GIOCondition is ignored
  * - constant `MAXINT8`: gint8
- * - constant `MAXUINT8`: guint8
  * - constant `MININT8`: gint8
  * - record `Allocator`: Disguised records are ignored
  * - record `AsyncQueue`: Disguised records are ignored
@@ -1161,6 +1161,8 @@ public object Glib {
     public const val MAXUINT32: UInt = UInt.MAX_VALUE
 
     public const val MAXUINT64: ULong = ULong.MAX_VALUE
+
+    public const val MAXUINT8: UByte = UByte.MAX_VALUE
 
     /**
      * The micro version number of the GLib library.
