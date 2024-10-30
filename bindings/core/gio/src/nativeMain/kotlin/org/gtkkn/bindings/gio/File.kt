@@ -258,8 +258,8 @@ import kotlin.collections.List
  * - parameter `disk_usage`: disk_usage: Out parameter is not supported
  * - parameter `disk_usage`: disk_usage: Out parameter is not supported
  * - parameter `callback`: AsyncReadyCallback
- * - parameter `contents`: guint8
- * - parameter `contents`: guint8
+ * - parameter `contents`: Array parameter of type guint8 is not supported
+ * - parameter `contents`: Array parameter of type guint8 is not supported
  * - parameter `new_etag`: new_etag: Out parameter is not supported
  * - parameter `value_p`: gpointer
  * - parameter `info`: info: Out parameter is not supported

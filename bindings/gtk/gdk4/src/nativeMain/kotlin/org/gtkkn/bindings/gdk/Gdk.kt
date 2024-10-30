@@ -58,6 +58,7 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Result
 import kotlin.String
+import kotlin.UByte
 import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
@@ -4671,7 +4672,7 @@ public object Gdk {
 
     public const val KEY_ycircumflex: Int = 16777591
 
-    public const val KEY_ydiaeresis: Int = 255
+    public const val KEY_ydiaeresis: UByte = UByte.MAX_VALUE
 
     public const val KEY_yen: Int = 165
 

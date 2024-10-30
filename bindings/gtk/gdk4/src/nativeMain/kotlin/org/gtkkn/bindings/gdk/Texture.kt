@@ -63,7 +63,7 @@ import kotlin.Throws
  *
  * ## Skipped during bindings generation
  *
- * - parameter `data`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
  */
 public open class Texture(
     pointer: CPointer<GdkTexture>,

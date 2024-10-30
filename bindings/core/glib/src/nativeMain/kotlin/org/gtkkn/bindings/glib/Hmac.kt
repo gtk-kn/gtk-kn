@@ -35,8 +35,8 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - method `get_digest`: In/Out parameter is not supported
- * - parameter `data`: guint8
- * - parameter `key`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
+ * - parameter `key`: Array parameter of type guint8 is not supported
  *
  * @since 2.30
  */

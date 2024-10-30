@@ -31,7 +31,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `out_stride`: out_stride: Out parameter is not supported
- * - parameter `data`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
  *
  * @since 4.10
  */

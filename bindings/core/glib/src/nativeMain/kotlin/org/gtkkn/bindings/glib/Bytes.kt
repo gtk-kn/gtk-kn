@@ -48,10 +48,10 @@ import kotlin.Unit
  * - parameter `bytes2`: Bytes
  * - parameter `size`: size: Out parameter is not supported
  * - method `get_region`: Return type gpointer is unsupported
- * - method `unref_to_array`: guint8
+ * - method `unref_to_array`: Array parameter of type guint8 is not supported
  * - parameter `size`: size: Out parameter is not supported
- * - parameter `data`: guint8
- * - parameter `data`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
+ * - parameter `data`: Array parameter of type guint8 is not supported
  *
  * @since 2.32
  */

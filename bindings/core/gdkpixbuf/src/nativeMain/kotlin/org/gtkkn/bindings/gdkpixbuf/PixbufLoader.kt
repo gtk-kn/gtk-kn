@@ -93,7 +93,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `buf`: guint8
+ * - parameter `buf`: Array parameter of type guint8 is not supported
  */
 public open class PixbufLoader(
     pointer: CPointer<GdkPixbufLoader>,

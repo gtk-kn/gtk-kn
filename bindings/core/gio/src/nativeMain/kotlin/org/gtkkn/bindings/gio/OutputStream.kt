@@ -64,11 +64,11 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `buffer`: guint8
- * - parameter `buffer`: guint8
- * - parameter `buffer`: guint8
+ * - parameter `buffer`: Array parameter of type guint8 is not supported
+ * - parameter `buffer`: Array parameter of type guint8 is not supported
+ * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `bytes_written`: bytes_written: Out parameter is not supported
- * - parameter `buffer`: guint8
+ * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `vectors`: OutputVector
  * - parameter `vectors`: OutputVector
  * - parameter `vectors`: OutputVector

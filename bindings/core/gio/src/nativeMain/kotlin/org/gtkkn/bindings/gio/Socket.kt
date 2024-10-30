@@ -159,12 +159,12 @@ import kotlin.Unit
  * - method `receive_message`: In/Out parameter is not supported
  * - parameter `messages`: InputMessage
  * - parameter `buffer`: buffer: Out parameter is not supported
- * - parameter `buffer`: guint8
+ * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `vectors`: OutputVector
  * - parameter `vectors`: OutputVector
  * - parameter `messages`: OutputMessage
- * - parameter `buffer`: guint8
- * - parameter `buffer`: guint8
+ * - parameter `buffer`: Array parameter of type guint8 is not supported
+ * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - method `local-address`: Property getter throws
  * - method `remote-address`: Property getter throws
  * - method `type`: Property has no getter nor setter

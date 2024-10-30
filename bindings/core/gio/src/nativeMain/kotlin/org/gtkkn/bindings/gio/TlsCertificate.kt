@@ -61,7 +61,7 @@ import kotlin.Throws
  * - method `private-key`: Property has no getter nor setter
  * - method `private-key-pem`: Property has no getter nor setter
  * - method `private-key-pkcs11-uri`: Property has no getter nor setter
- * - parameter `data`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
  *
  * @since 2.28
  */

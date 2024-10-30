@@ -18,6 +18,7 @@ import org.gtkkn.native.gio.GSeekable
 import org.gtkkn.native.gio.g_data_output_stream_get_byte_order
 import org.gtkkn.native.gio.g_data_output_stream_get_type
 import org.gtkkn.native.gio.g_data_output_stream_new
+import org.gtkkn.native.gio.g_data_output_stream_put_byte
 import org.gtkkn.native.gio.g_data_output_stream_put_int16
 import org.gtkkn.native.gio.g_data_output_stream_put_int32
 import org.gtkkn.native.gio.g_data_output_stream_put_int64
@@ -33,6 +34,7 @@ import kotlin.Long
 import kotlin.Result
 import kotlin.Short
 import kotlin.String
+import kotlin.UByte
 import kotlin.UInt
 import kotlin.ULong
 import kotlin.UShort
@@ -41,10 +43,6 @@ import kotlin.Unit
 /**
  * Data output stream implements [class@Gio.OutputStream] and includes functions
  * for writing data directly to an output stream.
- *
- * ## Skipped during bindings generation
- *
- * - parameter `data`: guint8
  */
 public open class DataOutputStream(
     pointer: CPointer<GDataOutputStream>,
@@ -97,6 +95,33 @@ public open class DataOutputStream(
     public open fun getByteOrder(): DataStreamByteOrder =
         g_data_output_stream_get_byte_order(gioDataOutputStreamPointer.reinterpret()).run {
             DataStreamByteOrder.fromNativeValue(this)
+        }
+
+    /**
+     * Puts a byte into the output stream.
+     *
+     * @param data a #guchar.
+     * @param cancellable optional #GCancellable object, null to ignore.
+     * @return true if @data was successfully added to the @stream.
+     */
+    public open fun putByte(
+        `data`: UByte,
+        cancellable: Cancellable? = null,
+    ): Result<Boolean> =
+        memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult =
+                g_data_output_stream_put_byte(
+                    gioDataOutputStreamPointer.reinterpret(),
+                    `data`,
+                    cancellable?.gioCancellablePointer?.reinterpret(),
+                    gError.ptr
+                ).asBoolean()
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(gResult)
+            }
         }
 
     /**

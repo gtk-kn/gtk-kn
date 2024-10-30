@@ -33,7 +33,6 @@ import kotlin.Unit
 /**
  * ## Skipped during bindings generation
  *
- * - class `BroadwayRenderer`: C Type GskBroadwayRenderer is ignored
  * - class `NglRenderer`: Missing cType on class
  * - parameter `stroke1`: gpointer
  * - parameter `out_transform`: out_transform: Out parameter is not supported

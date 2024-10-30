@@ -1,4 +1,4 @@
-headers = gsk/gsk.h gsk/gl/gskglrenderer.h gsk/gpu/gskvulkanrenderer.h
+headers = gsk/gsk.h gsk/broadway/gskbroadwayrenderer.h gsk/gl/gskglrenderer.h gsk/gpu/gskvulkanrenderer.h
 package = org.gtkkn.native.gsk
 headerFilter = gsk/* gsk/broadway/* gsk/gl/* gsk/gpu/*
 

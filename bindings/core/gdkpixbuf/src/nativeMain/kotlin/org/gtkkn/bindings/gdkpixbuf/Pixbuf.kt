@@ -31,6 +31,7 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdkpixbuf.GdkPixbuf
+import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_add_alpha
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_apply_embedded_orientation
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_calculate_rowstride
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_composite
@@ -91,6 +92,7 @@ import kotlin.Int
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
+import kotlin.UByte
 import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
@@ -235,15 +237,14 @@ import kotlin.collections.List
  *
  * ## Skipped during bindings generation
  *
- * - parameter `r`: guint8
  * - method `get_pixels`: gdk_pixbuf_get_pixels is shadowedBy get_pixels_with_length
  * - parameter `length`: length: Out parameter is not supported
  * - method `read_pixels`: Return type guint8 is unsupported
  * - parameter `buffer`: buffer: Out parameter is not supported
  * - method `pixel-bytes`: Property has no getter nor setter
  * - method `pixels`: Property has no getter nor setter
- * - parameter `data`: guint8
- * - parameter `data`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
+ * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `width`: width: Out parameter is not supported
  * - parameter `width`: width: Out parameter is not supported
  */
@@ -666,6 +667,37 @@ public open class Pixbuf(
             gdk_pixbuf_new_from_xpm_data(`data`.toCStringList(this))!!.reinterpret()
         }
     )
+
+    /**
+     * Takes an existing pixbuf and adds an alpha channel to it.
+     *
+     * If the existing pixbuf already had an alpha channel, the channel
+     * values are copied from the original; otherwise, the alpha channel
+     * is initialized to 255 (full opacity).
+     *
+     * If `substitute_color` is `TRUE`, then the color specified by the
+     * (`r`, `g`, `b`) arguments will be assigned zero opacity. That is,
+     * if you pass `(255, 255, 255)` for the substitute color, all white
+     * pixels will become fully transparent.
+     *
+     * If `substitute_color` is `FALSE`, then the (`r`, `g`, `b`) arguments
+     * will be ignored.
+     *
+     * @param substituteColor Whether to set a color to zero opacity.
+     * @param r Red value to substitute.
+     * @param g Green value to substitute.
+     * @param b Blue value to substitute.
+     * @return A newly-created pixbuf
+     */
+    public open fun addAlpha(
+        substituteColor: Boolean,
+        r: UByte,
+        g: UByte,
+        b: UByte,
+    ): Pixbuf =
+        gdk_pixbuf_add_alpha(gdkpixbufPixbufPointer.reinterpret(), substituteColor.asGBoolean(), r, g, b)!!.run {
+            Pixbuf(reinterpret())
+        }
 
     /**
      * Takes an existing pixbuf and checks for the presence of an

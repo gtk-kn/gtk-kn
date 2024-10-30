@@ -30,6 +30,7 @@ import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.UNIT
+import com.squareup.kotlinpoet.U_BYTE
 import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
@@ -58,6 +59,7 @@ class ProcessorContext(
 ) {
     private val typeInfoTable: Map<String, TypeInfo> = mapOf(
         "none" to TypeInfo.Primitive(UNIT),
+        "GType" to TypeInfo.Primitive(U_LONG),
         "gchar" to TypeInfo.GChar(BYTE, CHAR),
         "gdouble" to TypeInfo.Primitive(DOUBLE),
         "gfloat" to TypeInfo.Primitive(FLOAT),
@@ -65,6 +67,7 @@ class ProcessorContext(
         "gint16" to TypeInfo.Primitive(SHORT),
         "gint32" to TypeInfo.Primitive(INT),
         "gint64" to TypeInfo.Primitive(LONG),
+        "gint8" to TypeInfo.Primitive(BYTE),
         "glong" to TypeInfo.Primitive(LONG),
         "gsize" to TypeInfo.Primitive(U_LONG),
         "gssize" to TypeInfo.Primitive(LONG),
@@ -72,17 +75,15 @@ class ProcessorContext(
         "guint16" to TypeInfo.Primitive(U_SHORT),
         "guint32" to TypeInfo.Primitive(U_INT),
         "guint64" to TypeInfo.Primitive(U_LONG),
+        "guint8" to TypeInfo.Primitive(U_BYTE),
         "gulong" to TypeInfo.Primitive(U_LONG),
         "gunichar" to TypeInfo.Primitive(U_INT),
-        "GType" to TypeInfo.Primitive(U_LONG),
     )
 
     /**
      * A set of C identifiers for gir objects that should not be generated.
      */
     private val ignoredTypes = hashSetOf(
-        // not available on older ubuntu versions
-        "GskBroadwayRenderer",
         // bitfield members not found through cinterop
         "GdkPixbufFormatFlags",
         "GIOCondition",

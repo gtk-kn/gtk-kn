@@ -17,6 +17,7 @@
 package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.BOOLEAN
+import com.squareup.kotlinpoet.BYTE
 import com.squareup.kotlinpoet.CHAR
 import com.squareup.kotlinpoet.DOUBLE
 import com.squareup.kotlinpoet.FunSpec
@@ -64,6 +65,22 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
                 type = U_INT
             }
 
+            value == "255" -> {
+                value = "UByte.MAX_VALUE"
+                type = U_BYTE
+            }
+
+            value == "127" -> {
+                value = "Byte.MAX_VALUE"
+                type = BYTE
+            }
+
+            value == "-128" -> {
+                value = "Byte.MIN_VALUE"
+                type = BYTE
+            }
+
+            type == BYTE -> format = "%L.toByte()"
             type == U_BYTE -> format = "%L.toUByte()"
             type == CHAR -> format = "'$format'"
             type == SHORT || type == INT || type == LONG || type == DOUBLE -> Unit

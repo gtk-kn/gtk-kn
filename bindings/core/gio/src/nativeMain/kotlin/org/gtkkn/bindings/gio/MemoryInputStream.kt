@@ -25,8 +25,8 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `data`: guint8
- * - parameter `data`: guint8
+ * - parameter `data`: Array parameter of type guint8 is not supported
+ * - parameter `data`: Array parameter of type guint8 is not supported
  */
 public open class MemoryInputStream(
     pointer: CPointer<GMemoryInputStream>,

@@ -49,7 +49,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `buffer`: guint8
+ * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `count`: count: Out parameter is not supported
  */
 public open class BufferedInputStream(

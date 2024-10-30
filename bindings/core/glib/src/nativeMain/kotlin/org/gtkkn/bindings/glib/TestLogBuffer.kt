@@ -13,7 +13,7 @@ import kotlin.Unit
 /**
  * ## Skipped during bindings generation
  *
- * - parameter `bytes`: guint8
+ * - parameter `bytes`: Unsupported pointer to primitive type
  * - field `data`: Record field data is private
  * - field `msgs`: Record field msgs is private
  */

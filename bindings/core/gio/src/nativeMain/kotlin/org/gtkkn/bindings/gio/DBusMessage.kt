@@ -75,10 +75,10 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `get_header_fields`: guint8
+ * - method `get_header_fields`: Array parameter of type guint8 is not supported
  * - parameter `out_size`: out_size: Out parameter is not supported
- * - parameter `blob`: guint8
- * - parameter `blob`: guint8
+ * - parameter `blob`: Array parameter of type guint8 is not supported
+ * - parameter `blob`: Array parameter of type guint8 is not supported
  *
  * @since 2.26
  */
