@@ -1,0 +1,502 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Source</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="glib::org.gtkkn.bindings.glib/Source///PointingToDeclaration//-2101254470">
+  <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><span class="current">Source</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Source</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Source</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../../org.gtkkn.extensions.glib/-record/index.html">Record</a></div><p class="paragraph">The <code class="lang-kotlin">GSource</code> struct is an opaque data type representing an event source.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">events</code>: C Type GIOCondition is ignored</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">tag</code>: gpointer</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">tag</code>: gpointer</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">tag</code>: gpointer</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">callback_data</code>: gpointer</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">user_data</code>: gpointer</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">user_data</code>: gpointer</p></li><li><p class="paragraph">field <code class="lang-kotlin">callback_data</code>: Record field callback_data is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">callback_funcs</code>: Record field callback_funcs is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">source_funcs</code>: Record field source_funcs is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">ref_count</code>: Record field ref_count is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">context</code>: Record field context is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">priority</code>: Record field priority is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">flags</code>: Record field flags is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">source_id</code>: Record field source_id is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">poll_fds</code>: Record field poll_fds is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">prev</code>: Record field prev is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">next</code>: Record field next is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">name</code>: Record field name is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">priv</code>: Record field priv is private</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-119126726%2FConstructors%2F-2101254470" anchor-label="Source" id="-119126726%2FConstructors%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-source.html"><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-119126726%2FConstructors%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-318880464%2FClasslikes%2F-2101254470" anchor-label="Companion" id="-318880464%2FClasslikes%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-318880464%2FClasslikes%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a> : <a href="../../org.gtkkn.extensions.glib/-record-companion/index.html">RecordCompanion</a><span class="token operator">&lt;</span><a href="index.html">Source</a><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1013349093%2FProperties%2F-2101254470" anchor-label="glibSourcePointer" id="1013349093%2FProperties%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="glib-source-pointer.html"><span>glib</span><wbr><span>Source</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1013349093%2FProperties%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="glib-source-pointer.html">glibSourcePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1463918841%2FFunctions%2F-2101254470" anchor-label="addChildSource" id="1463918841%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-child-source.html"><span>add</span><wbr><span>Child</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1463918841%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-child-source.html"><span class="token function">addChildSource</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">childSource<span class="token operator">: </span><a href="index.html">Source</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @child_source to @source as a "polled" source; when @source is added to a #GMainContext, @child_source will be automatically added with the same priority, when @child_source is triggered, it will cause @source to dispatch (in addition to calling its own callback), and when @source is destroyed, it will destroy</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="996852133%2FFunctions%2F-2101254470" anchor-label="addPoll" id="996852133%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-poll.html"><span>add</span><wbr><span><span>Poll</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="996852133%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-poll.html"><span class="token function">addPoll</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fd<span class="token operator">: </span><a href="../-poll-f-d/index.html">PollFD</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a file descriptor to the set of file descriptors polled for this source. This is usually combined with g_source_new() to add an event source. The event source's check function will typically test the @revents field in the #GPollFD struct and return true if events need to be processed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-46265636%2FFunctions%2F-2101254470" anchor-label="attach" id="-46265636%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="attach.html"><span><span>attach</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-46265636%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="attach.html"><span class="token function">attach</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-main-context/index.html">MainContext</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Adds a #GSource to a @context so that it will be executed within that context. Remove it by calling g_source_destroy().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="842529839%2FFunctions%2F-2101254470" anchor-label="destroy" id="842529839%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="destroy.html"><span><span>destroy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="842529839%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="destroy.html"><span class="token function">destroy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes a source from its #GMainContext, if any, and mark it as destroyed.  The source cannot be subsequently added to another context. It is safe to call this on sources which have already been removed from their context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-723016380%2FFunctions%2F-2101254470" anchor-label="getCanRecurse" id="-723016380%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-can-recurse.html"><span>get</span><wbr><span>Can</span><wbr><span><span>Recurse</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-723016380%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-can-recurse.html"><span class="token function">getCanRecurse</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether a source is allowed to be called recursively. see g_source_set_can_recurse().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1479749192%2FFunctions%2F-2101254470" anchor-label="getContext" id="-1479749192%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-context.html"><span>get</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1479749192%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-context.html"><span class="token function">getContext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-main-context/index.html">MainContext</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the #GMainContext with which the source is associated.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="231750964%2FFunctions%2F-2101254470" anchor-label="getCurrentTime" id="231750964%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-current-time.html"><span>get</span><wbr><span>Current</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="231750964%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-current-time.html"><span class="token function">getCurrentTime</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">timeval<span class="token operator">: </span><a href="../-time-val/index.html">TimeVal</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This function ignores @source and is otherwise the same as g_get_current_time().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-979356680%2FFunctions%2F-2101254470" anchor-label="getId" id="-979356680%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-id.html"><span>get</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-979356680%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-id.html"><span class="token function">getId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the numeric ID for a particular source. The ID of a source is a positive integer which is unique within a particular main loop context. The reverse mapping from ID to source is done by g_main_context_find_source_by_id().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="337338120%2FFunctions%2F-2101254470" anchor-label="getName" id="337338120%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-name.html"><span>get</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="337338120%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-name.html"><span class="token function">getName</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets a name for the source, used in debugging and profiling.  The name may be #NULL if it has never been set with g_source_set_name().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1202303759%2FFunctions%2F-2101254470" anchor-label="getPriority" id="1202303759%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-priority.html"><span>get</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1202303759%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-priority.html"><span class="token function">getPriority</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Gets the priority of a source.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2016445687%2FFunctions%2F-2101254470" anchor-label="getReadyTime" id="2016445687%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-ready-time.html"><span>get</span><wbr><span>Ready</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2016445687%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-ready-time.html"><span class="token function">getReadyTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Gets the "ready time" of @source, as set by g_source_set_ready_time().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1836911354%2FFunctions%2F-2101254470" anchor-label="getTime" id="-1836911354%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-time.html"><span>get</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1836911354%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-time.html"><span class="token function">getTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Gets the time to be used when checking this source. The advantage of calling this function over calling g_get_monotonic_time() directly is that when checking multiple sources, GLib can cache a single value instead of having to repeatedly get the system monotonic time.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="730079162%2FFunctions%2F-2101254470" anchor-label="isDestroyed" id="730079162%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-destroyed.html"><span>is</span><wbr><span><span>Destroyed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="730079162%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-destroyed.html"><span class="token function">isDestroyed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether @source has been destroyed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1914963894%2FFunctions%2F-2101254470" anchor-label="ref" id="1914963894%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ref.html"><span><span>ref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1914963894%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ref.html"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Source</a></div><div class="brief "><p class="paragraph">Increases the reference count on a source by one.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="97946356%2FFunctions%2F-2101254470" anchor-label="removeChildSource" id="97946356%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-child-source.html"><span>remove</span><wbr><span>Child</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="97946356%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="remove-child-source.html"><span class="token function">removeChildSource</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">childSource<span class="token operator">: </span><a href="index.html">Source</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Detaches @child_source from @source and destroys it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1318931466%2FFunctions%2F-2101254470" anchor-label="removePoll" id="1318931466%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-poll.html"><span>remove</span><wbr><span><span>Poll</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1318931466%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="remove-poll.html"><span class="token function">removePoll</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fd<span class="token operator">: </span><a href="../-poll-f-d/index.html">PollFD</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes a file descriptor from the set of file descriptors polled for this source.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="504970576%2FFunctions%2F-2101254470" anchor-label="setCallback" id="504970576%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-callback.html"><span>set</span><wbr><span><span>Callback</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="504970576%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-callback.html"><span class="token function">setCallback</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">func<span class="token operator">: </span><a href="../-source-func/index.html">SourceFunc</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the callback function for a source. The callback for a source is called from the source's dispatch function.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-931249667%2FFunctions%2F-2101254470" anchor-label="setCanRecurse" id="-931249667%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-can-recurse.html"><span>set</span><wbr><span>Can</span><wbr><span><span>Recurse</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-931249667%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-can-recurse.html"><span class="token function">setCanRecurse</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">canRecurse<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether a source can be called recursively. If @can_recurse is true, then while the source is being dispatched then this source will be processed normally. Otherwise, all processing of this source is blocked until the dispatch function returns.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2031790001%2FFunctions%2F-2101254470" anchor-label="setFuncs" id="2031790001%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-funcs.html"><span>set</span><wbr><span><span>Funcs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2031790001%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-funcs.html"><span class="token function">setFuncs</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">funcs<span class="token operator">: </span><a href="../-source-funcs/index.html">SourceFuncs</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the source functions (can be used to override default implementations) of an unattached source.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-483754744%2FFunctions%2F-2101254470" anchor-label="setName" id="-483754744%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-name.html"><span>set</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-483754744%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-name.html"><span class="token function">setName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets a name for the source, used in debugging and profiling. The name defaults to #NULL.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1685255839%2FFunctions%2F-2101254470" anchor-label="setPriority" id="-1685255839%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-priority.html"><span>set</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1685255839%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-priority.html"><span class="token function">setPriority</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">priority<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the priority of a source. While the main loop is being run, a source will be dispatched if it is ready to be dispatched and no sources at a higher (numerically smaller) priority are ready to be dispatched.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1660519338%2FFunctions%2F-2101254470" anchor-label="setReadyTime" id="-1660519338%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-ready-time.html"><span>set</span><wbr><span>Ready</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1660519338%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-ready-time.html"><span class="token function">setReadyTime</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">readyTime<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets a #GSource to be dispatched when the given monotonic time is reached (or passed).  If the monotonic time is in the past (as it always will be if @ready_time is 0) then the source will be dispatched immediately.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1256859030%2FFunctions%2F-2101254470" anchor-label="setStaticName" id="1256859030%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-static-name.html"><span>set</span><wbr><span>Static</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1256859030%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-static-name.html"><span class="token function">setStaticName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A variant of g_source_set_name() that does not duplicate the @name, and can only be used with string literals.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1446048817%2FFunctions%2F-2101254470" anchor-label="unref" id="-1446048817%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unref.html"><span><span>unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1446048817%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="unref.html"><span class="token function">unref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Decreases the reference count of a source by one. If the resulting reference count is zero the source and associated memory will be destroyed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

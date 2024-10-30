@@ -1,0 +1,75 @@
+<!--
+  ~ Copyright (c) 2023 gtk-kn
+  ~
+  ~ Creative Commons Attribution-ShareAlike 4.0 International License.
+  ~
+  ~ You should have received a copy of the license along with this
+  ~ work. If not, see http://creativecommons.org/licenses/by-sa/4.0/
+  -->
+
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>timeoutAddSecondsFull</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../../../index.html">
+<span>gtk-kn</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="glib::org.gtkkn.bindings.glib/Glib/timeoutAddSecondsFull/#kotlin.Int#kotlin.UInt#kotlin.Function0[kotlin.Boolean]/PointingToDeclaration//-2101254470">
+  <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><a href="index.html">Glib</a><span class="delimiter">/</span><span class="current">timeoutAddSecondsFull</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>timeout</span><wbr><span>Add</span><wbr><span>Seconds</span><wbr><span><span>Full</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="timeout-add-seconds-full.html"><span class="token function">timeoutAddSecondsFull</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">priority<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">interval<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-int/index.html">UInt</a><span class="token punctuation">, </span></span><span class="parameter ">function<span class="token operator">: </span><a href="../index.html#-920324790%2FClasslikes%2F-2101254470">SourceFunc</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-int/index.html">UInt</a></div><p class="paragraph">Sets a function to be called at regular intervals, with @priority.</p><p class="paragraph">The function is called repeatedly until it returns %G_SOURCE_REMOVE or false, at which point the timeout is automatically destroyed and the function will not be called again.</p><p class="paragraph">Unlike g_timeout_add(), this function operates at whole second granularity. The initial starting point of the timer is determined by the implementation and the implementation is expected to group multiple timers together so that they fire all at the same time. To allow this grouping, the @interval to the first timer is rounded and can deviate up to one second from the specified interval. Subsequent timer iterations will generally run at the specified interval.</p><p class="paragraph">Note that timeout functions may be delayed, due to the processing of other event sources. Thus they should not be relied on for precise timing. After each call to the timeout function, the time of the next timeout is recalculated based on the current time and the given @interval</p><p class="paragraph">See mainloop-memory-management for details on how to handle the return value and memory management of @data.</p><p class="paragraph">If you want timing more precise than whole seconds, use g_timeout_add() instead.</p><p class="paragraph">The grouping of timers to fire at the same time results in a more power and CPU efficient behavior so if your timer is in multiples of seconds and you don't require the first timer exactly one second from now, the use of g_timeout_add_seconds() is preferred over g_timeout_add().</p><p class="paragraph">This internally creates a main loop source using g_timeout_source_new_seconds() and attaches it to the main loop context using g_source_attach(). You can do these steps manually if you need greater control.</p><p class="paragraph">It is safe to call this function from any thread.</p><p class="paragraph">The interval given is in terms of monotonic time, not wall clock time.  See g_get_monotonic_time().</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">the ID (greater than 0) of the event source.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.14</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>priority</span></span></u></div></span></div><div><div class="title"><p class="paragraph">the priority of the timeout source. Typically this will be in the range between %G_PRIORITY_DEFAULT and %G_PRIORITY_HIGH.</p></div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>interval</span></span></u></div></span></div><div><div class="title"><p class="paragraph">the time between calls to the function, in seconds</p></div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>function</span></span></u></div></span></div><div><div class="title"><p class="paragraph">function to call</p></div></div></div></div></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

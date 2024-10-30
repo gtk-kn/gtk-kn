@@ -1,0 +1,517 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>GLContext</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gdk4::org.gtkkn.bindings.gdk/GLContext///PointingToDeclaration//-556418389">
+  <div class="breadcrumbs"><a href="../../index.html">gdk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gdk</a><span class="delimiter">/</span><span class="current">GLContext</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>GLContext</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">GLContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-draw-context/index.html">DrawContext</a></div><p class="paragraph"><code class="lang-kotlin">GdkGLContext</code> is an object representing a platform-specific OpenGL draw context.</p><p class="paragraph"><code class="lang-kotlin">GdkGLContext</code>s are created for a surface using method@Gdk.Surface.create_gl_context, and the context will match the characteristics of the surface.</p><p class="paragraph">A <code class="lang-kotlin">GdkGLContext</code> is not tied to any particular normal framebuffer. For instance, it cannot draw to the surface back buffer. The GDK repaint system is in full control of the painting to that. Instead, you can create render buffers or textures and use func@cairo_draw_from_gl in the draw function of your widget to draw them. Then GDK will handle the integration of your rendering with that of other widgets.</p><p class="paragraph">Support for <code class="lang-kotlin">GdkGLContext</code> is platform-specific and context creation can fail, returning null context.</p><p class="paragraph">A <code class="lang-kotlin">GdkGLContext</code> has to be made "current" in order to start using it, otherwise any OpenGL call will be ignored.</p><h2 class="">Creating a new OpenGL context</h2><p class="paragraph">In order to create a new <code class="lang-kotlin">GdkGLContext</code> instance you need a <code class="lang-kotlin">GdkSurface</code>, which you typically get during the realize call of a widget.</p><p class="paragraph">A <code class="lang-kotlin">GdkGLContext</code> is not realized until either method@Gdk.GLContext.make_current or method@Gdk.GLContext.realize is called. It is possible to specify details of the GL context like the OpenGL version to be used, or whether the GL context should have extra state validation enabled after calling method@Gdk.Surface.create_gl_context by calling method@Gdk.GLContext.realize. If the realization fails you have the option to change the settings of the <code class="lang-kotlin">GdkGLContext</code> and try again.</p><h2 class="">Using a GdkGLContext</h2><p class="paragraph">You will need to make the <code class="lang-kotlin">GdkGLContext</code> the current context before issuing OpenGL calls; the system sends OpenGL commands to whichever context is current. It is possible to have multiple contexts, so you always need to ensure that the one which you want to draw with is the current one before issuing commands:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">gdk_gl_context_make_current (context);</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">You can now perform your drawing using OpenGL commands.</p><p class="paragraph">You can check which <code class="lang-kotlin">GdkGLContext</code> is the current one by using func@Gdk.GLContext.get_current; you can also unset any <code class="lang-kotlin">GdkGLContext</code> that is currently set by calling func@Gdk.GLContext.clear_current.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">major</code>: major: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">major</code>: major: Out parameter is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1347940508%2FConstructors%2F-556418389" anchor-label="GLContext" id="-1347940508%2FConstructors%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-g-l-context.html"><span><span>GLContext</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1347940508%2FConstructors%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="2030076179%2FClasslikes%2F-556418389" anchor-label="Companion" id="2030076179%2FClasslikes%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2030076179%2FClasslikes%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1067738165%2FProperties%2F-556418389" anchor-label="allowedApis" id="-1067738165%2FProperties%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="allowed-apis.html"><span>allowed</span><wbr><span><span>Apis</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1067738165%2FProperties%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="allowed-apis.html">allowedApis</a><span class="token operator">: </span><a href="../-g-l-a-p-i/index.html">GLAPI</a></div><div class="brief "><p class="paragraph">The allowed APIs.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-904667598%2FProperties%2F-556418389" anchor-label="api" id="-904667598%2FProperties%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="api.html"><span><span>api</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-904667598%2FProperties%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="api.html">api</a><span class="token operator">: </span><a href="../-g-l-a-p-i/index.html">GLAPI</a></div><div class="brief "><p class="paragraph">The API currently in use.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="673187849%2FProperties%2F-556418389" anchor-label="display" id="673187849%2FProperties%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-draw-context/display.html"><span><span>display</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="673187849%2FProperties%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../-draw-context/display.html">display</a><span class="token operator">: </span><a href="../-display/index.html">Display</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The <code class="lang-kotlin">GdkDisplay</code> used to create the <code class="lang-kotlin">GdkDrawContext</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1982438987%2FProperties%2F-556418389" anchor-label="gdkDrawContextPointer" id="1982438987%2FProperties%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-draw-context/gdk-draw-context-pointer.html"><span>gdk</span><wbr><span>Draw</span><wbr><span>Context</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1982438987%2FProperties%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-draw-context/gdk-draw-context-pointer.html">gdkDrawContextPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1295424299%2FProperties%2F-556418389" anchor-label="gdkGLContextPointer" id="1295424299%2FProperties%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gdk-g-l-context-pointer.html"><span>gdk</span><wbr><span>GLContext</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1295424299%2FProperties%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gdk-g-l-context-pointer.html">gdkGLContextPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1511446014%2FProperties%2F-556418389" anchor-label="sharedContext" id="-1511446014%2FProperties%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="shared-context.html"><span>shared</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1511446014%2FProperties%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="shared-context.html">sharedContext</a><span class="token operator">: </span><a href="index.html">GLContext</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Always null</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1958601342%2FProperties%2F-556418389" anchor-label="surface" id="1958601342%2FProperties%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-draw-context/surface.html"><span><span>surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1958601342%2FProperties%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../-draw-context/surface.html">surface</a><span class="token operator">: </span><a href="../-surface/index.html">Surface</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The <code class="lang-kotlin">GdkSurface</code> the context is bound to.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="943537565%2FFunctions%2F-556418389" anchor-label="endFrame" id="943537565%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-draw-context/end-frame.html"><span>end</span><wbr><span><span>Frame</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="943537565%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-draw-context/end-frame.html"><span class="token function">endFrame</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Ends a drawing operation started with gdk_draw_context_begin_frame().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="574000451%2FFunctions%2F-556418389" anchor-label="getAllowedApis" id="574000451%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-allowed-apis.html"><span>get</span><wbr><span>Allowed</span><wbr><span><span>Apis</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="574000451%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-allowed-apis.html"><span class="token function">getAllowedApis</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-g-l-a-p-i/index.html">GLAPI</a></div><div class="brief "><p class="paragraph">Gets the allowed APIs set via gdk_gl_context_set_allowed_apis().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1848391766%2FFunctions%2F-556418389" anchor-label="getApi" id="-1848391766%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-api.html"><span>get</span><wbr><span><span>Api</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1848391766%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-api.html"><span class="token function">getApi</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-g-l-a-p-i/index.html">GLAPI</a></div><div class="brief "><p class="paragraph">Gets the API currently in use.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1317905704%2FFunctions%2F-556418389" anchor-label="getDebugEnabled" id="1317905704%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-debug-enabled.html"><span>get</span><wbr><span>Debug</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1317905704%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-debug-enabled.html"><span class="token function">getDebugEnabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Retrieves whether the context is doing extra validations and runtime checking.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2107292290%2FFunctions%2F-556418389" anchor-label="getDisplay" id="2107292290%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-display.html"><span>get</span><wbr><span><span>Display</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2107292290%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="get-display.html"><span class="token function">getDisplay</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-display/index.html">Display</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Retrieves the display the @context is created for</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="347405035%2FFunctions%2F-556418389" anchor-label="getForwardCompatible" id="347405035%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-forward-compatible.html"><span>get</span><wbr><span>Forward</span><wbr><span><span>Compatible</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="347405035%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-forward-compatible.html"><span class="token function">getForwardCompatible</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Retrieves whether the context is forward-compatible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-53633670%2FFunctions%2F-556418389" anchor-label="getSharedContext" id="-53633670%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-shared-context.html"><span>get</span><wbr><span>Shared</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-53633670%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-shared-context.html"><span class="token function">getSharedContext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">GLContext</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Used to retrieves the <code class="lang-kotlin">GdkGLContext</code> that this @context share data with.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-902261513%2FFunctions%2F-556418389" anchor-label="getSurface" id="-902261513%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-surface.html"><span>get</span><wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-902261513%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="get-surface.html"><span class="token function">getSurface</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-surface/index.html">Surface</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Retrieves the surface used by the @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1862446129%2FFunctions%2F-556418389" anchor-label="getUseEs" id="-1862446129%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-use-es.html"><span>get</span><wbr><span>Use</span><wbr><span><span>Es</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1862446129%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-use-es.html"><span class="token function">getUseEs</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether the @context is using an OpenGL or OpenGL ES profile.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2059520499%2FFunctions%2F-556418389" anchor-label="isInFrame" id="-2059520499%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-draw-context/is-in-frame.html"><span>is</span><wbr><span>In</span><wbr><span><span>Frame</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2059520499%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-draw-context/is-in-frame.html"><span class="token function">isInFrame</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if @context is in the process of drawing to its surface.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-716124261%2FFunctions%2F-556418389" anchor-label="isLegacy" id="-716124261%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-legacy.html"><span>is</span><wbr><span><span>Legacy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-716124261%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-legacy.html"><span class="token function">isLegacy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the <code class="lang-kotlin">GdkGLContext</code> is in legacy mode or not.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1166601698%2FFunctions%2F-556418389" anchor-label="isShared" id="-1166601698%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-shared.html"><span>is</span><wbr><span><span>Shared</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1166601698%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-shared.html"><span class="token function">isShared</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="index.html">GLContext</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if the two GL contexts can share resources.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-27007295%2FFunctions%2F-556418389" anchor-label="makeCurrent" id="-27007295%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="make-current.html"><span>make</span><wbr><span><span>Current</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-27007295%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="make-current.html"><span class="token function">makeCurrent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Makes the @context the current one.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-495577770%2FFunctions%2F-556418389" anchor-label="realize" id="-495577770%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="realize.html"><span><span>realize</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-495577770%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="realize.html"><span class="token function">realize</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Realizes the given <code class="lang-kotlin">GdkGLContext</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="80463139%2FFunctions%2F-556418389" anchor-label="setAllowedApis" id="80463139%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-allowed-apis.html"><span>set</span><wbr><span>Allowed</span><wbr><span><span>Apis</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="80463139%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-allowed-apis.html"><span class="token function">setAllowedApis</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">apis<span class="token operator">: </span><a href="../-g-l-a-p-i/index.html">GLAPI</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the allowed APIs. When gdk_gl_context_realize() is called, only the allowed APIs will be tried. If you set this to 0, realizing will always fail.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1496885791%2FFunctions%2F-556418389" anchor-label="setDebugEnabled" id="-1496885791%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-debug-enabled.html"><span>set</span><wbr><span>Debug</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1496885791%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-debug-enabled.html"><span class="token function">setDebugEnabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether the <code class="lang-kotlin">GdkGLContext</code> should perform extra validations and runtime checking.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-128744452%2FFunctions%2F-556418389" anchor-label="setForwardCompatible" id="-128744452%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-forward-compatible.html"><span>set</span><wbr><span>Forward</span><wbr><span><span>Compatible</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-128744452%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-forward-compatible.html"><span class="token function">setForwardCompatible</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">compatible<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether the <code class="lang-kotlin">GdkGLContext</code> should be forward-compatible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-949035928%2FFunctions%2F-556418389" anchor-label="setRequiredVersion" id="-949035928%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-required-version.html"><span>set</span><wbr><span>Required</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-949035928%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-required-version.html"><span class="token function">setRequiredVersion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">major<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">minor<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the major and minor version of OpenGL to request.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1104496569%2FFunctions%2F-556418389" anchor-label="setUseEs" id="1104496569%2FFunctions%2F-556418389" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-use-es.html"><span>set</span><wbr><span>Use</span><wbr><span><span>Es</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1104496569%2FFunctions%2F-556418389"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-use-es.html"><span class="token function">setUseEs</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">useEs<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Requests that GDK create an OpenGL ES context instead of an OpenGL one.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

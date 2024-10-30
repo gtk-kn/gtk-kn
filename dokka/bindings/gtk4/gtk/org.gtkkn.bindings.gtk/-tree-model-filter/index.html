@@ -1,0 +1,842 @@
+<!--
+  ~ Copyright (c) 2023 gtk-kn
+  ~
+  ~ Creative Commons Attribution-ShareAlike 4.0 International License.
+  ~
+  ~ You should have received a copy of the license along with this
+  ~ work. If not, see http://creativecommons.org/licenses/by-sa/4.0/
+  -->
+
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TreeModelFilter</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../../../index.html">
+<span>gtk-kn</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk::org.gtkkn.bindings.gtk/TreeModelFilter///PointingToDeclaration//-1683415341">
+  <div class="breadcrumbs"><a href="../../index.html">gtk</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">TreeModelFilter</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Tree</span><wbr><span>Model</span><wbr><span><span>Filter</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">TreeModelFilter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-c-pointer/index.html">CPointer</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="org.gtkkn.native.gtk/GtkTreeModelFilter///PointingToDeclaration/">GtkTreeModelFilter</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-object/index.html">Object</a>, <a href="../-tree-drag-source/index.html">TreeDragSource</a>, <a href="../-tree-model/index.html">TreeModel</a></div><p class="paragraph">A <code class="lang-kotlin">GtkTreeModel</code> which hides parts of an underlying tree model</p><p class="paragraph">A <code class="lang-kotlin">GtkTreeModelFilter</code> is a tree model which wraps another tree model, and can do the following things:</p><ul><li><p class="paragraph">Filter specific rows, based on data from a “visible column”, a column storing booleans indicating whether the row should be filtered or not, or based on the return value of a “visible function”, which gets a model, iter and user_data and returns a boolean indicating whether the row should be filtered or not.</p></li><li><p class="paragraph">Modify the “appearance” of the model, using a modify function. This is extremely powerful and allows for just changing some values and also for creating a completely different model based on the given child model.</p></li><li><p class="paragraph">Set a different root node, also known as a “virtual root”. You can pass in a <code class="lang-kotlin">GtkTreePath</code> indicating the root node for the filter at construction time.</p></li></ul><p class="paragraph">The basic API is similar to <code class="lang-kotlin">GtkTreeModelSort</code>. For an example on its usage, see the section on <code class="lang-kotlin">GtkTreeModelSort</code>.</p><p class="paragraph">When using <code class="lang-kotlin">GtkTreeModelFilter</code>, it is important to realize that <code class="lang-kotlin">GtkTreeModelFilter</code> maintains an internal cache of all nodes which are visible in its clients. The cache is likely to be a subtree of the tree exposed by the child model. <code class="lang-kotlin">GtkTreeModelFilter</code> will not cache the entire child model when unnecessary to not compromise the caching mechanism that is exposed by the reference counting scheme. If the child model implements reference counting, unnecessary signals may not be emitted because of reference counting rule 3, see the <code class="lang-kotlin">GtkTreeModel</code> documentation. (Note that e.g. <code class="lang-kotlin">GtkTreeStore</code> does not implement reference counting and will always emit all signals, even when the receiving node is not visible).</p><p class="paragraph">Because of this, limitations for possible visible functions do apply. In general, visible functions should only use data or properties from the node for which the visibility state must be determined, its siblings or its parents. Usually, having a dependency on the state of any child node is not possible, unless references are taken on these explicitly. When no such reference exists, no signals may be received for these child nodes (see reference counting rule number 3 in the <code class="lang-kotlin">GtkTreeModel</code> section).</p><p class="paragraph">Determining the visibility state of a given node based on the state of its child nodes is a frequently occurring use case. Therefore, <code class="lang-kotlin">GtkTreeModelFilter</code> explicitly supports this. For example, when a node does not have any children, you might not want the node to be visible. As soon as the first row is added to the node’s child level (or the last row removed), the node’s visibility should be updated.</p><p class="paragraph">This introduces a dependency from the node on its child nodes. In order to accommodate this, <code class="lang-kotlin">GtkTreeModelFilter</code> must make sure the necessary signals are received from the child model. This is achieved by building, for all nodes which are exposed as visible nodes to <code class="lang-kotlin">GtkTreeModelFilter</code>'s clients, the child level (if any) and take a reference on the first node in this level. Furthermore, for every row-inserted, row-changed or row-deleted signal (also these which were not handled because the node was not cached), <code class="lang-kotlin">GtkTreeModelFilter</code> will check if the visibility state of any parent node has changed.</p><p class="paragraph">Beware, however, that this explicit support is limited to these two cases. For example, if you want a node to be visible only if two nodes in a child’s child level (2 levels deeper) are visible, you are on your own. In this case, either rely on <code class="lang-kotlin">GtkTreeStore</code> to emit all signals because it does not implement reference counting, or for models that do implement reference counting, obtain references on these child levels yourself.</p><h2 class=""> Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">convert_child_iter_to_iter</code>: Out parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">convert_iter_to_child_iter</code>: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">types</code>: GType</p></li><li><p class="paragraph">method <code class="lang-kotlin">child-model</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">virtual-root</code>: Property has no getter nor setter</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1562451267%2FConstructors%2F-1683415341" anchor-label="TreeModelFilter" id="-1562451267%2FConstructors%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tree-model-filter.html"><span>Tree</span><wbr><span>Model</span><wbr><span><span>Filter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1562451267%2FConstructors%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-c-pointer/index.html">CPointer</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="org.gtkkn.native.gtk/GtkTreeModelFilter///PointingToDeclaration/">GtkTreeModelFilter</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1045459903%2FFunctions%2F-1683415341" anchor-label="bindProperty" id="1045459903%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#1045459903%2FFunctions%2F-1683415341"><span>bind</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1045459903%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#1045459903%2FFunctions%2F-1683415341"><span class="token function">bindProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">target<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-object/index.html">Object</a><span class="token punctuation">, </span></span><span class="parameter ">targetProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-binding-flags/index.html">BindingFlags</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-binding/index.html">Binding</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1540902397%2FFunctions%2F-1683415341" anchor-label="bindPropertyWithClosures" id="1540902397%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#1540902397%2FFunctions%2F-1683415341"><span>bind</span><wbr><span>Property</span><wbr><span>With</span><wbr><span><span>Closures</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1540902397%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#1540902397%2FFunctions%2F-1683415341"><span class="token function">bindPropertyWithClosures</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">target<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-object/index.html">Object</a><span class="token punctuation">, </span></span><span class="parameter ">targetProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-binding-flags/index.html">BindingFlags</a><span class="token punctuation">, </span></span><span class="parameter ">transformTo<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-closure/index.html">Closure</a><span class="token punctuation">, </span></span><span class="parameter ">transformFrom<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-closure/index.html">Closure</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-binding/index.html">Binding</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1040776002%2FFunctions%2F-1683415341" anchor-label="clearCache" id="1040776002%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-cache.html"><span>clear</span><wbr><span><span>Cache</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1040776002%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="clear-cache.html"><span class="token function">clearCache</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This function should almost never be called. It clears the @filter of any cached iterators that haven’t been reffed with gtk_tree_model_ref_node(). This might be useful if the child model being filtered is static (and doesn’t change often) and there has been a lot of unreffed access to nodes. As a side effect of this function, all unreffed iters will be invalid.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1634888417%2FFunctions%2F-1683415341" anchor-label="connectNotify" id="1634888417%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#1634888417%2FFunctions%2F-1683415341"><span>connect</span><wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1634888417%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#1634888417%2FFunctions%2F-1683415341"><span class="token function">connectNotify</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-connect-flags/index.html">ConnectFlags</a><span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>pspec<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-param-spec/index.html">ParamSpec</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1536307289%2FFunctions%2F-1683415341" anchor-label="connectRowChanged" id="1536307289%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/connect-row-changed.html"><span>connect</span><wbr><span>Row</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1536307289%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/connect-row-changed.html"><span class="token function">connectRowChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-connect-flags/index.html">ConnectFlags</a><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span><span class="token keyword"></span>iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a></div><div class="brief "><p class="paragraph">This signal is emitted when a row in the model has changed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1046721466%2FFunctions%2F-1683415341" anchor-label="connectRowDeleted" id="1046721466%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/connect-row-deleted.html"><span>connect</span><wbr><span>Row</span><wbr><span><span>Deleted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1046721466%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/connect-row-deleted.html"><span class="token function">connectRowDeleted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-connect-flags/index.html">ConnectFlags</a><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a></div><div class="brief "><p class="paragraph">This signal is emitted when a row has been deleted.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1631661235%2FFunctions%2F-1683415341" anchor-label="connectRowHasChildToggled" id="1631661235%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/connect-row-has-child-toggled.html"><span>connect</span><wbr><span>Row</span><wbr><span>Has</span><wbr><span>Child</span><wbr><span><span>Toggled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1631661235%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/connect-row-has-child-toggled.html"><span class="token function">connectRowHasChildToggled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-connect-flags/index.html">ConnectFlags</a><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span><span class="token keyword"></span>iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a></div><div class="brief "><p class="paragraph">This signal is emitted when a row has gotten the first child row or lost its last child row.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-314543911%2FFunctions%2F-1683415341" anchor-label="connectRowInserted" id="-314543911%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/connect-row-inserted.html"><span>connect</span><wbr><span>Row</span><wbr><span><span>Inserted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-314543911%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/connect-row-inserted.html"><span class="token function">connectRowInserted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-connect-flags/index.html">ConnectFlags</a><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span><span class="token keyword"></span>iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a></div><div class="brief "><p class="paragraph">This signal is emitted when a new row has been inserted in the model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="318455773%2FFunctions%2F-1683415341" anchor-label="convertChildPathToPath" id="318455773%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="convert-child-path-to-path.html"><span>convert</span><wbr><span>Child</span><wbr><span>Path</span><wbr><span>To</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="318455773%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="convert-child-path-to-path.html"><span class="token function">convertChildPathToPath</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">childPath<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Converts @child_path to a path relative to @filter. That is, @child_path points to a path in the child model. The rerturned path will point to the same row in the filtered model. If @child_path isn’t a valid path on the child model or points to a row which is not visible in @filter, then null is returned.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-404519523%2FFunctions%2F-1683415341" anchor-label="convertPathToChildPath" id="-404519523%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="convert-path-to-child-path.html"><span>convert</span><wbr><span>Path</span><wbr><span>To</span><wbr><span>Child</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-404519523%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="convert-path-to-child-path.html"><span class="token function">convertPathToChildPath</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">filterPath<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Converts @filter_path to a path on the child model of @filter. That is,</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-499282310%2FFunctions%2F-1683415341" anchor-label="dragDataDelete" id="-499282310%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-drag-source/drag-data-delete.html"><span>drag</span><wbr><span>Data</span><wbr><span><span>Delete</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-499282310%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-drag-source/drag-data-delete.html"><span class="token function">dragDataDelete</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Asks the <code class="lang-kotlin">GtkTreeDragSource</code> to delete the row at @path, because it was moved somewhere else via drag-and-drop. Returns false if the deletion fails because @path no longer exists, or for some model-specific reason. Should robustly handle a @path no longer found in the model!</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1932574745%2FFunctions%2F-1683415341" anchor-label="dragDataGet" id="1932574745%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-drag-source/drag-data-get.html"><span>drag</span><wbr><span>Data</span><wbr><span><span>Get</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1932574745%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-drag-source/drag-data-get.html"><span class="token function">dragDataGet</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../bindings/gtk4/gdk/org.gtkkn.bindings.gdk/-content-provider/index.html">ContentProvider</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Asks the <code class="lang-kotlin">GtkTreeDragSource</code> to return a <code class="lang-kotlin">GdkContentProvider</code> representing the row at @path. Should robustly handle a @path no longer found in the model!</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-765270512%2FFunctions%2F-1683415341" anchor-label="filterNew" id="-765270512%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/filter-new.html"><span>filter</span><wbr><span><span>New</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-765270512%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/filter-new.html"><span class="token function">filterNew</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">root<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tree-model/index.html">TreeModel</a></div><div class="brief "><p class="paragraph">Creates a new <code class="lang-kotlin">GtkTreeModel</code>, with @child_model as the child_model and @root as the virtual root.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-886699126%2FFunctions%2F-1683415341" anchor-label="forceFloating" id="-886699126%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#-886699126%2FFunctions%2F-1683415341"><span>force</span><wbr><span><span>Floating</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-886699126%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#-886699126%2FFunctions%2F-1683415341"><span class="token function">forceFloating</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-631683031%2FFunctions%2F-1683415341" anchor-label="foreach" id="-631683031%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/foreach.html"><span><span>foreach</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-631683031%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/foreach.html"><span class="token function">foreach</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">func<span class="token operator">: </span><a href="../index.html#627827892%2FClasslikes%2F-1683415341">TreeModelForeachFunc</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Calls @func on each node in model in a depth-first fashion.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-158614401%2FFunctions%2F-1683415341" anchor-label="freezeNotify" id="-158614401%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#-158614401%2FFunctions%2F-1683415341"><span>freeze</span><wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-158614401%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#-158614401%2FFunctions%2F-1683415341"><span class="token function">freezeNotify</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="524278990%2FFunctions%2F-1683415341" anchor-label="getFlags" id="524278990%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/get-flags.html"><span>get</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="524278990%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/get-flags.html"><span class="token function">getFlags</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tree-model-flags/index.html">TreeModelFlags</a></div><div class="brief "><p class="paragraph">Returns a set of flags supported by this interface.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1844734788%2FFunctions%2F-1683415341" anchor-label="getModel" id="1844734788%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-model.html"><span>get</span><wbr><span><span>Model</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1844734788%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-model.html"><span class="token function">getModel</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tree-model/index.html">TreeModel</a></div><div class="brief "><p class="paragraph">Returns a pointer to the child model of @filter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2106846806%2FFunctions%2F-1683415341" anchor-label="getNColumns" id="2106846806%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/get-n-columns.html"><span>get</span><wbr><span><span>NColumns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2106846806%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/get-n-columns.html"><span class="token function">getNColumns</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Returns the number of columns supported by @tree_model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="549719027%2FFunctions%2F-1683415341" anchor-label="getPath" id="549719027%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/get-path.html"><span>get</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="549719027%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/get-path.html"><span class="token function">getPath</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a></div><div class="brief "><p class="paragraph">Returns a newly-created <code class="lang-kotlin">GtkTreePath</code> referenced by @iter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1389662645%2FFunctions%2F-1683415341" anchor-label="getProperty" id="-1389662645%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#-1389662645%2FFunctions%2F-1683415341"><span>get</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1389662645%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#-1389662645%2FFunctions%2F-1683415341"><span class="token function">getProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-value/index.html">Value</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2036938863%2FFunctions%2F-1683415341" anchor-label="isFloating" id="2036938863%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#2036938863%2FFunctions%2F-1683415341"><span>is</span><wbr><span><span>Floating</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2036938863%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#2036938863%2FFunctions%2F-1683415341"><span class="token function">isFloating</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1257384210%2FFunctions%2F-1683415341" anchor-label="iterHasChild" id="-1257384210%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/iter-has-child.html"><span>iter</span><wbr><span>Has</span><wbr><span><span>Child</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1257384210%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/iter-has-child.html"><span class="token function">iterHasChild</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if @iter has children, false otherwise.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1769260970%2FFunctions%2F-1683415341" anchor-label="iterNChildren" id="-1769260970%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/iter-n-children.html"><span>iter</span><wbr><span><span>NChildren</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1769260970%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/iter-n-children.html"><span class="token function">iterNChildren</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Returns the number of children that @iter has.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="178996031%2FFunctions%2F-1683415341" anchor-label="iterNext" id="178996031%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/iter-next.html"><span>iter</span><wbr><span><span>Next</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="178996031%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/iter-next.html"><span class="token function">iterNext</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Sets @iter to point to the node following it at the current level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1894485059%2FFunctions%2F-1683415341" anchor-label="iterPrevious" id="1894485059%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/iter-previous.html"><span>iter</span><wbr><span><span>Previous</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1894485059%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/iter-previous.html"><span class="token function">iterPrevious</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Sets @iter to point to the previous node at the current level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2129282770%2FFunctions%2F-1683415341" anchor-label="notify" id="-2129282770%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#-2129282770%2FFunctions%2F-1683415341"><span><span>notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2129282770%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#-2129282770%2FFunctions%2F-1683415341"><span class="token function">notify</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1504086841%2FFunctions%2F-1683415341" anchor-label="notifyByPspec" id="1504086841%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#1504086841%2FFunctions%2F-1683415341"><span>notify</span><wbr><span>By</span><wbr><span><span>Pspec</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1504086841%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#1504086841%2FFunctions%2F-1683415341"><span class="token function">notifyByPspec</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pspec<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-param-spec/index.html">ParamSpec</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2144232760%2FFunctions%2F-1683415341" anchor-label="ref" id="-2144232760%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#-2144232760%2FFunctions%2F-1683415341"><span><span>ref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2144232760%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#-2144232760%2FFunctions%2F-1683415341"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-object/index.html">Object</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1620708428%2FFunctions%2F-1683415341" anchor-label="refilter" id="1620708428%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="refilter.html"><span><span>refilter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1620708428%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="refilter.html"><span class="token function">refilter</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits ::row_changed for each row in the child model, which causes the filter to re-evaluate whether a row is visible or not.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="64750221%2FFunctions%2F-1683415341" anchor-label="refNode" id="64750221%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/ref-node.html"><span>ref</span><wbr><span><span>Node</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="64750221%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/ref-node.html"><span class="token function">refNode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Lets the tree ref the node.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-699979275%2FFunctions%2F-1683415341" anchor-label="refSink" id="-699979275%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#-699979275%2FFunctions%2F-1683415341"><span>ref</span><wbr><span><span>Sink</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-699979275%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#-699979275%2FFunctions%2F-1683415341"><span class="token function">refSink</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-object/index.html">Object</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-23801739%2FFunctions%2F-1683415341" anchor-label="rowChanged" id="-23801739%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/row-changed.html"><span>row</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-23801739%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/row-changed.html"><span class="token function">rowChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span></span><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the ::row-changed signal on @tree_model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1918697158%2FFunctions%2F-1683415341" anchor-label="rowDeleted" id="1918697158%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/row-deleted.html"><span>row</span><wbr><span><span>Deleted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1918697158%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/row-deleted.html"><span class="token function">rowDeleted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the ::row-deleted signal on @tree_model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="838402308%2FFunctions%2F-1683415341" anchor-label="rowDraggable" id="838402308%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-drag-source/row-draggable.html"><span>row</span><wbr><span><span>Draggable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="838402308%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-drag-source/row-draggable.html"><span class="token function">rowDraggable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Asks the <code class="lang-kotlin">GtkTreeDragSource</code> whether a particular row can be used as the source of a DND operation. If the source doesn’t implement this interface, the row is assumed draggable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-566094257%2FFunctions%2F-1683415341" anchor-label="rowHasChildToggled" id="-566094257%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/row-has-child-toggled.html"><span>row</span><wbr><span>Has</span><wbr><span>Child</span><wbr><span><span>Toggled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-566094257%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/row-has-child-toggled.html"><span class="token function">rowHasChildToggled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span></span><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the ::row-has-child-toggled signal on @tree_model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-843015471%2FFunctions%2F-1683415341" anchor-label="rowInserted" id="-843015471%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/row-inserted.html"><span>row</span><wbr><span><span>Inserted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-843015471%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/row-inserted.html"><span class="token function">rowInserted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span></span><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the ::row-inserted signal on @tree_model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1666479317%2FFunctions%2F-1683415341" anchor-label="runDispose" id="-1666479317%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#-1666479317%2FFunctions%2F-1683415341"><span>run</span><wbr><span><span>Dispose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1666479317%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#-1666479317%2FFunctions%2F-1683415341"><span class="token function">runDispose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-579049537%2FFunctions%2F-1683415341" anchor-label="setProperty" id="-579049537%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#-579049537%2FFunctions%2F-1683415341"><span>set</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-579049537%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#-579049537%2FFunctions%2F-1683415341"><span class="token function">setProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-value/index.html">Value</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="455171407%2FFunctions%2F-1683415341" anchor-label="setVisibleColumn" id="455171407%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-visible-column.html"><span>set</span><wbr><span>Visible</span><wbr><span><span>Column</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="455171407%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-visible-column.html"><span class="token function">setVisibleColumn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">column<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @column of the child_model to be the column where @filter should look for visibility information. @columns should be a column of type %G_TYPE_BOOLEAN, where true means that a row is visible, and false if not.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1134946214%2FFunctions%2F-1683415341" anchor-label="setVisibleFunc" id="1134946214%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-visible-func.html"><span>set</span><wbr><span>Visible</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1134946214%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-visible-func.html"><span class="token function">setVisibleFunc</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">func<span class="token operator">: </span><a href="../index.html#-650997148%2FClasslikes%2F-1683415341">TreeModelFilterVisibleFunc</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the visible function used when filtering the @filter to be @func. The function should return true if the given row should be visible and false otherwise.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="308182924%2FFunctions%2F-1683415341" anchor-label="thawNotify" id="308182924%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#308182924%2FFunctions%2F-1683415341"><span>thaw</span><wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="308182924%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#308182924%2FFunctions%2F-1683415341"><span class="token function">thawNotify</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1791238753%2FFunctions%2F-1683415341" anchor-label="unref" id="1791238753%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#1791238753%2FFunctions%2F-1683415341"><span><span>unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1791238753%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#1791238753%2FFunctions%2F-1683415341"><span class="token function">unref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2092549036%2FFunctions%2F-1683415341" anchor-label="unrefNode" id="-2092549036%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tree-model/unref-node.html"><span>unref</span><wbr><span><span>Node</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2092549036%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-tree-model/unref-node.html"><span class="token function">unrefNode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Lets the tree unref the node.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2008749769%2FFunctions%2F-1683415341" anchor-label="watchClosure" id="2008749769%2FFunctions%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#2008749769%2FFunctions%2F-1683415341"><span>watch</span><wbr><span><span>Closure</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2008749769%2FFunctions%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-window-handle/index.html#2008749769%2FFunctions%2F-1683415341"><span class="token function">watchClosure</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">closure<span class="token operator">: </span><a href="../../../../../bindings/core/gobject/org.gtkkn.bindings.gobject/-closure/index.html">Closure</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1602576599%2FProperties%2F-1683415341" anchor-label="gPointer" id="-1602576599%2FProperties%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-window-handle/index.html#-1602576599%2FProperties%2F-1683415341"><span>g</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1602576599%2FProperties%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../-window-handle/index.html#-1602576599%2FProperties%2F-1683415341">gPointer</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-c-pointer/index.html">CPointer</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="org.gtkkn.native.gobject/GObject///PointingToDeclaration/">GObject</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="184665925%2FProperties%2F-1683415341" anchor-label="gtkTreeDragSourcePointer" id="184665925%2FProperties%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-tree-drag-source-pointer.html"><span>gtk</span><wbr><span>Tree</span><wbr><span>Drag</span><wbr><span>Source</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="184665925%2FProperties%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gtk-tree-drag-source-pointer.html">gtkTreeDragSourcePointer</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-c-pointer/index.html">CPointer</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="org.gtkkn.native.gtk/GtkTreeDragSource///PointingToDeclaration/">GtkTreeDragSource</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-913688981%2FProperties%2F-1683415341" anchor-label="gtkTreeModelFilterPointer" id="-913688981%2FProperties%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-tree-model-filter-pointer.html"><span>gtk</span><wbr><span>Tree</span><wbr><span>Model</span><wbr><span>Filter</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-913688981%2FProperties%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="gtk-tree-model-filter-pointer.html">gtkTreeModelFilterPointer</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-c-pointer/index.html">CPointer</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="org.gtkkn.native.gtk/GtkTreeModelFilter///PointingToDeclaration/">GtkTreeModelFilter</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2106980077%2FProperties%2F-1683415341" anchor-label="gtkTreeModelPointer" id="-2106980077%2FProperties%2F-1683415341" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-tree-model-pointer.html"><span>gtk</span><wbr><span>Tree</span><wbr><span>Model</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2106980077%2FProperties%2F-1683415341"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk4:gtk:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gtk-tree-model-pointer.html">gtkTreeModelPointer</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-c-pointer/index.html">CPointer</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="org.gtkkn.native.gtk/GtkTreeModel///PointingToDeclaration/">GtkTreeModel</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+
