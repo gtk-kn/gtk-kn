@@ -1,59 +1,51 @@
 # Using Notifications
 
-GNOME applications should use notifications to inform the user that something has happened that requires their
-attention.
+In GNOME applications, notifications inform users about events that need attention. Notifications should be
+non-intrusive and not overly distracting.
 
-Notifications should not be intrusive, or distracting.
-
-For more information on when to use notifications, you should follow the [Human
-Interface Guidelines](https://developer.gnome.org/hig/patterns/feedback/notifications.html).
+Refer to the [Human Interface Guidelines](https://developer.gnome.org/hig/patterns/feedback/notifications.html) for best
+practices on using notifications.
 
 !!! note
 
-    Remember that users can disable notifications for specific applications, or globally. You should not rely
-    exclusively on notifications.
+    Users can disable notifications for specific applications or globally, so avoid relying solely on notifications to convey critical information.
 
 ## Prerequisites
 
-In order to use notifications in GNOME you will need to:
+To use notifications in GNOME, ensure:
 
-* use a GIO `Application`, or any other class that extends form it, like GTK `Application` or ADW `Application`
-* provide a valid desktop file with the same name as your `application ID`
-* ensure that your application can be activated via D-Bus
+- Your app uses a GIO `Application` or a class derived from it, such as GTK `Application` or ADW `Application`.
+- A valid desktop file matches your `application ID`.
+- Your application supports D-Bus activation.
 
-The desktop file and D-Bus activation provide notification persistence, allowing
-the desktop to associate the notification to the application even if the
-application is not running.
+These requirements allow notifications to persist and associate with the app, even when it isn’t running.
 
-## Anatomy of a notification
+## Notification Structure
 
-A typical notification has a number of ingredients:
+A notification typically includes:
 
-* a one-line **title**
-* a longer, descriptive **message body** (optional)
-* an **icon** (optional)
-* **actions**, each with a label for use in a button (optional)
-* additionally, notifications may be marked as **urgent**
+- A short **title**
+- An optional **message body**
+- An optional **icon**
+- Optional **actions** (buttons for user interaction)
+- An optional **urgent** status
 
-# Creating a notification
+## Creating a Notification
 
-To send a notification, first create a `Notification` object, and add the
-data for your notification to it:
+To send a notification, create a `Notification` object and add the necessary details:
 
 ``` kotlin
 val notification = Notification("Lunch is ready")
-notification.setBody("Today we have pancakes and salad, and fruit and cake for dessert")
+notification.setBody("Today we have pancakes, salad, fruit, and cake for dessert")
 
 val file = File.newForPath("fruitbowl.png")
 val icon = FileIcon(file)
-
 notification.setIcon(icon)
 ```
 
-Note that the title should be short; the body can be longer, say a paragraph.
-The icon may be displayed at a small size (say, 24×24), so choose an icon that is remains readable at small size.
+Keep titles brief, with longer messages in the body. Icons should be legible at small sizes (e.g., 24×24 pixels).
 
-To show your notification to the user, use the `Application` function for this purpose:
+To display the notification, use your `Application` instance:
 
 ``` kotlin
 // The application instance will acquire a reference on the
@@ -61,17 +53,13 @@ To show your notification to the user, use the `Application` function for this p
 app.sendNotification("lunch-is-ready", notification)
 ```
 
-You need to provide an ID for your notification here. This can be used if you want to make updates to an existing
-notification: simply send a notification with the same ID. Note that the `Notification` object does not have to be kept
-around after sending the notification; you can unref it right away. It is not a 'live' object that is associated with
-the visible notification.
+Provide an ID for the notification, which allows updating it by re-sending with the same ID. Once sent, the
+`Notification` object is independent of the visible notification, so you can release it immediately.
 
-## Adding actions
+## Adding Actions
 
-Often, you want the user to be able to react to the notification in some way, other than just dismissing
-it. `Notification` lets you do this by associating actions with your notification. These will typically be presented as
-buttons in the popup. One action has a special role, it is the 'default' action that gets activated when the user clicks
-on the notification, not on a particular button.
+To allow user interaction, you can add actions to your notification, typically shown as buttons. A **default action**
+triggers when the user clicks the notification itself.
 
 ``` kotlin
 notification.setDefaultAction("app.go-to-lunch")
@@ -79,56 +67,44 @@ notification.addButton("5 minutes", "app.reply-5-minutes")
 notification.addButton("Order takeout", "app.order-takeout")
 ```
 
-The actions are referred to here with their 'app.' prefixed name. This indicates that the actions have to be added to
-your `Application`. You can not use any other actions in `Notifications` (window-specific actions with a 'win.' prefix,
-or key shorcuts using other prefixes will not work).
+Actions use an `app.` prefix to indicate they belong to your `Application`. Only application-level actions work in
+notifications (no window-specific or keyboard shortcuts).
 
-## Actions with parameters
+## Actions with Parameters
 
-A common pattern is to pass a 'target' parameter to the action that contains sufficient details about the notification
-to let your application react in a meaningful way.
-
-As an example, here is how a notification about a newly installed application could provide a launch button:
+Pass parameters to actions to make notifications more dynamic. For example, a launch button for a newly installed app:
 
 ``` kotlin
-val title = "$appName is now installed";
-val notification = Notification(title);
-
+val title = "$appName is now installed"
+val notification = Notification(title)
 notification.addButtonWithTargetValue("Launch", "app.launch", Variant.newString(appid))
 
 app.sendNotification("app-installed", notification);
 ```
 
-To make this work, your application needs to have a suitable 'launch' action that takes the application ID as a string
-parameter:
+In your application, define an action that accepts the application ID as a parameter:
 
 ``` kotlin
 val action = SimpleAction("launch", VariantType.new("s"))
 
-// the "launchApplication()" function is defined elsewhere
+// Assuming `launchApplication()` is defined elsewhere
 action.connectActivate(handler = launchApplication())
-
 app.addAction(action)
 ```
 
-## Stale notifications
+## Removing Notifications
 
-Sometimes, a notification is no longer relevant and should not persist any longer. In those cases, you can explicitly
-withdraw it, like this:
+If a notification becomes irrelevant, you can withdraw it:
 
 ``` kotlin
 if (isNowTeaTime())
     app.withdrawNotification("lunch-is-ready")
 ```
 
-## Disabling notifications
+## Disabling Notifications
 
-If your application uses notifications, you should allow users to disable them.
-
-GNOME has a blanket "do not disturb" mode, but each application can be individually controlled through the
-"Notifications" settings panel.
-
-In order to make your application appear in the panel, add the following line to your desktop file:
+Allow users to disable notifications if desired. GNOME’s "Do Not Disturb" mode controls notifications globally, but
+individual applications appear in the "Notifications" settings panel if the following line is added to the desktop file:
 
 ``` ini
 X-GNOME-UsesNotifications=true

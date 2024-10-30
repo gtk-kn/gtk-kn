@@ -1,16 +1,18 @@
 # Contributing to gtk-kn
 
-Thank you for considering contributing to the gtk-kn project! We welcome any contributions that help make our project
-better, whether it's fixing a bug, adding a new feature, or improving documentation.
+Thank you for your interest in contributing to `gtk-kn`! We appreciate all contributions, whether it's fixing a bug,
+adding features, or enhancing documentation.
 
-To get started, please check out our
-full [contribution guidelines](https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/CONTRIBUTING.md) for more information on
-how to contribute to our project.
+To get started, please refer to our
+full [contribution guidelines](https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/CONTRIBUTING.md).
 
-In summary, if you encounter any issues or bugs, please submit them on our issue tracker with as much detail as
-possible. If you want to contribute code, first create a new issue to discuss your idea with the maintainers. Once your
-idea has been reviewed, fork the repository, create a new branch, write code that follows our coding standards and
-includes tests where appropriate, and submit a merge request. We appreciate all contributions and will do our best to
-review and merge them as quickly as possible.
+### Quick Guide to Contributing
 
-Thank you for helping to make our project better!
+1. **Report Issues**: If you encounter any bugs or issues, please add them to our issue tracker, providing as much
+   detail as possible.
+2. **Discuss Ideas**: Before contributing code, create an issue to discuss your proposal with maintainers.
+3. **Submit Code**: After approval, fork the repository, create a new branch, and write code that aligns with our
+   standards. Ensure tests are included where relevant.
+4. **Create a Merge Request**: Submit your merge request, and we’ll review and merge contributions promptly.
+
+Thank you for helping make `gtk-kn` better!

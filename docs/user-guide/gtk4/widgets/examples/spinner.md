@@ -1,7 +1,10 @@
-The `Spinner` displays an icon-size spinning animation. It is often used as an alternative to a `ProgressBar` for
-displaying indefinite activity, instead of actual progress.
+The `Spinner` widget displays a small spinning animation, commonly used to indicate ongoing activity when the exact
+progress is unknown—an alternative to `ProgressBar` for indefinite loading states.
 
-To start the animation, use `Spinner.start`, to stop it use `Spinner.stop`.
+To control the animation, call:
+
+- `Spinner.start` to begin spinning
+- `Spinner.stop` to halt the animation
 
 **Example**
 
