@@ -1,21 +1,26 @@
-The `ProgressBar` is typically used to display the progress of a long running operation. It provides a visual clue that
-processing is underway. The `ProgressBar` can be used in two different modes: *percentage mode* and *activity mode*.
+The `ProgressBar` widget displays the progress of long-running operations, providing a visual cue to the user. It
+supports two modes: *percentage mode* and *activity mode*.
 
-When an application can determine how much work needs to take place (e.g. read a fixed number of bytes from a file) and
-can monitor its progress, it can use the `ProgressBar` in *percentage mode* and the user sees a growing bar indicating
-the percentage of the work that has been completed. In this mode, the application is required to
-call `ProgressBar.fraction` periodically to update the progress bar, passing a float between 0 and 1 to provide the new
-percentage value.
+### Percentage Mode
 
-When an application has no accurate way of knowing the amount of work to do, it can use *activity mode*, which shows
-activity by a block moving back and forth within the progress area. In this mode, the application is required to
-call `ProgressBar.pulse` periodically to update the progress bar. You can also choose the step size, with
-the `ProgressBar.pulseStep` property.
+Use *percentage mode* when the total work can be measured (e.g., reading a set number of bytes from a file). This mode
+shows a growing bar indicating progress. To update the bar, call `ProgressBar.fraction` periodically, passing a float
+value between 0 and 1 to represent the percentage completed.
 
-By default, `ProgressBar` is horizontal and left-to-right, but you can change it to a vertical progress bar by using
-the `ProgressBar.orientation` property. Changing the direction the progress bar grows can be done
-using `ProgressBar.inverted`. `ProgressBar` can also contain text which can be set by calling `ProgressBar.setText`
-and `ProgressBar.showText`.
+### Activity Mode
+
+For operations where the total work is unknown, use *activity mode*. This mode shows a block moving back and forth to
+indicate activity. To update, call `ProgressBar.pulse` periodically. You can also set the step size using
+`ProgressBar.pulseStep`.
+
+### Customizing the ProgressBar
+
+By default, the `ProgressBar` is horizontal and moves left to right, but you can customize it:
+
+- **Orientation**: Set `ProgressBar.orientation` to switch between horizontal and vertical orientations.
+- **Direction**: Use `ProgressBar.inverted` to change the direction the bar fills.
+- **Text**: Display text inside the progress bar with `ProgressBar.setText` and control its visibility with
+  `ProgressBar.showText`.
 
 **Example**
 

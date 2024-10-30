@@ -1,33 +1,47 @@
 !!! warning
 
-    This library is currently in development and has not been published to MavenCentral yet. However, you can still use
+    This library is under development and has not been published to MavenCentral yet. However, you can still use
     it in your projects by downloading the source code, building it, and deploying the artifacts to MavenLocal.
 
 ## What is MavenLocal?
 
-MavenLocal is a local repository for Maven artifacts. It is a local cache of remote artifacts that have been downloaded
-during the build process, as well as any artifacts that have been installed or deployed locally.
+MavenLocal is a local repository for Maven artifacts, storing remote artifacts cached during builds and any locally
+built or deployed artifacts.
 
-## Why do I need to deploy to MavenLocal?
+## Why Deploy to MavenLocal?
 
-When you build `gtk-kn` from source code, the artifacts are not automatically added to your local repository. This means
-that any other projects that depend on `gtk-kn` will not be able to find the library.
+When building `gtk-kn` from source, the artifacts are not automatically available to other projects on your system. By
+deploying `gtk-kn` artifacts to MavenLocal, you make them accessible to any other projects that rely on them—a helpful
+workaround until the library is published to MavenCentral.
 
-By deploying the `gtk-kn` artifacts to MavenLocal, you make them available to any other projects that are built on your
-machine. This is a temporary workaround until the library is published to MavenCentral.
+## Steps to Deploy to MavenLocal
 
-## How to deploy to MavenLocal
+1. Clone the repository:
+    ```bash
+    git clone https://gitlab.com/gtk-kn/gtk-kn.git
+    ```
+2. Generate the binding source code:
+    ```bash
+    ./gradlew :gir:run
+    ```
+3. Compile the bindings:
+    ```bash
+    ./gradlew assemble
+    ```
+4. Install to MavenLocal:
+    ```bash
+    ./gradlew publishToMavenLocal :gradle-plugin:publishToMavenLocal
+    ```
+5. Verify the installation by checking the `~/.m2/repository` directory.
+6. In your project’s `settings.gradle.kts`, add `mavenLocal()` to the repositories block:
 
-To deploy the `gtk-kn` artifacts to MavenLocal, follow these steps:
+    ```kotlin
+    repositories {
+        mavenLocal()
+        // other repositories
+    }
+    ```
 
-1. Clone the `gtk-kn` repository by running `git clone https://gitlab.com/gtk-kn/gtk-kn.git`
-2. Generate the binding source code by running `./gradlew :gir:run`.
-3. Compile the bindings by running `./gradlew assemble`.
-4. Install the library to your local repository by running `./gradlew publishToMavenLocal :gradle-plugin:publishToMavenLocal`.
-5. Confirm that the artifacts have been installed to your local repository by checking the `~/.m2/repository` directory.
-6. In your project's `settings.gradle.kts` file, add the following lines to the repositories block: `mavenLocal()`
+Your project should now be able to locate and use `gtk-kn` as a dependency.
 
-That's it! Your project should now be able to find and use `gtk-kn` as a dependency.
-
-Note: Remember to remove the `mavenLocal()` repository from your `settings.gradle.kts` file once the library is
-published to MavenCentral.
+*Note:* Remove `mavenLocal()` from `settings.gradle.kts` once the library is published to MavenCentral.

@@ -1,10 +1,13 @@
-Now that we have a working installation of Kotlin/Native, let's start building our first `gtk-kn` app.
+Now that Kotlin/Native is set up, let’s build our first `gtk-kn` app.
 
-Firstly, we need to create a GTK `Application` instance with an application ID. To do this, we must add the `gtk-kn`
-library dependencies to our `build.gradle.kts` file. Open the file and replace the comment `// Dependencies goes here`
-with the `gtk-kn` dependency `implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")`.
+First, create a GTK `Application` instance with an application ID. To do this, add the `gtk-kn` dependency to your
+`build.gradle.kts` file. Open the file and replace `// Specify dependencies here` with:
 
-Next, we need to edit the `hello.kt` file and replace its contents with the following:
+```kotlin
+implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
+```
+
+Next, update `hello.kt` with the following content:
 
 ```kotlin
 // hello.kt
@@ -19,20 +22,20 @@ fun main() {
 }
 ```
 
-From the root project directory, run the build command:
+To build the project, run this command from the root directory:
 
 ```bash
 ./gradlew runDebugExecutableLinuxX64
 ```
 
-It builds fine, but nothing but a warning in our terminal appears:
+The build completes, but you’ll see a warning in the terminal:
 
 !!! warning
 
     GLib-GIO-WARNING **: 20:36:01.273: Your application does not implement g_application_activate() and has no handlers
     connected to the 'activate' signal. It should do one of these.
 
-GTK tells us that something should be called in its activate step. So let's create a GTK `ApplicationWindow` there:
+GTK indicates that something should be executed in the activate step. Let’s add a GTK `ApplicationWindow`:
 
 ```kotlin
 // hello.kt
@@ -62,16 +65,12 @@ fun main() {
 }
 ```
 
-That is better!
-
-That's much better! Now we have a working window. But, of course, we want to do more than just display an empty window.
-Let's add a button to our app:
+That’s better! Now we have a working window. Next, let’s add a button:
 
 ``` kotlin title="samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt"
 --8<-- "samples/gtk/hello-world/src/nativeMain/kotlin/hello.kt:doc"
 ```
 
-Great! Now we have a button in our app that displays `"Press me!"`. When the button is clicked, it changes its label
-to `"Hello World!"`.
+Now, you’ll see a button labeled `"Press me!"` in the window. When clicked, it changes to `"Hello World!"`.
 
-And that's it! You've just created your first `gtk-kn` app.
+Congratulations! You’ve just created your first `gtk-kn` app.

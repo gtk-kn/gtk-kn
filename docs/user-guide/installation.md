@@ -1,49 +1,46 @@
-To develop a `gtk-kn` application, two essential components are required on your workstation:
+To develop a `gtk-kn` application, you’ll need:
 
-- the Kotlin Native toolchain
-- the GTK 4 library
+- The Kotlin/Native toolchain
+- The GTK 4 library
 
-However, installation instructions vary by operating system, and the details can be tricky to navigate. As a result, we
-will provide installation guidelines for each operating system in the upcoming chapters.
+Installation steps differ by operating system, so we’ll provide OS-specific installation guidelines in the sections
+below.
 
 ## Requirements
 
 ### Linux
 
-You first have to install the following dependencies:
+Install the following dependencies based on your distribution:
 
 ```bash
-# Debian
+# Debian-based systems
 sudo apt install gnome-devel gcc-multilib libgtksourceview-5-dev
 
-# Fedora
+# Fedora-based systems
 sudo dnf install gtk4-devel libadwaita-devel gtksourceview5-devel libxcrypt-compat
 ```
 
-A bash script to install all the dependencies for Ubuntu 24.04 , that includes also all the optional bindings, it is
-available here:
+For Ubuntu 24.04, a bash script is available to install all dependencies, including optional bindings:
 
-``` bash title=".ci/install-ubuntu-deps.sh"
+'''bash title=".ci/install-ubuntu-deps.sh"
 --8<-- ".ci/install-ubuntu-deps.sh:18"
-```
+'''
 
 ### macOS
 
-!!! warning "Support coming soon"
+!!! warning "Support Coming Soon"
 
-    Currently, the bindings are available only for Linux, but the plan is to provide bindings for macOS in the future
-    as well. Once the bindings are available for macOS, developers will be able to use them to create cross-platform
-    GUI applications that can run on both Linux and macOS.
+    Currently, bindings are only available for Linux. macOS support is planned, enabling developers to create cross-platform
+    GUI applications that run on both Linux and macOS.
 
 ### Windows
 
-!!! warning "Support coming soon"
+!!! warning "Support Coming Soon"
 
-    Currently, the bindings are available only for Linux, but the plan is to provide bindings for Windows in the future
-    as well. Once the bindings are available for Windows, developers will be able to use them to create cross-platform
-    GUI applications that can run on both Linux and Windows.
+    Currently, bindings are only available for Linux. Windows support is planned, allowing for cross-platform GUI
+    applications that run on Linux and Windows.
 
 ## Editor or Integrated Development Environment (IDE)
 
-You can use any editor or IDE that supports Kotlin. For this guide we will use and refer
-to [IntelliJ IDEA](https://www.jetbrains.com/idea/).
+Any editor or IDE that supports Kotlin can be used. This guide
+references [IntelliJ IDEA](https://www.jetbrains.com/idea/) for examples.

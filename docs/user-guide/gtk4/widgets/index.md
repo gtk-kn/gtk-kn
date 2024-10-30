@@ -1,20 +1,20 @@
 # Widgets
 
-A GTK4 Widget is an object-oriented graphical user interface (GUI) element used in GTK4 toolkit, which provides a set of
-reusable components that can be used to build applications with a consistent look and feel. Widgets are the basic
-building blocks of a GTK4 application's user interface, and they can be used to create buttons, text boxes, menus, and
-other user interface elements.
+In GTK4, a widget is a graphical user interface (GUI) component that forms the building blocks of an application’s
+interface. These reusable components help create a consistent look and feel and include elements like buttons, text
+boxes, and menus.
 
-In GTK4, widgets are implemented as objects, which can be customized and controlled through properties and signals.
-Properties allow developers to set and retrieve the state of a widget, while signals allow widgets to respond to events,
-such as user input or changes to the widget's state.
+GTK4 widgets are object-oriented, allowing customization through properties and signals:
 
-Widgets in GTK4 are organized into a hierarchy, with each widget having a parent widget and zero or more child widgets.
-The top-level widget in a GTK4 application is typically a window, which contains other widgets arranged in a layout.
+- **Properties** manage and retrieve widget states.
+- **Signals** enable widgets to respond to events like user input or state changes.
 
-GTK4 provides a large number of pre-built widgets that can be used out of the box, including buttons, text boxes,
-labels, combo boxes, tree views, and many more. Additionally, GTK4 also allows developers to create custom widgets by
-subclassing existing widgets or by creating new widgets from scratch.
+Widgets are organized hierarchically, typically starting with a top-level window containing other widgets arranged in a
+layout.
 
-Overall, GTK4 widgets provide a powerful and flexible way to create modern, responsive, and visually appealing user
+GTK4 provides a wide range of pre-built widgets, such as buttons, text boxes, labels, combo boxes, and tree views, that
+can be used immediately. It also supports creating custom widgets by subclassing existing ones or building new widgets
+from scratch.
+
+In summary, GTK4 widgets offer a robust, flexible foundation for developing responsive, visually appealing user
 interfaces for desktop and mobile applications.
