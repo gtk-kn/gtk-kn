@@ -2,17 +2,15 @@
 
 <img src="docs/assets/logo-256.png" width="100" align="right" hspace="32" />
 
-gtk-kn provides Kotlin Native bindings for the GTK framework, its dependencies and some additional GObject-based
-libraries.
-GTK is a popular cross-platform GUI toolkit that provides a complete set of widgets for building graphical applications.
-Kotlin Native is a technology that allows Kotlin code to be compiled to native code for various platforms.
+`gtk-kn` provides Kotlin/Native bindings for GTK, its dependencies, and additional GObject-based libraries. GTK is a
+cross-platform GUI toolkit offering a complete set of widgets for building graphical applications. Kotlin/Native allows
+Kotlin code to compile to native code across multiple platforms.
 
-*Please note that this project is a work in progress and is not yet ready for production use. We welcome contributions
-from anyone who is interested in helping us improve the project.*
+*Note: This project is in development and not yet production-ready. Contributions are welcome!*
 
 ## Example
 
-A basic hello world example that puts a window on the screen with a button and a signal handler.
+A basic "Hello World" example that opens a window with a button and a signal handler:
 
 ```kotlin
 private const val APP_ID = "org.gtkkn.samples.gtk.helloworld"
@@ -48,113 +46,96 @@ fun main() {
 }
 ```
 
-For more details and examples see the [Documentation](#documentation) and [Running the examples](#running-the-examples) sections.
+For more details, see the [Documentation](#documentation) and [Examples](#running-the-examples).
 
 ## Documentation
 
-The documentation for gtk-kn is available at [gtk-kn.org](https://gtk-kn.org/). We highly recommend referring to the
-documentation for any questions related to the usage or implementation of gtk-kn, as it provides detailed information,
-examples, and API reference.
-
-In addition, a mirror of the documentation is also available
-at [gtk-kn.github.io/gtk-kn](https://gtk-kn.github.io/gtk-kn/). If for any reason the primary site is unavailable or you
-prefer to use the mirror, feel free to use this alternative. We aim to keep both sites updated with the latest
-documentation, so you can use either of them with confidence.
-
-If you find any issues with the documentation on either site, please feel free to submit a bug report or a feature
-request via the project's GitLab page. We welcome all feedback and suggestions that can help us improve the
-documentation and the project as a whole.
+Comprehensive documentation for `gtk-kn` is available at [gtk-kn.org](https://gtk-kn.org/), with a mirror
+at [gtk-kn.github.io](https://gtk-kn.github.io/gtk-kn/). If issues are found, please report them on the project’s GitLab
+page.
 
 ## Contributing
 
-If you're interested in contributing to the project, please read our [contributing guidelines](CONTRIBUTING.md) and
-our [code of conduct](CODE_OF_CONDUCT.md) before getting started.
+If you’re interested in contributing, review our [contributing guidelines](CONTRIBUTING.md)
+and [code of conduct](CODE_OF_CONDUCT.md) before getting started.
 
-## Building the project
+## Join the Project
 
-To build the project follow the setup outlined [here](docs/user-guide/installation.md).
+We’re actively seeking contributors with experience in C, GTK, or GObject who are interested in supporting the `gtk-kn`
+project. We’re particularly focused on enhancing features that require in-depth knowledge of GTK and GObject internals,
+such as In/Out parameter handling and GPointer support.
 
+If you’re skilled in these areas or simply enthusiastic about contributing to Kotlin/Native GTK bindings, we’d love to
+collaborate! Whether you can offer occasional insights or are interested in taking on specific tasks, your help is
+greatly appreciated.
 
-Some documentation on how to build and deploy the bindings to maven local is
-available [here](docs/user-guide/deploy-on-mavenlocal.md).
+Feel free to reach out via the [GitLab issue tracker](https://gitlab.com/gtk-kn/gtk-kn/-/issues).
 
-## Running the examples
+## Building the Project
 
-The [samples](samples) directory contains sample applications that demonstrate how to use the GTK bindings in
-Kotlin Native.
+To build the project, follow the setup [instructions here](docs/user-guide/installation.md).
+
+Documentation on deploying bindings to Maven local is available [here](docs/user-guide/deploy-on-mavenlocal.md).
+
+## Running the Examples
+
+The [samples](samples) directory contains example applications demonstrating the GTK bindings in Kotlin/Native.
 
 ## Roadmap
 
-Please refer to the [project board](https://gitlab.com/gtk-kn/gtk-kn/-/boards) for more information on our roadmap and
-progress.
+See the [project board](https://gitlab.com/gtk-kn/gtk-kn/-/boards) for our roadmap and progress updates.
 
 ## Project Overview
 
-### Gir module
+### GIR Module
 
-The `gir` module contains a generator that takes a set of GObject Introspection .gir files, parses them, and generates
-Kotlin code into the `bindings` modules.
+The `gir` module contains a generator that parses GObject Introspection `.gir` files and generates Kotlin code in the
+`bindings` modules. By default, bindings are generated for all supported libraries from `.gir` files in
+`/usr/share/gir-1.0/`.
 
-In the default configuration, the generator will generate bindings for all supported libraries (e.g. each module
-under `bindings/`) from the local set of gir files in `/usr/share/gir-1.0/` into the bindings modules.
-
-This configuration can be changed to use alternative paths and/or generate bindings for additional libraries.
-
-The generator can be invoked with default configuration using
+Run the generator with:
 
 ```shell
 ./gradlew gir:run
 ```
 
-The generated bindings can be cleaned with
+To clean generated bindings:
 
 ```shell
 ./gradlew cleanBindings
 ```
 
-### Bindings modules
+### Bindings Modules
 
-The modules under `bindings/` contain folder placeholders and additional support code for each of the supported
-libraries.
-By convention, all generated code is generated into the `org.gtkkn.bindings.<library-name>` package, while support
-code resides in the `org.gtkkn.extensions.<library-name>` package.
+Modules under `bindings/` house generated code for supported libraries. Generated code resides in
+`org.gtkkn.bindings.<library-name>`, with additional support code in `org.gtkkn.extensions.<library-name>`.
 
-Currently, the contents of the `org.gtkkn.bindings.*` packages are not committed to the repository.
-This will change once the project is ready for publication on Maven Central.
+### Platform Support
 
-When building the generated bindings modules, The `cinterop` tool from Kotlin Native is used to interpret library
-headers from the local `/usr/include` folders.
-
-## Notes
-
-### Supported platforms
-
-While working towards a 1.0 release, we are focussed on linux first and are actively testing on Ubuntu 24.04 LTS
-and Arch linux. Other Linux distributions should be supported as well.
-
-Windows and macOS support is on our roadmap.
+Our focus is on Linux, primarily Ubuntu 24.04 LTS and Arch Linux. Other distributions should also work. Windows and
+macOS support are planned.
 
 ### Wrapper classes
 
-* GObject's classes are generated as Kotlin classes
-* GObject's interfaces are generated as Kotlin interfaces
-* Class and interface methods are generated as Kotlin methods on the Kotlin class/interface
-* Where possible, class constructors are implemented as constructors on the Kotlin class
-* Other constructors are generated as static factory functions on the companion object
-* Signals on classes, interfaces and other types can be used through `connect<signal-name>()` methods on the Kotlin
+- GObject's classes are generated as Kotlin classes
+- GObject's interfaces are generated as Kotlin interfaces
+- Class and interface methods are generated as Kotlin methods on the Kotlin class/interface
+- Where possible, class constructors are implemented as constructors on the Kotlin class
+- Other constructors are generated as static factory functions on the companion object
+- Signals on classes, interfaces and other types can be used through `connect<signal-name>()` methods on the Kotlin
   class
-* GObject class properties are generated as Kotlin properties
-* GObject records (C structs) are generated as Kotlin classes
-* GObject's enumerations are generated as Kotlin enum classes
-* GObject bitfields are generated as Kotlin enum classes with additional support methods for using them as flags
-* Standalone library functions are generated as methods in a Kotlin Object named after the library
-* Methods using the GLib `GError` mechanism will return a `Result<T>` where the failure case throwable is of
+- GObject class properties are generated as Kotlin properties
+- GObject records (C structs) are generated as Kotlin classes
+- GObject's enumerations are generated as Kotlin enum classes
+- GObject bitfields are generated as Kotlin enum classes with additional support methods for using them as flags
+- Standalone library functions are generated as methods in a Kotlin Object named after the library
+- Methods using the GLib `GError` mechanism will return a `Result<T>` where the failure case throwable is of
   type `GlibException`
-* Constructors using the GLib `GError` mechanism will throw `GlibExeption`
-* `GlibException` provides access to the underlying `Error` which is a wrapper for the `GError` struct
-* GLib error domains are generated as enum classes, so they can be used in exhaustive when statements
+- Constructors using the GLib `GError` mechanism will throw `GlibExeption`
+- `GlibException` provides access to the underlying `Error` which is a wrapper for the `GError` struct
+- GLib error domains are generated as enum classes, so they can be used in exhaustive when statements
 
-### Library versions
+### Library Versions
 
 Currently, the generator does not handle versions and deprecation information. For this reason it is important to make
 sure the gir files used for generating, and the installed system library versions used by cinterop (in `/usr/include/`)
@@ -168,45 +149,38 @@ a skip file named `<library-name>-skips.txt` in the modules `build` folder.
 When the generator encounters methods, properties or child types that it does not support, it will log these in a
 dedicated section in the KDoc for the containing type.
 
-### GObject Reference counting and ownership
+### Reference Counting and Ownership
 
-The generated bindings do not automatically handle the GObject reference counting and ownership semantics yet.
-This is on our roadmap and will be added in the near future.
+Automatic GObject reference counting and ownership management is on our roadmap.
 
-### GObject and Widget subclassing
+### GObject and Widget Subclassing
 
-User-defined subclassing for GObject and GtkWidget types is supported but not fully featured yet. Basic subclass type
-registration works and supports adding simple properties. More advanced type features like adding signals, actions and
-interfaces is on our roadmap.
+User-defined subclassing for GObject and GtkWidget types is supported with basic features; more advanced functionality
+is planned.
 
-### Gradle plugin
+### Gradle Plugin
 
-A Gradle plugin is planned to help with compiling resources and schemas and handle packaging. On top of this we are
-looking at Meson support to integrate with the rest of the GNOME/GTK ecosystem.
+A Gradle plugin is in development to support compiling resources, schemas, and packaging. Meson support for GNOME/GTK
+ecosystem integration is also planned.
 
-## Why the name gtk-kn?
+## Why "gtk-kn"?
 
-The "kn" in gtk-kn stands for Kotlin Native. We chose this name because it is similar to other projects that provide
-language bindings for GTK, such as gtk-rs for Rust.
+The "kn" in `gtk-kn` stands for Kotlin/Native, chosen to align with similar projects like `gtk-rs` for Rust.
 
 ## Contact
 
-If you have any questions or comments about the project, please feel free to contact us on our
-[Matrix space](https://matrix.to/#/#gtk-kn:matrix.org) or the
-[GitLab issue tracker](https://gitlab.com/gtk-kn/gtk-kn/-/issues).
+Reach us on [Matrix](https://matrix.to/#/#gtk-kn:matrix.org) or via
+the [GitLab issue tracker](https://gitlab.com/gtk-kn/gtk-kn/-/issues).
 
 ## License
 
 This project is licensed under
-the [GNU General Public License v3.0 (GPLv3)](https://www.gnu.org/licenses/gpl-3.0.en.html), however some directories
-are licensed differently:
+the [GNU General Public License v3.0 (GPLv3)](https://www.gnu.org/licenses/gpl-3.0.en.html). However, different sections
+are licensed as follows:
 
-- The generated bindings in the `bindings/**/src/nativeMain/kotlin/org/gtkkn/bindings/` directories are licensed under
-  the [GNU Lesser General Public License v3.0 (LGPLv3)](https://www.gnu.org/licenses/lgpl-3.0.en.html). It is possible
-  to manually generate bindings using the [MIT License](https://opensource.org/licenses/MIT), but this version will not
-  include the LGPL GTK documentation.
-- The binding extensions in the `bindings/**/src/nativeMain/kotlin/org/gtkkn/extensions/` directories are licensed under
-  the [MIT License](https://opensource.org/licenses/MIT)
-- The `docs` directory is licensed under
-  the [Creative Commons Attribution-ShareAlike 4.0 International License (CC-BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
-- The `samples` directory is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+- **Generated bindings**:
+  `bindings/**/src/nativeMain/kotlin/org/gtkkn/bindings/` - [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html).
+- **Binding extensions**:
+  `bindings/**/src/nativeMain/kotlin/org/gtkkn/extensions/` - [MIT License](https://opensource.org/licenses/MIT).
+- **Documentation**: `docs/` - [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- **Samples**: `samples/` - [MIT License](https://opensource.org/licenses/MIT).
