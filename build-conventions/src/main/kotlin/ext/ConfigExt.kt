@@ -36,6 +36,7 @@ interface VersionsExt: ExtensionAware {
     val gtk4: Property<String>
     val gradlePlugin: Property<String>
     val gtksource: Property<String>
+    val webkitgtk: Property<String>
 }
 
 internal inline val Project.config: ConfigExt get() = extensions.getByType()

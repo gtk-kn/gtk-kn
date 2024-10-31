@@ -71,9 +71,9 @@
       "girPrefix": "Adw-1"
     },
     {
-      "name": "gtksource",
-      "module": "extra:gtksource",
-      "girPrefix": "GtkSource-5"
+      "name": "webkitgtk",
+      "module": "extra:webkitgtk",
+      "girPrefix": "WebKit2-4.1"
     }
   ]
 }
