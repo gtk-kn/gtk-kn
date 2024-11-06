@@ -34,6 +34,9 @@ kotlin {
                 entryPoint = "org.gtkkn.samples.gtk.externalresources.main"
             }
         }
+        gtk {
+            targetLibraryVersions.put("gio", "2.32")
+        }
     }
     sourceSets {
         named("nativeMain") {

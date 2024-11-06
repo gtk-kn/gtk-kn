@@ -26,6 +26,7 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.plugins.ExtensionAware
+import org.gradle.api.provider.MapProperty
 import org.gradle.kotlin.dsl.domainObjectContainer
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
@@ -47,6 +48,26 @@ interface GtkExt : ExtensionAware {
      */
     val installPrefix: DirectoryProperty
 
+    /**
+     * A map of library names to their target versions.
+     * Users can specify the version they want to target for each library in their project.
+     *
+     * This property is used to automatically opt in to all necessary library versions
+     * up to and including the specified target version for each library.
+     *
+     * For example:
+     * ```
+     * gtk {
+     *     targetLibraryVersions.put("gtk", "4.10")
+     *     targetLibraryVersions.put("gio", "2.28")
+     * }
+     * ```
+     * By specifying the target versions, the build process will ensure that the project
+     * opts in to all APIs up to the given version, facilitating compatibility and access
+     * to newer features while maintaining control over the API level.
+     */
+    val targetLibraryVersions: MapProperty<String, String>
+
     companion object {
         const val NAME = "gtk"
         internal fun register(project: Project) = project.extensions.maybeCreate<GtkExt>(NAME) {
@@ -59,6 +80,8 @@ interface GtkExt : ExtensionAware {
             registerGResources(project)
             registerGSchemas(project)
             registerMetaTasks(project)
+
+            targetLibraryVersions.convention(project.objects.mapProperty(String::class.java, String::class.java))
         }
 
         private fun GtkExt.registerGResources(project: Project) {

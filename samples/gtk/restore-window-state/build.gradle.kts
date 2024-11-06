@@ -34,7 +34,10 @@ kotlin {
                 entryPoint = "org.gtkkn.samples.gtk.restorewindowstate.main"
             }
         }
-        gtk.gschemas.main.preinstall(compilations.named("main"))
+        gtk {
+            targetLibraryVersions.put("gio", "2.28")
+            gschemas.main.preinstall(compilations.named("main"))
+        }
     }
     sourceSets {
         named("nativeMain") {

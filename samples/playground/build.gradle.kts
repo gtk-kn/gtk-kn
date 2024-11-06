@@ -28,6 +28,10 @@ kotlin {
                 entryPoint = "org.gtkkn.samples.playground.main"
             }
         }
+        gtk {
+            targetLibraryVersions.put("gtk", "4.10")
+            targetLibraryVersions.put("gio", "2.28")
+        }
     }
     sourceSets {
         named("nativeMain") {

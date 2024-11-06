@@ -34,7 +34,10 @@ kotlin {
                 entryPoint = "org.gtkkn.samples.widgettemplates.main"
             }
         }
-        gtk.gresources.main.embed(compilations.named("main"))
+        gtk {
+            targetLibraryVersions.put("gio", "2.28")
+            gresources.main.embed(compilations.named("main"))
+        }
     }
     sourceSets {
         named("nativeMain") {

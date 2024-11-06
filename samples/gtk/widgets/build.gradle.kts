@@ -36,6 +36,14 @@ kotlin {
                 // Import from mavenLocal
                 // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
             }
+
+            languageSettings {
+                // Opt in to the required annotations
+                optIn("org.gtkkn.bindings.gio.annotations.GioVersion2_28")
+                optIn("org.gtkkn.bindings.gio.annotations.GioVersion2_44")
+                optIn("org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26")
+                optIn("org.gtkkn.bindings.gtk.annotations.GtkVersion4_6")
+            }
         }
     }
 }
