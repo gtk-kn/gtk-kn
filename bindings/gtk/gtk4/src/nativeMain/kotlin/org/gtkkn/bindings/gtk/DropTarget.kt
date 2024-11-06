@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gdk.DragAction
 import org.gtkkn.bindings.gdk.Drop
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -152,6 +153,7 @@ public open class DropTarget(
      *
      * @since 4.4
      */
+    @GtkVersion4_4
     public open val currentDrop: Drop?
         /**
          * Gets the currently handled drop operation.
@@ -270,6 +272,7 @@ public open class DropTarget(
      * @return The current drop
      * @since 4.4
      */
+    @GtkVersion4_4
     public open fun getCurrentDrop(): Drop? =
         gtk_drop_target_get_current_drop(gtkDropTargetPointer.reinterpret())?.run {
             Drop(reinterpret())

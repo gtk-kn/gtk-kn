@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.native.gsk.GskPathOperation
 import org.gtkkn.native.gsk.GskPathOperation.GSK_PATH_CLOSE
 import org.gtkkn.native.gsk.GskPathOperation.GSK_PATH_CONIC
@@ -15,6 +16,7 @@ import org.gtkkn.native.gsk.GskPathOperation.GSK_PATH_QUAD
  * More values may be added in the future.
  * @since 4.14
  */
+@GskVersion4_14
 public enum class PathOperation(
     public val nativeValue: GskPathOperation,
 ) {

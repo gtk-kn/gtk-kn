@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextBuffer
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.TextView
+import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -50,7 +51,8 @@ import kotlin.Unit
  */
 public open class GutterLines(
     pointer: CPointer<GtkSourceGutterLines>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceGutterLinesPointer: CPointer<GtkSourceGutterLines>
         get() = gPointer.reinterpret()
 
@@ -85,12 +87,7 @@ public open class GutterLines(
     public open fun addQclass(
         line: UInt,
         qname: UInt,
-    ): Unit =
-        gtk_source_gutter_lines_add_qclass(
-            gtksourceGutterLinesPointer.reinterpret(),
-            line,
-            qname
-        )
+    ): Unit = gtk_source_gutter_lines_add_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname)
 
     /**
      * Gets the [class@Gtk.TextBuffer] that the `GtkSourceGutterLines` represents.
@@ -153,11 +150,9 @@ public open class GutterLines(
      * @return true if any quark was set for the line
      * @since 5.6
      */
+    @GtkSourceVersion5_6
     public open fun hasAnyClass(line: UInt): Boolean =
-        gtk_source_gutter_lines_has_any_class(
-            gtksourceGutterLinesPointer.reinterpret(),
-            line
-        ).asBoolean()
+        gtk_source_gutter_lines_has_any_class(gtksourceGutterLinesPointer.reinterpret(), line).asBoolean()
 
     /**
      * Checks to see if [method@GutterLines.add_class] was called with
@@ -174,12 +169,7 @@ public open class GutterLines(
     public open fun hasClass(
         line: UInt,
         name: String,
-    ): Boolean =
-        gtk_source_gutter_lines_has_class(
-            gtksourceGutterLinesPointer.reinterpret(),
-            line,
-            name
-        ).asBoolean()
+    ): Boolean = gtk_source_gutter_lines_has_class(gtksourceGutterLinesPointer.reinterpret(), line, name).asBoolean()
 
     /**
      * Checks to see if [method@GutterLines.add_qclass] was called with
@@ -192,12 +182,7 @@ public open class GutterLines(
     public open fun hasQclass(
         line: UInt,
         qname: UInt,
-    ): Boolean =
-        gtk_source_gutter_lines_has_qclass(
-            gtksourceGutterLinesPointer.reinterpret(),
-            line,
-            qname
-        ).asBoolean()
+    ): Boolean = gtk_source_gutter_lines_has_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname).asBoolean()
 
     /**
      * Checks to see if @line contains the insertion cursor.
@@ -206,10 +191,7 @@ public open class GutterLines(
      * @return true if the insertion cursor is on @line
      */
     public open fun isCursor(line: UInt): Boolean =
-        gtk_source_gutter_lines_is_cursor(
-            gtksourceGutterLinesPointer.reinterpret(),
-            line
-        ).asBoolean()
+        gtk_source_gutter_lines_is_cursor(gtksourceGutterLinesPointer.reinterpret(), line).asBoolean()
 
     /**
      * Checks to see if @line is marked as prelit. Generally, this means
@@ -219,10 +201,7 @@ public open class GutterLines(
      * @return true if the line is prelit
      */
     public open fun isPrelit(line: UInt): Boolean =
-        gtk_source_gutter_lines_is_prelit(
-            gtksourceGutterLinesPointer.reinterpret(),
-            line
-        ).asBoolean()
+        gtk_source_gutter_lines_is_prelit(gtksourceGutterLinesPointer.reinterpret(), line).asBoolean()
 
     /**
      * Checks to see if the view had a selection and if that selection overlaps
@@ -232,10 +211,7 @@ public open class GutterLines(
      * @return true if the line contains a selection
      */
     public open fun isSelected(line: UInt): Boolean =
-        gtk_source_gutter_lines_is_selected(
-            gtksourceGutterLinesPointer.reinterpret(),
-            line
-        ).asBoolean()
+        gtk_source_gutter_lines_is_selected(gtksourceGutterLinesPointer.reinterpret(), line).asBoolean()
 
     /**
      * Removes the class matching @name from @line.
@@ -250,12 +226,7 @@ public open class GutterLines(
     public open fun removeClass(
         line: UInt,
         name: String,
-    ): Unit =
-        gtk_source_gutter_lines_remove_class(
-            gtksourceGutterLinesPointer.reinterpret(),
-            line,
-            name
-        )
+    ): Unit = gtk_source_gutter_lines_remove_class(gtksourceGutterLinesPointer.reinterpret(), line, name)
 
     /**
      * Reverses a call to [method@GutterLines.add_qclass] by removing
@@ -267,18 +238,11 @@ public open class GutterLines(
     public open fun removeQclass(
         line: UInt,
         qname: UInt,
-    ): Unit =
-        gtk_source_gutter_lines_remove_qclass(
-            gtksourceGutterLinesPointer.reinterpret(),
-            line,
-            qname
-        )
+    ): Unit = gtk_source_gutter_lines_remove_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname)
 
     public companion object : TypeCompanion<GutterLines> {
         override val type: GeneratedClassKGType<GutterLines> =
-            GeneratedClassKGType(gtk_source_gutter_lines_get_type()) {
-                GutterLines(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_gutter_lines_get_type()) { GutterLines(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

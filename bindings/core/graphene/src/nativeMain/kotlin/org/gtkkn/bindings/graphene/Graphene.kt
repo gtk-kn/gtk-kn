@@ -2,6 +2,9 @@
 package org.gtkkn.bindings.graphene
 
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.native.graphene.graphene_box_empty
 import org.gtkkn.native.graphene.graphene_box_infinite
 import org.gtkkn.native.graphene.graphene_box_minus_one
@@ -112,6 +115,7 @@ public object Graphene {
      * @return a #graphene_box_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun boxEmpty(): Box =
         graphene_box_empty()!!.run {
             Box(reinterpret())
@@ -125,6 +129,7 @@ public object Graphene {
      * @return a #graphene_box_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun boxInfinite(): Box =
         graphene_box_infinite()!!.run {
             Box(reinterpret())
@@ -139,6 +144,7 @@ public object Graphene {
      * @return a #graphene_box_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun boxMinusOne(): Box =
         graphene_box_minus_one()!!.run {
             Box(reinterpret())
@@ -153,6 +159,7 @@ public object Graphene {
      * @return a #graphene_box_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun boxOne(): Box =
         graphene_box_one()!!.run {
             Box(reinterpret())
@@ -167,6 +174,7 @@ public object Graphene {
      * @return a #graphene_box_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun boxOneMinusOne(): Box =
         graphene_box_one_minus_one()!!.run {
             Box(reinterpret())
@@ -180,6 +188,7 @@ public object Graphene {
      * @return a #graphene_box_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun boxZero(): Box =
         graphene_box_zero()!!.run {
             Box(reinterpret())
@@ -191,6 +200,7 @@ public object Graphene {
      * @return a zero point
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun point3dZero(): Point3D =
         graphene_point3d_zero()!!.run {
             Point3D(reinterpret())
@@ -202,6 +212,7 @@ public object Graphene {
      * @return a fixed point
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun pointZero(): Point =
         graphene_point_zero()!!.run {
             Point(reinterpret())
@@ -215,6 +226,7 @@ public object Graphene {
      * @return the newly allocated rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun rectAlloc(): Rect =
         graphene_rect_alloc()!!.run {
             Rect(reinterpret())
@@ -227,6 +239,7 @@ public object Graphene {
      * @return a fixed rectangle
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun rectZero(): Rect =
         graphene_rect_zero()!!.run {
             Rect(reinterpret())
@@ -239,6 +252,7 @@ public object Graphene {
      * @return a constant size
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun sizeZero(): Size =
         graphene_size_zero()!!.run {
             Size(reinterpret())
@@ -250,6 +264,7 @@ public object Graphene {
      * @return the one vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec2One(): Vec2 =
         graphene_vec2_one()!!.run {
             Vec2(reinterpret())
@@ -261,6 +276,7 @@ public object Graphene {
      * @return the X axis vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec2XAxis(): Vec2 =
         graphene_vec2_x_axis()!!.run {
             Vec2(reinterpret())
@@ -272,6 +288,7 @@ public object Graphene {
      * @return the Y axis vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec2YAxis(): Vec2 =
         graphene_vec2_y_axis()!!.run {
             Vec2(reinterpret())
@@ -283,6 +300,7 @@ public object Graphene {
      * @return the zero vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec2Zero(): Vec2 =
         graphene_vec2_zero()!!.run {
             Vec2(reinterpret())
@@ -295,6 +313,7 @@ public object Graphene {
      * @return a constant vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec3One(): Vec3 =
         graphene_vec3_one()!!.run {
             Vec3(reinterpret())
@@ -307,6 +326,7 @@ public object Graphene {
      * @return a constant vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec3XAxis(): Vec3 =
         graphene_vec3_x_axis()!!.run {
             Vec3(reinterpret())
@@ -319,6 +339,7 @@ public object Graphene {
      * @return a constant vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec3YAxis(): Vec3 =
         graphene_vec3_y_axis()!!.run {
             Vec3(reinterpret())
@@ -331,6 +352,7 @@ public object Graphene {
      * @return a constant vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec3ZAxis(): Vec3 =
         graphene_vec3_z_axis()!!.run {
             Vec3(reinterpret())
@@ -343,6 +365,7 @@ public object Graphene {
      * @return a constant vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec3Zero(): Vec3 =
         graphene_vec3_zero()!!.run {
             Vec3(reinterpret())
@@ -355,6 +378,7 @@ public object Graphene {
      * @return a constant vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec4One(): Vec4 =
         graphene_vec4_one()!!.run {
             Vec4(reinterpret())
@@ -367,6 +391,7 @@ public object Graphene {
      * @return a constant vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec4WAxis(): Vec4 =
         graphene_vec4_w_axis()!!.run {
             Vec4(reinterpret())
@@ -379,6 +404,7 @@ public object Graphene {
      * @return a constant vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec4XAxis(): Vec4 =
         graphene_vec4_x_axis()!!.run {
             Vec4(reinterpret())
@@ -391,6 +417,7 @@ public object Graphene {
      * @return a constant vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec4YAxis(): Vec4 =
         graphene_vec4_y_axis()!!.run {
             Vec4(reinterpret())
@@ -403,6 +430,7 @@ public object Graphene {
      * @return a constant vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec4ZAxis(): Vec4 =
         graphene_vec4_z_axis()!!.run {
             Vec4(reinterpret())
@@ -415,6 +443,7 @@ public object Graphene {
      * @return a constant vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun vec4Zero(): Vec4 =
         graphene_vec4_zero()!!.run {
             Vec4(reinterpret())

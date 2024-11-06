@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -53,6 +54,7 @@ import kotlin.UInt
  *
  * @since 4.10
  */
+@GtkVersion4_10
 public open class ColumnViewSorter(
     pointer: CPointer<GtkColumnViewSorter>,
 ) : Sorter(pointer.reinterpret()),
@@ -68,6 +70,7 @@ public open class ColumnViewSorter(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open val primarySortColumn: ColumnViewColumn?
         /**
          * Returns the primary sort column.
@@ -92,6 +95,7 @@ public open class ColumnViewSorter(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open val primarySortOrder: SortType
         /**
          * Returns the primary sort order.
@@ -124,6 +128,7 @@ public open class ColumnViewSorter(
      * @return the number of sort columns
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getNSortColumns(): UInt =
         gtk_column_view_sorter_get_n_sort_columns(gtkColumnViewSorterPointer.reinterpret())
 
@@ -136,6 +141,7 @@ public open class ColumnViewSorter(
      * @return the primary sort column
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getPrimarySortColumn(): ColumnViewColumn? =
         gtk_column_view_sorter_get_primary_sort_column(gtkColumnViewSorterPointer.reinterpret())?.run {
             ColumnViewColumn(reinterpret())
@@ -154,6 +160,7 @@ public open class ColumnViewSorter(
      * @return the primary sort order
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getPrimarySortOrder(): SortType =
         gtk_column_view_sorter_get_primary_sort_order(gtkColumnViewSorterPointer.reinterpret()).run {
             SortType.fromNativeValue(this)

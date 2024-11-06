@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.native.pango.PangoAttrType
 import org.gtkkn.native.pango.PangoAttrType.PANGO_ATTR_ABSOLUTE_LINE_HEIGHT
 import org.gtkkn.native.pango.PangoAttrType.PANGO_ATTR_ABSOLUTE_SIZE
@@ -304,6 +305,7 @@ public enum class AttrType(
          *   attribute type or invalid.
          * @since 1.22
          */
+        @PangoVersion1_22
         public fun getName(type: AttrType): String? = pango_attr_type_get_name(type.nativeValue)?.toKString()
 
         /**

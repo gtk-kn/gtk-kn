@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
@@ -104,6 +105,7 @@ public open class Animation(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public open var followEnableAnimationsSetting: Boolean
         /**
          * Gets whether @self should be skipped when animations are globally disabled.
@@ -127,6 +129,7 @@ public open class Animation(
          * @param setting whether to follow the global setting
          * @since 1.3
          */
+        @AdwVersion1_3
         set(
             setting
         ) = adw_animation_set_follow_enable_animations_setting(adwAnimationPointer.reinterpret(), setting.asGBoolean())
@@ -219,6 +222,7 @@ public open class Animation(
      * @return whether to follow the global setting
      * @since 1.3
      */
+    @AdwVersion1_3
     public open fun getFollowEnableAnimationsSetting(): Boolean =
         adw_animation_get_follow_enable_animations_setting(adwAnimationPointer.reinterpret()).asBoolean()
 
@@ -328,6 +332,7 @@ public open class Animation(
      * @param setting whether to follow the global setting
      * @since 1.3
      */
+    @AdwVersion1_3
     public open fun setFollowEnableAnimationsSetting(setting: Boolean): Unit =
         adw_animation_set_follow_enable_animations_setting(adwAnimationPointer.reinterpret(), setting.asGBoolean())
 

@@ -4,6 +4,9 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
@@ -42,6 +45,7 @@ import kotlin.Unit
  * [method@Gio.DBusConnection.register_object].
  * @since 2.26
  */
+@GioVersion2_26
 public open class DBusMethodInvocation(
     pointer: CPointer<GDBusMethodInvocation>,
 ) : Object(pointer.reinterpret()),
@@ -55,6 +59,7 @@ public open class DBusMethodInvocation(
      * @return A #GDBusConnection. Do not free, it is owned by @invocation.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getConnection(): DBusConnection =
         g_dbus_method_invocation_get_connection(gioDBusMethodInvocationPointer.reinterpret())!!.run {
             DBusConnection(reinterpret())
@@ -71,6 +76,7 @@ public open class DBusMethodInvocation(
      * @return A string. Do not free, it is owned by @invocation.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getInterfaceName(): String =
         g_dbus_method_invocation_get_interface_name(gioDBusMethodInvocationPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -88,6 +94,7 @@ public open class DBusMethodInvocation(
      * @return #GDBusMessage. Do not free, it is owned by @invocation.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getMessage(): DBusMessage =
         g_dbus_method_invocation_get_message(gioDBusMethodInvocationPointer.reinterpret())!!.run {
             DBusMessage(reinterpret())
@@ -104,6 +111,7 @@ public open class DBusMethodInvocation(
      * @return A #GDBusMethodInfo or null. Do not free, it is owned by @invocation.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getMethodInfo(): DBusMethodInfo? =
         g_dbus_method_invocation_get_method_info(gioDBusMethodInvocationPointer.reinterpret())?.run {
             DBusMethodInfo(reinterpret())
@@ -115,6 +123,7 @@ public open class DBusMethodInvocation(
      * @return A string. Do not free, it is owned by @invocation.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getMethodName(): String =
         g_dbus_method_invocation_get_method_name(gioDBusMethodInvocationPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -125,6 +134,7 @@ public open class DBusMethodInvocation(
      * @return A string. Do not free, it is owned by @invocation.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getObjectPath(): String =
         g_dbus_method_invocation_get_object_path(gioDBusMethodInvocationPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -136,6 +146,7 @@ public open class DBusMethodInvocation(
      * @return A #GVariant tuple. Do not unref this because it is owned by @invocation.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getParameters(): Variant =
         g_dbus_method_invocation_get_parameters(gioDBusMethodInvocationPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -157,6 +168,7 @@ public open class DBusMethodInvocation(
      * @return a #GDBusPropertyInfo or null
      * @since 2.38
      */
+    @GioVersion2_38
     public open fun getPropertyInfo(): DBusPropertyInfo? =
         g_dbus_method_invocation_get_property_info(gioDBusMethodInvocationPointer.reinterpret())?.run {
             DBusPropertyInfo(reinterpret())
@@ -168,6 +180,7 @@ public open class DBusMethodInvocation(
      * @return A string. Do not free, it is owned by @invocation.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getSender(): String =
         g_dbus_method_invocation_get_sender(gioDBusMethodInvocationPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -183,6 +196,7 @@ public open class DBusMethodInvocation(
      * @param errorMessage A valid D-Bus error message.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun returnDbusError(
         errorName: String,
         errorMessage: String,
@@ -205,6 +219,7 @@ public open class DBusMethodInvocation(
      * @param message The error message.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun returnErrorLiteral(
         domain: UInt,
         code: Int,
@@ -228,6 +243,7 @@ public open class DBusMethodInvocation(
      * @param error A #GError.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun returnGerror(error: Error): Unit =
         g_dbus_method_invocation_return_gerror(gioDBusMethodInvocationPointer.reinterpret(), error.glibErrorPointer)
 
@@ -268,6 +284,7 @@ public open class DBusMethodInvocation(
      * @param parameters A #GVariant tuple with out parameters for the method or null if not passing any parameters.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun returnValue(parameters: Variant? = null): Unit =
         g_dbus_method_invocation_return_value(
             gioDBusMethodInvocationPointer.reinterpret(),
@@ -287,6 +304,7 @@ public open class DBusMethodInvocation(
      * @param fdList A #GUnixFDList or null.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun returnValueWithUnixFdList(
         parameters: Variant? = null,
         fdList: UnixFDList? = null,

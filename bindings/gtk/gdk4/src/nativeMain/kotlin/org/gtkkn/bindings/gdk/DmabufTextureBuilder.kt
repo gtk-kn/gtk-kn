@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -108,6 +109,7 @@ import kotlin.Unit
  *
  * @since 4.14
  */
+@GdkVersion4_14
 public open class DmabufTextureBuilder(
     pointer: CPointer<GdkDmabufTextureBuilder>,
 ) : Object(pointer.reinterpret()),
@@ -120,6 +122,7 @@ public open class DmabufTextureBuilder(
      *
      * @since 4.14
      */
+    @GdkVersion4_14
     public open var display: Display
         /**
          * Returns the display that this texture builder is
@@ -143,6 +146,7 @@ public open class DmabufTextureBuilder(
          * @param display the display
          * @since 4.14
          */
+        @GdkVersion4_14
         set(
             display
         ) =
@@ -156,6 +160,7 @@ public open class DmabufTextureBuilder(
      *
      * @since 4.14
      */
+    @GdkVersion4_14
     public open var fourcc: UInt
         /**
          * Gets the format previously set via gdk_dmabuf_texture_builder_set_fourcc()
@@ -178,6 +183,7 @@ public open class DmabufTextureBuilder(
          * @param fourcc the texture's format or 0 to unset
          * @since 4.14
          */
+        @GdkVersion4_14
         set(fourcc) = gdk_dmabuf_texture_builder_set_fourcc(gdkDmabufTextureBuilderPointer.reinterpret(), fourcc)
 
     /**
@@ -185,6 +191,7 @@ public open class DmabufTextureBuilder(
      *
      * @since 4.14
      */
+    @GdkVersion4_14
     public open var height: UInt
         /**
          * Gets the height previously set via gdk_dmabuf_texture_builder_set_height() or
@@ -203,6 +210,7 @@ public open class DmabufTextureBuilder(
          * @param height the texture's height or 0 to unset
          * @since 4.14
          */
+        @GdkVersion4_14
         set(height) = gdk_dmabuf_texture_builder_set_height(gdkDmabufTextureBuilderPointer.reinterpret(), height)
 
     /**
@@ -210,6 +218,7 @@ public open class DmabufTextureBuilder(
      *
      * @since 4.14
      */
+    @GdkVersion4_14
     public open var modifier: ULong
         /**
          * Gets the modifier value.
@@ -225,6 +234,7 @@ public open class DmabufTextureBuilder(
          * @param modifier the modifier value
          * @since 4.14
          */
+        @GdkVersion4_14
         set(modifier) = gdk_dmabuf_texture_builder_set_modifier(gdkDmabufTextureBuilderPointer.reinterpret(), modifier)
 
     /**
@@ -235,6 +245,7 @@ public open class DmabufTextureBuilder(
      *
      * @since 4.14
      */
+    @GdkVersion4_14
     public open var nPlanes: UInt
         /**
          * Gets the number of planes.
@@ -250,6 +261,7 @@ public open class DmabufTextureBuilder(
          * @param nPlanes the number of planes
          * @since 4.14
          */
+        @GdkVersion4_14
         set(nPlanes) = gdk_dmabuf_texture_builder_set_n_planes(gdkDmabufTextureBuilderPointer.reinterpret(), nPlanes)
 
     /**
@@ -259,6 +271,7 @@ public open class DmabufTextureBuilder(
      *
      * @since 4.14
      */
+    @GdkVersion4_14
     public open var premultiplied: Boolean
         /**
          * Whether the data is premultiplied.
@@ -277,6 +290,7 @@ public open class DmabufTextureBuilder(
          * @param premultiplied whether the data is premultiplied
          * @since 4.14
          */
+        @GdkVersion4_14
         set(
             premultiplied
         ) =
@@ -290,6 +304,7 @@ public open class DmabufTextureBuilder(
      *
      * @since 4.14
      */
+    @GdkVersion4_14
     public open var updateTexture: Texture?
         /**
          * Gets the texture previously set via gdk_dmabuf_texture_builder_set_update_texture() or
@@ -310,6 +325,7 @@ public open class DmabufTextureBuilder(
          * @param texture the texture to update
          * @since 4.14
          */
+        @GdkVersion4_14
         set(
             texture
         ) =
@@ -323,6 +339,7 @@ public open class DmabufTextureBuilder(
      *
      * @since 4.14
      */
+    @GdkVersion4_14
     public open var width: UInt
         /**
          * Gets the width previously set via gdk_dmabuf_texture_builder_set_width() or
@@ -341,6 +358,7 @@ public open class DmabufTextureBuilder(
          * @param width The texture's width or 0 to unset
          * @since 4.14
          */
+        @GdkVersion4_14
         set(width) = gdk_dmabuf_texture_builder_set_width(gdkDmabufTextureBuilderPointer.reinterpret(), width)
 
     /**
@@ -358,6 +376,7 @@ public open class DmabufTextureBuilder(
      * @return the display
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getDisplay(): Display =
         gdk_dmabuf_texture_builder_get_display(gdkDmabufTextureBuilderPointer.reinterpret())!!.run {
             Display(reinterpret())
@@ -370,6 +389,7 @@ public open class DmabufTextureBuilder(
      * @return the file descriptor
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getFd(plane: UInt): Int =
         gdk_dmabuf_texture_builder_get_fd(gdkDmabufTextureBuilderPointer.reinterpret(), plane)
 
@@ -382,6 +402,7 @@ public open class DmabufTextureBuilder(
      * @return The format
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getFourcc(): UInt =
         gdk_dmabuf_texture_builder_get_fourcc(gdkDmabufTextureBuilderPointer.reinterpret())
 
@@ -392,6 +413,7 @@ public open class DmabufTextureBuilder(
      * @return The height
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getHeight(): UInt =
         gdk_dmabuf_texture_builder_get_height(gdkDmabufTextureBuilderPointer.reinterpret())
 
@@ -401,6 +423,7 @@ public open class DmabufTextureBuilder(
      * @return the modifier
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getModifier(): ULong =
         gdk_dmabuf_texture_builder_get_modifier(gdkDmabufTextureBuilderPointer.reinterpret())
 
@@ -410,6 +433,7 @@ public open class DmabufTextureBuilder(
      * @return The number of planes
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getNPlanes(): UInt =
         gdk_dmabuf_texture_builder_get_n_planes(gdkDmabufTextureBuilderPointer.reinterpret())
 
@@ -420,6 +444,7 @@ public open class DmabufTextureBuilder(
      * @return the offset
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getOffset(plane: UInt): UInt =
         gdk_dmabuf_texture_builder_get_offset(gdkDmabufTextureBuilderPointer.reinterpret(), plane)
 
@@ -429,6 +454,7 @@ public open class DmabufTextureBuilder(
      * @return whether the data is premultiplied
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getPremultiplied(): Boolean =
         gdk_dmabuf_texture_builder_get_premultiplied(gdkDmabufTextureBuilderPointer.reinterpret()).asBoolean()
 
@@ -439,6 +465,7 @@ public open class DmabufTextureBuilder(
      * @return the stride
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getStride(plane: UInt): UInt =
         gdk_dmabuf_texture_builder_get_stride(gdkDmabufTextureBuilderPointer.reinterpret(), plane)
 
@@ -449,6 +476,7 @@ public open class DmabufTextureBuilder(
      * @return The texture
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getUpdateTexture(): Texture? =
         gdk_dmabuf_texture_builder_get_update_texture(gdkDmabufTextureBuilderPointer.reinterpret())?.run {
             Texture(reinterpret())
@@ -461,6 +489,7 @@ public open class DmabufTextureBuilder(
      * @return The width
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getWidth(): UInt =
         gdk_dmabuf_texture_builder_get_width(gdkDmabufTextureBuilderPointer.reinterpret())
 
@@ -474,6 +503,7 @@ public open class DmabufTextureBuilder(
      * @param display the display
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun setDisplay(display: Display): Unit =
         gdk_dmabuf_texture_builder_set_display(
             gdkDmabufTextureBuilderPointer.reinterpret(),
@@ -487,6 +517,7 @@ public open class DmabufTextureBuilder(
      * @param fd the file descriptor
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun setFd(
         plane: UInt,
         fd: Int,
@@ -502,6 +533,7 @@ public open class DmabufTextureBuilder(
      * @param fourcc the texture's format or 0 to unset
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun setFourcc(fourcc: UInt): Unit =
         gdk_dmabuf_texture_builder_set_fourcc(gdkDmabufTextureBuilderPointer.reinterpret(), fourcc)
 
@@ -513,6 +545,7 @@ public open class DmabufTextureBuilder(
      * @param height the texture's height or 0 to unset
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun setHeight(height: UInt): Unit =
         gdk_dmabuf_texture_builder_set_height(gdkDmabufTextureBuilderPointer.reinterpret(), height)
 
@@ -522,6 +555,7 @@ public open class DmabufTextureBuilder(
      * @param modifier the modifier value
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun setModifier(modifier: ULong): Unit =
         gdk_dmabuf_texture_builder_set_modifier(gdkDmabufTextureBuilderPointer.reinterpret(), modifier)
 
@@ -531,6 +565,7 @@ public open class DmabufTextureBuilder(
      * @param nPlanes the number of planes
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun setNPlanes(nPlanes: UInt): Unit =
         gdk_dmabuf_texture_builder_set_n_planes(gdkDmabufTextureBuilderPointer.reinterpret(), nPlanes)
 
@@ -541,6 +576,7 @@ public open class DmabufTextureBuilder(
      * @param offset the offset value
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun setOffset(
         plane: UInt,
         offset: UInt,
@@ -555,6 +591,7 @@ public open class DmabufTextureBuilder(
      * @param premultiplied whether the data is premultiplied
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun setPremultiplied(premultiplied: Boolean): Unit =
         gdk_dmabuf_texture_builder_set_premultiplied(
             gdkDmabufTextureBuilderPointer.reinterpret(),
@@ -570,6 +607,7 @@ public open class DmabufTextureBuilder(
      * @param stride the stride value
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun setStride(
         plane: UInt,
         stride: UInt,
@@ -582,6 +620,7 @@ public open class DmabufTextureBuilder(
      * @param texture the texture to update
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun setUpdateTexture(texture: Texture? = null): Unit =
         gdk_dmabuf_texture_builder_set_update_texture(
             gdkDmabufTextureBuilderPointer.reinterpret(),
@@ -596,6 +635,7 @@ public open class DmabufTextureBuilder(
      * @param width The texture's width or 0 to unset
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun setWidth(width: UInt): Unit =
         gdk_dmabuf_texture_builder_set_width(gdkDmabufTextureBuilderPointer.reinterpret(), width)
 

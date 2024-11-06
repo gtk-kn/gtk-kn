@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDBusInterfaceSkeletonFlags
 import org.gtkkn.native.gio.G_DBUS_INTERFACE_SKELETON_FLAGS_HANDLE_METHOD_INVOCATIONS_IN_THREAD
@@ -18,6 +19,7 @@ public class DBusInterfaceSkeletonFlags(
             mask or other.mask
         )
 
+    @GioVersion2_30
     public companion object {
         /**
          * No flags set.

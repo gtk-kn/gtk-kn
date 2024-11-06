@@ -3,6 +3,7 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.SelectionModel
@@ -28,6 +29,7 @@ import kotlin.Unit
  *
  * @since 1.4
  */
+@AdwVersion1_4
 public class ViewStackPages(
     pointer: CPointer<AdwViewStackPages>,
 ) : Object(pointer.reinterpret()),
@@ -53,6 +55,7 @@ public class ViewStackPages(
      * @return the stack page
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getSelectedPage(): ViewStackPage? =
         adw_view_stack_pages_get_selected_page(adwViewStackPagesPointer.reinterpret())?.run {
             ViewStackPage(reinterpret())
@@ -66,6 +69,7 @@ public class ViewStackPages(
      * @param page a stack page within the associated stack
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setSelectedPage(page: ViewStackPage): Unit =
         adw_view_stack_pages_set_selected_page(
             adwViewStackPagesPointer.reinterpret(),

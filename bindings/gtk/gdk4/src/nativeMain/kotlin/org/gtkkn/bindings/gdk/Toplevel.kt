@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -355,6 +356,7 @@ public interface Toplevel :
      * @param gesture a `GdkTitlebarGesture`
      * @since 4.4
      */
+    @GdkVersion4_4
     public fun titlebarGesture(gesture: TitlebarGesture): Boolean =
         gdk_toplevel_titlebar_gesture(gdkToplevelPointer.reinterpret(), gesture.nativeValue).asBoolean()
 

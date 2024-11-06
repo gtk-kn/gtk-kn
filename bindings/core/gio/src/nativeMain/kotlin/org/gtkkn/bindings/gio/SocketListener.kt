@@ -13,6 +13,9 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
+import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
@@ -70,6 +73,7 @@ import kotlin.Unit
  *
  * @since 2.22
  */
+@GioVersion2_22
 public open class SocketListener(
     pointer: CPointer<GSocketListener>,
 ) : Object(pointer.reinterpret()),
@@ -98,6 +102,7 @@ public open class SocketListener(
      * @param callback a #GAsyncReadyCallback
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun acceptAsync(
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -120,6 +125,7 @@ public open class SocketListener(
      * @param callback a #GAsyncReadyCallback
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun acceptSocketAsync(
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -147,6 +153,7 @@ public open class SocketListener(
      * @return the port number, or 0 in case of failure.
      * @since 2.24
      */
+    @GioVersion2_24
     public open fun addAnyInetPort(sourceObject: Object? = null): Result<UShort> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -182,6 +189,7 @@ public open class SocketListener(
      * @return true on success, false on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun addInetPort(
         port: UShort,
         sourceObject: Object? = null,
@@ -222,6 +230,7 @@ public open class SocketListener(
      * @return true on success, false on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun addSocket(
         socket: Socket,
         sourceObject: Object? = null,
@@ -247,6 +256,7 @@ public open class SocketListener(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun close(): Unit = g_socket_listener_close(gioSocketListenerPointer.reinterpret())
 
     /**
@@ -259,6 +269,7 @@ public open class SocketListener(
      * @param listenBacklog an integer
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun setBacklog(listenBacklog: Int): Unit =
         g_socket_listener_set_backlog(gioSocketListenerPointer.reinterpret(), listenBacklog)
 
@@ -272,6 +283,7 @@ public open class SocketListener(
      * @param handler the Callback to connect. Params: `event` the event that is occurring; `socket` the #GSocket the event is occurring on
      * @since 2.46
      */
+    @GioVersion2_46
     public fun connectEvent(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (event: SocketListenerEvent, socket: Socket) -> Unit,

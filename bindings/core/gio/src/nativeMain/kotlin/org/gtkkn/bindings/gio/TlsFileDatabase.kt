@@ -8,6 +8,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -31,6 +32,7 @@ import kotlin.String
  *
  * @since 2.30
  */
+@GioVersion2_30
 public interface TlsFileDatabase :
     Interface,
     KGTyped {
@@ -63,6 +65,7 @@ public interface TlsFileDatabase :
          * #GTlsFileDatabase, or null on error
          * @since 2.30
          */
+        @GioVersion2_30
         public fun new(anchors: String): Result<TlsFileDatabase> =
             memScoped {
                 val gError = allocPointerTo<GError>()

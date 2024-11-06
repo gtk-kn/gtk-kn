@@ -4,6 +4,9 @@ package org.gtkkn.bindings.graphene
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_rect_alloc
@@ -66,6 +69,7 @@ import kotlin.Unit
  *
  * @since 1.0
  */
+@GrapheneVersion1_0
 public class Rect(
     pointer: CPointer<graphene_rect_t>,
 ) : Record {
@@ -78,6 +82,7 @@ public class Rect(
      * @return `true` if the rectangle contains the point
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun containsPoint(p: Point): Boolean =
         graphene_rect_contains_point(grapheneRectPointer.reinterpret(), p.graphenePointPointer)
 
@@ -89,6 +94,7 @@ public class Rect(
      * @return `true` if the rectangle @a fully contains @b
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun containsRect(b: Rect): Boolean =
         graphene_rect_contains_rect(grapheneRectPointer.reinterpret(), b.grapheneRectPointer)
 
@@ -99,6 +105,7 @@ public class Rect(
      * @return `true` if the rectangles are equal
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun equal(b: Rect): Boolean = graphene_rect_equal(grapheneRectPointer.reinterpret(), b.grapheneRectPointer)
 
     /**
@@ -108,6 +115,7 @@ public class Rect(
      * @param res return location for the expanded rectangle
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun expand(
         p: Point,
         res: Rect,
@@ -118,6 +126,7 @@ public class Rect(
      *
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun free(): Unit = graphene_rect_free(grapheneRectPointer.reinterpret())
 
     /**
@@ -126,6 +135,7 @@ public class Rect(
      * @return the area of the normalized rectangle
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun getArea(): Float = graphene_rect_get_area(grapheneRectPointer.reinterpret())
 
     /**
@@ -134,6 +144,7 @@ public class Rect(
      * @param p return location for a #graphene_point_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getBottomLeft(p: Point): Unit =
         graphene_rect_get_bottom_left(grapheneRectPointer.reinterpret(), p.graphenePointPointer)
 
@@ -143,6 +154,7 @@ public class Rect(
      * @param p return location for a #graphene_point_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getBottomRight(p: Point): Unit =
         graphene_rect_get_bottom_right(grapheneRectPointer.reinterpret(), p.graphenePointPointer)
 
@@ -152,6 +164,7 @@ public class Rect(
      * @param p return location for a #graphene_point_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getCenter(p: Point): Unit =
         graphene_rect_get_center(grapheneRectPointer.reinterpret(), p.graphenePointPointer)
 
@@ -161,6 +174,7 @@ public class Rect(
      * @return the normalized height of the rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getHeight(): Float = graphene_rect_get_height(grapheneRectPointer.reinterpret())
 
     /**
@@ -169,6 +183,7 @@ public class Rect(
      * @param p return location for a #graphene_point_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getTopLeft(p: Point): Unit =
         graphene_rect_get_top_left(grapheneRectPointer.reinterpret(), p.graphenePointPointer)
 
@@ -178,6 +193,7 @@ public class Rect(
      * @param p return location for a #graphene_point_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getTopRight(p: Point): Unit =
         graphene_rect_get_top_right(grapheneRectPointer.reinterpret(), p.graphenePointPointer)
 
@@ -187,6 +203,7 @@ public class Rect(
      * @return the normalized width of the rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getWidth(): Float = graphene_rect_get_width(grapheneRectPointer.reinterpret())
 
     /**
@@ -196,6 +213,7 @@ public class Rect(
      * @return the normalized X coordinate of the rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getX(): Float = graphene_rect_get_x(grapheneRectPointer.reinterpret())
 
     /**
@@ -205,6 +223,7 @@ public class Rect(
      * @return the normalized Y coordinate of the rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getY(): Float = graphene_rect_get_y(grapheneRectPointer.reinterpret())
 
     /**
@@ -220,6 +239,7 @@ public class Rect(
      * @return the initialized rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun `init`(
         x: Float,
         y: Float,
@@ -240,6 +260,7 @@ public class Rect(
      * @return the initialized rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initFromRect(src: Rect): Rect =
         graphene_rect_init_from_rect(grapheneRectPointer.reinterpret(), src.grapheneRectPointer)!!.run {
             Rect(reinterpret())
@@ -266,6 +287,7 @@ public class Rect(
      * @return the inset rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun inset(
         dX: Float,
         dY: Float,
@@ -295,6 +317,7 @@ public class Rect(
      * @param res return location for the inset rectangle
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun insetR(
         dX: Float,
         dY: Float,
@@ -311,6 +334,7 @@ public class Rect(
      *   interpolated rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun interpolate(
         b: Rect,
         factor: Double,
@@ -339,6 +363,7 @@ public class Rect(
      * @return `true` if the two rectangles intersect
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun intersection(
         b: Rect,
         res: Rect?,
@@ -355,6 +380,7 @@ public class Rect(
      * @return the normalized rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun normalize(): Rect =
         graphene_rect_normalize(grapheneRectPointer.reinterpret())!!.run {
             Rect(reinterpret())
@@ -371,6 +397,7 @@ public class Rect(
      *   normalized rectangle
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun normalizeR(res: Rect): Unit =
         graphene_rect_normalize_r(grapheneRectPointer.reinterpret(), res.grapheneRectPointer)
 
@@ -384,6 +411,7 @@ public class Rect(
      * @return the offset rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun offset(
         dX: Float,
         dY: Float,
@@ -403,6 +431,7 @@ public class Rect(
      *   rectangle
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun offsetR(
         dX: Float,
         dY: Float,
@@ -424,6 +453,7 @@ public class Rect(
      *   rounded rectangle
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun round(res: Rect): Unit = graphene_rect_round(grapheneRectPointer.reinterpret(), res.grapheneRectPointer)
 
     /**
@@ -453,6 +483,7 @@ public class Rect(
      *   rectangle with rounded extents
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun roundExtents(res: Rect): Unit =
         graphene_rect_round_extents(grapheneRectPointer.reinterpret(), res.grapheneRectPointer)
 
@@ -464,6 +495,7 @@ public class Rect(
      * @return the pixel-aligned rectangle.
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun roundToPixel(): Rect =
         graphene_rect_round_to_pixel(grapheneRectPointer.reinterpret())!!.run {
             Rect(reinterpret())
@@ -479,6 +511,7 @@ public class Rect(
      *   scaled rectangle
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun scale(
         sH: Float,
         sV: Float,
@@ -496,6 +529,7 @@ public class Rect(
      * @param res return location for a #graphene_rect_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun union(
         b: Rect,
         res: Rect,
@@ -510,6 +544,7 @@ public class Rect(
          * @return the newly allocated rectangle
          * @since 1.0
          */
+        @GrapheneVersion1_0
         public fun alloc(): Rect =
             graphene_rect_alloc()!!.run {
                 Rect(reinterpret())
@@ -522,6 +557,7 @@ public class Rect(
          * @return a fixed rectangle
          * @since 1.4
          */
+        @GrapheneVersion1_4
         public fun zero(): Rect =
             graphene_rect_zero()!!.run {
                 Rect(reinterpret())

@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Actionable
 import org.gtkkn.bindings.gtk.Widget
@@ -64,6 +65,7 @@ import kotlin.Unit
  * `AdwBanner` has a main CSS node with the name `banner`.
  * @since 1.3
  */
+@AdwVersion1_3
 public class Banner(
     pointer: CPointer<AdwBanner>,
 ) : Widget(pointer.reinterpret()),
@@ -94,6 +96,7 @@ public class Banner(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var buttonLabel: String?
         /**
          * Gets the button label for @self.
@@ -114,6 +117,7 @@ public class Banner(
          * @param label the label
          * @since 1.3
          */
+        @AdwVersion1_3
         set(label) = adw_banner_set_button_label(adwBannerPointer.reinterpret(), label)
 
     /**
@@ -121,6 +125,7 @@ public class Banner(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var revealed: Boolean
         /**
          * Gets if a banner is revealed
@@ -136,6 +141,7 @@ public class Banner(
          * @param revealed whether a banner should be revealed
          * @since 1.3
          */
+        @AdwVersion1_3
         set(revealed) = adw_banner_set_revealed(adwBannerPointer.reinterpret(), revealed.asGBoolean())
 
     /**
@@ -145,6 +151,7 @@ public class Banner(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var title: String
         /**
          * Gets the title for @self.
@@ -162,6 +169,7 @@ public class Banner(
          * @param title the title
          * @since 1.3
          */
+        @AdwVersion1_3
         set(title) = adw_banner_set_title(adwBannerPointer.reinterpret(), title)
 
     /**
@@ -171,6 +179,7 @@ public class Banner(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var useMarkup: Boolean
         /**
          * Gets whether to use Pango markup for the banner title.
@@ -188,6 +197,7 @@ public class Banner(
          * @param useMarkup whether to use markup
          * @since 1.3
          */
+        @AdwVersion1_3
         set(useMarkup) = adw_banner_set_use_markup(adwBannerPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
@@ -205,6 +215,7 @@ public class Banner(
      * @return the button label for @self
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getButtonLabel(): String? = adw_banner_get_button_label(adwBannerPointer.reinterpret())?.toKString()
 
     /**
@@ -213,6 +224,7 @@ public class Banner(
      * @return Whether a banner is revealed
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getRevealed(): Boolean = adw_banner_get_revealed(adwBannerPointer.reinterpret()).asBoolean()
 
     /**
@@ -221,6 +233,7 @@ public class Banner(
      * @return the title for @self
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getTitle(): String =
         adw_banner_get_title(adwBannerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -230,6 +243,7 @@ public class Banner(
      * @return whether to use markup
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getUseMarkup(): Boolean = adw_banner_get_use_markup(adwBannerPointer.reinterpret()).asBoolean()
 
     /**
@@ -243,6 +257,7 @@ public class Banner(
      * @param label the label
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setButtonLabel(label: String? = null): Unit =
         adw_banner_set_button_label(adwBannerPointer.reinterpret(), label)
 
@@ -252,6 +267,7 @@ public class Banner(
      * @param revealed whether a banner should be revealed
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setRevealed(revealed: Boolean): Unit =
         adw_banner_set_revealed(adwBannerPointer.reinterpret(), revealed.asGBoolean())
 
@@ -263,6 +279,7 @@ public class Banner(
      * @param title the title
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setTitle(title: String): Unit = adw_banner_set_title(adwBannerPointer.reinterpret(), title)
 
     /**
@@ -273,6 +290,7 @@ public class Banner(
      * @param useMarkup whether to use markup
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setUseMarkup(useMarkup: Boolean): Unit =
         adw_banner_set_use_markup(adwBannerPointer.reinterpret(), useMarkup.asGBoolean())
 
@@ -285,6 +303,7 @@ public class Banner(
      * @param handler the Callback to connect
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun connectButtonClicked(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

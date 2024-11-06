@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
+import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asGBoolean
@@ -74,6 +76,7 @@ import kotlin.Unit
  * A notification can be sent with [method@Gio.Application.send_notification].
  * @since 2.40
  */
+@GioVersion2_40
 public open class Notification(
     pointer: CPointer<GNotification>,
 ) : Object(pointer.reinterpret()),
@@ -109,6 +112,7 @@ public open class Notification(
      * @param detailedAction a detailed action name
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun addButton(
         label: String,
         detailedAction: String,
@@ -126,6 +130,7 @@ public open class Notification(
      * @param target a #GVariant to use as @action's parameter, or null
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun addButtonWithTarget(
         label: String,
         action: String,
@@ -144,6 +149,7 @@ public open class Notification(
      * @param body the new body for @notification, or null
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setBody(body: String? = null): Unit =
         g_notification_set_body(gioNotificationPointer.reinterpret(), body)
 
@@ -158,6 +164,7 @@ public open class Notification(
      * @param category the category for @notification, or null for no category
      * @since 2.70
      */
+    @GioVersion2_70
     public open fun setCategory(category: String? = null): Unit =
         g_notification_set_category(gioNotificationPointer.reinterpret(), category)
 
@@ -177,6 +184,7 @@ public open class Notification(
      * @param detailedAction a detailed action name
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setDefaultAction(detailedAction: String): Unit =
         g_notification_set_default_action(gioNotificationPointer.reinterpret(), detailedAction)
 
@@ -195,6 +203,7 @@ public open class Notification(
      * @param target a #GVariant to use as @action's parameter, or null
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setDefaultActionAndTarget(
         action: String,
         target: Variant? = null,
@@ -211,6 +220,7 @@ public open class Notification(
      * @param icon the icon to be shown in @notification, as a #GIcon
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setIcon(icon: Icon): Unit =
         g_notification_set_icon(gioNotificationPointer.reinterpret(), icon.gioIconPointer)
 
@@ -229,6 +239,7 @@ public open class Notification(
      * @param title the new title for @notification
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setTitle(title: String): Unit =
         g_notification_set_title(gioNotificationPointer.reinterpret(), title)
 
@@ -238,6 +249,7 @@ public open class Notification(
      * @param urgent true if @notification is urgent
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setUrgent(urgent: Boolean): Unit =
         g_notification_set_urgent(gioNotificationPointer.reinterpret(), urgent.asGBoolean())
 

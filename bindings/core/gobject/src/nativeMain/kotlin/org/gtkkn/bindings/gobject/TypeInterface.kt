@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gobject
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GTypeInterface
@@ -92,6 +93,7 @@ public class TypeInterface(
          * @return the instantiatable prerequisite type or %G_TYPE_INVALID if none
          * @since 2.68
          */
+        @GObjectVersion2_68
         public fun instantiatablePrerequisite(interfaceType: ULong): ULong =
             g_type_interface_instantiatable_prerequisite(interfaceType)
 

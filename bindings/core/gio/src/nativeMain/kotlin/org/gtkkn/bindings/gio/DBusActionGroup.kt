@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -66,6 +67,7 @@ public open class DBusActionGroup(
          * @return a #GDBusActionGroup
          * @since 2.32
          */
+        @GioVersion2_32
         public fun `get`(
             connection: DBusConnection,
             busName: String? = null,

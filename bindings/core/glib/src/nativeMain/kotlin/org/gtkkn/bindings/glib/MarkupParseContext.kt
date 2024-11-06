@@ -10,6 +10,9 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_2
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -90,6 +93,7 @@ public class MarkupParseContext(
      * @return the name of the currently open element, or null
      * @since 2.2
      */
+    @GLibVersion2_2
     public fun getElement(): String =
         g_markup_parse_context_get_element(glibMarkupParseContextPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -110,6 +114,7 @@ public class MarkupParseContext(
      * @return the element stack, which must not be modified
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun getElementStack(): SList =
         g_markup_parse_context_get_element_stack(glibMarkupParseContextPointer.reinterpret())!!.run {
             SList(reinterpret())
@@ -157,6 +162,7 @@ public class MarkupParseContext(
      * @return the same @context
      * @since 2.36
      */
+    @GLibVersion2_36
     public fun ref(): MarkupParseContext =
         g_markup_parse_context_ref(glibMarkupParseContextPointer.reinterpret())!!.run {
             MarkupParseContext(reinterpret())
@@ -168,6 +174,7 @@ public class MarkupParseContext(
      *
      * @since 2.36
      */
+    @GLibVersion2_36
     public fun unref(): Unit = g_markup_parse_context_unref(glibMarkupParseContextPointer.reinterpret())
 
     public companion object : RecordCompanion<MarkupParseContext, GMarkupParseContext> {

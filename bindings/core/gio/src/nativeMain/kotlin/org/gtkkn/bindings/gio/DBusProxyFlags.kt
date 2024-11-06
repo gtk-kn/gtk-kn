@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDBusProxyFlags
 import org.gtkkn.native.gio.G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START
@@ -20,6 +21,7 @@ public class DBusProxyFlags(
 ) : Bitfield<DBusProxyFlags> {
     override infix fun or(other: DBusProxyFlags): DBusProxyFlags = DBusProxyFlags(mask or other.mask)
 
+    @GioVersion2_26
     public companion object {
         /**
          * No flags set.

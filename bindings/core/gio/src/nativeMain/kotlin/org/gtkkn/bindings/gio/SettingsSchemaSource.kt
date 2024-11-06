@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
@@ -34,6 +35,7 @@ import kotlin.Unit
  *
  * @since 2.32
  */
+@GioVersion2_32
 public class SettingsSchemaSource(
     pointer: CPointer<GSettingsSchemaSource>,
 ) : Record {
@@ -56,6 +58,7 @@ public class SettingsSchemaSource(
      * @return a new #GSettingsSchema
      * @since 2.32
      */
+    @GioVersion2_32
     public fun lookup(
         schemaId: String,
         recursive: Boolean,
@@ -74,6 +77,7 @@ public class SettingsSchemaSource(
      * @return a new reference to @source
      * @since 2.32
      */
+    @GioVersion2_32
     public fun ref(): SettingsSchemaSource =
         g_settings_schema_source_ref(gioSettingsSchemaSourcePointer.reinterpret())!!.run {
             SettingsSchemaSource(reinterpret())
@@ -84,6 +88,7 @@ public class SettingsSchemaSource(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public fun unref(): Unit = g_settings_schema_source_unref(gioSettingsSchemaSourcePointer.reinterpret())
 
     public companion object : RecordCompanion<SettingsSchemaSource, GSettingsSchemaSource> {
@@ -165,6 +170,7 @@ public class SettingsSchemaSource(
          * @return the default schema source
          * @since 2.32
          */
+        @GioVersion2_32
         public fun getDefault(): SettingsSchemaSource? =
             g_settings_schema_source_get_default()?.run {
                 SettingsSchemaSource(reinterpret())

@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gobject
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_72
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -32,6 +33,7 @@ import kotlin.Unit
  *
  * @since 2.72
  */
+@GObjectVersion2_72
 public open class BindingGroup(
     pointer: CPointer<GBindingGroup>,
 ) : Object(pointer.reinterpret()),
@@ -61,6 +63,7 @@ public open class BindingGroup(
      * @param flags the flags used to create the #GBinding
      * @since 2.72
      */
+    @GObjectVersion2_72
     public open fun bind(
         sourceProperty: String,
         target: Object,
@@ -99,6 +102,7 @@ public open class BindingGroup(
      *     or null to use the default
      * @since 2.72
      */
+    @GObjectVersion2_72
     public open fun bindFull(
         sourceProperty: String,
         target: Object,
@@ -123,6 +127,7 @@ public open class BindingGroup(
      * @return a #GObject or null.
      * @since 2.72
      */
+    @GObjectVersion2_72
     public open fun dupSource(): Object? =
         g_binding_group_dup_source(gobjectBindingGroupPointer.reinterpret())?.run {
             Object(reinterpret())
@@ -139,6 +144,7 @@ public open class BindingGroup(
      *   or null to clear it
      * @since 2.72
      */
+    @GObjectVersion2_72
     public open fun setSource(source: Object? = null): Unit =
         g_binding_group_set_source(gobjectBindingGroupPointer.reinterpret(), source?.gPointer?.reinterpret())
 

@@ -6,6 +6,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusInterfaceInfo
@@ -35,6 +37,7 @@ import org.gtkkn.bindings.glib.String as GlibString
  *
  * @since 2.26
  */
+@GioVersion2_26
 public class DBusInterfaceInfo(
     pointer: CPointer<GDBusInterfaceInfo>,
 ) : Record {
@@ -71,6 +74,7 @@ public class DBusInterfaceInfo(
      *
      * @since 2.30
      */
+    @GioVersion2_30
     public fun cacheBuild(): Unit = g_dbus_interface_info_cache_build(gioDBusInterfaceInfoPointer.reinterpret())
 
     /**
@@ -80,6 +84,7 @@ public class DBusInterfaceInfo(
      *
      * @since 2.30
      */
+    @GioVersion2_30
     public fun cacheRelease(): Unit = g_dbus_interface_info_cache_release(gioDBusInterfaceInfoPointer.reinterpret())
 
     /**
@@ -94,6 +99,7 @@ public class DBusInterfaceInfo(
      * @param stringBuilder A #GString to to append XML data to.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun generateXml(
         indent: UInt,
         stringBuilder: GlibString,
@@ -114,6 +120,7 @@ public class DBusInterfaceInfo(
      * @return A #GDBusMethodInfo or null if not found. Do not free, it is owned by @info.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun lookupMethod(name: KotlinString): DBusMethodInfo? =
         g_dbus_interface_info_lookup_method(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
             DBusMethodInfo(reinterpret())
@@ -129,6 +136,7 @@ public class DBusInterfaceInfo(
      * @return A #GDBusPropertyInfo or null if not found. Do not free, it is owned by @info.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun lookupProperty(name: KotlinString): DBusPropertyInfo? =
         g_dbus_interface_info_lookup_property(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
             DBusPropertyInfo(reinterpret())
@@ -144,6 +152,7 @@ public class DBusInterfaceInfo(
      * @return A #GDBusSignalInfo or null if not found. Do not free, it is owned by @info.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun lookupSignal(name: KotlinString): DBusSignalInfo? =
         g_dbus_interface_info_lookup_signal(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
             DBusSignalInfo(reinterpret())
@@ -156,6 +165,7 @@ public class DBusInterfaceInfo(
      * @return The same @info.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun ref(): DBusInterfaceInfo =
         g_dbus_interface_info_ref(gioDBusInterfaceInfoPointer.reinterpret())!!.run {
             DBusInterfaceInfo(reinterpret())
@@ -168,6 +178,7 @@ public class DBusInterfaceInfo(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public fun unref(): Unit = g_dbus_interface_info_unref(gioDBusInterfaceInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusInterfaceInfo, GDBusInterfaceInfo> {

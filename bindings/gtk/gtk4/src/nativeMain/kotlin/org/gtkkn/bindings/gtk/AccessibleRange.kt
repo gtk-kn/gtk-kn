@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -35,6 +36,7 @@ import org.gtkkn.native.gtk.gtk_accessible_range_get_type
  * - `GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT`
  * @since 4.10
  */
+@GtkVersion4_10
 public interface AccessibleRange :
     Interface,
     Accessible,

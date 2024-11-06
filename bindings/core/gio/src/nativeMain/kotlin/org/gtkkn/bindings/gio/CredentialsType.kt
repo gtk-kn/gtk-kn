@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GCredentialsType
 import org.gtkkn.native.gio.GCredentialsType.G_CREDENTIALS_TYPE_APPLE_XUCRED
 import org.gtkkn.native.gio.GCredentialsType.G_CREDENTIALS_TYPE_FREEBSD_CMSGCRED
@@ -15,6 +16,7 @@ import org.gtkkn.native.gio.GCredentialsType.G_CREDENTIALS_TYPE_WIN32_PID
  * Enumeration describing different kinds of native credential types.
  * @since 2.26
  */
+@GioVersion2_26
 public enum class CredentialsType(
     public val nativeValue: GCredentialsType,
 ) {

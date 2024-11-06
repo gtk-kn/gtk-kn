@@ -74,7 +74,8 @@ import kotlin.Unit
  */
 public open class MarkAttributes(
     pointer: CPointer<GtkSourceMarkAttributes>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceMarkAttributesPointer: CPointer<GtkSourceMarkAttributes>
         get() = gPointer.reinterpret()
 
@@ -100,11 +101,9 @@ public open class MarkAttributes(
          *
          * @param gicon a #GIcon to be used.
          */
-        set(gicon) =
-            gtk_source_mark_attributes_set_gicon(
-                gtksourceMarkAttributesPointer.reinterpret(),
-                gicon.gioIconPointer
-            )
+        set(
+            gicon
+        ) = gtk_source_mark_attributes_set_gicon(gtksourceMarkAttributesPointer.reinterpret(), gicon.gioIconPointer)
 
     /**
      * An icon name that may be a base of a rendered icon.
@@ -127,11 +126,7 @@ public open class MarkAttributes(
          *
          * @param iconName name of an icon to be used.
          */
-        set(iconName) =
-            gtk_source_mark_attributes_set_icon_name(
-                gtksourceMarkAttributesPointer.reinterpret(),
-                iconName
-            )
+        set(iconName) = gtk_source_mark_attributes_set_icon_name(gtksourceMarkAttributesPointer.reinterpret(), iconName)
 
     /**
      * A #GdkPixbuf that may be a base of a rendered icon.
@@ -155,7 +150,9 @@ public open class MarkAttributes(
          *
          * @param pixbuf a #GdkPixbuf to be used.
          */
-        set(pixbuf) =
+        set(
+            pixbuf
+        ) =
             gtk_source_mark_attributes_set_pixbuf(
                 gtksourceMarkAttributesPointer.reinterpret(),
                 pixbuf.gdkpixbufPixbufPointer.reinterpret()
@@ -295,10 +292,7 @@ public open class MarkAttributes(
      * @param gicon a #GIcon to be used.
      */
     public open fun setGicon(gicon: Icon): Unit =
-        gtk_source_mark_attributes_set_gicon(
-            gtksourceMarkAttributesPointer.reinterpret(),
-            gicon.gioIconPointer
-        )
+        gtk_source_mark_attributes_set_gicon(gtksourceMarkAttributesPointer.reinterpret(), gicon.gioIconPointer)
 
     /**
      * Sets a name of an icon to be used as a base for rendered icon.
@@ -306,10 +300,7 @@ public open class MarkAttributes(
      * @param iconName name of an icon to be used.
      */
     public open fun setIconName(iconName: String): Unit =
-        gtk_source_mark_attributes_set_icon_name(
-            gtksourceMarkAttributesPointer.reinterpret(),
-            iconName
-        )
+        gtk_source_mark_attributes_set_icon_name(gtksourceMarkAttributesPointer.reinterpret(), iconName)
 
     /**
      * Sets a pixbuf to be used as a base for rendered icon.
@@ -324,9 +315,7 @@ public open class MarkAttributes(
 
     public companion object : TypeCompanion<MarkAttributes> {
         override val type: GeneratedClassKGType<MarkAttributes> =
-            GeneratedClassKGType(gtk_source_mark_attributes_get_type()) {
-                MarkAttributes(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_mark_attributes_get_type()) { MarkAttributes(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

@@ -5,6 +5,9 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_54
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -57,6 +60,7 @@ public class UnixMountPoint(
      * @return a new #GUnixMountPoint
      * @since 2.54
      */
+    @GioVersion2_54
     public fun copy(): UnixMountPoint =
         g_unix_mount_point_copy(gioUnixMountPointPointer.reinterpret())!!.run {
             UnixMountPoint(reinterpret())
@@ -100,6 +104,7 @@ public class UnixMountPoint(
      * @return a string containing the options.
      * @since 2.32
      */
+    @GioVersion2_32
     public fun getOptions(): String? =
         g_unix_mount_point_get_options(gioUnixMountPointPointer.reinterpret())?.toKString()
 
@@ -138,6 +143,7 @@ public class UnixMountPoint(
      * @return a #GIcon
      * @since 2.34
      */
+    @GioVersion2_34
     public fun guessSymbolicIcon(): Icon =
         g_unix_mount_point_guess_symbolic_icon(gioUnixMountPointPointer.reinterpret())!!.run {
             Icon.wrap(reinterpret())

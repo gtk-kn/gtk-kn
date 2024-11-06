@@ -10,6 +10,8 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.cairo.FontType
 import org.gtkkn.bindings.pango.AttrShape
 import org.gtkkn.bindings.pango.FontMap
+import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
+import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.native.pango.PangoAttrShape
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_get_default
@@ -64,6 +66,7 @@ public object Pangocairo {
      *  not be freed.
      * @since 1.10
      */
+    @PangoCairoVersion1_10
     public fun fontMapGetDefault(): FontMap =
         pango_cairo_font_map_get_default()!!.run {
             FontMap(reinterpret())
@@ -93,6 +96,7 @@ public object Pangocairo {
      *   which should be freed with g_object_unref().
      * @since 1.10
      */
+    @PangoCairoVersion1_10
     public fun fontMapNew(): FontMap =
         pango_cairo_font_map_new()!!.run {
             FontMap(reinterpret())
@@ -112,6 +116,7 @@ public object Pangocairo {
      *   is not supported / compiled in.
      * @since 1.18
      */
+    @PangoCairoVersion1_18
     public fun fontMapNewForFontType(fonttype: FontType): FontMap? =
         pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
             FontMap(reinterpret())

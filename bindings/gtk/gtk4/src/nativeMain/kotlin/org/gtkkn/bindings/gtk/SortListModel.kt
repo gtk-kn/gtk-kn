@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -168,6 +169,7 @@ public open class SortListModel(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var sectionSorter: Sorter?
         /**
          * Gets the section sorter that is used to sort items of @self into
@@ -187,6 +189,7 @@ public open class SortListModel(
          * @param sorter the `GtkSorter` to sort @model with
          * @since 4.12
          */
+        @GtkVersion4_12
         set(
             sorter
         ) =
@@ -286,6 +289,7 @@ public open class SortListModel(
      * @return the sorter of #self
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getSectionSorter(): Sorter? =
         gtk_sort_list_model_get_section_sorter(gtkSortListModelPointer.reinterpret())?.run {
             Sorter(reinterpret())
@@ -340,6 +344,7 @@ public open class SortListModel(
      * @param sorter the `GtkSorter` to sort @model with
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setSectionSorter(sorter: Sorter? = null): Unit =
         gtk_sort_list_model_set_section_sorter(
             gtkSortListModelPointer.reinterpret(),

@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.native.gtk.GtkDialogError
 import org.gtkkn.native.gtk.GtkDialogError.GTK_DIALOG_ERROR_CANCELLED
 import org.gtkkn.native.gtk.GtkDialogError.GTK_DIALOG_ERROR_DISMISSED
@@ -14,6 +15,7 @@ import kotlin.UInt
  * by async dialog functions.
  * @since 4.10
  */
+@GtkVersion4_10
 public enum class DialogError(
     public val nativeValue: GtkDialogError,
 ) {

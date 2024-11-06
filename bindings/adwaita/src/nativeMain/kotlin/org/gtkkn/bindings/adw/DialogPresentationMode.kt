@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.native.adw.AdwDialogPresentationMode
 import org.gtkkn.native.adw.AdwDialogPresentationMode.ADW_DIALOG_AUTO
 import org.gtkkn.native.adw.AdwDialogPresentationMode.ADW_DIALOG_BOTTOM_SHEET
@@ -14,6 +15,7 @@ import org.gtkkn.native.adw.AdwDialogPresentationMode.ADW_DIALOG_FLOATING
  * See [property@Dialog:presentation-mode].
  * @since 1.5
  */
+@AdwVersion1_5
 public enum class DialogPresentationMode(
     public val nativeValue: AdwDialogPresentationMode,
 ) {

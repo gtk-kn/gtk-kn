@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -20,6 +21,7 @@ import kotlin.Unit
  * for TCP/IP sockets.
  * @since 2.22
  */
+@GioVersion2_22
 public open class TcpConnection(
     pointer: CPointer<GTcpConnection>,
 ) : SocketConnection(pointer.reinterpret()),
@@ -32,6 +34,7 @@ public open class TcpConnection(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open var gracefulDisconnect: Boolean
         /**
          * Checks if graceful disconnects are used. See
@@ -56,6 +59,7 @@ public open class TcpConnection(
          * @param gracefulDisconnect Whether to do graceful disconnects or not
          * @since 2.22
          */
+        @GioVersion2_22
         set(
             gracefulDisconnect
         ) =
@@ -71,6 +75,7 @@ public open class TcpConnection(
      * @return true if graceful disconnect is used on close, false otherwise
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getGracefulDisconnect(): Boolean =
         g_tcp_connection_get_graceful_disconnect(gioTcpConnectionPointer.reinterpret()).asBoolean()
 
@@ -88,6 +93,7 @@ public open class TcpConnection(
      * @param gracefulDisconnect Whether to do graceful disconnects or not
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun setGracefulDisconnect(gracefulDisconnect: Boolean): Unit =
         g_tcp_connection_set_graceful_disconnect(gioTcpConnectionPointer.reinterpret(), gracefulDisconnect.asGBoolean())
 

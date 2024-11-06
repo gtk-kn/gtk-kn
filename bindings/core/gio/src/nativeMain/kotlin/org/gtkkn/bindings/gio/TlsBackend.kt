@@ -3,6 +3,10 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.bindings.gio.annotations.GioVersion2_48
+import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -31,6 +35,7 @@ import kotlin.Unit
  * by a TLS backend.
  * @since 2.28
  */
+@GioVersion2_28
 public interface TlsBackend :
     Interface,
     KGTyped {
@@ -43,6 +48,7 @@ public interface TlsBackend :
      *   implementation.
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getCertificateType(): ULong = g_tls_backend_get_certificate_type(gioTlsBackendPointer.reinterpret())
 
     /**
@@ -52,6 +58,7 @@ public interface TlsBackend :
      *   implementation.
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getClientConnectionType(): ULong =
         g_tls_backend_get_client_connection_type(gioTlsBackendPointer.reinterpret())
 
@@ -62,6 +69,7 @@ public interface TlsBackend :
      *               unreffed when done.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun getDefaultDatabase(): TlsDatabase =
         g_tls_backend_get_default_database(gioTlsBackendPointer.reinterpret())!!.run {
             TlsDatabase(reinterpret())
@@ -74,6 +82,7 @@ public interface TlsBackend :
      *   implementation, or %G_TYPE_INVALID if this backend doesn’t support DTLS.
      * @since 2.48
      */
+    @GioVersion2_48
     public fun getDtlsClientConnectionType(): ULong =
         g_tls_backend_get_dtls_client_connection_type(gioTlsBackendPointer.reinterpret())
 
@@ -84,6 +93,7 @@ public interface TlsBackend :
      *   implementation, or %G_TYPE_INVALID if this backend doesn’t support DTLS.
      * @since 2.48
      */
+    @GioVersion2_48
     public fun getDtlsServerConnectionType(): ULong =
         g_tls_backend_get_dtls_server_connection_type(gioTlsBackendPointer.reinterpret())
 
@@ -93,6 +103,7 @@ public interface TlsBackend :
      * @return the #GType of backend's #GTlsFileDatabase implementation.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun getFileDatabaseType(): ULong = g_tls_backend_get_file_database_type(gioTlsBackendPointer.reinterpret())
 
     /**
@@ -102,6 +113,7 @@ public interface TlsBackend :
      *   implementation.
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getServerConnectionType(): ULong =
         g_tls_backend_get_server_connection_type(gioTlsBackendPointer.reinterpret())
 
@@ -118,6 +130,7 @@ public interface TlsBackend :
      * @param database the #GTlsDatabase
      * @since 2.60
      */
+    @GioVersion2_60
     public fun setDefaultDatabase(database: TlsDatabase? = null): Unit =
         g_tls_backend_set_default_database(
             gioTlsBackendPointer.reinterpret(),
@@ -131,6 +144,7 @@ public interface TlsBackend :
      * @return whether DTLS is supported
      * @since 2.48
      */
+    @GioVersion2_48
     public fun supportsDtls(): Boolean = g_tls_backend_supports_dtls(gioTlsBackendPointer.reinterpret()).asBoolean()
 
     /**
@@ -140,6 +154,7 @@ public interface TlsBackend :
      * @return whether or not TLS is supported
      * @since 2.28
      */
+    @GioVersion2_28
     public fun supportsTls(): Boolean = g_tls_backend_supports_tls(gioTlsBackendPointer.reinterpret()).asBoolean()
 
     private data class Wrapper(
@@ -165,6 +180,7 @@ public interface TlsBackend :
          *     dummy object if no TLS backend is available
          * @since 2.28
          */
+        @GioVersion2_28
         public fun getDefault(): TlsBackend =
             g_tls_backend_get_default()!!.run {
                 TlsBackend.wrap(reinterpret())

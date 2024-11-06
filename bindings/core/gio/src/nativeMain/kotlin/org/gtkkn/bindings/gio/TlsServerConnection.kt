@@ -8,6 +8,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -29,6 +30,7 @@ import kotlin.Result
  *
  * @since 2.28
  */
+@GioVersion2_28
 public interface TlsServerConnection :
     Interface,
     KGTyped {
@@ -64,6 +66,7 @@ public interface TlsServerConnection :
          * #GTlsServerConnection, or null on error
          * @since 2.28
          */
+        @GioVersion2_28
         public fun new(
             baseIoStream: IOStream,
             certificate: TlsCertificate? = null,

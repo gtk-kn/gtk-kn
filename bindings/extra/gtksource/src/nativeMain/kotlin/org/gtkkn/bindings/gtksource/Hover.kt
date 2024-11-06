@@ -34,7 +34,8 @@ import kotlin.Unit
  */
 public open class Hover(
     pointer: CPointer<GtkSourceHover>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceHoverPointer: CPointer<GtkSourceHover>
         get() = gPointer.reinterpret()
 
@@ -44,10 +45,7 @@ public open class Hover(
      * @param provider
      */
     public open fun addProvider(provider: HoverProvider): Unit =
-        gtk_source_hover_add_provider(
-            gtksourceHoverPointer.reinterpret(),
-            provider.gtksourceHoverProviderPointer
-        )
+        gtk_source_hover_add_provider(gtksourceHoverPointer.reinterpret(), provider.gtksourceHoverProviderPointer)
 
     /**
      *
@@ -55,10 +53,7 @@ public open class Hover(
      * @param provider
      */
     public open fun removeProvider(provider: HoverProvider): Unit =
-        gtk_source_hover_remove_provider(
-            gtksourceHoverPointer.reinterpret(),
-            provider.gtksourceHoverProviderPointer
-        )
+        gtk_source_hover_remove_provider(gtksourceHoverPointer.reinterpret(), provider.gtksourceHoverProviderPointer)
 
     public companion object : TypeCompanion<Hover> {
         override val type: GeneratedClassKGType<Hover> =

@@ -5,6 +5,8 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_18
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GChecksum
@@ -42,6 +44,7 @@ import kotlin.Unit
  *
  * @since 2.16
  */
+@GLibVersion2_16
 public class Checksum(
     pointer: CPointer<GChecksum>,
 ) : Record {
@@ -56,6 +59,7 @@ public class Checksum(
      *   g_checksum_free() when finished using it.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun copy(): Checksum =
         g_checksum_copy(glibChecksumPointer.reinterpret())!!.run {
             Checksum(reinterpret())
@@ -66,6 +70,7 @@ public class Checksum(
      *
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun free(): Unit = g_checksum_free(glibChecksumPointer.reinterpret())
 
     /**
@@ -81,6 +86,7 @@ public class Checksum(
      *   or freed.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun getString(): String =
         g_checksum_get_string(glibChecksumPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -89,6 +95,7 @@ public class Checksum(
      *
      * @since 2.18
      */
+    @GLibVersion2_18
     public fun reset(): Unit = g_checksum_reset(glibChecksumPointer.reinterpret())
 
     public companion object : RecordCompanion<Checksum, GChecksum> {
@@ -123,6 +130,7 @@ public class Checksum(
          * not supported.
          * @since 2.16
          */
+        @GLibVersion2_16
         public fun typeGetLength(checksumType: ChecksumType): Long =
             g_checksum_type_get_length(checksumType.nativeValue)
 

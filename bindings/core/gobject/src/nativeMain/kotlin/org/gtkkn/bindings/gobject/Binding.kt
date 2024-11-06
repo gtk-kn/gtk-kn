@@ -4,6 +4,9 @@ package org.gtkkn.bindings.gobject
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_38
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -98,6 +101,7 @@ import kotlin.Unit
  * binding, source, and target instances to drop.
  * @since 2.26
  */
+@GObjectVersion2_26
 public open class Binding(
     pointer: CPointer<GBinding>,
 ) : Object(pointer.reinterpret()),
@@ -110,6 +114,7 @@ public open class Binding(
      *
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open val flags: BindingFlags
         /**
          * Retrieves the flags passed when constructing the #GBinding.
@@ -127,6 +132,7 @@ public open class Binding(
      *
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open val source: Object?
         /**
          * Retrieves the #GObject instance used as the source of the binding.
@@ -157,6 +163,7 @@ public open class Binding(
      *
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open val sourceProperty: String
         /**
          * Retrieves the name of the property of #GBinding:source used as the source
@@ -174,6 +181,7 @@ public open class Binding(
      *
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open val target: Object?
         /**
          * Retrieves the #GObject instance used as the target of the binding.
@@ -204,6 +212,7 @@ public open class Binding(
      *
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open val targetProperty: String
         /**
          * Retrieves the name of the property of #GBinding:target used as the target
@@ -227,6 +236,7 @@ public open class Binding(
      *     source does not exist any more.
      * @since 2.68
      */
+    @GObjectVersion2_68
     public open fun dupSource(): Object? =
         g_binding_dup_source(gobjectBindingPointer.reinterpret())?.run {
             Object(reinterpret())
@@ -243,6 +253,7 @@ public open class Binding(
      *     target does not exist any more.
      * @since 2.68
      */
+    @GObjectVersion2_68
     public open fun dupTarget(): Object? =
         g_binding_dup_target(gobjectBindingPointer.reinterpret())?.run {
             Object(reinterpret())
@@ -254,6 +265,7 @@ public open class Binding(
      * @return the #GBindingFlags used by the #GBinding
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open fun getFlags(): BindingFlags =
         g_binding_get_flags(gobjectBindingPointer.reinterpret()).run {
             BindingFlags(this)
@@ -274,6 +286,7 @@ public open class Binding(
      *     source does not exist any more.
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open fun getSource(): Object? =
         g_binding_get_source(gobjectBindingPointer.reinterpret())?.run {
             Object(reinterpret())
@@ -286,6 +299,7 @@ public open class Binding(
      * @return the name of the source property
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open fun getSourceProperty(): String =
         g_binding_get_source_property(gobjectBindingPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -305,6 +319,7 @@ public open class Binding(
      *     target does not exist any more.
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open fun getTarget(): Object? =
         g_binding_get_target(gobjectBindingPointer.reinterpret())?.run {
             Object(reinterpret())
@@ -317,6 +332,7 @@ public open class Binding(
      * @return the name of the target property
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open fun getTargetProperty(): String =
         g_binding_get_target_property(gobjectBindingPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -336,6 +352,7 @@ public open class Binding(
      *
      * @since 2.38
      */
+    @GObjectVersion2_38
     public open fun unbind(): Unit = g_binding_unbind(gobjectBindingPointer.reinterpret())
 
     public companion object : TypeCompanion<Binding> {

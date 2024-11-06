@@ -8,6 +8,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -43,6 +44,7 @@ import kotlin.UInt
  *
  * @since 2.32
  */
+@GioVersion2_32
 public open class InetAddressMask(
     pointer: CPointer<GInetAddressMask>,
 ) : Object(pointer.reinterpret()),
@@ -59,6 +61,7 @@ public open class InetAddressMask(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public open val address: InetAddress
         /**
          * Gets @mask's base address
@@ -76,6 +79,7 @@ public open class InetAddressMask(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public open val family: SocketFamily
         /**
          * Gets the #GSocketFamily of @mask's address
@@ -93,6 +97,7 @@ public open class InetAddressMask(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public open val length: UInt
         /**
          * Gets @mask's length
@@ -153,6 +158,7 @@ public open class InetAddressMask(
      * @return whether @mask and @mask2 are the same mask
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun equal(mask2: InetAddressMask): Boolean =
         g_inet_address_mask_equal(
             gioInetAddressMaskPointer.reinterpret(),
@@ -165,6 +171,7 @@ public open class InetAddressMask(
      * @return @mask's base address
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getAddress(): InetAddress =
         g_inet_address_mask_get_address(gioInetAddressMaskPointer.reinterpret())!!.run {
             InetAddress(reinterpret())
@@ -176,6 +183,7 @@ public open class InetAddressMask(
      * @return the #GSocketFamily of @mask's address
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getFamily(): SocketFamily =
         g_inet_address_mask_get_family(gioInetAddressMaskPointer.reinterpret()).run {
             SocketFamily.fromNativeValue(this)
@@ -187,6 +195,7 @@ public open class InetAddressMask(
      * @return @mask's length
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getLength(): UInt = g_inet_address_mask_get_length(gioInetAddressMaskPointer.reinterpret())
 
     /**
@@ -197,6 +206,7 @@ public open class InetAddressMask(
      * @mask.
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun matches(address: InetAddress): Boolean =
         g_inet_address_mask_matches(
             gioInetAddressMaskPointer.reinterpret(),

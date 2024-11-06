@@ -9,6 +9,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
+import org.gtkkn.bindings.gio.annotations.GioVersion2_68
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asGBoolean
@@ -58,6 +60,7 @@ import kotlin.collections.List
  *
  * @since 2.40
  */
+@GioVersion2_40
 public open class SubprocessLauncher(
     pointer: CPointer<GSubprocessLauncher>,
 ) : Object(pointer.reinterpret()),
@@ -91,6 +94,7 @@ public open class SubprocessLauncher(
      *
      * @since 2.68
      */
+    @GioVersion2_68
     public open fun close(): Unit = g_subprocess_launcher_close(gioSubprocessLauncherPointer.reinterpret())
 
     /**
@@ -105,6 +109,7 @@ public open class SubprocessLauncher(
      *     null if unset
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getenv(variable: String): String? =
         g_subprocess_launcher_getenv(gioSubprocessLauncherPointer.reinterpret(), variable)?.toKString()
 
@@ -118,6 +123,7 @@ public open class SubprocessLauncher(
      * @param cwd the cwd for launched processes
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setCwd(cwd: String): Unit =
         g_subprocess_launcher_set_cwd(gioSubprocessLauncherPointer.reinterpret(), cwd)
 
@@ -146,6 +152,7 @@ public open class SubprocessLauncher(
      *     the replacement environment
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setEnviron(env: List<String>): Unit =
         memScoped {
             return g_subprocess_launcher_set_environ(
@@ -171,6 +178,7 @@ public open class SubprocessLauncher(
      * @param flags #GSubprocessFlags
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setFlags(flags: SubprocessFlags): Unit =
         g_subprocess_launcher_set_flags(gioSubprocessLauncherPointer.reinterpret(), flags.mask)
 
@@ -193,6 +201,7 @@ public open class SubprocessLauncher(
      * @param path a filename or null
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setStderrFilePath(path: String? = null): Unit =
         g_subprocess_launcher_set_stderr_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
 
@@ -211,6 +220,7 @@ public open class SubprocessLauncher(
      * @param path a filename or null
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setStdinFilePath(path: String? = null): Unit =
         g_subprocess_launcher_set_stdin_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
 
@@ -230,6 +240,7 @@ public open class SubprocessLauncher(
      * @param path a filename or null
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setStdoutFilePath(path: String? = null): Unit =
         g_subprocess_launcher_set_stdout_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
 
@@ -247,6 +258,7 @@ public open class SubprocessLauncher(
      * @param overwrite whether to change the variable if it already exists
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun setenv(
         variable: String,
         `value`: String,
@@ -266,6 +278,7 @@ public open class SubprocessLauncher(
      * @return A new #GSubprocess, or null on error (and @error will be set)
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun spawnv(argv: List<String>): Result<Subprocess> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -328,6 +341,7 @@ public open class SubprocessLauncher(
      * @param fd a file descriptor, or -1
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun takeStderrFd(fd: Int): Unit =
         g_subprocess_launcher_take_stderr_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
@@ -354,6 +368,7 @@ public open class SubprocessLauncher(
      * @param fd a file descriptor, or -1
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun takeStdinFd(fd: Int): Unit =
         g_subprocess_launcher_take_stdin_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
@@ -379,6 +394,7 @@ public open class SubprocessLauncher(
      * @param fd a file descriptor, or -1
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun takeStdoutFd(fd: Int): Unit =
         g_subprocess_launcher_take_stdout_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
@@ -393,6 +409,7 @@ public open class SubprocessLauncher(
      *     must not contain '='
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun unsetenv(variable: String): Unit =
         g_subprocess_launcher_unsetenv(gioSubprocessLauncherPointer.reinterpret(), variable)
 

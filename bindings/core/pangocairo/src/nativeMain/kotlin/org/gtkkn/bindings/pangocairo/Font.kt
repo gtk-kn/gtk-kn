@@ -3,6 +3,7 @@ package org.gtkkn.bindings.pangocairo
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -23,6 +24,7 @@ import org.gtkkn.native.pangocairo.pango_cairo_font_get_type
  *
  * @since 1.18
  */
+@PangoCairoVersion1_18
 public interface Font :
     Interface,
     KGTyped {

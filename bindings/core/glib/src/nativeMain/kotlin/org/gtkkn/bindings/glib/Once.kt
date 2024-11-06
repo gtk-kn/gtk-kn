@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GOnce
@@ -25,6 +26,7 @@ import org.gtkkn.native.glib.GOnce
  *
  * @since 2.4
  */
+@GLibVersion2_4
 public class Once(
     pointer: CPointer<GOnce>,
 ) : Record {

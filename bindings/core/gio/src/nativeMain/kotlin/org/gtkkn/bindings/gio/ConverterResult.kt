@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.native.gio.GConverterResult
 import org.gtkkn.native.gio.GConverterResult.G_CONVERTER_CONVERTED
 import org.gtkkn.native.gio.GConverterResult.G_CONVERTER_ERROR
@@ -11,6 +12,7 @@ import org.gtkkn.native.gio.GConverterResult.G_CONVERTER_FLUSHED
  * Results returned from g_converter_convert().
  * @since 2.24
  */
+@GioVersion2_24
 public enum class ConverterResult(
     public val nativeValue: GConverterResult,
 ) {

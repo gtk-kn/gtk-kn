@@ -8,6 +8,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Gdk.resolveException
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
 import org.gtkkn.bindings.gdkpixbuf.Pixbuf
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gio.Icon
@@ -217,6 +219,7 @@ public open class Texture(
      * @return the preferred format for the texture's data
      * @since 4.10
      */
+    @GdkVersion4_10
     public open fun getFormat(): MemoryFormat =
         gdk_texture_get_format(gdkTexturePointer.reinterpret()).run {
             MemoryFormat.fromNativeValue(this)
@@ -270,6 +273,7 @@ public open class Texture(
      * @return a newly allocated `GBytes` containing PNG data
      * @since 4.6
      */
+    @GdkVersion4_6
     public open fun saveToPngBytes(): Bytes =
         gdk_texture_save_to_png_bytes(gdkTexturePointer.reinterpret())!!.run {
             Bytes(reinterpret())
@@ -284,6 +288,7 @@ public open class Texture(
      * @return true if saving succeeded, false on failure.
      * @since 4.6
      */
+    @GdkVersion4_6
     public open fun saveToTiff(filename: String): Boolean =
         gdk_texture_save_to_tiff(gdkTexturePointer.reinterpret(), filename).asBoolean()
 
@@ -304,6 +309,7 @@ public open class Texture(
      * @return a newly allocated `GBytes` containing TIFF data
      * @since 4.6
      */
+    @GdkVersion4_6
     public open fun saveToTiffBytes(): Bytes =
         gdk_texture_save_to_tiff_bytes(gdkTexturePointer.reinterpret())!!.run {
             Bytes(reinterpret())

@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -40,6 +41,7 @@ public open class ZlibDecompressor(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public open val fileInfo: FileInfo?
         /**
          * Retrieves the #GFileInfo constructed from the GZIP header data
@@ -75,6 +77,7 @@ public open class ZlibDecompressor(
      * @return a #GFileInfo, or null
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getFileInfo(): FileInfo? =
         g_zlib_decompressor_get_file_info(gioZlibDecompressorPointer.reinterpret())?.run {
             FileInfo(reinterpret())

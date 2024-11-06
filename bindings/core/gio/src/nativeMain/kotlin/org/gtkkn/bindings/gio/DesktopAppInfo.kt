@@ -4,6 +4,14 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_36
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
+import org.gtkkn.bindings.gio.annotations.GioVersion2_42
+import org.gtkkn.bindings.gio.annotations.GioVersion2_56
 import org.gtkkn.bindings.glib.KeyFile
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -123,6 +131,7 @@ public open class DesktopAppInfo(
      * @return the locale-specific action name
      * @since 2.38
      */
+    @GioVersion2_38
     public open fun getActionName(actionName: String): String =
         g_desktop_app_info_get_action_name(gioDesktopAppInfoPointer.reinterpret(), actionName)?.toKString()
             ?: error("Expected not null string")
@@ -137,6 +146,7 @@ public open class DesktopAppInfo(
      *     is not found
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getBoolean(key: String): Boolean =
         g_desktop_app_info_get_boolean(gioDesktopAppInfoPointer.reinterpret(), key).asBoolean()
 
@@ -158,6 +168,7 @@ public open class DesktopAppInfo(
      *     or null if not known.
      * @since 2.24
      */
+    @GioVersion2_24
     public open fun getFilename(): String? =
         g_desktop_app_info_get_filename(gioDesktopAppInfoPointer.reinterpret())?.toKString()
 
@@ -184,6 +195,7 @@ public open class DesktopAppInfo(
      * @return The value of the Keywords key
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getKeywords(): CollectionsList<String> =
         g_desktop_app_info_get_keywords(gioDesktopAppInfoPointer.reinterpret())?.toKStringList()
             ?: error("Expected not null string array")
@@ -199,6 +211,7 @@ public open class DesktopAppInfo(
      *     is not found
      * @since 2.56
      */
+    @GioVersion2_56
     public open fun getLocaleString(key: String): String? =
         g_desktop_app_info_get_locale_string(gioDesktopAppInfoPointer.reinterpret(), key)?.toKString()
 
@@ -210,6 +223,7 @@ public open class DesktopAppInfo(
      * @return The value of the NoDisplay key
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getNodisplay(): Boolean =
         g_desktop_app_info_get_nodisplay(gioDesktopAppInfoPointer.reinterpret()).asBoolean()
 
@@ -232,6 +246,7 @@ public open class DesktopAppInfo(
      * otherwise.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getShowIn(desktopEnv: String? = null): Boolean =
         g_desktop_app_info_get_show_in(gioDesktopAppInfoPointer.reinterpret(), desktopEnv).asBoolean()
 
@@ -244,6 +259,7 @@ public open class DesktopAppInfo(
      * in the desktop file.
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun getStartupWmClass(): String? =
         g_desktop_app_info_get_startup_wm_class(gioDesktopAppInfoPointer.reinterpret())?.toKString()
 
@@ -257,6 +273,7 @@ public open class DesktopAppInfo(
      *     is not found
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getString(key: String): String? =
         g_desktop_app_info_get_string(gioDesktopAppInfoPointer.reinterpret(), key)?.toKString()
 
@@ -268,6 +285,7 @@ public open class DesktopAppInfo(
      * @return true if the @key exists
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun hasKey(key: String): Boolean =
         g_desktop_app_info_has_key(gioDesktopAppInfoPointer.reinterpret(), key).asBoolean()
 
@@ -293,6 +311,7 @@ public open class DesktopAppInfo(
      * @param launchContext a #GAppLaunchContext
      * @since 2.38
      */
+    @GioVersion2_38
     public open fun launchAction(
         actionName: String,
         launchContext: AppLaunchContext? = null,
@@ -313,6 +332,7 @@ public open class DesktopAppInfo(
      * @return a list of strings, always non-null
      * @since 2.38
      */
+    @GioVersion2_38
     public open fun listActions(): CollectionsList<String> =
         g_desktop_app_info_list_actions(gioDesktopAppInfoPointer.reinterpret())?.toKStringList()
             ?: error("Expected not null string array")
@@ -366,6 +386,7 @@ public open class DesktopAppInfo(
          * objects.
          * @since 2.42
          */
+        @GioVersion2_42
         public fun getImplementations(`interface`: String): GlibList =
             g_desktop_app_info_get_implementations(`interface`)!!.run {
                 GlibList(reinterpret())

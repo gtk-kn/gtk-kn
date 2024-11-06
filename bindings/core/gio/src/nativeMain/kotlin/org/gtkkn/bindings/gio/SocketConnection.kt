@@ -9,6 +9,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -51,6 +53,7 @@ import kotlin.Unit
  * underlying [class@Gio.Socket].
  * @since 2.22
  */
+@GioVersion2_22
 public open class SocketConnection(
     pointer: CPointer<GSocketConnection>,
 ) : IOStream(pointer.reinterpret()),
@@ -63,6 +66,7 @@ public open class SocketConnection(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val socket: Socket
         /**
          * Gets the underlying #GSocket object of the connection.
@@ -85,6 +89,7 @@ public open class SocketConnection(
      * @return true if the connection succeeded, false on error
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun connect(
         address: SocketAddress,
         cancellable: Cancellable? = null,
@@ -122,6 +127,7 @@ public open class SocketConnection(
      * @param callback a #GAsyncReadyCallback
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun connectAsync(
         address: SocketAddress,
         cancellable: Cancellable? = null,
@@ -142,6 +148,7 @@ public open class SocketConnection(
      * @return true if the connection succeeded, false on error
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun connectFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -165,6 +172,7 @@ public open class SocketConnection(
      *     Free the returned object with g_object_unref().
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getLocalAddress(): Result<SocketAddress> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -194,6 +202,7 @@ public open class SocketConnection(
      *     Free the returned object with g_object_unref().
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getRemoteAddress(): Result<SocketAddress> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -217,6 +226,7 @@ public open class SocketConnection(
      * @return a #GSocket or null on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getSocket(): Socket =
         g_socket_connection_get_socket(gioSocketConnectionPointer.reinterpret())!!.run {
             Socket(reinterpret())
@@ -229,6 +239,7 @@ public open class SocketConnection(
      * @return whether @connection is connected
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun isConnected(): Boolean =
         g_socket_connection_is_connected(gioSocketConnectionPointer.reinterpret()).asBoolean()
 
@@ -252,6 +263,7 @@ public open class SocketConnection(
          * @return a #GType
          * @since 2.22
          */
+        @GioVersion2_22
         public fun factoryLookupType(
             family: SocketFamily,
             type: SocketType,
@@ -270,6 +282,7 @@ public open class SocketConnection(
          * @param protocol a protocol id
          * @since 2.22
          */
+        @GioVersion2_22
         public fun factoryRegisterType(
             gType: ULong,
             family: SocketFamily,

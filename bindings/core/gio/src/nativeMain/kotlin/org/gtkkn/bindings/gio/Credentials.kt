@@ -8,6 +8,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -71,6 +73,7 @@ import kotlin.UInt
  *
  * @since 2.26
  */
+@GioVersion2_26
 public open class Credentials(
     pointer: CPointer<GCredentials>,
 ) : Object(pointer.reinterpret()),
@@ -98,6 +101,7 @@ public open class Credentials(
      * @return The UNIX process ID, or `-1` if @error is set.
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getUnixPid(): Result<Int> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -120,6 +124,7 @@ public open class Credentials(
      * @return The UNIX user identifier or `-1` if @error is set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getUnixUser(): Result<UInt> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -142,6 +147,7 @@ public open class Credentials(
      * user, false otherwise or if @error is set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun isSameUser(otherCredentials: Credentials): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -171,6 +177,7 @@ public open class Credentials(
      * @return true if @uid was set, false if error is set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setUnixUser(uid: UInt): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()

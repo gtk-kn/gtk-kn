@@ -9,6 +9,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -57,6 +59,7 @@ public open class NetworkAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val hostname: String
         /**
          * Gets @addr's hostname. This might be either UTF-8 or ASCII-encoded,
@@ -74,6 +77,7 @@ public open class NetworkAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val port: UShort
         /**
          * Gets @addr's port number
@@ -88,6 +92,7 @@ public open class NetworkAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val scheme: String?
         /**
          * Gets @addr's scheme
@@ -141,6 +146,7 @@ public open class NetworkAddress(
      * @return @addr's hostname
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getHostname(): String =
         g_network_address_get_hostname(gioNetworkAddressPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -151,6 +157,7 @@ public open class NetworkAddress(
      * @return @addr's port (which may be 0)
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getPort(): UShort = g_network_address_get_port(gioNetworkAddressPointer.reinterpret())
 
     /**
@@ -159,6 +166,7 @@ public open class NetworkAddress(
      * @return @addr's scheme (null if not built from URI)
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getScheme(): String? =
         g_network_address_get_scheme(gioNetworkAddressPointer.reinterpret())?.toKString()
 
@@ -199,6 +207,7 @@ public open class NetworkAddress(
          *   #GNetworkAddress, or null on error
          * @since 2.22
          */
+        @GioVersion2_22
         public fun parse(
             hostAndPort: String,
             defaultPort: UShort,
@@ -231,6 +240,7 @@ public open class NetworkAddress(
          *   #GNetworkAddress, or null on error
          * @since 2.26
          */
+        @GioVersion2_26
         public fun parseUri(
             uri: String,
             defaultPort: UShort,

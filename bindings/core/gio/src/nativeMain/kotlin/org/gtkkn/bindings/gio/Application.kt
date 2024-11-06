@@ -14,6 +14,16 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
+import org.gtkkn.bindings.gio.annotations.GioVersion2_42
+import org.gtkkn.bindings.gio.annotations.GioVersion2_44
+import org.gtkkn.bindings.gio.annotations.GioVersion2_56
+import org.gtkkn.bindings.gio.annotations.GioVersion2_60
+import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.OptionArg
 import org.gtkkn.bindings.glib.OptionFlags
@@ -218,6 +228,7 @@ import kotlin.collections.List
  *
  * @since 2.28
  */
+@GioVersion2_28
 public open class Application(
     pointer: CPointer<GApplication>,
 ) : Object(pointer.reinterpret()),
@@ -238,6 +249,7 @@ public open class Application(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open var applicationId: String?
         /**
          * Gets the unique identifier for @application.
@@ -259,6 +271,7 @@ public open class Application(
          * @param applicationId the identifier for @application
          * @since 2.28
          */
+        @GioVersion2_28
         set(applicationId) = g_application_set_application_id(gioApplicationPointer.reinterpret(), applicationId)
 
     /**
@@ -266,6 +279,7 @@ public open class Application(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open var flags: ApplicationFlags
         /**
          * Gets the flags for @application.
@@ -291,6 +305,7 @@ public open class Application(
          * @param flags the flags for @application
          * @since 2.28
          */
+        @GioVersion2_28
         set(flags) = g_application_set_flags(gioApplicationPointer.reinterpret(), flags.mask)
 
     /**
@@ -298,6 +313,7 @@ public open class Application(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open var inactivityTimeout: UInt
         /**
          * Gets the current inactivity timeout for the application.
@@ -323,6 +339,7 @@ public open class Application(
          * @param inactivityTimeout the timeout, in milliseconds
          * @since 2.28
          */
+        @GioVersion2_28
         set(
             inactivityTimeout
         ) = g_application_set_inactivity_timeout(gioApplicationPointer.reinterpret(), inactivityTimeout)
@@ -333,6 +350,7 @@ public open class Application(
      *
      * @since 2.44
      */
+    @GioVersion2_44
     public open val isBusy: Boolean
         /**
          * Gets the application's current busy state, as set through
@@ -348,6 +366,7 @@ public open class Application(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open val isRegistered: Boolean
         /**
          * Checks if @application is registered.
@@ -365,6 +384,7 @@ public open class Application(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open val isRemote: Boolean
         /**
          * Checks if @application is remote.
@@ -388,6 +408,7 @@ public open class Application(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open var resourceBasePath: String?
         /**
          * Gets the resource base path of @application.
@@ -437,6 +458,7 @@ public open class Application(
          * @param resourcePath the resource path to use
          * @since 2.42
          */
+        @GioVersion2_42
         set(resourcePath) = g_application_set_resource_base_path(gioApplicationPointer.reinterpret(), resourcePath)
 
     /**
@@ -467,6 +489,7 @@ public open class Application(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun activate(): Unit = g_application_activate(gioApplicationPointer.reinterpret())
 
     /**
@@ -493,6 +516,7 @@ public open class Application(
      *    parsed by the option in `--help` output
      * @since 2.42
      */
+    @GioVersion2_42
     public open fun addMainOption(
         longName: String,
         shortName: Char,
@@ -541,6 +565,7 @@ public open class Application(
      * @param group a #GOptionGroup
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun addOptionGroup(group: OptionGroup): Unit =
         g_application_add_option_group(gioApplicationPointer.reinterpret(), group.glibOptionGroupPointer)
 
@@ -556,6 +581,7 @@ public open class Application(
      * @param property the name of a boolean property of @object
      * @since 2.44
      */
+    @GioVersion2_44
     public open fun bindBusyProperty(
         `object`: Object,
         `property`: String,
@@ -572,6 +598,7 @@ public open class Application(
      * @return the identifier for @application, owned by @application
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getApplicationId(): String? =
         g_application_get_application_id(gioApplicationPointer.reinterpret())?.toKString()
 
@@ -593,6 +620,7 @@ public open class Application(
      * @return a #GDBusConnection, or null
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun getDbusConnection(): DBusConnection? =
         g_application_get_dbus_connection(gioApplicationPointer.reinterpret())?.run {
             DBusConnection(reinterpret())
@@ -617,6 +645,7 @@ public open class Application(
      * @return the object path, or null
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun getDbusObjectPath(): String? =
         g_application_get_dbus_object_path(gioApplicationPointer.reinterpret())?.toKString()
 
@@ -628,6 +657,7 @@ public open class Application(
      * @return the flags for @application
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getFlags(): ApplicationFlags =
         g_application_get_flags(gioApplicationPointer.reinterpret()).run {
             ApplicationFlags(this)
@@ -642,6 +672,7 @@ public open class Application(
      * @return the timeout, in milliseconds
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getInactivityTimeout(): UInt =
         g_application_get_inactivity_timeout(gioApplicationPointer.reinterpret())
 
@@ -652,6 +683,7 @@ public open class Application(
      * @return true if @application is currently marked as busy
      * @since 2.44
      */
+    @GioVersion2_44
     public open fun getIsBusy(): Boolean = g_application_get_is_busy(gioApplicationPointer.reinterpret()).asBoolean()
 
     /**
@@ -663,6 +695,7 @@ public open class Application(
      * @return true if @application is registered
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getIsRegistered(): Boolean =
         g_application_get_is_registered(gioApplicationPointer.reinterpret()).asBoolean()
 
@@ -681,6 +714,7 @@ public open class Application(
      * @return true if @application is remote
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getIsRemote(): Boolean =
         g_application_get_is_remote(gioApplicationPointer.reinterpret()).asBoolean()
 
@@ -692,6 +726,7 @@ public open class Application(
      * @return the base resource path, if one is set
      * @since 2.42
      */
+    @GioVersion2_42
     public open fun getResourceBasePath(): String? =
         g_application_get_resource_base_path(gioApplicationPointer.reinterpret())?.toKString()
 
@@ -701,6 +736,7 @@ public open class Application(
      * @return the version of @application
      * @since 2.80
      */
+    @GioVersion2_80
     public open fun getVersion(): String? = g_application_get_version(gioApplicationPointer.reinterpret())?.toKString()
 
     /**
@@ -730,6 +766,7 @@ public open class Application(
      *
      * @since 2.38
      */
+    @GioVersion2_38
     public open fun markBusy(): Unit = g_application_mark_busy(gioApplicationPointer.reinterpret())
 
     /**
@@ -749,6 +786,7 @@ public open class Application(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun quit(): Unit = g_application_quit(gioApplicationPointer.reinterpret())
 
     /**
@@ -787,6 +825,7 @@ public open class Application(
      * @return true if registration succeeded
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun register(cancellable: Cancellable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -896,6 +935,7 @@ public open class Application(
      * @return the exit status
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun run(
         argc: Int,
         argv: List<String>? = null,
@@ -939,6 +979,7 @@ public open class Application(
      * @param notification the #GNotification to send
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun sendNotification(
         id: String? = null,
         notification: Notification,
@@ -956,6 +997,7 @@ public open class Application(
      * @param actionGroup a #GActionGroup, or null
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun setActionGroup(actionGroup: ActionGroup? = null): Unit =
         g_application_set_action_group(gioApplicationPointer.reinterpret(), actionGroup?.gioActionGroupPointer)
 
@@ -971,6 +1013,7 @@ public open class Application(
      * @param applicationId the identifier for @application
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun setApplicationId(applicationId: String? = null): Unit =
         g_application_set_application_id(gioApplicationPointer.reinterpret(), applicationId)
 
@@ -984,6 +1027,7 @@ public open class Application(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun setDefault(): Unit = g_application_set_default(gioApplicationPointer.reinterpret())
 
     /**
@@ -997,6 +1041,7 @@ public open class Application(
      * @param flags the flags for @application
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun setFlags(flags: ApplicationFlags): Unit =
         g_application_set_flags(gioApplicationPointer.reinterpret(), flags.mask)
 
@@ -1013,6 +1058,7 @@ public open class Application(
      * @param inactivityTimeout the timeout, in milliseconds
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun setInactivityTimeout(inactivityTimeout: UInt): Unit =
         g_application_set_inactivity_timeout(gioApplicationPointer.reinterpret(), inactivityTimeout)
 
@@ -1025,6 +1071,7 @@ public open class Application(
      *  after the list of options, or null
      * @since 2.56
      */
+    @GioVersion2_56
     public open fun setOptionContextDescription(description: String? = null): Unit =
         g_application_set_option_context_description(gioApplicationPointer.reinterpret(), description)
 
@@ -1040,6 +1087,7 @@ public open class Application(
      *   in the first line of `--help` output, after the usage summary `programname [OPTION]`.
      * @since 2.56
      */
+    @GioVersion2_56
     public open fun setOptionContextParameterString(parameterString: String? = null): Unit =
         g_application_set_option_context_parameter_string(gioApplicationPointer.reinterpret(), parameterString)
 
@@ -1052,6 +1100,7 @@ public open class Application(
      *  before the list of options, or null
      * @since 2.56
      */
+    @GioVersion2_56
     public open fun setOptionContextSummary(summary: String? = null): Unit =
         g_application_set_option_context_summary(gioApplicationPointer.reinterpret(), summary)
 
@@ -1093,6 +1142,7 @@ public open class Application(
      * @param resourcePath the resource path to use
      * @since 2.42
      */
+    @GioVersion2_42
     public open fun setResourceBasePath(resourcePath: String? = null): Unit =
         g_application_set_resource_base_path(gioApplicationPointer.reinterpret(), resourcePath)
 
@@ -1106,6 +1156,7 @@ public open class Application(
      * @param version the version of @application
      * @since 2.80
      */
+    @GioVersion2_80
     public open fun setVersion(version: String): Unit =
         g_application_set_version(gioApplicationPointer.reinterpret(), version)
 
@@ -1118,6 +1169,7 @@ public open class Application(
      * @param property the name of a boolean property of @object
      * @since 2.44
      */
+    @GioVersion2_44
     public open fun unbindBusyProperty(
         `object`: Object,
         `property`: String,
@@ -1139,6 +1191,7 @@ public open class Application(
      *
      * @since 2.38
      */
+    @GioVersion2_38
     public open fun unmarkBusy(): Unit = g_application_unmark_busy(gioApplicationPointer.reinterpret())
 
     /**
@@ -1159,6 +1212,7 @@ public open class Application(
      * @param id id of a previously sent notification
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun withdrawNotification(id: String): Unit =
         g_application_withdraw_notification(gioApplicationPointer.reinterpret(), id)
 
@@ -1255,6 +1309,7 @@ public open class Application(
      * the default option processing continue.
      * @since 2.40
      */
+    @GioVersion2_40
     public fun connectHandleLocalOptions(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (options: VariantDict) -> Int,
@@ -1279,6 +1334,7 @@ public open class Application(
      * @param handler the Callback to connect. Returns true if the signal has been handled
      * @since 2.60
      */
+    @GioVersion2_60
     public fun connectNameLost(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Boolean,
@@ -1352,6 +1408,7 @@ public open class Application(
          * @return the default application for this process, or null
          * @since 2.32
          */
+        @GioVersion2_32
         public fun getDefault(): Application? =
             g_application_get_default()?.run {
                 Application(reinterpret())

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.native.adw.AdwBreakpointConditionRatioType
 import org.gtkkn.native.adw.AdwBreakpointConditionRatioType.ADW_BREAKPOINT_CONDITION_MAX_ASPECT_RATIO
 import org.gtkkn.native.adw.AdwBreakpointConditionRatioType.ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO
@@ -13,6 +14,7 @@ import org.gtkkn.native.adw.AdwBreakpointConditionRatioType.ADW_BREAKPOINT_CONDI
  * New values may be added to this enumeration over time.
  * @since 1.4
  */
+@AdwVersion1_4
 public enum class BreakpointConditionRatioType(
     public val nativeValue: AdwBreakpointConditionRatioType,
 ) {

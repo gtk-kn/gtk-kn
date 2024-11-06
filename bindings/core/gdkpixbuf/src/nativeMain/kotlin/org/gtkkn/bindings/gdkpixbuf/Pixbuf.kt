@@ -10,6 +10,16 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdkpixbuf.Gdkpixbuf.resolveException
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_12
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_24
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_26
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_32
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_36
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_36_8
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_4
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_40
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_6
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
@@ -714,6 +724,7 @@ public open class Pixbuf(
      * @return A newly-created pixbuf
      * @since 2.12
      */
+    @GdkPixbufVersion2_12
     public open fun applyEmbeddedOrientation(): Pixbuf? =
         gdk_pixbuf_apply_embedded_orientation(gdkpixbufPixbufPointer.reinterpret())?.run {
             Pixbuf(reinterpret())
@@ -942,6 +953,7 @@ public open class Pixbuf(
      * @return `TRUE` on success.
      * @since 2.36
      */
+    @GdkPixbufVersion2_36
     public open fun copyOptions(destPixbuf: Pixbuf): Boolean =
         gdk_pixbuf_copy_options(
             gdkpixbufPixbufPointer.reinterpret(),
@@ -968,6 +980,7 @@ public open class Pixbuf(
      * @return the new pixbuf
      * @since 2.6
      */
+    @GdkPixbufVersion2_6
     public open fun flip(horizontal: Boolean): Pixbuf? =
         gdk_pixbuf_flip(gdkpixbufPixbufPointer.reinterpret(), horizontal.asGBoolean())?.run {
             Pixbuf(reinterpret())
@@ -986,6 +999,7 @@ public open class Pixbuf(
      * @return The length of the pixel data.
      * @since 2.26
      */
+    @GdkPixbufVersion2_26
     public open fun getByteLength(): ULong = gdk_pixbuf_get_byte_length(gdkpixbufPixbufPointer.reinterpret())
 
     /**
@@ -1051,6 +1065,7 @@ public open class Pixbuf(
      *   of key/values pairs
      * @since 2.32
      */
+    @GdkPixbufVersion2_32
     public open fun getOptions(): HashTable =
         gdk_pixbuf_get_options(gdkpixbufPixbufPointer.reinterpret())!!.run {
             HashTable(reinterpret())
@@ -1111,6 +1126,7 @@ public open class Pixbuf(
      *   returned #GBytes.
      * @since 2.32
      */
+    @GdkPixbufVersion2_32
     public open fun readPixelBytes(): Bytes =
         gdk_pixbuf_read_pixel_bytes(gdkpixbufPixbufPointer.reinterpret())!!.run {
             Bytes(reinterpret())
@@ -1123,6 +1139,7 @@ public open class Pixbuf(
      * @return `TRUE` if an option was removed, `FALSE` if not.
      * @since 2.36
      */
+    @GdkPixbufVersion2_36
     public open fun removeOption(key: String): Boolean =
         gdk_pixbuf_remove_option(gdkpixbufPixbufPointer.reinterpret(), key).asBoolean()
 
@@ -1136,6 +1153,7 @@ public open class Pixbuf(
      * @return the new pixbuf
      * @since 2.6
      */
+    @GdkPixbufVersion2_6
     public open fun rotateSimple(angle: PixbufRotation): Pixbuf? =
         gdk_pixbuf_rotate_simple(gdkpixbufPixbufPointer.reinterpret(), angle.nativeValue)?.run {
             Pixbuf(reinterpret())
@@ -1191,6 +1209,7 @@ public open class Pixbuf(
      * @return whether an error was set
      * @since 2.4
      */
+    @GdkPixbufVersion2_4
     public open fun saveToCallbackv(
         saveFunc: PixbufSaveFunc,
         type: String,
@@ -1233,6 +1252,7 @@ public open class Pixbuf(
      *   error was set.
      * @since 2.36
      */
+    @GdkPixbufVersion2_36
     public open fun saveToStreamv(
         stream: OutputStream,
         type: String,
@@ -1278,6 +1298,7 @@ public open class Pixbuf(
      * @param callback a `GAsyncReadyCallback` to call when the pixbuf is saved
      * @since 2.36
      */
+    @GdkPixbufVersion2_36
     public open fun saveToStreamvAsync(
         stream: OutputStream,
         type: String,
@@ -1440,6 +1461,7 @@ public open class Pixbuf(
      * @return `TRUE` on success
      * @since 2.2
      */
+    @GdkPixbufVersion2_2
     public open fun setOption(
         key: String,
         `value`: String,
@@ -1618,6 +1640,7 @@ public open class Pixbuf(
          * @return the rowstride for the given values, or -1 in case of error.
          * @since 2.36.8
          */
+        @GdkPixbufVersion2_36_8
         public fun calculateRowstride(
             colorspace: Colorspace,
             hasAlpha: Boolean,
@@ -1643,6 +1666,7 @@ public open class Pixbuf(
          * @param callback a `GAsyncReadyCallback` to call when the file info is available
          * @since 2.32
          */
+        @GdkPixbufVersion2_32
         public fun getFileInfoAsync(
             filename: String,
             cancellable: Cancellable? = null,
@@ -1663,6 +1687,7 @@ public open class Pixbuf(
          *   support image formats.
          * @since 2.2
          */
+        @GdkPixbufVersion2_2
         public fun getFormats(): SList =
             gdk_pixbuf_get_formats()!!.run {
                 SList(reinterpret())
@@ -1686,6 +1711,7 @@ public open class Pixbuf(
          * @param path Path to directory where the `loaders.cache` is installed
          * @since 2.40
          */
+        @GdkPixbufVersion2_40
         public fun initModules(path: String): Result<Boolean> =
             memScoped {
                 val gError = allocPointerTo<GError>()
@@ -1712,6 +1738,7 @@ public open class Pixbuf(
          * @param callback a `GAsyncReadyCallback` to call when the pixbuf is loaded
          * @since 2.24
          */
+        @GdkPixbufVersion2_24
         public fun newFromStreamAsync(
             stream: InputStream,
             cancellable: Cancellable? = null,
@@ -1741,6 +1768,7 @@ public open class Pixbuf(
          * @param callback a `GAsyncReadyCallback` to call when the pixbuf is loaded
          * @since 2.24
          */
+        @GdkPixbufVersion2_24
         public fun newFromStreamAtScaleAsync(
             stream: InputStream,
             width: Int,
@@ -1767,6 +1795,7 @@ public open class Pixbuf(
          * @return `TRUE` if the pixbuf was saved successfully, `FALSE` if an error was set.
          * @since 2.24
          */
+        @GdkPixbufVersion2_24
         public fun saveToStreamFinish(asyncResult: AsyncResult): Result<Boolean> =
             memScoped {
                 val gError = allocPointerTo<GError>()

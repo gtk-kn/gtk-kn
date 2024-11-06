@@ -6,6 +6,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -86,6 +88,7 @@ public class Queue(
      *
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun clear(): Unit = g_queue_clear(glibQueuePointer.reinterpret())
 
     /**
@@ -98,6 +101,7 @@ public class Queue(
      * @param func the function to call for each element's data
      * @since 2.4
      */
+    @GLibVersion2_4
     public fun foreach(func: Func): Unit =
         g_queue_foreach(glibQueuePointer.reinterpret(), FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
@@ -117,6 +121,7 @@ public class Queue(
      * @return the number of items in @queue
      * @since 2.4
      */
+    @GLibVersion2_4
     public fun getLength(): UInt = g_queue_get_length(glibQueuePointer.reinterpret())
 
     /**
@@ -127,6 +132,7 @@ public class Queue(
      *
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun `init`(): Unit = g_queue_init(glibQueuePointer.reinterpret())
 
     /**
@@ -141,6 +147,7 @@ public class Queue(
      *
      * @since 2.4
      */
+    @GLibVersion2_4
     public fun reverse(): Unit = g_queue_reverse(glibQueuePointer.reinterpret())
 
     /**
@@ -152,6 +159,7 @@ public class Queue(
      *     a positive value if the second comes before the first.
      * @since 2.4
      */
+    @GLibVersion2_4
     public fun sort(compareFunc: CompareDataFunc): Unit =
         g_queue_sort(
             glibQueuePointer.reinterpret(),

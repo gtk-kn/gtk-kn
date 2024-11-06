@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -23,6 +24,7 @@ import kotlin.Int
  * file or the `GioUnix-2.0` GIR namespace when using it.
  * @since 2.24
  */
+@GioVersion2_24
 public interface FileDescriptorBased :
     Interface,
     KGTyped {
@@ -34,6 +36,7 @@ public interface FileDescriptorBased :
      * @return The file descriptor
      * @since 2.24
      */
+    @GioVersion2_24
     public fun getFd(): Int = g_file_descriptor_based_get_fd(gioFileDescriptorBasedPointer.reinterpret())
 
     private data class Wrapper(

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.native.pango.PangoRenderPart
 import org.gtkkn.native.pango.PangoRenderPart.PANGO_RENDER_PART_BACKGROUND
 import org.gtkkn.native.pango.PangoRenderPart.PANGO_RENDER_PART_FOREGROUND
@@ -13,6 +14,7 @@ import org.gtkkn.native.pango.PangoRenderPart.PANGO_RENDER_PART_UNDERLINE
  * purposes as setting colors.
  * @since 1.8
  */
+@PangoVersion1_8
 public enum class RenderPart(
     public val nativeValue: PangoRenderPart,
 ) {

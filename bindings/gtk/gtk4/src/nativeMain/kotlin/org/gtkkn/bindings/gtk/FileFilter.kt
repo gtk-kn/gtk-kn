@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Variant
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -192,6 +193,7 @@ public open class FileFilter(
      * @param suffix filename suffix to match
      * @since 4.4
      */
+    @GtkVersion4_4
     public open fun addSuffix(suffix: String): Unit =
         gtk_file_filter_add_suffix(gtkFileFilterPointer.reinterpret(), suffix)
 

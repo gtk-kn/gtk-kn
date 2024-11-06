@@ -4,6 +4,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -102,6 +103,7 @@ public class ButtonContent(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var canShrink: Boolean
         /**
          * gets whether the button can be smaller than the natural size of its contents.
@@ -121,6 +123,7 @@ public class ButtonContent(
          * @param canShrink whether the button can shrink
          * @since 1.4
          */
+        @AdwVersion1_4
         set(
             canShrink
         ) = adw_button_content_set_can_shrink(adwButtonContentPointer.reinterpret(), canShrink.asGBoolean())
@@ -210,6 +213,7 @@ public class ButtonContent(
      * @return whether the button can shrink
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getCanShrink(): Boolean =
         adw_button_content_get_can_shrink(adwButtonContentPointer.reinterpret()).asBoolean()
 
@@ -249,6 +253,7 @@ public class ButtonContent(
      * @param canShrink whether the button can shrink
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setCanShrink(canShrink: Boolean): Unit =
         adw_button_content_set_can_shrink(adwButtonContentPointer.reinterpret(), canShrink.asGBoolean())
 

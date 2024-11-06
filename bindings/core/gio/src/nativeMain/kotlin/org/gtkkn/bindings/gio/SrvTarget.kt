@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GSrvTarget
@@ -48,6 +49,7 @@ public class SrvTarget(
      * @return a copy of @target
      * @since 2.22
      */
+    @GioVersion2_22
     public fun copy(): SrvTarget =
         g_srv_target_copy(gioSrvTargetPointer.reinterpret())!!.run {
             SrvTarget(reinterpret())
@@ -58,6 +60,7 @@ public class SrvTarget(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public fun free(): Unit = g_srv_target_free(gioSrvTargetPointer.reinterpret())
 
     /**
@@ -69,6 +72,7 @@ public class SrvTarget(
      * @return @target's hostname
      * @since 2.22
      */
+    @GioVersion2_22
     public fun getHostname(): String =
         g_srv_target_get_hostname(gioSrvTargetPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -78,6 +82,7 @@ public class SrvTarget(
      * @return @target's port
      * @since 2.22
      */
+    @GioVersion2_22
     public fun getPort(): UShort = g_srv_target_get_port(gioSrvTargetPointer.reinterpret())
 
     /**
@@ -88,6 +93,7 @@ public class SrvTarget(
      * @return @target's priority
      * @since 2.22
      */
+    @GioVersion2_22
     public fun getPriority(): UShort = g_srv_target_get_priority(gioSrvTargetPointer.reinterpret())
 
     /**
@@ -98,6 +104,7 @@ public class SrvTarget(
      * @return @target's weight
      * @since 2.22
      */
+    @GioVersion2_22
     public fun getWeight(): UShort = g_srv_target_get_weight(gioSrvTargetPointer.reinterpret())
 
     public companion object : RecordCompanion<SrvTarget, GSrvTarget> {

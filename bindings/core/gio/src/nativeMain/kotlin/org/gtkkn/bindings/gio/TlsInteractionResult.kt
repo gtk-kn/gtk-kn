@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.native.gio.GTlsInteractionResult
 import org.gtkkn.native.gio.GTlsInteractionResult.G_TLS_INTERACTION_FAILED
 import org.gtkkn.native.gio.GTlsInteractionResult.G_TLS_INTERACTION_HANDLED
@@ -11,6 +12,7 @@ import org.gtkkn.native.gio.GTlsInteractionResult.G_TLS_INTERACTION_UNHANDLED
  * when finishing an interaction request.
  * @since 2.30
  */
+@GioVersion2_30
 public enum class TlsInteractionResult(
     public val nativeValue: GTlsInteractionResult,
 ) {

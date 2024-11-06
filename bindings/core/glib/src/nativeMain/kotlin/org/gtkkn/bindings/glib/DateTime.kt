@@ -5,6 +5,10 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_58
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_62
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -102,6 +106,7 @@ import kotlin.Unit
  *
  * @since 2.26
  */
+@GLibVersion2_26
 public class DateTime(
     pointer: CPointer<GDateTime>,
 ) : Record {
@@ -116,6 +121,7 @@ public class DateTime(
      *   should be freed with g_date_time_unref(), or null
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun addDays(days: Int): DateTime? =
         g_date_time_add_days(glibDateTimePointer.reinterpret(), days)?.run {
             DateTime(reinterpret())
@@ -135,6 +141,7 @@ public class DateTime(
      *   should be freed with g_date_time_unref(), or null
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun addFull(
         years: Int,
         months: Int,
@@ -156,6 +163,7 @@ public class DateTime(
      *   should be freed with g_date_time_unref(), or null
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun addHours(hours: Int): DateTime? =
         g_date_time_add_hours(glibDateTimePointer.reinterpret(), hours)?.run {
             DateTime(reinterpret())
@@ -170,6 +178,7 @@ public class DateTime(
      *   should be freed with g_date_time_unref(), or null
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun addMinutes(minutes: Int): DateTime? =
         g_date_time_add_minutes(glibDateTimePointer.reinterpret(), minutes)?.run {
             DateTime(reinterpret())
@@ -189,6 +198,7 @@ public class DateTime(
      *   should be freed with g_date_time_unref(), or null
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun addMonths(months: Int): DateTime? =
         g_date_time_add_months(glibDateTimePointer.reinterpret(), months)?.run {
             DateTime(reinterpret())
@@ -203,6 +213,7 @@ public class DateTime(
      *   should be freed with g_date_time_unref(), or null
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun addSeconds(seconds: Double): DateTime? =
         g_date_time_add_seconds(glibDateTimePointer.reinterpret(), seconds)?.run {
             DateTime(reinterpret())
@@ -217,6 +228,7 @@ public class DateTime(
      *   should be freed with g_date_time_unref(), or null
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun addWeeks(weeks: Int): DateTime? =
         g_date_time_add_weeks(glibDateTimePointer.reinterpret(), weeks)?.run {
             DateTime(reinterpret())
@@ -234,6 +246,7 @@ public class DateTime(
      *   should be freed with g_date_time_unref(), or null
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun addYears(years: Int): DateTime? =
         g_date_time_add_years(glibDateTimePointer.reinterpret(), years)?.run {
             DateTime(reinterpret())
@@ -373,6 +386,7 @@ public class DateTime(
      *    string should be freed with g_free().
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun format(format: String): String =
         g_date_time_format(glibDateTimePointer.reinterpret(), format)?.toKString() ?: error("Expected not null string")
 
@@ -388,6 +402,7 @@ public class DateTime(
      *   should be freed with g_free().
      * @since 2.62
      */
+    @GLibVersion2_62
     public fun formatIso8601(): String =
         g_date_time_format_iso8601(glibDateTimePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -398,6 +413,7 @@ public class DateTime(
      * @return the day of the month
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getDayOfMonth(): Int = g_date_time_get_day_of_month(glibDateTimePointer.reinterpret())
 
     /**
@@ -407,6 +423,7 @@ public class DateTime(
      * @return the day of the week
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getDayOfWeek(): Int = g_date_time_get_day_of_week(glibDateTimePointer.reinterpret())
 
     /**
@@ -416,6 +433,7 @@ public class DateTime(
      * @return the day of the year
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getDayOfYear(): Int = g_date_time_get_day_of_year(glibDateTimePointer.reinterpret())
 
     /**
@@ -424,6 +442,7 @@ public class DateTime(
      * @return the hour of the day
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getHour(): Int = g_date_time_get_hour(glibDateTimePointer.reinterpret())
 
     /**
@@ -432,6 +451,7 @@ public class DateTime(
      * @return the microsecond of the second
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getMicrosecond(): Int = g_date_time_get_microsecond(glibDateTimePointer.reinterpret())
 
     /**
@@ -440,6 +460,7 @@ public class DateTime(
      * @return the minute of the hour
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getMinute(): Int = g_date_time_get_minute(glibDateTimePointer.reinterpret())
 
     /**
@@ -449,6 +470,7 @@ public class DateTime(
      * @return the month represented by @datetime
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getMonth(): Int = g_date_time_get_month(glibDateTimePointer.reinterpret())
 
     /**
@@ -457,6 +479,7 @@ public class DateTime(
      * @return the second represented by @datetime
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getSecond(): Int = g_date_time_get_second(glibDateTimePointer.reinterpret())
 
     /**
@@ -466,6 +489,7 @@ public class DateTime(
      * @return the number of seconds
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getSeconds(): Double = g_date_time_get_seconds(glibDateTimePointer.reinterpret())
 
     /**
@@ -474,6 +498,7 @@ public class DateTime(
      * @return the time zone
      * @since 2.58
      */
+    @GLibVersion2_58
     public fun getTimezone(): TimeZone =
         g_date_time_get_timezone(glibDateTimePointer.reinterpret())!!.run {
             TimeZone(reinterpret())
@@ -492,6 +517,7 @@ public class DateTime(
      *          modified or freed
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getTimezoneAbbreviation(): String =
         g_date_time_get_timezone_abbreviation(glibDateTimePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -532,6 +558,7 @@ public class DateTime(
      * @return the ISO 8601 week-numbering year for @datetime
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getWeekNumberingYear(): Int = g_date_time_get_week_numbering_year(glibDateTimePointer.reinterpret())
 
     /**
@@ -554,6 +581,7 @@ public class DateTime(
      * @return the ISO 8601 week number for @datetime.
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getWeekOfYear(): Int = g_date_time_get_week_of_year(glibDateTimePointer.reinterpret())
 
     /**
@@ -562,6 +590,7 @@ public class DateTime(
      * @return the year represented by @datetime
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getYear(): Int = g_date_time_get_year(glibDateTimePointer.reinterpret())
 
     /**
@@ -570,6 +599,7 @@ public class DateTime(
      * @return a #guint containing the hash
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun hash(): UInt = g_date_time_hash(glibDateTimePointer.reinterpret())
 
     /**
@@ -579,6 +609,7 @@ public class DateTime(
      * @return true if daylight savings time is in effect
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun isDaylightSavings(): Boolean =
         g_date_time_is_daylight_savings(glibDateTimePointer.reinterpret()).asBoolean()
 
@@ -588,6 +619,7 @@ public class DateTime(
      * @return the #GDateTime with the reference count increased
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun ref(): DateTime =
         g_date_time_ref(glibDateTimePointer.reinterpret())!!.run {
             DateTime(reinterpret())
@@ -604,6 +636,7 @@ public class DateTime(
      *   should be freed with g_date_time_unref(), or null
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun toLocal(): DateTime? =
         g_date_time_to_local(glibDateTimePointer.reinterpret())?.run {
             DateTime(reinterpret())
@@ -628,6 +661,7 @@ public class DateTime(
      * @return true if successful, else false
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun toTimeval(tv: TimeVal): Boolean =
         g_date_time_to_timeval(glibDateTimePointer.reinterpret(), tv.glibTimeValPointer).asBoolean()
 
@@ -644,6 +678,7 @@ public class DateTime(
      *   should be freed with g_date_time_unref(), or null
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun toTimezone(tz: TimeZone): DateTime? =
         g_date_time_to_timezone(glibDateTimePointer.reinterpret(), tz.glibTimeZonePointer)?.run {
             DateTime(reinterpret())
@@ -659,6 +694,7 @@ public class DateTime(
      * @return the Unix time corresponding to @datetime
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun toUnix(): Long = g_date_time_to_unix(glibDateTimePointer.reinterpret())
 
     /**
@@ -670,6 +706,7 @@ public class DateTime(
      * @return the Unix time corresponding to @datetime
      * @since 2.80
      */
+    @GLibVersion2_80
     public fun toUnixUsec(): Long = g_date_time_to_unix_usec(glibDateTimePointer.reinterpret())
 
     /**
@@ -683,6 +720,7 @@ public class DateTime(
      *   should be freed with g_date_time_unref(), or null
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun toUtc(): DateTime? =
         g_date_time_to_utc(glibDateTimePointer.reinterpret())?.run {
             DateTime(reinterpret())
@@ -696,6 +734,7 @@ public class DateTime(
      *
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun unref(): Unit = g_date_time_unref(glibDateTimePointer.reinterpret())
 
     public companion object : RecordCompanion<DateTime, GDateTime> {

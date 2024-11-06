@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -35,6 +36,7 @@ import kotlin.Unit
  *
  * @since 2.32
  */
+@GioVersion2_32
 public interface ActionMap :
     Interface,
     KGTyped {
@@ -51,6 +53,7 @@ public interface ActionMap :
      * @param action a #GAction
      * @since 2.32
      */
+    @GioVersion2_32
     public fun addAction(action: Action): Unit =
         g_action_map_add_action(gioActionMapPointer.reinterpret(), action.gioActionPointer)
 
@@ -63,6 +66,7 @@ public interface ActionMap :
      * @return a #GAction, or null
      * @since 2.32
      */
+    @GioVersion2_32
     public fun lookupAction(actionName: String): Action? =
         g_action_map_lookup_action(gioActionMapPointer.reinterpret(), actionName)?.run {
             Action.wrap(reinterpret())
@@ -76,6 +80,7 @@ public interface ActionMap :
      * @param actionName the name of the action
      * @since 2.32
      */
+    @GioVersion2_32
     public fun removeAction(actionName: String): Unit =
         g_action_map_remove_action(gioActionMapPointer.reinterpret(), actionName)
 

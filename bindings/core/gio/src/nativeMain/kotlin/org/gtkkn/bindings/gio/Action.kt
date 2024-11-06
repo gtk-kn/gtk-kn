@@ -4,6 +4,9 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.extensions.common.asBoolean
@@ -75,6 +78,7 @@ public interface Action :
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public val enabled: Boolean
         /**
          * Checks if @action is currently enabled.
@@ -93,6 +97,7 @@ public interface Action :
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public val name: String
         /**
          * Queries the name of @action.
@@ -109,6 +114,7 @@ public interface Action :
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public val parameterType: VariantType?
         /**
          * Queries the type of the parameter that must be given when activating
@@ -133,6 +139,7 @@ public interface Action :
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public val state: Variant?
         /**
          * Queries the current state of @action.
@@ -158,6 +165,7 @@ public interface Action :
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public val stateType: VariantType?
         /**
          * Queries the type of the state of @action.
@@ -193,6 +201,7 @@ public interface Action :
      * @param parameter the parameter to the activation
      * @since 2.28
      */
+    @GioVersion2_28
     public fun activate(parameter: Variant? = null): Unit =
         g_action_activate(gioActionPointer.reinterpret(), parameter?.glibVariantPointer)
 
@@ -211,6 +220,7 @@ public interface Action :
      * @param value the new state
      * @since 2.30
      */
+    @GioVersion2_30
     public fun changeState(`value`: Variant): Unit =
         g_action_change_state(gioActionPointer.reinterpret(), `value`.glibVariantPointer)
 
@@ -223,6 +233,7 @@ public interface Action :
      * @return whether the action is enabled
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getEnabled(): Boolean = g_action_get_enabled(gioActionPointer.reinterpret()).asBoolean()
 
     /**
@@ -231,6 +242,7 @@ public interface Action :
      * @return the name of the action
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getName(): String =
         g_action_get_name(gioActionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -247,6 +259,7 @@ public interface Action :
      * @return the parameter type
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getParameterType(): VariantType? =
         g_action_get_parameter_type(gioActionPointer.reinterpret())?.run {
             VariantType(reinterpret())
@@ -265,6 +278,7 @@ public interface Action :
      * @return the current state of the action
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getState(): Variant? =
         g_action_get_state(gioActionPointer.reinterpret())?.run {
             Variant(reinterpret())
@@ -293,6 +307,7 @@ public interface Action :
      * @return the state range hint
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getStateHint(): Variant? =
         g_action_get_state_hint(gioActionPointer.reinterpret())?.run {
             Variant(reinterpret())
@@ -315,6 +330,7 @@ public interface Action :
      * @return the state type, if the action is stateful
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getStateType(): VariantType? =
         g_action_get_state_type(gioActionPointer.reinterpret())?.run {
             VariantType(reinterpret())
@@ -349,6 +365,7 @@ public interface Action :
          * @return true if @action_name is valid
          * @since 2.38
          */
+        @GioVersion2_38
         public fun nameIsValid(actionName: String): Boolean = g_action_name_is_valid(actionName).asBoolean()
 
         /**
@@ -368,6 +385,7 @@ public interface Action :
          * @return a detailed format string
          * @since 2.38
          */
+        @GioVersion2_38
         public fun printDetailedName(
             actionName: String,
             targetValue: Variant? = null,

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_66
 import org.gtkkn.native.gio.GTlsChannelBindingType
 import org.gtkkn.native.gio.GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_EXPORTER
 import org.gtkkn.native.gio.GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_SERVER_END_POINT
@@ -13,6 +14,7 @@ import org.gtkkn.native.gio.GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_UNI
  * binding type is not currently implemented.
  * @since 2.66
  */
+@GioVersion2_66
 public enum class TlsChannelBindingType(
     public val nativeValue: GTlsChannelBindingType,
 ) {

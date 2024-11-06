@@ -109,7 +109,8 @@ import kotlin.Unit
  */
 public open class SearchContext(
     pointer: CPointer<GtkSourceSearchContext>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceSearchContextPointer: CPointer<GtkSourceSearchContext>
         get() = gPointer.reinterpret()
 
@@ -136,19 +137,16 @@ public open class SearchContext(
          *
          * @return whether to highlight the search occurrences.
          */
-        get() =
-            gtk_source_search_context_get_highlight(gtksourceSearchContextPointer.reinterpret()).asBoolean()
+        get() = gtk_source_search_context_get_highlight(gtksourceSearchContextPointer.reinterpret()).asBoolean()
 
         /**
          * Enables or disables the search occurrences highlighting.
          *
          * @param highlight the setting.
          */
-        set(highlight) =
-            gtk_source_search_context_set_highlight(
-                gtksourceSearchContextPointer.reinterpret(),
-                highlight.asGBoolean()
-            )
+        set(
+            highlight
+        ) = gtk_source_search_context_set_highlight(gtksourceSearchContextPointer.reinterpret(), highlight.asGBoolean())
 
     /**
      * The total number of search occurrences. If the search is disabled,
@@ -164,8 +162,7 @@ public open class SearchContext(
          *
          * @return the total number of search occurrences, or -1 if unknown.
          */
-        get() =
-            gtk_source_search_context_get_occurrences_count(gtksourceSearchContextPointer.reinterpret())
+        get() = gtk_source_search_context_get_occurrences_count(gtksourceSearchContextPointer.reinterpret())
 
     /**
      * If the regex search pattern doesn't follow all the rules, this
@@ -219,13 +216,15 @@ public open class SearchContext(
      * @param settings a #GtkSourceSearchSettings, or null.
      * @return a new search context.
      */
-    public constructor(buffer: Buffer, settings: SearchSettings? = null) :
-        this(
-            gtk_source_search_context_new(
-                buffer.gtksourceBufferPointer.reinterpret(),
-                settings?.gtksourceSearchSettingsPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        buffer: Buffer,
+        settings: SearchSettings? = null,
+    ) : this(
+        gtk_source_search_context_new(
+            buffer.gtksourceBufferPointer.reinterpret(),
+            settings?.gtksourceSearchSettingsPointer?.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * The asynchronous version of [method@SearchContext.backward].
@@ -448,10 +447,7 @@ public open class SearchContext(
      * @param highlight the setting.
      */
     public open fun setHighlight(highlight: Boolean): Unit =
-        gtk_source_search_context_set_highlight(
-            gtksourceSearchContextPointer.reinterpret(),
-            highlight.asGBoolean()
-        )
+        gtk_source_search_context_set_highlight(gtksourceSearchContextPointer.reinterpret(), highlight.asGBoolean())
 
     /**
      * Set the style to apply on search matches.
@@ -469,9 +465,7 @@ public open class SearchContext(
 
     public companion object : TypeCompanion<SearchContext> {
         override val type: GeneratedClassKGType<SearchContext> =
-            GeneratedClassKGType(gtk_source_search_context_get_type()) {
-                SearchContext(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_search_context_get_type()) { SearchContext(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.native.gio.GSocketType
 import org.gtkkn.native.gio.GSocketType.G_SOCKET_TYPE_DATAGRAM
 import org.gtkkn.native.gio.GSocketType.G_SOCKET_TYPE_INVALID
@@ -12,6 +13,7 @@ import org.gtkkn.native.gio.GSocketType.G_SOCKET_TYPE_STREAM
  * all the socket types.
  * @since 2.22
  */
+@GioVersion2_22
 public enum class SocketType(
     public val nativeValue: GSocketType,
 ) {

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.native.adw.AdwToolbarStyle
 import org.gtkkn.native.adw.AdwToolbarStyle.ADW_TOOLBAR_FLAT
 import org.gtkkn.native.adw.AdwToolbarStyle.ADW_TOOLBAR_RAISED
@@ -49,6 +50,7 @@ import org.gtkkn.native.adw.AdwToolbarStyle.ADW_TOOLBAR_RAISED_BORDER
  * New values may be added to this enumeration over time.
  * @since 1.4
  */
+@AdwVersion1_4
 public enum class ToolbarStyle(
     public val nativeValue: AdwToolbarStyle,
 ) {

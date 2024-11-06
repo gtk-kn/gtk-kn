@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -18,6 +19,7 @@ import org.gtkkn.native.gsk.gsk_stroke_node_new
  * [struct@Gsk.Path] using the [struct@Gsk.Stroke] attributes.
  * @since 4.14
  */
+@GskVersion4_14
 public open class StrokeNode(
     pointer: CPointer<GskStrokeNode>,
 ) : RenderNode(pointer.reinterpret()),
@@ -51,6 +53,7 @@ public open class StrokeNode(
      * @return The child that is getting drawn
      * @since 4.14
      */
+    @GskVersion4_14
     public open fun getChild(): RenderNode =
         gsk_stroke_node_get_child(gskStrokeNodePointer.reinterpret())!!.run {
             RenderNode(reinterpret())
@@ -63,6 +66,7 @@ public open class StrokeNode(
      * @return a #GskPath
      * @since 4.14
      */
+    @GskVersion4_14
     public open fun getPath(): Path =
         gsk_stroke_node_get_path(gskStrokeNodePointer.reinterpret())!!.run {
             Path(reinterpret())
@@ -74,6 +78,7 @@ public open class StrokeNode(
      * @return a #GskStroke
      * @since 4.14
      */
+    @GskVersion4_14
     public open fun getStroke(): Stroke =
         gsk_stroke_node_get_stroke(gskStrokeNodePointer.reinterpret())!!.run {
             Stroke(reinterpret())

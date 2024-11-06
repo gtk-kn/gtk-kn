@@ -10,6 +10,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
@@ -52,6 +53,7 @@ import kotlin.Unit
  *
  * @since 2.30
  */
+@GioVersion2_30
 public open class TlsDatabase(
     pointer: CPointer<GTlsDatabase>,
 ) : Object(pointer.reinterpret()),
@@ -74,6 +76,7 @@ public open class TlsDatabase(
      * handle.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun createCertificateHandle(certificate: TlsCertificate): String =
         g_tls_database_create_certificate_handle(
             gioTlsDatabasePointer.reinterpret(),
@@ -103,6 +106,7 @@ public open class TlsDatabase(
      * #GTlsCertificate, or null. Use g_object_unref() to release the certificate.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun lookupCertificateForHandle(
         handle: String,
         interaction: TlsInteraction? = null,
@@ -141,6 +145,7 @@ public open class TlsDatabase(
      * @param callback callback to call when the operation completes
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun lookupCertificateForHandleAsync(
         handle: String,
         interaction: TlsInteraction? = null,
@@ -170,6 +175,7 @@ public open class TlsDatabase(
      * Use g_object_unref() to release the certificate.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun lookupCertificateForHandleFinish(result: AsyncResult): Result<TlsCertificate> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -219,6 +225,7 @@ public open class TlsDatabase(
      * or null. Use g_object_unref() to release the certificate.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun lookupCertificateIssuer(
         certificate: TlsCertificate,
         interaction: TlsInteraction? = null,
@@ -257,6 +264,7 @@ public open class TlsDatabase(
      * @param callback callback to call when the operation completes
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun lookupCertificateIssuerAsync(
         certificate: TlsCertificate,
         interaction: TlsInteraction? = null,
@@ -283,6 +291,7 @@ public open class TlsDatabase(
      * or null. Use g_object_unref() to release the certificate.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun lookupCertificateIssuerFinish(result: AsyncResult): Result<TlsCertificate> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -311,6 +320,7 @@ public open class TlsDatabase(
      * objects. Use g_object_unref() on each certificate, and g_list_free() on the release the list.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun lookupCertificatesIssuedByFinish(result: AsyncResult): Result<List> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -402,6 +412,7 @@ public open class TlsDatabase(
      * result of verification.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun verifyChain(
         chain: TlsCertificate,
         purpose: String,
@@ -447,6 +458,7 @@ public open class TlsDatabase(
      * @param callback callback to call when the operation completes
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun verifyChainAsync(
         chain: TlsCertificate,
         purpose: String,
@@ -486,6 +498,7 @@ public open class TlsDatabase(
      * result of verification.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun verifyChainFinish(result: AsyncResult): Result<TlsCertificateFlags> =
         memScoped {
             val gError = allocPointerTo<GError>()

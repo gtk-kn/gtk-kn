@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -27,6 +28,7 @@ import kotlin.String
  *
  * @since 2.32
  */
+@GioVersion2_32
 public open class MenuLinkIter(
     pointer: CPointer<GMenuLinkIter>,
 ) : Object(pointer.reinterpret()),
@@ -42,6 +44,7 @@ public open class MenuLinkIter(
      * @return the type of the link
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getName(): String =
         g_menu_link_iter_get_name(gioMenuLinkIterPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -54,6 +57,7 @@ public open class MenuLinkIter(
      * @return the #GMenuModel that is linked to
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getValue(): MenuModel =
         g_menu_link_iter_get_value(gioMenuLinkIterPointer.reinterpret())!!.run {
             MenuModel(reinterpret())
@@ -72,6 +76,7 @@ public open class MenuLinkIter(
      * @return true on success, or false when there are no more links
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun next(): Boolean = g_menu_link_iter_next(gioMenuLinkIterPointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<MenuLinkIter> {

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gsk.GSK_PATH_FOREACH_ALLOW_CONIC
 import org.gtkkn.native.gsk.GSK_PATH_FOREACH_ALLOW_CUBIC
@@ -23,6 +24,7 @@ public class PathForeachFlags(
 ) : Bitfield<PathForeachFlags> {
     override infix fun or(other: PathForeachFlags): PathForeachFlags = PathForeachFlags(mask or other.mask)
 
+    @GskVersion4_14
     public companion object {
         /**
          * The default behavior, only allow lines.

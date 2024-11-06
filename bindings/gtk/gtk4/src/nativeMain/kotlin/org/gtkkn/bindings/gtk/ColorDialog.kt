@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -54,6 +55,7 @@ import kotlin.Unit
  * that uses `GtkColorDialog` and presents the results.
  * @since 4.10
  */
+@GtkVersion4_10
 public open class ColorDialog(
     pointer: CPointer<GtkColorDialog>,
 ) : Object(pointer.reinterpret()),
@@ -66,6 +68,7 @@ public open class ColorDialog(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var modal: Boolean
         /**
          * Returns whether the color chooser dialog
@@ -85,6 +88,7 @@ public open class ColorDialog(
          * @param modal the new value
          * @since 4.10
          */
+        @GtkVersion4_10
         set(modal) = gtk_color_dialog_set_modal(gtkColorDialogPointer.reinterpret(), modal.asGBoolean())
 
     /**
@@ -93,6 +97,7 @@ public open class ColorDialog(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var title: String
         /**
          * Returns the title that will be shown on the
@@ -112,6 +117,7 @@ public open class ColorDialog(
          * @param title the new title
          * @since 4.10
          */
+        @GtkVersion4_10
         set(title) = gtk_color_dialog_set_title(gtkColorDialogPointer.reinterpret(), title)
 
     /**
@@ -122,6 +128,7 @@ public open class ColorDialog(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var withAlpha: Boolean
         /**
          * Returns whether colors may have alpha.
@@ -137,6 +144,7 @@ public open class ColorDialog(
          * @param withAlpha the new value
          * @since 4.10
          */
+        @GtkVersion4_10
         set(withAlpha) = gtk_color_dialog_set_with_alpha(gtkColorDialogPointer.reinterpret(), withAlpha.asGBoolean())
 
     /**
@@ -161,6 +169,7 @@ public open class ColorDialog(
      * @param callback a callback to call when the operation is complete
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun chooseRgba(
         parent: Window? = null,
         initialColor: RGBA? = null,
@@ -185,6 +194,7 @@ public open class ColorDialog(
      *   `NULL` and @error is set
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun chooseRgbaFinish(result: AsyncResult): Result<RGBA?> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -212,6 +222,7 @@ public open class ColorDialog(
      * @return `TRUE` if the color chooser dialog is modal
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getModal(): Boolean = gtk_color_dialog_get_modal(gtkColorDialogPointer.reinterpret()).asBoolean()
 
     /**
@@ -221,6 +232,7 @@ public open class ColorDialog(
      * @return the title
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getTitle(): String =
         gtk_color_dialog_get_title(gtkColorDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -231,6 +243,7 @@ public open class ColorDialog(
      * @return `TRUE` if colors may have alpha
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getWithAlpha(): Boolean =
         gtk_color_dialog_get_with_alpha(gtkColorDialogPointer.reinterpret()).asBoolean()
 
@@ -242,6 +255,7 @@ public open class ColorDialog(
      * @param modal the new value
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setModal(modal: Boolean): Unit =
         gtk_color_dialog_set_modal(gtkColorDialogPointer.reinterpret(), modal.asGBoolean())
 
@@ -252,6 +266,7 @@ public open class ColorDialog(
      * @param title the new title
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setTitle(title: String): Unit =
         gtk_color_dialog_set_title(gtkColorDialogPointer.reinterpret(), title)
 
@@ -261,6 +276,7 @@ public open class ColorDialog(
      * @param withAlpha the new value
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setWithAlpha(withAlpha: Boolean): Unit =
         gtk_color_dialog_set_with_alpha(gtkColorDialogPointer.reinterpret(), withAlpha.asGBoolean())
 

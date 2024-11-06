@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -29,6 +30,7 @@ import kotlin.Unit
  *
  * @since 2.24
  */
+@GioVersion2_24
 public interface Converter :
     Interface,
     KGTyped {
@@ -41,6 +43,7 @@ public interface Converter :
      *
      * @since 2.24
      */
+    @GioVersion2_24
     public fun reset(): Unit = g_converter_reset(gioConverterPointer.reinterpret())
 
     private data class Wrapper(

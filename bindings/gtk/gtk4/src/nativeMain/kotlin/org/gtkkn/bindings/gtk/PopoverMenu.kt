@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.MenuModel
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -173,6 +174,7 @@ public open class PopoverMenu(
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public open var flags: PopoverMenuFlags
         /**
          * Returns the flags that @popover uses to create/display a menu from its model.
@@ -194,6 +196,7 @@ public open class PopoverMenu(
          * @param flags a set of `GtkPopoverMenuFlags`
          * @since 4.14
          */
+        @GtkVersion4_14
         set(flags) = gtk_popover_menu_set_flags(gtkPopoverMenuPointer.reinterpret(), flags.mask)
 
     /**
@@ -293,6 +296,7 @@ public open class PopoverMenu(
      * @return the `GtkPopoverMenuFlags`
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getFlags(): PopoverMenuFlags =
         gtk_popover_menu_get_flags(gtkPopoverMenuPointer.reinterpret()).run {
             PopoverMenuFlags(this)
@@ -330,6 +334,7 @@ public open class PopoverMenu(
      * @param flags a set of `GtkPopoverMenuFlags`
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setFlags(flags: PopoverMenuFlags): Unit =
         gtk_popover_menu_set_flags(gtkPopoverMenuPointer.reinterpret(), flags.mask)
 

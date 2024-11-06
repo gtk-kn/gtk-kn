@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.gobject.TypeModule
 import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -87,6 +88,7 @@ public open class IOModule(
          *     must be suitable for freeing with g_strfreev().
          * @since 2.24
          */
+        @GioVersion2_24
         public fun query(): List<String> =
             g_io_module_query()?.toKStringList() ?: error("Expected not null string array")
     }

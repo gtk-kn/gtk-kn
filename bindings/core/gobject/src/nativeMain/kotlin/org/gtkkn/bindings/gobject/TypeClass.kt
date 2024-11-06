@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gobject
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GTypeClass
@@ -97,6 +98,7 @@ public class TypeClass(
      * @param privateSize size of private structure
      * @since 2.4
      */
+    @GObjectVersion2_4
     public fun addPrivate(privateSize: ULong): Unit =
         g_type_class_add_private(gobjectTypeClassPointer.reinterpret(), privateSize)
 
@@ -154,6 +156,7 @@ public class TypeClass(
          *     currently exist or is dynamically loaded
          * @since 2.4
          */
+        @GObjectVersion2_4
         public fun peekStatic(type: ULong): TypeClass =
             g_type_class_peek_static(type)!!.run {
                 TypeClass(reinterpret())

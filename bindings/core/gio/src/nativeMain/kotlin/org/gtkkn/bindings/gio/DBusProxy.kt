@@ -17,6 +17,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
@@ -130,6 +132,7 @@ import kotlin.collections.List
  *
  * @since 2.26
  */
+@GioVersion2_26
 public open class DBusProxy(
     pointer: CPointer<GDBusProxy>,
 ) : Object(pointer.reinterpret()),
@@ -335,6 +338,7 @@ public open class DBusProxy(
      * care about the result of the method invocation.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun call(
         methodName: String,
         parameters: Variant? = null,
@@ -362,6 +366,7 @@ public open class DBusProxy(
      * return values. Free with g_variant_unref().
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun callFinish(res: AsyncResult): Result<Variant> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -428,6 +433,7 @@ public open class DBusProxy(
      * return values. Free with g_variant_unref().
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun callSync(
         methodName: String,
         parameters: Variant? = null,
@@ -473,6 +479,7 @@ public open class DBusProxy(
      * care about the result of the method invocation.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun callWithUnixFdList(
         methodName: String,
         parameters: Variant? = null,
@@ -508,6 +515,7 @@ public open class DBusProxy(
      *    the cache. The returned reference must be freed with g_variant_unref().
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getCachedProperty(propertyName: String): Variant? =
         g_dbus_proxy_get_cached_property(gioDBusProxyPointer.reinterpret(), propertyName)?.run {
             Variant(reinterpret())
@@ -522,6 +530,7 @@ public open class DBusProxy(
      *          g_strfreev().
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getCachedPropertyNames(): List<String>? =
         g_dbus_proxy_get_cached_property_names(gioDBusProxyPointer.reinterpret())?.toKStringList()
 
@@ -531,6 +540,7 @@ public open class DBusProxy(
      * @return A #GDBusConnection owned by @proxy. Do not free.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getConnection(): DBusConnection =
         g_dbus_proxy_get_connection(gioDBusProxyPointer.reinterpret())!!.run {
             DBusConnection(reinterpret())
@@ -546,6 +556,7 @@ public open class DBusProxy(
      * @return Timeout to use for @proxy.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getDefaultTimeout(): Int = g_dbus_proxy_get_default_timeout(gioDBusProxyPointer.reinterpret())
 
     /**
@@ -554,6 +565,7 @@ public open class DBusProxy(
      * @return Flags from the #GDBusProxyFlags enumeration.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getFlags(): DBusProxyFlags =
         g_dbus_proxy_get_flags(gioDBusProxyPointer.reinterpret()).run {
             DBusProxyFlags(this)
@@ -568,6 +580,7 @@ public open class DBusProxy(
      *    Do not unref the returned object, it is owned by @proxy.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getInterfaceInfo(): DBusInterfaceInfo? =
         g_dbus_proxy_get_interface_info(gioDBusProxyPointer.reinterpret())?.run {
             DBusInterfaceInfo(reinterpret())
@@ -579,6 +592,7 @@ public open class DBusProxy(
      * @return A string owned by @proxy. Do not free.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getInterfaceName(): String =
         g_dbus_proxy_get_interface_name(gioDBusProxyPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -593,6 +607,7 @@ public open class DBusProxy(
      * @return A string owned by @proxy. Do not free.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getName(): String? = g_dbus_proxy_get_name(gioDBusProxyPointer.reinterpret())?.toKString()
 
     /**
@@ -605,6 +620,7 @@ public open class DBusProxy(
      *    owner exists. Free with g_free().
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getNameOwner(): String =
         g_dbus_proxy_get_name_owner(gioDBusProxyPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -614,6 +630,7 @@ public open class DBusProxy(
      * @return A string owned by @proxy. Do not free.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getObjectPath(): String =
         g_dbus_proxy_get_object_path(gioDBusProxyPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -657,6 +674,7 @@ public open class DBusProxy(
      * @param value Value for the property or null to remove it from the cache.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setCachedProperty(
         propertyName: String,
         `value`: Variant? = null,
@@ -673,6 +691,7 @@ public open class DBusProxy(
      * @param timeoutMsec Timeout in milliseconds.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setDefaultTimeout(timeoutMsec: Int): Unit =
         g_dbus_proxy_set_default_timeout(gioDBusProxyPointer.reinterpret(), timeoutMsec)
 
@@ -685,6 +704,7 @@ public open class DBusProxy(
      *    or null to unset.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setInterfaceInfo(info: DBusInterfaceInfo? = null): Unit =
         g_dbus_proxy_set_interface_info(gioDBusProxyPointer.reinterpret(), info?.gioDBusInterfaceInfoPointer)
 
@@ -706,6 +726,7 @@ public open class DBusProxy(
      * @param handler the Callback to connect. Params: `changedProperties` A #GVariant containing the properties that changed (type: `a{sv}`); `invalidatedProperties` A null terminated array of properties that was invalidated
      * @since 2.26
      */
+    @GioVersion2_26
     public fun connectGPropertiesChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (changedProperties: Variant, invalidatedProperties: List<String>) -> Unit,
@@ -730,6 +751,7 @@ public open class DBusProxy(
      * @param handler the Callback to connect. Params: `senderName` The sender of the signal or null if the connection is not a bus connection.; `signalName` The name of the signal.; `parameters` A #GVariant tuple with parameters for the signal.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun connectGSignal(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
@@ -832,6 +854,7 @@ public open class DBusProxy(
          * @param callback Callback function to invoke when the proxy is ready.
          * @since 2.26
          */
+        @GioVersion2_26
         public fun new(
             connection: DBusConnection,
             flags: DBusProxyFlags,
@@ -869,6 +892,7 @@ public open class DBusProxy(
          * @param callback Callback function to invoke when the proxy is ready.
          * @since 2.26
          */
+        @GioVersion2_26
         public fun newForBus(
             busType: BusType,
             flags: DBusProxyFlags,

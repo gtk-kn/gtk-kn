@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -67,6 +68,7 @@ public open class MemoryInputStream(
      * @param bytes input data
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun addBytes(bytes: Bytes): Unit =
         g_memory_input_stream_add_bytes(gioMemoryInputStreamPointer.reinterpret(), bytes.glibBytesPointer)
 

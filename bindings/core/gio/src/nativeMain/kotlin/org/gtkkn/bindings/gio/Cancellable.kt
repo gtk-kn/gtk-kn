@@ -13,6 +13,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.PollFD
 import org.gtkkn.bindings.glib.Source
@@ -122,6 +124,7 @@ public open class Cancellable(
      *          been cancelled.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun connect(callback: Callback): ULong =
         g_cancellable_connect(
             gioCancellablePointer.reinterpret(),
@@ -149,6 +152,7 @@ public open class Cancellable(
      * @param handlerId Handler id of the handler to be disconnected, or `0`.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun disconnect(handlerId: ULong): Unit =
         g_cancellable_disconnect(gioCancellablePointer.reinterpret(), handlerId)
 
@@ -205,6 +209,7 @@ public open class Cancellable(
      *          failure to prepare the cancellable.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun makePollfd(pollfd: PollFD): Boolean =
         g_cancellable_make_pollfd(gioCancellablePointer.reinterpret(), pollfd.glibPollFDPointer).asBoolean()
 
@@ -239,6 +244,7 @@ public open class Cancellable(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun releaseFd(): Unit = g_cancellable_release_fd(gioCancellablePointer.reinterpret())
 
     /**
@@ -291,6 +297,7 @@ public open class Cancellable(
      * @return the new #GSource.
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun sourceNew(): Source =
         g_cancellable_source_new(gioCancellablePointer.reinterpret())!!.run {
             Source(reinterpret())

@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -160,6 +161,7 @@ public open class Viewport(
      *   the scroll operation or NULL to scroll into view
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun scrollTo(
         descendant: Widget,
         scroll: ScrollInfo? = null,

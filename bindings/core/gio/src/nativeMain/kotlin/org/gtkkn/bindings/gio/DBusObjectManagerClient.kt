@@ -17,6 +17,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
@@ -144,6 +145,7 @@ import kotlin.collections.List
  *
  * @since 2.30
  */
+@GioVersion2_30
 public open class DBusObjectManagerClient(
     pointer: CPointer<GDBusObjectManagerClient>,
 ) : Object(pointer.reinterpret()),
@@ -168,6 +170,7 @@ public open class DBusObjectManagerClient(
      *
      * @since 2.30
      */
+    @GioVersion2_30
     public open val connection: DBusConnection
         /**
          * Gets the #GDBusConnection used by @manager.
@@ -186,6 +189,7 @@ public open class DBusObjectManagerClient(
      *
      * @since 2.30
      */
+    @GioVersion2_30
     public open val flags: DBusObjectManagerClientFlags
         /**
          * Gets the flags that @manager was constructed with.
@@ -204,6 +208,7 @@ public open class DBusObjectManagerClient(
      *
      * @since 2.30
      */
+    @GioVersion2_30
     public open val name: String
         /**
          * Gets the name that @manager is for, or null if not a message bus
@@ -224,6 +229,7 @@ public open class DBusObjectManagerClient(
      *
      * @since 2.30
      */
+    @GioVersion2_30
     public open val nameOwner: String
         /**
          * The unique name that owns the name that @manager is for or null if
@@ -267,6 +273,7 @@ public open class DBusObjectManagerClient(
      *   the object belongs to @manager.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getConnection(): DBusConnection =
         g_dbus_object_manager_client_get_connection(gioDBusObjectManagerClientPointer.reinterpret())!!.run {
             DBusConnection(reinterpret())
@@ -279,6 +286,7 @@ public open class DBusObjectManagerClient(
      * enumeration.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getFlags(): DBusObjectManagerClientFlags =
         g_dbus_object_manager_client_get_flags(gioDBusObjectManagerClientPointer.reinterpret()).run {
             DBusObjectManagerClientFlags(this)
@@ -292,6 +300,7 @@ public open class DBusObjectManagerClient(
      * belongs to @manager.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getName(): String =
         g_dbus_object_manager_client_get_name(gioDBusObjectManagerClientPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -306,6 +315,7 @@ public open class DBusObjectManagerClient(
      * exists. Free with g_free().
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getNameOwner(): String =
         g_dbus_object_manager_client_get_name_owner(gioDBusObjectManagerClientPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -328,6 +338,7 @@ public open class DBusObjectManagerClient(
      *   array of properties that were invalidated.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun connectInterfaceProxyPropertiesChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
@@ -360,6 +371,7 @@ public open class DBusObjectManagerClient(
      * @param handler the Callback to connect. Params: `objectProxy` The #GDBusObjectProxy on which an interface is emitting a D-Bus signal.; `interfaceProxy` The #GDBusProxy that is emitting a D-Bus signal.; `senderName` The sender of the signal or NULL if the connection is not a bus connection.; `signalName` The signal name.; `parameters` A #GVariant tuple with parameters for the signal.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun connectInterfaceProxySignal(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (

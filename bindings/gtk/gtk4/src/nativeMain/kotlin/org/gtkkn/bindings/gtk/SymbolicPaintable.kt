@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Paintable
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -32,6 +33,7 @@ import org.gtkkn.native.gtk.gtk_symbolic_paintable_get_type
  *
  * @since 4.6
  */
+@GtkVersion4_6
 public interface SymbolicPaintable :
     Interface,
     Paintable,

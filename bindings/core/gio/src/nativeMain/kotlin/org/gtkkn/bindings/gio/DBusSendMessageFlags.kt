@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDBusSendMessageFlags
 import org.gtkkn.native.gio.G_DBUS_SEND_MESSAGE_FLAGS_NONE
@@ -15,6 +16,7 @@ public class DBusSendMessageFlags(
 ) : Bitfield<DBusSendMessageFlags> {
     override infix fun or(other: DBusSendMessageFlags): DBusSendMessageFlags = DBusSendMessageFlags(mask or other.mask)
 
+    @GioVersion2_26
     public companion object {
         /**
          * No flags set.

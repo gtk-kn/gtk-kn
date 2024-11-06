@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
@@ -293,6 +294,7 @@ public open class OutputStream(
      * @return true if @stream is being closed. false otherwise.
      * @since 2.24
      */
+    @GioVersion2_24
     public open fun isClosing(): Boolean = g_output_stream_is_closing(gioOutputStreamPointer.reinterpret()).asBoolean()
 
     /**

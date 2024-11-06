@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkAccessibleTextRange
@@ -14,6 +15,7 @@ import kotlin.ULong
  * A range inside the text of an accessible object.
  * @since 4.14
  */
+@GtkVersion4_14
 public class AccessibleTextRange(
     pointer: CPointer<GtkAccessibleTextRange>,
 ) : Record {

@@ -8,6 +8,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -79,6 +80,7 @@ public open class UnixFDList(
      *          (and @error is set)
      * @since 2.24
      */
+    @GioVersion2_24
     public open fun append(fd: Int): Result<Int> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -108,6 +110,7 @@ public open class UnixFDList(
      * @return the file descriptor, or -1 in case of error
      * @since 2.24
      */
+    @GioVersion2_24
     public open fun `get`(index: Int): Result<Int> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -126,6 +129,7 @@ public open class UnixFDList(
      * @return the length of @list
      * @since 2.24
      */
+    @GioVersion2_24
     public open fun getLength(): Int = g_unix_fd_list_get_length(gioUnixFDListPointer.reinterpret())
 
     public companion object : TypeCompanion<UnixFDList> {

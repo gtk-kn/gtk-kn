@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_2
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -196,6 +197,7 @@ public class PopupLayout(
      * @param bottom height of the bottom part of the shadow
      * @since 4.2
      */
+    @GdkVersion4_2
     public fun setShadowWidth(
         left: Int,
         right: Int,

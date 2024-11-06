@@ -6,6 +6,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Rect
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
@@ -91,6 +92,7 @@ import kotlin.Unit
  *
  * @since 4.14
  */
+@GskVersion4_14
 public class PathBuilder(
     pointer: CPointer<GskPathBuilder>,
 ) : Record {
@@ -107,6 +109,7 @@ public class PathBuilder(
      * @param radius the radius of the circle
      * @since 4.14
      */
+    @GskVersion4_14
     public fun addCircle(
         center: Point,
         radius: Float,
@@ -118,6 +121,7 @@ public class PathBuilder(
      * @param layout the pango layout to add
      * @since 4.14
      */
+    @GskVersion4_14
     public fun addLayout(layout: Layout): Unit =
         gsk_path_builder_add_layout(gskPathBuilderPointer.reinterpret(), layout.pangoLayoutPointer.reinterpret())
 
@@ -127,6 +131,7 @@ public class PathBuilder(
      * @param path the path to append
      * @since 4.14
      */
+    @GskVersion4_14
     public fun addPath(path: Path): Unit =
         gsk_path_builder_add_path(gskPathBuilderPointer.reinterpret(), path.gskPathPointer)
 
@@ -141,6 +146,7 @@ public class PathBuilder(
      * @param rect The rectangle to create a path for
      * @since 4.14
      */
+    @GskVersion4_14
     public fun addRect(rect: Rect): Unit =
         gsk_path_builder_add_rect(gskPathBuilderPointer.reinterpret(), rect.grapheneRectPointer)
 
@@ -150,6 +156,7 @@ public class PathBuilder(
      * @param path the path to append
      * @since 4.14
      */
+    @GskVersion4_14
     public fun addReversePath(path: Path): Unit =
         gsk_path_builder_add_reverse_path(gskPathBuilderPointer.reinterpret(), path.gskPathPointer)
 
@@ -161,6 +168,7 @@ public class PathBuilder(
      * @param rect the rounded rect
      * @since 4.14
      */
+    @GskVersion4_14
     public fun addRoundedRect(rect: RoundedRect): Unit =
         gsk_path_builder_add_rounded_rect(gskPathBuilderPointer.reinterpret(), rect.gskRoundedRectPointer)
 
@@ -180,6 +188,7 @@ public class PathBuilder(
      * @param end the point on @path to end at
      * @since 4.14
      */
+    @GskVersion4_14
     public fun addSegment(
         path: Path,
         start: PathPoint,
@@ -214,6 +223,7 @@ public class PathBuilder(
      * @param y2 y coordinate of second control point
      * @since 4.14
      */
+    @GskVersion4_14
     public fun arcTo(
         x1: Float,
         y1: Float,
@@ -232,6 +242,7 @@ public class PathBuilder(
      *
      * @since 4.14
      */
+    @GskVersion4_14
     public fun close(): Unit = gsk_path_builder_close(gskPathBuilderPointer.reinterpret())
 
     /**
@@ -259,6 +270,7 @@ public class PathBuilder(
      * @param weight weight of the control point, must be greater than zero
      * @since 4.14
      */
+    @GskVersion4_14
     public fun conicTo(
         x1: Float,
         y1: Float,
@@ -287,6 +299,7 @@ public class PathBuilder(
      * @param y3 y coordinate of the end of the curve
      * @since 4.14
      */
+    @GskVersion4_14
     public fun cubicTo(
         x1: Float,
         y1: Float,
@@ -309,6 +322,7 @@ public class PathBuilder(
      * @return The current point
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getCurrentPoint(): Point =
         gsk_path_builder_get_current_point(gskPathBuilderPointer.reinterpret())!!.run {
             Point(reinterpret())
@@ -332,6 +346,7 @@ public class PathBuilder(
      * @param radius Radius of the circle
      * @since 4.14
      */
+    @GskVersion4_14
     public fun htmlArcTo(
         x1: Float,
         y1: Float,
@@ -353,6 +368,7 @@ public class PathBuilder(
      * @param y y coordinate
      * @since 4.14
      */
+    @GskVersion4_14
     public fun lineTo(
         x: Float,
         y: Float,
@@ -369,6 +385,7 @@ public class PathBuilder(
      * @param y y coordinate
      * @since 4.14
      */
+    @GskVersion4_14
     public fun moveTo(
         x: Float,
         y: Float,
@@ -391,6 +408,7 @@ public class PathBuilder(
      * @param y2 y coordinate of the end of the curve
      * @since 4.14
      */
+    @GskVersion4_14
     public fun quadTo(
         x1: Float,
         y1: Float,
@@ -408,6 +426,7 @@ public class PathBuilder(
      *   its reference count increased
      * @since 4.14
      */
+    @GskVersion4_14
     public fun ref(): PathBuilder =
         gsk_path_builder_ref(gskPathBuilderPointer.reinterpret())!!.run {
             PathBuilder(reinterpret())
@@ -427,6 +446,7 @@ public class PathBuilder(
      * @param y2 y coordinate of second control point
      * @since 4.14
      */
+    @GskVersion4_14
     public fun relArcTo(
         x1: Float,
         y1: Float,
@@ -450,6 +470,7 @@ public class PathBuilder(
      * @param weight weight of the curve, must be greater than zero
      * @since 4.14
      */
+    @GskVersion4_14
     public fun relConicTo(
         x1: Float,
         y1: Float,
@@ -475,6 +496,7 @@ public class PathBuilder(
      * @param y3 y offset of the end of the curve
      * @since 4.14
      */
+    @GskVersion4_14
     public fun relCubicTo(
         x1: Float,
         y1: Float,
@@ -498,6 +520,7 @@ public class PathBuilder(
      * @param radius Radius of the circle
      * @since 4.14
      */
+    @GskVersion4_14
     public fun relHtmlArcTo(
         x1: Float,
         y1: Float,
@@ -516,6 +539,7 @@ public class PathBuilder(
      * @param y y offset
      * @since 4.14
      */
+    @GskVersion4_14
     public fun relLineTo(
         x: Float,
         y: Float,
@@ -531,6 +555,7 @@ public class PathBuilder(
      * @param y y offset
      * @since 4.14
      */
+    @GskVersion4_14
     public fun relMoveTo(
         x: Float,
         y: Float,
@@ -550,6 +575,7 @@ public class PathBuilder(
      * @param y2 y offset of the end of the curve
      * @since 4.14
      */
+    @GskVersion4_14
     public fun relQuadTo(
         x1: Float,
         y1: Float,
@@ -573,6 +599,7 @@ public class PathBuilder(
      * @param y the Y coordinate of the endpoint
      * @since 4.14
      */
+    @GskVersion4_14
     public fun relSvgArcTo(
         rx: Float,
         ry: Float,
@@ -611,6 +638,7 @@ public class PathBuilder(
      * @param y the Y coordinate of the endpoint
      * @since 4.14
      */
+    @GskVersion4_14
     public fun svgArcTo(
         rx: Float,
         ry: Float,
@@ -645,6 +673,7 @@ public class PathBuilder(
      *   with all the contours added to the builder
      * @since 4.14
      */
+    @GskVersion4_14
     public fun toPath(): Path =
         gsk_path_builder_to_path(gskPathBuilderPointer.reinterpret())!!.run {
             Path(reinterpret())
@@ -655,6 +684,7 @@ public class PathBuilder(
      *
      * @since 4.14
      */
+    @GskVersion4_14
     public fun unref(): Unit = gsk_path_builder_unref(gskPathBuilderPointer.reinterpret())
 
     public companion object : RecordCompanion<PathBuilder, GskPathBuilder> {

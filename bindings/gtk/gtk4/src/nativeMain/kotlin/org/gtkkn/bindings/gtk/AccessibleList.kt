@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkAccessibleList
@@ -20,6 +21,7 @@ import org.gtkkn.native.gtk.gtk_accessible_list_new_from_list
  *
  * @since 4.14
  */
+@GtkVersion4_14
 public class AccessibleList(
     pointer: CPointer<GtkAccessibleList>,
 ) : Record {
@@ -31,6 +33,7 @@ public class AccessibleList(
      * @return a shallow copy of the objects
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun getObjects(): List =
         gtk_accessible_list_get_objects(gtkAccessibleListPointer.reinterpret())!!.run {
             List(reinterpret())

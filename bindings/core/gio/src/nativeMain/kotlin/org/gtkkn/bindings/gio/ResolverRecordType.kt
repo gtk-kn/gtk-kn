@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.native.gio.GResolverRecordType
 import org.gtkkn.native.gio.GResolverRecordType.G_RESOLVER_RECORD_MX
 import org.gtkkn.native.gio.GResolverRecordType.G_RESOLVER_RECORD_NS
@@ -41,6 +42,7 @@ import org.gtkkn.native.gio.GResolverRecordType.G_RESOLVER_RECORD_TXT
  * `(s)`, representing a string of the hostname of the name server.
  * @since 2.34
  */
+@GioVersion2_34
 public enum class ResolverRecordType(
     public val nativeValue: GResolverRecordType,
 ) {

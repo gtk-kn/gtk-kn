@@ -14,6 +14,10 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_50
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.common.asBoolean
@@ -117,6 +121,7 @@ public interface Drive :
      * @return true if the @drive can be started, false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun canStart(): Boolean = g_drive_can_start(gioDrivePointer.reinterpret()).asBoolean()
 
     /**
@@ -125,6 +130,7 @@ public interface Drive :
      * @return true if the @drive can be started degraded, false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun canStartDegraded(): Boolean = g_drive_can_start_degraded(gioDrivePointer.reinterpret()).asBoolean()
 
     /**
@@ -133,6 +139,7 @@ public interface Drive :
      * @return true if the @drive can be stopped, false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun canStop(): Boolean = g_drive_can_stop(gioDrivePointer.reinterpret()).asBoolean()
 
     /**
@@ -194,6 +201,7 @@ public interface Drive :
      * @param callback a #GAsyncReadyCallback, or null.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun ejectWithOperation(
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
@@ -217,6 +225,7 @@ public interface Drive :
      * @return true if the drive was successfully ejected. false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun ejectWithOperationFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -285,6 +294,7 @@ public interface Drive :
      * @return Sorting key for @drive or null if no such key is available.
      * @since 2.32
      */
+    @GioVersion2_32
     public fun getSortKey(): String? = g_drive_get_sort_key(gioDrivePointer.reinterpret())?.toKString()
 
     /**
@@ -293,6 +303,7 @@ public interface Drive :
      * @return A value from the #GDriveStartStopType enumeration.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun getStartStopType(): DriveStartStopType =
         g_drive_get_start_stop_type(gioDrivePointer.reinterpret()).run {
             DriveStartStopType.fromNativeValue(this)
@@ -305,6 +316,7 @@ public interface Drive :
      *    Free the returned object with g_object_unref().
      * @since 2.34
      */
+    @GioVersion2_34
     public fun getSymbolicIcon(): Icon =
         g_drive_get_symbolic_icon(gioDrivePointer.reinterpret())!!.run {
             Icon.wrap(reinterpret())
@@ -362,6 +374,7 @@ public interface Drive :
      * @return true if @drive and/or its media is considered removable, false otherwise.
      * @since 2.50
      */
+    @GioVersion2_50
     public fun isRemovable(): Boolean = g_drive_is_removable(gioDrivePointer.reinterpret()).asBoolean()
 
     /**
@@ -422,6 +435,7 @@ public interface Drive :
      * @param callback a #GAsyncReadyCallback, or null.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun start(
         flags: DriveStartFlags,
         mountOperation: MountOperation? = null,
@@ -445,6 +459,7 @@ public interface Drive :
      *     false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun startFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -475,6 +490,7 @@ public interface Drive :
      * @param callback a #GAsyncReadyCallback, or null.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun stop(
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
@@ -498,6 +514,7 @@ public interface Drive :
      *     false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun stopFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -583,6 +600,7 @@ public interface Drive :
      * @param handler the Callback to connect
      * @since 2.22
      */
+    @GioVersion2_22
     public fun connectStopButton(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

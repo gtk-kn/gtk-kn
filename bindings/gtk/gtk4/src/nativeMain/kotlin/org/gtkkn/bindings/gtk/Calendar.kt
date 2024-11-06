@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -135,6 +136,7 @@ public open class Calendar(
          * @param day The desired day for the selected date (as a number between 1 and 31).
          * @since 4.14
          */
+        @GtkVersion4_14
         set(day) = gtk_calendar_set_day(gtkCalendarPointer.reinterpret(), day)
 
     /**
@@ -160,6 +162,7 @@ public open class Calendar(
          * @param month The desired month for the selected date (as a number between 0 and 11).
          * @since 4.14
          */
+        @GtkVersion4_14
         set(month) = gtk_calendar_set_month(gtkCalendarPointer.reinterpret(), month)
 
     /**
@@ -254,6 +257,7 @@ public open class Calendar(
          *   limits, i.e. from 0001 to 9999).
          * @since 4.14
          */
+        @GtkVersion4_14
         set(year) = gtk_calendar_set_year(gtkCalendarPointer.reinterpret(), year)
 
     /**
@@ -287,6 +291,7 @@ public open class Calendar(
      * @return the day of the selected date.
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getDay(): Int = gtk_calendar_get_day(gtkCalendarPointer.reinterpret())
 
     /**
@@ -304,6 +309,7 @@ public open class Calendar(
      * @return The month of the selected date (as a number between 0 and 11).
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getMonth(): Int = gtk_calendar_get_month(gtkCalendarPointer.reinterpret())
 
     /**
@@ -347,6 +353,7 @@ public open class Calendar(
      * @return the year of the selected date.
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getYear(): Int = gtk_calendar_get_year(gtkCalendarPointer.reinterpret())
 
     /**
@@ -373,6 +380,7 @@ public open class Calendar(
      * @param day The desired day for the selected date (as a number between 1 and 31).
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setDay(day: Int): Unit = gtk_calendar_set_day(gtkCalendarPointer.reinterpret(), day)
 
     /**
@@ -384,6 +392,7 @@ public open class Calendar(
      * @param month The desired month for the selected date (as a number between 0 and 11).
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setMonth(month: Int): Unit = gtk_calendar_set_month(gtkCalendarPointer.reinterpret(), month)
 
     /**
@@ -423,6 +432,7 @@ public open class Calendar(
      *   limits, i.e. from 0001 to 9999).
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setYear(year: Int): Unit = gtk_calendar_set_year(gtkCalendarPointer.reinterpret(), year)
 
     /**

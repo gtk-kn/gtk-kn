@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoItem
@@ -74,6 +75,7 @@ public class Item(
      * @param iter a `PangoAttrIterator`
      * @since 1.44
      */
+    @PangoVersion1_44
     public fun applyAttrs(iter: AttrIterator): Unit =
         pango_item_apply_attrs(pangoItemPointer.reinterpret(), iter.pangoAttrIteratorPointer)
 

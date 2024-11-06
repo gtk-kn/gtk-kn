@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GResourceFlags
 import org.gtkkn.native.gio.G_RESOURCE_FLAGS_COMPRESSED
@@ -16,6 +17,7 @@ public class ResourceFlags(
 ) : Bitfield<ResourceFlags> {
     override infix fun or(other: ResourceFlags): ResourceFlags = ResourceFlags(mask or other.mask)
 
+    @GioVersion2_32
     public companion object {
         /**
          * No flags set.

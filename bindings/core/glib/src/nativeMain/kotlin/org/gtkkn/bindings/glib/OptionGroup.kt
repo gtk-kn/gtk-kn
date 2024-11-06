@@ -4,6 +4,8 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_44
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GOptionGroup
@@ -40,6 +42,7 @@ public class OptionGroup(
      *
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun free(): Unit = g_option_group_free(glibOptionGroupPointer.reinterpret())
 
     /**
@@ -48,6 +51,7 @@ public class OptionGroup(
      * @return a #GOptionGroup
      * @since 2.44
      */
+    @GLibVersion2_44
     public fun ref(): OptionGroup =
         g_option_group_ref(glibOptionGroupPointer.reinterpret())!!.run {
             OptionGroup(reinterpret())
@@ -60,6 +64,7 @@ public class OptionGroup(
      * @param domain the domain to use
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun setTranslationDomain(domain: String): Unit =
         g_option_group_set_translation_domain(glibOptionGroupPointer.reinterpret(), domain)
 
@@ -70,6 +75,7 @@ public class OptionGroup(
      *
      * @since 2.44
      */
+    @GLibVersion2_44
     public fun unref(): Unit = g_option_group_unref(glibOptionGroupPointer.reinterpret())
 
     public companion object : RecordCompanion<OptionGroup, GOptionGroup> {

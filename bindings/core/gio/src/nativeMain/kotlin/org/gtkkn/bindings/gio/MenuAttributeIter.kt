@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -28,6 +29,7 @@ import kotlin.String
  *
  * @since 2.32
  */
+@GioVersion2_32
 public open class MenuAttributeIter(
     pointer: CPointer<GMenuAttributeIter>,
 ) : Object(pointer.reinterpret()),
@@ -44,6 +46,7 @@ public open class MenuAttributeIter(
      * @return the name of the attribute
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getName(): String =
         g_menu_attribute_iter_get_name(gioMenuAttributeIterPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -56,6 +59,7 @@ public open class MenuAttributeIter(
      * @return the value of the current attribute
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getValue(): Variant =
         g_menu_attribute_iter_get_value(gioMenuAttributeIterPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -75,6 +79,7 @@ public open class MenuAttributeIter(
      * @return true on success, or false when there are no more attributes
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun next(): Boolean = g_menu_attribute_iter_next(gioMenuAttributeIterPointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<MenuAttributeIter> {

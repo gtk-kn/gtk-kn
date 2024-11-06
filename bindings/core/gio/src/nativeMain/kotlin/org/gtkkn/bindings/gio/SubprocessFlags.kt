@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GSubprocessFlags
 import org.gtkkn.native.gio.G_SUBPROCESS_FLAGS_INHERIT_FDS
@@ -31,6 +32,7 @@ public class SubprocessFlags(
 ) : Bitfield<SubprocessFlags> {
     override infix fun or(other: SubprocessFlags): SubprocessFlags = SubprocessFlags(mask or other.mask)
 
+    @GioVersion2_40
     public companion object {
         /**
          * No flags.

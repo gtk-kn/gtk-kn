@@ -53,7 +53,8 @@ import kotlin.Unit
  */
 public open class CompletionCell(
     pointer: CPointer<GtkSourceCompletionCell>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceCompletionCellPointer: CPointer<GtkSourceCompletionCell>
         get() = gPointer.reinterpret()
 
@@ -93,10 +94,7 @@ public open class CompletionCell(
      * @param gicon
      */
     public open fun setGicon(gicon: Icon): Unit =
-        gtk_source_completion_cell_set_gicon(
-            gtksourceCompletionCellPointer.reinterpret(),
-            gicon.gioIconPointer
-        )
+        gtk_source_completion_cell_set_gicon(gtksourceCompletionCellPointer.reinterpret(), gicon.gioIconPointer)
 
     /**
      *
@@ -104,10 +102,7 @@ public open class CompletionCell(
      * @param iconName
      */
     public open fun setIconName(iconName: String): Unit =
-        gtk_source_completion_cell_set_icon_name(
-            gtksourceCompletionCellPointer.reinterpret(),
-            iconName
-        )
+        gtk_source_completion_cell_set_icon_name(gtksourceCompletionCellPointer.reinterpret(), iconName)
 
     /**
      *
@@ -115,10 +110,7 @@ public open class CompletionCell(
      * @param markup
      */
     public open fun setMarkup(markup: String): Unit =
-        gtk_source_completion_cell_set_markup(
-            gtksourceCompletionCellPointer.reinterpret(),
-            markup
-        )
+        gtk_source_completion_cell_set_markup(gtksourceCompletionCellPointer.reinterpret(), markup)
 
     /**
      *
@@ -168,9 +160,7 @@ public open class CompletionCell(
 
     public companion object : TypeCompanion<CompletionCell> {
         override val type: GeneratedClassKGType<CompletionCell> =
-            GeneratedClassKGType(gtk_source_completion_cell_get_type()) {
-                CompletionCell(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_completion_cell_get_type()) { CompletionCell(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

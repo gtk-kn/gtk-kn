@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
 import org.gtkkn.native.glib.GVariantClass
 import org.gtkkn.native.glib.GVariantClass.G_VARIANT_CLASS_ARRAY
 import org.gtkkn.native.glib.GVariantClass.G_VARIANT_CLASS_BOOLEAN
@@ -25,6 +26,7 @@ import org.gtkkn.native.glib.GVariantClass.G_VARIANT_CLASS_VARIANT
  * The range of possible top-level types of #GVariant instances.
  * @since 2.24
  */
+@GLibVersion2_24
 public enum class VariantClass(
     public val nativeValue: GVariantClass,
 ) {

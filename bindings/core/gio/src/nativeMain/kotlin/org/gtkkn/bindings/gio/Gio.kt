@@ -16,6 +16,30 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
+import org.gtkkn.bindings.gio.annotations.GioVersion2_20
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_36
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
+import org.gtkkn.bindings.gio.annotations.GioVersion2_48
+import org.gtkkn.bindings.gio.annotations.GioVersion2_50
+import org.gtkkn.bindings.gio.annotations.GioVersion2_52
+import org.gtkkn.bindings.gio.annotations.GioVersion2_54
+import org.gtkkn.bindings.gio.annotations.GioVersion2_56
+import org.gtkkn.bindings.gio.annotations.GioVersion2_58
+import org.gtkkn.bindings.gio.annotations.GioVersion2_60
+import org.gtkkn.bindings.gio.annotations.GioVersion2_64
+import org.gtkkn.bindings.gio.annotations.GioVersion2_66
+import org.gtkkn.bindings.gio.annotations.GioVersion2_68
+import org.gtkkn.bindings.gio.annotations.GioVersion2_70
+import org.gtkkn.bindings.gio.annotations.GioVersion2_74
+import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.FileError
@@ -1728,6 +1752,7 @@ public object Gio {
      * @return true if @action_name is valid
      * @since 2.38
      */
+    @GioVersion2_38
     public fun actionNameIsValid(actionName: String): Boolean = g_action_name_is_valid(actionName).asBoolean()
 
     /**
@@ -1747,6 +1772,7 @@ public object Gio {
      * @return a detailed format string
      * @since 2.38
      */
+    @GioVersion2_38
     public fun actionPrintDetailedName(
         actionName: String,
         targetValue: Variant? = null,
@@ -1849,6 +1875,7 @@ public object Gio {
      * @param callback a #GAsyncReadyCallback to call when the request is done
      * @since 2.74
      */
+    @GioVersion2_74
     public fun appInfoGetDefaultForTypeAsync(
         contentType: String,
         mustSupportUris: Boolean,
@@ -1874,6 +1901,7 @@ public object Gio {
      *     null on error.
      * @since 2.74
      */
+    @GioVersion2_74
     public fun appInfoGetDefaultForTypeFinish(result: AsyncResult): Result<AppInfo> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -1918,6 +1946,7 @@ public object Gio {
      * @param callback a #GAsyncReadyCallback to call when the request is done
      * @since 2.74
      */
+    @GioVersion2_74
     public fun appInfoGetDefaultForUriSchemeAsync(
         uriScheme: String,
         cancellable: Cancellable? = null,
@@ -1941,6 +1970,7 @@ public object Gio {
      *     null on error.
      * @since 2.74
      */
+    @GioVersion2_74
     public fun appInfoGetDefaultForUriSchemeFinish(result: AsyncResult): Result<AppInfo> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -1969,6 +1999,7 @@ public object Gio {
      *     for given @content_type or null on error.
      * @since 2.28
      */
+    @GioVersion2_28
     public fun appInfoGetFallbackForType(contentType: String): GlibList =
         g_app_info_get_fallback_for_type(contentType)!!.run {
             GlibList(reinterpret())
@@ -1987,6 +2018,7 @@ public object Gio {
      *     for given @content_type or null on error.
      * @since 2.28
      */
+    @GioVersion2_28
     public fun appInfoGetRecommendedForType(contentType: String): GlibList =
         g_app_info_get_recommended_for_type(contentType)!!.run {
             GlibList(reinterpret())
@@ -2046,6 +2078,7 @@ public object Gio {
      * @param callback a #GAsyncReadyCallback to call when the request is done
      * @since 2.50
      */
+    @GioVersion2_50
     public fun appInfoLaunchDefaultForUriAsync(
         uri: String,
         context: AppLaunchContext? = null,
@@ -2067,6 +2100,7 @@ public object Gio {
      * @return true if the launch was successful, false if @error is set
      * @since 2.50
      */
+    @GioVersion2_50
     public fun appInfoLaunchDefaultForUriFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -2091,6 +2125,7 @@ public object Gio {
      * @param contentType a content type
      * @since 2.20
      */
+    @GioVersion2_20
     public fun appInfoResetTypeAssociations(contentType: String): Unit = g_app_info_reset_type_associations(contentType)
 
     /**
@@ -2110,6 +2145,7 @@ public object Gio {
      *     finished
      * @since 2.22
      */
+    @GioVersion2_22
     public fun asyncInitableNewvAsync(
         objectType: ULong,
         nParameters: UInt,
@@ -2142,6 +2178,7 @@ public object Gio {
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      * @since 2.26
      */
+    @GioVersion2_26
     public fun busGet(
         busType: BusType,
         cancellable: Cancellable? = null,
@@ -2174,6 +2211,7 @@ public object Gio {
      *     Free with g_object_unref().
      * @since 2.26
      */
+    @GioVersion2_26
     public fun busGetFinish(res: AsyncResult): Result<DBusConnection> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -2218,6 +2256,7 @@ public object Gio {
      *     Free with g_object_unref().
      * @since 2.26
      */
+    @GioVersion2_26
     public fun busGetSync(
         busType: BusType,
         cancellable: Cancellable? = null,
@@ -2258,6 +2297,7 @@ public object Gio {
      *     g_bus_unown_name() to stop owning the name.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun busOwnNameOnConnection(
         connection: DBusConnection,
         name: String,
@@ -2290,6 +2330,7 @@ public object Gio {
      *     g_bus_unown_name() to stop owning the name.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun busOwnName(
         busType: BusType,
         name: String,
@@ -2320,6 +2361,7 @@ public object Gio {
      * @param ownerId an identifier obtained from g_bus_own_name()
      * @since 2.26
      */
+    @GioVersion2_26
     public fun busUnownName(ownerId: UInt): Unit = g_bus_unown_name(ownerId)
 
     /**
@@ -2335,6 +2377,7 @@ public object Gio {
      * @param watcherId An identifier obtained from g_bus_watch_name()
      * @since 2.26
      */
+    @GioVersion2_26
     public fun busUnwatchName(watcherId: UInt): Unit = g_bus_unwatch_name(watcherId)
 
     /**
@@ -2352,6 +2395,7 @@ public object Gio {
      * g_bus_unwatch_name() to stop watching the name.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun busWatchNameOnConnection(
         connection: DBusConnection,
         name: String,
@@ -2382,6 +2426,7 @@ public object Gio {
      * g_bus_unwatch_name() to stop watching the name.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun busWatchName(
         busType: BusType,
         name: String,
@@ -2428,6 +2473,7 @@ public object Gio {
      *     null. Free with g_free()
      * @since 2.18
      */
+    @GioVersion2_18
     public fun contentTypeFromMimeType(mimeType: String): String =
         g_content_type_from_mime_type(mimeType)?.toKString() ?: error("Expected not null string")
 
@@ -2453,6 +2499,7 @@ public object Gio {
      *     or null if unknown. Free with g_free()
      * @since 2.34
      */
+    @GioVersion2_34
     public fun contentTypeGetGenericIconName(type: String): String =
         g_content_type_get_generic_icon_name(type)?.toKString() ?: error("Expected not null string")
 
@@ -2477,6 +2524,7 @@ public object Gio {
      *    and with the first directory to try listed first
      * @since 2.60
      */
+    @GioVersion2_60
     public fun contentTypeGetMimeDirs(): CollectionsList<String> =
         g_content_type_get_mime_dirs()?.toKStringList() ?: error("Expected not null string array")
 
@@ -2498,6 +2546,7 @@ public object Gio {
      *     Free the returned object with g_object_unref()
      * @since 2.34
      */
+    @GioVersion2_34
     public fun contentTypeGetSymbolicIcon(type: String): Icon =
         g_content_type_get_symbolic_icon(type)!!.run {
             Icon.wrap(reinterpret())
@@ -2522,6 +2571,7 @@ public object Gio {
      *     array of zero or more content types. Free with g_strfreev()
      * @since 2.18
      */
+    @GioVersion2_18
     public fun contentTypeGuessForTree(root: File): CollectionsList<String> =
         g_content_type_guess_for_tree(root.gioFilePointer)?.toKStringList() ?: error("Expected not null string array")
 
@@ -2548,6 +2598,7 @@ public object Gio {
      *     false otherwise.
      * @since 2.52
      */
+    @GioVersion2_52
     public fun contentTypeIsMimeType(
         type: String,
         mimeType: String,
@@ -2594,6 +2645,7 @@ public object Gio {
      *    and with the first directory to try listed first
      * @since 2.60
      */
+    @GioVersion2_60
     public fun contentTypeSetMimeDirs(dirs: CollectionsList<String>? = null): Unit =
         memScoped {
             return g_content_type_set_mime_dirs(dirs?.toCStringList(this))
@@ -2627,6 +2679,7 @@ public object Gio {
      *     non-optionally-escaped bytes escaped
      * @since 2.36
      */
+    @GioVersion2_36
     public fun dbusAddressEscapeValue(string: String): String =
         g_dbus_address_escape_value(string)?.toKString() ?: error("Expected not null string")
 
@@ -2644,6 +2697,7 @@ public object Gio {
      *     null if @error is set
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusAddressGetForBusSync(
         busType: BusType,
         cancellable: Cancellable? = null,
@@ -2684,6 +2738,7 @@ public object Gio {
      * @param callback A #GAsyncReadyCallback to call when the request is satisfied.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusAddressGetStream(
         address: String,
         cancellable: Cancellable? = null,
@@ -2714,6 +2769,7 @@ public object Gio {
      *     Free with g_free().
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusErrorEncodeGerror(error: Error): String =
         g_dbus_error_encode_gerror(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
 
@@ -2730,6 +2786,7 @@ public object Gio {
      *     D-Bus error name could not be found. Free with g_free().
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusErrorGetRemoteError(error: Error): String =
         g_dbus_error_get_remote_error(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
 
@@ -2742,6 +2799,7 @@ public object Gio {
      * false otherwise.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusErrorIsRemoteError(error: Error): Boolean =
         g_dbus_error_is_remote_error(error.glibErrorPointer).asBoolean()
 
@@ -2778,6 +2836,7 @@ public object Gio {
      * @return An allocated #GError. Free with g_error_free().
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusErrorNewForDbusError(
         dbusErrorName: String,
         dbusErrorMessage: String,
@@ -2802,6 +2861,7 @@ public object Gio {
      * exists.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusErrorRegisterError(
         errorDomain: UInt,
         errorCode: Int,
@@ -2820,6 +2880,7 @@ public object Gio {
      * @return true if information was stripped, false otherwise.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusErrorStripRemoteError(error: Error): Boolean =
         g_dbus_error_strip_remote_error(error.glibErrorPointer).asBoolean()
 
@@ -2832,6 +2893,7 @@ public object Gio {
      * @return true if the association was destroyed, false if it wasn't found.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusErrorUnregisterError(
         errorDomain: UInt,
         errorCode: Int,
@@ -2845,6 +2907,7 @@ public object Gio {
      * @return an escaped version of @s. Free with g_free().
      * @since 2.68
      */
+    @GioVersion2_68
     public fun dbusEscapeObjectPath(s: String): String =
         g_dbus_escape_object_path(s)?.toKString() ?: error("Expected not null string")
 
@@ -2864,6 +2927,7 @@ public object Gio {
      * @return A valid D-Bus GUID. Free with g_free().
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusGenerateGuid(): String = g_dbus_generate_guid()?.toKString() ?: error("Expected not null string")
 
     /**
@@ -2903,6 +2967,7 @@ public object Gio {
      *     in case of failure. Free with g_variant_unref().
      * @since 2.30
      */
+    @GioVersion2_30
     public fun dbusGvalueToGvariant(
         gvalue: Value,
         type: VariantType,
@@ -2928,6 +2993,7 @@ public object Gio {
      * @param outGvalue Return location pointing to a zero-filled (uninitialized) #GValue.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun dbusGvariantToGvalue(
         `value`: Variant,
         outGvalue: Value,
@@ -2945,6 +3011,7 @@ public object Gio {
      * @return true if @string is a valid D-Bus address, false otherwise.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusIsAddress(string: String): Boolean = g_dbus_is_address(string).asBoolean()
 
     /**
@@ -2958,6 +3025,7 @@ public object Gio {
      * @return true if valid, false otherwise.
      * @since 2.70
      */
+    @GioVersion2_70
     public fun dbusIsErrorName(string: String): Boolean = g_dbus_is_error_name(string).asBoolean()
 
     /**
@@ -2970,6 +3038,7 @@ public object Gio {
      * @return true if @string is a GUID, false otherwise.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusIsGuid(string: String): Boolean = g_dbus_is_guid(string).asBoolean()
 
     /**
@@ -2979,6 +3048,7 @@ public object Gio {
      * @return true if valid, false otherwise.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusIsInterfaceName(string: String): Boolean = g_dbus_is_interface_name(string).asBoolean()
 
     /**
@@ -2988,6 +3058,7 @@ public object Gio {
      * @return true if valid, false otherwise.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusIsMemberName(string: String): Boolean = g_dbus_is_member_name(string).asBoolean()
 
     /**
@@ -2997,6 +3068,7 @@ public object Gio {
      * @return true if valid, false otherwise.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusIsName(string: String): Boolean = g_dbus_is_name(string).asBoolean()
 
     /**
@@ -3010,6 +3082,7 @@ public object Gio {
      * supported by this library, false if @error is set.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusIsSupportedAddress(string: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3031,6 +3104,7 @@ public object Gio {
      * @return true if valid, false otherwise.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun dbusIsUniqueName(string: String): Boolean = g_dbus_is_unique_name(string).asBoolean()
 
     /**
@@ -3043,6 +3117,7 @@ public object Gio {
      *   #GDtlsClientConnection, or null on error
      * @since 2.48
      */
+    @GioVersion2_48
     public fun dtlsClientConnectionNew(
         baseSocket: DatagramBased,
         serverIdentity: SocketConnectable? = null,
@@ -3077,6 +3152,7 @@ public object Gio {
      *   #GDtlsServerConnection, or null on error
      * @since 2.48
      */
+    @GioVersion2_48
     public fun dtlsServerConnectionNew(
         baseSocket: DatagramBased,
         certificate: TlsCertificate? = null,
@@ -3114,6 +3190,7 @@ public object Gio {
      * @return a new #GFile
      * @since 2.78
      */
+    @GioVersion2_78
     public fun fileNewBuildFilenamev(args: CollectionsList<String>): File =
         memScoped {
             return g_file_new_build_filenamev(args.toCStringList(this))!!.run {
@@ -3164,6 +3241,7 @@ public object Gio {
      * @return a new #GFile
      * @since 2.36
      */
+    @GioVersion2_36
     public fun fileNewForCommandlineArgAndCwd(
         arg: String,
         cwd: String,
@@ -3217,6 +3295,7 @@ public object Gio {
      * @param callback a #GAsyncReadyCallback to call when the request is done
      * @since 2.74
      */
+    @GioVersion2_74
     public fun fileNewTmpAsync(
         tmpl: String? = null,
         ioPriority: Int,
@@ -3246,6 +3325,7 @@ public object Gio {
      * @param callback a #GAsyncReadyCallback to call when the request is done
      * @since 2.74
      */
+    @GioVersion2_74
     public fun fileNewTmpDirAsync(
         tmpl: String? = null,
         ioPriority: Int,
@@ -3269,6 +3349,7 @@ public object Gio {
      *   Free the returned object with g_object_unref().
      * @since 2.74
      */
+    @GioVersion2_74
     public fun fileNewTmpDirFinish(result: AsyncResult): Result<File> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3308,6 +3389,7 @@ public object Gio {
      * @return a #GIcon, or null when deserialization fails.
      * @since 2.38
      */
+    @GioVersion2_38
     public fun iconDeserialize(`value`: Variant): Icon? =
         g_icon_deserialize(`value`.glibVariantPointer)?.run {
             Icon.wrap(reinterpret())
@@ -3326,6 +3408,7 @@ public object Gio {
      *          interface or null if @error is set.
      * @since 2.20
      */
+    @GioVersion2_20
     public fun iconNewForString(str: String): Result<Icon> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3380,6 +3463,7 @@ public object Gio {
      * @return #GIOErrorEnum value for the given #GFileError error value.
      * @since 2.74
      */
+    @GioVersion2_74
     public fun ioErrorFromFileError(fileError: FileError): IOErrorEnum =
         g_io_error_from_file_error(fileError.nativeValue).run {
             IOErrorEnum.fromNativeValue(this)
@@ -3430,6 +3514,7 @@ public object Gio {
      *     to scan.
      * @since 2.24
      */
+    @GioVersion2_24
     public fun ioModulesScanAllInDirectory(dirname: String): Unit = g_io_modules_scan_all_in_directory(dirname)
 
     /**
@@ -3540,6 +3625,7 @@ public object Gio {
      * @return a new reference to the default #GMemoryMonitor
      * @since 2.64
      */
+    @GioVersion2_64
     public fun memoryMonitorDupDefault(): MemoryMonitor =
         g_memory_monitor_dup_default()!!.run {
             MemoryMonitor.wrap(reinterpret())
@@ -3555,6 +3641,7 @@ public object Gio {
      * @return a newly created #GSettingsBackend
      * @since 2.28
      */
+    @GioVersion2_28
     public fun memorySettingsBackendNew(): SettingsBackend =
         g_memory_settings_backend_new()!!.run {
             SettingsBackend(reinterpret())
@@ -3567,6 +3654,7 @@ public object Gio {
      *     a dummy object if no network monitor is available
      * @since 2.32
      */
+    @GioVersion2_32
     public fun networkMonitorGetDefault(): NetworkMonitor =
         g_network_monitor_get_default()!!.run {
             NetworkMonitor.wrap(reinterpret())
@@ -3581,6 +3669,7 @@ public object Gio {
      * @return a newly created #GSettingsBackend
      * @since 2.28
      */
+    @GioVersion2_28
     public fun nullSettingsBackendNew(): SettingsBackend =
         g_null_settings_backend_new()!!.run {
             SettingsBackend(reinterpret())
@@ -3597,6 +3686,7 @@ public object Gio {
      * @return the new #GSource.
      * @since 2.28
      */
+    @GioVersion2_28
     public fun pollableSourceNew(pollableStream: Object): Source =
         g_pollable_source_new(pollableStream.gPointer.reinterpret())!!.run {
             Source(reinterpret())
@@ -3615,6 +3705,7 @@ public object Gio {
      * @return the new #GSource.
      * @since 2.34
      */
+    @GioVersion2_34
     public fun pollableSourceNewFull(
         pollableStream: Object,
         childSource: Source? = null,
@@ -3634,6 +3725,7 @@ public object Gio {
      * @return a new reference to the default #GPowerProfileMonitor
      * @since 2.70
      */
+    @GioVersion2_70
     public fun powerProfileMonitorDupDefault(): PowerProfileMonitor =
         g_power_profile_monitor_dup_default()!!.run {
             PowerProfileMonitor.wrap(reinterpret())
@@ -3648,6 +3740,7 @@ public object Gio {
      *               is not supported.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun proxyGetDefaultForProtocol(protocol: String): Proxy? =
         g_proxy_get_default_for_protocol(protocol)?.run {
             Proxy.wrap(reinterpret())
@@ -3660,6 +3753,7 @@ public object Gio {
      *     will be a dummy object if no proxy resolver is available
      * @since 2.26
      */
+    @GioVersion2_26
     public fun proxyResolverGetDefault(): ProxyResolver =
         g_proxy_resolver_get_default()!!.run {
             ProxyResolver.wrap(reinterpret())
@@ -3671,6 +3765,7 @@ public object Gio {
      * @return a #GQuark.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun resolverErrorQuark(): UInt = g_resolver_error_quark()
 
     /**
@@ -3679,6 +3774,7 @@ public object Gio {
      * @return a #GQuark
      * @since 2.32
      */
+    @GioVersion2_32
     public fun resourceErrorQuark(): UInt = g_resource_error_quark()
 
     /**
@@ -3697,6 +3793,7 @@ public object Gio {
      * @return a new #GResource, or null on error
      * @since 2.32
      */
+    @GioVersion2_32
     public fun resourceLoad(filename: String): Result<Resource> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3728,6 +3825,7 @@ public object Gio {
      * @return an array of constant strings
      * @since 2.32
      */
+    @GioVersion2_32
     public fun resourcesEnumerateChildren(
         path: String,
         lookupFlags: ResourceLookupFlags,
@@ -3767,6 +3865,7 @@ public object Gio {
      *     Free the returned object with g_bytes_unref()
      * @since 2.32
      */
+    @GioVersion2_32
     public fun resourcesLookupData(
         path: String,
         lookupFlags: ResourceLookupFlags,
@@ -3801,6 +3900,7 @@ public object Gio {
      *     Free the returned object with g_object_unref()
      * @since 2.32
      */
+    @GioVersion2_32
     public fun resourcesOpenStream(
         path: String,
         lookupFlags: ResourceLookupFlags,
@@ -3830,6 +3930,7 @@ public object Gio {
      * @param resource A #GResource
      * @since 2.32
      */
+    @GioVersion2_32
     public fun resourcesRegister(resource: Resource): Unit = g_resources_register(resource.gioResourcePointer)
 
     /**
@@ -3838,6 +3939,7 @@ public object Gio {
      * @param resource A #GResource
      * @since 2.32
      */
+    @GioVersion2_32
     public fun resourcesUnregister(resource: Resource): Unit = g_resources_unregister(resource.gioResourcePointer)
 
     /**
@@ -3858,6 +3960,7 @@ public object Gio {
      * @return the default schema source
      * @since 2.32
      */
+    @GioVersion2_32
     public fun settingsSchemaSourceGetDefault(): SettingsSchemaSource? =
         g_settings_schema_source_get_default()?.run {
             SettingsSchemaSource(reinterpret())
@@ -3891,6 +3994,7 @@ public object Gio {
      *     dummy object if no TLS backend is available
      * @since 2.28
      */
+    @GioVersion2_28
     public fun tlsBackendGetDefault(): TlsBackend =
         g_tls_backend_get_default()!!.run {
             TlsBackend.wrap(reinterpret())
@@ -3902,6 +4006,7 @@ public object Gio {
      * @return a #GQuark.
      * @since 2.66
      */
+    @GioVersion2_66
     public fun tlsChannelBindingErrorQuark(): UInt = g_tls_channel_binding_error_quark()
 
     /**
@@ -3919,6 +4024,7 @@ public object Gio {
      * #GTlsClientConnection, or null on error
      * @since 2.28
      */
+    @GioVersion2_28
     public fun tlsClientConnectionNew(
         baseIoStream: IOStream,
         serverIdentity: SocketConnectable? = null,
@@ -3950,6 +4056,7 @@ public object Gio {
      * @return a #GQuark.
      * @since 2.28
      */
+    @GioVersion2_28
     public fun tlsErrorQuark(): UInt = g_tls_error_quark()
 
     /**
@@ -3963,6 +4070,7 @@ public object Gio {
      * #GTlsFileDatabase, or null on error
      * @since 2.30
      */
+    @GioVersion2_30
     public fun tlsFileDatabaseNew(anchors: String): Result<TlsFileDatabase> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3995,6 +4103,7 @@ public object Gio {
      * #GTlsServerConnection, or null on error
      * @since 2.28
      */
+    @GioVersion2_28
     public fun tlsServerConnectionNew(
         baseIoStream: IOStream,
         certificate: TlsCertificate? = null,
@@ -4047,6 +4156,7 @@ public object Gio {
      *    the OS.
      * @since 2.56
      */
+    @GioVersion2_56
     public fun unixIsSystemDevicePath(devicePath: String): Boolean =
         g_unix_is_system_device_path(devicePath).asBoolean()
 
@@ -4063,6 +4173,7 @@ public object Gio {
      * @return true if @fs_type is considered an implementation detail of the OS.
      * @since 2.56
      */
+    @GioVersion2_56
     public fun unixIsSystemFsType(fsType: String): Boolean = g_unix_is_system_fs_type(fsType).asBoolean()
 
     /**
@@ -4085,6 +4196,7 @@ public object Gio {
      * @return a new #GUnixMountEntry
      * @since 2.54
      */
+    @GioVersion2_54
     public fun unixMountCopy(mountEntry: UnixMountEntry): UnixMountEntry =
         g_unix_mount_copy(mountEntry.gioUnixMountEntryPointer)!!.run {
             UnixMountEntry(reinterpret())
@@ -4138,6 +4250,7 @@ public object Gio {
      * available.
      * @since 2.58
      */
+    @GioVersion2_58
     public fun unixMountGetOptions(mountEntry: UnixMountEntry): String? =
         g_unix_mount_get_options(mountEntry.gioUnixMountEntryPointer)?.toKString()
 
@@ -4153,6 +4266,7 @@ public object Gio {
      * @return a string containing the root, or null if not supported.
      * @since 2.60
      */
+    @GioVersion2_60
     public fun unixMountGetRootPath(mountEntry: UnixMountEntry): String? =
         g_unix_mount_get_root_path(mountEntry.gioUnixMountEntryPointer)?.toKString()
 
@@ -4203,6 +4317,7 @@ public object Gio {
      * @return a #GIcon
      * @since 2.34
      */
+    @GioVersion2_34
     public fun unixMountGuessSymbolicIcon(mountEntry: UnixMountEntry): Icon =
         g_unix_mount_guess_symbolic_icon(mountEntry.gioUnixMountEntryPointer)!!.run {
             Icon.wrap(reinterpret())

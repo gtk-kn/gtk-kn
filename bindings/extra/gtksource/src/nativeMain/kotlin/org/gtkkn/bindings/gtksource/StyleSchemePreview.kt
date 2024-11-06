@@ -11,6 +11,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Actionable
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -41,9 +42,12 @@ import kotlin.Unit
  * the selection state of a single preview widget.
  * @since 5.4
  */
+@GtkSourceVersion5_4
 public open class StyleSchemePreview(
     pointer: CPointer<GtkSourceStyleSchemePreview>,
-) : Widget(pointer.reinterpret()), Actionable, KGTyped {
+) : Widget(pointer.reinterpret()),
+    Actionable,
+    KGTyped {
     public val gtksourceStyleSchemePreviewPointer: CPointer<GtkSourceStyleSchemePreview>
         get() = gPointer.reinterpret()
 
@@ -82,7 +86,9 @@ public open class StyleSchemePreview(
          *
          * @param selected
          */
-        set(selected) =
+        set(
+            selected
+        ) =
             gtk_source_style_scheme_preview_set_selected(
                 gtksourceStyleSchemePreviewPointer.reinterpret(),
                 selected.asGBoolean()
@@ -96,8 +102,9 @@ public open class StyleSchemePreview(
      * @return a #GtkWidget
      * @since 5.4
      */
-    public constructor(scheme: StyleScheme) :
-        this(gtk_source_style_scheme_preview_new(scheme.gtksourceStyleSchemePointer.reinterpret())!!.reinterpret())
+    public constructor(
+        scheme: StyleScheme,
+    ) : this(gtk_source_style_scheme_preview_new(scheme.gtksourceStyleSchemePointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the #GtkSourceStyleScheme previewed by the widget.
@@ -105,6 +112,7 @@ public open class StyleSchemePreview(
      * @return a #GtkSourceStyleScheme
      * @since 5.4
      */
+    @GtkSourceVersion5_4
     public open fun getScheme(): StyleScheme =
         gtk_source_style_scheme_preview_get_scheme(gtksourceStyleSchemePreviewPointer.reinterpret())!!.run {
             StyleScheme(reinterpret())
@@ -145,9 +153,9 @@ public open class StyleSchemePreview(
 
     public companion object : TypeCompanion<StyleSchemePreview> {
         override val type: GeneratedClassKGType<StyleSchemePreview> =
-            GeneratedClassKGType(gtk_source_style_scheme_preview_get_type()) {
-                StyleSchemePreview(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                gtk_source_style_scheme_preview_get_type()
+            ) { StyleSchemePreview(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()
@@ -161,5 +169,4 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

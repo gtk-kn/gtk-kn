@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
@@ -216,6 +217,7 @@ import kotlin.collections.List
  *
  * @since 1.4
  */
+@AdwVersion1_4
 public class NavigationView(
     pointer: CPointer<AdwNavigationView>,
 ) : Widget(pointer.reinterpret()),
@@ -243,6 +245,7 @@ public class NavigationView(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var animateTransitions: Boolean
         /**
          * Gets whether @self animates page transitions.
@@ -260,6 +263,7 @@ public class NavigationView(
          * @param animateTransitions whether to animate page transitions
          * @since 1.4
          */
+        @AdwVersion1_4
         set(
             animateTransitions
         ) =
@@ -277,6 +281,7 @@ public class NavigationView(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public val navigationStack: ListModel
         /**
          * Returns a [iface@Gio.ListModel] that contains the pages in navigation stack.
@@ -301,6 +306,7 @@ public class NavigationView(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var popOnEscape: Boolean
         /**
          * Gets whether pressing Escape pops the current page on @self.
@@ -319,6 +325,7 @@ public class NavigationView(
          * @param popOnEscape whether to pop the current page when pressing Escape
          * @since 1.4
          */
+        @AdwVersion1_4
         set(
             popOnEscape
         ) = adw_navigation_view_set_pop_on_escape(adwNavigationViewPointer.reinterpret(), popOnEscape.asGBoolean())
@@ -328,6 +335,7 @@ public class NavigationView(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public val visiblePage: NavigationPage?
         /**
          * Gets the currently visible page in @self.
@@ -362,6 +370,7 @@ public class NavigationView(
      * @param page the page to add
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun add(page: NavigationPage): Unit =
         adw_navigation_view_add(adwNavigationViewPointer.reinterpret(), page.adwNavigationPagePointer.reinterpret())
 
@@ -374,6 +383,7 @@ public class NavigationView(
      * @return the page with the given tag
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun findPage(tag: String): NavigationPage? =
         adw_navigation_view_find_page(adwNavigationViewPointer.reinterpret(), tag)?.run {
             NavigationPage(reinterpret())
@@ -385,6 +395,7 @@ public class NavigationView(
      * @return whether to animate page transitions
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getAnimateTransitions(): Boolean =
         adw_navigation_view_get_animate_transitions(adwNavigationViewPointer.reinterpret()).asBoolean()
 
@@ -398,6 +409,7 @@ public class NavigationView(
      * @return a list model for the navigation stack
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getNavigationStack(): ListModel =
         adw_navigation_view_get_navigation_stack(adwNavigationViewPointer.reinterpret())!!.run {
             ListModel.wrap(reinterpret())
@@ -409,6 +421,7 @@ public class NavigationView(
      * @return whether to pop the current page
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getPopOnEscape(): Boolean =
         adw_navigation_view_get_pop_on_escape(adwNavigationViewPointer.reinterpret()).asBoolean()
 
@@ -424,6 +437,7 @@ public class NavigationView(
      * @return the previous page
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getPreviousPage(page: NavigationPage): NavigationPage? =
         adw_navigation_view_get_previous_page(
             adwNavigationViewPointer.reinterpret(),
@@ -438,6 +452,7 @@ public class NavigationView(
      * @return the currently visible page
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getVisiblePage(): NavigationPage? =
         adw_navigation_view_get_visible_page(adwNavigationViewPointer.reinterpret())?.run {
             NavigationPage(reinterpret())
@@ -459,6 +474,7 @@ public class NavigationView(
      * @return `TRUE` if a page has been popped
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun pop(): Boolean = adw_navigation_view_pop(adwNavigationViewPointer.reinterpret()).asBoolean()
 
     /**
@@ -478,6 +494,7 @@ public class NavigationView(
      * @return `TRUE` if any pages have been popped
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun popToPage(page: NavigationPage): Boolean =
         adw_navigation_view_pop_to_page(
             adwNavigationViewPointer.reinterpret(),
@@ -500,6 +517,7 @@ public class NavigationView(
      * @return `TRUE` if any pages have been popped
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun popToTag(tag: String): Boolean =
         adw_navigation_view_pop_to_tag(adwNavigationViewPointer.reinterpret(), tag).asBoolean()
 
@@ -516,6 +534,7 @@ public class NavigationView(
      * @param page the page to push
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun push(page: NavigationPage): Unit =
         adw_navigation_view_push(adwNavigationViewPointer.reinterpret(), page.adwNavigationPagePointer.reinterpret())
 
@@ -532,6 +551,7 @@ public class NavigationView(
      * @param tag the page tag
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun pushByTag(tag: String): Unit =
         adw_navigation_view_push_by_tag(adwNavigationViewPointer.reinterpret(), tag)
 
@@ -546,6 +566,7 @@ public class NavigationView(
      * @param page the page to remove
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun remove(page: NavigationPage): Unit =
         adw_navigation_view_remove(adwNavigationViewPointer.reinterpret(), page.adwNavigationPagePointer.reinterpret())
 
@@ -571,6 +592,7 @@ public class NavigationView(
      * @param nTags the number of tags
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun replaceWithTags(
         tags: List<String>,
         nTags: Int,
@@ -591,6 +613,7 @@ public class NavigationView(
      * @param animateTransitions whether to animate page transitions
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setAnimateTransitions(animateTransitions: Boolean): Unit =
         adw_navigation_view_set_animate_transitions(
             adwNavigationViewPointer.reinterpret(),
@@ -606,6 +629,7 @@ public class NavigationView(
      * @param popOnEscape whether to pop the current page when pressing Escape
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setPopOnEscape(popOnEscape: Boolean): Unit =
         adw_navigation_view_set_pop_on_escape(adwNavigationViewPointer.reinterpret(), popOnEscape.asGBoolean())
 
@@ -626,6 +650,7 @@ public class NavigationView(
      * @param handler the Callback to connect. Returns the page to push
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun connectGetNextPage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> NavigationPage?,
@@ -652,6 +677,7 @@ public class NavigationView(
      * @param handler the Callback to connect. Params: `page` the popped page
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun connectPopped(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: NavigationPage) -> Unit,
@@ -674,6 +700,7 @@ public class NavigationView(
      * @param handler the Callback to connect
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun connectPushed(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,
@@ -696,6 +723,7 @@ public class NavigationView(
      * @param handler the Callback to connect
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun connectReplaced(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

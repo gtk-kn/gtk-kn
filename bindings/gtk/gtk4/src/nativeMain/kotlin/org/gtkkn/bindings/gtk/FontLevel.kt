@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.native.gtk.GtkFontLevel
 import org.gtkkn.native.gtk.GtkFontLevel.GTK_FONT_LEVEL_FACE
 import org.gtkkn.native.gtk.GtkFontLevel.GTK_FONT_LEVEL_FAMILY
@@ -15,6 +16,7 @@ import org.gtkkn.native.gtk.GtkFontLevel.GTK_FONT_LEVEL_FONT
  * will have more or less fields set.
  * @since 4.10
  */
+@GtkVersion4_10
 public enum class FontLevel(
     public val nativeValue: GtkFontLevel,
 ) {

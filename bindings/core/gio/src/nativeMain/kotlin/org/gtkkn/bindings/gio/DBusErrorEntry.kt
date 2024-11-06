@@ -6,6 +6,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusErrorEntry
@@ -16,6 +17,7 @@ import kotlin.String
  * Struct used in g_dbus_error_register_error_domain().
  * @since 2.26
  */
+@GioVersion2_26
 public class DBusErrorEntry(
     pointer: CPointer<GDBusErrorEntry>,
 ) : Record {

@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -47,6 +48,7 @@ public open class ScrollEvent(
      * @return the scroll unit.
      * @since 4.8
      */
+    @GdkVersion4_8
     public open fun getUnit(): ScrollUnit =
         gdk_scroll_event_get_unit(gdkScrollEventPointer.reinterpret()).run {
             ScrollUnit.fromNativeValue(this)

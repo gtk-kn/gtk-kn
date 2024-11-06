@@ -9,6 +9,8 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
@@ -248,6 +250,7 @@ public class Toast(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var customTitle: Widget?
         /**
          * Gets the custom title widget of @self.
@@ -271,6 +274,7 @@ public class Toast(
          * @param widget the custom title widget
          * @since 1.2
          */
+        @AdwVersion1_2
         set(widget) = adw_toast_set_custom_title(adwToastPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
@@ -347,6 +351,7 @@ public class Toast(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var useMarkup: Boolean
         /**
          * Gets whether to use Pango markup for the toast title.
@@ -364,6 +369,7 @@ public class Toast(
          * @param useMarkup whether to use markup
          * @since 1.4
          */
+        @AdwVersion1_4
         set(useMarkup) = adw_toast_set_use_markup(adwToastPointer.reinterpret(), useMarkup.asGBoolean())
 
     /**
@@ -416,6 +422,7 @@ public class Toast(
      * @return the custom title widget
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getCustomTitle(): Widget? =
         adw_toast_get_custom_title(adwToastPointer.reinterpret())?.run {
             Widget(reinterpret())
@@ -454,6 +461,7 @@ public class Toast(
      * @return whether the toast uses markup
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getUseMarkup(): Boolean = adw_toast_get_use_markup(adwToastPointer.reinterpret()).asBoolean()
 
     /**
@@ -504,6 +512,7 @@ public class Toast(
      * @param widget the custom title widget
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setCustomTitle(widget: Widget? = null): Unit =
         adw_toast_set_custom_title(adwToastPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
@@ -568,6 +577,7 @@ public class Toast(
      * @param useMarkup whether to use markup
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setUseMarkup(useMarkup: Boolean): Unit =
         adw_toast_set_use_markup(adwToastPointer.reinterpret(), useMarkup.asGBoolean())
 
@@ -580,6 +590,7 @@ public class Toast(
      * @param handler the Callback to connect
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun connectButtonClicked(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

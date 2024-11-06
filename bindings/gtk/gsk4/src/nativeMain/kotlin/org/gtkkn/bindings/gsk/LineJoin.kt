@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.native.gsk.GskLineJoin
 import org.gtkkn.native.gsk.GskLineJoin.GSK_LINE_JOIN_BEVEL
 import org.gtkkn.native.gsk.GskLineJoin.GSK_LINE_JOIN_MITER
@@ -22,6 +23,7 @@ import org.gtkkn.native.gsk.GskLineJoin.GSK_LINE_JOIN_ROUND
  * </figure>
  * @since 4.14
  */
+@GskVersion4_14
 public enum class LineJoin(
     public val nativeValue: GskLineJoin,
 ) {

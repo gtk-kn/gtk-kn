@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_14
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoGlyphString
@@ -133,6 +134,7 @@ public class GlyphString(
      * @return the logical width of the glyph string.
      * @since 1.14
      */
+    @PangoVersion1_14
     public fun getWidth(): Int = pango_glyph_string_get_width(pangoGlyphStringPointer.reinterpret())
 
     /**

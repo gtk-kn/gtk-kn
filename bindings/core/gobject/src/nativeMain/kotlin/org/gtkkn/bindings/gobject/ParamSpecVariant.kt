@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gobject
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
 import org.gtkkn.native.gobject.GParamSpecVariant
 
 /**
@@ -15,6 +16,7 @@ import org.gtkkn.native.gobject.GParamSpecVariant
  * values compare equal.
  * @since 2.26
  */
+@GObjectVersion2_26
 public open class ParamSpecVariant(
     pointer: CPointer<GParamSpecVariant>,
 ) : ParamSpec(pointer.reinterpret()) {

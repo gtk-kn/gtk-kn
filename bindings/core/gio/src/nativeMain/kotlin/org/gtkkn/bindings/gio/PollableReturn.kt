@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.native.gio.GPollableReturn
 import org.gtkkn.native.gio.GPollableReturn.G_POLLABLE_RETURN_FAILED
 import org.gtkkn.native.gio.GPollableReturn.G_POLLABLE_RETURN_OK
@@ -18,6 +19,7 @@ import org.gtkkn.native.gio.GPollableReturn.G_POLLABLE_RETURN_WOULD_BLOCK
  * operation to give details about the error that happened.
  * @since 2.60
  */
+@GioVersion2_60
 public enum class PollableReturn(
     public val nativeValue: GPollableReturn,
 ) {

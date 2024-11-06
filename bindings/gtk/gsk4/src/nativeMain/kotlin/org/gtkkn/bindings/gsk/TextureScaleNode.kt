@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.graphene.Rect
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -18,6 +19,7 @@ import org.gtkkn.native.gsk.gsk_texture_scale_node_new
  * A render node for a `GdkTexture`.
  * @since 4.10
  */
+@GskVersion4_10
 public open class TextureScaleNode(
     pointer: CPointer<GskTextureScaleNode>,
 ) : RenderNode(pointer.reinterpret()),
@@ -63,6 +65,7 @@ public open class TextureScaleNode(
      * @return the `GskScalingFilter`
      * @since 4.10
      */
+    @GskVersion4_10
     public open fun getFilter(): ScalingFilter =
         gsk_texture_scale_node_get_filter(gskTextureScaleNodePointer.reinterpret()).run {
             ScalingFilter.fromNativeValue(this)
@@ -74,6 +77,7 @@ public open class TextureScaleNode(
      * @return the `GdkTexture`
      * @since 4.10
      */
+    @GskVersion4_10
     public open fun getTexture(): Texture =
         gsk_texture_scale_node_get_texture(gskTextureScaleNodePointer.reinterpret())!!.run {
             Texture(reinterpret())

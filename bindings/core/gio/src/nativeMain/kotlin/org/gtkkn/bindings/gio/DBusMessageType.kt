@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GDBusMessageType
 import org.gtkkn.native.gio.GDBusMessageType.G_DBUS_MESSAGE_TYPE_ERROR
 import org.gtkkn.native.gio.GDBusMessageType.G_DBUS_MESSAGE_TYPE_INVALID
@@ -12,6 +13,7 @@ import org.gtkkn.native.gio.GDBusMessageType.G_DBUS_MESSAGE_TYPE_SIGNAL
  * Message types used in #GDBusMessage.
  * @since 2.26
  */
+@GioVersion2_26
 public enum class DBusMessageType(
     public val nativeValue: GDBusMessageType,
 ) {

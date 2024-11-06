@@ -9,6 +9,8 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -80,6 +82,7 @@ public open class Monitor(
      *
      * @since 4.10
      */
+    @GdkVersion4_10
     public open val description: String?
         /**
          * Gets a string describing the monitor, if available.
@@ -163,6 +166,7 @@ public open class Monitor(
      *
      * @since 4.14
      */
+    @GdkVersion4_14
     public open val scale: Double
         /**
          * Gets the internal scale factor that maps from monitor coordinates
@@ -244,6 +248,7 @@ public open class Monitor(
      * @return the monitor description
      * @since 4.10
      */
+    @GdkVersion4_10
     public open fun getDescription(): String? =
         gdk_monitor_get_description(gdkMonitorPointer.reinterpret())?.toKString()
 
@@ -318,6 +323,7 @@ public open class Monitor(
      * @return the scale
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getScale(): Double = gdk_monitor_get_scale(gdkMonitorPointer.reinterpret())
 
     /**

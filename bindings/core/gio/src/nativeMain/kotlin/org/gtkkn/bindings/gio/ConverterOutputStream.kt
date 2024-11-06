@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -68,6 +69,7 @@ public open class ConverterOutputStream(
      * @return the converter of the converter output stream
      * @since 2.24
      */
+    @GioVersion2_24
     public open fun getConverter(): Converter =
         g_converter_output_stream_get_converter(gioConverterOutputStreamPointer.reinterpret())!!.run {
             Converter.wrap(reinterpret())

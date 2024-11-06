@@ -3,6 +3,9 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -50,6 +53,7 @@ public open class MemoryOutputStream(
      *
      * @since 2.24
      */
+    @GioVersion2_24
     public open val dataSize: ULong
         /**
          * Returns the number of bytes from the start up to including the last
@@ -65,6 +69,7 @@ public open class MemoryOutputStream(
      *
      * @since 2.24
      */
+    @GioVersion2_24
     public open val size: ULong
         /**
          * Gets the size of the currently allocated data area (available from
@@ -102,6 +107,7 @@ public open class MemoryOutputStream(
      * @return the number of bytes written to the stream
      * @since 2.18
      */
+    @GioVersion2_18
     public open fun getDataSize(): ULong =
         g_memory_output_stream_get_data_size(gioMemoryOutputStreamPointer.reinterpret())
 
@@ -133,6 +139,7 @@ public open class MemoryOutputStream(
      * @return the stream's data
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun stealAsBytes(): Bytes =
         g_memory_output_stream_steal_as_bytes(gioMemoryOutputStreamPointer.reinterpret())!!.run {
             Bytes(reinterpret())

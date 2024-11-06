@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -37,6 +38,7 @@ import kotlin.collections.List
  *
  * @since 2.36
  */
+@GioVersion2_36
 public open class SimpleProxyResolver(
     pointer: CPointer<GSimpleProxyResolver>,
 ) : Object(pointer.reinterpret()),
@@ -60,6 +62,7 @@ public open class SimpleProxyResolver(
      * @param defaultProxy the default proxy to use
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun setDefaultProxy(defaultProxy: String? = null): Unit =
         g_simple_proxy_resolver_set_default_proxy(gioSimpleProxyResolverPointer.reinterpret(), defaultProxy)
 
@@ -73,6 +76,7 @@ public open class SimpleProxyResolver(
      *     to not use a proxy for
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun setIgnoreHosts(ignoreHosts: List<String>): Unit =
         memScoped {
             return g_simple_proxy_resolver_set_ignore_hosts(
@@ -95,6 +99,7 @@ public open class SimpleProxyResolver(
      * @param proxy the proxy to use for @uri_scheme
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun setUriProxy(
         uriScheme: String,
         proxy: String,
@@ -121,6 +126,7 @@ public open class SimpleProxyResolver(
          * @return a new #GSimpleProxyResolver
          * @since 2.36
          */
+        @GioVersion2_36
         public fun new(
             defaultProxy: String? = null,
             ignoreHosts: List<String>? = null,

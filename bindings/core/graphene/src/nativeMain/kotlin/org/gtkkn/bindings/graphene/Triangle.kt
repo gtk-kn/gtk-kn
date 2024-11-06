@@ -4,6 +4,8 @@ package org.gtkkn.bindings.graphene
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_triangle_alloc
@@ -38,6 +40,7 @@ import kotlin.Unit
  *
  * @since 1.2
  */
+@GrapheneVersion1_2
 public class Triangle(
     pointer: CPointer<graphene_triangle_t>,
 ) : Record {
@@ -50,6 +53,7 @@ public class Triangle(
      * @return `true` if the point is inside the triangle
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun containsPoint(p: Point3D): Boolean =
         graphene_triangle_contains_point(grapheneTrianglePointer.reinterpret(), p.graphenePoint3DPointer)
 
@@ -60,6 +64,7 @@ public class Triangle(
      * @return `true` if the triangles are equal
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun equal(b: Triangle): Boolean =
         graphene_triangle_equal(grapheneTrianglePointer.reinterpret(), b.grapheneTrianglePointer)
 
@@ -68,6 +73,7 @@ public class Triangle(
      *
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun free(): Unit = graphene_triangle_free(grapheneTrianglePointer.reinterpret())
 
     /**
@@ -76,6 +82,7 @@ public class Triangle(
      * @return the area of the triangle
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getArea(): Float = graphene_triangle_get_area(grapheneTrianglePointer.reinterpret())
 
     /**
@@ -102,6 +109,7 @@ public class Triangle(
      * @return `true` if the barycentric coordinates are valid
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getBarycoords(
         p: Point3D? = null,
         res: Vec2,
@@ -118,6 +126,7 @@ public class Triangle(
      * @param res return location for the box
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getBoundingBox(res: Box): Unit =
         graphene_triangle_get_bounding_box(grapheneTrianglePointer.reinterpret(), res.grapheneBoxPointer)
 
@@ -131,6 +140,7 @@ public class Triangle(
      *   the midpoint
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getMidpoint(res: Point3D): Unit =
         graphene_triangle_get_midpoint(grapheneTrianglePointer.reinterpret(), res.graphenePoint3DPointer)
 
@@ -140,6 +150,7 @@ public class Triangle(
      * @param res return location for the normal vector
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getNormal(res: Vec3): Unit =
         graphene_triangle_get_normal(grapheneTrianglePointer.reinterpret(), res.grapheneVec3Pointer)
 
@@ -149,6 +160,7 @@ public class Triangle(
      * @param res return location for the plane
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getPlane(res: Plane): Unit =
         graphene_triangle_get_plane(grapheneTrianglePointer.reinterpret(), res.graphenePlanePointer)
 
@@ -164,6 +176,7 @@ public class Triangle(
      *   of the third vertex
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getPoints(
         a: Point3D?,
         b: Point3D?,
@@ -199,6 +212,7 @@ public class Triangle(
      * @return `true` if the coordinates are valid
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun getUv(
         p: Point3D? = null,
         uvA: Vec2,
@@ -223,6 +237,7 @@ public class Triangle(
      * @param c return location for the third vertex
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getVertices(
         a: Vec3?,
         b: Vec3?,
@@ -244,6 +259,7 @@ public class Triangle(
      * @return the initialized #graphene_triangle_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initFromPoint3d(
         a: Point3D? = null,
         b: Point3D? = null,
@@ -267,6 +283,7 @@ public class Triangle(
      * @return the initialized #graphene_triangle_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initFromVec3(
         a: Vec3? = null,
         b: Vec3? = null,

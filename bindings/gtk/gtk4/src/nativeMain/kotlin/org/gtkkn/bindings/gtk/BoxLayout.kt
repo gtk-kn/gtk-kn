@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -62,6 +63,7 @@ public open class BoxLayout(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var baselineChild: Int
         /**
          * Gets the value set by gtk_box_layout_set_baseline_child().
@@ -79,6 +81,7 @@ public open class BoxLayout(
          * @param child the child position, or -1
          * @since 4.12
          */
+        @GtkVersion4_12
         set(child) = gtk_box_layout_set_baseline_child(gtkBoxLayoutPointer.reinterpret(), child)
 
     /**
@@ -165,6 +168,7 @@ public open class BoxLayout(
      *     in vertical layout, or -1
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getBaselineChild(): Int = gtk_box_layout_get_baseline_child(gtkBoxLayoutPointer.reinterpret())
 
     /**
@@ -199,6 +203,7 @@ public open class BoxLayout(
      * @param child the child position, or -1
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setBaselineChild(child: Int): Unit =
         gtk_box_layout_set_baseline_child(gtkBoxLayoutPointer.reinterpret(), child)
 

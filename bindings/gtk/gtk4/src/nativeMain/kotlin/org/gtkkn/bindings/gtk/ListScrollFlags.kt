@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gtk.GTK_LIST_SCROLL_FOCUS
 import org.gtkkn.native.gtk.GTK_LIST_SCROLL_NONE
@@ -17,6 +18,7 @@ public class ListScrollFlags(
 ) : Bitfield<ListScrollFlags> {
     override infix fun or(other: ListScrollFlags): ListScrollFlags = ListScrollFlags(mask or other.mask)
 
+    @GtkVersion4_12
     public companion object {
         /**
          * Don't do anything extra

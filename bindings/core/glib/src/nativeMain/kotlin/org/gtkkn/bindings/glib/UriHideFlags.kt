@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.glib.GUriHideFlags
 import org.gtkkn.native.glib.G_URI_HIDE_AUTH_PARAMS
@@ -22,6 +23,7 @@ public class UriHideFlags(
 ) : Bitfield<UriHideFlags> {
     override infix fun or(other: UriHideFlags): UriHideFlags = UriHideFlags(mask or other.mask)
 
+    @GLibVersion2_66
     public companion object {
         /**
          * No flags set.

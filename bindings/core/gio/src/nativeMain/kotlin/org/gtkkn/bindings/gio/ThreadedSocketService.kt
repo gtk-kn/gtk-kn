@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asGBoolean
@@ -49,6 +50,7 @@ import kotlin.ULong
  *
  * @since 2.22
  */
+@GioVersion2_22
 public open class ThreadedSocketService(
     pointer: CPointer<GThreadedSocketService>,
 ) : SocketService(pointer.reinterpret()),

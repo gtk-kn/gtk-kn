@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gdk.Device
 import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -267,6 +268,7 @@ public open class EventController(
      * @param name a name for @controller, must be a static string
      * @since 4.8
      */
+    @GtkVersion4_8
     public open fun setStaticName(name: String? = null): Unit =
         gtk_event_controller_set_static_name(gtkEventControllerPointer.reinterpret(), name)
 

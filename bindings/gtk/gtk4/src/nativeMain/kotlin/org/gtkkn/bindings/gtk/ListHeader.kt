@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -27,6 +28,7 @@ import kotlin.Unit
  * for managing the header instead of individual items.
  * @since 4.12
  */
+@GtkVersion4_12
 public open class ListHeader(
     pointer: CPointer<GtkListHeader>,
 ) : Object(pointer.reinterpret()),
@@ -39,6 +41,7 @@ public open class ListHeader(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var child: Widget?
         /**
          * Gets the child previously set via gtk_list_header_set_child() or
@@ -62,6 +65,7 @@ public open class ListHeader(
          * @param child The list item's child or null to unset
          * @since 4.12
          */
+        @GtkVersion4_12
         set(
             child
         ) = gtk_list_header_set_child(gtkListHeaderPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
@@ -71,6 +75,7 @@ public open class ListHeader(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open val end: UInt
         /**
          * Gets the end position in the model of the section that @self is
@@ -88,6 +93,7 @@ public open class ListHeader(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open val item: Object?
         /**
          * Gets the model item at the start of the section.
@@ -109,6 +115,7 @@ public open class ListHeader(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open val nItems: UInt
         /**
          * Gets the the number of items in the section.
@@ -125,6 +132,7 @@ public open class ListHeader(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open val start: UInt
         /**
          * Gets the start position in the model of the section that @self is
@@ -144,6 +152,7 @@ public open class ListHeader(
      * @return The child
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getChild(): Widget? =
         gtk_list_header_get_child(gtkListHeaderPointer.reinterpret())?.run {
             Widget(reinterpret())
@@ -158,6 +167,7 @@ public open class ListHeader(
      * @return The end position of the section
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getEnd(): UInt = gtk_list_header_get_end(gtkListHeaderPointer.reinterpret())
 
     /**
@@ -170,6 +180,7 @@ public open class ListHeader(
      * @return The item displayed
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getItem(): Object? =
         gtk_list_header_get_item(gtkListHeaderPointer.reinterpret())?.run {
             Object(reinterpret())
@@ -183,6 +194,7 @@ public open class ListHeader(
      * @return The number of items in the section
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getNItems(): UInt = gtk_list_header_get_n_items(gtkListHeaderPointer.reinterpret())
 
     /**
@@ -194,6 +206,7 @@ public open class ListHeader(
      * @return The start position of the section
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getStart(): UInt = gtk_list_header_get_start(gtkListHeaderPointer.reinterpret())
 
     /**
@@ -206,6 +219,7 @@ public open class ListHeader(
      * @param child The list item's child or null to unset
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setChild(child: Widget? = null): Unit =
         gtk_list_header_set_child(gtkListHeaderPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 

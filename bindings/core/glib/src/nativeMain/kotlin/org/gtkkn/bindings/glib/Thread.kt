@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GThread
@@ -52,6 +53,7 @@ public class Thread(
      * @return a new reference to @thread
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun ref(): Thread =
         g_thread_ref(glibThreadPointer.reinterpret())!!.run {
             Thread(reinterpret())
@@ -67,6 +69,7 @@ public class Thread(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun unref(): Unit = g_thread_unref(glibThreadPointer.reinterpret())
 
     public companion object : RecordCompanion<Thread, GThread> {

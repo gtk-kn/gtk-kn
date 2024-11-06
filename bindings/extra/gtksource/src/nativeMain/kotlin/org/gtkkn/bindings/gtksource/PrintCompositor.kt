@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.PrintContext
 import org.gtkkn.bindings.gtk.TextTag
 import org.gtkkn.bindings.gtk.WrapMode
+import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -85,7 +86,8 @@ import org.gtkkn.bindings.gtk.Unit as GtkUnit
  */
 public open class PrintCompositor(
     pointer: CPointer<GtkSourcePrintCompositor>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourcePrintCompositorPointer: CPointer<GtkSourcePrintCompositor>
         get() = gPointer.reinterpret()
 
@@ -109,9 +111,7 @@ public open class PrintCompositor(
          * text body.
          */
         get() =
-            gtk_source_print_compositor_get_body_font_name(
-                gtksourcePrintCompositorPointer.reinterpret()
-            )?.toKString()
+            gtk_source_print_compositor_get_body_font_name(gtksourcePrintCompositorPointer.reinterpret())?.toKString()
                 ?: error("Expected not null string")
 
         /**
@@ -127,11 +127,9 @@ public open class PrintCompositor(
          *
          * @param fontName the name of the default font for the body text.
          */
-        set(fontName) =
-            gtk_source_print_compositor_set_body_font_name(
-                gtksourcePrintCompositorPointer.reinterpret(),
-                fontName
-            )
+        set(
+            fontName
+        ) = gtk_source_print_compositor_set_body_font_name(gtksourcePrintCompositorPointer.reinterpret(), fontName)
 
     /**
      * The [class@Buffer] object to print.
@@ -161,8 +159,7 @@ public open class PrintCompositor(
          * Determines whether the printed text will be highlighted according to the
          * buffer rules.
          *
-         * Note that highlighting will happen only if the buffer to print has highlighting
-         * activated.
+         * Note that highlighting will happen only if the buffer to print has highlighting activated.
          *
          * @return true if the printed output will be highlighted.
          */
@@ -180,7 +177,9 @@ public open class PrintCompositor(
          *
          * @param highlight whether syntax should be highlighted.
          */
-        set(highlight) =
+        set(
+            highlight
+        ) =
             gtk_source_print_compositor_set_highlight_syntax(
                 gtksourcePrintCompositorPointer.reinterpret(),
                 highlight.asGBoolean()
@@ -198,8 +197,7 @@ public open class PrintCompositor(
          * @return the number of pages in the document or <code>-1</code> if the
          * document has not been completely paginated.
          */
-        get() =
-            gtk_source_print_compositor_get_n_pages(gtksourcePrintCompositorPointer.reinterpret())
+        get() = gtk_source_print_compositor_get_n_pages(gtksourcePrintCompositorPointer.reinterpret())
 
     /**
      * Whether to print a footer in each page.
@@ -221,8 +219,7 @@ public open class PrintCompositor(
          *
          * @return true if the footer is set to be printed.
          */
-        get() =
-            gtk_source_print_compositor_get_print_footer(gtksourcePrintCompositorPointer.reinterpret()).asBoolean()
+        get() = gtk_source_print_compositor_get_print_footer(gtksourcePrintCompositorPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether you want to print a footer in each page.
@@ -239,7 +236,9 @@ public open class PrintCompositor(
          *
          * @param print true if you want the footer to be printed.
          */
-        set(print) =
+        set(
+            print
+        ) =
             gtk_source_print_compositor_set_print_footer(
                 gtksourcePrintCompositorPointer.reinterpret(),
                 print.asGBoolean()
@@ -265,8 +264,7 @@ public open class PrintCompositor(
          *
          * @return true if the header is set to be printed.
          */
-        get() =
-            gtk_source_print_compositor_get_print_header(gtksourcePrintCompositorPointer.reinterpret()).asBoolean()
+        get() = gtk_source_print_compositor_get_print_header(gtksourcePrintCompositorPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether you want to print a header in each page.
@@ -282,7 +280,9 @@ public open class PrintCompositor(
          *
          * @param print true if you want the header to be printed.
          */
-        set(print) =
+        set(
+            print
+        ) =
             gtk_source_print_compositor_set_print_header(
                 gtksourcePrintCompositorPointer.reinterpret(),
                 print.asGBoolean()
@@ -307,8 +307,7 @@ public open class PrintCompositor(
          *
          * @return the interval of printed line numbers.
          */
-        get() =
-            gtk_source_print_compositor_get_print_line_numbers(gtksourcePrintCompositorPointer.reinterpret())
+        get() = gtk_source_print_compositor_get_print_line_numbers(gtksourcePrintCompositorPointer.reinterpret())
 
         /**
          * Sets the interval for printed line numbers.
@@ -323,11 +322,9 @@ public open class PrintCompositor(
          *
          * @param interval interval for printed line numbers.
          */
-        set(interval) =
-            gtk_source_print_compositor_set_print_line_numbers(
-                gtksourcePrintCompositorPointer.reinterpret(),
-                interval
-            )
+        set(
+            interval
+        ) = gtk_source_print_compositor_set_print_line_numbers(gtksourcePrintCompositorPointer.reinterpret(), interval)
 
     /**
      * Width of a tab character expressed in spaces.
@@ -341,8 +338,7 @@ public open class PrintCompositor(
          *
          * @return width of tab.
          */
-        get() =
-            gtk_source_print_compositor_get_tab_width(gtksourcePrintCompositorPointer.reinterpret())
+        get() = gtk_source_print_compositor_get_tab_width(gtksourcePrintCompositorPointer.reinterpret())
 
         /**
          * Sets the width of tabulation in characters for printed text.
@@ -352,11 +348,7 @@ public open class PrintCompositor(
          *
          * @param width width of tab in characters.
          */
-        set(width) =
-            gtk_source_print_compositor_set_tab_width(
-                gtksourcePrintCompositorPointer.reinterpret(),
-                width
-            )
+        set(width) = gtk_source_print_compositor_set_tab_width(gtksourcePrintCompositorPointer.reinterpret(), width)
 
     /**
      * Whether to wrap lines never, at word boundaries, or at character boundaries.
@@ -383,7 +375,9 @@ public open class PrintCompositor(
          *
          * @param wrapMode a #GtkWrapMode.
          */
-        set(wrapMode) =
+        set(
+            wrapMode
+        ) =
             gtk_source_print_compositor_set_wrap_mode(
                 gtksourcePrintCompositorPointer.reinterpret(),
                 wrapMode.nativeValue
@@ -395,8 +389,9 @@ public open class PrintCompositor(
      * @param buffer the #GtkSourceBuffer to print.
      * @return a new print compositor object.
      */
-    public constructor(buffer: Buffer) :
-        this(gtk_source_print_compositor_new(buffer.gtksourceBufferPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        buffer: Buffer,
+    ) : this(gtk_source_print_compositor_new(buffer.gtksourceBufferPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new print compositor that can be used to print the buffer
@@ -411,14 +406,14 @@ public open class PrintCompositor(
      * @param view a #GtkSourceView to get configuration from.
      * @return a new print compositor object.
      */
-    public constructor(view: View) :
-        this(gtk_source_print_compositor_new_from_view(view.gtksourceViewPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        view: View,
+    ) : this(gtk_source_print_compositor_new_from_view(view.gtksourceViewPointer.reinterpret())!!.reinterpret())
 
     /**
      * Draw page @page_nr for printing on the the Cairo context encapsuled in @context.
      *
-     * This method has been designed to be called in the handler of the
-     * [signal@Gtk.PrintOperation::draw_page] signal
+     * This method has been designed to be called in the handler of the [signal@Gtk.PrintOperation::draw_page] signal
      * as shown in the following example:
      *
      * ```c
@@ -440,8 +435,7 @@ public open class PrintCompositor(
      * }
      * ```
      *
-     * @param context the #GtkPrintContext encapsulating the context information that is required
-     * when
+     * @param context the #GtkPrintContext encapsulating the context information that is required when
      *           drawing the page for printing.
      * @param pageNr the number of the page to print.
      */
@@ -474,10 +468,7 @@ public open class PrintCompositor(
      * @return the bottom margin.
      */
     public open fun getBottomMargin(unit: GtkUnit): Double =
-        gtk_source_print_compositor_get_bottom_margin(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            unit.nativeValue
-        )
+        gtk_source_print_compositor_get_bottom_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the [class@Buffer] associated with the compositor.
@@ -534,10 +525,7 @@ public open class PrintCompositor(
      * @return the left margin
      */
     public open fun getLeftMargin(unit: GtkUnit): Double =
-        gtk_source_print_compositor_get_left_margin(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            unit.nativeValue
-        )
+        gtk_source_print_compositor_get_left_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Returns the name of the font used to print line numbers on the left margin.
@@ -613,10 +601,7 @@ public open class PrintCompositor(
      * @return the right margin.
      */
     public open fun getRightMargin(unit: GtkUnit): Double =
-        gtk_source_print_compositor_get_right_margin(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            unit.nativeValue
-        )
+        gtk_source_print_compositor_get_right_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Returns the width of tabulation in characters for printed text.
@@ -633,10 +618,7 @@ public open class PrintCompositor(
      * @return the top margin.
      */
     public open fun getTopMargin(unit: GtkUnit): Double =
-        gtk_source_print_compositor_get_top_margin(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            unit.nativeValue
-        )
+        gtk_source_print_compositor_get_top_margin(gtksourcePrintCompositorPointer.reinterpret(), unit.nativeValue)
 
     /**
      * Gets the line wrapping mode for the printed text.
@@ -655,6 +637,7 @@ public open class PrintCompositor(
      * @param tag a #GtkTextTag
      * @since 5.2
      */
+    @GtkSourceVersion5_2
     public open fun ignoreTag(tag: TextTag): KotlinUnit =
         gtk_source_print_compositor_ignore_tag(
             gtksourcePrintCompositorPointer.reinterpret(),
@@ -670,8 +653,7 @@ public open class PrintCompositor(
      * must be invoked multiple times.
      * It returns true if the document has been completely paginated, otherwise it returns false.
      *
-     * This method has been designed to be invoked in the handler of the
-     * [signal@Gtk.PrintOperation::paginate] signal,
+     * This method has been designed to be invoked in the handler of the [signal@Gtk.PrintOperation::paginate] signal,
      * as shown in the following example:
      *
      * ```c
@@ -701,8 +683,7 @@ public open class PrintCompositor(
      * ```
      *
      * If you don't need to do pagination in chunks, you can simply do it all in the
-     * [signal@Gtk.PrintOperation::begin-print] handler, and set the number of pages from there,
-     * like
+     * [signal@Gtk.PrintOperation::begin-print] handler, and set the number of pages from there, like
      * in the following example:
      *
      * ```c
@@ -749,10 +730,7 @@ public open class PrintCompositor(
      * @param fontName the name of the default font for the body text.
      */
     public open fun setBodyFontName(fontName: String): KotlinUnit =
-        gtk_source_print_compositor_set_body_font_name(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            fontName
-        )
+        gtk_source_print_compositor_set_body_font_name(gtksourcePrintCompositorPointer.reinterpret(), fontName)
 
     /**
      * Sets the bottom margin used by @compositor.
@@ -787,10 +765,7 @@ public open class PrintCompositor(
      * @param fontName the name of the font for the footer text, or null.
      */
     public open fun setFooterFontName(fontName: String? = null): KotlinUnit =
-        gtk_source_print_compositor_set_footer_font_name(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            fontName
-        )
+        gtk_source_print_compositor_set_footer_font_name(gtksourcePrintCompositorPointer.reinterpret(), fontName)
 
     /**
      * See [method@PrintCompositor.set_header_format] for more information
@@ -832,10 +807,7 @@ public open class PrintCompositor(
      * @param fontName the name of the font for header text, or null.
      */
     public open fun setHeaderFontName(fontName: String? = null): KotlinUnit =
-        gtk_source_print_compositor_set_header_font_name(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            fontName
-        )
+        gtk_source_print_compositor_set_header_font_name(gtksourcePrintCompositorPointer.reinterpret(), fontName)
 
     /**
      * Sets strftime like header format strings, to be printed on the
@@ -929,10 +901,7 @@ public open class PrintCompositor(
      * @param fontName the name of the font for line numbers, or null.
      */
     public open fun setLineNumbersFontName(fontName: String? = null): KotlinUnit =
-        gtk_source_print_compositor_set_line_numbers_font_name(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            fontName
-        )
+        gtk_source_print_compositor_set_line_numbers_font_name(gtksourcePrintCompositorPointer.reinterpret(), fontName)
 
     /**
      * Sets whether you want to print a footer in each page.
@@ -950,10 +919,7 @@ public open class PrintCompositor(
      * @param print true if you want the footer to be printed.
      */
     public open fun setPrintFooter(print: Boolean): KotlinUnit =
-        gtk_source_print_compositor_set_print_footer(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            print.asGBoolean()
-        )
+        gtk_source_print_compositor_set_print_footer(gtksourcePrintCompositorPointer.reinterpret(), print.asGBoolean())
 
     /**
      * Sets whether you want to print a header in each page.
@@ -970,10 +936,7 @@ public open class PrintCompositor(
      * @param print true if you want the header to be printed.
      */
     public open fun setPrintHeader(print: Boolean): KotlinUnit =
-        gtk_source_print_compositor_set_print_header(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            print.asGBoolean()
-        )
+        gtk_source_print_compositor_set_print_header(gtksourcePrintCompositorPointer.reinterpret(), print.asGBoolean())
 
     /**
      * Sets the interval for printed line numbers.
@@ -989,10 +952,7 @@ public open class PrintCompositor(
      * @param interval interval for printed line numbers.
      */
     public open fun setPrintLineNumbers(interval: UInt): KotlinUnit =
-        gtk_source_print_compositor_set_print_line_numbers(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            interval
-        )
+        gtk_source_print_compositor_set_print_line_numbers(gtksourcePrintCompositorPointer.reinterpret(), interval)
 
     /**
      * Sets the right margin used by @compositor.
@@ -1019,10 +979,7 @@ public open class PrintCompositor(
      * @param width width of tab in characters.
      */
     public open fun setTabWidth(width: UInt): KotlinUnit =
-        gtk_source_print_compositor_set_tab_width(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            width
-        )
+        gtk_source_print_compositor_set_tab_width(gtksourcePrintCompositorPointer.reinterpret(), width)
 
     /**
      * Sets the top margin used by @compositor.
@@ -1049,16 +1006,11 @@ public open class PrintCompositor(
      * @param wrapMode a #GtkWrapMode.
      */
     public open fun setWrapMode(wrapMode: WrapMode): KotlinUnit =
-        gtk_source_print_compositor_set_wrap_mode(
-            gtksourcePrintCompositorPointer.reinterpret(),
-            wrapMode.nativeValue
-        )
+        gtk_source_print_compositor_set_wrap_mode(gtksourcePrintCompositorPointer.reinterpret(), wrapMode.nativeValue)
 
     public companion object : TypeCompanion<PrintCompositor> {
         override val type: GeneratedClassKGType<PrintCompositor> =
-            GeneratedClassKGType(gtk_source_print_compositor_get_type()) {
-                PrintCompositor(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_print_compositor_get_type()) { PrintCompositor(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

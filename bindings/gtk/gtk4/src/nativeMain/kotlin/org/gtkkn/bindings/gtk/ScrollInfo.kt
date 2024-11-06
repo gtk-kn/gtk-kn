@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
@@ -27,6 +28,7 @@ import kotlin.Unit
  * the default values to be used and just scroll the element into view.
  * @since 4.12
  */
+@GtkVersion4_12
 public class ScrollInfo(
     pointer: CPointer<GtkScrollInfo>,
 ) : Record {
@@ -38,6 +40,7 @@ public class ScrollInfo(
      * @return true if horizontal scrolling is enabled.
      * @since 4.12
      */
+    @GtkVersion4_12
     public fun getEnableHorizontal(): Boolean =
         gtk_scroll_info_get_enable_horizontal(gtkScrollInfoPointer.reinterpret()).asBoolean()
 
@@ -47,6 +50,7 @@ public class ScrollInfo(
      * @return true if vertical scrolling is enabled.
      * @since 4.12
      */
+    @GtkVersion4_12
     public fun getEnableVertical(): Boolean =
         gtk_scroll_info_get_enable_vertical(gtkScrollInfoPointer.reinterpret()).asBoolean()
 
@@ -56,6 +60,7 @@ public class ScrollInfo(
      * @return the passed in `GtkScrollInfo`.
      * @since 4.12
      */
+    @GtkVersion4_12
     public fun ref(): ScrollInfo =
         gtk_scroll_info_ref(gtkScrollInfoPointer.reinterpret())!!.run {
             ScrollInfo(reinterpret())
@@ -68,6 +73,7 @@ public class ScrollInfo(
      *     should happen
      * @since 4.12
      */
+    @GtkVersion4_12
     public fun setEnableHorizontal(horizontal: Boolean): Unit =
         gtk_scroll_info_set_enable_horizontal(gtkScrollInfoPointer.reinterpret(), horizontal.asGBoolean())
 
@@ -78,6 +84,7 @@ public class ScrollInfo(
      *     should happen
      * @since 4.12
      */
+    @GtkVersion4_12
     public fun setEnableVertical(vertical: Boolean): Unit =
         gtk_scroll_info_set_enable_vertical(gtkScrollInfoPointer.reinterpret(), vertical.asGBoolean())
 
@@ -88,6 +95,7 @@ public class ScrollInfo(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public fun unref(): Unit = gtk_scroll_info_unref(gtkScrollInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<ScrollInfo, GtkScrollInfo> {

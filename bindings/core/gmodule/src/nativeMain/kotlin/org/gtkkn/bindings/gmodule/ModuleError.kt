@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.gmodule
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.gmodule.annotations.GModuleVersion2_70
 import org.gtkkn.native.glib.g_quark_from_string
 import org.gtkkn.native.gmodule.GModuleError
 import org.gtkkn.native.gmodule.GModuleError.G_MODULE_ERROR_CHECK_FAILED
@@ -12,6 +13,7 @@ import kotlin.UInt
  * Errors returned by g_module_open_full().
  * @since 2.70
  */
+@GModuleVersion2_70
 public enum class ModuleError(
     public val nativeValue: GModuleError,
 ) {

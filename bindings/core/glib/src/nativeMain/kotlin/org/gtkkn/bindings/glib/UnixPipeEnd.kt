@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
 import org.gtkkn.native.glib.GUnixPipeEnd
 import org.gtkkn.native.glib.GUnixPipeEnd.G_UNIX_PIPE_END_READ
 import org.gtkkn.native.glib.GUnixPipeEnd.G_UNIX_PIPE_END_WRITE
@@ -9,6 +10,7 @@ import org.gtkkn.native.glib.GUnixPipeEnd.G_UNIX_PIPE_END_WRITE
  * Mnemonic constants for the ends of a Unix pipe.
  * @since 2.80
  */
+@GLibVersion2_80
 public enum class UnixPipeEnd(
     public val nativeValue: GUnixPipeEnd,
 ) {

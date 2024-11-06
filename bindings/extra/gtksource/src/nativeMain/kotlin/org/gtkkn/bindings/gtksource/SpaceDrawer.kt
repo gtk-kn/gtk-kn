@@ -79,7 +79,8 @@ import kotlin.Unit
  */
 public open class SpaceDrawer(
     pointer: CPointer<GtkSourceSpaceDrawer>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceSpaceDrawerPointer: CPointer<GtkSourceSpaceDrawer>
         get() = gPointer.reinterpret()
 
@@ -92,15 +93,16 @@ public open class SpaceDrawer(
          *
          * @return whether the #GtkSourceSpaceDrawer:matrix property is enabled.
          */
-        get() =
-            gtk_source_space_drawer_get_enable_matrix(gtksourceSpaceDrawerPointer.reinterpret()).asBoolean()
+        get() = gtk_source_space_drawer_get_enable_matrix(gtksourceSpaceDrawerPointer.reinterpret()).asBoolean()
 
         /**
          * Sets whether the [property@SpaceDrawer:matrix] property is enabled.
          *
          * @param enableMatrix the new value.
          */
-        set(enableMatrix) =
+        set(
+            enableMatrix
+        ) =
             gtk_source_space_drawer_set_enable_matrix(
                 gtksourceSpaceDrawerPointer.reinterpret(),
                 enableMatrix.asGBoolean()
@@ -181,10 +183,7 @@ public open class SpaceDrawer(
      * @return a combination of #GtkSourceSpaceTypeFlags.
      */
     public open fun getTypesForLocations(locations: SpaceLocationFlags): SpaceTypeFlags =
-        gtk_source_space_drawer_get_types_for_locations(
-            gtksourceSpaceDrawerPointer.reinterpret(),
-            locations.mask
-        ).run {
+        gtk_source_space_drawer_get_types_for_locations(gtksourceSpaceDrawerPointer.reinterpret(), locations.mask).run {
             SpaceTypeFlags(this)
         }
 
@@ -194,10 +193,7 @@ public open class SpaceDrawer(
      * @param enableMatrix the new value.
      */
     public open fun setEnableMatrix(enableMatrix: Boolean): Unit =
-        gtk_source_space_drawer_set_enable_matrix(
-            gtksourceSpaceDrawerPointer.reinterpret(),
-            enableMatrix.asGBoolean()
-        )
+        gtk_source_space_drawer_set_enable_matrix(gtksourceSpaceDrawerPointer.reinterpret(), enableMatrix.asGBoolean())
 
     /**
      * Sets a new value to the [property@SpaceDrawer:matrix] property, as a [struct@GLib.Variant].
@@ -212,10 +208,7 @@ public open class SpaceDrawer(
      * @param matrix the new matrix value, or null.
      */
     public open fun setMatrix(matrix: Variant? = null): Unit =
-        gtk_source_space_drawer_set_matrix(
-            gtksourceSpaceDrawerPointer.reinterpret(),
-            matrix?.glibVariantPointer
-        )
+        gtk_source_space_drawer_set_matrix(gtksourceSpaceDrawerPointer.reinterpret(), matrix?.glibVariantPointer)
 
     /**
      * Modifies the [property@SpaceDrawer:matrix] property at the specified
@@ -236,9 +229,7 @@ public open class SpaceDrawer(
 
     public companion object : TypeCompanion<SpaceDrawer> {
         override val type: GeneratedClassKGType<SpaceDrawer> =
-            GeneratedClassKGType(gtk_source_space_drawer_get_type()) {
-                SpaceDrawer(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_space_drawer_get_type()) { SpaceDrawer(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

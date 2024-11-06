@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_72
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Interface
@@ -36,6 +37,7 @@ import kotlin.Unit
  * all that’s needed to dynamically enable or disable debug output.
  * @since 2.72
  */
+@GioVersion2_72
 public interface DebugController :
     Interface,
     Initable,
@@ -51,6 +53,7 @@ public interface DebugController :
      *
      * @since 2.72
      */
+    @GioVersion2_72
     public var debugEnabled: Boolean
         /**
          * Get the value of #GDebugController:debug-enabled.
@@ -66,6 +69,7 @@ public interface DebugController :
          * @param debugEnabled true if debug output should be exposed, false otherwise
          * @since 2.72
          */
+        @GioVersion2_72
         set(
             debugEnabled
         ) = g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
@@ -76,6 +80,7 @@ public interface DebugController :
      * @return true if debug output should be exposed, false otherwise
      * @since 2.72
      */
+    @GioVersion2_72
     public fun getDebugEnabled(): Boolean =
         g_debug_controller_get_debug_enabled(gioDebugControllerPointer.reinterpret()).asBoolean()
 
@@ -85,6 +90,7 @@ public interface DebugController :
      * @param debugEnabled true if debug output should be exposed, false otherwise
      * @since 2.72
      */
+    @GioVersion2_72
     public fun setDebugEnabled(debugEnabled: Boolean): Unit =
         g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
 

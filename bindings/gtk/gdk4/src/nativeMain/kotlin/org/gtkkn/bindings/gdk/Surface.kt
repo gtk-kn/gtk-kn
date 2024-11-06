@@ -13,6 +13,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Gdk.resolveException
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
@@ -182,6 +183,7 @@ public open class Surface(
      *
      * @since 4.12
      */
+    @GdkVersion4_12
     public open val scale: Double
         /**
          * Returns the internal scale that maps from surface coordinates
@@ -432,6 +434,7 @@ public open class Surface(
      * @return the scale
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun getScale(): Double = gdk_surface_get_scale(gdkSurfacePointer.reinterpret())
 
     /**

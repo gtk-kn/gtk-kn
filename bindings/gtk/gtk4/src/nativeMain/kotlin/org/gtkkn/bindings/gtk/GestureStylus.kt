@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.DeviceTool
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -52,6 +53,7 @@ public open class GestureStylus(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var stylusOnly: Boolean
         /**
          * Checks whether the gesture is for styluses only.
@@ -73,6 +75,7 @@ public open class GestureStylus(
          * @param stylusOnly whether the gesture is used exclusively for stylus events
          * @since 4.10
          */
+        @GtkVersion4_10
         set(
             stylusOnly
         ) = gtk_gesture_stylus_set_stylus_only(gtkGestureStylusPointer.reinterpret(), stylusOnly.asGBoolean())
@@ -108,6 +111,7 @@ public open class GestureStylus(
      * @return true if the gesture is only for stylus events
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getStylusOnly(): Boolean =
         gtk_gesture_stylus_get_stylus_only(gtkGestureStylusPointer.reinterpret()).asBoolean()
 
@@ -120,6 +124,7 @@ public open class GestureStylus(
      * @param stylusOnly whether the gesture is used exclusively for stylus events
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setStylusOnly(stylusOnly: Boolean): Unit =
         gtk_gesture_stylus_set_stylus_only(gtkGestureStylusPointer.reinterpret(), stylusOnly.asGBoolean())
 

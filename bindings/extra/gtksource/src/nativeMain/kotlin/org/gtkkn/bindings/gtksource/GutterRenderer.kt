@@ -92,7 +92,8 @@ import kotlin.Unit
  */
 public open class GutterRenderer(
     pointer: CPointer<GtkSourceGutterRenderer>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceGutterRendererPointer: CPointer<GtkSourceGutterRenderer>
         get() = gPointer.reinterpret()
 
@@ -108,8 +109,7 @@ public open class GutterRenderer(
     /**
      * The alignment mode of the renderer.
      *
-     * This can be used to indicate that in the case a cell spans multiple lines (due to text
-     * wrapping)
+     * This can be used to indicate that in the case a cell spans multiple lines (due to text wrapping)
      * the alignment should work on either the full cell, the first line or the last line.
      */
     public open var alignmentMode: GutterRendererAlignmentMode
@@ -134,7 +134,9 @@ public open class GutterRenderer(
          *
          * @param mode a #GtkSourceGutterRendererAlignmentMode
          */
-        set(mode) =
+        set(
+            mode
+        ) =
             gtk_source_gutter_renderer_set_alignment_mode(
                 gtksourceGutterRendererPointer.reinterpret(),
                 mode.nativeValue
@@ -175,11 +177,7 @@ public open class GutterRenderer(
          *
          * @param xalign the Y padding for the drawing cell
          */
-        set(xalign) =
-            gtk_source_gutter_renderer_set_xalign(
-                gtksourceGutterRendererPointer.reinterpret(),
-                xalign
-            )
+        set(xalign) = gtk_source_gutter_renderer_set_xalign(gtksourceGutterRendererPointer.reinterpret(), xalign)
 
     /**
      * The left and right padding of the renderer.
@@ -199,11 +197,7 @@ public open class GutterRenderer(
          *
          * @param xpad the Y padding for the drawing cell
          */
-        set(xpad) =
-            gtk_source_gutter_renderer_set_xpad(
-                gtksourceGutterRendererPointer.reinterpret(),
-                xpad
-            )
+        set(xpad) = gtk_source_gutter_renderer_set_xpad(gtksourceGutterRendererPointer.reinterpret(), xpad)
 
     /**
      * The vertical alignment of the renderer.
@@ -226,11 +220,7 @@ public open class GutterRenderer(
          *
          * @param yalign the Y padding for the drawing cell
          */
-        set(yalign) =
-            gtk_source_gutter_renderer_set_yalign(
-                gtksourceGutterRendererPointer.reinterpret(),
-                yalign
-            )
+        set(yalign) = gtk_source_gutter_renderer_set_yalign(gtksourceGutterRendererPointer.reinterpret(), yalign)
 
     /**
      * The top and bottom padding of the renderer.
@@ -250,11 +240,7 @@ public open class GutterRenderer(
          *
          * @param ypad the Y padding for the drawing cell
          */
-        set(ypad) =
-            gtk_source_gutter_renderer_set_ypad(
-                gtksourceGutterRendererPointer.reinterpret(),
-                ypad
-            )
+        set(ypad) = gtk_source_gutter_renderer_set_ypad(gtksourceGutterRendererPointer.reinterpret(), ypad)
 
     /**
      * Emits the [signal@GutterRenderer::activate] signal of the renderer. This is
@@ -373,10 +359,7 @@ public open class GutterRenderer(
      * @param mode a #GtkSourceGutterRendererAlignmentMode
      */
     public open fun setAlignmentMode(mode: GutterRendererAlignmentMode): Unit =
-        gtk_source_gutter_renderer_set_alignment_mode(
-            gtksourceGutterRendererPointer.reinterpret(),
-            mode.nativeValue
-        )
+        gtk_source_gutter_renderer_set_alignment_mode(gtksourceGutterRendererPointer.reinterpret(), mode.nativeValue)
 
     /**
      * Adjusts the `xalign` property.
@@ -386,10 +369,7 @@ public open class GutterRenderer(
      * @param xalign the Y padding for the drawing cell
      */
     public open fun setXalign(xalign: Float): Unit =
-        gtk_source_gutter_renderer_set_xalign(
-            gtksourceGutterRendererPointer.reinterpret(),
-            xalign
-        )
+        gtk_source_gutter_renderer_set_xalign(gtksourceGutterRendererPointer.reinterpret(), xalign)
 
     /**
      * Adjusts the `xpad` property.
@@ -409,10 +389,7 @@ public open class GutterRenderer(
      * @param yalign the Y padding for the drawing cell
      */
     public open fun setYalign(yalign: Float): Unit =
-        gtk_source_gutter_renderer_set_yalign(
-            gtksourceGutterRendererPointer.reinterpret(),
-            yalign
-        )
+        gtk_source_gutter_renderer_set_yalign(gtksourceGutterRendererPointer.reinterpret(), yalign)
 
     /**
      * Adjusts the `ypad` property.
@@ -428,9 +405,7 @@ public open class GutterRenderer(
      * The signal is emitted when the renderer is activated.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `iter` a #GtkTextIter; `area` a
-     * #GdkRectangle; `button` the button that was pressed; `state` a #GdkModifierType of state;
-     * `nPresses` the number of button presses
+     * @param handler the Callback to connect. Params: `iter` a #GtkTextIter; `area` a #GdkRectangle; `button` the button that was pressed; `state` a #GdkModifierType of state; `nPresses` the number of button presses
      */
     public fun connectActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
@@ -491,9 +466,7 @@ public open class GutterRenderer(
 
     public companion object : TypeCompanion<GutterRenderer> {
         override val type: GeneratedClassKGType<GutterRenderer> =
-            GeneratedClassKGType(gtk_source_gutter_renderer_get_type()) {
-                GutterRenderer(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_gutter_renderer_get_type()) { GutterRenderer(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()
@@ -521,54 +494,52 @@ private val connectActivateFunc: CPointer<
             nPresses: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                iter: TextIter,
-                area: Rectangle,
-                button: UInt,
-                state: ModifierType,
-                nPresses: Int,
-            ) -> Unit
-        >().get().invoke(
-            iter!!.run {
-                TextIter(reinterpret())
-            },
-            area!!.run {
-                Rectangle(reinterpret())
-            },
-            button,
-            state.run {
-                ModifierType(this)
-            },
-            nPresses
-        )
-    }
-        .reinterpret()
+        userData
+            .asStableRef<
+                (
+                    iter: TextIter,
+                    area: Rectangle,
+                    button: UInt,
+                    state: ModifierType,
+                    nPresses: Int,
+                ) -> Unit
+            >()
+            .get()
+            .invoke(
+                iter!!.run {
+                    TextIter(reinterpret())
+                },
+                area!!.run {
+                    Rectangle(reinterpret())
+                },
+                button,
+                state.run {
+                    ModifierType(this)
+                },
+                nPresses
+            )
+    }.reinterpret()
 
-private val connectQueryActivatableFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkTextIter>,
-            CPointer<GdkRectangle>,
-        ) -> Int
-    >
-> =
+private val connectQueryActivatableFunc:
+    CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GdkRectangle>) -> Int>> =
     staticCFunction {
             _: COpaquePointer,
             iter: CPointer<GtkTextIter>?,
             area: CPointer<GdkRectangle>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(iter: TextIter, area: Rectangle) -> Boolean>().get().invoke(
-            iter!!.run {
-                TextIter(reinterpret())
-            },
-            area!!.run {
-                Rectangle(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(iter: TextIter, area: Rectangle) -> Boolean>()
+            .get()
+            .invoke(
+                iter!!.run {
+                    TextIter(reinterpret())
+                },
+                area!!.run {
+                    Rectangle(reinterpret())
+                }
+            ).asGBoolean()
+    }.reinterpret()
 
 private val connectQueryDataFunc: CPointer<CFunction<(CPointer<GObject>, UInt) -> Unit>> =
     staticCFunction {
@@ -583,5 +554,4 @@ private val connectQueryDataFunc: CPointer<CFunction<(CPointer<GObject>, UInt) -
             },
             p0
         )
-    }
-        .reinterpret()
+    }.reinterpret()

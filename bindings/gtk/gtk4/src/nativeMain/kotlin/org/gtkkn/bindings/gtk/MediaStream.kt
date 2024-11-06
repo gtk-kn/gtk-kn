@@ -7,6 +7,7 @@ import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Surface
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -533,6 +534,7 @@ public open class MediaStream(
      *
      * @since 4.4
      */
+    @GtkVersion4_4
     public open fun streamEnded(): Unit = gtk_media_stream_stream_ended(gtkMediaStreamPointer.reinterpret())
 
     /**
@@ -553,6 +555,7 @@ public open class MediaStream(
      * @param duration The duration of the stream or 0 if unknown
      * @since 4.4
      */
+    @GtkVersion4_4
     public open fun streamPrepared(
         hasAudio: Boolean,
         hasVideo: Boolean,
@@ -576,6 +579,7 @@ public open class MediaStream(
      *
      * @since 4.4
      */
+    @GtkVersion4_4
     public open fun streamUnprepared(): Unit = gtk_media_stream_stream_unprepared(gtkMediaStreamPointer.reinterpret())
 
     /**

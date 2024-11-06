@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
 import org.gtkkn.native.gsk.GskMaskMode
 import org.gtkkn.native.gsk.GskMaskMode.GSK_MASK_MODE_ALPHA
 import org.gtkkn.native.gsk.GskMaskMode.GSK_MASK_MODE_INVERTED_ALPHA
@@ -11,6 +12,7 @@ import org.gtkkn.native.gsk.GskMaskMode.GSK_MASK_MODE_LUMINANCE
  * The mask modes available for mask nodes.
  * @since 4.10
  */
+@GskVersion4_10
 public enum class MaskMode(
     public val nativeValue: GskMaskMode,
 ) {

@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
@@ -65,6 +66,7 @@ import kotlin.collections.List
  *
  * @since 4.10
  */
+@GtkVersion4_10
 public open class AlertDialog(
     pointer: CPointer<GtkAlertDialog>,
 ) : Object(pointer.reinterpret()),
@@ -85,6 +87,7 @@ public open class AlertDialog(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var cancelButton: Int
         /**
          * Returns the index of the cancel button.
@@ -103,6 +106,7 @@ public open class AlertDialog(
          * @param button the new cancel button
          * @since 4.10
          */
+        @GtkVersion4_10
         set(button) = gtk_alert_dialog_set_cancel_button(gtkAlertDialogPointer.reinterpret(), button)
 
     /**
@@ -118,6 +122,7 @@ public open class AlertDialog(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var defaultButton: Int
         /**
          * Returns the index of the default button.
@@ -136,6 +141,7 @@ public open class AlertDialog(
          * @param button the new default button
          * @since 4.10
          */
+        @GtkVersion4_10
         set(button) = gtk_alert_dialog_set_default_button(gtkAlertDialogPointer.reinterpret(), button)
 
     /**
@@ -143,6 +149,7 @@ public open class AlertDialog(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var detail: String
         /**
          * Returns the detail text that will be shown in the alert.
@@ -160,6 +167,7 @@ public open class AlertDialog(
          * @param detail the new detail text
          * @since 4.10
          */
+        @GtkVersion4_10
         set(detail) = gtk_alert_dialog_set_detail(gtkAlertDialogPointer.reinterpret(), detail)
 
     /**
@@ -167,6 +175,7 @@ public open class AlertDialog(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var message: String
         /**
          * Returns the message that will be shown in the alert.
@@ -184,6 +193,7 @@ public open class AlertDialog(
          * @param message the new message
          * @since 4.10
          */
+        @GtkVersion4_10
         set(message) = gtk_alert_dialog_set_message(gtkAlertDialogPointer.reinterpret(), message)
 
     /**
@@ -191,6 +201,7 @@ public open class AlertDialog(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var modal: Boolean
         /**
          * Returns whether the alert blocks interaction
@@ -208,6 +219,7 @@ public open class AlertDialog(
          * @param modal the new value
          * @since 4.10
          */
+        @GtkVersion4_10
         set(modal) = gtk_alert_dialog_set_modal(gtkAlertDialogPointer.reinterpret(), modal.asGBoolean())
 
     /**
@@ -226,6 +238,7 @@ public open class AlertDialog(
      * @param callback a callback to call when the operation is complete
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun choose(
         parent: Window? = null,
         cancellable: Cancellable? = null,
@@ -249,6 +262,7 @@ public open class AlertDialog(
      *   is not set
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun chooseFinish(result: AsyncResult): Result<Int> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -271,6 +285,7 @@ public open class AlertDialog(
      * @return the button labels
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getButtons(): List<String>? =
         gtk_alert_dialog_get_buttons(gtkAlertDialogPointer.reinterpret())?.toKStringList()
 
@@ -280,6 +295,7 @@ public open class AlertDialog(
      * @return the index of the cancel button, or -1
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getCancelButton(): Int = gtk_alert_dialog_get_cancel_button(gtkAlertDialogPointer.reinterpret())
 
     /**
@@ -288,6 +304,7 @@ public open class AlertDialog(
      * @return the index of the default button, or -1
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getDefaultButton(): Int = gtk_alert_dialog_get_default_button(gtkAlertDialogPointer.reinterpret())
 
     /**
@@ -296,6 +313,7 @@ public open class AlertDialog(
      * @return the detail text
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getDetail(): String =
         gtk_alert_dialog_get_detail(gtkAlertDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -306,6 +324,7 @@ public open class AlertDialog(
      * @return the message
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getMessage(): String =
         gtk_alert_dialog_get_message(gtkAlertDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -317,6 +336,7 @@ public open class AlertDialog(
      * @return `TRUE` if the alert is modal
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getModal(): Boolean = gtk_alert_dialog_get_modal(gtkAlertDialogPointer.reinterpret()).asBoolean()
 
     /**
@@ -325,6 +345,7 @@ public open class AlertDialog(
      * @param labels the new button labels
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setButtons(labels: List<String>): Unit =
         memScoped {
             return gtk_alert_dialog_set_buttons(gtkAlertDialogPointer.reinterpret(), labels.toCStringList(this))
@@ -339,6 +360,7 @@ public open class AlertDialog(
      * @param button the new cancel button
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setCancelButton(button: Int): Unit =
         gtk_alert_dialog_set_cancel_button(gtkAlertDialogPointer.reinterpret(), button)
 
@@ -351,6 +373,7 @@ public open class AlertDialog(
      * @param button the new default button
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setDefaultButton(button: Int): Unit =
         gtk_alert_dialog_set_default_button(gtkAlertDialogPointer.reinterpret(), button)
 
@@ -360,6 +383,7 @@ public open class AlertDialog(
      * @param detail the new detail text
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setDetail(detail: String): Unit =
         gtk_alert_dialog_set_detail(gtkAlertDialogPointer.reinterpret(), detail)
 
@@ -369,6 +393,7 @@ public open class AlertDialog(
      * @param message the new message
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setMessage(message: String): Unit =
         gtk_alert_dialog_set_message(gtkAlertDialogPointer.reinterpret(), message)
 
@@ -379,6 +404,7 @@ public open class AlertDialog(
      * @param modal the new value
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setModal(modal: Boolean): Unit =
         gtk_alert_dialog_set_modal(gtkAlertDialogPointer.reinterpret(), modal.asGBoolean())
 
@@ -394,6 +420,7 @@ public open class AlertDialog(
      * @param parent the parent `GtkWindow`
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun show(parent: Window? = null): Unit =
         gtk_alert_dialog_show(gtkAlertDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret())
 

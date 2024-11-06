@@ -50,7 +50,9 @@ import kotlin.UInt
  *
  * - method `indent`: In/Out parameter is not supported
  */
-public interface Indenter : Interface, KGTyped {
+public interface Indenter :
+    Interface,
+    KGTyped {
     public val gtksourceIndenterPointer: CPointer<GtkSourceIndenter>
 
     /**
@@ -92,9 +94,7 @@ public interface Indenter : Interface, KGTyped {
 
     public companion object : TypeCompanion<Indenter> {
         override val type: GeneratedInterfaceKGType<Indenter> =
-            GeneratedInterfaceKGType(gtk_source_indenter_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_source_indenter_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

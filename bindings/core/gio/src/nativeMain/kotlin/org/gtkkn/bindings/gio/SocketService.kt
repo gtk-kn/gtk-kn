@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -64,6 +65,7 @@ import kotlin.Unit
  *
  * @since 2.22
  */
+@GioVersion2_22
 public open class SocketService(
     pointer: CPointer<GSocketService>,
 ) : SocketListener(pointer.reinterpret()),
@@ -94,6 +96,7 @@ public open class SocketService(
      * @return true if the service is active, false otherwise
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun isActive(): Boolean = g_socket_service_is_active(gioSocketServicePointer.reinterpret()).asBoolean()
 
     /**
@@ -107,6 +110,7 @@ public open class SocketService(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun start(): Unit = g_socket_service_start(gioSocketServicePointer.reinterpret())
 
     /**
@@ -128,6 +132,7 @@ public open class SocketService(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun stop(): Unit = g_socket_service_stop(gioSocketServicePointer.reinterpret())
 
     /**
@@ -144,6 +149,7 @@ public open class SocketService(
      *     g_socket_listener_add_address(). Returns true to stop other handlers from being called
      * @since 2.22
      */
+    @GioVersion2_22
     public fun connectIncoming(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean,

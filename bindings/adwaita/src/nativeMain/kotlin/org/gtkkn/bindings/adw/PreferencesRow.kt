@@ -4,6 +4,8 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_1
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.gtk.ListBoxRow
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -92,6 +94,7 @@ public open class PreferencesRow(
      *
      * @since 1.1
      */
+    @AdwVersion1_1
     public open var titleSelectable: Boolean
         /**
          * Gets whether the user can copy the title from the label
@@ -109,6 +112,7 @@ public open class PreferencesRow(
          * @param titleSelectable `TRUE` if the user can copy the title from the label
          * @since 1.1
          */
+        @AdwVersion1_1
         set(
             titleSelectable
         ) =
@@ -126,6 +130,7 @@ public open class PreferencesRow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public open var useMarkup: Boolean
         /**
          * Gets whether to use Pango markup for the title label.
@@ -145,6 +150,7 @@ public open class PreferencesRow(
          * @param useMarkup whether to use markup
          * @since 1.2
          */
+        @AdwVersion1_2
         set(
             useMarkup
         ) = adw_preferences_row_set_use_markup(adwPreferencesRowPointer.reinterpret(), useMarkup.asGBoolean())
@@ -191,6 +197,7 @@ public open class PreferencesRow(
      * @return whether the user can copy the title from the label
      * @since 1.1
      */
+    @AdwVersion1_1
     public open fun getTitleSelectable(): Boolean =
         adw_preferences_row_get_title_selectable(adwPreferencesRowPointer.reinterpret()).asBoolean()
 
@@ -200,6 +207,7 @@ public open class PreferencesRow(
      * @return whether to use markup
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun getUseMarkup(): Boolean =
         adw_preferences_row_get_use_markup(adwPreferencesRowPointer.reinterpret()).asBoolean()
 
@@ -230,6 +238,7 @@ public open class PreferencesRow(
      * @param titleSelectable `TRUE` if the user can copy the title from the label
      * @since 1.1
      */
+    @AdwVersion1_1
     public open fun setTitleSelectable(titleSelectable: Boolean): Unit =
         adw_preferences_row_set_title_selectable(adwPreferencesRowPointer.reinterpret(), titleSelectable.asGBoolean())
 
@@ -243,6 +252,7 @@ public open class PreferencesRow(
      * @param useMarkup whether to use markup
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun setUseMarkup(useMarkup: Boolean): Unit =
         adw_preferences_row_set_use_markup(adwPreferencesRowPointer.reinterpret(), useMarkup.asGBoolean())
 

@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -17,6 +18,7 @@ import org.gtkkn.native.gsk.gsk_mask_node_new
  * A render node masking one child node with another.
  * @since 4.10
  */
+@GskVersion4_10
 public open class MaskNode(
     pointer: CPointer<GskMaskNode>,
 ) : RenderNode(pointer.reinterpret()),
@@ -55,6 +57,7 @@ public open class MaskNode(
      * @return the mask child node
      * @since 4.10
      */
+    @GskVersion4_10
     public open fun getMask(): RenderNode =
         gsk_mask_node_get_mask(gskMaskNodePointer.reinterpret())!!.run {
             RenderNode(reinterpret())
@@ -66,6 +69,7 @@ public open class MaskNode(
      * @return the mask mode
      * @since 4.10
      */
+    @GskVersion4_10
     public open fun getMaskMode(): MaskMode =
         gsk_mask_node_get_mask_mode(gskMaskNodePointer.reinterpret()).run {
             MaskMode.fromNativeValue(this)
@@ -77,6 +81,7 @@ public open class MaskNode(
      * @return the source child node
      * @since 4.10
      */
+    @GskVersion4_10
     public open fun getSource(): RenderNode =
         gsk_mask_node_get_source(gskMaskNodePointer.reinterpret())!!.run {
             RenderNode(reinterpret())

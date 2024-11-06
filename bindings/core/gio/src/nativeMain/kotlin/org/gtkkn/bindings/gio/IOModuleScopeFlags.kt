@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.native.gio.GIOModuleScopeFlags
 import org.gtkkn.native.gio.GIOModuleScopeFlags.G_IO_MODULE_SCOPE_BLOCK_DUPLICATES
 import org.gtkkn.native.gio.GIOModuleScopeFlags.G_IO_MODULE_SCOPE_NONE
@@ -9,6 +10,7 @@ import org.gtkkn.native.gio.GIOModuleScopeFlags.G_IO_MODULE_SCOPE_NONE
  * Flags for use with g_io_module_scope_new().
  * @since 2.30
  */
+@GioVersion2_30
 public enum class IOModuleScopeFlags(
     public val nativeValue: GIOModuleScopeFlags,
 ) {

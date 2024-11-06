@@ -49,7 +49,8 @@ import kotlin.Unit
  */
 public open class Map(
     pointer: CPointer<GtkSourceMap>,
-) : View(pointer.reinterpret()), KGTyped {
+) : View(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceMapPointer: CPointer<GtkSourceMap>
         get() = gPointer.reinterpret()
 
@@ -88,10 +89,7 @@ public open class Map(
      * @param view a #GtkSourceView
      */
     public open fun setView(view: View): Unit =
-        gtk_source_map_set_view(
-            gtksourceMapPointer.reinterpret(),
-            view.gtksourceViewPointer.reinterpret()
-        )
+        gtk_source_map_set_view(gtksourceMapPointer.reinterpret(), view.gtksourceViewPointer.reinterpret())
 
     public companion object : TypeCompanion<Map> {
         override val type: GeneratedClassKGType<Map> =

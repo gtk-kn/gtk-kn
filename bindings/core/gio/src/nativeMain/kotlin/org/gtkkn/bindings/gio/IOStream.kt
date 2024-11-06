@@ -9,6 +9,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -90,6 +92,7 @@ import kotlin.Unit
  *
  * @since 2.22
  */
+@GioVersion2_22
 public open class IOStream(
     pointer: CPointer<GIOStream>,
 ) : Object(pointer.reinterpret()),
@@ -102,6 +105,7 @@ public open class IOStream(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val inputStream: InputStream
         /**
          * Gets the input stream for this object. This is used
@@ -121,6 +125,7 @@ public open class IOStream(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val outputStream: OutputStream
         /**
          * Gets the output stream for this object. This is used for
@@ -140,6 +145,7 @@ public open class IOStream(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun clearPending(): Unit = g_io_stream_clear_pending(gioIOStreamPointer.reinterpret())
 
     /**
@@ -181,6 +187,7 @@ public open class IOStream(
      * @return true on success, false on failure
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun close(cancellable: Cancellable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -215,6 +222,7 @@ public open class IOStream(
      *   to call when the request is satisfied
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun closeAsync(
         ioPriority: Int,
         cancellable: Cancellable? = null,
@@ -235,6 +243,7 @@ public open class IOStream(
      * @return true if stream was successfully closed, false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun closeFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -259,6 +268,7 @@ public open class IOStream(
      * Do not free.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getInputStream(): InputStream =
         g_io_stream_get_input_stream(gioIOStreamPointer.reinterpret())!!.run {
             InputStream(reinterpret())
@@ -272,6 +282,7 @@ public open class IOStream(
      * Do not free.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getOutputStream(): OutputStream =
         g_io_stream_get_output_stream(gioIOStreamPointer.reinterpret())!!.run {
             OutputStream(reinterpret())
@@ -283,6 +294,7 @@ public open class IOStream(
      * @return true if @stream has pending actions.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun hasPending(): Boolean = g_io_stream_has_pending(gioIOStreamPointer.reinterpret()).asBoolean()
 
     /**
@@ -291,6 +303,7 @@ public open class IOStream(
      * @return true if the stream is closed.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun isClosed(): Boolean = g_io_stream_is_closed(gioIOStreamPointer.reinterpret()).asBoolean()
 
     /**
@@ -301,6 +314,7 @@ public open class IOStream(
      * @return true if pending was previously unset and is now set.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun setPending(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -329,6 +343,7 @@ public open class IOStream(
      *   to call when the request is satisfied
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun spliceAsync(
         stream2: IOStream,
         flags: IOStreamSpliceFlags,
@@ -361,6 +376,7 @@ public open class IOStream(
          * @return true on success, false otherwise.
          * @since 2.28
          */
+        @GioVersion2_28
         public fun spliceFinish(result: AsyncResult): Result<Boolean> =
             memScoped {
                 val gError = allocPointerTo<GError>()

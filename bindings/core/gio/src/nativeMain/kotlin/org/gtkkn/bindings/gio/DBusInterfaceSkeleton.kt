@@ -14,6 +14,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.glib.Variant
@@ -60,6 +62,7 @@ import kotlin.Unit
  *
  * @since 2.30
  */
+@GioVersion2_30
 public open class DBusInterfaceSkeleton(
     pointer: CPointer<GDBusInterfaceSkeleton>,
 ) : Object(pointer.reinterpret()),
@@ -86,6 +89,7 @@ public open class DBusInterfaceSkeleton(
      * @error set.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun export(
         connection: DBusConnection,
         objectPath: String,
@@ -118,6 +122,7 @@ public open class DBusInterfaceSkeleton(
      *
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun flush(): Unit = g_dbus_interface_skeleton_flush(gioDBusInterfaceSkeletonPointer.reinterpret())
 
     /**
@@ -127,6 +132,7 @@ public open class DBusInterfaceSkeleton(
      * not exported anywhere. Do not free, the object belongs to @interface_.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getConnection(): DBusConnection? =
         g_dbus_interface_skeleton_get_connection(gioDBusInterfaceSkeletonPointer.reinterpret())?.run {
             DBusConnection(reinterpret())
@@ -141,6 +147,7 @@ public open class DBusInterfaceSkeleton(
      *   been freed with g_object_unref().
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getConnections(): List =
         g_dbus_interface_skeleton_get_connections(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
             List(reinterpret())
@@ -153,6 +160,7 @@ public open class DBusInterfaceSkeleton(
      * @return One or more flags from the #GDBusInterfaceSkeletonFlags enumeration.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getFlags(): DBusInterfaceSkeletonFlags =
         g_dbus_interface_skeleton_get_flags(gioDBusInterfaceSkeletonPointer.reinterpret()).run {
             DBusInterfaceSkeletonFlags(this)
@@ -165,6 +173,7 @@ public open class DBusInterfaceSkeleton(
      * @return A #GDBusInterfaceInfo (never null). Do not free.
      * @since 2.30
      */
+    @GioVersion2_30
     open override fun getInfo(): DBusInterfaceInfo =
         g_dbus_interface_skeleton_get_info(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
             DBusInterfaceInfo(reinterpret())
@@ -177,6 +186,7 @@ public open class DBusInterfaceSkeleton(
      * anywhere. Do not free, the string belongs to @interface_.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getObjectPath(): String? =
         g_dbus_interface_skeleton_get_object_path(gioDBusInterfaceSkeletonPointer.reinterpret())?.toKString()
 
@@ -188,6 +198,7 @@ public open class DBusInterfaceSkeleton(
      * Free with g_variant_unref().
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getProperties(): Variant =
         g_dbus_interface_skeleton_get_properties(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -201,6 +212,7 @@ public open class DBusInterfaceSkeleton(
      * @return the vtable of the D-Bus interface implemented by the skeleton
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getVtable(): DBusInterfaceVTable =
         g_dbus_interface_skeleton_get_vtable(gioDBusInterfaceSkeletonPointer.reinterpret())!!.run {
             DBusInterfaceVTable(reinterpret())
@@ -213,6 +225,7 @@ public open class DBusInterfaceSkeleton(
      * @return true if @interface_ is exported on @connection, false otherwise.
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun hasConnection(connection: DBusConnection): Boolean =
         g_dbus_interface_skeleton_has_connection(
             gioDBusInterfaceSkeletonPointer.reinterpret(),
@@ -225,6 +238,7 @@ public open class DBusInterfaceSkeleton(
      * @param flags Flags from the #GDBusInterfaceSkeletonFlags enumeration.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun setFlags(flags: DBusInterfaceSkeletonFlags): Unit =
         g_dbus_interface_skeleton_set_flags(gioDBusInterfaceSkeletonPointer.reinterpret(), flags.mask)
 
@@ -236,6 +250,7 @@ public open class DBusInterfaceSkeleton(
      *
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun unexport(): Unit = g_dbus_interface_skeleton_unexport(gioDBusInterfaceSkeletonPointer.reinterpret())
 
     /**
@@ -247,6 +262,7 @@ public open class DBusInterfaceSkeleton(
      * @param connection A #GDBusConnection.
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun unexportFromConnection(connection: DBusConnection): Unit =
         g_dbus_interface_skeleton_unexport_from_connection(
             gioDBusInterfaceSkeletonPointer.reinterpret(),
@@ -292,6 +308,7 @@ public open class DBusInterfaceSkeleton(
      * @param handler the Callback to connect. Params: `invocation` A #GDBusMethodInvocation.. Returns true if the call is authorized, false otherwise.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun connectGAuthorizeMethod(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (invocation: DBusMethodInvocation) -> Boolean,

@@ -10,6 +10,13 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_50
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_56
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
@@ -232,6 +239,7 @@ public class KeyFile(
      *    or false if the key was not found or could not be parsed.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getBoolean(
         groupName: String,
         key: String,
@@ -267,6 +275,7 @@ public class KeyFile(
      * @return a comment that should be freed with g_free()
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getComment(
         groupName: String? = null,
         key: String? = null,
@@ -302,6 +311,7 @@ public class KeyFile(
      *     0.0 if the key was not found or could not be parsed.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun getDouble(
         groupName: String,
         key: String,
@@ -327,6 +337,7 @@ public class KeyFile(
      * 0 if the key was not found or could not be parsed.
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getInt64(
         groupName: String,
         key: String,
@@ -357,6 +368,7 @@ public class KeyFile(
      *     0 if the key was not found or could not be parsed.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getInteger(
         groupName: String,
         key: String,
@@ -389,6 +401,7 @@ public class KeyFile(
      *   found or the entry in the file was was untranslated
      * @since 2.56
      */
+    @GLibVersion2_56
     public fun getLocaleForKey(
         groupName: String,
         key: String,
@@ -418,6 +431,7 @@ public class KeyFile(
      *   key cannot be found.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getLocaleString(
         groupName: String,
         key: String,
@@ -446,6 +460,7 @@ public class KeyFile(
      * @return The start group of the key file.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getStartGroup(): String =
         g_key_file_get_start_group(glibKeyFilePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -465,6 +480,7 @@ public class KeyFile(
      *   key cannot be found.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getString(
         groupName: String,
         key: String,
@@ -496,6 +512,7 @@ public class KeyFile(
      * or 0 if the key was not found or could not be parsed.
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getUint64(
         groupName: String,
         key: String,
@@ -525,6 +542,7 @@ public class KeyFile(
      *  key cannot be found.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getValue(
         groupName: String,
         key: String,
@@ -553,6 +571,7 @@ public class KeyFile(
      * otherwise.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun hasGroup(groupName: String): Boolean =
         g_key_file_has_group(glibKeyFilePointer.reinterpret(), groupName).asBoolean()
 
@@ -565,6 +584,7 @@ public class KeyFile(
      * @return true if a key file could be loaded, false otherwise
      * @since 2.50
      */
+    @GLibVersion2_50
     public fun loadFromBytes(
         bytes: Bytes,
         flags: KeyFileFlags,
@@ -595,6 +615,7 @@ public class KeyFile(
      * @return true if a key file could be loaded, false otherwise
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun loadFromData(
         `data`: String,
         length: ULong,
@@ -632,6 +653,7 @@ public class KeyFile(
      * @return true if a key file could be loaded, false otherwise
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun loadFromFile(
         `file`: String,
         flags: KeyFileFlags,
@@ -663,6 +685,7 @@ public class KeyFile(
      * @return true if the comment was removed, false otherwise
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun removeComment(
         groupName: String? = null,
         key: String? = null,
@@ -691,6 +714,7 @@ public class KeyFile(
      * @return true if the group was removed, false otherwise
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun removeGroup(groupName: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -710,6 +734,7 @@ public class KeyFile(
      * @return true if the key was removed, false otherwise
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun removeKey(
         groupName: String,
         key: String,
@@ -743,6 +768,7 @@ public class KeyFile(
      * @return true if successful, else false with @error set
      * @since 2.40
      */
+    @GLibVersion2_40
     public fun saveToFile(filename: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -763,6 +789,7 @@ public class KeyFile(
      * @param value true or false
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun setBoolean(
         groupName: String,
         key: String,
@@ -785,6 +812,7 @@ public class KeyFile(
      * @return true if the comment was written, false otherwise
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun setComment(
         groupName: String? = null,
         key: String? = null,
@@ -816,6 +844,7 @@ public class KeyFile(
      * @param value a double value
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun setDouble(
         groupName: String,
         key: String,
@@ -831,6 +860,7 @@ public class KeyFile(
      * @param value an integer value
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun setInt64(
         groupName: String,
         key: String,
@@ -846,6 +876,7 @@ public class KeyFile(
      * @param value an integer value
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun setInteger(
         groupName: String,
         key: String,
@@ -860,6 +891,7 @@ public class KeyFile(
      * @param separator the separator
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun setListSeparator(separator: Char): Unit =
         g_key_file_set_list_separator(glibKeyFilePointer.reinterpret(), separator.code.toByte())
 
@@ -873,6 +905,7 @@ public class KeyFile(
      * @param string a string
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun setLocaleString(
         groupName: String,
         key: String,
@@ -892,6 +925,7 @@ public class KeyFile(
      * @param length the length of @list
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun setLocaleStringList(
         groupName: String,
         key: String,
@@ -922,6 +956,7 @@ public class KeyFile(
      * @param string a string
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun setString(
         groupName: String,
         key: String,
@@ -939,6 +974,7 @@ public class KeyFile(
      * @param length number of string values in @list
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun setStringList(
         groupName: String,
         key: String,
@@ -964,6 +1000,7 @@ public class KeyFile(
      * @param value an integer value
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun setUint64(
         groupName: String,
         key: String,
@@ -983,6 +1020,7 @@ public class KeyFile(
      * @param value a string
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun setValue(
         groupName: String,
         key: String,
@@ -995,6 +1033,7 @@ public class KeyFile(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun unref(): Unit = g_key_file_unref(glibKeyFilePointer.reinterpret())
 
     public companion object : RecordCompanion<KeyFile, GKeyFile> {

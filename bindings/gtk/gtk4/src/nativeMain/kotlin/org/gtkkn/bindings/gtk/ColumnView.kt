@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -184,6 +185,7 @@ public open class ColumnView(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var headerFactory: ListItemFactory?
         /**
          * Gets the factory that's currently used to populate section headers.
@@ -206,6 +208,7 @@ public open class ColumnView(
          * @param factory the factory to use
          * @since 4.12
          */
+        @GtkVersion4_12
         set(
             factory
         ) =
@@ -260,6 +263,7 @@ public open class ColumnView(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var rowFactory: ListItemFactory?
         /**
          * Gets the factory set via [method@Gtk.ColumnView.set_row_factory].
@@ -284,6 +288,7 @@ public open class ColumnView(
          * @param factory The row factory
          * @since 4.12
          */
+        @GtkVersion4_12
         set(
             factory
         ) =
@@ -403,6 +408,7 @@ public open class ColumnView(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var tabBehavior: ListTabBehavior
         /**
          * Gets the behavior set for the <kbd>Tab</kbd> key.
@@ -421,6 +427,7 @@ public open class ColumnView(
          * @param tabBehavior The desired tab behavior
          * @since 4.12
          */
+        @GtkVersion4_12
         set(tabBehavior) = gtk_column_view_set_tab_behavior(gtkColumnViewPointer.reinterpret(), tabBehavior.nativeValue)
 
     /**
@@ -476,6 +483,7 @@ public open class ColumnView(
      * @return The factory in use
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getHeaderFactory(): ListItemFactory? =
         gtk_column_view_get_header_factory(gtkColumnViewPointer.reinterpret())?.run {
             ListItemFactory(reinterpret())
@@ -505,6 +513,7 @@ public open class ColumnView(
      * @return The factory
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getRowFactory(): ListItemFactory? =
         gtk_column_view_get_row_factory(gtkColumnViewPointer.reinterpret())?.run {
             ListItemFactory(reinterpret())
@@ -571,6 +580,7 @@ public open class ColumnView(
      * @return The behavior of the <kbd>Tab</kbd> key
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getTabBehavior(): ListTabBehavior =
         gtk_column_view_get_tab_behavior(gtkColumnViewPointer.reinterpret()).run {
             ListTabBehavior.fromNativeValue(this)
@@ -620,6 +630,7 @@ public open class ColumnView(
      *   the scroll operation or null to scroll into view
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun scrollTo(
         pos: UInt,
         column: ColumnViewColumn? = null,
@@ -652,6 +663,7 @@ public open class ColumnView(
      * @param factory the factory to use
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setHeaderFactory(factory: ListItemFactory? = null): Unit =
         gtk_column_view_set_header_factory(
             gtkColumnViewPointer.reinterpret(),
@@ -688,6 +700,7 @@ public open class ColumnView(
      * @param factory The row factory
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setRowFactory(factory: ListItemFactory? = null): Unit =
         gtk_column_view_set_row_factory(
             gtkColumnViewPointer.reinterpret(),
@@ -730,6 +743,7 @@ public open class ColumnView(
      * @param tabBehavior The desired tab behavior
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setTabBehavior(tabBehavior: ListTabBehavior): Unit =
         gtk_column_view_set_tab_behavior(gtkColumnViewPointer.reinterpret(), tabBehavior.nativeValue)
 

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.adw.ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS
 import org.gtkkn.native.adw.ADW_TAB_VIEW_SHORTCUT_ALT_DIGITS
@@ -33,6 +34,7 @@ public class TabViewShortcuts(
 ) : Bitfield<TabViewShortcuts> {
     override infix fun or(other: TabViewShortcuts): TabViewShortcuts = TabViewShortcuts(mask or other.mask)
 
+    @AdwVersion1_2
     public companion object {
         /**
          * No shortcuts

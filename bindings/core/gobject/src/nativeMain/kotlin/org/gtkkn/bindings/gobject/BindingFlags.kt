@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gobject.GBindingFlags
 import org.gtkkn.native.gobject.G_BINDING_BIDIRECTIONAL
@@ -20,6 +21,7 @@ public class BindingFlags(
 ) : Bitfield<BindingFlags> {
     override infix fun or(other: BindingFlags): BindingFlags = BindingFlags(mask or other.mask)
 
+    @GObjectVersion2_26
     public companion object {
         /**
          * The default binding; if the source property

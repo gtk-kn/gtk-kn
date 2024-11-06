@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.native.glib.GOnceStatus
 import org.gtkkn.native.glib.GOnceStatus.G_ONCE_STATUS_NOTCALLED
 import org.gtkkn.native.glib.GOnceStatus.G_ONCE_STATUS_PROGRESS
@@ -11,6 +12,7 @@ import org.gtkkn.native.glib.GOnceStatus.G_ONCE_STATUS_READY
  * controlled by a #GOnce struct.
  * @since 2.4
  */
+@GLibVersion2_4
 public enum class OnceStatus(
     public val nativeValue: GOnceStatus,
 ) {

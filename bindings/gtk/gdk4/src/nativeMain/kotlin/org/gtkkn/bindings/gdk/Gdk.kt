@@ -13,6 +13,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.bindings.gdkpixbuf.Pixbuf
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
@@ -4786,6 +4787,7 @@ public object Gdk {
      * @return the content formats if @string is valid
      * @since 4.4
      */
+    @GdkVersion4_4
     public fun contentFormatsParse(string: String): ContentFormats? =
         gdk_content_formats_parse(string)?.run {
             ContentFormats(reinterpret())

@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusInterfaceVTable
@@ -60,6 +61,7 @@ import org.gtkkn.native.gio.GDBusInterfaceVTable
  *
  * @since 2.26
  */
+@GioVersion2_26
 public class DBusInterfaceVTable(
     pointer: CPointer<GDBusInterfaceVTable>,
 ) : Record {

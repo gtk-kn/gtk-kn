@@ -10,6 +10,9 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
@@ -119,6 +122,7 @@ import kotlin.collections.List
  *
  * @since 2.12
  */
+@GLibVersion2_12
 public class BookmarkFile(
     pointer: CPointer<GBookmarkFile>,
 ) : Record {
@@ -154,6 +158,7 @@ public class BookmarkFile(
      * @param exec command line to be used to launch the bookmark or null
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun addApplication(
         uri: String,
         name: String? = null,
@@ -170,6 +175,7 @@ public class BookmarkFile(
      * @param group the group name to be added
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun addGroup(
         uri: String,
         group: String,
@@ -182,6 +188,7 @@ public class BookmarkFile(
      *   g_bookmark_free() when finished using it.
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun copy(): BookmarkFile =
         g_bookmark_file_copy(glibBookmarkFilePointer.reinterpret())!!.run {
             BookmarkFile(reinterpret())
@@ -192,6 +199,7 @@ public class BookmarkFile(
      *
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun free(): Unit = g_bookmark_file_free(glibBookmarkFilePointer.reinterpret())
 
     /**
@@ -204,6 +212,7 @@ public class BookmarkFile(
      * @return a #GDateTime
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getAddedDateTime(uri: String): Result<DateTime> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -230,6 +239,7 @@ public class BookmarkFile(
      *   URI cannot be found.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun getDescription(uri: String): Result<String> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -258,6 +268,7 @@ public class BookmarkFile(
      * @return true if the private flag is set, false otherwise.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun getIsPrivate(uri: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -287,6 +298,7 @@ public class BookmarkFile(
      *   URI cannot be found.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun getMimeType(uri: String): Result<String> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -313,6 +325,7 @@ public class BookmarkFile(
      * @return a #GDateTime
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getModifiedDateTime(uri: String): Result<DateTime> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -334,6 +347,7 @@ public class BookmarkFile(
      * @return the number of bookmarks
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun getSize(): Int = g_bookmark_file_get_size(glibBookmarkFilePointer.reinterpret())
 
     /**
@@ -349,6 +363,7 @@ public class BookmarkFile(
      *   URI cannot be found.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun getTitle(uri: String? = null): Result<String> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -370,6 +385,7 @@ public class BookmarkFile(
      * @return a #GDateTime
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getVisitedDateTime(uri: String): Result<DateTime> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -397,6 +413,7 @@ public class BookmarkFile(
      * @return true if the application @name was found
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun hasApplication(
         uri: String,
         name: String,
@@ -429,6 +446,7 @@ public class BookmarkFile(
      * @return true if @group was found.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun hasGroup(
         uri: String,
         group: String,
@@ -456,6 +474,7 @@ public class BookmarkFile(
      * @return true if @uri is inside @bookmark, false otherwise
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun hasItem(uri: String): Boolean =
         g_bookmark_file_has_item(glibBookmarkFilePointer.reinterpret(), uri).asBoolean()
 
@@ -469,6 +488,7 @@ public class BookmarkFile(
      * @return true if a desktop bookmark file could be loaded
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun loadFromFile(filename: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -498,6 +518,7 @@ public class BookmarkFile(
      * @return true if the URI was successfully changed
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun moveItem(
         oldUri: String,
         newUri: String? = null,
@@ -533,6 +554,7 @@ public class BookmarkFile(
      * @return true if the application was successfully removed.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun removeApplication(
         uri: String,
         name: String,
@@ -567,6 +589,7 @@ public class BookmarkFile(
      * @return true if @group was successfully removed.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun removeGroup(
         uri: String,
         group: String,
@@ -594,6 +617,7 @@ public class BookmarkFile(
      * @return true if the bookmark was removed successfully.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun removeItem(uri: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -619,6 +643,7 @@ public class BookmarkFile(
      * @param added a #GDateTime
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun setAddedDateTime(
         uri: String,
         added: DateTime,
@@ -663,6 +688,7 @@ public class BookmarkFile(
      *   changed.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun setApplicationInfo(
         uri: String,
         name: String,
@@ -700,6 +726,7 @@ public class BookmarkFile(
      * @param description a string
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun setDescription(
         uri: String? = null,
         description: String,
@@ -717,6 +744,7 @@ public class BookmarkFile(
      * @param length number of group name values in @groups
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun setGroups(
         uri: String,
         groups: List<String>? = null,
@@ -743,6 +771,7 @@ public class BookmarkFile(
      * @param mimeType the MIME type of the icon for the bookmark
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun setIcon(
         uri: String,
         href: String? = null,
@@ -758,6 +787,7 @@ public class BookmarkFile(
      * @param isPrivate true if the bookmark should be marked as private
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun setIsPrivate(
         uri: String,
         isPrivate: Boolean,
@@ -772,6 +802,7 @@ public class BookmarkFile(
      * @param mimeType a MIME type
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun setMimeType(
         uri: String,
         mimeType: String,
@@ -791,6 +822,7 @@ public class BookmarkFile(
      * @param modified a #GDateTime
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun setModifiedDateTime(
         uri: String,
         modified: DateTime,
@@ -809,6 +841,7 @@ public class BookmarkFile(
      * @param title a UTF-8 encoded string
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun setTitle(
         uri: String? = null,
         title: String,
@@ -829,6 +862,7 @@ public class BookmarkFile(
      * @param visited a #GDateTime
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun setVisitedDateTime(
         uri: String,
         visited: DateTime,
@@ -843,6 +877,7 @@ public class BookmarkFile(
      * @return true if the file was successfully written.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun toFile(filename: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()

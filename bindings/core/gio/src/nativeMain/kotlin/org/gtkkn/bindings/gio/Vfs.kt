@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_50
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
@@ -107,6 +108,7 @@ public open class Vfs(
      *     handler for @scheme does not exist.
      * @since 2.50
      */
+    @GioVersion2_50
     public open fun unregisterUriScheme(scheme: String): Boolean =
         g_vfs_unregister_uri_scheme(gioVfsPointer.reinterpret(), scheme).asBoolean()
 

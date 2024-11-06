@@ -8,6 +8,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -31,6 +32,7 @@ import kotlin.Result
  *
  * @since 2.48
  */
+@GioVersion2_48
 public interface DtlsServerConnection :
     Interface,
     DatagramBased,
@@ -69,6 +71,7 @@ public interface DtlsServerConnection :
          *   #GDtlsServerConnection, or null on error
          * @since 2.48
          */
+        @GioVersion2_48
         public fun new(
             baseSocket: DatagramBased,
             certificate: TlsCertificate? = null,

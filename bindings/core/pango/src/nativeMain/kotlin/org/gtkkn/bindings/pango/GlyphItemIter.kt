@@ -6,6 +6,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -64,6 +65,7 @@ import kotlin.Unit
  * None of the members of a `PangoGlyphItemIter` should be modified manually.
  * @since 1.22
  */
+@PangoVersion1_22
 public class GlyphItemIter(
     pointer: CPointer<PangoGlyphItemIter>,
 ) : Record {
@@ -130,6 +132,7 @@ public class GlyphItemIter(
      * @return the newly allocated `PangoGlyphItemIter`
      * @since 1.22
      */
+    @PangoVersion1_22
     public fun copy(): GlyphItemIter? =
         pango_glyph_item_iter_copy(pangoGlyphItemIterPointer.reinterpret())?.run {
             GlyphItemIter(reinterpret())
@@ -140,6 +143,7 @@ public class GlyphItemIter(
      *
      * @since 1.22
      */
+    @PangoVersion1_22
     public fun free(): Unit = pango_glyph_item_iter_free(pangoGlyphItemIterPointer.reinterpret())
 
     /**
@@ -153,6 +157,7 @@ public class GlyphItemIter(
      * @return false if there are no clusters in the glyph item
      * @since 1.22
      */
+    @PangoVersion1_22
     public fun initEnd(
         glyphItem: GlyphItem,
         text: String,
@@ -174,6 +179,7 @@ public class GlyphItemIter(
      * @return false if there are no clusters in the glyph item
      * @since 1.22
      */
+    @PangoVersion1_22
     public fun initStart(
         glyphItem: GlyphItem,
         text: String,
@@ -193,6 +199,7 @@ public class GlyphItemIter(
      *   false if we were already on the  last cluster.
      * @since 1.22
      */
+    @PangoVersion1_22
     public fun nextCluster(): Boolean =
         pango_glyph_item_iter_next_cluster(pangoGlyphItemIterPointer.reinterpret()).asBoolean()
 
@@ -204,6 +211,7 @@ public class GlyphItemIter(
      *   false if we were already on the first cluster.
      * @since 1.22
      */
+    @PangoVersion1_22
     public fun prevCluster(): Boolean =
         pango_glyph_item_iter_prev_cluster(pangoGlyphItemIterPointer.reinterpret()).asBoolean()
 

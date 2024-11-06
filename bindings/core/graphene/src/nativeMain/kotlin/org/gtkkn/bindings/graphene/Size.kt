@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_size_alloc
@@ -25,6 +26,7 @@ import kotlin.Unit
  * A size.
  * @since 1.0
  */
+@GrapheneVersion1_0
 public class Size(
     pointer: CPointer<graphene_size_t>,
 ) : Record {
@@ -55,6 +57,7 @@ public class Size(
      * @return `true` if the sizes are equal
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun equal(b: Size): Boolean = graphene_size_equal(grapheneSizePointer.reinterpret(), b.grapheneSizePointer)
 
     /**
@@ -62,6 +65,7 @@ public class Size(
      *
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun free(): Unit = graphene_size_free(grapheneSizePointer.reinterpret())
 
     /**
@@ -72,6 +76,7 @@ public class Size(
      * @return the initialized #graphene_size_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun `init`(
         width: Float,
         height: Float,
@@ -88,6 +93,7 @@ public class Size(
      * @return the initialized #graphene_size_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initFromSize(src: Size): Size =
         graphene_size_init_from_size(grapheneSizePointer.reinterpret(), src.grapheneSizePointer)!!.run {
             Size(reinterpret())
@@ -102,6 +108,7 @@ public class Size(
      * @param res return location for the interpolated size
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun interpolate(
         b: Size,
         factor: Double,
@@ -121,6 +128,7 @@ public class Size(
      * @param res return location for the scaled size
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun scale(
         factor: Float,
         res: Size,
@@ -144,6 +152,7 @@ public class Size(
          * @return a constant size
          * @since 1.0
          */
+        @GrapheneVersion1_0
         public fun zero(): Size =
             graphene_size_zero()!!.run {
                 Size(reinterpret())

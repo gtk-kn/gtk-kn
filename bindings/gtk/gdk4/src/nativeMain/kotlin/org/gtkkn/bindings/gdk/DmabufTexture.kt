@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -21,6 +22,7 @@ import org.gtkkn.native.gio.GLoadableIcon
  * Dma-buf textures can only be created on Linux.
  * @since 4.14
  */
+@GdkVersion4_14
 public open class DmabufTexture(
     pointer: CPointer<GdkDmabufTexture>,
 ) : Texture(pointer.reinterpret()),

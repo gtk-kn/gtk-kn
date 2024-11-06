@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -249,6 +250,7 @@ public open class GridView(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var tabBehavior: ListTabBehavior
         /**
          * Gets the behavior set for the <kbd>Tab</kbd> key.
@@ -267,6 +269,7 @@ public open class GridView(
          * @param tabBehavior The desired tab behavior
          * @since 4.12
          */
+        @GtkVersion4_12
         set(tabBehavior) = gtk_grid_view_set_tab_behavior(gtkGridViewPointer.reinterpret(), tabBehavior.nativeValue)
 
     /**
@@ -351,6 +354,7 @@ public open class GridView(
      * @return The behavior of the <kbd>Tab</kbd> key
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getTabBehavior(): ListTabBehavior =
         gtk_grid_view_get_tab_behavior(gtkGridViewPointer.reinterpret()).run {
             ListTabBehavior.fromNativeValue(this)
@@ -369,6 +373,7 @@ public open class GridView(
      *   the scroll operation or null to scroll into view
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun scrollTo(
         pos: UInt,
         flags: ListScrollFlags,
@@ -442,6 +447,7 @@ public open class GridView(
      * @param tabBehavior The desired tab behavior
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setTabBehavior(tabBehavior: ListTabBehavior): Unit =
         gtk_grid_view_set_tab_behavior(gtkGridViewPointer.reinterpret(), tabBehavior.nativeValue)
 

@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -91,6 +92,7 @@ import kotlin.Unit
  *
  * @since 2.32
  */
+@GLibVersion2_32
 public class RWLock(
     pointer: CPointer<GRWLock>,
 ) : Record {
@@ -107,6 +109,7 @@ public class RWLock(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun clear(): Unit = g_rw_lock_clear(glibRWLockPointer.reinterpret())
 
     /**
@@ -137,6 +140,7 @@ public class RWLock(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun `init`(): Unit = g_rw_lock_init(glibRWLockPointer.reinterpret())
 
     /**
@@ -158,6 +162,7 @@ public class RWLock(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun readerLock(): Unit = g_rw_lock_reader_lock(glibRWLockPointer.reinterpret())
 
     /**
@@ -168,6 +173,7 @@ public class RWLock(
      * @return true if @rw_lock could be locked
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun readerTrylock(): Boolean = g_rw_lock_reader_trylock(glibRWLockPointer.reinterpret()).asBoolean()
 
     /**
@@ -178,6 +184,7 @@ public class RWLock(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun readerUnlock(): Unit = g_rw_lock_reader_unlock(glibRWLockPointer.reinterpret())
 
     /**
@@ -190,6 +197,7 @@ public class RWLock(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun writerLock(): Unit = g_rw_lock_writer_lock(glibRWLockPointer.reinterpret())
 
     /**
@@ -201,6 +209,7 @@ public class RWLock(
      * @return true if @rw_lock could be locked
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun writerTrylock(): Boolean = g_rw_lock_writer_trylock(glibRWLockPointer.reinterpret()).asBoolean()
 
     /**
@@ -211,6 +220,7 @@ public class RWLock(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun writerUnlock(): Unit = g_rw_lock_writer_unlock(glibRWLockPointer.reinterpret())
 
     public companion object : RecordCompanion<RWLock, GRWLock> {

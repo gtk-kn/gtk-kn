@@ -10,6 +10,8 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
@@ -95,6 +97,7 @@ public open class ScaleButton(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open val active: Boolean
         /**
          * Queries a `GtkScaleButton` and returns its current state.
@@ -144,6 +147,7 @@ public open class ScaleButton(
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public open var hasFrame: Boolean
         /**
          * Returns whether the button has a frame.
@@ -159,6 +163,7 @@ public open class ScaleButton(
          * @param hasFrame whether the button should have a visible frame
          * @since 4.14
          */
+        @GtkVersion4_14
         set(hasFrame) = gtk_scale_button_set_has_frame(gtkScaleButtonPointer.reinterpret(), hasFrame.asGBoolean())
 
     /**
@@ -220,6 +225,7 @@ public open class ScaleButton(
      * @return whether the button is pressed
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getActive(): Boolean = gtk_scale_button_get_active(gtkScaleButtonPointer.reinterpret()).asBoolean()
 
     /**
@@ -240,6 +246,7 @@ public open class ScaleButton(
      * @return true if the button has a frame
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getHasFrame(): Boolean =
         gtk_scale_button_get_has_frame(gtkScaleButtonPointer.reinterpret()).asBoolean()
 
@@ -302,6 +309,7 @@ public open class ScaleButton(
      * @param hasFrame whether the button should have a visible frame
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setHasFrame(hasFrame: Boolean): Unit =
         gtk_scale_button_set_has_frame(gtkScaleButtonPointer.reinterpret(), hasFrame.asGBoolean())
 

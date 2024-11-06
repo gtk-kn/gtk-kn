@@ -22,7 +22,9 @@ import kotlin.Unit
  * In GtkSourceView, the main widgets that implement this interface are
  * [class@StyleSchemeChooserWidget] and [class@StyleSchemeChooserButton].
  */
-public interface StyleSchemeChooser : Interface, KGTyped {
+public interface StyleSchemeChooser :
+    Interface,
+    KGTyped {
     public val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser>
 
     /**
@@ -37,9 +39,7 @@ public interface StyleSchemeChooser : Interface, KGTyped {
          * @return the currently-selected scheme.
          */
         get() =
-            gtk_source_style_scheme_chooser_get_style_scheme(
-                gtksourceStyleSchemeChooserPointer.reinterpret()
-            )!!.run {
+            gtk_source_style_scheme_chooser_get_style_scheme(gtksourceStyleSchemeChooserPointer.reinterpret())!!.run {
                 StyleScheme(reinterpret())
             }
 
@@ -48,7 +48,9 @@ public interface StyleSchemeChooser : Interface, KGTyped {
          *
          * @param scheme a #GtkSourceStyleScheme
          */
-        set(scheme) =
+        set(
+            scheme
+        ) =
             gtk_source_style_scheme_chooser_set_style_scheme(
                 gtksourceStyleSchemeChooserPointer.reinterpret(),
                 scheme.gtksourceStyleSchemePointer.reinterpret()
@@ -84,9 +86,7 @@ public interface StyleSchemeChooser : Interface, KGTyped {
 
     public companion object : TypeCompanion<StyleSchemeChooser> {
         override val type: GeneratedInterfaceKGType<StyleSchemeChooser> =
-            GeneratedInterfaceKGType(gtk_source_style_scheme_chooser_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_source_style_scheme_chooser_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

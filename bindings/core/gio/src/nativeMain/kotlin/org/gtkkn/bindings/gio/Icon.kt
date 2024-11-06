@@ -8,6 +8,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_20
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.extensions.common.asBoolean
@@ -96,6 +98,7 @@ public interface Icon :
      * @return a #GVariant, or null when serialization fails. The #GVariant will not be floating.
      * @since 2.38
      */
+    @GioVersion2_38
     public fun serialize(): Variant? =
         g_icon_serialize(gioIconPointer.reinterpret())?.run {
             Variant(reinterpret())
@@ -124,6 +127,7 @@ public interface Icon :
          * @return a #GIcon, or null when deserialization fails.
          * @since 2.38
          */
+        @GioVersion2_38
         public fun deserialize(`value`: Variant): Icon? =
             g_icon_deserialize(`value`.glibVariantPointer)?.run {
                 Icon.wrap(reinterpret())
@@ -142,6 +146,7 @@ public interface Icon :
          *          interface or null if @error is set.
          * @since 2.20
          */
+        @GioVersion2_20
         public fun newForString(str: String): Result<Icon> =
             memScoped {
                 val gError = allocPointerTo<GError>()

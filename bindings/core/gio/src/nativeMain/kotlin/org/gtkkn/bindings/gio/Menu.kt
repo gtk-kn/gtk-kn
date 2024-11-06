@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -39,6 +41,7 @@ import kotlin.Unit
  * [method@Gio.Menu.insert_submenu].
  * @since 2.32
  */
+@GioVersion2_32
 public open class Menu(
     pointer: CPointer<GMenu>,
 ) : MenuModel(pointer.reinterpret()),
@@ -65,6 +68,7 @@ public open class Menu(
      * @param detailedAction the detailed action string, or null
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun append(
         label: String? = null,
         detailedAction: String? = null,
@@ -78,6 +82,7 @@ public open class Menu(
      * @param item a #GMenuItem to append
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun appendItem(item: MenuItem): Unit =
         g_menu_append_item(gioMenuPointer.reinterpret(), item.gioMenuItemPointer.reinterpret())
 
@@ -90,6 +95,7 @@ public open class Menu(
      * @param section a #GMenuModel with the items of the section
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun appendSection(
         label: String? = null,
         section: MenuModel,
@@ -104,6 +110,7 @@ public open class Menu(
      * @param submenu a #GMenuModel with the items of the submenu
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun appendSubmenu(
         label: String? = null,
         submenu: MenuModel,
@@ -121,6 +128,7 @@ public open class Menu(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun freeze(): Unit = g_menu_freeze(gioMenuPointer.reinterpret())
 
     /**
@@ -133,6 +141,7 @@ public open class Menu(
      * @param detailedAction the detailed action string, or null
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun insert(
         position: Int,
         label: String? = null,
@@ -162,6 +171,7 @@ public open class Menu(
      * @param item the #GMenuItem to insert
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun insertItem(
         position: Int,
         item: MenuItem,
@@ -177,6 +187,7 @@ public open class Menu(
      * @param section a #GMenuModel with the items of the section
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun insertSection(
         position: Int,
         label: String? = null,
@@ -194,6 +205,7 @@ public open class Menu(
      * @param submenu a #GMenuModel with the items of the submenu
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun insertSubmenu(
         position: Int,
         label: String? = null,
@@ -210,6 +222,7 @@ public open class Menu(
      * @param detailedAction the detailed action string, or null
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun prepend(
         label: String? = null,
         detailedAction: String? = null,
@@ -223,6 +236,7 @@ public open class Menu(
      * @param item a #GMenuItem to prepend
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun prependItem(item: MenuItem): Unit =
         g_menu_prepend_item(gioMenuPointer.reinterpret(), item.gioMenuItemPointer.reinterpret())
 
@@ -235,6 +249,7 @@ public open class Menu(
      * @param section a #GMenuModel with the items of the section
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun prependSection(
         label: String? = null,
         section: MenuModel,
@@ -249,6 +264,7 @@ public open class Menu(
      * @param submenu a #GMenuModel with the items of the submenu
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun prependSubmenu(
         label: String? = null,
         submenu: MenuModel,
@@ -269,6 +285,7 @@ public open class Menu(
      * @param position the position of the item to remove
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun remove(position: Int): Unit = g_menu_remove(gioMenuPointer.reinterpret(), position)
 
     /**
@@ -276,6 +293,7 @@ public open class Menu(
      *
      * @since 2.38
      */
+    @GioVersion2_38
     public open fun removeAll(): Unit = g_menu_remove_all(gioMenuPointer.reinterpret())
 
     public companion object : TypeCompanion<Menu> {

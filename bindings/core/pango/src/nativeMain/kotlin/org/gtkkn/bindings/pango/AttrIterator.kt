@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_2
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -81,6 +82,7 @@ public class AttrIterator(
      *   value and g_slist_free() on the list.
      * @since 1.2
      */
+    @PangoVersion1_2
     public fun getAttrs(): SList =
         pango_attr_iterator_get_attrs(pangoAttrIteratorPointer.reinterpret())!!.run {
             SList(reinterpret())

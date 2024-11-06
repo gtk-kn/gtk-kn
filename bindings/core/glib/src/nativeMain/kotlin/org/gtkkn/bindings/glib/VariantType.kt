@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -203,6 +204,7 @@ import kotlin.Unit
  *
  * @since 2.24
  */
+@GLibVersion2_24
 public class VariantType(
     pointer: CPointer<GVariantType>,
 ) : Record {

@@ -14,6 +14,10 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_60
+import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
@@ -93,6 +97,7 @@ public open class Resolver(
      *
      * @since 2.78
      */
+    @GioVersion2_78
     public open var timeout: UInt
         /**
          * Get the timeout applied to all resolver lookups. See #GResolver:timeout.
@@ -108,6 +113,7 @@ public open class Resolver(
          * @param timeoutMs timeout in milliseconds, or `0` for no timeouts
          * @since 2.78
          */
+        @GioVersion2_78
         set(timeoutMs) = g_resolver_set_timeout(gioResolverPointer.reinterpret(), timeoutMs)
 
     /**
@@ -116,6 +122,7 @@ public open class Resolver(
      * @return the resolver timeout, in milliseconds, or `0` for no timeout
      * @since 2.78
      */
+    @GioVersion2_78
     public open fun getTimeout(): UInt = g_resolver_get_timeout(gioResolverPointer.reinterpret())
 
     /**
@@ -135,6 +142,7 @@ public open class Resolver(
      *     form), or null on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun lookupByAddress(
         address: InetAddress,
         cancellable: Cancellable? = null,
@@ -165,6 +173,7 @@ public open class Resolver(
      * @param callback callback to call after resolution completes
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun lookupByAddressAsync(
         address: InetAddress,
         cancellable: Cancellable? = null,
@@ -191,6 +200,7 @@ public open class Resolver(
      * form), or null on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun lookupByAddressFinish(result: AsyncResult): Result<String> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -240,6 +250,7 @@ public open class Resolver(
      * done with it. (You can use g_resolver_free_addresses() to do this.)
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun lookupByName(
         hostname: String,
         cancellable: Cancellable? = null,
@@ -274,6 +285,7 @@ public open class Resolver(
      * @param callback callback to call after resolution completes
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun lookupByNameAsync(
         hostname: String,
         cancellable: Cancellable? = null,
@@ -301,6 +313,7 @@ public open class Resolver(
      * for more details.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun lookupByNameFinish(result: AsyncResult): Result<List> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -334,6 +347,7 @@ public open class Resolver(
      * done with it. (You can use g_resolver_free_addresses() to do this.)
      * @since 2.60
      */
+    @GioVersion2_60
     public open fun lookupByNameWithFlags(
         hostname: String,
         flags: ResolverNameLookupFlags,
@@ -371,6 +385,7 @@ public open class Resolver(
      * @param callback callback to call after resolution completes
      * @since 2.60
      */
+    @GioVersion2_60
     public open fun lookupByNameWithFlagsAsync(
         hostname: String,
         flags: ResolverNameLookupFlags,
@@ -400,6 +415,7 @@ public open class Resolver(
      * for more details.
      * @since 2.60
      */
+    @GioVersion2_60
     public open fun lookupByNameWithFlagsFinish(result: AsyncResult): Result<List> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -440,6 +456,7 @@ public open class Resolver(
      * g_variant_unref() to do this.)
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun lookupRecords(
         rrname: String,
         recordType: ResolverRecordType,
@@ -477,6 +494,7 @@ public open class Resolver(
      * @param callback callback to call after resolution completes
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun lookupRecordsAsync(
         rrname: String,
         recordType: ResolverRecordType,
@@ -509,6 +527,7 @@ public open class Resolver(
      * g_variant_unref() to do this.)
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun lookupRecordsFinish(result: AsyncResult): Result<List> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -561,6 +580,7 @@ public open class Resolver(
      * this.)
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun lookupService(
         service: String,
         protocol: String,
@@ -602,6 +622,7 @@ public open class Resolver(
      * @param callback callback to call after resolution completes
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun lookupServiceAsync(
         service: String,
         protocol: String,
@@ -633,6 +654,7 @@ public open class Resolver(
      * details.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun lookupServiceFinish(result: AsyncResult): Result<List> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -665,6 +687,7 @@ public open class Resolver(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun setDefault(): Unit = g_resolver_set_default(gioResolverPointer.reinterpret())
 
     /**
@@ -673,6 +696,7 @@ public open class Resolver(
      * @param timeoutMs timeout in milliseconds, or `0` for no timeouts
      * @since 2.78
      */
+    @GioVersion2_78
     public open fun setTimeout(timeoutMs: UInt): Unit =
         g_resolver_set_timeout(gioResolverPointer.reinterpret(), timeoutMs)
 
@@ -712,6 +736,7 @@ public open class Resolver(
          * @return the default #GResolver.
          * @since 2.22
          */
+        @GioVersion2_22
         public fun getDefault(): Resolver =
             g_resolver_get_default()!!.run {
                 Resolver(reinterpret())

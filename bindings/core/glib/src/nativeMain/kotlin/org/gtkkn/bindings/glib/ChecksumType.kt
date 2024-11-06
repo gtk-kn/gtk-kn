@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
 import org.gtkkn.native.glib.GChecksumType
 import org.gtkkn.native.glib.GChecksumType.G_CHECKSUM_MD5
 import org.gtkkn.native.glib.GChecksumType.G_CHECKSUM_SHA1
@@ -16,6 +17,7 @@ import org.gtkkn.native.glib.GChecksumType.G_CHECKSUM_SHA512
  * date to include new hashing algorithm types.
  * @since 2.16
  */
+@GLibVersion2_16
 public enum class ChecksumType(
     public val nativeValue: GChecksumType,
 ) {

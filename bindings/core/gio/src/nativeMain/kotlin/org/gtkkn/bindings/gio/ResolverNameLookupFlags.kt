@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GResolverNameLookupFlags
 import org.gtkkn.native.gio.G_RESOLVER_NAME_LOOKUP_FLAGS_DEFAULT
@@ -19,6 +20,7 @@ public class ResolverNameLookupFlags(
             mask or other.mask
         )
 
+    @GioVersion2_60
     public companion object {
         /**
          * default behavior (same as g_resolver_lookup_by_name())

@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GRand
@@ -43,6 +44,7 @@ public class Rand(
      * @return the new #GRand
      * @since 2.4
      */
+    @GLibVersion2_4
     public fun copy(): Rand =
         g_rand_copy(glibRandPointer.reinterpret())!!.run {
             Rand(reinterpret())

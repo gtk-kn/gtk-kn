@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
@@ -34,6 +35,7 @@ import kotlin.Boolean
  *
  * @since 2.28
  */
+@GioVersion2_28
 public interface PollableOutputStream :
     Interface,
     KGTyped {
@@ -51,6 +53,7 @@ public interface PollableOutputStream :
      * @return true if @stream is pollable, false if not.
      * @since 2.28
      */
+    @GioVersion2_28
     public fun canPoll(): Boolean =
         g_pollable_output_stream_can_poll(gioPollableOutputStreamPointer.reinterpret()).asBoolean()
 
@@ -71,6 +74,7 @@ public interface PollableOutputStream :
      * @return a new #GSource
      * @since 2.28
      */
+    @GioVersion2_28
     public fun createSource(cancellable: Cancellable? = null): Source =
         g_pollable_output_stream_create_source(
             gioPollableOutputStreamPointer.reinterpret(),
@@ -98,6 +102,7 @@ public interface PollableOutputStream :
      *   next attempt to write will return the error.
      * @since 2.28
      */
+    @GioVersion2_28
     public fun isWritable(): Boolean =
         g_pollable_output_stream_is_writable(gioPollableOutputStreamPointer.reinterpret()).asBoolean()
 

@@ -11,6 +11,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.License
 import org.gtkkn.extensions.common.asGBoolean
@@ -247,6 +248,7 @@ import kotlin.collections.List
  * style class `.about`.
  * @since 1.5
  */
+@AdwVersion1_5
 public class AboutDialog(
     pointer: CPointer<AdwAboutDialog>,
 ) : Dialog(pointer.reinterpret()),
@@ -270,6 +272,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var applicationIcon: String
         /**
          * Gets the name of the application icon for @self.
@@ -289,6 +292,7 @@ public class AboutDialog(
          * @param applicationIcon the application icon name
          * @since 1.5
          */
+        @AdwVersion1_5
         set(
             applicationIcon
         ) = adw_about_dialog_set_application_icon(adwAboutDialogPointer.reinterpret(), applicationIcon)
@@ -300,6 +304,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var applicationName: String
         /**
          * Gets the application name for @self.
@@ -319,6 +324,7 @@ public class AboutDialog(
          * @param applicationName the application name
          * @since 1.5
          */
+        @AdwVersion1_5
         set(
             applicationName
         ) = adw_about_dialog_set_application_name(adwAboutDialogPointer.reinterpret(), applicationName)
@@ -342,6 +348,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var artists: List<String>?
         /**
          * Gets the list of artists of the application.
@@ -371,6 +378,7 @@ public class AboutDialog(
          * @param artists the list of artists
          * @since 1.5
          */
+        @AdwVersion1_5
         set(artists) =
             memScoped {
                 return adw_about_dialog_set_artists(adwAboutDialogPointer.reinterpret(), artists?.toCStringList(this))
@@ -386,6 +394,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var comments: String
         /**
          * Gets the comments about the application.
@@ -408,6 +417,7 @@ public class AboutDialog(
          * @param comments the comments
          * @since 1.5
          */
+        @AdwVersion1_5
         set(comments) = adw_about_dialog_set_comments(adwAboutDialogPointer.reinterpret(), comments)
 
     /**
@@ -424,6 +434,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var copyright: String
         /**
          * Gets the copyright information for @self.
@@ -450,6 +461,7 @@ public class AboutDialog(
          * @param copyright the copyright information
          * @since 1.5
          */
+        @AdwVersion1_5
         set(copyright) = adw_about_dialog_set_copyright(adwAboutDialogPointer.reinterpret(), copyright)
 
     /**
@@ -467,6 +479,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var debugInfo: String
         /**
          * Gets the debug information for @self.
@@ -494,6 +507,7 @@ public class AboutDialog(
          * @param debugInfo the debug information
          * @since 1.5
          */
+        @AdwVersion1_5
         set(debugInfo) = adw_about_dialog_set_debug_info(adwAboutDialogPointer.reinterpret(), debugInfo)
 
     /**
@@ -506,6 +520,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var debugInfoFilename: String
         /**
          * Gets the debug information filename for @self.
@@ -528,6 +543,7 @@ public class AboutDialog(
          * @param filename the debug info filename
          * @since 1.5
          */
+        @AdwVersion1_5
         set(filename) = adw_about_dialog_set_debug_info_filename(adwAboutDialogPointer.reinterpret(), filename)
 
     /**
@@ -549,6 +565,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var designers: List<String>?
         /**
          * Gets the list of designers of the application.
@@ -578,6 +595,7 @@ public class AboutDialog(
          * @param designers the list of designers
          * @since 1.5
          */
+        @AdwVersion1_5
         set(designers) =
             memScoped {
                 return adw_about_dialog_set_designers(
@@ -600,6 +618,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var developerName: String
         /**
          * Gets the developer name for @self.
@@ -624,6 +643,7 @@ public class AboutDialog(
          * @param developerName the developer name
          * @since 1.5
          */
+        @AdwVersion1_5
         set(developerName) = adw_about_dialog_set_developer_name(adwAboutDialogPointer.reinterpret(), developerName)
 
     /**
@@ -645,6 +665,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var developers: List<String>?
         /**
          * Gets the list of developers of the application.
@@ -674,6 +695,7 @@ public class AboutDialog(
          * @param developers the list of developers
          * @since 1.5
          */
+        @AdwVersion1_5
         set(developers) =
             memScoped {
                 return adw_about_dialog_set_developers(
@@ -701,6 +723,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var documenters: List<String>?
         /**
          * Gets the list of documenters of the application.
@@ -730,6 +753,7 @@ public class AboutDialog(
          * @param documenters the list of documenters
          * @since 1.5
          */
+        @AdwVersion1_5
         set(documenters) =
             memScoped {
                 return adw_about_dialog_set_documenters(
@@ -745,6 +769,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var issueUrl: String
         /**
          * Gets the issue tracker URL for @self.
@@ -764,6 +789,7 @@ public class AboutDialog(
          * @param issueUrl the issue tracker URL
          * @since 1.5
          */
+        @AdwVersion1_5
         set(issueUrl) = adw_about_dialog_set_issue_url(adwAboutDialogPointer.reinterpret(), issueUrl)
 
     /**
@@ -785,6 +811,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var license: String
         /**
          * Gets the license for @self.
@@ -816,6 +843,7 @@ public class AboutDialog(
          * @param license the license
          * @since 1.5
          */
+        @AdwVersion1_5
         set(license) = adw_about_dialog_set_license(adwAboutDialogPointer.reinterpret(), license)
 
     /**
@@ -840,6 +868,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var licenseType: License
         /**
          * Gets the license type for @self.
@@ -873,6 +902,7 @@ public class AboutDialog(
          * @param licenseType the license type
          * @since 1.5
          */
+        @AdwVersion1_5
         set(
             licenseType
         ) = adw_about_dialog_set_license_type(adwAboutDialogPointer.reinterpret(), licenseType.nativeValue)
@@ -905,6 +935,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var releaseNotes: String
         /**
          * Gets the release notes for @self.
@@ -945,6 +976,7 @@ public class AboutDialog(
          * @param releaseNotes the release notes
          * @since 1.5
          */
+        @AdwVersion1_5
         set(releaseNotes) = adw_about_dialog_set_release_notes(adwAboutDialogPointer.reinterpret(), releaseNotes)
 
     /**
@@ -963,6 +995,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var releaseNotesVersion: String
         /**
          * Gets the version described by the application's release notes.
@@ -991,6 +1024,7 @@ public class AboutDialog(
          * @param version the release notes version
          * @since 1.5
          */
+        @AdwVersion1_5
         set(version) = adw_about_dialog_set_release_notes_version(adwAboutDialogPointer.reinterpret(), version)
 
     /**
@@ -1000,6 +1034,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var supportUrl: String
         /**
          * Gets the URL of the support page for @self.
@@ -1019,6 +1054,7 @@ public class AboutDialog(
          * @param supportUrl the support page URL
          * @since 1.5
          */
+        @AdwVersion1_5
         set(supportUrl) = adw_about_dialog_set_support_url(adwAboutDialogPointer.reinterpret(), supportUrl)
 
     /**
@@ -1043,6 +1079,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var translatorCredits: String
         /**
          * Gets the translator credits string.
@@ -1077,6 +1114,7 @@ public class AboutDialog(
          * @param translatorCredits the translator credits
          * @since 1.5
          */
+        @AdwVersion1_5
         set(
             translatorCredits
         ) = adw_about_dialog_set_translator_credits(adwAboutDialogPointer.reinterpret(), translatorCredits)
@@ -1091,6 +1129,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var version: String
         /**
          * Gets the version for @self.
@@ -1113,6 +1152,7 @@ public class AboutDialog(
          * @param version the version
          * @since 1.5
          */
+        @AdwVersion1_5
         set(version) = adw_about_dialog_set_version(adwAboutDialogPointer.reinterpret(), version)
 
     /**
@@ -1125,6 +1165,7 @@ public class AboutDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var website: String
         /**
          * Gets the application website URL for @self.
@@ -1147,6 +1188,7 @@ public class AboutDialog(
          * @param website the website URL
          * @since 1.5
          */
+        @AdwVersion1_5
         set(website) = adw_about_dialog_set_website(adwAboutDialogPointer.reinterpret(), website)
 
     /**
@@ -1212,6 +1254,7 @@ public class AboutDialog(
      * @param people the list of names
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun addAcknowledgementSection(
         name: String? = null,
         people: List<String>,
@@ -1245,6 +1288,7 @@ public class AboutDialog(
      * @param people the list of names
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun addCreditSection(
         name: String? = null,
         people: List<String>,
@@ -1305,6 +1349,7 @@ public class AboutDialog(
      * @param license custom license information
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun addLegalSection(
         title: String,
         copyright: String? = null,
@@ -1332,6 +1377,7 @@ public class AboutDialog(
      * @param url the link URL
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun addLink(
         title: String,
         url: String,
@@ -1343,6 +1389,7 @@ public class AboutDialog(
      * @return the application icon name
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getApplicationIcon(): String =
         adw_about_dialog_get_application_icon(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1353,6 +1400,7 @@ public class AboutDialog(
      * @return the application name
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getApplicationName(): String =
         adw_about_dialog_get_application_name(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1363,6 +1411,7 @@ public class AboutDialog(
      * @return The list of artists
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getArtists(): List<String>? =
         adw_about_dialog_get_artists(adwAboutDialogPointer.reinterpret())?.toKStringList()
 
@@ -1372,6 +1421,7 @@ public class AboutDialog(
      * @return the comments
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getComments(): String =
         adw_about_dialog_get_comments(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1382,6 +1432,7 @@ public class AboutDialog(
      * @return the copyright information
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getCopyright(): String =
         adw_about_dialog_get_copyright(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1392,6 +1443,7 @@ public class AboutDialog(
      * @return the debug information
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getDebugInfo(): String =
         adw_about_dialog_get_debug_info(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1402,6 +1454,7 @@ public class AboutDialog(
      * @return the debug information filename
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getDebugInfoFilename(): String =
         adw_about_dialog_get_debug_info_filename(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1412,6 +1465,7 @@ public class AboutDialog(
      * @return The list of designers
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getDesigners(): List<String>? =
         adw_about_dialog_get_designers(adwAboutDialogPointer.reinterpret())?.toKStringList()
 
@@ -1421,6 +1475,7 @@ public class AboutDialog(
      * @return the developer_name
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getDeveloperName(): String =
         adw_about_dialog_get_developer_name(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1431,6 +1486,7 @@ public class AboutDialog(
      * @return The list of developers
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getDevelopers(): List<String>? =
         adw_about_dialog_get_developers(adwAboutDialogPointer.reinterpret())?.toKStringList()
 
@@ -1440,6 +1496,7 @@ public class AboutDialog(
      * @return The list of documenters
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getDocumenters(): List<String>? =
         adw_about_dialog_get_documenters(adwAboutDialogPointer.reinterpret())?.toKStringList()
 
@@ -1449,6 +1506,7 @@ public class AboutDialog(
      * @return the issue tracker URL
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getIssueUrl(): String =
         adw_about_dialog_get_issue_url(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1459,6 +1517,7 @@ public class AboutDialog(
      * @return the license
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getLicense(): String =
         adw_about_dialog_get_license(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1469,6 +1528,7 @@ public class AboutDialog(
      * @return the license type
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getLicenseType(): License =
         adw_about_dialog_get_license_type(adwAboutDialogPointer.reinterpret()).run {
             License.fromNativeValue(this)
@@ -1480,6 +1540,7 @@ public class AboutDialog(
      * @return the release notes
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getReleaseNotes(): String =
         adw_about_dialog_get_release_notes(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1490,6 +1551,7 @@ public class AboutDialog(
      * @return the release notes version
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getReleaseNotesVersion(): String =
         adw_about_dialog_get_release_notes_version(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1500,6 +1562,7 @@ public class AboutDialog(
      * @return the support page URL
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getSupportUrl(): String =
         adw_about_dialog_get_support_url(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1510,6 +1573,7 @@ public class AboutDialog(
      * @return The translator credits string
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getTranslatorCredits(): String =
         adw_about_dialog_get_translator_credits(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1520,6 +1584,7 @@ public class AboutDialog(
      * @return the version
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getVersion(): String =
         adw_about_dialog_get_version(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1530,6 +1595,7 @@ public class AboutDialog(
      * @return the website URL
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getWebsite(): String =
         adw_about_dialog_get_website(adwAboutDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1542,6 +1608,7 @@ public class AboutDialog(
      * @param applicationIcon the application icon name
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setApplicationIcon(applicationIcon: String): Unit =
         adw_about_dialog_set_application_icon(adwAboutDialogPointer.reinterpret(), applicationIcon)
 
@@ -1553,6 +1620,7 @@ public class AboutDialog(
      * @param applicationName the application name
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setApplicationName(applicationName: String): Unit =
         adw_about_dialog_set_application_name(adwAboutDialogPointer.reinterpret(), applicationName)
 
@@ -1576,6 +1644,7 @@ public class AboutDialog(
      * @param artists the list of artists
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setArtists(artists: List<String>? = null): Unit =
         memScoped {
             return adw_about_dialog_set_artists(adwAboutDialogPointer.reinterpret(), artists?.toCStringList(this))
@@ -1592,6 +1661,7 @@ public class AboutDialog(
      * @param comments the comments
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setComments(comments: String): Unit =
         adw_about_dialog_set_comments(adwAboutDialogPointer.reinterpret(), comments)
 
@@ -1610,6 +1680,7 @@ public class AboutDialog(
      * @param copyright the copyright information
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setCopyright(copyright: String): Unit =
         adw_about_dialog_set_copyright(adwAboutDialogPointer.reinterpret(), copyright)
 
@@ -1629,6 +1700,7 @@ public class AboutDialog(
      * @param debugInfo the debug information
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setDebugInfo(debugInfo: String): Unit =
         adw_about_dialog_set_debug_info(adwAboutDialogPointer.reinterpret(), debugInfo)
 
@@ -1643,6 +1715,7 @@ public class AboutDialog(
      * @param filename the debug info filename
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setDebugInfoFilename(filename: String): Unit =
         adw_about_dialog_set_debug_info_filename(adwAboutDialogPointer.reinterpret(), filename)
 
@@ -1666,6 +1739,7 @@ public class AboutDialog(
      * @param designers the list of designers
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setDesigners(designers: List<String>? = null): Unit =
         memScoped {
             return adw_about_dialog_set_designers(adwAboutDialogPointer.reinterpret(), designers?.toCStringList(this))
@@ -1684,6 +1758,7 @@ public class AboutDialog(
      * @param developerName the developer name
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setDeveloperName(developerName: String): Unit =
         adw_about_dialog_set_developer_name(adwAboutDialogPointer.reinterpret(), developerName)
 
@@ -1707,6 +1782,7 @@ public class AboutDialog(
      * @param developers the list of developers
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setDevelopers(developers: List<String>? = null): Unit =
         memScoped {
             return adw_about_dialog_set_developers(adwAboutDialogPointer.reinterpret(), developers?.toCStringList(this))
@@ -1732,6 +1808,7 @@ public class AboutDialog(
      * @param documenters the list of documenters
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setDocumenters(documenters: List<String>? = null): Unit =
         memScoped {
             return adw_about_dialog_set_documenters(
@@ -1748,6 +1825,7 @@ public class AboutDialog(
      * @param issueUrl the issue tracker URL
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setIssueUrl(issueUrl: String): Unit =
         adw_about_dialog_set_issue_url(adwAboutDialogPointer.reinterpret(), issueUrl)
 
@@ -1771,6 +1849,7 @@ public class AboutDialog(
      * @param license the license
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setLicense(license: String): Unit =
         adw_about_dialog_set_license(adwAboutDialogPointer.reinterpret(), license)
 
@@ -1795,6 +1874,7 @@ public class AboutDialog(
      * @param licenseType the license type
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setLicenseType(licenseType: License): Unit =
         adw_about_dialog_set_license_type(adwAboutDialogPointer.reinterpret(), licenseType.nativeValue)
 
@@ -1827,6 +1907,7 @@ public class AboutDialog(
      * @param releaseNotes the release notes
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setReleaseNotes(releaseNotes: String): Unit =
         adw_about_dialog_set_release_notes(adwAboutDialogPointer.reinterpret(), releaseNotes)
 
@@ -1847,6 +1928,7 @@ public class AboutDialog(
      * @param version the release notes version
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setReleaseNotesVersion(version: String): Unit =
         adw_about_dialog_set_release_notes_version(adwAboutDialogPointer.reinterpret(), version)
 
@@ -1858,6 +1940,7 @@ public class AboutDialog(
      * @param supportUrl the support page URL
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setSupportUrl(supportUrl: String): Unit =
         adw_about_dialog_set_support_url(adwAboutDialogPointer.reinterpret(), supportUrl)
 
@@ -1884,6 +1967,7 @@ public class AboutDialog(
      * @param translatorCredits the translator credits
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setTranslatorCredits(translatorCredits: String): Unit =
         adw_about_dialog_set_translator_credits(adwAboutDialogPointer.reinterpret(), translatorCredits)
 
@@ -1898,6 +1982,7 @@ public class AboutDialog(
      * @param version the version
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setVersion(version: String): Unit =
         adw_about_dialog_set_version(adwAboutDialogPointer.reinterpret(), version)
 
@@ -1912,6 +1997,7 @@ public class AboutDialog(
      * @param website the website URL
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setWebsite(website: String): Unit =
         adw_about_dialog_set_website(adwAboutDialogPointer.reinterpret(), website)
 
@@ -1925,6 +2011,7 @@ public class AboutDialog(
      * @param handler the Callback to connect. Params: `uri` the URI to activate. Returns `TRUE` if the link has been activated
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun connectActivateLink(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (uri: String) -> Boolean,

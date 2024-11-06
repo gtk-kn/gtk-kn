@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.native.pango.PangoTextTransform
 import org.gtkkn.native.pango.PangoTextTransform.PANGO_TEXT_TRANSFORM_CAPITALIZE
 import org.gtkkn.native.pango.PangoTextTransform.PANGO_TEXT_TRANSFORM_LOWERCASE
@@ -11,6 +12,7 @@ import org.gtkkn.native.pango.PangoTextTransform.PANGO_TEXT_TRANSFORM_UPPERCASE
  * An enumeration that affects how Pango treats characters during shaping.
  * @since 1.50
  */
+@PangoVersion1_50
 public enum class TextTransform(
     public val nativeValue: PangoTextTransform,
 ) {

@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -89,6 +90,7 @@ public open class ShortcutsSection(
      * @param group the `GtkShortcutsGroup` to add
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun addGroup(group: ShortcutsGroup): Unit =
         gtk_shortcuts_section_add_group(
             gtkShortcutsSectionPointer.reinterpret(),

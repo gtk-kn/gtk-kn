@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModulePattern
@@ -49,6 +50,7 @@ import kotlin.Int
  *
  * @since 2.2
  */
+@GdkPixbufVersion2_2
 public class PixbufModulePattern(
     pointer: CPointer<GdkPixbufModulePattern>,
 ) : Record {

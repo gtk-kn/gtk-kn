@@ -10,6 +10,13 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_20
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_50
+import org.gtkkn.bindings.gio.annotations.GioVersion2_60
+import org.gtkkn.bindings.gio.annotations.GioVersion2_74
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -156,6 +163,7 @@ public interface AppInfo :
      * @return true if @appinfo can be deleted
      * @since 2.20
      */
+    @GioVersion2_20
     public fun canDelete(): Boolean = g_app_info_can_delete(gioAppInfoPointer.reinterpret()).asBoolean()
 
     /**
@@ -177,6 +185,7 @@ public interface AppInfo :
      * @return true if @appinfo has been deleted
      * @since 2.20
      */
+    @GioVersion2_20
     public fun delete(): Boolean = g_app_info_delete(gioAppInfoPointer.reinterpret()).asBoolean()
 
     /**
@@ -210,6 +219,7 @@ public interface AppInfo :
      *     or null if this information is not available
      * @since 2.20
      */
+    @GioVersion2_20
     public fun getCommandline(): String? = g_app_info_get_commandline(gioAppInfoPointer.reinterpret())?.toKString()
 
     /**
@@ -228,6 +238,7 @@ public interface AppInfo :
      * no display name is available.
      * @since 2.24
      */
+    @GioVersion2_24
     public fun getDisplayName(): String =
         g_app_info_get_display_name(gioAppInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -288,6 +299,7 @@ public interface AppInfo :
      *    a list of content types.
      * @since 2.34
      */
+    @GioVersion2_34
     public fun getSupportedTypes(): CollectionsList<String> =
         g_app_info_get_supported_types(gioAppInfoPointer.reinterpret())?.toKStringList()
             ?: error("Expected not null string array")
@@ -397,6 +409,7 @@ public interface AppInfo :
      * @param callback a #GAsyncReadyCallback to call when the request is done
      * @since 2.60
      */
+    @GioVersion2_60
     public fun launchUrisAsync(
         uris: GlibList? = null,
         context: AppLaunchContext? = null,
@@ -419,6 +432,7 @@ public interface AppInfo :
      * @return true on successful launch, false otherwise.
      * @since 2.60
      */
+    @GioVersion2_60
     public fun launchUrisFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -657,6 +671,7 @@ public interface AppInfo :
          * @param callback a #GAsyncReadyCallback to call when the request is done
          * @since 2.74
          */
+        @GioVersion2_74
         public fun getDefaultForTypeAsync(
             contentType: String,
             mustSupportUris: Boolean,
@@ -682,6 +697,7 @@ public interface AppInfo :
          *     null on error.
          * @since 2.74
          */
+        @GioVersion2_74
         public fun getDefaultForTypeFinish(result: AsyncResult): Result<AppInfo> =
             memScoped {
                 val gError = allocPointerTo<GError>()
@@ -723,6 +739,7 @@ public interface AppInfo :
          * @param callback a #GAsyncReadyCallback to call when the request is done
          * @since 2.74
          */
+        @GioVersion2_74
         public fun getDefaultForUriSchemeAsync(
             uriScheme: String,
             cancellable: Cancellable? = null,
@@ -746,6 +763,7 @@ public interface AppInfo :
          *     null on error.
          * @since 2.74
          */
+        @GioVersion2_74
         public fun getDefaultForUriSchemeFinish(result: AsyncResult): Result<AppInfo> =
             memScoped {
                 val gError = allocPointerTo<GError>()
@@ -771,6 +789,7 @@ public interface AppInfo :
          *     for given @content_type or null on error.
          * @since 2.28
          */
+        @GioVersion2_28
         public fun getFallbackForType(contentType: String): GlibList =
             g_app_info_get_fallback_for_type(contentType)!!.run {
                 GlibList(reinterpret())
@@ -789,6 +808,7 @@ public interface AppInfo :
          *     for given @content_type or null on error.
          * @since 2.28
          */
+        @GioVersion2_28
         public fun getRecommendedForType(contentType: String): GlibList =
             g_app_info_get_recommended_for_type(contentType)!!.run {
                 GlibList(reinterpret())
@@ -845,6 +865,7 @@ public interface AppInfo :
          * @param callback a #GAsyncReadyCallback to call when the request is done
          * @since 2.50
          */
+        @GioVersion2_50
         public fun launchDefaultForUriAsync(
             uri: String,
             context: AppLaunchContext? = null,
@@ -866,6 +887,7 @@ public interface AppInfo :
          * @return true if the launch was successful, false if @error is set
          * @since 2.50
          */
+        @GioVersion2_50
         public fun launchDefaultForUriFinish(result: AsyncResult): Result<Boolean> =
             memScoped {
                 val gError = allocPointerTo<GError>()
@@ -891,6 +913,7 @@ public interface AppInfo :
          * @param contentType a content type
          * @since 2.20
          */
+        @GioVersion2_20
         public fun resetTypeAssociations(contentType: String): Unit = g_app_info_reset_type_associations(contentType)
     }
 }

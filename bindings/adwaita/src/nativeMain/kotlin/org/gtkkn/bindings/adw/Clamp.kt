@@ -3,6 +3,7 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -169,6 +170,7 @@ public class Clamp(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var unit: LengthUnit
         /**
          * Gets the length unit for maximum size and tightening threshold.
@@ -189,6 +191,7 @@ public class Clamp(
          * @param unit the length unit
          * @since 1.4
          */
+        @AdwVersion1_4
         set(unit) = adw_clamp_set_unit(adwClampPointer.reinterpret(), unit.nativeValue)
 
     /**
@@ -228,6 +231,7 @@ public class Clamp(
      * @return the length unit
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getUnit(): LengthUnit =
         adw_clamp_get_unit(adwClampPointer.reinterpret()).run {
             LengthUnit.fromNativeValue(this)
@@ -280,6 +284,7 @@ public class Clamp(
      * @param unit the length unit
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setUnit(unit: LengthUnit): Unit = adw_clamp_set_unit(adwClampPointer.reinterpret(), unit.nativeValue)
 
     public companion object : TypeCompanion<Clamp> {

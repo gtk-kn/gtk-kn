@@ -30,7 +30,8 @@ import kotlin.Unit
  */
 public open class HoverDisplay(
     pointer: CPointer<GtkSourceHoverDisplay>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceHoverDisplayPointer: CPointer<GtkSourceHoverDisplay>
         get() = gPointer.reinterpret()
 
@@ -94,9 +95,7 @@ public open class HoverDisplay(
 
     public companion object : TypeCompanion<HoverDisplay> {
         override val type: GeneratedClassKGType<HoverDisplay> =
-            GeneratedClassKGType(gtk_source_hover_display_get_type()) {
-                HoverDisplay(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_hover_display_get_type()) { HoverDisplay(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

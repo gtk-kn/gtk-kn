@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -27,6 +28,7 @@ import kotlin.String
  *
  * @since 2.30
  */
+@GioVersion2_30
 public open class DBusObjectProxy(
     pointer: CPointer<GDBusObjectProxy>,
 ) : Object(pointer.reinterpret()),
@@ -59,6 +61,7 @@ public open class DBusObjectProxy(
      *   object is owned by @proxy.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getConnection(): DBusConnection =
         g_dbus_object_proxy_get_connection(gioDBusObjectProxyPointer.reinterpret())!!.run {
             DBusConnection(reinterpret())

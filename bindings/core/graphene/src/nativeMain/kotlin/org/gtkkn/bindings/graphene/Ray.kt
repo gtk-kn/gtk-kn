@@ -4,6 +4,8 @@ package org.gtkkn.bindings.graphene
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_ray_alloc
@@ -42,6 +44,7 @@ import kotlin.Unit
  *
  * @since 1.4
  */
+@GrapheneVersion1_4
 public class Ray(
     pointer: CPointer<graphene_ray_t>,
 ) : Record {
@@ -54,6 +57,7 @@ public class Ray(
      * @return `true` if the given rays are equal
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun equal(b: Ray): Boolean = graphene_ray_equal(grapheneRayPointer.reinterpret(), b.grapheneRayPointer)
 
     /**
@@ -61,6 +65,7 @@ public class Ray(
      *
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun free(): Unit = graphene_ray_free(grapheneRayPointer.reinterpret())
 
     /**
@@ -71,6 +76,7 @@ public class Ray(
      * @param res return location for the closest point3d
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun getClosestPointToPoint(
         p: Point3D,
         res: Point3D,
@@ -87,6 +93,7 @@ public class Ray(
      * @param direction return location for the direction
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun getDirection(direction: Vec3): Unit =
         graphene_ray_get_direction(grapheneRayPointer.reinterpret(), direction.grapheneVec3Pointer)
 
@@ -100,6 +107,7 @@ public class Ray(
      * @return the distance of the origin of the ray from the plane
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun getDistanceToPlane(p: Plane): Float =
         graphene_ray_get_distance_to_plane(grapheneRayPointer.reinterpret(), p.graphenePlanePointer)
 
@@ -115,6 +123,7 @@ public class Ray(
      * @return the distance of the point
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun getDistanceToPoint(p: Point3D): Float =
         graphene_ray_get_distance_to_point(grapheneRayPointer.reinterpret(), p.graphenePoint3DPointer)
 
@@ -124,6 +133,7 @@ public class Ray(
      * @param origin return location for the origin
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun getOrigin(origin: Point3D): Unit =
         graphene_ray_get_origin(grapheneRayPointer.reinterpret(), origin.graphenePoint3DPointer)
 
@@ -135,6 +145,7 @@ public class Ray(
      * @param position return location for the position
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun getPositionAt(
         t: Float,
         position: Point3D,
@@ -149,6 +160,7 @@ public class Ray(
      * @return the initialized ray
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun `init`(
         origin: Point3D? = null,
         direction: Vec3? = null,
@@ -169,6 +181,7 @@ public class Ray(
      * @return the initialized ray
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun initFromRay(src: Ray): Ray =
         graphene_ray_init_from_ray(grapheneRayPointer.reinterpret(), src.grapheneRayPointer)!!.run {
             Ray(reinterpret())
@@ -182,6 +195,7 @@ public class Ray(
      * @return the initialized ray
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun initFromVec3(
         origin: Vec3? = null,
         direction: Vec3? = null,
@@ -204,6 +218,7 @@ public class Ray(
      * @return `true` if the ray intersects the box
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun intersectsBox(b: Box): Boolean =
         graphene_ray_intersects_box(grapheneRayPointer.reinterpret(), b.grapheneBoxPointer)
 
@@ -217,6 +232,7 @@ public class Ray(
      * @return `true` if the ray intersects the sphere
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun intersectsSphere(s: Sphere): Boolean =
         graphene_ray_intersects_sphere(grapheneRayPointer.reinterpret(), s.grapheneSpherePointer)
 
@@ -230,6 +246,7 @@ public class Ray(
      * @return `true` if the ray intersects the triangle
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun intersectsTriangle(t: Triangle): Boolean =
         graphene_ray_intersects_triangle(grapheneRayPointer.reinterpret(), t.grapheneTrianglePointer)
 

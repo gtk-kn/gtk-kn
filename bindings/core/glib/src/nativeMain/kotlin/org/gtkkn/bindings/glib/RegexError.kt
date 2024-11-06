@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.native.glib.GRegexError
 import org.gtkkn.native.glib.GRegexError.G_REGEX_ERROR_ASSERTION_EXPECTED
 import org.gtkkn.native.glib.GRegexError.G_REGEX_ERROR_BACKTRACKING_CONTROL_VERB_ARGUMENT_FORBIDDEN
@@ -66,6 +67,7 @@ import kotlin.UInt
  * Error codes returned by regular expressions functions.
  * @since 2.14
  */
+@GLibVersion2_14
 public enum class RegexError(
     public val nativeValue: GRegexError,
 ) {

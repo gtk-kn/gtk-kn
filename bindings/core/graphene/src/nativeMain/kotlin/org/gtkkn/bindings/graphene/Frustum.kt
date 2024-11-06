@@ -4,6 +4,8 @@ package org.gtkkn.bindings.graphene
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_6
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_frustum_alloc
@@ -32,6 +34,7 @@ import kotlin.Unit
  *
  * @since 1.2
  */
+@GrapheneVersion1_2
 public class Frustum(
     pointer: CPointer<graphene_frustum_t>,
 ) : Record {
@@ -45,6 +48,7 @@ public class Frustum(
      * @return `true` if the point is inside the frustum
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun containsPoint(point: Point3D): Boolean =
         graphene_frustum_contains_point(grapheneFrustumPointer.reinterpret(), point.graphenePoint3DPointer)
 
@@ -55,6 +59,7 @@ public class Frustum(
      * @return `true` if the given frustums are equal
      * @since 1.6
      */
+    @GrapheneVersion1_6
     public fun equal(b: Frustum): Boolean =
         graphene_frustum_equal(grapheneFrustumPointer.reinterpret(), b.grapheneFrustumPointer)
 
@@ -63,6 +68,7 @@ public class Frustum(
      *
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun free(): Unit = graphene_frustum_free(grapheneFrustumPointer.reinterpret())
 
     /**
@@ -78,6 +84,7 @@ public class Frustum(
      * @return the initialized frustum
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun `init`(
         p0: Plane,
         p1: Plane,
@@ -106,6 +113,7 @@ public class Frustum(
      * @return the initialized frustum
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initFromFrustum(src: Frustum): Frustum =
         graphene_frustum_init_from_frustum(grapheneFrustumPointer.reinterpret(), src.grapheneFrustumPointer)!!.run {
             Frustum(reinterpret())
@@ -118,6 +126,7 @@ public class Frustum(
      * @return the initialized frustum
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initFromMatrix(matrix: Matrix): Frustum =
         graphene_frustum_init_from_matrix(grapheneFrustumPointer.reinterpret(), matrix.grapheneMatrixPointer)!!.run {
             Frustum(reinterpret())
@@ -131,6 +140,7 @@ public class Frustum(
      * @return `true` if the box intersects the frustum
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun intersectsBox(box: Box): Boolean =
         graphene_frustum_intersects_box(grapheneFrustumPointer.reinterpret(), box.grapheneBoxPointer)
 
@@ -142,6 +152,7 @@ public class Frustum(
      * @return `true` if the sphere intersects the frustum
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun intersectsSphere(sphere: Sphere): Boolean =
         graphene_frustum_intersects_sphere(grapheneFrustumPointer.reinterpret(), sphere.grapheneSpherePointer)
 

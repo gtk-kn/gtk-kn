@@ -10,6 +10,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.RGBA
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -54,6 +56,7 @@ import kotlin.Unit
  *
  * @since 4.10
  */
+@GtkVersion4_10
 public open class ColorDialogButton(
     pointer: CPointer<GtkColorDialogButton>,
 ) : Widget(pointer.reinterpret()),
@@ -82,6 +85,7 @@ public open class ColorDialogButton(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var rgba: RGBA
         /**
          * Returns the color of the button.
@@ -104,6 +108,7 @@ public open class ColorDialogButton(
          * @param color the new color
          * @since 4.10
          */
+        @GtkVersion4_10
         set(color) = gtk_color_dialog_button_set_rgba(gtkColorDialogButtonPointer.reinterpret(), color.gdkRGBAPointer)
 
     /**
@@ -127,6 +132,7 @@ public open class ColorDialogButton(
      * @return the `GtkColorDialog`
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getDialog(): ColorDialog? =
         gtk_color_dialog_button_get_dialog(gtkColorDialogButtonPointer.reinterpret())?.run {
             ColorDialog(reinterpret())
@@ -142,6 +148,7 @@ public open class ColorDialogButton(
      * @return the color
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getRgba(): RGBA =
         gtk_color_dialog_button_get_rgba(gtkColorDialogButtonPointer.reinterpret())!!.run {
             RGBA(reinterpret())
@@ -155,6 +162,7 @@ public open class ColorDialogButton(
      * @param dialog the new `GtkColorDialog`
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setDialog(dialog: ColorDialog): Unit =
         gtk_color_dialog_button_set_dialog(
             gtkColorDialogButtonPointer.reinterpret(),
@@ -167,6 +175,7 @@ public open class ColorDialogButton(
      * @param color the new color
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setRgba(color: RGBA): Unit =
         gtk_color_dialog_button_set_rgba(gtkColorDialogButtonPointer.reinterpret(), color.gdkRGBAPointer)
 
@@ -180,6 +189,7 @@ public open class ColorDialogButton(
      * @param handler the Callback to connect
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun connectActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

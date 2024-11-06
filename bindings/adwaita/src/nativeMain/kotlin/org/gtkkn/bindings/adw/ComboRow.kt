@@ -3,6 +3,7 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Expression
@@ -116,6 +117,7 @@ public open class ComboRow(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public open var enableSearch: Boolean
         /**
          * Gets whether search is enabled.
@@ -141,6 +143,7 @@ public open class ComboRow(
          * @param enableSearch whether to enable search
          * @since 1.4
          */
+        @AdwVersion1_4
         set(enableSearch) = adw_combo_row_set_enable_search(adwComboRowPointer.reinterpret(), enableSearch.asGBoolean())
 
     /**
@@ -352,6 +355,7 @@ public open class ComboRow(
      * @return whether the popup includes a search entry
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun getEnableSearch(): Boolean =
         adw_combo_row_get_enable_search(adwComboRowPointer.reinterpret()).asBoolean()
 
@@ -432,6 +436,7 @@ public open class ComboRow(
      * @param enableSearch whether to enable search
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun setEnableSearch(enableSearch: Boolean): Unit =
         adw_combo_row_set_enable_search(adwComboRowPointer.reinterpret(), enableSearch.asGBoolean())
 

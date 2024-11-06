@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.native.gio.GDriveStartStopType
 import org.gtkkn.native.gio.GDriveStartStopType.G_DRIVE_START_STOP_TYPE_MULTIDISK
 import org.gtkkn.native.gio.GDriveStartStopType.G_DRIVE_START_STOP_TYPE_NETWORK
@@ -12,6 +13,7 @@ import org.gtkkn.native.gio.GDriveStartStopType.G_DRIVE_START_STOP_TYPE_UNKNOWN
  * Enumeration describing how a drive can be started/stopped.
  * @since 2.22
  */
+@GioVersion2_22
 public enum class DriveStartStopType(
     public val nativeValue: GDriveStartStopType,
 ) {

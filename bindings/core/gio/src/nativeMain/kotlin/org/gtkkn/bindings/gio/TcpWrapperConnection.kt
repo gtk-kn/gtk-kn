@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -20,6 +21,7 @@ import org.gtkkn.native.gio.g_tcp_wrapper_connection_new
  * [class@Gio.SocketConnection].
  * @since 2.28
  */
+@GioVersion2_28
 public open class TcpWrapperConnection(
     pointer: CPointer<GTcpWrapperConnection>,
 ) : TcpConnection(pointer.reinterpret()),
@@ -32,6 +34,7 @@ public open class TcpWrapperConnection(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open val baseIoStream: IOStream
         /**
          * Gets @conn's base #GIOStream

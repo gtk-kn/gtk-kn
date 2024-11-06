@@ -4,6 +4,8 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -236,6 +238,7 @@ public open class ExpanderRow(
      * @param widget a widget
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun addSuffix(widget: Widget): Unit =
         adw_expander_row_add_suffix(adwExpanderRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
@@ -288,6 +291,7 @@ public open class ExpanderRow(
      *   ellipsized
      * @since 1.3
      */
+    @AdwVersion1_3
     public open fun getSubtitleLines(): Boolean =
         adw_expander_row_get_subtitle_lines(adwExpanderRowPointer.reinterpret()).asBoolean()
 
@@ -299,6 +303,7 @@ public open class ExpanderRow(
      *   ellipsized
      * @since 1.3
      */
+    @AdwVersion1_3
     public open fun getTitleLines(): Boolean =
         adw_expander_row_get_title_lines(adwExpanderRowPointer.reinterpret()).asBoolean()
 
@@ -362,6 +367,7 @@ public open class ExpanderRow(
      * @param subtitleLines the number of lines at the end of which the subtitle label will be ellipsized
      * @since 1.3
      */
+    @AdwVersion1_3
     public open fun setSubtitleLines(subtitleLines: Int): Unit =
         adw_expander_row_set_subtitle_lines(adwExpanderRowPointer.reinterpret(), subtitleLines)
 
@@ -374,6 +380,7 @@ public open class ExpanderRow(
      * @param titleLines the number of lines at the end of which the title label will be ellipsized
      * @since 1.3
      */
+    @AdwVersion1_3
     public open fun setTitleLines(titleLines: Int): Unit =
         adw_expander_row_set_title_lines(adwExpanderRowPointer.reinterpret(), titleLines)
 

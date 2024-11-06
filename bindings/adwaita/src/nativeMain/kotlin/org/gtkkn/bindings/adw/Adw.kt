@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
@@ -192,6 +193,7 @@ public object Adw {
      * @return the parsed condition
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun breakpointConditionParse(str: String): BreakpointCondition =
         adw_breakpoint_condition_parse(str)!!.run {
             BreakpointCondition(reinterpret())
@@ -297,6 +299,7 @@ public object Adw {
      * @return the length in @unit
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun lengthUnitFromPx(
         unit: LengthUnit,
         `value`: Double,
@@ -312,6 +315,7 @@ public object Adw {
      * @return the length in pixels
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun lengthUnitToPx(
         unit: LengthUnit,
         `value`: Double,

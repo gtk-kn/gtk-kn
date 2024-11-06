@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gio.annotations.GioVersion2_64
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -74,6 +75,7 @@ import kotlin.Unit
  * signal, and unref the `GMemoryMonitor` itself when exiting.
  * @since 2.64
  */
+@GioVersion2_64
 public interface MemoryMonitor :
     Interface,
     Initable,
@@ -93,6 +95,7 @@ public interface MemoryMonitor :
      * @param handler the Callback to connect. Params: `level` the #GMemoryMonitorWarningLevel warning level
      * @since 2.64
      */
+    @GioVersion2_64
     public fun connectLowMemoryWarning(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (level: MemoryMonitorWarningLevel) -> Unit,
@@ -128,6 +131,7 @@ public interface MemoryMonitor :
          * @return a new reference to the default #GMemoryMonitor
          * @since 2.64
          */
+        @GioVersion2_64
         public fun dupDefault(): MemoryMonitor =
             g_memory_monitor_dup_default()!!.run {
                 MemoryMonitor.wrap(reinterpret())

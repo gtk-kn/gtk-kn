@@ -6,6 +6,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.glib.Record
@@ -265,6 +266,7 @@ public class ContentFormats(
          * @return the content formats if @string is valid
          * @since 4.4
          */
+        @GdkVersion4_4
         public fun parse(string: KotlinString): ContentFormats? =
             gdk_content_formats_parse(string)?.run {
                 ContentFormats(reinterpret())

@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -123,6 +124,7 @@ public open class Permission(
      * @return true if the permission was successfully acquired
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun acquire(cancellable: Cancellable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -149,6 +151,7 @@ public open class Permission(
      * @param callback the #GAsyncReadyCallback to call when done
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun acquireAsync(
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -171,6 +174,7 @@ public open class Permission(
      * @return true if the permission was successfully acquired
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun acquireFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -195,6 +199,7 @@ public open class Permission(
      * @return the value of the 'allowed' property
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getAllowed(): Boolean = g_permission_get_allowed(gioPermissionPointer.reinterpret()).asBoolean()
 
     /**
@@ -205,6 +210,7 @@ public open class Permission(
      * @return the value of the 'can-acquire' property
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getCanAcquire(): Boolean =
         g_permission_get_can_acquire(gioPermissionPointer.reinterpret()).asBoolean()
 
@@ -216,6 +222,7 @@ public open class Permission(
      * @return the value of the 'can-release' property
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getCanRelease(): Boolean =
         g_permission_get_can_release(gioPermissionPointer.reinterpret()).asBoolean()
 
@@ -231,6 +238,7 @@ public open class Permission(
      * @param canRelease the new value for the 'can-release' property
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun implUpdate(
         allowed: Boolean,
         canAcquire: Boolean,
@@ -264,6 +272,7 @@ public open class Permission(
      * @return true if the permission was successfully released
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun release(cancellable: Cancellable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -290,6 +299,7 @@ public open class Permission(
      * @param callback the #GAsyncReadyCallback to call when done
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun releaseAsync(
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -312,6 +322,7 @@ public open class Permission(
      * @return true if the permission was successfully released
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun releaseFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()

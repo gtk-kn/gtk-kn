@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.native.gsk.GskPathDirection
 import org.gtkkn.native.gsk.GskPathDirection.GSK_PATH_FROM_END
 import org.gtkkn.native.gsk.GskPathDirection.GSK_PATH_FROM_START
@@ -21,6 +22,7 @@ import org.gtkkn.native.gsk.GskPathDirection.GSK_PATH_TO_START
  * </picture>
  * @since 4.14
  */
+@GskVersion4_14
 public enum class PathDirection(
     public val nativeValue: GskPathDirection,
 ) {

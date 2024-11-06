@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_2
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.common.toKStringList
@@ -308,6 +309,7 @@ public open class IconTheme(
      * @return true if @self includes an icon for @gicon
      * @since 4.2
      */
+    @GtkVersion4_2
     public open fun hasGicon(gicon: Icon): Boolean =
         gtk_icon_theme_has_gicon(gtkIconThemePointer.reinterpret(), gicon.gioIconPointer).asBoolean()
 

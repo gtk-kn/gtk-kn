@@ -5,6 +5,8 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -80,6 +82,7 @@ public class Attribute(
      *   or null if it's not a color attribute
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun asColor(): AttrColor? =
         pango_attribute_as_color(pangoAttributePointer.reinterpret())?.run {
             AttrColor(reinterpret())
@@ -94,6 +97,7 @@ public class Attribute(
      *   or null if it's not a floating point attribute
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun asFloat(): AttrFloat? =
         pango_attribute_as_float(pangoAttributePointer.reinterpret())?.run {
             AttrFloat(reinterpret())
@@ -108,6 +112,7 @@ public class Attribute(
      *   or null if it's not a font description attribute
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun asFontDesc(): AttrFontDesc? =
         pango_attribute_as_font_desc(pangoAttributePointer.reinterpret())?.run {
             AttrFontDesc(reinterpret())
@@ -122,6 +127,7 @@ public class Attribute(
      *   or null if it's not a font features attribute
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun asFontFeatures(): AttrFontFeatures? =
         pango_attribute_as_font_features(pangoAttributePointer.reinterpret())?.run {
             AttrFontFeatures(reinterpret())
@@ -136,6 +142,7 @@ public class Attribute(
      *   or null if it's not an integer attribute
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun asInt(): AttrInt? =
         pango_attribute_as_int(pangoAttributePointer.reinterpret())?.run {
             AttrInt(reinterpret())
@@ -150,6 +157,7 @@ public class Attribute(
      *   or null if it's not a language attribute
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun asLanguage(): AttrLanguage? =
         pango_attribute_as_language(pangoAttributePointer.reinterpret())?.run {
             AttrLanguage(reinterpret())
@@ -164,6 +172,7 @@ public class Attribute(
      *   or null if it's not a shape attribute
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun asShape(): AttrShape? =
         pango_attribute_as_shape(pangoAttributePointer.reinterpret())?.run {
             AttrShape(reinterpret())
@@ -178,6 +187,7 @@ public class Attribute(
      *   or NULL if it's not a size attribute
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun asSize(): AttrSize? =
         pango_attribute_as_size(pangoAttributePointer.reinterpret())?.run {
             AttrSize(reinterpret())
@@ -192,6 +202,7 @@ public class Attribute(
      *   or null if it's not a string attribute
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun asString(): AttrString? =
         pango_attribute_as_string(pangoAttributePointer.reinterpret())?.run {
             AttrString(reinterpret())
@@ -236,6 +247,7 @@ public class Attribute(
      * @param klass a `PangoAttrClass`
      * @since 1.20
      */
+    @PangoVersion1_20
     public fun `init`(klass: AttrClass): Unit =
         pango_attribute_init(pangoAttributePointer.reinterpret(), klass.pangoAttrClassPointer)
 

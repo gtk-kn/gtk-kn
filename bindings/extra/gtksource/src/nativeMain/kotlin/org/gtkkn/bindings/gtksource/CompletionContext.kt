@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
+import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -60,7 +61,9 @@ import kotlin.Unit
  */
 public open class CompletionContext(
     pointer: CPointer<GtkSourceCompletionContext>,
-) : Object(pointer.reinterpret()), ListModel, KGTyped {
+) : Object(pointer.reinterpret()),
+    ListModel,
+    KGTyped {
     public val gtksourceCompletionContextPointer: CPointer<GtkSourceCompletionContext>
         get() = gPointer.reinterpret()
 
@@ -79,8 +82,7 @@ public open class CompletionContext(
          *
          * @return true if the context is busy
          */
-        get() =
-            gtk_source_completion_context_get_busy(gtksourceCompletionContextPointer.reinterpret()).asBoolean()
+        get() = gtk_source_completion_context_get_busy(gtksourceCompletionContextPointer.reinterpret()).asBoolean()
 
     /**
      * The "completion" is the #GtkSourceCompletion that was used to create the context.
@@ -110,8 +112,7 @@ public open class CompletionContext(
          *
          * @return true if there are no proposals in the context
          */
-        get() =
-            gtk_source_completion_context_get_empty(gtksourceCompletionContextPointer.reinterpret()).asBoolean()
+        get() = gtk_source_completion_context_get_empty(gtksourceCompletionContextPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the mode for which the context was activated.
@@ -209,6 +210,7 @@ public open class CompletionContext(
      * @return a #GListModel or null
      * @since 5.6
      */
+    @GtkSourceVersion5_6
     public open fun getProposalsForProvider(provider: CompletionProvider): ListModel? =
         gtk_source_completion_context_get_proposals_for_provider(
             gtksourceCompletionContextPointer.reinterpret(),
@@ -242,6 +244,7 @@ public open class CompletionContext(
      * @return a #GListModel of #GtkSourceCompletionProvider
      * @since 5.6
      */
+    @GtkSourceVersion5_6
     public open fun listProviders(): ListModel =
         gtk_source_completion_context_list_providers(gtksourceCompletionContextPointer.reinterpret())!!.run {
             ListModel.wrap(reinterpret())
@@ -260,8 +263,7 @@ public open class CompletionContext(
      */
     public open fun setProposalsForProvider(
         provider: CompletionProvider,
-        results: ListModel? =
-            null,
+        results: ListModel? = null,
     ): Unit =
         gtk_source_completion_context_set_proposals_for_provider(
             gtksourceCompletionContextPointer.reinterpret(),
@@ -277,10 +279,10 @@ public open class CompletionContext(
      * be used to create a "top results" provider.
      *
      * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `provider` a #GtkSourceCompletionProvider;
-     * `model` a #GListModel
+     * @param handler the Callback to connect. Params: `provider` a #GtkSourceCompletionProvider; `model` a #GListModel
      * @since 5.6
      */
+    @GtkSourceVersion5_6
     public fun connectProviderModelChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (provider: CompletionProvider, model: ListModel?) -> Unit,
@@ -296,9 +298,7 @@ public open class CompletionContext(
 
     public companion object : TypeCompanion<CompletionContext> {
         override val type: GeneratedClassKGType<CompletionContext> =
-            GeneratedClassKGType(gtk_source_completion_context_get_type()) {
-                CompletionContext(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_completion_context_get_type()) { CompletionContext(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()
@@ -314,12 +314,7 @@ private val connectProviderModelChangedFunc:
             model: CPointer<GListModel>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<
-            (
-                provider: CompletionProvider,
-                model: ListModel?,
-            ) -> Unit
-        >().get().invoke(
+        userData.asStableRef<(provider: CompletionProvider, model: ListModel?) -> Unit>().get().invoke(
             provider!!.run {
                 CompletionProvider.wrap(reinterpret())
             },
@@ -327,5 +322,4 @@ private val connectProviderModelChangedFunc:
                 ListModel.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()

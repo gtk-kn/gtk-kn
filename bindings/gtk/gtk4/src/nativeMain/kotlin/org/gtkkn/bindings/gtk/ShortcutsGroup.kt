@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -70,6 +71,7 @@ public open class ShortcutsGroup(
      * @param shortcut the `GtkShortcutsShortcut` to add
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun addShortcut(shortcut: ShortcutsShortcut): Unit =
         gtk_shortcuts_group_add_shortcut(
             gtkShortcutsGroupPointer.reinterpret(),

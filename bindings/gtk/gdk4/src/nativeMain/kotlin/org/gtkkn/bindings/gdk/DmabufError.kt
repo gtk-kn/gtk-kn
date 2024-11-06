@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gdk.GdkDmabufError
 import org.gtkkn.native.gdk.GdkDmabufError.GDK_DMABUF_ERROR_CREATION_FAILED
@@ -13,6 +14,7 @@ import kotlin.UInt
  * Error enumeration for `GdkDmabufTexture`.
  * @since 4.14
  */
+@GdkVersion4_14
 public enum class DmabufError(
     public val nativeValue: GdkDmabufError,
 ) {

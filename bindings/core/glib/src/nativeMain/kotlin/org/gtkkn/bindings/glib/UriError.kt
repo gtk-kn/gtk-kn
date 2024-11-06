@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
 import org.gtkkn.native.glib.GUriError
 import org.gtkkn.native.glib.GUriError.G_URI_ERROR_BAD_AUTH_PARAMS
 import org.gtkkn.native.glib.GUriError.G_URI_ERROR_BAD_FRAGMENT
@@ -19,6 +20,7 @@ import kotlin.UInt
  * Error codes returned by #GUri methods.
  * @since 2.66
  */
+@GLibVersion2_66
 public enum class UriError(
     public val nativeValue: GUriError,
 ) {

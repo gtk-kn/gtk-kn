@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.native.gio.GSocketClientEvent
 import org.gtkkn.native.gio.GSocketClientEvent.G_SOCKET_CLIENT_COMPLETE
 import org.gtkkn.native.gio.GSocketClientEvent.G_SOCKET_CLIENT_CONNECTED
@@ -19,6 +20,7 @@ import org.gtkkn.native.gio.GSocketClientEvent.G_SOCKET_CLIENT_TLS_HANDSHAKING
  * Additional values may be added to this type in the future.
  * @since 2.32
  */
+@GioVersion2_32
 public enum class SocketClientEvent(
     public val nativeValue: GSocketClientEvent,
 ) {

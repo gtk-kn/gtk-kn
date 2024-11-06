@@ -4,6 +4,7 @@ package org.gtkkn.bindings.graphene
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_sphere_alloc
@@ -34,6 +35,7 @@ import kotlin.Unit
  *
  * @since 1.2
  */
+@GrapheneVersion1_2
 public class Sphere(
     pointer: CPointer<graphene_sphere_t>,
 ) : Record {
@@ -47,6 +49,7 @@ public class Sphere(
      * @return `true` if the sphere contains the point
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun containsPoint(point: Point3D): Boolean =
         graphene_sphere_contains_point(grapheneSpherePointer.reinterpret(), point.graphenePoint3DPointer)
 
@@ -58,6 +61,7 @@ public class Sphere(
      * @return the distance of the point
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun distance(point: Point3D): Float =
         graphene_sphere_distance(grapheneSpherePointer.reinterpret(), point.graphenePoint3DPointer)
 
@@ -68,6 +72,7 @@ public class Sphere(
      * @return `true` if the spheres are equal
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun equal(b: Sphere): Boolean =
         graphene_sphere_equal(grapheneSpherePointer.reinterpret(), b.grapheneSpherePointer)
 
@@ -76,6 +81,7 @@ public class Sphere(
      *
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun free(): Unit = graphene_sphere_free(grapheneSpherePointer.reinterpret())
 
     /**
@@ -85,6 +91,7 @@ public class Sphere(
      * @param box return location for the bounding box
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getBoundingBox(box: Box): Unit =
         graphene_sphere_get_bounding_box(grapheneSpherePointer.reinterpret(), box.grapheneBoxPointer)
 
@@ -95,6 +102,7 @@ public class Sphere(
      *   the center
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getCenter(center: Point3D): Unit =
         graphene_sphere_get_center(grapheneSpherePointer.reinterpret(), center.graphenePoint3DPointer)
 
@@ -103,6 +111,7 @@ public class Sphere(
      *
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getRadius(): Float = graphene_sphere_get_radius(grapheneSpherePointer.reinterpret())
 
     /**
@@ -114,6 +123,7 @@ public class Sphere(
      * @return the initialized #graphene_sphere_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun `init`(
         center: Point3D? = null,
         radius: Float,
@@ -128,6 +138,7 @@ public class Sphere(
      * @return `true` if the sphere is empty
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun isEmpty(): Boolean = graphene_sphere_is_empty(grapheneSpherePointer.reinterpret())
 
     /**
@@ -138,6 +149,7 @@ public class Sphere(
      * @param res return location for the translated sphere
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun translate(
         point: Point3D,
         res: Sphere,

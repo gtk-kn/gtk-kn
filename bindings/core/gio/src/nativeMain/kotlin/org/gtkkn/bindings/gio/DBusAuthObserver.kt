@@ -10,6 +10,8 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -97,6 +99,7 @@ import kotlin.ULong
  * ```
  * @since 2.26
  */
+@GioVersion2_26
 public open class DBusAuthObserver(
     pointer: CPointer<GDBusAuthObserver>,
 ) : Object(pointer.reinterpret()),
@@ -119,6 +122,7 @@ public open class DBusAuthObserver(
      * @return true if @mechanism can be used to authenticate the other peer, false if not.
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun allowMechanism(mechanism: String): Boolean =
         g_dbus_auth_observer_allow_mechanism(gioDBusAuthObserverPointer.reinterpret(), mechanism).asBoolean()
 
@@ -130,6 +134,7 @@ public open class DBusAuthObserver(
      * @return true if the peer is authorized, false if not.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun authorizeAuthenticatedPeer(
         stream: IOStream,
         credentials: Credentials? = null,
@@ -147,6 +152,7 @@ public open class DBusAuthObserver(
      * @param handler the Callback to connect. Params: `mechanism` The name of the mechanism, e.g. `DBUS_COOKIE_SHA1`.. Returns true if @mechanism can be used to authenticate the other peer, false if not.
      * @since 2.34
      */
+    @GioVersion2_34
     public fun connectAllowMechanism(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (mechanism: String) -> Boolean,
@@ -168,6 +174,7 @@ public open class DBusAuthObserver(
      * @param handler the Callback to connect. Params: `stream` A #GIOStream for the #GDBusConnection.; `credentials` Credentials received from the peer or null.. Returns true if the peer is authorized, false if not.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun connectAuthorizeAuthenticatedPeer(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (stream: IOStream, credentials: Credentials?) -> Boolean,

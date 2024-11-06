@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_64
 import org.gtkkn.native.gio.GMemoryMonitorWarningLevel
 import org.gtkkn.native.gio.GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_LEVEL_CRITICAL
 import org.gtkkn.native.gio.GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_LEVEL_LOW
@@ -17,6 +18,7 @@ import org.gtkkn.native.gio.GMemoryMonitorWarningLevel.G_MEMORY_MONITOR_WARNING_
  * ]|
  * @since 2.64
  */
+@GioVersion2_64
 public enum class MemoryMonitorWarningLevel(
     public val nativeValue: GMemoryMonitorWarningLevel,
 ) {

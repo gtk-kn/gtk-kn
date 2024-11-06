@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -326,6 +327,7 @@ public open class SimpleAsyncResult(
      * @param checkCancellable a #GCancellable to check, or null to unset
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun setCheckCancellable(checkCancellable: Cancellable? = null): Unit =
         g_simple_async_result_set_check_cancellable(
             gioSimpleAsyncResultPointer.reinterpret(),

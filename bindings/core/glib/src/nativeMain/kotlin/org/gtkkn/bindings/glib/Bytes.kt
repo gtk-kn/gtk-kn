@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GBytes
@@ -55,6 +56,7 @@ import kotlin.Unit
  *
  * @since 2.32
  */
+@GLibVersion2_32
 public class Bytes(
     pointer: CPointer<GBytes>,
 ) : Record {
@@ -68,6 +70,7 @@ public class Bytes(
      * @return the size
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun getSize(): ULong = g_bytes_get_size(glibBytesPointer.reinterpret())
 
     /**
@@ -79,6 +82,7 @@ public class Bytes(
      * @return a hash value corresponding to the key.
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun hash(): UInt = g_bytes_hash(glibBytesPointer.reinterpret())
 
     /**
@@ -99,6 +103,7 @@ public class Bytes(
      * @return a new #GBytes
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun newFromBytes(
         offset: ULong,
         length: ULong,
@@ -113,6 +118,7 @@ public class Bytes(
      * @return the #GBytes
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun ref(): Bytes =
         g_bytes_ref(glibBytesPointer.reinterpret())!!.run {
             Bytes(reinterpret())
@@ -124,6 +130,7 @@ public class Bytes(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun unref(): Unit = g_bytes_unref(glibBytesPointer.reinterpret())
 
     public companion object : RecordCompanion<Bytes, GBytes> {

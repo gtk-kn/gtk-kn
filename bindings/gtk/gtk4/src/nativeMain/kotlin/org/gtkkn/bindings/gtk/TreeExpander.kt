@@ -4,6 +4,8 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -134,6 +136,7 @@ public open class TreeExpander(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var hideExpander: Boolean
         /**
          * Gets whether the TreeExpander should be hidden in a GtkTreeListRow.
@@ -149,6 +152,7 @@ public open class TreeExpander(
          * @param hideExpander TRUE if the expander should be hidden. Otherwise FALSE.
          * @since 4.10
          */
+        @GtkVersion4_10
         set(
             hideExpander
         ) = gtk_tree_expander_set_hide_expander(gtkTreeExpanderPointer.reinterpret(), hideExpander.asGBoolean())
@@ -158,6 +162,7 @@ public open class TreeExpander(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var indentForDepth: Boolean
         /**
          * TreeExpander indents each level of depth with an additional indent.
@@ -173,6 +178,7 @@ public open class TreeExpander(
          * @param indentForDepth TRUE if the child should be indented. Otherwise FALSE.
          * @since 4.10
          */
+        @GtkVersion4_10
         set(
             indentForDepth
         ) = gtk_tree_expander_set_indent_for_depth(gtkTreeExpanderPointer.reinterpret(), indentForDepth.asGBoolean())
@@ -182,6 +188,7 @@ public open class TreeExpander(
      *
      * @since 4.6
      */
+    @GtkVersion4_6
     public open var indentForIcon: Boolean
         /**
          * TreeExpander indents the child by the width of an expander-icon if it is not expandable.
@@ -197,6 +204,7 @@ public open class TreeExpander(
          * @param indentForIcon TRUE if the child should be indented without expander. Otherwise FALSE.
          * @since 4.6
          */
+        @GtkVersion4_6
         set(
             indentForIcon
         ) = gtk_tree_expander_set_indent_for_icon(gtkTreeExpanderPointer.reinterpret(), indentForIcon.asGBoolean())
@@ -271,6 +279,7 @@ public open class TreeExpander(
      * @return TRUE if the expander icon should be hidden. Otherwise FALSE.
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getHideExpander(): Boolean =
         gtk_tree_expander_get_hide_expander(gtkTreeExpanderPointer.reinterpret()).asBoolean()
 
@@ -280,6 +289,7 @@ public open class TreeExpander(
      * @return TRUE if the child should be indented . Otherwise FALSE.
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getIndentForDepth(): Boolean =
         gtk_tree_expander_get_indent_for_depth(gtkTreeExpanderPointer.reinterpret()).asBoolean()
 
@@ -289,6 +299,7 @@ public open class TreeExpander(
      * @return TRUE if the child should be indented when not expandable. Otherwise FALSE.
      * @since 4.6
      */
+    @GtkVersion4_6
     public open fun getIndentForIcon(): Boolean =
         gtk_tree_expander_get_indent_for_icon(gtkTreeExpanderPointer.reinterpret()).asBoolean()
 
@@ -332,6 +343,7 @@ public open class TreeExpander(
      * @param hideExpander TRUE if the expander should be hidden. Otherwise FALSE.
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setHideExpander(hideExpander: Boolean): Unit =
         gtk_tree_expander_set_hide_expander(gtkTreeExpanderPointer.reinterpret(), hideExpander.asGBoolean())
 
@@ -341,6 +353,7 @@ public open class TreeExpander(
      * @param indentForDepth TRUE if the child should be indented. Otherwise FALSE.
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setIndentForDepth(indentForDepth: Boolean): Unit =
         gtk_tree_expander_set_indent_for_depth(gtkTreeExpanderPointer.reinterpret(), indentForDepth.asGBoolean())
 
@@ -350,6 +363,7 @@ public open class TreeExpander(
      * @param indentForIcon TRUE if the child should be indented without expander. Otherwise FALSE.
      * @since 4.6
      */
+    @GtkVersion4_6
     public open fun setIndentForIcon(indentForIcon: Boolean): Unit =
         gtk_tree_expander_set_indent_for_icon(gtkTreeExpanderPointer.reinterpret(), indentForIcon.asGBoolean())
 

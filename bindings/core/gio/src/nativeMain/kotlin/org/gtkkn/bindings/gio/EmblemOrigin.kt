@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.native.gio.GEmblemOrigin
 import org.gtkkn.native.gio.GEmblemOrigin.G_EMBLEM_ORIGIN_DEVICE
 import org.gtkkn.native.gio.GEmblemOrigin.G_EMBLEM_ORIGIN_LIVEMETADATA
@@ -12,6 +13,7 @@ import org.gtkkn.native.gio.GEmblemOrigin.G_EMBLEM_ORIGIN_UNKNOWN
  * to #GEmblem.
  * @since 2.18
  */
+@GioVersion2_18
 public enum class EmblemOrigin(
     public val nativeValue: GEmblemOrigin,
 ) {

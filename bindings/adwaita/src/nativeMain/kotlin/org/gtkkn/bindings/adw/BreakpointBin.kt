@@ -3,6 +3,8 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -134,6 +136,7 @@ import kotlin.Unit
  * See [class@Breakpoint] documentation for details.
  * @since 1.4
  */
+@AdwVersion1_4
 public open class BreakpointBin(
     pointer: CPointer<AdwBreakpointBin>,
 ) : Widget(pointer.reinterpret()),
@@ -155,6 +158,7 @@ public open class BreakpointBin(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public open var child: Widget?
         /**
          * Gets the child widget of @self.
@@ -173,6 +177,7 @@ public open class BreakpointBin(
          * @param child the child widget
          * @since 1.4
          */
+        @AdwVersion1_4
         set(
             child
         ) = adw_breakpoint_bin_set_child(adwBreakpointBinPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
@@ -182,6 +187,7 @@ public open class BreakpointBin(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public open val currentBreakpoint: Breakpoint?
         /**
          * Gets the current breakpoint.
@@ -208,6 +214,7 @@ public open class BreakpointBin(
      * @param breakpoint the breakpoint to add
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
         adw_breakpoint_bin_add_breakpoint(
             adwBreakpointBinPointer.reinterpret(),
@@ -220,6 +227,7 @@ public open class BreakpointBin(
      * @return the child widget of @self
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun getChild(): Widget? =
         adw_breakpoint_bin_get_child(adwBreakpointBinPointer.reinterpret())?.run {
             Widget(reinterpret())
@@ -231,6 +239,7 @@ public open class BreakpointBin(
      * @return the current breakpoint
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun getCurrentBreakpoint(): Breakpoint? =
         adw_breakpoint_bin_get_current_breakpoint(adwBreakpointBinPointer.reinterpret())?.run {
             Breakpoint(reinterpret())
@@ -242,6 +251,7 @@ public open class BreakpointBin(
      * @param breakpoint a breakpoint to remove
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun removeBreakpoint(breakpoint: Breakpoint): Unit =
         adw_breakpoint_bin_remove_breakpoint(
             adwBreakpointBinPointer.reinterpret(),
@@ -254,6 +264,7 @@ public open class BreakpointBin(
      * @param child the child widget
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun setChild(child: Widget? = null): Unit =
         adw_breakpoint_bin_set_child(adwBreakpointBinPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 

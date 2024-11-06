@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_42
 import org.gtkkn.native.gio.GNotificationPriority
 import org.gtkkn.native.gio.GNotificationPriority.G_NOTIFICATION_PRIORITY_HIGH
 import org.gtkkn.native.gio.GNotificationPriority.G_NOTIFICATION_PRIORITY_LOW
@@ -11,6 +12,7 @@ import org.gtkkn.native.gio.GNotificationPriority.G_NOTIFICATION_PRIORITY_URGENT
  * Priority levels for #GNotifications.
  * @since 2.42
  */
+@GioVersion2_42
 public enum class NotificationPriority(
     public val nativeValue: GNotificationPriority,
 ) {

@@ -6,6 +6,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_2
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -96,6 +101,7 @@ public class AttrList(
      *   they aren't
      * @since 1.46
      */
+    @PangoVersion1_46
     public fun equal(otherList: AttrList): Boolean =
         pango_attr_list_equal(pangoAttrListPointer.reinterpret(), otherList.pangoAttrListPointer).asBoolean()
 
@@ -111,6 +117,7 @@ public class AttrList(
      *   given types were found
      * @since 1.2
      */
+    @PangoVersion1_2
     public fun filter(func: AttrFilterFunc): AttrList? =
         pango_attr_list_filter(
             pangoAttrListPointer.reinterpret(),
@@ -129,6 +136,7 @@ public class AttrList(
      *   g_slist_free() on the list.
      * @since 1.44
      */
+    @PangoVersion1_44
     public fun getAttributes(): SList =
         pango_attr_list_get_attributes(pangoAttrListPointer.reinterpret())!!.run {
             SList(reinterpret())
@@ -177,6 +185,7 @@ public class AttrList(
      * @return The attribute list passed in
      * @since 1.10
      */
+    @PangoVersion1_10
     public fun ref(): AttrList =
         pango_attr_list_ref(pangoAttrListPointer.reinterpret())!!.run {
             AttrList(reinterpret())
@@ -244,6 +253,7 @@ public class AttrList(
      * @param add the number of added bytes
      * @since 1.44
      */
+    @PangoVersion1_44
     public fun update(
         pos: Int,
         remove: Int,
@@ -271,6 +281,7 @@ public class AttrList(
          * @return a new `PangoAttrList`
          * @since 1.50
          */
+        @PangoVersion1_50
         public fun fromString(text: String): AttrList? =
             pango_attr_list_from_string(text)?.run {
                 AttrList(reinterpret())

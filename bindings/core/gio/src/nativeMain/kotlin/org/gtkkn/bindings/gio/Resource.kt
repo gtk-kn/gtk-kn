@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.toKStringList
@@ -199,6 +200,7 @@ import kotlin.collections.List
  *
  * @since 2.32
  */
+@GioVersion2_32
 public class Resource(
     pointer: CPointer<GResource>,
 ) : Record {
@@ -211,6 +213,7 @@ public class Resource(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public fun register(): Unit = g_resources_register(gioResourcePointer.reinterpret())
 
     /**
@@ -218,6 +221,7 @@ public class Resource(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public fun unregister(): Unit = g_resources_unregister(gioResourcePointer.reinterpret())
 
     /**
@@ -235,6 +239,7 @@ public class Resource(
      * @return an array of constant strings
      * @since 2.32
      */
+    @GioVersion2_32
     public fun enumerateChildren(
         path: String,
         lookupFlags: ResourceLookupFlags,
@@ -277,6 +282,7 @@ public class Resource(
      *     Free the returned object with g_bytes_unref()
      * @since 2.32
      */
+    @GioVersion2_32
     public fun lookupData(
         path: String,
         lookupFlags: ResourceLookupFlags,
@@ -307,6 +313,7 @@ public class Resource(
      *     Free the returned object with g_object_unref()
      * @since 2.32
      */
+    @GioVersion2_32
     public fun openStream(
         path: String,
         lookupFlags: ResourceLookupFlags,
@@ -332,6 +339,7 @@ public class Resource(
      * @return The passed in #GResource
      * @since 2.32
      */
+    @GioVersion2_32
     public fun ref(): Resource =
         g_resource_ref(gioResourcePointer.reinterpret())!!.run {
             Resource(reinterpret())
@@ -345,6 +353,7 @@ public class Resource(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public fun unref(): Unit = g_resource_unref(gioResourcePointer.reinterpret())
 
     public companion object : RecordCompanion<Resource, GResource> {
@@ -394,6 +403,7 @@ public class Resource(
          * @return a new #GResource, or null on error
          * @since 2.32
          */
+        @GioVersion2_32
         public fun load(filename: String): Result<Resource> =
             memScoped {
                 val gError = allocPointerTo<GError>()

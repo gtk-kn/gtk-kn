@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gtk.GtkPrintSetup
@@ -26,6 +27,7 @@ import kotlin.Unit
  * and copy them to the PrintDialog if they want to keep using them.
  * @since 4.14
  */
+@GtkVersion4_14
 public class PrintSetup(
     pointer: CPointer<GtkPrintSetup>,
 ) : Record {
@@ -40,6 +42,7 @@ public class PrintSetup(
      * @return the page setup, or `NULL`
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun getPageSetup(): PageSetup? =
         gtk_print_setup_get_page_setup(gtkPrintSetupPointer.reinterpret())?.run {
             PageSetup(reinterpret())
@@ -54,6 +57,7 @@ public class PrintSetup(
      * @return the print settings, or `NULL`
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun getPrintSettings(): PrintSettings? =
         gtk_print_setup_get_print_settings(gtkPrintSetupPointer.reinterpret())?.run {
             PrintSettings(reinterpret())
@@ -65,6 +69,7 @@ public class PrintSetup(
      * @return the print setup
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun ref(): PrintSetup =
         gtk_print_setup_ref(gtkPrintSetupPointer.reinterpret())!!.run {
             PrintSetup(reinterpret())
@@ -78,6 +83,7 @@ public class PrintSetup(
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun unref(): Unit = gtk_print_setup_unref(gtkPrintSetupPointer.reinterpret())
 
     public companion object : RecordCompanion<PrintSetup, GtkPrintSetup> {

@@ -8,6 +8,8 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_72
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -58,6 +60,7 @@ import kotlin.Unit
  *
  * @since 2.72
  */
+@GObjectVersion2_72
 public open class SignalGroup(
     pointer: CPointer<GSignalGroup>,
 ) : Object(pointer.reinterpret()),
@@ -83,6 +86,7 @@ public open class SignalGroup(
      *
      * @since 2.72
      */
+    @GObjectVersion2_72
     public open fun block(): Unit = g_signal_group_block(gobjectSignalGroupPointer.reinterpret())
 
     /**
@@ -96,6 +100,7 @@ public open class SignalGroup(
      *  default handler of the signal.
      * @since 2.74
      */
+    @GObjectVersion2_74
     public open fun connectClosure(
         detailedSignal: String,
         closure: Closure,
@@ -121,6 +126,7 @@ public open class SignalGroup(
      * @param cHandler the #GCallback to connect
      * @since 2.72
      */
+    @GObjectVersion2_72
     public open fun connectSwapped(
         detailedSignal: String,
         cHandler: Callback,
@@ -138,6 +144,7 @@ public open class SignalGroup(
      * @return The target instance
      * @since 2.72
      */
+    @GObjectVersion2_72
     public open fun dupTarget(): Object? =
         g_signal_group_dup_target(gobjectSignalGroupPointer.reinterpret())?.run {
             Object(reinterpret())
@@ -155,6 +162,7 @@ public open class SignalGroup(
      *     when connecting signals.
      * @since 2.72
      */
+    @GObjectVersion2_72
     public open fun setTarget(target: Object? = null): Unit =
         g_signal_group_set_target(gobjectSignalGroupPointer.reinterpret(), target?.gPointer?.reinterpret())
 
@@ -166,6 +174,7 @@ public open class SignalGroup(
      *
      * @since 2.72
      */
+    @GObjectVersion2_72
     public open fun unblock(): Unit = g_signal_group_unblock(gobjectSignalGroupPointer.reinterpret())
 
     /**
@@ -178,6 +187,7 @@ public open class SignalGroup(
      * @param handler the Callback to connect. Params: `instance` a #GObject containing the new value for #GSignalGroup:target
      * @since 2.72
      */
+    @GObjectVersion2_72
     public fun connectBind(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (instance: Object) -> Unit,
@@ -202,6 +212,7 @@ public open class SignalGroup(
      * @param handler the Callback to connect
      * @since 2.72
      */
+    @GObjectVersion2_72
     public fun connectUnbind(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

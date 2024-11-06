@@ -13,6 +13,11 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
@@ -91,6 +96,7 @@ import kotlin.Unit
  *
  * @since 2.22
  */
+@GioVersion2_22
 public open class SocketClient(
     pointer: CPointer<GSocketClient>,
 ) : Object(pointer.reinterpret()),
@@ -103,6 +109,7 @@ public open class SocketClient(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open var enableProxy: Boolean
         /**
          * Gets the proxy enable state; see g_socket_client_set_enable_proxy()
@@ -123,6 +130,7 @@ public open class SocketClient(
          * @param enable whether to enable proxies
          * @since 2.26
          */
+        @GioVersion2_26
         set(enable) = g_socket_client_set_enable_proxy(gioSocketClientPointer.reinterpret(), enable.asGBoolean())
 
     /**
@@ -130,6 +138,7 @@ public open class SocketClient(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open var family: SocketFamily
         /**
          * Gets the socket family of the socket client.
@@ -157,6 +166,7 @@ public open class SocketClient(
          * @param family a #GSocketFamily
          * @since 2.22
          */
+        @GioVersion2_22
         set(family) = g_socket_client_set_family(gioSocketClientPointer.reinterpret(), family.nativeValue)
 
     /**
@@ -164,6 +174,7 @@ public open class SocketClient(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open var localAddress: SocketAddress?
         /**
          * Gets the local address of the socket client.
@@ -190,6 +201,7 @@ public open class SocketClient(
          * @param address a #GSocketAddress, or null
          * @since 2.22
          */
+        @GioVersion2_22
         set(
             address
         ) =
@@ -203,6 +215,7 @@ public open class SocketClient(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open var protocol: SocketProtocol
         /**
          * Gets the protocol name type of the socket client.
@@ -228,6 +241,7 @@ public open class SocketClient(
          * @param protocol a #GSocketProtocol
          * @since 2.22
          */
+        @GioVersion2_22
         set(protocol) = g_socket_client_set_protocol(gioSocketClientPointer.reinterpret(), protocol.nativeValue)
 
     /**
@@ -235,6 +249,7 @@ public open class SocketClient(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open var timeout: UInt
         /**
          * Gets the I/O timeout time for sockets created by @client.
@@ -257,6 +272,7 @@ public open class SocketClient(
          * @param timeout the timeout
          * @since 2.26
          */
+        @GioVersion2_26
         set(timeout) = g_socket_client_set_timeout(gioSocketClientPointer.reinterpret(), timeout)
 
     /**
@@ -264,6 +280,7 @@ public open class SocketClient(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open var tls: Boolean
         /**
          * Gets whether @client creates TLS connections. See
@@ -297,6 +314,7 @@ public open class SocketClient(
          * @param tls whether to use TLS
          * @since 2.28
          */
+        @GioVersion2_28
         set(tls) = g_socket_client_set_tls(gioSocketClientPointer.reinterpret(), tls.asGBoolean())
 
     /**
@@ -345,6 +363,7 @@ public open class SocketClient(
          * @param flags the validation flags
          * @since 2.28
          */
+        @GioVersion2_28
         set(flags) = g_socket_client_set_tls_validation_flags(gioSocketClientPointer.reinterpret(), flags.mask)
 
     /**
@@ -407,6 +426,7 @@ public open class SocketClient(
      * @return a #GSocketConnection on success, null on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun connect(
         connectable: SocketConnectable,
         cancellable: Cancellable? = null,
@@ -451,6 +471,7 @@ public open class SocketClient(
      * @param callback a #GAsyncReadyCallback
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun connectAsync(
         connectable: SocketConnectable,
         cancellable: Cancellable? = null,
@@ -471,6 +492,7 @@ public open class SocketClient(
      * @return a #GSocketConnection on success, null on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun connectFinish(result: AsyncResult): Result<SocketConnection> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -528,6 +550,7 @@ public open class SocketClient(
      * @return a #GSocketConnection on success, null on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun connectToHost(
         hostAndPort: String,
         defaultPort: UShort,
@@ -566,6 +589,7 @@ public open class SocketClient(
      * @param callback a #GAsyncReadyCallback
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun connectToHostAsync(
         hostAndPort: String,
         defaultPort: UShort,
@@ -588,6 +612,7 @@ public open class SocketClient(
      * @return a #GSocketConnection on success, null on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun connectToHostFinish(result: AsyncResult): Result<SocketConnection> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -663,6 +688,7 @@ public open class SocketClient(
      * @param callback a #GAsyncReadyCallback
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun connectToServiceAsync(
         domain: String,
         service: String,
@@ -685,6 +711,7 @@ public open class SocketClient(
      * @return a #GSocketConnection on success, null on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun connectToServiceFinish(result: AsyncResult): Result<SocketConnection> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -733,6 +760,7 @@ public open class SocketClient(
      * @return a #GSocketConnection on success, null on error.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun connectToUri(
         uri: String,
         defaultPort: UShort,
@@ -771,6 +799,7 @@ public open class SocketClient(
      * @param callback a #GAsyncReadyCallback
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun connectToUriAsync(
         uri: String,
         defaultPort: UShort,
@@ -793,6 +822,7 @@ public open class SocketClient(
      * @return a #GSocketConnection on success, null on error.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun connectToUriFinish(result: AsyncResult): Result<SocketConnection> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -818,6 +848,7 @@ public open class SocketClient(
      * @return whether proxying is enabled
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getEnableProxy(): Boolean =
         g_socket_client_get_enable_proxy(gioSocketClientPointer.reinterpret()).asBoolean()
 
@@ -829,6 +860,7 @@ public open class SocketClient(
      * @return a #GSocketFamily
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getFamily(): SocketFamily =
         g_socket_client_get_family(gioSocketClientPointer.reinterpret()).run {
             SocketFamily.fromNativeValue(this)
@@ -842,6 +874,7 @@ public open class SocketClient(
      * @return a #GSocketAddress or null. Do not free.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getLocalAddress(): SocketAddress? =
         g_socket_client_get_local_address(gioSocketClientPointer.reinterpret())?.run {
             SocketAddress(reinterpret())
@@ -855,6 +888,7 @@ public open class SocketClient(
      * @return a #GSocketProtocol
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getProtocol(): SocketProtocol =
         g_socket_client_get_protocol(gioSocketClientPointer.reinterpret()).run {
             SocketProtocol.fromNativeValue(this)
@@ -869,6 +903,7 @@ public open class SocketClient(
      *   @client.
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getProxyResolver(): ProxyResolver =
         g_socket_client_get_proxy_resolver(gioSocketClientPointer.reinterpret())!!.run {
             ProxyResolver.wrap(reinterpret())
@@ -882,6 +917,7 @@ public open class SocketClient(
      * @return a #GSocketFamily
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getSocketType(): SocketType =
         g_socket_client_get_socket_type(gioSocketClientPointer.reinterpret()).run {
             SocketType.fromNativeValue(this)
@@ -895,6 +931,7 @@ public open class SocketClient(
      * @return the timeout in seconds
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getTimeout(): UInt = g_socket_client_get_timeout(gioSocketClientPointer.reinterpret())
 
     /**
@@ -904,6 +941,7 @@ public open class SocketClient(
      * @return whether @client uses TLS
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getTls(): Boolean = g_socket_client_get_tls(gioSocketClientPointer.reinterpret()).asBoolean()
 
     /**
@@ -917,6 +955,7 @@ public open class SocketClient(
      * @return the TLS validation flags
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getTlsValidationFlags(): TlsCertificateFlags =
         g_socket_client_get_tls_validation_flags(gioSocketClientPointer.reinterpret()).run {
             TlsCertificateFlags(this)
@@ -933,6 +972,7 @@ public open class SocketClient(
      * @param enable whether to enable proxies
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setEnableProxy(enable: Boolean): Unit =
         g_socket_client_set_enable_proxy(gioSocketClientPointer.reinterpret(), enable.asGBoolean())
 
@@ -949,6 +989,7 @@ public open class SocketClient(
      * @param family a #GSocketFamily
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun setFamily(family: SocketFamily): Unit =
         g_socket_client_set_family(gioSocketClientPointer.reinterpret(), family.nativeValue)
 
@@ -964,6 +1005,7 @@ public open class SocketClient(
      * @param address a #GSocketAddress, or null
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun setLocalAddress(address: SocketAddress? = null): Unit =
         g_socket_client_set_local_address(
             gioSocketClientPointer.reinterpret(),
@@ -981,6 +1023,7 @@ public open class SocketClient(
      * @param protocol a #GSocketProtocol
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun setProtocol(protocol: SocketProtocol): Unit =
         g_socket_client_set_protocol(gioSocketClientPointer.reinterpret(), protocol.nativeValue)
 
@@ -997,6 +1040,7 @@ public open class SocketClient(
      *   default.
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun setProxyResolver(proxyResolver: ProxyResolver? = null): Unit =
         g_socket_client_set_proxy_resolver(gioSocketClientPointer.reinterpret(), proxyResolver?.gioProxyResolverPointer)
 
@@ -1011,6 +1055,7 @@ public open class SocketClient(
      * @param type a #GSocketType
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun setSocketType(type: SocketType): Unit =
         g_socket_client_set_socket_type(gioSocketClientPointer.reinterpret(), type.nativeValue)
 
@@ -1025,6 +1070,7 @@ public open class SocketClient(
      * @param timeout the timeout
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setTimeout(timeout: UInt): Unit =
         g_socket_client_set_timeout(gioSocketClientPointer.reinterpret(), timeout)
 
@@ -1051,6 +1097,7 @@ public open class SocketClient(
      * @param tls whether to use TLS
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun setTls(tls: Boolean): Unit =
         g_socket_client_set_tls(gioSocketClientPointer.reinterpret(), tls.asGBoolean())
 
@@ -1065,6 +1112,7 @@ public open class SocketClient(
      * @param flags the validation flags
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun setTlsValidationFlags(flags: TlsCertificateFlags): Unit =
         g_socket_client_set_tls_validation_flags(gioSocketClientPointer.reinterpret(), flags.mask)
 
@@ -1123,6 +1171,7 @@ public open class SocketClient(
      * @param handler the Callback to connect. Params: `event` the event that is occurring; `connectable` the #GSocketConnectable that @event is occurring on; `connection` the current representation of the connection
      * @since 2.32
      */
+    @GioVersion2_32
     public fun connectEvent(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (

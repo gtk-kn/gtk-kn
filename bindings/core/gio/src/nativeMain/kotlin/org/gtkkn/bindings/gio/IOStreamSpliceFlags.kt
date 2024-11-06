@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GIOStreamSpliceFlags
 import org.gtkkn.native.gio.G_IO_STREAM_SPLICE_CLOSE_STREAM1
@@ -17,6 +18,7 @@ public class IOStreamSpliceFlags(
 ) : Bitfield<IOStreamSpliceFlags> {
     override infix fun or(other: IOStreamSpliceFlags): IOStreamSpliceFlags = IOStreamSpliceFlags(mask or other.mask)
 
+    @GioVersion2_28
     public companion object {
         /**
          * Do not close either stream.

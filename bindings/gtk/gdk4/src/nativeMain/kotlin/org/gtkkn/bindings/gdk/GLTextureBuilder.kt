@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -56,6 +57,7 @@ import kotlin.Unit
  *
  * @since 4.12
  */
+@GdkVersion4_12
 public open class GLTextureBuilder(
     pointer: CPointer<GdkGLTextureBuilder>,
 ) : Object(pointer.reinterpret()),
@@ -68,6 +70,7 @@ public open class GLTextureBuilder(
      *
      * @since 4.12
      */
+    @GdkVersion4_12
     public open var context: GLContext?
         /**
          * Gets the context previously set via gdk_gl_texture_builder_set_context() or
@@ -90,6 +93,7 @@ public open class GLTextureBuilder(
          * @param context The context the texture beongs to or null to unset
          * @since 4.12
          */
+        @GdkVersion4_12
         set(
             context
         ) =
@@ -103,6 +107,7 @@ public open class GLTextureBuilder(
      *
      * @since 4.12
      */
+    @GdkVersion4_12
     public open var format: MemoryFormat
         /**
          * Gets the format previously set via gdk_gl_texture_builder_set_format().
@@ -136,6 +141,7 @@ public open class GLTextureBuilder(
          * @param format The texture's format
          * @since 4.12
          */
+        @GdkVersion4_12
         set(format) = gdk_gl_texture_builder_set_format(gdkGLTextureBuilderPointer.reinterpret(), format.nativeValue)
 
     /**
@@ -143,6 +149,7 @@ public open class GLTextureBuilder(
      *
      * @since 4.12
      */
+    @GdkVersion4_12
     public open var hasMipmap: Boolean
         /**
          * Gets whether the texture has a mipmap.
@@ -161,6 +168,7 @@ public open class GLTextureBuilder(
          * @param hasMipmap Whether the texture has a mipmap
          * @since 4.12
          */
+        @GdkVersion4_12
         set(
             hasMipmap
         ) = gdk_gl_texture_builder_set_has_mipmap(gdkGLTextureBuilderPointer.reinterpret(), hasMipmap.asGBoolean())
@@ -170,6 +178,7 @@ public open class GLTextureBuilder(
      *
      * @since 4.12
      */
+    @GdkVersion4_12
     public open var height: Int
         /**
          * Gets the height previously set via gdk_gl_texture_builder_set_height() or
@@ -188,6 +197,7 @@ public open class GLTextureBuilder(
          * @param height The texture's height or 0 to unset
          * @since 4.12
          */
+        @GdkVersion4_12
         set(height) = gdk_gl_texture_builder_set_height(gdkGLTextureBuilderPointer.reinterpret(), height)
 
     /**
@@ -195,6 +205,7 @@ public open class GLTextureBuilder(
      *
      * @since 4.12
      */
+    @GdkVersion4_12
     public open var id: UInt
         /**
          * Gets the texture id previously set via gdk_gl_texture_builder_set_id() or
@@ -215,6 +226,7 @@ public open class GLTextureBuilder(
          * @param id The texture id to be used for creating the texture
          * @since 4.12
          */
+        @GdkVersion4_12
         set(id) = gdk_gl_texture_builder_set_id(gdkGLTextureBuilderPointer.reinterpret(), id)
 
     /**
@@ -222,6 +234,7 @@ public open class GLTextureBuilder(
      *
      * @since 4.12
      */
+    @GdkVersion4_12
     public open var updateTexture: Texture?
         /**
          * Gets the texture previously set via gdk_gl_texture_builder_set_update_texture() or
@@ -242,6 +255,7 @@ public open class GLTextureBuilder(
          * @param texture the texture to update
          * @since 4.12
          */
+        @GdkVersion4_12
         set(
             texture
         ) =
@@ -255,6 +269,7 @@ public open class GLTextureBuilder(
      *
      * @since 4.12
      */
+    @GdkVersion4_12
     public open var width: Int
         /**
          * Gets the width previously set via gdk_gl_texture_builder_set_width() or
@@ -273,6 +288,7 @@ public open class GLTextureBuilder(
          * @param width The texture's width or 0 to unset
          * @since 4.12
          */
+        @GdkVersion4_12
         set(width) = gdk_gl_texture_builder_set_width(gdkGLTextureBuilderPointer.reinterpret(), width)
 
     /**
@@ -290,6 +306,7 @@ public open class GLTextureBuilder(
      * @return The context
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun getContext(): GLContext? =
         gdk_gl_texture_builder_get_context(gdkGLTextureBuilderPointer.reinterpret())?.run {
             GLContext(reinterpret())
@@ -301,6 +318,7 @@ public open class GLTextureBuilder(
      * @return The format
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun getFormat(): MemoryFormat =
         gdk_gl_texture_builder_get_format(gdkGLTextureBuilderPointer.reinterpret()).run {
             MemoryFormat.fromNativeValue(this)
@@ -312,6 +330,7 @@ public open class GLTextureBuilder(
      * @return Whether the texture has a mipmap
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun getHasMipmap(): Boolean =
         gdk_gl_texture_builder_get_has_mipmap(gdkGLTextureBuilderPointer.reinterpret()).asBoolean()
 
@@ -322,6 +341,7 @@ public open class GLTextureBuilder(
      * @return The height
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun getHeight(): Int = gdk_gl_texture_builder_get_height(gdkGLTextureBuilderPointer.reinterpret())
 
     /**
@@ -331,6 +351,7 @@ public open class GLTextureBuilder(
      * @return The id
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun getId(): UInt = gdk_gl_texture_builder_get_id(gdkGLTextureBuilderPointer.reinterpret())
 
     /**
@@ -340,6 +361,7 @@ public open class GLTextureBuilder(
      * @return The texture
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun getUpdateTexture(): Texture? =
         gdk_gl_texture_builder_get_update_texture(gdkGLTextureBuilderPointer.reinterpret())?.run {
             Texture(reinterpret())
@@ -352,6 +374,7 @@ public open class GLTextureBuilder(
      * @return The width
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun getWidth(): Int = gdk_gl_texture_builder_get_width(gdkGLTextureBuilderPointer.reinterpret())
 
     /**
@@ -363,6 +386,7 @@ public open class GLTextureBuilder(
      * @param context The context the texture beongs to or null to unset
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun setContext(context: GLContext? = null): Unit =
         gdk_gl_texture_builder_set_context(
             gdkGLTextureBuilderPointer.reinterpret(),
@@ -390,6 +414,7 @@ public open class GLTextureBuilder(
      * @param format The texture's format
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun setFormat(format: MemoryFormat): Unit =
         gdk_gl_texture_builder_set_format(gdkGLTextureBuilderPointer.reinterpret(), format.nativeValue)
 
@@ -402,6 +427,7 @@ public open class GLTextureBuilder(
      * @param hasMipmap Whether the texture has a mipmap
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun setHasMipmap(hasMipmap: Boolean): Unit =
         gdk_gl_texture_builder_set_has_mipmap(gdkGLTextureBuilderPointer.reinterpret(), hasMipmap.asGBoolean())
 
@@ -413,6 +439,7 @@ public open class GLTextureBuilder(
      * @param height The texture's height or 0 to unset
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun setHeight(height: Int): Unit =
         gdk_gl_texture_builder_set_height(gdkGLTextureBuilderPointer.reinterpret(), height)
 
@@ -426,6 +453,7 @@ public open class GLTextureBuilder(
      * @param id The texture id to be used for creating the texture
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun setId(id: UInt): Unit = gdk_gl_texture_builder_set_id(gdkGLTextureBuilderPointer.reinterpret(), id)
 
     /**
@@ -435,6 +463,7 @@ public open class GLTextureBuilder(
      * @param texture the texture to update
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun setUpdateTexture(texture: Texture? = null): Unit =
         gdk_gl_texture_builder_set_update_texture(
             gdkGLTextureBuilderPointer.reinterpret(),
@@ -449,6 +478,7 @@ public open class GLTextureBuilder(
      * @param width The texture's width or 0 to unset
      * @since 4.12
      */
+    @GdkVersion4_12
     public open fun setWidth(width: Int): Unit =
         gdk_gl_texture_builder_set_width(gdkGLTextureBuilderPointer.reinterpret(), width)
 

@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -48,6 +49,7 @@ import kotlin.Unit
  * To launch a file, use [class@Gtk.FileLauncher].
  * @since 4.10
  */
+@GtkVersion4_10
 public open class UriLauncher(
     pointer: CPointer<GtkUriLauncher>,
 ) : Object(pointer.reinterpret()),
@@ -60,6 +62,7 @@ public open class UriLauncher(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var uri: String?
         /**
          * Gets the uri that will be opened.
@@ -75,6 +78,7 @@ public open class UriLauncher(
          * @param uri the uri
          * @since 4.10
          */
+        @GtkVersion4_10
         set(uri) = gtk_uri_launcher_set_uri(gtkUriLauncherPointer.reinterpret(), uri)
 
     /**
@@ -92,6 +96,7 @@ public open class UriLauncher(
      * @return the uri
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getUri(): String? = gtk_uri_launcher_get_uri(gtkUriLauncherPointer.reinterpret())?.toKString()
 
     /**
@@ -108,6 +113,7 @@ public open class UriLauncher(
      * @param callback a callback to call when the operation is complete
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun launch(
         parent: Window? = null,
         cancellable: Cancellable? = null,
@@ -130,6 +136,7 @@ public open class UriLauncher(
      *     or `FALSE` and @error is set
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun launchFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -152,6 +159,7 @@ public open class UriLauncher(
      * @param uri the uri
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setUri(uri: String? = null): Unit =
         gtk_uri_launcher_set_uri(gtkUriLauncherPointer.reinterpret(), uri)
 

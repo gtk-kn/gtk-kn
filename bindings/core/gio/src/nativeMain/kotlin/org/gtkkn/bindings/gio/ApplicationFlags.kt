@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GApplicationFlags
 import org.gtkkn.native.gio.G_APPLICATION_ALLOW_REPLACEMENT
@@ -24,6 +25,7 @@ public class ApplicationFlags(
 ) : Bitfield<ApplicationFlags> {
     override infix fun or(other: ApplicationFlags): ApplicationFlags = ApplicationFlags(mask or other.mask)
 
+    @GioVersion2_28
     public companion object {
         /**
          * Default. Deprecated in 2.74, use

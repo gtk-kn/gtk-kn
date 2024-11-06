@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -217,6 +218,7 @@ public open class ListView(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var headerFactory: ListItemFactory?
         /**
          * Gets the factory that's currently used to populate section headers.
@@ -238,6 +240,7 @@ public open class ListView(
          * @param factory the factory to use
          * @since 4.12
          */
+        @GtkVersion4_12
         set(
             factory
         ) =
@@ -318,6 +321,7 @@ public open class ListView(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var tabBehavior: ListTabBehavior
         /**
          * Gets the behavior set for the <kbd>Tab</kbd> key.
@@ -336,6 +340,7 @@ public open class ListView(
          * @param tabBehavior The desired tab behavior
          * @since 4.12
          */
+        @GtkVersion4_12
         set(tabBehavior) = gtk_list_view_set_tab_behavior(gtkListViewPointer.reinterpret(), tabBehavior.nativeValue)
 
     /**
@@ -387,6 +392,7 @@ public open class ListView(
      * @return The factory in use
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getHeaderFactory(): ListItemFactory? =
         gtk_list_view_get_header_factory(gtkListViewPointer.reinterpret())?.run {
             ListItemFactory(reinterpret())
@@ -426,6 +432,7 @@ public open class ListView(
      * @return The behavior of the <kbd>Tab</kbd> key
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getTabBehavior(): ListTabBehavior =
         gtk_list_view_get_tab_behavior(gtkListViewPointer.reinterpret()).run {
             ListTabBehavior.fromNativeValue(this)
@@ -444,6 +451,7 @@ public open class ListView(
      *   the scroll operation or null to scroll into view
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun scrollTo(
         pos: UInt,
         flags: ListScrollFlags,
@@ -475,6 +483,7 @@ public open class ListView(
      * @param factory the factory to use
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setHeaderFactory(factory: ListItemFactory? = null): Unit =
         gtk_list_view_set_header_factory(
             gtkListViewPointer.reinterpret(),
@@ -515,6 +524,7 @@ public open class ListView(
      * @param tabBehavior The desired tab behavior
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setTabBehavior(tabBehavior: ListTabBehavior): Unit =
         gtk_list_view_set_tab_behavior(gtkListViewPointer.reinterpret(), tabBehavior.nativeValue)
 

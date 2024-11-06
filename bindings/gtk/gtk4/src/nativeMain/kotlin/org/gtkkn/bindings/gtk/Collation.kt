@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.native.gtk.GtkCollation
 import org.gtkkn.native.gtk.GtkCollation.GTK_COLLATION_FILENAME
 import org.gtkkn.native.gtk.GtkCollation.GTK_COLLATION_NONE
@@ -14,6 +15,7 @@ import org.gtkkn.native.gtk.GtkCollation.GTK_COLLATION_UNICODE
  * unless the mode is @GTK_COLLATION_NONE.
  * @since 4.10
  */
+@GtkVersion4_10
 public enum class Collation(
     public val nativeValue: GtkCollation,
 ) {

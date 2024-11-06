@@ -9,6 +9,8 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Actionable
@@ -127,6 +129,7 @@ public class SplitButton(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var canShrink: Boolean
         /**
          * gets whether the button can be smaller than the natural size of its contents.
@@ -147,6 +150,7 @@ public class SplitButton(
          * @param canShrink whether the button can shrink
          * @since 1.4
          */
+        @AdwVersion1_4
         set(canShrink) = adw_split_button_set_can_shrink(adwSplitButtonPointer.reinterpret(), canShrink.asGBoolean())
 
     /**
@@ -220,6 +224,7 @@ public class SplitButton(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var dropdownTooltip: String
         /**
          * Gets the tooltip of the dropdown button of @self.
@@ -239,6 +244,7 @@ public class SplitButton(
          * @param tooltip the dropdown tooltip of @self
          * @since 1.2
          */
+        @AdwVersion1_2
         set(tooltip) = adw_split_button_set_dropdown_tooltip(adwSplitButtonPointer.reinterpret(), tooltip)
 
     /**
@@ -356,6 +362,7 @@ public class SplitButton(
      * @return whether the button can shrink
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getCanShrink(): Boolean =
         adw_split_button_get_can_shrink(adwSplitButtonPointer.reinterpret()).asBoolean()
 
@@ -385,6 +392,7 @@ public class SplitButton(
      * @return the dropdown tooltip of @self
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getDropdownTooltip(): String =
         adw_split_button_get_dropdown_tooltip(adwSplitButtonPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -452,6 +460,7 @@ public class SplitButton(
      * @param canShrink whether the button can shrink
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setCanShrink(canShrink: Boolean): Unit =
         adw_split_button_set_can_shrink(adwSplitButtonPointer.reinterpret(), canShrink.asGBoolean())
 
@@ -489,6 +498,7 @@ public class SplitButton(
      * @param tooltip the dropdown tooltip of @self
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setDropdownTooltip(tooltip: String): Unit =
         adw_split_button_set_dropdown_tooltip(adwSplitButtonPointer.reinterpret(), tooltip)
 

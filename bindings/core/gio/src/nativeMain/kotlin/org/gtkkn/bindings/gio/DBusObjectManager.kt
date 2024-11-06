@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.Interface
@@ -53,6 +54,7 @@ public interface DBusObjectManager :
      *   with g_object_unref().
      * @since 2.30
      */
+    @GioVersion2_30
     public fun getInterface(
         objectPath: String,
         interfaceName: String,
@@ -69,6 +71,7 @@ public interface DBusObjectManager :
      *   g_object_unref().
      * @since 2.30
      */
+    @GioVersion2_30
     public fun getObject(objectPath: String): DBusObject? =
         g_dbus_object_manager_get_object(gioDBusObjectManagerPointer.reinterpret(), objectPath)?.run {
             DBusObject.wrap(reinterpret())
@@ -80,6 +83,7 @@ public interface DBusObjectManager :
      * @return A string owned by @manager. Do not free.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun getObjectPath(): String =
         g_dbus_object_manager_get_object_path(gioDBusObjectManagerPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -93,6 +97,7 @@ public interface DBusObjectManager :
      *   g_object_unref().
      * @since 2.30
      */
+    @GioVersion2_30
     public fun getObjects(): List =
         g_dbus_object_manager_get_objects(gioDBusObjectManagerPointer.reinterpret())!!.run {
             List(reinterpret())
@@ -108,6 +113,7 @@ public interface DBusObjectManager :
      * @param handler the Callback to connect. Params: `object` The #GDBusObject on which an interface was added.; `interface` The #GDBusInterface that was added.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun connectInterfaceAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: DBusObject, `interface`: DBusInterface) -> Unit,
@@ -131,6 +137,7 @@ public interface DBusObjectManager :
      * @param handler the Callback to connect. Params: `object` The #GDBusObject on which an interface was removed.; `interface` The #GDBusInterface that was removed.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun connectInterfaceRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: DBusObject, `interface`: DBusInterface) -> Unit,
@@ -151,6 +158,7 @@ public interface DBusObjectManager :
      * @param handler the Callback to connect. Params: `object` The #GDBusObject that was added.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun connectObjectAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: DBusObject) -> Unit,
@@ -171,6 +179,7 @@ public interface DBusObjectManager :
      * @param handler the Callback to connect. Params: `object` The #GDBusObject that was removed.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun connectObjectRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: DBusObject) -> Unit,

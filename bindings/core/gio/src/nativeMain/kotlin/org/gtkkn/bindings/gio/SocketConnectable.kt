@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -86,6 +88,7 @@ public interface SocketConnectable :
      * @return a new #GSocketAddressEnumerator.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun enumerate(): SocketAddressEnumerator =
         g_socket_connectable_enumerate(gioSocketConnectablePointer.reinterpret())!!.run {
             SocketAddressEnumerator(reinterpret())
@@ -103,6 +106,7 @@ public interface SocketConnectable :
      * @return a new #GSocketAddressEnumerator.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun proxyEnumerate(): SocketAddressEnumerator =
         g_socket_connectable_proxy_enumerate(gioSocketConnectablePointer.reinterpret())!!.run {
             SocketAddressEnumerator(reinterpret())

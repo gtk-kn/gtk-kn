@@ -10,6 +10,12 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_36
+import org.gtkkn.bindings.gio.annotations.GioVersion2_44
+import org.gtkkn.bindings.gio.annotations.GioVersion2_60
+import org.gtkkn.bindings.gio.annotations.GioVersion2_64
+import org.gtkkn.bindings.gio.annotations.GioVersion2_76
+import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.MainContext
 import org.gtkkn.bindings.gobject.Object
@@ -625,6 +631,7 @@ public open class Task(
      *
      * @since 2.44
      */
+    @GioVersion2_44
     public open val completed: Boolean
         /**
          * Gets the value of #GTask:completed. This changes from false to true after
@@ -680,6 +687,7 @@ public open class Task(
      * @return @task's #GCancellable
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getCancellable(): Cancellable? =
         g_task_get_cancellable(gioTaskPointer.reinterpret())?.run {
             Cancellable(reinterpret())
@@ -691,6 +699,7 @@ public open class Task(
      *
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getCheckCancellable(): Boolean =
         g_task_get_check_cancellable(gioTaskPointer.reinterpret()).asBoolean()
 
@@ -702,6 +711,7 @@ public open class Task(
      * @return true if the task has completed, false otherwise.
      * @since 2.44
      */
+    @GioVersion2_44
     public open fun getCompleted(): Boolean = g_task_get_completed(gioTaskPointer.reinterpret()).asBoolean()
 
     /**
@@ -716,6 +726,7 @@ public open class Task(
      * @return @task's #GMainContext
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getContext(): MainContext =
         g_task_get_context(gioTaskPointer.reinterpret())!!.run {
             MainContext(reinterpret())
@@ -727,6 +738,7 @@ public open class Task(
      * @return @task’s name, or null
      * @since 2.60
      */
+    @GioVersion2_60
     public open fun getName(): String? = g_task_get_name(gioTaskPointer.reinterpret())?.toKString()
 
     /**
@@ -735,6 +747,7 @@ public open class Task(
      * @return @task's priority
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getPriority(): Int = g_task_get_priority(gioTaskPointer.reinterpret())
 
     /**
@@ -743,6 +756,7 @@ public open class Task(
      *
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getReturnOnCancel(): Boolean = g_task_get_return_on_cancel(gioTaskPointer.reinterpret()).asBoolean()
 
     /**
@@ -752,6 +766,7 @@ public open class Task(
      * @return @task's source object, or null
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getSourceObject_(): Object? =
         g_task_get_source_object(gioTaskPointer.reinterpret())?.run {
             Object(reinterpret())
@@ -763,6 +778,7 @@ public open class Task(
      * @return true if the task resulted in an error, false otherwise.
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun hadError(): Boolean = g_task_had_error(gioTaskPointer.reinterpret()).asBoolean()
 
     /**
@@ -777,6 +793,7 @@ public open class Task(
      * @return the task result, or false on error
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun propagateBoolean(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -800,6 +817,7 @@ public open class Task(
      * @return the task result, or -1 on error
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun propagateInt(): Result<Long> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -827,6 +845,7 @@ public open class Task(
      * @return true if @task succeeded, false on error.
      * @since 2.64
      */
+    @GioVersion2_64
     public open fun propagateValue(`value`: Value): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -851,6 +870,7 @@ public open class Task(
      * @param result the #gboolean result of a task function.
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun returnBoolean(result: Boolean): Unit =
         g_task_return_boolean(gioTaskPointer.reinterpret(), result.asGBoolean())
 
@@ -871,6 +891,7 @@ public open class Task(
      * @param error the #GError result of a task function.
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun returnError(error: Error): Unit =
         g_task_return_error(gioTaskPointer.reinterpret(), error.glibErrorPointer)
 
@@ -883,6 +904,7 @@ public open class Task(
      * @return true if @task has been cancelled, false if not
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun returnErrorIfCancelled(): Boolean =
         g_task_return_error_if_cancelled(gioTaskPointer.reinterpret()).asBoolean()
 
@@ -894,6 +916,7 @@ public open class Task(
      * @param result the integer (#gssize) result of a task function.
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun returnInt(result: Long): Unit = g_task_return_int(gioTaskPointer.reinterpret(), result)
 
     /**
@@ -910,6 +933,7 @@ public open class Task(
      * @param message an error message
      * @since 2.80
      */
+    @GioVersion2_80
     public open fun returnNewErrorLiteral(
         domain: UInt,
         code: Int,
@@ -930,6 +954,7 @@ public open class Task(
      *                                      a task function
      * @since 2.64
      */
+    @GioVersion2_64
     public open fun returnValue(result: Value? = null): Unit =
         g_task_return_value(gioTaskPointer.reinterpret(), result?.gobjectValuePointer)
 
@@ -953,6 +978,7 @@ public open class Task(
      *   its #GCancellable for you.
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun setCheckCancellable(checkCancellable: Boolean): Unit =
         g_task_set_check_cancellable(gioTaskPointer.reinterpret(), checkCancellable.asGBoolean())
 
@@ -971,6 +997,7 @@ public open class Task(
      * @param name a human readable name for the task, or null to unset it
      * @since 2.60
      */
+    @GioVersion2_60
     public open fun setName(name: String? = null): Unit = g_task_set_name(gioTaskPointer.reinterpret(), name)
 
     /**
@@ -985,6 +1012,7 @@ public open class Task(
      * @param priority the [priority](iface.AsyncResult.html#io-priority) of the request
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun setPriority(priority: Int): Unit = g_task_set_priority(gioTaskPointer.reinterpret(), priority)
 
     /**
@@ -1024,6 +1052,7 @@ public open class Task(
      *   cancelled.
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun setReturnOnCancel(returnOnCancel: Boolean): Boolean =
         g_task_set_return_on_cancel(gioTaskPointer.reinterpret(), returnOnCancel.asGBoolean()).asBoolean()
 
@@ -1035,6 +1064,7 @@ public open class Task(
      * @param name a human readable name for the task. Must be a string literal
      * @since 2.76
      */
+    @GioVersion2_76
     public open fun setStaticName(name: String? = null): Unit =
         g_task_set_static_name(gioTaskPointer.reinterpret(), name)
 
@@ -1058,6 +1088,7 @@ public open class Task(
          * if not
          * @since 2.36
          */
+        @GioVersion2_36
         public fun isValid(
             result: AsyncResult,
             sourceObject: Object? = null,

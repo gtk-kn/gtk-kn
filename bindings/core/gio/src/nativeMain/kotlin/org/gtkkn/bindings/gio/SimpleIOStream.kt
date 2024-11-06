@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -29,6 +30,7 @@ import org.gtkkn.native.gio.g_simple_io_stream_new
  *
  * @since 2.44
  */
+@GioVersion2_44
 public open class SimpleIOStream(
     pointer: CPointer<GSimpleIOStream>,
 ) : IOStream(pointer.reinterpret()),

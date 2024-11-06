@@ -4,6 +4,7 @@ package org.gtkkn.bindings.graphene
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_box_alloc
@@ -52,6 +53,7 @@ import kotlin.Unit
  *
  * @since 1.2
  */
+@GrapheneVersion1_2
 public class Box(
     pointer: CPointer<graphene_box_t>,
 ) : Record {
@@ -65,6 +67,7 @@ public class Box(
      * @return `true` if the box is contained in the given box
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun containsBox(b: Box): Boolean =
         graphene_box_contains_box(grapheneBoxPointer.reinterpret(), b.grapheneBoxPointer)
 
@@ -75,6 +78,7 @@ public class Box(
      * @return `true` if the point is contained in the given box
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun containsPoint(point: Point3D): Boolean =
         graphene_box_contains_point(grapheneBoxPointer.reinterpret(), point.graphenePoint3DPointer)
 
@@ -85,6 +89,7 @@ public class Box(
      * @return `true` if the boxes are equal
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun equal(b: Box): Boolean = graphene_box_equal(grapheneBoxPointer.reinterpret(), b.grapheneBoxPointer)
 
     /**
@@ -94,6 +99,7 @@ public class Box(
      * @param res return location for the expanded box
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun expand(
         point: Point3D,
         res: Box,
@@ -110,6 +116,7 @@ public class Box(
      * @param res return location for the expanded box
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun expandScalar(
         scalar: Float,
         res: Box,
@@ -123,6 +130,7 @@ public class Box(
      * @param res return location for the expanded box
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun expandVec3(
         vec: Vec3,
         res: Box,
@@ -134,6 +142,7 @@ public class Box(
      *
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun free(): Unit = graphene_box_free(grapheneBoxPointer.reinterpret())
 
     /**
@@ -143,6 +152,7 @@ public class Box(
      * @param sphere return location for the bounding sphere
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getBoundingSphere(sphere: Sphere): Unit =
         graphene_box_get_bounding_sphere(grapheneBoxPointer.reinterpret(), sphere.grapheneSpherePointer)
 
@@ -153,6 +163,7 @@ public class Box(
      *   the center
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getCenter(center: Point3D): Unit =
         graphene_box_get_center(grapheneBoxPointer.reinterpret(), center.graphenePoint3DPointer)
 
@@ -162,6 +173,7 @@ public class Box(
      * @return the depth of the box
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getDepth(): Float = graphene_box_get_depth(grapheneBoxPointer.reinterpret())
 
     /**
@@ -170,6 +182,7 @@ public class Box(
      * @return the height of the box
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getHeight(): Float = graphene_box_get_height(grapheneBoxPointer.reinterpret())
 
     /**
@@ -179,6 +192,7 @@ public class Box(
      * @param max return location for the maximum point
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getMax(max: Point3D): Unit =
         graphene_box_get_max(grapheneBoxPointer.reinterpret(), max.graphenePoint3DPointer)
 
@@ -189,6 +203,7 @@ public class Box(
      * @param min return location for the minimum point
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getMin(min: Point3D): Unit =
         graphene_box_get_min(grapheneBoxPointer.reinterpret(), min.graphenePoint3DPointer)
 
@@ -199,6 +214,7 @@ public class Box(
      * @param size return location for the size
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getSize(size: Vec3): Unit =
         graphene_box_get_size(grapheneBoxPointer.reinterpret(), size.grapheneVec3Pointer)
 
@@ -208,6 +224,7 @@ public class Box(
      * @return the width of the box
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getWidth(): Float = graphene_box_get_width(grapheneBoxPointer.reinterpret())
 
     /**
@@ -218,6 +235,7 @@ public class Box(
      * @return the initialized #graphene_box_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun `init`(
         min: Point3D? = null,
         max: Point3D? = null,
@@ -238,6 +256,7 @@ public class Box(
      * @return the initialized #graphene_box_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initFromBox(src: Box): Box =
         graphene_box_init_from_box(grapheneBoxPointer.reinterpret(), src.grapheneBoxPointer)!!.run {
             Box(reinterpret())
@@ -252,6 +271,7 @@ public class Box(
      * @return the initialized #graphene_box_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initFromVec3(
         min: Vec3? = null,
         max: Vec3? = null,
@@ -275,6 +295,7 @@ public class Box(
      * @return true if the two boxes intersect
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun intersection(
         b: Box,
         res: Box?,
@@ -288,6 +309,7 @@ public class Box(
      * @param res return location for the result
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun union(
         b: Box,
         res: Box,
@@ -313,6 +335,7 @@ public class Box(
          * @return a #graphene_box_t
          * @since 1.2
          */
+        @GrapheneVersion1_2
         public fun empty(): Box =
             graphene_box_empty()!!.run {
                 Box(reinterpret())
@@ -326,6 +349,7 @@ public class Box(
          * @return a #graphene_box_t
          * @since 1.2
          */
+        @GrapheneVersion1_2
         public fun infinite(): Box =
             graphene_box_infinite()!!.run {
                 Box(reinterpret())
@@ -340,6 +364,7 @@ public class Box(
          * @return a #graphene_box_t
          * @since 1.2
          */
+        @GrapheneVersion1_2
         public fun minusOne(): Box =
             graphene_box_minus_one()!!.run {
                 Box(reinterpret())
@@ -354,6 +379,7 @@ public class Box(
          * @return a #graphene_box_t
          * @since 1.2
          */
+        @GrapheneVersion1_2
         public fun one(): Box =
             graphene_box_one()!!.run {
                 Box(reinterpret())
@@ -368,6 +394,7 @@ public class Box(
          * @return a #graphene_box_t
          * @since 1.2
          */
+        @GrapheneVersion1_2
         public fun oneMinusOne(): Box =
             graphene_box_one_minus_one()!!.run {
                 Box(reinterpret())
@@ -381,6 +408,7 @@ public class Box(
          * @return a #graphene_box_t
          * @since 1.2
          */
+        @GrapheneVersion1_2
         public fun zero(): Box =
             graphene_box_zero()!!.run {
                 Box(reinterpret())

@@ -10,6 +10,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.Record
@@ -73,6 +75,7 @@ public class MatchInfo(
      * @return the expanded string, or null if an error occurred
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun expandReferences(stringToExpand: String): Result<String> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -112,6 +115,7 @@ public class MatchInfo(
      *     occurred. You have to free the string yourself
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun fetch(matchNum: Int): String =
         g_match_info_fetch(glibMatchInfoPointer.reinterpret(), matchNum)?.toKString()
             ?: error("Expected not null string")
@@ -139,6 +143,7 @@ public class MatchInfo(
      *     match failed null is returned
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun fetchAll(): List<String> =
         g_match_info_fetch_all(glibMatchInfoPointer.reinterpret())?.toKStringList()
             ?: error("Expected not null string array")
@@ -158,6 +163,7 @@ public class MatchInfo(
      *     occurred. You have to free the string yourself
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun fetchNamed(name: String): String =
         g_match_info_fetch_named(glibMatchInfoPointer.reinterpret(), name)?.toKString()
             ?: error("Expected not null string")
@@ -168,6 +174,7 @@ public class MatchInfo(
      *
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun free(): Unit = g_match_info_free(glibMatchInfoPointer.reinterpret())
 
     /**
@@ -183,6 +190,7 @@ public class MatchInfo(
      * @return Number of matched substrings, or -1 if an error occurred
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun getMatchCount(): Int = g_match_info_get_match_count(glibMatchInfoPointer.reinterpret())
 
     /**
@@ -193,6 +201,7 @@ public class MatchInfo(
      * @return #GRegex object used in @match_info
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun getRegex(): Regex =
         g_match_info_get_regex(glibMatchInfoPointer.reinterpret())!!.run {
             Regex(reinterpret())
@@ -206,6 +215,7 @@ public class MatchInfo(
      * @return the string searched with @match_info
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun getString(): String =
         g_match_info_get_string(glibMatchInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -247,6 +257,7 @@ public class MatchInfo(
      * @return true if the match was partial, false otherwise
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun isPartialMatch(): Boolean = g_match_info_is_partial_match(glibMatchInfoPointer.reinterpret()).asBoolean()
 
     /**
@@ -256,6 +267,7 @@ public class MatchInfo(
      *   false otherwise
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun matches(): Boolean = g_match_info_matches(glibMatchInfoPointer.reinterpret()).asBoolean()
 
     /**
@@ -269,6 +281,7 @@ public class MatchInfo(
      * @return true is the string matched, false otherwise
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun next(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -286,6 +299,7 @@ public class MatchInfo(
      * @return @match_info
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun ref(): MatchInfo =
         g_match_info_ref(glibMatchInfoPointer.reinterpret())!!.run {
             MatchInfo(reinterpret())
@@ -297,6 +311,7 @@ public class MatchInfo(
      *
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun unref(): Unit = g_match_info_unref(glibMatchInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<MatchInfo, GMatchInfo> {

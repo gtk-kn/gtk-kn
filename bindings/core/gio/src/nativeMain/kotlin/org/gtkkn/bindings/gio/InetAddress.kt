@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -60,6 +62,7 @@ public open class InetAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val family: SocketFamily
         /**
          * Gets @address's family
@@ -78,6 +81,7 @@ public open class InetAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val isAny: Boolean
         /**
          * Tests whether @address is the "any" address for its family.
@@ -93,6 +97,7 @@ public open class InetAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val isLinkLocal: Boolean
         /**
          * Tests whether @address is a link-local address (that is, if it
@@ -110,6 +115,7 @@ public open class InetAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val isLoopback: Boolean
         /**
          * Tests whether @address is the loopback address for its family.
@@ -125,6 +131,7 @@ public open class InetAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val isMcGlobal: Boolean
         /**
          * Tests whether @address is a global multicast address.
@@ -140,6 +147,7 @@ public open class InetAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val isMcLinkLocal: Boolean
         /**
          * Tests whether @address is a link-local multicast address.
@@ -155,6 +163,7 @@ public open class InetAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val isMcNodeLocal: Boolean
         /**
          * Tests whether @address is a node-local multicast address.
@@ -170,6 +179,7 @@ public open class InetAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val isMcOrgLocal: Boolean
         /**
          * Tests whether @address is an organization-local multicast address.
@@ -185,6 +195,7 @@ public open class InetAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val isMcSiteLocal: Boolean
         /**
          * Tests whether @address is a site-local multicast address.
@@ -200,6 +211,7 @@ public open class InetAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val isMulticast: Boolean
         /**
          * Tests whether @address is a multicast address.
@@ -215,6 +227,7 @@ public open class InetAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val isSiteLocal: Boolean
         /**
          * Tests whether @address is a site-local address such as 10.0.0.1
@@ -257,6 +270,7 @@ public open class InetAddress(
      * @return true if @address and @other_address are equal, false otherwise.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun equal(otherAddress: InetAddress): Boolean =
         g_inet_address_equal(
             gioInetAddressPointer.reinterpret(),
@@ -269,6 +283,7 @@ public open class InetAddress(
      * @return @address's family
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getFamily(): SocketFamily =
         g_inet_address_get_family(gioInetAddressPointer.reinterpret()).run {
             SocketFamily.fromNativeValue(this)
@@ -280,6 +295,7 @@ public open class InetAddress(
      * @return true if @address is the "any" address for its family.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getIsAny(): Boolean = g_inet_address_get_is_any(gioInetAddressPointer.reinterpret()).asBoolean()
 
     /**
@@ -290,6 +306,7 @@ public open class InetAddress(
      * @return true if @address is a link-local address.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getIsLinkLocal(): Boolean =
         g_inet_address_get_is_link_local(gioInetAddressPointer.reinterpret()).asBoolean()
 
@@ -299,6 +316,7 @@ public open class InetAddress(
      * @return true if @address is the loopback address for its family.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getIsLoopback(): Boolean =
         g_inet_address_get_is_loopback(gioInetAddressPointer.reinterpret()).asBoolean()
 
@@ -308,6 +326,7 @@ public open class InetAddress(
      * @return true if @address is a global multicast address.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getIsMcGlobal(): Boolean =
         g_inet_address_get_is_mc_global(gioInetAddressPointer.reinterpret()).asBoolean()
 
@@ -317,6 +336,7 @@ public open class InetAddress(
      * @return true if @address is a link-local multicast address.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getIsMcLinkLocal(): Boolean =
         g_inet_address_get_is_mc_link_local(gioInetAddressPointer.reinterpret()).asBoolean()
 
@@ -326,6 +346,7 @@ public open class InetAddress(
      * @return true if @address is a node-local multicast address.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getIsMcNodeLocal(): Boolean =
         g_inet_address_get_is_mc_node_local(gioInetAddressPointer.reinterpret()).asBoolean()
 
@@ -335,6 +356,7 @@ public open class InetAddress(
      * @return true if @address is an organization-local multicast address.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getIsMcOrgLocal(): Boolean =
         g_inet_address_get_is_mc_org_local(gioInetAddressPointer.reinterpret()).asBoolean()
 
@@ -344,6 +366,7 @@ public open class InetAddress(
      * @return true if @address is a site-local multicast address.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getIsMcSiteLocal(): Boolean =
         g_inet_address_get_is_mc_site_local(gioInetAddressPointer.reinterpret()).asBoolean()
 
@@ -353,6 +376,7 @@ public open class InetAddress(
      * @return true if @address is a multicast address.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getIsMulticast(): Boolean =
         g_inet_address_get_is_multicast(gioInetAddressPointer.reinterpret()).asBoolean()
 
@@ -365,6 +389,7 @@ public open class InetAddress(
      * @return true if @address is a site-local address.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getIsSiteLocal(): Boolean =
         g_inet_address_get_is_site_local(gioInetAddressPointer.reinterpret()).asBoolean()
 
@@ -375,6 +400,7 @@ public open class InetAddress(
      * @return the number of bytes used for the native version of @address.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getNativeSize(): ULong = g_inet_address_get_native_size(gioInetAddressPointer.reinterpret())
 
     public companion object : TypeCompanion<InetAddress> {

@@ -8,6 +8,8 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gdk.DragAction
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
@@ -120,6 +122,7 @@ import kotlin.Unit
  *
  * @since 1.3
  */
+@AdwVersion1_3
 public class TabOverview(
     pointer: CPointer<AdwTabOverview>,
 ) : Widget(pointer.reinterpret()),
@@ -141,6 +144,7 @@ public class TabOverview(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var child: Widget?
         /**
          * Gets the child widget of @self.
@@ -159,6 +163,7 @@ public class TabOverview(
          * @param child the child widget
          * @since 1.3
          */
+        @AdwVersion1_3
         set(
             child
         ) = adw_tab_overview_set_child(adwTabOverviewPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
@@ -170,6 +175,7 @@ public class TabOverview(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var enableNewTab: Boolean
         /**
          * Gets whether to new tab button is enabled for @self.
@@ -187,6 +193,7 @@ public class TabOverview(
          * @param enableNewTab whether to enable new tab button
          * @since 1.3
          */
+        @AdwVersion1_3
         set(
             enableNewTab
         ) = adw_tab_overview_set_enable_new_tab(adwTabOverviewPointer.reinterpret(), enableNewTab.asGBoolean())
@@ -205,6 +212,7 @@ public class TabOverview(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var enableSearch: Boolean
         /**
          * Gets whether search in tabs is enabled for @self.
@@ -229,6 +237,7 @@ public class TabOverview(
          * @param enableSearch whether to enable search
          * @since 1.3
          */
+        @AdwVersion1_3
         set(
             enableSearch
         ) = adw_tab_overview_set_enable_search(adwTabOverviewPointer.reinterpret(), enableSearch.asGBoolean())
@@ -243,6 +252,7 @@ public class TabOverview(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public val extraDragPreferredAction: DragAction
         /**
          * Gets the current action during a drop on the extra_drop_target.
@@ -262,6 +272,7 @@ public class TabOverview(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var extraDragPreload: Boolean
         /**
          * Gets whether drop data should be preloaded on hover.
@@ -279,6 +290,7 @@ public class TabOverview(
          * @param preload whether to preload drop data
          * @since 1.3
          */
+        @AdwVersion1_3
         set(
             preload
         ) = adw_tab_overview_set_extra_drag_preload(adwTabOverviewPointer.reinterpret(), preload.asGBoolean())
@@ -291,6 +303,7 @@ public class TabOverview(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var inverted: Boolean
         /**
          * Gets whether thumbnails use inverted layout.
@@ -309,6 +322,7 @@ public class TabOverview(
          * @param inverted whether thumbnails use inverted layout
          * @since 1.3
          */
+        @AdwVersion1_3
         set(inverted) = adw_tab_overview_set_inverted(adwTabOverviewPointer.reinterpret(), inverted.asGBoolean())
 
     /**
@@ -316,6 +330,7 @@ public class TabOverview(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var `open`: Boolean
         /**
          * Gets whether @self is open.
@@ -331,6 +346,7 @@ public class TabOverview(
          * @param open whether the overview is open
          * @since 1.3
          */
+        @AdwVersion1_3
         set(`open`) = adw_tab_overview_set_open(adwTabOverviewPointer.reinterpret(), `open`.asGBoolean())
 
     /**
@@ -340,6 +356,7 @@ public class TabOverview(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public val searchActive: Boolean
         /**
          * Gets whether search is currently active for @self.
@@ -358,6 +375,7 @@ public class TabOverview(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var secondaryMenu: MenuModel?
         /**
          * Gets the secondary menu model for @self.
@@ -378,6 +396,7 @@ public class TabOverview(
          * @param secondaryMenu a menu model
          * @since 1.3
          */
+        @AdwVersion1_3
         set(
             secondaryMenu
         ) =
@@ -393,6 +412,7 @@ public class TabOverview(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var showEndTitleButtons: Boolean
         /**
          * Gets whether end title buttons are shown in @self's header bar.
@@ -410,6 +430,7 @@ public class TabOverview(
          * @param showEndTitleButtons whether to show end title buttons
          * @since 1.3
          */
+        @AdwVersion1_3
         set(
             showEndTitleButtons
         ) =
@@ -425,6 +446,7 @@ public class TabOverview(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var showStartTitleButtons: Boolean
         /**
          * Gets whether start title buttons are shown in @self's header bar.
@@ -442,6 +464,7 @@ public class TabOverview(
          * @param showStartTitleButtons whether to show start title buttons
          * @since 1.3
          */
+        @AdwVersion1_3
         set(
             showStartTitleButtons
         ) =
@@ -457,6 +480,7 @@ public class TabOverview(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var view: TabView?
         /**
          * Gets the tab view @self controls.
@@ -477,6 +501,7 @@ public class TabOverview(
          * @param view a tab view
          * @since 1.3
          */
+        @AdwVersion1_3
         set(
             view
         ) = adw_tab_overview_set_view(adwTabOverviewPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
@@ -495,6 +520,7 @@ public class TabOverview(
      * @return the child widget of @self
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getChild(): Widget? =
         adw_tab_overview_get_child(adwTabOverviewPointer.reinterpret())?.run {
             Widget(reinterpret())
@@ -506,6 +532,7 @@ public class TabOverview(
      * @return whether new tab button is enabled
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getEnableNewTab(): Boolean =
         adw_tab_overview_get_enable_new_tab(adwTabOverviewPointer.reinterpret()).asBoolean()
 
@@ -515,6 +542,7 @@ public class TabOverview(
      * @return whether search is enabled
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getEnableSearch(): Boolean =
         adw_tab_overview_get_enable_search(adwTabOverviewPointer.reinterpret()).asBoolean()
 
@@ -524,6 +552,7 @@ public class TabOverview(
      * @return the drag action of the current drop.
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getExtraDragPreferredAction(): DragAction =
         adw_tab_overview_get_extra_drag_preferred_action(adwTabOverviewPointer.reinterpret()).run {
             DragAction(this)
@@ -535,6 +564,7 @@ public class TabOverview(
      * @return whether drop data should be preloaded on hover
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getExtraDragPreload(): Boolean =
         adw_tab_overview_get_extra_drag_preload(adwTabOverviewPointer.reinterpret()).asBoolean()
 
@@ -544,6 +574,7 @@ public class TabOverview(
      * @return whether thumbnails use inverted layout
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getInverted(): Boolean = adw_tab_overview_get_inverted(adwTabOverviewPointer.reinterpret()).asBoolean()
 
     /**
@@ -552,6 +583,7 @@ public class TabOverview(
      * @return whether the overview is open
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getOpen(): Boolean = adw_tab_overview_get_open(adwTabOverviewPointer.reinterpret()).asBoolean()
 
     /**
@@ -562,6 +594,7 @@ public class TabOverview(
      * @return whether search is active
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getSearchActive(): Boolean =
         adw_tab_overview_get_search_active(adwTabOverviewPointer.reinterpret()).asBoolean()
 
@@ -571,6 +604,7 @@ public class TabOverview(
      * @return the secondary menu model
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getSecondaryMenu(): MenuModel? =
         adw_tab_overview_get_secondary_menu(adwTabOverviewPointer.reinterpret())?.run {
             MenuModel(reinterpret())
@@ -582,6 +616,7 @@ public class TabOverview(
      * @return whether end title buttons are shown
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getShowEndTitleButtons(): Boolean =
         adw_tab_overview_get_show_end_title_buttons(adwTabOverviewPointer.reinterpret()).asBoolean()
 
@@ -591,6 +626,7 @@ public class TabOverview(
      * @return whether start title buttons are shown
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getShowStartTitleButtons(): Boolean =
         adw_tab_overview_get_show_start_title_buttons(adwTabOverviewPointer.reinterpret()).asBoolean()
 
@@ -600,6 +636,7 @@ public class TabOverview(
      * @return the tab view
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getView(): TabView? =
         adw_tab_overview_get_view(adwTabOverviewPointer.reinterpret())?.run {
             TabView(reinterpret())
@@ -611,6 +648,7 @@ public class TabOverview(
      * @param child the child widget
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setChild(child: Widget? = null): Unit =
         adw_tab_overview_set_child(adwTabOverviewPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
@@ -622,6 +660,7 @@ public class TabOverview(
      * @param enableNewTab whether to enable new tab button
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setEnableNewTab(enableNewTab: Boolean): Unit =
         adw_tab_overview_set_enable_new_tab(adwTabOverviewPointer.reinterpret(), enableNewTab.asGBoolean())
 
@@ -640,6 +679,7 @@ public class TabOverview(
      * @param enableSearch whether to enable search
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setEnableSearch(enableSearch: Boolean): Unit =
         adw_tab_overview_set_enable_search(adwTabOverviewPointer.reinterpret(), enableSearch.asGBoolean())
 
@@ -651,6 +691,7 @@ public class TabOverview(
      * @param preload whether to preload drop data
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setExtraDragPreload(preload: Boolean): Unit =
         adw_tab_overview_set_extra_drag_preload(adwTabOverviewPointer.reinterpret(), preload.asGBoolean())
 
@@ -663,6 +704,7 @@ public class TabOverview(
      * @param inverted whether thumbnails use inverted layout
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setInverted(inverted: Boolean): Unit =
         adw_tab_overview_set_inverted(adwTabOverviewPointer.reinterpret(), inverted.asGBoolean())
 
@@ -672,6 +714,7 @@ public class TabOverview(
      * @param open whether the overview is open
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setOpen(`open`: Boolean): Unit =
         adw_tab_overview_set_open(adwTabOverviewPointer.reinterpret(), `open`.asGBoolean())
 
@@ -683,6 +726,7 @@ public class TabOverview(
      * @param secondaryMenu a menu model
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setSecondaryMenu(secondaryMenu: MenuModel? = null): Unit =
         adw_tab_overview_set_secondary_menu(
             adwTabOverviewPointer.reinterpret(),
@@ -697,6 +741,7 @@ public class TabOverview(
      * @param showEndTitleButtons whether to show end title buttons
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setShowEndTitleButtons(showEndTitleButtons: Boolean): Unit =
         adw_tab_overview_set_show_end_title_buttons(
             adwTabOverviewPointer.reinterpret(),
@@ -711,6 +756,7 @@ public class TabOverview(
      * @param showStartTitleButtons whether to show start title buttons
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setShowStartTitleButtons(showStartTitleButtons: Boolean): Unit =
         adw_tab_overview_set_show_start_title_buttons(
             adwTabOverviewPointer.reinterpret(),
@@ -725,6 +771,7 @@ public class TabOverview(
      * @param view a tab view
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setView(view: TabView? = null): Unit =
         adw_tab_overview_set_view(adwTabOverviewPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
 
@@ -741,6 +788,7 @@ public class TabOverview(
      * @param handler the Callback to connect. Returns the newly created page
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun connectCreateTab(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> TabPage,
@@ -766,6 +814,7 @@ public class TabOverview(
      * @param handler the Callback to connect. Params: `page` the page matching the tab the content was dropped onto; `value` the `GValue` being dropped. Returns whether the drop was accepted for @page
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun connectExtraDragDrop(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: TabPage, `value`: Value) -> Boolean,
@@ -794,6 +843,7 @@ public class TabOverview(
      * @param handler the Callback to connect. Params: `page` the page matching the tab the content was dropped onto; `value` the `GValue` being dropped. Returns the preferred action for the drop on @page
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun connectExtraDragValue(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: TabPage, `value`: Value) -> DragAction,

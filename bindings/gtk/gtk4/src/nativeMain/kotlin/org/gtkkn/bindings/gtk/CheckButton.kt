@@ -10,6 +10,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_2
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -151,6 +153,7 @@ public open class CheckButton(
      *
      * @since 4.8
      */
+    @GtkVersion4_8
     public open var child: Widget?
         /**
          * Gets the child widget of @button or `NULL` if [property@CheckButton:label] is set.
@@ -175,6 +178,7 @@ public open class CheckButton(
          * @param child the child widget
          * @since 4.8
          */
+        @GtkVersion4_8
         set(
             child
         ) = gtk_check_button_set_child(gtkCheckButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
@@ -282,6 +286,7 @@ public open class CheckButton(
      * @return the child widget of @button
      * @since 4.8
      */
+    @GtkVersion4_8
     public open fun getChild(): Widget? =
         gtk_check_button_get_child(gtkCheckButtonPointer.reinterpret())?.run {
             Widget(reinterpret())
@@ -333,6 +338,7 @@ public open class CheckButton(
      * @param child the child widget
      * @since 4.8
      */
+    @GtkVersion4_8
     public open fun setChild(child: Widget? = null): Unit =
         gtk_check_button_set_child(gtkCheckButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
@@ -411,6 +417,7 @@ public open class CheckButton(
      * @param handler the Callback to connect
      * @since 4.2
      */
+    @GtkVersion4_2
     public fun connectActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

@@ -10,6 +10,19 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_36
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
+import org.gtkkn.bindings.gio.annotations.GioVersion2_56
+import org.gtkkn.bindings.gio.annotations.GioVersion2_60
+import org.gtkkn.bindings.gio.annotations.GioVersion2_68
+import org.gtkkn.bindings.gio.annotations.GioVersion2_72
+import org.gtkkn.bindings.gio.annotations.GioVersion2_74
+import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
@@ -393,6 +406,7 @@ public interface File :
      *   or null if an error occurs.
      * @since 2.68
      */
+    @GioVersion2_68
     public fun buildAttributeListForCopy(
         flags: FileCopyFlags,
         cancellable: Cancellable? = null,
@@ -689,6 +703,7 @@ public interface File :
      *   Free the returned object with g_object_unref().
      * @since 2.22
      */
+    @GioVersion2_22
     public fun createReadwrite(
         flags: FileCreateFlags,
         cancellable: Cancellable? = null,
@@ -731,6 +746,7 @@ public interface File :
      *   to call when the request is satisfied
      * @since 2.22
      */
+    @GioVersion2_22
     public fun createReadwriteAsync(
         flags: FileCreateFlags,
         ioPriority: Int,
@@ -755,6 +771,7 @@ public interface File :
      *   Free the returned object with g_object_unref().
      * @since 2.22
      */
+    @GioVersion2_22
     public fun createReadwriteFinish(res: AsyncResult): Result<FileIOStream> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -829,6 +846,7 @@ public interface File :
      *   when the request is satisfied
      * @since 2.34
      */
+    @GioVersion2_34
     public fun deleteAsync(
         ioPriority: Int,
         cancellable: Cancellable? = null,
@@ -849,6 +867,7 @@ public interface File :
      * @return true if the file was deleted. false otherwise.
      * @since 2.34
      */
+    @GioVersion2_34
     public fun deleteFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -957,6 +976,7 @@ public interface File :
      *   to call when the request is satisfied
      * @since 2.22
      */
+    @GioVersion2_22
     public fun ejectMountableWithOperation(
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
@@ -981,6 +1001,7 @@ public interface File :
      *   false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun ejectMountableWithOperationFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -1406,6 +1427,7 @@ public interface File :
      *   the case that @parent is null).
      * @since 2.24
      */
+    @GioVersion2_24
     public fun hasParent(parent: File? = null): Boolean =
         g_file_has_parent(gioFilePointer.reinterpret(), parent?.gioFilePointer).asBoolean()
 
@@ -1491,6 +1513,7 @@ public interface File :
      *   to call when the request is satisfied
      * @since 2.56
      */
+    @GioVersion2_56
     public fun loadBytesAsync(
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -1577,6 +1600,7 @@ public interface File :
      *   when the request is satisfied
      * @since 2.38
      */
+    @GioVersion2_38
     public fun makeDirectoryAsync(
         ioPriority: Int,
         cancellable: Cancellable? = null,
@@ -1598,6 +1622,7 @@ public interface File :
      * @return true on successful directory creation, false otherwise.
      * @since 2.38
      */
+    @GioVersion2_38
     public fun makeDirectoryFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -1635,6 +1660,7 @@ public interface File :
      * otherwise.
      * @since 2.18
      */
+    @GioVersion2_18
     public fun makeDirectoryWithParents(cancellable: Cancellable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -1698,6 +1724,7 @@ public interface File :
      *   when the request is satisfied
      * @since 2.74
      */
+    @GioVersion2_74
     public fun makeSymbolicLinkAsync(
         symlinkValue: String,
         ioPriority: Int,
@@ -1721,6 +1748,7 @@ public interface File :
      * @return true on successful directory creation, false otherwise.
      * @since 2.74
      */
+    @GioVersion2_74
     public fun makeSymbolicLinkFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -1753,6 +1781,7 @@ public interface File :
      *   Free the returned object with g_object_unref().
      * @since 2.18
      */
+    @GioVersion2_18
     public fun monitor(
         flags: FileMonitorFlags,
         cancellable: Cancellable? = null,
@@ -2065,6 +2094,7 @@ public interface File :
      * @return true on successful file move, false otherwise.
      * @since 2.72
      */
+    @GioVersion2_72
     public fun moveFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -2104,6 +2134,7 @@ public interface File :
      *   Free the returned object with g_object_unref().
      * @since 2.22
      */
+    @GioVersion2_22
     public fun openReadwrite(cancellable: Cancellable? = null): Result<FileIOStream> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -2140,6 +2171,7 @@ public interface File :
      *   to call when the request is satisfied
      * @since 2.22
      */
+    @GioVersion2_22
     public fun openReadwriteAsync(
         ioPriority: Int,
         cancellable: Cancellable? = null,
@@ -2162,6 +2194,7 @@ public interface File :
      *   Free the returned object with g_object_unref().
      * @since 2.22
      */
+    @GioVersion2_22
     public fun openReadwriteFinish(res: AsyncResult): Result<FileIOStream> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -2190,6 +2223,7 @@ public interface File :
      *   or null if no such path exists. The returned string is owned by @file.
      * @since 2.56
      */
+    @GioVersion2_56
     public fun peekPath(): String? = g_file_peek_path(gioFilePointer.reinterpret())?.toKString()
 
     /**
@@ -2208,6 +2242,7 @@ public interface File :
      *   when the request is satisfied, or null
      * @since 2.22
      */
+    @GioVersion2_22
     public fun pollMountable(
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -2230,6 +2265,7 @@ public interface File :
      * otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun pollMountableFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -2286,6 +2322,7 @@ public interface File :
      * @param callback a #GAsyncReadyCallback to call when the request is done
      * @since 2.60
      */
+    @GioVersion2_60
     public fun queryDefaultHandlerAsync(
         ioPriority: Int,
         cancellable: Cancellable? = null,
@@ -2308,6 +2345,7 @@ public interface File :
      *   When you are done with it, release it with g_object_unref()
      * @since 2.60
      */
+    @GioVersion2_60
     public fun queryDefaultHandlerFinish(result: AsyncResult): Result<AppInfo> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -2373,6 +2411,7 @@ public interface File :
      *   if the file does not exist
      * @since 2.18
      */
+    @GioVersion2_18
     public fun queryFileType(
         flags: FileQueryInfoFlags,
         cancellable: Cancellable? = null,
@@ -2924,6 +2963,7 @@ public interface File :
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      * @since 2.40
      */
+    @GioVersion2_40
     public fun replaceContentsBytesAsync(
         contents: Bytes,
         etag: String? = null,
@@ -2988,6 +3028,7 @@ public interface File :
      *   Free the returned object with g_object_unref().
      * @since 2.22
      */
+    @GioVersion2_22
     public fun replaceReadwrite(
         etag: String? = null,
         makeBackup: Boolean,
@@ -3038,6 +3079,7 @@ public interface File :
      *   to call when the request is satisfied
      * @since 2.22
      */
+    @GioVersion2_22
     public fun replaceReadwriteAsync(
         etag: String? = null,
         makeBackup: Boolean,
@@ -3066,6 +3108,7 @@ public interface File :
      *   Free the returned object with g_object_unref().
      * @since 2.22
      */
+    @GioVersion2_22
     public fun replaceReadwriteFinish(res: AsyncResult): Result<FileIOStream> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3542,6 +3585,7 @@ public interface File :
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied, or null
      * @since 2.22
      */
+    @GioVersion2_22
     public fun startMountable(
         flags: DriveStartFlags,
         startOperation: MountOperation? = null,
@@ -3568,6 +3612,7 @@ public interface File :
      * otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun startMountableFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3604,6 +3649,7 @@ public interface File :
      *   when the request is satisfied, or null
      * @since 2.22
      */
+    @GioVersion2_22
     public fun stopMountable(
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
@@ -3630,6 +3676,7 @@ public interface File :
      *   false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun stopMountableFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3655,6 +3702,7 @@ public interface File :
      * @return Whether or not @file supports thread-default contexts.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun supportsThreadContexts(): Boolean =
         g_file_supports_thread_contexts(gioFilePointer.reinterpret()).asBoolean()
 
@@ -3700,6 +3748,7 @@ public interface File :
      *   when the request is satisfied
      * @since 2.38
      */
+    @GioVersion2_38
     public fun trashAsync(
         ioPriority: Int,
         cancellable: Cancellable? = null,
@@ -3721,6 +3770,7 @@ public interface File :
      * @return true on successful trash, false otherwise.
      * @since 2.38
      */
+    @GioVersion2_38
     public fun trashFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3813,6 +3863,7 @@ public interface File :
      *   to call when the request is satisfied
      * @since 2.22
      */
+    @GioVersion2_22
     public fun unmountMountableWithOperation(
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
@@ -3840,6 +3891,7 @@ public interface File :
      *   false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun unmountMountableWithOperationFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -3884,6 +3936,7 @@ public interface File :
          * @return a new #GFile
          * @since 2.78
          */
+        @GioVersion2_78
         public fun newBuildFilenamev(args: List<String>): File =
             memScoped {
                 return g_file_new_build_filenamev(args.toCStringList(this))!!.run {
@@ -3934,6 +3987,7 @@ public interface File :
          * @return a new #GFile
          * @since 2.36
          */
+        @GioVersion2_36
         public fun newForCommandlineArgAndCwd(
             arg: String,
             cwd: String,
@@ -3987,6 +4041,7 @@ public interface File :
          * @param callback a #GAsyncReadyCallback to call when the request is done
          * @since 2.74
          */
+        @GioVersion2_74
         public fun newTmpAsync(
             tmpl: String? = null,
             ioPriority: Int,
@@ -4016,6 +4071,7 @@ public interface File :
          * @param callback a #GAsyncReadyCallback to call when the request is done
          * @since 2.74
          */
+        @GioVersion2_74
         public fun newTmpDirAsync(
             tmpl: String? = null,
             ioPriority: Int,
@@ -4039,6 +4095,7 @@ public interface File :
          *   Free the returned object with g_object_unref().
          * @since 2.74
          */
+        @GioVersion2_74
         public fun newTmpDirFinish(result: AsyncResult): Result<File> =
             memScoped {
                 val gError = allocPointerTo<GError>()

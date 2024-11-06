@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GDBusMessageByteOrder
 import org.gtkkn.native.gio.GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN
 import org.gtkkn.native.gio.GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN
@@ -9,6 +10,7 @@ import org.gtkkn.native.gio.GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_LITT
  * Enumeration used to describe the byte order of a D-Bus message.
  * @since 2.26
  */
+@GioVersion2_26
 public enum class DBusMessageByteOrder(
     public val nativeValue: GDBusMessageByteOrder,
 ) {

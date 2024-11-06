@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.native.pango.PangoBidiType
 import org.gtkkn.native.pango.PangoBidiType.PANGO_BIDI_TYPE_AL
 import org.gtkkn.native.pango.PangoBidiType.PANGO_BIDI_TYPE_AN
@@ -36,6 +37,7 @@ import kotlin.UInt
  * [Unicode bidirectional algorithm](http://www.unicode.org/reports/tr9/).
  * @since 1.22
  */
+@PangoVersion1_22
 public enum class BidiType(
     public val nativeValue: PangoBidiType,
 ) {
@@ -196,6 +198,7 @@ public enum class BidiType(
          * Unicode bidirectional algorithm.
          * @since 1.22
          */
+        @PangoVersion1_22
         public fun forUnichar(ch: UInt): BidiType =
             pango_bidi_type_for_unichar(ch).run {
                 BidiType.fromNativeValue(this)

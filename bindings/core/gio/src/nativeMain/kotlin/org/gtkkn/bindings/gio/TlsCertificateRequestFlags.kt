@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.native.gio.GTlsCertificateRequestFlags
 import org.gtkkn.native.gio.GTlsCertificateRequestFlags.G_TLS_CERTIFICATE_REQUEST_NONE
 
@@ -10,6 +11,7 @@ import org.gtkkn.native.gio.GTlsCertificateRequestFlags.G_TLS_CERTIFICATE_REQUES
  * g_tls_interaction_invoke_request_certificate().
  * @since 2.40
  */
+@GioVersion2_40
 public enum class TlsCertificateRequestFlags(
     public val nativeValue: GTlsCertificateRequestFlags,
 ) {

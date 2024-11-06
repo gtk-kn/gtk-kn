@@ -5,6 +5,9 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_12
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoMatrix
@@ -40,6 +43,7 @@ import kotlin.Unit
  *
  * @since 1.6
  */
+@PangoVersion1_6
 public class Matrix(
     pointer: CPointer<PangoMatrix>,
 ) : Record {
@@ -107,6 +111,7 @@ public class Matrix(
      * @param newMatrix a `PangoMatrix`
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun concat(newMatrix: Matrix): Unit =
         pango_matrix_concat(pangoMatrixPointer.reinterpret(), newMatrix.pangoMatrixPointer)
 
@@ -116,6 +121,7 @@ public class Matrix(
      * @return the newly allocated `PangoMatrix`
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun copy(): Matrix? =
         pango_matrix_copy(pangoMatrixPointer.reinterpret())?.run {
             Matrix(reinterpret())
@@ -126,6 +132,7 @@ public class Matrix(
      *
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun free(): Unit = pango_matrix_free(pangoMatrixPointer.reinterpret())
 
     /**
@@ -139,6 +146,7 @@ public class Matrix(
      *   or 1.0 if @matrix is null.
      * @since 1.12
      */
+    @PangoVersion1_12
     public fun getFontScaleFactor(): Double = pango_matrix_get_font_scale_factor(pangoMatrixPointer.reinterpret())
 
     /**
@@ -154,6 +162,7 @@ public class Matrix(
      * @return the slant ratio of @matrix
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun getSlantRatio(): Double = pango_matrix_get_slant_ratio(pangoMatrixPointer.reinterpret())
 
     /**
@@ -164,6 +173,7 @@ public class Matrix(
      * @param degrees degrees to rotate counter-clockwise
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun rotate(degrees: Double): Unit = pango_matrix_rotate(pangoMatrixPointer.reinterpret(), degrees)
 
     /**
@@ -176,6 +186,7 @@ public class Matrix(
      * @param scaleY amount to scale by in Y direction
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun scale(
         scaleX: Double,
         scaleY: Double,
@@ -190,6 +201,7 @@ public class Matrix(
      * @param ty amount to translate in the Y direction
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun translate(
         tx: Double,
         ty: Double,

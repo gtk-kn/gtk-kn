@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.native.gio.GSocketListenerEvent
 import org.gtkkn.native.gio.GSocketListenerEvent.G_SOCKET_LISTENER_BINDING
 import org.gtkkn.native.gio.GSocketListenerEvent.G_SOCKET_LISTENER_BOUND
@@ -14,6 +15,7 @@ import org.gtkkn.native.gio.GSocketListenerEvent.G_SOCKET_LISTENER_LISTENING
  * Additional values may be added to this type in the future.
  * @since 2.46
  */
+@GioVersion2_46
 public enum class SocketListenerEvent(
     public val nativeValue: GSocketListenerEvent,
 ) {

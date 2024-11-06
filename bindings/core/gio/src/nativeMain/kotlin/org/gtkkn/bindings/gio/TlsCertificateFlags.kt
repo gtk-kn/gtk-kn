@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.gio.G_TLS_CERTIFICATE_BAD_IDENTITY
@@ -32,6 +33,7 @@ public class TlsCertificateFlags(
 ) : Bitfield<TlsCertificateFlags> {
     override infix fun or(other: TlsCertificateFlags): TlsCertificateFlags = TlsCertificateFlags(mask or other.mask)
 
+    @GioVersion2_28
     public companion object {
         /**
          * No flags set. Since: 2.74

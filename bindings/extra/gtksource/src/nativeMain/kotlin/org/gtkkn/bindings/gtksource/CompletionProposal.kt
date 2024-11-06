@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gtksource
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -24,7 +25,9 @@ import kotlin.String
  * #GtkSourceCompletionProvider can use [func@GObject.IMPLEMENT_INTERFACE] to
  * implement this with null for the interface init function.
  */
-public interface CompletionProposal : Interface, KGTyped {
+public interface CompletionProposal :
+    Interface,
+    KGTyped {
     public val gtksourceCompletionProposalPointer: CPointer<GtkSourceCompletionProposal>
 
     /**
@@ -36,6 +39,7 @@ public interface CompletionProposal : Interface, KGTyped {
      * @return a newly allocated string, or null
      * @since 5.6
      */
+    @GtkSourceVersion5_6
     public fun getTypedText(): String? =
         gtk_source_completion_proposal_get_typed_text(gtksourceCompletionProposalPointer.reinterpret())?.toKString()
 
@@ -48,9 +52,7 @@ public interface CompletionProposal : Interface, KGTyped {
 
     public companion object : TypeCompanion<CompletionProposal> {
         override val type: GeneratedInterfaceKGType<CompletionProposal> =
-            GeneratedInterfaceKGType(gtk_source_completion_proposal_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_source_completion_proposal_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.ConnectFlags
@@ -150,6 +151,7 @@ import kotlin.Unit
  * target value of the menu item.
  * @since 2.32
  */
+@GioVersion2_32
 public open class MenuModel(
     pointer: CPointer<GMenuModel>,
 ) : Object(pointer.reinterpret()),
@@ -177,6 +179,7 @@ public open class MenuModel(
      * @return the value of the attribute
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getItemAttributeValue(
         itemIndex: Int,
         attribute: String,
@@ -203,6 +206,7 @@ public open class MenuModel(
      * @return the linked #GMenuModel, or null
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getItemLink(
         itemIndex: Int,
         link: String,
@@ -217,6 +221,7 @@ public open class MenuModel(
      * @return the number of items
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getNItems(): Int = g_menu_model_get_n_items(gioMenuModelPointer.reinterpret())
 
     /**
@@ -229,6 +234,7 @@ public open class MenuModel(
      *     emitted).
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun isMutable(): Boolean = g_menu_model_is_mutable(gioMenuModelPointer.reinterpret()).asBoolean()
 
     /**
@@ -253,6 +259,7 @@ public open class MenuModel(
      * @param added the number of items added
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun itemsChanged(
         position: Int,
         removed: Int,
@@ -269,6 +276,7 @@ public open class MenuModel(
      * @return a new #GMenuAttributeIter
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun iterateItemAttributes(itemIndex: Int): MenuAttributeIter =
         g_menu_model_iterate_item_attributes(gioMenuModelPointer.reinterpret(), itemIndex)!!.run {
             MenuAttributeIter(reinterpret())
@@ -284,6 +292,7 @@ public open class MenuModel(
      * @return a new #GMenuLinkIter
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun iterateItemLinks(itemIndex: Int): MenuLinkIter =
         g_menu_model_iterate_item_links(gioMenuModelPointer.reinterpret(), itemIndex)!!.run {
             MenuLinkIter(reinterpret())

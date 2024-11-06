@@ -14,6 +14,10 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.bindings.gio.annotations.GioVersion2_60
+import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.common.asBoolean
@@ -77,6 +81,7 @@ import kotlin.collections.List
  *
  * @since 2.28
  */
+@GioVersion2_28
 public open class TlsConnection(
     pointer: CPointer<GTlsConnection>,
 ) : IOStream(pointer.reinterpret()),
@@ -89,6 +94,7 @@ public open class TlsConnection(
      *
      * @since 2.70
      */
+    @GioVersion2_70
     public open val ciphersuiteName: String
         /**
          * Returns the name of the current TLS ciphersuite, or null if the
@@ -127,6 +133,7 @@ public open class TlsConnection(
      *
      * @since 2.30
      */
+    @GioVersion2_30
     public open var database: TlsDatabase?
         /**
          * Gets the certificate database that @conn uses to verify
@@ -156,6 +163,7 @@ public open class TlsConnection(
          * @param database a #GTlsDatabase
          * @since 2.30
          */
+        @GioVersion2_30
         set(
             database
         ) =
@@ -171,6 +179,7 @@ public open class TlsConnection(
      *
      * @since 2.30
      */
+    @GioVersion2_30
     public open var interaction: TlsInteraction?
         /**
          * Get the object that will be used to interact with the user. It will be used
@@ -196,6 +205,7 @@ public open class TlsConnection(
          * @param interaction an interaction object, or null
          * @since 2.30
          */
+        @GioVersion2_30
         set(
             interaction
         ) =
@@ -210,6 +220,7 @@ public open class TlsConnection(
      *
      * @since 2.60
      */
+    @GioVersion2_60
     public open val negotiatedProtocol: String?
         /**
          * Gets the name of the application-layer protocol negotiated during
@@ -235,6 +246,7 @@ public open class TlsConnection(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open val peerCertificate: TlsCertificate?
         /**
          * Gets @conn's peer's certificate after the handshake has completed
@@ -267,6 +279,7 @@ public open class TlsConnection(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open val peerCertificateErrors: TlsCertificateFlags
         /**
          * Gets the errors associated with validating @conn's peer's
@@ -288,6 +301,7 @@ public open class TlsConnection(
      *
      * @since 2.70
      */
+    @GioVersion2_70
     public open val protocolVersion: TlsProtocolVersion
         /**
          * Returns the current TLS protocol version, which may be
@@ -309,6 +323,7 @@ public open class TlsConnection(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open var rehandshakeMode: TlsRehandshakeMode
         /**
          * Gets @conn rehandshaking mode. See
@@ -331,6 +346,7 @@ public open class TlsConnection(
          * @param mode the rehandshaking mode
          * @since 2.28
          */
+        @GioVersion2_28
         set(mode) = g_tls_connection_set_rehandshake_mode(gioTlsConnectionPointer.reinterpret(), mode.nativeValue)
 
     /**
@@ -339,6 +355,7 @@ public open class TlsConnection(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open var requireCloseNotify: Boolean
         /**
          * Tests whether or not @conn expects a proper TLS close notification
@@ -383,6 +400,7 @@ public open class TlsConnection(
          * @param requireCloseNotify whether or not to require close notification
          * @since 2.28
          */
+        @GioVersion2_28
         set(
             requireCloseNotify
         ) =
@@ -430,6 +448,7 @@ public open class TlsConnection(
      *     true to accept @peer_cert
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun emitAcceptCertificate(
         peerCert: TlsCertificate,
         errors: TlsCertificateFlags,
@@ -447,6 +466,7 @@ public open class TlsConnection(
      * @return @conn's certificate, or null
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getCertificate(): TlsCertificate? =
         g_tls_connection_get_certificate(gioTlsConnectionPointer.reinterpret())?.run {
             TlsCertificate(reinterpret())
@@ -465,6 +485,7 @@ public open class TlsConnection(
      * @return The name of the current TLS ciphersuite, or null
      * @since 2.70
      */
+    @GioVersion2_70
     public open fun getCiphersuiteName(): String =
         g_tls_connection_get_ciphersuite_name(gioTlsConnectionPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -476,6 +497,7 @@ public open class TlsConnection(
      * @return the certificate database that @conn uses or null
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getDatabase(): TlsDatabase? =
         g_tls_connection_get_database(gioTlsConnectionPointer.reinterpret())?.run {
             TlsDatabase(reinterpret())
@@ -489,6 +511,7 @@ public open class TlsConnection(
      * @return The interaction object.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getInteraction(): TlsInteraction? =
         g_tls_connection_get_interaction(gioTlsConnectionPointer.reinterpret())?.run {
             TlsInteraction(reinterpret())
@@ -506,6 +529,7 @@ public open class TlsConnection(
      * @return the negotiated protocol, or null
      * @since 2.60
      */
+    @GioVersion2_60
     public open fun getNegotiatedProtocol(): String? =
         g_tls_connection_get_negotiated_protocol(gioTlsConnectionPointer.reinterpret())?.toKString()
 
@@ -517,6 +541,7 @@ public open class TlsConnection(
      * @return @conn's peer's certificate, or null
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getPeerCertificate(): TlsCertificate? =
         g_tls_connection_get_peer_certificate(gioTlsConnectionPointer.reinterpret())?.run {
             TlsCertificate(reinterpret())
@@ -532,6 +557,7 @@ public open class TlsConnection(
      * @return @conn's peer's certificate errors
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getPeerCertificateErrors(): TlsCertificateFlags =
         g_tls_connection_get_peer_certificate_errors(gioTlsConnectionPointer.reinterpret()).run {
             TlsCertificateFlags(this)
@@ -546,6 +572,7 @@ public open class TlsConnection(
      * @return The current TLS protocol version
      * @since 2.70
      */
+    @GioVersion2_70
     public open fun getProtocolVersion(): TlsProtocolVersion =
         g_tls_connection_get_protocol_version(gioTlsConnectionPointer.reinterpret()).run {
             TlsProtocolVersion.fromNativeValue(this)
@@ -558,6 +585,7 @@ public open class TlsConnection(
      * @return %G_TLS_REHANDSHAKE_SAFELY
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getRehandshakeMode(): TlsRehandshakeMode =
         g_tls_connection_get_rehandshake_mode(gioTlsConnectionPointer.reinterpret()).run {
             TlsRehandshakeMode.fromNativeValue(this)
@@ -572,6 +600,7 @@ public open class TlsConnection(
      * notification.
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getRequireCloseNotify(): Boolean =
         g_tls_connection_get_require_close_notify(gioTlsConnectionPointer.reinterpret()).asBoolean()
 
@@ -621,6 +650,7 @@ public open class TlsConnection(
      * @return success or failure
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun handshake(cancellable: Cancellable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -646,6 +676,7 @@ public open class TlsConnection(
      * @param callback callback to call when the handshake is complete
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun handshakeAsync(
         ioPriority: Int,
         cancellable: Cancellable? = null,
@@ -668,6 +699,7 @@ public open class TlsConnection(
      * case @error will be set.
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun handshakeFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -700,6 +732,7 @@ public open class TlsConnection(
      *   array of ALPN protocol names (eg, "http/1.1", "h2"), or null
      * @since 2.60
      */
+    @GioVersion2_60
     public open fun setAdvertisedProtocols(protocols: List<String>? = null): Unit =
         memScoped {
             return g_tls_connection_set_advertised_protocols(
@@ -731,6 +764,7 @@ public open class TlsConnection(
      * @param certificate the certificate to use for @conn
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun setCertificate(certificate: TlsCertificate): Unit =
         g_tls_connection_set_certificate(
             gioTlsConnectionPointer.reinterpret(),
@@ -753,6 +787,7 @@ public open class TlsConnection(
      * @param database a #GTlsDatabase
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun setDatabase(database: TlsDatabase? = null): Unit =
         g_tls_connection_set_database(
             gioTlsConnectionPointer.reinterpret(),
@@ -770,6 +805,7 @@ public open class TlsConnection(
      * @param interaction an interaction object, or null
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun setInteraction(interaction: TlsInteraction? = null): Unit =
         g_tls_connection_set_interaction(
             gioTlsConnectionPointer.reinterpret(),
@@ -785,6 +821,7 @@ public open class TlsConnection(
      * @param mode the rehandshaking mode
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun setRehandshakeMode(mode: TlsRehandshakeMode): Unit =
         g_tls_connection_set_rehandshake_mode(gioTlsConnectionPointer.reinterpret(), mode.nativeValue)
 
@@ -820,6 +857,7 @@ public open class TlsConnection(
      * @param requireCloseNotify whether or not to require close notification
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun setRequireCloseNotify(requireCloseNotify: Boolean): Unit =
         g_tls_connection_set_require_close_notify(
             gioTlsConnectionPointer.reinterpret(),
@@ -891,6 +929,7 @@ public open class TlsConnection(
      * no one else overrides it.
      * @since 2.28
      */
+    @GioVersion2_28
     public fun connectAcceptCertificate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (peerCert: TlsCertificate, errors: TlsCertificateFlags) -> Boolean,
