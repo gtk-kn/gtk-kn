@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GSocketMsgFlags
 import org.gtkkn.native.gio.G_SOCKET_MSG_DONTROUTE
@@ -21,6 +22,7 @@ public class SocketMsgFlags(
 ) : Bitfield<SocketMsgFlags> {
     override infix fun or(other: SocketMsgFlags): SocketMsgFlags = SocketMsgFlags(mask or other.mask)
 
+    @GioVersion2_22
     public companion object {
         /**
          * No flags.

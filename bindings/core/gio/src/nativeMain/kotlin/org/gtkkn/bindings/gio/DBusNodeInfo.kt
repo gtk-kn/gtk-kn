@@ -10,6 +10,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -38,6 +39,7 @@ import org.gtkkn.bindings.glib.String as GlibString
  *
  * @since 2.26
  */
+@GioVersion2_26
 public class DBusNodeInfo(
     pointer: CPointer<GDBusNodeInfo>,
 ) : Record {
@@ -70,6 +72,7 @@ public class DBusNodeInfo(
      * @param stringBuilder A #GString to to append XML data to.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun generateXml(
         indent: UInt,
         stringBuilder: GlibString,
@@ -85,6 +88,7 @@ public class DBusNodeInfo(
      * @return A #GDBusInterfaceInfo or null if not found. Do not free, it is owned by @info.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun lookupInterface(name: KotlinString): DBusInterfaceInfo? =
         g_dbus_node_info_lookup_interface(gioDBusNodeInfoPointer.reinterpret(), name)?.run {
             DBusInterfaceInfo(reinterpret())
@@ -97,6 +101,7 @@ public class DBusNodeInfo(
      * @return The same @info.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun ref(): DBusNodeInfo =
         g_dbus_node_info_ref(gioDBusNodeInfoPointer.reinterpret())!!.run {
             DBusNodeInfo(reinterpret())
@@ -109,6 +114,7 @@ public class DBusNodeInfo(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public fun unref(): Unit = g_dbus_node_info_unref(gioDBusNodeInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusNodeInfo, GDBusNodeInfo> {

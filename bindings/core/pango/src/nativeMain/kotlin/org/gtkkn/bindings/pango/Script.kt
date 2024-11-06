@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.native.pango.PangoScript
 import org.gtkkn.native.pango.PangoScript.PANGO_SCRIPT_AHOM
 import org.gtkkn.native.pango.PangoScript.PANGO_SCRIPT_ANATOLIAN_HIEROGLYPHS
@@ -874,6 +875,7 @@ public enum class Script(
          * @return the `PangoScript` for the character.
          * @since 1.4
          */
+        @PangoVersion1_4
         public fun forUnichar(ch: UInt): Script =
             pango_script_for_unichar(ch).run {
                 Script.fromNativeValue(this)
@@ -915,6 +917,7 @@ public enum class Script(
          *   of the script
          * @since 1.4
          */
+        @PangoVersion1_4
         public fun getSampleLanguage(script: Script): Language? =
             pango_script_get_sample_language(script.nativeValue)?.run {
                 Language(reinterpret())

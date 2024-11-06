@@ -12,6 +12,7 @@ import org.gtkkn.bindings.gdk.GLAPI
 import org.gtkkn.bindings.gdk.GLContext
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -183,6 +184,7 @@ public open class GLArea(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var allowedApis: GLAPI
         /**
          * Gets the allowed APIs.
@@ -208,6 +210,7 @@ public open class GLArea(
          * @param apis the allowed APIs
          * @since 4.12
          */
+        @GtkVersion4_12
         set(apis) = gtk_gl_area_set_allowed_apis(gtkGLAreaPointer.reinterpret(), apis.mask)
 
     /**
@@ -215,6 +218,7 @@ public open class GLArea(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open val api: GLAPI
         /**
          * Gets the API that is currently in use.
@@ -391,6 +395,7 @@ public open class GLArea(
      * @return the allowed APIs
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getAllowedApis(): GLAPI =
         gtk_gl_area_get_allowed_apis(gtkGLAreaPointer.reinterpret()).run {
             GLAPI(this)
@@ -404,6 +409,7 @@ public open class GLArea(
      * @return the currently used API
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getApi(): GLAPI =
         gtk_gl_area_get_api(gtkGLAreaPointer.reinterpret()).run {
             GLAPI(this)
@@ -496,6 +502,7 @@ public open class GLArea(
      * @param apis the allowed APIs
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setAllowedApis(apis: GLAPI): Unit =
         gtk_gl_area_set_allowed_apis(gtkGLAreaPointer.reinterpret(), apis.mask)
 

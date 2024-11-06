@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -112,6 +113,7 @@ public open class Button(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var canShrink: Boolean
         /**
          * Retrieves whether the button can be smaller than the natural
@@ -133,6 +135,7 @@ public open class Button(
          * @param canShrink whether the button can shrink
          * @since 4.12
          */
+        @GtkVersion4_12
         set(canShrink) = gtk_button_set_can_shrink(gtkButtonPointer.reinterpret(), canShrink.asGBoolean())
 
     /**
@@ -231,6 +234,7 @@ public open class Button(
      * @return true if the button can shrink, and false otherwise
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getCanShrink(): Boolean = gtk_button_get_can_shrink(gtkButtonPointer.reinterpret()).asBoolean()
 
     /**
@@ -295,6 +299,7 @@ public open class Button(
      * @param canShrink whether the button can shrink
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setCanShrink(canShrink: Boolean): Unit =
         gtk_button_set_can_shrink(gtkButtonPointer.reinterpret(), canShrink.asGBoolean())
 

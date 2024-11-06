@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdk.GdkTextureDownloader
@@ -35,6 +36,7 @@ import kotlin.Unit
  *
  * @since 4.10
  */
+@GdkVersion4_10
 public class TextureDownloader(
     pointer: CPointer<GdkTextureDownloader>,
 ) : Record {
@@ -48,6 +50,7 @@ public class TextureDownloader(
      * @return A copy of the downloader
      * @since 4.10
      */
+    @GdkVersion4_10
     public fun copy(): TextureDownloader =
         gdk_texture_downloader_copy(gdkTextureDownloaderPointer.reinterpret())!!.run {
             TextureDownloader(reinterpret())
@@ -58,6 +61,7 @@ public class TextureDownloader(
      *
      * @since 4.10
      */
+    @GdkVersion4_10
     public fun free(): Unit = gdk_texture_downloader_free(gdkTextureDownloaderPointer.reinterpret())
 
     /**
@@ -66,6 +70,7 @@ public class TextureDownloader(
      * @return The format of the download
      * @since 4.10
      */
+    @GdkVersion4_10
     public fun getFormat(): MemoryFormat =
         gdk_texture_downloader_get_format(gdkTextureDownloaderPointer.reinterpret()).run {
             MemoryFormat.fromNativeValue(this)
@@ -77,6 +82,7 @@ public class TextureDownloader(
      * @return The texture to download
      * @since 4.10
      */
+    @GdkVersion4_10
     public fun getTexture(): Texture =
         gdk_texture_downloader_get_texture(gdkTextureDownloaderPointer.reinterpret())!!.run {
             Texture(reinterpret())
@@ -90,6 +96,7 @@ public class TextureDownloader(
      * @param format the format to use
      * @since 4.10
      */
+    @GdkVersion4_10
     public fun setFormat(format: MemoryFormat): Unit =
         gdk_texture_downloader_set_format(gdkTextureDownloaderPointer.reinterpret(), format.nativeValue)
 
@@ -99,6 +106,7 @@ public class TextureDownloader(
      * @param texture the new texture to download
      * @since 4.10
      */
+    @GdkVersion4_10
     public fun setTexture(texture: Texture): Unit =
         gdk_texture_downloader_set_texture(
             gdkTextureDownloaderPointer.reinterpret(),

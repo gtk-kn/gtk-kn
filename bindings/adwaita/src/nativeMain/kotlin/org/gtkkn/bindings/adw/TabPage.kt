@@ -4,6 +4,8 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Accessible
@@ -210,6 +212,7 @@ public class TabPage(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var indicatorTooltip: String
         /**
          * Gets the tooltip of the indicator icon of @self.
@@ -231,6 +234,7 @@ public class TabPage(
          * @param tooltip the indicator tooltip of @self
          * @since 1.2
          */
+        @AdwVersion1_2
         set(tooltip) = adw_tab_page_set_indicator_tooltip(adwTabPagePointer.reinterpret(), tooltip)
 
     /**
@@ -246,6 +250,7 @@ public class TabPage(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var liveThumbnail: Boolean
         /**
          * Gets whether to live thumbnail is enabled @self.
@@ -269,6 +274,7 @@ public class TabPage(
          * @param liveThumbnail whether to enable live thumbnail
          * @since 1.3
          */
+        @AdwVersion1_3
         set(
             liveThumbnail
         ) = adw_tab_page_set_live_thumbnail(adwTabPagePointer.reinterpret(), liveThumbnail.asGBoolean())
@@ -401,6 +407,7 @@ public class TabPage(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var thumbnailXalign: Float
         /**
          * Gets the horizontal alignment of the thumbnail for @self.
@@ -425,6 +432,7 @@ public class TabPage(
          * @param xalign the new value
          * @since 1.3
          */
+        @AdwVersion1_3
         set(xalign) = adw_tab_page_set_thumbnail_xalign(adwTabPagePointer.reinterpret(), xalign)
 
     /**
@@ -441,6 +449,7 @@ public class TabPage(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var thumbnailYalign: Float
         /**
          * Gets the vertical alignment of the thumbnail for @self.
@@ -465,6 +474,7 @@ public class TabPage(
          * @param yalign the new value
          * @since 1.3
          */
+        @AdwVersion1_3
         set(yalign) = adw_tab_page_set_thumbnail_yalign(adwTabPagePointer.reinterpret(), yalign)
 
     /**
@@ -545,6 +555,7 @@ public class TabPage(
      * @return the indicator tooltip of @self
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getIndicatorTooltip(): String =
         adw_tab_page_get_indicator_tooltip(adwTabPagePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -555,6 +566,7 @@ public class TabPage(
      * @return the search keyword of @self
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getKeyword(): String? = adw_tab_page_get_keyword(adwTabPagePointer.reinterpret())?.toKString()
 
     /**
@@ -563,6 +575,7 @@ public class TabPage(
      * @return whether live thumbnail is enabled
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getLiveThumbnail(): Boolean =
         adw_tab_page_get_live_thumbnail(adwTabPagePointer.reinterpret()).asBoolean()
 
@@ -615,6 +628,7 @@ public class TabPage(
      * @return the horizontal alignment
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getThumbnailXalign(): Float = adw_tab_page_get_thumbnail_xalign(adwTabPagePointer.reinterpret())
 
     /**
@@ -623,6 +637,7 @@ public class TabPage(
      * @return the vertical alignment
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getThumbnailYalign(): Float = adw_tab_page_get_thumbnail_yalign(adwTabPagePointer.reinterpret())
 
     /**
@@ -652,6 +667,7 @@ public class TabPage(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun invalidateThumbnail(): Unit = adw_tab_page_invalidate_thumbnail(adwTabPagePointer.reinterpret())
 
     /**
@@ -715,6 +731,7 @@ public class TabPage(
      * @param tooltip the indicator tooltip of @self
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setIndicatorTooltip(tooltip: String): Unit =
         adw_tab_page_set_indicator_tooltip(adwTabPagePointer.reinterpret(), tooltip)
 
@@ -729,6 +746,7 @@ public class TabPage(
      * @param keyword the search keyword
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setKeyword(keyword: String): Unit = adw_tab_page_set_keyword(adwTabPagePointer.reinterpret(), keyword)
 
     /**
@@ -745,6 +763,7 @@ public class TabPage(
      * @param liveThumbnail whether to enable live thumbnail
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setLiveThumbnail(liveThumbnail: Boolean): Unit =
         adw_tab_page_set_live_thumbnail(adwTabPagePointer.reinterpret(), liveThumbnail.asGBoolean())
 
@@ -795,6 +814,7 @@ public class TabPage(
      * @param xalign the new value
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setThumbnailXalign(xalign: Float): Unit =
         adw_tab_page_set_thumbnail_xalign(adwTabPagePointer.reinterpret(), xalign)
 
@@ -813,6 +833,7 @@ public class TabPage(
      * @param yalign the new value
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setThumbnailYalign(yalign: Float): Unit =
         adw_tab_page_set_thumbnail_yalign(adwTabPagePointer.reinterpret(), yalign)
 

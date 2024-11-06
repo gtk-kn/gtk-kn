@@ -10,6 +10,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -49,6 +50,7 @@ import kotlin.Unit
  * operations on the output stream.
  * @since 2.22
  */
+@GioVersion2_22
 public open class FileIOStream(
     pointer: CPointer<GFileIOStream>,
 ) : IOStream(pointer.reinterpret()),
@@ -68,6 +70,7 @@ public open class FileIOStream(
      * @return the entity tag for the stream.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getEtag(): String? = g_file_io_stream_get_etag(gioFileIOStreamPointer.reinterpret())?.toKString()
 
     /**
@@ -94,6 +97,7 @@ public open class FileIOStream(
      * @return a #GFileInfo for the @stream, or null on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun queryInfo(
         attributes: String,
         cancellable: Cancellable? = null,
@@ -133,6 +137,7 @@ public open class FileIOStream(
      *   to call when the request is satisfied
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun queryInfoAsync(
         attributes: String,
         ioPriority: Int,
@@ -156,6 +161,7 @@ public open class FileIOStream(
      * @return A #GFileInfo for the finished query.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun queryInfoFinish(result: AsyncResult): Result<FileInfo> =
         memScoped {
             val gError = allocPointerTo<GError>()

@@ -34,6 +34,7 @@ import com.squareup.kotlinpoet.U_BYTE
 import com.squareup.kotlinpoet.U_INT
 import com.squareup.kotlinpoet.U_LONG
 import com.squareup.kotlinpoet.U_SHORT
+import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.log.logger
@@ -57,160 +58,7 @@ class ProcessorContext(
     private val repositories: List<GirRepository>,
     private val config: Config,
 ) {
-    private val typeInfoTable: Map<String, TypeInfo> = mapOf(
-        "none" to TypeInfo.Primitive(UNIT),
-        "GType" to TypeInfo.Primitive(U_LONG),
-        "gchar" to TypeInfo.GChar(BYTE, CHAR),
-        "gdouble" to TypeInfo.Primitive(DOUBLE),
-        "gfloat" to TypeInfo.Primitive(FLOAT),
-        "gint" to TypeInfo.Primitive(INT),
-        "gint16" to TypeInfo.Primitive(SHORT),
-        "gint32" to TypeInfo.Primitive(INT),
-        "gint64" to TypeInfo.Primitive(LONG),
-        "gint8" to TypeInfo.Primitive(BYTE),
-        "glong" to TypeInfo.Primitive(LONG),
-        "gsize" to TypeInfo.Primitive(U_LONG),
-        "gssize" to TypeInfo.Primitive(LONG),
-        "guint" to TypeInfo.Primitive(U_INT),
-        "guint16" to TypeInfo.Primitive(U_SHORT),
-        "guint32" to TypeInfo.Primitive(U_INT),
-        "guint64" to TypeInfo.Primitive(U_LONG),
-        "guint8" to TypeInfo.Primitive(U_BYTE),
-        "gulong" to TypeInfo.Primitive(U_LONG),
-        "gunichar" to TypeInfo.Primitive(U_INT),
-    )
-
-    /**
-     * A set of C identifiers for gir objects that should not be generated.
-     */
-    private val ignoredTypes = hashSetOf(
-        // bitfield members not found through cinterop
-        "GdkPixbufFormatFlags",
-        "GIOCondition",
-
-        // callback returning a String
-        "GtkScaleFormatValueFunc",
-
-        // Issues with Context being defined in pango, but used in pangocairo callbacks?
-        "PangoContext",
-        "Context",
-        "Region",
-        "CairoRegion",
-
-        // not a pointed type, simd vector?
-        "graphene_simd4f_t",
-
-        // Can't find it in Ubuntu 24.04
-        "GThreadedResolver",
-    )
-
-    /**
-     * A set of C functions that should not be generated.
-     */
-    private val ignoredFunctions = hashSetOf(
-        // problems with Snapshot class
-        "gtk_widget_snapshot_child",
-
-        // problems with string argument conversion
-        "gtk_string_list_take",
-        "gsk_debug_node_new",
-
-        // ignored because the overridden return value is not a subtype of the parent
-        // widget get_name is not nullable (according to gir)
-        // while preferences_page_get_name is nullable
-        "adw_preferences_page_get_name",
-        "adw_preferences_page_set_name",
-
-        // problems with mismatched return type
-        "cairo_image_surface_create",
-
-        // problems with enum conversion (might be strictEnum?)
-        "hb_glib_script_from_script",
-        "hb_glib_script_to_script",
-
-        // which def file should include this (gio or glib)?
-        "g_networking_init",
-        "g_io_channel_get_buffer_condition",
-
-        // error pointer argument
-        "g_prefix_error_literal",
-        "g_trash_stack_height",
-
-        "pango_font_map_create_context",
-        "pango_layout_get_context",
-
-        "gtk_print_context_create_pango_context",
-        "gtk_print_context_get_cairo_context",
-        "gtk_text_view_get_ltr_context",
-        "gtk_text_view_get_rtl_context",
-        "gtk_widget_create_pango_context",
-        "gtk_widget_get_pango_context",
-
-        // problem because it needs a GObjectClass struct
-        "gtk_editable_install_properties",
-
-        // problem because it uses a callback with a string return value
-        "g_option_group_set_translate_func",
-
-        // some string pointer functions
-        "g_date_strftime",
-        "g_stpcpy",
-        "g_value_set_string_take_ownership",
-        "g_value_take_string",
-
-        // ThreadFunc is not supported yet
-        "g_thread_try_new",
-        "g_thread_new",
-
-        // DBusProxyTypeFunc is not supported yet
-        "g_dbus_object_manager_client_new_for_bus_sync",
-        "g_dbus_object_manager_client_new_sync",
-
-        "g_variant_get_gtype",
-        // GtkSource, problem with enum parameter value
-        "gtk_source_view_get_gutter",
-
-        // GLib gstdio macros
-        "g_chmod",
-        "g_creat",
-        "g_fsync",
-        "g_mkdir",
-        "g_open",
-        "g_remove",
-        "g_rename",
-
-        "g_tree_traverse",
-    )
-
-    /**
-     * A set of signals that should not be generated.
-     */
-    private val ignoredSignals = hashSetOf(
-        // problems with string conversion in signal handler
-        "format-entry-text",
-        // problems with pango/cairo region
-        "render", // Surface
-
-        "query-tooltip-markup",
-        "query-tooltip-text",
-    )
-
-    /**
-     * A set of C identifiers for enum that cinterop cannot map using `strictEnums`
-     * and need their native members imported directly in the package.
-     */
-    private val enumsWithDirectImportOverride = hashSetOf(
-        // cairo
-        "cairo_format_t",
-        "cairo_content_t",
-        "cairo_device_type_t",
-        "cairo_status_t",
-        "cairo_text_cluster_flags_t",
-        // GtkSource-5
-        "GtkSourceCompletionActivation",
-        "GtkSourceCompletionColumn",
-        "GtkSourceViewGutterPosition",
-    )
+    private val optInVersionBlueprintsMap = mutableMapOf<GirNamespace, MutableSet<OptInVersionBlueprint>>()
 
     // object lookups methods
     fun findRepositoryByNameOrNull(name: String): GirRepository? = repositories.find { it.namespace.name == name }
@@ -760,4 +608,174 @@ class ProcessorContext(
         ?.replace("%TRUE", "true")
         ?.replace("%FALSE", "false")
         ?.replace("%NULL", "null")
+
+    fun addOptInVersionsBlueprints(namespace: GirNamespace, optInVersionBlueprint: OptInVersionBlueprint?) {
+        if (optInVersionBlueprint != null) {
+            val set = optInVersionBlueprintsMap.getOrPut(namespace) { mutableSetOf() }
+            set.add(optInVersionBlueprint)
+        }
+    }
+
+    fun getOptInVersionsBlueprints(namespace: GirNamespace): Set<OptInVersionBlueprint> =
+        optInVersionBlueprintsMap[namespace]?.toSet().orEmpty()
+
+    companion object {
+        private val typeInfoTable: Map<String, TypeInfo> = mapOf(
+            "none" to TypeInfo.Primitive(UNIT),
+            "GType" to TypeInfo.Primitive(U_LONG),
+            "gchar" to TypeInfo.GChar(BYTE, CHAR),
+            "gdouble" to TypeInfo.Primitive(DOUBLE),
+            "gfloat" to TypeInfo.Primitive(FLOAT),
+            "gint" to TypeInfo.Primitive(INT),
+            "gint16" to TypeInfo.Primitive(SHORT),
+            "gint32" to TypeInfo.Primitive(INT),
+            "gint64" to TypeInfo.Primitive(LONG),
+            "gint8" to TypeInfo.Primitive(BYTE),
+            "glong" to TypeInfo.Primitive(LONG),
+            "gsize" to TypeInfo.Primitive(U_LONG),
+            "gssize" to TypeInfo.Primitive(LONG),
+            "guint" to TypeInfo.Primitive(U_INT),
+            "guint16" to TypeInfo.Primitive(U_SHORT),
+            "guint32" to TypeInfo.Primitive(U_INT),
+            "guint64" to TypeInfo.Primitive(U_LONG),
+            "guint8" to TypeInfo.Primitive(U_BYTE),
+            "gulong" to TypeInfo.Primitive(U_LONG),
+            "gunichar" to TypeInfo.Primitive(U_INT),
+        )
+
+        /**
+         * A set of C identifiers for gir objects that should not be generated.
+         */
+        private val ignoredTypes = hashSetOf(
+            // bitfield members not found through cinterop
+            "GdkPixbufFormatFlags",
+            "GIOCondition",
+
+            // callback returning a String
+            "GtkScaleFormatValueFunc",
+
+            // Issues with Context being defined in pango, but used in pangocairo callbacks?
+            "PangoContext",
+            "Context",
+            "Region",
+            "CairoRegion",
+
+            // not a pointed type, simd vector?
+            "graphene_simd4f_t",
+
+            // Can't find it in Ubuntu 24.04
+            "GThreadedResolver",
+        )
+
+        /**
+         * A set of C functions that should not be generated.
+         */
+        private val ignoredFunctions = hashSetOf(
+            // problems with Snapshot class
+            "gtk_widget_snapshot_child",
+
+            // problems with string argument conversion
+            "gtk_string_list_take",
+            "gsk_debug_node_new",
+
+            // ignored because the overridden return value is not a subtype of the parent
+            // widget get_name is not nullable (according to gir)
+            // while preferences_page_get_name is nullable
+            "adw_preferences_page_get_name",
+            "adw_preferences_page_set_name",
+
+            // problems with mismatched return type
+            "cairo_image_surface_create",
+
+            // problems with enum conversion (might be strictEnum?)
+            "hb_glib_script_from_script",
+            "hb_glib_script_to_script",
+
+            // which def file should include this (gio or glib)?
+            "g_networking_init",
+            "g_io_channel_get_buffer_condition",
+
+            // error pointer argument
+            "g_prefix_error_literal",
+            "g_trash_stack_height",
+
+            "pango_font_map_create_context",
+            "pango_layout_get_context",
+
+            "gtk_print_context_create_pango_context",
+            "gtk_print_context_get_cairo_context",
+            "gtk_text_view_get_ltr_context",
+            "gtk_text_view_get_rtl_context",
+            "gtk_widget_create_pango_context",
+            "gtk_widget_get_pango_context",
+
+            // problem because it needs a GObjectClass struct
+            "gtk_editable_install_properties",
+
+            // problem because it uses a callback with a string return value
+            "g_option_group_set_translate_func",
+
+            // some string pointer functions
+            "g_date_strftime",
+            "g_stpcpy",
+            "g_value_set_string_take_ownership",
+            "g_value_take_string",
+
+            // ThreadFunc is not supported yet
+            "g_thread_try_new",
+            "g_thread_new",
+
+            // DBusProxyTypeFunc is not supported yet
+            "g_dbus_object_manager_client_new_for_bus_sync",
+            "g_dbus_object_manager_client_new_sync",
+
+            "g_variant_get_gtype",
+            // GtkSource, problem with enum parameter value
+            "gtk_source_view_get_gutter",
+
+            // GLib gstdio macros
+            "g_chmod",
+            "g_creat",
+            "g_fsync",
+            "g_mkdir",
+            "g_open",
+            "g_remove",
+            "g_rename",
+
+            "g_tree_traverse",
+
+            // On Fedora 41 this is listed in the GIR but the header file is missing
+            "g_set_prgname_once",
+        )
+
+        /**
+         * A set of signals that should not be generated.
+         */
+        private val ignoredSignals = hashSetOf(
+            // problems with string conversion in signal handler
+            "format-entry-text",
+            // problems with pango/cairo region
+            "render", // Surface
+
+            "query-tooltip-markup",
+            "query-tooltip-text",
+        )
+
+        /**
+         * A set of C identifiers for enum that cinterop cannot map using `strictEnums`
+         * and need their native members imported directly in the package.
+         */
+        private val enumsWithDirectImportOverride = hashSetOf(
+            // cairo
+            "cairo_format_t",
+            "cairo_content_t",
+            "cairo_device_type_t",
+            "cairo_status_t",
+            "cairo_text_cluster_flags_t",
+            // GtkSource-5
+            "GtkSourceCompletionActivation",
+            "GtkSourceCompletionColumn",
+            "GtkSourceViewGutterPosition",
+        )
+    }
 }

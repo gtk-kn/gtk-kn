@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -63,6 +64,7 @@ import kotlin.Unit
  *
  * @since 2.76
  */
+@GLibVersion2_76
 public class PathBuf(
     pointer: CPointer<GPathBuf>,
 ) : Record {
@@ -77,6 +79,7 @@ public class PathBuf(
      *
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun clear(): Unit = g_path_buf_clear(glibPathBufPointer.reinterpret())
 
     /**
@@ -89,6 +92,7 @@ public class PathBuf(
      * @return the built path
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun clearToPath(): String? = g_path_buf_clear_to_path(glibPathBufPointer.reinterpret())?.toKString()
 
     /**
@@ -96,6 +100,7 @@ public class PathBuf(
      *
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun free(): Unit = g_path_buf_free(glibPathBufPointer.reinterpret())
 
     /**
@@ -109,6 +114,7 @@ public class PathBuf(
      * @return the path
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun freeToPath(): String? = g_path_buf_free_to_path(glibPathBufPointer.reinterpret())?.toKString()
 
     /**
@@ -117,6 +123,7 @@ public class PathBuf(
      * @return the initialized path builder
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun `init`(): PathBuf =
         g_path_buf_init(glibPathBufPointer.reinterpret())!!.run {
             PathBuf(reinterpret())
@@ -129,6 +136,7 @@ public class PathBuf(
      * @return the initialized path builder
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun initFromPath(path: String? = null): PathBuf =
         g_path_buf_init_from_path(glibPathBufPointer.reinterpret(), path)!!.run {
             PathBuf(reinterpret())
@@ -162,6 +170,7 @@ public class PathBuf(
      * @return `TRUE` if the buffer was modified and `FALSE` otherwise
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun pop(): Boolean = g_path_buf_pop(glibPathBufPointer.reinterpret()).asBoolean()
 
     /**
@@ -197,6 +206,7 @@ public class PathBuf(
      * @return the same pointer to @buf, for convenience
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun push(path: String): PathBuf =
         g_path_buf_push(glibPathBufPointer.reinterpret(), path)!!.run {
             PathBuf(reinterpret())
@@ -214,6 +224,7 @@ public class PathBuf(
      * @return `TRUE` if the extension was replaced, and `FALSE` otherwise
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun setExtension(extension: String? = null): Boolean =
         g_path_buf_set_extension(glibPathBufPointer.reinterpret(), extension).asBoolean()
 
@@ -253,6 +264,7 @@ public class PathBuf(
      * @return `TRUE` if the file name was replaced, and `FALSE` otherwise
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun setFilename(fileName: String): Boolean =
         g_path_buf_set_filename(glibPathBufPointer.reinterpret(), fileName).asBoolean()
 
@@ -267,6 +279,7 @@ public class PathBuf(
      * @return the path
      * @since 2.76
      */
+    @GLibVersion2_76
     public fun toPath(): String? = g_path_buf_to_path(glibPathBufPointer.reinterpret())?.toKString()
 
     public companion object : RecordCompanion<PathBuf, GPathBuf> {

@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
@@ -37,6 +38,7 @@ import kotlin.Unit
  * [method@Gio.IOExtensionPoint.get_extension_by_name].
  * @since 2.26
  */
+@GioVersion2_26
 public interface Proxy :
     Interface,
     KGTyped {
@@ -56,6 +58,7 @@ public interface Proxy :
      *               will be added.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun connect(
         connection: IOStream,
         proxyAddress: ProxyAddress,
@@ -90,6 +93,7 @@ public interface Proxy :
      * @param callback a #GAsyncReadyCallback
      * @since 2.26
      */
+    @GioVersion2_26
     public fun connectAsync(
         connection: IOStream,
         proxyAddress: ProxyAddress,
@@ -112,6 +116,7 @@ public interface Proxy :
      * @return a #GIOStream.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun connectFinish(result: AsyncResult): Result<IOStream> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -139,6 +144,7 @@ public interface Proxy :
      * @return true if hostname resolution is supported.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun supportsHostname(): Boolean = g_proxy_supports_hostname(gioProxyPointer.reinterpret()).asBoolean()
 
     private data class Wrapper(
@@ -166,6 +172,7 @@ public interface Proxy :
          *               is not supported.
          * @since 2.26
          */
+        @GioVersion2_26
         public fun getDefaultForProtocol(protocol: String): Proxy? =
             g_proxy_get_default_for_protocol(protocol)?.run {
                 Proxy.wrap(reinterpret())

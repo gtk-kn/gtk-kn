@@ -6,6 +6,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_2
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoGlyphItem
@@ -114,6 +117,7 @@ public class GlyphItem(
      *   g_slist_free().
      * @since 1.2
      */
+    @PangoVersion1_2
     public fun applyAttrs(
         text: String,
         list: AttrList,
@@ -128,6 +132,7 @@ public class GlyphItem(
      * @return the newly allocated `PangoGlyphItem`
      * @since 1.20
      */
+    @PangoVersion1_20
     public fun copy(): GlyphItem? =
         pango_glyph_item_copy(pangoGlyphItemPointer.reinterpret())?.run {
             GlyphItem(reinterpret())
@@ -138,6 +143,7 @@ public class GlyphItem(
      *
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun free(): Unit = pango_glyph_item_free(pangoGlyphItemPointer.reinterpret())
 
     /**
@@ -161,6 +167,7 @@ public class GlyphItem(
      *   with pango_glyph_item_free().
      * @since 1.2
      */
+    @PangoVersion1_2
     public fun split(
         text: String,
         splitIndex: Int,

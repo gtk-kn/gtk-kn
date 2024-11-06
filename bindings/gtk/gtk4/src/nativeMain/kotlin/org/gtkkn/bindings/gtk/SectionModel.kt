@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -47,6 +48,7 @@ import kotlin.Unit
  *
  * @since 4.12
  */
+@GtkVersion4_12
 public interface SectionModel :
     Interface,
     ListModel,
@@ -83,6 +85,7 @@ public interface SectionModel :
      * @param handler the Callback to connect. Params: `position` The first item that may have changed; `nItems` number of items with changes
      * @since 4.12
      */
+    @GtkVersion4_12
     public fun connectSectionsChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (position: UInt, nItems: UInt) -> Unit,

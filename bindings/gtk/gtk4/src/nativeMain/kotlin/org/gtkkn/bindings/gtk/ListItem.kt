@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -61,6 +62,7 @@ public open class ListItem(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var accessibleDescription: String
         /**
          * Gets the accessible description of @self.
@@ -79,6 +81,7 @@ public open class ListItem(
          * @param description the description
          * @since 4.12
          */
+        @GtkVersion4_12
         set(description) = gtk_list_item_set_accessible_description(gtkListItemPointer.reinterpret(), description)
 
     /**
@@ -86,6 +89,7 @@ public open class ListItem(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var accessibleLabel: String
         /**
          * Gets the accessible label of @self.
@@ -104,6 +108,7 @@ public open class ListItem(
          * @param label the label
          * @since 4.12
          */
+        @GtkVersion4_12
         set(label) = gtk_list_item_set_accessible_label(gtkListItemPointer.reinterpret(), label)
 
     /**
@@ -164,6 +169,7 @@ public open class ListItem(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var focusable: Boolean
         /**
          * Checks if a list item has been set to be focusable via
@@ -188,6 +194,7 @@ public open class ListItem(
          * @param focusable if the item should be focusable
          * @since 4.12
          */
+        @GtkVersion4_12
         set(focusable) = gtk_list_item_set_focusable(gtkListItemPointer.reinterpret(), focusable.asGBoolean())
 
     /**
@@ -271,6 +278,7 @@ public open class ListItem(
      * @return the accessible description
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getAccessibleDescription(): String =
         gtk_list_item_get_accessible_description(gtkListItemPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -281,6 +289,7 @@ public open class ListItem(
      * @return the accessible label
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getAccessibleLabel(): String =
         gtk_list_item_get_accessible_label(gtkListItemPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -312,6 +321,7 @@ public open class ListItem(
      * @return true if the item is focusable
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getFocusable(): Boolean = gtk_list_item_get_focusable(gtkListItemPointer.reinterpret()).asBoolean()
 
     /**
@@ -363,6 +373,7 @@ public open class ListItem(
      * @param description the description
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setAccessibleDescription(description: String): Unit =
         gtk_list_item_set_accessible_description(gtkListItemPointer.reinterpret(), description)
 
@@ -373,6 +384,7 @@ public open class ListItem(
      * @param label the label
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setAccessibleLabel(label: String): Unit =
         gtk_list_item_set_accessible_label(gtkListItemPointer.reinterpret(), label)
 
@@ -418,6 +430,7 @@ public open class ListItem(
      * @param focusable if the item should be focusable
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setFocusable(focusable: Boolean): Unit =
         gtk_list_item_set_focusable(gtkListItemPointer.reinterpret(), focusable.asGBoolean())
 

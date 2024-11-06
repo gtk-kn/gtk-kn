@@ -9,6 +9,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_20
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -270,6 +272,7 @@ public open class DataInputStream(
      * @param callback callback to call when the request is satisfied.
      * @since 2.20
      */
+    @GioVersion2_20
     public open fun readLineAsync(
         ioPriority: Int,
         cancellable: Cancellable? = null,
@@ -392,6 +395,7 @@ public open class DataInputStream(
      * @param callback callback to call when the request is satisfied.
      * @since 2.20
      */
+    @GioVersion2_20
     public open fun readUntilAsync(
         stopChars: String,
         ioPriority: Int,
@@ -431,6 +435,7 @@ public open class DataInputStream(
      * @param callback callback to call when the request is satisfied
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun readUptoAsync(
         stopChars: String,
         stopCharsLen: Long,

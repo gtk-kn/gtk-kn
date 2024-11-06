@@ -42,7 +42,8 @@ import kotlin.Unit
  */
 public open class File(
     pointer: CPointer<GtkSourceFile>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceFilePointer: CPointer<GtkSourceFile>
         get() = gPointer.reinterpret()
 
@@ -138,7 +139,8 @@ public open class File(
      */
     public open fun getLocation(): org.gtkkn.bindings.gio.File =
         gtk_source_file_get_location(gtksourceFilePointer.reinterpret())!!.run {
-            org.gtkkn.bindings.gio.File.wrap(reinterpret())
+            org.gtkkn.bindings.gio.File
+                .wrap(reinterpret())
         }
 
     /**
@@ -199,10 +201,7 @@ public open class File(
      * @param location the new #GFile, or null.
      */
     public open fun setLocation(location: org.gtkkn.bindings.gio.File? = null): Unit =
-        gtk_source_file_set_location(
-            gtksourceFilePointer.reinterpret(),
-            location?.gioFilePointer
-        )
+        gtk_source_file_set_location(gtksourceFilePointer.reinterpret(), location?.gioFilePointer)
 
     public companion object : TypeCompanion<File> {
         override val type: GeneratedClassKGType<File> =

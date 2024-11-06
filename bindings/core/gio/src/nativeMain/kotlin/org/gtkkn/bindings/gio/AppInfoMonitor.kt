@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -63,6 +64,7 @@ import kotlin.Unit
  * on every change is pointless and expensive.
  * @since 2.40
  */
+@GioVersion2_40
 public open class AppInfoMonitor(
     pointer: CPointer<GAppInfoMonitor>,
 ) : Object(pointer.reinterpret()),
@@ -78,6 +80,7 @@ public open class AppInfoMonitor(
      * @param handler the Callback to connect
      * @since 2.40
      */
+    @GioVersion2_40
     public fun connectChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,
@@ -117,6 +120,7 @@ public open class AppInfoMonitor(
          * @return a reference to a #GAppInfoMonitor
          * @since 2.40
          */
+        @GioVersion2_40
         public fun `get`(): AppInfoMonitor =
             g_app_info_monitor_get()!!.run {
                 AppInfoMonitor(reinterpret())

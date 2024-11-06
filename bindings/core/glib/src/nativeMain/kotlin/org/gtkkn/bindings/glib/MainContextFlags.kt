@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_72
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.glib.GMainContextFlags
 import org.gtkkn.native.glib.G_MAIN_CONTEXT_FLAGS_NONE
@@ -16,6 +17,7 @@ public class MainContextFlags(
 ) : Bitfield<MainContextFlags> {
     override infix fun or(other: MainContextFlags): MainContextFlags = MainContextFlags(mask or other.mask)
 
+    @GLibVersion2_72
     public companion object {
         /**
          * Default behaviour.

@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gobject
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -113,6 +114,7 @@ public open class TypeModule(
      * @return the new or existing type ID
      * @since 2.6
      */
+    @GObjectVersion2_6
     public open fun registerEnum(
         name: String,
         constStaticValues: EnumValue,
@@ -143,6 +145,7 @@ public open class TypeModule(
      * @return the new or existing type ID
      * @since 2.6
      */
+    @GObjectVersion2_6
     public open fun registerFlags(
         name: String,
         constStaticValues: FlagsValue,

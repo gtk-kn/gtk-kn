@@ -25,6 +25,6 @@ data class BitfieldBlueprint(
     val members: List<BitfieldMemberBlueprint>,
     val functionBlueprints: List<FunctionBlueprint>,
     val nativeValueTypeName: TypeName,
-    val version: String?,
+    val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
 )

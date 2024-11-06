@@ -10,6 +10,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.ConnectFlags
@@ -108,6 +109,7 @@ public interface ActionGroup :
      * @param actionName the name of an action in the group
      * @since 2.28
      */
+    @GioVersion2_28
     public fun actionAdded(actionName: String): Unit =
         g_action_group_action_added(gioActionGroupPointer.reinterpret(), actionName)
 
@@ -120,6 +122,7 @@ public interface ActionGroup :
      * @param enabled whether or not the action is now enabled
      * @since 2.28
      */
+    @GioVersion2_28
     public fun actionEnabledChanged(
         actionName: String,
         enabled: Boolean,
@@ -134,6 +137,7 @@ public interface ActionGroup :
      * @param actionName the name of an action in the group
      * @since 2.28
      */
+    @GioVersion2_28
     public fun actionRemoved(actionName: String): Unit =
         g_action_group_action_removed(gioActionGroupPointer.reinterpret(), actionName)
 
@@ -146,6 +150,7 @@ public interface ActionGroup :
      * @param state the new state of the named action
      * @since 2.28
      */
+    @GioVersion2_28
     public fun actionStateChanged(
         actionName: String,
         state: Variant,
@@ -191,6 +196,7 @@ public interface ActionGroup :
      * @param parameter parameters to the activation
      * @since 2.28
      */
+    @GioVersion2_28
     public fun activateAction_(
         actionName: String,
         parameter: Variant? = null,
@@ -214,6 +220,7 @@ public interface ActionGroup :
      * @param value the new state
      * @since 2.28
      */
+    @GioVersion2_28
     public fun changeActionState(
         actionName: String,
         `value`: Variant,
@@ -230,6 +237,7 @@ public interface ActionGroup :
      * @return whether or not the action is currently enabled
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getActionEnabled(actionName: String): Boolean =
         g_action_group_get_action_enabled(gioActionGroupPointer.reinterpret(), actionName).asBoolean()
 
@@ -252,6 +260,7 @@ public interface ActionGroup :
      * @return the parameter type
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getActionParameterType(actionName: String): VariantType? =
         g_action_group_get_action_parameter_type(gioActionGroupPointer.reinterpret(), actionName)?.run {
             VariantType(reinterpret())
@@ -271,6 +280,7 @@ public interface ActionGroup :
      * @return the current state of the action
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getActionState(actionName: String): Variant? =
         g_action_group_get_action_state(gioActionGroupPointer.reinterpret(), actionName)?.run {
             Variant(reinterpret())
@@ -300,6 +310,7 @@ public interface ActionGroup :
      * @return the state range hint
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getActionStateHint(actionName: String): Variant? =
         g_action_group_get_action_state_hint(gioActionGroupPointer.reinterpret(), actionName)?.run {
             Variant(reinterpret())
@@ -327,6 +338,7 @@ public interface ActionGroup :
      * @return the state type, if the action is stateful
      * @since 2.28
      */
+    @GioVersion2_28
     public fun getActionStateType(actionName: String): VariantType? =
         g_action_group_get_action_state_type(gioActionGroupPointer.reinterpret(), actionName)?.run {
             VariantType(reinterpret())
@@ -339,6 +351,7 @@ public interface ActionGroup :
      * @return whether the named action exists
      * @since 2.28
      */
+    @GioVersion2_28
     public fun hasAction(actionName: String): Boolean =
         g_action_group_has_action(gioActionGroupPointer.reinterpret(), actionName).asBoolean()
 
@@ -352,6 +365,7 @@ public interface ActionGroup :
      * actions in the group
      * @since 2.28
      */
+    @GioVersion2_28
     public fun listActions(): List<String> =
         g_action_group_list_actions(gioActionGroupPointer.reinterpret())?.toKStringList()
             ?: error("Expected not null string array")
@@ -365,6 +379,7 @@ public interface ActionGroup :
      * @param handler the Callback to connect. Params: `actionName` the name of the action in @action_group
      * @since 2.28
      */
+    @GioVersion2_28
     public fun connectActionAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (actionName: String) -> Unit,
@@ -385,6 +400,7 @@ public interface ActionGroup :
      * @param handler the Callback to connect. Params: `actionName` the name of the action in @action_group; `enabled` whether the action is enabled or not
      * @since 2.28
      */
+    @GioVersion2_28
     public fun connectActionEnabledChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (actionName: String, enabled: Boolean) -> Unit,
@@ -407,6 +423,7 @@ public interface ActionGroup :
      * @param handler the Callback to connect. Params: `actionName` the name of the action in @action_group
      * @since 2.28
      */
+    @GioVersion2_28
     public fun connectActionRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (actionName: String) -> Unit,
@@ -427,6 +444,7 @@ public interface ActionGroup :
      * @param handler the Callback to connect. Params: `actionName` the name of the action in @action_group; `value` the new value of the state
      * @since 2.28
      */
+    @GioVersion2_28
     public fun connectActionStateChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (actionName: String, `value`: Variant) -> Unit,

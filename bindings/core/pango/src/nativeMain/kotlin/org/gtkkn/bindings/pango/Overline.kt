@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.native.pango.PangoOverline
 import org.gtkkn.native.pango.PangoOverline.PANGO_OVERLINE_NONE
 import org.gtkkn.native.pango.PangoOverline.PANGO_OVERLINE_SINGLE
@@ -10,6 +11,7 @@ import org.gtkkn.native.pango.PangoOverline.PANGO_OVERLINE_SINGLE
  * should be overlined, and if so, the type of line.
  * @since 1.46
  */
+@PangoVersion1_46
 public enum class Overline(
     public val nativeValue: PangoOverline,
 ) {

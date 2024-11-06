@@ -42,7 +42,8 @@ import kotlin.Unit
  */
 public open class GutterRendererPixbuf(
     pointer: CPointer<GtkSourceGutterRendererPixbuf>,
-) : GutterRenderer(pointer.reinterpret()), KGTyped {
+) : GutterRenderer(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceGutterRendererPixbufPointer: CPointer<GtkSourceGutterRendererPixbuf>
         get() = gPointer.reinterpret()
 
@@ -63,9 +64,7 @@ public open class GutterRendererPixbuf(
          * @return a #GdkPaintable or null
          */
         get() =
-            gtk_source_gutter_renderer_pixbuf_get_paintable(
-                gtksourceGutterRendererPixbufPointer.reinterpret()
-            )?.run {
+            gtk_source_gutter_renderer_pixbuf_get_paintable(gtksourceGutterRendererPixbufPointer.reinterpret())?.run {
                 Paintable.wrap(reinterpret())
             }
 
@@ -74,7 +73,9 @@ public open class GutterRendererPixbuf(
          *
          * @param paintable the paintable, or null.
          */
-        set(paintable) =
+        set(
+            paintable
+        ) =
             gtk_source_gutter_renderer_pixbuf_set_paintable(
                 gtksourceGutterRendererPixbufPointer.reinterpret(),
                 paintable?.gdkPaintablePointer
@@ -98,9 +99,7 @@ public open class GutterRendererPixbuf(
         }
 
     public open fun getIconName(): String =
-        gtk_source_gutter_renderer_pixbuf_get_icon_name(
-            gtksourceGutterRendererPixbufPointer.reinterpret()
-        )?.toKString()
+        gtk_source_gutter_renderer_pixbuf_get_icon_name(gtksourceGutterRendererPixbufPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -154,10 +153,7 @@ public open class GutterRendererPixbuf(
      * @param iconName the icon name, or null.
      */
     public open fun setIconName(iconName: String? = null): Unit =
-        gtk_source_gutter_renderer_pixbuf_set_icon_name(
-            gtksourceGutterRendererPixbufPointer.reinterpret(),
-            iconName
-        )
+        gtk_source_gutter_renderer_pixbuf_set_icon_name(gtksourceGutterRendererPixbufPointer.reinterpret(), iconName)
 
     /**
      *
@@ -183,9 +179,9 @@ public open class GutterRendererPixbuf(
 
     public companion object : TypeCompanion<GutterRendererPixbuf> {
         override val type: GeneratedClassKGType<GutterRendererPixbuf> =
-            GeneratedClassKGType(gtk_source_gutter_renderer_pixbuf_get_type()) {
-                GutterRendererPixbuf(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                gtk_source_gutter_renderer_pixbuf_get_type()
+            ) { GutterRendererPixbuf(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

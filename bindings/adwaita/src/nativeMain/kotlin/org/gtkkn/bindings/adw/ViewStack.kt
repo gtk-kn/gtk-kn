@@ -4,6 +4,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.gtk.SelectionModel
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
@@ -273,6 +274,7 @@ public class ViewStack(
      * @return the `AdwViewStackPage` for @child
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun addTitledWithIcon(
         child: Widget,
         name: String? = null,

@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
@@ -82,6 +83,7 @@ import kotlin.Unit
  *
  * @since 1.4
  */
+@AdwVersion1_4
 public class Breakpoint(
     pointer: CPointer<AdwBreakpoint>,
 ) : Object(pointer.reinterpret()),
@@ -98,6 +100,7 @@ public class Breakpoint(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var condition: BreakpointCondition?
         /**
          * Gets the condition for @self.
@@ -116,6 +119,7 @@ public class Breakpoint(
          * @param condition the new condition
          * @since 1.4
          */
+        @AdwVersion1_4
         set(
             condition
         ) = adw_breakpoint_set_condition(adwBreakpointPointer.reinterpret(), condition?.adwBreakpointConditionPointer)
@@ -174,6 +178,7 @@ public class Breakpoint(
      * @param value the value to set
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun addSetter(
         `object`: Object,
         `property`: String,
@@ -192,6 +197,7 @@ public class Breakpoint(
      * @return the condition
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getCondition(): BreakpointCondition? =
         adw_breakpoint_get_condition(adwBreakpointPointer.reinterpret())?.run {
             BreakpointCondition(reinterpret())
@@ -203,6 +209,7 @@ public class Breakpoint(
      * @param condition the new condition
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setCondition(condition: BreakpointCondition? = null): Unit =
         adw_breakpoint_set_condition(adwBreakpointPointer.reinterpret(), condition?.adwBreakpointConditionPointer)
 
@@ -215,6 +222,7 @@ public class Breakpoint(
      * @param handler the Callback to connect
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun connectApply(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,
@@ -237,6 +245,7 @@ public class Breakpoint(
      * @param handler the Callback to connect
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun connectUnapply(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

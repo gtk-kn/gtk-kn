@@ -4,6 +4,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -213,6 +214,7 @@ public class HeaderBar(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var showBackButton: Boolean
         /**
          * Gets whether @self can show the back button.
@@ -231,6 +233,7 @@ public class HeaderBar(
          * @param showBackButton whether to show the back button
          * @since 1.4
          */
+        @AdwVersion1_4
         set(
             showBackButton
         ) = adw_header_bar_set_show_back_button(adwHeaderBarPointer.reinterpret(), showBackButton.asGBoolean())
@@ -306,6 +309,7 @@ public class HeaderBar(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var showTitle: Boolean
         /**
          * Gets whether the title widget should be shown.
@@ -321,6 +325,7 @@ public class HeaderBar(
          * @param showTitle whether the title widget is visible
          * @since 1.4
          */
+        @AdwVersion1_4
         set(showTitle) = adw_header_bar_set_show_title(adwHeaderBarPointer.reinterpret(), showTitle.asGBoolean())
 
     /**
@@ -411,6 +416,7 @@ public class HeaderBar(
      * @return whether to show the back button
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getShowBackButton(): Boolean =
         adw_header_bar_get_show_back_button(adwHeaderBarPointer.reinterpret()).asBoolean()
 
@@ -436,6 +442,7 @@ public class HeaderBar(
      * @return whether the title widget should be shown.
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getShowTitle(): Boolean = adw_header_bar_get_show_title(adwHeaderBarPointer.reinterpret()).asBoolean()
 
     /**
@@ -511,6 +518,7 @@ public class HeaderBar(
      * @param showBackButton whether to show the back button
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setShowBackButton(showBackButton: Boolean): Unit =
         adw_header_bar_set_show_back_button(adwHeaderBarPointer.reinterpret(), showBackButton.asGBoolean())
 
@@ -548,6 +556,7 @@ public class HeaderBar(
      * @param showTitle whether the title widget is visible
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setShowTitle(showTitle: Boolean): Unit =
         adw_header_bar_set_show_title(adwHeaderBarPointer.reinterpret(), showTitle.asGBoolean())
 

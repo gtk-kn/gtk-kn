@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GOutputVector
@@ -22,6 +23,7 @@ import kotlin.ULong
  *
  * @since 2.22
  */
+@GioVersion2_22
 public class OutputVector(
     pointer: CPointer<GOutputVector>,
 ) : Record {

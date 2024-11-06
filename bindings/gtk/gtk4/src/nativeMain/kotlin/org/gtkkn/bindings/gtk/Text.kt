@@ -13,6 +13,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.graphene.Rect
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.bindings.pango.TabArray
 import org.gtkkn.extensions.common.asBoolean
@@ -587,6 +588,7 @@ public open class Text(
      * @param weak location to store the weak cursor position
      * @since 4.4
      */
+    @GtkVersion4_4
     public open fun computeCursorExtents(
         position: ULong,
         strong: Rect?,

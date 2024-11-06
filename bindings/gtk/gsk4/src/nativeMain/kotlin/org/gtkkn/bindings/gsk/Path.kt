@@ -7,6 +7,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Rect
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -57,6 +58,7 @@ import org.gtkkn.bindings.glib.String as GlibString
  *
  * @since 4.14
  */
+@GskVersion4_14
 public class Path(
     pointer: CPointer<GskPath>,
 ) : Record {
@@ -83,6 +85,7 @@ public class Path(
      * @return `FALSE` if @func returned FALSE`, `TRUE` otherwise.
      * @since 4.14
      */
+    @GskVersion4_14
     public fun foreach(
         flags: PathForeachFlags,
         func: PathForeachFunc,
@@ -115,6 +118,7 @@ public class Path(
      *   to be empty and have no bounds.
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getBounds(bounds: Rect): Boolean =
         gsk_path_get_bounds(gskPathPointer.reinterpret(), bounds.grapheneRectPointer).asBoolean()
 
@@ -128,6 +132,7 @@ public class Path(
      * @return `TRUE` if @result was filled
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getEndPoint(result: PathPoint): Boolean =
         gsk_path_get_end_point(gskPathPointer.reinterpret(), result.gskPathPointPointer).asBoolean()
 
@@ -141,6 +146,7 @@ public class Path(
      * @return `TRUE` if @result was filled
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getStartPoint(result: PathPoint): Boolean =
         gsk_path_get_start_point(gskPathPointer.reinterpret(), result.gskPathPointPointer).asBoolean()
 
@@ -159,6 +165,7 @@ public class Path(
      *   to be empty and have no bounds.
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getStrokeBounds(
         stroke: Stroke,
         bounds: Rect,
@@ -182,6 +189,7 @@ public class Path(
      * @return `TRUE` if @point is inside
      * @since 4.14
      */
+    @GskVersion4_14
     public fun inFill(
         point: Point,
         fillRule: FillRule,
@@ -195,6 +203,7 @@ public class Path(
      * @return `TRUE` if the path is closed
      * @since 4.14
      */
+    @GskVersion4_14
     public fun isClosed(): Boolean = gsk_path_is_closed(gskPathPointer.reinterpret()).asBoolean()
 
     /**
@@ -203,6 +212,7 @@ public class Path(
      * @return `TRUE` if the path is empty
      * @since 4.14
      */
+    @GskVersion4_14
     public fun isEmpty(): Boolean = gsk_path_is_empty(gskPathPointer.reinterpret()).asBoolean()
 
     /**
@@ -216,6 +226,7 @@ public class Path(
      * @param string The string to print into
      * @since 4.14
      */
+    @GskVersion4_14
     public fun print(string: GlibString): Unit = gsk_path_print(gskPathPointer.reinterpret(), string.glibStringPointer)
 
     /**
@@ -224,6 +235,7 @@ public class Path(
      * @return the passed in `GskPath`.
      * @since 4.14
      */
+    @GskVersion4_14
     public fun ref(): Path =
         gsk_path_ref(gskPathPointer.reinterpret())!!.run {
             Path(reinterpret())
@@ -236,6 +248,7 @@ public class Path(
      *
      * @since 4.14
      */
+    @GskVersion4_14
     public fun unref(): Unit = gsk_path_unref(gskPathPointer.reinterpret())
 
     public companion object : RecordCompanion<Path, GskPath> {
@@ -270,6 +283,7 @@ public class Path(
          * @return a new `GskPath`, or `NULL` if @string could not be parsed
          * @since 4.14
          */
+        @GskVersion4_14
         public fun parse(string: KotlinString): Path? =
             gsk_path_parse(string)?.run {
                 Path(reinterpret())

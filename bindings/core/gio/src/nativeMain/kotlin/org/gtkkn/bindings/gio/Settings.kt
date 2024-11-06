@@ -11,6 +11,12 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
+import org.gtkkn.bindings.gio.annotations.GioVersion2_50
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
@@ -572,6 +578,7 @@ public open class Settings(
      * @param flags flags for the binding
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun bind(
         key: String,
         `object`: Object,
@@ -605,6 +612,7 @@ public open class Settings(
      * @param inverted whether to 'invert' the value
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun bindWritable(
         key: String,
         `object`: Object,
@@ -639,6 +647,7 @@ public open class Settings(
      * @return a new #GAction
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun createAction(key: String): Action =
         g_settings_create_action(gioSettingsPointer.reinterpret(), key)!!.run {
             Action.wrap(reinterpret())
@@ -651,6 +660,7 @@ public open class Settings(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun delay(): Unit = g_settings_delay(gioSettingsPointer.reinterpret())
 
     /**
@@ -665,6 +675,7 @@ public open class Settings(
      * @return a boolean
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getBoolean(key: String): Boolean =
         g_settings_get_boolean(gioSettingsPointer.reinterpret(), key).asBoolean()
 
@@ -683,6 +694,7 @@ public open class Settings(
      * @return a 'child' settings object
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getChild(name: String): Settings =
         g_settings_get_child(gioSettingsPointer.reinterpret(), name)!!.run {
             Settings(reinterpret())
@@ -715,6 +727,7 @@ public open class Settings(
      * @return the default value
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getDefaultValue(key: String): Variant? =
         g_settings_get_default_value(gioSettingsPointer.reinterpret(), key)?.run {
             Variant(reinterpret())
@@ -732,6 +745,7 @@ public open class Settings(
      * @return a double
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getDouble(key: String): Double = g_settings_get_double(gioSettingsPointer.reinterpret(), key)
 
     /**
@@ -752,6 +766,7 @@ public open class Settings(
      * @return the enum value
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getEnum(key: String): Int = g_settings_get_enum(gioSettingsPointer.reinterpret(), key)
 
     /**
@@ -772,6 +787,7 @@ public open class Settings(
      * @return the flags value
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getFlags(key: String): UInt = g_settings_get_flags(gioSettingsPointer.reinterpret(), key)
 
     /**
@@ -781,6 +797,7 @@ public open class Settings(
      * @return true if @settings has unapplied changes
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getHasUnapplied(): Boolean =
         g_settings_get_has_unapplied(gioSettingsPointer.reinterpret()).asBoolean()
 
@@ -796,6 +813,7 @@ public open class Settings(
      * @return an integer
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getInt(key: String): Int = g_settings_get_int(gioSettingsPointer.reinterpret(), key)
 
     /**
@@ -810,6 +828,7 @@ public open class Settings(
      * @return a 64-bit integer
      * @since 2.50
      */
+    @GioVersion2_50
     public open fun getInt64(key: String): Long = g_settings_get_int64(gioSettingsPointer.reinterpret(), key)
 
     /**
@@ -818,6 +837,7 @@ public open class Settings(
      * @param key the key to query the range of
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getRange(key: String): Variant =
         g_settings_get_range(gioSettingsPointer.reinterpret(), key)!!.run {
             Variant(reinterpret())
@@ -835,6 +855,7 @@ public open class Settings(
      * @return a newly-allocated string
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getString(key: String): String =
         g_settings_get_string(gioSettingsPointer.reinterpret(), key)?.toKString() ?: error("Expected not null string")
 
@@ -850,6 +871,7 @@ public open class Settings(
      * is stored at @key in @settings.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getStrv(key: String): List<String> =
         g_settings_get_strv(gioSettingsPointer.reinterpret(), key)?.toKStringList()
             ?: error("Expected not null string array")
@@ -867,6 +889,7 @@ public open class Settings(
      * @return an unsigned integer
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun getUint(key: String): UInt = g_settings_get_uint(gioSettingsPointer.reinterpret(), key)
 
     /**
@@ -882,6 +905,7 @@ public open class Settings(
      * @return a 64-bit unsigned integer
      * @since 2.50
      */
+    @GioVersion2_50
     public open fun getUint64(key: String): ULong = g_settings_get_uint64(gioSettingsPointer.reinterpret(), key)
 
     /**
@@ -908,6 +932,7 @@ public open class Settings(
      * @return the user's value, if set
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getUserValue(key: String): Variant? =
         g_settings_get_user_value(gioSettingsPointer.reinterpret(), key)?.run {
             Variant(reinterpret())
@@ -923,6 +948,7 @@ public open class Settings(
      * @return a new #GVariant
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getValue(key: String): Variant =
         g_settings_get_value(gioSettingsPointer.reinterpret(), key)!!.run {
             Variant(reinterpret())
@@ -935,6 +961,7 @@ public open class Settings(
      * @return true if the key @name is writable
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun isWritable(name: String): Boolean =
         g_settings_is_writable(gioSettingsPointer.reinterpret(), name).asBoolean()
 
@@ -984,6 +1011,7 @@ public open class Settings(
      * @return true if @value is valid for @key
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun rangeCheck(
         key: String,
         `value`: Variant,
@@ -1024,6 +1052,7 @@ public open class Settings(
      *     false if the key was not writable
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setBoolean(
         key: String,
         `value`: Boolean,
@@ -1043,6 +1072,7 @@ public open class Settings(
      *     false if the key was not writable
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setDouble(
         key: String,
         `value`: Double,
@@ -1105,6 +1135,7 @@ public open class Settings(
      *     false if the key was not writable
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setInt(
         key: String,
         `value`: Int,
@@ -1124,6 +1155,7 @@ public open class Settings(
      *     false if the key was not writable
      * @since 2.50
      */
+    @GioVersion2_50
     public open fun setInt64(
         key: String,
         `value`: Long,
@@ -1143,6 +1175,7 @@ public open class Settings(
      *     false if the key was not writable
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setString(
         key: String,
         `value`: String,
@@ -1163,6 +1196,7 @@ public open class Settings(
      *     false if the key was not writable
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setStrv(
         key: String,
         `value`: List<String>? = null,
@@ -1186,6 +1220,7 @@ public open class Settings(
      *     false if the key was not writable
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun setUint(
         key: String,
         `value`: UInt,
@@ -1206,6 +1241,7 @@ public open class Settings(
      *     false if the key was not writable
      * @since 2.50
      */
+    @GioVersion2_50
     public open fun setUint64(
         key: String,
         `value`: ULong,
@@ -1226,6 +1262,7 @@ public open class Settings(
      *     false if the key was not writable
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setValue(
         key: String,
         `value`: Variant,
@@ -1337,6 +1374,7 @@ public open class Settings(
          *   The list must not be modified or freed.
          * @since 2.28
          */
+        @GioVersion2_28
         public fun listRelocatableSchemas(): List<String> =
             g_settings_list_relocatable_schemas()?.toKStringList() ?: error("Expected not null string array")
 
@@ -1348,6 +1386,7 @@ public open class Settings(
          *   must not be modified or freed.
          * @since 2.26
          */
+        @GioVersion2_26
         public fun listSchemas(): List<String> =
             g_settings_list_schemas()?.toKStringList() ?: error("Expected not null string array")
 
@@ -1376,6 +1415,7 @@ public open class Settings(
          * @param property the property whose binding is removed
          * @since 2.26
          */
+        @GioVersion2_26
         public fun unbind(
             `object`: Object,
             `property`: String,

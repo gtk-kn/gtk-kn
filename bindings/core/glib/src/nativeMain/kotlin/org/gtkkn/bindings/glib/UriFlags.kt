@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.glib.GUriFlags
 import org.gtkkn.native.glib.G_URI_FLAGS_ENCODED
@@ -28,6 +29,7 @@ public class UriFlags(
 ) : Bitfield<UriFlags> {
     override infix fun or(other: UriFlags): UriFlags = UriFlags(mask or other.mask)
 
+    @GLibVersion2_66
     public companion object {
         /**
          * No flags set.

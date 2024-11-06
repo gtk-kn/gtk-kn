@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gobject
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GObjectClass
@@ -127,6 +128,7 @@ public class ObjectClass(
      *  in an interface of this class.
      * @since 2.4
      */
+    @GObjectVersion2_4
     public fun overrideProperty(
         propertyId: UInt,
         name: String,

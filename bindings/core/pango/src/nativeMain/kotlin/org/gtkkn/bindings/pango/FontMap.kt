@@ -5,6 +5,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_32_4
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_34
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -57,6 +60,7 @@ public open class FontMap(
      *
      * @since 1.34
      */
+    @PangoVersion1_34
     public open fun changed(): Unit = pango_font_map_changed(pangoFontMapPointer.reinterpret())
 
     /**
@@ -66,6 +70,7 @@ public open class FontMap(
      * @return the `PangoFontFamily`
      * @since 1.46
      */
+    @PangoVersion1_46
     public open fun getFamily(name: String): FontFamily =
         pango_font_map_get_family(pangoFontMapPointer.reinterpret(), name)!!.run {
             FontFamily(reinterpret())
@@ -88,6 +93,7 @@ public open class FontMap(
      * @return The current serial number of @fontmap.
      * @since 1.32.4
      */
+    @PangoVersion1_32_4
     public open fun getSerial(): UInt = pango_font_map_get_serial(pangoFontMapPointer.reinterpret())
 
     public companion object : TypeCompanion<FontMap> {

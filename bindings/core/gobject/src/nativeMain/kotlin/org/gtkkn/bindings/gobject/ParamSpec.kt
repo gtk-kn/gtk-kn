@@ -4,6 +4,10 @@ package org.gtkkn.bindings.gobject
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_38
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_46
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.native.gobject.GParamSpec
 import org.gtkkn.native.gobject.g_param_spec_get_blurb
@@ -63,6 +67,7 @@ public open class ParamSpec(
      * @return a pointer to a #GValue which must not be modified
      * @since 2.38
      */
+    @GObjectVersion2_38
     public open fun getDefaultValue(): Value =
         g_param_spec_get_default_value(gPointer.reinterpret())!!.run {
             Value(reinterpret())
@@ -85,6 +90,7 @@ public open class ParamSpec(
      * @return the GQuark for @pspec->name.
      * @since 2.46
      */
+    @GObjectVersion2_46
     public open fun getNameQuark(): UInt = g_param_spec_get_name_quark(gPointer.reinterpret())
 
     /**
@@ -108,6 +114,7 @@ public open class ParamSpec(
      *          paramspec should be redirected, or null if none.
      * @since 2.4
      */
+    @GObjectVersion2_4
     public open fun getRedirectTarget(): ParamSpec? =
         g_param_spec_get_redirect_target(gPointer.reinterpret())?.run {
             ParamSpec(reinterpret())
@@ -137,6 +144,7 @@ public open class ParamSpec(
          * @return true if @name is a valid property name, false otherwise.
          * @since 2.66
          */
+        @GObjectVersion2_66
         public fun isValidName(name: String): Boolean = g_param_spec_is_valid_name(name).asBoolean()
     }
 }

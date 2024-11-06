@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.native.gio.GTlsDatabaseLookupFlags
 import org.gtkkn.native.gio.GTlsDatabaseLookupFlags.G_TLS_DATABASE_LOOKUP_KEYPAIR
 import org.gtkkn.native.gio.GTlsDatabaseLookupFlags.G_TLS_DATABASE_LOOKUP_NONE
@@ -11,6 +12,7 @@ import org.gtkkn.native.gio.GTlsDatabaseLookupFlags.G_TLS_DATABASE_LOOKUP_NONE
  * and g_tls_database_lookup_certificates_issued_by().
  * @since 2.30
  */
+@GioVersion2_30
 public enum class TlsDatabaseLookupFlags(
     public val nativeValue: GTlsDatabaseLookupFlags,
 ) {

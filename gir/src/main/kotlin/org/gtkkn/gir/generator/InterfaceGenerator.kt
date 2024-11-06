@@ -32,7 +32,12 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             addProperty(buildAbstractInterfacePointerProperty(iface.objectPointerName, iface.objectPointerTypeName))
 
             // kdoc
-            addKdoc(buildTypeKDoc(iface.kdoc, iface.version, iface.skippedObjects))
+            addKdoc(buildTypeKDoc(iface.kdoc, iface.optInVersionBlueprint, iface.skippedObjects))
+
+            // optInVersion
+            iface.optInVersionBlueprint?.typeName?.let { annotationClassName ->
+                addAnnotation(annotationClassName)
+            }
 
             // marker interface
             addSuperinterface(BindingsGenerator.GLIB_INTERFACE_MARKER_TYPE)

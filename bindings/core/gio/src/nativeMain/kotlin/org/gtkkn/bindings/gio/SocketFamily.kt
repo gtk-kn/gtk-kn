@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.native.gio.GSocketFamily
 import org.gtkkn.native.gio.GSocketFamily.G_SOCKET_FAMILY_INVALID
 import org.gtkkn.native.gio.GSocketFamily.G_SOCKET_FAMILY_IPV4
@@ -13,6 +14,7 @@ import org.gtkkn.native.gio.GSocketFamily.G_SOCKET_FAMILY_UNIX
  * if available.)
  * @since 2.22
  */
+@GioVersion2_22
 public enum class SocketFamily(
     public val nativeValue: GSocketFamily,
 ) {

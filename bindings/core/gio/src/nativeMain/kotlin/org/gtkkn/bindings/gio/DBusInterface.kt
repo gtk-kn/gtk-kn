@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -22,6 +24,7 @@ import kotlin.Unit
  * (see [class@Gio.DBusProxy]).
  * @since 2.30
  */
+@GioVersion2_30
 public interface DBusInterface :
     Interface,
     KGTyped {
@@ -34,6 +37,7 @@ public interface DBusInterface :
      * reference should be freed with g_object_unref().
      * @since 2.32
      */
+    @GioVersion2_32
     public fun getObject(): DBusObject? =
         g_dbus_interface_dup_object(gioDBusInterfacePointer.reinterpret())?.run {
             DBusObject.wrap(reinterpret())
@@ -46,6 +50,7 @@ public interface DBusInterface :
      * @return A #GDBusInterfaceInfo. Do not free.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun getInfo(): DBusInterfaceInfo =
         g_dbus_interface_get_info(gioDBusInterfacePointer.reinterpret())!!.run {
             DBusInterfaceInfo(reinterpret())
@@ -59,6 +64,7 @@ public interface DBusInterface :
      * @param object A #GDBusObject or null.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun setObject(`object`: DBusObject? = null): Unit =
         g_dbus_interface_set_object(gioDBusInterfacePointer.reinterpret(), `object`?.gioDBusObjectPointer)
 

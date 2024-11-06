@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.native.gtk.GtkInscriptionOverflow
 import org.gtkkn.native.gtk.GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_CLIP
 import org.gtkkn.native.gtk.GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_ELLIPSIZE_END
@@ -12,6 +13,7 @@ import org.gtkkn.native.gtk.GtkInscriptionOverflow.GTK_INSCRIPTION_OVERFLOW_ELLI
  * fit the available space.
  * @since 4.8
  */
+@GtkVersion4_8
 public enum class InscriptionOverflow(
     public val nativeValue: GtkInscriptionOverflow,
 ) {

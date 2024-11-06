@@ -11,6 +11,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.License
 import org.gtkkn.extensions.common.asGBoolean
@@ -250,6 +251,7 @@ import kotlin.collections.List
  * style class `.about`.
  * @since 1.2
  */
+@AdwVersion1_2
 public class AboutWindow(
     pointer: CPointer<AdwAboutWindow>,
 ) : Window(pointer.reinterpret()),
@@ -282,6 +284,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var applicationIcon: String
         /**
          * Gets the name of the application icon for @self.
@@ -301,6 +304,7 @@ public class AboutWindow(
          * @param applicationIcon the application icon name
          * @since 1.2
          */
+        @AdwVersion1_2
         set(
             applicationIcon
         ) = adw_about_window_set_application_icon(adwAboutWindowPointer.reinterpret(), applicationIcon)
@@ -312,6 +316,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var applicationName: String
         /**
          * Gets the application name for @self.
@@ -331,6 +336,7 @@ public class AboutWindow(
          * @param applicationName the application name
          * @since 1.2
          */
+        @AdwVersion1_2
         set(
             applicationName
         ) = adw_about_window_set_application_name(adwAboutWindowPointer.reinterpret(), applicationName)
@@ -354,6 +360,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var artists: List<String>?
         /**
          * Gets the list of artists of the application.
@@ -383,6 +390,7 @@ public class AboutWindow(
          * @param artists the list of artists
          * @since 1.2
          */
+        @AdwVersion1_2
         set(artists) =
             memScoped {
                 return adw_about_window_set_artists(adwAboutWindowPointer.reinterpret(), artists?.toCStringList(this))
@@ -398,6 +406,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var comments: String
         /**
          * Gets the comments about the application.
@@ -420,6 +429,7 @@ public class AboutWindow(
          * @param comments the comments
          * @since 1.2
          */
+        @AdwVersion1_2
         set(comments) = adw_about_window_set_comments(adwAboutWindowPointer.reinterpret(), comments)
 
     /**
@@ -436,6 +446,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var copyright: String
         /**
          * Gets the copyright information for @self.
@@ -462,6 +473,7 @@ public class AboutWindow(
          * @param copyright the copyright information
          * @since 1.2
          */
+        @AdwVersion1_2
         set(copyright) = adw_about_window_set_copyright(adwAboutWindowPointer.reinterpret(), copyright)
 
     /**
@@ -479,6 +491,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var debugInfo: String
         /**
          * Gets the debug information for @self.
@@ -506,6 +519,7 @@ public class AboutWindow(
          * @param debugInfo the debug information
          * @since 1.2
          */
+        @AdwVersion1_2
         set(debugInfo) = adw_about_window_set_debug_info(adwAboutWindowPointer.reinterpret(), debugInfo)
 
     /**
@@ -518,6 +532,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var debugInfoFilename: String
         /**
          * Gets the debug information filename for @self.
@@ -540,6 +555,7 @@ public class AboutWindow(
          * @param filename the debug info filename
          * @since 1.2
          */
+        @AdwVersion1_2
         set(filename) = adw_about_window_set_debug_info_filename(adwAboutWindowPointer.reinterpret(), filename)
 
     /**
@@ -561,6 +577,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var designers: List<String>?
         /**
          * Gets the list of designers of the application.
@@ -590,6 +607,7 @@ public class AboutWindow(
          * @param designers the list of designers
          * @since 1.2
          */
+        @AdwVersion1_2
         set(designers) =
             memScoped {
                 return adw_about_window_set_designers(
@@ -612,6 +630,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var developerName: String
         /**
          * Gets the developer name for @self.
@@ -636,6 +655,7 @@ public class AboutWindow(
          * @param developerName the developer name
          * @since 1.2
          */
+        @AdwVersion1_2
         set(developerName) = adw_about_window_set_developer_name(adwAboutWindowPointer.reinterpret(), developerName)
 
     /**
@@ -657,6 +677,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var developers: List<String>?
         /**
          * Gets the list of developers of the application.
@@ -686,6 +707,7 @@ public class AboutWindow(
          * @param developers the list of developers
          * @since 1.2
          */
+        @AdwVersion1_2
         set(developers) =
             memScoped {
                 return adw_about_window_set_developers(
@@ -713,6 +735,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var documenters: List<String>?
         /**
          * Gets the list of documenters of the application.
@@ -742,6 +765,7 @@ public class AboutWindow(
          * @param documenters the list of documenters
          * @since 1.2
          */
+        @AdwVersion1_2
         set(documenters) =
             memScoped {
                 return adw_about_window_set_documenters(
@@ -757,6 +781,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var issueUrl: String
         /**
          * Gets the issue tracker URL for @self.
@@ -776,6 +801,7 @@ public class AboutWindow(
          * @param issueUrl the issue tracker URL
          * @since 1.2
          */
+        @AdwVersion1_2
         set(issueUrl) = adw_about_window_set_issue_url(adwAboutWindowPointer.reinterpret(), issueUrl)
 
     /**
@@ -797,6 +823,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var license: String
         /**
          * Gets the license for @self.
@@ -828,6 +855,7 @@ public class AboutWindow(
          * @param license the license
          * @since 1.2
          */
+        @AdwVersion1_2
         set(license) = adw_about_window_set_license(adwAboutWindowPointer.reinterpret(), license)
 
     /**
@@ -852,6 +880,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var licenseType: License
         /**
          * Gets the license type for @self.
@@ -885,6 +914,7 @@ public class AboutWindow(
          * @param licenseType the license type
          * @since 1.2
          */
+        @AdwVersion1_2
         set(
             licenseType
         ) = adw_about_window_set_license_type(adwAboutWindowPointer.reinterpret(), licenseType.nativeValue)
@@ -917,6 +947,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var releaseNotes: String
         /**
          * Gets the release notes for @self.
@@ -957,6 +988,7 @@ public class AboutWindow(
          * @param releaseNotes the release notes
          * @since 1.2
          */
+        @AdwVersion1_2
         set(releaseNotes) = adw_about_window_set_release_notes(adwAboutWindowPointer.reinterpret(), releaseNotes)
 
     /**
@@ -975,6 +1007,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var releaseNotesVersion: String
         /**
          * Gets the version described by the application's release notes.
@@ -1003,6 +1036,7 @@ public class AboutWindow(
          * @param version the release notes version
          * @since 1.2
          */
+        @AdwVersion1_2
         set(version) = adw_about_window_set_release_notes_version(adwAboutWindowPointer.reinterpret(), version)
 
     /**
@@ -1012,6 +1046,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var supportUrl: String
         /**
          * Gets the URL of the support page for @self.
@@ -1031,6 +1066,7 @@ public class AboutWindow(
          * @param supportUrl the support page URL
          * @since 1.2
          */
+        @AdwVersion1_2
         set(supportUrl) = adw_about_window_set_support_url(adwAboutWindowPointer.reinterpret(), supportUrl)
 
     /**
@@ -1055,6 +1091,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var translatorCredits: String
         /**
          * Gets the translator credits string.
@@ -1089,6 +1126,7 @@ public class AboutWindow(
          * @param translatorCredits the translator credits
          * @since 1.2
          */
+        @AdwVersion1_2
         set(
             translatorCredits
         ) = adw_about_window_set_translator_credits(adwAboutWindowPointer.reinterpret(), translatorCredits)
@@ -1103,6 +1141,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var version: String
         /**
          * Gets the version for @self.
@@ -1125,6 +1164,7 @@ public class AboutWindow(
          * @param version the version
          * @since 1.2
          */
+        @AdwVersion1_2
         set(version) = adw_about_window_set_version(adwAboutWindowPointer.reinterpret(), version)
 
     /**
@@ -1137,6 +1177,7 @@ public class AboutWindow(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var website: String
         /**
          * Gets the application website URL for @self.
@@ -1159,6 +1200,7 @@ public class AboutWindow(
          * @param website the website URL
          * @since 1.2
          */
+        @AdwVersion1_2
         set(website) = adw_about_window_set_website(adwAboutWindowPointer.reinterpret(), website)
 
     /**
@@ -1224,6 +1266,7 @@ public class AboutWindow(
      * @param people the list of names
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun addAcknowledgementSection(
         name: String? = null,
         people: List<String>,
@@ -1257,6 +1300,7 @@ public class AboutWindow(
      * @param people the list of names
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun addCreditSection(
         name: String? = null,
         people: List<String>,
@@ -1317,6 +1361,7 @@ public class AboutWindow(
      * @param license custom license information
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun addLegalSection(
         title: String,
         copyright: String? = null,
@@ -1344,6 +1389,7 @@ public class AboutWindow(
      * @param url the link URL
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun addLink(
         title: String,
         url: String,
@@ -1355,6 +1401,7 @@ public class AboutWindow(
      * @return the application icon name
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getApplicationIcon(): String =
         adw_about_window_get_application_icon(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1365,6 +1412,7 @@ public class AboutWindow(
      * @return the application name
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getApplicationName(): String =
         adw_about_window_get_application_name(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1375,6 +1423,7 @@ public class AboutWindow(
      * @return The list of artists
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getArtists(): List<String>? =
         adw_about_window_get_artists(adwAboutWindowPointer.reinterpret())?.toKStringList()
 
@@ -1384,6 +1433,7 @@ public class AboutWindow(
      * @return the comments
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getComments(): String =
         adw_about_window_get_comments(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1394,6 +1444,7 @@ public class AboutWindow(
      * @return the copyright information
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getCopyright(): String =
         adw_about_window_get_copyright(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1404,6 +1455,7 @@ public class AboutWindow(
      * @return the debug information
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getDebugInfo(): String =
         adw_about_window_get_debug_info(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1414,6 +1466,7 @@ public class AboutWindow(
      * @return the debug information filename
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getDebugInfoFilename(): String =
         adw_about_window_get_debug_info_filename(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1424,6 +1477,7 @@ public class AboutWindow(
      * @return The list of designers
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getDesigners(): List<String>? =
         adw_about_window_get_designers(adwAboutWindowPointer.reinterpret())?.toKStringList()
 
@@ -1433,6 +1487,7 @@ public class AboutWindow(
      * @return the developer_name
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getDeveloperName(): String =
         adw_about_window_get_developer_name(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1443,6 +1498,7 @@ public class AboutWindow(
      * @return The list of developers
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getDevelopers(): List<String>? =
         adw_about_window_get_developers(adwAboutWindowPointer.reinterpret())?.toKStringList()
 
@@ -1452,6 +1508,7 @@ public class AboutWindow(
      * @return The list of documenters
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getDocumenters(): List<String>? =
         adw_about_window_get_documenters(adwAboutWindowPointer.reinterpret())?.toKStringList()
 
@@ -1461,6 +1518,7 @@ public class AboutWindow(
      * @return the issue tracker URL
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getIssueUrl(): String =
         adw_about_window_get_issue_url(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1471,6 +1529,7 @@ public class AboutWindow(
      * @return the license
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getLicense(): String =
         adw_about_window_get_license(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1481,6 +1540,7 @@ public class AboutWindow(
      * @return the license type
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getLicenseType(): License =
         adw_about_window_get_license_type(adwAboutWindowPointer.reinterpret()).run {
             License.fromNativeValue(this)
@@ -1492,6 +1552,7 @@ public class AboutWindow(
      * @return the release notes
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getReleaseNotes(): String =
         adw_about_window_get_release_notes(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1502,6 +1563,7 @@ public class AboutWindow(
      * @return the release notes version
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getReleaseNotesVersion(): String =
         adw_about_window_get_release_notes_version(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1512,6 +1574,7 @@ public class AboutWindow(
      * @return the support page URL
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getSupportUrl(): String =
         adw_about_window_get_support_url(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1522,6 +1585,7 @@ public class AboutWindow(
      * @return The translator credits string
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getTranslatorCredits(): String =
         adw_about_window_get_translator_credits(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1532,6 +1596,7 @@ public class AboutWindow(
      * @return the version
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getVersion(): String =
         adw_about_window_get_version(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1542,6 +1607,7 @@ public class AboutWindow(
      * @return the website URL
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getWebsite(): String =
         adw_about_window_get_website(adwAboutWindowPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -1554,6 +1620,7 @@ public class AboutWindow(
      * @param applicationIcon the application icon name
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setApplicationIcon(applicationIcon: String): Unit =
         adw_about_window_set_application_icon(adwAboutWindowPointer.reinterpret(), applicationIcon)
 
@@ -1565,6 +1632,7 @@ public class AboutWindow(
      * @param applicationName the application name
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setApplicationName(applicationName: String): Unit =
         adw_about_window_set_application_name(adwAboutWindowPointer.reinterpret(), applicationName)
 
@@ -1588,6 +1656,7 @@ public class AboutWindow(
      * @param artists the list of artists
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setArtists(artists: List<String>? = null): Unit =
         memScoped {
             return adw_about_window_set_artists(adwAboutWindowPointer.reinterpret(), artists?.toCStringList(this))
@@ -1604,6 +1673,7 @@ public class AboutWindow(
      * @param comments the comments
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setComments(comments: String): Unit =
         adw_about_window_set_comments(adwAboutWindowPointer.reinterpret(), comments)
 
@@ -1622,6 +1692,7 @@ public class AboutWindow(
      * @param copyright the copyright information
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setCopyright(copyright: String): Unit =
         adw_about_window_set_copyright(adwAboutWindowPointer.reinterpret(), copyright)
 
@@ -1641,6 +1712,7 @@ public class AboutWindow(
      * @param debugInfo the debug information
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setDebugInfo(debugInfo: String): Unit =
         adw_about_window_set_debug_info(adwAboutWindowPointer.reinterpret(), debugInfo)
 
@@ -1655,6 +1727,7 @@ public class AboutWindow(
      * @param filename the debug info filename
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setDebugInfoFilename(filename: String): Unit =
         adw_about_window_set_debug_info_filename(adwAboutWindowPointer.reinterpret(), filename)
 
@@ -1678,6 +1751,7 @@ public class AboutWindow(
      * @param designers the list of designers
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setDesigners(designers: List<String>? = null): Unit =
         memScoped {
             return adw_about_window_set_designers(adwAboutWindowPointer.reinterpret(), designers?.toCStringList(this))
@@ -1696,6 +1770,7 @@ public class AboutWindow(
      * @param developerName the developer name
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setDeveloperName(developerName: String): Unit =
         adw_about_window_set_developer_name(adwAboutWindowPointer.reinterpret(), developerName)
 
@@ -1719,6 +1794,7 @@ public class AboutWindow(
      * @param developers the list of developers
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setDevelopers(developers: List<String>? = null): Unit =
         memScoped {
             return adw_about_window_set_developers(adwAboutWindowPointer.reinterpret(), developers?.toCStringList(this))
@@ -1744,6 +1820,7 @@ public class AboutWindow(
      * @param documenters the list of documenters
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setDocumenters(documenters: List<String>? = null): Unit =
         memScoped {
             return adw_about_window_set_documenters(
@@ -1760,6 +1837,7 @@ public class AboutWindow(
      * @param issueUrl the issue tracker URL
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setIssueUrl(issueUrl: String): Unit =
         adw_about_window_set_issue_url(adwAboutWindowPointer.reinterpret(), issueUrl)
 
@@ -1783,6 +1861,7 @@ public class AboutWindow(
      * @param license the license
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setLicense(license: String): Unit =
         adw_about_window_set_license(adwAboutWindowPointer.reinterpret(), license)
 
@@ -1807,6 +1886,7 @@ public class AboutWindow(
      * @param licenseType the license type
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setLicenseType(licenseType: License): Unit =
         adw_about_window_set_license_type(adwAboutWindowPointer.reinterpret(), licenseType.nativeValue)
 
@@ -1839,6 +1919,7 @@ public class AboutWindow(
      * @param releaseNotes the release notes
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setReleaseNotes(releaseNotes: String): Unit =
         adw_about_window_set_release_notes(adwAboutWindowPointer.reinterpret(), releaseNotes)
 
@@ -1859,6 +1940,7 @@ public class AboutWindow(
      * @param version the release notes version
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setReleaseNotesVersion(version: String): Unit =
         adw_about_window_set_release_notes_version(adwAboutWindowPointer.reinterpret(), version)
 
@@ -1870,6 +1952,7 @@ public class AboutWindow(
      * @param supportUrl the support page URL
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setSupportUrl(supportUrl: String): Unit =
         adw_about_window_set_support_url(adwAboutWindowPointer.reinterpret(), supportUrl)
 
@@ -1896,6 +1979,7 @@ public class AboutWindow(
      * @param translatorCredits the translator credits
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setTranslatorCredits(translatorCredits: String): Unit =
         adw_about_window_set_translator_credits(adwAboutWindowPointer.reinterpret(), translatorCredits)
 
@@ -1910,6 +1994,7 @@ public class AboutWindow(
      * @param version the version
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setVersion(version: String): Unit =
         adw_about_window_set_version(adwAboutWindowPointer.reinterpret(), version)
 
@@ -1924,6 +2009,7 @@ public class AboutWindow(
      * @param website the website URL
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setWebsite(website: String): Unit =
         adw_about_window_set_website(adwAboutWindowPointer.reinterpret(), website)
 
@@ -1937,6 +2023,7 @@ public class AboutWindow(
      * @param handler the Callback to connect. Params: `uri` the URI to activate. Returns `TRUE` if the link has been activated
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun connectActivateLink(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (uri: String) -> Boolean,

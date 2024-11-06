@@ -4,6 +4,8 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_44
+import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.bindings.glib.CompareDataFunc
 import org.gtkkn.bindings.glib.CompareDataFuncFunc
 import org.gtkkn.bindings.gobject.Object
@@ -72,6 +74,7 @@ public open class ListStore(
      * @param item the new item
      * @since 2.44
      */
+    @GioVersion2_44
     public open fun append(item: Object): Unit =
         g_list_store_append(gioListStorePointer.reinterpret(), item.gPointer.reinterpret())
 
@@ -89,6 +92,7 @@ public open class ListStore(
      * @param item the new item
      * @since 2.44
      */
+    @GioVersion2_44
     public open fun insert(
         position: UInt,
         item: Object,
@@ -109,6 +113,7 @@ public open class ListStore(
      * @return the position at which @item was inserted
      * @since 2.44
      */
+    @GioVersion2_44
     public open fun insertSorted(
         item: Object,
         compareFunc: CompareDataFunc,
@@ -130,6 +135,7 @@ public open class ListStore(
      * @param position the position of the item that is to be removed
      * @since 2.44
      */
+    @GioVersion2_44
     public open fun remove(position: UInt): Unit = g_list_store_remove(gioListStorePointer.reinterpret(), position)
 
     /**
@@ -137,6 +143,7 @@ public open class ListStore(
      *
      * @since 2.44
      */
+    @GioVersion2_44
     public open fun removeAll(): Unit = g_list_store_remove_all(gioListStorePointer.reinterpret())
 
     /**
@@ -145,6 +152,7 @@ public open class ListStore(
      * @param compareFunc pairwise comparison function for sorting
      * @since 2.46
      */
+    @GioVersion2_46
     public open fun sort(compareFunc: CompareDataFunc): Unit =
         g_list_store_sort(
             gioListStorePointer.reinterpret(),

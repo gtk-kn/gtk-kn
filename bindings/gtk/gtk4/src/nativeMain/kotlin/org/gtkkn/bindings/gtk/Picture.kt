@@ -7,6 +7,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdkpixbuf.Pixbuf
 import org.gtkkn.bindings.gio.File
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -164,6 +165,7 @@ public open class Picture(
      *
      * @since 4.8
      */
+    @GtkVersion4_8
     public open var contentFit: ContentFit
         /**
          * Returns the fit mode for the content of the `GtkPicture`.
@@ -186,6 +188,7 @@ public open class Picture(
          * @param contentFit the content fit mode
          * @since 4.8
          */
+        @GtkVersion4_8
         set(contentFit) = gtk_picture_set_content_fit(gtkPicturePointer.reinterpret(), contentFit.nativeValue)
 
     /**
@@ -353,6 +356,7 @@ public open class Picture(
      * @return the content fit mode
      * @since 4.8
      */
+    @GtkVersion4_8
     public open fun getContentFit(): ContentFit =
         gtk_picture_get_content_fit(gtkPicturePointer.reinterpret()).run {
             ContentFit.fromNativeValue(this)
@@ -428,6 +432,7 @@ public open class Picture(
      * @param contentFit the content fit mode
      * @since 4.8
      */
+    @GtkVersion4_8
     public open fun setContentFit(contentFit: ContentFit): Unit =
         gtk_picture_set_content_fit(gtkPicturePointer.reinterpret(), contentFit.nativeValue)
 

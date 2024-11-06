@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -49,6 +50,7 @@ public open class DBusMenuModel(
          *     g_object_unref().
          * @since 2.32
          */
+        @GioVersion2_32
         public fun `get`(
             connection: DBusConnection,
             busName: String? = null,

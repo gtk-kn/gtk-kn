@@ -29,7 +29,9 @@ import org.gtkkn.native.gtksource.gtk_source_style_scheme_chooser_widget_new
  */
 public open class StyleSchemeChooserWidget(
     pointer: CPointer<GtkSourceStyleSchemeChooserWidget>,
-) : Widget(pointer.reinterpret()), StyleSchemeChooser, KGTyped {
+) : Widget(pointer.reinterpret()),
+    StyleSchemeChooser,
+    KGTyped {
     public val gtksourceStyleSchemeChooserWidgetPointer: CPointer<GtkSourceStyleSchemeChooserWidget>
         get() = gPointer.reinterpret()
 
@@ -54,9 +56,9 @@ public open class StyleSchemeChooserWidget(
 
     public companion object : TypeCompanion<StyleSchemeChooserWidget> {
         override val type: GeneratedClassKGType<StyleSchemeChooserWidget> =
-            GeneratedClassKGType(gtk_source_style_scheme_chooser_widget_get_type()) {
-                StyleSchemeChooserWidget(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                gtk_source_style_scheme_chooser_widget_get_type()
+            ) { StyleSchemeChooserWidget(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

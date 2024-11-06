@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GCond
@@ -111,6 +112,7 @@ public class Cond(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun clear(): Unit = g_cond_clear(glibCondPointer.reinterpret())
 
     /**
@@ -128,6 +130,7 @@ public class Cond(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun `init`(): Unit = g_cond_init(glibCondPointer.reinterpret())
 
     /**

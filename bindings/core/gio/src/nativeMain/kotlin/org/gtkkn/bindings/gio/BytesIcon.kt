@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -20,6 +21,7 @@ import org.gtkkn.native.gio.g_bytes_icon_new
  * PNG) to be used as icon.
  * @since 2.38
  */
+@GioVersion2_38
 public open class BytesIcon(
     pointer: CPointer<GBytesIcon>,
 ) : Object(pointer.reinterpret()),
@@ -69,6 +71,7 @@ public open class BytesIcon(
      * @return a #GBytes.
      * @since 2.38
      */
+    @GioVersion2_38
     public open fun getBytes(): Bytes =
         g_bytes_icon_get_bytes(gioBytesIconPointer.reinterpret())!!.run {
             Bytes(reinterpret())

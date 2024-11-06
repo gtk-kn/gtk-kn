@@ -4,6 +4,10 @@ package org.gtkkn.bindings.graphene
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_matrix_alloc
@@ -133,6 +137,7 @@ public class Matrix(
      * @return the value of the determinant
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun determinant(): Float = graphene_matrix_determinant(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -142,6 +147,7 @@ public class Matrix(
      * @return `true` if the two matrices are equal, and `false` otherwise
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun equal(b: Matrix): Boolean =
         graphene_matrix_equal(grapheneMatrixPointer.reinterpret(), b.grapheneMatrixPointer)
 
@@ -174,6 +180,7 @@ public class Matrix(
      * @return `true` if the matrices are equal. and `false` otherwise
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun equalFast(b: Matrix): Boolean =
         graphene_matrix_equal_fast(grapheneMatrixPointer.reinterpret(), b.grapheneMatrixPointer)
 
@@ -182,6 +189,7 @@ public class Matrix(
      *
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun free(): Unit = graphene_matrix_free(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -192,6 +200,7 @@ public class Matrix(
      *   that is used to store the row vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getRow(
         index: UInt,
         res: Vec4,
@@ -205,6 +214,7 @@ public class Matrix(
      * @return the value at the given indices
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getValue(
         row: UInt,
         col: UInt,
@@ -216,6 +226,7 @@ public class Matrix(
      * @return the value of the scaling factor
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getXScale(): Float = graphene_matrix_get_x_scale(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -224,6 +235,7 @@ public class Matrix(
      * @return the translation component
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun getXTranslation(): Float = graphene_matrix_get_x_translation(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -232,6 +244,7 @@ public class Matrix(
      * @return the value of the scaling factor
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getYScale(): Float = graphene_matrix_get_y_scale(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -240,6 +253,7 @@ public class Matrix(
      * @return the translation component
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun getYTranslation(): Float = graphene_matrix_get_y_translation(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -248,6 +262,7 @@ public class Matrix(
      * @return the value of the scaling factor
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getZScale(): Float = graphene_matrix_get_z_scale(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -256,6 +271,7 @@ public class Matrix(
      * @return the translation component
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun getZTranslation(): Float = graphene_matrix_get_z_translation(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -282,6 +298,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initFrom2d(
         xx: Double,
         yx: Double,
@@ -302,6 +319,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initFromMatrix(src: Matrix): Matrix =
         graphene_matrix_init_from_matrix(grapheneMatrixPointer.reinterpret(), src.grapheneMatrixPointer)!!.run {
             Matrix(reinterpret())
@@ -318,6 +336,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initFromVec4(
         v0: Vec4,
         v1: Vec4,
@@ -348,6 +367,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initFrustum(
         left: Float,
         right: Float,
@@ -366,6 +386,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initIdentity(): Matrix =
         graphene_matrix_init_identity(grapheneMatrixPointer.reinterpret())!!.run {
             Matrix(reinterpret())
@@ -396,6 +417,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initLookAt(
         eye: Vec3,
         center: Vec3,
@@ -422,6 +444,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initOrtho(
         left: Float,
         right: Float,
@@ -444,6 +467,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initPerspective(
         fovy: Float,
         aspect: Float,
@@ -463,6 +487,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initRotate(
         angle: Float,
         axis: Vec3,
@@ -480,6 +505,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initScale(
         x: Float,
         y: Float,
@@ -498,6 +524,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initSkew(
         xSkew: Float,
         ySkew: Float,
@@ -514,6 +541,7 @@ public class Matrix(
      * @return the initialized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initTranslate(p: Point3D): Matrix =
         graphene_matrix_init_translate(grapheneMatrixPointer.reinterpret(), p.graphenePoint3DPointer)!!.run {
             Matrix(reinterpret())
@@ -533,6 +561,7 @@ public class Matrix(
      *   interpolated matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun interpolate(
         b: Matrix,
         factor: Double,
@@ -553,6 +582,7 @@ public class Matrix(
      * @return `true` if the matrix is invertible
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun inverse(res: Matrix): Boolean =
         graphene_matrix_inverse(grapheneMatrixPointer.reinterpret(), res.grapheneMatrixPointer)
 
@@ -564,6 +594,7 @@ public class Matrix(
      *   transformation matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun is2d(): Boolean = graphene_matrix_is_2d(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -572,6 +603,7 @@ public class Matrix(
      * @return `true` if the back face of the matrix is visible
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun isBackfaceVisible(): Boolean = graphene_matrix_is_backface_visible(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -580,6 +612,7 @@ public class Matrix(
      * @return `true` if the matrix is the identity matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun isIdentity(): Boolean = graphene_matrix_is_identity(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -588,6 +621,7 @@ public class Matrix(
      * @return `true` if the matrix is singular
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun isSingular(): Boolean = graphene_matrix_is_singular(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -601,6 +635,7 @@ public class Matrix(
      *   result
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun multiply(
         b: Matrix,
         res: Matrix,
@@ -622,6 +657,7 @@ public class Matrix(
      *   `false` otherwise
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun near(
         b: Matrix,
         epsilon: Float,
@@ -633,6 +669,7 @@ public class Matrix(
      * @param res return location for the normalized matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun normalize(res: Matrix): Unit =
         graphene_matrix_normalize(grapheneMatrixPointer.reinterpret(), res.grapheneMatrixPointer)
 
@@ -644,6 +681,7 @@ public class Matrix(
      *   perspective matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun perspective(
         depth: Float,
         res: Matrix,
@@ -657,6 +695,7 @@ public class Matrix(
      *
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun print(): Unit = graphene_matrix_print(grapheneMatrixPointer.reinterpret())
 
     /**
@@ -667,6 +706,7 @@ public class Matrix(
      *   point
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun projectPoint(
         p: Point,
         res: Point,
@@ -687,6 +727,7 @@ public class Matrix(
      *   rectangle
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun projectRect(
         r: Rect,
         res: Quad,
@@ -708,6 +749,7 @@ public class Matrix(
      *   rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun projectRectBounds(
         r: Rect,
         res: Rect,
@@ -729,6 +771,7 @@ public class Matrix(
      * @param axis the rotation axis, as a #graphene_vec3_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun rotate(
         angle: Float,
         axis: Vec3,
@@ -741,6 +784,7 @@ public class Matrix(
      * @param e a rotation described by a #graphene_euler_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun rotateEuler(e: Euler): Unit =
         graphene_matrix_rotate_euler(grapheneMatrixPointer.reinterpret(), e.grapheneEulerPointer)
 
@@ -754,6 +798,7 @@ public class Matrix(
      * @param q a rotation described by a #graphene_quaternion_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun rotateQuaternion(q: Quaternion): Unit =
         graphene_matrix_rotate_quaternion(grapheneMatrixPointer.reinterpret(), q.grapheneQuaternionPointer)
 
@@ -766,6 +811,7 @@ public class Matrix(
      * @param angle the rotation angle, in degrees
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun rotateX(angle: Float): Unit = graphene_matrix_rotate_x(grapheneMatrixPointer.reinterpret(), angle)
 
     /**
@@ -777,6 +823,7 @@ public class Matrix(
      * @param angle the rotation angle, in degrees
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun rotateY(angle: Float): Unit = graphene_matrix_rotate_y(grapheneMatrixPointer.reinterpret(), angle)
 
     /**
@@ -788,6 +835,7 @@ public class Matrix(
      * @param angle the rotation angle, in degrees
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun rotateZ(angle: Float): Unit = graphene_matrix_rotate_z(grapheneMatrixPointer.reinterpret(), angle)
 
     /**
@@ -802,6 +850,7 @@ public class Matrix(
      * @param factorZ scaling factor on the Z axis
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun scale(
         factorX: Float,
         factorY: Float,
@@ -814,6 +863,7 @@ public class Matrix(
      * @param factor skew factor
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun skewXy(factor: Float): Unit = graphene_matrix_skew_xy(grapheneMatrixPointer.reinterpret(), factor)
 
     /**
@@ -822,6 +872,7 @@ public class Matrix(
      * @param factor skew factor
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun skewXz(factor: Float): Unit = graphene_matrix_skew_xz(grapheneMatrixPointer.reinterpret(), factor)
 
     /**
@@ -830,6 +881,7 @@ public class Matrix(
      * @param factor skew factor
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun skewYz(factor: Float): Unit = graphene_matrix_skew_yz(grapheneMatrixPointer.reinterpret(), factor)
 
     /**
@@ -845,6 +897,7 @@ public class Matrix(
      *   of the transformed rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun transformBounds(
         r: Rect,
         res: Rect,
@@ -866,6 +919,7 @@ public class Matrix(
      *   of the transformed box
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun transformBox(
         b: Box,
         res: Box,
@@ -886,6 +940,7 @@ public class Matrix(
      *   transformed #graphene_point_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun transformPoint(
         p: Point,
         res: Point,
@@ -909,6 +964,7 @@ public class Matrix(
      * @param res return location for the result
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun transformPoint3d(
         p: Point3D,
         res: Point3D,
@@ -927,6 +983,7 @@ public class Matrix(
      *   transformed ray
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun transformRay(
         r: Ray,
         res: Ray,
@@ -945,6 +1002,7 @@ public class Matrix(
      *   transformed quad
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun transformRect(
         r: Rect,
         res: Quad,
@@ -964,6 +1022,7 @@ public class Matrix(
      *   of the transformed sphere
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun transformSphere(
         s: Sphere,
         res: Sphere,
@@ -987,6 +1046,7 @@ public class Matrix(
      * @param res return location for a #graphene_vec3_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun transformVec3(
         v: Vec3,
         res: Vec3,
@@ -1006,6 +1066,7 @@ public class Matrix(
      * @param res return location for a #graphene_vec4_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun transformVec4(
         v: Vec4,
         res: Vec4,
@@ -1026,6 +1087,7 @@ public class Matrix(
      * @param pos a #graphene_point3d_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun translate(pos: Point3D): Unit =
         graphene_matrix_translate(grapheneMatrixPointer.reinterpret(), pos.graphenePoint3DPointer)
 
@@ -1036,6 +1098,7 @@ public class Matrix(
      *   transposed matrix
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun transpose(res: Matrix): Unit =
         graphene_matrix_transpose(grapheneMatrixPointer.reinterpret(), res.grapheneMatrixPointer)
 
@@ -1050,6 +1113,7 @@ public class Matrix(
      *   point
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun unprojectPoint3d(
         modelview: Matrix,
         point: Point3D,
@@ -1072,6 +1136,7 @@ public class Matrix(
      *   untransformed rectangle
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun untransformBounds(
         r: Rect,
         bounds: Rect,
@@ -1095,6 +1160,7 @@ public class Matrix(
      * @return `true` if the point was successfully untransformed
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun untransformPoint(
         p: Point,
         bounds: Rect,

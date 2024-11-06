@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
 import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -38,7 +39,8 @@ import kotlin.collections.List
  */
 public open class StyleScheme(
     pointer: CPointer<GtkSourceStyleScheme>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceStyleSchemePointer: CPointer<GtkSourceStyleScheme>
         get() = gPointer.reinterpret()
 
@@ -51,8 +53,7 @@ public open class StyleScheme(
          *
          * @return @scheme description (if defined), or null.
          */
-        get() =
-            gtk_source_style_scheme_get_description(gtksourceStyleSchemePointer.reinterpret())?.toKString()
+        get() = gtk_source_style_scheme_get_description(gtksourceStyleSchemePointer.reinterpret())?.toKString()
 
     /**
      * Style scheme filename or null.
@@ -64,8 +65,7 @@ public open class StyleScheme(
          * @return @scheme file name if the scheme was created
          * parsing a style scheme file or null in the other cases.
          */
-        get() =
-            gtk_source_style_scheme_get_filename(gtksourceStyleSchemePointer.reinterpret())?.toKString()
+        get() = gtk_source_style_scheme_get_filename(gtksourceStyleSchemePointer.reinterpret())?.toKString()
 
     /**
      * Style scheme id, a unique string used to identify the style scheme
@@ -139,11 +139,9 @@ public open class StyleScheme(
      *   specified metadata property.
      * @since 5.4
      */
+    @GtkSourceVersion5_4
     public open fun getMetadata(name: String): String? =
-        gtk_source_style_scheme_get_metadata(
-            gtksourceStyleSchemePointer.reinterpret(),
-            name
-        )?.toKString()
+        gtk_source_style_scheme_get_metadata(gtksourceStyleSchemePointer.reinterpret(), name)?.toKString()
 
     /**
      *
@@ -163,18 +161,13 @@ public open class StyleScheme(
      * @scheme and may not be unref'ed.
      */
     public open fun getStyle(styleId: String): Style? =
-        gtk_source_style_scheme_get_style(
-            gtksourceStyleSchemePointer.reinterpret(),
-            styleId
-        )?.run {
+        gtk_source_style_scheme_get_style(gtksourceStyleSchemePointer.reinterpret(), styleId)?.run {
             Style(reinterpret())
         }
 
     public companion object : TypeCompanion<StyleScheme> {
         override val type: GeneratedClassKGType<StyleScheme> =
-            GeneratedClassKGType(gtk_source_style_scheme_get_type()) {
-                StyleScheme(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_style_scheme_get_type()) { StyleScheme(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

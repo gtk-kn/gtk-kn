@@ -4,6 +4,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.adw.AdwBreakpointCondition
@@ -28,6 +29,7 @@ import kotlin.Unit
  *
  * @since 1.4
  */
+@AdwVersion1_4
 public class BreakpointCondition(
     pointer: CPointer<AdwBreakpointCondition>,
 ) : Record {
@@ -39,6 +41,7 @@ public class BreakpointCondition(
      * @return a copy of @self
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun copy(): BreakpointCondition =
         adw_breakpoint_condition_copy(adwBreakpointConditionPointer.reinterpret())!!.run {
             BreakpointCondition(reinterpret())
@@ -49,6 +52,7 @@ public class BreakpointCondition(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun free(): Unit = adw_breakpoint_condition_free(adwBreakpointConditionPointer.reinterpret())
 
     public companion object : RecordCompanion<BreakpointCondition, AdwBreakpointCondition> {
@@ -189,6 +193,7 @@ public class BreakpointCondition(
          * @return the parsed condition
          * @since 1.4
          */
+        @AdwVersion1_4
         public fun parse(str: String): BreakpointCondition =
             adw_breakpoint_condition_parse(str)!!.run {
                 BreakpointCondition(reinterpret())

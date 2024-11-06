@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -41,6 +43,7 @@ public open class InetSocketAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val address: InetAddress
         /**
          * Gets @address's #GInetAddress.
@@ -59,6 +62,7 @@ public open class InetSocketAddress(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public open val flowinfo: UInt
         /**
          * Gets the `sin6_flowinfo` field from @address,
@@ -74,6 +78,7 @@ public open class InetSocketAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val port: UShort
         /**
          * Gets @address's port.
@@ -88,6 +93,7 @@ public open class InetSocketAddress(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public open val scopeId: UInt
         /**
          * Gets the `sin6_scope_id` field from @address,
@@ -135,6 +141,7 @@ public open class InetSocketAddress(
      * g_object_ref()'d if it will be stored
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getAddress(): InetAddress =
         g_inet_socket_address_get_address(gioInetSocketAddressPointer.reinterpret())!!.run {
             InetAddress(reinterpret())
@@ -147,6 +154,7 @@ public open class InetSocketAddress(
      * @return the flowinfo field
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getFlowinfo(): UInt = g_inet_socket_address_get_flowinfo(gioInetSocketAddressPointer.reinterpret())
 
     /**
@@ -155,6 +163,7 @@ public open class InetSocketAddress(
      * @return the port for @address
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getPort(): UShort = g_inet_socket_address_get_port(gioInetSocketAddressPointer.reinterpret())
 
     /**
@@ -164,6 +173,7 @@ public open class InetSocketAddress(
      * @return the scope id field
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getScopeId(): UInt = g_inet_socket_address_get_scope_id(gioInetSocketAddressPointer.reinterpret())
 
     public companion object : TypeCompanion<InetSocketAddress> {

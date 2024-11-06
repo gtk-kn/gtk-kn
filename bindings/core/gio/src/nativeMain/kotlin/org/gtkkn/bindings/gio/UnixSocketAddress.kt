@@ -4,6 +4,8 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -64,6 +66,7 @@ public open class UnixSocketAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val addressType: UnixSocketAddressType
         /**
          * Gets @address's type.
@@ -81,6 +84,7 @@ public open class UnixSocketAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val path: String
         /**
          * Gets @address's path, or for abstract sockets the "name".
@@ -115,6 +119,7 @@ public open class UnixSocketAddress(
      * @return a #GUnixSocketAddressType
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getAddressType(): UnixSocketAddressType =
         g_unix_socket_address_get_address_type(gioUnixSocketAddressPointer.reinterpret()).run {
             UnixSocketAddressType.fromNativeValue(this)
@@ -126,6 +131,7 @@ public open class UnixSocketAddress(
      * @return true if the address is abstract, false otherwise
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getIsAbstract(): Boolean =
         g_unix_socket_address_get_is_abstract(gioUnixSocketAddressPointer.reinterpret()).asBoolean()
 
@@ -140,6 +146,7 @@ public open class UnixSocketAddress(
      * @return the path for @address
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getPath(): String =
         g_unix_socket_address_get_path(gioUnixSocketAddressPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -152,6 +159,7 @@ public open class UnixSocketAddress(
      * @return the length of the path
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getPathLen(): ULong = g_unix_socket_address_get_path_len(gioUnixSocketAddressPointer.reinterpret())
 
     public companion object : TypeCompanion<UnixSocketAddress> {
@@ -168,6 +176,7 @@ public open class UnixSocketAddress(
          * @return true if supported, false otherwise
          * @since 2.22
          */
+        @GioVersion2_22
         public fun abstractNamesSupported(): Boolean = g_unix_socket_address_abstract_names_supported().asBoolean()
     }
 }

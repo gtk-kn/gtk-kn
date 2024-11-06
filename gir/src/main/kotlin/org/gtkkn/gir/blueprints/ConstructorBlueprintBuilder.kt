@@ -85,7 +85,9 @@ class ConstructorBlueprintBuilder(
             parameters = parameterBlueprints,
             throws = girConstructor.throws == true,
             exceptionResolvingFunctionMember = exceptionResolvingFunction(),
-            version = girConstructor.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girConstructor.info)
+                .build()
+                .getOrNull(),
             kdoc = context.processKdoc(girConstructor.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girConstructor.returnValue?.docs?.doc?.text),
         )

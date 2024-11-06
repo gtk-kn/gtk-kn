@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -37,6 +38,7 @@ import kotlin.Unit
  *
  * @since 2.32
  */
+@GLibVersion2_32
 public class RecMutex(
     pointer: CPointer<GRecMutex>,
 ) : Record {
@@ -54,6 +56,7 @@ public class RecMutex(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun clear(): Unit = g_rec_mutex_clear(glibRecMutexPointer.reinterpret())
 
     /**
@@ -86,6 +89,7 @@ public class RecMutex(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun `init`(): Unit = g_rec_mutex_init(glibRecMutexPointer.reinterpret())
 
     /**
@@ -98,6 +102,7 @@ public class RecMutex(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun lock(): Unit = g_rec_mutex_lock(glibRecMutexPointer.reinterpret())
 
     /**
@@ -108,6 +113,7 @@ public class RecMutex(
      * @return true if @rec_mutex could be locked
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun trylock(): Boolean = g_rec_mutex_trylock(glibRecMutexPointer.reinterpret()).asBoolean()
 
     /**
@@ -120,6 +126,7 @@ public class RecMutex(
      *
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun unlock(): Unit = g_rec_mutex_unlock(glibRecMutexPointer.reinterpret())
 
     public companion object : RecordCompanion<RecMutex, GRecMutex> {

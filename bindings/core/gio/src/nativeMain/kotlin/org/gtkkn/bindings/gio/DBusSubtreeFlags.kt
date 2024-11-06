@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDBusSubtreeFlags
 import org.gtkkn.native.gio.G_DBUS_SUBTREE_FLAGS_DISPATCH_TO_UNENUMERATED_NODES
@@ -15,6 +16,7 @@ public class DBusSubtreeFlags(
 ) : Bitfield<DBusSubtreeFlags> {
     override infix fun or(other: DBusSubtreeFlags): DBusSubtreeFlags = DBusSubtreeFlags(mask or other.mask)
 
+    @GioVersion2_26
     public companion object {
         /**
          * No flags set.

@@ -4,6 +4,8 @@ package org.gtkkn.bindings.pango
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoFontMetrics
@@ -116,6 +118,7 @@ public class FontMetrics(
      * @return the height, in Pango units
      * @since 1.44
      */
+    @PangoVersion1_44
     public fun getHeight(): Int = pango_font_metrics_get_height(pangoFontMetricsPointer.reinterpret())
 
     /**
@@ -127,6 +130,7 @@ public class FontMetrics(
      * @return the suggested strikethrough position, in Pango units.
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun getStrikethroughPosition(): Int =
         pango_font_metrics_get_strikethrough_position(pangoFontMetricsPointer.reinterpret())
 
@@ -136,6 +140,7 @@ public class FontMetrics(
      * @return the suggested strikethrough thickness, in Pango units.
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun getStrikethroughThickness(): Int =
         pango_font_metrics_get_strikethrough_thickness(pangoFontMetricsPointer.reinterpret())
 
@@ -149,6 +154,7 @@ public class FontMetrics(
      * @return the suggested underline position, in Pango units.
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun getUnderlinePosition(): Int =
         pango_font_metrics_get_underline_position(pangoFontMetricsPointer.reinterpret())
 
@@ -158,6 +164,7 @@ public class FontMetrics(
      * @return the suggested underline thickness, in Pango units.
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun getUnderlineThickness(): Int =
         pango_font_metrics_get_underline_thickness(pangoFontMetricsPointer.reinterpret())
 

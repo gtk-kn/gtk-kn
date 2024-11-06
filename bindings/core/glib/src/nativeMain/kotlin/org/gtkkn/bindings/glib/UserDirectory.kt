@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.native.glib.GUserDirectory
 import org.gtkkn.native.glib.GUserDirectory.G_USER_DIRECTORY_DESKTOP
 import org.gtkkn.native.glib.GUserDirectory.G_USER_DIRECTORY_DOCUMENTS
@@ -22,6 +23,7 @@ import org.gtkkn.native.glib.GUserDirectory.G_USER_N_DIRECTORIES
  * enumeration.
  * @since 2.14
  */
+@GLibVersion2_14
 public enum class UserDirectory(
     public val nativeValue: GUserDirectory,
 ) {

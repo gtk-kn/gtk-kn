@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -41,6 +42,7 @@ import kotlin.Boolean
  * `GPowerProfileMonitor` itself when exiting.
  * @since 2.70
  */
+@GioVersion2_70
 public interface PowerProfileMonitor :
     Interface,
     Initable,
@@ -55,6 +57,7 @@ public interface PowerProfileMonitor :
      *
      * @since 2.70
      */
+    @GioVersion2_70
     public val powerSaverEnabled: Boolean
         /**
          * Gets whether the system is in “Power Saver” mode.
@@ -78,6 +81,7 @@ public interface PowerProfileMonitor :
      * @return Whether the system is in “Power Saver” mode.
      * @since 2.70
      */
+    @GioVersion2_70
     public fun getPowerSaverEnabled(): Boolean =
         g_power_profile_monitor_get_power_saver_enabled(gioPowerProfileMonitorPointer.reinterpret()).asBoolean()
 
@@ -103,6 +107,7 @@ public interface PowerProfileMonitor :
          * @return a new reference to the default #GPowerProfileMonitor
          * @since 2.70
          */
+        @GioVersion2_70
         public fun dupDefault(): PowerProfileMonitor =
             g_power_profile_monitor_dup_default()!!.run {
                 PowerProfileMonitor.wrap(reinterpret())

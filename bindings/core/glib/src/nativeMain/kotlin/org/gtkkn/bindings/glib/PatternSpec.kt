@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -48,6 +49,7 @@ public class PatternSpec(
      * @return a copy of @pspec.
      * @since 2.70
      */
+    @GLibVersion2_70
     public fun copy(): PatternSpec =
         g_pattern_spec_copy(glibPatternSpecPointer.reinterpret())!!.run {
             PatternSpec(reinterpret())
@@ -94,6 +96,7 @@ public class PatternSpec(
      * @return true if @string matches @pspec
      * @since 2.70
      */
+    @GLibVersion2_70
     public fun match(
         stringLength: ULong,
         string: String,
@@ -110,6 +113,7 @@ public class PatternSpec(
      * @return true if @string matches @pspec
      * @since 2.70
      */
+    @GLibVersion2_70
     public fun matchString(string: String): Boolean =
         g_pattern_spec_match_string(glibPatternSpecPointer.reinterpret(), string).asBoolean()
 

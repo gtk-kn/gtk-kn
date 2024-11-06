@@ -45,7 +45,8 @@ import kotlin.Unit
  */
 public open class Style(
     pointer: CPointer<GtkSourceStyle>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceStylePointer: CPointer<GtkSourceStyle>
         get() = gPointer.reinterpret()
 
@@ -61,10 +62,7 @@ public open class Style(
      * @param tag a #GtkTextTag to apply styles to.
      */
     public open fun apply(tag: TextTag): Unit =
-        gtk_source_style_apply(
-            gtksourceStylePointer.reinterpret(),
-            tag.gtkTextTagPointer.reinterpret()
-        )
+        gtk_source_style_apply(gtksourceStylePointer.reinterpret(), tag.gtkTextTagPointer.reinterpret())
 
     /**
      * Creates a copy of @style, that is a new #GtkSourceStyle instance which

@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -60,6 +62,7 @@ public open class EmblemedIcon(
      * @param emblem a #GEmblem
      * @since 2.18
      */
+    @GioVersion2_18
     public open fun addEmblem(emblem: Emblem): Unit =
         g_emblemed_icon_add_emblem(gioEmblemedIconPointer.reinterpret(), emblem.gioEmblemPointer.reinterpret())
 
@@ -68,6 +71,7 @@ public open class EmblemedIcon(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun clearEmblems(): Unit = g_emblemed_icon_clear_emblems(gioEmblemedIconPointer.reinterpret())
 
     /**
@@ -77,6 +81,7 @@ public open class EmblemedIcon(
      *     #GEmblems that is owned by @emblemed
      * @since 2.18
      */
+    @GioVersion2_18
     public open fun getEmblems(): List =
         g_emblemed_icon_get_emblems(gioEmblemedIconPointer.reinterpret())!!.run {
             List(reinterpret())
@@ -88,6 +93,7 @@ public open class EmblemedIcon(
      * @return a #GIcon that is owned by @emblemed
      * @since 2.18
      */
+    @GioVersion2_18
     public open fun getIcon(): Icon =
         g_emblemed_icon_get_icon(gioEmblemedIconPointer.reinterpret())!!.run {
             Icon.wrap(reinterpret())

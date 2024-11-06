@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GHmac
@@ -40,6 +41,7 @@ import kotlin.Unit
  *
  * @since 2.30
  */
+@GLibVersion2_30
 public class Hmac(
     pointer: CPointer<GHmac>,
 ) : Record {
@@ -54,6 +56,7 @@ public class Hmac(
      *   when finished using it.
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun copy(): Hmac =
         g_hmac_copy(glibHmacPointer.reinterpret())!!.run {
             Hmac(reinterpret())
@@ -72,6 +75,7 @@ public class Hmac(
      *   or freed.
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun getString(): String =
         g_hmac_get_string(glibHmacPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -83,6 +87,7 @@ public class Hmac(
      * @return the passed in #GHmac.
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun ref(): Hmac =
         g_hmac_ref(glibHmacPointer.reinterpret())!!.run {
             Hmac(reinterpret())
@@ -98,6 +103,7 @@ public class Hmac(
      *
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun unref(): Unit = g_hmac_unref(glibHmacPointer.reinterpret())
 
     public companion object : RecordCompanion<Hmac, GHmac> {

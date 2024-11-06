@@ -14,6 +14,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.Gsk.resolveException
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -150,6 +151,7 @@ public open class Renderer(
      * @return Whether the renderer was successfully realized
      * @since 4.14
      */
+    @GskVersion4_14
     public open fun realizeForDisplay(display: Display): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()

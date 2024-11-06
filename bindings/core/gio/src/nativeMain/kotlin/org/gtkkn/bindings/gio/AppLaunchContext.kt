@@ -10,6 +10,9 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_36
+import org.gtkkn.bindings.gio.annotations.GioVersion2_72
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
@@ -85,6 +88,7 @@ public open class AppLaunchContext(
      *     the child's environment
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun getEnvironment(): CollectionsList<String> =
         g_app_launch_context_get_environment(gioAppLaunchContextPointer.reinterpret())?.toKStringList()
             ?: error("Expected not null string array")
@@ -136,6 +140,7 @@ public open class AppLaunchContext(
      * @param value the value for to set the variable to.
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun setenv(
         variable: String,
         `value`: String,
@@ -148,6 +153,7 @@ public open class AppLaunchContext(
      * @param variable the environment variable to remove
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun unsetenv(variable: String): Unit =
         g_app_launch_context_unsetenv(gioAppLaunchContextPointer.reinterpret(), variable)
 
@@ -164,6 +170,7 @@ public open class AppLaunchContext(
      * @param handler the Callback to connect. Params: `startupNotifyId` the startup notification id for the failed launch
      * @since 2.36
      */
+    @GioVersion2_36
     public fun connectLaunchFailed(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (startupNotifyId: String) -> Unit,
@@ -201,6 +208,7 @@ public open class AppLaunchContext(
      * @param handler the Callback to connect. Params: `info` the #GAppInfo that is about to be launched; `platformData` additional platform-specific data for this launch
      * @since 2.72
      */
+    @GioVersion2_72
     public fun connectLaunchStarted(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (info: AppInfo, platformData: Variant?) -> Unit,
@@ -240,6 +248,7 @@ public open class AppLaunchContext(
      * @param handler the Callback to connect. Params: `info` the #GAppInfo that was just launched; `platformData` additional platform-specific data for this launch
      * @since 2.36
      */
+    @GioVersion2_36
     public fun connectLaunched(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (info: AppInfo, platformData: Variant) -> Unit,

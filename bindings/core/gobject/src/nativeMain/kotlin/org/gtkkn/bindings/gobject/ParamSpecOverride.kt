@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gobject
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.native.gobject.GParamSpecOverride
 
 /**
@@ -19,6 +20,7 @@ import org.gtkkn.native.gobject.GParamSpecOverride
  * unless you are implementing a new base type similar to GObject.
  * @since 2.4
  */
+@GObjectVersion2_4
 public open class ParamSpecOverride(
     pointer: CPointer<GParamSpecOverride>,
 ) : ParamSpec(pointer.reinterpret()) {

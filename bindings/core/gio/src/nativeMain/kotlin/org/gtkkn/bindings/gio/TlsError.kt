@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gio.GTlsError
 import org.gtkkn.native.gio.GTlsError.G_TLS_ERROR_BAD_CERTIFICATE
@@ -20,6 +21,7 @@ import kotlin.UInt
  * TLS-related routine.
  * @since 2.28
  */
+@GioVersion2_28
 public enum class TlsError(
     public val nativeValue: GTlsError,
 ) {
@@ -100,6 +102,7 @@ public enum class TlsError(
          * @return a #GQuark.
          * @since 2.28
          */
+        @GioVersion2_28
         public fun quark(): UInt = g_tls_error_quark()
 
         public fun fromErrorOrNull(error: Error): TlsError? =

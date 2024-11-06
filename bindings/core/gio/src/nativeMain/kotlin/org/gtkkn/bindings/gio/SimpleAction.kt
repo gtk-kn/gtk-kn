@@ -8,6 +8,9 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.ConnectFlags
@@ -112,6 +115,7 @@ public open class SimpleAction(
      * @param enabled whether the action is enabled
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun setEnabled(enabled: Boolean): Unit =
         g_simple_action_set_enabled(gioSimpleActionPointer.reinterpret(), enabled.asGBoolean())
 
@@ -130,6 +134,7 @@ public open class SimpleAction(
      * @param value the new #GVariant for the state
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun setState(`value`: Variant): Unit =
         g_simple_action_set_state(gioSimpleActionPointer.reinterpret(), `value`.glibVariantPointer)
 
@@ -142,6 +147,7 @@ public open class SimpleAction(
      * @param stateHint a #GVariant representing the state hint
      * @since 2.44
      */
+    @GioVersion2_44
     public open fun setStateHint(stateHint: Variant? = null): Unit =
         g_simple_action_set_state_hint(gioSimpleActionPointer.reinterpret(), stateHint?.glibVariantPointer)
 
@@ -165,6 +171,7 @@ public open class SimpleAction(
      *   no parameter
      * @since 2.28
      */
+    @GioVersion2_28
     public fun connectActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (parameter: Variant?) -> Unit,
@@ -217,6 +224,7 @@ public open class SimpleAction(
      * @param handler the Callback to connect. Params: `value` the requested value for the state
      * @since 2.30
      */
+    @GioVersion2_30
     public fun connectChangeState(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`value`: Variant?) -> Unit,

@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.RGBA
 import org.gtkkn.bindings.graphene.Point
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_2
 import org.gtkkn.bindings.pango.Font
 import org.gtkkn.bindings.pango.GlyphString
 import org.gtkkn.extensions.common.asBoolean
@@ -105,6 +106,7 @@ public open class TextNode(
      * @return true if the text node has color glyphs
      * @since 4.2
      */
+    @GskVersion4_2
     public open fun hasColorGlyphs(): Boolean =
         gsk_text_node_has_color_glyphs(gskTextNodePointer.reinterpret()).asBoolean()
 

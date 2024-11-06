@@ -25,6 +25,9 @@ import org.gtkkn.bindings.graphene.Matrix
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.Transform
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.extensions.common.asBoolean
@@ -1854,6 +1857,7 @@ public open class Widget(
      * @param widgetType the type of the widget to finalize the template for
      * @since 4.8
      */
+    @GtkVersion4_8
     public open fun disposeTemplate(widgetType: ULong): Unit =
         gtk_widget_dispose_template(gtkWidgetPointer.reinterpret(), widgetType)
 
@@ -1946,6 +1950,7 @@ public open class Widget(
      * @return the baseline of the @widget, or -1 if none
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getBaseline(): Int = gtk_widget_get_baseline(gtkWidgetPointer.reinterpret())
 
     /**
@@ -2006,6 +2011,7 @@ public open class Widget(
      * @param color return location for the color
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getColor(color: RGBA): Unit =
         gtk_widget_get_color(gtkWidgetPointer.reinterpret(), color.gdkRGBAPointer)
 

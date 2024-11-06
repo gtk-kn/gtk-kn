@@ -4,6 +4,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -53,6 +54,7 @@ import kotlin.Unit
  *
  * @since 1.5
  */
+@AdwVersion1_5
 public open class PreferencesDialog(
     pointer: CPointer<AdwPreferencesDialog>,
 ) : Dialog(pointer.reinterpret()),
@@ -74,6 +76,7 @@ public open class PreferencesDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public open var searchEnabled: Boolean
         /**
          * Gets whether search is enabled for @self.
@@ -89,6 +92,7 @@ public open class PreferencesDialog(
          * @param searchEnabled whether search is enabled
          * @since 1.5
          */
+        @AdwVersion1_5
         set(
             searchEnabled
         ) =
@@ -111,6 +115,7 @@ public open class PreferencesDialog(
      * @param page the page to add
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun add(page: PreferencesPage): Unit =
         adw_preferences_dialog_add(
             adwPreferencesDialogPointer.reinterpret(),
@@ -125,6 +130,7 @@ public open class PreferencesDialog(
      * @param toast a toast
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun addToast(toast: Toast): Unit =
         adw_preferences_dialog_add_toast(adwPreferencesDialogPointer.reinterpret(), toast.adwToastPointer.reinterpret())
 
@@ -134,6 +140,7 @@ public open class PreferencesDialog(
      * @return whether search is enabled for @self.
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getSearchEnabled(): Boolean =
         adw_preferences_dialog_get_search_enabled(adwPreferencesDialogPointer.reinterpret()).asBoolean()
 
@@ -143,6 +150,7 @@ public open class PreferencesDialog(
      * @return the visible page
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getVisiblePage(): PreferencesPage? =
         adw_preferences_dialog_get_visible_page(adwPreferencesDialogPointer.reinterpret())?.run {
             PreferencesPage(reinterpret())
@@ -154,6 +162,7 @@ public open class PreferencesDialog(
      * @return the name of the visible page
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getVisiblePageName(): String? =
         adw_preferences_dialog_get_visible_page_name(adwPreferencesDialogPointer.reinterpret())?.toKString()
 
@@ -163,6 +172,7 @@ public open class PreferencesDialog(
      * @return `TRUE` if a page has been popped
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun popSubpage(): Boolean =
         adw_preferences_dialog_pop_subpage(adwPreferencesDialogPointer.reinterpret()).asBoolean()
 
@@ -174,6 +184,7 @@ public open class PreferencesDialog(
      * @param page the subpage
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun pushSubpage(page: NavigationPage): Unit =
         adw_preferences_dialog_push_subpage(
             adwPreferencesDialogPointer.reinterpret(),
@@ -186,6 +197,7 @@ public open class PreferencesDialog(
      * @param page the page to remove
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun remove(page: PreferencesPage): Unit =
         adw_preferences_dialog_remove(
             adwPreferencesDialogPointer.reinterpret(),
@@ -198,6 +210,7 @@ public open class PreferencesDialog(
      * @param searchEnabled whether search is enabled
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setSearchEnabled(searchEnabled: Boolean): Unit =
         adw_preferences_dialog_set_search_enabled(adwPreferencesDialogPointer.reinterpret(), searchEnabled.asGBoolean())
 
@@ -207,6 +220,7 @@ public open class PreferencesDialog(
      * @param page a page of @self
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setVisiblePage(page: PreferencesPage): Unit =
         adw_preferences_dialog_set_visible_page(
             adwPreferencesDialogPointer.reinterpret(),
@@ -221,6 +235,7 @@ public open class PreferencesDialog(
      * @param name the name of the page to make visible
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setVisiblePageName(name: String): Unit =
         adw_preferences_dialog_set_visible_page_name(adwPreferencesDialogPointer.reinterpret(), name)
 

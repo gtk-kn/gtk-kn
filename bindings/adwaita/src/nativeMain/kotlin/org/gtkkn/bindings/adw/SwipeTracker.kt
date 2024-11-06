@@ -8,6 +8,8 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Orientable
@@ -121,6 +123,7 @@ public class SwipeTracker(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public var allowWindowHandle: Boolean
         /**
          * Gets whether to allow touchscreen swiping from `GtkWindowHandle`.
@@ -138,6 +141,7 @@ public class SwipeTracker(
          * @param allowWindowHandle whether to allow swiping from window handles
          * @since 1.5
          */
+        @AdwVersion1_5
         set(
             allowWindowHandle
         ) =
@@ -175,6 +179,7 @@ public class SwipeTracker(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var lowerOvershoot: Boolean
         /**
          * Gets whether to allow swiping past the first available snap point.
@@ -190,6 +195,7 @@ public class SwipeTracker(
          * @param overshoot whether to allow swiping past the first available snap point
          * @since 1.4
          */
+        @AdwVersion1_4
         set(
             overshoot
         ) = adw_swipe_tracker_set_lower_overshoot(adwSwipeTrackerPointer.reinterpret(), overshoot.asGBoolean())
@@ -237,6 +243,7 @@ public class SwipeTracker(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var upperOvershoot: Boolean
         /**
          * Gets whether to allow swiping past the last available snap point.
@@ -252,6 +259,7 @@ public class SwipeTracker(
          * @param overshoot whether to allow swiping past the last available snap point
          * @since 1.4
          */
+        @AdwVersion1_4
         set(
             overshoot
         ) = adw_swipe_tracker_set_upper_overshoot(adwSwipeTrackerPointer.reinterpret(), overshoot.asGBoolean())
@@ -288,6 +296,7 @@ public class SwipeTracker(
      * @return whether swiping from window handles is allowed
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun getAllowWindowHandle(): Boolean =
         adw_swipe_tracker_get_allow_window_handle(adwSwipeTrackerPointer.reinterpret()).asBoolean()
 
@@ -304,6 +313,7 @@ public class SwipeTracker(
      * @return whether to allow swiping past the first available snap point
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getLowerOvershoot(): Boolean =
         adw_swipe_tracker_get_lower_overshoot(adwSwipeTrackerPointer.reinterpret()).asBoolean()
 
@@ -330,6 +340,7 @@ public class SwipeTracker(
      * @return whether to allow swiping past the last available snap point
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getUpperOvershoot(): Boolean =
         adw_swipe_tracker_get_upper_overshoot(adwSwipeTrackerPointer.reinterpret()).asBoolean()
 
@@ -360,6 +371,7 @@ public class SwipeTracker(
      * @param allowWindowHandle whether to allow swiping from window handles
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun setAllowWindowHandle(allowWindowHandle: Boolean): Unit =
         adw_swipe_tracker_set_allow_window_handle(adwSwipeTrackerPointer.reinterpret(), allowWindowHandle.asGBoolean())
 
@@ -380,6 +392,7 @@ public class SwipeTracker(
      * @param overshoot whether to allow swiping past the first available snap point
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setLowerOvershoot(overshoot: Boolean): Unit =
         adw_swipe_tracker_set_lower_overshoot(adwSwipeTrackerPointer.reinterpret(), overshoot.asGBoolean())
 
@@ -400,6 +413,7 @@ public class SwipeTracker(
      * @param overshoot whether to allow swiping past the last available snap point
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setUpperOvershoot(overshoot: Boolean): Unit =
         adw_swipe_tracker_set_upper_overshoot(adwSwipeTrackerPointer.reinterpret(), overshoot.asGBoolean())
 

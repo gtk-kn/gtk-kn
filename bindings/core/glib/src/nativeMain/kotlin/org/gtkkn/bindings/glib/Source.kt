@@ -6,6 +6,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
@@ -100,6 +105,7 @@ public class Source(
      * @param childSource a second #GSource that @source should "poll"
      * @since 2.28
      */
+    @GLibVersion2_28
     public fun addChildSource(childSource: Source): Unit =
         g_source_add_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer)
 
@@ -213,6 +219,7 @@ public class Source(
      * @return the name of the source
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getName(): String? = g_source_get_name(glibSourcePointer.reinterpret())?.toKString()
 
     /**
@@ -245,6 +252,7 @@ public class Source(
      * @return the monotonic time in microseconds
      * @since 2.28
      */
+    @GLibVersion2_28
     public fun getTime(): Long = g_source_get_time(glibSourcePointer.reinterpret())
 
     /**
@@ -330,6 +338,7 @@ public class Source(
      * @return true if the source has been destroyed
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun isDestroyed(): Boolean = g_source_is_destroyed(glibSourcePointer.reinterpret()).asBoolean()
 
     /**
@@ -352,6 +361,7 @@ public class Source(
      *     g_source_add_child_source().
      * @since 2.28
      */
+    @GLibVersion2_28
     public fun removeChildSource(childSource: Source): Unit =
         g_source_remove_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer)
 
@@ -417,6 +427,7 @@ public class Source(
      * @param funcs the new #GSourceFuncs
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun setFuncs(funcs: SourceFuncs): Unit =
         g_source_set_funcs(glibSourcePointer.reinterpret(), funcs.glibSourceFuncsPointer)
 
@@ -443,6 +454,7 @@ public class Source(
      * @param name debug name for the source
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun setName(name: String): Unit = g_source_set_name(glibSourcePointer.reinterpret(), name)
 
     /**
@@ -487,6 +499,7 @@ public class Source(
      *              0 for "immediately", -1 for "never"
      * @since 2.36
      */
+    @GLibVersion2_36
     public fun setReadyTime(readyTime: Long): Unit = g_source_set_ready_time(glibSourcePointer.reinterpret(), readyTime)
 
     /**
@@ -497,6 +510,7 @@ public class Source(
      * @param name debug name for the source
      * @since 2.70
      */
+    @GLibVersion2_70
     public fun setStaticName(name: String): Unit = g_source_set_static_name(glibSourcePointer.reinterpret(), name)
 
     /**
@@ -575,6 +589,7 @@ public class Source(
          * @param name debug name for the source
          * @since 2.26
          */
+        @GLibVersion2_26
         public fun setNameById(
             tag: UInt,
             name: String,

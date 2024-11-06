@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GStaticResource
@@ -38,6 +39,7 @@ public class StaticResource(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public fun fini(): Unit = g_static_resource_fini(gioStaticResourcePointer.reinterpret())
 
     /**
@@ -50,6 +52,7 @@ public class StaticResource(
      * @return a #GResource
      * @since 2.32
      */
+    @GioVersion2_32
     public fun getResource(): Resource =
         g_static_resource_get_resource(gioStaticResourcePointer.reinterpret())!!.run {
             Resource(reinterpret())
@@ -65,6 +68,7 @@ public class StaticResource(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public fun `init`(): Unit = g_static_resource_init(gioStaticResourcePointer.reinterpret())
 
     public companion object : RecordCompanion<StaticResource, GStaticResource> {

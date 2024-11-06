@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -93,6 +94,7 @@ public open class Box(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var baselineChild: Int
         /**
          * Gets the value set by gtk_box_set_baseline_child().
@@ -110,6 +112,7 @@ public open class Box(
          * @param child a child, or -1
          * @since 4.12
          */
+        @GtkVersion4_12
         set(child) = gtk_box_set_baseline_child(gtkBoxPointer.reinterpret(), child)
 
     /**
@@ -204,6 +207,7 @@ public open class Box(
      * @return the baseline child
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getBaselineChild(): Int = gtk_box_get_baseline_child(gtkBoxPointer.reinterpret())
 
     /**
@@ -297,6 +301,7 @@ public open class Box(
      * @param child a child, or -1
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setBaselineChild(child: Int): Unit = gtk_box_set_baseline_child(gtkBoxPointer.reinterpret(), child)
 
     /**

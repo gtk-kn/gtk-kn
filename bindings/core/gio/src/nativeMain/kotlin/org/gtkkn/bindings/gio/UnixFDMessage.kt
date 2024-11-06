@@ -8,6 +8,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -55,6 +57,7 @@ public open class UnixFDMessage(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val fdList: UnixFDList
         /**
          * Gets the #GUnixFDList contained in @message.  This function does not
@@ -103,6 +106,7 @@ public open class UnixFDMessage(
      * @return true in case of success, else false (and @error is set)
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun appendFd(fd: Int): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -122,6 +126,7 @@ public open class UnixFDMessage(
      * @return the #GUnixFDList from @message
      * @since 2.24
      */
+    @GioVersion2_24
     public open fun getFdList(): UnixFDList =
         g_unix_fd_message_get_fd_list(gioUnixFDMessagePointer.reinterpret())!!.run {
             UnixFDList(reinterpret())

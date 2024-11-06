@@ -8,6 +8,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -147,6 +148,7 @@ public interface AsyncResult :
      *   @res, false if not.
      * @since 2.34
      */
+    @GioVersion2_34
     public fun legacyPropagateError(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()

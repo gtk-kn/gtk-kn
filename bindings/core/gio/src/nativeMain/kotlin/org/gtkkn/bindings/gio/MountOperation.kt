@@ -13,6 +13,9 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_20
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_58
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -154,6 +157,7 @@ public open class MountOperation(
      *
      * @since 2.58
      */
+    @GioVersion2_58
     public open var isTcryptHiddenVolume: Boolean
         /**
          * Check to see whether the mount operation is being used
@@ -170,6 +174,7 @@ public open class MountOperation(
          * @param hiddenVolume boolean value.
          * @since 2.58
          */
+        @GioVersion2_58
         set(
             hiddenVolume
         ) =
@@ -187,6 +192,7 @@ public open class MountOperation(
      *
      * @since 2.58
      */
+    @GioVersion2_58
     public open var isTcryptSystemVolume: Boolean
         /**
          * Check to see whether the mount operation is being used
@@ -203,6 +209,7 @@ public open class MountOperation(
          * @param systemVolume boolean value.
          * @since 2.58
          */
+        @GioVersion2_58
         set(
             systemVolume
         ) =
@@ -257,6 +264,7 @@ public open class MountOperation(
      *
      * @since 2.58
      */
+    @GioVersion2_58
     public open var pim: UInt
         /**
          * Gets a PIM from the mount operation.
@@ -272,6 +280,7 @@ public open class MountOperation(
          * @param pim an unsigned integer.
          * @since 2.58
          */
+        @GioVersion2_58
         set(pim) = g_mount_operation_set_pim(gioMountOperationPointer.reinterpret(), pim)
 
     /**
@@ -332,6 +341,7 @@ public open class MountOperation(
      * @return true if mount operation is for hidden volume.
      * @since 2.58
      */
+    @GioVersion2_58
     public open fun getIsTcryptHiddenVolume(): Boolean =
         g_mount_operation_get_is_tcrypt_hidden_volume(gioMountOperationPointer.reinterpret()).asBoolean()
 
@@ -342,6 +352,7 @@ public open class MountOperation(
      * @return true if mount operation is for system volume.
      * @since 2.58
      */
+    @GioVersion2_58
     public open fun getIsTcryptSystemVolume(): Boolean =
         g_mount_operation_get_is_tcrypt_system_volume(gioMountOperationPointer.reinterpret()).asBoolean()
 
@@ -369,6 +380,7 @@ public open class MountOperation(
      * @return The VeraCrypt PIM within @op.
      * @since 2.58
      */
+    @GioVersion2_58
     public open fun getPim(): UInt = g_mount_operation_get_pim(gioMountOperationPointer.reinterpret())
 
     /**
@@ -417,6 +429,7 @@ public open class MountOperation(
      * @param hiddenVolume boolean value.
      * @since 2.58
      */
+    @GioVersion2_58
     public open fun setIsTcryptHiddenVolume(hiddenVolume: Boolean): Unit =
         g_mount_operation_set_is_tcrypt_hidden_volume(gioMountOperationPointer.reinterpret(), hiddenVolume.asGBoolean())
 
@@ -426,6 +439,7 @@ public open class MountOperation(
      * @param systemVolume boolean value.
      * @since 2.58
      */
+    @GioVersion2_58
     public open fun setIsTcryptSystemVolume(systemVolume: Boolean): Unit =
         g_mount_operation_set_is_tcrypt_system_volume(gioMountOperationPointer.reinterpret(), systemVolume.asGBoolean())
 
@@ -451,6 +465,7 @@ public open class MountOperation(
      * @param pim an unsigned integer.
      * @since 2.58
      */
+    @GioVersion2_58
     public open fun setPim(pim: UInt): Unit = g_mount_operation_set_pim(gioMountOperationPointer.reinterpret(), pim)
 
     /**
@@ -472,6 +487,7 @@ public open class MountOperation(
      * @param handler the Callback to connect
      * @since 2.20
      */
+    @GioVersion2_20
     public fun connectAborted(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,
@@ -581,6 +597,7 @@ public open class MountOperation(
      *     is completed
      * @since 2.34
      */
+    @GioVersion2_34
     public fun connectShowUnmountProgress(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (

@@ -4,6 +4,11 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_36
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
+import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantDict
 import org.gtkkn.bindings.gobject.Object
@@ -222,6 +227,7 @@ public open class ApplicationCommandLine(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open val isRemote: Boolean
         /**
          * Determines if @cmdline represents a remote invocation.
@@ -243,6 +249,7 @@ public open class ApplicationCommandLine(
      * @return a new #GFile
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun createFileForArg(arg: String): File =
         g_application_command_line_create_file_for_arg(gioApplicationCommandLinePointer.reinterpret(), arg)!!.run {
             File.wrap(reinterpret())
@@ -267,6 +274,7 @@ public open class ApplicationCommandLine(
      *
      * @since 2.80
      */
+    @GioVersion2_80
     public open fun done(): Unit = g_application_command_line_done(gioApplicationCommandLinePointer.reinterpret())
 
     /**
@@ -282,6 +290,7 @@ public open class ApplicationCommandLine(
      * @return the current directory, or null
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getCwd(): String? =
         g_application_command_line_get_cwd(gioApplicationCommandLinePointer.reinterpret())?.toKString()
 
@@ -306,6 +315,7 @@ public open class ApplicationCommandLine(
      *     the environment strings, or null if they were not sent
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getEnviron(): List<String> =
         g_application_command_line_get_environ(gioApplicationCommandLinePointer.reinterpret())?.toKStringList()
             ?: error("Expected not null string array")
@@ -317,6 +327,7 @@ public open class ApplicationCommandLine(
      * @return the exit status
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getExitStatus(): Int =
         g_application_command_line_get_exit_status(gioApplicationCommandLinePointer.reinterpret())
 
@@ -326,6 +337,7 @@ public open class ApplicationCommandLine(
      * @return true if the invocation was remote
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getIsRemote(): Boolean =
         g_application_command_line_get_is_remote(gioApplicationCommandLinePointer.reinterpret()).asBoolean()
 
@@ -346,6 +358,7 @@ public open class ApplicationCommandLine(
      * @return a #GVariantDict with the options
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getOptionsDict(): VariantDict =
         g_application_command_line_get_options_dict(gioApplicationCommandLinePointer.reinterpret())!!.run {
             VariantDict(reinterpret())
@@ -367,6 +380,7 @@ public open class ApplicationCommandLine(
      * @return the platform data, or null
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getPlatformData(): Variant? =
         g_application_command_line_get_platform_data(gioApplicationCommandLinePointer.reinterpret())?.run {
             Variant(reinterpret())
@@ -387,6 +401,7 @@ public open class ApplicationCommandLine(
      * @return a #GInputStream for stdin
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun getStdin(): InputStream? =
         g_application_command_line_get_stdin(gioApplicationCommandLinePointer.reinterpret())?.run {
             InputStream(reinterpret())
@@ -409,6 +424,7 @@ public open class ApplicationCommandLine(
      * @return the value of the variable, or null if unset or unsent
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getenv(name: String): String? =
         g_application_command_line_getenv(gioApplicationCommandLinePointer.reinterpret(), name)?.toKString()
 
@@ -422,6 +438,7 @@ public open class ApplicationCommandLine(
      * @param message the message
      * @since 2.80
      */
+    @GioVersion2_80
     public open fun printLiteral(message: String): Unit =
         g_application_command_line_print_literal(gioApplicationCommandLinePointer.reinterpret(), message)
 
@@ -435,6 +452,7 @@ public open class ApplicationCommandLine(
      * @param message the message
      * @since 2.80
      */
+    @GioVersion2_80
     public open fun printerrLiteral(message: String): Unit =
         g_application_command_line_printerr_literal(gioApplicationCommandLinePointer.reinterpret(), message)
 
@@ -467,6 +485,7 @@ public open class ApplicationCommandLine(
      * @param exitStatus the exit status
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun setExitStatus(exitStatus: Int): Unit =
         g_application_command_line_set_exit_status(gioApplicationCommandLinePointer.reinterpret(), exitStatus)
 

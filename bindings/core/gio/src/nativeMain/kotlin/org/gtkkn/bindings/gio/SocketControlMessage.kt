@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -44,6 +45,7 @@ import kotlin.ULong
  *
  * @since 2.22
  */
+@GioVersion2_22
 public open class SocketControlMessage(
     pointer: CPointer<GSocketControlMessage>,
 ) : Object(pointer.reinterpret()),
@@ -58,6 +60,7 @@ public open class SocketControlMessage(
      * @return an integer describing the level
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getLevel(): Int = g_socket_control_message_get_level(gioSocketControlMessagePointer.reinterpret())
 
     /**
@@ -67,6 +70,7 @@ public open class SocketControlMessage(
      * @return an integer describing the type of control message
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getMsgType(): Int =
         g_socket_control_message_get_msg_type(gioSocketControlMessagePointer.reinterpret())
 
@@ -77,6 +81,7 @@ public open class SocketControlMessage(
      * @return The number of bytes required.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getSize(): ULong = g_socket_control_message_get_size(gioSocketControlMessagePointer.reinterpret())
 
     public companion object : TypeCompanion<SocketControlMessage> {

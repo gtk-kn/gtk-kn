@@ -34,7 +34,9 @@ import kotlin.Unit
  */
 public open class CompletionWords(
     pointer: CPointer<GtkSourceCompletionWords>,
-) : Object(pointer.reinterpret()), CompletionProvider, KGTyped {
+) : Object(pointer.reinterpret()),
+    CompletionProvider,
+    KGTyped {
     public val gtksourceCompletionWordsPointer: CPointer<GtkSourceCompletionWords>
         get() = gPointer.reinterpret()
 
@@ -47,8 +49,7 @@ public open class CompletionWords(
      * @param title The title for the provider, or null.
      * @return a new #GtkSourceCompletionWords provider
      */
-    public constructor(title: String? = null) :
-        this(gtk_source_completion_words_new(title)!!.reinterpret())
+    public constructor(title: String? = null) : this(gtk_source_completion_words_new(title)!!.reinterpret())
 
     /**
      * Registers @buffer in the @words provider.
@@ -74,9 +75,7 @@ public open class CompletionWords(
 
     public companion object : TypeCompanion<CompletionWords> {
         override val type: GeneratedClassKGType<CompletionWords> =
-            GeneratedClassKGType(gtk_source_completion_words_get_type()) {
-                CompletionWords(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_completion_words_get_type()) { CompletionWords(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

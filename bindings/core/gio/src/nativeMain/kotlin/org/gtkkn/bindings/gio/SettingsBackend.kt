@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -65,6 +67,7 @@ public open class SettingsBackend(
      * @param path the name of the path
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun pathWritableChanged(path: String): Unit =
         g_settings_backend_path_writable_changed(gioSettingsBackendPointer.reinterpret(), path)
 
@@ -77,6 +80,7 @@ public open class SettingsBackend(
      * @param key the name of the key
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun writableChanged(key: String): Unit =
         g_settings_backend_writable_changed(gioSettingsBackendPointer.reinterpret(), key)
 
@@ -100,6 +104,7 @@ public open class SettingsBackend(
          *     backend is available.
          * @since 2.28
          */
+        @GioVersion2_28
         public fun getDefault(): SettingsBackend =
             g_settings_backend_get_default()!!.run {
                 SettingsBackend(reinterpret())

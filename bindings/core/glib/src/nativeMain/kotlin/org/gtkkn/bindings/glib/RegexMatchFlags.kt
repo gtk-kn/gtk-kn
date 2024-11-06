@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.glib.GRegexMatchFlags
 import org.gtkkn.native.glib.G_REGEX_MATCH_ANCHORED
@@ -29,6 +30,7 @@ public class RegexMatchFlags(
 ) : Bitfield<RegexMatchFlags> {
     override infix fun or(other: RegexMatchFlags): RegexMatchFlags = RegexMatchFlags(mask or other.mask)
 
+    @GLibVersion2_14
     public companion object {
         /**
          * No special options set. Since: 2.74

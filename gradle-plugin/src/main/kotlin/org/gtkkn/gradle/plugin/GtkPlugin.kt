@@ -26,12 +26,17 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gtkkn.gradle.plugin.config.dependencyResolutionConfig
 import org.gtkkn.gradle.plugin.ext.GtkExt
+import org.gtkkn.gradle.plugin.utils.configureOptInAnnotations
 
 @Suppress("unused")
 class GtkPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         GtkExt.register(project)
         project.dependencyResolutionConfig()
+
+        project.afterEvaluate {
+            configureOptInAnnotations(project)
+        }
     }
 
     companion object {

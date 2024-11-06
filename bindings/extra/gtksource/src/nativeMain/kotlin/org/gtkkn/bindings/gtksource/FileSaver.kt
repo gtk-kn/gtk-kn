@@ -53,7 +53,8 @@ import kotlin.Unit
  */
 public open class FileSaver(
     pointer: CPointer<GtkSourceFileSaver>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceFileSaverPointer: CPointer<GtkSourceFileSaver>
         get() = gPointer.reinterpret()
 
@@ -92,7 +93,9 @@ public open class FileSaver(
          *
          * @param compressionType the new compression type.
          */
-        set(compressionType) =
+        set(
+            compressionType
+        ) =
             gtk_source_file_saver_set_compression_type(
                 gtksourceFileSaverPointer.reinterpret(),
                 compressionType.nativeValue
@@ -132,11 +135,7 @@ public open class FileSaver(
          *
          * @param flags the new flags.
          */
-        set(flags) =
-            gtk_source_file_saver_set_flags(
-                gtksourceFileSaverPointer.reinterpret(),
-                flags.mask
-            )
+        set(flags) = gtk_source_file_saver_set_flags(gtksourceFileSaverPointer.reinterpret(), flags.mask)
 
     /**
      * The #GFile where to save the buffer. By default the location is taken
@@ -150,7 +149,8 @@ public open class FileSaver(
          */
         get() =
             gtk_source_file_saver_get_location(gtksourceFileSaverPointer.reinterpret())!!.run {
-                org.gtkkn.bindings.gio.File.wrap(reinterpret())
+                org.gtkkn.bindings.gio.File
+                    .wrap(reinterpret())
             }
 
     /**
@@ -173,11 +173,9 @@ public open class FileSaver(
          *
          * @param newlineType the new newline type.
          */
-        set(newlineType) =
-            gtk_source_file_saver_set_newline_type(
-                gtksourceFileSaverPointer.reinterpret(),
-                newlineType.nativeValue
-            )
+        set(
+            newlineType
+        ) = gtk_source_file_saver_set_newline_type(gtksourceFileSaverPointer.reinterpret(), newlineType.nativeValue)
 
     /**
      * Creates a new #GtkSourceFileSaver object. The @buffer will be saved to the
@@ -190,13 +188,15 @@ public open class FileSaver(
      * @param file the #GtkSourceFile.
      * @return a new #GtkSourceFileSaver object.
      */
-    public constructor(buffer: Buffer, `file`: File) :
-        this(
-            gtk_source_file_saver_new(
-                buffer.gtksourceBufferPointer.reinterpret(),
-                `file`.gtksourceFilePointer.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        buffer: Buffer,
+        `file`: File,
+    ) : this(
+        gtk_source_file_saver_new(
+            buffer.gtksourceBufferPointer.reinterpret(),
+            `file`.gtksourceFilePointer.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Creates a new #GtkSourceFileSaver object with a target location.
@@ -282,7 +282,8 @@ public open class FileSaver(
      */
     public open fun getLocation(): org.gtkkn.bindings.gio.File =
         gtk_source_file_saver_get_location(gtksourceFileSaverPointer.reinterpret())!!.run {
-            org.gtkkn.bindings.gio.File.wrap(reinterpret())
+            org.gtkkn.bindings.gio.File
+                .wrap(reinterpret())
         }
 
     /**
@@ -331,10 +332,7 @@ public open class FileSaver(
      * @param compressionType the new compression type.
      */
     public open fun setCompressionType(compressionType: CompressionType): Unit =
-        gtk_source_file_saver_set_compression_type(
-            gtksourceFileSaverPointer.reinterpret(),
-            compressionType.nativeValue
-        )
+        gtk_source_file_saver_set_compression_type(gtksourceFileSaverPointer.reinterpret(), compressionType.nativeValue)
 
     /**
      * Sets the encoding. If @encoding is null, the UTF-8 encoding will be set.
@@ -344,10 +342,7 @@ public open class FileSaver(
      * @param encoding the new encoding, or null for UTF-8.
      */
     public open fun setEncoding(encoding: Encoding? = null): Unit =
-        gtk_source_file_saver_set_encoding(
-            gtksourceFileSaverPointer.reinterpret(),
-            encoding?.gtksourceEncodingPointer
-        )
+        gtk_source_file_saver_set_encoding(gtksourceFileSaverPointer.reinterpret(), encoding?.gtksourceEncodingPointer)
 
     /**
      *
@@ -364,16 +359,11 @@ public open class FileSaver(
      * @param newlineType the new newline type.
      */
     public open fun setNewlineType(newlineType: NewlineType): Unit =
-        gtk_source_file_saver_set_newline_type(
-            gtksourceFileSaverPointer.reinterpret(),
-            newlineType.nativeValue
-        )
+        gtk_source_file_saver_set_newline_type(gtksourceFileSaverPointer.reinterpret(), newlineType.nativeValue)
 
     public companion object : TypeCompanion<FileSaver> {
         override val type: GeneratedClassKGType<FileSaver> =
-            GeneratedClassKGType(gtk_source_file_saver_get_type()) {
-                FileSaver(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_file_saver_get_type()) { FileSaver(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

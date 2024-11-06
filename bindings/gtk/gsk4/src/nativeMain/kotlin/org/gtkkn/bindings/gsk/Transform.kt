@@ -10,6 +10,7 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Point3D
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.graphene.Vec3
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -220,6 +221,7 @@ public class Transform(
      * @return The new transform
      * @since 4.6
      */
+    @GskVersion4_6
     public fun skew(
         skewX: Float,
         skewY: Float,

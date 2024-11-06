@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -48,6 +49,7 @@ public open class StringSorter(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var collation: Collation
         /**
          * Gets which collation method the sorter uses.
@@ -66,6 +68,7 @@ public open class StringSorter(
          * @param collation the collation method
          * @since 4.10
          */
+        @GtkVersion4_10
         set(collation) = gtk_string_sorter_set_collation(gtkStringSorterPointer.reinterpret(), collation.nativeValue)
 
     /**
@@ -133,6 +136,7 @@ public open class StringSorter(
      * @return The collation method
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getCollation(): Collation =
         gtk_string_sorter_get_collation(gtkStringSorterPointer.reinterpret()).run {
             Collation.fromNativeValue(this)
@@ -162,6 +166,7 @@ public open class StringSorter(
      * @param collation the collation method
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setCollation(collation: Collation): Unit =
         gtk_string_sorter_set_collation(gtkStringSorterPointer.reinterpret(), collation.nativeValue)
 

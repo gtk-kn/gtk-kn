@@ -5,6 +5,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_18
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -69,6 +71,7 @@ public open class FontFace(
      * @return the `PangoFontFamily`
      * @since 1.46
      */
+    @PangoVersion1_46
     public open fun getFamily(): FontFamily =
         pango_font_face_get_family(pangoFontFacePointer.reinterpret())!!.run {
             FontFamily(reinterpret())
@@ -84,6 +87,7 @@ public open class FontFace(
      * @return whether @face is synthesized
      * @since 1.18
      */
+    @PangoVersion1_18
     public open fun isSynthesized(): Boolean =
         pango_font_face_is_synthesized(pangoFontFacePointer.reinterpret()).asBoolean()
 

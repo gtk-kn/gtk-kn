@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -41,6 +42,7 @@ public open class SocketAddress(
      *
      * @since 2.22
      */
+    @GioVersion2_22
     public open val family: SocketFamily
         /**
          * Gets the socket family type of @address.
@@ -59,6 +61,7 @@ public open class SocketAddress(
      * @return the socket family type of @address
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getFamily(): SocketFamily =
         g_socket_address_get_family(gioSocketAddressPointer.reinterpret()).run {
             SocketFamily.fromNativeValue(this)
@@ -73,6 +76,7 @@ public open class SocketAddress(
      *     @address represents
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getNativeSize(): Long = g_socket_address_get_native_size(gioSocketAddressPointer.reinterpret())
 
     public companion object : TypeCompanion<SocketAddress> {

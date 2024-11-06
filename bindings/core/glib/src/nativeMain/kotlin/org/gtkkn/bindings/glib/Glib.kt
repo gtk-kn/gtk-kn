@@ -14,6 +14,38 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_18
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_2
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_20
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_38
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_46
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_50
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_52
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_58
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_62
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_64
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_72
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_78
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_8
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
@@ -1503,6 +1535,7 @@ public object Glib {
      *     or on error.
      * @since 2.8
      */
+    @GLibVersion2_8
     public fun access(
         filename: kotlin.String,
         mode: Int,
@@ -1688,6 +1721,7 @@ public object Glib {
      * @return the newly allocated path
      * @since 2.8
      */
+    @GLibVersion2_8
     public fun buildFilenamev(args: List<kotlin.String>): kotlin.String =
         memScoped {
             return g_build_filenamev(args.toCStringList(this))?.toKString() ?: error("Expected not null string")
@@ -1706,6 +1740,7 @@ public object Glib {
      *     must be freed with g_free().
      * @since 2.8
      */
+    @GLibVersion2_8
     public fun buildPathv(
         separator: kotlin.String,
         args: List<kotlin.String>,
@@ -1737,6 +1772,7 @@ public object Glib {
      *   canonical file path
      * @since 2.58
      */
+    @GLibVersion2_58
     public fun canonicalizeFilename(
         filename: kotlin.String,
         relativeTo: kotlin.String? = null,
@@ -1753,6 +1789,7 @@ public object Glib {
      * @return 0 on success, -1 if an error occurred.
      * @since 2.8
      */
+    @GLibVersion2_8
     public fun chdir(path: kotlin.String): Int = g_chdir(path)
 
     /**
@@ -1781,6 +1818,7 @@ public object Glib {
      *   not be modified or freed.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun checkVersion(
         requiredMajor: UInt,
         requiredMinor: UInt,
@@ -1795,6 +1833,7 @@ public object Glib {
      * not supported.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun checksumTypeGetLength(checksumType: ChecksumType): Long =
         g_checksum_type_get_length(checksumType.nativeValue)
 
@@ -1839,6 +1878,7 @@ public object Glib {
      * @return true on success, false if there was an error.
      * @since 2.36
      */
+    @GLibVersion2_36
     public fun close(fd: Int): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -1874,6 +1914,7 @@ public object Glib {
      * @return 0 on success, -1 with errno set on error
      * @since 2.80
      */
+    @GLibVersion2_80
     public fun closefrom(lowfd: Int): Int = g_closefrom(lowfd)
 
     /**
@@ -1891,6 +1932,7 @@ public object Glib {
      *   done using it.
      * @since 2.34
      */
+    @GLibVersion2_34
     public fun computeChecksumForBytes(
         checksumType: ChecksumType,
         `data`: Bytes,
@@ -1911,6 +1953,7 @@ public object Glib {
      *   should be freed with g_free() when done using it.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun computeChecksumForString(
         checksumType: ChecksumType,
         str: kotlin.String,
@@ -1933,6 +1976,7 @@ public object Glib {
      *   The returned string should be freed with g_free() when done using it.
      * @since 2.50
      */
+    @GLibVersion2_50
     public fun computeHmacForBytes(
         digestType: ChecksumType,
         key: Bytes,
@@ -1983,6 +2027,7 @@ public object Glib {
      * @return the translated string for the given locale category
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun dcgettext(
         domain: kotlin.String? = null,
         msgid: kotlin.String,
@@ -2029,6 +2074,7 @@ public object Glib {
      * @return The translated string
      * @since 2.18
      */
+    @GLibVersion2_18
     public fun dgettext(
         domain: kotlin.String? = null,
         msgid: kotlin.String,
@@ -2055,6 +2101,7 @@ public object Glib {
      *   returned and @error will be set.
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun dirMakeTmp(tmpl: kotlin.String? = null): Result<kotlin.String> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -2085,6 +2132,7 @@ public object Glib {
      * @return The translated string
      * @since 2.18
      */
+    @GLibVersion2_18
     public fun dngettext(
         domain: kotlin.String? = null,
         msgid: kotlin.String,
@@ -2115,6 +2163,7 @@ public object Glib {
      * @return The translated string
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun dpgettext(
         domain: kotlin.String? = null,
         msgctxtid: kotlin.String,
@@ -2140,6 +2189,7 @@ public object Glib {
      * @return The translated string
      * @since 2.18
      */
+    @GLibVersion2_18
     public fun dpgettext2(
         domain: kotlin.String? = null,
         context: kotlin.String,
@@ -2160,6 +2210,7 @@ public object Glib {
      *     set or unset again.
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun environGetenv(
         envp: List<kotlin.String>? = null,
         variable: kotlin.String,
@@ -2184,6 +2235,7 @@ public object Glib {
      *     the updated environment list. Free it using g_strfreev().
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun environSetenv(
         envp: List<kotlin.String>? = null,
         variable: kotlin.String,
@@ -2213,6 +2265,7 @@ public object Glib {
      *     the updated environment list. Free it using g_strfreev().
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun environUnsetenv(
         envp: List<kotlin.String>? = null,
         variable: kotlin.String,
@@ -2242,6 +2295,7 @@ public object Glib {
      * @return 0 on success, -1 with errno set on error
      * @since 2.80
      */
+    @GLibVersion2_80
     public fun fdwalkSetCloexec(lowfd: Int): Int = g_fdwalk_set_cloexec(lowfd)
 
     /**
@@ -2295,6 +2349,7 @@ public object Glib {
      *   the contents of the symbolic link, or null if an error occurred.
      * @since 2.4
      */
+    @GLibVersion2_4
     public fun fileReadLink(filename: kotlin.String): Result<kotlin.String> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -2404,6 +2459,7 @@ public object Glib {
      *   a rendition of the basename of the filename in valid UTF-8
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun filenameDisplayBasename(filename: kotlin.String): kotlin.String =
         g_filename_display_basename(filename)?.toKString() ?: error("Expected not null string")
 
@@ -2430,6 +2486,7 @@ public object Glib {
      *   a rendition of the filename in valid UTF-8
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun filenameDisplayName(filename: kotlin.String): kotlin.String =
         g_filename_display_name(filename)?.toKString() ?: error("Expected not null string")
 
@@ -2507,6 +2564,7 @@ public object Glib {
      *   a human readable file size
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun formatSize(size: ULong): kotlin.String =
         g_format_size(size)?.toKString() ?: error("Expected not null string")
 
@@ -2526,6 +2584,7 @@ public object Glib {
      *   containing a human readable file size
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun formatSizeForDisplay(size: Long): kotlin.String =
         g_format_size_for_display(size)?.toKString() ?: error("Expected not null string")
 
@@ -2541,6 +2600,7 @@ public object Glib {
      *   containing a human readable file size
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun formatSizeFull(
         size: ULong,
         flags: FormatSizeFlags,
@@ -2559,6 +2619,7 @@ public object Glib {
      *   name. May return null
      * @since 2.2
      */
+    @GLibVersion2_2
     public fun getApplicationName(): kotlin.String? = g_get_application_name()?.toKString()
 
     /**
@@ -2610,6 +2671,7 @@ public object Glib {
      *     the list of environment variables
      * @since 2.28
      */
+    @GLibVersion2_28
     public fun getEnviron(): List<kotlin.String> =
         g_get_environ()?.toKStringList() ?: error("Expected not null string array")
 
@@ -2658,6 +2720,7 @@ public object Glib {
      * @return the host name of the machine.
      * @since 2.8
      */
+    @GLibVersion2_8
     public fun getHostName(): kotlin.String = g_get_host_name()?.toKString() ?: error("Expected not null string")
 
     /**
@@ -2677,6 +2740,7 @@ public object Glib {
      *    that must not be modified or freed.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getLanguageNames(): List<kotlin.String> =
         g_get_language_names()?.toKStringList() ?: error("Expected not null string array")
 
@@ -2698,6 +2762,7 @@ public object Glib {
      *    It must not be modified or freed. It must be copied if planned to be used in another thread.
      * @since 2.58
      */
+    @GLibVersion2_58
     public fun getLanguageNamesWithCategory(categoryName: kotlin.String): List<kotlin.String> =
         g_get_language_names_with_category(categoryName)?.toKStringList() ?: error("Expected not null string array")
 
@@ -2724,6 +2789,7 @@ public object Glib {
      *   g_strfreev().
      * @since 2.28
      */
+    @GLibVersion2_28
     public fun getLocaleVariants(locale: kotlin.String): List<kotlin.String> =
         g_get_locale_variants(locale)?.toKStringList() ?: error("Expected not null string array")
 
@@ -2742,6 +2808,7 @@ public object Glib {
      * @return the monotonic time, in microseconds
      * @since 2.28
      */
+    @GLibVersion2_28
     public fun getMonotonicTime(): Long = g_get_monotonic_time()
 
     /**
@@ -2753,6 +2820,7 @@ public object Glib {
      * @return Number of schedulable threads, always greater than 0
      * @since 2.36
      */
+    @GLibVersion2_36
     public fun getNumProcessors(): UInt = g_get_num_processors()
 
     /**
@@ -2770,6 +2838,7 @@ public object Glib {
      *   this information is not provided.
      * @since 2.64
      */
+    @GLibVersion2_64
     public fun getOsInfo(keyName: kotlin.String): kotlin.String =
         g_get_os_info(keyName)?.toKString() ?: error("Expected not null string")
 
@@ -2814,6 +2883,7 @@ public object Glib {
      * @return the number of microseconds since January 1, 1970 UTC.
      * @since 2.28
      */
+    @GLibVersion2_28
     public fun getRealTime(): Long = g_get_real_time()
 
     /**
@@ -2843,6 +2913,7 @@ public object Glib {
      *     modified or freed.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getSystemConfigDirs(): List<kotlin.String> =
         g_get_system_config_dirs()?.toKStringList() ?: error("Expected not null string array")
 
@@ -2887,6 +2958,7 @@ public object Glib {
      *     modified or freed.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getSystemDataDirs(): List<kotlin.String> =
         g_get_system_data_dirs()?.toKStringList() ?: error("Expected not null string array")
 
@@ -2932,6 +3004,7 @@ public object Glib {
      *   must not be modified or freed.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getUserCacheDir(): kotlin.String =
         g_get_user_cache_dir()?.toKString() ?: error("Expected not null string")
 
@@ -2958,6 +3031,7 @@ public object Glib {
      *   must not be modified or freed.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getUserConfigDir(): kotlin.String =
         g_get_user_config_dir()?.toKString() ?: error("Expected not null string")
 
@@ -2984,6 +3058,7 @@ public object Glib {
      *   not be modified or freed.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getUserDataDir(): kotlin.String = g_get_user_data_dir()?.toKString() ?: error("Expected not null string")
 
     /**
@@ -3015,6 +3090,7 @@ public object Glib {
      *     modified or freed.
      * @since 2.28
      */
+    @GLibVersion2_28
     public fun getUserRuntimeDir(): kotlin.String =
         g_get_user_runtime_dir()?.toKString() ?: error("Expected not null string")
 
@@ -3036,6 +3112,7 @@ public object Glib {
      *   owned by GLib and should not be modified or freed.
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun getUserSpecialDir(directory: UserDirectory): kotlin.String? =
         g_get_user_special_dir(directory.nativeValue)?.toKString()
 
@@ -3062,6 +3139,7 @@ public object Glib {
      *   must not be modified or freed.
      * @since 2.72
      */
+    @GLibVersion2_72
     public fun getUserStateDir(): kotlin.String =
         g_get_user_state_dir()?.toKString() ?: error("Expected not null string")
 
@@ -3182,6 +3260,7 @@ public object Glib {
      * @return a new #GHashTable
      * @since 2.72
      */
+    @GLibVersion2_72
     public fun hashTableNewSimilar(otherHashTable: HashTable): HashTable =
         g_hash_table_new_similar(otherHashTable.glibHashTablePointer)!!.run {
             HashTable(reinterpret())
@@ -3195,6 +3274,7 @@ public object Glib {
      * @return the passed in #GHashTable
      * @since 2.10
      */
+    @GLibVersion2_10
     public fun hashTableRef(hashTable: HashTable): HashTable =
         g_hash_table_ref(hashTable.glibHashTablePointer)!!.run {
             HashTable(reinterpret())
@@ -3211,6 +3291,7 @@ public object Glib {
      * @param hashTable a #GHashTable
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun hashTableRemoveAll(hashTable: HashTable): Unit = g_hash_table_remove_all(hashTable.glibHashTablePointer)
 
     /**
@@ -3228,6 +3309,7 @@ public object Glib {
      * @param hashTable a #GHashTable
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun hashTableStealAll(hashTable: HashTable): Unit = g_hash_table_steal_all(hashTable.glibHashTablePointer)
 
     /**
@@ -3239,6 +3321,7 @@ public object Glib {
      * @param hashTable a valid #GHashTable
      * @since 2.10
      */
+    @GLibVersion2_10
     public fun hashTableUnref(hashTable: HashTable): Unit = g_hash_table_unref(hashTable.glibHashTablePointer)
 
     /**
@@ -3329,6 +3412,7 @@ public object Glib {
      * segments.
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun hostnameIsAsciiEncoded(hostname: kotlin.String): Boolean =
         g_hostname_is_ascii_encoded(hostname).asBoolean()
 
@@ -3342,6 +3426,7 @@ public object Glib {
      * @return true if @hostname is an IP address
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun hostnameIsIpAddress(hostname: kotlin.String): Boolean = g_hostname_is_ip_address(hostname).asBoolean()
 
     /**
@@ -3357,6 +3442,7 @@ public object Glib {
      * @return true if @hostname contains any non-ASCII characters
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun hostnameIsNonAscii(hostname: kotlin.String): Boolean = g_hostname_is_non_ascii(hostname).asBoolean()
 
     /**
@@ -3369,6 +3455,7 @@ public object Glib {
      *    or null if @hostname is in some way invalid.
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun hostnameToAscii(hostname: kotlin.String): kotlin.String =
         g_hostname_to_ascii(hostname)?.toKString() ?: error("Expected not null string")
 
@@ -3386,6 +3473,7 @@ public object Glib {
      *    or null if @hostname is in some way invalid.
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun hostnameToUnicode(hostname: kotlin.String): kotlin.String =
         g_hostname_to_unicode(hostname)?.toKString() ?: error("Expected not null string")
 
@@ -3451,6 +3539,7 @@ public object Glib {
      * @return a canonical representation for the string
      * @since 2.10
      */
+    @GLibVersion2_10
     public fun internStaticString(string: kotlin.String? = null): kotlin.String =
         g_intern_static_string(string)?.toKString() ?: error("Expected not null string")
 
@@ -3467,6 +3556,7 @@ public object Glib {
      * @return a canonical representation for the string
      * @since 2.10
      */
+    @GLibVersion2_10
     public fun internString(string: kotlin.String? = null): kotlin.String =
         g_intern_string(string)?.toKString() ?: error("Expected not null string")
 
@@ -3503,6 +3593,7 @@ public object Glib {
      *     g_strfreev().
      * @since 2.8
      */
+    @GLibVersion2_8
     public fun listenv(): List<kotlin.String> = g_listenv()?.toKStringList() ?: error("Expected not null string array")
 
     /**
@@ -3518,6 +3609,7 @@ public object Glib {
      * @return `TRUE` if debug output is enabled, `FALSE` otherwise
      * @since 2.72
      */
+    @GLibVersion2_72
     public fun logGetDebugEnabled(): Boolean = g_log_get_debug_enabled().asBoolean()
 
     /**
@@ -3576,6 +3668,7 @@ public object Glib {
      * @param enabled `TRUE` to enable debug output, `FALSE` otherwise
      * @since 2.72
      */
+    @GLibVersion2_72
     public fun logSetDebugEnabled(enabled: Boolean): Unit = g_log_set_debug_enabled(enabled.asGBoolean())
 
     /**
@@ -3622,6 +3715,7 @@ public object Glib {
      * @return the ID of the new handler
      * @since 2.46
      */
+    @GLibVersion2_46
     public fun logSetHandler(
         logDomain: kotlin.String? = null,
         logLevels: LogLevelFlags,
@@ -3651,6 +3745,7 @@ public object Glib {
      * @param func log writer function, which must not be `NULL`
      * @since 2.50
      */
+    @GLibVersion2_50
     public fun logSetWriterFunc(func: LogWriterFunc): Unit =
         g_log_set_writer_func(
             LogWriterFuncFunc.reinterpret(),
@@ -3682,6 +3777,7 @@ public object Glib {
      * containing the key-value pairs of message data.
      * @since 2.50
      */
+    @GLibVersion2_50
     public fun logVariant(
         logDomain: kotlin.String? = null,
         logLevel: LogLevelFlags,
@@ -3709,6 +3805,7 @@ public object Glib {
      *  normally have appeared on `stdout`
      * @since 2.68
      */
+    @GLibVersion2_68
     public fun logWriterDefaultSetUseStderr(useStderr: Boolean): Unit =
         g_log_writer_default_set_use_stderr(useStderr.asGBoolean())
 
@@ -3747,6 +3844,7 @@ public object Glib {
      *   default log handlers
      * @since 2.68
      */
+    @GLibVersion2_68
     public fun logWriterDefaultWouldDrop(
         logLevel: LogLevelFlags,
         logDomain: kotlin.String? = null,
@@ -3767,6 +3865,7 @@ public object Glib {
      * @return `TRUE` if @output_fd points to the journal, `FALSE` otherwise
      * @since 2.50
      */
+    @GLibVersion2_50
     public fun logWriterIsJournald(outputFd: Int): Boolean = g_log_writer_is_journald(outputFd).asBoolean()
 
     /**
@@ -3779,6 +3878,7 @@ public object Glib {
      * @return `TRUE` if ANSI color escapes are supported, `FALSE` otherwise
      * @since 2.50
      */
+    @GLibVersion2_50
     public fun logWriterSupportsColor(outputFd: Int): Boolean = g_log_writer_supports_color(outputFd).asBoolean()
 
     /**
@@ -3811,6 +3911,7 @@ public object Glib {
      * null if the thread-default context is the global-default main context.
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun mainContextGetThreadDefault(): MainContext? =
         g_main_context_get_thread_default()?.run {
             MainContext(reinterpret())
@@ -3828,6 +3929,7 @@ public object Glib {
      *     with g_main_context_unref() when you are done with it.
      * @since 2.32
      */
+    @GLibVersion2_32
     public fun mainContextRefThreadDefault(): MainContext =
         g_main_context_ref_thread_default()!!.run {
             MainContext(reinterpret())
@@ -3839,6 +3941,7 @@ public object Glib {
      * @return The currently firing source or null.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun mainCurrentSource(): Source? =
         g_main_current_source()?.run {
             Source(reinterpret())
@@ -4018,6 +4121,7 @@ public object Glib {
      * created. Returns -1 if an error occurred, with errno set.
      * @since 2.8
      */
+    @GLibVersion2_8
     public fun mkdirWithParents(
         pathname: kotlin.String,
         mode: Int,
@@ -4217,6 +4321,7 @@ public object Glib {
      * if the call was interrupted.
      * @since 2.20
      */
+    @GLibVersion2_20
     public fun poll(
         fds: PollFD,
         nfds: UInt,
@@ -4333,6 +4438,7 @@ public object Glib {
      * @return the newly created reference counted string
      * @since 2.58
      */
+    @GLibVersion2_58
     public fun refStringNew(str: kotlin.String): kotlin.String =
         g_ref_string_new(str)?.toKString() ?: error("Expected not null string")
 
@@ -4349,6 +4455,7 @@ public object Glib {
      *   counted string, or a new reference to an existing string
      * @since 2.58
      */
+    @GLibVersion2_58
     public fun refStringNewIntern(str: kotlin.String): kotlin.String =
         g_ref_string_new_intern(str)?.toKString() ?: error("Expected not null string")
 
@@ -4364,6 +4471,7 @@ public object Glib {
      * @return the newly created reference counted string
      * @since 2.58
      */
+    @GLibVersion2_58
     public fun refStringNewLen(
         str: kotlin.String,
         len: Long,
@@ -4383,6 +4491,7 @@ public object Glib {
      * @return a newly-allocated escaped string
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun regexEscapeNul(
         string: kotlin.String,
         length: Int,
@@ -4402,6 +4511,7 @@ public object Glib {
      * @return a newly-allocated escaped string
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun regexEscapeString(
         string: kotlin.String,
         length: Int,
@@ -4426,6 +4536,7 @@ public object Glib {
      * @return true if the string matched, false otherwise
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun regexMatchSimple(
         pattern: kotlin.String,
         string: kotlin.String,
@@ -4470,6 +4581,7 @@ public object Glib {
      * it using g_strfreev()
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun regexSplitSimple(
         pattern: kotlin.String,
         string: kotlin.String,
@@ -4491,6 +4603,7 @@ public object Glib {
      *
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun reloadUserSpecialDirsCache(): Unit = g_reload_user_special_dirs_cache()
 
     /**
@@ -4506,6 +4619,7 @@ public object Glib {
      *    occurred
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun rmdir(filename: kotlin.String): Int = g_rmdir(filename)
 
     /**
@@ -4524,6 +4638,7 @@ public object Glib {
      * @param applicationName localized name of the application
      * @since 2.2
      */
+    @GLibVersion2_2
     public fun setApplicationName(applicationName: kotlin.String): Unit = g_set_application_name(applicationName)
 
     /**
@@ -4572,6 +4687,7 @@ public object Glib {
      * @return false if the environment variable couldn't be set.
      * @since 2.4
      */
+    @GLibVersion2_4
     public fun setenv(
         variable: kotlin.String,
         `value`: kotlin.String,
@@ -4712,6 +4828,7 @@ public object Glib {
      * @param name debug name for the source
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun sourceSetNameById(
         tag: UInt,
         name: kotlin.String,
@@ -4746,6 +4863,7 @@ public object Glib {
      *     @error will be set)
      * @since 2.34
      */
+    @GLibVersion2_34
     public fun spawnCheckExitStatus(waitStatus: Int): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -4806,6 +4924,7 @@ public object Glib {
      *   @error will be set)
      * @since 2.70
      */
+    @GLibVersion2_70
     public fun spawnCheckWaitStatus(waitStatus: Int): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -4883,6 +5002,7 @@ public object Glib {
      * @param bugUriSnippet Bug specific bug tracker URI or URI portion.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testBug(bugUriSnippet: kotlin.String): Unit = g_test_bug(bugUriSnippet)
 
     /**
@@ -4904,6 +5024,7 @@ public object Glib {
      * @param uriPattern the base pattern for bug URIs
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testBugBase(uriPattern: kotlin.String): Unit = g_test_bug_base(uriPattern)
 
     /**
@@ -4915,6 +5036,7 @@ public object Glib {
      *
      * @since 2.78
      */
+    @GLibVersion2_78
     public fun testDisableCrashReporting(): Unit = g_test_disable_crash_reporting()
 
     /**
@@ -4959,6 +5081,7 @@ public object Glib {
      * @param pattern a glob-style pattern (see [type@GLib.PatternSpec])
      * @since 2.34
      */
+    @GLibVersion2_34
     public fun testExpectMessage(
         logDomain: kotlin.String? = null,
         logLevel: LogLevelFlags,
@@ -4988,6 +5111,7 @@ public object Glib {
      *
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun testFail(): Unit = g_test_fail()
 
     /**
@@ -5005,6 +5129,7 @@ public object Glib {
      * @return true if the test has failed
      * @since 2.38
      */
+    @GLibVersion2_38
     public fun testFailed(): Boolean = g_test_failed().asBoolean()
 
     /**
@@ -5018,6 +5143,7 @@ public object Glib {
      * @return the path of the directory, owned by GLib
      * @since 2.38
      */
+    @GLibVersion2_38
     public fun testGetDir(fileType: TestFileType): kotlin.String =
         g_test_get_dir(fileType.nativeValue)?.toKString() ?: error("Expected not null string")
 
@@ -5034,6 +5160,7 @@ public object Glib {
      * @return the test path for the test currently being run
      * @since 2.68
      */
+    @GLibVersion2_68
     public fun testGetPath(): kotlin.String = g_test_get_path()?.toKString() ?: error("Expected not null string")
 
     /**
@@ -5051,6 +5178,7 @@ public object Glib {
      * @param msg explanation
      * @since 2.38
      */
+    @GLibVersion2_38
     public fun testIncomplete(msg: kotlin.String? = null): Unit = g_test_incomplete(msg)
 
     /**
@@ -5068,6 +5196,7 @@ public object Glib {
      * @return a random number from the seeded random number generator.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testRandDouble(): Double = g_test_rand_double()
 
     /**
@@ -5079,6 +5208,7 @@ public object Glib {
      * @return a number with @range_start <= number < @range_end.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testRandDoubleRange(
         rangeStart: Double,
         rangeEnd: Double,
@@ -5098,6 +5228,7 @@ public object Glib {
      * @return a random number from the seeded random number generator.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testRandInt(): Int = g_test_rand_int()
 
     /**
@@ -5109,6 +5240,7 @@ public object Glib {
      * @return a number with @begin <= number < @end.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testRandIntRange(
         begin: Int,
         end: Int,
@@ -5153,6 +5285,7 @@ public object Glib {
      *   g_test_incomplete()
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testRun(): Int = g_test_run()
 
     /**
@@ -5170,6 +5303,7 @@ public object Glib {
      *
      * @since 2.38
      */
+    @GLibVersion2_38
     public fun testSetNonfatalAssertions(): Unit = g_test_set_nonfatal_assertions()
 
     /**
@@ -5185,6 +5319,7 @@ public object Glib {
      * @param msg explanation
      * @since 2.38
      */
+    @GLibVersion2_38
     public fun testSkip(msg: kotlin.String? = null): Unit = g_test_skip(msg)
 
     /**
@@ -5195,6 +5330,7 @@ public object Glib {
      * g_test_trap_subprocess().
      * @since 2.38
      */
+    @GLibVersion2_38
     public fun testSubprocess(): Boolean = g_test_subprocess().asBoolean()
 
     /**
@@ -5221,6 +5357,7 @@ public object Glib {
      *    checks it.
      * @since 2.62
      */
+    @GLibVersion2_62
     public fun testSummary(summary: kotlin.String): Unit = g_test_summary(summary)
 
     /**
@@ -5230,6 +5367,7 @@ public object Glib {
      * @return the time since the last start of the timer in seconds, as a double
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testTimerElapsed(): Double = g_test_timer_elapsed()
 
     /**
@@ -5238,6 +5376,7 @@ public object Glib {
      * @return the last result of g_test_timer_elapsed(), as a double
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testTimerLast(): Double = g_test_timer_last()
 
     /**
@@ -5246,6 +5385,7 @@ public object Glib {
      *
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testTimerStart(): Unit = g_test_timer_start()
 
     /**
@@ -5302,6 +5442,7 @@ public object Glib {
      * @return true for the forked child and false for the executing parent process.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testTrapFork(
         usecTimeout: ULong,
         testTrapFlags: TestTrapFlags,
@@ -5313,6 +5454,7 @@ public object Glib {
      * @return true if the last test subprocess terminated successfully.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testTrapHasPassed(): Boolean = g_test_trap_has_passed().asBoolean()
 
     /**
@@ -5321,6 +5463,7 @@ public object Glib {
      * @return true if the last test subprocess got killed due to a timeout.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun testTrapReachedTimeout(): Boolean = g_test_trap_reached_timeout().asBoolean()
 
     /**
@@ -5334,6 +5477,7 @@ public object Glib {
      * @param testFlags Flags to modify subprocess behaviour.
      * @since 2.38
      */
+    @GLibVersion2_38
     public fun testTrapSubprocess(
         testPath: kotlin.String? = null,
         usecTimeout: ULong,
@@ -5440,6 +5584,7 @@ public object Glib {
      * @param testFlags Flags to modify subprocess behaviour.
      * @since 2.80
      */
+    @GLibVersion2_80
     public fun testTrapSubprocessWithEnvp(
         testPath: kotlin.String? = null,
         envp: List<kotlin.String>? = null,
@@ -5465,6 +5610,7 @@ public object Glib {
      *     thread
      * @since 2.10
      */
+    @GLibVersion2_10
     public fun threadPoolGetMaxIdleTime(): UInt = g_thread_pool_get_max_idle_time()
 
     /**
@@ -5496,6 +5642,7 @@ public object Glib {
      *     a thread can be idle
      * @since 2.10
      */
+    @GLibVersion2_10
     public fun threadPoolSetMaxIdleTime(interval: UInt): Unit = g_thread_pool_set_max_idle_time(interval)
 
     /**
@@ -5566,6 +5713,7 @@ public object Glib {
      * @return true if the conversion was successful.
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun timeValFromIso8601(
         isoDate: kotlin.String,
         time: TimeVal,
@@ -5665,6 +5813,7 @@ public object Glib {
      * @return the ID (greater than 0) of the event source.
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun timeoutAddSeconds(
         priority: Int,
         interval: UInt,
@@ -5713,6 +5862,7 @@ public object Glib {
      * @return the newly-created timeout source
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun timeoutSourceNewSeconds(interval: UInt): Source =
         g_timeout_source_new_seconds(interval)!!.run {
             Source(reinterpret())
@@ -5741,6 +5891,7 @@ public object Glib {
      * @return the combining class of the character
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun unicharCombiningClass(uc: UInt): Int = g_unichar_combining_class(uc)
 
     /**
@@ -5766,6 +5917,7 @@ public object Glib {
      * @return the #GUnicodeScript for the character.
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun unicharGetScript(ch: UInt): UnicodeScript =
         g_unichar_get_script(ch).run {
             UnicodeScript.fromNativeValue(this)
@@ -5857,6 +6009,7 @@ public object Glib {
      * @return true if @c is a mark character
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun unicharIsmark(c: UInt): Boolean = g_unichar_ismark(c).asBoolean()
 
     /**
@@ -5940,6 +6093,7 @@ public object Glib {
      * @return true if the character is wide in legacy East Asian locales
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun unicharIswideCjk(c: UInt): Boolean = g_unichar_iswide_cjk(c).asBoolean()
 
     /**
@@ -5965,6 +6119,7 @@ public object Glib {
      * @return true if the character has zero width
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun unicharIszerowidth(c: UInt): Boolean = g_unichar_iszerowidth(c).asBoolean()
 
     /**
@@ -6045,6 +6200,7 @@ public object Glib {
      *   %G_UNICODE_SCRIPT_UNKNOWN if @iso15924 is unknown.
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun unicodeScriptFromIso15924(iso15924: UInt): UnicodeScript =
         g_unicode_script_from_iso15924(iso15924).run {
             UnicodeScript.fromNativeValue(this)
@@ -6067,6 +6223,7 @@ public object Glib {
      *   ISO 15924 code 'Zzzz' (script code for UNKNOWN) if @script is not understood.
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun unicodeScriptToIso15924(script: UnicodeScript): UInt = g_unicode_script_to_iso15924(script.nativeValue)
 
     public fun unixErrorQuark(): UInt = g_unix_error_quark()
@@ -6081,6 +6238,7 @@ public object Glib {
      * @return true if successful
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun unixSetFdNonblocking(
         fd: Int,
         nonblock: Boolean,
@@ -6110,6 +6268,7 @@ public object Glib {
      * @return An ID (greater than 0) for the event source
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun unixSignalAdd(
         priority: Int,
         signum: Int,
@@ -6152,6 +6311,7 @@ public object Glib {
      * @return A newly created #GSource
      * @since 2.30
      */
+    @GLibVersion2_30
     public fun unixSignalSourceNew(signum: Int): Source =
         g_unix_signal_source_new(signum)!!.run {
             Source(reinterpret())
@@ -6173,6 +6333,7 @@ public object Glib {
      *    occurred
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun unlink(filename: kotlin.String): Int = g_unlink(filename)
 
     /**
@@ -6198,6 +6359,7 @@ public object Glib {
      *     not contain '='
      * @since 2.4
      */
+    @GLibVersion2_4
     public fun unsetenv(variable: kotlin.String): Unit = g_unsetenv(variable)
 
     /**
@@ -6217,6 +6379,7 @@ public object Glib {
      * @return a new #GUri
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun uriBuild(
         flags: UriFlags,
         scheme: kotlin.String,
@@ -6254,6 +6417,7 @@ public object Glib {
      * @return a new #GUri
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun uriBuildWithUser(
         flags: UriFlags,
         scheme: kotlin.String,
@@ -6290,6 +6454,7 @@ public object Glib {
      * returned string should be freed when no longer needed.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun uriEscapeString(
         unescaped: kotlin.String,
         reservedCharsAllowed: kotlin.String? = null,
@@ -6313,6 +6478,7 @@ public object Glib {
      * @return true if @uri_string is a valid absolute URI, false on error.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun uriIsValid(
         uriString: kotlin.String,
         flags: UriFlags,
@@ -6357,6 +6523,7 @@ public object Glib {
      * @return an absolute URI string
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun uriJoin(
         flags: UriFlags,
         scheme: kotlin.String? = null,
@@ -6396,6 +6563,7 @@ public object Glib {
      * @return an absolute URI string
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun uriJoinWithUser(
         flags: UriFlags,
         scheme: kotlin.String? = null,
@@ -6433,6 +6601,7 @@ public object Glib {
      *   with g_strfreev().
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun uriListExtractUris(uriList: kotlin.String): List<kotlin.String> =
         g_uri_list_extract_uris(uriList)?.toKStringList() ?: error("Expected not null string array")
 
@@ -6446,6 +6615,7 @@ public object Glib {
      * @return a new #GUri, or NULL on error.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun uriParse(
         uriString: kotlin.String,
         flags: UriFlags,
@@ -6507,6 +6677,7 @@ public object Glib {
      *     fully-decoded; or null on error.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun uriParseParams(
         params: kotlin.String,
         length: Long,
@@ -6544,6 +6715,7 @@ public object Glib {
      *     null on error. The returned string should be freed when no longer needed.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun uriParseScheme(uri: kotlin.String): kotlin.String? = g_uri_parse_scheme(uri)?.toKString()
 
     /**
@@ -6564,6 +6736,7 @@ public object Glib {
      *     interned via g_intern_string(), so it does not need to be freed.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun uriPeekScheme(uri: kotlin.String): kotlin.String? = g_uri_peek_scheme(uri)?.toKString()
 
     /**
@@ -6582,6 +6755,7 @@ public object Glib {
      * or NULL on error.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun uriResolveRelative(
         baseUriString: kotlin.String? = null,
         uriRef: kotlin.String,
@@ -6622,6 +6796,7 @@ public object Glib {
      *     code). The returned #GBytes should be unreffed when no longer needed.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun uriUnescapeBytes(
         escapedString: kotlin.String,
         length: Long,
@@ -6667,6 +6842,7 @@ public object Glib {
      * function will return null.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun uriUnescapeSegment(
         escapedString: kotlin.String? = null,
         escapedStringEnd: kotlin.String? = null,
@@ -6689,6 +6865,7 @@ public object Glib {
      * The returned string should be freed when no longer needed.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun uriUnescapeString(
         escapedString: kotlin.String,
         illegalCharacters: kotlin.String? = null,
@@ -6720,6 +6897,7 @@ public object Glib {
      * @return true if @str is a valid UUID, false otherwise.
      * @since 2.52
      */
+    @GLibVersion2_52
     public fun uuidStringIsValid(str: kotlin.String): Boolean = g_uuid_string_is_valid(str).asBoolean()
 
     /**
@@ -6730,6 +6908,7 @@ public object Glib {
      * @return A string that should be freed with g_free().
      * @since 2.52
      */
+    @GLibVersion2_52
     public fun uuidStringRandom(): kotlin.String =
         g_uuid_string_random()?.toKString() ?: error("Expected not null string")
 
@@ -6747,6 +6926,7 @@ public object Glib {
      * @return true if @string is a D-Bus object path
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun variantIsObjectPath(string: kotlin.String): Boolean = g_variant_is_object_path(string).asBoolean()
 
     /**
@@ -6761,6 +6941,7 @@ public object Glib {
      * @return true if @string is a D-Bus type signature
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun variantIsSignature(string: kotlin.String): Boolean = g_variant_is_signature(string).asBoolean()
 
     /**
@@ -6799,6 +6980,7 @@ public object Glib {
      * @return the printed message
      * @since 2.40
      */
+    @GLibVersion2_40
     public fun variantParseErrorPrintContext(
         error: Error,
         sourceStr: kotlin.String,

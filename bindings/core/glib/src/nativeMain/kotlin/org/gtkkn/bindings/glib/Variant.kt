@@ -6,6 +6,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
@@ -354,6 +360,7 @@ import kotlin.collections.List
  *
  * @since 2.24
  */
+@GLibVersion2_24
 public class Variant(
     pointer: CPointer<GVariant>,
 ) : Record {
@@ -381,6 +388,7 @@ public class Variant(
      * @return the byteswapped form of @value
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun byteswap(): Variant =
         g_variant_byteswap(glibVariantPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -407,6 +415,7 @@ public class Variant(
      * @return true if @format_string is safe to use
      * @since 2.34
      */
+    @GLibVersion2_34
     public fun checkFormatString(
         formatString: String,
         copyOnly: Boolean,
@@ -419,6 +428,7 @@ public class Variant(
      * @return the #GVariantClass of @value
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun classify(): VariantClass =
         g_variant_classify(glibVariantPointer.reinterpret()).run {
             VariantClass.fromNativeValue(this)
@@ -433,6 +443,7 @@ public class Variant(
      * @return true or false
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getBoolean(): Boolean = g_variant_get_boolean(glibVariantPointer.reinterpret()).asBoolean()
 
     /**
@@ -444,6 +455,7 @@ public class Variant(
      * @return a #guint8
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getByte(): UByte = g_variant_get_byte(glibVariantPointer.reinterpret())
 
     /**
@@ -475,6 +487,7 @@ public class Variant(
      * @return the child at the specified index
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getChildValue(index: ULong): Variant =
         g_variant_get_child_value(glibVariantPointer.reinterpret(), index)!!.run {
             Variant(reinterpret())
@@ -489,6 +502,7 @@ public class Variant(
      * @return A new #GBytes representing the variant data
      * @since 2.36
      */
+    @GLibVersion2_36
     public fun getDataAsBytes(): Bytes =
         g_variant_get_data_as_bytes(glibVariantPointer.reinterpret())!!.run {
             Bytes(reinterpret())
@@ -503,6 +517,7 @@ public class Variant(
      * @return a #gdouble
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getDouble(): Double = g_variant_get_double(glibVariantPointer.reinterpret())
 
     /**
@@ -518,6 +533,7 @@ public class Variant(
      * @return a #gint32
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getHandle(): Int = g_variant_get_handle(glibVariantPointer.reinterpret())
 
     /**
@@ -529,6 +545,7 @@ public class Variant(
      * @return a #gint16
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getInt16(): Short = g_variant_get_int16(glibVariantPointer.reinterpret())
 
     /**
@@ -540,6 +557,7 @@ public class Variant(
      * @return a #gint32
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getInt32(): Int = g_variant_get_int32(glibVariantPointer.reinterpret())
 
     /**
@@ -551,6 +569,7 @@ public class Variant(
      * @return a #gint64
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getInt64(): Long = g_variant_get_int64(glibVariantPointer.reinterpret())
 
     /**
@@ -560,6 +579,7 @@ public class Variant(
      * @return the contents of @value, or null
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getMaybe(): Variant? =
         g_variant_get_maybe(glibVariantPointer.reinterpret())?.run {
             Variant(reinterpret())
@@ -595,6 +615,7 @@ public class Variant(
      * @return a trusted #GVariant
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getNormalForm(): Variant =
         g_variant_get_normal_form(glibVariantPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -616,6 +637,7 @@ public class Variant(
      * @return the serialized size of @value
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getSize(): ULong = g_variant_get_size(glibVariantPointer.reinterpret())
 
     /**
@@ -627,6 +649,7 @@ public class Variant(
      * @return a #GVariantType
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getType(): VariantType =
         g_variant_get_type(glibVariantPointer.reinterpret())!!.run {
             VariantType(reinterpret())
@@ -640,6 +663,7 @@ public class Variant(
      * @return the type string for the type of @value
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getTypeString(): String =
         g_variant_get_type_string(glibVariantPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -652,6 +676,7 @@ public class Variant(
      * @return a #guint16
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getUint16(): UShort = g_variant_get_uint16(glibVariantPointer.reinterpret())
 
     /**
@@ -663,6 +688,7 @@ public class Variant(
      * @return a #guint32
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getUint32(): UInt = g_variant_get_uint32(glibVariantPointer.reinterpret())
 
     /**
@@ -674,6 +700,7 @@ public class Variant(
      * @return a #guint64
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getUint64(): ULong = g_variant_get_uint64(glibVariantPointer.reinterpret())
 
     /**
@@ -683,6 +710,7 @@ public class Variant(
      * @return the item contained in the variant
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun getVariant(): Variant =
         g_variant_get_variant(glibVariantPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -702,6 +730,7 @@ public class Variant(
      * @return a hash value corresponding to @value
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun hash(): UInt = g_variant_hash(glibVariantPointer.reinterpret())
 
     /**
@@ -710,6 +739,7 @@ public class Variant(
      * @return true if @value is a container
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun isContainer(): Boolean = g_variant_is_container(glibVariantPointer.reinterpret()).asBoolean()
 
     /**
@@ -726,6 +756,7 @@ public class Variant(
      * @return whether @value is floating
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun isFloating(): Boolean = g_variant_is_floating(glibVariantPointer.reinterpret()).asBoolean()
 
     /**
@@ -746,6 +777,7 @@ public class Variant(
      * @return true if @value is in normal form
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun isNormalForm(): Boolean = g_variant_is_normal_form(glibVariantPointer.reinterpret()).asBoolean()
 
     /**
@@ -755,6 +787,7 @@ public class Variant(
      * @return true if the type of @value matches @type
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun isOfType(type: VariantType): Boolean =
         g_variant_is_of_type(glibVariantPointer.reinterpret(), type.glibVariantTypePointer).asBoolean()
 
@@ -786,6 +819,7 @@ public class Variant(
      * @return the value of the dictionary key, or null
      * @since 2.28
      */
+    @GLibVersion2_28
     public fun lookupValue(
         key: String,
         expectedType: VariantType? = null,
@@ -810,6 +844,7 @@ public class Variant(
      * @return the number of children in the container
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun nChildren(): ULong = g_variant_n_children(glibVariantPointer.reinterpret())
 
     /**
@@ -825,6 +860,7 @@ public class Variant(
      * @return a newly-allocated string holding the result.
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun print(typeAnnotate: Boolean): String =
         g_variant_print(glibVariantPointer.reinterpret(), typeAnnotate.asGBoolean())?.toKString()
             ?: error("Expected not null string")
@@ -835,6 +871,7 @@ public class Variant(
      * @return the same @value
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun ref(): Variant =
         g_variant_ref(glibVariantPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -867,6 +904,7 @@ public class Variant(
      * @return the same @value
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun refSink(): Variant =
         g_variant_ref_sink(glibVariantPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -919,6 +957,7 @@ public class Variant(
      *
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun unref(): Unit = g_variant_unref(glibVariantPointer.reinterpret())
 
     public companion object : RecordCompanion<Variant, GVariant> {
@@ -1216,6 +1255,7 @@ public class Variant(
          * @return true if @string is a D-Bus object path
          * @since 2.24
          */
+        @GLibVersion2_24
         public fun isObjectPath(string: String): Boolean = g_variant_is_object_path(string).asBoolean()
 
         /**
@@ -1230,6 +1270,7 @@ public class Variant(
          * @return true if @string is a D-Bus type signature
          * @since 2.24
          */
+        @GLibVersion2_24
         public fun isSignature(string: String): Boolean = g_variant_is_signature(string).asBoolean()
 
         /**
@@ -1268,6 +1309,7 @@ public class Variant(
          * @return the printed message
          * @since 2.40
          */
+        @GLibVersion2_40
         public fun parseErrorPrintContext(
             error: Error,
             sourceStr: String,

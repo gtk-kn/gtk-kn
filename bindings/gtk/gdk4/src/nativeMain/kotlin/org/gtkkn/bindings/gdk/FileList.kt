@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -20,6 +21,7 @@ import org.gtkkn.native.gdk.gdk_file_list_new_from_list
  *
  * @since 4.6
  */
+@GdkVersion4_6
 public class FileList(
     pointer: CPointer<GdkFileList>,
 ) : Record {
@@ -33,6 +35,7 @@ public class FileList(
      * @return the files inside the list
      * @since 4.6
      */
+    @GdkVersion4_6
     public fun getFiles(): SList =
         gdk_file_list_get_files(gdkFileListPointer.reinterpret())!!.run {
             SList(reinterpret())

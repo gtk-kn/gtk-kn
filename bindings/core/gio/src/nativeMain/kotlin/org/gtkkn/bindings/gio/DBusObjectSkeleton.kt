@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asGBoolean
@@ -46,6 +47,7 @@ import kotlin.Unit
  *
  * @since 2.30
  */
+@GioVersion2_30
 public open class DBusObjectSkeleton(
     pointer: CPointer<GDBusObjectSkeleton>,
 ) : Object(pointer.reinterpret()),
@@ -78,6 +80,7 @@ public open class DBusObjectSkeleton(
      * @param interface A #GDBusInterfaceSkeleton.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun addInterface(`interface`: DBusInterfaceSkeleton): Unit =
         g_dbus_object_skeleton_add_interface(
             gioDBusObjectSkeletonPointer.reinterpret(),
@@ -91,6 +94,7 @@ public open class DBusObjectSkeleton(
      *
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun flush(): Unit = g_dbus_object_skeleton_flush(gioDBusObjectSkeletonPointer.reinterpret())
 
     /**
@@ -99,6 +103,7 @@ public open class DBusObjectSkeleton(
      * @param interface A #GDBusInterfaceSkeleton.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun removeInterface(`interface`: DBusInterfaceSkeleton): Unit =
         g_dbus_object_skeleton_remove_interface(
             gioDBusObjectSkeletonPointer.reinterpret(),
@@ -114,6 +119,7 @@ public open class DBusObjectSkeleton(
      * @param interfaceName A D-Bus interface name.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun removeInterfaceByName(interfaceName: String): Unit =
         g_dbus_object_skeleton_remove_interface_by_name(gioDBusObjectSkeletonPointer.reinterpret(), interfaceName)
 
@@ -123,6 +129,7 @@ public open class DBusObjectSkeleton(
      * @param objectPath A valid D-Bus object path.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun setObjectPath(objectPath: String): Unit =
         g_dbus_object_skeleton_set_object_path(gioDBusObjectSkeletonPointer.reinterpret(), objectPath)
 
@@ -140,6 +147,7 @@ public open class DBusObjectSkeleton(
      * @param handler the Callback to connect. Params: `interface` The #GDBusInterfaceSkeleton that @invocation is for.; `invocation` A #GDBusMethodInvocation.. Returns true if the call is authorized, false otherwise.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun connectAuthorizeMethod(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`interface`: DBusInterfaceSkeleton, invocation: DBusMethodInvocation) -> Boolean,

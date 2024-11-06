@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GBusType
 import org.gtkkn.native.gio.GBusType.G_BUS_TYPE_NONE
 import org.gtkkn.native.gio.GBusType.G_BUS_TYPE_SESSION
@@ -11,6 +12,7 @@ import org.gtkkn.native.gio.GBusType.G_BUS_TYPE_SYSTEM
  * An enumeration for well-known message buses.
  * @since 2.26
  */
+@GioVersion2_26
 public enum class BusType(
     public val nativeValue: GBusType,
 ) {

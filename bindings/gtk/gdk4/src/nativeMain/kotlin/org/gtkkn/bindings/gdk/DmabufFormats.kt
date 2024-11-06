@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -46,6 +47,7 @@ import kotlin.Unit
  *
  * @since 4.14
  */
+@GdkVersion4_14
 public class DmabufFormats(
     pointer: CPointer<GdkDmabufFormats>,
 ) : Record {
@@ -60,6 +62,7 @@ public class DmabufFormats(
      *   is part of @formats
      * @since 4.14
      */
+    @GdkVersion4_14
     public fun contains(
         fourcc: UInt,
         modifier: ULong,
@@ -73,6 +76,7 @@ public class DmabufFormats(
      * @return `TRUE` if @formats1 and @formats2 are equal
      * @since 4.14
      */
+    @GdkVersion4_14
     public fun equal(formats2: DmabufFormats? = null): Boolean =
         gdk_dmabuf_formats_equal(gdkDmabufFormatsPointer.reinterpret(), formats2?.gdkDmabufFormatsPointer).asBoolean()
 
@@ -87,6 +91,7 @@ public class DmabufFormats(
      * @return the number of formats
      * @since 4.14
      */
+    @GdkVersion4_14
     public fun getNFormats(): ULong = gdk_dmabuf_formats_get_n_formats(gdkDmabufFormatsPointer.reinterpret())
 
     /**
@@ -95,6 +100,7 @@ public class DmabufFormats(
      * @return the passed-in object
      * @since 4.14
      */
+    @GdkVersion4_14
     public fun ref(): DmabufFormats =
         gdk_dmabuf_formats_ref(gdkDmabufFormatsPointer.reinterpret())!!.run {
             DmabufFormats(reinterpret())
@@ -108,6 +114,7 @@ public class DmabufFormats(
      *
      * @since 4.14
      */
+    @GdkVersion4_14
     public fun unref(): Unit = gdk_dmabuf_formats_unref(gdkDmabufFormatsPointer.reinterpret())
 
     public companion object : RecordCompanion<DmabufFormats, GdkDmabufFormats> {

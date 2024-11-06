@@ -8,6 +8,9 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_10
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -129,6 +132,7 @@ public open class Object(
      *     whenever the #GBinding reference count reaches zero.
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open fun bindProperty(
         sourceProperty: String,
         target: Object,
@@ -167,6 +171,7 @@ public open class Object(
      *     whenever the #GBinding reference count reaches zero.
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open fun bindPropertyFull(
         sourceProperty: String,
         target: Object,
@@ -195,6 +200,7 @@ public open class Object(
      *
      * @since 2.10
      */
+    @GObjectVersion2_10
     public open fun forceFloating(): Unit = g_object_force_floating(gPointer.reinterpret())
 
     /**
@@ -242,6 +248,7 @@ public open class Object(
      * @return true if @object has a floating reference
      * @since 2.10
      */
+    @GObjectVersion2_10
     public open fun isFloating(): Boolean = g_object_is_floating(gPointer.reinterpret()).asBoolean()
 
     /**
@@ -302,6 +309,7 @@ public open class Object(
      * @param pspec the #GParamSpec of a property installed on the class of @object.
      * @since 2.26
      */
+    @GObjectVersion2_26
     public open fun notifyByPspec(pspec: ParamSpec): Unit =
         g_object_notify_by_pspec(gPointer.reinterpret(), pspec.gPointer.reinterpret())
 
@@ -336,6 +344,7 @@ public open class Object(
      * @return @object
      * @since 2.10
      */
+    @GObjectVersion2_10
     public open fun refSink(): Object =
         g_object_ref_sink(gPointer.reinterpret())!!.run {
             Object(reinterpret())
@@ -466,6 +475,7 @@ public open class Object(
          *          such property exists.
          * @since 2.4
          */
+        @GObjectVersion2_4
         public fun interfaceFindProperty(
             gIface: TypeInterface,
             propertyName: String,
@@ -498,6 +508,7 @@ public open class Object(
          * @param pspec the #GParamSpec for the new property
          * @since 2.4
          */
+        @GObjectVersion2_4
         public fun interfaceInstallProperty(
             gIface: TypeInterface,
             pspec: ParamSpec,

@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
@@ -199,6 +200,7 @@ public open class ActionRow(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public open var subtitleSelectable: Boolean
         /**
          * Gets whether the user can copy the subtitle from the label
@@ -216,6 +218,7 @@ public open class ActionRow(
          * @param subtitleSelectable `TRUE` if the user can copy the subtitle from the label
          * @since 1.3
          */
+        @AdwVersion1_3
         set(
             subtitleSelectable
         ) = adw_action_row_set_subtitle_selectable(adwActionRowPointer.reinterpret(), subtitleSelectable.asGBoolean())
@@ -313,6 +316,7 @@ public open class ActionRow(
      * @return whether the user can copy the subtitle from the label
      * @since 1.3
      */
+    @AdwVersion1_3
     public open fun getSubtitleSelectable(): Boolean =
         adw_action_row_get_subtitle_selectable(adwActionRowPointer.reinterpret()).asBoolean()
 
@@ -389,6 +393,7 @@ public open class ActionRow(
      * @param subtitleSelectable `TRUE` if the user can copy the subtitle from the label
      * @since 1.3
      */
+    @AdwVersion1_3
     public open fun setSubtitleSelectable(subtitleSelectable: Boolean): Unit =
         adw_action_row_set_subtitle_selectable(adwActionRowPointer.reinterpret(), subtitleSelectable.asGBoolean())
 

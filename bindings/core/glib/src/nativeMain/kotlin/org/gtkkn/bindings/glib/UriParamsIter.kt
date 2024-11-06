@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GUriParamsIter
@@ -33,6 +34,7 @@ import kotlin.Unit
  *
  * @since 2.66
  */
+@GLibVersion2_66
 public class UriParamsIter(
     pointer: CPointer<GUriParamsIter>,
 ) : Record {
@@ -84,6 +86,7 @@ public class UriParamsIter(
      * @param flags flags to modify the way the parameters are handled.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun `init`(
         params: String,
         length: Long,

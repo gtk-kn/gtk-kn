@@ -25,4 +25,6 @@ package org.gtkkn.gir.blueprints
 sealed class BlueprintResult<T : Any> {
     data class Ok<T : Any>(val blueprint: T) : BlueprintResult<T>()
     data class Skip<T : Any>(val skippedObject: SkippedObject) : BlueprintResult<T>()
+
+    fun getOrNull(): T? = if (this is Ok) blueprint else null
 }

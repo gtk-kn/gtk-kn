@@ -3,6 +3,7 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -49,6 +50,7 @@ import kotlin.Unit
  * monitor changes to the active state.
  * @since 1.4
  */
+@AdwVersion1_4
 public class SwitchRow(
     pointer: CPointer<AdwSwitchRow>,
 ) : ActionRow(pointer.reinterpret()),
@@ -73,6 +75,7 @@ public class SwitchRow(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var active: Boolean
         /**
          * Gets whether @self is in its "on" or "off" position.
@@ -88,6 +91,7 @@ public class SwitchRow(
          * @param isActive whether @self should be active
          * @since 1.4
          */
+        @AdwVersion1_4
         set(isActive) = adw_switch_row_set_active(adwSwitchRowPointer.reinterpret(), isActive.asGBoolean())
 
     /**
@@ -104,6 +108,7 @@ public class SwitchRow(
      * @return whether @self is active or not
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getActive(): Boolean = adw_switch_row_get_active(adwSwitchRowPointer.reinterpret()).asBoolean()
 
     /**
@@ -112,6 +117,7 @@ public class SwitchRow(
      * @param isActive whether @self should be active
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setActive(isActive: Boolean): Unit =
         adw_switch_row_set_active(adwSwitchRowPointer.reinterpret(), isActive.asGBoolean())
 

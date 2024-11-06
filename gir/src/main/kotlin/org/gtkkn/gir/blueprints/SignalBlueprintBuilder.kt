@@ -83,7 +83,9 @@ class SignalBlueprintBuilder(
             lambdaTypeName = handlerLambdaTypeName,
             throws = false, // signals cannot throw
             exceptionResolvingFunctionMember = exceptionResolvingFunction(),
-            version = girSignal.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girSignal.info)
+                .build()
+                .getOrNull(),
             kdoc = context.processKdoc(girSignal.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girSignal.returnValue.docs.doc?.text),
         )

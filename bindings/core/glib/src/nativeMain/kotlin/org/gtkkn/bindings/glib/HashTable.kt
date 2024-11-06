@@ -5,6 +5,9 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_72
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GHashTable
@@ -145,6 +148,7 @@ public class HashTable(
          * @return a new #GHashTable
          * @since 2.72
          */
+        @GLibVersion2_72
         public fun newSimilar(otherHashTable: HashTable): HashTable =
             g_hash_table_new_similar(otherHashTable.glibHashTablePointer)!!.run {
                 HashTable(reinterpret())
@@ -158,6 +162,7 @@ public class HashTable(
          * @return the passed in #GHashTable
          * @since 2.10
          */
+        @GLibVersion2_10
         public fun ref(hashTable: HashTable): HashTable =
             g_hash_table_ref(hashTable.glibHashTablePointer)!!.run {
                 HashTable(reinterpret())
@@ -174,6 +179,7 @@ public class HashTable(
          * @param hashTable a #GHashTable
          * @since 2.12
          */
+        @GLibVersion2_12
         public fun removeAll(hashTable: HashTable): Unit = g_hash_table_remove_all(hashTable.glibHashTablePointer)
 
         /**
@@ -191,6 +197,7 @@ public class HashTable(
          * @param hashTable a #GHashTable
          * @since 2.12
          */
+        @GLibVersion2_12
         public fun stealAll(hashTable: HashTable): Unit = g_hash_table_steal_all(hashTable.glibHashTablePointer)
 
         /**
@@ -202,6 +209,7 @@ public class HashTable(
          * @param hashTable a valid #GHashTable
          * @since 2.10
          */
+        @GLibVersion2_10
         public fun unref(hashTable: HashTable): Unit = g_hash_table_unref(hashTable.glibHashTablePointer)
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): HashTable = HashTable(pointer.reinterpret())

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.native.adw.AdwBreakpointConditionLengthType
 import org.gtkkn.native.adw.AdwBreakpointConditionLengthType.ADW_BREAKPOINT_CONDITION_MAX_HEIGHT
 import org.gtkkn.native.adw.AdwBreakpointConditionLengthType.ADW_BREAKPOINT_CONDITION_MAX_WIDTH
@@ -15,6 +16,7 @@ import org.gtkkn.native.adw.AdwBreakpointConditionLengthType.ADW_BREAKPOINT_COND
  * New values may be added to this enumeration over time.
  * @since 1.4
  */
+@AdwVersion1_4
 public enum class BreakpointConditionLengthType(
     public val nativeValue: AdwBreakpointConditionLengthType,
 ) {

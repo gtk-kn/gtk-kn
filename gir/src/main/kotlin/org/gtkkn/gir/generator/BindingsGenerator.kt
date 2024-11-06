@@ -16,12 +16,14 @@
 
 package org.gtkkn.gir.generator
 
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeAliasSpec
 import com.squareup.kotlinpoet.TypeSpec
+import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.log.logger
@@ -36,7 +38,8 @@ class BindingsGenerator(
     BitfieldGenerator,
     RepositoryObjectGenerator,
     RecordGenerator,
-    TypeProviderGenerator {
+    TypeProviderGenerator,
+    OptInAnnotationGenerator { // Added interface
     @Suppress("LongMethod")
     fun generate(repository: RepositoryBlueprint, moduleOutputDir: File) {
         val repositoryOutputDir = repositoryBuildDir(moduleOutputDir)
@@ -50,13 +53,20 @@ class BindingsGenerator(
 
         logger.info { "Writing repository ${repository.name}" }
 
-        // write skip file
+        // Write skip file
         writeRepositorySkipFile(repository, moduleOutputDir)
 
-        // write strict enum file
+        // Write strict enum file
         writeStrictEnumFile(repository, moduleOutputDir)
 
-        // write classes
+        // Collect and write annotation names
+        val annotationNames = repository.optInVersionBlueprints.map { it.typeName.canonicalName }.sorted()
+        writeOptInAnnotationNamesFile(annotationNames, config.outputDir)
+
+        // Write @RequiresOptIn annotations
+        writeOptInAnnotations(repository.optInVersionBlueprints, repositorySrcDir(moduleOutputDir))
+
+        // Write classes
         repository.classBlueprints.forEach { clazz ->
             writeType(
                 clazz.typeName,
@@ -66,7 +76,7 @@ class BindingsGenerator(
             )
         }
 
-        // write interfaces
+        // Write interfaces
         repository.interfaceBlueprints.forEach { iface ->
             writeType(
                 iface.typeName,
@@ -76,7 +86,7 @@ class BindingsGenerator(
             )
         }
 
-        // write bitfields
+        // Write bitfields
         repository.bitfieldBlueprints.forEach { bitfield ->
             writeType(
                 bitfield.kotlinTypeName,
@@ -85,7 +95,7 @@ class BindingsGenerator(
             )
         }
 
-        // write enums
+        // Write enums
         repository.enumBlueprints.forEach { enum ->
             writeType(
                 enum.kotlinTypeName,
@@ -102,7 +112,7 @@ class BindingsGenerator(
             }
         }
 
-        // write records
+        // Write records
         repository.recordBlueprints.forEach { record ->
             writeType(
                 record.kotlinTypeName,
@@ -112,7 +122,7 @@ class BindingsGenerator(
             )
         }
 
-        // write repository object
+        // Write repository object
         writeType(
             repository.repositoryObjectName,
             buildRepositoryObject(repository),
@@ -154,8 +164,7 @@ class BindingsGenerator(
     ) {
         logger.debug { "Writing ${className.canonicalName}" }
 
-        FileSpec
-            .builder(className.packageName, className.simpleName)
+        FileSpec.builder(className.packageName, className.simpleName)
             .indent("    ")
             .addFileComment("This is a generated file. Do not modify.")
             .addType(typeSpec)
@@ -204,11 +213,58 @@ class BindingsGenerator(
 
         enumsFile.printWriter().use { writer ->
             writer.println("strictEnums = \\")
-            repository.enumBlueprints.forEach { enum ->
-                writer.println("    ${(enum.nativeValueTypeName as ClassName).simpleName} \\")
+            val lastIndex = repository.enumBlueprints.size - 1
+            repository.enumBlueprints.forEachIndexed { index, enum ->
+                val simpleName = (enum.nativeValueTypeName as ClassName).simpleName
+                val suffix = if (index == lastIndex) "" else " \\"
+                writer.println("    $simpleName$suffix")
             }
         }
     }
+
+    private fun writeOptInAnnotationNamesFile(annotationNames: List<String>, outputDir: File) {
+        if (annotationNames.isNotEmpty()) {
+            val file = File(outputDir, "optInAnnotations.txt")
+            if (file.exists()) {
+                // Append to the existing file only if annotationNames is not empty
+                file.appendText(annotationNames.joinToString(separator = "\n", postfix = "\n"))
+            } else {
+                // Create a new file and write only if annotationNames is not empty
+                file.printWriter().use { writer ->
+                    annotationNames.forEach { annotationName -> writer.println(annotationName) }
+                }
+            }
+        }
+    }
+
+    private fun writeOptInAnnotations(
+        optInVersions: Set<OptInVersionBlueprint>,
+        outputDirectory: File
+    ) {
+        optInVersions.forEach { optInVersion ->
+            val annotationSpec = buildOptInAnnotation(optInVersion)
+            writeType(
+                optInVersion.typeName,
+                annotationSpec,
+                outputDirectory,
+            )
+        }
+    }
+
+    // Implementing the method from OptInAnnotationGenerator
+    override fun buildOptInAnnotation(optInVersion: OptInVersionBlueprint): TypeSpec =
+        TypeSpec.annotationBuilder(optInVersion.typeName).apply {
+            addAnnotation(
+                AnnotationSpec.builder(RETENTION_TYPE).addMember("%T.BINARY", ANNOTATION_RETENTION_TYPE).build(),
+            )
+            addAnnotation(
+                AnnotationSpec.builder(REQUIRES_OPT_IN_TYPE)
+                    .addMember("level = %T.%L", REQUIRES_OPT_IN_LEVEL_TYPE, "WARNING")
+                    .addMember("message = %S", optInVersion.message)
+                    .build(),
+            )
+            addKdoc("Indicates that the API is available since version ${optInVersion.version}.")
+        }.build()
 
     companion object {
         // gtk-kn common function members
@@ -222,7 +278,8 @@ class BindingsGenerator(
         internal val GLIB_RECORD_COMPANION_TYPE = ClassName("org.gtkkn.extensions.glib", "RecordCompanion")
         internal val GOBJECT_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGType")
         internal val GOBJECT_GEN_CLASS_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "GeneratedClassKGType")
-        internal val GOBJECT_GEN_IFACE_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "GeneratedInterfaceKGType")
+        internal val GOBJECT_GEN_IFACE_KG_TYPE =
+            ClassName("org.gtkkn.extensions.gobject", "GeneratedInterfaceKGType")
         internal val GOBJECT_ASSOCIATE_CUSTOM_OBJECT =
             MemberName("org.gtkkn.extensions.gobject", "associateCustomObject")
         internal val GOBJECT_TYPE_COMPANION = ClassName("org.gtkkn.extensions.gobject", "TypeCompanion")
@@ -252,6 +309,10 @@ class BindingsGenerator(
         internal val RESULT_TYPE = ClassName("kotlin", "Result")
         internal val THROWS_TYPE = ClassName("kotlin", "Throws")
         internal val KCLASS_TYPE = ClassName("kotlin.reflect", "KClass")
+        internal val REQUIRES_OPT_IN_TYPE = ClassName("kotlin", "RequiresOptIn")
+        internal val REQUIRES_OPT_IN_LEVEL_TYPE = REQUIRES_OPT_IN_TYPE.nestedClass("Level")
+        internal val RETENTION_TYPE = ClassName("kotlin.annotation", "Retention")
+        internal val ANNOTATION_RETENTION_TYPE = ClassName("kotlin.annotation", "AnnotationRetention")
 
         // gobject members
         internal val G_SIGNAL_CONNECT_DATA = MemberName("org.gtkkn.native.gobject", "g_signal_connect_data")

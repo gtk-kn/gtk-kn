@@ -4,6 +4,9 @@ package org.gtkkn.bindings.pangocairo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.FontType
+import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
+import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
+import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_22
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -28,6 +31,7 @@ import kotlin.Unit
  * font technology Cairo was compiled to use.
  * @since 1.10
  */
+@PangoCairoVersion1_10
 public interface FontMap :
     Interface,
     KGTyped {
@@ -39,6 +43,7 @@ public interface FontMap :
      * @return the `cairo_font_type_t` cairo font backend type
      * @since 1.18
      */
+    @PangoCairoVersion1_18
     public fun getFontType(): FontType =
         pango_cairo_font_map_get_font_type(pangocairoFontMapPointer.reinterpret()).run {
             FontType.fromNativeValue(this)
@@ -52,6 +57,7 @@ public interface FontMap :
      * @return the resolution in "dots per inch"
      * @since 1.10
      */
+    @PangoCairoVersion1_10
     public fun getResolution(): Double = pango_cairo_font_map_get_resolution(pangocairoFontMapPointer.reinterpret())
 
     /**
@@ -73,6 +79,7 @@ public interface FontMap :
      *
      * @since 1.22
      */
+    @PangoCairoVersion1_22
     public fun setDefault(): Unit = pango_cairo_font_map_set_default(pangocairoFontMapPointer.reinterpret())
 
     /**
@@ -87,6 +94,7 @@ public interface FontMap :
      *   involved; the terminology is conventional.)
      * @since 1.10
      */
+    @PangoCairoVersion1_10
     public fun setResolution(dpi: Double): Unit =
         pango_cairo_font_map_set_resolution(pangocairoFontMapPointer.reinterpret(), dpi)
 
@@ -128,6 +136,7 @@ public interface FontMap :
          *  not be freed.
          * @since 1.10
          */
+        @PangoCairoVersion1_10
         public fun getDefault(): org.gtkkn.bindings.pango.FontMap =
             pango_cairo_font_map_get_default()!!.run {
                 org.gtkkn.bindings.pango
@@ -158,6 +167,7 @@ public interface FontMap :
          *   which should be freed with g_object_unref().
          * @since 1.10
          */
+        @PangoCairoVersion1_10
         public fun new(): org.gtkkn.bindings.pango.FontMap =
             pango_cairo_font_map_new()!!.run {
                 org.gtkkn.bindings.pango
@@ -178,6 +188,7 @@ public interface FontMap :
          *   is not supported / compiled in.
          * @since 1.18
          */
+        @PangoCairoVersion1_18
         public fun newForFontType(fonttype: FontType): org.gtkkn.bindings.pango.FontMap? =
             pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
                 org.gtkkn.bindings.pango

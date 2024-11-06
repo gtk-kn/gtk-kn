@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.pango.PANGO_SHOW_IGNORABLES
 import org.gtkkn.native.pango.PANGO_SHOW_LINE_BREAKS
@@ -18,6 +19,7 @@ public class ShowFlags(
 ) : Bitfield<ShowFlags> {
     override infix fun or(other: ShowFlags): ShowFlags = ShowFlags(mask or other.mask)
 
+    @PangoVersion1_44
     public companion object {
         /**
          * No special treatment for invisible characters

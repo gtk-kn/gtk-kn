@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -29,6 +30,7 @@ import kotlin.Unit
  *
  * @since 2.28
  */
+@GioVersion2_28
 public open class SimpleActionGroup(
     pointer: CPointer<GSimpleActionGroup>,
 ) : Object(pointer.reinterpret()),
@@ -63,6 +65,7 @@ public open class SimpleActionGroup(
      * @param action a #GAction
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun insert(action: Action): Unit =
         g_simple_action_group_insert(gioSimpleActionGroupPointer.reinterpret(), action.gioActionPointer)
 
@@ -75,6 +78,7 @@ public open class SimpleActionGroup(
      * @return a #GAction, or null
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun lookup(actionName: String): Action =
         g_simple_action_group_lookup(gioSimpleActionGroupPointer.reinterpret(), actionName)!!.run {
             Action.wrap(reinterpret())
@@ -88,6 +92,7 @@ public open class SimpleActionGroup(
      * @param actionName the name of the action
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun remove(actionName: String): Unit =
         g_simple_action_group_remove(gioSimpleActionGroupPointer.reinterpret(), actionName)
 

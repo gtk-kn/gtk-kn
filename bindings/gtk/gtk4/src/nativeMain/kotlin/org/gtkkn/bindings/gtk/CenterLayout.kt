@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -54,6 +55,7 @@ public open class CenterLayout(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var shrinkCenterLast: Boolean
         /**
          * Gets whether @self shrinks the center widget after other children.
@@ -76,6 +78,7 @@ public open class CenterLayout(
          * @param shrinkCenterLast whether to shrink the center widget after others
          * @since 4.12
          */
+        @GtkVersion4_12
         set(
             shrinkCenterLast
         ) =
@@ -137,6 +140,7 @@ public open class CenterLayout(
      * @return whether to shrink the center widget after others
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getShrinkCenterLast(): Boolean =
         gtk_center_layout_get_shrink_center_last(gtkCenterLayoutPointer.reinterpret()).asBoolean()
 
@@ -202,6 +206,7 @@ public open class CenterLayout(
      * @param shrinkCenterLast whether to shrink the center widget after others
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setShrinkCenterLast(shrinkCenterLast: Boolean): Unit =
         gtk_center_layout_set_shrink_center_last(gtkCenterLayoutPointer.reinterpret(), shrinkCenterLast.asGBoolean())
 

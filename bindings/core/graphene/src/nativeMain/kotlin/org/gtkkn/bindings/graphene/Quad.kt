@@ -4,6 +4,7 @@ package org.gtkkn.bindings.graphene
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_quad_alloc
@@ -31,6 +32,7 @@ import kotlin.Unit
  *
  * @since 1.0
  */
+@GrapheneVersion1_0
 public class Quad(
     pointer: CPointer<graphene_quad_t>,
 ) : Record {
@@ -42,6 +44,7 @@ public class Quad(
      * @param r return location for a #graphene_rect_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun bounds(r: Rect): Unit = graphene_quad_bounds(grapheneQuadPointer.reinterpret(), r.grapheneRectPointer)
 
     /**
@@ -51,6 +54,7 @@ public class Quad(
      * @return `true` if the point is inside the #graphene_quad_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun contains(p: Point): Boolean =
         graphene_quad_contains(grapheneQuadPointer.reinterpret(), p.graphenePointPointer)
 
@@ -59,6 +63,7 @@ public class Quad(
      *
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun free(): Unit = graphene_quad_free(grapheneQuadPointer.reinterpret())
 
     /**
@@ -68,6 +73,7 @@ public class Quad(
      * @return a #graphene_point_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getPoint(index: UInt): Point =
         graphene_quad_get_point(grapheneQuadPointer.reinterpret(), index)!!.run {
             Point(reinterpret())
@@ -83,6 +89,7 @@ public class Quad(
      * @return the initialized #graphene_quad_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun `init`(
         p1: Point,
         p2: Point,
@@ -107,6 +114,7 @@ public class Quad(
      * @return the initialized #graphene_quad_t
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initFromRect(r: Rect): Quad =
         graphene_quad_init_from_rect(grapheneQuadPointer.reinterpret(), r.grapheneRectPointer)!!.run {
             Quad(reinterpret())

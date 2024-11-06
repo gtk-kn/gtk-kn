@@ -8,6 +8,8 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
@@ -179,6 +181,7 @@ public open class VolumeMonitor(
      * @param handler the Callback to connect. Params: `drive` the drive where the eject button was pressed
      * @since 2.18
      */
+    @GioVersion2_18
     public fun connectDriveEjectButton(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (drive: Drive) -> Unit,
@@ -199,6 +202,7 @@ public open class VolumeMonitor(
      * @param handler the Callback to connect. Params: `drive` the drive where the stop button was pressed
      * @since 2.22
      */
+    @GioVersion2_22
     public fun connectDriveStopButton(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (drive: Drive) -> Unit,

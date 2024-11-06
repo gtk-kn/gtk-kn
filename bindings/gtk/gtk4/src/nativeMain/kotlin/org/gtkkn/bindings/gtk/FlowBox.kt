@@ -11,6 +11,8 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -304,6 +306,7 @@ public open class FlowBox(
      * @param child the `GtkWidget` to add
      * @since 4.6
      */
+    @GtkVersion4_6
     public open fun append(child: Widget): Unit =
         gtk_flow_box_append(gtkFlowBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
@@ -487,6 +490,7 @@ public open class FlowBox(
      * @param child the `GtkWidget` to add
      * @since 4.6
      */
+    @GtkVersion4_6
     public open fun prepend(child: Widget): Unit =
         gtk_flow_box_prepend(gtkFlowBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
@@ -505,6 +509,7 @@ public open class FlowBox(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun removeAll(): Unit = gtk_flow_box_remove_all(gtkFlowBoxPointer.reinterpret())
 
     /**

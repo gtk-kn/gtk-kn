@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GTlsPasswordFlags
 import org.gtkkn.native.gio.G_TLS_PASSWORD_FINAL_TRY
@@ -20,6 +21,7 @@ public class TlsPasswordFlags(
 ) : Bitfield<TlsPasswordFlags> {
     override infix fun or(other: TlsPasswordFlags): TlsPasswordFlags = TlsPasswordFlags(mask or other.mask)
 
+    @GioVersion2_30
     public companion object {
         /**
          * No flags

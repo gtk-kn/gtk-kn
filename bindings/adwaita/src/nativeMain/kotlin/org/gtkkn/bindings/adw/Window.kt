@@ -3,6 +3,8 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -158,6 +160,7 @@ public open class Window(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public open val currentBreakpoint: Breakpoint?
         /**
          * Gets the current breakpoint.
@@ -175,6 +178,7 @@ public open class Window(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public open val dialogs: ListModel
         /**
          * Returns a [iface@Gio.ListModel] that contains the open dialogs of @self.
@@ -194,6 +198,7 @@ public open class Window(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public open val visibleDialog: Dialog?
         /**
          * Returns the currently visible dialog in @self, if there's one.
@@ -219,6 +224,7 @@ public open class Window(
      * @param breakpoint the breakpoint to add
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
         adw_window_add_breakpoint(adwWindowPointer.reinterpret(), breakpoint.adwBreakpointPointer.reinterpret())
 
@@ -240,6 +246,7 @@ public open class Window(
      * @return the current breakpoint
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun getCurrentBreakpoint(): Breakpoint? =
         adw_window_get_current_breakpoint(adwWindowPointer.reinterpret())?.run {
             Breakpoint(reinterpret())
@@ -253,6 +260,7 @@ public open class Window(
      * @return a list model for the dialogs of @self
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getDialogs(): ListModel =
         adw_window_get_dialogs(adwWindowPointer.reinterpret())!!.run {
             ListModel.wrap(reinterpret())
@@ -264,6 +272,7 @@ public open class Window(
      * @return the visible dialog
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getVisibleDialog(): Dialog? =
         adw_window_get_visible_dialog(adwWindowPointer.reinterpret())?.run {
             Dialog(reinterpret())

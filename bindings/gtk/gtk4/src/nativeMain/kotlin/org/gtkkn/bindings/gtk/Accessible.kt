@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -100,6 +102,7 @@ public interface Accessible :
      * @param priority the priority of the announcement
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun announce(
         message: String,
         priority: AccessibleAnnouncementPriority,
@@ -113,6 +116,7 @@ public interface Accessible :
      * @return the accessible parent
      * @since 4.10
      */
+    @GtkVersion4_10
     public fun getAccessibleParent(): Accessible? =
         gtk_accessible_get_accessible_parent(gtkAccessiblePointer.reinterpret())?.run {
             Accessible.wrap(reinterpret())
@@ -134,6 +138,7 @@ public interface Accessible :
      * @return the accessible implementation object
      * @since 4.10
      */
+    @GtkVersion4_10
     public fun getAtContext(): ATContext =
         gtk_accessible_get_at_context(gtkAccessiblePointer.reinterpret())!!.run {
             ATContext(reinterpret())
@@ -145,6 +150,7 @@ public interface Accessible :
      * @return the first accessible child
      * @since 4.10
      */
+    @GtkVersion4_10
     public fun getFirstAccessibleChild(): Accessible? =
         gtk_accessible_get_first_accessible_child(gtkAccessiblePointer.reinterpret())?.run {
             Accessible.wrap(reinterpret())
@@ -156,6 +162,7 @@ public interface Accessible :
      * @return the next accessible sibling
      * @since 4.10
      */
+    @GtkVersion4_10
     public fun getNextAccessibleSibling(): Accessible? =
         gtk_accessible_get_next_accessible_sibling(gtkAccessiblePointer.reinterpret())?.run {
             Accessible.wrap(reinterpret())
@@ -174,6 +181,7 @@ public interface Accessible :
      * @return the value of @state for the accessible
      * @since 4.10
      */
+    @GtkVersion4_10
     public fun getPlatformState(state: AccessiblePlatformState): Boolean =
         gtk_accessible_get_platform_state(gtkAccessiblePointer.reinterpret(), state.nativeValue).asBoolean()
 
@@ -216,6 +224,7 @@ public interface Accessible :
      * @param nextSibling the sibling accessible object
      * @since 4.10
      */
+    @GtkVersion4_10
     public fun setAccessibleParent(
         parent: Accessible? = null,
         nextSibling: Accessible? = null,
@@ -235,6 +244,7 @@ public interface Accessible :
      * @param newSibling the new next accessible sibling to set
      * @since 4.10
      */
+    @GtkVersion4_10
     public fun updateNextAccessibleSibling(newSibling: Accessible? = null): Unit =
         gtk_accessible_update_next_accessible_sibling(
             gtkAccessiblePointer.reinterpret(),

@@ -8,6 +8,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.extensions.glib.Interface
@@ -33,6 +34,7 @@ import kotlin.Unit
  * [iface@Gio.DtlsConnection], representing a client-side DTLS connection.
  * @since 2.48
  */
+@GioVersion2_48
 public interface DtlsClientConnection :
     Interface,
     DatagramBased,
@@ -57,6 +59,7 @@ public interface DtlsClientConnection :
      *
      * @since 2.48
      */
+    @GioVersion2_48
     public val acceptedCas: List
         /**
          * Gets the list of distinguished names of the Certificate Authorities
@@ -95,6 +98,7 @@ public interface DtlsClientConnection :
      *
      * @since 2.48
      */
+    @GioVersion2_48
     public var serverIdentity: SocketConnectable
         /**
          * Gets @conn's expected server identity
@@ -118,6 +122,7 @@ public interface DtlsClientConnection :
          * @param identity a #GSocketConnectable describing the expected server identity
          * @since 2.48
          */
+        @GioVersion2_48
         set(
             identity
         ) =
@@ -146,6 +151,7 @@ public interface DtlsClientConnection :
      *
      * @since 2.48
      */
+    @GioVersion2_48
     public var validationFlags: TlsCertificateFlags
         /**
          * Gets @conn's validation flags
@@ -174,6 +180,7 @@ public interface DtlsClientConnection :
          * @param flags the #GTlsCertificateFlags to use
          * @since 2.48
          */
+        @GioVersion2_48
         set(
             flags
         ) = g_dtls_client_connection_set_validation_flags(gioDtlsClientConnectionPointer.reinterpret(), flags.mask)
@@ -192,6 +199,7 @@ public interface DtlsClientConnection :
      * the free the list with g_list_free().
      * @since 2.48
      */
+    @GioVersion2_48
     public fun getAcceptedCas(): List =
         g_dtls_client_connection_get_accepted_cas(gioDtlsClientConnectionPointer.reinterpret())!!.run {
             List(reinterpret())
@@ -205,6 +213,7 @@ public interface DtlsClientConnection :
      * known.
      * @since 2.48
      */
+    @GioVersion2_48
     public fun getServerIdentity(): SocketConnectable =
         g_dtls_client_connection_get_server_identity(gioDtlsClientConnectionPointer.reinterpret())!!.run {
             SocketConnectable.wrap(reinterpret())
@@ -220,6 +229,7 @@ public interface DtlsClientConnection :
      * @return the validation flags
      * @since 2.48
      */
+    @GioVersion2_48
     public fun getValidationFlags(): TlsCertificateFlags =
         g_dtls_client_connection_get_validation_flags(gioDtlsClientConnectionPointer.reinterpret()).run {
             TlsCertificateFlags(this)
@@ -234,6 +244,7 @@ public interface DtlsClientConnection :
      * @param identity a #GSocketConnectable describing the expected server identity
      * @since 2.48
      */
+    @GioVersion2_48
     public fun setServerIdentity(identity: SocketConnectable): Unit =
         g_dtls_client_connection_set_server_identity(
             gioDtlsClientConnectionPointer.reinterpret(),
@@ -252,6 +263,7 @@ public interface DtlsClientConnection :
      * @param flags the #GTlsCertificateFlags to use
      * @since 2.48
      */
+    @GioVersion2_48
     public fun setValidationFlags(flags: TlsCertificateFlags): Unit =
         g_dtls_client_connection_set_validation_flags(gioDtlsClientConnectionPointer.reinterpret(), flags.mask)
 
@@ -281,6 +293,7 @@ public interface DtlsClientConnection :
          *   #GDtlsClientConnection, or null on error
          * @since 2.48
          */
+        @GioVersion2_48
         public fun new(
             baseSocket: DatagramBased,
             serverIdentity: SocketConnectable? = null,

@@ -3,6 +3,7 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -21,6 +22,7 @@ import kotlin.String
  * [class@GObject.Object] instance.
  * @since 1.2
  */
+@AdwVersion1_2
 public class PropertyAnimationTarget(
     pointer: CPointer<AdwPropertyAnimationTarget>,
 ) : AnimationTarget(pointer.reinterpret()),
@@ -37,6 +39,7 @@ public class PropertyAnimationTarget(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public val `object`: Object
         /**
          * Gets the object animated by @self.
@@ -58,6 +61,7 @@ public class PropertyAnimationTarget(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public val pspec: ParamSpec
         /**
          * Gets the `GParamSpec` of the property animated by @self.
@@ -113,6 +117,7 @@ public class PropertyAnimationTarget(
      * @return the animated object
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getObject(): Object =
         adw_property_animation_target_get_object(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
             Object(reinterpret())
@@ -124,6 +129,7 @@ public class PropertyAnimationTarget(
      * @return the animated property's `GParamSpec`
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getPspec(): ParamSpec =
         adw_property_animation_target_get_pspec(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
             ParamSpec(reinterpret())

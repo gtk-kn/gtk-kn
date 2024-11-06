@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GHashTableIter
@@ -44,6 +45,7 @@ public class HashTableIter(
      * @return the #GHashTable associated with @iter.
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun getHashTable(): HashTable =
         g_hash_table_iter_get_hash_table(glibHashTableIterPointer.reinterpret())!!.run {
             HashTable(reinterpret())
@@ -71,6 +73,7 @@ public class HashTableIter(
      * @param hashTable a #GHashTable
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun `init`(hashTable: HashTable): Unit =
         g_hash_table_iter_init(glibHashTableIterPointer.reinterpret(), hashTable.glibHashTablePointer)
 
@@ -96,6 +99,7 @@ public class HashTableIter(
      *
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun remove(): Unit = g_hash_table_iter_remove(glibHashTableIterPointer.reinterpret())
 
     /**
@@ -107,6 +111,7 @@ public class HashTableIter(
      *
      * @since 2.16
      */
+    @GLibVersion2_16
     public fun steal(): Unit = g_hash_table_iter_steal(glibHashTableIterPointer.reinterpret())
 
     public companion object : RecordCompanion<HashTableIter, GHashTableIter> {

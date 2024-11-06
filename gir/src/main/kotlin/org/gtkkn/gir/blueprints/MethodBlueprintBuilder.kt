@@ -105,7 +105,9 @@ class MethodBlueprintBuilder(
             isOpen = isOpen,
             throws = girMethod.throws,
             exceptionResolvingFunctionMember = exceptionResolvingFunction(),
-            version = girMethod.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girMethod.info)
+                .build()
+                .getOrNull(),
             kdoc = context.processKdoc(girMethod.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girMethod.returnValue.docs.doc?.text),
         )

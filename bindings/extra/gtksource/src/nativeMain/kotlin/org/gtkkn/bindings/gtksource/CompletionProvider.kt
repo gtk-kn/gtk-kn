@@ -55,7 +55,9 @@ import kotlin.Unit
  *
  * - method `list_alternates`: Array parameter of type CompletionProposal is not supported
  */
-public interface CompletionProvider : Interface, KGTyped {
+public interface CompletionProvider :
+    Interface,
+    KGTyped {
     public val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider>
 
     /**
@@ -267,9 +269,7 @@ public interface CompletionProvider : Interface, KGTyped {
 
     public companion object : TypeCompanion<CompletionProvider> {
         override val type: GeneratedInterfaceKGType<CompletionProvider> =
-            GeneratedInterfaceKGType(gtk_source_completion_provider_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_source_completion_provider_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

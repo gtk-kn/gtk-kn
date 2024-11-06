@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.Interface
@@ -110,6 +111,7 @@ public interface ListModel :
      * @return the #GType of the items contained in @list.
      * @since 2.44
      */
+    @GioVersion2_44
     public fun getItemType(): ULong = g_list_model_get_item_type(gioListModelPointer.reinterpret())
 
     /**
@@ -122,6 +124,7 @@ public interface ListModel :
      * @return the number of items in @list.
      * @since 2.44
      */
+    @GioVersion2_44
     public fun getNItems(): UInt = g_list_model_get_n_items(gioListModelPointer.reinterpret())
 
     /**
@@ -142,6 +145,7 @@ public interface ListModel :
      * @return the object at @position.
      * @since 2.44
      */
+    @GioVersion2_44
     public fun getItem(position: UInt): Object? =
         g_list_model_get_object(gioListModelPointer.reinterpret(), position)?.run {
             Object(reinterpret())
@@ -174,6 +178,7 @@ public interface ListModel :
      * @param added the number of items added
      * @since 2.44
      */
+    @GioVersion2_44
     public fun itemsChanged(
         position: UInt,
         removed: UInt,
@@ -192,6 +197,7 @@ public interface ListModel :
      * @param handler the Callback to connect. Params: `position` the position at which @list changed; `removed` the number of items removed; `added` the number of items added
      * @since 2.44
      */
+    @GioVersion2_44
     public fun connectItemsChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (

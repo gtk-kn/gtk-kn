@@ -20,6 +20,7 @@ import com.squareup.kotlinpoet.UNIT
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirInterface
+import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirProperty
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
@@ -27,6 +28,7 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 
 class PropertyBlueprintBuilder(
     context: ProcessorContext,
+    private val girNamespace: GirNamespace,
     private val girProperty: GirProperty,
     private val methodsMap: HashMap<String, MethodBlueprint>,
     private val superClasses: List<GirClass> = emptyList(),
@@ -63,7 +65,9 @@ class PropertyBlueprintBuilder(
             setter = setter,
             isOverride = isOverride,
             isOpen = isOpen,
-            version = girProperty.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girProperty.info)
+                .build()
+                .getOrNull(),
             kdoc = context.processKdoc(girProperty.info.docs.doc?.text),
         )
     }

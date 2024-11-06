@@ -4,6 +4,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_1
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -102,6 +103,7 @@ public open class PreferencesGroup(
      *
      * @since 1.1
      */
+    @AdwVersion1_1
     public open var headerSuffix: Widget?
         /**
          * Gets the suffix for @self's header.
@@ -124,6 +126,7 @@ public open class PreferencesGroup(
          * @param suffix the suffix to set
          * @since 1.1
          */
+        @AdwVersion1_1
         set(
             suffix
         ) =
@@ -181,6 +184,7 @@ public open class PreferencesGroup(
      * @return the suffix for @self's header.
      * @since 1.1
      */
+    @AdwVersion1_1
     public open fun getHeaderSuffix(): Widget? =
         adw_preferences_group_get_header_suffix(adwPreferencesGroupPointer.reinterpret())?.run {
             Widget(reinterpret())
@@ -221,6 +225,7 @@ public open class PreferencesGroup(
      * @param suffix the suffix to set
      * @since 1.1
      */
+    @AdwVersion1_1
     public open fun setHeaderSuffix(suffix: Widget? = null): Unit =
         adw_preferences_group_set_header_suffix(
             adwPreferencesGroupPointer.reinterpret(),

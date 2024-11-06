@@ -6,6 +6,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -188,6 +189,7 @@ public open class ColumnViewColumn(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var id: String?
         /**
          * Returns the ID set with gtk_column_view_column_set_id().
@@ -208,6 +210,7 @@ public open class ColumnViewColumn(
          * @param id ID to use for this column
          * @since 4.10
          */
+        @GtkVersion4_10
         set(id) = gtk_column_view_column_set_id(gtkColumnViewColumnPointer.reinterpret(), id)
 
     /**
@@ -386,6 +389,7 @@ public open class ColumnViewColumn(
      * @return The column's ID
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getId(): String? =
         gtk_column_view_column_get_id(gtkColumnViewColumnPointer.reinterpret())?.toKString()
 
@@ -481,6 +485,7 @@ public open class ColumnViewColumn(
      * @param id ID to use for this column
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setId(id: String? = null): Unit =
         gtk_column_view_column_set_id(gtkColumnViewColumnPointer.reinterpret(), id)
 

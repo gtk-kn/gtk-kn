@@ -10,6 +10,9 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toKStringList
@@ -227,6 +230,7 @@ import kotlin.collections.List
  *
  * @since 2.66
  */
+@GLibVersion2_66
 public class Uri(
     pointer: CPointer<GUri>,
 ) : Record {
@@ -244,6 +248,7 @@ public class Uri(
      * @return @uri's authentication parameters.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getAuthParams(): String? = g_uri_get_auth_params(glibUriPointer.reinterpret())?.toKString()
 
     /**
@@ -252,6 +257,7 @@ public class Uri(
      * @return @uri's flags.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getFlags(): UriFlags =
         g_uri_get_flags(glibUriPointer.reinterpret()).run {
             UriFlags(this)
@@ -264,6 +270,7 @@ public class Uri(
      * @return @uri's fragment.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getFragment(): String? = g_uri_get_fragment(glibUriPointer.reinterpret())?.toKString()
 
     /**
@@ -280,6 +287,7 @@ public class Uri(
      * @return @uri's host.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getHost(): String? = g_uri_get_host(glibUriPointer.reinterpret())?.toKString()
 
     /**
@@ -290,6 +298,7 @@ public class Uri(
      * @return @uri's password.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getPassword(): String? = g_uri_get_password(glibUriPointer.reinterpret())?.toKString()
 
     /**
@@ -299,6 +308,7 @@ public class Uri(
      * @return @uri's path.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getPath(): String =
         g_uri_get_path(glibUriPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -308,6 +318,7 @@ public class Uri(
      * @return @uri's port, or `-1` if no port was specified.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getPort(): Int = g_uri_get_port(glibUriPointer.reinterpret())
 
     /**
@@ -320,6 +331,7 @@ public class Uri(
      * @return @uri's query.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getQuery(): String? = g_uri_get_query(glibUriPointer.reinterpret())?.toKString()
 
     /**
@@ -329,6 +341,7 @@ public class Uri(
      * @return @uri's scheme.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getScheme(): String =
         g_uri_get_scheme(glibUriPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -341,6 +354,7 @@ public class Uri(
      * @return @uri's user.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getUser(): String? = g_uri_get_user(glibUriPointer.reinterpret())?.toKString()
 
     /**
@@ -350,6 +364,7 @@ public class Uri(
      * @return @uri's userinfo.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun getUserinfo(): String? = g_uri_get_userinfo(glibUriPointer.reinterpret())?.toKString()
 
     /**
@@ -363,6 +378,7 @@ public class Uri(
      * @return a new #GUri, or NULL on error.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun parseRelative(
         uriRef: String,
         flags: UriFlags,
@@ -390,6 +406,7 @@ public class Uri(
      *     @uri, which the caller must free.
      * @since 2.66
      */
+    @GLibVersion2_66
     public fun toStringPartial(flags: UriHideFlags): String =
         g_uri_to_string_partial(glibUriPointer.reinterpret(), flags.mask)?.toKString()
             ?: error("Expected not null string")
@@ -412,6 +429,7 @@ public class Uri(
          * @return a new #GUri
          * @since 2.66
          */
+        @GLibVersion2_66
         public fun build(
             flags: UriFlags,
             scheme: String,
@@ -449,6 +467,7 @@ public class Uri(
          * @return a new #GUri
          * @since 2.66
          */
+        @GLibVersion2_66
         public fun buildWithUser(
             flags: UriFlags,
             scheme: String,
@@ -496,6 +515,7 @@ public class Uri(
          * returned string should be freed when no longer needed.
          * @since 2.16
          */
+        @GLibVersion2_16
         public fun escapeString(
             unescaped: String,
             reservedCharsAllowed: String? = null,
@@ -519,6 +539,7 @@ public class Uri(
          * @return true if @uri_string is a valid absolute URI, false on error.
          * @since 2.66
          */
+        @GLibVersion2_66
         public fun isValid(
             uriString: String,
             flags: UriFlags,
@@ -560,6 +581,7 @@ public class Uri(
          * @return an absolute URI string
          * @since 2.66
          */
+        @GLibVersion2_66
         public fun join(
             flags: UriFlags,
             scheme: String? = null,
@@ -599,6 +621,7 @@ public class Uri(
          * @return an absolute URI string
          * @since 2.66
          */
+        @GLibVersion2_66
         public fun joinWithUser(
             flags: UriFlags,
             scheme: String? = null,
@@ -636,6 +659,7 @@ public class Uri(
          *   with g_strfreev().
          * @since 2.6
          */
+        @GLibVersion2_6
         public fun listExtractUris(uriList: String): List<String> =
             g_uri_list_extract_uris(uriList)?.toKStringList() ?: error("Expected not null string array")
 
@@ -649,6 +673,7 @@ public class Uri(
          * @return a new #GUri, or NULL on error.
          * @since 2.66
          */
+        @GLibVersion2_66
         public fun parse(
             uriString: String,
             flags: UriFlags,
@@ -707,6 +732,7 @@ public class Uri(
          *     fully-decoded; or null on error.
          * @since 2.66
          */
+        @GLibVersion2_66
         public fun parseParams(
             params: String,
             length: Long,
@@ -741,6 +767,7 @@ public class Uri(
          *     null on error. The returned string should be freed when no longer needed.
          * @since 2.16
          */
+        @GLibVersion2_16
         public fun parseScheme(uri: String): String? = g_uri_parse_scheme(uri)?.toKString()
 
         /**
@@ -761,6 +788,7 @@ public class Uri(
          *     interned via g_intern_string(), so it does not need to be freed.
          * @since 2.66
          */
+        @GLibVersion2_66
         public fun peekScheme(uri: String): String? = g_uri_peek_scheme(uri)?.toKString()
 
         /**
@@ -779,6 +807,7 @@ public class Uri(
          * or NULL on error.
          * @since 2.66
          */
+        @GLibVersion2_66
         public fun resolveRelative(
             baseUriString: String? = null,
             uriRef: String,
@@ -816,6 +845,7 @@ public class Uri(
          *     code). The returned #GBytes should be unreffed when no longer needed.
          * @since 2.66
          */
+        @GLibVersion2_66
         public fun unescapeBytes(
             escapedString: String,
             length: Long,
@@ -858,6 +888,7 @@ public class Uri(
          * function will return null.
          * @since 2.16
          */
+        @GLibVersion2_16
         public fun unescapeSegment(
             escapedString: String? = null,
             escapedStringEnd: String? = null,
@@ -880,6 +911,7 @@ public class Uri(
          * The returned string should be freed when no longer needed.
          * @since 2.16
          */
+        @GLibVersion2_16
         public fun unescapeString(
             escapedString: String,
             illegalCharacters: String? = null,

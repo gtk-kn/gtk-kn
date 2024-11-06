@@ -5,6 +5,8 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -83,6 +85,7 @@ public class Language(
      *   (including the case that @language is null), false otherwise.
      * @since 1.4
      */
+    @PangoVersion1_4
     public fun includesScript(script: Script): Boolean =
         pango_language_includes_script(pangoLanguagePointer.reinterpret(), script.nativeValue).asBoolean()
 
@@ -162,6 +165,7 @@ public class Language(
          * @return the default language as a `PangoLanguage`
          * @since 1.16
          */
+        @PangoVersion1_16
         public fun getDefault(): Language =
             pango_language_get_default()!!.run {
                 Language(reinterpret())

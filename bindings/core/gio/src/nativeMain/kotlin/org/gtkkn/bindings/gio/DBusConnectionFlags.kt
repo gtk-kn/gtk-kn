@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDBusConnectionFlags
 import org.gtkkn.native.gio.G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS
@@ -21,6 +22,7 @@ public class DBusConnectionFlags(
 ) : Bitfield<DBusConnectionFlags> {
     override infix fun or(other: DBusConnectionFlags): DBusConnectionFlags = DBusConnectionFlags(mask or other.mask)
 
+    @GioVersion2_26
     public companion object {
         /**
          * No flags set.

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_50
 import org.gtkkn.native.glib.GLogWriterOutput
 import org.gtkkn.native.glib.GLogWriterOutput.G_LOG_WRITER_HANDLED
 import org.gtkkn.native.glib.GLogWriterOutput.G_LOG_WRITER_UNHANDLED
@@ -14,6 +15,7 @@ import org.gtkkn.native.glib.GLogWriterOutput.G_LOG_WRITER_UNHANDLED
  * %G_LOG_WRITER_HANDLED.
  * @since 2.50
  */
+@GLibVersion2_50
 public enum class LogWriterOutput(
     public val nativeValue: GLogWriterOutput,
 ) {

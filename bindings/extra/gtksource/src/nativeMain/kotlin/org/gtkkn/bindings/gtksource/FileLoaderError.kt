@@ -37,8 +37,7 @@ public enum class FileLoaderError(
         public fun fromNativeValue(nativeValue: GtkSourceFileLoaderError): FileLoaderError =
             when (nativeValue) {
                 GTK_SOURCE_FILE_LOADER_ERROR_TOO_BIG -> TOO_BIG
-                GTK_SOURCE_FILE_LOADER_ERROR_ENCODING_AUTO_DETECTION_FAILED ->
-                    ENCODING_AUTO_DETECTION_FAILED
+                GTK_SOURCE_FILE_LOADER_ERROR_ENCODING_AUTO_DETECTION_FAILED -> ENCODING_AUTO_DETECTION_FAILED
                 GTK_SOURCE_FILE_LOADER_ERROR_CONVERSION_FALLBACK -> CONVERSION_FALLBACK
                 else -> error("invalid nativeValue")
             }

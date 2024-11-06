@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
@@ -41,6 +42,7 @@ import kotlin.collections.List
  * GIO comes with an implementation for use inside Flatpak portals.
  * @since 2.26
  */
+@GioVersion2_26
 public interface ProxyResolver :
     Interface,
     KGTyped {
@@ -54,6 +56,7 @@ public interface ProxyResolver :
      * @return true if @resolver is supported.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun isSupported(): Boolean = g_proxy_resolver_is_supported(gioProxyResolverPointer.reinterpret()).asBoolean()
 
     /**
@@ -80,6 +83,7 @@ public interface ProxyResolver :
      *               with g_strfreev().
      * @since 2.26
      */
+    @GioVersion2_26
     public fun lookup(
         uri: String,
         cancellable: Cancellable? = null,
@@ -109,6 +113,7 @@ public interface ProxyResolver :
      * @param callback callback to call after resolution completes
      * @since 2.26
      */
+    @GioVersion2_26
     public fun lookupAsync(
         uri: String,
         cancellable: Cancellable? = null,
@@ -133,6 +138,7 @@ public interface ProxyResolver :
      *               with g_strfreev().
      * @since 2.26
      */
+    @GioVersion2_26
     public fun lookupFinish(result: AsyncResult): Result<List<String>> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -172,6 +178,7 @@ public interface ProxyResolver :
          *     will be a dummy object if no proxy resolver is available
          * @since 2.26
          */
+        @GioVersion2_26
         public fun getDefault(): ProxyResolver =
             g_proxy_resolver_get_default()!!.run {
                 ProxyResolver.wrap(reinterpret())

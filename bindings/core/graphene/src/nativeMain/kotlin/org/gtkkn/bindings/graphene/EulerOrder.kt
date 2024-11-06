@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.graphene
 
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.native.graphene.graphene_euler_order_t
 import org.gtkkn.native.graphene.graphene_euler_order_t.GRAPHENE_EULER_ORDER_DEFAULT
 import org.gtkkn.native.graphene.graphene_euler_order_t.GRAPHENE_EULER_ORDER_RXYX
@@ -41,6 +42,7 @@ import org.gtkkn.native.graphene.graphene_euler_order_t.GRAPHENE_EULER_ORDER_ZYX
  * as an alias for one of the other orders.
  * @since 1.2
  */
+@GrapheneVersion1_2
 public enum class EulerOrder(
     public val nativeValue: graphene_euler_order_t,
 ) {

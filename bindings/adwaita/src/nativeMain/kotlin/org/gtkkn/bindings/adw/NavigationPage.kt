@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
@@ -67,6 +68,7 @@ import kotlin.Unit
  * `AdwNavigationPage` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  * @since 1.4
  */
+@AdwVersion1_4
 public open class NavigationPage(
     pointer: CPointer<AdwNavigationPage>,
 ) : Widget(pointer.reinterpret()),
@@ -97,6 +99,7 @@ public open class NavigationPage(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public open var canPop: Boolean
         /**
          * Gets whether @self can be popped from navigation stack.
@@ -121,6 +124,7 @@ public open class NavigationPage(
          * @param canPop whether the page can be popped from navigation stack
          * @since 1.4
          */
+        @AdwVersion1_4
         set(canPop) = adw_navigation_page_set_can_pop(adwNavigationPagePointer.reinterpret(), canPop.asGBoolean())
 
     /**
@@ -128,6 +132,7 @@ public open class NavigationPage(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public open var child: Widget?
         /**
          * Gets the child widget of @self.
@@ -146,6 +151,7 @@ public open class NavigationPage(
          * @param child the child widget
          * @since 1.4
          */
+        @AdwVersion1_4
         set(
             child
         ) =
@@ -168,6 +174,7 @@ public open class NavigationPage(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public open var tag: String?
         /**
          * Gets the tag of @self.
@@ -192,6 +199,7 @@ public open class NavigationPage(
          * @param tag the page tag
          * @since 1.4
          */
+        @AdwVersion1_4
         set(tag) = adw_navigation_page_set_tag(adwNavigationPagePointer.reinterpret(), tag)
 
     /**
@@ -202,6 +210,7 @@ public open class NavigationPage(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public open var title: String
         /**
          * Gets the title of @self.
@@ -222,6 +231,7 @@ public open class NavigationPage(
          * @param title the title
          * @since 1.4
          */
+        @AdwVersion1_4
         set(title) = adw_navigation_page_set_title(adwNavigationPagePointer.reinterpret(), title)
 
     /**
@@ -258,6 +268,7 @@ public open class NavigationPage(
      * @return whether the page can be popped from navigation stack
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun getCanPop(): Boolean =
         adw_navigation_page_get_can_pop(adwNavigationPagePointer.reinterpret()).asBoolean()
 
@@ -267,6 +278,7 @@ public open class NavigationPage(
      * @return the child widget of @self
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun getChild(): Widget? =
         adw_navigation_page_get_child(adwNavigationPagePointer.reinterpret())?.run {
             Widget(reinterpret())
@@ -278,6 +290,7 @@ public open class NavigationPage(
      * @return the page tag
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun getTag(): String? = adw_navigation_page_get_tag(adwNavigationPagePointer.reinterpret())?.toKString()
 
     /**
@@ -286,6 +299,7 @@ public open class NavigationPage(
      * @return the title of @self
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun getTitle(): String =
         adw_navigation_page_get_title(adwNavigationPagePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -305,6 +319,7 @@ public open class NavigationPage(
      * @param canPop whether the page can be popped from navigation stack
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun setCanPop(canPop: Boolean): Unit =
         adw_navigation_page_set_can_pop(adwNavigationPagePointer.reinterpret(), canPop.asGBoolean())
 
@@ -314,6 +329,7 @@ public open class NavigationPage(
      * @param child the child widget
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun setChild(child: Widget? = null): Unit =
         adw_navigation_page_set_child(adwNavigationPagePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
@@ -332,6 +348,7 @@ public open class NavigationPage(
      * @param tag the page tag
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun setTag(tag: String? = null): Unit =
         adw_navigation_page_set_tag(adwNavigationPagePointer.reinterpret(), tag)
 
@@ -344,6 +361,7 @@ public open class NavigationPage(
      * @param title the title
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun setTitle(title: String): Unit =
         adw_navigation_page_set_title(adwNavigationPagePointer.reinterpret(), title)
 
@@ -358,6 +376,7 @@ public open class NavigationPage(
      * @param handler the Callback to connect
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun connectHidden(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,
@@ -382,6 +401,7 @@ public open class NavigationPage(
      * @param handler the Callback to connect
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun connectHiding(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,
@@ -406,6 +426,7 @@ public open class NavigationPage(
      * @param handler the Callback to connect
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun connectShowing(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,
@@ -430,6 +451,7 @@ public open class NavigationPage(
      * @param handler the Callback to connect
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun connectShown(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

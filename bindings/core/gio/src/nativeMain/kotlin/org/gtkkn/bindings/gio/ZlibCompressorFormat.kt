@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.native.gio.GZlibCompressorFormat
 import org.gtkkn.native.gio.GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_GZIP
 import org.gtkkn.native.gio.GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_RAW
@@ -11,6 +12,7 @@ import org.gtkkn.native.gio.GZlibCompressorFormat.G_ZLIB_COMPRESSOR_FORMAT_ZLIB
  * and #GZlibCompressor.
  * @since 2.24
  */
+@GioVersion2_24
 public enum class ZlibCompressorFormat(
     public val nativeValue: GZlibCompressorFormat,
 ) {

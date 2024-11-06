@@ -28,6 +28,6 @@ data class EnumBlueprint(
     val functionBlueprints: List<FunctionBlueprint>,
     val errorDomain: String?,
     val errorExceptionTypeName: ClassName?,
-    val version: String?,
+    val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
 )

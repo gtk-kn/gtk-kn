@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GFileMeasureFlags
 import org.gtkkn.native.gio.G_FILE_MEASURE_APPARENT_SIZE
@@ -17,6 +18,7 @@ public class FileMeasureFlags(
 ) : Bitfield<FileMeasureFlags> {
     override infix fun or(other: FileMeasureFlags): FileMeasureFlags = FileMeasureFlags(mask or other.mask)
 
+    @GioVersion2_38
     public companion object {
         /**
          * No flags set.

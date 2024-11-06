@@ -4,6 +4,7 @@ package org.gtkkn.bindings.pango
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -34,6 +35,7 @@ public class ScriptIter(
      *
      * @since 1.4
      */
+    @PangoVersion1_4
     public fun free(): Unit = pango_script_iter_free(pangoScriptIterPointer.reinterpret())
 
     /**
@@ -45,6 +47,7 @@ public class ScriptIter(
      * @return true if @iter was successfully advanced
      * @since 1.4
      */
+    @PangoVersion1_4
     public fun next(): Boolean = pango_script_iter_next(pangoScriptIterPointer.reinterpret()).asBoolean()
 
     public companion object : RecordCompanion<ScriptIter, PangoScriptIter> {

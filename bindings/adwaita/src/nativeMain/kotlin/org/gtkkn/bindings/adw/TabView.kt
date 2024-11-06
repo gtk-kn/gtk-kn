@@ -8,6 +8,8 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
@@ -292,6 +294,7 @@ public class TabView(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public var shortcuts: TabViewShortcuts
         /**
          * Gets the enabled shortcuts for @self.
@@ -316,6 +319,7 @@ public class TabView(
          * @param shortcuts the new shortcuts
          * @since 1.2
          */
+        @AdwVersion1_2
         set(shortcuts) = adw_tab_view_set_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
 
     /**
@@ -358,6 +362,7 @@ public class TabView(
      * @param shortcuts the shortcuts to add
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun addShortcuts(shortcuts: TabViewShortcuts): Unit =
         adw_tab_view_add_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
 
@@ -570,6 +575,7 @@ public class TabView(
      * @return the shortcut mask
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun getShortcuts(): TabViewShortcuts =
         adw_tab_view_get_shortcuts(adwTabViewPointer.reinterpret()).run {
             TabViewShortcuts(this)
@@ -623,6 +629,7 @@ public class TabView(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun invalidateThumbnails(): Unit = adw_tab_view_invalidate_thumbnails(adwTabViewPointer.reinterpret())
 
     /**
@@ -655,6 +662,7 @@ public class TabView(
      * @param shortcuts the shortcuts to reomve
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun removeShortcuts(shortcuts: TabViewShortcuts): Unit =
         adw_tab_view_remove_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
 
@@ -828,6 +836,7 @@ public class TabView(
      * @param shortcuts the new shortcuts
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun setShortcuts(shortcuts: TabViewShortcuts): Unit =
         adw_tab_view_set_shortcuts(adwTabViewPointer.reinterpret(), shortcuts.mask)
 

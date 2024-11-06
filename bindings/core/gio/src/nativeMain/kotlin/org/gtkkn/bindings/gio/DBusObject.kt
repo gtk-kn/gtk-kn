@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.Interface
@@ -47,6 +48,7 @@ public interface DBusObject :
      *   #GDBusInterface that must be freed with g_object_unref().
      * @since 2.30
      */
+    @GioVersion2_30
     public fun getInterface(interfaceName: String): DBusInterface? =
         g_dbus_object_get_interface(gioDBusObjectPointer.reinterpret(), interfaceName)?.run {
             DBusInterface.wrap(reinterpret())
@@ -60,6 +62,7 @@ public interface DBusObject :
      *   with g_object_unref().
      * @since 2.30
      */
+    @GioVersion2_30
     public fun getInterfaces(): List =
         g_dbus_object_get_interfaces(gioDBusObjectPointer.reinterpret())!!.run {
             List(reinterpret())
@@ -71,6 +74,7 @@ public interface DBusObject :
      * @return A string owned by @object. Do not free.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun getObjectPath(): String =
         g_dbus_object_get_object_path(gioDBusObjectPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -82,6 +86,7 @@ public interface DBusObject :
      * @param handler the Callback to connect. Params: `interface` The #GDBusInterface that was added.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun connectInterfaceAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`interface`: DBusInterface) -> Unit,
@@ -102,6 +107,7 @@ public interface DBusObject :
      * @param handler the Callback to connect. Params: `interface` The #GDBusInterface that was removed.
      * @since 2.30
      */
+    @GioVersion2_30
     public fun connectInterfaceRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`interface`: DBusInterface) -> Unit,

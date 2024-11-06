@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -218,6 +219,7 @@ public open class SpinButton(
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public open var activatesDefault: Boolean
         /**
          * Retrieves the value set by [method@Gtk.SpinButton.set_activates_default].
@@ -236,6 +238,7 @@ public open class SpinButton(
          * @param activatesDefault true to activate window’s default widget on activation
          * @since 4.14
          */
+        @GtkVersion4_14
         set(
             activatesDefault
         ) = gtk_spin_button_set_activates_default(gtkSpinButtonPointer.reinterpret(), activatesDefault.asGBoolean())
@@ -486,6 +489,7 @@ public open class SpinButton(
      * @return true if the spin button will activate the default widget
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getActivatesDefault(): Boolean =
         gtk_spin_button_get_activates_default(gtkSpinButtonPointer.reinterpret()).asBoolean()
 
@@ -572,6 +576,7 @@ public open class SpinButton(
      * @param activatesDefault true to activate window’s default widget on activation
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setActivatesDefault(activatesDefault: Boolean): Unit =
         gtk_spin_button_set_activates_default(gtkSpinButtonPointer.reinterpret(), activatesDefault.asGBoolean())
 
@@ -712,6 +717,7 @@ public open class SpinButton(
      * @param handler the Callback to connect
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun connectActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

@@ -9,6 +9,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
+import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
@@ -180,6 +182,7 @@ public open class FileEnumerator(
      * @return a #GFile for the #GFileInfo passed it.
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getChild(info: FileInfo): File =
         g_file_enumerator_get_child(
             gioFileEnumeratorPointer.reinterpret(),
@@ -194,6 +197,7 @@ public open class FileEnumerator(
      * @return the #GFile which is being enumerated.
      * @since 2.18
      */
+    @GioVersion2_18
     public open fun getContainer(): File =
         g_file_enumerator_get_container(gioFileEnumeratorPointer.reinterpret())!!.run {
             File.wrap(reinterpret())

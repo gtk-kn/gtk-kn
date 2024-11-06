@@ -14,6 +14,10 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.common.asBoolean
@@ -172,6 +176,7 @@ public interface Volume :
      * @param callback a #GAsyncReadyCallback, or null
      * @since 2.22
      */
+    @GioVersion2_22
     public fun ejectWithOperation(
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
@@ -195,6 +200,7 @@ public interface Volume :
      * @return true if the volume was successfully ejected. false otherwise
      * @since 2.22
      */
+    @GioVersion2_22
     public fun ejectWithOperationFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -254,6 +260,7 @@ public interface Volume :
      *     or null. Use g_object_unref() to free.
      * @since 2.18
      */
+    @GioVersion2_18
     public fun getActivationRoot(): File? =
         g_volume_get_activation_root(gioVolumePointer.reinterpret())?.run {
             File.wrap(reinterpret())
@@ -323,6 +330,7 @@ public interface Volume :
      * @return Sorting key for @volume or null if no such key is available
      * @since 2.32
      */
+    @GioVersion2_32
     public fun getSortKey(): String? = g_volume_get_sort_key(gioVolumePointer.reinterpret())?.toKString()
 
     /**
@@ -333,6 +341,7 @@ public interface Volume :
      *     when no longer needed.
      * @since 2.34
      */
+    @GioVersion2_34
     public fun getSymbolicIcon(): Icon =
         g_volume_get_symbolic_icon(gioVolumePointer.reinterpret())!!.run {
             Icon.wrap(reinterpret())

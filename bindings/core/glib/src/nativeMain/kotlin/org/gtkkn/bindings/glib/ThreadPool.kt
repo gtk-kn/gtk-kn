@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
@@ -182,6 +183,7 @@ public class ThreadPool(
          *     thread
          * @since 2.10
          */
+        @GLibVersion2_10
         public fun getMaxIdleTime(): UInt = g_thread_pool_get_max_idle_time()
 
         /**
@@ -213,6 +215,7 @@ public class ThreadPool(
          *     a thread can be idle
          * @since 2.10
          */
+        @GLibVersion2_10
         public fun setMaxIdleTime(interval: UInt): Unit = g_thread_pool_set_max_idle_time(interval)
 
         /**

@@ -33,7 +33,8 @@ import kotlin.String
  */
 public open class Mark(
     pointer: CPointer<GtkSourceMark>,
-) : TextMark(pointer.reinterpret()), KGTyped {
+) : TextMark(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceMarkPointer: CPointer<GtkSourceMark>
         get() = gPointer.reinterpret()
 
@@ -67,12 +68,10 @@ public open class Mark(
      *   to "error" category).
      * @return a new #GtkSourceMark that can be added using [method@Gtk.TextBuffer.add_mark].
      */
-    public constructor(name: String? = null, category: String) : this(
-        gtk_source_mark_new(
-            name,
-            category
-        )!!.reinterpret()
-    )
+    public constructor(
+        name: String? = null,
+        category: String,
+    ) : this(gtk_source_mark_new(name, category)!!.reinterpret())
 
     /**
      * Returns the mark category.

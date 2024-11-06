@@ -5,6 +5,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_14
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -63,6 +68,7 @@ public open class Font(
      * @return a newly-allocated `PangoFontDescription` object.
      * @since 1.14
      */
+    @PangoVersion1_14
     public open fun describeWithAbsoluteSize(): FontDescription =
         pango_font_describe_with_absolute_size(pangoFontPointer.reinterpret())!!.run {
             FontDescription(reinterpret())
@@ -86,6 +92,7 @@ public open class Font(
      * @return the `PangoFontFace`
      * @since 1.46
      */
+    @PangoVersion1_46
     public open fun getFace(): FontFace =
         pango_font_get_face(pangoFontPointer.reinterpret())!!.run {
             FontFace(reinterpret())
@@ -108,6 +115,7 @@ public open class Font(
      *   for the font
      * @since 1.10
      */
+    @PangoVersion1_10
     public open fun getFontMap(): FontMap? =
         pango_font_get_font_map(pangoFontPointer.reinterpret())?.run {
             FontMap(reinterpret())
@@ -141,6 +149,7 @@ public open class Font(
      * @return `TRUE` if @font can render @wc
      * @since 1.44
      */
+    @PangoVersion1_44
     public open fun hasChar(wc: UInt): Boolean = pango_font_has_char(pangoFontPointer.reinterpret(), wc).asBoolean()
 
     /**
@@ -157,6 +166,7 @@ public open class Font(
      * @return a `GBytes` containing the serialized form of @font
      * @since 1.50
      */
+    @PangoVersion1_50
     public open fun serialize(): Bytes =
         pango_font_serialize(pangoFontPointer.reinterpret())!!.run {
             Bytes(reinterpret())

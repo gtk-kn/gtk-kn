@@ -149,6 +149,7 @@ class RepositoryBlueprintBuilder(
             repositoryObjectName = repositoryObjectName,
             repositoryCallbacksName = repositoryCallbacksName,
             repositoryTypeProviderTypeName = repositoryTypeProviderTypeName,
+            optInVersionBlueprints = context.getOptInVersionsBlueprints(girRepository.namespace),
         )
     }
 }

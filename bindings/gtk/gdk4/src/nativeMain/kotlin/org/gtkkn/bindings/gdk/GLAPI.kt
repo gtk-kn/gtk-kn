@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gdk.GDK_GL_API_GL
 import org.gtkkn.native.gdk.GDK_GL_API_GLES
@@ -15,6 +16,7 @@ public class GLAPI(
 ) : Bitfield<GLAPI> {
     override infix fun or(other: GLAPI): GLAPI = GLAPI(mask or other.mask)
 
+    @GdkVersion4_6
     public companion object {
         /**
          * The OpenGL API

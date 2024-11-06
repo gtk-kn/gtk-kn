@@ -33,7 +33,8 @@ import kotlin.Unit
  */
 public open class GutterRendererText(
     pointer: CPointer<GtkSourceGutterRendererText>,
-) : GutterRenderer(pointer.reinterpret()), KGTyped {
+) : GutterRenderer(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceGutterRendererTextPointer: CPointer<GtkSourceGutterRendererText>
         get() = gPointer.reinterpret()
 
@@ -63,11 +64,7 @@ public open class GutterRendererText(
         markup: String,
         length: Int,
     ): Unit =
-        gtk_source_gutter_renderer_text_set_markup(
-            gtksourceGutterRendererTextPointer.reinterpret(),
-            markup,
-            length
-        )
+        gtk_source_gutter_renderer_text_set_markup(gtksourceGutterRendererTextPointer.reinterpret(), markup, length)
 
     /**
      *
@@ -78,18 +75,13 @@ public open class GutterRendererText(
     public open fun setText(
         text: String,
         length: Int,
-    ): Unit =
-        gtk_source_gutter_renderer_text_set_text(
-            gtksourceGutterRendererTextPointer.reinterpret(),
-            text,
-            length
-        )
+    ): Unit = gtk_source_gutter_renderer_text_set_text(gtksourceGutterRendererTextPointer.reinterpret(), text, length)
 
     public companion object : TypeCompanion<GutterRendererText> {
         override val type: GeneratedClassKGType<GutterRendererText> =
-            GeneratedClassKGType(gtk_source_gutter_renderer_text_get_type()) {
-                GutterRendererText(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                gtk_source_gutter_renderer_text_get_type()
+            ) { GutterRendererText(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

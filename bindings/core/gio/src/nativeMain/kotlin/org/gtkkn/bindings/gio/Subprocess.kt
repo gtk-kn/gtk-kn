@@ -10,6 +10,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
@@ -122,6 +123,7 @@ import kotlin.collections.List
  *
  * @since 2.40
  */
+@GioVersion2_40
 public open class Subprocess(
     pointer: CPointer<GSubprocess>,
 ) : Object(pointer.reinterpret()),
@@ -209,6 +211,7 @@ public open class Subprocess(
      *
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun forceExit(): Unit = g_subprocess_force_exit(gioSubprocessPointer.reinterpret())
 
     /**
@@ -224,6 +227,7 @@ public open class Subprocess(
      * @return the exit status
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getExitStatus(): Int = g_subprocess_get_exit_status(gioSubprocessPointer.reinterpret())
 
     /**
@@ -235,6 +239,7 @@ public open class Subprocess(
      *    has terminated
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getIdentifier(): String? =
         g_subprocess_get_identifier(gioSubprocessPointer.reinterpret())?.toKString()
 
@@ -250,6 +255,7 @@ public open class Subprocess(
      * @return true if the case of a normal exit
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getIfExited(): Boolean = g_subprocess_get_if_exited(gioSubprocessPointer.reinterpret()).asBoolean()
 
     /**
@@ -263,6 +269,7 @@ public open class Subprocess(
      * @return true if the case of termination due to a signal
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getIfSignaled(): Boolean =
         g_subprocess_get_if_signaled(gioSubprocessPointer.reinterpret()).asBoolean()
 
@@ -282,6 +289,7 @@ public open class Subprocess(
      * @return the (meaningless) waitpid() exit status from the kernel
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getStatus(): Int = g_subprocess_get_status(gioSubprocessPointer.reinterpret())
 
     /**
@@ -294,6 +302,7 @@ public open class Subprocess(
      * @return the stderr pipe
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getStderrPipe(): InputStream? =
         g_subprocess_get_stderr_pipe(gioSubprocessPointer.reinterpret())?.run {
             InputStream(reinterpret())
@@ -309,6 +318,7 @@ public open class Subprocess(
      * @return the stdout pipe
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getStdinPipe(): OutputStream? =
         g_subprocess_get_stdin_pipe(gioSubprocessPointer.reinterpret())?.run {
             OutputStream(reinterpret())
@@ -324,6 +334,7 @@ public open class Subprocess(
      * @return the stdout pipe
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getStdoutPipe(): InputStream? =
         g_subprocess_get_stdout_pipe(gioSubprocessPointer.reinterpret())?.run {
             InputStream(reinterpret())
@@ -340,6 +351,7 @@ public open class Subprocess(
      * @return true if the process exited cleanly with a exit status of 0
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getSuccessful(): Boolean =
         g_subprocess_get_successful(gioSubprocessPointer.reinterpret()).asBoolean()
 
@@ -355,6 +367,7 @@ public open class Subprocess(
      * @return the signal causing termination
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun getTermSig(): Int = g_subprocess_get_term_sig(gioSubprocessPointer.reinterpret())
 
     /**
@@ -369,6 +382,7 @@ public open class Subprocess(
      * @param signalNum the signal number to send
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun sendSignal(signalNum: Int): Unit =
         g_subprocess_send_signal(gioSubprocessPointer.reinterpret(), signalNum)
 
@@ -389,6 +403,7 @@ public open class Subprocess(
      * @return true on success, false if @cancellable was cancelled
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun wait(cancellable: Cancellable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -414,6 +429,7 @@ public open class Subprocess(
      * @param callback a #GAsyncReadyCallback to call when the operation is complete
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun waitAsync(
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -433,6 +449,7 @@ public open class Subprocess(
      * @cancellable was cancelled
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun waitCheck(cancellable: Cancellable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -458,6 +475,7 @@ public open class Subprocess(
      * @param callback a #GAsyncReadyCallback to call when the operation is complete
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun waitCheckAsync(
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -477,6 +495,7 @@ public open class Subprocess(
      * @return true if successful, or false with @error set
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun waitCheckFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -501,6 +520,7 @@ public open class Subprocess(
      * @return true if successful, or false with @error set
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun waitFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()

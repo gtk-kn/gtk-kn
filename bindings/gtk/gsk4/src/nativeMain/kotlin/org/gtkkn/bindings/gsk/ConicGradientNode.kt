@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_2
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -42,6 +43,7 @@ public open class ConicGradientNode(
      * @return the angle for the gradient
      * @since 4.2
      */
+    @GskVersion4_2
     public open fun getAngle(): Float = gsk_conic_gradient_node_get_angle(gskConicGradientNodePointer.reinterpret())
 
     /**

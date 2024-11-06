@@ -13,6 +13,7 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -97,6 +98,7 @@ public open class CssProvider(
      * @param data `GBytes` containing the data to load
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun loadFromBytes(`data`: Bytes): Unit =
         gtk_css_provider_load_from_bytes(gtkCssProviderPointer.reinterpret(), `data`.glibBytesPointer)
 
@@ -152,6 +154,7 @@ public open class CssProvider(
      * @param string the CSS to load
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun loadFromString(string: String): Unit =
         gtk_css_provider_load_from_string(gtkCssProviderPointer.reinterpret(), string)
 

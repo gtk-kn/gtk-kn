@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.native.pango.PangoGravityHint
 import org.gtkkn.native.pango.PangoGravityHint.PANGO_GRAVITY_HINT_LINE
 import org.gtkkn.native.pango.PangoGravityHint.PANGO_GRAVITY_HINT_NATURAL
@@ -15,6 +16,7 @@ import org.gtkkn.native.pango.PangoGravityHint.PANGO_GRAVITY_HINT_STRONG
  * See also [enum@Pango.Gravity]
  * @since 1.16
  */
+@PangoVersion1_16
 public enum class GravityHint(
     public val nativeValue: PangoGravityHint,
 ) {

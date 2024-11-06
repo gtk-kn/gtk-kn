@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GStrvBuilder
@@ -32,6 +33,7 @@ import org.gtkkn.native.glib.GStrvBuilder
  *
  * @since 2.68
  */
+@GLibVersion2_68
 public class StrvBuilder(
     pointer: CPointer<GStrvBuilder>,
 ) : Record {

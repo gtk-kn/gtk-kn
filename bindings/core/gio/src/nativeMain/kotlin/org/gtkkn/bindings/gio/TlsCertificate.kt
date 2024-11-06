@@ -9,6 +9,9 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_28
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
@@ -65,6 +68,7 @@ import kotlin.Throws
  *
  * @since 2.28
  */
+@GioVersion2_28
 public open class TlsCertificate(
     pointer: CPointer<GTlsCertificate>,
 ) : Object(pointer.reinterpret()),
@@ -92,6 +96,7 @@ public open class TlsCertificate(
      *
      * @since 2.28
      */
+    @GioVersion2_28
     public open val issuer: TlsCertificate?
         /**
          * Gets the #GTlsCertificate representing @cert's issuer, if known
@@ -112,6 +117,7 @@ public open class TlsCertificate(
      *
      * @since 2.70
      */
+    @GioVersion2_70
     public open val issuerName: String
         /**
          * Returns the issuer name from the certificate.
@@ -129,6 +135,7 @@ public open class TlsCertificate(
      *
      * @since 2.70
      */
+    @GioVersion2_70
     public open val notValidAfter: DateTime?
         /**
          * Returns the time at which the certificate became or will become invalid.
@@ -147,6 +154,7 @@ public open class TlsCertificate(
      *
      * @since 2.70
      */
+    @GioVersion2_70
     public open val notValidBefore: DateTime?
         /**
          * Returns the time at which the certificate became or will become valid.
@@ -165,6 +173,7 @@ public open class TlsCertificate(
      *
      * @since 2.70
      */
+    @GioVersion2_70
     public open val subjectName: String
         /**
          * Returns the subject name from the certificate.
@@ -322,6 +331,7 @@ public open class TlsCertificate(
      * certificate.
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun getIssuer(): TlsCertificate? =
         g_tls_certificate_get_issuer(gioTlsCertificatePointer.reinterpret())?.run {
             TlsCertificate(reinterpret())
@@ -333,6 +343,7 @@ public open class TlsCertificate(
      * @return The issuer name, or null if it's not available.
      * @since 2.70
      */
+    @GioVersion2_70
     public open fun getIssuerName(): String =
         g_tls_certificate_get_issuer_name(gioTlsCertificatePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -343,6 +354,7 @@ public open class TlsCertificate(
      * @return The not-valid-after date, or null if it's not available.
      * @since 2.70
      */
+    @GioVersion2_70
     public open fun getNotValidAfter(): DateTime? =
         g_tls_certificate_get_not_valid_after(gioTlsCertificatePointer.reinterpret())?.run {
             DateTime(reinterpret())
@@ -354,6 +366,7 @@ public open class TlsCertificate(
      * @return The not-valid-before date, or null if it's not available.
      * @since 2.70
      */
+    @GioVersion2_70
     public open fun getNotValidBefore(): DateTime? =
         g_tls_certificate_get_not_valid_before(gioTlsCertificatePointer.reinterpret())?.run {
             DateTime(reinterpret())
@@ -365,6 +378,7 @@ public open class TlsCertificate(
      * @return The subject name, or null if it's not available.
      * @since 2.70
      */
+    @GioVersion2_70
     public open fun getSubjectName(): String =
         g_tls_certificate_get_subject_name(gioTlsCertificatePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -380,6 +394,7 @@ public open class TlsCertificate(
      * @return whether the same or not
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun isSame(certTwo: TlsCertificate): Boolean =
         g_tls_certificate_is_same(
             gioTlsCertificatePointer.reinterpret(),
@@ -426,6 +441,7 @@ public open class TlsCertificate(
      * @return the appropriate #GTlsCertificateFlags
      * @since 2.28
      */
+    @GioVersion2_28
     public open fun verify(
         identity: SocketConnectable? = null,
         trustedCa: TlsCertificate? = null,
@@ -525,6 +541,7 @@ public open class TlsCertificate(
          * and its contents when you are done with it.
          * @since 2.28
          */
+        @GioVersion2_28
         public fun listNewFromFile(`file`: String): Result<List> =
             memScoped {
                 val gError = allocPointerTo<GError>()

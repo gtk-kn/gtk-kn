@@ -14,6 +14,11 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
+import org.gtkkn.bindings.gio.annotations.GioVersion2_20
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.common.asBoolean
@@ -161,6 +166,7 @@ public interface Mount :
      * @param callback a #GAsyncReadyCallback, or null.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun ejectWithOperation(
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
@@ -184,6 +190,7 @@ public interface Mount :
      * @return true if the mount was successfully ejected. false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun ejectWithOperationFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -270,6 +277,7 @@ public interface Mount :
      * @return Sorting key for @mount or null if no such key is available.
      * @since 2.32
      */
+    @GioVersion2_32
     public fun getSortKey(): String? = g_mount_get_sort_key(gioMountPointer.reinterpret())?.toKString()
 
     /**
@@ -280,6 +288,7 @@ public interface Mount :
      *      g_object_unref() when no longer needed.
      * @since 2.34
      */
+    @GioVersion2_34
     public fun getSymbolicIcon(): Icon =
         g_mount_get_symbolic_icon(gioMountPointer.reinterpret())!!.run {
             Icon.wrap(reinterpret())
@@ -330,6 +339,7 @@ public interface Mount :
      * @param callback a #GAsyncReadyCallback
      * @since 2.18
      */
+    @GioVersion2_18
     public fun guessContentType(
         forceRescan: Boolean,
         cancellable: Cancellable? = null,
@@ -355,6 +365,7 @@ public interface Mount :
      *     Caller should free this array with g_strfreev() when done with it.
      * @since 2.18
      */
+    @GioVersion2_18
     public fun guessContentTypeFinish(result: AsyncResult): Result<List<String>> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -389,6 +400,7 @@ public interface Mount :
      *     Caller should free this array with g_strfreev() when done with it.
      * @since 2.18
      */
+    @GioVersion2_18
     public fun guessContentTypeSync(
         forceRescan: Boolean,
         cancellable: Cancellable? = null,
@@ -437,6 +449,7 @@ public interface Mount :
      * @return true if @mount is shadowed.
      * @since 2.20
      */
+    @GioVersion2_20
     public fun isShadowed(): Boolean = g_mount_is_shadowed(gioMountPointer.reinterpret()).asBoolean()
 
     /**
@@ -502,6 +515,7 @@ public interface Mount :
      *
      * @since 2.20
      */
+    @GioVersion2_20
     public fun shadow(): Unit = g_mount_shadow(gioMountPointer.reinterpret())
 
     /**
@@ -561,6 +575,7 @@ public interface Mount :
      * @param callback a #GAsyncReadyCallback, or null.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun unmountWithOperation(
         flags: MountUnmountFlags,
         mountOperation: MountOperation? = null,
@@ -584,6 +599,7 @@ public interface Mount :
      * @return true if the mount was successfully unmounted. false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun unmountWithOperationFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -608,6 +624,7 @@ public interface Mount :
      *
      * @since 2.20
      */
+    @GioVersion2_20
     public fun unshadow(): Unit = g_mount_unshadow(gioMountPointer.reinterpret())
 
     /**
@@ -640,6 +657,7 @@ public interface Mount :
      * @param handler the Callback to connect
      * @since 2.22
      */
+    @GioVersion2_22
     public fun connectPreUnmount(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

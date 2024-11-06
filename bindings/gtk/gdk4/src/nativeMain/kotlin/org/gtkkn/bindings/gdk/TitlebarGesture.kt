@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.native.gdk.GdkTitlebarGesture
 import org.gtkkn.native.gdk.GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_DOUBLE_CLICK
 import org.gtkkn.native.gdk.GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_MIDDLE_CLICK
@@ -10,6 +11,7 @@ import org.gtkkn.native.gdk.GdkTitlebarGesture.GDK_TITLEBAR_GESTURE_RIGHT_CLICK
  *
  * @since 4.4
  */
+@GdkVersion4_4
 public enum class TitlebarGesture(
     public val nativeValue: GdkTitlebarGesture,
 ) {

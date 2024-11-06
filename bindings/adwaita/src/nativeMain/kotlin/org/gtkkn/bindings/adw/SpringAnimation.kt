@@ -3,6 +3,7 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -307,6 +308,7 @@ public class SpringAnimation(
      * @return the value at @time
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun calculateValue(time: UInt): Double =
         adw_spring_animation_calculate_value(adwSpringAnimationPointer.reinterpret(), time)
 
@@ -322,6 +324,7 @@ public class SpringAnimation(
      * @return the velocity at @time
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun calculateVelocity(time: UInt): Double =
         adw_spring_animation_calculate_velocity(adwSpringAnimationPointer.reinterpret(), time)
 

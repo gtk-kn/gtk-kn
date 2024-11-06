@@ -79,6 +79,7 @@ class ClassBlueprintBuilder(
         when (val result =
             PropertyBlueprintBuilder(
                 context,
+                girNamespace,
                 property,
                 propertyMethodBluePrintMap,
                 superClasses,
@@ -192,7 +193,11 @@ class ClassBlueprintBuilder(
             isFinal = girClass.final == true,
             interfacePointerOverrides = interfacePointerOverrides,
             glibGetTypeFunc = glibGetTypeMember,
-            version = girClass.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(
+                context,
+                girNamespace,
+                girClass.info
+            ).build().getOrNull(),
             kdoc = context.processKdoc(girClass.info.docs.doc?.text),
         )
     }

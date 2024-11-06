@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -71,6 +72,7 @@ import org.gtkkn.native.gio.g_datagram_based_get_type
  *
  * @since 2.48
  */
+@GioVersion2_48
 public interface DatagramBased :
     Interface,
     KGTyped {

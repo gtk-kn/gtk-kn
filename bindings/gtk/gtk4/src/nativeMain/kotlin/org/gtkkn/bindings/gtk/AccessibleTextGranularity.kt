@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.native.gtk.GtkAccessibleTextGranularity
 import org.gtkkn.native.gtk.GtkAccessibleTextGranularity.GTK_ACCESSIBLE_TEXT_GRANULARITY_CHARACTER
 import org.gtkkn.native.gtk.GtkAccessibleTextGranularity.GTK_ACCESSIBLE_TEXT_GRANULARITY_LINE
@@ -13,6 +14,7 @@ import org.gtkkn.native.gtk.GtkAccessibleTextGranularity.GTK_ACCESSIBLE_TEXT_GRA
  * implementation.
  * @since 4.14
  */
+@GtkVersion4_14
 public enum class AccessibleTextGranularity(
     public val nativeValue: GtkAccessibleTextGranularity,
 ) {

@@ -22,5 +22,5 @@ data class FieldBlueprint(
     val typeInfo: TypeInfo,
     val writeable: Boolean,
     val kdoc: String?,
-    val version: String?,
+    val optInVersionBlueprint: OptInVersionBlueprint?,
 )

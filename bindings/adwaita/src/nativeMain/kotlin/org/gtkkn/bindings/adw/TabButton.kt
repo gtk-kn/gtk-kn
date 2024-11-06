@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Actionable
 import org.gtkkn.bindings.gtk.Widget
@@ -59,6 +60,7 @@ import kotlin.Unit
  * `AdwTabButton` uses the `GTK_ACCESSIBLE_ROLE_BUTTON` role.
  * @since 1.3
  */
+@AdwVersion1_3
 public class TabButton(
     pointer: CPointer<AdwTabButton>,
 ) : Widget(pointer.reinterpret()),
@@ -84,6 +86,7 @@ public class TabButton(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var view: TabView?
         /**
          * Gets the tab view @self displays.
@@ -102,6 +105,7 @@ public class TabButton(
          * @param view a tab view
          * @since 1.3
          */
+        @AdwVersion1_3
         set(view) = adw_tab_button_set_view(adwTabButtonPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
 
     /**
@@ -118,6 +122,7 @@ public class TabButton(
      * @return the tab view
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getView(): TabView? =
         adw_tab_button_get_view(adwTabButtonPointer.reinterpret())?.run {
             TabView(reinterpret())
@@ -129,6 +134,7 @@ public class TabButton(
      * @param view a tab view
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setView(view: TabView? = null): Unit =
         adw_tab_button_set_view(adwTabButtonPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
 
@@ -142,6 +148,7 @@ public class TabButton(
      * @param handler the Callback to connect
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun connectActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,
@@ -162,6 +169,7 @@ public class TabButton(
      * @param handler the Callback to connect
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun connectClicked(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

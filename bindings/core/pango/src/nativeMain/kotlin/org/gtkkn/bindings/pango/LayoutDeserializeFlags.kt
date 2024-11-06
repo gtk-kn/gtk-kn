@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.pango.PANGO_LAYOUT_DESERIALIZE_CONTEXT
 import org.gtkkn.native.pango.PANGO_LAYOUT_DESERIALIZE_DEFAULT
@@ -20,6 +21,7 @@ public class LayoutDeserializeFlags(
             mask or other.mask
         )
 
+    @PangoVersion1_50
     public companion object {
         /**
          * Default behavior

@@ -13,6 +13,17 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.Pango.resolveException
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_30
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_32_4
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -198,6 +209,7 @@ public open class Layout(
      *   is computed from the layout's contents, false otherwise
      * @since 1.4
      */
+    @PangoVersion1_4
     public open fun getAutoDir(): Boolean = pango_layout_get_auto_dir(pangoLayoutPointer.reinterpret()).asBoolean()
 
     /**
@@ -206,6 +218,7 @@ public open class Layout(
      * @return baseline of first line, from top of @layout
      * @since 1.22
      */
+    @PangoVersion1_22
     public open fun getBaseline(): Int = pango_layout_get_baseline(pangoLayoutPointer.reinterpret())
 
     /**
@@ -226,6 +239,7 @@ public open class Layout(
      * @param weakPos location to store the weak cursor position
      * @since 1.50
      */
+    @PangoVersion1_50
     public open fun getCaretPos(
         index: Int,
         strongPos: Rectangle?,
@@ -246,6 +260,7 @@ public open class Layout(
      *   in the text of @layout
      * @since 1.30
      */
+    @PangoVersion1_30
     public open fun getCharacterCount(): Int = pango_layout_get_character_count(pangoLayoutPointer.reinterpret())
 
     /**
@@ -300,6 +315,7 @@ public open class Layout(
      * @return the text direction at @index
      * @since 1.46
      */
+    @PangoVersion1_46
     public open fun getDirection(index: Int): Direction =
         pango_layout_get_direction(pangoLayoutPointer.reinterpret(), index).run {
             Direction.fromNativeValue(this)
@@ -316,6 +332,7 @@ public open class Layout(
      * @return the current ellipsization mode for @layout
      * @since 1.6
      */
+    @PangoVersion1_6
     public open fun getEllipsize(): EllipsizeMode =
         pango_layout_get_ellipsize(pangoLayoutPointer.reinterpret()).run {
             EllipsizeMode.fromNativeValue(this)
@@ -356,6 +373,7 @@ public open class Layout(
      *   from the layout's context is inherited.
      * @since 1.8
      */
+    @PangoVersion1_8
     public open fun getFontDescription(): FontDescription? =
         pango_layout_get_font_description(pangoLayoutPointer.reinterpret())?.run {
             FontDescription(reinterpret())
@@ -370,6 +388,7 @@ public open class Layout(
      *   or number of lines if negative.
      * @since 1.20
      */
+    @PangoVersion1_20
     public open fun getHeight(): Int = pango_layout_get_height(pangoLayoutPointer.reinterpret())
 
     /**
@@ -406,6 +425,7 @@ public open class Layout(
      * @return the justify value
      * @since 1.50
      */
+    @PangoVersion1_50
     public open fun getJustifyLastLine(): Boolean =
         pango_layout_get_justify_last_line(pangoLayoutPointer.reinterpret()).asBoolean()
 
@@ -449,6 +469,7 @@ public open class Layout(
      *   `PangoLayout`. No changes should be made to the line.
      * @since 1.16
      */
+    @PangoVersion1_16
     public open fun getLineReadonly(line: Int): LayoutLine? =
         pango_layout_get_line_readonly(pangoLayoutPointer.reinterpret(), line)?.run {
             LayoutLine(reinterpret())
@@ -461,6 +482,7 @@ public open class Layout(
      *
      * @since 1.44
      */
+    @PangoVersion1_44
     public open fun getLineSpacing(): Float = pango_layout_get_line_spacing(pangoLayoutPointer.reinterpret())
 
     /**
@@ -493,6 +515,7 @@ public open class Layout(
      *   the lines.
      * @since 1.16
      */
+    @PangoVersion1_16
     public open fun getLinesReadonly(): SList =
         pango_layout_get_lines_readonly(pangoLayoutPointer.reinterpret())!!.run {
             SList(reinterpret())
@@ -538,6 +561,7 @@ public open class Layout(
      * @return The current serial number of @layout.
      * @since 1.32.4
      */
+    @PangoVersion1_32_4
     public open fun getSerial(): UInt = pango_layout_get_serial(pangoLayoutPointer.reinterpret())
 
     /**
@@ -594,6 +618,7 @@ public open class Layout(
      * @return The number of unknown glyphs in @layout
      * @since 1.16
      */
+    @PangoVersion1_16
     public open fun getUnknownGlyphsCount(): Int =
         pango_layout_get_unknown_glyphs_count(pangoLayoutPointer.reinterpret())
 
@@ -646,6 +671,7 @@ public open class Layout(
      *   false otherwise
      * @since 1.16
      */
+    @PangoVersion1_16
     public open fun isEllipsized(): Boolean = pango_layout_is_ellipsized(pangoLayoutPointer.reinterpret()).asBoolean()
 
     /**
@@ -660,6 +686,7 @@ public open class Layout(
      *   otherwise
      * @since 1.16
      */
+    @PangoVersion1_16
     public open fun isWrapped(): Boolean = pango_layout_is_wrapped(pangoLayoutPointer.reinterpret()).asBoolean()
 
     /**
@@ -676,6 +703,7 @@ public open class Layout(
      * @return a `GBytes` containing the serialized form of @layout
      * @since 1.50
      */
+    @PangoVersion1_50
     public open fun serialize(flags: LayoutSerializeFlags): Bytes =
         pango_layout_serialize(pangoLayoutPointer.reinterpret(), flags.mask)!!.run {
             Bytes(reinterpret())
@@ -724,6 +752,7 @@ public open class Layout(
      *   from the layout's contents
      * @since 1.4
      */
+    @PangoVersion1_4
     public open fun setAutoDir(autoDir: Boolean): Unit =
         pango_layout_set_auto_dir(pangoLayoutPointer.reinterpret(), autoDir.asGBoolean())
 
@@ -747,6 +776,7 @@ public open class Layout(
      * @param ellipsize the new ellipsization mode for @layout
      * @since 1.6
      */
+    @PangoVersion1_6
     public open fun setEllipsize(ellipsize: EllipsizeMode): Unit =
         pango_layout_set_ellipsize(pangoLayoutPointer.reinterpret(), ellipsize.nativeValue)
 
@@ -793,6 +823,7 @@ public open class Layout(
      *   or desired number of lines if negative.
      * @since 1.20
      */
+    @PangoVersion1_20
     public open fun setHeight(height: Int): Unit = pango_layout_set_height(pangoLayoutPointer.reinterpret(), height)
 
     /**
@@ -847,6 +878,7 @@ public open class Layout(
      * @param justify whether the last line in the layout should be justified
      * @since 1.50
      */
+    @PangoVersion1_50
     public open fun setJustifyLastLine(justify: Boolean): Unit =
         pango_layout_set_justify_last_line(pangoLayoutPointer.reinterpret(), justify.asGBoolean())
 
@@ -871,6 +903,7 @@ public open class Layout(
      * @param factor the new line spacing factor
      * @since 1.44
      */
+    @PangoVersion1_44
     public open fun setLineSpacing(factor: Float): Unit =
         pango_layout_set_line_spacing(pangoLayoutPointer.reinterpret(), factor)
 
@@ -1014,6 +1047,7 @@ public open class Layout(
      * @return true if saving was successful
      * @since 1.50
      */
+    @PangoVersion1_50
     public open fun writeToFile(
         flags: LayoutSerializeFlags,
         filename: String,

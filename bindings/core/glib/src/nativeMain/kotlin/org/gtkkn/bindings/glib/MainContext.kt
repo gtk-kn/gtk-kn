@@ -5,6 +5,10 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
@@ -138,6 +142,7 @@ public class MainContext(
      * @param function function to call
      * @since 2.28
      */
+    @GLibVersion2_28
     public fun invokeFull(
         priority: Int,
         function: SourceFunc,
@@ -159,6 +164,7 @@ public class MainContext(
      * @return true if current thread is owner of @context.
      * @since 2.10
      */
+    @GLibVersion2_10
     public fun isOwner(): Boolean = g_main_context_is_owner(glibMainContextPointer.reinterpret()).asBoolean()
 
     /**
@@ -194,6 +200,7 @@ public class MainContext(
      *
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun popThreadDefault(): Unit = g_main_context_pop_thread_default(glibMainContextPointer.reinterpret())
 
     /**
@@ -238,6 +245,7 @@ public class MainContext(
      *
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun pushThreadDefault(): Unit = g_main_context_push_thread_default(glibMainContextPointer.reinterpret())
 
     /**
@@ -357,6 +365,7 @@ public class MainContext(
          * null if the thread-default context is the global-default main context.
          * @since 2.22
          */
+        @GLibVersion2_22
         public fun getThreadDefault(): MainContext? =
             g_main_context_get_thread_default()?.run {
                 MainContext(reinterpret())
@@ -374,6 +383,7 @@ public class MainContext(
          *     with g_main_context_unref() when you are done with it.
          * @since 2.32
          */
+        @GLibVersion2_32
         public fun refThreadDefault(): MainContext =
             g_main_context_ref_thread_default()!!.run {
                 MainContext(reinterpret())

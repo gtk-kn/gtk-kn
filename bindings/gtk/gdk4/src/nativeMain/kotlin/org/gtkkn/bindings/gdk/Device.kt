@@ -9,6 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_2
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.Direction
@@ -431,6 +432,7 @@ public open class Device(
      * @return the timestamp of the last activity for this device
      * @since 4.2
      */
+    @GdkVersion4_2
     public open fun getTimestamp(): UInt = gdk_device_get_timestamp(gdkDevicePointer.reinterpret())
 
     /**

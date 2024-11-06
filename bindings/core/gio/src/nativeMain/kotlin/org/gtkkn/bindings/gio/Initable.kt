@@ -8,6 +8,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
@@ -53,6 +54,7 @@ import kotlin.Result
  *
  * @since 2.22
  */
+@GioVersion2_22
 public interface Initable :
     Interface,
     KGTyped {
@@ -103,6 +105,7 @@ public interface Initable :
      *     return false and set @error appropriately if present.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun `init`(cancellable: Cancellable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.native.gtk.GtkAccessibleTextContentChange
 import org.gtkkn.native.gtk.GtkAccessibleTextContentChange.GTK_ACCESSIBLE_TEXT_CONTENT_CHANGE_INSERT
 import org.gtkkn.native.gtk.GtkAccessibleTextContentChange.GTK_ACCESSIBLE_TEXT_CONTENT_CHANGE_REMOVE
@@ -9,6 +10,7 @@ import org.gtkkn.native.gtk.GtkAccessibleTextContentChange.GTK_ACCESSIBLE_TEXT_C
  * The type of contents change operation.
  * @since 4.14
  */
+@GtkVersion4_14
 public enum class AccessibleTextContentChange(
     public val nativeValue: GtkAccessibleTextContentChange,
 ) {

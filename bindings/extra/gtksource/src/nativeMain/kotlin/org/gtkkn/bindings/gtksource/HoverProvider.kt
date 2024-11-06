@@ -40,7 +40,9 @@ import kotlin.Unit
  * may take additional time should use [vfunc@HoverProvider.populate_async]
  * to avoid blocking the main loop.
  */
-public interface HoverProvider : Interface, KGTyped {
+public interface HoverProvider :
+    Interface,
+    KGTyped {
     public val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider>
 
     /**
@@ -95,9 +97,7 @@ public interface HoverProvider : Interface, KGTyped {
 
     public companion object : TypeCompanion<HoverProvider> {
         override val type: GeneratedInterfaceKGType<HoverProvider> =
-            GeneratedInterfaceKGType(gtk_source_hover_provider_get_type()) {
-                Wrapper(it.reinterpret())
-            }
+            GeneratedInterfaceKGType(gtk_source_hover_provider_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

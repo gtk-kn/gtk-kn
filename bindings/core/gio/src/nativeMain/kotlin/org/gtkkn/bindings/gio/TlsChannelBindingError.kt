@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_66
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gio.GTlsChannelBindingError
 import org.gtkkn.native.gio.GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_GENERAL_ERROR
@@ -16,6 +17,7 @@ import kotlin.UInt
  * indicate a TLS channel binding retrieval error.
  * @since 2.66
  */
+@GioVersion2_66
 public enum class TlsChannelBindingError(
     public val nativeValue: GTlsChannelBindingError,
 ) {
@@ -73,6 +75,7 @@ public enum class TlsChannelBindingError(
          * @return a #GQuark.
          * @since 2.66
          */
+        @GioVersion2_66
         public fun quark(): UInt = g_tls_channel_binding_error_quark()
 
         public fun fromErrorOrNull(error: Error): TlsChannelBindingError? =

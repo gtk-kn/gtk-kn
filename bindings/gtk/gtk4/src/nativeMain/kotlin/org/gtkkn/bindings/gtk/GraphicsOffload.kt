@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -57,6 +58,7 @@ import kotlin.Unit
  * The GTK inspector provides a visual debugging tool for graphics offload.
  * @since 4.14
  */
+@GtkVersion4_14
 public open class GraphicsOffload(
     pointer: CPointer<GtkGraphicsOffload>,
 ) : Widget(pointer.reinterpret()),
@@ -78,6 +80,7 @@ public open class GraphicsOffload(
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public open var child: Widget?
         /**
          * Gets the child of @self.
@@ -96,6 +99,7 @@ public open class GraphicsOffload(
          * @param child the child widget
          * @since 4.14
          */
+        @GtkVersion4_14
         set(
             child
         ) =
@@ -109,6 +113,7 @@ public open class GraphicsOffload(
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public open var enabled: GraphicsOffloadEnabled
         /**
          * Returns whether offload is enabled for @self.
@@ -128,6 +133,7 @@ public open class GraphicsOffload(
          * @param enabled whether to enable offload
          * @since 4.14
          */
+        @GtkVersion4_14
         set(enabled) = gtk_graphics_offload_set_enabled(gtkGraphicsOffloadPointer.reinterpret(), enabled.nativeValue)
 
     /**
@@ -147,6 +153,7 @@ public open class GraphicsOffload(
      * @return the child widget
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getChild(): Widget? =
         gtk_graphics_offload_get_child(gtkGraphicsOffloadPointer.reinterpret())?.run {
             Widget(reinterpret())
@@ -158,6 +165,7 @@ public open class GraphicsOffload(
      * @return whether offload is enabled
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getEnabled(): GraphicsOffloadEnabled =
         gtk_graphics_offload_get_enabled(gtkGraphicsOffloadPointer.reinterpret()).run {
             GraphicsOffloadEnabled.fromNativeValue(this)
@@ -169,6 +177,7 @@ public open class GraphicsOffload(
      * @param child the child widget
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setChild(child: Widget? = null): Unit =
         gtk_graphics_offload_set_child(gtkGraphicsOffloadPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
@@ -179,6 +188,7 @@ public open class GraphicsOffload(
      * @param enabled whether to enable offload
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setEnabled(enabled: GraphicsOffloadEnabled): Unit =
         gtk_graphics_offload_set_enabled(gtkGraphicsOffloadPointer.reinterpret(), enabled.nativeValue)
 

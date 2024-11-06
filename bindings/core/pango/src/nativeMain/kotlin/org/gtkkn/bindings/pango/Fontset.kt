@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -40,6 +41,7 @@ public open class Fontset(
      * @param func Callback function
      * @since 1.4
      */
+    @PangoVersion1_4
     public open fun foreach(func: FontsetForeachFunc): Unit =
         pango_fontset_foreach(
             pangoFontsetPointer.reinterpret(),

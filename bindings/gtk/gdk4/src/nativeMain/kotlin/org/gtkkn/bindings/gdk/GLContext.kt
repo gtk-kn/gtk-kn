@@ -8,6 +8,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Gdk.resolveException
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -109,6 +111,7 @@ public open class GLContext(
      *
      * @since 4.6
      */
+    @GdkVersion4_6
     public open var allowedApis: GLAPI
         /**
          * Gets the allowed APIs set via gdk_gl_context_set_allowed_apis().
@@ -133,6 +136,7 @@ public open class GLContext(
          * @param apis the allowed APIs
          * @since 4.6
          */
+        @GdkVersion4_6
         set(apis) = gdk_gl_context_set_allowed_apis(gdkGLContextPointer.reinterpret(), apis.mask)
 
     /**
@@ -140,6 +144,7 @@ public open class GLContext(
      *
      * @since 4.6
      */
+    @GdkVersion4_6
     public open val api: GLAPI
         /**
          * Gets the API currently in use.
@@ -180,6 +185,7 @@ public open class GLContext(
      * @return the allowed APIs
      * @since 4.6
      */
+    @GdkVersion4_6
     public open fun getAllowedApis(): GLAPI =
         gdk_gl_context_get_allowed_apis(gdkGLContextPointer.reinterpret()).run {
             GLAPI(this)
@@ -193,6 +199,7 @@ public open class GLContext(
      * @return the currently used API
      * @since 4.6
      */
+    @GdkVersion4_6
     public open fun getApi(): GLAPI =
         gdk_gl_context_get_api(gdkGLContextPointer.reinterpret()).run {
             GLAPI(this)
@@ -300,6 +307,7 @@ public open class GLContext(
      * @return true if the two GL contexts are compatible.
      * @since 4.4
      */
+    @GdkVersion4_4
     public open fun isShared(other: GLContext): Boolean =
         gdk_gl_context_is_shared(gdkGLContextPointer.reinterpret(), other.gdkGLContextPointer.reinterpret()).asBoolean()
 
@@ -338,6 +346,7 @@ public open class GLContext(
      * @param apis the allowed APIs
      * @since 4.6
      */
+    @GdkVersion4_6
     public open fun setAllowedApis(apis: GLAPI): Unit =
         gdk_gl_context_set_allowed_apis(gdkGLContextPointer.reinterpret(), apis.mask)
 

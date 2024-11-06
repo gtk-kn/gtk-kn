@@ -10,6 +10,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GDir
@@ -74,6 +76,7 @@ public class Dir(
      * @return the same pointer as `dir`
      * @since 2.80
      */
+    @GLibVersion2_80
     public fun ref(): Dir =
         g_dir_ref(glibDirPointer.reinterpret())!!.run {
             Dir(reinterpret())
@@ -100,6 +103,7 @@ public class Dir(
      *
      * @since 2.80
      */
+    @GLibVersion2_80
     public fun unref(): Unit = g_dir_unref(glibDirPointer.reinterpret())
 
     public companion object : RecordCompanion<Dir, GDir> {
@@ -151,6 +155,7 @@ public class Dir(
          *   returned and @error will be set.
          * @since 2.30
          */
+        @GLibVersion2_30
         public fun makeTmp(tmpl: String? = null): Result<String> =
             memScoped {
                 val gError = allocPointerTo<GError>()

@@ -4,6 +4,7 @@ package org.gtkkn.bindings.pango
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
@@ -74,6 +75,7 @@ public class TabArray(
      * @param tabIndex the index of a tab stop
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun getDecimalPoint(tabIndex: Int): UInt =
         pango_tab_array_get_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex)
 
@@ -117,6 +119,7 @@ public class TabArray(
      * @param decimalPoint the decimal point to use
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun setDecimalPoint(
         tabIndex: Int,
         decimalPoint: UInt,
@@ -129,6 +132,7 @@ public class TabArray(
      * @param positionsInPixels whether positions are in pixels
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun setPositionsInPixels(positionsInPixels: Boolean): Unit =
         pango_tab_array_set_positions_in_pixels(pangoTabArrayPointer.reinterpret(), positionsInPixels.asGBoolean())
 
@@ -150,6 +154,7 @@ public class TabArray(
      *
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun sort(): Unit = pango_tab_array_sort(pangoTabArrayPointer.reinterpret())
 
     public companion object : RecordCompanion<TabArray, PangoTabArray> {
@@ -179,6 +184,7 @@ public class TabArray(
          * @return a new `PangoTabArray`
          * @since 1.50
          */
+        @PangoVersion1_50
         public fun fromString(text: String): TabArray? =
             pango_tab_array_from_string(text)?.run {
                 TabArray(reinterpret())

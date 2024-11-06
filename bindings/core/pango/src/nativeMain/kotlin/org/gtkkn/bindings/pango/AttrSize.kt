@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.pango.PangoAttrSize
@@ -71,6 +72,7 @@ public class AttrSize(
          *   [method@Pango.Attribute.destroy]
          * @since 1.8
          */
+        @PangoVersion1_8
         public fun newAbsolute(size: Int): Attribute =
             pango_attr_size_new_absolute(size)!!.run {
                 Attribute(reinterpret())

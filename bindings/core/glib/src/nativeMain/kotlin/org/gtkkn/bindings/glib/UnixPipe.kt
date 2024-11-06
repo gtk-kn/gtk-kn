@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GUnixPipe
@@ -19,6 +20,7 @@ import org.gtkkn.native.glib.GUnixPipe
  *
  * @since 2.80
  */
+@GLibVersion2_80
 public class UnixPipe(
     pointer: CPointer<GUnixPipe>,
 ) : Record {

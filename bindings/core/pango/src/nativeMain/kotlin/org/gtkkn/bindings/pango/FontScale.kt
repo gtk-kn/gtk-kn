@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.native.pango.PangoFontScale
 import org.gtkkn.native.pango.PangoFontScale.PANGO_FONT_SCALE_NONE
 import org.gtkkn.native.pango.PangoFontScale.PANGO_FONT_SCALE_SMALL_CAPS
@@ -12,6 +13,7 @@ import org.gtkkn.native.pango.PangoFontScale.PANGO_FONT_SCALE_SUPERSCRIPT
  * and subscript positioning and for (emulated) Small Caps.
  * @since 1.50
  */
+@PangoVersion1_50
 public enum class FontScale(
     public val nativeValue: PangoFontScale,
 ) {

@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -116,6 +118,7 @@ public open class CenterBox(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var centerWidget: Widget?
         /**
          * Gets the center widget, or null if there is none.
@@ -147,6 +150,7 @@ public open class CenterBox(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var endWidget: Widget?
         /**
          * Gets the end widget, or null if there is none.
@@ -181,6 +185,7 @@ public open class CenterBox(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var shrinkCenterLast: Boolean
         /**
          * Gets whether @self shrinks the center widget after other children.
@@ -203,6 +208,7 @@ public open class CenterBox(
          * @param shrinkCenterLast whether to shrink the center widget after others
          * @since 4.12
          */
+        @GtkVersion4_12
         set(
             shrinkCenterLast
         ) = gtk_center_box_set_shrink_center_last(gtkCenterBoxPointer.reinterpret(), shrinkCenterLast.asGBoolean())
@@ -216,6 +222,7 @@ public open class CenterBox(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var startWidget: Widget?
         /**
          * Gets the start widget, or null if there is none.
@@ -281,6 +288,7 @@ public open class CenterBox(
      * @return whether to shrink the center widget after others
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getShrinkCenterLast(): Boolean =
         gtk_center_box_get_shrink_center_last(gtkCenterBoxPointer.reinterpret()).asBoolean()
 
@@ -341,6 +349,7 @@ public open class CenterBox(
      * @param shrinkCenterLast whether to shrink the center widget after others
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setShrinkCenterLast(shrinkCenterLast: Boolean): Unit =
         gtk_center_box_set_shrink_center_last(gtkCenterBoxPointer.reinterpret(), shrinkCenterLast.asGBoolean())
 

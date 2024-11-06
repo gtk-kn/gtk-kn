@@ -10,6 +10,19 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.MarkupParseContext
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_26
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_31_0
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_32
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_38
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toKStringList
@@ -225,6 +238,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.44
      */
+    @PangoVersion1_44
     public fun attrAllowBreaksNew(allowBreaks: Boolean): Attribute =
         pango_attr_allow_breaks_new(allowBreaks.asGBoolean())!!.run {
             Attribute(reinterpret())
@@ -239,6 +253,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.38
      */
+    @PangoVersion1_38
     public fun attrBackgroundAlphaNew(alpha: UShort): Attribute =
         pango_attr_background_alpha_new(alpha)!!.run {
             Attribute(reinterpret())
@@ -282,6 +297,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun attrBaselineShiftNew(shift: Int): Attribute =
         pango_attr_baseline_shift_new(shift)!!.run {
             Attribute(reinterpret())
@@ -302,6 +318,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.4
      */
+    @PangoVersion1_4
     public fun attrFallbackNew(enableFallback: Boolean): Attribute =
         pango_attr_fallback_new(enableFallback.asGBoolean())!!.run {
             Attribute(reinterpret())
@@ -349,6 +366,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.38
      */
+    @PangoVersion1_38
     public fun attrFontFeaturesNew(features: String): Attribute =
         pango_attr_font_features_new(features)!!.run {
             Attribute(reinterpret())
@@ -367,6 +385,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun attrFontScaleNew(scale: FontScale): Attribute =
         pango_attr_font_scale_new(scale.nativeValue)!!.run {
             Attribute(reinterpret())
@@ -381,6 +400,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.38
      */
+    @PangoVersion1_38
     public fun attrForegroundAlphaNew(alpha: UShort): Attribute =
         pango_attr_foreground_alpha_new(alpha)!!.run {
             Attribute(reinterpret())
@@ -414,6 +434,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun attrGravityHintNew(hint: GravityHint): Attribute =
         pango_attr_gravity_hint_new(hint.nativeValue)!!.run {
             Attribute(reinterpret())
@@ -428,6 +449,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun attrGravityNew(gravity: Gravity): Attribute =
         pango_attr_gravity_new(gravity.nativeValue)!!.run {
             Attribute(reinterpret())
@@ -446,6 +468,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.44
      */
+    @PangoVersion1_44
     public fun attrInsertHyphensNew(insertHyphens: Boolean): Attribute =
         pango_attr_insert_hyphens_new(insertHyphens.asGBoolean())!!.run {
             Attribute(reinterpret())
@@ -474,6 +497,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.6
      */
+    @PangoVersion1_6
     public fun attrLetterSpacingNew(letterSpacing: Int): Attribute =
         pango_attr_letter_spacing_new(letterSpacing)!!.run {
             Attribute(reinterpret())
@@ -490,6 +514,7 @@ public object Pango {
      * @param factor the scaling factor to apply to the logical height
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun attrLineHeightNew(factor: Double): Attribute =
         pango_attr_line_height_new(factor)!!.run {
             Attribute(reinterpret())
@@ -506,6 +531,7 @@ public object Pango {
      * @param height the line height, in %PANGO_SCALE-ths of a point
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun attrLineHeightNewAbsolute(height: Int): Attribute =
         pango_attr_line_height_new_absolute(height)!!.run {
             Attribute(reinterpret())
@@ -521,6 +547,7 @@ public object Pango {
      * @return a new `PangoAttrList`
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun attrListFromString(text: String): AttrList? =
         pango_attr_list_from_string(text)?.run {
             AttrList(reinterpret())
@@ -540,6 +567,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.46
      */
+    @PangoVersion1_46
     public fun attrOverlineColorNew(
         red: UShort,
         green: UShort,
@@ -558,6 +586,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.46
      */
+    @PangoVersion1_46
     public fun attrOverlineNew(overline: Overline): Attribute =
         pango_attr_overline_new(overline.nativeValue)!!.run {
             Attribute(reinterpret())
@@ -604,6 +633,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun attrSentenceNew(): Attribute =
         pango_attr_sentence_new()!!.run {
             Attribute(reinterpret())
@@ -641,6 +671,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.44
      */
+    @PangoVersion1_44
     public fun attrShowNew(flags: ShowFlags): Attribute =
         pango_attr_show_new(flags.mask)!!.run {
             Attribute(reinterpret())
@@ -668,6 +699,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.8
      */
+    @PangoVersion1_8
     public fun attrSizeNewAbsolute(size: Int): Attribute =
         pango_attr_size_new_absolute(size)!!.run {
             Attribute(reinterpret())
@@ -700,6 +732,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.8
      */
+    @PangoVersion1_8
     public fun attrStrikethroughColorNew(
         red: UShort,
         green: UShort,
@@ -745,6 +778,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun attrTextTransformNew(transform: TextTransform): Attribute =
         pango_attr_text_transform_new(transform.nativeValue)!!.run {
             Attribute(reinterpret())
@@ -767,6 +801,7 @@ public object Pango {
      *   attribute type or invalid.
      * @since 1.22
      */
+    @PangoVersion1_22
     public fun attrTypeGetName(type: AttrType): String? = pango_attr_type_get_name(type.nativeValue)?.toKString()
 
     /**
@@ -797,6 +832,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.8
      */
+    @PangoVersion1_8
     public fun attrUnderlineColorNew(
         red: UShort,
         green: UShort,
@@ -855,6 +891,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun attrWordNew(): Attribute =
         pango_attr_word_new()!!.run {
             Attribute(reinterpret())
@@ -872,6 +909,7 @@ public object Pango {
      * Unicode bidirectional algorithm.
      * @since 1.22
      */
+    @PangoVersion1_22
     public fun bidiTypeForUnichar(ch: UInt): BidiType =
         pango_bidi_type_for_unichar(ch).run {
             BidiType.fromNativeValue(this)
@@ -925,6 +963,7 @@ public object Pango {
      * @param nearest rectangle to round to nearest pixels
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun extentsToPixels(
         inclusive: Rectangle? = null,
         nearest: Rectangle? = null,
@@ -940,6 +979,7 @@ public object Pango {
      *   If no such character is found, then %PANGO_DIRECTION_NEUTRAL is returned.
      * @since 1.4
      */
+    @PangoVersion1_4
     public fun findBaseDir(
         text: String,
         length: Int,
@@ -1011,6 +1051,7 @@ public object Pango {
      * %PANGO_GRAVITY_AUTO, or %PANGO_GRAVITY_SOUTH if @matrix is null
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun gravityGetForMatrix(matrix: Matrix? = null): Gravity =
         pango_gravity_get_for_matrix(matrix?.pangoMatrixPointer).run {
             Gravity.fromNativeValue(this)
@@ -1032,6 +1073,7 @@ public object Pango {
      * with @script
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun gravityGetForScript(
         script: Script,
         baseGravity: Gravity,
@@ -1066,6 +1108,7 @@ public object Pango {
      * with @script and @wide.
      * @since 1.26
      */
+    @PangoVersion1_26
     public fun gravityGetForScriptAndWidth(
         script: Script,
         wide: Boolean,
@@ -1092,6 +1135,7 @@ public object Pango {
      * @return the rotation value corresponding to @gravity.
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun gravityToRotation(gravity: Gravity): Double = pango_gravity_to_rotation(gravity.nativeValue)
 
     /**
@@ -1106,6 +1150,7 @@ public object Pango {
      * @return true if @ch is a zero-width character, false otherwise
      * @since 1.10
      */
+    @PangoVersion1_10
     public fun isZeroWidth(ch: UInt): Boolean = pango_is_zero_width(ch).asBoolean()
 
     /**
@@ -1166,6 +1211,7 @@ public object Pango {
      * @return the default language as a `PangoLanguage`
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun languageGetDefault(): Language =
         pango_language_get_default()!!.run {
             Language(reinterpret())
@@ -1202,6 +1248,7 @@ public object Pango {
      * destroyed with [method@GLib.MarkupParseContext.free].
      * @since 1.31.0
      */
+    @PangoVersion1_31_0
     public fun markupParserNew(accelMarker: UInt): MarkupParseContext =
         pango_markup_parser_new(accelMarker)!!.run {
             MarkupParseContext(reinterpret())
@@ -1245,6 +1292,7 @@ public object Pango {
      * @return the `PangoScript` for the character.
      * @since 1.4
      */
+    @PangoVersion1_4
     public fun scriptForUnichar(ch: UInt): Script =
         pango_script_for_unichar(ch).run {
             Script.fromNativeValue(this)
@@ -1286,6 +1334,7 @@ public object Pango {
      *   of the script
      * @since 1.4
      */
+    @PangoVersion1_4
     public fun scriptGetSampleLanguage(script: Script): Language? =
         pango_script_get_sample_language(script.nativeValue)?.run {
             Language(reinterpret())
@@ -1354,6 +1403,7 @@ public object Pango {
      * @param glyphs glyph string in which to store results.
      * @since 1.32
      */
+    @PangoVersion1_32
     public fun shapeFull(
         itemText: String,
         itemLength: Int,
@@ -1395,6 +1445,7 @@ public object Pango {
      * @param flags flags influencing the shaping process
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun shapeItem(
         item: Item,
         paragraphText: String? = null,
@@ -1443,6 +1494,7 @@ public object Pango {
      * @param flags flags influencing the shaping process
      * @since 1.44
      */
+    @PangoVersion1_44
     public fun shapeWithFlags(
         itemText: String,
         itemLength: Int,
@@ -1483,6 +1535,7 @@ public object Pango {
      * @return a new `PangoTabArray`
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun tabArrayFromString(text: String): TabArray? =
         pango_tab_array_from_string(text)?.run {
             TabArray(reinterpret())
@@ -1526,6 +1579,7 @@ public object Pango {
      * @return the value in Pango units.
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun unitsFromDouble(d: Double): Int = pango_units_from_double(d)
 
     /**
@@ -1537,6 +1591,7 @@ public object Pango {
      * @return the double value.
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun unitsToDouble(i: Int): Double = pango_units_to_double(i)
 
     /**
@@ -1549,6 +1604,7 @@ public object Pango {
      * @return The encoded version of Pango library available at run time.
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun version(): Int = pango_version()
 
     /**
@@ -1579,6 +1635,7 @@ public object Pango {
      *   be modified or freed.
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun versionCheck(
         requiredMajor: Int,
         requiredMinor: Int,
@@ -1596,6 +1653,7 @@ public object Pango {
      *   be modified or freed.
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun versionString(): String = pango_version_string()?.toKString() ?: error("Expected not null string")
 
     public fun resolveException(error: Error): GlibException {

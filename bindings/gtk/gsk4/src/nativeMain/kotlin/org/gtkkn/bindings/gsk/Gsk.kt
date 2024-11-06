@@ -10,6 +10,8 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.graphene.Point
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GlibException
 import org.gtkkn.native.glib.GError
@@ -75,6 +77,7 @@ public object Gsk {
      * @return a new `GskPath`, or `NULL` if @string could not be parsed
      * @since 4.14
      */
+    @GskVersion4_14
     public fun pathParse(string: String): Path? =
         gsk_path_parse(string)?.run {
             Path(reinterpret())
@@ -90,6 +93,7 @@ public object Gsk {
      * @return a `GskRenderNode`
      * @since 4.6
      */
+    @GskVersion4_6
     public fun valueDupRenderNode(`value`: Value): RenderNode? =
         gsk_value_dup_render_node(`value`.gobjectValuePointer)?.run {
             RenderNode(reinterpret())
@@ -102,6 +106,7 @@ public object Gsk {
      * @return a `GskRenderNode`
      * @since 4.6
      */
+    @GskVersion4_6
     public fun valueGetRenderNode(`value`: Value): RenderNode? =
         gsk_value_get_render_node(`value`.gobjectValuePointer)?.run {
             RenderNode(reinterpret())
@@ -116,6 +121,7 @@ public object Gsk {
      * @param node a `GskRenderNode`
      * @since 4.6
      */
+    @GskVersion4_6
     public fun valueSetRenderNode(
         `value`: Value,
         node: RenderNode,
@@ -130,6 +136,7 @@ public object Gsk {
      * @param node a `GskRenderNode`
      * @since 4.6
      */
+    @GskVersion4_6
     public fun valueTakeRenderNode(
         `value`: Value,
         node: RenderNode? = null,

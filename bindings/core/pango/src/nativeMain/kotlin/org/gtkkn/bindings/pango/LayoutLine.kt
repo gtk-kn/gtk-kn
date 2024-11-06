@@ -6,6 +6,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -129,6 +131,7 @@ public class LayoutLine(
      * @return the length of the line
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun getLength(): Int = pango_layout_line_get_length(pangoLayoutLinePointer.reinterpret())
 
     /**
@@ -160,6 +163,7 @@ public class LayoutLine(
      * @return the resolved direction of the line
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun getResolvedDirection(): Direction =
         pango_layout_line_get_resolved_direction(pangoLayoutLinePointer.reinterpret()).run {
             Direction.fromNativeValue(this)
@@ -172,6 +176,7 @@ public class LayoutLine(
      * @return the start index of the line
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun getStartIndex(): Int = pango_layout_line_get_start_index(pangoLayoutLinePointer.reinterpret())
 
     /**
@@ -180,6 +185,7 @@ public class LayoutLine(
      * @return true if this is the first line
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun isParagraphStart(): Boolean =
         pango_layout_line_is_paragraph_start(pangoLayoutLinePointer.reinterpret()).asBoolean()
 
@@ -189,6 +195,7 @@ public class LayoutLine(
      * @return the line passed in.
      * @since 1.10
      */
+    @PangoVersion1_10
     public fun ref(): LayoutLine? =
         pango_layout_line_ref(pangoLayoutLinePointer.reinterpret())?.run {
             LayoutLine(reinterpret())

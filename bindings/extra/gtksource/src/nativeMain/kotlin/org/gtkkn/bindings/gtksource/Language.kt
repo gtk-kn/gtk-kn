@@ -37,7 +37,8 @@ import kotlin.collections.List
  */
 public open class Language(
     pointer: CPointer<GtkSourceLanguage>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceLanguagePointer: CPointer<GtkSourceLanguage>
         get() = gPointer.reinterpret()
 
@@ -135,10 +136,7 @@ public open class Language(
      * or modified.
      */
     public open fun getMetadata(name: String): String? =
-        gtk_source_language_get_metadata(
-            gtksourceLanguagePointer.reinterpret(),
-            name
-        )?.toKString()
+        gtk_source_language_get_metadata(gtksourceLanguagePointer.reinterpret(), name)?.toKString()
 
     /**
      * Returns the mime types associated to this language.
@@ -192,10 +190,7 @@ public open class Language(
      * The returned string is owned by the @language and must not be modified.
      */
     public open fun getStyleFallback(styleId: String): String? =
-        gtk_source_language_get_style_fallback(
-            gtksourceLanguagePointer.reinterpret(),
-            styleId
-        )?.toKString()
+        gtk_source_language_get_style_fallback(gtksourceLanguagePointer.reinterpret(), styleId)?.toKString()
 
     /**
      * Returns the ids of the styles defined by this @language.
@@ -218,10 +213,7 @@ public open class Language(
      * The returned string is owned by the @language and must not be modified.
      */
     public open fun getStyleName(styleId: String): String? =
-        gtk_source_language_get_style_name(
-            gtksourceLanguagePointer.reinterpret(),
-            styleId
-        )?.toKString()
+        gtk_source_language_get_style_name(gtksourceLanguagePointer.reinterpret(), styleId)?.toKString()
 
     public companion object : TypeCompanion<Language> {
         override val type: GeneratedClassKGType<Language> =

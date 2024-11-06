@@ -48,6 +48,7 @@ class InterfaceBlueprintBuilder(
         when (val result =
             PropertyBlueprintBuilder(
                 context,
+                girNamespace,
                 property,
                 propertyMethodBluePrintMap,
             ).build()
@@ -125,7 +126,8 @@ class InterfaceBlueprintBuilder(
             functions = functionBlueprints,
             parentInterfaces = parentInterfaces,
             glibGetTypeFunc = glibGetTypeMember,
-            version = girInterface.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girInterface.info).build()
+                .getOrNull(),
             kdoc = context.processKdoc(girInterface.info.docs.doc?.text),
         )
     }

@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -103,6 +104,7 @@ import kotlin.Unit
  * ```
  * @since 2.34
  */
+@GioVersion2_34
 public open class TestDBus(
     pointer: CPointer<GTestDBus>,
 ) : Object(pointer.reinterpret()),
@@ -115,6 +117,7 @@ public open class TestDBus(
      *
      * @since 2.34
      */
+    @GioVersion2_34
     public open val flags: TestDBusFlags
         /**
          * Get the flags of the #GTestDBus object.

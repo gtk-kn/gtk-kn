@@ -28,7 +28,8 @@ import kotlin.String
  */
 public open class Tag(
     pointer: CPointer<GtkSourceTag>,
-) : TextTag(pointer.reinterpret()), KGTyped {
+) : TextTag(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceTagPointer: CPointer<GtkSourceTag>
         get() = gPointer.reinterpret()
 

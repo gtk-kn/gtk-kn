@@ -9,6 +9,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
@@ -82,6 +84,7 @@ import kotlin.Unit
  *
  * @since 2.26
  */
+@GioVersion2_26
 public open class DBusMessage(
     pointer: CPointer<GDBusMessage>,
 ) : Object(pointer.reinterpret()),
@@ -152,6 +155,7 @@ public open class DBusMessage(
      *     Free with g_object_unref().
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun copy(): Result<DBusMessage> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -177,6 +181,7 @@ public open class DBusMessage(
      * @message is not a string.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getArg0(): String? = g_dbus_message_get_arg0(gioDBusMessagePointer.reinterpret())?.toKString()
 
     /**
@@ -188,6 +193,7 @@ public open class DBusMessage(
      *   body of @message is not an object path.
      * @since 2.80
      */
+    @GioVersion2_80
     public open fun getArg0Path(): String? =
         g_dbus_message_get_arg0_path(gioDBusMessagePointer.reinterpret())?.toKString()
 
@@ -198,6 +204,7 @@ public open class DBusMessage(
      * empty. Do not free, it is owned by @message.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getBody(): Variant? =
         g_dbus_message_get_body(gioDBusMessagePointer.reinterpret())?.run {
             Variant(reinterpret())
@@ -219,6 +226,7 @@ public open class DBusMessage(
      * @return The value.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getDestination(): String? =
         g_dbus_message_get_destination(gioDBusMessagePointer.reinterpret())?.toKString()
 
@@ -228,6 +236,7 @@ public open class DBusMessage(
      * @return The value.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getErrorName(): String? =
         g_dbus_message_get_error_name(gioDBusMessagePointer.reinterpret())?.toKString()
 
@@ -237,6 +246,7 @@ public open class DBusMessage(
      * @return Flags that are set (typically values from the #GDBusMessageFlags enumeration bitwise ORed together).
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getFlags(): DBusMessageFlags =
         g_dbus_message_get_flags(gioDBusMessagePointer.reinterpret()).run {
             DBusMessageFlags(this)
@@ -253,6 +263,7 @@ public open class DBusMessage(
      * otherwise. Do not free, it is owned by @message.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getHeader(headerField: DBusMessageHeaderField): Variant? =
         g_dbus_message_get_header(gioDBusMessagePointer.reinterpret(), headerField.nativeValue)?.run {
             Variant(reinterpret())
@@ -264,6 +275,7 @@ public open class DBusMessage(
      * @return The value.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getInterface(): String? =
         g_dbus_message_get_interface(gioDBusMessagePointer.reinterpret())?.toKString()
 
@@ -275,6 +287,7 @@ public open class DBusMessage(
      * @return true if @message is locked, false otherwise.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getLocked(): Boolean = g_dbus_message_get_locked(gioDBusMessagePointer.reinterpret()).asBoolean()
 
     /**
@@ -283,6 +296,7 @@ public open class DBusMessage(
      * @return The value.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getMember(): String? = g_dbus_message_get_member(gioDBusMessagePointer.reinterpret())?.toKString()
 
     /**
@@ -291,6 +305,7 @@ public open class DBusMessage(
      * @return A 8-bit unsigned integer (typically a value from the #GDBusMessageType enumeration).
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getMessageType(): DBusMessageType =
         g_dbus_message_get_message_type(gioDBusMessagePointer.reinterpret()).run {
             DBusMessageType.fromNativeValue(this)
@@ -302,6 +317,7 @@ public open class DBusMessage(
      * @return The value.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getNumUnixFds(): UInt = g_dbus_message_get_num_unix_fds(gioDBusMessagePointer.reinterpret())
 
     /**
@@ -310,6 +326,7 @@ public open class DBusMessage(
      * @return The value.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getPath(): String? = g_dbus_message_get_path(gioDBusMessagePointer.reinterpret())?.toKString()
 
     /**
@@ -318,6 +335,7 @@ public open class DBusMessage(
      * @return The value.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getReplySerial(): UInt = g_dbus_message_get_reply_serial(gioDBusMessagePointer.reinterpret())
 
     /**
@@ -326,6 +344,7 @@ public open class DBusMessage(
      * @return The value.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getSender(): String? = g_dbus_message_get_sender(gioDBusMessagePointer.reinterpret())?.toKString()
 
     /**
@@ -334,6 +353,7 @@ public open class DBusMessage(
      * @return A #guint32.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getSerial(): UInt = g_dbus_message_get_serial(gioDBusMessagePointer.reinterpret())
 
     /**
@@ -344,6 +364,7 @@ public open class DBusMessage(
      * @return The value.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getSignature(): String =
         g_dbus_message_get_signature(gioDBusMessagePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -363,6 +384,7 @@ public open class DBusMessage(
      * associated. Do not free, this object is owned by @message.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getUnixFdList(): UnixFDList? =
         g_dbus_message_get_unix_fd_list(gioDBusMessagePointer.reinterpret())?.run {
             UnixFDList(reinterpret())
@@ -373,6 +395,7 @@ public open class DBusMessage(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun lock(): Unit = g_dbus_message_lock(gioDBusMessagePointer.reinterpret())
 
     /**
@@ -383,6 +406,7 @@ public open class DBusMessage(
      * @return A #GDBusMessage. Free with g_object_unref().
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun newMethodErrorLiteral(
         errorName: String,
         errorMessage: String,
@@ -397,6 +421,7 @@ public open class DBusMessage(
      * @return #GDBusMessage. Free with g_object_unref().
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun newMethodReply(): DBusMessage =
         g_dbus_message_new_method_reply(gioDBusMessagePointer.reinterpret())!!.run {
             DBusMessage(reinterpret())
@@ -440,6 +465,7 @@ public open class DBusMessage(
      * @return A string that should be freed with [func@GLib.free].
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun print(indent: UInt): String =
         g_dbus_message_print(gioDBusMessagePointer.reinterpret(), indent)?.toKString()
             ?: error("Expected not null string")
@@ -454,6 +480,7 @@ public open class DBusMessage(
      * @param body Either null or a #GVariant that is a tuple.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setBody(body: Variant): Unit =
         g_dbus_message_set_body(gioDBusMessagePointer.reinterpret(), body.glibVariantPointer)
 
@@ -471,6 +498,7 @@ public open class DBusMessage(
      * @param value The value to set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setDestination(`value`: String? = null): Unit =
         g_dbus_message_set_destination(gioDBusMessagePointer.reinterpret(), `value`)
 
@@ -480,6 +508,7 @@ public open class DBusMessage(
      * @param value The value to set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setErrorName(`value`: String): Unit =
         g_dbus_message_set_error_name(gioDBusMessagePointer.reinterpret(), `value`)
 
@@ -490,6 +519,7 @@ public open class DBusMessage(
      * enumeration bitwise ORed together).
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setFlags(flags: DBusMessageFlags): Unit =
         g_dbus_message_set_flags(gioDBusMessagePointer.reinterpret(), flags.mask)
 
@@ -502,6 +532,7 @@ public open class DBusMessage(
      * @param value A #GVariant to set the header field or null to clear the header field.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setHeader(
         headerField: DBusMessageHeaderField,
         `value`: Variant? = null,
@@ -518,6 +549,7 @@ public open class DBusMessage(
      * @param value The value to set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setInterface(`value`: String? = null): Unit =
         g_dbus_message_set_interface(gioDBusMessagePointer.reinterpret(), `value`)
 
@@ -527,6 +559,7 @@ public open class DBusMessage(
      * @param value The value to set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setMember(`value`: String? = null): Unit =
         g_dbus_message_set_member(gioDBusMessagePointer.reinterpret(), `value`)
 
@@ -536,6 +569,7 @@ public open class DBusMessage(
      * @param type A 8-bit unsigned integer (typically a value from the #GDBusMessageType enumeration).
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setMessageType(type: DBusMessageType): Unit =
         g_dbus_message_set_message_type(gioDBusMessagePointer.reinterpret(), type.nativeValue)
 
@@ -545,6 +579,7 @@ public open class DBusMessage(
      * @param value The value to set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setNumUnixFds(`value`: UInt): Unit =
         g_dbus_message_set_num_unix_fds(gioDBusMessagePointer.reinterpret(), `value`)
 
@@ -554,6 +589,7 @@ public open class DBusMessage(
      * @param value The value to set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setPath(`value`: String? = null): Unit =
         g_dbus_message_set_path(gioDBusMessagePointer.reinterpret(), `value`)
 
@@ -563,6 +599,7 @@ public open class DBusMessage(
      * @param value The value to set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setReplySerial(`value`: UInt): Unit =
         g_dbus_message_set_reply_serial(gioDBusMessagePointer.reinterpret(), `value`)
 
@@ -572,6 +609,7 @@ public open class DBusMessage(
      * @param value The value to set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setSender(`value`: String? = null): Unit =
         g_dbus_message_set_sender(gioDBusMessagePointer.reinterpret(), `value`)
 
@@ -581,6 +619,7 @@ public open class DBusMessage(
      * @param serial A #guint32.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setSerial(serial: UInt): Unit =
         g_dbus_message_set_serial(gioDBusMessagePointer.reinterpret(), serial)
 
@@ -590,6 +629,7 @@ public open class DBusMessage(
      * @param value The value to set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setSignature(`value`: String? = null): Unit =
         g_dbus_message_set_signature(gioDBusMessagePointer.reinterpret(), `value`)
 
@@ -609,6 +649,7 @@ public open class DBusMessage(
      * @param fdList A #GUnixFDList or null.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun setUnixFdList(fdList: UnixFDList? = null): Unit =
         g_dbus_message_set_unix_fd_list(
             gioDBusMessagePointer.reinterpret(),
@@ -627,6 +668,7 @@ public open class DBusMessage(
      * @return true if @error was set, false otherwise.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun toGerror(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()

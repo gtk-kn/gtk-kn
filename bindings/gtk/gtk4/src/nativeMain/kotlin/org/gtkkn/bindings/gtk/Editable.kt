@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Interface
@@ -336,6 +337,7 @@ public interface Editable :
      * @param state what kind of accessible state to retrieve
      * @since 4.10
      */
+    @GtkVersion4_10
     public fun delegateGetAccessiblePlatformState(state: AccessiblePlatformState): Boolean =
         gtk_editable_delegate_get_accessible_platform_state(
             gtkEditablePointer.reinterpret(),

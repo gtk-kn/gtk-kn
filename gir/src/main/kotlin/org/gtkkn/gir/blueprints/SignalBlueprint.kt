@@ -27,7 +27,7 @@ data class SignalBlueprint(
     override val throws: Boolean,
     override val exceptionResolvingFunctionMember: MemberName,
     override val lambdaTypeName: LambdaTypeName,
-    val version: String?,
+    val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
     val returnTypeKDoc: String?,
 ) : ClosureBlueprint {

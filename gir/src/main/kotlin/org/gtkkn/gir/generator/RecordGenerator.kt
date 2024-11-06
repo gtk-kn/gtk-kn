@@ -32,7 +32,12 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
     fun buildRecord(record: RecordBlueprint): TypeSpec =
         TypeSpec.classBuilder(record.kotlinTypeName).apply {
             // kdoc
-            addKdoc(buildTypeKDoc(record.kdoc, record.version, record.skippedObjects))
+            addKdoc(buildTypeKDoc(record.kdoc, record.optInVersionBlueprint, record.skippedObjects))
+
+            // optInVersion
+            record.optInVersionBlueprint?.typeName?.let { annotationClassName ->
+                addAnnotation(annotationClassName)
+            }
 
             // add marker interface
             addSuperinterface(BindingsGenerator.GLIB_RECORD_MARKER_TYPE)
@@ -104,7 +109,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
                 buildMethodKDoc(
                     constructor.kdoc,
                     constructor.parameters,
-                    constructor.version,
+                    constructor.optInVersionBlueprint,
                     constructor.returnTypeKDoc,
                 ),
             )
@@ -201,7 +206,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
     private fun buildRecordFieldProperty(record: RecordBlueprint, field: FieldBlueprint): PropertySpec =
         PropertySpec.builder(field.kotlinName, field.typeInfo.kotlinTypeName).apply {
             // kdoc
-            addKdoc(buildPropertyKDoc(field.kdoc, field.version))
+            addKdoc(buildPropertyKDoc(field.kdoc, field.optInVersionBlueprint))
 
             // getter
             getter(

@@ -12,6 +12,16 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_10
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_24
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_34
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_36
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_44
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -642,6 +652,7 @@ public object Gobject {
      * @return a newly created parameter specification
      * @since 2.10
      */
+    @GObjectVersion2_10
     public fun paramSpecGtype(
         name: String,
         nick: String? = null,
@@ -979,6 +990,7 @@ public object Gobject {
      * @return the newly created #GParamSpec
      * @since 2.26
      */
+    @GObjectVersion2_26
     public fun paramSpecVariant(
         name: String,
         nick: String? = null,
@@ -1067,6 +1079,7 @@ public object Gobject {
      *   set out by @pspec.
      * @since 2.74
      */
+    @GObjectVersion2_74
     public fun paramValueIsValid(
         pspec: ParamSpec,
         `value`: Value,
@@ -1351,6 +1364,7 @@ public object Gobject {
      * @return true if @name is a valid signal name, false otherwise.
      * @since 2.66
      */
+    @GObjectVersion2_66
     public fun signalIsValidName(name: String): Boolean = g_signal_is_valid_name(name).asBoolean()
 
     /**
@@ -1532,6 +1546,7 @@ public object Gobject {
      * @param privateSize size of private structure
      * @since 2.24
      */
+    @GObjectVersion2_24
     public fun typeAddClassPrivate(
         classType: ULong,
         privateSize: ULong,
@@ -1675,6 +1690,7 @@ public object Gobject {
      *     currently exist or is dynamically loaded
      * @since 2.4
      */
+    @GObjectVersion2_4
     public fun typeClassPeekStatic(type: ULong): TypeClass =
         g_type_class_peek_static(type)!!.run {
             TypeClass(reinterpret())
@@ -1704,6 +1720,7 @@ public object Gobject {
      *     in use
      * @since 2.4
      */
+    @GObjectVersion2_4
     public fun typeDefaultInterfacePeek(gType: ULong): TypeInterface =
         g_type_default_interface_peek(gType)!!.run {
             TypeInterface(reinterpret())
@@ -1727,6 +1744,7 @@ public object Gobject {
      *     when you are done using the interface.
      * @since 2.4
      */
+    @GObjectVersion2_4
     public fun typeDefaultInterfaceRef(gType: ULong): TypeInterface =
         g_type_default_interface_ref(gType)!!.run {
             TypeInterface(reinterpret())
@@ -1743,6 +1761,7 @@ public object Gobject {
      *     structure for an interface, as returned by g_type_default_interface_ref()
      * @since 2.4
      */
+    @GObjectVersion2_4
     public fun typeDefaultInterfaceUnref(gIface: TypeInterface): Unit =
         g_type_default_interface_unref(gIface.gobjectTypeInterfacePointer)
 
@@ -1772,6 +1791,7 @@ public object Gobject {
      * @param type a #GType
      * @since 2.34
      */
+    @GObjectVersion2_34
     public fun typeEnsure(type: ULong): Unit = g_type_ensure(type)
 
     /**
@@ -1828,6 +1848,7 @@ public object Gobject {
      *   if instance counts are not available, returns 0.
      * @since 2.44
      */
+    @GObjectVersion2_44
     public fun typeGetInstanceCount(type: ULong): Int = g_type_get_instance_count(type)
 
     /**
@@ -1852,6 +1873,7 @@ public object Gobject {
      * @return An unsigned int, representing the state of type registrations
      * @since 2.36
      */
+    @GObjectVersion2_36
     public fun typeGetTypeRegistrationSerial(): UInt = g_type_get_type_registration_serial()
 
     /**
@@ -1920,6 +1942,7 @@ public object Gobject {
      * @return the instantiatable prerequisite type or %G_TYPE_INVALID if none
      * @since 2.68
      */
+    @GObjectVersion2_68
     public fun typeInterfaceInstantiatablePrerequisite(interfaceType: ULong): ULong =
         g_type_interface_instantiatable_prerequisite(interfaceType)
 

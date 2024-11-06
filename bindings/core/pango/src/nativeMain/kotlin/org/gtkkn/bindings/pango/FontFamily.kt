@@ -6,6 +6,10 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_52
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -51,6 +55,7 @@ public open class FontFamily(
      *
      * @since 1.52
      */
+    @PangoVersion1_52
     public open val name: String
         /**
          * Gets the name of the family.
@@ -76,6 +81,7 @@ public open class FontFamily(
      *   or null if no face with the given name exists.
      * @since 1.46
      */
+    @PangoVersion1_46
     public open fun getFace(name: String? = null): FontFace? =
         pango_font_family_get_face(pangoFontFamilyPointer.reinterpret(), name)?.run {
             FontFace(reinterpret())
@@ -114,6 +120,7 @@ public open class FontFamily(
      * @return true if the family is monospace.
      * @since 1.4
      */
+    @PangoVersion1_4
     public open fun isMonospace(): Boolean =
         pango_font_family_is_monospace(pangoFontFamilyPointer.reinterpret()).asBoolean()
 
@@ -127,6 +134,7 @@ public open class FontFamily(
      * @return true if the family is variable
      * @since 1.44
      */
+    @PangoVersion1_44
     public open fun isVariable(): Boolean =
         pango_font_family_is_variable(pangoFontFamilyPointer.reinterpret()).asBoolean()
 

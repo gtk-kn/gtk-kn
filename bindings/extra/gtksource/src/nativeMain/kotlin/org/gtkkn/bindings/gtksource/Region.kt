@@ -76,7 +76,8 @@ import kotlin.Unit
  */
 public open class Region(
     pointer: CPointer<GtkSourceRegion>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceRegionPointer: CPointer<GtkSourceRegion>
         get() = gPointer.reinterpret()
 
@@ -101,8 +102,9 @@ public open class Region(
      * @param buffer a #GtkTextBuffer.
      * @return a new #GtkSourceRegion object for @buffer.
      */
-    public constructor(buffer: TextBuffer) :
-        this(gtk_source_region_new(buffer.gtkTextBufferPointer.reinterpret())!!.reinterpret())
+    public constructor(
+        buffer: TextBuffer,
+    ) : this(gtk_source_region_new(buffer.gtkTextBufferPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds @region_to_add to @region.
@@ -171,10 +173,7 @@ public open class Region(
      * @param iter iterator to initialize to the first subregion.
      */
     public open fun getStartRegionIter(iter: RegionIter): Unit =
-        gtk_source_region_get_start_region_iter(
-            gtksourceRegionPointer.reinterpret(),
-            iter.gtksourceRegionIterPointer
-        )
+        gtk_source_region_get_start_region_iter(gtksourceRegionPointer.reinterpret(), iter.gtksourceRegionIterPointer)
 
     /**
      * Returns the intersection between @region1 and @region2.

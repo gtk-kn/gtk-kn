@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.native.gtk.GtkGraphicsOffloadEnabled
 import org.gtkkn.native.gtk.GtkGraphicsOffloadEnabled.GTK_GRAPHICS_OFFLOAD_DISABLED
 import org.gtkkn.native.gtk.GtkGraphicsOffloadEnabled.GTK_GRAPHICS_OFFLOAD_ENABLED
@@ -9,6 +10,7 @@ import org.gtkkn.native.gtk.GtkGraphicsOffloadEnabled.GTK_GRAPHICS_OFFLOAD_ENABL
  * Represents the state of graphics offlodading.
  * @since 4.14
  */
+@GtkVersion4_14
 public enum class GraphicsOffloadEnabled(
     public val nativeValue: GtkGraphicsOffloadEnabled,
 ) {

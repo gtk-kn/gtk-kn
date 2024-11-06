@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
@@ -216,6 +217,7 @@ public open class InputStream(
      * @return a new #GBytes, or null on error
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun readBytes(
         count: ULong,
         cancellable: Cancellable? = null,
@@ -268,6 +270,7 @@ public open class InputStream(
      *   to call when the request is satisfied
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun readBytesAsync(
         count: ULong,
         ioPriority: Int,
@@ -290,6 +293,7 @@ public open class InputStream(
      * @return the newly-allocated #GBytes, or null on error
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun readBytesFinish(result: AsyncResult): Result<Bytes> =
         memScoped {
             val gError = allocPointerTo<GError>()

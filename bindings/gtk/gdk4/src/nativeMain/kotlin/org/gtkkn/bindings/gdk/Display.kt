@@ -15,6 +15,9 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Gdk.resolveException
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
@@ -103,6 +106,7 @@ public open class Display(
      *
      * @since 4.14
      */
+    @GdkVersion4_14
     public open val dmabufFormats: DmabufFormats
         /**
          * Returns the dma-buf formats that are supported on this display.
@@ -149,6 +153,7 @@ public open class Display(
      * @return the newly created `GdkGLContext`
      * @since 4.6
      */
+    @GdkVersion4_6
     public open fun createGlContext(): Result<GLContext> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -238,6 +243,7 @@ public open class Display(
      * @return a `GdkDmabufFormats` object
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun getDmabufFormats(): DmabufFormats =
         gdk_display_get_dmabuf_formats(gdkDisplayPointer.reinterpret())!!.run {
             DmabufFormats(reinterpret())
@@ -408,6 +414,7 @@ public open class Display(
      * @return true if the display supports OpenGL
      * @since 4.4
      */
+    @GdkVersion4_4
     public open fun prepareGl(): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -450,6 +457,7 @@ public open class Display(
      *   false if the display does not support this functionality.
      * @since 4.14
      */
+    @GdkVersion4_14
     public open fun supportsShadowWidth(): Boolean =
         gdk_display_supports_shadow_width(gdkDisplayPointer.reinterpret()).asBoolean()
 

@@ -5,6 +5,10 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
+import org.gtkkn.bindings.gio.annotations.GioVersion2_44
+import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.Record
@@ -116,6 +120,7 @@ import kotlin.collections.List
  * itself before attempting to create the settings source.
  * @since 2.32
  */
+@GioVersion2_32
 public class SettingsSchema(
     pointer: CPointer<GSettingsSchema>,
 ) : Record {
@@ -140,6 +145,7 @@ public class SettingsSchema(
      * @return the #GSettingsSchemaKey for @name
      * @since 2.40
      */
+    @GioVersion2_40
     public fun getKey(name: String): SettingsSchemaKey =
         g_settings_schema_get_key(gioSettingsSchemaPointer.reinterpret(), name)!!.run {
             SettingsSchemaKey(reinterpret())
@@ -159,6 +165,7 @@ public class SettingsSchema(
      * @return the path of the schema, or null
      * @since 2.32
      */
+    @GioVersion2_32
     public fun getPath(): String? = g_settings_schema_get_path(gioSettingsSchemaPointer.reinterpret())?.toKString()
 
     /**
@@ -168,6 +175,7 @@ public class SettingsSchema(
      * @return true if such a key exists
      * @since 2.40
      */
+    @GioVersion2_40
     public fun hasKey(name: String): Boolean =
         g_settings_schema_has_key(gioSettingsSchemaPointer.reinterpret(), name).asBoolean()
 
@@ -181,6 +189,7 @@ public class SettingsSchema(
      *    the children on @settings, in no defined order
      * @since 2.44
      */
+    @GioVersion2_44
     public fun listChildren(): List<String> =
         g_settings_schema_list_children(gioSettingsSchemaPointer.reinterpret())?.toKStringList()
             ?: error("Expected not null string array")
@@ -196,6 +205,7 @@ public class SettingsSchema(
      *   of the keys on @schema, in no defined order
      * @since 2.46
      */
+    @GioVersion2_46
     public fun listKeys(): List<String> =
         g_settings_schema_list_keys(gioSettingsSchemaPointer.reinterpret())?.toKStringList()
             ?: error("Expected not null string array")
@@ -206,6 +216,7 @@ public class SettingsSchema(
      * @return a new reference to @schema
      * @since 2.32
      */
+    @GioVersion2_32
     public fun ref(): SettingsSchema =
         g_settings_schema_ref(gioSettingsSchemaPointer.reinterpret())!!.run {
             SettingsSchema(reinterpret())
@@ -216,6 +227,7 @@ public class SettingsSchema(
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public fun unref(): Unit = g_settings_schema_unref(gioSettingsSchemaPointer.reinterpret())
 
     public companion object : RecordCompanion<SettingsSchema, GSettingsSchema> {

@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.native.pango.PangoLayoutDeserializeError
 import org.gtkkn.native.pango.PangoLayoutDeserializeError.PANGO_LAYOUT_DESERIALIZE_INVALID
 import org.gtkkn.native.pango.PangoLayoutDeserializeError.PANGO_LAYOUT_DESERIALIZE_INVALID_VALUE
@@ -13,6 +14,7 @@ import kotlin.UInt
  * Errors that can be returned by [func@Pango.Layout.deserialize].
  * @since 1.50
  */
+@PangoVersion1_50
 public enum class LayoutDeserializeError(
     public val nativeValue: PangoLayoutDeserializeError,
 ) {

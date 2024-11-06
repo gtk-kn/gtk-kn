@@ -64,7 +64,9 @@ class BitfieldBlueprintBuilder(
                     kotlinName = memberKotlinName,
                     nativeValue = member.value.toLong(),
                     nativeMemberName = MemberName(nativePackageName, member.cIdentifier),
-                    version = member.info.version,
+                    optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, member.info)
+                        .build()
+                        .getOrNull(),
                     kdoc = context.processKdoc(member.info.docs.doc?.text),
                 ),
             )
@@ -78,7 +80,9 @@ class BitfieldBlueprintBuilder(
             functionBlueprints = functionBlueprints,
             kotlinTypeName = kotlinTypeName,
             nativeValueTypeName = nativeValueTypeName,
-            version = girBitfield.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girBitfield.info)
+                .build()
+                .getOrNull(),
             kdoc = context.processKdoc(girBitfield.info.docs.doc?.text),
         )
     }

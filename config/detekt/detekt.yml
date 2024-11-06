@@ -435,14 +435,14 @@ complexity:
       - 'with'
   LabeledExpression:
     active: false
-    ignoredLabels: []
+    ignoredLabels: [ ]
   LargeClass:
     active: true
     threshold: 600
   LongMethod:
     active: true
     threshold: 60
-    excludes: ['**/src/test*/**', '**/src/androidTest*/**', '**/*Test.kt'] # Custom
+    excludes: [ '**/src/test*/**', '**/src/androidTest*/**', '**/*Test.kt' ] # Custom
     ignoreAnnotated: # Custom
       - 'Composable'
   LongParameterList:
@@ -451,7 +451,7 @@ complexity:
     constructorThreshold: 7
     ignoreDefaultParameters: true # Custom
     ignoreDataClasses: true
-    ignoreAnnotatedParameter: []
+    ignoreAnnotatedParameter: [ ]
     ignoreAnnotated: # Custom
       - 'AssistedInject'
       - 'Composable'
@@ -689,6 +689,8 @@ naming:
   ClassNaming:
     active: true
     classPattern: '[A-Z][a-zA-Z0-9]*'
+    ignoreAnnotated: # Custom
+      - 'RequiresOptIn'
   ConstructorParameterNaming:
     active: true
     excludes: [
@@ -702,7 +704,7 @@ naming:
     enumEntryPattern: '[A-Z][_A-Z0-9]*' # Custom
   ForbiddenClassName:
     active: false
-    forbiddenName: []
+    forbiddenName: [ ]
   FunctionMaxLength:
     active: false
     maximumFunctionNameLength: 30
@@ -844,7 +846,7 @@ potential-bugs:
       - 'java.util.HashMap'
   ElseCaseInsteadOfExhaustiveWhen:
     active: false
-    ignoredSubjectTypes: []
+    ignoredSubjectTypes: [ ]
   EqualsAlwaysReturnsTrueOrFalse:
     active: true
   EqualsWithHashCodeExist:
@@ -870,7 +872,7 @@ potential-bugs:
       - 'kotlin.sequences.Sequence'
       - 'kotlinx.coroutines.flow.*Flow'
       - 'java.util.stream.*Stream'
-    ignoreFunctionCall: []
+    ignoreFunctionCall: [ ]
   ImplicitDefaultLocale:
     active: true
   ImplicitUnitReturnType:
@@ -896,13 +898,13 @@ potential-bugs:
         '**/nativeTest/**',
         '**/iosTest/**',
       ]
-    ignoreAnnotated: ['Inject'] # Custom
+    ignoreAnnotated: [ 'Inject' ] # Custom
     ignoreOnClassesPattern: '(.*Activity|.*Fragment|.*ViewModel)' # Custom
   MapGetWithNotNullAssertionOperator:
     active: true
   MissingPackageDeclaration:
     active: false
-    excludes: ['**/*.kts']
+    excludes: [ '**/*.kts' ]
   NullCheckOnMutableProperty:
     active: true # Custom
   NullableToStringCall:
@@ -923,7 +925,7 @@ potential-bugs:
     active: true
   UnsafeCallOnNullableType:
     active: true
-    excludes: [] # Custom
+    excludes: [ ] # Custom
   UnsafeCast:
     active: true
   UnusedUnaryOperator:
@@ -1014,7 +1016,7 @@ style:
     allowedPatterns: ''
   ForbiddenImport:
     active: false
-    imports: []
+    imports: [ ]
     forbiddenPatterns: ''
   ForbiddenMethodCall:
     active: true # Custom
@@ -1025,7 +1027,7 @@ style:
         value: 'kotlin.io.println'
   ForbiddenSuppress:
     active: false
-    rules: []
+    rules: [ ]
   ForbiddenVoid:
     active: true
     ignoreOverridden: false
@@ -1034,7 +1036,7 @@ style:
     active: true
     ignoreOverridableFunction: true
     ignoreActualFunction: true
-    excludedFunctions: []
+    excludedFunctions: [ ]
     ignoreAnnotated: # Custom
       - 'Provides'
   LoopWithTooManyJumpStatements:
@@ -1137,7 +1139,7 @@ style:
   StringShouldBeRawString:
     active: false
     maxEscapedCharacterCount: 2
-    ignoredCharacters: []
+    ignoredCharacters: [ ]
   ThrowsCount:
     active: false # Custom
     max: 2
@@ -1232,5 +1234,5 @@ style:
     ignoreLateinitVar: false
   WildcardImport:
     active: true
-    excludes: [] # Custom
-    excludeImports: [] # Custom
+    excludes: [ ] # Custom
+    excludeImports: [ ] # Custom

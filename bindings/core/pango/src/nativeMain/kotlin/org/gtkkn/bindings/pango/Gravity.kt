@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_26
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.native.pango.PangoGravity
 import org.gtkkn.native.pango.PangoGravity.PANGO_GRAVITY_AUTO
@@ -31,6 +33,7 @@ import kotlin.Double
  * See also: [enum@Pango.GravityHint]
  * @since 1.16
  */
+@PangoVersion1_16
 public enum class Gravity(
     public val nativeValue: PangoGravity,
 ) {
@@ -80,6 +83,7 @@ public enum class Gravity(
          * %PANGO_GRAVITY_AUTO, or %PANGO_GRAVITY_SOUTH if @matrix is null
          * @since 1.16
          */
+        @PangoVersion1_16
         public fun getForMatrix(matrix: Matrix? = null): Gravity =
             pango_gravity_get_for_matrix(matrix?.pangoMatrixPointer).run {
                 Gravity.fromNativeValue(this)
@@ -101,6 +105,7 @@ public enum class Gravity(
          * with @script
          * @since 1.16
          */
+        @PangoVersion1_16
         public fun getForScript(
             script: Script,
             baseGravity: Gravity,
@@ -135,6 +140,7 @@ public enum class Gravity(
          * with @script and @wide.
          * @since 1.26
          */
+        @PangoVersion1_26
         public fun getForScriptAndWidth(
             script: Script,
             wide: Boolean,
@@ -161,6 +167,7 @@ public enum class Gravity(
          * @return the rotation value corresponding to @gravity.
          * @since 1.16
          */
+        @PangoVersion1_16
         public fun toRotation(gravity: Gravity): Double = pango_gravity_to_rotation(gravity.nativeValue)
     }
 }

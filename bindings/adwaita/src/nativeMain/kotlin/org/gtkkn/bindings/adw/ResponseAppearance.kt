@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.native.adw.AdwResponseAppearance
 import org.gtkkn.native.adw.AdwResponseAppearance.ADW_RESPONSE_DEFAULT
 import org.gtkkn.native.adw.AdwResponseAppearance.ADW_RESPONSE_DESTRUCTIVE
@@ -12,6 +13,7 @@ import org.gtkkn.native.adw.AdwResponseAppearance.ADW_RESPONSE_SUGGESTED
  * See [method@AlertDialog.set_response_appearance].
  * @since 1.2
  */
+@AdwVersion1_2
 public enum class ResponseAppearance(
     public val nativeValue: AdwResponseAppearance,
 ) {

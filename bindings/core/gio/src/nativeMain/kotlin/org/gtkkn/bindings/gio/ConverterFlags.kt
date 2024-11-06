@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GConverterFlags
 import org.gtkkn.native.gio.G_CONVERTER_FLUSH
@@ -16,6 +17,7 @@ public class ConverterFlags(
 ) : Bitfield<ConverterFlags> {
     override infix fun or(other: ConverterFlags): ConverterFlags = ConverterFlags(mask or other.mask)
 
+    @GioVersion2_24
     public companion object {
         /**
          * No flags.

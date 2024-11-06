@@ -3,6 +3,7 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -37,6 +38,7 @@ import org.gtkkn.native.gtk.GtkEditable
  * `.entry` and `.password` style classes.
  * @since 1.2
  */
+@AdwVersion1_2
 public class PasswordEntryRow(
     pointer: CPointer<AdwPasswordEntryRow>,
 ) : EntryRow(pointer.reinterpret()),

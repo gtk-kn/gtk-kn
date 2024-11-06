@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gio.GResolverError
 import org.gtkkn.native.gio.GResolverError.G_RESOLVER_ERROR_INTERNAL
@@ -14,6 +15,7 @@ import kotlin.UInt
  * from a #GResolver routine.
  * @since 2.22
  */
+@GioVersion2_22
 public enum class ResolverError(
     public val nativeValue: GResolverError,
 ) {
@@ -50,6 +52,7 @@ public enum class ResolverError(
          * @return a #GQuark.
          * @since 2.22
          */
+        @GioVersion2_22
         public fun quark(): UInt = g_resolver_error_quark()
 
         public fun fromErrorOrNull(error: Error): ResolverError? =

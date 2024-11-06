@@ -13,6 +13,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_72
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
@@ -155,6 +156,7 @@ import kotlin.Unit
  *
  * @since 2.72
  */
+@GioVersion2_72
 public open class DebugControllerDBus(
     pointer: CPointer<GDebugControllerDBus>,
 ) : Object(pointer.reinterpret()),
@@ -222,6 +224,7 @@ public open class DebugControllerDBus(
      *
      * @since 2.72
      */
+    @GioVersion2_72
     public open fun stop(): Unit = g_debug_controller_dbus_stop(gioDebugControllerDBusPointer.reinterpret())
 
     /**
@@ -247,6 +250,7 @@ public open class DebugControllerDBus(
      * @param handler the Callback to connect. Params: `invocation` A #GDBusMethodInvocation.. Returns true if the call is authorized, false otherwise.
      * @since 2.72
      */
+    @GioVersion2_72
     public fun connectAuthorize(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (invocation: DBusMethodInvocation) -> Boolean,

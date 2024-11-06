@@ -10,6 +10,9 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -113,6 +116,7 @@ public open class SearchEntry(
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public open var inputHints: InputHints
         /**
          * Gets the input purpose for @entry.
@@ -131,6 +135,7 @@ public open class SearchEntry(
          * @param hints the new input hints
          * @since 4.14
          */
+        @GtkVersion4_14
         set(hints) = gtk_search_entry_set_input_hints(gtkSearchEntryPointer.reinterpret(), hints.mask)
 
     /**
@@ -139,6 +144,7 @@ public open class SearchEntry(
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public open var inputPurpose: InputPurpose
         /**
          * Gets the input purpose of @entry.
@@ -157,6 +163,7 @@ public open class SearchEntry(
          * @param purpose the new input purpose
          * @since 4.14
          */
+        @GtkVersion4_14
         set(purpose) = gtk_search_entry_set_input_purpose(gtkSearchEntryPointer.reinterpret(), purpose.nativeValue)
 
     /**
@@ -178,6 +185,7 @@ public open class SearchEntry(
          * @param text the text to set as a placeholder
          * @since 4.10
          */
+        @GtkVersion4_10
         set(text) = gtk_search_entry_set_placeholder_text(gtkSearchEntryPointer.reinterpret(), text)
 
     /**
@@ -186,6 +194,7 @@ public open class SearchEntry(
      *
      * @since 4.8
      */
+    @GtkVersion4_8
     public open var searchDelay: UInt
         /**
          * Get the delay to be used between the last keypress and the
@@ -203,6 +212,7 @@ public open class SearchEntry(
          * @param delay a delay in milliseconds
          * @since 4.8
          */
+        @GtkVersion4_8
         set(delay) = gtk_search_entry_set_search_delay(gtkSearchEntryPointer.reinterpret(), delay)
 
     /**
@@ -218,6 +228,7 @@ public open class SearchEntry(
      * @return The input hints
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getInputHints(): InputHints =
         gtk_search_entry_get_input_hints(gtkSearchEntryPointer.reinterpret()).run {
             InputHints(this)
@@ -229,6 +240,7 @@ public open class SearchEntry(
      * @return The input hints
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getInputPurpose(): InputPurpose =
         gtk_search_entry_get_input_purpose(gtkSearchEntryPointer.reinterpret()).run {
             InputPurpose.fromNativeValue(this)
@@ -250,6 +262,7 @@ public open class SearchEntry(
      * @return The placeholder text.
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getPlaceholderText(): String? =
         gtk_search_entry_get_placeholder_text(gtkSearchEntryPointer.reinterpret())?.toKString()
 
@@ -260,6 +273,7 @@ public open class SearchEntry(
      * @return a delay in milliseconds.
      * @since 4.8
      */
+    @GtkVersion4_8
     public open fun getSearchDelay(): UInt = gtk_search_entry_get_search_delay(gtkSearchEntryPointer.reinterpret())
 
     /**
@@ -268,6 +282,7 @@ public open class SearchEntry(
      * @param hints the new input hints
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setInputHints(hints: InputHints): Unit =
         gtk_search_entry_set_input_hints(gtkSearchEntryPointer.reinterpret(), hints.mask)
 
@@ -277,6 +292,7 @@ public open class SearchEntry(
      * @param purpose the new input purpose
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setInputPurpose(purpose: InputPurpose): Unit =
         gtk_search_entry_set_input_purpose(gtkSearchEntryPointer.reinterpret(), purpose.nativeValue)
 
@@ -313,6 +329,7 @@ public open class SearchEntry(
      * @param text the text to set as a placeholder
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setPlaceholderText(text: String? = null): Unit =
         gtk_search_entry_set_placeholder_text(gtkSearchEntryPointer.reinterpret(), text)
 
@@ -323,6 +340,7 @@ public open class SearchEntry(
      * @param delay a delay in milliseconds
      * @since 4.8
      */
+    @GtkVersion4_8
     public open fun setSearchDelay(delay: UInt): Unit =
         gtk_search_entry_set_search_delay(gtkSearchEntryPointer.reinterpret(), delay)
 

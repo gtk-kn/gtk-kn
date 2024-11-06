@@ -5,6 +5,8 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_58
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -61,6 +63,7 @@ import kotlin.Unit
  *
  * @since 2.26
  */
+@GLibVersion2_26
 public class TimeZone(
     pointer: CPointer<GTimeZone>,
 ) : Record {
@@ -91,6 +94,7 @@ public class TimeZone(
      * @return the interval containing @time_, or -1 in case of failure
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun findInterval(
         type: TimeType,
         time: Long,
@@ -108,6 +112,7 @@ public class TimeZone(
      * @return the time zone abbreviation, which belongs to @tz
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getAbbreviation(interval: Int): String =
         g_time_zone_get_abbreviation(glibTimeZonePointer.reinterpret(), interval)?.toKString()
             ?: error("Expected not null string")
@@ -125,6 +130,7 @@ public class TimeZone(
      * @return identifier for this timezone
      * @since 2.58
      */
+    @GLibVersion2_58
     public fun getIdentifier(): String =
         g_time_zone_get_identifier(glibTimeZonePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -141,6 +147,7 @@ public class TimeZone(
      *          local time in @tz
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getOffset(interval: Int): Int = g_time_zone_get_offset(glibTimeZonePointer.reinterpret(), interval)
 
     /**
@@ -151,6 +158,7 @@ public class TimeZone(
      * @return true if daylight savings time is in effect
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun isDst(interval: Int): Boolean =
         g_time_zone_is_dst(glibTimeZonePointer.reinterpret(), interval).asBoolean()
 
@@ -160,6 +168,7 @@ public class TimeZone(
      * @return a new reference to @tz.
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun ref(): TimeZone =
         g_time_zone_ref(glibTimeZonePointer.reinterpret())!!.run {
             TimeZone(reinterpret())
@@ -170,6 +179,7 @@ public class TimeZone(
      *
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun unref(): Unit = g_time_zone_unref(glibTimeZonePointer.reinterpret())
 
     public companion object : RecordCompanion<TimeZone, GTimeZone> {

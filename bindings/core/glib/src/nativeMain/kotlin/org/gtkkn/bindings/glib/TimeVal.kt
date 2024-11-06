@@ -6,6 +6,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -101,6 +102,7 @@ public class TimeVal(
      *    or null if @time_ was too large
      * @since 2.12
      */
+    @GLibVersion2_12
     public fun toIso8601(): String =
         g_time_val_to_iso8601(glibTimeValPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -129,6 +131,7 @@ public class TimeVal(
          * @return true if the conversion was successful.
          * @since 2.12
          */
+        @GLibVersion2_12
         public fun fromIso8601(
             isoDate: String,
             time: TimeVal,

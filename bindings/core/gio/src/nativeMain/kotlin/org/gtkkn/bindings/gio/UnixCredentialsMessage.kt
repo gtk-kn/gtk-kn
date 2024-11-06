@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -37,6 +38,7 @@ import kotlin.Boolean
  * when using it. This is no longer necessary since GLib 2.72.
  * @since 2.26
  */
+@GioVersion2_26
 public open class UnixCredentialsMessage(
     pointer: CPointer<GUnixCredentialsMessage>,
 ) : SocketControlMessage(pointer.reinterpret()),
@@ -49,6 +51,7 @@ public open class UnixCredentialsMessage(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public open val credentials: Credentials
         /**
          * Gets the credentials stored in @message.
@@ -88,6 +91,7 @@ public open class UnixCredentialsMessage(
      * @return A #GCredentials instance. Do not free, it is owned by @message.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getCredentials(): Credentials =
         g_unix_credentials_message_get_credentials(gioUnixCredentialsMessagePointer.reinterpret())!!.run {
             Credentials(reinterpret())
@@ -107,6 +111,7 @@ public open class UnixCredentialsMessage(
          * @return true if supported, false otherwise
          * @since 2.26
          */
+        @GioVersion2_26
         public fun isSupported(): Boolean = g_unix_credentials_message_is_supported().asBoolean()
     }
 }

@@ -10,6 +10,9 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
@@ -197,6 +200,7 @@ import kotlin.Unit
  * `AdwMessageDialog` uses the `GTK_ACCESSIBLE_ROLE_DIALOG` role.
  * @since 1.2
  */
+@AdwVersion1_2
 public open class MessageDialog(
     pointer: CPointer<AdwMessageDialog>,
 ) : Window(pointer.reinterpret()),
@@ -227,6 +231,7 @@ public open class MessageDialog(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public open var body: String
         /**
          * Gets the body text of @self.
@@ -244,6 +249,7 @@ public open class MessageDialog(
          * @param body the body of @self
          * @since 1.2
          */
+        @AdwVersion1_2
         set(body) = adw_message_dialog_set_body(adwMessageDialogPointer.reinterpret(), body)
 
     /**
@@ -253,6 +259,7 @@ public open class MessageDialog(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public open var bodyUseMarkup: Boolean
         /**
          * Gets whether the body text of @self includes Pango markup.
@@ -270,6 +277,7 @@ public open class MessageDialog(
          * @param useMarkup whether to use markup for body text
          * @since 1.2
          */
+        @AdwVersion1_2
         set(
             useMarkup
         ) = adw_message_dialog_set_body_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
@@ -286,6 +294,7 @@ public open class MessageDialog(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public open var closeResponse: String
         /**
          * Gets the ID of the close response of @self.
@@ -310,6 +319,7 @@ public open class MessageDialog(
          * @param response the close response ID
          * @since 1.2
          */
+        @AdwVersion1_2
         set(response) = adw_message_dialog_set_close_response(adwMessageDialogPointer.reinterpret(), response)
 
     /**
@@ -322,6 +332,7 @@ public open class MessageDialog(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public open var defaultResponse: String?
         /**
          * Gets the ID of the default response of @self.
@@ -342,6 +353,7 @@ public open class MessageDialog(
          * @param response the default response ID
          * @since 1.2
          */
+        @AdwVersion1_2
         set(response) = adw_message_dialog_set_default_response(adwMessageDialogPointer.reinterpret(), response)
 
     /**
@@ -351,6 +363,7 @@ public open class MessageDialog(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public open var extraChild: Widget?
         /**
          * Gets the child widget of @self.
@@ -371,6 +384,7 @@ public open class MessageDialog(
          * @param child the child widget
          * @since 1.2
          */
+        @AdwVersion1_2
         set(
             child
         ) =
@@ -384,6 +398,7 @@ public open class MessageDialog(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public open var heading: String?
         /**
          * Gets the heading of @self.
@@ -399,6 +414,7 @@ public open class MessageDialog(
          * @param heading the heading of @self
          * @since 1.2
          */
+        @AdwVersion1_2
         set(heading) = adw_message_dialog_set_heading(adwMessageDialogPointer.reinterpret(), heading)
 
     /**
@@ -408,6 +424,7 @@ public open class MessageDialog(
      *
      * @since 1.2
      */
+    @AdwVersion1_2
     public open var headingUseMarkup: Boolean
         /**
          * Gets whether the heading of @self includes Pango markup.
@@ -425,6 +442,7 @@ public open class MessageDialog(
          * @param useMarkup whether to use markup for heading
          * @since 1.2
          */
+        @AdwVersion1_2
         set(
             useMarkup
         ) = adw_message_dialog_set_heading_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
@@ -479,6 +497,7 @@ public open class MessageDialog(
      * @param label the response label
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun addResponse(
         id: String,
         label: String,
@@ -494,6 +513,7 @@ public open class MessageDialog(
      * @param callback a callback to call when the operation is complete
      * @since 1.3
      */
+    @AdwVersion1_3
     public open fun choose(
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -513,6 +533,7 @@ public open class MessageDialog(
      *   [property@MessageDialog:close-response] if the call was cancelled.
      * @since 1.3
      */
+    @AdwVersion1_3
     public open fun chooseFinish(result: AsyncResult): String =
         adw_message_dialog_choose_finish(
             adwMessageDialogPointer.reinterpret(),
@@ -526,6 +547,7 @@ public open class MessageDialog(
      * @return the body of @self.
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun getBody(): String =
         adw_message_dialog_get_body(adwMessageDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -536,6 +558,7 @@ public open class MessageDialog(
      * @return whether @self uses markup for body text
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun getBodyUseMarkup(): Boolean =
         adw_message_dialog_get_body_use_markup(adwMessageDialogPointer.reinterpret()).asBoolean()
 
@@ -545,6 +568,7 @@ public open class MessageDialog(
      * @return the close response ID
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun getCloseResponse(): String =
         adw_message_dialog_get_close_response(adwMessageDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -555,6 +579,7 @@ public open class MessageDialog(
      * @return the default response ID
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun getDefaultResponse(): String? =
         adw_message_dialog_get_default_response(adwMessageDialogPointer.reinterpret())?.toKString()
 
@@ -564,6 +589,7 @@ public open class MessageDialog(
      * @return the child widget of @self.
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun getExtraChild(): Widget? =
         adw_message_dialog_get_extra_child(adwMessageDialogPointer.reinterpret())?.run {
             Widget(reinterpret())
@@ -575,6 +601,7 @@ public open class MessageDialog(
      * @return the heading of @self.
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun getHeading(): String? =
         adw_message_dialog_get_heading(adwMessageDialogPointer.reinterpret())?.toKString()
 
@@ -584,6 +611,7 @@ public open class MessageDialog(
      * @return whether @self uses markup for heading
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun getHeadingUseMarkup(): Boolean =
         adw_message_dialog_get_heading_use_markup(adwMessageDialogPointer.reinterpret()).asBoolean()
 
@@ -596,6 +624,7 @@ public open class MessageDialog(
      * @return the appearance of @response
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun getResponseAppearance(response: String): ResponseAppearance =
         adw_message_dialog_get_response_appearance(adwMessageDialogPointer.reinterpret(), response).run {
             ResponseAppearance.fromNativeValue(this)
@@ -610,6 +639,7 @@ public open class MessageDialog(
      * @return whether @response is enabled
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun getResponseEnabled(response: String): Boolean =
         adw_message_dialog_get_response_enabled(adwMessageDialogPointer.reinterpret(), response).asBoolean()
 
@@ -622,6 +652,7 @@ public open class MessageDialog(
      * @return the label of @response
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun getResponseLabel(response: String): String =
         adw_message_dialog_get_response_label(adwMessageDialogPointer.reinterpret(), response)?.toKString()
             ?: error("Expected not null string")
@@ -633,6 +664,7 @@ public open class MessageDialog(
      * @return whether @self has a response with the ID @response.
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun hasResponse(response: String): Boolean =
         adw_message_dialog_has_response(adwMessageDialogPointer.reinterpret(), response).asBoolean()
 
@@ -642,6 +674,7 @@ public open class MessageDialog(
      * @param id the response ID
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun removeResponse(id: String): Unit =
         adw_message_dialog_remove_response(adwMessageDialogPointer.reinterpret(), id)
 
@@ -653,6 +686,7 @@ public open class MessageDialog(
      * @param response response ID
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun response(response: String): Unit =
         adw_message_dialog_response(adwMessageDialogPointer.reinterpret(), response)
 
@@ -662,6 +696,7 @@ public open class MessageDialog(
      * @param body the body of @self
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun setBody(body: String): Unit =
         adw_message_dialog_set_body(adwMessageDialogPointer.reinterpret(), body)
 
@@ -673,6 +708,7 @@ public open class MessageDialog(
      * @param useMarkup whether to use markup for body text
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun setBodyUseMarkup(useMarkup: Boolean): Unit =
         adw_message_dialog_set_body_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
 
@@ -689,6 +725,7 @@ public open class MessageDialog(
      * @param response the close response ID
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun setCloseResponse(response: String): Unit =
         adw_message_dialog_set_close_response(adwMessageDialogPointer.reinterpret(), response)
 
@@ -703,6 +740,7 @@ public open class MessageDialog(
      * @param response the default response ID
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun setDefaultResponse(response: String? = null): Unit =
         adw_message_dialog_set_default_response(adwMessageDialogPointer.reinterpret(), response)
 
@@ -714,6 +752,7 @@ public open class MessageDialog(
      * @param child the child widget
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun setExtraChild(child: Widget? = null): Unit =
         adw_message_dialog_set_extra_child(
             adwMessageDialogPointer.reinterpret(),
@@ -726,6 +765,7 @@ public open class MessageDialog(
      * @param heading the heading of @self
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun setHeading(heading: String? = null): Unit =
         adw_message_dialog_set_heading(adwMessageDialogPointer.reinterpret(), heading)
 
@@ -737,6 +777,7 @@ public open class MessageDialog(
      * @param useMarkup whether to use markup for heading
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun setHeadingUseMarkup(useMarkup: Boolean): Unit =
         adw_message_dialog_set_heading_use_markup(adwMessageDialogPointer.reinterpret(), useMarkup.asGBoolean())
 
@@ -763,6 +804,7 @@ public open class MessageDialog(
      * @param appearance appearance for @response
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun setResponseAppearance(
         response: String,
         appearance: ResponseAppearance,
@@ -789,6 +831,7 @@ public open class MessageDialog(
      * @param enabled whether to enable @response
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun setResponseEnabled(
         response: String,
         enabled: Boolean,
@@ -805,6 +848,7 @@ public open class MessageDialog(
      * @param label the label of @response
      * @since 1.2
      */
+    @AdwVersion1_2
     public open fun setResponseLabel(
         response: String,
         label: String,
@@ -824,6 +868,7 @@ public open class MessageDialog(
      * @param handler the Callback to connect. Params: `response` the response ID
      * @since 1.2
      */
+    @AdwVersion1_2
     public fun connectResponse(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (response: String) -> Unit,

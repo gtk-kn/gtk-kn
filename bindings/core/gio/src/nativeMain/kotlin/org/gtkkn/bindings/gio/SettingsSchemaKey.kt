@@ -5,6 +5,9 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
+import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.extensions.common.asBoolean
@@ -42,6 +45,7 @@ public class SettingsSchemaKey(
      * @return the default value for the key
      * @since 2.40
      */
+    @GioVersion2_40
     public fun getDefaultValue(): Variant =
         g_settings_schema_key_get_default_value(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -66,6 +70,7 @@ public class SettingsSchemaKey(
      * @return the description for @key, or null
      * @since 2.34
      */
+    @GioVersion2_34
     public fun getDescription(): String? =
         g_settings_schema_key_get_description(gioSettingsSchemaKeyPointer.reinterpret())?.toKString()
 
@@ -75,6 +80,7 @@ public class SettingsSchemaKey(
      * @return the name of @key.
      * @since 2.44
      */
+    @GioVersion2_44
     public fun getName(): String =
         g_settings_schema_key_get_name(gioSettingsSchemaKeyPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -120,6 +126,7 @@ public class SettingsSchemaKey(
      * @return a #GVariant describing the range
      * @since 2.40
      */
+    @GioVersion2_40
     public fun getRange(): Variant =
         g_settings_schema_key_get_range(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -143,6 +150,7 @@ public class SettingsSchemaKey(
      * @return the summary for @key, or null
      * @since 2.34
      */
+    @GioVersion2_34
     public fun getSummary(): String? =
         g_settings_schema_key_get_summary(gioSettingsSchemaKeyPointer.reinterpret())?.toKString()
 
@@ -152,6 +160,7 @@ public class SettingsSchemaKey(
      * @return the type of @key
      * @since 2.40
      */
+    @GioVersion2_40
     public fun getValueType(): VariantType =
         g_settings_schema_key_get_value_type(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
             VariantType(reinterpret())
@@ -168,6 +177,7 @@ public class SettingsSchemaKey(
      * @return true if @value is valid for @key
      * @since 2.40
      */
+    @GioVersion2_40
     public fun rangeCheck(`value`: Variant): Boolean =
         g_settings_schema_key_range_check(
             gioSettingsSchemaKeyPointer.reinterpret(),
@@ -180,6 +190,7 @@ public class SettingsSchemaKey(
      * @return a new reference to @key
      * @since 2.40
      */
+    @GioVersion2_40
     public fun ref(): SettingsSchemaKey =
         g_settings_schema_key_ref(gioSettingsSchemaKeyPointer.reinterpret())!!.run {
             SettingsSchemaKey(reinterpret())
@@ -190,6 +201,7 @@ public class SettingsSchemaKey(
      *
      * @since 2.40
      */
+    @GioVersion2_40
     public fun unref(): Unit = g_settings_schema_key_unref(gioSettingsSchemaKeyPointer.reinterpret())
 
     public companion object : RecordCompanion<SettingsSchemaKey, GSettingsSchemaKey> {

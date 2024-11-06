@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Parameter
@@ -135,6 +136,7 @@ import kotlin.Unit
  * ```
  * @since 2.22
  */
+@GioVersion2_22
 public interface AsyncInitable :
     Interface,
     KGTyped {
@@ -183,6 +185,7 @@ public interface AsyncInitable :
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      * @since 2.22
      */
+    @GioVersion2_22
     public fun initAsync(
         ioPriority: Int,
         cancellable: Cancellable? = null,
@@ -205,6 +208,7 @@ public interface AsyncInitable :
      * will return false and set @error appropriately if present.
      * @since 2.22
      */
+    @GioVersion2_22
     public fun initFinish(res: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -230,6 +234,7 @@ public interface AsyncInitable :
      *      or null on error. Free with g_object_unref().
      * @since 2.22
      */
+    @GioVersion2_22
     public fun newFinish(res: AsyncResult): Result<Object> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -282,6 +287,7 @@ public interface AsyncInitable :
          *     finished
          * @since 2.22
          */
+        @GioVersion2_22
         public fun newvAsync(
             objectType: ULong,
             nParameters: UInt,

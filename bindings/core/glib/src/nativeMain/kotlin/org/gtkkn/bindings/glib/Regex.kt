@@ -10,6 +10,11 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_38
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.Record
@@ -110,6 +115,7 @@ import kotlin.collections.List
  *
  * @since 2.14
  */
+@GLibVersion2_14
 public class Regex(
     pointer: CPointer<GRegex>,
 ) : Record {
@@ -121,6 +127,7 @@ public class Regex(
      * @return the number of capturing subpatterns
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun getCaptureCount(): Int = g_regex_get_capture_count(glibRegexPointer.reinterpret())
 
     /**
@@ -133,6 +140,7 @@ public class Regex(
      * @return flags from #GRegexCompileFlags
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getCompileFlags(): RegexCompileFlags =
         g_regex_get_compile_flags(glibRegexPointer.reinterpret()).run {
             RegexCompileFlags(this)
@@ -144,6 +152,7 @@ public class Regex(
      * @return true if the pattern contains explicit CR or LF references
      * @since 2.34
      */
+    @GLibVersion2_34
     public fun getHasCrOrLf(): Boolean = g_regex_get_has_cr_or_lf(glibRegexPointer.reinterpret()).asBoolean()
 
     /**
@@ -152,6 +161,7 @@ public class Regex(
      * @return flags from #GRegexMatchFlags
      * @since 2.26
      */
+    @GLibVersion2_26
     public fun getMatchFlags(): RegexMatchFlags =
         g_regex_get_match_flags(glibRegexPointer.reinterpret()).run {
             RegexMatchFlags(this)
@@ -165,6 +175,7 @@ public class Regex(
      * @return the number of the highest back reference
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun getMaxBackref(): Int = g_regex_get_max_backref(glibRegexPointer.reinterpret())
 
     /**
@@ -175,6 +186,7 @@ public class Regex(
      * @return the number of characters in the longest lookbehind assertion.
      * @since 2.38
      */
+    @GLibVersion2_38
     public fun getMaxLookbehind(): Int = g_regex_get_max_lookbehind(glibRegexPointer.reinterpret())
 
     /**
@@ -184,6 +196,7 @@ public class Regex(
      * @return the pattern of @regex
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun getPattern(): String =
         g_regex_get_pattern(glibRegexPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -195,6 +208,7 @@ public class Regex(
      *   does not exists
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun getStringNumber(name: String): Int = g_regex_get_string_number(glibRegexPointer.reinterpret(), name)
 
     /**
@@ -203,6 +217,7 @@ public class Regex(
      * @return @regex
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun ref(): Regex =
         g_regex_ref(glibRegexPointer.reinterpret())!!.run {
             Regex(reinterpret())
@@ -233,6 +248,7 @@ public class Regex(
      * it using g_strfreev()
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun split(
         string: String,
         matchOptions: RegexMatchFlags,
@@ -246,6 +262,7 @@ public class Regex(
      *
      * @since 2.14
      */
+    @GLibVersion2_14
     public fun unref(): Unit = g_regex_unref(glibRegexPointer.reinterpret())
 
     public companion object : RecordCompanion<Regex, GRegex> {
@@ -290,6 +307,7 @@ public class Regex(
          * @return a newly-allocated escaped string
          * @since 2.30
          */
+        @GLibVersion2_30
         public fun escapeNul(
             string: String,
             length: Int,
@@ -309,6 +327,7 @@ public class Regex(
          * @return a newly-allocated escaped string
          * @since 2.14
          */
+        @GLibVersion2_14
         public fun escapeString(
             string: String,
             length: Int,
@@ -333,6 +352,7 @@ public class Regex(
          * @return true if the string matched, false otherwise
          * @since 2.14
          */
+        @GLibVersion2_14
         public fun matchSimple(
             pattern: String,
             string: String,
@@ -377,6 +397,7 @@ public class Regex(
          * it using g_strfreev()
          * @since 2.14
          */
+        @GLibVersion2_14
         public fun splitSimple(
             pattern: String,
             string: String,

@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gsk.GskStroke
@@ -36,6 +37,7 @@ import kotlin.Unit
  *
  * @since 4.14
  */
+@GskVersion4_14
 public class Stroke(
     pointer: CPointer<GskStroke>,
 ) : Record {
@@ -47,6 +49,7 @@ public class Stroke(
      * @return a new `GskStroke`. Use [method@Gsk.Stroke.free] to free it
      * @since 4.14
      */
+    @GskVersion4_14
     public fun copy(): Stroke =
         gsk_stroke_copy(gskStrokePointer.reinterpret())!!.run {
             Stroke(reinterpret())
@@ -57,6 +60,7 @@ public class Stroke(
      *
      * @since 4.14
      */
+    @GskVersion4_14
     public fun free(): Unit = gsk_stroke_free(gskStrokePointer.reinterpret())
 
     /**
@@ -64,6 +68,7 @@ public class Stroke(
      *
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getDashOffset(): Float = gsk_stroke_get_dash_offset(gskStrokePointer.reinterpret())
 
     /**
@@ -74,6 +79,7 @@ public class Stroke(
      * @return The line cap
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getLineCap(): LineCap =
         gsk_stroke_get_line_cap(gskStrokePointer.reinterpret()).run {
             LineCap.fromNativeValue(this)
@@ -87,6 +93,7 @@ public class Stroke(
      * @return The line join
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getLineJoin(): LineJoin =
         gsk_stroke_get_line_join(gskStrokePointer.reinterpret()).run {
             LineJoin.fromNativeValue(this)
@@ -98,6 +105,7 @@ public class Stroke(
      * @return The line width
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getLineWidth(): Float = gsk_stroke_get_line_width(gskStrokePointer.reinterpret())
 
     /**
@@ -105,6 +113,7 @@ public class Stroke(
      *
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getMiterLimit(): Float = gsk_stroke_get_miter_limit(gskStrokePointer.reinterpret())
 
     /**
@@ -118,6 +127,7 @@ public class Stroke(
      * @param offset offset into the dash pattern
      * @since 4.14
      */
+    @GskVersion4_14
     public fun setDashOffset(offset: Float): Unit = gsk_stroke_set_dash_offset(gskStrokePointer.reinterpret(), offset)
 
     /**
@@ -128,6 +138,7 @@ public class Stroke(
      * @param lineCap the `GskLineCap`
      * @since 4.14
      */
+    @GskVersion4_14
     public fun setLineCap(lineCap: LineCap): Unit =
         gsk_stroke_set_line_cap(gskStrokePointer.reinterpret(), lineCap.nativeValue)
 
@@ -139,6 +150,7 @@ public class Stroke(
      * @param lineJoin The line join to use
      * @since 4.14
      */
+    @GskVersion4_14
     public fun setLineJoin(lineJoin: LineJoin): Unit =
         gsk_stroke_set_line_join(gskStrokePointer.reinterpret(), lineJoin.nativeValue)
 
@@ -150,6 +162,7 @@ public class Stroke(
      * @param lineWidth width of the line in pixels
      * @since 4.14
      */
+    @GskVersion4_14
     public fun setLineWidth(lineWidth: Float): Unit =
         gsk_stroke_set_line_width(gskStrokePointer.reinterpret(), lineWidth)
 
@@ -166,6 +179,7 @@ public class Stroke(
      * @param limit the miter limit
      * @since 4.14
      */
+    @GskVersion4_14
     public fun setMiterLimit(limit: Float): Unit = gsk_stroke_set_miter_limit(gskStrokePointer.reinterpret(), limit)
 
     public companion object : RecordCompanion<Stroke, GskStroke> {

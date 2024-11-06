@@ -9,6 +9,9 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -45,6 +48,7 @@ import kotlin.Unit
  * using it. This is no longer necessary since GLib 2.72.
  * @since 2.22
  */
+@GioVersion2_22
 public open class UnixConnection(
     pointer: CPointer<GUnixConnection>,
 ) : SocketConnection(pointer.reinterpret()),
@@ -77,6 +81,7 @@ public open class UnixConnection(
      * g_object_unref()), null if @error is set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun receiveCredentials(cancellable: Cancellable? = null): Result<Credentials> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -110,6 +115,7 @@ public open class UnixConnection(
      *   to call when the request is satisfied
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun receiveCredentialsAsync(
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -130,6 +136,7 @@ public open class UnixConnection(
      *     Free the returned object with g_object_unref().
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun receiveCredentialsFinish(result: AsyncResult): Result<Credentials> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -162,6 +169,7 @@ public open class UnixConnection(
      * @return a file descriptor on success, -1 on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun receiveFd(cancellable: Cancellable? = null): Result<Int> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -203,6 +211,7 @@ public open class UnixConnection(
      * @return true on success, false if @error is set.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun sendCredentials(cancellable: Cancellable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -233,6 +242,7 @@ public open class UnixConnection(
      *   to call when the request is satisfied
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun sendCredentialsAsync(
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback,
@@ -252,6 +262,7 @@ public open class UnixConnection(
      * @return true if the operation was successful, otherwise false.
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun sendCredentialsFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -282,6 +293,7 @@ public open class UnixConnection(
      * @return a true on success, null on error.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun sendFd(
         fd: Int,
         cancellable: Cancellable? = null,

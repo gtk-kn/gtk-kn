@@ -10,6 +10,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.bindings.pango.FontDescription
 import org.gtkkn.bindings.pango.Language
 import org.gtkkn.extensions.common.asBoolean
@@ -70,6 +72,7 @@ import kotlin.Unit
  *
  * @since 4.10
  */
+@GtkVersion4_10
 public open class FontDialogButton(
     pointer: CPointer<GtkFontDialogButton>,
 ) : Widget(pointer.reinterpret()),
@@ -97,6 +100,7 @@ public open class FontDialogButton(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var fontFeatures: String?
         /**
          * Returns the font features of the button.
@@ -120,6 +124,7 @@ public open class FontDialogButton(
          * @param fontFeatures the font features
          * @since 4.10
          */
+        @GtkVersion4_10
         set(
             fontFeatures
         ) = gtk_font_dialog_button_set_font_features(gtkFontDialogButtonPointer.reinterpret(), fontFeatures)
@@ -135,6 +140,7 @@ public open class FontDialogButton(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var language: Language?
         /**
          * Returns the language that is used for font features.
@@ -153,6 +159,7 @@ public open class FontDialogButton(
          * @param language the new language
          * @since 4.10
          */
+        @GtkVersion4_10
         set(
             language
         ) =
@@ -184,6 +191,7 @@ public open class FontDialogButton(
          * @param level the level of detail
          * @since 4.10
          */
+        @GtkVersion4_10
         set(level) = gtk_font_dialog_button_set_level(gtkFontDialogButtonPointer.reinterpret(), level.nativeValue)
 
     /**
@@ -206,6 +214,7 @@ public open class FontDialogButton(
          *   the chosen font
          * @since 4.10
          */
+        @GtkVersion4_10
         set(
             useFont
         ) = gtk_font_dialog_button_set_use_font(gtkFontDialogButtonPointer.reinterpret(), useFont.asGBoolean())
@@ -230,6 +239,7 @@ public open class FontDialogButton(
          *   the chosen font size
          * @since 4.10
          */
+        @GtkVersion4_10
         set(
             useSize
         ) = gtk_font_dialog_button_set_use_size(gtkFontDialogButtonPointer.reinterpret(), useSize.asGBoolean())
@@ -255,6 +265,7 @@ public open class FontDialogButton(
      * @return the `GtkFontDialog`
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getDialog(): FontDialog? =
         gtk_font_dialog_button_get_dialog(gtkFontDialogButtonPointer.reinterpret())?.run {
             FontDialog(reinterpret())
@@ -270,6 +281,7 @@ public open class FontDialogButton(
      * @return the font
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getFontDesc(): FontDescription? =
         gtk_font_dialog_button_get_font_desc(gtkFontDialogButtonPointer.reinterpret())?.run {
             FontDescription(reinterpret())
@@ -289,6 +301,7 @@ public open class FontDialogButton(
      * @return the font features
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getFontFeatures(): String? =
         gtk_font_dialog_button_get_font_features(gtkFontDialogButtonPointer.reinterpret())?.toKString()
 
@@ -298,6 +311,7 @@ public open class FontDialogButton(
      * @return the language
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getLanguage(): Language? =
         gtk_font_dialog_button_get_language(gtkFontDialogButtonPointer.reinterpret())?.run {
             Language(reinterpret())
@@ -310,6 +324,7 @@ public open class FontDialogButton(
      * @return the level of detail
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getLevel(): FontLevel =
         gtk_font_dialog_button_get_level(gtkFontDialogButtonPointer.reinterpret()).run {
             FontLevel.fromNativeValue(this)
@@ -321,6 +336,7 @@ public open class FontDialogButton(
      * @return whether the selected font is used in the label
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getUseFont(): Boolean =
         gtk_font_dialog_button_get_use_font(gtkFontDialogButtonPointer.reinterpret()).asBoolean()
 
@@ -330,6 +346,7 @@ public open class FontDialogButton(
      * @return whether the selected font size is used in the label
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getUseSize(): Boolean =
         gtk_font_dialog_button_get_use_size(gtkFontDialogButtonPointer.reinterpret()).asBoolean()
 
@@ -341,6 +358,7 @@ public open class FontDialogButton(
      * @param dialog the new `GtkFontDialog`
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setDialog(dialog: FontDialog): Unit =
         gtk_font_dialog_button_set_dialog(
             gtkFontDialogButtonPointer.reinterpret(),
@@ -353,6 +371,7 @@ public open class FontDialogButton(
      * @param fontDesc the new font
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setFontDesc(fontDesc: FontDescription): Unit =
         gtk_font_dialog_button_set_font_desc(
             gtkFontDialogButtonPointer.reinterpret(),
@@ -365,6 +384,7 @@ public open class FontDialogButton(
      * @param fontFeatures the font features
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setFontFeatures(fontFeatures: String? = null): Unit =
         gtk_font_dialog_button_set_font_features(gtkFontDialogButtonPointer.reinterpret(), fontFeatures)
 
@@ -374,6 +394,7 @@ public open class FontDialogButton(
      * @param language the new language
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setLanguage(language: Language? = null): Unit =
         gtk_font_dialog_button_set_language(gtkFontDialogButtonPointer.reinterpret(), language?.pangoLanguagePointer)
 
@@ -384,6 +405,7 @@ public open class FontDialogButton(
      * @param level the level of detail
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setLevel(level: FontLevel): Unit =
         gtk_font_dialog_button_set_level(gtkFontDialogButtonPointer.reinterpret(), level.nativeValue)
 
@@ -395,6 +417,7 @@ public open class FontDialogButton(
      *   the chosen font
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setUseFont(useFont: Boolean): Unit =
         gtk_font_dialog_button_set_use_font(gtkFontDialogButtonPointer.reinterpret(), useFont.asGBoolean())
 
@@ -406,6 +429,7 @@ public open class FontDialogButton(
      *   the chosen font size
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setUseSize(useSize: Boolean): Unit =
         gtk_font_dialog_button_set_use_size(gtkFontDialogButtonPointer.reinterpret(), useSize.asGBoolean())
 
@@ -419,6 +443,7 @@ public open class FontDialogButton(
      * @param handler the Callback to connect
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun connectActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.native.gio.GSocketProtocol
 import org.gtkkn.native.gio.GSocketProtocol.G_SOCKET_PROTOCOL_DEFAULT
 import org.gtkkn.native.gio.GSocketProtocol.G_SOCKET_PROTOCOL_SCTP
@@ -18,6 +19,7 @@ import org.gtkkn.native.gio.GSocketProtocol.G_SOCKET_PROTOCOL_UNKNOWN
  * use protocols not listed here.
  * @since 2.22
  */
+@GioVersion2_22
 public enum class SocketProtocol(
     public val nativeValue: GSocketProtocol,
 ) {

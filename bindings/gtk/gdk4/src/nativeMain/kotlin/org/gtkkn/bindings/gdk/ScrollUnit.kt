@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_8
 import org.gtkkn.native.gdk.GdkScrollUnit
 import org.gtkkn.native.gdk.GdkScrollUnit.GDK_SCROLL_UNIT_SURFACE
 import org.gtkkn.native.gdk.GdkScrollUnit.GDK_SCROLL_UNIT_WHEEL
@@ -24,6 +25,7 @@ import org.gtkkn.native.gdk.GdkScrollUnit.GDK_SCROLL_UNIT_WHEEL
  * scale factor and eventually a custom scale factor in your app).
  * @since 4.8
  */
+@GdkVersion4_8
 public enum class ScrollUnit(
     public val nativeValue: GdkScrollUnit,
 ) {

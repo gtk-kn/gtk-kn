@@ -5,6 +5,9 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_56
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -242,6 +245,7 @@ public class Date(
      * @return a newly-allocated #GDate initialized from @date
      * @since 2.56
      */
+    @GLibVersion2_56
     public fun copy(): Date =
         g_date_copy(glibDatePointer.reinterpret())!!.run {
             Date(reinterpret())
@@ -277,6 +281,7 @@ public class Date(
      * @return ISO 8601 week number of the year.
      * @since 2.6
      */
+    @GLibVersion2_6
     public fun getIso8601WeekOfYear(): UInt = g_date_get_iso8601_week_of_year(glibDatePointer.reinterpret())
 
     /**
@@ -393,6 +398,7 @@ public class Date(
      * @param timeval #GTimeVal value to set
      * @since 2.10
      */
+    @GLibVersion2_10
     public fun setTimeVal(timeval: TimeVal): Unit =
         g_date_set_time_val(glibDatePointer.reinterpret(), timeval.glibTimeValPointer)
 

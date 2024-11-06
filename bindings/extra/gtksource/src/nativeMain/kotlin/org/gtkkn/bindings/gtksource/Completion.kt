@@ -75,7 +75,8 @@ import kotlin.Unit
  */
 public open class Completion(
     pointer: CPointer<GtkSourceCompletion>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceCompletionPointer: CPointer<GtkSourceCompletion>
         get() = gPointer.reinterpret()
 
@@ -105,11 +106,7 @@ public open class Completion(
          *
          * @param pageSize
          */
-        set(pageSize) =
-            gtk_source_completion_set_page_size(
-                gtksourceCompletionPointer.reinterpret(),
-                pageSize
-            )
+        set(pageSize) = gtk_source_completion_set_page_size(gtksourceCompletionPointer.reinterpret(), pageSize)
 
     /**
      * The "view" property is the #GtkTextView for which this #GtkSourceCompletion
@@ -284,9 +281,7 @@ public open class Completion(
 
     public companion object : TypeCompanion<Completion> {
         override val type: GeneratedClassKGType<Completion> =
-            GeneratedClassKGType(gtk_source_completion_get_type()) {
-                Completion(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_completion_get_type()) { Completion(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()
@@ -316,8 +311,7 @@ private val connectHideFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectProviderAddedFunc:
     CPointer<CFunction<(CPointer<GtkSourceCompletionProvider>) -> Unit>> =
@@ -331,8 +325,7 @@ private val connectProviderAddedFunc:
                 CompletionProvider.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectProviderRemovedFunc:
     CPointer<CFunction<(CPointer<GtkSourceCompletionProvider>) -> Unit>> =
@@ -346,8 +339,7 @@ private val connectProviderRemovedFunc:
                 CompletionProvider.wrap(reinterpret())
             }
         )
-    }
-        .reinterpret()
+    }.reinterpret()
 
 private val connectShowFunc: CPointer<CFunction<() -> Unit>> =
     staticCFunction {
@@ -355,5 +347,4 @@ private val connectShowFunc: CPointer<CFunction<() -> Unit>> =
             userData: COpaquePointer,
         ->
         userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+    }.reinterpret()

@@ -38,7 +38,12 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             val companionSpecBuilder = TypeSpec.companionObjectBuilder()
 
             // kdoc
-            addKdoc(buildTypeKDoc(clazz.kdoc, clazz.version, clazz.skippedObjects))
+            addKdoc(buildTypeKDoc(clazz.kdoc, clazz.optInVersionBlueprint, clazz.skippedObjects))
+
+            // optInVersion
+            clazz.optInVersionBlueprint?.typeName?.let { annotationClassName ->
+                addAnnotation(annotationClassName)
+            }
 
             // modifiers
             if (!clazz.isFinal) {
@@ -87,7 +92,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 when (group.size) {
                     0 -> error("Should not happen")
                     1 -> {
-                        // non conflicting constructor
+                        // non-conflicting constructor
                         addFunction(buildClassConstructor(group.first()))
                     }
 
@@ -180,7 +185,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 buildMethodKDoc(
                     kdoc = constructor.kdoc,
                     parameters = constructor.parameters,
-                    version = constructor.version,
+                    optInVersionBlueprint = constructor.optInVersionBlueprint,
                     returnTypeKDoc = constructor.returnTypeKDoc,
                 ),
             )
@@ -283,7 +288,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 buildMethodKDoc(
                     kdoc = constructor.kdoc,
                     parameters = constructor.parameters,
-                    version = constructor.version,
+                    optInVersionBlueprint = constructor.optInVersionBlueprint,
                     returnTypeKDoc = constructor.returnTypeKDoc,
                 ),
             )

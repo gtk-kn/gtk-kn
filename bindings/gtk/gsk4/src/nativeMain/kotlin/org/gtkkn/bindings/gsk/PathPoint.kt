@@ -6,6 +6,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Vec2
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -40,6 +41,7 @@ import kotlin.Unit
  * as long as the `GskPathPoint` is used.
  * @since 4.14
  */
+@GskVersion4_14
 public class PathPoint(
     pointer: CPointer<GskPathPoint>,
 ) : Record {
@@ -54,6 +56,7 @@ public class PathPoint(
      *   0 if they are equal
      * @since 4.14
      */
+    @GskVersion4_14
     public fun compare(point2: PathPoint): Int =
         gsk_path_point_compare(gskPathPointPointer.reinterpret(), point2.gskPathPointPointer)
 
@@ -76,6 +79,7 @@ public class PathPoint(
      * @return `TRUE` if @point1 and @point2 are equal
      * @since 4.14
      */
+    @GskVersion4_14
     public fun equal(point2: PathPoint): Boolean =
         gsk_path_point_equal(gskPathPointPointer.reinterpret(), point2.gskPathPointPointer).asBoolean()
 
@@ -110,6 +114,7 @@ public class PathPoint(
      * @return The curvature of the path at the given point
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getCurvature(
         path: Path,
         direction: PathDirection,
@@ -130,6 +135,7 @@ public class PathPoint(
      * @return the distance of @point
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getDistance(measure: PathMeasure): Float =
         gsk_path_point_get_distance(gskPathPointPointer.reinterpret(), measure.gskPathMeasurePointer)
 
@@ -141,6 +147,7 @@ public class PathPoint(
      *   the coordinates of the point
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getPosition(
         path: Path,
         position: Point,
@@ -164,6 +171,7 @@ public class PathPoint(
      * @return the angle between the tangent and the X axis, in degrees
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getRotation(
         path: Path,
         direction: PathDirection,
@@ -192,6 +200,7 @@ public class PathPoint(
      *   the tangent at the point
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getTangent(
         path: Path,
         direction: PathDirection,

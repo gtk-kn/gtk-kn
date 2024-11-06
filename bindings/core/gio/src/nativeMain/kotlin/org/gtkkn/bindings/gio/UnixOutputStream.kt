@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_20
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -51,6 +52,7 @@ public open class UnixOutputStream(
      *
      * @since 2.20
      */
+    @GioVersion2_20
     public open var closeFd: Boolean
         /**
          * Returns whether the file descriptor of @stream will be
@@ -68,6 +70,7 @@ public open class UnixOutputStream(
          * @param closeFd true to close the file descriptor when done
          * @since 2.20
          */
+        @GioVersion2_20
         set(closeFd) = g_unix_output_stream_set_close_fd(gioUnixOutputStreamPointer.reinterpret(), closeFd.asGBoolean())
 
     /**
@@ -75,6 +78,7 @@ public open class UnixOutputStream(
      *
      * @since 2.20
      */
+    @GioVersion2_20
     public open val fd: Int
         /**
          * Return the UNIX file descriptor that the stream writes to.
@@ -106,6 +110,7 @@ public open class UnixOutputStream(
      * @return true if the file descriptor is closed when done
      * @since 2.20
      */
+    @GioVersion2_20
     public open fun getCloseFd(): Boolean =
         g_unix_output_stream_get_close_fd(gioUnixOutputStreamPointer.reinterpret()).asBoolean()
 
@@ -115,6 +120,7 @@ public open class UnixOutputStream(
      * @return The file descriptor of @stream
      * @since 2.20
      */
+    @GioVersion2_20
     public open fun getFd_(): Int = g_unix_output_stream_get_fd(gioUnixOutputStreamPointer.reinterpret())
 
     /**
@@ -124,6 +130,7 @@ public open class UnixOutputStream(
      * @param closeFd true to close the file descriptor when done
      * @since 2.20
      */
+    @GioVersion2_20
     public open fun setCloseFd(closeFd: Boolean): Unit =
         g_unix_output_stream_set_close_fd(gioUnixOutputStreamPointer.reinterpret(), closeFd.asGBoolean())
 

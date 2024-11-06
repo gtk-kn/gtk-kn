@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.native.glib.GUnicodeScript
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_ADLAM
 import org.gtkkn.native.glib.GUnicodeScript.G_UNICODE_SCRIPT_AHOM
@@ -1206,6 +1207,7 @@ public enum class UnicodeScript(
          *   %G_UNICODE_SCRIPT_UNKNOWN if @iso15924 is unknown.
          * @since 2.30
          */
+        @GLibVersion2_30
         public fun fromIso15924(iso15924: UInt): UnicodeScript =
             g_unicode_script_from_iso15924(iso15924).run {
                 UnicodeScript.fromNativeValue(this)
@@ -1228,6 +1230,7 @@ public enum class UnicodeScript(
          *   ISO 15924 code 'Zzzz' (script code for UNKNOWN) if @script is not understood.
          * @since 2.30
          */
+        @GLibVersion2_30
         public fun toIso15924(script: UnicodeScript): UInt = g_unicode_script_to_iso15924(script.nativeValue)
     }
 }

@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -113,6 +114,7 @@ import kotlin.Unit
  * ]|
  * @since 2.40
  */
+@GLibVersion2_40
 public class VariantDict(
     pointer: CPointer<GVariantDict>,
 ) : Record {
@@ -136,6 +138,7 @@ public class VariantDict(
      *
      * @since 2.40
      */
+    @GLibVersion2_40
     public fun clear(): Unit = g_variant_dict_clear(glibVariantDictPointer.reinterpret())
 
     /**
@@ -145,6 +148,7 @@ public class VariantDict(
      * @return true if @key is in @dict
      * @since 2.40
      */
+    @GLibVersion2_40
     public fun contains(key: String): Boolean =
         g_variant_dict_contains(glibVariantDictPointer.reinterpret(), key).asBoolean()
 
@@ -160,6 +164,7 @@ public class VariantDict(
      * @return a new, floating, #GVariant
      * @since 2.40
      */
+    @GLibVersion2_40
     public fun end(): Variant =
         g_variant_dict_end(glibVariantDictPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -174,6 +179,7 @@ public class VariantDict(
      * @param value the value to insert
      * @since 2.40
      */
+    @GLibVersion2_40
     public fun insertValue(
         key: String,
         `value`: Variant,
@@ -197,6 +203,7 @@ public class VariantDict(
      * @return the value of the dictionary key, or null
      * @since 2.40
      */
+    @GLibVersion2_40
     public fun lookupValue(
         key: String,
         expectedType: VariantType? = null,
@@ -218,6 +225,7 @@ public class VariantDict(
      * @return a new reference to @dict
      * @since 2.40
      */
+    @GLibVersion2_40
     public fun ref(): VariantDict =
         g_variant_dict_ref(glibVariantDictPointer.reinterpret())!!.run {
             VariantDict(reinterpret())
@@ -230,6 +238,7 @@ public class VariantDict(
      * @return true if the key was found and removed
      * @since 2.40
      */
+    @GLibVersion2_40
     public fun remove(key: String): Boolean =
         g_variant_dict_remove(glibVariantDictPointer.reinterpret(), key).asBoolean()
 
@@ -244,6 +253,7 @@ public class VariantDict(
      *
      * @since 2.40
      */
+    @GLibVersion2_40
     public fun unref(): Unit = g_variant_dict_unref(glibVariantDictPointer.reinterpret())
 
     public companion object : RecordCompanion<VariantDict, GVariantDict> {

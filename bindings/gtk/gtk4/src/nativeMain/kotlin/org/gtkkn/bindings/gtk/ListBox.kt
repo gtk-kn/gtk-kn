@@ -11,6 +11,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -435,6 +436,7 @@ public open class ListBox(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun removeAll(): Unit = gtk_list_box_remove_all(gtkListBoxPointer.reinterpret())
 
     /**

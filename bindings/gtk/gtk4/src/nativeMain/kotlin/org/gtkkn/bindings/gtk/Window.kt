@@ -14,6 +14,9 @@ import org.gtkkn.bindings.gdk.Monitor
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_2
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -408,6 +411,7 @@ public open class Window(
      *
      * @since 4.2
      */
+    @GtkVersion4_2
     public open var handleMenubarAccel: Boolean
         /**
          * Returns whether this window reacts to F10 key presses by
@@ -425,6 +429,7 @@ public open class Window(
          * @param handleMenubarAccel true to make @window handle F10
          * @since 4.2
          */
+        @GtkVersion4_2
         set(
             handleMenubarAccel
         ) = gtk_window_set_handle_menubar_accel(gtkWindowPointer.reinterpret(), handleMenubarAccel.asGBoolean())
@@ -576,6 +581,7 @@ public open class Window(
      *
      * @since 4.6
      */
+    @GtkVersion4_6
     public open var titlebar: Widget?
         /**
          * Returns the custom titlebar that has been set with
@@ -800,6 +806,7 @@ public open class Window(
      * @return true if the window handles F10
      * @since 4.2
      */
+    @GtkVersion4_2
     public open fun getHandleMenubarAccel(): Boolean =
         gtk_window_get_handle_menubar_accel(gtkWindowPointer.reinterpret()).asBoolean()
 
@@ -930,6 +937,7 @@ public open class Window(
      * @return whether the window is suspended.
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun isSuspended(): Boolean = gtk_window_is_suspended(gtkWindowPointer.reinterpret()).asBoolean()
 
     /**
@@ -1170,6 +1178,7 @@ public open class Window(
      * @param handleMenubarAccel true to make @window handle F10
      * @since 4.2
      */
+    @GtkVersion4_2
     public open fun setHandleMenubarAccel(handleMenubarAccel: Boolean): Unit =
         gtk_window_set_handle_menubar_accel(gtkWindowPointer.reinterpret(), handleMenubarAccel.asGBoolean())
 

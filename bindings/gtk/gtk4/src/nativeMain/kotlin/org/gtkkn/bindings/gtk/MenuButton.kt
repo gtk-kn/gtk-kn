@@ -11,6 +11,10 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -147,6 +151,7 @@ public open class MenuButton(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var active: Boolean
         /**
          * Returns whether the menu button is active.
@@ -162,6 +167,7 @@ public open class MenuButton(
          * @param active whether the menu button is active
          * @since 4.10
          */
+        @GtkVersion4_10
         set(active) = gtk_menu_button_set_active(gtkMenuButtonPointer.reinterpret(), active.asGBoolean())
 
     /**
@@ -169,6 +175,7 @@ public open class MenuButton(
      *
      * @since 4.4
      */
+    @GtkVersion4_4
     public open var alwaysShowArrow: Boolean
         /**
          * Gets whether to show a dropdown arrow even when using an icon or a custom
@@ -188,6 +195,7 @@ public open class MenuButton(
          * or a custom child
          * @since 4.4
          */
+        @GtkVersion4_4
         set(
             alwaysShowArrow
         ) = gtk_menu_button_set_always_show_arrow(gtkMenuButtonPointer.reinterpret(), alwaysShowArrow.asGBoolean())
@@ -198,6 +206,7 @@ public open class MenuButton(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var canShrink: Boolean
         /**
          * Retrieves whether the button can be smaller than the natural
@@ -219,6 +228,7 @@ public open class MenuButton(
          * @param canShrink whether the button can shrink
          * @since 4.12
          */
+        @GtkVersion4_12
         set(canShrink) = gtk_menu_button_set_can_shrink(gtkMenuButtonPointer.reinterpret(), canShrink.asGBoolean())
 
     /**
@@ -226,6 +236,7 @@ public open class MenuButton(
      *
      * @since 4.6
      */
+    @GtkVersion4_6
     public open var child: Widget?
         /**
          * Gets the child widget of @menu_button.
@@ -251,6 +262,7 @@ public open class MenuButton(
          * @param child the child widget
          * @since 4.6
          */
+        @GtkVersion4_6
         set(
             child
         ) = gtk_menu_button_set_child(gtkMenuButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
@@ -351,6 +363,7 @@ public open class MenuButton(
      *
      * @since 4.4
      */
+    @GtkVersion4_4
     public open var primary: Boolean
         /**
          * Returns whether the menu button acts as a primary menu.
@@ -368,6 +381,7 @@ public open class MenuButton(
          * @param primary whether the menubutton should act as a primary menu
          * @since 4.4
          */
+        @GtkVersion4_4
         set(primary) = gtk_menu_button_set_primary(gtkMenuButtonPointer.reinterpret(), primary.asGBoolean())
 
     /**
@@ -409,6 +423,7 @@ public open class MenuButton(
      * @return TRUE if the button is active
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getActive(): Boolean = gtk_menu_button_get_active(gtkMenuButtonPointer.reinterpret()).asBoolean()
 
     /**
@@ -419,6 +434,7 @@ public open class MenuButton(
      * child.
      * @since 4.4
      */
+    @GtkVersion4_4
     public open fun getAlwaysShowArrow(): Boolean =
         gtk_menu_button_get_always_show_arrow(gtkMenuButtonPointer.reinterpret()).asBoolean()
 
@@ -429,6 +445,7 @@ public open class MenuButton(
      * @return true if the button can shrink, and false otherwise
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getCanShrink(): Boolean =
         gtk_menu_button_get_can_shrink(gtkMenuButtonPointer.reinterpret()).asBoolean()
 
@@ -438,6 +455,7 @@ public open class MenuButton(
      * @return the child widget of @menu_button
      * @since 4.6
      */
+    @GtkVersion4_6
     public open fun getChild(): Widget? =
         gtk_menu_button_get_child(gtkMenuButtonPointer.reinterpret())?.run {
             Widget(reinterpret())
@@ -505,6 +523,7 @@ public open class MenuButton(
      * @return true if the button is a primary menu
      * @since 4.4
      */
+    @GtkVersion4_4
     public open fun getPrimary(): Boolean = gtk_menu_button_get_primary(gtkMenuButtonPointer.reinterpret()).asBoolean()
 
     /**
@@ -533,6 +552,7 @@ public open class MenuButton(
      * @param active whether the menu button is active
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setActive(active: Boolean): Unit =
         gtk_menu_button_set_active(gtkMenuButtonPointer.reinterpret(), active.asGBoolean())
 
@@ -544,6 +564,7 @@ public open class MenuButton(
      * or a custom child
      * @since 4.4
      */
+    @GtkVersion4_4
     public open fun setAlwaysShowArrow(alwaysShowArrow: Boolean): Unit =
         gtk_menu_button_set_always_show_arrow(gtkMenuButtonPointer.reinterpret(), alwaysShowArrow.asGBoolean())
 
@@ -558,6 +579,7 @@ public open class MenuButton(
      * @param canShrink whether the button can shrink
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setCanShrink(canShrink: Boolean): Unit =
         gtk_menu_button_set_can_shrink(gtkMenuButtonPointer.reinterpret(), canShrink.asGBoolean())
 
@@ -574,6 +596,7 @@ public open class MenuButton(
      * @param child the child widget
      * @since 4.6
      */
+    @GtkVersion4_6
     public open fun setChild(child: Widget? = null): Unit =
         gtk_menu_button_set_child(gtkMenuButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
@@ -698,6 +721,7 @@ public open class MenuButton(
      * @param primary whether the menubutton should act as a primary menu
      * @since 4.4
      */
+    @GtkVersion4_4
     public open fun setPrimary(primary: Boolean): Unit =
         gtk_menu_button_set_primary(gtkMenuButtonPointer.reinterpret(), primary.asGBoolean())
 
@@ -719,6 +743,7 @@ public open class MenuButton(
      * @param handler the Callback to connect
      * @since 4.4
      */
+    @GtkVersion4_4
     public fun connectActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

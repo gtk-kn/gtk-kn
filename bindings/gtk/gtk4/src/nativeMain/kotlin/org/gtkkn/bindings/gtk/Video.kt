@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.File
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -113,6 +114,7 @@ public open class Video(
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public open var graphicsOffload: GraphicsOffloadEnabled
         /**
          * Returns whether graphics offload is enabled.
@@ -135,6 +137,7 @@ public open class Video(
          * @param enabled the new graphics offload status
          * @since 4.14
          */
+        @GtkVersion4_14
         set(enabled) = gtk_video_set_graphics_offload(gtkVideoPointer.reinterpret(), enabled.nativeValue)
 
     /**
@@ -247,6 +250,7 @@ public open class Video(
      * @return the graphics offload status
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getGraphicsOffload(): GraphicsOffloadEnabled =
         gtk_video_get_graphics_offload(gtkVideoPointer.reinterpret()).run {
             GraphicsOffloadEnabled.fromNativeValue(this)
@@ -304,6 +308,7 @@ public open class Video(
      * @param enabled the new graphics offload status
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setGraphicsOffload(enabled: GraphicsOffloadEnabled): Unit =
         gtk_video_set_graphics_offload(gtkVideoPointer.reinterpret(), enabled.nativeValue)
 

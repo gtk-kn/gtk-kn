@@ -4,6 +4,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -230,6 +231,7 @@ public open class PreferencesWindow(
      * @return `TRUE` if a page has been popped
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun popSubpage(): Boolean =
         adw_preferences_window_pop_subpage(adwPreferencesWindowPointer.reinterpret()).asBoolean()
 
@@ -255,6 +257,7 @@ public open class PreferencesWindow(
      * @param page the subpage
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun pushSubpage(page: NavigationPage): Unit =
         adw_preferences_window_push_subpage(
             adwPreferencesWindowPointer.reinterpret(),

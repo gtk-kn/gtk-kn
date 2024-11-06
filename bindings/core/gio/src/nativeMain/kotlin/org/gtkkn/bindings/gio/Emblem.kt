@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -39,6 +40,7 @@ public open class Emblem(
      *
      * @since 2.18
      */
+    @GioVersion2_18
     public open val icon: Icon
         /**
          * Gives back the icon from @emblem.
@@ -57,6 +59,7 @@ public open class Emblem(
      *
      * @since 2.18
      */
+    @GioVersion2_18
     public open val origin: EmblemOrigin
         /**
          * Gets the origin of the emblem.
@@ -98,6 +101,7 @@ public open class Emblem(
      *          the emblem and should not be modified or freed.
      * @since 2.18
      */
+    @GioVersion2_18
     public open fun getIcon(): Icon =
         g_emblem_get_icon(gioEmblemPointer.reinterpret())!!.run {
             Icon.wrap(reinterpret())
@@ -109,6 +113,7 @@ public open class Emblem(
      * @return the origin of the emblem
      * @since 2.18
      */
+    @GioVersion2_18
     public open fun getOrigin(): EmblemOrigin =
         g_emblem_get_origin(gioEmblemPointer.reinterpret()).run {
             EmblemOrigin.fromNativeValue(this)

@@ -5,6 +5,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_36
+import org.gtkkn.bindings.gio.annotations.GioVersion2_62
+import org.gtkkn.bindings.gio.annotations.GioVersion2_70
+import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.TimeVal
 import org.gtkkn.bindings.gobject.Object
@@ -191,6 +197,7 @@ public open class FileInfo(
      * @return access time, or null if unknown
      * @since 2.70
      */
+    @GioVersion2_70
     public open fun getAccessDateTime(): DateTime? =
         g_file_info_get_access_date_time(gioFileInfoPointer.reinterpret())?.run {
             DateTime(reinterpret())
@@ -243,6 +250,7 @@ public open class FileInfo(
      * a file path, or null otherwise.
      * @since 2.78
      */
+    @GioVersion2_78
     public open fun getAttributeFilePath(attribute: String): String? =
         g_file_info_get_attribute_file_path(gioFileInfoPointer.reinterpret(), attribute)?.toKString()
 
@@ -313,6 +321,7 @@ public open class FileInfo(
      * or null otherwise. Do not free. These returned strings are UTF-8.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun getAttributeStringv(attribute: String): List<String>? =
         g_file_info_get_attribute_stringv(gioFileInfoPointer.reinterpret(), attribute)?.toKStringList()
 
@@ -377,6 +386,7 @@ public open class FileInfo(
      * @return creation time, or null if unknown
      * @since 2.70
      */
+    @GioVersion2_70
     public open fun getCreationDateTime(): DateTime? =
         g_file_info_get_creation_date_time(gioFileInfoPointer.reinterpret())?.run {
             DateTime(reinterpret())
@@ -390,6 +400,7 @@ public open class FileInfo(
      * @return a #GDateTime, or null.
      * @since 2.36
      */
+    @GioVersion2_36
     public open fun getDeletionDate(): DateTime? =
         g_file_info_get_deletion_date(gioFileInfoPointer.reinterpret())?.run {
             DateTime(reinterpret())
@@ -500,6 +511,7 @@ public open class FileInfo(
      * @return modification time, or null if unknown
      * @since 2.62
      */
+    @GioVersion2_62
     public open fun getModificationDateTime(): DateTime? =
         g_file_info_get_modification_date_time(gioFileInfoPointer.reinterpret())?.run {
             DateTime(reinterpret())
@@ -561,6 +573,7 @@ public open class FileInfo(
      * @return #GIcon for the given @info.
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun getSymbolicIcon(): Icon? =
         g_file_info_get_symbolic_icon(gioFileInfoPointer.reinterpret())?.run {
             Icon.wrap(reinterpret())
@@ -596,6 +609,7 @@ public open class FileInfo(
      *     false otherwise.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun hasNamespace(nameSpace: String): Boolean =
         g_file_info_has_namespace(gioFileInfoPointer.reinterpret(), nameSpace).asBoolean()
 
@@ -629,6 +643,7 @@ public open class FileInfo(
      * @param atime a #GDateTime.
      * @since 2.70
      */
+    @GioVersion2_70
     public open fun setAccessDateTime(atime: DateTime): Unit =
         g_file_info_set_access_date_time(gioFileInfoPointer.reinterpret(), atime.glibDateTimePointer)
 
@@ -667,6 +682,7 @@ public open class FileInfo(
      * @param attrValue a file path.
      * @since 2.78
      */
+    @GioVersion2_78
     public open fun setAttributeFilePath(
         attribute: String,
         attrValue: String,
@@ -730,6 +746,7 @@ public open class FileInfo(
      * @return true if the status was changed, false if the key was not set.
      * @since 2.22
      */
+    @GioVersion2_22
     public open fun setAttributeStatus(
         attribute: String,
         status: FileAttributeStatus,
@@ -813,6 +830,7 @@ public open class FileInfo(
      * @param creationTime a #GDateTime.
      * @since 2.70
      */
+    @GioVersion2_70
     public open fun setCreationDateTime(creationTime: DateTime): Unit =
         g_file_info_set_creation_date_time(gioFileInfoPointer.reinterpret(), creationTime.glibDateTimePointer)
 
@@ -880,6 +898,7 @@ public open class FileInfo(
      * @param mtime a #GDateTime.
      * @since 2.62
      */
+    @GioVersion2_62
     public open fun setModificationDateTime(mtime: DateTime): Unit =
         g_file_info_set_modification_date_time(gioFileInfoPointer.reinterpret(), mtime.glibDateTimePointer)
 
@@ -927,6 +946,7 @@ public open class FileInfo(
      * @param icon a #GIcon.
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun setSymbolicIcon(icon: Icon): Unit =
         g_file_info_set_symbolic_icon(gioFileInfoPointer.reinterpret(), icon.gioIconPointer)
 

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.graphene
 
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.native.graphene.graphene_ray_intersection_kind_t
 import org.gtkkn.native.graphene.graphene_ray_intersection_kind_t.GRAPHENE_RAY_INTERSECTION_KIND_ENTER
 import org.gtkkn.native.graphene.graphene_ray_intersection_kind_t.GRAPHENE_RAY_INTERSECTION_KIND_LEAVE
@@ -10,6 +11,7 @@ import org.gtkkn.native.graphene.graphene_ray_intersection_kind_t.GRAPHENE_RAY_I
  * The type of intersection.
  * @since 1.10
  */
+@GrapheneVersion1_10
 public enum class RayIntersectionKind(
     public val nativeValue: graphene_ray_intersection_kind_t,
 ) {

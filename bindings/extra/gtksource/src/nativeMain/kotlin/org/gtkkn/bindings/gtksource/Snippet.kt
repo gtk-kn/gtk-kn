@@ -61,7 +61,8 @@ import kotlin.Unit
  */
 public open class Snippet(
     pointer: CPointer<GtkSourceSnippet>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceSnippetPointer: CPointer<GtkSourceSnippet>
         get() = gPointer.reinterpret()
 
@@ -78,11 +79,7 @@ public open class Snippet(
          *
          * @param description the snippet description
          */
-        set(description) =
-            gtk_source_snippet_set_description(
-                gtksourceSnippetPointer.reinterpret(),
-                description
-            )
+        set(description) = gtk_source_snippet_set_description(gtksourceSnippetPointer.reinterpret(), description)
 
     public open val focusPosition: Int
         /**
@@ -114,11 +111,7 @@ public open class Snippet(
          *
          * @param languageId the language identifier for the snippet
          */
-        set(languageId) =
-            gtk_source_snippet_set_language_id(
-                gtksourceSnippetPointer.reinterpret(),
-                languageId
-            )
+        set(languageId) = gtk_source_snippet_set_language_id(gtksourceSnippetPointer.reinterpret(), languageId)
 
     public open var name: String
         /**
@@ -142,8 +135,10 @@ public open class Snippet(
      * @param languageId the source language
      * @return A new #GtkSourceSnippet
      */
-    public constructor(trigger: String? = null, languageId: String? = null) :
-        this(gtk_source_snippet_new(trigger, languageId)!!.reinterpret())
+    public constructor(
+        trigger: String? = null,
+        languageId: String? = null,
+    ) : this(gtk_source_snippet_new(trigger, languageId)!!.reinterpret())
 
     /**
      * Parses the snippet formatted @text into a series of chunks and adds them

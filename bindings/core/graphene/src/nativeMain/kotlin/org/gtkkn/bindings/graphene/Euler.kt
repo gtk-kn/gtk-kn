@@ -4,6 +4,8 @@ package org.gtkkn.bindings.graphene
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_euler_alloc
@@ -45,6 +47,7 @@ import kotlin.Unit
  *
  * @since 1.2
  */
+@GrapheneVersion1_2
 public class Euler(
     pointer: CPointer<graphene_euler_t>,
 ) : Record {
@@ -57,6 +60,7 @@ public class Euler(
      * @return `true` if the two #graphene_euler_t are equal
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun equal(b: Euler): Boolean =
         graphene_euler_equal(grapheneEulerPointer.reinterpret(), b.grapheneEulerPointer)
 
@@ -65,6 +69,7 @@ public class Euler(
      *
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun free(): Unit = graphene_euler_free(grapheneEulerPointer.reinterpret())
 
     /**
@@ -76,6 +81,7 @@ public class Euler(
      * @return the first component of the Euler angle vector, in radians
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun getAlpha(): Float = graphene_euler_get_alpha(grapheneEulerPointer.reinterpret())
 
     /**
@@ -87,6 +93,7 @@ public class Euler(
      * @return the second component of the Euler angle vector, in radians
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun getBeta(): Float = graphene_euler_get_beta(grapheneEulerPointer.reinterpret())
 
     /**
@@ -98,6 +105,7 @@ public class Euler(
      * @return the third component of the Euler angle vector, in radians
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun getGamma(): Float = graphene_euler_get_gamma(grapheneEulerPointer.reinterpret())
 
     /**
@@ -112,6 +120,7 @@ public class Euler(
      * @return the order used to apply the rotations
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getOrder(): EulerOrder =
         graphene_euler_get_order(grapheneEulerPointer.reinterpret()).run {
             EulerOrder.fromNativeValue(this)
@@ -123,6 +132,7 @@ public class Euler(
      * @return the rotation angle
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getX(): Float = graphene_euler_get_x(grapheneEulerPointer.reinterpret())
 
     /**
@@ -131,6 +141,7 @@ public class Euler(
      * @return the rotation angle
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getY(): Float = graphene_euler_get_y(grapheneEulerPointer.reinterpret())
 
     /**
@@ -139,6 +150,7 @@ public class Euler(
      * @return the rotation angle
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun getZ(): Float = graphene_euler_get_z(grapheneEulerPointer.reinterpret())
 
     /**
@@ -152,6 +164,7 @@ public class Euler(
      * @return the initialized #graphene_euler_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun `init`(
         x: Float,
         y: Float,
@@ -172,6 +185,7 @@ public class Euler(
      * @return the initialized #graphene_euler_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initFromEuler(src: Euler? = null): Euler =
         graphene_euler_init_from_euler(grapheneEulerPointer.reinterpret(), src?.grapheneEulerPointer)!!.run {
             Euler(reinterpret())
@@ -188,6 +202,7 @@ public class Euler(
      * @return the initialized #graphene_euler_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initFromMatrix(
         m: Matrix? = null,
         order: EulerOrder,
@@ -211,6 +226,7 @@ public class Euler(
      * @return the initialized #graphene_euler_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initFromQuaternion(
         q: Quaternion? = null,
         order: EulerOrder,
@@ -234,6 +250,7 @@ public class Euler(
      * @return the initialized #graphene_euler_t
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun initFromRadians(
         x: Float,
         y: Float,
@@ -257,6 +274,7 @@ public class Euler(
      * @return the initialized #graphene_euler_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initFromVec3(
         v: Vec3? = null,
         order: EulerOrder,
@@ -279,6 +297,7 @@ public class Euler(
      * @return the initialized #graphene_euler_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun initWithOrder(
         x: Float,
         y: Float,
@@ -301,6 +320,7 @@ public class Euler(
      *   #graphene_euler_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun reorder(
         order: EulerOrder,
         res: Euler,
@@ -327,6 +347,7 @@ public class Euler(
      * @param res return location for a #graphene_matrix_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun toMatrix(res: Matrix): Unit =
         graphene_euler_to_matrix(grapheneEulerPointer.reinterpret(), res.grapheneMatrixPointer)
 
@@ -336,6 +357,7 @@ public class Euler(
      * @param res return location for a #graphene_quaternion_t
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun toQuaternion(res: Quaternion): Unit =
         graphene_euler_to_quaternion(grapheneEulerPointer.reinterpret(), res.grapheneQuaternionPointer)
 
@@ -346,6 +368,7 @@ public class Euler(
      * @param res return location for a #graphene_vec3_t
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun toVec3(res: Vec3): Unit =
         graphene_euler_to_vec3(grapheneEulerPointer.reinterpret(), res.grapheneVec3Pointer)
 

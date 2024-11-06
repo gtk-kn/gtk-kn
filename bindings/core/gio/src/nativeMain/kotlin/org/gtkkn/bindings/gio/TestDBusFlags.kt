@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GTestDBusFlags
 import org.gtkkn.native.gio.G_TEST_DBUS_NONE
@@ -14,6 +15,7 @@ public class TestDBusFlags(
 ) : Bitfield<TestDBusFlags> {
     override infix fun or(other: TestDBusFlags): TestDBusFlags = TestDBusFlags(mask or other.mask)
 
+    @GioVersion2_34
     public companion object {
         /**
          * No flags.

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
 import org.gtkkn.native.gtk.GtkNaturalWrapMode
 import org.gtkkn.native.gtk.GtkNaturalWrapMode.GTK_NATURAL_WRAP_INHERIT
 import org.gtkkn.native.gtk.GtkNaturalWrapMode.GTK_NATURAL_WRAP_NONE
@@ -13,6 +14,7 @@ import org.gtkkn.native.gtk.GtkNaturalWrapMode.GTK_NATURAL_WRAP_WORD
  * See for example the [property@Gtk.Label:natural-wrap-mode] property.
  * @since 4.6
  */
+@GtkVersion4_6
 public enum class NaturalWrapMode(
     public val nativeValue: GtkNaturalWrapMode,
 ) {

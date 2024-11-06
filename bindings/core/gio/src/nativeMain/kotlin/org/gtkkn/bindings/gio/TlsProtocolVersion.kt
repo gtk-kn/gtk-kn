@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.native.gio.GTlsProtocolVersion
 import org.gtkkn.native.gio.GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_DTLS_1_0
 import org.gtkkn.native.gio.GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_DTLS_1_2
@@ -23,6 +24,7 @@ import org.gtkkn.native.gio.GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_UNKNOWN
  * than the TLS protocol versions.
  * @since 2.70
  */
+@GioVersion2_70
 public enum class TlsProtocolVersion(
     public val nativeValue: GTlsProtocolVersion,
 ) {

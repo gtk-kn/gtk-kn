@@ -12,6 +12,8 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.bindings.pango.EllipsizeMode
 import org.gtkkn.bindings.pango.Layout
@@ -584,6 +586,7 @@ public open class Label(
      *
      * @since 4.6
      */
+    @GtkVersion4_6
     public open var naturalWrapMode: NaturalWrapMode
         /**
          * Returns line wrap mode used by the label.
@@ -607,6 +610,7 @@ public open class Label(
          * @param wrapMode the line wrapping mode
          * @since 4.6
          */
+        @GtkVersion4_6
         set(wrapMode) = gtk_label_set_natural_wrap_mode(gtkLabelPointer.reinterpret(), wrapMode.nativeValue)
 
     /**
@@ -658,6 +662,7 @@ public open class Label(
      *
      * @since 4.8
      */
+    @GtkVersion4_8
     public open var tabs: TabArray?
         /**
          * Gets the tabs for @self.
@@ -681,6 +686,7 @@ public open class Label(
          * @param tabs tabs as a `PangoTabArray`
          * @since 4.8
          */
+        @GtkVersion4_8
         set(tabs) = gtk_label_set_tabs(gtkLabelPointer.reinterpret(), tabs?.pangoTabArrayPointer)
 
     /**
@@ -1029,6 +1035,7 @@ public open class Label(
      * @return the natural line wrap mode
      * @since 4.6
      */
+    @GtkVersion4_6
     public open fun getNaturalWrapMode(): NaturalWrapMode =
         gtk_label_get_natural_wrap_mode(gtkLabelPointer.reinterpret()).run {
             NaturalWrapMode.fromNativeValue(this)
@@ -1060,6 +1067,7 @@ public open class Label(
      *   [method@Pango.TabArray.free].
      * @since 4.8
      */
+    @GtkVersion4_8
     public open fun getTabs(): TabArray? =
         gtk_label_get_tabs(gtkLabelPointer.reinterpret())?.run {
             TabArray(reinterpret())
@@ -1322,6 +1330,7 @@ public open class Label(
      * @param wrapMode the line wrapping mode
      * @since 4.6
      */
+    @GtkVersion4_6
     public open fun setNaturalWrapMode(wrapMode: NaturalWrapMode): Unit =
         gtk_label_set_natural_wrap_mode(gtkLabelPointer.reinterpret(), wrapMode.nativeValue)
 
@@ -1350,6 +1359,7 @@ public open class Label(
      * @param tabs tabs as a `PangoTabArray`
      * @since 4.8
      */
+    @GtkVersion4_8
     public open fun setTabs(tabs: TabArray? = null): Unit =
         gtk_label_set_tabs(gtkLabelPointer.reinterpret(), tabs?.pangoTabArrayPointer)
 

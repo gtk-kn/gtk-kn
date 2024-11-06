@@ -80,7 +80,11 @@ class FunctionBlueprintBuilder(
             returnTypeInfo = returnTypeInfo,
             throws = girFunction.throws,
             exceptionResolvingFunctionMember = exceptionResolvingFunction(),
-            version = girFunction.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(
+                context,
+                girNamespace,
+                girFunction.info
+            ).build().getOrNull(),
             kdoc = context.processKdoc(girFunction.info.docs.doc?.text),
             returnTypeKDoc = context.processKdoc(girFunction.returnValue.docs.doc?.text),
         )

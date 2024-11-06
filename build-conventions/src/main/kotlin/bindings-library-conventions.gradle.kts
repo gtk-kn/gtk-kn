@@ -15,11 +15,14 @@
  */
 
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import java.nio.file.Files
 
 plugins {
     id("native-library-conventions")
     id("publishing-conventions")
 }
+
+val optInAnnotationsFile = file("${rootProject.projectDir}/bindings/optInAnnotations.txt")
 
 val girTask = tasks.getByPath(":gir:run")
 
@@ -27,8 +30,19 @@ kotlin {
     targets.withType<KotlinNativeTarget> {
         compilations["main"].apply {
             cinterops.create(project.name)
-            compileTaskProvider {
+        }
+
+        compilations.forEach { compilation ->
+            compilation.compileTaskProvider {
                 mustRunAfter(girTask)
+            }
+
+            // Configure the language settings to opt in to generated annotations for all source sets
+            if (optInAnnotationsFile.exists()) {
+                val optInAnnotations = Files.readAllLines(optInAnnotationsFile.toPath()).filter { it.isNotBlank() }
+                compilation.defaultSourceSet.languageSettings {
+                    optInAnnotations.forEach { annotationFqName -> optIn(annotationFqName) }
+                }
             }
         }
 
@@ -42,7 +56,7 @@ tasks {
     val bindings = fileTree("${projectDir}/src/nativeMain/kotlin/org/gtkkn/bindings/")
     val cleanBindings by registering(Delete::class) {
         group = BasePlugin.BUILD_GROUP
-        delete(bindings)
+        delete(bindings, optInAnnotationsFile)
     }
     girTask.outputs.files(bindings)
 }

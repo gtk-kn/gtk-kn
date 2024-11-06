@@ -2,6 +2,7 @@
 package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.native.adw.AdwLengthUnit
 import org.gtkkn.native.adw.AdwLengthUnit.ADW_LENGTH_UNIT_PT
@@ -23,6 +24,7 @@ import kotlin.Double
  * New values may be added to this enumeration over time.
  * @since 1.4
  */
+@AdwVersion1_4
 public enum class LengthUnit(
     public val nativeValue: AdwLengthUnit,
 ) {
@@ -60,6 +62,7 @@ public enum class LengthUnit(
          * @return the length in @unit
          * @since 1.4
          */
+        @AdwVersion1_4
         public fun fromPx(
             unit: LengthUnit,
             `value`: Double,
@@ -75,6 +78,7 @@ public enum class LengthUnit(
          * @return the length in pixels
          * @since 1.4
          */
+        @AdwVersion1_4
         public fun toPx(
             unit: LengthUnit,
             `value`: Double,

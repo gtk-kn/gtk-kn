@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Bitfield
 import org.gtkkn.native.gio.GDBusSignalFlags
 import org.gtkkn.native.gio.G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_NAMESPACE
@@ -17,6 +18,7 @@ public class DBusSignalFlags(
 ) : Bitfield<DBusSignalFlags> {
     override infix fun or(other: DBusSignalFlags): DBusSignalFlags = DBusSignalFlags(mask or other.mask)
 
+    @GioVersion2_26
     public companion object {
         /**
          * No flags set.

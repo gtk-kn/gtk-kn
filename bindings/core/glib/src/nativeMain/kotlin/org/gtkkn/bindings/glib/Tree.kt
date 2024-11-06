@@ -5,6 +5,9 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GTree
@@ -93,6 +96,7 @@ public class Tree(
      *     If this function returns true, the traversal is stopped.
      * @since 2.68
      */
+    @GLibVersion2_68
     public fun foreachNode(func: TraverseNodeFunc): Unit =
         g_tree_foreach_node(
             glibTreePointer.reinterpret(),
@@ -131,6 +135,7 @@ public class Tree(
      * @return the passed in #GTree
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun ref(): Tree =
         g_tree_ref(glibTreePointer.reinterpret())!!.run {
             Tree(reinterpret())
@@ -142,6 +147,7 @@ public class Tree(
      *
      * @since 2.70
      */
+    @GLibVersion2_70
     public fun removeAll(): Unit = g_tree_remove_all(glibTreePointer.reinterpret())
 
     /**
@@ -154,6 +160,7 @@ public class Tree(
      *
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun unref(): Unit = g_tree_unref(glibTreePointer.reinterpret())
 
     public companion object : RecordCompanion<Tree, GTree> {

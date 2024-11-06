@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gio.GResourceError
 import org.gtkkn.native.gio.GResourceError.G_RESOURCE_ERROR_INTERNAL
@@ -13,6 +14,7 @@ import kotlin.UInt
  * from a #GResource routine.
  * @since 2.32
  */
+@GioVersion2_32
 public enum class ResourceError(
     public val nativeValue: GResourceError,
 ) {
@@ -41,6 +43,7 @@ public enum class ResourceError(
          * @return a #GQuark
          * @since 2.32
          */
+        @GioVersion2_32
         public fun quark(): UInt = g_resource_error_quark()
 
         public fun fromErrorOrNull(error: Error): ResourceError? =

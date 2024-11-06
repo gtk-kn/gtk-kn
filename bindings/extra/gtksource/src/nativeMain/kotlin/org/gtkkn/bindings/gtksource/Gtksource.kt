@@ -11,6 +11,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.SList
+import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GlibException
@@ -260,11 +261,9 @@ public object Gtksource {
      * @param callback the callback to execute
      * @since 5.2
      */
+    @GtkSourceVersion5_2
     public fun schedulerAdd(callback: SchedulerCallback): ULong =
-        gtk_source_scheduler_add(
-            SchedulerCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+        gtk_source_scheduler_add(SchedulerCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Adds a new callback that will be executed as time permits on the main thread.
@@ -280,6 +279,7 @@ public object Gtksource {
      * @param callback the callback to execute
      * @since 5.2
      */
+    @GtkSourceVersion5_2
     public fun schedulerAddFull(callback: SchedulerCallback): ULong =
         gtk_source_scheduler_add_full(
             SchedulerCallbackFunc.reinterpret(),
@@ -294,6 +294,7 @@ public object Gtksource {
      * @param handlerId the handler id
      * @since 5.2
      */
+    @GtkSourceVersion5_2
     public fun schedulerRemove(handlerId: ULong): Unit = gtk_source_scheduler_remove(handlerId)
 
     /**
@@ -318,8 +319,7 @@ public object Gtksource {
      * @return the escaped @text.
      */
     public fun utilsEscapeSearchText(text: String): String =
-        gtk_source_utils_escape_search_text(text)?.toKString()
-            ?: error("Expected not null string")
+        gtk_source_utils_escape_search_text(text)?.toKString() ?: error("Expected not null string")
 
     /**
      * Use this function before [method@SearchSettings.set_search_text], to
@@ -335,19 +335,20 @@ public object Gtksource {
      * @return the unescaped @text.
      */
     public fun utilsUnescapeSearchText(text: String): String =
-        gtk_source_utils_unescape_search_text(text)?.toKString()
-            ?: error("Expected not null string")
+        gtk_source_utils_unescape_search_text(text)?.toKString() ?: error("Expected not null string")
 
     public fun resolveException(error: Error): GlibException {
         val ex =
             when (error.domain) {
                 FileLoaderError.quark() ->
-                    FileLoaderError.fromErrorOrNull(error)
+                    FileLoaderError
+                        .fromErrorOrNull(error)
                         ?.let {
                             FileLoaderErrorException(error, it)
                         }
                 FileSaverError.quark() ->
-                    FileSaverError.fromErrorOrNull(error)
+                    FileSaverError
+                        .fromErrorOrNull(error)
                         ?.let {
                             FileSaverErrorException(error, it)
                         }
@@ -362,9 +363,12 @@ public val SchedulerCallbackFunc: CPointer<CFunction<(Long) -> Int>> =
             deadline: Long,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(deadline: Long) -> Boolean>().get().invoke(deadline).asGBoolean()
-    }
-        .reinterpret()
+        userData
+            .asStableRef<(deadline: Long) -> Boolean>()
+            .get()
+            .invoke(deadline)
+            .asGBoolean()
+    }.reinterpret()
 
 /**
  * This function is called incrementally to process additional background work.

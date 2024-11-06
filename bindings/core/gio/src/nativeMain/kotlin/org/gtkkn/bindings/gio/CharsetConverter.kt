@@ -8,6 +8,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
@@ -60,6 +61,7 @@ public open class CharsetConverter(
      *
      * @since 2.24
      */
+    @GioVersion2_24
     public open var useFallback: Boolean
         /**
          * Gets the #GCharsetConverter:use-fallback property.
@@ -75,6 +77,7 @@ public open class CharsetConverter(
          * @param useFallback true to use fallbacks
          * @since 2.24
          */
+        @GioVersion2_24
         set(
             useFallback
         ) = g_charset_converter_set_use_fallback(gioCharsetConverterPointer.reinterpret(), useFallback.asGBoolean())
@@ -105,6 +108,7 @@ public open class CharsetConverter(
      * @return the number of fallbacks that @converter has applied
      * @since 2.24
      */
+    @GioVersion2_24
     public open fun getNumFallbacks(): UInt =
         g_charset_converter_get_num_fallbacks(gioCharsetConverterPointer.reinterpret())
 
@@ -114,6 +118,7 @@ public open class CharsetConverter(
      * @return true if fallbacks are used by @converter
      * @since 2.24
      */
+    @GioVersion2_24
     public open fun getUseFallback(): Boolean =
         g_charset_converter_get_use_fallback(gioCharsetConverterPointer.reinterpret()).asBoolean()
 
@@ -123,6 +128,7 @@ public open class CharsetConverter(
      * @param useFallback true to use fallbacks
      * @since 2.24
      */
+    @GioVersion2_24
     public open fun setUseFallback(useFallback: Boolean): Unit =
         g_charset_converter_set_use_fallback(gioCharsetConverterPointer.reinterpret(), useFallback.asGBoolean())
 

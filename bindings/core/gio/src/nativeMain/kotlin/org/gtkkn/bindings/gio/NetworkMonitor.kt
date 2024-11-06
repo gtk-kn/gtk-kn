@@ -13,6 +13,9 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_44
+import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.common.asBoolean
@@ -48,6 +51,7 @@ import kotlin.Unit
  * There is also an implementation for use inside Flatpak sandboxes.
  * @since 2.32
  */
+@GioVersion2_32
 public interface NetworkMonitor :
     Interface,
     Initable,
@@ -64,6 +68,7 @@ public interface NetworkMonitor :
      *
      * @since 2.44
      */
+    @GioVersion2_44
     public val connectivity: NetworkConnectivity
         /**
          * Gets a more detailed networking state than
@@ -115,6 +120,7 @@ public interface NetworkMonitor :
      *
      * @since 2.32
      */
+    @GioVersion2_32
     public val networkAvailable: Boolean
         /**
          * Checks if the network is available. "Available" here means that the
@@ -152,6 +158,7 @@ public interface NetworkMonitor :
      *
      * @since 2.46
      */
+    @GioVersion2_46
     public val networkMetered: Boolean
         /**
          * Checks if the network is metered.
@@ -186,6 +193,7 @@ public interface NetworkMonitor :
      * @return true if @connectable is reachable, false if not.
      * @since 2.32
      */
+    @GioVersion2_32
     public fun canReach(
         connectable: SocketConnectable,
         cancellable: Cancellable? = null,
@@ -282,6 +290,7 @@ public interface NetworkMonitor :
      * @return the network connectivity state
      * @since 2.44
      */
+    @GioVersion2_44
     public fun getConnectivity(): NetworkConnectivity =
         g_network_monitor_get_connectivity(gioNetworkMonitorPointer.reinterpret()).run {
             NetworkConnectivity.fromNativeValue(this)
@@ -296,6 +305,7 @@ public interface NetworkMonitor :
      * @return whether the network is available
      * @since 2.32
      */
+    @GioVersion2_32
     public fun getNetworkAvailable(): Boolean =
         g_network_monitor_get_network_available(gioNetworkMonitorPointer.reinterpret()).asBoolean()
 
@@ -306,6 +316,7 @@ public interface NetworkMonitor :
      * @return whether the connection is metered
      * @since 2.46
      */
+    @GioVersion2_46
     public fun getNetworkMetered(): Boolean =
         g_network_monitor_get_network_metered(gioNetworkMonitorPointer.reinterpret()).asBoolean()
 
@@ -316,6 +327,7 @@ public interface NetworkMonitor :
      * @param handler the Callback to connect. Params: `networkAvailable` the current value of #GNetworkMonitor:network-available
      * @since 2.32
      */
+    @GioVersion2_32
     public fun connectNetworkChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (networkAvailable: Boolean) -> Unit,
@@ -352,6 +364,7 @@ public interface NetworkMonitor :
          *     a dummy object if no network monitor is available
          * @since 2.32
          */
+        @GioVersion2_32
         public fun getDefault(): NetworkMonitor =
             g_network_monitor_get_default()!!.run {
                 NetworkMonitor.wrap(reinterpret())

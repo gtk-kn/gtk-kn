@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.native.gio.GDBusError
@@ -68,6 +69,7 @@ import kotlin.UInt
  * Error codes for the %G_DBUS_ERROR error domain.
  * @since 2.26
  */
+@GioVersion2_26
 public enum class DBusError(
     public val nativeValue: GDBusError,
 ) {
@@ -376,6 +378,7 @@ public enum class DBusError(
          *     Free with g_free().
          * @since 2.26
          */
+        @GioVersion2_26
         public fun encodeGerror(error: Error): String =
             g_dbus_error_encode_gerror(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
 
@@ -392,6 +395,7 @@ public enum class DBusError(
          *     D-Bus error name could not be found. Free with g_free().
          * @since 2.26
          */
+        @GioVersion2_26
         public fun getRemoteError(error: Error): String =
             g_dbus_error_get_remote_error(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
 
@@ -404,6 +408,7 @@ public enum class DBusError(
          * false otherwise.
          * @since 2.26
          */
+        @GioVersion2_26
         public fun isRemoteError(error: Error): Boolean =
             g_dbus_error_is_remote_error(error.glibErrorPointer).asBoolean()
 
@@ -440,6 +445,7 @@ public enum class DBusError(
          * @return An allocated #GError. Free with g_error_free().
          * @since 2.26
          */
+        @GioVersion2_26
         public fun newForDbusError(
             dbusErrorName: String,
             dbusErrorMessage: String,
@@ -464,6 +470,7 @@ public enum class DBusError(
          * exists.
          * @since 2.26
          */
+        @GioVersion2_26
         public fun registerError(
             errorDomain: UInt,
             errorCode: Int,
@@ -482,6 +489,7 @@ public enum class DBusError(
          * @return true if information was stripped, false otherwise.
          * @since 2.26
          */
+        @GioVersion2_26
         public fun stripRemoteError(error: Error): Boolean =
             g_dbus_error_strip_remote_error(error.glibErrorPointer).asBoolean()
 
@@ -494,6 +502,7 @@ public enum class DBusError(
          * @return true if the association was destroyed, false if it wasn't found.
          * @since 2.26
          */
+        @GioVersion2_26
         public fun unregisterError(
             errorDomain: UInt,
             errorCode: Int,

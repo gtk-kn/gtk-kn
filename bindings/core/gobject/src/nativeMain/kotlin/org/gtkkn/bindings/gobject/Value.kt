@@ -6,6 +6,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Variant
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_12
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_32
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_42
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
+import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_80
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
@@ -147,6 +153,7 @@ public class Value(
      *    should be unreffed using g_variant_unref() when no longer needed
      * @since 2.26
      */
+    @GObjectVersion2_26
     public fun dupVariant(): Variant? =
         g_value_dup_variant(gobjectValuePointer.reinterpret())?.run {
             Variant(reinterpret())
@@ -211,6 +218,7 @@ public class Value(
      * @return the #GType stored in @value
      * @since 2.12
      */
+    @GObjectVersion2_12
     public fun getGtype(): ULong = g_value_get_gtype(gobjectValuePointer.reinterpret())
 
     /**
@@ -260,6 +268,7 @@ public class Value(
      * @return signed 8 bit integer contents of @value
      * @since 2.32
      */
+    @GObjectVersion2_32
     public fun getSchar(): Byte = g_value_get_schar(gobjectValuePointer.reinterpret())
 
     /**
@@ -303,6 +312,7 @@ public class Value(
      * @return variant contents of @value (may be null)
      * @since 2.26
      */
+    @GObjectVersion2_26
     public fun getVariant(): Variant? =
         g_value_get_variant(gobjectValuePointer.reinterpret())?.run {
             Variant(reinterpret())
@@ -331,6 +341,7 @@ public class Value(
      * @param instance the instance
      * @since 2.42
      */
+    @GObjectVersion2_42
     public fun initFromInstance(instance: TypeInstance): Unit =
         g_value_init_from_instance(gobjectValuePointer.reinterpret(), instance.gobjectTypeInstancePointer)
 
@@ -394,6 +405,7 @@ public class Value(
      * @param vGtype #GType to be set
      * @since 2.12
      */
+    @GObjectVersion2_12
     public fun setGtype(vGtype: ULong): Unit = g_value_set_gtype(gobjectValuePointer.reinterpret(), vGtype)
 
     /**
@@ -418,6 +430,7 @@ public class Value(
      * @param vString static string to be set
      * @since 2.66
      */
+    @GObjectVersion2_66
     public fun setInternedString(vString: String? = null): Unit =
         g_value_set_interned_string(gobjectValuePointer.reinterpret(), vString)
 
@@ -460,6 +473,7 @@ public class Value(
      * @param vChar signed 8 bit integer to be set
      * @since 2.32
      */
+    @GObjectVersion2_32
     public fun setSchar(vChar: Byte): Unit = g_value_set_schar(gobjectValuePointer.reinterpret(), vChar)
 
     /**
@@ -517,6 +531,7 @@ public class Value(
      * @param variant a #GVariant, or null
      * @since 2.26
      */
+    @GObjectVersion2_26
     public fun setVariant(variant: Variant? = null): Unit =
         g_value_set_variant(gobjectValuePointer.reinterpret(), variant?.glibVariantPointer)
 
@@ -535,6 +550,7 @@ public class Value(
      *  Should be freed with g_free() when no longer needed.
      * @since 2.80
      */
+    @GObjectVersion2_80
     public fun stealString(): String =
         g_value_steal_string(gobjectValuePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -555,6 +571,7 @@ public class Value(
      * @param variant a #GVariant, or null
      * @since 2.26
      */
+    @GObjectVersion2_26
     public fun takeVariant(variant: Variant? = null): Unit =
         g_value_take_variant(gobjectValuePointer.reinterpret(), variant?.glibVariantPointer)
 

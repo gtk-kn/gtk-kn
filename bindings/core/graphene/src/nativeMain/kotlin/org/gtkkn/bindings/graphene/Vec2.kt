@@ -4,6 +4,9 @@ package org.gtkkn.bindings.graphene
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_vec2_add
@@ -61,6 +64,7 @@ public class Vec2(
      * @param res return location for the result
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun add(
         b: Vec2,
         res: Vec2,
@@ -75,6 +79,7 @@ public class Vec2(
      * @param res return location for the result
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun divide(
         b: Vec2,
         res: Vec2,
@@ -87,6 +92,7 @@ public class Vec2(
      * @return the dot product of the vectors
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun dot(b: Vec2): Float = graphene_vec2_dot(grapheneVec2Pointer.reinterpret(), b.grapheneVec2Pointer)
 
     /**
@@ -96,6 +102,7 @@ public class Vec2(
      * @return `true` if the two vectors are equal, and false otherwise
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun equal(v2: Vec2): Boolean = graphene_vec2_equal(grapheneVec2Pointer.reinterpret(), v2.grapheneVec2Pointer)
 
     /**
@@ -103,6 +110,7 @@ public class Vec2(
      *
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun free(): Unit = graphene_vec2_free(grapheneVec2Pointer.reinterpret())
 
     /**
@@ -111,6 +119,7 @@ public class Vec2(
      * @return the value of the X component
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getX(): Float = graphene_vec2_get_x(grapheneVec2Pointer.reinterpret())
 
     /**
@@ -119,6 +128,7 @@ public class Vec2(
      * @return the value of the Y component
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun getY(): Float = graphene_vec2_get_y(grapheneVec2Pointer.reinterpret())
 
     /**
@@ -131,6 +141,7 @@ public class Vec2(
      * @return the initialized vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun `init`(
         x: Float,
         y: Float,
@@ -146,6 +157,7 @@ public class Vec2(
      * @return the initialized vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initFromVec2(src: Vec2): Vec2 =
         graphene_vec2_init_from_vec2(grapheneVec2Pointer.reinterpret(), src.grapheneVec2Pointer)!!.run {
             Vec2(reinterpret())
@@ -159,6 +171,7 @@ public class Vec2(
      * @param res the interpolated vector
      * @since 1.10
      */
+    @GrapheneVersion1_10
     public fun interpolate(
         v2: Vec2,
         factor: Double,
@@ -177,6 +190,7 @@ public class Vec2(
      * @return the length of the vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun length(): Float = graphene_vec2_length(grapheneVec2Pointer.reinterpret())
 
     /**
@@ -187,6 +201,7 @@ public class Vec2(
      * @param res the resulting vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun max(
         b: Vec2,
         res: Vec2,
@@ -200,6 +215,7 @@ public class Vec2(
      * @param res the resulting vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun min(
         b: Vec2,
         res: Vec2,
@@ -213,6 +229,7 @@ public class Vec2(
      * @param res return location for the result
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun multiply(
         b: Vec2,
         res: Vec2,
@@ -227,6 +244,7 @@ public class Vec2(
      * @return `true` if the two vectors are near each other
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun near(
         v2: Vec2,
         epsilon: Float,
@@ -238,6 +256,7 @@ public class Vec2(
      * @param res return location for the result vector
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun negate(res: Vec2): Unit =
         graphene_vec2_negate(grapheneVec2Pointer.reinterpret(), res.grapheneVec2Pointer)
 
@@ -248,6 +267,7 @@ public class Vec2(
      *   normalized vector
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun normalize(res: Vec2): Unit =
         graphene_vec2_normalize(grapheneVec2Pointer.reinterpret(), res.grapheneVec2Pointer)
 
@@ -258,6 +278,7 @@ public class Vec2(
      * @param res return location for the result vector
      * @since 1.2
      */
+    @GrapheneVersion1_2
     public fun scale(
         factor: Float,
         res: Vec2,
@@ -272,6 +293,7 @@ public class Vec2(
      * @param res return location for the result
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun subtract(
         b: Vec2,
         res: Vec2,
@@ -298,6 +320,7 @@ public class Vec2(
          * @return the one vector
          * @since 1.0
          */
+        @GrapheneVersion1_0
         public fun one(): Vec2 =
             graphene_vec2_one()!!.run {
                 Vec2(reinterpret())
@@ -309,6 +332,7 @@ public class Vec2(
          * @return the X axis vector
          * @since 1.0
          */
+        @GrapheneVersion1_0
         public fun xAxis(): Vec2 =
             graphene_vec2_x_axis()!!.run {
                 Vec2(reinterpret())
@@ -320,6 +344,7 @@ public class Vec2(
          * @return the Y axis vector
          * @since 1.0
          */
+        @GrapheneVersion1_0
         public fun yAxis(): Vec2 =
             graphene_vec2_y_axis()!!.run {
                 Vec2(reinterpret())
@@ -331,6 +356,7 @@ public class Vec2(
          * @return the zero vector
          * @since 1.0
          */
+        @GrapheneVersion1_0
         public fun zero(): Vec2 =
             graphene_vec2_zero()!!.run {
                 Vec2(reinterpret())

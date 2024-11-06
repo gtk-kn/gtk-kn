@@ -8,6 +8,8 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gdk.DragAction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Value
@@ -177,6 +179,7 @@ public class TabBar(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public val extraDragPreferredAction: DragAction
         /**
          * Gets the current action during a drop on the extra_drop_target.
@@ -196,6 +199,7 @@ public class TabBar(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public var extraDragPreload: Boolean
         /**
          * Gets whether drop data should be preloaded on hover.
@@ -213,6 +217,7 @@ public class TabBar(
          * @param preload whether to preload drop data
          * @since 1.3
          */
+        @AdwVersion1_3
         set(preload) = adw_tab_bar_set_extra_drag_preload(adwTabBarPointer.reinterpret(), preload.asGBoolean())
 
     /**
@@ -350,6 +355,7 @@ public class TabBar(
      * @return the drag action of the current drop.
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getExtraDragPreferredAction(): DragAction =
         adw_tab_bar_get_extra_drag_preferred_action(adwTabBarPointer.reinterpret()).run {
             DragAction(this)
@@ -361,6 +367,7 @@ public class TabBar(
      * @return whether drop data should be preloaded on hover
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun getExtraDragPreload(): Boolean =
         adw_tab_bar_get_extra_drag_preload(adwTabBarPointer.reinterpret()).asBoolean()
 
@@ -449,6 +456,7 @@ public class TabBar(
      * @param preload whether to preload drop data
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun setExtraDragPreload(preload: Boolean): Unit =
         adw_tab_bar_set_extra_drag_preload(adwTabBarPointer.reinterpret(), preload.asGBoolean())
 
@@ -518,6 +526,7 @@ public class TabBar(
      * @param handler the Callback to connect. Params: `page` the page matching the tab the content was dropped onto; `value` the `GValue` being dropped. Returns the preferred action for the drop on @page
      * @since 1.3
      */
+    @AdwVersion1_3
     public fun connectExtraDragValue(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: TabPage, `value`: Value) -> DragAction,

@@ -61,7 +61,8 @@ import kotlin.Unit
  */
 public open class FileLoader(
     pointer: CPointer<GtkSourceFileLoader>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceFileLoaderPointer: CPointer<GtkSourceFileLoader>
         get() = gPointer.reinterpret()
 
@@ -125,7 +126,8 @@ public open class FileLoader(
          */
         get() =
             gtk_source_file_loader_get_location(gtksourceFileLoaderPointer.reinterpret())?.run {
-                org.gtkkn.bindings.gio.File.wrap(reinterpret())
+                org.gtkkn.bindings.gio.File
+                    .wrap(reinterpret())
             }
 
     /**
@@ -140,13 +142,15 @@ public open class FileLoader(
      * @param file the #GtkSourceFile.
      * @return a new #GtkSourceFileLoader object.
      */
-    public constructor(buffer: Buffer, `file`: File) :
-        this(
-            gtk_source_file_loader_new(
-                buffer.gtksourceBufferPointer.reinterpret(),
-                `file`.gtksourceFilePointer.reinterpret()
-            )!!.reinterpret()
-        )
+    public constructor(
+        buffer: Buffer,
+        `file`: File,
+    ) : this(
+        gtk_source_file_loader_new(
+            buffer.gtksourceBufferPointer.reinterpret(),
+            `file`.gtksourceFilePointer.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Creates a new #GtkSourceFileLoader object. The contents is read from @stream.
@@ -227,7 +231,8 @@ public open class FileLoader(
      */
     public open fun getLocation(): org.gtkkn.bindings.gio.File? =
         gtk_source_file_loader_get_location(gtksourceFileLoaderPointer.reinterpret())?.run {
-            org.gtkkn.bindings.gio.File.wrap(reinterpret())
+            org.gtkkn.bindings.gio.File
+                .wrap(reinterpret())
         }
 
     /**
@@ -290,9 +295,7 @@ public open class FileLoader(
 
     public companion object : TypeCompanion<FileLoader> {
         override val type: GeneratedClassKGType<FileLoader> =
-            GeneratedClassKGType(gtk_source_file_loader_get_type()) {
-                FileLoader(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_file_loader_get_type()) { FileLoader(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

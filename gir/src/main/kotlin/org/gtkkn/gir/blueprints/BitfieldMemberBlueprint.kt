@@ -22,6 +22,6 @@ data class BitfieldMemberBlueprint(
     val kotlinName: String,
     val nativeValue: Long,
     val nativeMemberName: MemberName,
-    val version: String?,
+    val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
 )

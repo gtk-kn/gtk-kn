@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GOutputMessage
@@ -25,6 +26,7 @@ import kotlin.UInt
  *
  * @since 2.44
  */
+@GioVersion2_44
 public class OutputMessage(
     pointer: CPointer<GOutputMessage>,
 ) : Record {

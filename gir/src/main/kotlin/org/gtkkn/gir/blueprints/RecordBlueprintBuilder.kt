@@ -109,7 +109,9 @@ class RecordBlueprintBuilder(
             ),
             isOpaque = girRecord.opaque == true,
             kdoc = context.processKdoc(girRecord.info.docs.doc?.text),
-            version = girRecord.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girRecord.info)
+                .build()
+                .getOrNull(),
             skippedObjects = skippedObjects,
         )
     }

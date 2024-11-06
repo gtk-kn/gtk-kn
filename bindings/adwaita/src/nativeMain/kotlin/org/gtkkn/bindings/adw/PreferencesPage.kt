@@ -4,6 +4,8 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -77,6 +79,7 @@ public open class PreferencesPage(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public open var description: String
         /**
          * Gets the description of @self.
@@ -96,6 +99,7 @@ public open class PreferencesPage(
          * @param description the description
          * @since 1.4
          */
+        @AdwVersion1_4
         set(description) = adw_preferences_page_set_description(adwPreferencesPagePointer.reinterpret(), description)
 
     /**
@@ -180,6 +184,7 @@ public open class PreferencesPage(
      * @return the description of @self.
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun getDescription(): String =
         adw_preferences_page_get_description(adwPreferencesPagePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -225,6 +230,7 @@ public open class PreferencesPage(
      *
      * @since 1.3
      */
+    @AdwVersion1_3
     public open fun scrollToTop(): Unit = adw_preferences_page_scroll_to_top(adwPreferencesPagePointer.reinterpret())
 
     /**
@@ -235,6 +241,7 @@ public open class PreferencesPage(
      * @param description the description
      * @since 1.4
      */
+    @AdwVersion1_4
     public open fun setDescription(description: String): Unit =
         adw_preferences_page_set_description(adwPreferencesPagePointer.reinterpret(), description)
 

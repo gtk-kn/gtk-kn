@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -27,6 +28,7 @@ import kotlin.Unit
  * objects containing simple, unformatted text.
  * @since 4.14
  */
+@GtkVersion4_14
 public interface AccessibleText :
     Interface,
     Accessible,
@@ -45,6 +47,7 @@ public interface AccessibleText :
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun updateCaretPosition(): Unit =
         gtk_accessible_text_update_caret_position(gtkAccessibleTextPointer.reinterpret())
 
@@ -64,6 +67,7 @@ public interface AccessibleText :
      * @param end the end offset of the change, in characters
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun updateContents(
         change: AccessibleTextContentChange,
         start: UInt,
@@ -80,6 +84,7 @@ public interface AccessibleText :
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public fun updateSelectionBound(): Unit =
         gtk_accessible_text_update_selection_bound(gtkAccessibleTextPointer.reinterpret())
 

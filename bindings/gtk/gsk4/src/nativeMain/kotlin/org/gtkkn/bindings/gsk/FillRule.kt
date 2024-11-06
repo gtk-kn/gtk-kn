@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.native.gsk.GskFillRule
 import org.gtkkn.native.gsk.GskFillRule.GSK_FILL_RULE_EVEN_ODD
 import org.gtkkn.native.gsk.GskFillRule.GSK_FILL_RULE_WINDING
@@ -20,6 +21,7 @@ import org.gtkkn.native.gsk.GskFillRule.GSK_FILL_RULE_WINDING
  * New entries may be added in future versions.
  * @since 4.14
  */
+@GskVersion4_14
 public enum class FillRule(
     public val nativeValue: GskFillRule,
 ) {

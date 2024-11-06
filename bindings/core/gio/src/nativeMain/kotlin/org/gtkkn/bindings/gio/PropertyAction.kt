@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -80,6 +81,7 @@ import kotlin.String
  *
  * @since 2.38
  */
+@GioVersion2_38
 public open class PropertyAction(
     pointer: CPointer<GPropertyAction>,
 ) : Object(pointer.reinterpret()),

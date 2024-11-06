@@ -46,7 +46,8 @@ import kotlin.Unit
  */
 public open class Gutter(
     pointer: CPointer<GtkSourceGutter>,
-) : Widget(pointer.reinterpret()), KGTyped {
+) : Widget(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceGutterPointer: CPointer<GtkSourceGutter>
         get() = gPointer.reinterpret()
 

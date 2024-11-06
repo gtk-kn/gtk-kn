@@ -5,6 +5,8 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
+import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.graphene.graphene_point_alloc
@@ -32,6 +34,7 @@ import kotlin.Unit
  *
  * @since 1.0
  */
+@GrapheneVersion1_0
 public class Point(
     pointer: CPointer<graphene_point_t>,
 ) : Record {
@@ -67,6 +70,7 @@ public class Point(
      * @return `true` if the points have the same coordinates
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun equal(b: Point): Boolean =
         graphene_point_equal(graphenePointPointer.reinterpret(), b.graphenePointPointer)
 
@@ -75,6 +79,7 @@ public class Point(
      *
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun free(): Unit = graphene_point_free(graphenePointPointer.reinterpret())
 
     /**
@@ -87,6 +92,7 @@ public class Point(
      * @return the initialized point
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun `init`(
         x: Float,
         y: Float,
@@ -102,6 +108,7 @@ public class Point(
      * @return the initialized point
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun initFromPoint(src: Point): Point =
         graphene_point_init_from_point(graphenePointPointer.reinterpret(), src.graphenePointPointer)!!.run {
             Point(reinterpret())
@@ -114,6 +121,7 @@ public class Point(
      * @return the initialized point
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun initFromVec2(src: Vec2): Point =
         graphene_point_init_from_vec2(graphenePointPointer.reinterpret(), src.grapheneVec2Pointer)!!.run {
             Point(reinterpret())
@@ -129,6 +137,7 @@ public class Point(
      *   point
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun interpolate(
         b: Point,
         factor: Double,
@@ -150,6 +159,7 @@ public class Point(
      * @return `true` if the distance is within @epsilon
      * @since 1.0
      */
+    @GrapheneVersion1_0
     public fun near(
         b: Point,
         epsilon: Float,
@@ -162,6 +172,7 @@ public class Point(
      * @param v return location for the vertex
      * @since 1.4
      */
+    @GrapheneVersion1_4
     public fun toVec2(v: Vec2): Unit = graphene_point_to_vec2(graphenePointPointer.reinterpret(), v.grapheneVec2Pointer)
 
     public companion object : RecordCompanion<Point, graphene_point_t> {
@@ -200,6 +211,7 @@ public class Point(
          * @return a fixed point
          * @since 1.0
          */
+        @GrapheneVersion1_0
         public fun zero(): Point =
             graphene_point_zero()!!.run {
                 Point(reinterpret())

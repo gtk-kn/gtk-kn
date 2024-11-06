@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gdk.GdkTextureError
 import org.gtkkn.native.gdk.GdkTextureError.GDK_TEXTURE_ERROR_CORRUPT_IMAGE
@@ -14,6 +15,7 @@ import kotlin.UInt
  * Possible errors that can be returned by `GdkTexture` constructors.
  * @since 4.6
  */
+@GdkVersion4_6
 public enum class TextureError(
     public val nativeValue: GdkTextureError,
 ) {

@@ -29,7 +29,9 @@ import org.gtkkn.native.gtksource.gtk_source_style_scheme_chooser_button_new
  */
 public open class StyleSchemeChooserButton(
     pointer: CPointer<GtkSourceStyleSchemeChooserButton>,
-) : Button(pointer.reinterpret()), StyleSchemeChooser, KGTyped {
+) : Button(pointer.reinterpret()),
+    StyleSchemeChooser,
+    KGTyped {
     public val gtksourceStyleSchemeChooserButtonPointer: CPointer<GtkSourceStyleSchemeChooserButton>
         get() = gPointer.reinterpret()
 
@@ -57,9 +59,9 @@ public open class StyleSchemeChooserButton(
 
     public companion object : TypeCompanion<StyleSchemeChooserButton> {
         override val type: GeneratedClassKGType<StyleSchemeChooserButton> =
-            GeneratedClassKGType(gtk_source_style_scheme_chooser_button_get_type()) {
-                StyleSchemeChooserButton(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                gtk_source_style_scheme_chooser_button_get_type()
+            ) { StyleSchemeChooserButton(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

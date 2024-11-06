@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_38
 import org.gtkkn.native.glib.GTestFileType
 import org.gtkkn.native.glib.GTestFileType.G_TEST_BUILT
 import org.gtkkn.native.glib.GTestFileType.G_TEST_DIST
@@ -24,6 +25,7 @@ import org.gtkkn.native.glib.GTestFileType.G_TEST_DIST
  * build from git) and are considered as distributed files.
  * @since 2.38
  */
+@GLibVersion2_38
 public enum class TestFileType(
     public val nativeValue: GTestFileType,
 ) {

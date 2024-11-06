@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GInputMessage
@@ -41,6 +42,7 @@ import kotlin.ULong
  *
  * @since 2.48
  */
+@GioVersion2_48
 public class InputMessage(
     pointer: CPointer<GInputMessage>,
 ) : Record {

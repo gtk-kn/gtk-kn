@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -40,6 +41,7 @@ import kotlin.Unit
  * invocations that arrive by way of D-Bus.
  * @since 2.32
  */
+@GioVersion2_32
 public interface RemoteActionGroup :
     Interface,
     ActionGroup,
@@ -65,6 +67,7 @@ public interface RemoteActionGroup :
      * @param platformData the platform data to send
      * @since 2.32
      */
+    @GioVersion2_32
     public fun activateActionFull(
         actionName: String,
         parameter: Variant? = null,
@@ -93,6 +96,7 @@ public interface RemoteActionGroup :
      * @param platformData the platform data to send
      * @since 2.32
      */
+    @GioVersion2_32
     public fun changeActionStateFull(
         actionName: String,
         `value`: Variant,

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GUnixSocketAddressType
 import org.gtkkn.native.gio.GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT
 import org.gtkkn.native.gio.GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED
@@ -24,6 +25,7 @@ import org.gtkkn.native.gio.GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_PATH
  * %G_UNIX_SOCKET_ADDRESS_ABSTRACT.
  * @since 2.26
  */
+@GioVersion2_26
 public enum class UnixSocketAddressType(
     public val nativeValue: GUnixSocketAddressType,
 ) {

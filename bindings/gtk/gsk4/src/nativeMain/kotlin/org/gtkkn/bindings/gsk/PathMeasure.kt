@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -33,6 +34,7 @@ import kotlin.Unit
  * and should be treated as opaque.
  * @since 4.14
  */
+@GskVersion4_14
 public class PathMeasure(
     pointer: CPointer<GskPathMeasure>,
 ) : Record {
@@ -46,6 +48,7 @@ public class PathMeasure(
      * @return The length of the path measured by @self
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getLength(): Float = gsk_path_measure_get_length(gskPathMeasurePointer.reinterpret())
 
     /**
@@ -54,6 +57,7 @@ public class PathMeasure(
      * @return the path of @self
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getPath(): Path =
         gsk_path_measure_get_path(gskPathMeasurePointer.reinterpret())!!.run {
             Path(reinterpret())
@@ -69,6 +73,7 @@ public class PathMeasure(
      * @return `TRUE` if @result was set
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getPoint(
         distance: Float,
         result: PathPoint,
@@ -85,6 +90,7 @@ public class PathMeasure(
      * @return the tolerance of @self
      * @since 4.14
      */
+    @GskVersion4_14
     public fun getTolerance(): Float = gsk_path_measure_get_tolerance(gskPathMeasurePointer.reinterpret())
 
     /**
@@ -93,6 +99,7 @@ public class PathMeasure(
      * @return the passed in `GskPathMeasure`.
      * @since 4.14
      */
+    @GskVersion4_14
     public fun ref(): PathMeasure =
         gsk_path_measure_ref(gskPathMeasurePointer.reinterpret())!!.run {
             PathMeasure(reinterpret())
@@ -105,6 +112,7 @@ public class PathMeasure(
      *
      * @since 4.14
      */
+    @GskVersion4_14
     public fun unref(): Unit = gsk_path_measure_unref(gskPathMeasurePointer.reinterpret())
 
     public companion object : RecordCompanion<PathMeasure, GskPathMeasure> {

@@ -3,6 +3,7 @@ package org.gtkkn.bindings.adw
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.LayoutManager
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -131,6 +132,7 @@ public class ClampLayout(
      *
      * @since 1.4
      */
+    @AdwVersion1_4
     public var unit: LengthUnit
         /**
          * Gets the length unit for maximum size and tightening threshold.
@@ -151,6 +153,7 @@ public class ClampLayout(
          * @param unit the length unit
          * @since 1.4
          */
+        @AdwVersion1_4
         set(unit) = adw_clamp_layout_set_unit(adwClampLayoutPointer.reinterpret(), unit.nativeValue)
 
     /**
@@ -181,6 +184,7 @@ public class ClampLayout(
      * @return the length unit
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun getUnit(): LengthUnit =
         adw_clamp_layout_get_unit(adwClampLayoutPointer.reinterpret()).run {
             LengthUnit.fromNativeValue(this)
@@ -225,6 +229,7 @@ public class ClampLayout(
      * @param unit the length unit
      * @since 1.4
      */
+    @AdwVersion1_4
     public fun setUnit(unit: LengthUnit): Unit =
         adw_clamp_layout_set_unit(adwClampLayoutPointer.reinterpret(), unit.nativeValue)
 

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.native.gsk.GskLineCap
 import org.gtkkn.native.gsk.GskLineCap.GSK_LINE_CAP_BUTT
 import org.gtkkn.native.gsk.GskLineCap.GSK_LINE_CAP_ROUND
@@ -23,6 +24,7 @@ import org.gtkkn.native.gsk.GskLineCap.GSK_LINE_CAP_SQUARE
  * </figure>
  * @since 4.14
  */
+@GskVersion4_14
 public enum class LineCap(
     public val nativeValue: GskLineCap,
 ) {

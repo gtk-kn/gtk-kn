@@ -14,6 +14,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
@@ -74,6 +75,7 @@ import kotlin.Unit
  *
  * @since 2.26
  */
+@GioVersion2_26
 public open class DBusServer(
     pointer: CPointer<GDBusServer>,
 ) : Object(pointer.reinterpret()),
@@ -90,6 +92,7 @@ public open class DBusServer(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public open val clientAddress: String
         /**
          * Gets a
@@ -111,6 +114,7 @@ public open class DBusServer(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public open val flags: DBusServerFlags
         /**
          * Gets the flags for @server.
@@ -130,6 +134,7 @@ public open class DBusServer(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public open val guid: String
         /**
          * Gets the GUID for @server, as provided to g_dbus_server_new_sync().
@@ -209,6 +214,7 @@ public open class DBusServer(
      * by @server.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getClientAddress(): String =
         g_dbus_server_get_client_address(gioDBusServerPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -219,6 +225,7 @@ public open class DBusServer(
      * @return A set of flags from the #GDBusServerFlags enumeration.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getFlags(): DBusServerFlags =
         g_dbus_server_get_flags(gioDBusServerPointer.reinterpret()).run {
             DBusServerFlags(this)
@@ -230,6 +237,7 @@ public open class DBusServer(
      * @return A D-Bus GUID. Do not free this string, it is owned by @server.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun getGuid(): String =
         g_dbus_server_get_guid(gioDBusServerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -239,6 +247,7 @@ public open class DBusServer(
      * @return true if server is active, false otherwise.
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun isActive(): Boolean = g_dbus_server_is_active(gioDBusServerPointer.reinterpret()).asBoolean()
 
     /**
@@ -246,6 +255,7 @@ public open class DBusServer(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun start(): Unit = g_dbus_server_start(gioDBusServerPointer.reinterpret())
 
     /**
@@ -253,6 +263,7 @@ public open class DBusServer(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public open fun stop(): Unit = g_dbus_server_stop(gioDBusServerPointer.reinterpret())
 
     /**
@@ -283,6 +294,7 @@ public open class DBusServer(
      * run.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun connectNewConnection(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (connection: DBusConnection) -> Boolean,

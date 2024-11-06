@@ -4,6 +4,7 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GVariantBuilder
@@ -45,6 +46,7 @@ public class VariantBuilder(
      * @param value a #GVariant
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun addValue(`value`: Variant): Unit =
         g_variant_builder_add_value(glibVariantBuilderPointer.reinterpret(), `value`.glibVariantPointer)
 
@@ -58,6 +60,7 @@ public class VariantBuilder(
      *
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun close(): Unit = g_variant_builder_close(glibVariantBuilderPointer.reinterpret())
 
     /**
@@ -82,6 +85,7 @@ public class VariantBuilder(
      * @return a new, floating, #GVariant
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun end(): Variant =
         g_variant_builder_end(glibVariantBuilderPointer.reinterpret())!!.run {
             Variant(reinterpret())
@@ -128,6 +132,7 @@ public class VariantBuilder(
      * @param type the #GVariantType of the container
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun `open`(type: VariantType): Unit =
         g_variant_builder_open(glibVariantBuilderPointer.reinterpret(), type.glibVariantTypePointer)
 
@@ -140,6 +145,7 @@ public class VariantBuilder(
      * @return a new reference to @builder
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun ref(): VariantBuilder =
         g_variant_builder_ref(glibVariantBuilderPointer.reinterpret())!!.run {
             VariantBuilder(reinterpret())
@@ -156,6 +162,7 @@ public class VariantBuilder(
      *
      * @since 2.24
      */
+    @GLibVersion2_24
     public fun unref(): Unit = g_variant_builder_unref(glibVariantBuilderPointer.reinterpret())
 
     public companion object : RecordCompanion<VariantBuilder, GVariantBuilder> {

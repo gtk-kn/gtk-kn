@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.native.gtk.GtkListTabBehavior
 import org.gtkkn.native.gtk.GtkListTabBehavior.GTK_LIST_TAB_ALL
 import org.gtkkn.native.gtk.GtkListTabBehavior.GTK_LIST_TAB_CELL
@@ -12,6 +13,7 @@ import org.gtkkn.native.gtk.GtkListTabBehavior.GTK_LIST_TAB_ITEM
  * in a [class@Gtk.ListView].
  * @since 4.12
  */
+@GtkVersion4_12
 public enum class ListTabBehavior(
     public val nativeValue: GtkListTabBehavior,
 ) {

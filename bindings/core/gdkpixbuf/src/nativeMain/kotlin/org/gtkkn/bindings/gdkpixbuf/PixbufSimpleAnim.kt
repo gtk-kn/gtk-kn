@@ -3,6 +3,8 @@ package org.gtkkn.bindings.gdkpixbuf
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_18
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -34,6 +36,7 @@ public open class PixbufSimpleAnim(
      *
      * @since 2.18
      */
+    @GdkPixbufVersion2_18
     public open var loop: Boolean
         /**
          * Gets whether @animation should loop indefinitely when it reaches the end.
@@ -49,6 +52,7 @@ public open class PixbufSimpleAnim(
          * @param loop whether to loop the animation
          * @since 2.18
          */
+        @GdkPixbufVersion2_18
         set(loop) = gdk_pixbuf_simple_anim_set_loop(gdkpixbufPixbufSimpleAnimPointer.reinterpret(), loop.asGBoolean())
 
     /**
@@ -74,6 +78,7 @@ public open class PixbufSimpleAnim(
      * @param pixbuf the pixbuf to add
      * @since 2.8
      */
+    @GdkPixbufVersion2_8
     public open fun addFrame(pixbuf: Pixbuf): Unit =
         gdk_pixbuf_simple_anim_add_frame(
             gdkpixbufPixbufSimpleAnimPointer.reinterpret(),
@@ -86,6 +91,7 @@ public open class PixbufSimpleAnim(
      * @return true if the animation loops forever, false otherwise
      * @since 2.18
      */
+    @GdkPixbufVersion2_18
     public open fun getLoop(): Boolean =
         gdk_pixbuf_simple_anim_get_loop(gdkpixbufPixbufSimpleAnimPointer.reinterpret()).asBoolean()
 
@@ -95,6 +101,7 @@ public open class PixbufSimpleAnim(
      * @param loop whether to loop the animation
      * @since 2.18
      */
+    @GdkPixbufVersion2_18
     public open fun setLoop(loop: Boolean): Unit =
         gdk_pixbuf_simple_anim_set_loop(gdkpixbufPixbufSimpleAnimPointer.reinterpret(), loop.asGBoolean())
 

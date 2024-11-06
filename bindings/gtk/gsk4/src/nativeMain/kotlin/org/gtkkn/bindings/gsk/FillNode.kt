@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -18,6 +19,7 @@ import org.gtkkn.native.gsk.gsk_fill_node_new
  * and [enum@Gsk.FillRule] with the child node.
  * @since 4.14
  */
+@GskVersion4_14
 public open class FillNode(
     pointer: CPointer<GskFillNode>,
 ) : RenderNode(pointer.reinterpret()),
@@ -47,6 +49,7 @@ public open class FillNode(
      * @return The child that is getting drawn
      * @since 4.14
      */
+    @GskVersion4_14
     public open fun getChild(): RenderNode =
         gsk_fill_node_get_child(gskFillNodePointer.reinterpret())!!.run {
             RenderNode(reinterpret())
@@ -58,6 +61,7 @@ public open class FillNode(
      * @return a `GskFillRule`
      * @since 4.14
      */
+    @GskVersion4_14
     public open fun getFillRule(): FillRule =
         gsk_fill_node_get_fill_rule(gskFillNodePointer.reinterpret()).run {
             FillRule.fromNativeValue(this)
@@ -70,6 +74,7 @@ public open class FillNode(
      * @return a `GskPath`
      * @since 4.14
      */
+    @GskVersion4_14
     public open fun getPath(): Path =
         gsk_fill_node_get_path(gskFillNodePointer.reinterpret())!!.run {
             Path(reinterpret())

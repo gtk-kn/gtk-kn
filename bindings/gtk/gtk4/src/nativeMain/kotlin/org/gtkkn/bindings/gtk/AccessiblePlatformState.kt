@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.native.gtk.GtkAccessiblePlatformState
 import org.gtkkn.native.gtk.GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_ACTIVE
 import org.gtkkn.native.gtk.GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSABLE
@@ -11,6 +12,7 @@ import org.gtkkn.native.gtk.GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_S
  * using [method@Gtk.Accessible.get_platform_state].
  * @since 4.10
  */
+@GtkVersion4_10
 public enum class AccessiblePlatformState(
     public val nativeValue: GtkAccessiblePlatformState,
 ) {

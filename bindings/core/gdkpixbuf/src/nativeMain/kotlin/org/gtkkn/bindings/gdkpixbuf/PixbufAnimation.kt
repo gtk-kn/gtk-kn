@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdkpixbuf.Gdkpixbuf.resolveException
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_28
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
@@ -309,6 +310,7 @@ public open class PixbufAnimation(
          * @param callback a `GAsyncReadyCallback` to call when the pixbuf is loaded
          * @since 2.28
          */
+        @GdkPixbufVersion2_28
         public fun newFromStreamAsync(
             stream: InputStream,
             cancellable: Cancellable? = null,

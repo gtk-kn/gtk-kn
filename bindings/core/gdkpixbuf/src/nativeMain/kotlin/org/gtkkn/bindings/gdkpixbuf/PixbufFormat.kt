@@ -6,6 +6,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_22
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_36
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toKStringList
@@ -44,6 +48,7 @@ import kotlin.collections.List
  *
  * @since 2.2
  */
+@GdkPixbufVersion2_2
 public class PixbufFormat(
     pointer: CPointer<GdkPixbufFormat>,
 ) : Record {
@@ -118,6 +123,7 @@ public class PixbufFormat(
      *   gdk_pixbuf_format_free() to free the resources when done
      * @since 2.22
      */
+    @GdkPixbufVersion2_22
     public fun copy(): PixbufFormat =
         gdk_pixbuf_format_copy(gdkpixbufPixbufFormatPointer.reinterpret())!!.run {
             PixbufFormat(reinterpret())
@@ -129,6 +135,7 @@ public class PixbufFormat(
      *
      * @since 2.22
      */
+    @GdkPixbufVersion2_22
     public fun free(): Unit = gdk_pixbuf_format_free(gdkpixbufPixbufFormatPointer.reinterpret())
 
     /**
@@ -137,6 +144,7 @@ public class PixbufFormat(
      * @return a description of the format.
      * @since 2.2
      */
+    @GdkPixbufVersion2_2
     public fun getDescription(): String =
         gdk_pixbuf_format_get_description(gdkpixbufPixbufFormatPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -149,6 +157,7 @@ public class PixbufFormat(
      *   filename extensions
      * @since 2.2
      */
+    @GdkPixbufVersion2_2
     public fun getExtensions(): List<String> =
         gdk_pixbuf_format_get_extensions(gdkpixbufPixbufFormatPointer.reinterpret())?.toKStringList()
             ?: error("Expected not null string array")
@@ -162,6 +171,7 @@ public class PixbufFormat(
      * @return a string describing the license of the pixbuf format
      * @since 2.6
      */
+    @GdkPixbufVersion2_6
     public fun getLicense(): String =
         gdk_pixbuf_format_get_license(gdkpixbufPixbufFormatPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -172,6 +182,7 @@ public class PixbufFormat(
      * @return an array of mime types
      * @since 2.2
      */
+    @GdkPixbufVersion2_2
     public fun getMimeTypes(): List<String> =
         gdk_pixbuf_format_get_mime_types(gdkpixbufPixbufFormatPointer.reinterpret())?.toKStringList()
             ?: error("Expected not null string array")
@@ -182,6 +193,7 @@ public class PixbufFormat(
      * @return the name of the format.
      * @since 2.2
      */
+    @GdkPixbufVersion2_2
     public fun getName(): String =
         gdk_pixbuf_format_get_name(gdkpixbufPixbufFormatPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -194,6 +206,7 @@ public class PixbufFormat(
      * @return whether this image format is disabled.
      * @since 2.6
      */
+    @GdkPixbufVersion2_6
     public fun isDisabled(): Boolean =
         gdk_pixbuf_format_is_disabled(gdkpixbufPixbufFormatPointer.reinterpret()).asBoolean()
 
@@ -207,6 +220,7 @@ public class PixbufFormat(
      * @return `TRUE` if the specified option is supported
      * @since 2.36
      */
+    @GdkPixbufVersion2_36
     public fun isSaveOptionSupported(optionKey: String): Boolean =
         gdk_pixbuf_format_is_save_option_supported(gdkpixbufPixbufFormatPointer.reinterpret(), optionKey).asBoolean()
 
@@ -220,6 +234,7 @@ public class PixbufFormat(
      * @return whether this image format is scalable.
      * @since 2.6
      */
+    @GdkPixbufVersion2_6
     public fun isScalable(): Boolean =
         gdk_pixbuf_format_is_scalable(gdkpixbufPixbufFormatPointer.reinterpret()).asBoolean()
 
@@ -229,6 +244,7 @@ public class PixbufFormat(
      * @return whether pixbufs can be saved in the given format.
      * @since 2.2
      */
+    @GdkPixbufVersion2_2
     public fun isWritable(): Boolean =
         gdk_pixbuf_format_is_writable(gdkpixbufPixbufFormatPointer.reinterpret()).asBoolean()
 
@@ -244,6 +260,7 @@ public class PixbufFormat(
      * @param disabled `TRUE` to disable the format @format
      * @since 2.6
      */
+    @GdkPixbufVersion2_6
     public fun setDisabled(disabled: Boolean): Unit =
         gdk_pixbuf_format_set_disabled(gdkpixbufPixbufFormatPointer.reinterpret(), disabled.asGBoolean())
 

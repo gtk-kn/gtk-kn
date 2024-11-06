@@ -34,7 +34,8 @@ import kotlin.collections.List
  */
 public open class StyleSchemeManager(
     pointer: CPointer<GtkSourceStyleSchemeManager>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceStyleSchemeManagerPointer: CPointer<GtkSourceStyleSchemeManager>
         get() = gPointer.reinterpret()
 
@@ -72,10 +73,7 @@ public open class StyleSchemeManager(
      * @param path a directory or a filename.
      */
     public open fun appendSearchPath(path: String): Unit =
-        gtk_source_style_scheme_manager_append_search_path(
-            gtksourceStyleSchemeManagerPointer.reinterpret(),
-            path
-        )
+        gtk_source_style_scheme_manager_append_search_path(gtksourceStyleSchemeManagerPointer.reinterpret(), path)
 
     /**
      * Mark any currently cached information about the available style schems
@@ -94,10 +92,7 @@ public open class StyleSchemeManager(
      *   The returned value is owned by @manager and must not be unref'ed.
      */
     public open fun getScheme(schemeId: String): StyleScheme? =
-        gtk_source_style_scheme_manager_get_scheme(
-            gtksourceStyleSchemeManagerPointer.reinterpret(),
-            schemeId
-        )?.run {
+        gtk_source_style_scheme_manager_get_scheme(gtksourceStyleSchemeManagerPointer.reinterpret(), schemeId)?.run {
             StyleScheme(reinterpret())
         }
 
@@ -139,10 +134,7 @@ public open class StyleSchemeManager(
      * @param path a directory or a filename.
      */
     public open fun prependSearchPath(path: String): Unit =
-        gtk_source_style_scheme_manager_prepend_search_path(
-            gtksourceStyleSchemeManagerPointer.reinterpret(),
-            path
-        )
+        gtk_source_style_scheme_manager_prepend_search_path(gtksourceStyleSchemeManagerPointer.reinterpret(), path)
 
     /**
      * Sets the list of directories where the @manager looks for
@@ -163,9 +155,9 @@ public open class StyleSchemeManager(
 
     public companion object : TypeCompanion<StyleSchemeManager> {
         override val type: GeneratedClassKGType<StyleSchemeManager> =
-            GeneratedClassKGType(gtk_source_style_scheme_manager_get_type()) {
-                StyleSchemeManager(it.reinterpret())
-            }
+            GeneratedClassKGType(
+                gtk_source_style_scheme_manager_get_type()
+            ) { StyleSchemeManager(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

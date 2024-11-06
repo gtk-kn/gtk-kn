@@ -12,6 +12,8 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
@@ -221,6 +223,7 @@ public open class DropDown(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var headerFactory: ListItemFactory?
         /**
          * Gets the factory that's currently used to create header widgets for the popup.
@@ -239,6 +242,7 @@ public open class DropDown(
          * @param factory the factory to use
          * @since 4.12
          */
+        @GtkVersion4_12
         set(
             factory
         ) =
@@ -302,6 +306,7 @@ public open class DropDown(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var searchMatchMode: StringFilterMatchMode
         /**
          * Returns the match mode that the search filter is using.
@@ -320,6 +325,7 @@ public open class DropDown(
          * @param searchMatchMode the new match mode
          * @since 4.12
          */
+        @GtkVersion4_12
         set(
             searchMatchMode
         ) = gtk_drop_down_set_search_match_mode(gtkDropDownPointer.reinterpret(), searchMatchMode.nativeValue)
@@ -365,6 +371,7 @@ public open class DropDown(
      *
      * @since 4.6
      */
+    @GtkVersion4_6
     public open var showArrow: Boolean
         /**
          * Returns whether to show an arrow within the widget.
@@ -380,6 +387,7 @@ public open class DropDown(
          * @param showArrow whether to show an arrow within the widget
          * @since 4.6
          */
+        @GtkVersion4_6
         set(showArrow) = gtk_drop_down_set_show_arrow(gtkDropDownPointer.reinterpret(), showArrow.asGBoolean())
 
     /**
@@ -450,6 +458,7 @@ public open class DropDown(
      * @return The factory in use
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getHeaderFactory(): ListItemFactory? =
         gtk_drop_down_get_header_factory(gtkDropDownPointer.reinterpret())?.run {
             ListItemFactory(reinterpret())
@@ -481,6 +490,7 @@ public open class DropDown(
      * @return the match mode of the search filter
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getSearchMatchMode(): StringFilterMatchMode =
         gtk_drop_down_get_search_match_mode(gtkDropDownPointer.reinterpret()).run {
             StringFilterMatchMode.fromNativeValue(this)
@@ -510,6 +520,7 @@ public open class DropDown(
      * @return true if an arrow will be shown.
      * @since 4.6
      */
+    @GtkVersion4_6
     public open fun getShowArrow(): Boolean = gtk_drop_down_get_show_arrow(gtkDropDownPointer.reinterpret()).asBoolean()
 
     /**
@@ -549,6 +560,7 @@ public open class DropDown(
      * @param factory the factory to use
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setHeaderFactory(factory: ListItemFactory? = null): Unit =
         gtk_drop_down_set_header_factory(
             gtkDropDownPointer.reinterpret(),
@@ -580,6 +592,7 @@ public open class DropDown(
      * @param searchMatchMode the new match mode
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setSearchMatchMode(searchMatchMode: StringFilterMatchMode): Unit =
         gtk_drop_down_set_search_match_mode(gtkDropDownPointer.reinterpret(), searchMatchMode.nativeValue)
 
@@ -597,6 +610,7 @@ public open class DropDown(
      * @param showArrow whether to show an arrow within the widget
      * @since 4.6
      */
+    @GtkVersion4_6
     public open fun setShowArrow(showArrow: Boolean): Unit =
         gtk_drop_down_set_show_arrow(gtkDropDownPointer.reinterpret(), showArrow.asGBoolean())
 
@@ -610,6 +624,7 @@ public open class DropDown(
      * @param handler the Callback to connect
      * @since 4.6
      */
+    @GtkVersion4_6
     public fun connectActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,

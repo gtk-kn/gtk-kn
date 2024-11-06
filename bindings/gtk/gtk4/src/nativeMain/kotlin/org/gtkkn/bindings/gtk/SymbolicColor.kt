@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
 import org.gtkkn.native.gtk.GtkSymbolicColor
 import org.gtkkn.native.gtk.GtkSymbolicColor.GTK_SYMBOLIC_COLOR_ERROR
 import org.gtkkn.native.gtk.GtkSymbolicColor.GTK_SYMBOLIC_COLOR_FOREGROUND
@@ -14,6 +15,7 @@ import org.gtkkn.native.gtk.GtkSymbolicColor.GTK_SYMBOLIC_COLOR_WARNING
  * More values may be added over time.
  * @since 4.6
  */
+@GtkVersion4_6
 public enum class SymbolicColor(
     public val nativeValue: GtkSymbolicColor,
 ) {

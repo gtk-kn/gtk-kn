@@ -16,6 +16,9 @@ import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -54,6 +57,7 @@ import kotlin.Unit
  * To launch uris that don't represent files, use [class@Gtk.UriLauncher].
  * @since 4.10
  */
+@GtkVersion4_10
 public open class FileLauncher(
     pointer: CPointer<GtkFileLauncher>,
 ) : Object(pointer.reinterpret()),
@@ -67,6 +71,7 @@ public open class FileLauncher(
      *
      * @since 4.12
      */
+    @GtkVersion4_12
     public open var alwaysAsk: Boolean
         /**
          * Returns whether to ask the user to choose an app for opening the file.
@@ -83,6 +88,7 @@ public open class FileLauncher(
          * @param alwaysAsk a `gboolean`
          * @since 4.12
          */
+        @GtkVersion4_12
         set(alwaysAsk) = gtk_file_launcher_set_always_ask(gtkFileLauncherPointer.reinterpret(), alwaysAsk.asGBoolean())
 
     /**
@@ -90,6 +96,7 @@ public open class FileLauncher(
      *
      * @since 4.10
      */
+    @GtkVersion4_10
     public open var `file`: File?
         /**
          * Gets the file that will be opened.
@@ -108,6 +115,7 @@ public open class FileLauncher(
          * @param file a `GFile`
          * @since 4.10
          */
+        @GtkVersion4_10
         set(`file`) = gtk_file_launcher_set_file(gtkFileLauncherPointer.reinterpret(), `file`?.gioFilePointer)
 
     /**
@@ -115,6 +123,7 @@ public open class FileLauncher(
      *
      * @since 4.14
      */
+    @GtkVersion4_14
     public open var writable: Boolean
         /**
          * Returns whether to make the file writable for the handler.
@@ -130,6 +139,7 @@ public open class FileLauncher(
          * @param writable a `gboolean`
          * @since 4.14
          */
+        @GtkVersion4_14
         set(writable) = gtk_file_launcher_set_writable(gtkFileLauncherPointer.reinterpret(), writable.asGBoolean())
 
     /**
@@ -147,6 +157,7 @@ public open class FileLauncher(
      * @return `TRUE` if always asking for app
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun getAlwaysAsk(): Boolean =
         gtk_file_launcher_get_always_ask(gtkFileLauncherPointer.reinterpret()).asBoolean()
 
@@ -156,6 +167,7 @@ public open class FileLauncher(
      * @return the file
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun getFile(): File? =
         gtk_file_launcher_get_file(gtkFileLauncherPointer.reinterpret())?.run {
             File.wrap(reinterpret())
@@ -167,6 +179,7 @@ public open class FileLauncher(
      * @return `TRUE` if the file will be made writable
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun getWritable(): Boolean =
         gtk_file_launcher_get_writable(gtkFileLauncherPointer.reinterpret()).asBoolean()
 
@@ -184,6 +197,7 @@ public open class FileLauncher(
      * @param callback a callback to call when the operation is complete
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun launch(
         parent: Window? = null,
         cancellable: Cancellable? = null,
@@ -206,6 +220,7 @@ public open class FileLauncher(
      *     or `FALSE` and @error is set
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun launchFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -237,6 +252,7 @@ public open class FileLauncher(
      * @param callback a callback to call when the operation is complete
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun openContainingFolder(
         parent: Window? = null,
         cancellable: Cancellable? = null,
@@ -259,6 +275,7 @@ public open class FileLauncher(
      *     or `FALSE` and @error is set
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun openContainingFolderFinish(result: AsyncResult): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -282,6 +299,7 @@ public open class FileLauncher(
      * @param alwaysAsk a `gboolean`
      * @since 4.12
      */
+    @GtkVersion4_12
     public open fun setAlwaysAsk(alwaysAsk: Boolean): Unit =
         gtk_file_launcher_set_always_ask(gtkFileLauncherPointer.reinterpret(), alwaysAsk.asGBoolean())
 
@@ -291,6 +309,7 @@ public open class FileLauncher(
      * @param file a `GFile`
      * @since 4.10
      */
+    @GtkVersion4_10
     public open fun setFile(`file`: File? = null): Unit =
         gtk_file_launcher_set_file(gtkFileLauncherPointer.reinterpret(), `file`?.gioFilePointer)
 
@@ -300,6 +319,7 @@ public open class FileLauncher(
      * @param writable a `gboolean`
      * @since 4.14
      */
+    @GtkVersion4_14
     public open fun setWritable(writable: Boolean): Unit =
         gtk_file_launcher_set_writable(gtkFileLauncherPointer.reinterpret(), writable.asGBoolean())
 

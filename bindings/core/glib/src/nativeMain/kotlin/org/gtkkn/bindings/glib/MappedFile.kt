@@ -10,6 +10,9 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Glib.resolveException
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_8
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -46,6 +49,7 @@ public class MappedFile(
      *
      * @since 2.8
      */
+    @GLibVersion2_8
     public fun free(): Unit = g_mapped_file_free(glibMappedFilePointer.reinterpret())
 
     /**
@@ -57,6 +61,7 @@ public class MappedFile(
      *     from @file
      * @since 2.34
      */
+    @GLibVersion2_34
     public fun getBytes(): Bytes =
         g_mapped_file_get_bytes(glibMappedFilePointer.reinterpret())!!.run {
             Bytes(reinterpret())
@@ -73,6 +78,7 @@ public class MappedFile(
      * @return the contents of @file, or null.
      * @since 2.8
      */
+    @GLibVersion2_8
     public fun getContents(): String =
         g_mapped_file_get_contents(glibMappedFilePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -83,6 +89,7 @@ public class MappedFile(
      * @return the length of the contents of @file.
      * @since 2.8
      */
+    @GLibVersion2_8
     public fun getLength(): ULong = g_mapped_file_get_length(glibMappedFilePointer.reinterpret())
 
     /**
@@ -92,6 +99,7 @@ public class MappedFile(
      * @return the passed in #GMappedFile.
      * @since 2.22
      */
+    @GLibVersion2_22
     public fun ref(): MappedFile =
         g_mapped_file_ref(glibMappedFilePointer.reinterpret())!!.run {
             MappedFile(reinterpret())

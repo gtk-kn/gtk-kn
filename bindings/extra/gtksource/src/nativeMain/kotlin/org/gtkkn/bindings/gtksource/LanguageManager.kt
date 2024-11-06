@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -43,7 +44,8 @@ import kotlin.collections.List
  */
 public open class LanguageManager(
     pointer: CPointer<GtkSourceLanguageManager>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceLanguageManagerPointer: CPointer<GtkSourceLanguageManager>
         get() = gPointer.reinterpret()
 
@@ -81,11 +83,9 @@ public open class LanguageManager(
      * @param path a directory or a filename.
      * @since 5.4
      */
+    @GtkSourceVersion5_4
     public open fun appendSearchPath(path: String): Unit =
-        gtk_source_language_manager_append_search_path(
-            gtksourceLanguageManagerPointer.reinterpret(),
-            path
-        )
+        gtk_source_language_manager_append_search_path(gtksourceLanguageManagerPointer.reinterpret(), path)
 
     /**
      * Gets the [class@Language] identified by the given @id in the language
@@ -97,10 +97,7 @@ public open class LanguageManager(
      * owned by @lm and should not be freed.
      */
     public open fun getLanguage(id: String): Language? =
-        gtk_source_language_manager_get_language(
-            gtksourceLanguageManagerPointer.reinterpret(),
-            id
-        )?.run {
+        gtk_source_language_manager_get_language(gtksourceLanguageManagerPointer.reinterpret(), id)?.run {
             Language(reinterpret())
         }
 
@@ -193,11 +190,9 @@ public open class LanguageManager(
      * @param path a directory or a filename.
      * @since 5.4
      */
+    @GtkSourceVersion5_4
     public open fun prependSearchPath(path: String): Unit =
-        gtk_source_language_manager_prepend_search_path(
-            gtksourceLanguageManagerPointer.reinterpret(),
-            path
-        )
+        gtk_source_language_manager_prepend_search_path(gtksourceLanguageManagerPointer.reinterpret(), path)
 
     /**
      * Sets the list of directories where the @lm looks for
@@ -227,9 +222,7 @@ public open class LanguageManager(
 
     public companion object : TypeCompanion<LanguageManager> {
         override val type: GeneratedClassKGType<LanguageManager> =
-            GeneratedClassKGType(gtk_source_language_manager_get_type()) {
-                LanguageManager(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_language_manager_get_type()) { LanguageManager(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

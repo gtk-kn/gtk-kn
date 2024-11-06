@@ -4,6 +4,9 @@ package org.gtkkn.bindings.pango
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -62,6 +65,7 @@ public class LayoutIter(
      * @return the newly allocated `PangoLayoutIter`
      * @since 1.20
      */
+    @PangoVersion1_20
     public fun copy(): LayoutIter? =
         pango_layout_iter_copy(pangoLayoutIterPointer.reinterpret())?.run {
             LayoutIter(reinterpret())
@@ -132,6 +136,7 @@ public class LayoutIter(
      * @return the layout associated with @iter
      * @since 1.20
      */
+    @PangoVersion1_20
     public fun getLayout(): Layout? =
         pango_layout_iter_get_layout(pangoLayoutIterPointer.reinterpret())?.run {
             Layout(reinterpret())
@@ -199,6 +204,7 @@ public class LayoutIter(
      *   modified
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun getLineReadonly(): LayoutLine? =
         pango_layout_iter_get_line_readonly(pangoLayoutIterPointer.reinterpret())?.run {
             LayoutLine(reinterpret())
@@ -215,6 +221,7 @@ public class LayoutIter(
      *
      * @since 1.50
      */
+    @PangoVersion1_50
     public fun getRunBaseline(): Int = pango_layout_iter_get_run_baseline(pangoLayoutIterPointer.reinterpret())
 
     /**

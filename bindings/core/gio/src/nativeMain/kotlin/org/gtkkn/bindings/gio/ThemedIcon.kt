@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.common.toKStringList
@@ -115,6 +116,7 @@ public open class ThemedIcon(
      * @param iconname name of icon to prepend to list of icons from within @icon.
      * @since 2.18
      */
+    @GioVersion2_18
     public open fun prependName(iconname: String): Unit =
         g_themed_icon_prepend_name(gioThemedIconPointer.reinterpret(), iconname)
 

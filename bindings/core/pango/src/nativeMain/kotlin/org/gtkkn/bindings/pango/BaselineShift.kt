@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.native.pango.PangoBaselineShift
 import org.gtkkn.native.pango.PangoBaselineShift.PANGO_BASELINE_SHIFT_NONE
 import org.gtkkn.native.pango.PangoBaselineShift.PANGO_BASELINE_SHIFT_SUBSCRIPT
@@ -10,6 +11,7 @@ import org.gtkkn.native.pango.PangoBaselineShift.PANGO_BASELINE_SHIFT_SUPERSCRIP
  * An enumeration that affects baseline shifts between runs.
  * @since 1.50
  */
+@PangoVersion1_50
 public enum class BaselineShift(
     public val nativeValue: PangoBaselineShift,
 ) {

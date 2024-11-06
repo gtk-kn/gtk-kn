@@ -8,6 +8,8 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.gio.annotations.GioVersion2_18
+import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -57,6 +59,7 @@ public open class UnixMountMonitor(
      *     poll for changes.
      * @since 2.18
      */
+    @GioVersion2_18
     public open fun setRateLimit(limitMsec: Int): Unit =
         g_unix_mount_monitor_set_rate_limit(gioUnixMountMonitorPointer.reinterpret(), limitMsec)
 
@@ -120,6 +123,7 @@ public open class UnixMountMonitor(
          * @return the #GUnixMountMonitor.
          * @since 2.44
          */
+        @GioVersion2_44
         public fun `get`(): UnixMountMonitor =
             g_unix_mount_monitor_get()!!.run {
                 UnixMountMonitor(reinterpret())

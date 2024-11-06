@@ -10,6 +10,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
@@ -193,6 +194,7 @@ import kotlin.Unit
  * ```
  * @since 1.5
  */
+@AdwVersion1_5
 public open class AlertDialog(
     pointer: CPointer<AdwAlertDialog>,
 ) : Dialog(pointer.reinterpret()),
@@ -214,6 +216,7 @@ public open class AlertDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public open var body: String
         /**
          * Gets the body text of @self.
@@ -231,6 +234,7 @@ public open class AlertDialog(
          * @param body the body of @self
          * @since 1.5
          */
+        @AdwVersion1_5
         set(body) = adw_alert_dialog_set_body(adwAlertDialogPointer.reinterpret(), body)
 
     /**
@@ -240,6 +244,7 @@ public open class AlertDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public open var bodyUseMarkup: Boolean
         /**
          * Gets whether the body text of @self includes Pango markup.
@@ -257,6 +262,7 @@ public open class AlertDialog(
          * @param useMarkup whether to use markup for body text
          * @since 1.5
          */
+        @AdwVersion1_5
         set(
             useMarkup
         ) = adw_alert_dialog_set_body_use_markup(adwAlertDialogPointer.reinterpret(), useMarkup.asGBoolean())
@@ -273,6 +279,7 @@ public open class AlertDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public open var closeResponse: String
         /**
          * Gets the ID of the close response of @self.
@@ -297,6 +304,7 @@ public open class AlertDialog(
          * @param response the close response ID
          * @since 1.5
          */
+        @AdwVersion1_5
         set(response) = adw_alert_dialog_set_close_response(adwAlertDialogPointer.reinterpret(), response)
 
     /**
@@ -309,6 +317,7 @@ public open class AlertDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public open var defaultResponse: String?
         /**
          * Gets the ID of the default response of @self.
@@ -329,6 +338,7 @@ public open class AlertDialog(
          * @param response the default response ID
          * @since 1.5
          */
+        @AdwVersion1_5
         set(response) = adw_alert_dialog_set_default_response(adwAlertDialogPointer.reinterpret(), response)
 
     /**
@@ -338,6 +348,7 @@ public open class AlertDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public open var extraChild: Widget?
         /**
          * Gets the child widget of @self.
@@ -358,6 +369,7 @@ public open class AlertDialog(
          * @param child the child widget
          * @since 1.5
          */
+        @AdwVersion1_5
         set(
             child
         ) =
@@ -371,6 +383,7 @@ public open class AlertDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public open var heading: String?
         /**
          * Gets the heading of @self.
@@ -386,6 +399,7 @@ public open class AlertDialog(
          * @param heading the heading of @self
          * @since 1.5
          */
+        @AdwVersion1_5
         set(heading) = adw_alert_dialog_set_heading(adwAlertDialogPointer.reinterpret(), heading)
 
     /**
@@ -395,6 +409,7 @@ public open class AlertDialog(
      *
      * @since 1.5
      */
+    @AdwVersion1_5
     public open var headingUseMarkup: Boolean
         /**
          * Gets whether the heading of @self includes Pango markup.
@@ -412,6 +427,7 @@ public open class AlertDialog(
          * @param useMarkup whether to use markup for heading
          * @since 1.5
          */
+        @AdwVersion1_5
         set(
             useMarkup
         ) = adw_alert_dialog_set_heading_use_markup(adwAlertDialogPointer.reinterpret(), useMarkup.asGBoolean())
@@ -464,6 +480,7 @@ public open class AlertDialog(
      * @param label the response label
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun addResponse(
         id: String,
         label: String,
@@ -483,6 +500,7 @@ public open class AlertDialog(
      * @param callback a callback to call when the operation is complete
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun choose(
         parent: Widget? = null,
         cancellable: Cancellable? = null,
@@ -504,6 +522,7 @@ public open class AlertDialog(
      *   [property@AlertDialog:close-response] if the call was cancelled.
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun chooseFinish(result: AsyncResult): String =
         adw_alert_dialog_choose_finish(adwAlertDialogPointer.reinterpret(), result.gioAsyncResultPointer)?.toKString()
             ?: error("Expected not null string")
@@ -514,6 +533,7 @@ public open class AlertDialog(
      * @return the body of @self.
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getBody(): String =
         adw_alert_dialog_get_body(adwAlertDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
@@ -523,6 +543,7 @@ public open class AlertDialog(
      * @return whether @self uses markup for body text
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getBodyUseMarkup(): Boolean =
         adw_alert_dialog_get_body_use_markup(adwAlertDialogPointer.reinterpret()).asBoolean()
 
@@ -532,6 +553,7 @@ public open class AlertDialog(
      * @return the close response ID
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getCloseResponse(): String =
         adw_alert_dialog_get_close_response(adwAlertDialogPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
@@ -542,6 +564,7 @@ public open class AlertDialog(
      * @return the default response ID
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getDefaultResponse(): String? =
         adw_alert_dialog_get_default_response(adwAlertDialogPointer.reinterpret())?.toKString()
 
@@ -551,6 +574,7 @@ public open class AlertDialog(
      * @return the child widget of @self.
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getExtraChild(): Widget? =
         adw_alert_dialog_get_extra_child(adwAlertDialogPointer.reinterpret())?.run {
             Widget(reinterpret())
@@ -562,6 +586,7 @@ public open class AlertDialog(
      * @return the heading of @self.
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getHeading(): String? =
         adw_alert_dialog_get_heading(adwAlertDialogPointer.reinterpret())?.toKString()
 
@@ -571,6 +596,7 @@ public open class AlertDialog(
      * @return whether @self uses markup for heading
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getHeadingUseMarkup(): Boolean =
         adw_alert_dialog_get_heading_use_markup(adwAlertDialogPointer.reinterpret()).asBoolean()
 
@@ -583,6 +609,7 @@ public open class AlertDialog(
      * @return the appearance of @response
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getResponseAppearance(response: String): ResponseAppearance =
         adw_alert_dialog_get_response_appearance(adwAlertDialogPointer.reinterpret(), response).run {
             ResponseAppearance.fromNativeValue(this)
@@ -597,6 +624,7 @@ public open class AlertDialog(
      * @return whether @response is enabled
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getResponseEnabled(response: String): Boolean =
         adw_alert_dialog_get_response_enabled(adwAlertDialogPointer.reinterpret(), response).asBoolean()
 
@@ -609,6 +637,7 @@ public open class AlertDialog(
      * @return the label of @response
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun getResponseLabel(response: String): String =
         adw_alert_dialog_get_response_label(adwAlertDialogPointer.reinterpret(), response)?.toKString()
             ?: error("Expected not null string")
@@ -620,6 +649,7 @@ public open class AlertDialog(
      * @return whether @self has a response with the ID @response.
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun hasResponse(response: String): Boolean =
         adw_alert_dialog_has_response(adwAlertDialogPointer.reinterpret(), response).asBoolean()
 
@@ -629,6 +659,7 @@ public open class AlertDialog(
      * @param id the response ID
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun removeResponse(id: String): Unit =
         adw_alert_dialog_remove_response(adwAlertDialogPointer.reinterpret(), id)
 
@@ -638,6 +669,7 @@ public open class AlertDialog(
      * @param body the body of @self
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setBody(body: String): Unit = adw_alert_dialog_set_body(adwAlertDialogPointer.reinterpret(), body)
 
     /**
@@ -648,6 +680,7 @@ public open class AlertDialog(
      * @param useMarkup whether to use markup for body text
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setBodyUseMarkup(useMarkup: Boolean): Unit =
         adw_alert_dialog_set_body_use_markup(adwAlertDialogPointer.reinterpret(), useMarkup.asGBoolean())
 
@@ -664,6 +697,7 @@ public open class AlertDialog(
      * @param response the close response ID
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setCloseResponse(response: String): Unit =
         adw_alert_dialog_set_close_response(adwAlertDialogPointer.reinterpret(), response)
 
@@ -678,6 +712,7 @@ public open class AlertDialog(
      * @param response the default response ID
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setDefaultResponse(response: String? = null): Unit =
         adw_alert_dialog_set_default_response(adwAlertDialogPointer.reinterpret(), response)
 
@@ -689,6 +724,7 @@ public open class AlertDialog(
      * @param child the child widget
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setExtraChild(child: Widget? = null): Unit =
         adw_alert_dialog_set_extra_child(adwAlertDialogPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
@@ -698,6 +734,7 @@ public open class AlertDialog(
      * @param heading the heading of @self
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setHeading(heading: String? = null): Unit =
         adw_alert_dialog_set_heading(adwAlertDialogPointer.reinterpret(), heading)
 
@@ -709,6 +746,7 @@ public open class AlertDialog(
      * @param useMarkup whether to use markup for heading
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setHeadingUseMarkup(useMarkup: Boolean): Unit =
         adw_alert_dialog_set_heading_use_markup(adwAlertDialogPointer.reinterpret(), useMarkup.asGBoolean())
 
@@ -735,6 +773,7 @@ public open class AlertDialog(
      * @param appearance appearance for @response
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setResponseAppearance(
         response: String,
         appearance: ResponseAppearance,
@@ -757,6 +796,7 @@ public open class AlertDialog(
      * @param enabled whether to enable @response
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setResponseEnabled(
         response: String,
         enabled: Boolean,
@@ -772,6 +812,7 @@ public open class AlertDialog(
      * @param label the label of @response
      * @since 1.5
      */
+    @AdwVersion1_5
     public open fun setResponseLabel(
         response: String,
         label: String,
@@ -791,6 +832,7 @@ public open class AlertDialog(
      * @param handler the Callback to connect. Params: `response` the response ID
      * @since 1.5
      */
+    @AdwVersion1_5
     public fun connectResponse(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (response: String) -> Unit,

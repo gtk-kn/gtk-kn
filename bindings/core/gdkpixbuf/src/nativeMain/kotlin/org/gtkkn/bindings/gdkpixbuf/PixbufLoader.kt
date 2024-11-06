@@ -13,6 +13,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdkpixbuf.Gdkpixbuf.resolveException
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
+import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_30
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
@@ -196,6 +198,7 @@ public open class PixbufLoader(
      * @return A #GdkPixbufFormat
      * @since 2.2
      */
+    @GdkPixbufVersion2_2
     public open fun getFormat(): PixbufFormat? =
         gdk_pixbuf_loader_get_format(gdkpixbufPixbufLoaderPointer.reinterpret())?.run {
             PixbufFormat(reinterpret())
@@ -240,6 +243,7 @@ public open class PixbufLoader(
      * @param height The desired height of the image being loaded.
      * @since 2.2
      */
+    @GdkPixbufVersion2_2
     public open fun setSize(
         width: Int,
         height: Int,
@@ -253,6 +257,7 @@ public open class PixbufLoader(
      *   the loader cannot parse the buffer
      * @since 2.30
      */
+    @GdkPixbufVersion2_30
     public open fun writeBytes(buffer: Bytes): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()

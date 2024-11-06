@@ -33,6 +33,6 @@ data class InterfaceBlueprint(
     val objectPointerTypeName: TypeName,
     val parentInterfaces: List<ImplementsInterfaceBlueprint>,
     val glibGetTypeFunc: MemberName?,
-    val version: String?,
+    val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
 )

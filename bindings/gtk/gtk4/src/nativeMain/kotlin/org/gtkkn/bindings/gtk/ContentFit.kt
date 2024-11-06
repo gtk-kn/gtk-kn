@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.native.gtk.GtkContentFit
 import org.gtkkn.native.gtk.GtkContentFit.GTK_CONTENT_FIT_CONTAIN
 import org.gtkkn.native.gtk.GtkContentFit.GTK_CONTENT_FIT_COVER
@@ -11,6 +12,7 @@ import org.gtkkn.native.gtk.GtkContentFit.GTK_CONTENT_FIT_SCALE_DOWN
  * Controls how a content should be made to fit inside an allocation.
  * @since 4.8
  */
+@GtkVersion4_8
 public enum class ContentFit(
     public val nativeValue: GtkContentFit,
 ) {

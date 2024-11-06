@@ -5,6 +5,9 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_42
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Record
@@ -169,6 +172,7 @@ public class FontDescription(
      *   if the field was explicitly set or not.
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun getGravity(): Gravity =
         pango_font_description_get_gravity(pangoFontDescriptionPointer.reinterpret()).run {
             Gravity.fromNativeValue(this)
@@ -213,6 +217,7 @@ public class FontDescription(
      *   set or not.
      * @since 1.8
      */
+    @PangoVersion1_8
     public fun getSizeIsAbsolute(): Boolean =
         pango_font_description_get_size_is_absolute(pangoFontDescriptionPointer.reinterpret()).asBoolean()
 
@@ -268,6 +273,7 @@ public class FontDescription(
      *   life-time as the font description itself and should not be freed.
      * @since 1.42
      */
+    @PangoVersion1_42
     public fun getVariations(): String? =
         pango_font_description_get_variations(pangoFontDescriptionPointer.reinterpret())?.toKString()
 
@@ -356,6 +362,7 @@ public class FontDescription(
      *   a @size value of 10 * PANGO_SCALE gives a 10 pixel font.
      * @since 1.8
      */
+    @PangoVersion1_8
     public fun setAbsoluteSize(size: Double): Unit =
         pango_font_description_set_absolute_size(pangoFontDescriptionPointer.reinterpret(), size)
 
@@ -401,6 +408,7 @@ public class FontDescription(
      * @param gravity the gravity for the font description.
      * @since 1.16
      */
+    @PangoVersion1_16
     public fun setGravity(gravity: Gravity): Unit =
         pango_font_description_set_gravity(pangoFontDescriptionPointer.reinterpret(), gravity.nativeValue)
 
@@ -482,6 +490,7 @@ public class FontDescription(
      * @param variations a string representing the variations
      * @since 1.42
      */
+    @PangoVersion1_42
     public fun setVariations(variations: String? = null): Unit =
         pango_font_description_set_variations(pangoFontDescriptionPointer.reinterpret(), variations)
 
@@ -498,6 +507,7 @@ public class FontDescription(
      * @param variations a string representing the variations
      * @since 1.42
      */
+    @PangoVersion1_42
     public fun setVariationsStatic(variations: String): Unit =
         pango_font_description_set_variations_static(pangoFontDescriptionPointer.reinterpret(), variations)
 

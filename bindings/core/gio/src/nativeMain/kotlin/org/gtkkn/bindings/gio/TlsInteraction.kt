@@ -9,6 +9,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_30
+import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -51,6 +53,7 @@ import kotlin.Unit
  * it must also implement the corresponding finish method.
  * @since 2.30
  */
+@GioVersion2_30
 public open class TlsInteraction(
     pointer: CPointer<GTlsInteraction>,
 ) : Object(pointer.reinterpret()),
@@ -78,6 +81,7 @@ public open class TlsInteraction(
      * @return The status of the ask password interaction.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun askPassword(
         password: TlsPassword,
         cancellable: Cancellable? = null,
@@ -123,6 +127,7 @@ public open class TlsInteraction(
      * @param callback will be called when the interaction completes
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun askPasswordAsync(
         password: TlsPassword,
         cancellable: Cancellable? = null,
@@ -151,6 +156,7 @@ public open class TlsInteraction(
      * @return The status of the ask password interaction.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun askPasswordFinish(result: AsyncResult): Result<TlsInteractionResult> =
         memScoped {
             val gError = allocPointerTo<GError>()
@@ -196,6 +202,7 @@ public open class TlsInteraction(
      * @return The status of the ask password interaction.
      * @since 2.30
      */
+    @GioVersion2_30
     public open fun invokeAskPassword(
         password: TlsPassword,
         cancellable: Cancellable? = null,
@@ -247,6 +254,7 @@ public open class TlsInteraction(
      * @return The status of the certificate request interaction.
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun invokeRequestCertificate(
         connection: TlsConnection,
         flags: TlsCertificateRequestFlags,
@@ -296,6 +304,7 @@ public open class TlsInteraction(
      * @return The status of the request certificate interaction.
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun requestCertificate(
         connection: TlsConnection,
         flags: TlsCertificateRequestFlags,
@@ -337,6 +346,7 @@ public open class TlsInteraction(
      * @param callback will be called when the interaction completes
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun requestCertificateAsync(
         connection: TlsConnection,
         flags: TlsCertificateRequestFlags,
@@ -368,6 +378,7 @@ public open class TlsInteraction(
      * @return The status of the request certificate interaction.
      * @since 2.40
      */
+    @GioVersion2_40
     public open fun requestCertificateFinish(result: AsyncResult): Result<TlsInteractionResult> =
         memScoped {
             val gError = allocPointerTo<GError>()

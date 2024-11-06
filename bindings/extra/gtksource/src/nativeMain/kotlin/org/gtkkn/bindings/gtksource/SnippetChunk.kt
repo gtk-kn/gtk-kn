@@ -45,7 +45,8 @@ import kotlin.Unit
  */
 public open class SnippetChunk(
     pointer: CPointer<GtkSourceSnippetChunk>,
-) : InitiallyUnowned(pointer.reinterpret()), KGTyped {
+) : InitiallyUnowned(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceSnippetChunkPointer: CPointer<GtkSourceSnippetChunk>
         get() = gPointer.reinterpret()
 
@@ -65,7 +66,9 @@ public open class SnippetChunk(
          *
          * @param context
          */
-        set(context) =
+        set(
+            context
+        ) =
             gtk_source_snippet_chunk_set_context(
                 gtksourceSnippetChunkPointer.reinterpret(),
                 context.gtksourceSnippetContextPointer.reinterpret()
@@ -85,8 +88,7 @@ public open class SnippetChunk(
          *
          * @return the focus-position
          */
-        get() =
-            gtk_source_snippet_chunk_get_focus_position(gtksourceSnippetChunkPointer.reinterpret())
+        get() = gtk_source_snippet_chunk_get_focus_position(gtksourceSnippetChunkPointer.reinterpret())
 
         /**
          * Sets the [property@SnippetChunk:focus-position] property.
@@ -101,11 +103,9 @@ public open class SnippetChunk(
          *
          * @param focusPosition the focus-position
          */
-        set(focusPosition) =
-            gtk_source_snippet_chunk_set_focus_position(
-                gtksourceSnippetChunkPointer.reinterpret(),
-                focusPosition
-            )
+        set(
+            focusPosition
+        ) = gtk_source_snippet_chunk_set_focus_position(gtksourceSnippetChunkPointer.reinterpret(), focusPosition)
 
     public open var text: String
         /**
@@ -130,11 +130,7 @@ public open class SnippetChunk(
          *
          * @param text the text of the property
          */
-        set(text) =
-            gtk_source_snippet_chunk_set_text(
-                gtksourceSnippetChunkPointer.reinterpret(),
-                text
-            )
+        set(text) = gtk_source_snippet_chunk_set_text(gtksourceSnippetChunkPointer.reinterpret(), text)
 
     public open var textSet: Boolean
         /**
@@ -142,8 +138,7 @@ public open class SnippetChunk(
          *
          * This is typically set when the user has edited a snippet chunk.
          */
-        get() =
-            gtk_source_snippet_chunk_get_text_set(gtksourceSnippetChunkPointer.reinterpret()).asBoolean()
+        get() = gtk_source_snippet_chunk_get_text_set(gtksourceSnippetChunkPointer.reinterpret()).asBoolean()
 
         /**
          * Sets the [property@SnippetChunk:text-set] property.
@@ -153,11 +148,9 @@ public open class SnippetChunk(
          *
          * @param textSet the property value
          */
-        set(textSet) =
-            gtk_source_snippet_chunk_set_text_set(
-                gtksourceSnippetChunkPointer.reinterpret(),
-                textSet.asGBoolean()
-            )
+        set(
+            textSet
+        ) = gtk_source_snippet_chunk_set_text_set(gtksourceSnippetChunkPointer.reinterpret(), textSet.asGBoolean())
 
     public open var tooltipText: String
         get() =
@@ -169,11 +162,9 @@ public open class SnippetChunk(
          *
          * @param tooltipText
          */
-        set(tooltipText) =
-            gtk_source_snippet_chunk_set_tooltip_text(
-                gtksourceSnippetChunkPointer.reinterpret(),
-                tooltipText
-            )
+        set(
+            tooltipText
+        ) = gtk_source_snippet_chunk_set_tooltip_text(gtksourceSnippetChunkPointer.reinterpret(), tooltipText)
 
     /**
      * Create a new `GtkSourceSnippetChunk` that can be added to
@@ -280,10 +271,7 @@ public open class SnippetChunk(
      * @param focusPosition the focus-position
      */
     public open fun setFocusPosition(focusPosition: Int): Unit =
-        gtk_source_snippet_chunk_set_focus_position(
-            gtksourceSnippetChunkPointer.reinterpret(),
-            focusPosition
-        )
+        gtk_source_snippet_chunk_set_focus_position(gtksourceSnippetChunkPointer.reinterpret(), focusPosition)
 
     /**
      * Sets the specification for the chunk.
@@ -319,10 +307,7 @@ public open class SnippetChunk(
      * @param textSet the property value
      */
     public open fun setTextSet(textSet: Boolean): Unit =
-        gtk_source_snippet_chunk_set_text_set(
-            gtksourceSnippetChunkPointer.reinterpret(),
-            textSet.asGBoolean()
-        )
+        gtk_source_snippet_chunk_set_text_set(gtksourceSnippetChunkPointer.reinterpret(), textSet.asGBoolean())
 
     /**
      *
@@ -330,16 +315,11 @@ public open class SnippetChunk(
      * @param tooltipText
      */
     public open fun setTooltipText(tooltipText: String): Unit =
-        gtk_source_snippet_chunk_set_tooltip_text(
-            gtksourceSnippetChunkPointer.reinterpret(),
-            tooltipText
-        )
+        gtk_source_snippet_chunk_set_tooltip_text(gtksourceSnippetChunkPointer.reinterpret(), tooltipText)
 
     public companion object : TypeCompanion<SnippetChunk> {
         override val type: GeneratedClassKGType<SnippetChunk> =
-            GeneratedClassKGType(gtk_source_snippet_chunk_get_type()) {
-                SnippetChunk(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_snippet_chunk_get_type()) { SnippetChunk(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

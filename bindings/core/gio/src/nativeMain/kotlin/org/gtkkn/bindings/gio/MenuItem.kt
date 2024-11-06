@@ -3,6 +3,9 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.Object
@@ -34,6 +37,7 @@ import kotlin.Unit
  * functions below.
  * @since 2.32
  */
+@GioVersion2_32
 public open class MenuItem(
     pointer: CPointer<GMenuItem>,
 ) : Object(pointer.reinterpret()),
@@ -162,6 +166,7 @@ public open class MenuItem(
      * @return the attribute value, or null
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun getAttributeValue(
         attribute: String,
         expectedType: VariantType? = null,
@@ -181,6 +186,7 @@ public open class MenuItem(
      * @return the link, or null
      * @since 2.34
      */
+    @GioVersion2_34
     public open fun getLink(link: String): MenuModel? =
         g_menu_item_get_link(gioMenuItemPointer.reinterpret(), link)?.run {
             MenuModel(reinterpret())
@@ -228,6 +234,7 @@ public open class MenuItem(
      * @param targetValue a #GVariant to use as the action target
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun setActionAndTargetValue(
         action: String? = null,
         targetValue: Variant? = null,
@@ -263,6 +270,7 @@ public open class MenuItem(
      * @param value a #GVariant to use as the value, or null
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun setAttributeValue(
         attribute: String,
         `value`: Variant? = null,
@@ -284,6 +292,7 @@ public open class MenuItem(
      * @param detailedAction the "detailed" action string
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun setDetailedAction(detailedAction: String): Unit =
         g_menu_item_set_detailed_action(gioMenuItemPointer.reinterpret(), detailedAction)
 
@@ -304,6 +313,7 @@ public open class MenuItem(
      * @param icon a #GIcon, or null
      * @since 2.38
      */
+    @GioVersion2_38
     public open fun setIcon(icon: Icon): Unit =
         g_menu_item_set_icon(gioMenuItemPointer.reinterpret(), icon.gioIconPointer)
 
@@ -316,6 +326,7 @@ public open class MenuItem(
      * @param label the label to set, or null to unset
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun setLabel(label: String? = null): Unit =
         g_menu_item_set_label(gioMenuItemPointer.reinterpret(), label)
 
@@ -335,6 +346,7 @@ public open class MenuItem(
      * @param model the #GMenuModel to link to (or null to unset)
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun setLink(
         link: String,
         model: MenuModel? = null,
@@ -352,6 +364,7 @@ public open class MenuItem(
      * @param section a #GMenuModel, or null
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun setSection(section: MenuModel? = null): Unit =
         g_menu_item_set_section(gioMenuItemPointer.reinterpret(), section?.gioMenuModelPointer?.reinterpret())
 
@@ -367,6 +380,7 @@ public open class MenuItem(
      * @param submenu a #GMenuModel, or null
      * @since 2.32
      */
+    @GioVersion2_32
     public open fun setSubmenu(submenu: MenuModel? = null): Unit =
         g_menu_item_set_submenu(gioMenuItemPointer.reinterpret(), submenu?.gioMenuModelPointer?.reinterpret())
 

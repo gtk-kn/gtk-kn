@@ -6,6 +6,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GDBusArgInfo
@@ -24,6 +25,7 @@ import kotlin.Unit
  *
  * @since 2.26
  */
+@GioVersion2_26
 public class DBusArgInfo(
     pointer: CPointer<GDBusArgInfo>,
 ) : Record {
@@ -61,6 +63,7 @@ public class DBusArgInfo(
      * @return The same @info.
      * @since 2.26
      */
+    @GioVersion2_26
     public fun ref(): DBusArgInfo =
         g_dbus_arg_info_ref(gioDBusArgInfoPointer.reinterpret())!!.run {
             DBusArgInfo(reinterpret())
@@ -73,6 +76,7 @@ public class DBusArgInfo(
      *
      * @since 2.26
      */
+    @GioVersion2_26
     public fun unref(): Unit = g_dbus_arg_info_unref(gioDBusArgInfoPointer.reinterpret())
 
     public companion object : RecordCompanion<DBusArgInfo, GDBusArgInfo> {

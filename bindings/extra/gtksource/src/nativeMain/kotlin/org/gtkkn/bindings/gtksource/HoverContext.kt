@@ -32,7 +32,8 @@ import kotlin.Boolean
  */
 public open class HoverContext(
     pointer: CPointer<GtkSourceHoverContext>,
-) : Object(pointer.reinterpret()), KGTyped {
+) : Object(pointer.reinterpret()),
+    KGTyped {
     public val gtksourceHoverContextPointer: CPointer<GtkSourceHoverContext>
         get() = gPointer.reinterpret()
 
@@ -92,9 +93,7 @@ public open class HoverContext(
 
     public companion object : TypeCompanion<HoverContext> {
         override val type: GeneratedClassKGType<HoverContext> =
-            GeneratedClassKGType(gtk_source_hover_context_get_type()) {
-                HoverContext(it.reinterpret())
-            }
+            GeneratedClassKGType(gtk_source_hover_context_get_type()) { HoverContext(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()
