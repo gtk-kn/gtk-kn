@@ -41,7 +41,12 @@ import org.gtkkn.gir.processor.NativeTypes
 interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
     fun buildProperty(property: PropertyBlueprint, instancePointer: String?): PropertySpec =
         PropertySpec.builder(property.kotlinName, property.typeInfo.kotlinTypeName, KModifier.PUBLIC).apply {
-            addKdoc(buildPropertyKDoc(property.kdoc, property.version))
+            addKdoc(buildPropertyKDoc(property.kdoc, property.optInVersionBlueprint))
+
+            // optInVersion
+            property.optInVersionBlueprint?.typeName?.let { annotationClassName ->
+                addAnnotation(annotationClassName)
+            }
 
             if (property.isOverride) {
                 addModifiers(KModifier.OVERRIDE)
@@ -69,7 +74,13 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         FunSpecBuilderType.GETTER -> FunSpec.getterBuilder()
         FunSpecBuilderType.SETTER -> FunSpec.setterBuilder()
     }.apply {
-        addKdoc(buildMethodKDoc(method.kdoc, method.parameters, method.version, method.returnTypeKDoc))
+        addKdoc(buildMethodKDoc(method.kdoc, method.parameters, method.optInVersionBlueprint, method.returnTypeKDoc))
+
+        // optInVersion
+        if (builderType != FunSpecBuilderType.GETTER && method.optInVersionBlueprint?.typeName != null) {
+            addAnnotation(method.optInVersionBlueprint.typeName)
+        }
+
         if (builderType == FunSpecBuilderType.DEFAULT) {
             val returnTypeName = if (method.throws) {
                 BindingsGenerator.RESULT_TYPE.parameterizedBy(method.returnTypeInfo.kotlinTypeName)
@@ -166,9 +177,15 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
     /**
      * Build a function implementation for standalone functions (not methods with an instance parameter).
      */
+    @Suppress("LongMethod", "CyclomaticComplexMethod")
     fun buildFunction(func: FunctionBlueprint): FunSpec = FunSpec.builder(func.kotlinName).apply {
         // kdoc
-        addKdoc(buildMethodKDoc(func.kdoc, func.parameters, func.version, func.returnTypeKDoc))
+        addKdoc(buildMethodKDoc(func.kdoc, func.parameters, func.optInVersionBlueprint, func.returnTypeKDoc))
+
+        // optInVersion
+        func.optInVersionBlueprint?.typeName?.let { annotationClassName ->
+            addAnnotation(annotationClassName)
+        }
 
         // add return value to signature
         val returnType = if (func.throws) {
@@ -249,7 +266,19 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
         FunSpec.builder(signal.kotlinConnectName).apply {
             val connectFlagsTypeName = ClassName("org.gtkkn.bindings.gobject", "ConnectFlags")
 
-            addKdoc(buildSignalKDoc(signal.kdoc, signal.parameters, signal.version, signal.returnTypeKDoc))
+            addKdoc(
+                buildSignalKDoc(
+                    signal.kdoc,
+                    signal.parameters,
+                    signal.optInVersionBlueprint,
+                    signal.returnTypeKDoc,
+                ),
+            )
+
+            // optInVersion
+            signal.optInVersionBlueprint?.typeName?.let { annotationClassName ->
+                addAnnotation(annotationClassName)
+            }
 
             // connect flags
             addParameter(

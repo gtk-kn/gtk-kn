@@ -30,21 +30,26 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
             .build()
 
         // enum spec
-        val enumSpec = TypeSpec.enumBuilder(enum.kotlinTypeName)
-            .addKdoc(buildTypeKDoc(enum.kdoc, enum.version))
-            .primaryConstructor(constructorSpec)
-            .addProperty(
+        val enumSpec = TypeSpec.enumBuilder(enum.kotlinTypeName).apply {
+            addKdoc(buildTypeKDoc(enum.kdoc, enum.optInVersionBlueprint))
+            // optInVersion
+            enum.optInVersionBlueprint?.typeName?.let { annotationClassName ->
+                addAnnotation(annotationClassName)
+            }
+            primaryConstructor(constructorSpec)
+            addProperty(
                 PropertySpec.builder("nativeValue", enum.nativeValueTypeName)
                     .initializer("nativeValue")
                     .build(),
             )
+        }
 
         // add enum members
         enum.memberBlueprints.forEach { member ->
             enumSpec.addEnumConstant(
                 member.kotlinName,
                 TypeSpec.anonymousClassBuilder()
-                    .addKdoc(buildTypeKDoc(member.kdoc, member.version))
+                    .addKdoc(buildTypeKDoc(member.kdoc, member.optInVersionBlueprint))
                     .addSuperclassConstructorParameter("%M", member.nativeMemberName)
                     .build(),
             )

@@ -28,7 +28,7 @@ data class MethodBlueprint(
     override val exceptionResolvingFunctionMember: MemberName,
     val isOverride: Boolean,
     val isOpen: Boolean,
-    val version: String?,
+    val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
     val returnTypeKDoc: String?,
 ) : CallableBlueprint

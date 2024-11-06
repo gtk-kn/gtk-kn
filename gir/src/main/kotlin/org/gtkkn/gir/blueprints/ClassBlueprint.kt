@@ -37,7 +37,7 @@ data class ClassBlueprint(
     val interfacePointerOverrides: List<ImplementsInterfaceBlueprint>,
     val isFinal: Boolean,
     val glibGetTypeFunc: MemberName?,
-    val version: String?,
+    val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
 ) {
     val hasParent: Boolean get() = parentTypeName != null

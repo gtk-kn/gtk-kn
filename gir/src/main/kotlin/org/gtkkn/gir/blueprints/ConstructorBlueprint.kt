@@ -32,7 +32,7 @@ import com.squareup.kotlinpoet.MemberName
  * @property throws true if the constructor can throw.
  * @property exceptionResolvingFunctionMember member name of the error resolving function.
  * @property kdoc the KDoc of the constructor
- * @property version version number of a constructor
+ * @property optInVersionBlueprint version number of a constructor
  * @property returnTypeKDoc the KDoc of the return type
  */
 data class ConstructorBlueprint(
@@ -44,6 +44,6 @@ data class ConstructorBlueprint(
     override val throws: Boolean,
     override val exceptionResolvingFunctionMember: MemberName,
     val kdoc: String?,
-    val version: String?,
+    val optInVersionBlueprint: OptInVersionBlueprint?,
     val returnTypeKDoc: String?,
 ) : CallableBlueprint

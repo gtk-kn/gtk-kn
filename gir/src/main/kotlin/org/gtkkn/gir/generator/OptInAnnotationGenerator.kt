@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 gtk-kn
+ * Copyright (c) 2024 gtk-kn
  *
  * This file is part of gtk-kn.
  * gtk-kn is free software: you can redistribute it and/or modify
@@ -14,23 +14,11 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-package org.gtkkn.gir.blueprints
+package org.gtkkn.gir.generator
 
-import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeSpec
+import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 
-data class RecordBlueprint(
-    val kotlinName: String,
-    val kotlinTypeName: ClassName,
-    val objectPointerTypeName: TypeName,
-    val objectPointerName: String,
-    val constructors: List<ConstructorBlueprint>,
-    val functions: List<FunctionBlueprint>,
-    val methods: List<MethodBlueprint>,
-    val fields: List<FieldBlueprint>,
-    val cStructTypeName: ClassName,
-    val skippedObjects: List<SkippedObject>,
-    val isOpaque: Boolean,
-    val kdoc: String?,
-    val optInVersionBlueprint: OptInVersionBlueprint?,
-)
+interface OptInAnnotationGenerator {
+    fun buildOptInAnnotation(optInVersion: OptInVersionBlueprint): TypeSpec
+}

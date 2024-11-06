@@ -27,10 +27,15 @@ interface BitfieldGenerator : MiscGenerator, KDocGenerator {
     fun buildBitfield(bitfield: BitfieldBlueprint): TypeSpec {
         val companionSpecBuilder = TypeSpec.companionObjectBuilder()
 
+        // optInVersion
+        bitfield.optInVersionBlueprint?.typeName?.let { annotationClassName ->
+            companionSpecBuilder.addAnnotation(annotationClassName)
+        }
+
         bitfield.members.forEach { member ->
             companionSpecBuilder.addProperty(
                 PropertySpec.builder(member.kotlinName, bitfield.kotlinTypeName)
-                    .addKdoc(buildTypeKDoc(member.kdoc, member.version))
+                    .addKdoc(buildTypeKDoc(member.kdoc, member.optInVersionBlueprint))
                     .initializer("%T(%M)", bitfield.kotlinTypeName, member.nativeMemberName)
                     .build(),
             )
@@ -52,7 +57,7 @@ interface BitfieldGenerator : MiscGenerator, KDocGenerator {
 
         val bitfieldSpec = TypeSpec.classBuilder(bitfield.kotlinName)
             .addSuperinterface(genericMarkerType)
-            .addKdoc(buildTypeKDoc(bitfield.kdoc, bitfield.version))
+            .addKdoc(buildTypeKDoc(bitfield.kdoc, bitfield.optInVersionBlueprint))
             .primaryConstructor(constructorSpec)
             .addProperty(
                 PropertySpec.builder("mask", bitfield.nativeValueTypeName)

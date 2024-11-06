@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 gtk-kn
+ * Copyright (c) 2024 gtk-kn
  *
  * This file is part of gtk-kn.
  * gtk-kn is free software: you can redistribute it and/or modify
@@ -17,20 +17,10 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.TypeName
 
-data class RecordBlueprint(
+data class OptInVersionBlueprint(
     val kotlinName: String,
-    val kotlinTypeName: ClassName,
-    val objectPointerTypeName: TypeName,
-    val objectPointerName: String,
-    val constructors: List<ConstructorBlueprint>,
-    val functions: List<FunctionBlueprint>,
-    val methods: List<MethodBlueprint>,
-    val fields: List<FieldBlueprint>,
-    val cStructTypeName: ClassName,
-    val skippedObjects: List<SkippedObject>,
-    val isOpaque: Boolean,
-    val kdoc: String?,
-    val optInVersionBlueprint: OptInVersionBlueprint?,
+    val typeName: ClassName,
+    val message: String,
+    val version: String,
 )

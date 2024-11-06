@@ -49,6 +49,7 @@ class FieldBlueprintBuilder(
                 val typeInfo = context.resolveTypeInfo(girNamespace, girField.type, false)
                 typeInfo.withNullable(typeInfo.isCinteropNullable)
             }
+
             is GirArrayType -> throw UnresolvableTypeException("Fields with arrays are not supported")
             is GirCallback -> throw UnresolvableTypeException("Fields with callbacks are not supported")
         }
@@ -59,7 +60,9 @@ class FieldBlueprintBuilder(
             typeInfo = typeInfo,
             writeable = girField.writable == true,
             kdoc = context.processKdoc(girField.info.docs.doc?.text),
-            version = girField.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girField.info)
+                .build()
+                .getOrNull(),
         )
     }
 }

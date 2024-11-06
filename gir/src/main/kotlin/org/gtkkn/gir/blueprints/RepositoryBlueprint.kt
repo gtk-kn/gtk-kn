@@ -33,6 +33,7 @@ data class RepositoryBlueprint(
     val repositoryObjectName: ClassName,
     val repositoryCallbacksName: ClassName,
     val repositoryTypeProviderTypeName: ClassName,
+    val optInVersionBlueprints: Set<OptInVersionBlueprint>
 ) {
     /**
      * Get all enum blueprints that represent an GError error domain.

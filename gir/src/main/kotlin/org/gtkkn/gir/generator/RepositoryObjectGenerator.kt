@@ -90,7 +90,7 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
             else -> error("Mapping for constant with type $type missing!")
         }
         return PropertySpec.builder(constant.kotlinName, type, KModifier.CONST).apply {
-            addKdoc(buildPropertyKDoc(constant.kdoc, constant.version))
+            addKdoc(buildPropertyKDoc(constant.kdoc, constant.optInVersionBlueprint))
             initializer(format, value)
         }.build()
     }

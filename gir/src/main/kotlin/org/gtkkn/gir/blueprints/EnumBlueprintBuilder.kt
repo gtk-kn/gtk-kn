@@ -53,7 +53,9 @@ class EnumBlueprintBuilder(
             nativeName = girMember.name,
             nativeValue = nativeValue,
             nativeMemberName = nativeMemberName,
-            version = girMember.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girMember.info)
+                .build()
+                .getOrNull(),
             kdoc = context.processKdoc(girMember.info.docs.doc?.text),
         )
 
@@ -106,7 +108,9 @@ class EnumBlueprintBuilder(
             functionBlueprints = functionBlueprints,
             errorDomain = girEnum.glibErrorDomain,
             errorExceptionTypeName = exceptionTypeName,
-            version = girEnum.info.version,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girEnum.info)
+                .build()
+                .getOrNull(),
             kdoc = context.processKdoc(girEnum.info.docs.doc?.text),
         )
     }

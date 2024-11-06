@@ -20,6 +20,6 @@ data class ConstantBlueprint(
     val kotlinName: String,
     val typeInfo: TypeInfo,
     val constantValue: String,
-    val version: String?,
+    val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
 )
