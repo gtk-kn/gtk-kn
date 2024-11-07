@@ -156,6 +156,9 @@ org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_12
 org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2
 org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
 org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
+org.gtkkn.bindings.javascriptcore.annotations.JavaScriptCoreVersion2_24
+org.gtkkn.bindings.javascriptcore.annotations.JavaScriptCoreVersion2_28
+org.gtkkn.bindings.javascriptcore.annotations.JavaScriptCoreVersion2_38
 org.gtkkn.bindings.pango.annotations.PangoVersion1_10
 org.gtkkn.bindings.pango.annotations.PangoVersion1_12
 org.gtkkn.bindings.pango.annotations.PangoVersion1_14

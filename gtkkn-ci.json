@@ -81,6 +81,11 @@
       "girPrefix": "Atk-1.0"
     },
     {
+      "name": "javascriptcore",
+      "module": "extra:javascriptcore",
+      "girPrefix": "JavaScriptCore-6.0"
+    },
+    {
       "name": "soup",
       "module": "extra:soup",
       "girPrefix": "Soup-3.0"

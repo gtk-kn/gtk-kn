@@ -49,6 +49,7 @@ extensions.create<ConfigExt>("config").apply {
         gradlePlugin.convention(common)
         gtksource.convention(common)
         atk.convention(common)
+        javascriptcore.convention(common)
         soup.convention(common)
         webkit2.convention(common)
     }
