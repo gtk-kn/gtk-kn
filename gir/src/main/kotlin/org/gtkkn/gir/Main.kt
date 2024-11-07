@@ -55,6 +55,19 @@ fun main(args: Array<String>) {
     repositoryBlueprints.forEach {
         generator.generate(it, getRepositoryOutputPath(it.kotlinModuleName, config))
     }
+
+    // Sort the optInAnnotations.txt file
+    val optInAnnotationsFile = File(config.outputDir, "optInAnnotations.txt")
+    if (optInAnnotationsFile.exists()) {
+        sortFileInPlace(optInAnnotationsFile)
+    }
+}
+
+private fun sortFileInPlace(file: File) {
+    val lines = file.readLines().filter { it.isNotBlank() }.sorted()
+    file.printWriter().use { writer ->
+        lines.forEach { writer.println(it) }
+    }
 }
 
 private fun getRepositoryOutputPath(repositoryName: String, config: Config): File {

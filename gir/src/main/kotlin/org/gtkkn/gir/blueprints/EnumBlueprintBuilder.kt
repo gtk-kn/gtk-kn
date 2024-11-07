@@ -18,6 +18,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.TypeName
 import org.gtkkn.gir.model.GirEnum
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirMember
@@ -108,10 +109,21 @@ class EnumBlueprintBuilder(
             functionBlueprints = functionBlueprints,
             errorDomain = girEnum.glibErrorDomain,
             errorExceptionTypeName = exceptionTypeName,
+            memberConstantsAreScopedToType = determineIfConstantsAreScopedToType(nativeValueTypeName, members),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girEnum.info)
                 .build()
                 .getOrNull(),
             kdoc = context.processKdoc(girEnum.info.docs.doc?.text),
         )
+    }
+
+    private fun determineIfConstantsAreScopedToType(
+        nativeValueTypeName: TypeName,
+        memberBlueprints: List<EnumMemberBlueprint>
+    ): Boolean {
+        val enumTypeName = nativeValueTypeName as? ClassName ?: return false
+        val enumCanonicalName = enumTypeName.canonicalName
+        val memberPackageName = memberBlueprints.firstOrNull()?.nativeMemberName?.packageName
+        return enumCanonicalName == memberPackageName
     }
 }

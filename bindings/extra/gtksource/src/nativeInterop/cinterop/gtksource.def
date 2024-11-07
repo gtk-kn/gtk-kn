@@ -1,6 +1,6 @@
 headers = gtksourceview/gtksource.h
 package = org.gtkkn.native.gtksource
-headerFilter = "gtksourceview/*" "gtksourceview/completion-providers/words/*" "gtksourceview/completion-providers/snippets/*"
+headerFilter = gtksourceview/* gtksourceview/completion-providers/words/* gtksourceview/completion-providers/snippets/*
 
 # pkg-config --cflags gtksourceview-5
 compilerOpts.linux = \
@@ -54,4 +54,4 @@ strictEnums = \
     GtkSourceGutterRendererAlignmentMode \
     GtkSourceNewlineType \
     GtkSourceSmartHomeEndType \
-    GtkSourceViewGutterPosition \
+    GtkSourceViewGutterPosition

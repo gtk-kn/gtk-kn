@@ -155,6 +155,8 @@ nav:
           - user-guide/optional-bindings/index.md
           - GtkSourceView:
               - user-guide/optional-bindings/gtksource/index.md
+          - WebKitGTK:
+              - user-guide/optional-bindings/webkitgtk/index.md
   #      - Tutorials:
   #          - Text viewer: user-guide/tutorials/text-viewer.md
   - API: dokka/index.html

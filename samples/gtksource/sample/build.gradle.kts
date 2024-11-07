@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 gtk-kn
+ * Copyright (c) 2024 gtk-kn
  *
  * This file is part of gtk-kn.
  * gtk-kn is free software: you can redistribute it and/or modify
@@ -17,6 +17,7 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     id("detekt-conventions")
+    id("org.gtkkn.gtk")
 }
 
 kotlin {
@@ -24,26 +25,23 @@ kotlin {
     linuxX64 {
         binaries {
             executable {
-                entryPoint = "org.gtkkn.samples.gtk.widgets.main"
+                entryPoint = "org.gtkkn.samples.gtksource.sample.main"
             }
+        }
+        gtk {
+            targetLibraryVersions.put("gio", "2.28")
         }
     }
     sourceSets {
         named("nativeMain") {
             dependencies {
                 // Import from project
-                implementation(project(":bindings:gtk:gtk4"))
+                implementation(project(":bindings:extra:gtksource"))
+                implementation(project(":bindings:adwaita"))
                 // Import from mavenLocal
-                // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
-            }
-        }
-        configureEach {
-            languageSettings {
-                // Opt in to the required annotations
-                optIn("org.gtkkn.bindings.gio.annotations.GioVersion2_28")
-                optIn("org.gtkkn.bindings.gio.annotations.GioVersion2_44")
-                optIn("org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26")
-                optIn("org.gtkkn.bindings.gtk.annotations.GtkVersion4_6")
+                // implementation("org.gtkkn:webkit:0.0.1-SNAPSHOT")
+
+                implementation(libs.kotlin.logging.linux.x64)
             }
         }
     }

@@ -14,21 +14,21 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-package org.gtkkn.gir.blueprints
+plugins {
+    id("bindings-library-conventions")
+}
 
-import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.TypeName
+version = config.versions.atk.get()
 
-data class EnumBlueprint(
-    val kotlinName: String,
-    val kotlinTypeName: ClassName,
-    val nativeTypeName: ClassName,
-    val nativeValueTypeName: TypeName,
-    val memberBlueprints: List<EnumMemberBlueprint>,
-    val functionBlueprints: List<FunctionBlueprint>,
-    val errorDomain: String?,
-    val errorExceptionTypeName: ClassName?,
-    val memberConstantsAreScopedToType: Boolean,
-    val optInVersionBlueprint: OptInVersionBlueprint?,
-    val kdoc: String?,
-)
+kotlin {
+    sourceSets {
+        nativeMain {
+            dependencies {
+                api(project(":bindings:common"))
+                // transitive
+                api(project(":bindings:core:gobject"))
+                api(project(":bindings:core:glib"))
+            }
+        }
+    }
+}

@@ -22,4 +22,5 @@ apt-get --quiet install --yes \
   gcc-multilib \
   libgirepository1.0-dev \
   libadwaita-1-dev \
-  libgtksourceview-5-dev
+  libgtksourceview-5-dev \
+  libwebkitgtk-6.0-dev

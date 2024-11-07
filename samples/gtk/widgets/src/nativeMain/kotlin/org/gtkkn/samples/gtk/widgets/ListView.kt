@@ -69,6 +69,7 @@ fun listViewStrings(): Widget {
     return ListView(selection, factory)
 }
 
+@ExperimentalForeignApi
 fun listViewObjects(): Widget {
     // create a ListStore that contains instances of the Person class
     val listStore = ListStore(Person.gType)
