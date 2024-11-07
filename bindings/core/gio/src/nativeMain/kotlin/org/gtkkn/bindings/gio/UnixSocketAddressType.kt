@@ -3,11 +3,6 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GUnixSocketAddressType
-import org.gtkkn.native.gio.GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT
-import org.gtkkn.native.gio.GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED
-import org.gtkkn.native.gio.GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ANONYMOUS
-import org.gtkkn.native.gio.GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_INVALID
-import org.gtkkn.native.gio.GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_PATH
 
 /**
  * The type of name used by a #GUnixSocketAddress.
@@ -32,38 +27,38 @@ public enum class UnixSocketAddressType(
     /**
      * invalid
      */
-    INVALID(G_UNIX_SOCKET_ADDRESS_INVALID),
+    INVALID(GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_INVALID),
 
     /**
      * anonymous
      */
-    ANONYMOUS(G_UNIX_SOCKET_ADDRESS_ANONYMOUS),
+    ANONYMOUS(GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ANONYMOUS),
 
     /**
      * a filesystem path
      */
-    PATH(G_UNIX_SOCKET_ADDRESS_PATH),
+    PATH(GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_PATH),
 
     /**
      * an abstract name
      */
-    ABSTRACT(G_UNIX_SOCKET_ADDRESS_ABSTRACT),
+    ABSTRACT(GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT),
 
     /**
      * an abstract name, 0-padded
      *   to the full length of a unix socket name
      */
-    ABSTRACT_PADDED(G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED),
+    ABSTRACT_PADDED(GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GUnixSocketAddressType): UnixSocketAddressType =
             when (nativeValue) {
-                G_UNIX_SOCKET_ADDRESS_INVALID -> INVALID
-                G_UNIX_SOCKET_ADDRESS_ANONYMOUS -> ANONYMOUS
-                G_UNIX_SOCKET_ADDRESS_PATH -> PATH
-                G_UNIX_SOCKET_ADDRESS_ABSTRACT -> ABSTRACT
-                G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED -> ABSTRACT_PADDED
+                GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_INVALID -> INVALID
+                GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ANONYMOUS -> ANONYMOUS
+                GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_PATH -> PATH
+                GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT -> ABSTRACT
+                GUnixSocketAddressType.G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED -> ABSTRACT_PADDED
                 else -> error("invalid nativeValue")
             }
     }

@@ -4,9 +4,6 @@ package org.gtkkn.bindings.gio
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gio.GResolverError
-import org.gtkkn.native.gio.GResolverError.G_RESOLVER_ERROR_INTERNAL
-import org.gtkkn.native.gio.GResolverError.G_RESOLVER_ERROR_NOT_FOUND
-import org.gtkkn.native.gio.GResolverError.G_RESOLVER_ERROR_TEMPORARY_FAILURE
 import org.gtkkn.native.gio.g_resolver_error_quark
 import kotlin.UInt
 
@@ -23,26 +20,26 @@ public enum class ResolverError(
      * the requested name/address/service was not
      *     found
      */
-    NOT_FOUND(G_RESOLVER_ERROR_NOT_FOUND),
+    NOT_FOUND(GResolverError.G_RESOLVER_ERROR_NOT_FOUND),
 
     /**
      * the requested information could not
      *     be looked up due to a network error or similar problem
      */
-    TEMPORARY_FAILURE(G_RESOLVER_ERROR_TEMPORARY_FAILURE),
+    TEMPORARY_FAILURE(GResolverError.G_RESOLVER_ERROR_TEMPORARY_FAILURE),
 
     /**
      * unknown error
      */
-    INTERNAL(G_RESOLVER_ERROR_INTERNAL),
+    INTERNAL(GResolverError.G_RESOLVER_ERROR_INTERNAL),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GResolverError): ResolverError =
             when (nativeValue) {
-                G_RESOLVER_ERROR_NOT_FOUND -> NOT_FOUND
-                G_RESOLVER_ERROR_TEMPORARY_FAILURE -> TEMPORARY_FAILURE
-                G_RESOLVER_ERROR_INTERNAL -> INTERNAL
+                GResolverError.G_RESOLVER_ERROR_NOT_FOUND -> NOT_FOUND
+                GResolverError.G_RESOLVER_ERROR_TEMPORARY_FAILURE -> TEMPORARY_FAILURE
+                GResolverError.G_RESOLVER_ERROR_INTERNAL -> INTERNAL
                 else -> error("invalid nativeValue")
             }
 

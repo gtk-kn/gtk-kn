@@ -3,8 +3,6 @@ package org.gtkkn.bindings.gdk
 
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_8
 import org.gtkkn.native.gdk.GdkScrollUnit
-import org.gtkkn.native.gdk.GdkScrollUnit.GDK_SCROLL_UNIT_SURFACE
-import org.gtkkn.native.gdk.GdkScrollUnit.GDK_SCROLL_UNIT_WHEEL
 
 /**
  * Specifies the unit of scroll deltas.
@@ -32,20 +30,20 @@ public enum class ScrollUnit(
     /**
      * The delta is in number of wheel clicks.
      */
-    WHEEL(GDK_SCROLL_UNIT_WHEEL),
+    WHEEL(GdkScrollUnit.GDK_SCROLL_UNIT_WHEEL),
 
     /**
      * The delta is in surface pixels to scroll directly
      *   on screen.
      */
-    SURFACE(GDK_SCROLL_UNIT_SURFACE),
+    SURFACE(GdkScrollUnit.GDK_SCROLL_UNIT_SURFACE),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GdkScrollUnit): ScrollUnit =
             when (nativeValue) {
-                GDK_SCROLL_UNIT_WHEEL -> WHEEL
-                GDK_SCROLL_UNIT_SURFACE -> SURFACE
+                GdkScrollUnit.GDK_SCROLL_UNIT_WHEEL -> WHEEL
+                GdkScrollUnit.GDK_SCROLL_UNIT_SURFACE -> SURFACE
                 else -> error("invalid nativeValue")
             }
     }

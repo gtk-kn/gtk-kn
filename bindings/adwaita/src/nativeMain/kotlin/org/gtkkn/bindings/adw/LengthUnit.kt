@@ -5,9 +5,6 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.native.adw.AdwLengthUnit
-import org.gtkkn.native.adw.AdwLengthUnit.ADW_LENGTH_UNIT_PT
-import org.gtkkn.native.adw.AdwLengthUnit.ADW_LENGTH_UNIT_PX
-import org.gtkkn.native.adw.AdwLengthUnit.ADW_LENGTH_UNIT_SP
 import org.gtkkn.native.adw.adw_length_unit_from_px
 import org.gtkkn.native.adw.adw_length_unit_to_px
 import kotlin.Double
@@ -31,25 +28,25 @@ public enum class LengthUnit(
     /**
      * pixels
      */
-    PX(ADW_LENGTH_UNIT_PX),
+    PX(AdwLengthUnit.ADW_LENGTH_UNIT_PX),
 
     /**
      * points, changes with text scale factor
      */
-    PT(ADW_LENGTH_UNIT_PT),
+    PT(AdwLengthUnit.ADW_LENGTH_UNIT_PT),
 
     /**
      * scale independent pixels, changes with text scale factor
      */
-    SP(ADW_LENGTH_UNIT_SP),
+    SP(AdwLengthUnit.ADW_LENGTH_UNIT_SP),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: AdwLengthUnit): LengthUnit =
             when (nativeValue) {
-                ADW_LENGTH_UNIT_PX -> PX
-                ADW_LENGTH_UNIT_PT -> PT
-                ADW_LENGTH_UNIT_SP -> SP
+                AdwLengthUnit.ADW_LENGTH_UNIT_PX -> PX
+                AdwLengthUnit.ADW_LENGTH_UNIT_PT -> PT
+                AdwLengthUnit.ADW_LENGTH_UNIT_SP -> SP
                 else -> error("invalid nativeValue")
             }
 

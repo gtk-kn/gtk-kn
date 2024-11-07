@@ -2,17 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.native.gtk.GtkInputPurpose
-import org.gtkkn.native.gtk.GtkInputPurpose.GTK_INPUT_PURPOSE_ALPHA
-import org.gtkkn.native.gtk.GtkInputPurpose.GTK_INPUT_PURPOSE_DIGITS
-import org.gtkkn.native.gtk.GtkInputPurpose.GTK_INPUT_PURPOSE_EMAIL
-import org.gtkkn.native.gtk.GtkInputPurpose.GTK_INPUT_PURPOSE_FREE_FORM
-import org.gtkkn.native.gtk.GtkInputPurpose.GTK_INPUT_PURPOSE_NAME
-import org.gtkkn.native.gtk.GtkInputPurpose.GTK_INPUT_PURPOSE_NUMBER
-import org.gtkkn.native.gtk.GtkInputPurpose.GTK_INPUT_PURPOSE_PASSWORD
-import org.gtkkn.native.gtk.GtkInputPurpose.GTK_INPUT_PURPOSE_PHONE
-import org.gtkkn.native.gtk.GtkInputPurpose.GTK_INPUT_PURPOSE_PIN
-import org.gtkkn.native.gtk.GtkInputPurpose.GTK_INPUT_PURPOSE_TERMINAL
-import org.gtkkn.native.gtk.GtkInputPurpose.GTK_INPUT_PURPOSE_URL
 
 /**
  * Describes primary purpose of the input widget.
@@ -41,73 +30,73 @@ public enum class InputPurpose(
     /**
      * Allow any character
      */
-    FREE_FORM(GTK_INPUT_PURPOSE_FREE_FORM),
+    FREE_FORM(GtkInputPurpose.GTK_INPUT_PURPOSE_FREE_FORM),
 
     /**
      * Allow only alphabetic characters
      */
-    ALPHA(GTK_INPUT_PURPOSE_ALPHA),
+    ALPHA(GtkInputPurpose.GTK_INPUT_PURPOSE_ALPHA),
 
     /**
      * Allow only digits
      */
-    DIGITS(GTK_INPUT_PURPOSE_DIGITS),
+    DIGITS(GtkInputPurpose.GTK_INPUT_PURPOSE_DIGITS),
 
     /**
      * Edited field expects numbers
      */
-    NUMBER(GTK_INPUT_PURPOSE_NUMBER),
+    NUMBER(GtkInputPurpose.GTK_INPUT_PURPOSE_NUMBER),
 
     /**
      * Edited field expects phone number
      */
-    PHONE(GTK_INPUT_PURPOSE_PHONE),
+    PHONE(GtkInputPurpose.GTK_INPUT_PURPOSE_PHONE),
 
     /**
      * Edited field expects URL
      */
-    URL(GTK_INPUT_PURPOSE_URL),
+    URL(GtkInputPurpose.GTK_INPUT_PURPOSE_URL),
 
     /**
      * Edited field expects email address
      */
-    EMAIL(GTK_INPUT_PURPOSE_EMAIL),
+    EMAIL(GtkInputPurpose.GTK_INPUT_PURPOSE_EMAIL),
 
     /**
      * Edited field expects the name of a person
      */
-    NAME(GTK_INPUT_PURPOSE_NAME),
+    NAME(GtkInputPurpose.GTK_INPUT_PURPOSE_NAME),
 
     /**
      * Like %GTK_INPUT_PURPOSE_FREE_FORM, but characters are hidden
      */
-    PASSWORD(GTK_INPUT_PURPOSE_PASSWORD),
+    PASSWORD(GtkInputPurpose.GTK_INPUT_PURPOSE_PASSWORD),
 
     /**
      * Like %GTK_INPUT_PURPOSE_DIGITS, but characters are hidden
      */
-    PIN(GTK_INPUT_PURPOSE_PIN),
+    PIN(GtkInputPurpose.GTK_INPUT_PURPOSE_PIN),
 
     /**
      * Allow any character, in addition to control codes
      */
-    TERMINAL(GTK_INPUT_PURPOSE_TERMINAL),
+    TERMINAL(GtkInputPurpose.GTK_INPUT_PURPOSE_TERMINAL),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GtkInputPurpose): InputPurpose =
             when (nativeValue) {
-                GTK_INPUT_PURPOSE_FREE_FORM -> FREE_FORM
-                GTK_INPUT_PURPOSE_ALPHA -> ALPHA
-                GTK_INPUT_PURPOSE_DIGITS -> DIGITS
-                GTK_INPUT_PURPOSE_NUMBER -> NUMBER
-                GTK_INPUT_PURPOSE_PHONE -> PHONE
-                GTK_INPUT_PURPOSE_URL -> URL
-                GTK_INPUT_PURPOSE_EMAIL -> EMAIL
-                GTK_INPUT_PURPOSE_NAME -> NAME
-                GTK_INPUT_PURPOSE_PASSWORD -> PASSWORD
-                GTK_INPUT_PURPOSE_PIN -> PIN
-                GTK_INPUT_PURPOSE_TERMINAL -> TERMINAL
+                GtkInputPurpose.GTK_INPUT_PURPOSE_FREE_FORM -> FREE_FORM
+                GtkInputPurpose.GTK_INPUT_PURPOSE_ALPHA -> ALPHA
+                GtkInputPurpose.GTK_INPUT_PURPOSE_DIGITS -> DIGITS
+                GtkInputPurpose.GTK_INPUT_PURPOSE_NUMBER -> NUMBER
+                GtkInputPurpose.GTK_INPUT_PURPOSE_PHONE -> PHONE
+                GtkInputPurpose.GTK_INPUT_PURPOSE_URL -> URL
+                GtkInputPurpose.GTK_INPUT_PURPOSE_EMAIL -> EMAIL
+                GtkInputPurpose.GTK_INPUT_PURPOSE_NAME -> NAME
+                GtkInputPurpose.GTK_INPUT_PURPOSE_PASSWORD -> PASSWORD
+                GtkInputPurpose.GTK_INPUT_PURPOSE_PIN -> PIN
+                GtkInputPurpose.GTK_INPUT_PURPOSE_TERMINAL -> TERMINAL
                 else -> error("invalid nativeValue")
             }
     }

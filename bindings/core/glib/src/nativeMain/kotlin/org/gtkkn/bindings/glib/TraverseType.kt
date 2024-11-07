@@ -2,10 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GTraverseType
-import org.gtkkn.native.glib.GTraverseType.G_IN_ORDER
-import org.gtkkn.native.glib.GTraverseType.G_LEVEL_ORDER
-import org.gtkkn.native.glib.GTraverseType.G_POST_ORDER
-import org.gtkkn.native.glib.GTraverseType.G_PRE_ORDER
 
 /**
  * Specifies the type of traversal performed by g_tree_traverse(),
@@ -29,17 +25,17 @@ public enum class TraverseType(
      *              want the output sorted according to the compare
      *              function.
      */
-    IN_ORDER(G_IN_ORDER),
+    IN_ORDER(GTraverseType.G_IN_ORDER),
 
     /**
      * visits a node, then its children.
      */
-    PRE_ORDER(G_PRE_ORDER),
+    PRE_ORDER(GTraverseType.G_PRE_ORDER),
 
     /**
      * visits the node's children, then the node itself.
      */
-    POST_ORDER(G_POST_ORDER),
+    POST_ORDER(GTraverseType.G_POST_ORDER),
 
     /**
      * is not implemented for
@@ -49,16 +45,16 @@ public enum class TraverseType(
      *              its grandchildren, and so on. Note that this is less
      *              efficient than the other orders.
      */
-    LEVEL_ORDER(G_LEVEL_ORDER),
+    LEVEL_ORDER(GTraverseType.G_LEVEL_ORDER),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GTraverseType): TraverseType =
             when (nativeValue) {
-                G_IN_ORDER -> IN_ORDER
-                G_PRE_ORDER -> PRE_ORDER
-                G_POST_ORDER -> POST_ORDER
-                G_LEVEL_ORDER -> LEVEL_ORDER
+                GTraverseType.G_IN_ORDER -> IN_ORDER
+                GTraverseType.G_PRE_ORDER -> PRE_ORDER
+                GTraverseType.G_POST_ORDER -> POST_ORDER
+                GTraverseType.G_LEVEL_ORDER -> LEVEL_ORDER
                 else -> error("invalid nativeValue")
             }
     }

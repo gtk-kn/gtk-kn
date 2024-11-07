@@ -3,8 +3,6 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_54
 import org.gtkkn.native.glib.GNumberParserError
-import org.gtkkn.native.glib.GNumberParserError.G_NUMBER_PARSER_ERROR_INVALID
-import org.gtkkn.native.glib.GNumberParserError.G_NUMBER_PARSER_ERROR_OUT_OF_BOUNDS
 import org.gtkkn.native.glib.g_quark_from_string
 import kotlin.UInt
 
@@ -19,19 +17,19 @@ public enum class NumberParserError(
     /**
      * string was not a valid number
      */
-    INVALID(G_NUMBER_PARSER_ERROR_INVALID),
+    INVALID(GNumberParserError.G_NUMBER_PARSER_ERROR_INVALID),
 
     /**
      * string was a number, but out of bounds
      */
-    OUT_OF_BOUNDS(G_NUMBER_PARSER_ERROR_OUT_OF_BOUNDS),
+    OUT_OF_BOUNDS(GNumberParserError.G_NUMBER_PARSER_ERROR_OUT_OF_BOUNDS),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GNumberParserError): NumberParserError =
             when (nativeValue) {
-                G_NUMBER_PARSER_ERROR_INVALID -> INVALID
-                G_NUMBER_PARSER_ERROR_OUT_OF_BOUNDS -> OUT_OF_BOUNDS
+                GNumberParserError.G_NUMBER_PARSER_ERROR_INVALID -> INVALID
+                GNumberParserError.G_NUMBER_PARSER_ERROR_OUT_OF_BOUNDS -> OUT_OF_BOUNDS
                 else -> error("invalid nativeValue")
             }
 

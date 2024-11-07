@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.native.gtk.GtkOrdering
-import org.gtkkn.native.gtk.GtkOrdering.GTK_ORDERING_EQUAL
-import org.gtkkn.native.gtk.GtkOrdering.GTK_ORDERING_LARGER
-import org.gtkkn.native.gtk.GtkOrdering.GTK_ORDERING_SMALLER
 
 /**
  * Describes the way two values can be compared.
@@ -20,25 +17,25 @@ public enum class Ordering(
     /**
      * the first value is smaller than the second
      */
-    SMALLER(GTK_ORDERING_SMALLER),
+    SMALLER(GtkOrdering.GTK_ORDERING_SMALLER),
 
     /**
      * the two values are equal
      */
-    EQUAL(GTK_ORDERING_EQUAL),
+    EQUAL(GtkOrdering.GTK_ORDERING_EQUAL),
 
     /**
      * the first value is larger than the second
      */
-    LARGER(GTK_ORDERING_LARGER),
+    LARGER(GtkOrdering.GTK_ORDERING_LARGER),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GtkOrdering): Ordering =
             when (nativeValue) {
-                GTK_ORDERING_SMALLER -> SMALLER
-                GTK_ORDERING_EQUAL -> EQUAL
-                GTK_ORDERING_LARGER -> LARGER
+                GtkOrdering.GTK_ORDERING_SMALLER -> SMALLER
+                GtkOrdering.GTK_ORDERING_EQUAL -> EQUAL
+                GtkOrdering.GTK_ORDERING_LARGER -> LARGER
                 else -> error("invalid nativeValue")
             }
     }

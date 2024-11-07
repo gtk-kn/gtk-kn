@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.native.gtk.GtkOverflow
-import org.gtkkn.native.gtk.GtkOverflow.GTK_OVERFLOW_HIDDEN
-import org.gtkkn.native.gtk.GtkOverflow.GTK_OVERFLOW_VISIBLE
 
 /**
  * Defines how content overflowing a given area should be handled.
@@ -19,20 +17,20 @@ public enum class Overflow(
      * No change is applied. Content is drawn at the specified
      *   position.
      */
-    VISIBLE(GTK_OVERFLOW_VISIBLE),
+    VISIBLE(GtkOverflow.GTK_OVERFLOW_VISIBLE),
 
     /**
      * Content is clipped to the bounds of the area. Content
      *   outside the area is not drawn and cannot be interacted with.
      */
-    HIDDEN(GTK_OVERFLOW_HIDDEN),
+    HIDDEN(GtkOverflow.GTK_OVERFLOW_HIDDEN),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GtkOverflow): Overflow =
             when (nativeValue) {
-                GTK_OVERFLOW_VISIBLE -> VISIBLE
-                GTK_OVERFLOW_HIDDEN -> HIDDEN
+                GtkOverflow.GTK_OVERFLOW_VISIBLE -> VISIBLE
+                GtkOverflow.GTK_OVERFLOW_HIDDEN -> HIDDEN
                 else -> error("invalid nativeValue")
             }
     }

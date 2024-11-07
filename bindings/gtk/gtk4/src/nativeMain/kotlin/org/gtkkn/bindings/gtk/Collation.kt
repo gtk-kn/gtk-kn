@@ -3,9 +3,6 @@ package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.native.gtk.GtkCollation
-import org.gtkkn.native.gtk.GtkCollation.GTK_COLLATION_FILENAME
-import org.gtkkn.native.gtk.GtkCollation.GTK_COLLATION_NONE
-import org.gtkkn.native.gtk.GtkCollation.GTK_COLLATION_UNICODE
 
 /**
  * Describes how a [class@Gtk.StringSorter] turns strings into sort keys to
@@ -22,25 +19,25 @@ public enum class Collation(
     /**
      * Don't do any collation
      */
-    NONE(GTK_COLLATION_NONE),
+    NONE(GtkCollation.GTK_COLLATION_NONE),
 
     /**
      * Use [func@GLib.utf8_collate_key]
      */
-    UNICODE(GTK_COLLATION_UNICODE),
+    UNICODE(GtkCollation.GTK_COLLATION_UNICODE),
 
     /**
      * Use [func@GLib.utf8_collate_key_for_filename]
      */
-    FILENAME(GTK_COLLATION_FILENAME),
+    FILENAME(GtkCollation.GTK_COLLATION_FILENAME),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GtkCollation): Collation =
             when (nativeValue) {
-                GTK_COLLATION_NONE -> NONE
-                GTK_COLLATION_UNICODE -> UNICODE
-                GTK_COLLATION_FILENAME -> FILENAME
+                GtkCollation.GTK_COLLATION_NONE -> NONE
+                GtkCollation.GTK_COLLATION_UNICODE -> UNICODE
+                GtkCollation.GTK_COLLATION_FILENAME -> FILENAME
                 else -> error("invalid nativeValue")
             }
     }

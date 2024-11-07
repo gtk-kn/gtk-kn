@@ -3,8 +3,6 @@ package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.native.gsk.GskFillRule
-import org.gtkkn.native.gsk.GskFillRule.GSK_FILL_RULE_EVEN_ODD
-import org.gtkkn.native.gsk.GskFillRule.GSK_FILL_RULE_WINDING
 
 /**
  * `GskFillRule` is used to select how paths are filled.
@@ -32,7 +30,7 @@ public enum class FillRule(
      *   from the perspective of looking along the ray from the starting
      *   point.) If the total count is non-zero, the point will be filled.
      */
-    WINDING(GSK_FILL_RULE_WINDING),
+    WINDING(GskFillRule.GSK_FILL_RULE_WINDING),
 
     /**
      * Counts the total number of
@@ -40,14 +38,14 @@ public enum class FillRule(
      *   the total number of intersections is odd, the point will be
      *   filled.
      */
-    EVEN_ODD(GSK_FILL_RULE_EVEN_ODD),
+    EVEN_ODD(GskFillRule.GSK_FILL_RULE_EVEN_ODD),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GskFillRule): FillRule =
             when (nativeValue) {
-                GSK_FILL_RULE_WINDING -> WINDING
-                GSK_FILL_RULE_EVEN_ODD -> EVEN_ODD
+                GskFillRule.GSK_FILL_RULE_WINDING -> WINDING
+                GskFillRule.GSK_FILL_RULE_EVEN_ODD -> EVEN_ODD
                 else -> error("invalid nativeValue")
             }
     }

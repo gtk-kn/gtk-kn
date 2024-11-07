@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GThreadError
-import org.gtkkn.native.glib.GThreadError.G_THREAD_ERROR_AGAIN
 import org.gtkkn.native.glib.g_quark_from_string
 import kotlin.UInt
 
@@ -16,13 +15,13 @@ public enum class ThreadError(
      * a thread couldn't be created due to resource
      *                        shortage. Try again later.
      */
-    THREAD_ERROR_AGAIN(G_THREAD_ERROR_AGAIN),
+    THREAD_ERROR_AGAIN(GThreadError.G_THREAD_ERROR_AGAIN),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GThreadError): ThreadError =
             when (nativeValue) {
-                G_THREAD_ERROR_AGAIN -> THREAD_ERROR_AGAIN
+                GThreadError.G_THREAD_ERROR_AGAIN -> THREAD_ERROR_AGAIN
                 else -> error("invalid nativeValue")
             }
 

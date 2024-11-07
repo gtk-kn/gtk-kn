@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.native.gtk.GtkSpinButtonUpdatePolicy
-import org.gtkkn.native.gtk.GtkSpinButtonUpdatePolicy.GTK_UPDATE_ALWAYS
-import org.gtkkn.native.gtk.GtkSpinButtonUpdatePolicy.GTK_UPDATE_IF_VALID
 
 /**
  * Determines whether the spin button displays values outside the adjustment
@@ -18,21 +16,21 @@ public enum class SpinButtonUpdatePolicy(
      * When refreshing your `GtkSpinButton`, the value is
      *   always displayed
      */
-    ALWAYS(GTK_UPDATE_ALWAYS),
+    ALWAYS(GtkSpinButtonUpdatePolicy.GTK_UPDATE_ALWAYS),
 
     /**
      * When refreshing your `GtkSpinButton`, the value is
      *   only displayed if it is valid within the bounds of the spin button's
      *   adjustment
      */
-    IF_VALID(GTK_UPDATE_IF_VALID),
+    IF_VALID(GtkSpinButtonUpdatePolicy.GTK_UPDATE_IF_VALID),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GtkSpinButtonUpdatePolicy): SpinButtonUpdatePolicy =
             when (nativeValue) {
-                GTK_UPDATE_ALWAYS -> ALWAYS
-                GTK_UPDATE_IF_VALID -> IF_VALID
+                GtkSpinButtonUpdatePolicy.GTK_UPDATE_ALWAYS -> ALWAYS
+                GtkSpinButtonUpdatePolicy.GTK_UPDATE_IF_VALID -> IF_VALID
                 else -> error("invalid nativeValue")
             }
     }

@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.adw
 
 import org.gtkkn.native.adw.AdwNavigationDirection
-import org.gtkkn.native.adw.AdwNavigationDirection.ADW_NAVIGATION_DIRECTION_BACK
-import org.gtkkn.native.adw.AdwNavigationDirection.ADW_NAVIGATION_DIRECTION_FORWARD
 
 /**
  * Describes the direction of a swipe navigation gesture.
@@ -14,19 +12,19 @@ public enum class NavigationDirection(
     /**
      * Corresponds to start or top, depending on orientation and text direction
      */
-    BACK(ADW_NAVIGATION_DIRECTION_BACK),
+    BACK(AdwNavigationDirection.ADW_NAVIGATION_DIRECTION_BACK),
 
     /**
      * Corresponds to end or bottom, depending on orientation and text direction
      */
-    FORWARD(ADW_NAVIGATION_DIRECTION_FORWARD),
+    FORWARD(AdwNavigationDirection.ADW_NAVIGATION_DIRECTION_FORWARD),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: AdwNavigationDirection): NavigationDirection =
             when (nativeValue) {
-                ADW_NAVIGATION_DIRECTION_BACK -> BACK
-                ADW_NAVIGATION_DIRECTION_FORWARD -> FORWARD
+                AdwNavigationDirection.ADW_NAVIGATION_DIRECTION_BACK -> BACK
+                AdwNavigationDirection.ADW_NAVIGATION_DIRECTION_FORWARD -> FORWARD
                 else -> error("invalid nativeValue")
             }
     }

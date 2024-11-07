@@ -4,11 +4,6 @@ package org.gtkkn.bindings.gio
 import org.gtkkn.bindings.gio.annotations.GioVersion2_66
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gio.GTlsChannelBindingError
-import org.gtkkn.native.gio.GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_GENERAL_ERROR
-import org.gtkkn.native.gio.GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_INVALID_STATE
-import org.gtkkn.native.gio.GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_AVAILABLE
-import org.gtkkn.native.gio.GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_IMPLEMENTED
-import org.gtkkn.native.gio.GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_SUPPORTED
 import org.gtkkn.native.gio.g_tls_channel_binding_error_quark
 import kotlin.UInt
 
@@ -26,14 +21,14 @@ public enum class TlsChannelBindingError(
      *    retrieval facility or specific binding type is not implemented in the
      *    TLS backend.
      */
-    NOT_IMPLEMENTED(G_TLS_CHANNEL_BINDING_ERROR_NOT_IMPLEMENTED),
+    NOT_IMPLEMENTED(GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_IMPLEMENTED),
 
     /**
      * The handshake is not yet
      *    complete on the connection which is a strong requirement for any existing
      *    binding type.
      */
-    INVALID_STATE(G_TLS_CHANNEL_BINDING_ERROR_INVALID_STATE),
+    INVALID_STATE(GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_INVALID_STATE),
 
     /**
      * Handshake is complete but
@@ -41,7 +36,7 @@ public enum class TlsChannelBindingError(
      *    implementation failed to provide the binding data. For example, some
      *    implementations do not provide a peer certificate for resumed connections.
      */
-    NOT_AVAILABLE(G_TLS_CHANNEL_BINDING_ERROR_NOT_AVAILABLE),
+    NOT_AVAILABLE(GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_AVAILABLE),
 
     /**
      * Binding type is not supported
@@ -49,23 +44,23 @@ public enum class TlsChannelBindingError(
      *    `tls-server-end-point` binding data for a certificate which has no hash
      *    function or uses multiple hash functions.
      */
-    NOT_SUPPORTED(G_TLS_CHANNEL_BINDING_ERROR_NOT_SUPPORTED),
+    NOT_SUPPORTED(GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_SUPPORTED),
 
     /**
      * Any other backend error
      *    preventing binding data retrieval.
      */
-    GENERAL_ERROR(G_TLS_CHANNEL_BINDING_ERROR_GENERAL_ERROR),
+    GENERAL_ERROR(GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_GENERAL_ERROR),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GTlsChannelBindingError): TlsChannelBindingError =
             when (nativeValue) {
-                G_TLS_CHANNEL_BINDING_ERROR_NOT_IMPLEMENTED -> NOT_IMPLEMENTED
-                G_TLS_CHANNEL_BINDING_ERROR_INVALID_STATE -> INVALID_STATE
-                G_TLS_CHANNEL_BINDING_ERROR_NOT_AVAILABLE -> NOT_AVAILABLE
-                G_TLS_CHANNEL_BINDING_ERROR_NOT_SUPPORTED -> NOT_SUPPORTED
-                G_TLS_CHANNEL_BINDING_ERROR_GENERAL_ERROR -> GENERAL_ERROR
+                GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_IMPLEMENTED -> NOT_IMPLEMENTED
+                GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_INVALID_STATE -> INVALID_STATE
+                GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_AVAILABLE -> NOT_AVAILABLE
+                GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_NOT_SUPPORTED -> NOT_SUPPORTED
+                GTlsChannelBindingError.G_TLS_CHANNEL_BINDING_ERROR_GENERAL_ERROR -> GENERAL_ERROR
                 else -> error("invalid nativeValue")
             }
 

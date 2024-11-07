@@ -2,10 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.native.gdk.GdkTouchpadGesturePhase
-import org.gtkkn.native.gdk.GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_BEGIN
-import org.gtkkn.native.gdk.GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_CANCEL
-import org.gtkkn.native.gdk.GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_END
-import org.gtkkn.native.gdk.GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_UPDATE
 
 /**
  * Specifies the current state of a touchpad gesture.
@@ -33,33 +29,33 @@ public enum class TouchpadGesturePhase(
     /**
      * The gesture has begun.
      */
-    BEGIN(GDK_TOUCHPAD_GESTURE_PHASE_BEGIN),
+    BEGIN(GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_BEGIN),
 
     /**
      * The gesture has been updated.
      */
-    UPDATE(GDK_TOUCHPAD_GESTURE_PHASE_UPDATE),
+    UPDATE(GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_UPDATE),
 
     /**
      * The gesture was finished, changes
      *   should be permanently applied.
      */
-    END(GDK_TOUCHPAD_GESTURE_PHASE_END),
+    END(GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_END),
 
     /**
      * The gesture was cancelled, all
      *   changes should be undone.
      */
-    CANCEL(GDK_TOUCHPAD_GESTURE_PHASE_CANCEL),
+    CANCEL(GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_CANCEL),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GdkTouchpadGesturePhase): TouchpadGesturePhase =
             when (nativeValue) {
-                GDK_TOUCHPAD_GESTURE_PHASE_BEGIN -> BEGIN
-                GDK_TOUCHPAD_GESTURE_PHASE_UPDATE -> UPDATE
-                GDK_TOUCHPAD_GESTURE_PHASE_END -> END
-                GDK_TOUCHPAD_GESTURE_PHASE_CANCEL -> CANCEL
+                GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_BEGIN -> BEGIN
+                GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_UPDATE -> UPDATE
+                GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_END -> END
+                GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_CANCEL -> CANCEL
                 else -> error("invalid nativeValue")
             }
     }

@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.native.pango.PangoWrapMode
-import org.gtkkn.native.pango.PangoWrapMode.PANGO_WRAP_CHAR
-import org.gtkkn.native.pango.PangoWrapMode.PANGO_WRAP_WORD
-import org.gtkkn.native.pango.PangoWrapMode.PANGO_WRAP_WORD_CHAR
 
 /**
  * `PangoWrapMode` describes how to wrap the lines of a `PangoLayout`
@@ -21,26 +18,26 @@ public enum class WrapMode(
     /**
      * wrap lines at word boundaries.
      */
-    WORD(PANGO_WRAP_WORD),
+    WORD(PangoWrapMode.PANGO_WRAP_WORD),
 
     /**
      * wrap lines at character boundaries.
      */
-    CHAR(PANGO_WRAP_CHAR),
+    CHAR(PangoWrapMode.PANGO_WRAP_CHAR),
 
     /**
      * wrap lines at word boundaries, but fall back to
      *   character boundaries if there is not enough space for a full word.
      */
-    WORD_CHAR(PANGO_WRAP_WORD_CHAR),
+    WORD_CHAR(PangoWrapMode.PANGO_WRAP_WORD_CHAR),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: PangoWrapMode): WrapMode =
             when (nativeValue) {
-                PANGO_WRAP_WORD -> WORD
-                PANGO_WRAP_CHAR -> CHAR
-                PANGO_WRAP_WORD_CHAR -> WORD_CHAR
+                PangoWrapMode.PANGO_WRAP_WORD -> WORD
+                PangoWrapMode.PANGO_WRAP_CHAR -> CHAR
+                PangoWrapMode.PANGO_WRAP_WORD_CHAR -> WORD_CHAR
                 else -> error("invalid nativeValue")
             }
     }

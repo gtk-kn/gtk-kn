@@ -2,10 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.native.gtk.GtkImageType
-import org.gtkkn.native.gtk.GtkImageType.GTK_IMAGE_EMPTY
-import org.gtkkn.native.gtk.GtkImageType.GTK_IMAGE_GICON
-import org.gtkkn.native.gtk.GtkImageType.GTK_IMAGE_ICON_NAME
-import org.gtkkn.native.gtk.GtkImageType.GTK_IMAGE_PAINTABLE
 
 /**
  * Describes the image data representation used by a [class@Gtk.Image].
@@ -23,31 +19,31 @@ public enum class ImageType(
     /**
      * there is no image displayed by the widget
      */
-    EMPTY(GTK_IMAGE_EMPTY),
+    EMPTY(GtkImageType.GTK_IMAGE_EMPTY),
 
     /**
      * the widget contains a named icon
      */
-    ICON_NAME(GTK_IMAGE_ICON_NAME),
+    ICON_NAME(GtkImageType.GTK_IMAGE_ICON_NAME),
 
     /**
      * the widget contains a `GIcon`
      */
-    GICON(GTK_IMAGE_GICON),
+    GICON(GtkImageType.GTK_IMAGE_GICON),
 
     /**
      * the widget contains a `GdkPaintable`
      */
-    PAINTABLE(GTK_IMAGE_PAINTABLE),
+    PAINTABLE(GtkImageType.GTK_IMAGE_PAINTABLE),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GtkImageType): ImageType =
             when (nativeValue) {
-                GTK_IMAGE_EMPTY -> EMPTY
-                GTK_IMAGE_ICON_NAME -> ICON_NAME
-                GTK_IMAGE_GICON -> GICON
-                GTK_IMAGE_PAINTABLE -> PAINTABLE
+                GtkImageType.GTK_IMAGE_EMPTY -> EMPTY
+                GtkImageType.GTK_IMAGE_ICON_NAME -> ICON_NAME
+                GtkImageType.GTK_IMAGE_GICON -> GICON
+                GtkImageType.GTK_IMAGE_PAINTABLE -> PAINTABLE
                 else -> error("invalid nativeValue")
             }
     }

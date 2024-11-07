@@ -4,11 +4,6 @@ package org.gtkkn.bindings.gtk
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.glib.g_quark_from_string
 import org.gtkkn.native.gtk.GtkCssParserError
-import org.gtkkn.native.gtk.GtkCssParserError.GTK_CSS_PARSER_ERROR_FAILED
-import org.gtkkn.native.gtk.GtkCssParserError.GTK_CSS_PARSER_ERROR_IMPORT
-import org.gtkkn.native.gtk.GtkCssParserError.GTK_CSS_PARSER_ERROR_NAME
-import org.gtkkn.native.gtk.GtkCssParserError.GTK_CSS_PARSER_ERROR_SYNTAX
-import org.gtkkn.native.gtk.GtkCssParserError.GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE
 import kotlin.UInt
 
 /**
@@ -23,37 +18,37 @@ public enum class CssParserError(
     /**
      * Unknown failure.
      */
-    FAILED(GTK_CSS_PARSER_ERROR_FAILED),
+    FAILED(GtkCssParserError.GTK_CSS_PARSER_ERROR_FAILED),
 
     /**
      * The given text does not form valid syntax
      */
-    SYNTAX(GTK_CSS_PARSER_ERROR_SYNTAX),
+    SYNTAX(GtkCssParserError.GTK_CSS_PARSER_ERROR_SYNTAX),
 
     /**
      * Failed to import a resource
      */
-    IMPORT(GTK_CSS_PARSER_ERROR_IMPORT),
+    IMPORT(GtkCssParserError.GTK_CSS_PARSER_ERROR_IMPORT),
 
     /**
      * The given name has not been defined
      */
-    NAME(GTK_CSS_PARSER_ERROR_NAME),
+    NAME(GtkCssParserError.GTK_CSS_PARSER_ERROR_NAME),
 
     /**
      * The given value is not correct
      */
-    UNKNOWN_VALUE(GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE),
+    UNKNOWN_VALUE(GtkCssParserError.GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GtkCssParserError): CssParserError =
             when (nativeValue) {
-                GTK_CSS_PARSER_ERROR_FAILED -> FAILED
-                GTK_CSS_PARSER_ERROR_SYNTAX -> SYNTAX
-                GTK_CSS_PARSER_ERROR_IMPORT -> IMPORT
-                GTK_CSS_PARSER_ERROR_NAME -> NAME
-                GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE -> UNKNOWN_VALUE
+                GtkCssParserError.GTK_CSS_PARSER_ERROR_FAILED -> FAILED
+                GtkCssParserError.GTK_CSS_PARSER_ERROR_SYNTAX -> SYNTAX
+                GtkCssParserError.GTK_CSS_PARSER_ERROR_IMPORT -> IMPORT
+                GtkCssParserError.GTK_CSS_PARSER_ERROR_NAME -> NAME
+                GtkCssParserError.GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE -> UNKNOWN_VALUE
                 else -> error("invalid nativeValue")
             }
 

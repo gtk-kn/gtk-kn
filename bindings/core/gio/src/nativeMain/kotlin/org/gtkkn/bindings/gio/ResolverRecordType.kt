@@ -3,11 +3,6 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.native.gio.GResolverRecordType
-import org.gtkkn.native.gio.GResolverRecordType.G_RESOLVER_RECORD_MX
-import org.gtkkn.native.gio.GResolverRecordType.G_RESOLVER_RECORD_NS
-import org.gtkkn.native.gio.GResolverRecordType.G_RESOLVER_RECORD_SOA
-import org.gtkkn.native.gio.GResolverRecordType.G_RESOLVER_RECORD_SRV
-import org.gtkkn.native.gio.GResolverRecordType.G_RESOLVER_RECORD_TXT
 
 /**
  * The type of record that g_resolver_lookup_records() or
@@ -49,37 +44,37 @@ public enum class ResolverRecordType(
     /**
      * look up DNS SRV records for a domain
      */
-    SRV(G_RESOLVER_RECORD_SRV),
+    SRV(GResolverRecordType.G_RESOLVER_RECORD_SRV),
 
     /**
      * look up DNS MX records for a domain
      */
-    MX(G_RESOLVER_RECORD_MX),
+    MX(GResolverRecordType.G_RESOLVER_RECORD_MX),
 
     /**
      * look up DNS TXT records for a name
      */
-    TXT(G_RESOLVER_RECORD_TXT),
+    TXT(GResolverRecordType.G_RESOLVER_RECORD_TXT),
 
     /**
      * look up DNS SOA records for a zone
      */
-    SOA(G_RESOLVER_RECORD_SOA),
+    SOA(GResolverRecordType.G_RESOLVER_RECORD_SOA),
 
     /**
      * look up DNS NS records for a domain
      */
-    NS(G_RESOLVER_RECORD_NS),
+    NS(GResolverRecordType.G_RESOLVER_RECORD_NS),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GResolverRecordType): ResolverRecordType =
             when (nativeValue) {
-                G_RESOLVER_RECORD_SRV -> SRV
-                G_RESOLVER_RECORD_MX -> MX
-                G_RESOLVER_RECORD_TXT -> TXT
-                G_RESOLVER_RECORD_SOA -> SOA
-                G_RESOLVER_RECORD_NS -> NS
+                GResolverRecordType.G_RESOLVER_RECORD_SRV -> SRV
+                GResolverRecordType.G_RESOLVER_RECORD_MX -> MX
+                GResolverRecordType.G_RESOLVER_RECORD_TXT -> TXT
+                GResolverRecordType.G_RESOLVER_RECORD_SOA -> SOA
+                GResolverRecordType.G_RESOLVER_RECORD_NS -> NS
                 else -> error("invalid nativeValue")
             }
     }

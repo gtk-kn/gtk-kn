@@ -2,14 +2,6 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.native.pango.PangoUnderline
-import org.gtkkn.native.pango.PangoUnderline.PANGO_UNDERLINE_DOUBLE
-import org.gtkkn.native.pango.PangoUnderline.PANGO_UNDERLINE_DOUBLE_LINE
-import org.gtkkn.native.pango.PangoUnderline.PANGO_UNDERLINE_ERROR
-import org.gtkkn.native.pango.PangoUnderline.PANGO_UNDERLINE_ERROR_LINE
-import org.gtkkn.native.pango.PangoUnderline.PANGO_UNDERLINE_LOW
-import org.gtkkn.native.pango.PangoUnderline.PANGO_UNDERLINE_NONE
-import org.gtkkn.native.pango.PangoUnderline.PANGO_UNDERLINE_SINGLE
-import org.gtkkn.native.pango.PangoUnderline.PANGO_UNDERLINE_SINGLE_LINE
 
 /**
  * The `PangoUnderline` enumeration is used to specify whether text
@@ -21,17 +13,17 @@ public enum class Underline(
     /**
      * no underline should be drawn
      */
-    NONE(PANGO_UNDERLINE_NONE),
+    NONE(PangoUnderline.PANGO_UNDERLINE_NONE),
 
     /**
      * a single underline should be drawn
      */
-    SINGLE(PANGO_UNDERLINE_SINGLE),
+    SINGLE(PangoUnderline.PANGO_UNDERLINE_SINGLE),
 
     /**
      * a double underline should be drawn
      */
-    DOUBLE(PANGO_UNDERLINE_DOUBLE),
+    DOUBLE(PangoUnderline.PANGO_UNDERLINE_DOUBLE),
 
     /**
      * a single underline should be drawn at a
@@ -41,7 +33,7 @@ public enum class Underline(
      *   %PANGO_UNDERLINE_SINGLE should be used for extended
      *   portions of text.
      */
-    LOW(PANGO_UNDERLINE_LOW),
+    LOW(PangoUnderline.PANGO_UNDERLINE_LOW),
 
     /**
      * an underline indicating an error should
@@ -53,41 +45,41 @@ public enum class Underline(
      *   may automatically be used. This type of underlining is
      *   available since Pango 1.4.
      */
-    ERROR(PANGO_UNDERLINE_ERROR),
+    ERROR(PangoUnderline.PANGO_UNDERLINE_ERROR),
 
     /**
      * Like @PANGO_UNDERLINE_SINGLE, but
      *   drawn continuously across multiple runs. This type
      *   of underlining is available since Pango 1.46.
      */
-    SINGLE_LINE(PANGO_UNDERLINE_SINGLE_LINE),
+    SINGLE_LINE(PangoUnderline.PANGO_UNDERLINE_SINGLE_LINE),
 
     /**
      * Like @PANGO_UNDERLINE_DOUBLE, but
      *   drawn continuously across multiple runs. This type
      *   of underlining is available since Pango 1.46.
      */
-    DOUBLE_LINE(PANGO_UNDERLINE_DOUBLE_LINE),
+    DOUBLE_LINE(PangoUnderline.PANGO_UNDERLINE_DOUBLE_LINE),
 
     /**
      * Like @PANGO_UNDERLINE_ERROR, but
      *   drawn continuously across multiple runs. This type
      *   of underlining is available since Pango 1.46.
      */
-    ERROR_LINE(PANGO_UNDERLINE_ERROR_LINE),
+    ERROR_LINE(PangoUnderline.PANGO_UNDERLINE_ERROR_LINE),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: PangoUnderline): Underline =
             when (nativeValue) {
-                PANGO_UNDERLINE_NONE -> NONE
-                PANGO_UNDERLINE_SINGLE -> SINGLE
-                PANGO_UNDERLINE_DOUBLE -> DOUBLE
-                PANGO_UNDERLINE_LOW -> LOW
-                PANGO_UNDERLINE_ERROR -> ERROR
-                PANGO_UNDERLINE_SINGLE_LINE -> SINGLE_LINE
-                PANGO_UNDERLINE_DOUBLE_LINE -> DOUBLE_LINE
-                PANGO_UNDERLINE_ERROR_LINE -> ERROR_LINE
+                PangoUnderline.PANGO_UNDERLINE_NONE -> NONE
+                PangoUnderline.PANGO_UNDERLINE_SINGLE -> SINGLE
+                PangoUnderline.PANGO_UNDERLINE_DOUBLE -> DOUBLE
+                PangoUnderline.PANGO_UNDERLINE_LOW -> LOW
+                PangoUnderline.PANGO_UNDERLINE_ERROR -> ERROR
+                PangoUnderline.PANGO_UNDERLINE_SINGLE_LINE -> SINGLE_LINE
+                PangoUnderline.PANGO_UNDERLINE_DOUBLE_LINE -> DOUBLE_LINE
+                PangoUnderline.PANGO_UNDERLINE_ERROR_LINE -> ERROR_LINE
                 else -> error("invalid nativeValue")
             }
     }

@@ -20,8 +20,11 @@
  * SOFTWARE.
  */
 
+@file:OptIn(ExperimentalForeignApi::class)
+
 package org.gtkkn.samples.gtk.widgets
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
