@@ -748,11 +748,6 @@ class ProcessorContext(
             // On Fedora 41 this is listed in the GIR but the header file is missing
             "g_set_prgname_once",
 
-            // Problem with overriding
-            "atk_component_get_layer",
-            "atk_component_get_mdi_zorder",
-            "atk_selection_remove_selection",
-
             // Argument type mismatch
             "soup_message_get_tls_protocol_version",
         )
