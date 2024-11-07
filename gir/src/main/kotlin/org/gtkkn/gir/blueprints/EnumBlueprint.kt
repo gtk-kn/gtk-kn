@@ -28,6 +28,7 @@ data class EnumBlueprint(
     val functionBlueprints: List<FunctionBlueprint>,
     val errorDomain: String?,
     val errorExceptionTypeName: ClassName?,
+    val memberConstantsAreScopedToType: Boolean,
     val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
 )

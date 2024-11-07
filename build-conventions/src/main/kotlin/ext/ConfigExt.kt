@@ -29,13 +29,17 @@ interface ConfigExt : ExtensionAware {
 /**
  * A container with various versions available to choose from
  */
-interface VersionsExt: ExtensionAware {
+interface VersionsExt : ExtensionAware {
     val common: Property<String>
     val core: Property<String>
     val adwaita: Property<String>
     val gtk4: Property<String>
     val gradlePlugin: Property<String>
     val gtksource: Property<String>
+    val atk: Property<String>
+    val javascriptcore: Property<String>
+    val soup: Property<String>
+    val webkit2: Property<String>
 }
 
 internal inline val Project.config: ConfigExt get() = extensions.getByType()

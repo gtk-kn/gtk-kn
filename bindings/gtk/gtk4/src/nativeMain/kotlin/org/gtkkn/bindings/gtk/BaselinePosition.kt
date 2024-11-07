@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.native.gtk.GtkBaselinePosition
-import org.gtkkn.native.gtk.GtkBaselinePosition.GTK_BASELINE_POSITION_BOTTOM
-import org.gtkkn.native.gtk.GtkBaselinePosition.GTK_BASELINE_POSITION_CENTER
-import org.gtkkn.native.gtk.GtkBaselinePosition.GTK_BASELINE_POSITION_TOP
 
 /**
  * Baseline position in a row of widgets.
@@ -22,25 +19,25 @@ public enum class BaselinePosition(
     /**
      * Align the baseline at the top
      */
-    TOP(GTK_BASELINE_POSITION_TOP),
+    TOP(GtkBaselinePosition.GTK_BASELINE_POSITION_TOP),
 
     /**
      * Center the baseline
      */
-    CENTER(GTK_BASELINE_POSITION_CENTER),
+    CENTER(GtkBaselinePosition.GTK_BASELINE_POSITION_CENTER),
 
     /**
      * Align the baseline at the bottom
      */
-    BOTTOM(GTK_BASELINE_POSITION_BOTTOM),
+    BOTTOM(GtkBaselinePosition.GTK_BASELINE_POSITION_BOTTOM),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GtkBaselinePosition): BaselinePosition =
             when (nativeValue) {
-                GTK_BASELINE_POSITION_TOP -> TOP
-                GTK_BASELINE_POSITION_CENTER -> CENTER
-                GTK_BASELINE_POSITION_BOTTOM -> BOTTOM
+                GtkBaselinePosition.GTK_BASELINE_POSITION_TOP -> TOP
+                GtkBaselinePosition.GTK_BASELINE_POSITION_CENTER -> CENTER
+                GtkBaselinePosition.GTK_BASELINE_POSITION_BOTTOM -> BOTTOM
                 else -> error("invalid nativeValue")
             }
     }

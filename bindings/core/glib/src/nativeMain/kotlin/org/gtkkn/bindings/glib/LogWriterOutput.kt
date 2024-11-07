@@ -3,8 +3,6 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_50
 import org.gtkkn.native.glib.GLogWriterOutput
-import org.gtkkn.native.glib.GLogWriterOutput.G_LOG_WRITER_HANDLED
-import org.gtkkn.native.glib.GLogWriterOutput.G_LOG_WRITER_UNHANDLED
 
 /**
  * Return values from #GLogWriterFuncs to indicate whether the given log entry
@@ -22,19 +20,19 @@ public enum class LogWriterOutput(
     /**
      * Log writer has handled the log entry.
      */
-    HANDLED(G_LOG_WRITER_HANDLED),
+    HANDLED(GLogWriterOutput.G_LOG_WRITER_HANDLED),
 
     /**
      * Log writer could not handle the log entry.
      */
-    UNHANDLED(G_LOG_WRITER_UNHANDLED),
+    UNHANDLED(GLogWriterOutput.G_LOG_WRITER_UNHANDLED),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GLogWriterOutput): LogWriterOutput =
             when (nativeValue) {
-                G_LOG_WRITER_HANDLED -> HANDLED
-                G_LOG_WRITER_UNHANDLED -> UNHANDLED
+                GLogWriterOutput.G_LOG_WRITER_HANDLED -> HANDLED
+                GLogWriterOutput.G_LOG_WRITER_UNHANDLED -> UNHANDLED
                 else -> error("invalid nativeValue")
             }
     }

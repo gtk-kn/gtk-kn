@@ -3,9 +3,6 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.native.gio.GPollableReturn
-import org.gtkkn.native.gio.GPollableReturn.G_POLLABLE_RETURN_FAILED
-import org.gtkkn.native.gio.GPollableReturn.G_POLLABLE_RETURN_OK
-import org.gtkkn.native.gio.GPollableReturn.G_POLLABLE_RETURN_WOULD_BLOCK
 
 /**
  * Return value for various IO operations that signal errors via the
@@ -26,25 +23,25 @@ public enum class PollableReturn(
     /**
      * Generic error condition for when an operation fails.
      */
-    FAILED(G_POLLABLE_RETURN_FAILED),
+    FAILED(GPollableReturn.G_POLLABLE_RETURN_FAILED),
 
     /**
      * The operation was successfully finished.
      */
-    OK(G_POLLABLE_RETURN_OK),
+    OK(GPollableReturn.G_POLLABLE_RETURN_OK),
 
     /**
      * The operation would block.
      */
-    WOULD_BLOCK(G_POLLABLE_RETURN_WOULD_BLOCK),
+    WOULD_BLOCK(GPollableReturn.G_POLLABLE_RETURN_WOULD_BLOCK),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GPollableReturn): PollableReturn =
             when (nativeValue) {
-                G_POLLABLE_RETURN_FAILED -> FAILED
-                G_POLLABLE_RETURN_OK -> OK
-                G_POLLABLE_RETURN_WOULD_BLOCK -> WOULD_BLOCK
+                GPollableReturn.G_POLLABLE_RETURN_FAILED -> FAILED
+                GPollableReturn.G_POLLABLE_RETURN_OK -> OK
+                GPollableReturn.G_POLLABLE_RETURN_WOULD_BLOCK -> WOULD_BLOCK
                 else -> error("invalid nativeValue")
             }
     }

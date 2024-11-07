@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import org.gtkkn.native.gio.GPasswordSave
-import org.gtkkn.native.gio.GPasswordSave.G_PASSWORD_SAVE_FOR_SESSION
-import org.gtkkn.native.gio.GPasswordSave.G_PASSWORD_SAVE_NEVER
-import org.gtkkn.native.gio.GPasswordSave.G_PASSWORD_SAVE_PERMANENTLY
 
 /**
  * #GPasswordSave is used to indicate the lifespan of a saved password.
@@ -18,25 +15,25 @@ public enum class PasswordSave(
     /**
      * never save a password.
      */
-    NEVER(G_PASSWORD_SAVE_NEVER),
+    NEVER(GPasswordSave.G_PASSWORD_SAVE_NEVER),
 
     /**
      * save a password for the session.
      */
-    FOR_SESSION(G_PASSWORD_SAVE_FOR_SESSION),
+    FOR_SESSION(GPasswordSave.G_PASSWORD_SAVE_FOR_SESSION),
 
     /**
      * save a password permanently.
      */
-    PERMANENTLY(G_PASSWORD_SAVE_PERMANENTLY),
+    PERMANENTLY(GPasswordSave.G_PASSWORD_SAVE_PERMANENTLY),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GPasswordSave): PasswordSave =
             when (nativeValue) {
-                G_PASSWORD_SAVE_NEVER -> NEVER
-                G_PASSWORD_SAVE_FOR_SESSION -> FOR_SESSION
-                G_PASSWORD_SAVE_PERMANENTLY -> PERMANENTLY
+                GPasswordSave.G_PASSWORD_SAVE_NEVER -> NEVER
+                GPasswordSave.G_PASSWORD_SAVE_FOR_SESSION -> FOR_SESSION
+                GPasswordSave.G_PASSWORD_SAVE_PERMANENTLY -> PERMANENTLY
                 else -> error("invalid nativeValue")
             }
     }

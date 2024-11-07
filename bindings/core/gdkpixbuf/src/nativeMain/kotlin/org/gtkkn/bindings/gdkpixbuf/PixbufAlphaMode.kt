@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import org.gtkkn.native.gdkpixbuf.GdkPixbufAlphaMode
-import org.gtkkn.native.gdkpixbuf.GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_BILEVEL
-import org.gtkkn.native.gdkpixbuf.GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_FULL
 
 /**
  * Control the alpha channel for drawables.
@@ -28,20 +26,20 @@ public enum class PixbufAlphaMode(
      *  will be considered fully transparent, and all others will be
      *  considered fully opaque.
      */
-    BILEVEL(GDK_PIXBUF_ALPHA_BILEVEL),
+    BILEVEL(GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_BILEVEL),
 
     /**
      * For now falls back to #GDK_PIXBUF_ALPHA_BILEVEL.
      *  In the future it will do full alpha compositing.
      */
-    FULL(GDK_PIXBUF_ALPHA_FULL),
+    FULL(GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_FULL),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GdkPixbufAlphaMode): PixbufAlphaMode =
             when (nativeValue) {
-                GDK_PIXBUF_ALPHA_BILEVEL -> BILEVEL
-                GDK_PIXBUF_ALPHA_FULL -> FULL
+                GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_BILEVEL -> BILEVEL
+                GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_FULL -> FULL
                 else -> error("invalid nativeValue")
             }
     }

@@ -3,10 +3,6 @@ package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.native.pango.PangoTextTransform
-import org.gtkkn.native.pango.PangoTextTransform.PANGO_TEXT_TRANSFORM_CAPITALIZE
-import org.gtkkn.native.pango.PangoTextTransform.PANGO_TEXT_TRANSFORM_LOWERCASE
-import org.gtkkn.native.pango.PangoTextTransform.PANGO_TEXT_TRANSFORM_NONE
-import org.gtkkn.native.pango.PangoTextTransform.PANGO_TEXT_TRANSFORM_UPPERCASE
 
 /**
  * An enumeration that affects how Pango treats characters during shaping.
@@ -19,32 +15,32 @@ public enum class TextTransform(
     /**
      * Leave text unchanged
      */
-    NONE(PANGO_TEXT_TRANSFORM_NONE),
+    NONE(PangoTextTransform.PANGO_TEXT_TRANSFORM_NONE),
 
     /**
      * Display letters and numbers as lowercase
      */
-    LOWERCASE(PANGO_TEXT_TRANSFORM_LOWERCASE),
+    LOWERCASE(PangoTextTransform.PANGO_TEXT_TRANSFORM_LOWERCASE),
 
     /**
      * Display letters and numbers as uppercase
      */
-    UPPERCASE(PANGO_TEXT_TRANSFORM_UPPERCASE),
+    UPPERCASE(PangoTextTransform.PANGO_TEXT_TRANSFORM_UPPERCASE),
 
     /**
      * Display the first character of a word
      *   in titlecase
      */
-    CAPITALIZE(PANGO_TEXT_TRANSFORM_CAPITALIZE),
+    CAPITALIZE(PangoTextTransform.PANGO_TEXT_TRANSFORM_CAPITALIZE),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: PangoTextTransform): TextTransform =
             when (nativeValue) {
-                PANGO_TEXT_TRANSFORM_NONE -> NONE
-                PANGO_TEXT_TRANSFORM_LOWERCASE -> LOWERCASE
-                PANGO_TEXT_TRANSFORM_UPPERCASE -> UPPERCASE
-                PANGO_TEXT_TRANSFORM_CAPITALIZE -> CAPITALIZE
+                PangoTextTransform.PANGO_TEXT_TRANSFORM_NONE -> NONE
+                PangoTextTransform.PANGO_TEXT_TRANSFORM_LOWERCASE -> LOWERCASE
+                PangoTextTransform.PANGO_TEXT_TRANSFORM_UPPERCASE -> UPPERCASE
+                PangoTextTransform.PANGO_TEXT_TRANSFORM_CAPITALIZE -> CAPITALIZE
                 else -> error("invalid nativeValue")
             }
     }

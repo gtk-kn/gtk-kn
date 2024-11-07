@@ -3,9 +3,6 @@ package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gsk.GskSerializationError
-import org.gtkkn.native.gsk.GskSerializationError.GSK_SERIALIZATION_INVALID_DATA
-import org.gtkkn.native.gsk.GskSerializationError.GSK_SERIALIZATION_UNSUPPORTED_FORMAT
-import org.gtkkn.native.gsk.GskSerializationError.GSK_SERIALIZATION_UNSUPPORTED_VERSION
 import org.gtkkn.native.gsk.gsk_serialization_error_quark
 import kotlin.UInt
 
@@ -18,27 +15,27 @@ public enum class SerializationError(
     /**
      * The format can not be identified
      */
-    UNSUPPORTED_FORMAT(GSK_SERIALIZATION_UNSUPPORTED_FORMAT),
+    UNSUPPORTED_FORMAT(GskSerializationError.GSK_SERIALIZATION_UNSUPPORTED_FORMAT),
 
     /**
      * The version of the data is not
      *   understood
      */
-    UNSUPPORTED_VERSION(GSK_SERIALIZATION_UNSUPPORTED_VERSION),
+    UNSUPPORTED_VERSION(GskSerializationError.GSK_SERIALIZATION_UNSUPPORTED_VERSION),
 
     /**
      * The given data may not exist in
      *   a proper serialization
      */
-    INVALID_DATA(GSK_SERIALIZATION_INVALID_DATA),
+    INVALID_DATA(GskSerializationError.GSK_SERIALIZATION_INVALID_DATA),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GskSerializationError): SerializationError =
             when (nativeValue) {
-                GSK_SERIALIZATION_UNSUPPORTED_FORMAT -> UNSUPPORTED_FORMAT
-                GSK_SERIALIZATION_UNSUPPORTED_VERSION -> UNSUPPORTED_VERSION
-                GSK_SERIALIZATION_INVALID_DATA -> INVALID_DATA
+                GskSerializationError.GSK_SERIALIZATION_UNSUPPORTED_FORMAT -> UNSUPPORTED_FORMAT
+                GskSerializationError.GSK_SERIALIZATION_UNSUPPORTED_VERSION -> UNSUPPORTED_VERSION
+                GskSerializationError.GSK_SERIALIZATION_INVALID_DATA -> INVALID_DATA
                 else -> error("invalid nativeValue")
             }
 

@@ -3,9 +3,6 @@ package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.native.gsk.GskLineCap
-import org.gtkkn.native.gsk.GskLineCap.GSK_LINE_CAP_BUTT
-import org.gtkkn.native.gsk.GskLineCap.GSK_LINE_CAP_ROUND
-import org.gtkkn.native.gsk.GskLineCap.GSK_LINE_CAP_SQUARE
 
 /**
  * Specifies how to render the start and end points of contours or
@@ -32,27 +29,27 @@ public enum class LineCap(
      * Start and stop the line exactly at the start
      *   and end point
      */
-    BUTT(GSK_LINE_CAP_BUTT),
+    BUTT(GskLineCap.GSK_LINE_CAP_BUTT),
 
     /**
      * Use a round ending, the center of the circle
      *   is the start or end point
      */
-    ROUND(GSK_LINE_CAP_ROUND),
+    ROUND(GskLineCap.GSK_LINE_CAP_ROUND),
 
     /**
      * use squared ending, the center of the square
      *   is the start or end point
      */
-    SQUARE(GSK_LINE_CAP_SQUARE),
+    SQUARE(GskLineCap.GSK_LINE_CAP_SQUARE),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GskLineCap): LineCap =
             when (nativeValue) {
-                GSK_LINE_CAP_BUTT -> BUTT
-                GSK_LINE_CAP_ROUND -> ROUND
-                GSK_LINE_CAP_SQUARE -> SQUARE
+                GskLineCap.GSK_LINE_CAP_BUTT -> BUTT
+                GskLineCap.GSK_LINE_CAP_ROUND -> ROUND
+                GskLineCap.GSK_LINE_CAP_SQUARE -> SQUARE
                 else -> error("invalid nativeValue")
             }
     }

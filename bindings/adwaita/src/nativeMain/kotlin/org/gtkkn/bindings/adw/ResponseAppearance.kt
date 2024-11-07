@@ -3,9 +3,6 @@ package org.gtkkn.bindings.adw
 
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.native.adw.AdwResponseAppearance
-import org.gtkkn.native.adw.AdwResponseAppearance.ADW_RESPONSE_DEFAULT
-import org.gtkkn.native.adw.AdwResponseAppearance.ADW_RESPONSE_DESTRUCTIVE
-import org.gtkkn.native.adw.AdwResponseAppearance.ADW_RESPONSE_SUGGESTED
 
 /**
  * Describes the possible styles of [class@AlertDialog] response buttons.
@@ -20,28 +17,28 @@ public enum class ResponseAppearance(
     /**
      * the default appearance.
      */
-    DEFAULT(ADW_RESPONSE_DEFAULT),
+    DEFAULT(AdwResponseAppearance.ADW_RESPONSE_DEFAULT),
 
     /**
      * used to denote important responses such as the
      *     affirmative action.
      */
-    SUGGESTED(ADW_RESPONSE_SUGGESTED),
+    SUGGESTED(AdwResponseAppearance.ADW_RESPONSE_SUGGESTED),
 
     /**
      * used to draw attention to the potentially damaging
      *     consequences of using the response. This appearance acts as a warning to
      *     the user.
      */
-    DESTRUCTIVE(ADW_RESPONSE_DESTRUCTIVE),
+    DESTRUCTIVE(AdwResponseAppearance.ADW_RESPONSE_DESTRUCTIVE),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: AdwResponseAppearance): ResponseAppearance =
             when (nativeValue) {
-                ADW_RESPONSE_DEFAULT -> DEFAULT
-                ADW_RESPONSE_SUGGESTED -> SUGGESTED
-                ADW_RESPONSE_DESTRUCTIVE -> DESTRUCTIVE
+                AdwResponseAppearance.ADW_RESPONSE_DEFAULT -> DEFAULT
+                AdwResponseAppearance.ADW_RESPONSE_SUGGESTED -> SUGGESTED
+                AdwResponseAppearance.ADW_RESPONSE_DESTRUCTIVE -> DESTRUCTIVE
                 else -> error("invalid nativeValue")
             }
     }

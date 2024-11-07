@@ -3,8 +3,6 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_38
 import org.gtkkn.native.glib.GTestFileType
-import org.gtkkn.native.glib.GTestFileType.G_TEST_BUILT
-import org.gtkkn.native.glib.GTestFileType.G_TEST_DIST
 
 /**
  * The type of file to return the filename for, when used with
@@ -32,19 +30,19 @@ public enum class TestFileType(
     /**
      * a file that was included in the distribution tarball
      */
-    DIST(G_TEST_DIST),
+    DIST(GTestFileType.G_TEST_DIST),
 
     /**
      * a file that was built on the compiling machine
      */
-    BUILT(G_TEST_BUILT),
+    BUILT(GTestFileType.G_TEST_BUILT),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GTestFileType): TestFileType =
             when (nativeValue) {
-                G_TEST_DIST -> DIST
-                G_TEST_BUILT -> BUILT
+                GTestFileType.G_TEST_DIST -> DIST
+                GTestFileType.G_TEST_BUILT -> BUILT
                 else -> error("invalid nativeValue")
             }
     }

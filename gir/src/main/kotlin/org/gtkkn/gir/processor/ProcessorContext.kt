@@ -714,6 +714,7 @@ class ProcessorContext(
 
             // problem because it uses a callback with a string return value
             "g_option_group_set_translate_func",
+            "soup_auth_domain_digest_set_auth_callback",
 
             // some string pointer functions
             "g_date_strftime",
@@ -746,6 +747,14 @@ class ProcessorContext(
 
             // On Fedora 41 this is listed in the GIR but the header file is missing
             "g_set_prgname_once",
+
+            // Problem with overriding
+            "atk_component_get_layer",
+            "atk_component_get_mdi_zorder",
+            "atk_selection_remove_selection",
+
+            // Argument type mismatch
+            "soup_message_get_tls_protocol_version",
         )
 
         /**

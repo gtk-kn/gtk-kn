@@ -4,8 +4,6 @@ package org.gtkkn.bindings.gio
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gio.GResourceError
-import org.gtkkn.native.gio.GResourceError.G_RESOURCE_ERROR_INTERNAL
-import org.gtkkn.native.gio.GResourceError.G_RESOURCE_ERROR_NOT_FOUND
 import org.gtkkn.native.gio.g_resource_error_quark
 import kotlin.UInt
 
@@ -21,19 +19,19 @@ public enum class ResourceError(
     /**
      * no file was found at the requested path
      */
-    NOT_FOUND(G_RESOURCE_ERROR_NOT_FOUND),
+    NOT_FOUND(GResourceError.G_RESOURCE_ERROR_NOT_FOUND),
 
     /**
      * unknown error
      */
-    INTERNAL(G_RESOURCE_ERROR_INTERNAL),
+    INTERNAL(GResourceError.G_RESOURCE_ERROR_INTERNAL),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GResourceError): ResourceError =
             when (nativeValue) {
-                G_RESOURCE_ERROR_NOT_FOUND -> NOT_FOUND
-                G_RESOURCE_ERROR_INTERNAL -> INTERNAL
+                GResourceError.G_RESOURCE_ERROR_NOT_FOUND -> NOT_FOUND
+                GResourceError.G_RESOURCE_ERROR_INTERNAL -> INTERNAL
                 else -> error("invalid nativeValue")
             }
 

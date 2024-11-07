@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GTimeType
-import org.gtkkn.native.glib.GTimeType.G_TIME_TYPE_DAYLIGHT
-import org.gtkkn.native.glib.GTimeType.G_TIME_TYPE_STANDARD
-import org.gtkkn.native.glib.GTimeType.G_TIME_TYPE_UNIVERSAL
 
 /**
  * Disambiguates a given time in two ways.
@@ -22,25 +19,25 @@ public enum class TimeType(
     /**
      * the time is in local standard time
      */
-    STANDARD(G_TIME_TYPE_STANDARD),
+    STANDARD(GTimeType.G_TIME_TYPE_STANDARD),
 
     /**
      * the time is in local daylight time
      */
-    DAYLIGHT(G_TIME_TYPE_DAYLIGHT),
+    DAYLIGHT(GTimeType.G_TIME_TYPE_DAYLIGHT),
 
     /**
      * the time is in UTC
      */
-    UNIVERSAL(G_TIME_TYPE_UNIVERSAL),
+    UNIVERSAL(GTimeType.G_TIME_TYPE_UNIVERSAL),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GTimeType): TimeType =
             when (nativeValue) {
-                G_TIME_TYPE_STANDARD -> STANDARD
-                G_TIME_TYPE_DAYLIGHT -> DAYLIGHT
-                G_TIME_TYPE_UNIVERSAL -> UNIVERSAL
+                GTimeType.G_TIME_TYPE_STANDARD -> STANDARD
+                GTimeType.G_TIME_TYPE_DAYLIGHT -> DAYLIGHT
+                GTimeType.G_TIME_TYPE_UNIVERSAL -> UNIVERSAL
                 else -> error("invalid nativeValue")
             }
     }

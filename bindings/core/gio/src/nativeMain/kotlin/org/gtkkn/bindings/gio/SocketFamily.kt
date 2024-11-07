@@ -3,10 +3,6 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.native.gio.GSocketFamily
-import org.gtkkn.native.gio.GSocketFamily.G_SOCKET_FAMILY_INVALID
-import org.gtkkn.native.gio.GSocketFamily.G_SOCKET_FAMILY_IPV4
-import org.gtkkn.native.gio.GSocketFamily.G_SOCKET_FAMILY_IPV6
-import org.gtkkn.native.gio.GSocketFamily.G_SOCKET_FAMILY_UNIX
 
 /**
  * The protocol family of a #GSocketAddress. (These values are
@@ -21,31 +17,31 @@ public enum class SocketFamily(
     /**
      * no address family
      */
-    INVALID(G_SOCKET_FAMILY_INVALID),
+    INVALID(GSocketFamily.G_SOCKET_FAMILY_INVALID),
 
     /**
      * the UNIX domain family
      */
-    UNIX(G_SOCKET_FAMILY_UNIX),
+    UNIX(GSocketFamily.G_SOCKET_FAMILY_UNIX),
 
     /**
      * the IPv4 family
      */
-    IPV4(G_SOCKET_FAMILY_IPV4),
+    IPV4(GSocketFamily.G_SOCKET_FAMILY_IPV4),
 
     /**
      * the IPv6 family
      */
-    IPV6(G_SOCKET_FAMILY_IPV6),
+    IPV6(GSocketFamily.G_SOCKET_FAMILY_IPV6),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GSocketFamily): SocketFamily =
             when (nativeValue) {
-                G_SOCKET_FAMILY_INVALID -> INVALID
-                G_SOCKET_FAMILY_UNIX -> UNIX
-                G_SOCKET_FAMILY_IPV4 -> IPV4
-                G_SOCKET_FAMILY_IPV6 -> IPV6
+                GSocketFamily.G_SOCKET_FAMILY_INVALID -> INVALID
+                GSocketFamily.G_SOCKET_FAMILY_UNIX -> UNIX
+                GSocketFamily.G_SOCKET_FAMILY_IPV4 -> IPV4
+                GSocketFamily.G_SOCKET_FAMILY_IPV6 -> IPV6
                 else -> error("invalid nativeValue")
             }
     }

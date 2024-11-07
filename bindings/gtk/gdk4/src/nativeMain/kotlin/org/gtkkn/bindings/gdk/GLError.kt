@@ -3,11 +3,6 @@ package org.gtkkn.bindings.gdk
 
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.native.gdk.GdkGLError
-import org.gtkkn.native.gdk.GdkGLError.GDK_GL_ERROR_COMPILATION_FAILED
-import org.gtkkn.native.gdk.GdkGLError.GDK_GL_ERROR_LINK_FAILED
-import org.gtkkn.native.gdk.GdkGLError.GDK_GL_ERROR_NOT_AVAILABLE
-import org.gtkkn.native.gdk.GdkGLError.GDK_GL_ERROR_UNSUPPORTED_FORMAT
-import org.gtkkn.native.gdk.GdkGLError.GDK_GL_ERROR_UNSUPPORTED_PROFILE
 import org.gtkkn.native.gdk.gdk_gl_error_quark
 import kotlin.UInt
 
@@ -20,37 +15,37 @@ public enum class GLError(
     /**
      * OpenGL support is not available
      */
-    NOT_AVAILABLE(GDK_GL_ERROR_NOT_AVAILABLE),
+    NOT_AVAILABLE(GdkGLError.GDK_GL_ERROR_NOT_AVAILABLE),
 
     /**
      * The requested visual format is not supported
      */
-    UNSUPPORTED_FORMAT(GDK_GL_ERROR_UNSUPPORTED_FORMAT),
+    UNSUPPORTED_FORMAT(GdkGLError.GDK_GL_ERROR_UNSUPPORTED_FORMAT),
 
     /**
      * The requested profile is not supported
      */
-    UNSUPPORTED_PROFILE(GDK_GL_ERROR_UNSUPPORTED_PROFILE),
+    UNSUPPORTED_PROFILE(GdkGLError.GDK_GL_ERROR_UNSUPPORTED_PROFILE),
 
     /**
      * The shader compilation failed
      */
-    COMPILATION_FAILED(GDK_GL_ERROR_COMPILATION_FAILED),
+    COMPILATION_FAILED(GdkGLError.GDK_GL_ERROR_COMPILATION_FAILED),
 
     /**
      * The shader linking failed
      */
-    LINK_FAILED(GDK_GL_ERROR_LINK_FAILED),
+    LINK_FAILED(GdkGLError.GDK_GL_ERROR_LINK_FAILED),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GdkGLError): GLError =
             when (nativeValue) {
-                GDK_GL_ERROR_NOT_AVAILABLE -> NOT_AVAILABLE
-                GDK_GL_ERROR_UNSUPPORTED_FORMAT -> UNSUPPORTED_FORMAT
-                GDK_GL_ERROR_UNSUPPORTED_PROFILE -> UNSUPPORTED_PROFILE
-                GDK_GL_ERROR_COMPILATION_FAILED -> COMPILATION_FAILED
-                GDK_GL_ERROR_LINK_FAILED -> LINK_FAILED
+                GdkGLError.GDK_GL_ERROR_NOT_AVAILABLE -> NOT_AVAILABLE
+                GdkGLError.GDK_GL_ERROR_UNSUPPORTED_FORMAT -> UNSUPPORTED_FORMAT
+                GdkGLError.GDK_GL_ERROR_UNSUPPORTED_PROFILE -> UNSUPPORTED_PROFILE
+                GdkGLError.GDK_GL_ERROR_COMPILATION_FAILED -> COMPILATION_FAILED
+                GdkGLError.GDK_GL_ERROR_LINK_FAILED -> LINK_FAILED
                 else -> error("invalid nativeValue")
             }
 

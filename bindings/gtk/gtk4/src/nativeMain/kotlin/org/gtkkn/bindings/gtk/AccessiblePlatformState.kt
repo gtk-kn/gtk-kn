@@ -3,9 +3,6 @@ package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.native.gtk.GtkAccessiblePlatformState
-import org.gtkkn.native.gtk.GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_ACTIVE
-import org.gtkkn.native.gtk.GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSABLE
-import org.gtkkn.native.gtk.GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSED
 
 /**
  * The various platform states which can be queried
@@ -19,25 +16,25 @@ public enum class AccessiblePlatformState(
     /**
      * whether the accessible can be focused
      */
-    FOCUSABLE(GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSABLE),
+    FOCUSABLE(GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSABLE),
 
     /**
      * whether the accessible has focus
      */
-    FOCUSED(GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSED),
+    FOCUSED(GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSED),
 
     /**
      * whether the accessible is active
      */
-    ACTIVE(GTK_ACCESSIBLE_PLATFORM_STATE_ACTIVE),
+    ACTIVE(GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_ACTIVE),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GtkAccessiblePlatformState): AccessiblePlatformState =
             when (nativeValue) {
-                GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSABLE -> FOCUSABLE
-                GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSED -> FOCUSED
-                GTK_ACCESSIBLE_PLATFORM_STATE_ACTIVE -> ACTIVE
+                GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSABLE -> FOCUSABLE
+                GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSED -> FOCUSED
+                GtkAccessiblePlatformState.GTK_ACCESSIBLE_PLATFORM_STATE_ACTIVE -> ACTIVE
                 else -> error("invalid nativeValue")
             }
     }

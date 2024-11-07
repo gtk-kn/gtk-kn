@@ -5,11 +5,6 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_26
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.native.pango.PangoGravity
-import org.gtkkn.native.pango.PangoGravity.PANGO_GRAVITY_AUTO
-import org.gtkkn.native.pango.PangoGravity.PANGO_GRAVITY_EAST
-import org.gtkkn.native.pango.PangoGravity.PANGO_GRAVITY_NORTH
-import org.gtkkn.native.pango.PangoGravity.PANGO_GRAVITY_SOUTH
-import org.gtkkn.native.pango.PangoGravity.PANGO_GRAVITY_WEST
 import org.gtkkn.native.pango.pango_gravity_get_for_matrix
 import org.gtkkn.native.pango.pango_gravity_get_for_script
 import org.gtkkn.native.pango.pango_gravity_get_for_script_and_width
@@ -40,37 +35,37 @@ public enum class Gravity(
     /**
      * Glyphs stand upright (default) <img align="right" valign="center" src="m-south.png">
      */
-    SOUTH(PANGO_GRAVITY_SOUTH),
+    SOUTH(PangoGravity.PANGO_GRAVITY_SOUTH),
 
     /**
      * Glyphs are rotated 90 degrees counter-clockwise. <img align="right" valign="center" src="m-east.png">
      */
-    EAST(PANGO_GRAVITY_EAST),
+    EAST(PangoGravity.PANGO_GRAVITY_EAST),
 
     /**
      * Glyphs are upside-down. <img align="right" valign="cener" src="m-north.png">
      */
-    NORTH(PANGO_GRAVITY_NORTH),
+    NORTH(PangoGravity.PANGO_GRAVITY_NORTH),
 
     /**
      * Glyphs are rotated 90 degrees clockwise. <img align="right" valign="center" src="m-west.png">
      */
-    WEST(PANGO_GRAVITY_WEST),
+    WEST(PangoGravity.PANGO_GRAVITY_WEST),
 
     /**
      * Gravity is resolved from the context matrix
      */
-    AUTO(PANGO_GRAVITY_AUTO),
+    AUTO(PangoGravity.PANGO_GRAVITY_AUTO),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: PangoGravity): Gravity =
             when (nativeValue) {
-                PANGO_GRAVITY_SOUTH -> SOUTH
-                PANGO_GRAVITY_EAST -> EAST
-                PANGO_GRAVITY_NORTH -> NORTH
-                PANGO_GRAVITY_WEST -> WEST
-                PANGO_GRAVITY_AUTO -> AUTO
+                PangoGravity.PANGO_GRAVITY_SOUTH -> SOUTH
+                PangoGravity.PANGO_GRAVITY_EAST -> EAST
+                PangoGravity.PANGO_GRAVITY_NORTH -> NORTH
+                PangoGravity.PANGO_GRAVITY_WEST -> WEST
+                PangoGravity.PANGO_GRAVITY_AUTO -> AUTO
                 else -> error("invalid nativeValue")
             }
 

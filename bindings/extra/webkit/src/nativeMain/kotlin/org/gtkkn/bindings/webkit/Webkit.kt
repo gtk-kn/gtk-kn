@@ -1,0 +1,486 @@
+// This is a generated file. Do not modify.
+package org.gtkkn.bindings.webkit
+
+import kotlinx.cinterop.CFunction
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.staticCFunction
+import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
+import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_32
+import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
+import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
+import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
+import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.GlibException
+import org.gtkkn.native.webkit.WebKitURISchemeRequest
+import org.gtkkn.native.webkit.webkit_download_error_quark
+import org.gtkkn.native.webkit.webkit_favicon_database_error_quark
+import org.gtkkn.native.webkit.webkit_get_major_version
+import org.gtkkn.native.webkit.webkit_get_micro_version
+import org.gtkkn.native.webkit.webkit_get_minor_version
+import org.gtkkn.native.webkit.webkit_javascript_error_quark
+import org.gtkkn.native.webkit.webkit_media_error_quark
+import org.gtkkn.native.webkit.webkit_media_key_system_permission_get_name
+import org.gtkkn.native.webkit.webkit_network_error_quark
+import org.gtkkn.native.webkit.webkit_policy_error_quark
+import org.gtkkn.native.webkit.webkit_print_error_quark
+import org.gtkkn.native.webkit.webkit_snapshot_error_quark
+import org.gtkkn.native.webkit.webkit_uri_for_display
+import org.gtkkn.native.webkit.webkit_user_content_filter_error_quark
+import org.gtkkn.native.webkit.webkit_user_media_permission_is_for_audio_device
+import org.gtkkn.native.webkit.webkit_user_media_permission_is_for_display_device
+import org.gtkkn.native.webkit.webkit_user_media_permission_is_for_video_device
+import org.gtkkn.native.webkit.webkit_user_message_error_quark
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+import kotlin.UInt
+import kotlin.Unit
+
+/**
+ * ## Skipped during bindings generation
+ *
+ * - record `AuthenticationRequestClass`: glib type struct are ignored
+ * - record `AutomationSessionClass`: glib type struct are ignored
+ * - record `BackForwardListClass`: glib type struct are ignored
+ * - record `BackForwardListItemClass`: glib type struct are ignored
+ * - record `ClipboardPermissionRequestClass`: glib type struct are ignored
+ * - record `ColorChooserRequestClass`: glib type struct are ignored
+ * - record `ContextMenuClass`: glib type struct are ignored
+ * - record `ContextMenuItemClass`: glib type struct are ignored
+ * - record `CookieManagerClass`: glib type struct are ignored
+ * - record `DeviceInfoPermissionRequestClass`: glib type struct are ignored
+ * - record `DownloadClass`: glib type struct are ignored
+ * - record `EditorStateClass`: glib type struct are ignored
+ * - record `FaviconDatabaseClass`: glib type struct are ignored
+ * - record `FileChooserRequestClass`: glib type struct are ignored
+ * - record `FindControllerClass`: glib type struct are ignored
+ * - record `FormSubmissionRequestClass`: glib type struct are ignored
+ * - record `GeolocationManagerClass`: glib type struct are ignored
+ * - record `GeolocationPermissionRequestClass`: glib type struct are ignored
+ * - record `HitTestResultClass`: glib type struct are ignored
+ * - record `InputMethodContextClass`: glib type struct are ignored
+ * - record `InputMethodContextPrivate`: Disguised records are ignored
+ * - record `MediaKeySystemPermissionRequestClass`: glib type struct are ignored
+ * - record `NavigationPolicyDecisionClass`: glib type struct are ignored
+ * - record `NetworkSessionClass`: glib type struct are ignored
+ * - record `NotificationClass`: glib type struct are ignored
+ * - record `NotificationPermissionRequestClass`: glib type struct are ignored
+ * - record `OptionMenuClass`: glib type struct are ignored
+ * - record `PermissionRequestInterface`: glib type struct are ignored
+ * - record `PointerLockPermissionRequestClass`: glib type struct are ignored
+ * - record `PolicyDecisionClass`: glib type struct are ignored
+ * - record `PolicyDecisionPrivate`: Disguised records are ignored
+ * - record `PrintOperationClass`: glib type struct are ignored
+ * - record `ResponsePolicyDecisionClass`: glib type struct are ignored
+ * - record `SecurityManagerClass`: glib type struct are ignored
+ * - record `SettingsClass`: glib type struct are ignored
+ * - record `URIRequestClass`: glib type struct are ignored
+ * - record `URIResponseClass`: glib type struct are ignored
+ * - record `URISchemeRequestClass`: glib type struct are ignored
+ * - record `URISchemeResponseClass`: glib type struct are ignored
+ * - record `UserContentFilterStoreClass`: glib type struct are ignored
+ * - record `UserContentManagerClass`: glib type struct are ignored
+ * - record `UserMediaPermissionRequestClass`: glib type struct are ignored
+ * - record `UserMessageClass`: glib type struct are ignored
+ * - record `WebContextClass`: glib type struct are ignored
+ * - record `WebInspectorClass`: glib type struct are ignored
+ * - record `WebResourceClass`: glib type struct are ignored
+ * - record `WebViewBaseClass`: glib type struct are ignored
+ * - record `WebViewBasePrivate`: Disguised records are ignored
+ * - record `WebViewClass`: glib type struct are ignored
+ * - record `WebViewPrivate`: Disguised records are ignored
+ * - record `WebsiteDataAccessPermissionRequestClass`: glib type struct are ignored
+ * - record `WebsiteDataManagerClass`: glib type struct are ignored
+ * - record `WebsitePoliciesClass`: glib type struct are ignored
+ * - record `WindowPropertiesClass`: glib type struct are ignored
+ */
+public object Webkit {
+    /**
+     * The copy clipboard command. Copies the current selection inside
+     * a #WebKitWebView to the clipboard.
+     * You can check whether it's possible to execute the command with
+     * webkit_web_view_can_execute_editing_command(). In general it's
+     * possible to copy to the clipboard when there is an active selection
+     * inside the #WebKitWebView.
+     */
+    public const val EDITING_COMMAND_COPY: String = "Copy"
+
+    /**
+     * The create link command. Creates a link element that is inserted at
+     * the current cursor position. If there's a selection, the selected text
+     * will be used as the link text, otherwise the URL itself will be used.
+     * It receives the link URL as argument. This command should be executed
+     * with webkit_web_view_execute_editing_command_with_argument()
+     *
+     * @since 2.10
+     */
+    public const val EDITING_COMMAND_CREATE_LINK: String = "CreateLink"
+
+    /**
+     * The cut clipboard command. Copies the current selection inside
+     * a #WebKitWebView to the clipboard and deletes the selected content.
+     * You can check whether it's possible to execute the command with
+     * webkit_web_view_can_execute_editing_command(). In general it's
+     * possible to cut to the clipboard when the #WebKitWebView content is
+     * editable and there is an active selection.
+     */
+    public const val EDITING_COMMAND_CUT: String = "Cut"
+
+    /**
+     * The insert image command. Creates an image element that is inserted at
+     * the current cursor position. It receives an URI as argument,
+     * that is used as the image source. This command should be executed with
+     * webkit_web_view_execute_editing_command_with_argument().
+     *
+     * @since 2.10
+     */
+    public const val EDITING_COMMAND_INSERT_IMAGE: String = "InsertImage"
+
+    /**
+     * The paste clipboard command. Pastes the contents of the clipboard to
+     * a #WebKitWebView.
+     * You can check whether it's possible to execute the command with
+     * webkit_web_view_can_execute_editing_command(). In general it's possible
+     * to paste from the clipboard when the #WebKitWebView content is editable
+     * and clipboard is not empty.
+     */
+    public const val EDITING_COMMAND_PASTE: String = "Paste"
+
+    /**
+     * The paste as plaintext clipboard command. Pastes the contents of the
+     * clipboard to a #WebKitWebView, with formatting removed.
+     * You can check whether it's possible to execute the command with
+     * webkit_web_view_can_execute_editing_command(). In general it's possible
+     * to paste from the clipboard when the #WebKitWebView content is editable
+     * and clipboard is not empty.
+     *
+     * @since 2.30
+     */
+    public const val EDITING_COMMAND_PASTE_AS_PLAIN_TEXT: String = "PasteAsPlainText"
+
+    /**
+     * The redo command. Redoes a previously undone editing command in
+     * a #WebKitWebView.
+     * You can check whether it's possible to execute the command with
+     * webkit_web_view_can_execute_editing_command(). It's only possible
+     * to redo a command when it has been previously undone.
+     */
+    public const val EDITING_COMMAND_REDO: String = "Redo"
+
+    /**
+     * The select all command. Selects all the content of the current text field in
+     * a #WebKitWebView.
+     * It is always possible to select all text, no matter whether the
+     * #WebKitWebView content is editable or not. You can still check it
+     * with webkit_web_view_can_execute_editing_command().
+     */
+    public const val EDITING_COMMAND_SELECT_ALL: String = "SelectAll"
+
+    /**
+     * The undo command. Undoes the last editing command in a #WebKitWebView.
+     * You can check whether it's possible to execute the command with
+     * webkit_web_view_can_execute_editing_command(). It's only possible
+     * to undo a command after a previously executed editing operation.
+     */
+    public const val EDITING_COMMAND_UNDO: String = "Undo"
+
+    /**
+     * Like webkit_get_major_version(), but from the headers used at
+     * application compile time, rather than from the library linked
+     * against at application run time.
+     */
+    public const val MAJOR_VERSION: Int = 2
+
+    /**
+     * Like webkit_get_micro_version(), but from the headers used at
+     * application compile time, rather than from the library linked
+     * against at application run time.
+     */
+    public const val MICRO_VERSION: Int = 1
+
+    /**
+     * Like webkit_get_minor_version(), but from the headers used at
+     * application compile time, rather than from the library linked
+     * against at application run time.
+     */
+    public const val MINOR_VERSION: Int = 46
+
+    /**
+     * Gets the quark for the domain of download errors.
+     *
+     * @return download error domain.
+     */
+    public fun downloadErrorQuark(): UInt = webkit_download_error_quark()
+
+    /**
+     * Gets the quark for the domain of favicon database errors.
+     *
+     * @return favicon database error domain.
+     */
+    public fun faviconDatabaseErrorQuark(): UInt = webkit_favicon_database_error_quark()
+
+    /**
+     * Returns the major version number of the WebKit library.
+     *
+     * (e.g. in WebKit version 1.8.3 this is 1.)
+     *
+     * This function is in the library, so it represents the WebKit library
+     * your code is running against. Contrast with the #WEBKIT_MAJOR_VERSION
+     * macro, which represents the major version of the WebKit headers you
+     * have included when compiling your code.
+     *
+     * @return the major version number of the WebKit library
+     */
+    public fun getMajorVersion(): UInt = webkit_get_major_version()
+
+    /**
+     * Returns the micro version number of the WebKit library.
+     *
+     * (e.g. in WebKit version 1.8.3 this is 3.)
+     *
+     * This function is in the library, so it represents the WebKit library
+     * your code is running against. Contrast with the #WEBKIT_MICRO_VERSION
+     * macro, which represents the micro version of the WebKit headers you
+     * have included when compiling your code.
+     *
+     * @return the micro version number of the WebKit library
+     */
+    public fun getMicroVersion(): UInt = webkit_get_micro_version()
+
+    /**
+     * Returns the minor version number of the WebKit library.
+     *
+     * (e.g. in WebKit version 1.8.3 this is 8.)
+     *
+     * This function is in the library, so it represents the WebKit library
+     * your code is running against. Contrast with the #WEBKIT_MINOR_VERSION
+     * macro, which represents the minor version of the WebKit headers you
+     * have included when compiling your code.
+     *
+     * @return the minor version number of the WebKit library
+     */
+    public fun getMinorVersion(): UInt = webkit_get_minor_version()
+
+    /**
+     * Gets the quark for the domain of JavaScript errors.
+     *
+     * @return JavaScript error domain.
+     */
+    public fun javascriptErrorQuark(): UInt = webkit_javascript_error_quark()
+
+    /**
+     * Gets the quark for the domain of media errors.
+     *
+     * @return media error domin.
+     * @since 2.40
+     */
+    @WebKitVersion2_40
+    public fun mediaErrorQuark(): UInt = webkit_media_error_quark()
+
+    /**
+     * Get the key system for which access permission is being requested.
+     *
+     * @param request a #WebKitMediaKeySystemPermissionRequest
+     * @return the key system name for @request
+     * @since 2.32
+     */
+    @WebKitVersion2_32
+    public fun mediaKeySystemPermissionGetName(request: MediaKeySystemPermissionRequest): String =
+        webkit_media_key_system_permission_get_name(
+            request.webkitMediaKeySystemPermissionRequestPointer.reinterpret()
+        )?.toKString()
+            ?: error("Expected not null string")
+
+    /**
+     * Gets the quark for the domain of networking errors.
+     *
+     * @return network error domain.
+     */
+    public fun networkErrorQuark(): UInt = webkit_network_error_quark()
+
+    /**
+     * Gets the quark for the domain of policy errors.
+     *
+     * @return policy error domain.
+     */
+    public fun policyErrorQuark(): UInt = webkit_policy_error_quark()
+
+    /**
+     * Gets the quark for the domain of printing errors.
+     *
+     * @return print error domain.
+     */
+    public fun printErrorQuark(): UInt = webkit_print_error_quark()
+
+    /**
+     * Gets the quark for the domain of page snapshot errors.
+     *
+     * @return snapshot error domain.
+     */
+    public fun snapshotErrorQuark(): UInt = webkit_snapshot_error_quark()
+
+    /**
+     * Use this function to format a URI for display.
+     *
+     * The URIs used internally by
+     * WebKit may contain percent-encoded characters or Punycode, which are not
+     * generally suitable to display to users. This function provides protection
+     * against IDN homograph attacks, so in some cases the host part of the returned
+     * URI may be in Punycode if the safety check fails.
+     *
+     * @param uri the URI to be converted
+     * @return @uri suitable for display, or null in
+     *    case of error.
+     * @since 2.24
+     */
+    @WebKitVersion2_24
+    public fun uriForDisplay(uri: String): String =
+        webkit_uri_for_display(uri)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Gets the quark for the domain of user content filter errors.
+     *
+     * @return user content filter error domain.
+     */
+    public fun userContentFilterErrorQuark(): UInt = webkit_user_content_filter_error_quark()
+
+    /**
+     * Check whether the permission request is for an audio device.
+     *
+     * @param request a #WebKitUserMediaPermissionRequest
+     * @return true if access to an audio device was requested.
+     * @since 2.8
+     */
+    @WebKitVersion2_8
+    public fun userMediaPermissionIsForAudioDevice(request: UserMediaPermissionRequest): Boolean =
+        webkit_user_media_permission_is_for_audio_device(
+            request.webkitUserMediaPermissionRequestPointer.reinterpret()
+        ).asBoolean()
+
+    /**
+     * Check whether the permission request is for a display device.
+     *
+     * @param request a #WebKitUserMediaPermissionRequest
+     * @return true if access to a display device was requested.
+     * @since 2.34
+     */
+    @WebKitVersion2_34
+    public fun userMediaPermissionIsForDisplayDevice(request: UserMediaPermissionRequest): Boolean =
+        webkit_user_media_permission_is_for_display_device(
+            request.webkitUserMediaPermissionRequestPointer.reinterpret()
+        ).asBoolean()
+
+    /**
+     * Check whether the permission request is for a video device.
+     *
+     * @param request a #WebKitUserMediaPermissionRequest
+     * @return true if access to a video device was requested.
+     * @since 2.8
+     */
+    @WebKitVersion2_8
+    public fun userMediaPermissionIsForVideoDevice(request: UserMediaPermissionRequest): Boolean =
+        webkit_user_media_permission_is_for_video_device(
+            request.webkitUserMediaPermissionRequestPointer.reinterpret()
+        ).asBoolean()
+
+    /**
+     * Gets the quark for the domain of user message errors.
+     *
+     * @return user message error domain.
+     */
+    public fun userMessageErrorQuark(): UInt = webkit_user_message_error_quark()
+
+    public fun resolveException(error: Error): GlibException {
+        val ex =
+            when (error.domain) {
+                DownloadError.quark() ->
+                    DownloadError
+                        .fromErrorOrNull(error)
+                        ?.let {
+                            DownloadErrorException(error, it)
+                        }
+                FaviconDatabaseError.quark() ->
+                    FaviconDatabaseError
+                        .fromErrorOrNull(error)
+                        ?.let {
+                            FaviconDatabaseErrorException(error, it)
+                        }
+                JavascriptError.quark() ->
+                    JavascriptError
+                        .fromErrorOrNull(error)
+                        ?.let {
+                            JavascriptErrorException(error, it)
+                        }
+                MediaError.quark() ->
+                    MediaError
+                        .fromErrorOrNull(error)
+                        ?.let {
+                            MediaErrorException(error, it)
+                        }
+                NetworkError.quark() ->
+                    NetworkError
+                        .fromErrorOrNull(error)
+                        ?.let {
+                            NetworkErrorException(error, it)
+                        }
+                PolicyError.quark() ->
+                    PolicyError
+                        .fromErrorOrNull(error)
+                        ?.let {
+                            PolicyErrorException(error, it)
+                        }
+                PrintError.quark() ->
+                    PrintError
+                        .fromErrorOrNull(error)
+                        ?.let {
+                            PrintErrorException(error, it)
+                        }
+                SnapshotError.quark() ->
+                    SnapshotError
+                        .fromErrorOrNull(error)
+                        ?.let {
+                            SnapshotErrorException(error, it)
+                        }
+                UserContentFilterError.quark() ->
+                    UserContentFilterError
+                        .fromErrorOrNull(error)
+                        ?.let {
+                            UserContentFilterErrorException(error, it)
+                        }
+                UserMessageError.quark() ->
+                    UserMessageError
+                        .fromErrorOrNull(error)
+                        ?.let {
+                            UserMessageErrorException(error, it)
+                        }
+                else -> null
+            }
+        return ex ?: GlibException(error)
+    }
+}
+
+public val URISchemeRequestCallbackFunc:
+    CPointer<CFunction<(CPointer<WebKitURISchemeRequest>) -> Unit>> =
+    staticCFunction {
+            request: CPointer<WebKitURISchemeRequest>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(request: URISchemeRequest) -> Unit>().get().invoke(
+            request!!.run {
+                URISchemeRequest(reinterpret())
+            }
+        )
+    }.reinterpret()
+
+/**
+ * Type definition for a function that will be called back when an URI request is
+ * made for a user registered URI scheme.
+ *
+ * - param `request` the #WebKitURISchemeRequest
+ */
+public typealias URISchemeRequestCallback = (request: URISchemeRequest) -> Unit

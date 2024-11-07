@@ -36,7 +36,8 @@ kotlin {
                 // Import from mavenLocal
                 // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
             }
-
+        }
+        configureEach {
             languageSettings {
                 // Opt in to the required annotations
                 optIn("org.gtkkn.bindings.gio.annotations.GioVersion2_28")

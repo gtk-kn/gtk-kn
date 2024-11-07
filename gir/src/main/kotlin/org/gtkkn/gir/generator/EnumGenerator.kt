@@ -22,6 +22,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.U_INT
 import org.gtkkn.gir.blueprints.EnumBlueprint
 
+@Suppress("SpreadOperator")
 interface EnumGenerator : MiscGenerator, KDocGenerator {
     fun buildEnum(enum: EnumBlueprint): TypeSpec {
         // primary constructor
@@ -46,11 +47,24 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
 
         // add enum members
         enum.memberBlueprints.forEach { member ->
+            val constructorParamFormat: String
+            val constructorParamArgs: List<Any>
+
+            if (enum.memberConstantsAreScopedToType) {
+                // Constants are associated with a type
+                constructorParamFormat = "%T.%N"
+                constructorParamArgs = listOf(enum.nativeValueTypeName, member.nativeMemberName.simpleName)
+            } else {
+                // Constants are plain constants
+                constructorParamFormat = "%M"
+                constructorParamArgs = listOf(member.nativeMemberName)
+            }
+
             enumSpec.addEnumConstant(
                 member.kotlinName,
                 TypeSpec.anonymousClassBuilder()
                     .addKdoc(buildTypeKDoc(member.kdoc, member.optInVersionBlueprint))
-                    .addSuperclassConstructorParameter("%M", member.nativeMemberName)
+                    .addSuperclassConstructorParameter(constructorParamFormat, *constructorParamArgs.toTypedArray())
                     .build(),
             )
         }
@@ -70,7 +84,18 @@ interface EnumGenerator : MiscGenerator, KDocGenerator {
 
         // add a case for each member
         for (member in enum.memberBlueprints) {
-            fromNativeFunc.addStatement("%M -> %N", member.nativeMemberName, member.kotlinName)
+            val whenEntryFormat: String
+            val whenEntryArgs: List<Any>
+
+            if (enum.memberConstantsAreScopedToType) {
+                whenEntryFormat = "%T.%N -> %N"
+                whenEntryArgs = listOf(enum.nativeValueTypeName, member.nativeMemberName.simpleName, member.kotlinName)
+            } else {
+                whenEntryFormat = "%M -> %N"
+                whenEntryArgs = listOf(member.nativeMemberName, member.kotlinName)
+            }
+
+            fromNativeFunc.addStatement(whenEntryFormat, *whenEntryArgs.toTypedArray())
         }
 
         // most enums can be exhaustive but some exceptions still need an else case due to cinterop member handling

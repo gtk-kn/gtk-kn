@@ -3,8 +3,6 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.native.gio.GDBusMessageByteOrder
-import org.gtkkn.native.gio.GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN
-import org.gtkkn.native.gio.GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN
 
 /**
  * Enumeration used to describe the byte order of a D-Bus message.
@@ -17,19 +15,19 @@ public enum class DBusMessageByteOrder(
     /**
      * The byte order is big endian.
      */
-    BIG_ENDIAN(G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN),
+    BIG_ENDIAN(GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN),
 
     /**
      * The byte order is little endian.
      */
-    LITTLE_ENDIAN(G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN),
+    LITTLE_ENDIAN(GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GDBusMessageByteOrder): DBusMessageByteOrder =
             when (nativeValue) {
-                G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN -> BIG_ENDIAN
-                G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN -> LITTLE_ENDIAN
+                GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN -> BIG_ENDIAN
+                GDBusMessageByteOrder.G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN -> LITTLE_ENDIAN
                 else -> error("invalid nativeValue")
             }
     }

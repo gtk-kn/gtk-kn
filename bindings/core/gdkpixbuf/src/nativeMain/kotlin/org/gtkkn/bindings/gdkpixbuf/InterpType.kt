@@ -2,10 +2,6 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import org.gtkkn.native.gdkpixbuf.GdkInterpType
-import org.gtkkn.native.gdkpixbuf.GdkInterpType.GDK_INTERP_BILINEAR
-import org.gtkkn.native.gdkpixbuf.GdkInterpType.GDK_INTERP_HYPER
-import org.gtkkn.native.gdkpixbuf.GdkInterpType.GDK_INTERP_NEAREST
-import org.gtkkn.native.gdkpixbuf.GdkInterpType.GDK_INTERP_TILES
 
 /**
  * Interpolation modes for scaling functions.
@@ -26,7 +22,7 @@ public enum class InterpType(
      *  and lowest quality mode. Quality is normally unacceptable when scaling
      *  down, but may be OK when scaling up.
      */
-    NEAREST(GDK_INTERP_NEAREST),
+    NEAREST(GdkInterpType.GDK_INTERP_NEAREST),
 
     /**
      * This is an accurate simulation of the PostScript
@@ -35,7 +31,7 @@ public enum class InterpType(
      *  are implemented with antialiasing.  It resembles nearest neighbor for
      *  enlargement, and bilinear for reduction.
      */
-    TILES(GDK_INTERP_TILES),
+    TILES(GdkInterpType.GDK_INTERP_TILES),
 
     /**
      * Best quality/speed balance; use this mode by
@@ -44,7 +40,7 @@ public enum class InterpType(
      *  For reduction, it is equivalent to laying down small tiles and
      *  integrating over the coverage area.
      */
-    BILINEAR(GDK_INTERP_BILINEAR),
+    BILINEAR(GdkInterpType.GDK_INTERP_BILINEAR),
 
     /**
      * This is the slowest and highest quality
@@ -56,16 +52,16 @@ public enum class InterpType(
      *  it has a lower quality than the @GDK_INTERP_BILINEAR filter
      *  (Since: 2.38)
      */
-    HYPER(GDK_INTERP_HYPER),
+    HYPER(GdkInterpType.GDK_INTERP_HYPER),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GdkInterpType): InterpType =
             when (nativeValue) {
-                GDK_INTERP_NEAREST -> NEAREST
-                GDK_INTERP_TILES -> TILES
-                GDK_INTERP_BILINEAR -> BILINEAR
-                GDK_INTERP_HYPER -> HYPER
+                GdkInterpType.GDK_INTERP_NEAREST -> NEAREST
+                GdkInterpType.GDK_INTERP_TILES -> TILES
+                GdkInterpType.GDK_INTERP_BILINEAR -> BILINEAR
+                GdkInterpType.GDK_INTERP_HYPER -> HYPER
                 else -> error("invalid nativeValue")
             }
     }

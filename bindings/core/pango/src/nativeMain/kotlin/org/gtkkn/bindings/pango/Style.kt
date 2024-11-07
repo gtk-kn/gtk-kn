@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.native.pango.PangoStyle
-import org.gtkkn.native.pango.PangoStyle.PANGO_STYLE_ITALIC
-import org.gtkkn.native.pango.PangoStyle.PANGO_STYLE_NORMAL
-import org.gtkkn.native.pango.PangoStyle.PANGO_STYLE_OBLIQUE
 
 /**
  * An enumeration specifying the various slant styles possible for a font.
@@ -15,25 +12,25 @@ public enum class Style(
     /**
      * the font is upright.
      */
-    NORMAL(PANGO_STYLE_NORMAL),
+    NORMAL(PangoStyle.PANGO_STYLE_NORMAL),
 
     /**
      * the font is slanted, but in a roman style.
      */
-    OBLIQUE(PANGO_STYLE_OBLIQUE),
+    OBLIQUE(PangoStyle.PANGO_STYLE_OBLIQUE),
 
     /**
      * the font is slanted in an italic style.
      */
-    ITALIC(PANGO_STYLE_ITALIC),
+    ITALIC(PangoStyle.PANGO_STYLE_ITALIC),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: PangoStyle): Style =
             when (nativeValue) {
-                PANGO_STYLE_NORMAL -> NORMAL
-                PANGO_STYLE_OBLIQUE -> OBLIQUE
-                PANGO_STYLE_ITALIC -> ITALIC
+                PangoStyle.PANGO_STYLE_NORMAL -> NORMAL
+                PangoStyle.PANGO_STYLE_OBLIQUE -> OBLIQUE
+                PangoStyle.PANGO_STYLE_ITALIC -> ITALIC
                 else -> error("invalid nativeValue")
             }
     }

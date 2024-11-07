@@ -76,6 +76,26 @@
       "name": "gtksource",
       "module": "extra:gtksource",
       "girPrefix": "GtkSource-5"
+    },
+    {
+      "name": "atk",
+      "module": "extra:atk",
+      "girPrefix": "Atk-1.0"
+    },
+    {
+      "name": "javascriptcore",
+      "module": "extra:javascriptcore",
+      "girPrefix": "JavaScriptCore-6.0"
+    },
+    {
+      "name": "soup",
+      "module": "extra:soup",
+      "girPrefix": "Soup-3.0"
+    },
+    {
+      "name": "webkit",
+      "module": "extra:webkit",
+      "girPrefix": "WebKit-6.0"
     }
   ]
 }

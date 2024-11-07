@@ -31,11 +31,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "gtk-kn"
 
-val properties = (extra.properties + (rootDir.resolve("local.properties").takeIf(File::exists)?.let{
-    Properties().apply{
+val properties = (extra.properties + (rootDir.resolve("local.properties").takeIf(File::exists)?.let {
+    Properties().apply {
         it.inputStream().use(this::load)
     }.toMap()
-} ?: mapOf())).map { (k,v )-> "$k" to "$v" }.toMap()
+} ?: mapOf())).map { (k, v) -> "$k" to "$v" }.toMap()
 
 includeBuild("build-conventions")
 includeBuild("gradle-plugin")
@@ -55,6 +55,7 @@ if (!configFile.startsWith("/")) {
 
 @Suppress("UNCHECKED_CAST")
 val config = JsonSlurper().parse(File(configFile)) as Map<String, Any>
+
 @Suppress("UNCHECKED_CAST")
 val libraries = config["libraries"] as List<Map<String, String>>
 
@@ -62,14 +63,20 @@ libraries.forEach { library ->
     include("bindings:${library["module"]}")
 }
 
-if(properties["org.gtkkn.samples.disable"] != "true") {
+if (properties["org.gtkkn.samples.disable"] != "true") {
     include(
-        "samples:gtk:hello-world",
-        "samples:playground",
-        "samples:gtk:widgets",
-        "samples:gtk:widget-templates",
-        "samples:gtk:restore-window-state",
         "samples:gtk:embedded-resources",
         "samples:gtk:external-resources",
+        "samples:gtk:hello-world",
+        "samples:gtk:restore-window-state",
+        "samples:gtk:widget-templates",
+        "samples:gtk:widgets",
+        "samples:playground",
     )
+    if (libraries.any { it["module"] == "extra:gtksource" }) {
+        include("samples:gtksource:sample")
+    }
+    if (libraries.any { it["module"] == "extra:webkit" }) {
+        include("samples:webkit:browser")
+    }
 }

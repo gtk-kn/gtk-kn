@@ -3,9 +3,6 @@ package org.gtkkn.bindings.adw
 
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.native.adw.AdwToolbarStyle
-import org.gtkkn.native.adw.AdwToolbarStyle.ADW_TOOLBAR_FLAT
-import org.gtkkn.native.adw.AdwToolbarStyle.ADW_TOOLBAR_RAISED
-import org.gtkkn.native.adw.AdwToolbarStyle.ADW_TOOLBAR_RAISED_BORDER
 
 /**
  * Describes the possible top or bottom bar styles in an [class@ToolbarView]
@@ -57,25 +54,25 @@ public enum class ToolbarStyle(
     /**
      * No background, shadow only for scrolled content
      */
-    FLAT(ADW_TOOLBAR_FLAT),
+    FLAT(AdwToolbarStyle.ADW_TOOLBAR_FLAT),
 
     /**
      * Opaque background with a persistent shadow
      */
-    RAISED(ADW_TOOLBAR_RAISED),
+    RAISED(AdwToolbarStyle.ADW_TOOLBAR_RAISED),
 
     /**
      * Opaque background with a persistent border
      */
-    RAISED_BORDER(ADW_TOOLBAR_RAISED_BORDER),
+    RAISED_BORDER(AdwToolbarStyle.ADW_TOOLBAR_RAISED_BORDER),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: AdwToolbarStyle): ToolbarStyle =
             when (nativeValue) {
-                ADW_TOOLBAR_FLAT -> FLAT
-                ADW_TOOLBAR_RAISED -> RAISED
-                ADW_TOOLBAR_RAISED_BORDER -> RAISED_BORDER
+                AdwToolbarStyle.ADW_TOOLBAR_FLAT -> FLAT
+                AdwToolbarStyle.ADW_TOOLBAR_RAISED -> RAISED
+                AdwToolbarStyle.ADW_TOOLBAR_RAISED_BORDER -> RAISED_BORDER
                 else -> error("invalid nativeValue")
             }
     }

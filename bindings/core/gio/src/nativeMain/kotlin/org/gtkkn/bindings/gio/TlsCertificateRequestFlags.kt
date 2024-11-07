@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.native.gio.GTlsCertificateRequestFlags
-import org.gtkkn.native.gio.GTlsCertificateRequestFlags.G_TLS_CERTIFICATE_REQUEST_NONE
 
 /**
  * Flags for g_tls_interaction_request_certificate(),
@@ -18,13 +17,13 @@ public enum class TlsCertificateRequestFlags(
     /**
      * No flags
      */
-    NONE(G_TLS_CERTIFICATE_REQUEST_NONE),
+    NONE(GTlsCertificateRequestFlags.G_TLS_CERTIFICATE_REQUEST_NONE),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GTlsCertificateRequestFlags): TlsCertificateRequestFlags =
             when (nativeValue) {
-                G_TLS_CERTIFICATE_REQUEST_NONE -> NONE
+                GTlsCertificateRequestFlags.G_TLS_CERTIFICATE_REQUEST_NONE -> NONE
                 else -> error("invalid nativeValue")
             }
     }

@@ -2,8 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.native.gtk.GtkScrollablePolicy
-import org.gtkkn.native.gtk.GtkScrollablePolicy.GTK_SCROLL_MINIMUM
-import org.gtkkn.native.gtk.GtkScrollablePolicy.GTK_SCROLL_NATURAL
 
 /**
  * Defines the policy to be used in a scrollable widget when updating
@@ -15,19 +13,19 @@ public enum class ScrollablePolicy(
     /**
      * Scrollable adjustments are based on the minimum size
      */
-    MINIMUM(GTK_SCROLL_MINIMUM),
+    MINIMUM(GtkScrollablePolicy.GTK_SCROLL_MINIMUM),
 
     /**
      * Scrollable adjustments are based on the natural size
      */
-    NATURAL(GTK_SCROLL_NATURAL),
+    NATURAL(GtkScrollablePolicy.GTK_SCROLL_NATURAL),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GtkScrollablePolicy): ScrollablePolicy =
             when (nativeValue) {
-                GTK_SCROLL_MINIMUM -> MINIMUM
-                GTK_SCROLL_NATURAL -> NATURAL
+                GtkScrollablePolicy.GTK_SCROLL_MINIMUM -> MINIMUM
+                GtkScrollablePolicy.GTK_SCROLL_NATURAL -> NATURAL
                 else -> error("invalid nativeValue")
             }
     }

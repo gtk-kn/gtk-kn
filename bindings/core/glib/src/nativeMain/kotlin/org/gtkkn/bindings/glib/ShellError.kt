@@ -2,9 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GShellError
-import org.gtkkn.native.glib.GShellError.G_SHELL_ERROR_BAD_QUOTING
-import org.gtkkn.native.glib.GShellError.G_SHELL_ERROR_EMPTY_STRING
-import org.gtkkn.native.glib.GShellError.G_SHELL_ERROR_FAILED
 import org.gtkkn.native.glib.g_quark_from_string
 import kotlin.UInt
 
@@ -17,25 +14,25 @@ public enum class ShellError(
     /**
      * Mismatched or otherwise mangled quoting.
      */
-    BAD_QUOTING(G_SHELL_ERROR_BAD_QUOTING),
+    BAD_QUOTING(GShellError.G_SHELL_ERROR_BAD_QUOTING),
 
     /**
      * String to be parsed was empty.
      */
-    EMPTY_STRING(G_SHELL_ERROR_EMPTY_STRING),
+    EMPTY_STRING(GShellError.G_SHELL_ERROR_EMPTY_STRING),
 
     /**
      * Some other error.
      */
-    FAILED(G_SHELL_ERROR_FAILED),
+    FAILED(GShellError.G_SHELL_ERROR_FAILED),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: GShellError): ShellError =
             when (nativeValue) {
-                G_SHELL_ERROR_BAD_QUOTING -> BAD_QUOTING
-                G_SHELL_ERROR_EMPTY_STRING -> EMPTY_STRING
-                G_SHELL_ERROR_FAILED -> FAILED
+                GShellError.G_SHELL_ERROR_BAD_QUOTING -> BAD_QUOTING
+                GShellError.G_SHELL_ERROR_EMPTY_STRING -> EMPTY_STRING
+                GShellError.G_SHELL_ERROR_FAILED -> FAILED
                 else -> error("invalid nativeValue")
             }
 

@@ -2,13 +2,6 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.native.pango.PangoDirection
-import org.gtkkn.native.pango.PangoDirection.PANGO_DIRECTION_LTR
-import org.gtkkn.native.pango.PangoDirection.PANGO_DIRECTION_NEUTRAL
-import org.gtkkn.native.pango.PangoDirection.PANGO_DIRECTION_RTL
-import org.gtkkn.native.pango.PangoDirection.PANGO_DIRECTION_TTB_LTR
-import org.gtkkn.native.pango.PangoDirection.PANGO_DIRECTION_TTB_RTL
-import org.gtkkn.native.pango.PangoDirection.PANGO_DIRECTION_WEAK_LTR
-import org.gtkkn.native.pango.PangoDirection.PANGO_DIRECTION_WEAK_RTL
 
 /**
  * `PangoDirection` represents a direction in the Unicode bidirectional
@@ -36,51 +29,51 @@ public enum class Direction(
     /**
      * A strong left-to-right direction
      */
-    LTR(PANGO_DIRECTION_LTR),
+    LTR(PangoDirection.PANGO_DIRECTION_LTR),
 
     /**
      * A strong right-to-left direction
      */
-    RTL(PANGO_DIRECTION_RTL),
+    RTL(PangoDirection.PANGO_DIRECTION_RTL),
 
     /**
      * Deprecated value; treated the
      *   same as `PANGO_DIRECTION_RTL`.
      */
-    TTB_LTR(PANGO_DIRECTION_TTB_LTR),
+    TTB_LTR(PangoDirection.PANGO_DIRECTION_TTB_LTR),
 
     /**
      * Deprecated value; treated the
      *   same as `PANGO_DIRECTION_LTR`
      */
-    TTB_RTL(PANGO_DIRECTION_TTB_RTL),
+    TTB_RTL(PangoDirection.PANGO_DIRECTION_TTB_RTL),
 
     /**
      * A weak left-to-right direction
      */
-    WEAK_LTR(PANGO_DIRECTION_WEAK_LTR),
+    WEAK_LTR(PangoDirection.PANGO_DIRECTION_WEAK_LTR),
 
     /**
      * A weak right-to-left direction
      */
-    WEAK_RTL(PANGO_DIRECTION_WEAK_RTL),
+    WEAK_RTL(PangoDirection.PANGO_DIRECTION_WEAK_RTL),
 
     /**
      * No direction specified
      */
-    NEUTRAL(PANGO_DIRECTION_NEUTRAL),
+    NEUTRAL(PangoDirection.PANGO_DIRECTION_NEUTRAL),
     ;
 
     public companion object {
         public fun fromNativeValue(nativeValue: PangoDirection): Direction =
             when (nativeValue) {
-                PANGO_DIRECTION_LTR -> LTR
-                PANGO_DIRECTION_RTL -> RTL
-                PANGO_DIRECTION_TTB_LTR -> TTB_LTR
-                PANGO_DIRECTION_TTB_RTL -> TTB_RTL
-                PANGO_DIRECTION_WEAK_LTR -> WEAK_LTR
-                PANGO_DIRECTION_WEAK_RTL -> WEAK_RTL
-                PANGO_DIRECTION_NEUTRAL -> NEUTRAL
+                PangoDirection.PANGO_DIRECTION_LTR -> LTR
+                PangoDirection.PANGO_DIRECTION_RTL -> RTL
+                PangoDirection.PANGO_DIRECTION_TTB_LTR -> TTB_LTR
+                PangoDirection.PANGO_DIRECTION_TTB_RTL -> TTB_RTL
+                PangoDirection.PANGO_DIRECTION_WEAK_LTR -> WEAK_LTR
+                PangoDirection.PANGO_DIRECTION_WEAK_RTL -> WEAK_RTL
+                PangoDirection.PANGO_DIRECTION_NEUTRAL -> NEUTRAL
                 else -> error("invalid nativeValue")
             }
     }
