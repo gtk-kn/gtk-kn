@@ -76,11 +76,6 @@
       "girPrefix": "GtkSource-5"
     },
     {
-      "name": "atk",
-      "module": "extra:atk",
-      "girPrefix": "Atk-1.0"
-    },
-    {
       "name": "javascriptcore",
       "module": "extra:javascriptcore",
       "girPrefix": "JavaScriptCore-6.0"

@@ -26,7 +26,6 @@ kotlin {
             dependencies {
                 api(project(":bindings:common"))
                 api(project(":bindings:gtk:gtk4"))
-                implementation(project(":bindings:extra:atk"))
                 implementation(project(":bindings:extra:javascriptcore"))
                 implementation(project(":bindings:extra:soup"))
                 // transitive

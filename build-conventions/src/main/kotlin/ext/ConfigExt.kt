@@ -36,7 +36,6 @@ interface VersionsExt : ExtensionAware {
     val gtk4: Property<String>
     val gradlePlugin: Property<String>
     val gtksource: Property<String>
-    val atk: Property<String>
     val javascriptcore: Property<String>
     val soup: Property<String>
     val webkit2: Property<String>
