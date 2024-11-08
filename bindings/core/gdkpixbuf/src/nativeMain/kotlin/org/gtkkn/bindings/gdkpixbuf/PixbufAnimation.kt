@@ -8,6 +8,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gdkpixbuf.Gdkpixbuf.resolveException
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_28
 import org.gtkkn.bindings.gio.AsyncReadyCallback
@@ -266,6 +267,7 @@ public open class PixbufAnimation(
         public fun newFromFile(filename: String): Result<PixbufAnimation> =
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult = gdk_pixbuf_animation_new_from_file(filename, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -287,6 +289,7 @@ public open class PixbufAnimation(
         public fun newFromResource(resourcePath: String): Result<PixbufAnimation> =
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult = gdk_pixbuf_animation_new_from_resource(resourcePath, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))

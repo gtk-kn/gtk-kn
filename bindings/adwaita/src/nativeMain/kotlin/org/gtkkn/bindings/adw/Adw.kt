@@ -8,9 +8,11 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
+import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.GlibException
 import org.gtkkn.native.adw.adw_breakpoint_condition_parse
 import org.gtkkn.native.adw.adw_easing_ease
 import org.gtkkn.native.adw.adw_get_enable_animations
@@ -335,6 +337,14 @@ public object Adw {
         b: Double,
         t: Double,
     ): Double = adw_lerp(a, b, t)
+
+    public fun resolveException(error: Error): GlibException {
+        val ex =
+            when (error.domain) {
+                else -> null
+            }
+        return ex ?: GlibException(error)
+    }
 }
 
 public val AnimationTargetFuncFunc: CPointer<CFunction<(Double) -> Unit>> =

@@ -139,7 +139,7 @@ import kotlin.Unit
  *
  * - method `get_gutter`: C function gtk_source_view_get_gutter is ignored
  * - parameter `priority`: Unsupported pointer to primitive type
- * - signal `push-snippet`: Unsupported parameter `location` : location: InOut parameter is not supported
+ * - signal `push-snippet`: Unsupported parameter `location` : location: In/Out parameter is not supported
  */
 public open class View(
     pointer: CPointer<GtkSourceView>,
