@@ -16,6 +16,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.Error
@@ -413,6 +414,7 @@ public open class DBusObjectManagerClient(
         public fun newFinish(res: AsyncResult): Result<DBusObjectManagerClient> =
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult = g_dbus_object_manager_client_new_finish(res.gioAsyncResultPointer, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -433,6 +435,7 @@ public open class DBusObjectManagerClient(
         public fun newForBusFinish(res: AsyncResult): Result<DBusObjectManagerClient> =
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult = g_dbus_object_manager_client_new_for_bus_finish(res.gioAsyncResultPointer, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))

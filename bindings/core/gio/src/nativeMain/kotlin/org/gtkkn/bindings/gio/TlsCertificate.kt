@@ -8,6 +8,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
@@ -491,6 +492,7 @@ public open class TlsCertificate(
         ): Result<TlsCertificate> =
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult = g_tls_certificate_new_from_files(certFile, keyFile, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -520,6 +522,7 @@ public open class TlsCertificate(
         ): Result<TlsCertificate> =
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult = g_tls_certificate_new_from_file_with_password(`file`, password, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))

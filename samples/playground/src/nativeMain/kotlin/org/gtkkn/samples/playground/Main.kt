@@ -23,15 +23,14 @@
 package org.gtkkn.samples.playground
 
 import org.gtkkn.bindings.adw.HeaderBar
-import org.gtkkn.bindings.gdk.Display
-import org.gtkkn.bindings.gio.File
+import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gtk.Align
 import org.gtkkn.bindings.gtk.Box
-import org.gtkkn.bindings.gtk.CssProvider
 import org.gtkkn.bindings.gtk.Label
 import org.gtkkn.bindings.gtk.Orientation
-import org.gtkkn.bindings.gtk.StyleContext
-import org.gtkkn.native.gtk.GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
+import org.gtkkn.bindings.xdp.Portal
+import org.gtkkn.bindings.xdp.UserInformationFlags
+import org.gtkkn.extensions.glib.getString
 
 fun main() = Application {
     // setup a HeaderBar since adw windows don't have any by default
@@ -54,11 +53,21 @@ fun main() = Application {
         vexpand = true
     }
 
-    val provider = CssProvider()
-    provider.loadFromFile(File.newForPath("/tmp/styles.css"))
+    val portal = Portal()
+    portal.getUserInformation(null, "Demo", UserInformationFlags.NONE, null) { obj, res ->
+        val resultDictionary = portal.getUserInformationFinish(res).getOrThrow()
+        val id = resultDictionary.lookupValue("id", VariantType.new("s")).getString()
+        val name = resultDictionary.lookupValue("name", VariantType.new("s")).getString()
+        val image = resultDictionary.lookupValue("image", VariantType.new("s")).getString()
 
-    val display = Display.getDefault() ?: error("No display")
-    StyleContext.addProviderForDisplay(display, provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION.toUInt())
+        val text = """
+            |id: $id
+            |name: $name
+            |image: $image
+        """.trimMargin()
+
+        label.setLabel(text)
+    }
 
     // and add your widget to the layout to display it
     layout.append(label)

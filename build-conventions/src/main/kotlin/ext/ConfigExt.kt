@@ -39,6 +39,7 @@ interface VersionsExt : ExtensionAware {
     val javascriptcore: Property<String>
     val soup: Property<String>
     val webkit2: Property<String>
+    val libportal: Property<String>
 }
 
 internal inline val Project.config: ConfigExt get() = extensions.getByType()

@@ -2,9 +2,11 @@
 package org.gtkkn.bindings.graphene
 
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
+import org.gtkkn.extensions.glib.GlibException
 import org.gtkkn.native.graphene.graphene_box_empty
 import org.gtkkn.native.graphene.graphene_box_infinite
 import org.gtkkn.native.graphene.graphene_box_minus_one
@@ -448,4 +450,12 @@ public object Graphene {
         graphene_vec4_zero()!!.run {
             Vec4(reinterpret())
         }
+
+    public fun resolveException(error: Error): GlibException {
+        val ex =
+            when (error.domain) {
+                else -> null
+            }
+        return ex ?: GlibException(error)
+    }
 }

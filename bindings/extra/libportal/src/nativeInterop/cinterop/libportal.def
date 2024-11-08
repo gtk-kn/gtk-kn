@@ -1,0 +1,51 @@
+headers = libportal/portal.h
+package = org.gtkkn.native.xdp
+headerFilter = libportal/*
+
+# pkg-config --cflags libportal
+compilerOpts.linux = \
+    -I/usr/include \
+    -I/usr/include/glib-2.0 \
+    -I/usr/lib/glib-2.0/include \
+    -I/usr/include/sysprof-4 \
+    -I/usr/include/libmount \
+    -I/usr/include/blkid \
+    -I/usr/include/gio-unix-2.0 \
+    -pthread
+
+compilerOpts.linux_x64 = \
+    -I/usr/lib64/glib-2.0/include \
+    -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+
+# pkg-config --libs libportal
+linkerOpts.linux = \
+    -L/usr/local/lib \
+    -lportal \
+    -lgio-2.0 \
+    -lgobject-2.0 \
+    -lglib-2.0
+
+linkerOpts.linux_x64 = \
+    -L/usr/lib64 \
+    -L/usr/lib/x86_64-linux-gnu
+
+strictEnums = \
+    XdpButtonState \
+    XdpCameraFlags \
+    XdpDiscreteAxis \
+    XdpEmailFlags \
+    XdpKeyState \
+    XdpLocationAccuracy \
+    XdpLocationMonitorFlags \
+    XdpLoginSessionState \
+    XdpNotificationFlags \
+    XdpPersistMode \
+    XdpPrintFlags \
+    XdpSaveFileFlags \
+    XdpSessionMonitorFlags \
+    XdpSessionState \
+    XdpSessionType \
+    XdpUpdateInstallFlags \
+    XdpUpdateMonitorFlags \
+    XdpUpdateStatus \
+    XdpUserInformationFlags

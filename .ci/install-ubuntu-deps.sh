@@ -23,4 +23,5 @@ apt-get --quiet install --yes \
   libgirepository1.0-dev \
   libadwaita-1-dev \
   libgtksourceview-5-dev \
-  libwebkitgtk-6.0-dev
+  libwebkitgtk-6.0-dev \
+  libportal-gtk4-dev

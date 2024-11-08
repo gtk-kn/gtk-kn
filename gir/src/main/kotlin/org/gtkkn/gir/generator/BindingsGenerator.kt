@@ -292,18 +292,19 @@ class BindingsGenerator(
         internal val GLIB_BITFIELD_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Bitfield")
 
         // cinterop helper function members
-        internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
-        internal val TO_KSTRING_FUNC = MemberName("kotlinx.cinterop", "toKString")
-        internal val STATIC_C_FUNC = MemberName("kotlinx.cinterop", "staticCFunction")
+        internal val ALLOC_POINTER_TO = MemberName("kotlinx.cinterop", "allocPointerTo")
         internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
-        internal val POINTED_FUNC = MemberName("kotlinx.cinterop", "pointed")
-        internal val PTR_FUNC = MemberName("kotlinx.cinterop", "ptr")
+        internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
         internal val NATIVE_HEAP_OBJECT = ClassName("kotlinx.cinterop", "nativeHeap")
         internal val NATIVE_PLACEMENT_ALLOC = ClassName("kotlinx.cinterop", "alloc")
-        internal val STABLEREF = ClassName("kotlinx.cinterop", "StableRef")
-        internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
         internal val POINTED = MemberName("kotlinx.cinterop", "pointed")
-        internal val ALLOC_POINTER_TO = MemberName("kotlinx.cinterop", "allocPointerTo")
+        internal val POINTED_FUNC = MemberName("kotlinx.cinterop", "pointed")
+        internal val PTR_FUNC = MemberName("kotlinx.cinterop", "ptr")
+        internal val REINTERPRET_FUNC = MemberName("kotlinx.cinterop", "reinterpret")
+        internal val STABLEREF = ClassName("kotlinx.cinterop", "StableRef")
+        internal val STATIC_C_FUNC = MemberName("kotlinx.cinterop", "staticCFunction")
+        internal val TO_KSTRING_FUNC = MemberName("kotlinx.cinterop", "toKString")
+        internal val VALUE_PROPERTY = MemberName("kotlinx.cinterop", "value")
 
         // kotlin helpers
         internal val RESULT_TYPE = ClassName("kotlin", "Result")

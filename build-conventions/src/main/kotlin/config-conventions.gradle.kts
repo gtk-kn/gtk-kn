@@ -51,5 +51,6 @@ extensions.create<ConfigExt>("config").apply {
         javascriptcore.convention(common)
         soup.convention(common)
         webkit2.convention(common)
+        libportal.convention(common)
     }
 }

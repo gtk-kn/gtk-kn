@@ -7,6 +7,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gdk.Gdk.resolveException
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
@@ -342,6 +343,7 @@ public open class Texture(
         public fun newFromFilename(path: String): Result<Texture> =
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult = gdk_texture_new_from_filename(path, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))

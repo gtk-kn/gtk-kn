@@ -13,6 +13,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
@@ -1581,6 +1582,7 @@ public open class DBusConnection(
         public fun newFinish(res: AsyncResult): Result<DBusConnection> =
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult = g_dbus_connection_new_finish(res.gioAsyncResultPointer, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -1601,6 +1603,7 @@ public open class DBusConnection(
         public fun newForAddressFinish(res: AsyncResult): Result<DBusConnection> =
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult = g_dbus_connection_new_for_address_finish(res.gioAsyncResultPointer, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))

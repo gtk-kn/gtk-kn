@@ -89,6 +89,11 @@
       "name": "webkit",
       "module": "extra:webkit",
       "girPrefix": "WebKit-6.0"
+    },
+    {
+      "name": "xdp",
+      "module": "extra:libportal",
+      "girPrefix": "Xdp-"
     }
   ]
 }

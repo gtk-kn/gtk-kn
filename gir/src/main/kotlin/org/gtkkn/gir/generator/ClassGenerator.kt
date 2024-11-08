@@ -272,7 +272,7 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
     @Suppress("LongMethod")
     private fun buildClassConstructorFactoryMethod(clazz: ClassBlueprint, constructor: ConstructorBlueprint): FunSpec =
         FunSpec.builder(constructor.kotlinName).apply {
-            // return value
+            // Determine the return type
             val returnTypeName = if (constructor.throws) {
                 BindingsGenerator.RESULT_TYPE.parameterizedBy(clazz.typeName)
             } else {
@@ -280,10 +280,12 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             }
             returns(returnTypeName)
 
+            // Ensure the constructor returns an object pointer
             if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
                 error("Invalid constructor return type for ${constructor.nativeName}")
             }
 
+            // Add KDoc to the method
             addKdoc(
                 buildMethodKDoc(
                     kdoc = constructor.kdoc,
@@ -292,47 +294,102 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                     returnTypeKDoc = constructor.returnTypeKDoc,
                 ),
             )
+
+            // Use memScoped if needed
             if (constructor.needsMemscoped) {
                 beginControlFlow("return·%M", BindingsGenerator.MEMSCOPED)
             }
 
+            // Handle constructors without parameters
             if (constructor.parameters.isEmpty()) {
-                if (constructor.throws) error("Throwing no-argument constructors are not supported")
-                // no-arg factory method
-                addStatement("return·%T(%M()!!.reinterpret())", clazz.typeName, constructor.nativeMemberName)
-            } else {
-                appendSignatureParameters(constructor.parameters)
-
                 if (constructor.throws) {
-                    // prepare error pointer
+                    // Allocate GError**
                     addStatement(
                         "val gError = %M<%M>()",
                         BindingsGenerator.ALLOC_POINTER_TO,
                         BindingsGenerator.G_ERROR_MEMBER,
                     )
-                    // open native method call into intermediate val
+                    // Initialize gError.value to null
+                    addStatement("gError.%M = null", BindingsGenerator.VALUE_PROPERTY)
+
+                    // Call the native constructor function with gError
+                    addStatement(
+                        "val gResult = %M(gError.%M)",
+                        constructor.nativeMemberName,
+                        BindingsGenerator.PTR_FUNC,
+                    )
+
+                    // Check for errors
+                    beginControlFlow("return·if·(gError.%M != null)", BindingsGenerator.POINTED_FUNC)
+                    addStatement(
+                        "%T.failure(%M(%T(gError.%M!!.%M)))",
+                        BindingsGenerator.RESULT_TYPE,
+                        constructor.exceptionResolvingFunctionMember,
+                        BindingsGenerator.GLIB_ERROR_TYPE,
+                        BindingsGenerator.POINTED_FUNC,
+                        BindingsGenerator.PTR_FUNC,
+                    )
+                    endControlFlow()
+                    beginControlFlow("else")
+                    addStatement(
+                        "%T.success(%T(gResult!!.%M()))",
+                        BindingsGenerator.RESULT_TYPE,
+                        clazz.typeName,
+                        BindingsGenerator.REINTERPRET_FUNC,
+                    )
+                    endControlFlow()
+                } else {
+                    // Non-throwing no-arg factory method
+                    addStatement(
+                        "return·%T(%M()!!.%M())",
+                        clazz.typeName,
+                        constructor.nativeMemberName,
+                        BindingsGenerator.REINTERPRET_FUNC,
+                    )
+                }
+
+                if (constructor.needsMemscoped) {
+                    endControlFlow()
+                }
+            } else {
+                // Handle constructors with parameters
+                appendSignatureParameters(constructor.parameters)
+
+                if (constructor.throws) {
+                    // Prepare error pointer
+                    addStatement(
+                        "val gError = %M<%M>()",
+                        BindingsGenerator.ALLOC_POINTER_TO,
+                        BindingsGenerator.G_ERROR_MEMBER,
+                    )
+                    addStatement("gError.%M = null", BindingsGenerator.VALUE_PROPERTY)
+
+                    // Begin native function call
                     addCode("val gResult = %M(", constructor.nativeMemberName)
                 } else {
-                    // if not throws, we can return directly without intermediate
-                    // open native function call
+                    // Return directly if the constructor doesn't throw
                     addCode("return·%T(%M(", clazz.typeName, constructor.nativeMemberName)
                 }
 
+                // Add parameters to the native function call
                 constructor.parameters.forEachIndexed { index, param ->
                     if (index > 0) {
                         addCode(", ")
                     }
                     addCode(buildParameterConversionBlock(param))
                 }
-                // add error param
+
+                // Add the error parameter if needed
                 if (constructor.throws) {
                     addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
                 }
 
+                // Close the native function call
                 if (constructor.throws) {
-                    addCode(")") // close native function call
+                    addCode(")")
                     addStatement("")
 
+                    // Check for errors
                     beginControlFlow("return·if·(gError.%M != null)", BindingsGenerator.POINTED_FUNC)
                     addStatement(
                         "%T.failure(%M(%T(gError.%M!!.%M)))",
@@ -359,10 +416,9 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                             BindingsGenerator.REINTERPRET_FUNC,
                         )
                     }
-
                     endControlFlow()
                 } else {
-                    addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC) // close native function call
+                    addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC)
                 }
 
                 if (constructor.needsMemscoped) {

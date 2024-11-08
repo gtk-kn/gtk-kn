@@ -12,6 +12,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gdkpixbuf.Gdkpixbuf.resolveException
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_30
@@ -407,6 +408,7 @@ public open class PixbufLoader(
         public fun newWithType(imageType: String): Result<PixbufLoader> =
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult = gdk_pixbuf_loader_new_with_type(imageType, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -439,6 +441,7 @@ public open class PixbufLoader(
         public fun newWithMimeType(mimeType: String): Result<PixbufLoader> =
             memScoped {
                 val gError = allocPointerTo<GError>()
+                gError.`value` = null
                 val gResult = gdk_pixbuf_loader_new_with_mime_type(mimeType, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
