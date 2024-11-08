@@ -21,6 +21,7 @@ import com.pinterest.ktlint.rule.engine.api.Code
 import com.pinterest.ktlint.rule.engine.api.EditorConfigDefaults
 import com.pinterest.ktlint.rule.engine.api.EditorConfigDefaults.Companion.load
 import com.pinterest.ktlint.rule.engine.api.KtLintRuleEngine
+import com.pinterest.ktlint.rule.engine.core.api.AutocorrectDecision
 import com.pinterest.ktlint.rule.engine.core.api.propertyTypes
 import org.gtkkn.gir.log.logger
 import java.io.File
@@ -60,7 +61,11 @@ class KtLintFormatter(outputDir: File) {
         kotlinFile.createNewFile()
 
         // Format and write the file
-        kotlinFile.writeText(ktLintRuleEngine.format(Code.fromSnippet(content)))
+        kotlinFile.writeText(
+            ktLintRuleEngine.format(Code.fromSnippet(content)) { _ ->
+                AutocorrectDecision.ALLOW_AUTOCORRECT
+            },
+        )
     }
 
     private fun findEditorConfigPath(startDir: File): Path? {

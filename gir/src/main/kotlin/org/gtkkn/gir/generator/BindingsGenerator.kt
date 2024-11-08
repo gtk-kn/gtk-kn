@@ -23,6 +23,12 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeAliasSpec
 import com.squareup.kotlinpoet.TypeSpec
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.config.Config
@@ -31,7 +37,6 @@ import java.io.File
 
 class BindingsGenerator(
     private val config: Config,
-    private val ktLintFormatter: KtLintFormatter
 ) : ClassGenerator,
     InterfaceGenerator,
     EnumGenerator,
@@ -39,9 +44,9 @@ class BindingsGenerator(
     RepositoryObjectGenerator,
     RecordGenerator,
     TypeProviderGenerator,
-    OptInAnnotationGenerator { // Added interface
+    OptInAnnotationGenerator {
     @Suppress("LongMethod")
-    fun generate(repository: RepositoryBlueprint, moduleOutputDir: File) {
+    suspend fun generate(repository: RepositoryBlueprint, moduleOutputDir: File) {
         val repositoryOutputDir = repositoryBuildDir(moduleOutputDir)
         if (!repositoryOutputDir.exists()) {
             logger.info { "Creating output dir ${repositoryOutputDir.path}" }
@@ -63,72 +68,125 @@ class BindingsGenerator(
         val annotationNames = repository.optInVersionBlueprints.map { it.typeName.canonicalName }.sorted()
         writeOptInAnnotationNamesFile(annotationNames, config.outputDir)
 
-        // Write @RequiresOptIn annotations
-        writeOptInAnnotations(repository.optInVersionBlueprints, repositorySrcDir(moduleOutputDir))
-
-        // Write classes
-        repository.classBlueprints.forEach { clazz ->
-            writeType(
-                clazz.typeName,
-                buildClass(clazz, repository),
-                repositorySrcDir(moduleOutputDir),
-                clazz.signals.map { buildStaticSignalCallback(it) },
-            )
-        }
-
-        // Write interfaces
-        repository.interfaceBlueprints.forEach { iface ->
-            writeType(
-                iface.typeName,
-                buildInterface(iface, repository),
-                repositorySrcDir(moduleOutputDir),
-                iface.signals.map { buildStaticSignalCallback(it) },
-            )
-        }
-
-        // Write bitfields
-        repository.bitfieldBlueprints.forEach { bitfield ->
-            writeType(
-                bitfield.kotlinTypeName,
-                buildBitfield(bitfield),
-                repositorySrcDir(moduleOutputDir),
-            )
-        }
-
-        // Write enums
-        repository.enumBlueprints.forEach { enum ->
-            writeType(
-                enum.kotlinTypeName,
-                buildEnum(enum),
-                repositorySrcDir(moduleOutputDir),
+        // Process everything concurrently
+        coroutineScope {
+            val tasks = mutableListOf<Deferred<Unit>>()
+            // Process annotations
+            tasks.addAll(
+                repository.optInVersionBlueprints.map { optInVersion ->
+                    async {
+                        val ktLintFormatter = KtLintFormatter(config.outputDir)
+                        writeType(
+                            optInVersion.typeName,
+                            buildOptInAnnotation(optInVersion),
+                            repositorySrcDir(moduleOutputDir),
+                            ktLintFormatter = ktLintFormatter,
+                        )
+                    }
+                },
             )
 
-            enum.errorExceptionTypeName?.let { typeName ->
-                writeType(
-                    typeName,
-                    buildErrorDomainExceptionClass(enum),
-                    repositorySrcDir(moduleOutputDir),
-                )
-            }
-        }
-
-        // Write records
-        repository.recordBlueprints.forEach { record ->
-            writeType(
-                record.kotlinTypeName,
-                buildRecord(record),
-                repositorySrcDir(moduleOutputDir),
-                isRecord = true,
+            // Process classes
+            tasks.addAll(
+                repository.classBlueprints.map { clazz ->
+                    async {
+                        val ktLintFormatter = KtLintFormatter(config.outputDir)
+                        writeType(
+                            clazz.typeName,
+                            buildClass(clazz, repository),
+                            repositorySrcDir(moduleOutputDir),
+                            clazz.signals.map { buildStaticSignalCallback(it) },
+                            ktLintFormatter = ktLintFormatter,
+                        )
+                    }
+                },
             )
+
+            // Process interfaces
+            tasks.addAll(
+                repository.interfaceBlueprints.map { iface ->
+                    async {
+                        val ktLintFormatter = KtLintFormatter(config.outputDir)
+                        writeType(
+                            iface.typeName,
+                            buildInterface(iface, repository),
+                            repositorySrcDir(moduleOutputDir),
+                            iface.signals.map { buildStaticSignalCallback(it) },
+                            ktLintFormatter = ktLintFormatter,
+                        )
+                    }
+                },
+            )
+
+            // Process bitfields
+            tasks.addAll(
+                repository.bitfieldBlueprints.map { bitfield ->
+                    async {
+                        val ktLintFormatter = KtLintFormatter(config.outputDir)
+                        writeType(
+                            bitfield.kotlinTypeName,
+                            buildBitfield(bitfield),
+                            repositorySrcDir(moduleOutputDir),
+                            ktLintFormatter = ktLintFormatter,
+                        )
+                    }
+                },
+            )
+
+            // Process enums
+            tasks.addAll(
+                repository.enumBlueprints.map { enum ->
+                    async {
+                        val ktLintFormatter = KtLintFormatter(config.outputDir)
+                        writeType(
+                            enum.kotlinTypeName,
+                            buildEnum(enum),
+                            repositorySrcDir(moduleOutputDir),
+                            ktLintFormatter = ktLintFormatter,
+                        )
+
+                        enum.errorExceptionTypeName?.let { typeName ->
+                            writeType(
+                                typeName,
+                                buildErrorDomainExceptionClass(enum),
+                                repositorySrcDir(moduleOutputDir),
+                                ktLintFormatter = ktLintFormatter,
+                            )
+                        }
+                        Unit
+                    }
+                },
+            )
+
+            // Process records
+            tasks.addAll(
+                repository.recordBlueprints.map { record ->
+                    async {
+                        val ktLintFormatter = KtLintFormatter(config.outputDir)
+                        writeType(
+                            record.kotlinTypeName,
+                            buildRecord(record),
+                            repositorySrcDir(moduleOutputDir),
+                            isRecord = true,
+                            ktLintFormatter = ktLintFormatter,
+                        )
+                    }
+                },
+            )
+
+            // Await all tasks
+            tasks.awaitAll()
         }
 
-        // Write repository object
+        // Write repository object (can be done synchronously if needed)
+        val ktLintFormatter = KtLintFormatter(config.outputDir)
         writeType(
             repository.repositoryObjectName,
             buildRepositoryObject(repository),
             repositorySrcDir(moduleOutputDir),
             additionalTypeAliases = repository.callbackBlueprints.map { buildCallbackTypeAlias(it) },
             additionalProperties = repository.callbackBlueprints.map { buildStaticCallbackProperty(it) },
+            ktLintFormatter = ktLintFormatter,
         )
 
         if (repository.hasKGTypes()) {
@@ -136,6 +194,7 @@ class BindingsGenerator(
                 repository.repositoryTypeProviderTypeName,
                 buildTypeProvider(repository),
                 repositorySrcDir(moduleOutputDir),
+                ktLintFormatter = ktLintFormatter,
             )
         }
     }
@@ -160,7 +219,8 @@ class BindingsGenerator(
         outputDirectory: File,
         additionalProperties: List<PropertySpec> = emptyList(),
         additionalTypeAliases: List<TypeAliasSpec> = emptyList(),
-        isRecord: Boolean = false
+        isRecord: Boolean = false,
+        ktLintFormatter: KtLintFormatter
     ) {
         logger.debug { "Writing ${className.canonicalName}" }
 
@@ -222,32 +282,20 @@ class BindingsGenerator(
         }
     }
 
-    private fun writeOptInAnnotationNamesFile(annotationNames: List<String>, outputDir: File) {
+    private suspend fun writeOptInAnnotationNamesFile(annotationNames: List<String>, outputDir: File) {
         if (annotationNames.isNotEmpty()) {
             val file = File(outputDir, "optInAnnotations.txt")
-            if (file.exists()) {
-                // Append to the existing file only if annotationNames is not empty
-                file.appendText(annotationNames.joinToString(separator = "\n", postfix = "\n"))
-            } else {
-                // Create a new file and write only if annotationNames is not empty
-                file.printWriter().use { writer ->
-                    annotationNames.forEach { annotationName -> writer.println(annotationName) }
+            optInAnnotationsFileMutex.withLock {
+                if (file.exists()) {
+                    // Append to the existing file
+                    file.appendText(annotationNames.joinToString(separator = "\n", postfix = "\n"))
+                } else {
+                    // Create a new file and write
+                    file.printWriter().use { writer ->
+                        annotationNames.forEach { annotationName -> writer.println(annotationName) }
+                    }
                 }
             }
-        }
-    }
-
-    private fun writeOptInAnnotations(
-        optInVersions: Set<OptInVersionBlueprint>,
-        outputDirectory: File
-    ) {
-        optInVersions.forEach { optInVersion ->
-            val annotationSpec = buildOptInAnnotation(optInVersion)
-            writeType(
-                optInVersion.typeName,
-                annotationSpec,
-                outputDirectory,
-            )
         }
     }
 
@@ -267,6 +315,8 @@ class BindingsGenerator(
         }.build()
 
     companion object {
+        private val optInAnnotationsFileMutex = Mutex()
+
         // gtk-kn common function members
         internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.extensions.common", "asBoolean")
         internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.extensions.common", "asGBoolean")

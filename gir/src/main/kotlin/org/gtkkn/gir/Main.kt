@@ -16,10 +16,13 @@
 
 package org.gtkkn.gir
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.runBlocking
 import org.gtkkn.gir.cli.parseConfig
 import org.gtkkn.gir.config.Config
+import org.gtkkn.gir.coroutines.DefaultCoroutineDispatcherProvider
 import org.gtkkn.gir.generator.BindingsGenerator
-import org.gtkkn.gir.generator.KtLintFormatter
 import org.gtkkn.gir.log.configureLog4j
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.parser.GirParser
@@ -27,7 +30,7 @@ import org.gtkkn.gir.processor.Phase2Processor
 import java.io.File
 import kotlin.system.exitProcess
 
-fun main(args: Array<String>) {
+fun main(args: Array<String>): Unit = runBlocking {
     val config = parseConfig(args)
 
     configureLog4j(config.logLevel)
@@ -51,10 +54,16 @@ fun main(args: Array<String>) {
 
     logger.info { "Processed ${repositoryBlueprints.count()} blueprints" }
 
-    val generator = BindingsGenerator(config, KtLintFormatter(config.outputDir))
-    repositoryBlueprints.forEach {
-        generator.generate(it, getRepositoryOutputPath(it.kotlinModuleName, config))
+    val generator = BindingsGenerator(config)
+
+    val dispatcherProvider = DefaultCoroutineDispatcherProvider()
+    // Launch coroutines for each repository blueprint
+    val deferreds = repositoryBlueprints.map { blueprint ->
+        async(dispatcherProvider.default) {
+            generator.generate(blueprint, getRepositoryOutputPath(blueprint.kotlinModuleName, config))
+        }
     }
+    deferreds.awaitAll()
 
     // Sort the optInAnnotations.txt file
     val optInAnnotationsFile = File(config.outputDir, "optInAnnotations.txt")

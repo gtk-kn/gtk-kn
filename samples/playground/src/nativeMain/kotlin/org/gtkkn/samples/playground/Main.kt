@@ -20,8 +20,11 @@
  * SOFTWARE.
  */
 
+@file:OptIn(ExperimentalForeignApi::class)
+
 package org.gtkkn.samples.playground
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import org.gtkkn.bindings.adw.HeaderBar
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gio.File
