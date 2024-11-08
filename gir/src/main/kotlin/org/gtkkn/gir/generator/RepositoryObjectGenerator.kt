@@ -35,6 +35,7 @@ import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.ConstantBlueprint
 import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
+import org.gtkkn.gir.blueprints.TypeInfo
 
 interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
     fun buildRepositoryObject(repository: RepositoryBlueprint): TypeSpec =
@@ -49,34 +50,36 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
             addKdoc(buildTypeKDoc(null, null, repository.skippedObjects))
         }.build()
 
-    @Suppress("CyclomaticComplexMethod")
+    @Suppress("SpreadOperator", "CyclomaticComplexMethod")
     private fun buildConstant(constant: ConstantBlueprint): PropertySpec {
         var format = "%L"
-        var value: Any = constant.constantValue
+        val value: Any = constant.constantValue
+        var values = listOf(value)
         var type = constant.typeInfo.kotlinTypeName
+        val modifiers = mutableListOf(KModifier.CONST)
         when {
-            value == "9223372036854775807" -> value = "Long.MAX_VALUE"
-            value == "-9223372036854775808" -> value = "Long.MIN_VALUE"
-            value == "18446744073709551615" -> value = "ULong.MAX_VALUE"
-            value == "2147483647" -> value = "Int.MAX_VALUE"
-            value == "-2147483648" -> value = "Int.MIN_VALUE"
+            value == "9223372036854775807" -> values = listOf("Long.MAX_VALUE")
+            value == "-9223372036854775808" -> values = listOf("Long.MIN_VALUE")
+            value == "18446744073709551615" -> values = listOf("ULong.MAX_VALUE")
+            value == "2147483647" -> values = listOf("Int.MAX_VALUE")
+            value == "-2147483648" -> values = listOf("Int.MIN_VALUE")
             value == "4294967295" -> {
-                value = "UInt.MAX_VALUE"
+                values = listOf("UInt.MAX_VALUE")
                 type = U_INT
             }
 
             value == "255" -> {
-                value = "UByte.MAX_VALUE"
+                values = listOf("UByte.MAX_VALUE")
                 type = U_BYTE
             }
 
             value == "127" -> {
-                value = "Byte.MAX_VALUE"
+                values = listOf("Byte.MAX_VALUE")
                 type = BYTE
             }
 
             value == "-128" -> {
-                value = "Byte.MIN_VALUE"
+                values = listOf("Byte.MIN_VALUE")
                 type = BYTE
             }
 
@@ -85,13 +88,20 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
             type == CHAR -> format = "'$format'"
             type == SHORT || type == INT || type == LONG || type == DOUBLE -> Unit
             type == U_SHORT || type == U_INT || type == U_LONG -> format = "${format}u"
-            type == BOOLEAN -> value = value.toString().toBoolean()
+            type == BOOLEAN -> values = listOf(value.toString().toBoolean())
             type == STRING -> format = "%S"
+
+            constant.typeInfo is TypeInfo.Bitfield -> {
+                modifiers.remove(KModifier.CONST)
+                values = listOf(type, value)
+                format = "%T(%Lu)"
+            }
+
             else -> error("Mapping for constant with type $type missing!")
         }
-        return PropertySpec.builder(constant.kotlinName, type, KModifier.CONST).apply {
+        return PropertySpec.builder(constant.kotlinName, type, modifiers).apply {
             addKdoc(buildPropertyKDoc(constant.kdoc, constant.optInVersionBlueprint))
-            initializer(format, value)
+            initializer(format, *values.toTypedArray())
         }.build()
     }
 
