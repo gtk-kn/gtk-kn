@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 gtk-kn
+ * Copyright (c) 2024 gtk-kn
  *
  * This file is part of gtk-kn.
  * gtk-kn is free software: you can redistribute it and/or modify
@@ -48,6 +48,54 @@ tasks {
             .map(Project::getTasks)
             .map<_, TaskCollection<KotlinNativeCompile>>(TaskContainer::withType)
             .forEach(::dependsOn)
+    }
+    register("revertBindings") {
+        group = BasePlugin.BUILD_GROUP
+        description = "Reverts changes and removes untracked files in all /src/nativeMain/kotlin/org/gtkkn/bindings " +
+            "directories within the bindings/ directory using Git."
+
+        notCompatibleWithConfigurationCache(
+            "This task executes external Git commands during the execution phase, which is not supported by " +
+                "Gradle's configuration cache.",
+        )
+
+        doLast {
+            // Collect paths to revert
+            val bindingPaths = file("bindings")
+                .walkTopDown()
+                .filter { dir ->
+                    dir.isDirectory && dir.path.endsWith("/src/nativeMain/kotlin/org/gtkkn/bindings")
+                }
+                .map { it.relativeTo(rootDir).path }
+                .filter { path ->
+                    // Check if the path is tracked by Git during the execution phase
+                    val result = exec {
+                        commandLine("git", "ls-files", "--error-unmatch", path)
+                        isIgnoreExitValue = true
+                    }
+                    result.exitValue == 0 // Only include paths that are tracked
+                }
+                .toList()
+
+            if (bindingPaths.isEmpty()) {
+                logger.lifecycle("No bindings directories found to revert.")
+                return@doLast
+            }
+
+            // Execute the git command to reset changes and clean untracked files
+            bindingPaths.forEach { path ->
+                // Unstage any staged changes
+                exec {
+                    commandLine("git", "restore", "--staged", "--worktree", path)
+                }
+                // Remove untracked files and directories
+                exec {
+                    commandLine("git", "clean", "-fd", "--", path)
+                }
+            }
+
+            logger.lifecycle("Reverted changes in the following paths:\n${bindingPaths.joinToString("\n")}")
+        }
     }
     withType<Wrapper> {
         description = "Regenerates the Gradle Wrapper files"

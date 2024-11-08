@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 gtk-kn
+ * Copyright (c) 2024 gtk-kn
  *
  * This file is part of gtk-kn.
  * gtk-kn is free software: you can redistribute it and/or modify
@@ -60,7 +60,7 @@ class ParameterBlueprintBuilder(
             }
 
             girParam.direction == GirDirection.IN_OUT -> {
-                throw UnresolvableTypeException("${girParam.name}: InOut parameter is not supported")
+                throw UnresolvableTypeException("${girParam.name}: In/Out parameter is not supported")
             }
 
             girParam.type is GirVarArgs -> {
