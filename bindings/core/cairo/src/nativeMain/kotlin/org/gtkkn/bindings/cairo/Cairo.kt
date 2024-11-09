@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.cairo
 
+import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.GlibException
+
 /**
  * ## Skipped during bindings generation
  *
@@ -16,4 +19,12 @@ package org.gtkkn.bindings.cairo
  * - record `ScaledFont`: foreign records are ignored
  * - record `Path`: foreign records are ignored
  */
-public object Cairo
+public object Cairo {
+    public fun resolveException(error: Error): GlibException {
+        val ex =
+            when (error.domain) {
+                else -> null
+            }
+        return ex ?: GlibException(error)
+    }
+}

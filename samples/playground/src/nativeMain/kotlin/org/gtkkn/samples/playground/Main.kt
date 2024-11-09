@@ -20,13 +20,21 @@
  * SOFTWARE.
  */
 
+@file:OptIn(ExperimentalForeignApi::class)
+
 package org.gtkkn.samples.playground
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import org.gtkkn.bindings.adw.HeaderBar
+import org.gtkkn.bindings.gdk.Display
+import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gtk.Align
 import org.gtkkn.bindings.gtk.Box
+import org.gtkkn.bindings.gtk.CssProvider
 import org.gtkkn.bindings.gtk.Label
 import org.gtkkn.bindings.gtk.Orientation
+import org.gtkkn.bindings.gtk.StyleContext
+import org.gtkkn.native.gtk.GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
 
 fun main() = Application {
     // setup a HeaderBar since adw windows don't have any by default
@@ -48,6 +56,12 @@ fun main() = Application {
         hexpand = true
         vexpand = true
     }
+
+    val provider = CssProvider()
+    provider.loadFromFile(File.newForPath("/tmp/styles.css"))
+
+    val display = Display.getDefault() ?: error("No display")
+    StyleContext.addProviderForDisplay(display, provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION.toUInt())
 
     // and add your widget to the layout to display it
     layout.append(label)

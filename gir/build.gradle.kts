@@ -26,6 +26,7 @@ dependencies {
     implementation(libs.bundles.ktlint)
     implementation(libs.kotlinpoet)
     implementation(libs.kotlinx.cli)
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.kotlin.test.junit5)
 }

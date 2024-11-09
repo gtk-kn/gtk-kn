@@ -13,11 +13,13 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.OptionGroup
 import org.gtkkn.bindings.javascriptcore.annotations.JavaScriptCoreVersion2_24
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
+import org.gtkkn.extensions.glib.GlibException
 import org.gtkkn.native.javascriptcore.JSCClass
 import org.gtkkn.native.javascriptcore.JSCContext
 import org.gtkkn.native.javascriptcore.JSCException
@@ -287,6 +289,14 @@ public object Javascriptcore {
         option: String,
         `value`: UInt,
     ): Boolean = jsc_options_set_uint(option, `value`).asBoolean()
+
+    public fun resolveException(error: Error): GlibException {
+        val ex =
+            when (error.domain) {
+                else -> null
+            }
+        return ex ?: GlibException(error)
+    }
 }
 
 public val ClassDeletePropertyFunctionFunc: CPointer<

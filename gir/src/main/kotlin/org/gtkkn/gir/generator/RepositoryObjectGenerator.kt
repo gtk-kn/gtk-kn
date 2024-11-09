@@ -43,10 +43,7 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
             repository.functionBlueprints.forEach { addFunction(buildFunction(it)) }
             repository.constantBlueprints.forEach { addProperty(buildConstant(it)) }
 
-            val errorDomainEnums = repository.errorDomainEnums()
-            if (errorDomainEnums.isNotEmpty()) {
-                addFunction(buildExceptionResolverFunction(errorDomainEnums))
-            }
+            addFunction(buildExceptionResolverFunction(repository.errorDomainEnums()))
             addKdoc(buildTypeKDoc(null, null, repository.skippedObjects))
         }.build()
 
