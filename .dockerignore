@@ -1,0 +1,21 @@
+# Exclude build artifacts and temporary files
+build/
+out/
+.gradle/
+.kotlin/
+.~lock*
+
+# Exclude configuration files with sensitive information
+maven.properties
+signing.properties
+local.properties
+.env/
+.envrc.local
+
+# Exclude IDE and editor configuration files
+*.iml
+.idea/
+
+# Exclude documentation and site files
+docs/dokka/
+public/

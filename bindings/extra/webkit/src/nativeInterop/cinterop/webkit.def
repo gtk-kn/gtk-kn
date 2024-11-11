@@ -20,17 +20,22 @@ compilerOpts.linux = \
     -I/usr/include/gdk-pixbuf-2.0 \
     -I/usr/include/webp \
     -I/usr/include/graphene-1.0 \
+    -I/usr/lib/graphene-1.0/include \
+     -I/usr/include/libsoup-3.0 \
+    -I/usr/include/sysprof-4 \
+    -I/usr/include/sysprof-6 \
     -mfpmath=sse \
     -msse \
     -msse2 \
-    -I/usr/include/libsoup-3.0 \
-    -I/usr/include/sysprof-4 \
     -pthread
 
 compilerOpts.linux_x64 = \
     -I/usr/lib64/glib-2.0/include \
     -I/usr/include/x86_64-linux-gnu \
+    -I/usr/lib64/graphene-1.0 \
+    -I/usr/lib64/graphene-1.0/include \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+    -I/usr/lib/x86_64-linux-gnu/graphene-1.0 \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
 
 # pkg-config --libs webkitgtk-6.0

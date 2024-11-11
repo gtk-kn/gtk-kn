@@ -1,0 +1,43 @@
+# Generate and Check on Arch Linux
+generate-and-check-archlinux:
+  extends: .build-base
+  image: "$CI_REGISTRY_IMAGE/archlinux:latest"
+  interruptible: true
+  stage: build
+  script:
+    - .ci/gtk-kt-check.sh
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+# Generate and Check on Fedora
+generate-and-check-fedora:
+  extends: .build-base
+  image: "$CI_REGISTRY_IMAGE/fedora:41"
+  interruptible: true
+  stage: build
+  script:
+    - .ci/gtk-kt-check.sh
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+# Generate and Check on openSUSE Tumbleweed
+generate-and-check-opensuse-tumbleweed:
+  extends: .build-base
+  image: "$CI_REGISTRY_IMAGE/opensuse-tumbleweed:latest"
+  interruptible: true
+  stage: build
+  script:
+    - .ci/gtk-kt-check.sh
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+# Generate and Check on Ubuntu
+generate-and-check-ubuntu:
+  extends: .build-base
+  image: "$CI_REGISTRY_IMAGE/ubuntu:24.04"
+  interruptible: true
+  stage: build
+  script:
+    - .ci/gtk-kt-check.sh
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'

@@ -42,17 +42,17 @@ interface ToolingPackages {
 }
 
 internal fun ToolingPackages.glibDefaults() {
-    fedora.convention("glib2-devel")
-    debian.convention("libglib2.0-dev")
     arch.convention("glib2-devel")
+    debian.convention("libglib2.0-dev")
+    fedora.convention("glib2-devel")
 }
 
 @Suppress("UseIfInsteadOfWhen")
 internal fun ToolingPackages.installInstructions() = when {
     OperatingSystem.current().isLinux -> """
-        Fedora: ${fedora.map { "dnf install $it" }.getOrElse("N/A")}
-        Debian: ${debian.map { "apt install $it" }.getOrElse("N/A")}
         Arch:   ${arch.map { "pacman -S $it" }.getOrElse("N/A")}
+        Debian: ${debian.map { "apt install $it" }.getOrElse("N/A")}
+        Fedora: ${fedora.map { "dnf install $it" }.getOrElse("N/A")}
     """.trimIndent()
 
     else -> """
