@@ -112,8 +112,7 @@ nav:
       - index.md
       #      - Change Log: changelog.md
       - Contributing: contributing.md
-  - Get Started:
-      - get-started/index.md
+  - Get Started: get-started/index.md
   - User guide:
       - user-guide/index.md
       - Installation: user-guide/installation.md
@@ -153,10 +152,9 @@ nav:
       #          - Text viewer: user-guide/tutorials/text-viewer.md
       - Optional bindings:
           - user-guide/optional-bindings/index.md
-          - GtkSourceView:
-              - user-guide/optional-bindings/gtksource/index.md
-          - WebKitGTK:
-              - user-guide/optional-bindings/webkitgtk/index.md
+          - GtkSourceView: user-guide/optional-bindings/gtksource/index.md
+          - WebKitGTK: user-guide/optional-bindings/webkitgtk/index.md
   #      - Tutorials:
   #          - Text viewer: user-guide/tutorials/text-viewer.md
+  - FAQ: faq/index.md
   - API: dokka/index.html
