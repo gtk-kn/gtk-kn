@@ -24,11 +24,7 @@ kotlin {
     sourceSets {
         nativeMain {
             dependencies {
-                api(project(":bindings:common"))
-                // transitive
-                api(project(":bindings:core:gobject"))
-                api(project(":bindings:core:glib"))
-                api(project(":bindings:core:gio"))
+                api(projects.bindings.core.gio)
             }
         }
     }

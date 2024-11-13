@@ -24,7 +24,7 @@ kotlin {
     sourceSets {
         nativeMain {
             dependencies {
-                api(project(":bindings:common"))
+                api(projects.bindings.common)
             }
         }
     }

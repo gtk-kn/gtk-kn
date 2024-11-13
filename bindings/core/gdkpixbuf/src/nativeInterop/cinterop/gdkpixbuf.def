@@ -1,40 +1,34 @@
 headers = gdk-pixbuf/gdk-pixbuf.h gdk-pixbuf/gdk-pixbuf-io.h
 package = org.gtkkn.native.gdkpixbuf
-headerFilter = gdk-pixbuf/*
+headerFilter = gdk-pixbuf/*.h
 
-# pkg-config --cflags gdk-pixbuf-2.0
+# pkg-config --cflags gdk-pixbuf-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux = \
-    -mfpmath=sse \
-    -msse \
-    -msse2 \
-    -pthread \
+    -I/usr/include/ \
     -I/usr/include/gdk-pixbuf-2.0 \
-    -I/usr/include/freetype2 \
-    -I/usr/include/sysprof-4 \
     -I/usr/include/libpng16 \
+    -I/usr/include/webp \
+    -I/usr/include/glib-2.0 \
+    -I/usr/lib/glib-2.0/include \
+    -I/usr/include/libpng16 \
+    -I/usr/include/x86_64-linux-gnu \
     -I/usr/include/libmount \
     -I/usr/include/blkid \
-    -I/usr/include/glib-2.0 \
-    -I/usr/include/glib-2.0/include \
-    -I/usr/include/ \
-    -DGDK_PIXBUF_ENABLE_BACKEND=1
+    -DWITH_GZFILEOP \
+    -DGDK_PIXBUF_ENABLE_BACKEND=1 \
+    -I/usr/include/sysprof-6 \
+    -pthread
 
 compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/ \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
-    -I/usr/lib/x86_64-linux-gnu/bits/ \
     -I/usr/lib64/glib-2.0/include \
 
-# pkg-config --libs gdk-pixbuf-2.0
+# pkg-config --libs gdk-pixbuf-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux =\
-    -L/usr/local/lib \
     -lgdk_pixbuf-2.0 \
     -lgobject-2.0 \
     -lglib-2.0
-
-linkerOpts.linux_x64 = \
-    -L/usr/lib/x86_64-linux-gnu \
-    -L/usr/lib64
 
 strictEnums = \
     GdkColorspace \

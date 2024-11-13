@@ -11,16 +11,17 @@ headers = gio/gio.h \
     gio/gunixsocketaddress.h
 
 package = org.gtkkn.native.gio
-headerFilter = gio/*
+headerFilter = gio/*.h
 
-# pkg-config --cflags gio-unix-2.0
+# pkg-config --cflags gio-unix-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux = \
+    -I/usr/include/gio-unix-2.0 \
     -I/usr/include/glib-2.0 \
     -I/usr/lib/glib-2.0/include \
-    -I/usr/include/gio-unix-2.0 \
-    -I/usr/include/sysprof-4 \
     -I/usr/include/libmount \
     -I/usr/include/blkid \
+    -I/usr/include/sysprof-6 \
+    -DWITH_GZFILEOP \
     -DG_SETTINGS_ENABLE_BACKEND \
     -pthread
 
@@ -28,16 +29,11 @@ compilerOpts.linux_x64 = \
     -I/usr/lib64/glib-2.0/include \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 
-# pkg-config --libs gio-unix-2.0
+# pkg-config --libs gio-unix-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \
-    -L/usr/local/lib \
     -lgio-2.0 \
-    -lgobject-2.0 \
-    -lglib-2.0
-
-linkerOpts.linux_x64 = \
-    -L/usr/lib64 \
-    -L/usr/lib/x86_64-linux-gnu
+    -lglib-2.0 \
+    -lgobject-2.0
 
 strictEnums = \
     GBusType \

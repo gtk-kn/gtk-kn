@@ -1,20 +1,36 @@
 headers = gtksourceview/gtksource.h
 package = org.gtkkn.native.gtksource
-headerFilter = gtksourceview/* gtksourceview/completion-providers/words/* gtksourceview/completion-providers/snippets/*
+headerFilter = gtksourceview/*.h gtksourceview/completion-providers/words/*.h gtksourceview/completion-providers/snippets/*.h
 
-# pkg-config --cflags gtksourceview-5
+# pkg-config --cflags gtksourceview-5 | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux = \
-    -I/usr/include \
     -I/usr/include/gtksourceview-5 \
     -I/usr/include/gtk-4.0 \
-    -I/usr/include/glib-2.0 \
-    -I/usr/lib/glib-2.0/include \
-    -I/usr/include/cairo \
+    -I/usr/include/gtk-4.0/unix-print \
     -I/usr/include/pango-1.0 \
+    -I/usr/include/fribidi \
     -I/usr/include/harfbuzz \
     -I/usr/include/gdk-pixbuf-2.0 \
+    -I/usr/include/webp \
+    -I/usr/include/cairo \
+    -I/usr/include/libxml2 \
+    -I/usr/include/freetype2 \
+    -I/usr/include/libpng16 \
+    -I/usr/include/pixman-1 \
     -I/usr/include/graphene-1.0 \
-    -I/usr/lib/graphene-1.0/include
+    -I/usr/lib/graphene-1.0/include \
+    -mfpmath=sse \
+    -msse \
+    -msse2 \
+    -I/usr/include/glib-2.0 \
+    -I/usr/lib/glib-2.0/include \
+    -DWITH_GZFILEOP \
+    -I/usr/include/libmount \
+    -I/usr/include/blkid \
+    -I/usr/include/sysprof-6 \
+    -I/usr/include/libxkbcommon \
+    -I/usr/include/wayland \
+    -pthread
 
 compilerOpts.linux_x64 = \
     -I/usr/lib64/glib-2.0/include \
@@ -22,9 +38,9 @@ compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
 
-# pkg-config --libs gtksourceview-5
+# pkg-config --libs gtksourceview-5 | tr ' ' '\n' | sed '$!s/$/ \\/'
+# can't add `-lvulkan` due to libvulkan.so: error: undefined reference to 'dlopen'
 linkerOpts.linux = \
-    -L/usr/local/lib \
     -lgtksourceview-5 \
     -lgtk-4 \
     -lpangocairo-1.0 \
@@ -36,11 +52,7 @@ linkerOpts.linux = \
     -lgraphene-1.0 \
     -lgio-2.0 \
     -lgobject-2.0 \
-    -lglib-2.0
-
-linkerOpts.linux_x64 = \
-    -L/usr/lib/x86_64-linux-gnu \
-    -L/usr/lib64
+    -lglib-2.0 \
 
 strictEnums = \
     GtkSourceBackgroundPatternType \

@@ -2,37 +2,32 @@ headers = libsoup/soup.h
 package = org.gtkkn.native.soup
 headerFilter = libsoup/*.h
 
-# pkg-config --cflags libsoup-3.0
+# pkg-config --cflags libsoup-3.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux = \
-    -I/usr/include \
     -I/usr/include/libsoup-3.0 \
+    -I/usr/include/gio-unix-2.0 \
     -I/usr/include/glib-2.0 \
-    -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+    -I/usr/lib/glib-2.0/include \
     -I/usr/include/libmount \
     -I/usr/include/blkid \
-    -I/usr/include/sysprof-4 \
+    -I/usr/include/sysprof-6 \
+    -DWITH_GZFILEOP \
+    -DG_SETTINGS_ENABLE_BACKEND \
     -pthread
 
 
 compilerOpts.linux_x64 = \
     -I/usr/lib64/glib-2.0/include \
-    -I/usr/include/x86_64-linux-gnu \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 
-# pkg-config --libs libsoup-3.0
+# pkg-config --libs libsoup-3.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \
-    -L/usr/local/lib \
     -lsoup-3.0 \
+    -pthread \
     -lglib-2.0 \
     -lgio-2.0 \
     -lgobject-2.0 \
     -lglib-2.0 \
-    -pthread \
-    -ldl
-
-linkerOpts.linux_x64 = \
-    -L/usr/lib/x86_64-linux-gnu \
-    -L/usr/lib64
 
 strictEnums = \
     SoupCacheType \

@@ -38,8 +38,8 @@ kotlin {
         named("nativeMain") {
             dependencies {
                 // Import from project
-                implementation(project(":bindings:extra:webkit"))
-                implementation(project(":bindings:adwaita"))
+                implementation(projects.bindings.extra.webkit)
+                implementation(projects.bindings.adwaita)
                 // Import from mavenLocal
                 // implementation("org.gtkkn:webkit:0.0.1-SNAPSHOT")
 

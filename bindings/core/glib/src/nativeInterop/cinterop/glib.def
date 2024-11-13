@@ -1,23 +1,20 @@
 headers = glib.h glib-unix.h glib/gstdio.h
 package = org.gtkkn.native.glib
-headerFilter = glib.h glib-*.h glib/* glib/deprecated/*.h
+headerFilter = glib.h glib-*.h glib/*.h glib/deprecated/*.h
 
-# pkg-config --cflags glib-2.0
+# pkg-config --cflags glib-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux = \
     -I/usr/include/glib-2.0 \
     -I/usr/lib/glib-2.0/include \
-    -I/usr/include/sysprof-4 \
-    -I/usr/include/libmount \
-    -I/usr/include/blkid \
+    -I/usr/include/sysprof-6 \
     -pthread
 
 compilerOpts.linux_x64 = \
+    -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib64/glib-2.0/include \
-    -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 
-# pkg-config --libs glib-2.0
+# pkg-config --libs glib-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \
-    -L/usr/local/lib \
     -lglib-2.0
 
 linkerOpts.linux_x64 = \
