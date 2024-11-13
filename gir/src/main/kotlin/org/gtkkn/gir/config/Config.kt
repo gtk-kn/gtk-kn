@@ -23,6 +23,7 @@ import java.io.File
 data class Config(
     val girBaseDir: File,
     val outputDir: File,
+    val gradlePluginDir: File,
     val logLevel: Level,
     val skipFormat: Boolean,
     val bindingLicense: License,
@@ -51,6 +52,7 @@ data class Config(
 data class GtkKnJsonConfig(
     val girBaseDir: String,
     val outputDir: String,
+    val gradlePluginDir: String,
     val logLevel: String,
     val skipFormat: Boolean,
     val bindingLicense: String,

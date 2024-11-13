@@ -23,6 +23,7 @@ import org.gtkkn.gir.cli.parseConfig
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.coroutines.DefaultCoroutineDispatcherProvider
 import org.gtkkn.gir.generator.BindingsGenerator
+import org.gtkkn.gir.gradleplugin.generateRepositoryAnnotationsFile
 import org.gtkkn.gir.log.configureLog4j
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.parser.GirParser
@@ -65,17 +66,9 @@ fun main(args: Array<String>): Unit = runBlocking {
     }
     deferreds.awaitAll()
 
-    // Sort the optInAnnotations.txt file
     val optInAnnotationsFile = File(config.outputDir, "optInAnnotations.txt")
     if (optInAnnotationsFile.exists()) {
-        sortFileInPlace(optInAnnotationsFile)
-    }
-}
-
-private fun sortFileInPlace(file: File) {
-    val lines = file.readLines().filter { it.isNotBlank() }.sorted()
-    file.printWriter().use { writer ->
-        lines.forEach { writer.println(it) }
+        generateRepositoryAnnotationsFile(optInAnnotationsFile, config.gradlePluginDir)
     }
 }
 

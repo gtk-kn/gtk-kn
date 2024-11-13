@@ -1,6 +1,7 @@
 {
   "girBaseDir": "/usr/share/gir-1.0",
   "outputDir": "bindings",
+  "gradlePluginDir": "gradle-plugin",
   "logLevel": "INFO",
   "skipFormat": false,
   "bindingLicense": "LGPL",

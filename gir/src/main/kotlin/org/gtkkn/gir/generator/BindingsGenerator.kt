@@ -358,6 +358,7 @@ class BindingsGenerator(
         // kotlin helpers
         internal val ANNOTATION_RETENTION_TYPE = ClassName("kotlin.annotation", "AnnotationRetention")
         internal val KCLASS_TYPE = ClassName("kotlin.reflect", "KClass")
+        internal val PAIR_TYPE = ClassName("kotlin", "Pair")
         internal val REQUIRES_OPT_IN_TYPE = ClassName("kotlin", "RequiresOptIn")
         internal val REQUIRES_OPT_IN_LEVEL_TYPE = REQUIRES_OPT_IN_TYPE.nestedClass("Level")
         internal val RESULT_TYPE = ClassName("kotlin", "Result")

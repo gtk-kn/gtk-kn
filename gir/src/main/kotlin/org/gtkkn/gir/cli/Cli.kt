@@ -46,6 +46,13 @@ fun parseConfig(args: Array<String>): Config {
             description = "Output directory",
         )
 
+    val gradlePluginPath by parser
+        .option(
+            ArgType.String,
+            shortName = "p",
+            description = "Gradle Plugin directory",
+        )
+
     val skipFormat by parser
         .option(
             ArgType.Boolean,
@@ -86,6 +93,7 @@ fun parseConfig(args: Array<String>): Config {
     // apply cli argument overrides
     girPath?.let { config = config.copy(girBaseDir = File(it)) }
     outputPath?.let { config = config.copy(outputDir = File(it)) }
+    gradlePluginPath?.let { config = config.copy(gradlePluginDir = File(it)) }
     skipFormat?.let { config = config.copy(skipFormat = it) }
     logLevel?.let { config = config.copy(logLevel = it) }
     license?.let { config = config.copy(bindingLicense = it) }
@@ -135,6 +143,7 @@ private fun loadConfigFromFile(file: File): Config {
     return Config(
         girBaseDir = file.parentFile.resolve(jsonConfig.girBaseDir),
         outputDir = file.parentFile.resolve(jsonConfig.outputDir),
+        gradlePluginDir = file.parentFile.resolve(jsonConfig.gradlePluginDir),
         logLevel = Level.valueOf(jsonConfig.logLevel),
         skipFormat = jsonConfig.skipFormat,
         bindingLicense = Config.License.valueOf(jsonConfig.bindingLicense),

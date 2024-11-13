@@ -22,6 +22,7 @@ import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.parser.GirParser
 import java.io.File
+import kotlin.io.path.createTempDirectory
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -37,10 +38,19 @@ class ProcessingTests {
         val gtkFile = File(checkNotNull(javaClass.getResource(GTK_GIR_RESOURCE_NAME)).toURI())
         val gioFile = File(checkNotNull(javaClass.getResource(GIO_GIR_RESOURCE_NAME)).toURI())
         val gobjectFile = File(checkNotNull(javaClass.getResource(GOBJECT_GIR_RESOURCE_NAME)).toURI())
+        val tempDir: File = createTempDirectory(prefix = "output").toFile()
         val gtkRepository = girParser.parse(gtkFile)
         val gioRepository = girParser.parse(gioFile)
         val gobjectRepository = girParser.parse(gobjectFile)
-        val config = Config(gtkFile, gtkFile, Level.WARN, true, Config.License.MIT, emptyList())
+        val config = Config(
+            girBaseDir = tempDir,
+            outputDir = tempDir,
+            gradlePluginDir = tempDir,
+            logLevel = Level.WARN,
+            skipFormat = true,
+            bindingLicense = Config.License.MIT,
+            libraries = emptyList(),
+        )
 
         val processor = Phase2Processor()
         processor.process(listOf(gtkRepository, gioRepository, gobjectRepository), config).first()
