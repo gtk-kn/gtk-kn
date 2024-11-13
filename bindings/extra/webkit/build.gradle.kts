@@ -24,21 +24,9 @@ kotlin {
     sourceSets {
         nativeMain {
             dependencies {
-                api(project(":bindings:common"))
-                api(project(":bindings:gtk:gtk4"))
-                implementation(project(":bindings:extra:javascriptcore"))
-                implementation(project(":bindings:extra:soup"))
-                // transitive
-                api(project(":bindings:gtk:gdk4"))
-                api(project(":bindings:gtk:gsk4"))
-                api(project(":bindings:core:gobject"))
-                api(project(":bindings:core:glib"))
-                api(project(":bindings:core:gio"))
-                api(project(":bindings:core:gdkpixbuf"))
-                api(project(":bindings:core:cairo"))
-                api(project(":bindings:core:pango"))
-//                api(project(":bindings:core:harfbuzz"))
-                api(project(":bindings:core:graphene"))
+                api(projects.bindings.gtk.gtk4)
+                implementation(projects.bindings.extra.javascriptcore)
+                implementation(projects.bindings.extra.soup)
             }
         }
     }

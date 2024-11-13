@@ -2,27 +2,22 @@ headers = gmodule.h
 package = org.gtkkn.native.gmodule
 headerFilter = gmodule.h
 
-# pkg-config --cflags gmodule-2.0
+# pkg-config --cflags gmodule-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux =\
     -I/usr/include/glib-2.0 \
-    -I/usr/include/glib-2.0/include \
-    -I/usr/include/sysprof-4 \
+    -I/usr/lib/glib-2.0/include \
+    -I/usr/include/sysprof-6 \
     -pthread
 
 compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib64/glib-2.0/include \
 
-# pkg-config --libs gmodule-2.0
+# pkg-config --libs gmodule-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
+# can't add `-lgmodule-2.0` due to libgmodule-2.0.so: error: undefined reference to 'dlopen'
 linkerOpts.linux = \
-    -L/usr/local/lib \
-    -lgmodule-2.0 \
-    -lglib-2.0 \
-    -pthread
-
-linkerOpts.linux_x64 = \
-    -L/usr/lib64 \
-    -L/usr/lib/x86_64-linux-gnu
+    -pthread \
+    -lglib-2.0
 
 strictEnums = \
     GModuleError

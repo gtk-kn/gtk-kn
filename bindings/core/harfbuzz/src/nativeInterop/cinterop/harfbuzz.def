@@ -2,7 +2,7 @@ headers = hb.h hb-aat.h hb-ft.h hb-glib.h hb-ot.h
 package = org.gtkkn.native.harfbuzz
 headerFilter = hb.h hb-*.h
 
-# pkg-config --cflags harfbuzz
+# pkg-config --cflags harfbuzz | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux =\
     -I/usr/include/harfbuzz \
     -I/usr/include/freetype2 \
@@ -16,7 +16,7 @@ compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib64/glib-2.0/include \
 
-# pkg-config --libs harfbuzz
+# pkg-config --libs harfbuzz | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \
     -L/usr/local/lib \
     -lharfbuzz

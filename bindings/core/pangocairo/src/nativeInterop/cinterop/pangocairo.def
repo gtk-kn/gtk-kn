@@ -1,32 +1,31 @@
 headers = pango/pangocairo.h
 package = org.gtkkn.native.pangocairo
-headerFilter = pango/*
+headerFilter = pango/*.h
 
-# pkg-config --cflags pangocairo
+# pkg-config --cflags pangocairo | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux =\
     -I/usr/include/pango-1.0 \
-    -I/usr/include/glib-2.0 \
-    -I/usr/lib/glib-2.0/include \
-    -I/usr/include/sysprof-4 \
-    -I/usr/include/harfbuzz \
-    -I/usr/include/freetype2 \
-    -I/usr/include/libpng16 \
+    -I/usr/include/cairo \
+    -I/usr/include/pixman-1 \
     -I/usr/include/libmount \
     -I/usr/include/blkid \
     -I/usr/include/fribidi \
-    -I/usr/include/cairo \
-    -I/usr/include/pixman-1 \
-    -pthread \
-    -I/usr/include/pixman-1
-
+    -I/usr/include/libxml2 \
+    -I/usr/include/harfbuzz \
+    -I/usr/include/freetype2 \
+    -I/usr/include/libpng16 \
+    -DWITH_GZFILEOP \
+    -I/usr/include/glib-2.0 \
+    -I/usr/lib/glib-2.0/include \
+    -I/usr/include/sysprof-6 \
+    -pthread
 
 compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib64/glib-2.0/include \
 
-# pkg-config --libs pangocairo
+# pkg-config --libs pangocairo | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \
-    -L/usr/local/lib \
     -lpangocairo-1.0 \
     -lpango-1.0 \
     -lgobject-2.0 \
@@ -34,5 +33,3 @@ linkerOpts.linux = \
     -lharfbuzz \
     -lcairo
 
-linkerOpts.linux_x64 = \
-    -L/usr/lib/x86_64-linux-gnu

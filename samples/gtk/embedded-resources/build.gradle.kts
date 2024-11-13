@@ -37,7 +37,7 @@ kotlin {
         named("nativeMain") {
             dependencies {
                 // Import from project
-                implementation(project(":bindings:gtk:gtk4"))
+                implementation(projects.bindings.gtk.gtk4)
                 // Import from mavenLocal
                 // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
             }

@@ -24,12 +24,7 @@ kotlin {
     sourceSets {
         nativeMain {
             dependencies {
-                api(project(":bindings:common"))
-                api(project(":bindings:core:gio"))
-//                api(project(":bindings:core:gmodule")) // fails build because of glibc version
-                // transitive
-                api(project(":bindings:core:gobject"))
-                api(project(":bindings:core:glib"))
+                api(projects.bindings.core.gio)
             }
         }
     }

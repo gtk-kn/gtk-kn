@@ -2,26 +2,27 @@ headers = cairo.h
 package = org.gtkkn.native.cairo
 headerFilter = cairo.h
 
-# pkg-config --cflags cairo
+# pkg-config --cflags cairo | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux =\
     -I/usr/include/cairo \
-    -I/usr/include/glib-2.0 \
-    -I/usr/include/pixman-1 \
-    -I/usr/include/uuid \
+    -I/usr/include/libxml2 \
     -I/usr/include/freetype2 \
-    -I/usr/include/libpng16
+    -I/usr/include/libpng16 \
+    -DWITH_GZFILEOP \
+    -I/usr/include/harfbuzz \
+    -I/usr/include/glib-2.0 \
+    -I/usr/lib/glib-2.0/include \
+    -I/usr/include/sysprof-6 \
+    -pthread \
+    -I/usr/include/pixman-1
 
 compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib64/glib-2.0/include \
 
-# pkg-config --libs cairo
+# pkg-config --libs cairo | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \
-    -L/usr/local/lib \
     -lcairo
-
-linkerOpts.linux_x64 = \
-    -L/usr/lib/x86_64-linux-gnu
 
 strictEnums = \
     cairo_status_t \
