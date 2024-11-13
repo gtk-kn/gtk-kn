@@ -25,11 +25,11 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
+import org.gtkkn.gradle.plugin.config.repositoryAnnotations
 import org.gtkkn.gradle.plugin.ext.GtkExt
 import org.gtkkn.gradle.plugin.ext.capitalized
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
-import java.io.File
 
 internal inline fun <reified T : Any> ExtensionContainer.maybeCreate(name: String, init: T.() -> Unit) =
     (findByType<T>() ?: create<T>(name)).apply(init)
@@ -49,7 +49,6 @@ internal fun configureOptInAnnotations(project: Project) {
     }
 
     // Parse the annotations
-    val repositoryAnnotations = parseOptInAnnotationsFile(optInAnnotationsFile)
 
     val annotationsToOptIn = mutableSetOf<String>()
 
@@ -71,34 +70,6 @@ internal fun configureOptInAnnotations(project: Project) {
             }
         }
     }
-}
-
-private fun parseOptInAnnotationsFile(optInAnnotationsFile: File): Map<String, List<Pair<String, String>>> {
-    val repositoryAnnotations = mutableMapOf<String, MutableList<Pair<String, String>>>()
-    if (optInAnnotationsFile.exists()) {
-        optInAnnotationsFile.forEachLine { line ->
-            val annotationFqName = line.trim()
-            if (annotationFqName.isNotEmpty()) {
-                // Example: org.gtkkn.bindings.adw.annotations.AdwVersion1_4
-                val parts = annotationFqName.split('.')
-                if (parts.size >= 6) {
-                    // parts[3] = adw
-                    // parts[5] = AdwVersion1_4
-                    val repositoryName = parts[3]
-                    val className = parts[5]
-
-                    // Extract version from class name
-                    val prefix = repositoryName.capitalized() + "Version"
-                    val versionPart = className.removePrefix(prefix)
-                    val version = versionPart.replace('_', '.')
-
-                    val annotationsList = repositoryAnnotations.getOrPut(repositoryName) { mutableListOf() }
-                    annotationsList.add(version to annotationFqName)
-                }
-            }
-        }
-    }
-    return repositoryAnnotations
 }
 
 private fun compareVersions(v1: String, v2: String): Int {

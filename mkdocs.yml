@@ -14,6 +14,60 @@ repo_name: gtk-kn
 repo_url: https://gitlab.com/gtk-kn/gtk-kn
 edit_uri: edit/master/docs/
 
+# Page tree
+nav:
+  - Home:
+      - index.md
+      #      - Change Log: changelog.md
+      - Contributing: contributing.md
+  - Get Started: get-started/index.md
+  - User guide:
+      - user-guide/index.md
+      - Installation: user-guide/installation.md
+      - Deploy on MavenLocal: user-guide/deploy-on-mavenlocal.md
+      - K/N project setup: user-guide/project-setup.md
+      - Hello World!: user-guide/hello-world.md
+      #      - GObject concepts: user-guide/gobject-concepts.md
+      #      - The main event loop: user-guide/the-main-event-loop.md
+      - Gradle plugin: user-guide/gradle-plugin.md
+      - GTK4:
+          - user-guide/gtk4/index.md
+          - Widgets:
+              - user-guide/gtk4/widgets/index.md
+              - Gallery: user-guide/gtk4/widgets/visual-index.md
+              - Examples:
+                  - Label: user-guide/gtk4/widgets/examples/label.md
+                  - ProgressBar: user-guide/gtk4/widgets/examples/progress-bar.md
+                  - Spinner: user-guide/gtk4/widgets/examples/spinner.md
+      #          - Clipboard: user-guide/gtk4/clipboard.md
+      #          - Drag and Drop: user-guide/gtk4/drag-and-drop.md
+      #          - Actions: user-guide/gtk4/actions.md
+      #          - Menus: user-guide/gtk4/menus.md
+      - GIO:
+          - user-guide/gio/index.md
+          #          - File operations: user-guide/gio/file-operations.md
+          - Notifications: user-guide/gio/notifications.md
+      #          - Settings: user-guide/gio/settings.md
+      - Adwaita:
+          - user-guide/adwaita/index.md
+      #          - Examples:
+      #              - Boxed lists: user-guide/adwaita/examples/boxed-lists.md
+      #              - Sidebar: user-guide/adwaita/examples/sidebar.md
+      #              - Placeholder page: user-guide/adwaita/examples/placeholder-page.md
+      #              - Collections: user-guide/adwaita/examples/collections.md
+      #              - Window: user-guide/adwaita/examples/window.md
+      #              - Leaflet and Dialog: user-guide/adwaita/examples/leaflet-and-dialog.md
+      #      - Tutorials:
+      #          - Text viewer: user-guide/tutorials/text-viewer.md
+      - Optional bindings:
+          - user-guide/optional-bindings/index.md
+          - GtkSourceView: user-guide/optional-bindings/gtksource/index.md
+          - WebKitGTK: user-guide/optional-bindings/webkitgtk/index.md
+  #      - Tutorials:
+  #          - Text viewer: user-guide/tutorials/text-viewer.md
+  - FAQ: faq/index.md
+  - API: dokka/index.html
+
 # Copyright
 copyright: >
   Copyright &copy; 2023 gtk-kn –
@@ -105,56 +159,3 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
-
-# Page tree
-nav:
-  - Home:
-      - index.md
-      #      - Change Log: changelog.md
-      - Contributing: contributing.md
-  - Get Started: get-started/index.md
-  - User guide:
-      - user-guide/index.md
-      - Installation: user-guide/installation.md
-      - Deploy on MavenLocal: user-guide/deploy-on-mavenlocal.md
-      - K/N project setup: user-guide/project-setup.md
-      - Hello World!: user-guide/hello-world.md
-      #      - GObject concepts: user-guide/gobject-concepts.md
-      #      - The main event loop: user-guide/the-main-event-loop.md
-      - GTK4:
-          - user-guide/gtk4/index.md
-          - Widgets:
-              - user-guide/gtk4/widgets/index.md
-              - Gallery: user-guide/gtk4/widgets/visual-index.md
-              - Examples:
-                  - Label: user-guide/gtk4/widgets/examples/label.md
-                  - ProgressBar: user-guide/gtk4/widgets/examples/progress-bar.md
-                  - Spinner: user-guide/gtk4/widgets/examples/spinner.md
-      #          - Clipboard: user-guide/gtk4/clipboard.md
-      #          - Drag and Drop: user-guide/gtk4/drag-and-drop.md
-      #          - Actions: user-guide/gtk4/actions.md
-      #          - Menus: user-guide/gtk4/menus.md
-      - GIO:
-          - user-guide/gio/index.md
-          #          - File operations: user-guide/gio/file-operations.md
-          - Notifications: user-guide/gio/notifications.md
-      #          - Settings: user-guide/gio/settings.md
-      - Adwaita:
-          - user-guide/adwaita/index.md
-      #          - Examples:
-      #              - Boxed lists: user-guide/adwaita/examples/boxed-lists.md
-      #              - Sidebar: user-guide/adwaita/examples/sidebar.md
-      #              - Placeholder page: user-guide/adwaita/examples/placeholder-page.md
-      #              - Collections: user-guide/adwaita/examples/collections.md
-      #              - Window: user-guide/adwaita/examples/window.md
-      #              - Leaflet and Dialog: user-guide/adwaita/examples/leaflet-and-dialog.md
-      #      - Tutorials:
-      #          - Text viewer: user-guide/tutorials/text-viewer.md
-      - Optional bindings:
-          - user-guide/optional-bindings/index.md
-          - GtkSourceView: user-guide/optional-bindings/gtksource/index.md
-          - WebKitGTK: user-guide/optional-bindings/webkitgtk/index.md
-  #      - Tutorials:
-  #          - Text viewer: user-guide/tutorials/text-viewer.md
-  - FAQ: faq/index.md
-  - API: dokka/index.html
