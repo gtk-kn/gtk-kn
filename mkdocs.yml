@@ -104,7 +104,7 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   logo: 'assets/logo.svg'
-  favicon: 'assets/favico.ico'
+  favicon: 'assets/favicon.ico'
 
 # Customization
 extra_css:
