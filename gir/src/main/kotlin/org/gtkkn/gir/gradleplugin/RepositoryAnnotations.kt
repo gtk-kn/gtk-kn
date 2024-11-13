@@ -38,7 +38,7 @@ internal fun generateRepositoryAnnotationsFile(optInAnnotationsFile: File, gradl
     // Prepare KotlinPoet code generation
     val mapEntries = repositoryAnnotations.map { (repositoryName, versions) ->
         val listInitializer = versions.joinToString(separator = ",\n") { (version, fqName) ->
-            "\"%S\" to \"%S\"".format(version, fqName)
+            "\"%s\" to \"%s\"".format(version, fqName)
         }
 
         "\"$repositoryName\" to listOf(\n$listInitializer\n)"
