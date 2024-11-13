@@ -9,8 +9,8 @@ generate-and-check-archlinux:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
-# Generate and Check on Fedora
-generate-and-check-fedora:
+# Generate and Check on Fedora 41
+generate-and-check-fedora-41:
   extends: .build-base
   image: "$CI_REGISTRY_IMAGE/fedora:41"
   interruptible: true
@@ -31,8 +31,8 @@ generate-and-check-opensuse-tumbleweed:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
-# Generate and Check on Ubuntu
-generate-and-check-ubuntu:
+# Generate and Check on Ubuntu 24.04
+generate-and-check-ubuntu-24.04:
   extends: .build-base
   image: "$CI_REGISTRY_IMAGE/ubuntu:24.04"
   interruptible: true
