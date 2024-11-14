@@ -39,7 +39,7 @@ compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
 
 # pkg-config --libs gtksourceview-5 | tr ' ' '\n' | sed '$!s/$/ \\/'
-# can't add `-lvulkan` due to libvulkan.so: error: undefined reference to 'dlopen'
+# can't add `-lvulkan`: https://gitlab.com/gtk-kn/gtk-kn/-/issues/91
 linkerOpts.linux = \
     -lgtksourceview-5 \
     -lgtk-4 \
@@ -52,7 +52,7 @@ linkerOpts.linux = \
     -lgraphene-1.0 \
     -lgio-2.0 \
     -lgobject-2.0 \
-    -lglib-2.0 \
+    -lglib-2.0
 
 strictEnums = \
     GtkSourceBackgroundPatternType \
