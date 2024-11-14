@@ -14,7 +14,7 @@ compilerOpts.linux_x64 = \
     -I/usr/lib64/glib-2.0/include \
 
 # pkg-config --libs gmodule-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
-# can't add `-lgmodule-2.0` due to libgmodule-2.0.so: error: undefined reference to 'dlopen'
+# can't add `-lgmodule-2.0`: https://gitlab.com/gtk-kn/gtk-kn/-/issues/91
 linkerOpts.linux = \
     -pthread \
     -lglib-2.0
