@@ -10,7 +10,6 @@ variables:
   OPENSUSE_TUMBLEWEED_VERSION: "latest"
   UBUNTU_VERSION: "24.04"
 
-# Template for Docker jobs
 .docker_job_template: &docker_job_template
   image: docker:24.0.7
   services:
