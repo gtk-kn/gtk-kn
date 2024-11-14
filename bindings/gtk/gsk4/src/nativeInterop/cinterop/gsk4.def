@@ -37,7 +37,7 @@ compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
 
 # pkg-config --libs gtk4 | tr ' ' '\n' | sed '$!s/$/ \\/'
-# can't add `-lvulkan` due to libvulkan.so: error: undefined reference to 'dlopen'
+# can't add `-lvulkan`: https://gitlab.com/gtk-kn/gtk-kn/-/issues/91
 linkerOpts.linux = \
     -lgtk-4 \
     -lpangocairo-1.0 \

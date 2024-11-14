@@ -15,6 +15,7 @@
  */
 
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.konan.target.KonanTarget
 import java.nio.file.Files
 
 plugins {
@@ -26,10 +27,24 @@ val optInAnnotationsFile = file("${rootProject.projectDir}/bindings/optInAnnotat
 
 val girTask = tasks.getByPath(":gir:run")
 
+val mingwPath = File(System.getenv("MINGW64_DIR") ?: "C:/msys64/mingw64")
+
 kotlin {
     targets.withType<KotlinNativeTarget> {
         compilations["main"].apply {
-            cinterops.create(project.name)
+            cinterops.create(project.name) {
+                // https://youtrack.jetbrains.com/issue/KT-43501/Static-linking-to-some-libraries-with-libc-calls-causes-linker-errors#focus=Comments-27-4543529.0-0
+                when (konanTarget) {
+                    KonanTarget.LINUX_X64 -> includeDirs.headerFilterOnly(
+                        "/usr/include",
+                        "/usr/include/x86_64-linux-gnu",
+                    )
+
+                    KonanTarget.MACOS_X64 -> includeDirs.headerFilterOnly("/opt/local/include", "/usr/local/include")
+                    KonanTarget.MINGW_X64 -> includeDirs(mingwPath.resolve("include"))
+                    else -> logger.error("Unsupported Konan target $konanTarget")
+                }
+            }
         }
 
         compilations.forEach { compilation ->
