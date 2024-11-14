@@ -1,4 +1,6 @@
-.build-base: &build-base
+.build-base:
+  tags:
+    - saas-linux-xlarge-amd64
   before_script:
     - GRADLE_USER_HOME="$(pwd)/.gradle"
     - export GRADLE_USER_HOME
