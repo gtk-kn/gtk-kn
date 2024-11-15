@@ -1,10 +1,12 @@
 variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_TLS_CERTDIR: ""
+  TEMP_IMAGE_NAME_GNOME_OS: "$CI_REGISTRY_IMAGE/gnome-os:${CI_COMMIT_SHORT_SHA}"
   TEMP_IMAGE_NAME_ARCHLINUX: "$CI_REGISTRY_IMAGE/archlinux:${CI_COMMIT_SHORT_SHA}"
   TEMP_IMAGE_NAME_FEDORA: "$CI_REGISTRY_IMAGE/fedora:${CI_COMMIT_SHORT_SHA}"
   TEMP_IMAGE_NAME_OPENSUSE_TUMBLEWEED: "$CI_REGISTRY_IMAGE/opensuse-tumbleweed:${CI_COMMIT_SHORT_SHA}"
   TEMP_IMAGE_NAME_UBUNTU: "$CI_REGISTRY_IMAGE/ubuntu:${CI_COMMIT_SHORT_SHA}"
+  GNOME_OS_VERSION: "latest"
   ARCHLINUX_VERSION: "latest"
   FEDORA_VERSION: "41"
   OPENSUSE_TUMBLEWEED_VERSION: "latest"
@@ -19,6 +21,95 @@ variables:
   before_script:
     - apk add --no-cache git
     - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+
+# Build GNOME OS Image
+build_gnome_os:
+  <<: *docker_job_template
+  stage: build
+  variables:
+    IMAGE_NAME: "$CI_REGISTRY_IMAGE/gnome-os:${GNOME_OS_VERSION}"
+    TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_GNOME_OS"
+  script:
+    - docker build --pull -t "$TEMP_IMAGE_NAME" -f docker/gnome-os/Dockerfile .
+    - docker push "$TEMP_IMAGE_NAME"
+  rules:
+    # Automatically run on push to default branch with changes in docker/gnome-os/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/gnome-os/**
+      when: on_success
+
+    # Automatically run on merge request events with changes in docker/gnome-os/**
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - docker/gnome-os/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Test GNOME OS Image
+test_gnome_os:
+  stage: test
+  extends: .build-base
+  needs:
+    - build_gnome_os
+  image:
+    name: "$TEMP_IMAGE_NAME_GNOME_OS"
+    entrypoint: [ "" ]
+  script:
+    - .ci/gtk-kt-check.sh
+  rules:
+    # Automatically run on push to default branch with changes in docker/gnome-os/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/gnome-os/**
+      when: on_success
+
+    # Automatically run on merge request events with changes in docker/gnome-os/**
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - docker/gnome-os/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
+# Deploy GNOME OS Image
+deploy_gnome_os:
+  <<: *docker_job_template
+  stage: deploy
+  needs:
+    - test_gnome_os
+  variables:
+    IMAGE_NAME: "$CI_REGISTRY_IMAGE/gnome-os:${GNOME_OS_VERSION}"
+    TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_GNOME_OS"
+  script:
+    - docker pull "$TEMP_IMAGE_NAME"
+    - docker tag "$TEMP_IMAGE_NAME" "$IMAGE_NAME"
+    - docker push "$IMAGE_NAME"
+  rules:
+    # Automatically run on push to default branch with changes in docker/gnome-os/**
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - docker/gnome-os/**
+      when: on_success
+
+    # Allow manual triggering on the default branch via the web interface
+    - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: manual
+
+    # Prevent the job from running in other contexts
+    - when: never
+
 
 # Build Arch Linux Image
 build_archlinux:
@@ -54,13 +145,13 @@ build_archlinux:
 test_archlinux:
   stage: test
   extends: .build-base
+  needs:
+    - build_archlinux
   image:
     name: "$TEMP_IMAGE_NAME_ARCHLINUX"
     entrypoint: [ "" ]
   script:
     - .ci/gtk-kt-check.sh
-  needs:
-    - build_archlinux
   rules:
     # Automatically run on push to default branch with changes in docker/archlinux/**
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -85,6 +176,8 @@ test_archlinux:
 deploy_archlinux:
   <<: *docker_job_template
   stage: deploy
+  needs:
+    - test_archlinux
   variables:
     IMAGE_NAME: "$CI_REGISTRY_IMAGE/archlinux:${ARCHLINUX_VERSION}"
     TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_ARCHLINUX"
@@ -92,8 +185,6 @@ deploy_archlinux:
     - docker pull "$TEMP_IMAGE_NAME"
     - docker tag "$TEMP_IMAGE_NAME" "$IMAGE_NAME"
     - docker push "$IMAGE_NAME"
-  needs:
-    - test_archlinux
   rules:
     # Automatically run on push to default branch with changes in docker/archlinux/**
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -142,13 +233,13 @@ build_fedora:
 test_fedora:
   stage: test
   extends: .build-base
+  needs:
+    - build_fedora
   image:
     name: "$TEMP_IMAGE_NAME_FEDORA"
     entrypoint: [ "" ]
   script:
     - .ci/gtk-kt-check.sh
-  needs:
-    - build_fedora
   rules:
     # Automatically run on push to default branch with changes in docker/fedora/**
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -173,6 +264,8 @@ test_fedora:
 deploy_fedora:
   <<: *docker_job_template
   stage: deploy
+  needs:
+    - test_fedora
   variables:
     IMAGE_NAME: "$CI_REGISTRY_IMAGE/fedora:${FEDORA_VERSION}"
     TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_FEDORA"
@@ -180,8 +273,6 @@ deploy_fedora:
     - docker pull "$TEMP_IMAGE_NAME"
     - docker tag "$TEMP_IMAGE_NAME" "$IMAGE_NAME"
     - docker push "$IMAGE_NAME"
-  needs:
-    - test_fedora
   rules:
     # Automatically run on push to default branch with changes in docker/fedora/**
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -230,13 +321,13 @@ build_opensuse_tumbleweed:
 test_opensuse_tumbleweed:
   stage: test
   extends: .build-base
+  needs:
+    - build_opensuse_tumbleweed
   image:
     name: "$TEMP_IMAGE_NAME_OPENSUSE_TUMBLEWEED"
     entrypoint: [ "" ]
   script:
     - .ci/gtk-kt-check.sh
-  needs:
-    - build_opensuse_tumbleweed
   rules:
     # Automatically run on push to default branch with changes in docker/opensuse-tumbleweed/**
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -261,6 +352,8 @@ test_opensuse_tumbleweed:
 deploy_opensuse_tumbleweed:
   <<: *docker_job_template
   stage: deploy
+  needs:
+    - test_opensuse_tumbleweed
   variables:
     IMAGE_NAME: "$CI_REGISTRY_IMAGE/opensuse-tumbleweed:${OPENSUSE_TUMBLEWEED_VERSION}"
     TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_OPENSUSE_TUMBLEWEED"
@@ -268,8 +361,6 @@ deploy_opensuse_tumbleweed:
     - docker pull "$TEMP_IMAGE_NAME"
     - docker tag "$TEMP_IMAGE_NAME" "$IMAGE_NAME"
     - docker push "$IMAGE_NAME"
-  needs:
-    - test_opensuse_tumbleweed
   rules:
     # Automatically run on push to default branch with changes in docker/opensuse-tumbleweed/**
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -318,13 +409,13 @@ build_ubuntu:
 test_ubuntu:
   stage: test
   extends: .build-base
+  needs:
+    - build_ubuntu
   image:
     name: "$TEMP_IMAGE_NAME_UBUNTU"
     entrypoint: [ "" ]
   script:
     - .ci/gtk-kt-check.sh
-  needs:
-    - build_ubuntu
   rules:
     # Automatically run on push to default branch with changes in docker/ubuntu/**
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -349,6 +440,8 @@ test_ubuntu:
 deploy_ubuntu:
   <<: *docker_job_template
   stage: deploy
+  needs:
+    - test_ubuntu
   variables:
     IMAGE_NAME: "$CI_REGISTRY_IMAGE/ubuntu:${UBUNTU_VERSION}"
     TEMP_IMAGE_NAME: "$TEMP_IMAGE_NAME_UBUNTU"
@@ -356,8 +449,6 @@ deploy_ubuntu:
     - docker pull "$TEMP_IMAGE_NAME"
     - docker tag "$TEMP_IMAGE_NAME" "$IMAGE_NAME"
     - docker push "$IMAGE_NAME"
-  needs:
-    - test_ubuntu
   rules:
     # Automatically run on push to default branch with changes in docker/ubuntu/**
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
