@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Usage: ./detect_symlink_loops.sh <directory>
 # This script detects symbolic links that create loops to directories in the provided directory.

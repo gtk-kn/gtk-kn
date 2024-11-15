@@ -37,24 +37,9 @@ kotlin {
         named("nativeMain") {
             dependencies {
                 // Import from project
-                implementation(projects.bindings.gtk.gtk4)
-                implementation(projects.bindings.gtk.gdk4)
-                implementation(projects.bindings.gtk.gsk4)
-                implementation(projects.bindings.core.gobject)
-                implementation(projects.bindings.core.glib)
-                implementation(projects.bindings.core.gio)
-                implementation(projects.bindings.core.gdkpixbuf)
-                implementation(projects.bindings.core.cairo)
-                implementation(projects.bindings.core.pango)
-                implementation(projects.bindings.core.graphene)
                 implementation(projects.bindings.adwaita)
-                implementation(projects.bindings.extra.gtksource)
-                implementation(projects.bindings.extra.webkit)
-                implementation(projects.bindings.extra.javascriptcore)
-                implementation(projects.bindings.extra.soup)
-//                implementation(projects.bindings.gtksource)
                 // Import from mavenLocal
-                // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
+                // implementation("org.gtkkn:adwaita:0.0.1-SNAPSHOT")
                 implementation(libs.kotlin.logging.linux.x64)
             }
         }

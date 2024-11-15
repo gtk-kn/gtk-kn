@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Usage: ./remove_problematic_symlinks.sh <directory>
 # This script removes symbolic links that create loops in the specified directory.
