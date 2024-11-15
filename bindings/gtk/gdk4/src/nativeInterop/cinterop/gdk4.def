@@ -30,7 +30,6 @@ compilerOpts.linux = \
 
 
 compilerOpts.linux_x64 = \
-    -I/usr/lib/x86_64-linux-gnu/ \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include \
     -I/usr/lib64/glib-2.0/include \
