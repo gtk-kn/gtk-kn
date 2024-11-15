@@ -1,5 +1,5 @@
 # Generate and Check on GNOME OS
-generate-and-check-gnome-os:
+test-gnome-os:
   extends: .build-base
   image: "$CI_REGISTRY_IMAGE/gnome-os:latest"
   interruptible: true
@@ -10,7 +10,7 @@ generate-and-check-gnome-os:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 # Generate and Check on GNOME OS with default gtkkn.json
-generate-and-check-gnome-os-default-gtkkn.json:
+test-gnome-os-default-gtkkn.json:
   extends: .build-base
   image: "$CI_REGISTRY_IMAGE/gnome-os:latest"
   interruptible: true
@@ -22,7 +22,7 @@ generate-and-check-gnome-os-default-gtkkn.json:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 # Generate and Check on Arch Linux
-generate-and-check-archlinux:
+test-archlinux:
   extends: .build-base
   image: "$CI_REGISTRY_IMAGE/archlinux:latest"
   interruptible: true
@@ -33,7 +33,7 @@ generate-and-check-archlinux:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 # Generate and Check on Fedora 41
-generate-and-check-fedora-41:
+test-fedora-41:
   extends: .build-base
   image: "$CI_REGISTRY_IMAGE/fedora:41"
   interruptible: true
@@ -44,7 +44,7 @@ generate-and-check-fedora-41:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 # Generate and Check on openSUSE Tumbleweed
-generate-and-check-opensuse-tumbleweed:
+test-opensuse-tumbleweed:
   extends: .build-base
   image: "$CI_REGISTRY_IMAGE/opensuse-tumbleweed:latest"
   interruptible: true
@@ -55,7 +55,7 @@ generate-and-check-opensuse-tumbleweed:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 # Generate and Check on Ubuntu 24.04
-generate-and-check-ubuntu-24.04:
+test-ubuntu-24.04:
   extends: .build-base
   image: "$CI_REGISTRY_IMAGE/ubuntu:24.04"
   interruptible: true
