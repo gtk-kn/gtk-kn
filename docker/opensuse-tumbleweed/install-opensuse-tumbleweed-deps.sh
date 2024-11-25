@@ -15,7 +15,7 @@
 # along with gtk-kn. If not, see https://www.gnu.org/licenses/.
 #
 
-set -v
+set -e -v
 
 # Update package lists
 zypper refresh

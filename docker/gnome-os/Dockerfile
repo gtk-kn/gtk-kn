@@ -10,10 +10,14 @@ ARG jdk_platform=linux
 
 WORKDIR /app
 
-COPY docker/gnome-os/install_jdk.sh /app/
+COPY docker/gnome-os/install-libxcrypt-compat.sh /app/
+COPY docker/gnome-os/install-jdk.sh /app/
+
+# Download and install libxcrypt-compat
+RUN /app/install-libxcrypt-compat.sh
 
 # Download and install OpenJDK 17
-RUN /app/install_jdk.sh ${jdk_version} ${jdk_arch} ${jdk_platform}
+RUN /app/install-jdk.sh ${jdk_version} ${jdk_arch} ${jdk_platform}
 
 # Set environment variables
 ENV JAVA_HOME /opt/java/jdk-${jdk_version}

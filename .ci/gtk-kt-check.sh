@@ -16,7 +16,7 @@
 #
 
 #!/bin/bash
-set -v
+set -e -v
 
 ./gradlew :gradle-plugin:check
 ./gradlew :gir:run

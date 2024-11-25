@@ -15,13 +15,14 @@
 # along with gtk-kn. If not, see https://www.gnu.org/licenses/.
 #
 
-set -v
+set -e -v
 
 # Update package lists
 dnf check-update || true
 
 # Install packages without prompts
 dnf install -y \
+  libxcrypt-compat \
   java-17-openjdk-devel \
   python3-pip \
   gcc \
