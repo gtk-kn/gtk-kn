@@ -1,4 +1,4 @@
-FROM quay.io/gnome_infrastructure/gnome-build-meta:sdk-nightly
+FROM quay.io/gnome_infrastructure/gnome-build-meta:sdk-47
 
 LABEL maintainer="leinardi@gmail.com"
 LABEL version="0.1"
