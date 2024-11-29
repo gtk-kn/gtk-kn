@@ -1,6 +1,6 @@
 pages:
   extends: .build-base
-  image: "$CI_REGISTRY_IMAGE/fedora:41"
+  image: "$REGISTRY_PATH/fedora:41"
   stage: deploy
   script:
     - pip install -r mkdocs-requirements.txt --break-system-packages --ignore-installed PyYAML
