@@ -44,6 +44,7 @@ extensions.create<ConfigExt>("config").apply {
     extensions.create<VersionsExt>("versions").apply {
         common.convention("0.0.1-SNAPSHOT")
         adwaita.convention(common)
+        compose.convention(common)
         core.convention(common)
         coroutines.convention(common)
         gradlePlugin.convention(common)

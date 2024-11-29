@@ -41,6 +41,8 @@ includeBuild("build-conventions")
 includeBuild("gradle-plugin")
 
 include("gir")
+include("compose:compose-adwaita")
+include("compose:compose-gtk4")
 include("coroutines")
 
 include("bindings:common-annotations")
@@ -69,6 +71,8 @@ if (properties["org.gtkkn.samples.disable"] != "true") {
         "samples:cairo:clock",
         "samples:cairo:drawing",
         "samples:cairo:shapes",
+        "samples:compose:adwaita",
+        "samples:compose:gtk",
         "samples:gtk:embedded-resources",
         "samples:gtk:external-resources",
         "samples:gtk:hello-world",
