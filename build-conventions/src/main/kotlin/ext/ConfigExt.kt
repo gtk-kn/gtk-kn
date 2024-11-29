@@ -32,6 +32,7 @@ interface ConfigExt : ExtensionAware {
 interface VersionsExt : ExtensionAware {
     val adwaita: Property<String>
     val common: Property<String>
+    val compose: Property<String>
     val core: Property<String>
     val coroutines: Property<String>
     val gradlePlugin: Property<String>
