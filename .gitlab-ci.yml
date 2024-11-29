@@ -1,6 +1,7 @@
 variables:
   GIT_STRATEGY: clone
   GIT_SUBMODULE_STRATEGY: recursive
+  REGISTRY_PATH: "registry.gitlab.com/gtk-kn/gtk-kn"
 
 stages:
   - build

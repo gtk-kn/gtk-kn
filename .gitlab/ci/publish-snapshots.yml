@@ -1,6 +1,6 @@
 snapshots:
   extends: .build-base
-  image: "$CI_REGISTRY_IMAGE/fedora:41"
+  image: "$REGISTRY_PATH/fedora:41"
   stage: deploy
   script:
     - ./gradlew :gir:run
