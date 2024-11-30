@@ -20,7 +20,6 @@ plugins {
 }
 
 kotlin {
-    applyDefaultHierarchyTemplate()
     linuxX64 {
         binaries {
             executable {
@@ -29,7 +28,7 @@ kotlin {
         }
     }
     sourceSets {
-        named("nativeMain") {
+        nativeMain {
             dependencies {
                 // Import from project
                 implementation(projects.bindings.gtk.gtk4)

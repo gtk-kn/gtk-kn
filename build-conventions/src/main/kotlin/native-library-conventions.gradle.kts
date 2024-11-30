@@ -24,7 +24,6 @@ plugins {
 
 kotlin {
     explicitApi()
-    applyDefaultHierarchyTemplate()
     linuxX64()
 
     sourceSets {
