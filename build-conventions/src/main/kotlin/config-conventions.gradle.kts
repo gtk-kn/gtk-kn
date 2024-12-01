@@ -42,8 +42,8 @@ extensions.create<ConfigExt>("config").apply {
     website.convention("http://gtk-kn.org/")
     vcsUrl.convention("https://gitlab.com/gtk-kn/gtk-kn.git")
     extensions.create<VersionsExt>("versions").apply {
-        adwaita.convention(common)
         common.convention("0.0.1-SNAPSHOT")
+        adwaita.convention(common)
         core.convention(common)
         coroutines.convention(common)
         gradlePlugin.convention(common)
