@@ -76,8 +76,7 @@ public class AttrIterator(
      * Gets a list of all attributes at the current position of the
      * iterator.
      *
-     * @return
-     *   a list of all attributes for the current range. To free
+     * @return a list of all attributes for the current range. To free
      *   this value, call [method@Pango.Attribute.destroy] on each
      *   value and g_slist_free() on the list.
      * @since 1.2

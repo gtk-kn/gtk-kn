@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gtk.GtkConstraintVflParserError
 import org.gtkkn.native.gtk.gtk_constraint_vfl_parser_error_quark
-import kotlin.UInt
 
 /**
  * Domain for VFL parsing errors.
@@ -55,7 +55,7 @@ public enum class ConstraintVflParserError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = gtk_constraint_vfl_parser_error_quark()
+        public fun quark(): Quark = gtk_constraint_vfl_parser_error_quark()
 
         public fun fromErrorOrNull(error: Error): ConstraintVflParserError? =
             if (error.domain != quark()) {

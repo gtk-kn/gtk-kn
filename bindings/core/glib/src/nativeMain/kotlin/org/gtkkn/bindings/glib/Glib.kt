@@ -60,7 +60,9 @@ import org.gtkkn.native.glib.GLogLevelFlags
 import org.gtkkn.native.glib.GLogWriterOutput
 import org.gtkkn.native.glib.GMatchInfo
 import org.gtkkn.native.glib.GNode
+import org.gtkkn.native.glib.GPid
 import org.gtkkn.native.glib.GPollFD
+import org.gtkkn.native.glib.GQuark
 import org.gtkkn.native.glib.GScanner
 import org.gtkkn.native.glib.GSource
 import org.gtkkn.native.glib.GString
@@ -81,6 +83,8 @@ import org.gtkkn.native.glib.g_build_pathv
 import org.gtkkn.native.glib.g_canonicalize_filename
 import org.gtkkn.native.glib.g_chdir
 import org.gtkkn.native.glib.g_checksum_type_get_length
+import org.gtkkn.native.glib.g_child_watch_add_full
+import org.gtkkn.native.glib.g_child_watch_source_new
 import org.gtkkn.native.glib.g_clear_error
 import org.gtkkn.native.glib.g_close
 import org.gtkkn.native.glib.g_closefrom
@@ -88,9 +92,16 @@ import org.gtkkn.native.glib.g_compute_checksum_for_bytes
 import org.gtkkn.native.glib.g_compute_checksum_for_string
 import org.gtkkn.native.glib.g_compute_hmac_for_bytes
 import org.gtkkn.native.glib.g_convert_error_quark
+import org.gtkkn.native.glib.g_date_get_days_in_month
+import org.gtkkn.native.glib.g_date_get_monday_weeks_in_year
+import org.gtkkn.native.glib.g_date_get_sunday_weeks_in_year
+import org.gtkkn.native.glib.g_date_is_leap_year
+import org.gtkkn.native.glib.g_date_valid_day
+import org.gtkkn.native.glib.g_date_valid_dmy
 import org.gtkkn.native.glib.g_date_valid_julian
 import org.gtkkn.native.glib.g_date_valid_month
 import org.gtkkn.native.glib.g_date_valid_weekday
+import org.gtkkn.native.glib.g_date_valid_year
 import org.gtkkn.native.glib.g_dcgettext
 import org.gtkkn.native.glib.g_dgettext
 import org.gtkkn.native.glib.g_dir_make_tmp
@@ -236,6 +247,7 @@ import org.gtkkn.native.glib.g_source_set_name_by_id
 import org.gtkkn.native.glib.g_spaced_primes_closest
 import org.gtkkn.native.glib.g_spawn_check_exit_status
 import org.gtkkn.native.glib.g_spawn_check_wait_status
+import org.gtkkn.native.glib.g_spawn_close_pid
 import org.gtkkn.native.glib.g_spawn_command_line_async
 import org.gtkkn.native.glib.g_spawn_error_quark
 import org.gtkkn.native.glib.g_spawn_exit_error_quark
@@ -363,6 +375,7 @@ import kotlin.collections.List
 /**
  * ## Skipped during bindings generation
  *
+ * - alias `Strv`: Unsupported string with cType gchar**
  * - function `aligned_alloc`: Return type gpointer is unsupported
  * - function `aligned_alloc0`: Return type gpointer is unsupported
  * - parameter `mem`: gpointer
@@ -440,8 +453,6 @@ import kotlin.collections.List
  * - parameter `array`: Array parameter of type guint8 is not supported
  * - parameter `array`: Array parameter of type guint8 is not supported
  * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `pid`: Pid
- * - parameter `pid`: Pid
  * - function `chmod`: C function g_chmod is ignored
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `key`: Array parameter of type guint8 is not supported
@@ -459,14 +470,7 @@ import kotlin.collections.List
  * - parameter `dataset_location`: gpointer
  * - parameter `dataset_location`: gpointer
  * - parameter `dataset_location`: gpointer
- * - parameter `year`: DateYear
- * - parameter `year`: DateYear
- * - parameter `year`: DateYear
- * - parameter `year`: DateYear
  * - function `date_strftime`: C function g_date_strftime is ignored
- * - parameter `day`: DateDay
- * - parameter `day`: DateDay
- * - parameter `year`: DateYear
  * - parameter `v1`: gpointer
  * - parameter `v`: gpointer
  * - parameter `v1`: gpointer
@@ -591,7 +595,6 @@ import kotlin.collections.List
  * - parameter `child_pid`: child_pid: Out parameter is not supported
  * - parameter `child_pid`: child_pid: Out parameter is not supported
  * - parameter `source_fds`: Array parameter of type gint is not supported
- * - parameter `pid`: Pid
  * - parameter `standard_output`: standard_output: Out parameter is not supported
  * - parameter `standard_output`: standard_output: Out parameter is not supported
  * - parameter `buf`: StatBuf
@@ -1642,10 +1645,19 @@ public object Glib {
         func: kotlin.String,
         expr: kotlin.String,
         error: Error,
-        errorDomain: UInt,
+        errorDomain: Quark,
         errorCode: Int,
     ): Unit =
-        g_assertion_message_error(domain, `file`, line, func, expr, error.glibErrorPointer, errorDomain, errorCode)
+        g_assertion_message_error(
+            domain,
+            `file`,
+            line,
+            func,
+            expr,
+            error.glibErrorPointer.reinterpret(),
+            errorDomain,
+            errorCode
+        )
 
     /**
      * Gets the name of the file without any leading directory
@@ -1703,7 +1715,7 @@ public object Glib {
 
     public fun blowChunks(): Unit = g_blow_chunks()
 
-    public fun bookmarkFileErrorQuark(): UInt = g_bookmark_file_error_quark()
+    public fun bookmarkFileErrorQuark(): Quark = g_bookmark_file_error_quark()
 
     /**
      * Creates a filename from a vector of elements using the correct
@@ -1838,6 +1850,107 @@ public object Glib {
         g_checksum_type_get_length(checksumType.nativeValue)
 
     /**
+     * Sets a function to be called when the child indicated by @pid
+     * exits, at the priority @priority.
+     *
+     * If you obtain @pid from g_spawn_async() or g_spawn_async_with_pipes()
+     * you will need to pass %G_SPAWN_DO_NOT_REAP_CHILD as flag to
+     * the spawn function for the child watching to work.
+     *
+     * In many programs, you will want to call g_spawn_check_wait_status()
+     * in the callback to determine whether or not the child exited
+     * successfully.
+     *
+     * Also, note that on platforms where #GPid must be explicitly closed
+     * (see g_spawn_close_pid()) @pid must not be closed while the source
+     * is still active.  Typically, you should invoke g_spawn_close_pid()
+     * in the callback function for the source.
+     *
+     * GLib supports only a single callback per process id.
+     * On POSIX platforms, the same restrictions mentioned for
+     * g_child_watch_source_new() apply to this function.
+     *
+     * This internally creates a main loop source using
+     * g_child_watch_source_new() and attaches it to the main loop context
+     * using g_source_attach(). You can do these steps manually if you
+     * need greater control.
+     *
+     * @param priority the priority of the idle source. Typically this will be in the
+     *   range between %G_PRIORITY_DEFAULT_IDLE and %G_PRIORITY_HIGH_IDLE.
+     * @param pid process to watch. On POSIX the positive pid of a child process. On
+     * Windows a handle for a process (which doesn't have to be a child).
+     * @param function function to call
+     * @return the ID (greater than 0) of the event source.
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun childWatchAdd(
+        priority: Int,
+        pid: Pid,
+        function: ChildWatchFunc,
+    ): UInt =
+        g_child_watch_add_full(
+            priority,
+            pid,
+            ChildWatchFuncFunc.reinterpret(),
+            StableRef.create(function).asCPointer(),
+            staticStableRefDestroy.reinterpret()
+        )
+
+    /**
+     * Creates a new child_watch source.
+     *
+     * The source will not initially be associated with any #GMainContext
+     * and must be added to one with g_source_attach() before it will be
+     * executed.
+     *
+     * Note that child watch sources can only be used in conjunction with
+     * `g_spawn...` when the %G_SPAWN_DO_NOT_REAP_CHILD flag is used.
+     *
+     * Note that on platforms where #GPid must be explicitly closed
+     * (see g_spawn_close_pid()) @pid must not be closed while the
+     * source is still active. Typically, you will want to call
+     * g_spawn_close_pid() in the callback function for the source.
+     *
+     * On POSIX platforms, the following restrictions apply to this API
+     * due to limitations in POSIX process interfaces:
+     *
+     * * @pid must be a child of this process
+     * * @pid must be positive
+     * * the application must not call `waitpid` with a non-positive
+     *   first argument, for instance in another thread
+     * * the application must not wait for @pid to exit by any other
+     *   mechanism, including `waitpid(pid, ...)` or a second child-watch
+     *   source for the same @pid
+     * * the application must not ignore `SIGCHLD`
+     * * Before 2.78, the application could not send a signal (`kill()`) to the
+     *   watched @pid in a race free manner. Since 2.78, you can do that while the
+     *   associated #GMainContext is acquired.
+     * * Before 2.78, even after destroying the #GSource, you could not
+     *   be sure that @pid wasn't already reaped. Hence, it was also not
+     *   safe to `kill()` or `waitpid()` on the process ID after the child watch
+     *   source was gone. Destroying the source before it fired made it
+     *   impossible to reliably reap the process.
+     *
+     * If any of those conditions are not met, this and related APIs will
+     * not work correctly. This can often be diagnosed via a GLib warning
+     * stating that `ECHILD` was received by `waitpid`.
+     *
+     * Calling `waitpid` for specific processes other than @pid remains a
+     * valid thing to do.
+     *
+     * @param pid process to watch. On POSIX the positive pid of a child process. On
+     * Windows a handle for a process (which doesn't have to be a child).
+     * @return the newly-created child watch source
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun childWatchSourceNew(pid: Pid): Source =
+        g_child_watch_source_new(pid)!!.run {
+            Source(reinterpret())
+        }
+
+    /**
      * If @err or *@err is null, does nothing. Otherwise,
      * calls g_error_free() on *@err and sets *@err to null.
      */
@@ -1937,7 +2050,7 @@ public object Glib {
         checksumType: ChecksumType,
         `data`: Bytes,
     ): kotlin.String =
-        g_compute_checksum_for_bytes(checksumType.nativeValue, `data`.glibBytesPointer)?.toKString()
+        g_compute_checksum_for_bytes(checksumType.nativeValue, `data`.glibBytesPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -1982,10 +2095,93 @@ public object Glib {
         key: Bytes,
         `data`: Bytes,
     ): kotlin.String =
-        g_compute_hmac_for_bytes(digestType.nativeValue, key.glibBytesPointer, `data`.glibBytesPointer)?.toKString()
+        g_compute_hmac_for_bytes(
+            digestType.nativeValue,
+            key.glibBytesPointer.reinterpret(),
+            `data`.glibBytesPointer.reinterpret()
+        )?.toKString()
             ?: error("Expected not null string")
 
-    public fun convertErrorQuark(): UInt = g_convert_error_quark()
+    public fun convertErrorQuark(): Quark = g_convert_error_quark()
+
+    /**
+     * Returns the number of days in a month, taking leap
+     * years into account.
+     *
+     * @param month month
+     * @param year year
+     * @return number of days in @month during the @year
+     */
+    public fun dateGetDaysInMonth(
+        month: DateMonth,
+        year: DateYear,
+    ): UByte = g_date_get_days_in_month(month.nativeValue, year)
+
+    /**
+     * Returns the number of weeks in the year, where weeks
+     * are taken to start on Monday. Will be 52 or 53. The
+     * date must be valid. (Years always have 52 7-day periods,
+     * plus 1 or 2 extra days depending on whether it's a leap
+     * year. This function is basically telling you how many
+     * Mondays are in the year, i.e. there are 53 Mondays if
+     * one of the extra days happens to be a Monday.)
+     *
+     * @param year a year
+     * @return number of Mondays in the year
+     */
+    public fun dateGetMondayWeeksInYear(year: DateYear): UByte = g_date_get_monday_weeks_in_year(year)
+
+    /**
+     * Returns the number of weeks in the year, where weeks
+     * are taken to start on Sunday. Will be 52 or 53. The
+     * date must be valid. (Years always have 52 7-day periods,
+     * plus 1 or 2 extra days depending on whether it's a leap
+     * year. This function is basically telling you how many
+     * Sundays are in the year, i.e. there are 53 Sundays if
+     * one of the extra days happens to be a Sunday.)
+     *
+     * @param year year to count weeks in
+     * @return the number of weeks in @year
+     */
+    public fun dateGetSundayWeeksInYear(year: DateYear): UByte = g_date_get_sunday_weeks_in_year(year)
+
+    /**
+     * Returns true if the year is a leap year.
+     *
+     * For the purposes of this function, leap year is every year
+     * divisible by 4 unless that year is divisible by 100. If it
+     * is divisible by 100 it would be a leap year only if that year
+     * is also divisible by 400.
+     *
+     * @param year year to check
+     * @return true if the year is a leap year
+     */
+    public fun dateIsLeapYear(year: DateYear): Boolean = g_date_is_leap_year(year).asBoolean()
+
+    /**
+     * Returns true if the day of the month is valid (a day is valid if it's
+     * between 1 and 31 inclusive).
+     *
+     * @param day day to check
+     * @return true if the day is valid
+     */
+    public fun dateValidDay(day: DateDay): Boolean = g_date_valid_day(day).asBoolean()
+
+    /**
+     * Returns true if the day-month-year triplet forms a valid, existing day
+     * in the range of days #GDate understands (Year 1 or later, no more than
+     * a few thousand years in the future).
+     *
+     * @param day day
+     * @param month month
+     * @param year year
+     * @return true if the date is a valid one
+     */
+    public fun dateValidDmy(
+        day: DateDay,
+        month: DateMonth,
+        year: DateYear,
+    ): Boolean = g_date_valid_dmy(day, month.nativeValue, year).asBoolean()
 
     /**
      * Returns true if the Julian day is valid. Anything greater than zero
@@ -2013,6 +2209,15 @@ public object Glib {
      * @return true if the weekday is valid
      */
     public fun dateValidWeekday(weekday: DateWeekday): Boolean = g_date_valid_weekday(weekday.nativeValue).asBoolean()
+
+    /**
+     * Returns true if the year is valid. Any year greater than 0 is valid,
+     * though there is a 16-bit limit to what #GDate will understand.
+     *
+     * @param year year
+     * @return true if the year is valid
+     */
+    public fun dateValidYear(year: DateYear): Boolean = g_date_valid_year(year).asBoolean()
 
     /**
      * This is a variant of g_dgettext() that allows specifying a locale
@@ -2200,8 +2405,7 @@ public object Glib {
      * Returns the value of the environment variable @variable in the
      * provided list @envp.
      *
-     * @param envp
-     *     an environment list (eg, as returned from g_get_environ()), or null
+     * @param envp an environment list (eg, as returned from g_get_environ()), or null
      *     for an empty environment list
      * @param variable the environment variable to get
      * @return the value of the environment variable, or null if
@@ -2223,16 +2427,14 @@ public object Glib {
      * Sets the environment variable @variable in the provided list
      * @envp to @value.
      *
-     * @param envp
-     *     an environment list that can be freed using g_strfreev() (e.g., as
+     * @param envp an environment list that can be freed using g_strfreev() (e.g., as
      *     returned from g_get_environ()), or null for an empty
      *     environment list
      * @param variable the environment variable to set, must not
      *     contain '='
      * @param value the value for to set the variable to
      * @param overwrite whether to change the variable if it already exists
-     * @return
-     *     the updated environment list. Free it using g_strfreev().
+     * @return the updated environment list. Free it using g_strfreev().
      * @since 2.32
      */
     @GLibVersion2_32
@@ -2256,13 +2458,11 @@ public object Glib {
      * Removes the environment variable @variable from the provided
      * environment @envp.
      *
-     * @param envp
-     *     an environment list that can be freed using g_strfreev() (e.g., as
+     * @param envp an environment list that can be freed using g_strfreev() (e.g., as
      *     returned from g_get_environ()), or null for an empty environment list
      * @param variable the environment variable to remove, must not
      *     contain '='
-     * @return
-     *     the updated environment list. Free it using g_strfreev().
+     * @return the updated environment list. Free it using g_strfreev().
      * @since 2.32
      */
     @GLibVersion2_32
@@ -2317,7 +2517,7 @@ public object Glib {
             FileError.fromNativeValue(this)
         }
 
-    public fun fileErrorQuark(): UInt = g_file_error_quark()
+    public fun fileErrorQuark(): Quark = g_file_error_quark()
 
     /**
      * Reads the contents of the symbolic link @filename like the POSIX
@@ -2653,7 +2853,7 @@ public object Glib {
      *
      * @param result #GTimeVal structure in which to store current time.
      */
-    public fun getCurrentTime(result: TimeVal): Unit = g_get_current_time(result.glibTimeValPointer)
+    public fun getCurrentTime(result: TimeVal): Unit = g_get_current_time(result.glibTimeValPointer.reinterpret())
 
     /**
      * Gets the list of environment variables for the current process.
@@ -2667,8 +2867,7 @@ public object Glib {
      * The return value is freshly allocated and it should be freed with
      * g_strfreev() when it is no longer needed.
      *
-     * @return
-     *     the list of environment variables
+     * @return the list of environment variables
      * @since 2.28
      */
     @GLibVersion2_28
@@ -2908,8 +3107,7 @@ public object Glib {
      * The return value is cached and modifying it at runtime is not supported, as
      * it’s not thread-safe to modify environment variables at runtime.
      *
-     * @return
-     *     a null-terminated array of strings owned by GLib that must not be
+     * @return a null-terminated array of strings owned by GLib that must not be
      *     modified or freed.
      * @since 2.6
      */
@@ -2953,8 +3151,7 @@ public object Glib {
      * The return value is cached and modifying it at runtime is not supported, as
      * it’s not thread-safe to modify environment variables at runtime.
      *
-     * @return
-     *     a null-terminated array of strings owned by GLib that must not be
+     * @return a null-terminated array of strings owned by GLib that must not be
      *     modified or freed.
      * @since 2.6
      */
@@ -3170,7 +3367,8 @@ public object Glib {
      *
      * @param hashTable a #GHashTable
      */
-    public fun hashTableDestroy(hashTable: HashTable): Unit = g_hash_table_destroy(hashTable.glibHashTablePointer)
+    public fun hashTableDestroy(hashTable: HashTable): Unit =
+        g_hash_table_destroy(hashTable.glibHashTablePointer.reinterpret())
 
     /**
      * Calls the given function for each of the key/value pairs in the
@@ -3194,7 +3392,7 @@ public object Glib {
         func: HFunc,
     ): Unit =
         g_hash_table_foreach(
-            hashTable.glibHashTablePointer,
+            hashTable.glibHashTablePointer.reinterpret(),
             HFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
         )
@@ -3218,7 +3416,7 @@ public object Glib {
         func: HRFunc,
     ): UInt =
         g_hash_table_foreach_remove(
-            hashTable.glibHashTablePointer,
+            hashTable.glibHashTablePointer.reinterpret(),
             HRFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
         )
@@ -3241,7 +3439,7 @@ public object Glib {
         func: HRFunc,
     ): UInt =
         g_hash_table_foreach_steal(
-            hashTable.glibHashTablePointer,
+            hashTable.glibHashTablePointer.reinterpret(),
             HRFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
         )
@@ -3262,7 +3460,7 @@ public object Glib {
      */
     @GLibVersion2_72
     public fun hashTableNewSimilar(otherHashTable: HashTable): HashTable =
-        g_hash_table_new_similar(otherHashTable.glibHashTablePointer)!!.run {
+        g_hash_table_new_similar(otherHashTable.glibHashTablePointer.reinterpret())!!.run {
             HashTable(reinterpret())
         }
 
@@ -3276,7 +3474,7 @@ public object Glib {
      */
     @GLibVersion2_10
     public fun hashTableRef(hashTable: HashTable): HashTable =
-        g_hash_table_ref(hashTable.glibHashTablePointer)!!.run {
+        g_hash_table_ref(hashTable.glibHashTablePointer.reinterpret())!!.run {
             HashTable(reinterpret())
         }
 
@@ -3292,7 +3490,8 @@ public object Glib {
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun hashTableRemoveAll(hashTable: HashTable): Unit = g_hash_table_remove_all(hashTable.glibHashTablePointer)
+    public fun hashTableRemoveAll(hashTable: HashTable): Unit =
+        g_hash_table_remove_all(hashTable.glibHashTablePointer.reinterpret())
 
     /**
      * Returns the number of elements contained in the #GHashTable.
@@ -3300,7 +3499,8 @@ public object Glib {
      * @param hashTable a #GHashTable
      * @return the number of key/value pairs in the #GHashTable.
      */
-    public fun hashTableSize(hashTable: HashTable): UInt = g_hash_table_size(hashTable.glibHashTablePointer)
+    public fun hashTableSize(hashTable: HashTable): UInt =
+        g_hash_table_size(hashTable.glibHashTablePointer.reinterpret())
 
     /**
      * Removes all keys and their associated values from a #GHashTable
@@ -3310,7 +3510,8 @@ public object Glib {
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun hashTableStealAll(hashTable: HashTable): Unit = g_hash_table_steal_all(hashTable.glibHashTablePointer)
+    public fun hashTableStealAll(hashTable: HashTable): Unit =
+        g_hash_table_steal_all(hashTable.glibHashTablePointer.reinterpret())
 
     /**
      * Atomically decrements the reference count of @hash_table by one.
@@ -3322,7 +3523,8 @@ public object Glib {
      * @since 2.10
      */
     @GLibVersion2_10
-    public fun hashTableUnref(hashTable: HashTable): Unit = g_hash_table_unref(hashTable.glibHashTablePointer)
+    public fun hashTableUnref(hashTable: HashTable): Unit =
+        g_hash_table_unref(hashTable.glibHashTablePointer.reinterpret())
 
     /**
      * Destroys a #GHook, given its ID.
@@ -3334,7 +3536,7 @@ public object Glib {
     public fun hookDestroy(
         hookList: HookList,
         hookId: ULong,
-    ): Boolean = g_hook_destroy(hookList.glibHookListPointer, hookId).asBoolean()
+    ): Boolean = g_hook_destroy(hookList.glibHookListPointer.reinterpret(), hookId).asBoolean()
 
     /**
      * Removes one #GHook from a #GHookList, marking it
@@ -3346,7 +3548,7 @@ public object Glib {
     public fun hookDestroyLink(
         hookList: HookList,
         hook: Hook,
-    ): Unit = g_hook_destroy_link(hookList.glibHookListPointer, hook.glibHookPointer)
+    ): Unit = g_hook_destroy_link(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
     /**
      * Calls the #GHookList @finalize_hook function if it exists,
@@ -3358,7 +3560,7 @@ public object Glib {
     public fun hookFree(
         hookList: HookList,
         hook: Hook,
-    ): Unit = g_hook_free(hookList.glibHookListPointer, hook.glibHookPointer)
+    ): Unit = g_hook_free(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
     /**
      * Inserts a #GHook into a #GHookList, before a given #GHook.
@@ -3371,7 +3573,12 @@ public object Glib {
         hookList: HookList,
         sibling: Hook? = null,
         hook: Hook,
-    ): Unit = g_hook_insert_before(hookList.glibHookListPointer, sibling?.glibHookPointer, hook.glibHookPointer)
+    ): Unit =
+        g_hook_insert_before(
+            hookList.glibHookListPointer.reinterpret(),
+            sibling?.glibHookPointer?.reinterpret(),
+            hook.glibHookPointer.reinterpret()
+        )
 
     /**
      * Prepends a #GHook on the start of a #GHookList.
@@ -3382,7 +3589,7 @@ public object Glib {
     public fun hookPrepend(
         hookList: HookList,
         hook: Hook,
-    ): Unit = g_hook_prepend(hookList.glibHookListPointer, hook.glibHookPointer)
+    ): Unit = g_hook_prepend(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
     /**
      * Decrements the reference count of a #GHook.
@@ -3395,7 +3602,7 @@ public object Glib {
     public fun hookUnref(
         hookList: HookList,
         hook: Hook,
-    ): Unit = g_hook_unref(hookList.glibHookListPointer, hook.glibHookPointer)
+    ): Unit = g_hook_unref(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
     /**
      * Tests if @hostname contains segments with an ASCII-compatible
@@ -3572,9 +3779,9 @@ public object Glib {
             IOChannelError.fromNativeValue(this)
         }
 
-    public fun ioChannelErrorQuark(): UInt = g_io_channel_error_quark()
+    public fun ioChannelErrorQuark(): Quark = g_io_channel_error_quark()
 
-    public fun keyFileErrorQuark(): UInt = g_key_file_error_quark()
+    public fun keyFileErrorQuark(): Quark = g_key_file_error_quark()
 
     public fun listPopAllocator(): Unit = g_list_pop_allocator()
 
@@ -3588,8 +3795,7 @@ public object Glib {
      * use cases for environment variables in GLib-using programs you want
      * the UTF-8 encoding that this function and g_getenv() provide.
      *
-     * @return
-     *     a null-terminated list of strings which must be freed with
+     * @return a null-terminated list of strings which must be freed with
      *     g_strfreev().
      * @since 2.8
      */
@@ -3782,7 +3988,7 @@ public object Glib {
         logDomain: kotlin.String? = null,
         logLevel: LogLevelFlags,
         fields: Variant,
-    ): Unit = g_log_variant(logDomain, logLevel.mask, fields.glibVariantPointer)
+    ): Unit = g_log_variant(logDomain, logLevel.mask, fields.glibVariantPointer.reinterpret())
 
     /**
      * Configure whether the built-in log functions will output all log messages to
@@ -4054,7 +4260,7 @@ public object Glib {
      */
     public fun mainDepth(): Int = g_main_depth()
 
-    public fun markupErrorQuark(): UInt = g_markup_error_quark()
+    public fun markupErrorQuark(): Quark = g_markup_error_quark()
 
     /**
      * Escapes text so that the markup parser will parse it verbatim.
@@ -4109,7 +4315,7 @@ public object Glib {
      *
      * @param vtable table of memory allocation routines.
      */
-    public fun memSetVtable(vtable: MemVTable): Unit = g_mem_set_vtable(vtable.glibMemVTablePointer)
+    public fun memSetVtable(vtable: MemVTable): Unit = g_mem_set_vtable(vtable.glibMemVTablePointer.reinterpret())
 
     /**
      * Create a directory if it doesn't already exist. Create intermediate
@@ -4129,7 +4335,7 @@ public object Glib {
 
     public fun nodePopAllocator(): Unit = g_node_pop_allocator()
 
-    public fun numberParserErrorQuark(): UInt = g_number_parser_error_quark()
+    public fun numberParserErrorQuark(): Quark = g_number_parser_error_quark()
 
     /**
      * Prompts the user with
@@ -4206,7 +4412,7 @@ public object Glib {
      */
     public fun onErrorStackTrace(prgName: kotlin.String): Unit = g_on_error_stack_trace(prgName)
 
-    public fun optionErrorQuark(): UInt = g_option_error_quark()
+    public fun optionErrorQuark(): Quark = g_option_error_quark()
 
     /**
      * Gets the last component of the filename.
@@ -4326,7 +4532,7 @@ public object Glib {
         fds: PollFD,
         nfds: UInt,
         timeout: Int,
-    ): Int = g_poll(fds.glibPollFDPointer, nfds, timeout)
+    ): Int = g_poll(fds.glibPollFDPointer.reinterpret(), nfds, timeout)
 
     /**
      * Gets the #GQuark identifying the given (static) string. If the
@@ -4349,7 +4555,7 @@ public object Glib {
      * @param string a string
      * @return the #GQuark identifying the string, or 0 if @string is null
      */
-    public fun quarkFromStaticString(string: kotlin.String? = null): UInt = g_quark_from_static_string(string)
+    public fun quarkFromStaticString(string: kotlin.String? = null): Quark = g_quark_from_static_string(string)
 
     /**
      * Gets the #GQuark identifying the given string. If the string does
@@ -4363,7 +4569,7 @@ public object Glib {
      * @param string a string
      * @return the #GQuark identifying the string, or 0 if @string is null
      */
-    public fun quarkFromString(string: kotlin.String? = null): UInt = g_quark_from_string(string)
+    public fun quarkFromString(string: kotlin.String? = null): Quark = g_quark_from_string(string)
 
     /**
      * Gets the #GQuark associated with the given string, or 0 if string is
@@ -4379,7 +4585,7 @@ public object Glib {
      * @return the #GQuark associated with the string, or 0 if @string is
      *     null or there is no #GQuark associated with it
      */
-    public fun quarkTryString(string: kotlin.String? = null): UInt = g_quark_try_string(string)
+    public fun quarkTryString(string: kotlin.String? = null): Quark = g_quark_try_string(string)
 
     /**
      * Returns a random #gdouble equally distributed over the range [0..1).
@@ -4477,7 +4683,7 @@ public object Glib {
         len: Long,
     ): kotlin.String = g_ref_string_new_len(str, len)?.toKString() ?: error("Expected not null string")
 
-    public fun regexErrorQuark(): UInt = g_regex_error_quark()
+    public fun regexErrorQuark(): Quark = g_regex_error_quark()
 
     /**
      * Escapes the nul characters in @string to "\x00".  It can be used
@@ -4694,7 +4900,7 @@ public object Glib {
         overwrite: Boolean,
     ): Boolean = g_setenv(variable, `value`, overwrite.asGBoolean()).asBoolean()
 
-    public fun shellErrorQuark(): UInt = g_shell_error_quark()
+    public fun shellErrorQuark(): Quark = g_shell_error_quark()
 
     /**
      * Quotes a string so that the shell (/bin/sh) will interpret the
@@ -4940,6 +5146,16 @@ public object Glib {
         }
 
     /**
+     * On some platforms, notably Windows, the #GPid type represents a resource
+     * which must be closed to prevent resource leaking. g_spawn_close_pid()
+     * is provided for this purpose. It should be used on all platforms, even
+     * though it doesn't do anything under UNIX.
+     *
+     * @param pid The process reference to close
+     */
+    public fun spawnClosePid(pid: Pid): Unit = g_spawn_close_pid(pid)
+
+    /**
      * A simple version of g_spawn_async() that parses a command line with
      * g_shell_parse_argv() and passes it to g_spawn_async().
      *
@@ -4968,9 +5184,9 @@ public object Glib {
             }
         }
 
-    public fun spawnErrorQuark(): UInt = g_spawn_error_quark()
+    public fun spawnErrorQuark(): Quark = g_spawn_error_quark()
 
-    public fun spawnExitErrorQuark(): UInt = g_spawn_exit_error_quark()
+    public fun spawnExitErrorQuark(): Quark = g_spawn_exit_error_quark()
 
     /**
      *
@@ -5595,7 +5811,7 @@ public object Glib {
             return g_test_trap_subprocess_with_envp(testPath, envp?.toCStringList(this), usecTimeout, testFlags.mask)
         }
 
-    public fun threadErrorQuark(): UInt = g_thread_error_quark()
+    public fun threadErrorQuark(): Quark = g_thread_error_quark()
 
     /**
      * This function will return the maximum @interval that a
@@ -5717,7 +5933,7 @@ public object Glib {
     public fun timeValFromIso8601(
         isoDate: kotlin.String,
         time: TimeVal,
-    ): Boolean = g_time_val_from_iso8601(isoDate, time.glibTimeValPointer).asBoolean()
+    ): Boolean = g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
 
     /**
      * Sets a function to be called at regular intervals, with the given
@@ -6226,7 +6442,7 @@ public object Glib {
     @GLibVersion2_30
     public fun unicodeScriptToIso15924(script: UnicodeScript): UInt = g_unicode_script_to_iso15924(script.nativeValue)
 
-    public fun unixErrorQuark(): UInt = g_unix_error_quark()
+    public fun unixErrorQuark(): Quark = g_unix_error_quark()
 
     /**
      * Control the non-blocking state of the given file descriptor,
@@ -6434,7 +6650,7 @@ public object Glib {
             Uri(reinterpret())
         }
 
-    public fun uriErrorQuark(): UInt = g_uri_error_quark()
+    public fun uriErrorQuark(): Quark = g_uri_error_quark()
 
     /**
      * Escapes a string for use in a URI.
@@ -6672,8 +6888,7 @@ public object Glib {
      *   anything but ASCII characters. You may pass an empty set, in which case
      *   no splitting will occur.
      * @param flags flags to modify the way the parameters are handled.
-     * @return
-     *     A hash table of attribute/value pairs, with both names and values
+     * @return A hash table of attribute/value pairs, with both names and values
      *     fully-decoded; or null on error.
      * @since 2.66
      */
@@ -6985,15 +7200,15 @@ public object Glib {
         error: Error,
         sourceStr: kotlin.String,
     ): kotlin.String =
-        g_variant_parse_error_print_context(error.glibErrorPointer, sourceStr)?.toKString()
+        g_variant_parse_error_print_context(error.glibErrorPointer.reinterpret(), sourceStr)?.toKString()
             ?: error("Expected not null string")
 
-    public fun variantParseErrorQuark(): UInt = g_variant_parse_error_quark()
+    public fun variantParseErrorQuark(): Quark = g_variant_parse_error_quark()
 
     /**
      * Same as g_variant_error_quark().
      */
-    public fun variantParserGetErrorQuark(): UInt = g_variant_parser_get_error_quark()
+    public fun variantParserGetErrorQuark(): Quark = g_variant_parser_get_error_quark()
 
     /**
      *
@@ -7124,12 +7339,13 @@ public val CacheDestroyFuncFunc: CPointer<CFunction<() -> Unit>> =
         userData.asStableRef<() -> Unit>().get().invoke()
     }.reinterpret()
 
-public val ChildWatchFuncFunc: CPointer<CFunction<(Int) -> Unit>> =
+public val ChildWatchFuncFunc: CPointer<CFunction<(GPid, Int) -> Unit>> =
     staticCFunction {
+            pid: GPid,
             waitStatus: Int,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(waitStatus: Int) -> Unit>().get().invoke(waitStatus)
+        userData.asStableRef<(pid: Pid, waitStatus: Int) -> Unit>().get().invoke(pid, waitStatus)
     }.reinterpret()
 
 public val ClearHandleFuncFunc: CPointer<CFunction<(UInt) -> Unit>> =
@@ -7181,12 +7397,12 @@ public val CompletionStrncmpFuncFunc: CPointer<
             )
     }.reinterpret()
 
-public val DataForeachFuncFunc: CPointer<CFunction<(UInt) -> Unit>> =
+public val DataForeachFuncFunc: CPointer<CFunction<(GQuark) -> Unit>> =
     staticCFunction {
-            keyId: UInt,
+            keyId: GQuark,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(keyId: UInt) -> Unit>().get().invoke(keyId)
+        userData.asStableRef<(keyId: Quark) -> Unit>().get().invoke(keyId)
     }.reinterpret()
 
 public val DestroyNotifyFunc: CPointer<CFunction<() -> Unit>> =
@@ -7699,10 +7915,11 @@ public typealias CacheDestroyFunc = () -> Unit
  * on Unix platforms, note that it is usually not equal
  * to the integer passed to `exit()` or returned from `main()`.
  *
+ * - param `pid` the process id of the child process
  * - param `waitStatus` Status information about the child process, encoded
  *               in a platform-specific manner
  */
-public typealias ChildWatchFunc = (waitStatus: Int) -> Unit
+public typealias ChildWatchFunc = (pid: Pid, waitStatus: Int) -> Unit
 
 /**
  * Specifies the type of function passed to g_clear_handle_id().
@@ -7762,7 +7979,7 @@ public typealias CompletionStrncmpFunc = (
  *
  * - param `keyId` the #GQuark id to identifying the data element.
  */
-public typealias DataForeachFunc = (keyId: UInt) -> Unit
+public typealias DataForeachFunc = (keyId: Quark) -> Unit
 
 /**
  * Specifies the type of function which is called when a data element
@@ -8243,3 +8460,128 @@ public typealias UnixFDSourceFunc = (fd: Int) -> Boolean
  * function passed to g_atexit().
  */
 public typealias VoidFunc = () -> Unit
+
+/**
+ * Integer representing a day of the month; between 1 and 31.
+ *
+ * The %G_DATE_BAD_DAY value represents an invalid day of the month.
+ */
+public typealias DateDay = UByte
+
+/**
+ * Integer type representing a year.
+ *
+ * The %G_DATE_BAD_YEAR value is the invalid value. The year
+ * must be 1 or higher; negative ([BCE](https://en.wikipedia.org/wiki/Common_Era))
+ * years are not allowed.
+ *
+ * The year is represented with four digits.
+ */
+public typealias DateYear = UShort
+
+/**
+ * Opaque type. See g_main_context_pusher_new() for details.
+ */
+public typealias MainContextPusher = Unit
+
+/**
+ * Opaque type. See g_mutex_locker_new() for details.
+ */
+public typealias MutexLocker = Unit
+
+/**
+ * A type which is used to hold a process identification.
+ *
+ * On UNIX, processes are identified by a process id (an integer),
+ * while Windows uses process handles (which are pointers).
+ *
+ * GPid is used in GLib only for descendant processes spawned with
+ * the g_spawn functions.
+ */
+public typealias Pid = Int
+
+/**
+ * A GQuark is a non-zero integer which uniquely identifies a
+ * particular string.
+ *
+ * A GQuark value of zero is associated to `NULL`.
+ *
+ * Given either the string or the `GQuark` identifier it is possible to
+ * retrieve the other.
+ *
+ * Quarks are used for both
+ * [datasets and keyed data lists](datalist-and-dataset.html).
+ *
+ * To create a new quark from a string, use [func@GLib.quark_from_string]
+ * or [func@GLib.quark_from_static_string].
+ *
+ * To find the string corresponding to a given `GQuark`, use
+ * [func@GLib.quark_to_string].
+ *
+ * To find the `GQuark` corresponding to a given string, use
+ * [func@GLib.quark_try_string].
+ *
+ * Another use for the string pool maintained for the quark functions
+ * is string interning, using [func@GLib.intern_string] or
+ * [func@GLib.intern_static_string]. An interned string is a canonical
+ * representation for a string. One important advantage of interned
+ * strings is that they can be compared for equality by a simple
+ * pointer comparison, rather than using `strcmp()`.
+ */
+public typealias Quark = UInt
+
+/**
+ * Opaque type. See g_rw_lock_reader_locker_new() for details.
+ */
+public typealias RWLockReaderLocker = Unit
+
+/**
+ * Opaque type. See g_rw_lock_writer_locker_new() for details.
+ */
+public typealias RWLockWriterLocker = Unit
+
+/**
+ * Opaque type. See g_rec_mutex_locker_new() for details.
+ */
+public typealias RecMutexLocker = Unit
+
+/**
+ * A typedef for a reference-counted string. A pointer to a #GRefString can be
+ * treated like a standard `char*` array by all code, but can additionally have
+ * `g_ref_string_*()` methods called on it. `g_ref_string_*()` methods cannot be
+ * called on `char*` arrays not allocated using g_ref_string_new().
+ *
+ * If using #GRefString with autocleanups, g_autoptr() must be used rather than
+ * g_autofree(), so that the reference counting metadata is also freed.
+ */
+public typealias RefString = Char
+
+/**
+ * Simply a replacement for `time_t`. It has been deprecated
+ * since it is not equivalent to `time_t` on 64-bit platforms
+ * with a 64-bit `time_t`.
+ *
+ * Unrelated to #GTimer.
+ *
+ * Note that #GTime is defined to always be a 32-bit integer,
+ * unlike `time_t` which may be 64-bit on some systems. Therefore,
+ * #GTime will overflow in the year 2038, and you cannot use the
+ * address of a #GTime variable as argument to the UNIX time()
+ * function.
+ *
+ * Instead, do the following:
+ *
+ * |[<!-- language="C" -->
+ * time_t ttime;
+ * GTime gtime;
+ *
+ * time (&ttime);
+ * gtime = (GTime)ttime;
+ * ]|
+ */
+public typealias Time = Int
+
+/**
+ * A value representing an interval of time, in microseconds.
+ */
+public typealias TimeSpan = Long

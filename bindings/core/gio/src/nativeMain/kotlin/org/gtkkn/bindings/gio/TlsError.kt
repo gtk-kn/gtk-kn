@@ -3,9 +3,9 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gio.GTlsError
 import org.gtkkn.native.gio.g_tls_error_quark
-import kotlin.UInt
 
 /**
  * An error code used with %G_TLS_ERROR in a #GError returned from a
@@ -94,7 +94,7 @@ public enum class TlsError(
          * @since 2.28
          */
         @GioVersion2_28
-        public fun quark(): UInt = g_tls_error_quark()
+        public fun quark(): Quark = g_tls_error_quark()
 
         public fun fromErrorOrNull(error: Error): TlsError? =
             if (error.domain != quark()) {

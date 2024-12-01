@@ -2,10 +2,10 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.native.gtk.GtkDialogError
 import org.gtkkn.native.gtk.gtk_dialog_error_quark
-import kotlin.UInt
 
 /**
  * Error codes in the `GTK_DIALOG_ERROR` domain that can be returned
@@ -44,7 +44,7 @@ public enum class DialogError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = gtk_dialog_error_quark()
+        public fun quark(): Quark = gtk_dialog_error_quark()
 
         public fun fromErrorOrNull(error: Error): DialogError? =
             if (error.domain != quark()) {

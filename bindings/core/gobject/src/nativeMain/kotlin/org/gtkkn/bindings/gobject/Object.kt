@@ -186,8 +186,8 @@ public open class Object(
             target.gPointer.reinterpret(),
             targetProperty,
             flags.mask,
-            transformTo.gobjectClosurePointer,
-            transformFrom.gobjectClosurePointer
+            transformTo.gobjectClosurePointer.reinterpret(),
+            transformFrom.gobjectClosurePointer.reinterpret()
         )!!.run {
             Binding(reinterpret())
         }
@@ -240,7 +240,7 @@ public open class Object(
     public open fun getProperty(
         propertyName: String,
         `value`: Value,
-    ): Unit = g_object_get_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer)
+    ): Unit = g_object_get_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
 
     /**
      * Checks whether @object has a [floating][floating-ref] reference.
@@ -367,7 +367,7 @@ public open class Object(
     public open fun setProperty(
         propertyName: String,
         `value`: Value,
-    ): Unit = g_object_set_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer)
+    ): Unit = g_object_set_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
 
     /**
      * Reverts the effect of a previous call to
@@ -407,7 +407,7 @@ public open class Object(
      * @param closure #GClosure to watch
      */
     public open fun watchClosure(closure: Closure): Unit =
-        g_object_watch_closure(gPointer.reinterpret(), closure.gobjectClosurePointer)
+        g_object_watch_closure(gPointer.reinterpret(), closure.gobjectClosurePointer.reinterpret())
 
     /**
      * The notify signal is emitted on an object when one of its properties has
@@ -480,7 +480,7 @@ public open class Object(
             gIface: TypeInterface,
             propertyName: String,
         ): ParamSpec =
-            g_object_interface_find_property(gIface.gobjectTypeInterfacePointer, propertyName)!!.run {
+            g_object_interface_find_property(gIface.gobjectTypeInterfacePointer.reinterpret(), propertyName)!!.run {
                 ParamSpec(reinterpret())
             }
 
@@ -512,7 +512,11 @@ public open class Object(
         public fun interfaceInstallProperty(
             gIface: TypeInterface,
             pspec: ParamSpec,
-        ): Unit = g_object_interface_install_property(gIface.gobjectTypeInterfacePointer, pspec.gPointer.reinterpret())
+        ): Unit =
+            g_object_interface_install_property(
+                gIface.gobjectTypeInterfacePointer.reinterpret(),
+                pspec.gPointer.reinterpret()
+            )
     }
 }
 

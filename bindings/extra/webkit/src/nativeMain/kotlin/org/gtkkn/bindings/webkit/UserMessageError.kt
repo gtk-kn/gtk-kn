@@ -2,10 +2,10 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
 import org.gtkkn.native.webkit.WebKitUserMessageError
 import org.gtkkn.native.webkit.webkit_user_message_error_quark
-import kotlin.UInt
 
 /**
  * Enum values used to denote errors happening when sending user messages.
@@ -33,7 +33,7 @@ public enum class UserMessageError(
          *
          * @return user message error domain.
          */
-        public fun quark(): UInt = webkit_user_message_error_quark()
+        public fun quark(): Quark = webkit_user_message_error_quark()
 
         public fun fromErrorOrNull(error: Error): UserMessageError? =
             if (error.domain != quark()) {

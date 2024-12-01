@@ -101,7 +101,7 @@ public open class ShortcutAction(
             gtkShortcutActionPointer.reinterpret(),
             flags.mask,
             widget.gtkWidgetPointer.reinterpret(),
-            args?.glibVariantPointer
+            args?.glibVariantPointer?.reinterpret()
         ).asBoolean()
 
     /**
@@ -115,7 +115,7 @@ public open class ShortcutAction(
      * @param string a `GString` to print into
      */
     public open fun print(string: GlibString): Unit =
-        gtk_shortcut_action_print(gtkShortcutActionPointer.reinterpret(), string.glibStringPointer)
+        gtk_shortcut_action_print(gtkShortcutActionPointer.reinterpret(), string.glibStringPointer.reinterpret())
 
     public companion object : TypeCompanion<ShortcutAction> {
         override val type: GeneratedClassKGType<ShortcutAction> =

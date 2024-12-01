@@ -109,7 +109,13 @@ public open class ColorDialogButton(
          * @since 4.10
          */
         @GtkVersion4_10
-        set(color) = gtk_color_dialog_button_set_rgba(gtkColorDialogButtonPointer.reinterpret(), color.gdkRGBAPointer)
+        set(
+            color
+        ) =
+            gtk_color_dialog_button_set_rgba(
+                gtkColorDialogButtonPointer.reinterpret(),
+                color.gdkRGBAPointer.reinterpret()
+            )
 
     /**
      * Creates a new `GtkColorDialogButton` with the
@@ -177,7 +183,7 @@ public open class ColorDialogButton(
      */
     @GtkVersion4_10
     public open fun setRgba(color: RGBA): Unit =
-        gtk_color_dialog_button_set_rgba(gtkColorDialogButtonPointer.reinterpret(), color.gdkRGBAPointer)
+        gtk_color_dialog_button_set_rgba(gtkColorDialogButtonPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
 
     /**
      * Emitted when the color dialog button is activated.

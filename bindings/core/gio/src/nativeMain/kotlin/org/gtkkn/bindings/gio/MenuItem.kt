@@ -174,7 +174,7 @@ public open class MenuItem(
         g_menu_item_get_attribute_value(
             gioMenuItemPointer.reinterpret(),
             attribute,
-            expectedType?.glibVariantTypePointer
+            expectedType?.glibVariantTypePointer?.reinterpret()
         )?.run {
             Variant(reinterpret())
         }
@@ -242,7 +242,7 @@ public open class MenuItem(
         g_menu_item_set_action_and_target_value(
             gioMenuItemPointer.reinterpret(),
             action,
-            targetValue?.glibVariantPointer
+            targetValue?.glibVariantPointer?.reinterpret()
         )
 
     /**
@@ -274,7 +274,12 @@ public open class MenuItem(
     public open fun setAttributeValue(
         attribute: String,
         `value`: Variant? = null,
-    ): Unit = g_menu_item_set_attribute_value(gioMenuItemPointer.reinterpret(), attribute, `value`?.glibVariantPointer)
+    ): Unit =
+        g_menu_item_set_attribute_value(
+            gioMenuItemPointer.reinterpret(),
+            attribute,
+            `value`?.glibVariantPointer?.reinterpret()
+        )
 
     /**
      * Sets the "action" and possibly the "target" attribute of @menu_item.

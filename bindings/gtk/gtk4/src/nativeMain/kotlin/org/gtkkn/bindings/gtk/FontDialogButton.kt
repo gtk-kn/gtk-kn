@@ -165,7 +165,7 @@ public open class FontDialogButton(
         ) =
             gtk_font_dialog_button_set_language(
                 gtkFontDialogButtonPointer.reinterpret(),
-                language?.pangoLanguagePointer
+                language?.pangoLanguagePointer?.reinterpret()
             )
 
     /**
@@ -375,7 +375,7 @@ public open class FontDialogButton(
     public open fun setFontDesc(fontDesc: FontDescription): Unit =
         gtk_font_dialog_button_set_font_desc(
             gtkFontDialogButtonPointer.reinterpret(),
-            fontDesc.pangoFontDescriptionPointer
+            fontDesc.pangoFontDescriptionPointer.reinterpret()
         )
 
     /**
@@ -396,7 +396,10 @@ public open class FontDialogButton(
      */
     @GtkVersion4_10
     public open fun setLanguage(language: Language? = null): Unit =
-        gtk_font_dialog_button_set_language(gtkFontDialogButtonPointer.reinterpret(), language?.pangoLanguagePointer)
+        gtk_font_dialog_button_set_language(
+            gtkFontDialogButtonPointer.reinterpret(),
+            language?.pangoLanguagePointer?.reinterpret()
+        )
 
     /**
      * Sets the level of detail at which this dialog

@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gtk.GtkPrintError
 import org.gtkkn.native.gtk.gtk_print_error_quark
-import kotlin.UInt
 
 /**
  * Error codes that identify various errors that can occur while
@@ -50,7 +50,7 @@ public enum class PrintError(
          *
          * @return The error quark used for `GtkPrintOperation` errors.
          */
-        public fun quark(): UInt = gtk_print_error_quark()
+        public fun quark(): Quark = gtk_print_error_quark()
 
         public fun fromErrorOrNull(error: Error): PrintError? =
             if (error.domain != quark()) {

@@ -369,7 +369,7 @@ public open class Calendar(
      * @param date a `GDateTime` representing the day to select
      */
     public open fun selectDay(date: DateTime): Unit =
-        gtk_calendar_select_day(gtkCalendarPointer.reinterpret(), date.glibDateTimePointer)
+        gtk_calendar_select_day(gtkCalendarPointer.reinterpret(), date.glibDateTimePointer.reinterpret())
 
     /**
      * Sets the day for the selected date.

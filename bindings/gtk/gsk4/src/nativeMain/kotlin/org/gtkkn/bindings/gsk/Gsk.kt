@@ -8,6 +8,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
@@ -28,7 +29,6 @@ import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 
@@ -83,7 +83,7 @@ public object Gsk {
             Path(reinterpret())
         }
 
-    public fun serializationErrorQuark(): UInt = gsk_serialization_error_quark()
+    public fun serializationErrorQuark(): Quark = gsk_serialization_error_quark()
 
     /**
      * Retrieves the `GskRenderNode` stored inside the given `value`, and acquires
@@ -95,7 +95,7 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueDupRenderNode(`value`: Value): RenderNode? =
-        gsk_value_dup_render_node(`value`.gobjectValuePointer)?.run {
+        gsk_value_dup_render_node(`value`.gobjectValuePointer.reinterpret())?.run {
             RenderNode(reinterpret())
         }
 
@@ -108,7 +108,7 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueGetRenderNode(`value`: Value): RenderNode? =
-        gsk_value_get_render_node(`value`.gobjectValuePointer)?.run {
+        gsk_value_get_render_node(`value`.gobjectValuePointer.reinterpret())?.run {
             RenderNode(reinterpret())
         }
 
@@ -125,7 +125,7 @@ public object Gsk {
     public fun valueSetRenderNode(
         `value`: Value,
         node: RenderNode,
-    ): Unit = gsk_value_set_render_node(`value`.gobjectValuePointer, node.gPointer.reinterpret())
+    ): Unit = gsk_value_set_render_node(`value`.gobjectValuePointer.reinterpret(), node.gPointer.reinterpret())
 
     /**
      * Stores the given `GskRenderNode` inside `value`.
@@ -140,7 +140,7 @@ public object Gsk {
     public fun valueTakeRenderNode(
         `value`: Value,
         node: RenderNode? = null,
-    ): Unit = gsk_value_take_render_node(`value`.gobjectValuePointer, node?.gPointer?.reinterpret())
+    ): Unit = gsk_value_take_render_node(`value`.gobjectValuePointer.reinterpret(), node?.gPointer?.reinterpret())
 
     public fun resolveException(error: Error): GlibException {
         val ex =

@@ -36,7 +36,7 @@ public class ContentFormatsBuilder(
     public fun addFormats(formats: ContentFormats): Unit =
         gdk_content_formats_builder_add_formats(
             gdkContentFormatsBuilderPointer.reinterpret(),
-            formats.gdkContentFormatsPointer
+            formats.gdkContentFormatsPointer.reinterpret()
         )
 
     /**

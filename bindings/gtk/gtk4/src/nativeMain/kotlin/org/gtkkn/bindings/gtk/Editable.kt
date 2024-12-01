@@ -664,7 +664,7 @@ public interface Editable :
             gtk_editable_delegate_get_property(
                 `object`.gPointer.reinterpret(),
                 propId,
-                `value`.gobjectValuePointer,
+                `value`.gobjectValuePointer.reinterpret(),
                 pspec.gPointer.reinterpret()
             ).asBoolean()
 
@@ -690,7 +690,7 @@ public interface Editable :
             gtk_editable_delegate_set_property(
                 `object`.gPointer.reinterpret(),
                 propId,
-                `value`.gobjectValuePointer,
+                `value`.gobjectValuePointer.reinterpret(),
                 pspec.gPointer.reinterpret()
             ).asBoolean()
     }

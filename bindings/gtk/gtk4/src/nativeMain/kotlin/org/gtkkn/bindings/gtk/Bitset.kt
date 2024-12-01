@@ -146,7 +146,7 @@ public class Bitset(
      * @param other the `GtkBitset` to compute the difference from
      */
     public fun difference(other: Bitset): Unit =
-        gtk_bitset_difference(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer)
+        gtk_bitset_difference(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer.reinterpret())
 
     /**
      * Returns true if @self and @other contain the same values.
@@ -155,7 +155,7 @@ public class Bitset(
      * @return true if @self and @other contain the same values
      */
     public fun equals(other: Bitset): Boolean =
-        gtk_bitset_equals(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer).asBoolean()
+        gtk_bitset_equals(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer.reinterpret()).asBoolean()
 
     /**
      * Returns the largest value in @self.
@@ -227,7 +227,7 @@ public class Bitset(
      * @param other the `GtkBitset` to intersect with
      */
     public fun intersect(other: Bitset): Unit =
-        gtk_bitset_intersect(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer)
+        gtk_bitset_intersect(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer.reinterpret())
 
     /**
      * Check if no value is contained in bitset.
@@ -351,7 +351,7 @@ public class Bitset(
      * @param other the `GtkBitset` to subtract
      */
     public fun subtract(other: Bitset): Unit =
-        gtk_bitset_subtract(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer)
+        gtk_bitset_subtract(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer.reinterpret())
 
     /**
      * Sets @self to be the union of @self and @other.
@@ -363,7 +363,8 @@ public class Bitset(
      *
      * @param other the `GtkBitset` to union with
      */
-    public fun union(other: Bitset): Unit = gtk_bitset_union(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer)
+    public fun union(other: Bitset): Unit =
+        gtk_bitset_union(gtkBitsetPointer.reinterpret(), other.gtkBitsetPointer.reinterpret())
 
     /**
      * Releases a reference on the given `GtkBitset`.

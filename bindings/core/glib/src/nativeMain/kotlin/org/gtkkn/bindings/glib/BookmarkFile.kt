@@ -57,7 +57,6 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -647,7 +646,12 @@ public class BookmarkFile(
     public fun setAddedDateTime(
         uri: String,
         added: DateTime,
-    ): Unit = g_bookmark_file_set_added_date_time(glibBookmarkFilePointer.reinterpret(), uri, added.glibDateTimePointer)
+    ): Unit =
+        g_bookmark_file_set_added_date_time(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            added.glibDateTimePointer.reinterpret()
+        )
 
     /**
      * Sets the meta-data of application @name inside the list of
@@ -705,7 +709,7 @@ public class BookmarkFile(
                     name,
                     exec,
                     count,
-                    stamp?.glibDateTimePointer,
+                    stamp?.glibDateTimePointer?.reinterpret(),
                     gError.ptr
                 ).asBoolean()
             return if (gError.pointed != null) {
@@ -827,7 +831,11 @@ public class BookmarkFile(
         uri: String,
         modified: DateTime,
     ): Unit =
-        g_bookmark_file_set_modified_date_time(glibBookmarkFilePointer.reinterpret(), uri, modified.glibDateTimePointer)
+        g_bookmark_file_set_modified_date_time(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            modified.glibDateTimePointer.reinterpret()
+        )
 
     /**
      * Sets @title as the title of the bookmark for @uri inside the
@@ -867,7 +875,11 @@ public class BookmarkFile(
         uri: String,
         visited: DateTime,
     ): Unit =
-        g_bookmark_file_set_visited_date_time(glibBookmarkFilePointer.reinterpret(), uri, visited.glibDateTimePointer)
+        g_bookmark_file_set_visited_date_time(
+            glibBookmarkFilePointer.reinterpret(),
+            uri,
+            visited.glibDateTimePointer.reinterpret()
+        )
 
     /**
      * This function outputs @bookmark into a file.  The write process is
@@ -907,7 +919,7 @@ public class BookmarkFile(
          */
         public fun new(): BookmarkFile = BookmarkFile(g_bookmark_file_new()!!.reinterpret())
 
-        public fun errorQuark(): UInt = g_bookmark_file_error_quark()
+        public fun errorQuark(): Quark = g_bookmark_file_error_quark()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): BookmarkFile =
             BookmarkFile(pointer.reinterpret())

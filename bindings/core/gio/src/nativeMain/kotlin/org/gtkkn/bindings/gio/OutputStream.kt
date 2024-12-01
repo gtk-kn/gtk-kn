@@ -433,7 +433,7 @@ public open class OutputStream(
             val gResult =
                 g_output_stream_write_bytes(
                     gioOutputStreamPointer.reinterpret(),
-                    bytes.glibBytesPointer,
+                    bytes.glibBytesPointer.reinterpret(),
                     cancellable?.gioCancellablePointer?.reinterpret(),
                     gError.ptr
                 )
@@ -473,7 +473,7 @@ public open class OutputStream(
     ): Unit =
         g_output_stream_write_bytes_async(
             gioOutputStreamPointer.reinterpret(),
-            bytes.glibBytesPointer,
+            bytes.glibBytesPointer.reinterpret(),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),

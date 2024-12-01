@@ -139,7 +139,10 @@ public open class TreeSelection(
      * @return true, if @iter is selected
      */
     public open fun iterIsSelected(iter: TreeIter): Boolean =
-        gtk_tree_selection_iter_is_selected(gtkTreeSelectionPointer.reinterpret(), iter.gtkTreeIterPointer).asBoolean()
+        gtk_tree_selection_iter_is_selected(
+            gtkTreeSelectionPointer.reinterpret(),
+            iter.gtkTreeIterPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Returns true if the row pointed to by @path is currently selected.  If @path
@@ -149,7 +152,10 @@ public open class TreeSelection(
      * @return true if @path is selected.
      */
     public open fun pathIsSelected(path: TreePath): Boolean =
-        gtk_tree_selection_path_is_selected(gtkTreeSelectionPointer.reinterpret(), path.gtkTreePathPointer).asBoolean()
+        gtk_tree_selection_path_is_selected(
+            gtkTreeSelectionPointer.reinterpret(),
+            path.gtkTreePathPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Selects all the nodes. @selection must be set to %GTK_SELECTION_MULTIPLE
@@ -163,7 +169,7 @@ public open class TreeSelection(
      * @param iter The `GtkTreeIter` to be selected.
      */
     public open fun selectIter(iter: TreeIter): Unit =
-        gtk_tree_selection_select_iter(gtkTreeSelectionPointer.reinterpret(), iter.gtkTreeIterPointer)
+        gtk_tree_selection_select_iter(gtkTreeSelectionPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
 
     /**
      * Select the row at @path.
@@ -171,7 +177,7 @@ public open class TreeSelection(
      * @param path The `GtkTreePath` to be selected.
      */
     public open fun selectPath(path: TreePath): Unit =
-        gtk_tree_selection_select_path(gtkTreeSelectionPointer.reinterpret(), path.gtkTreePathPointer)
+        gtk_tree_selection_select_path(gtkTreeSelectionPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Selects a range of nodes, determined by @start_path and @end_path inclusive.
@@ -186,8 +192,8 @@ public open class TreeSelection(
     ): Unit =
         gtk_tree_selection_select_range(
             gtkTreeSelectionPointer.reinterpret(),
-            startPath.gtkTreePathPointer,
-            endPath.gtkTreePathPointer
+            startPath.gtkTreePathPointer.reinterpret(),
+            endPath.gtkTreePathPointer.reinterpret()
         )
 
     /**
@@ -243,7 +249,7 @@ public open class TreeSelection(
      * @param iter The `GtkTreeIter` to be unselected.
      */
     public open fun unselectIter(iter: TreeIter): Unit =
-        gtk_tree_selection_unselect_iter(gtkTreeSelectionPointer.reinterpret(), iter.gtkTreeIterPointer)
+        gtk_tree_selection_unselect_iter(gtkTreeSelectionPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
 
     /**
      * Unselects the row at @path.
@@ -251,7 +257,7 @@ public open class TreeSelection(
      * @param path The `GtkTreePath` to be unselected.
      */
     public open fun unselectPath(path: TreePath): Unit =
-        gtk_tree_selection_unselect_path(gtkTreeSelectionPointer.reinterpret(), path.gtkTreePathPointer)
+        gtk_tree_selection_unselect_path(gtkTreeSelectionPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Unselects a range of nodes, determined by @start_path and @end_path
@@ -266,8 +272,8 @@ public open class TreeSelection(
     ): Unit =
         gtk_tree_selection_unselect_range(
             gtkTreeSelectionPointer.reinterpret(),
-            startPath.gtkTreePathPointer,
-            endPath.gtkTreePathPointer
+            startPath.gtkTreePathPointer.reinterpret(),
+            endPath.gtkTreePathPointer.reinterpret()
         )
 
     /**

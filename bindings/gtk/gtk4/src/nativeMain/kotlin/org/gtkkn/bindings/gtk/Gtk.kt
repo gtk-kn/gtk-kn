@@ -27,6 +27,7 @@ import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamFlags
@@ -139,6 +140,7 @@ import kotlin.Unit
 /**
  * ## Skipped during bindings generation
  *
+ * - alias `Allocation`: Gdk.Rectangle
  * - class `Snapshot`: Missing cType on class
  * - parameter `accelerator_key`: accelerator_key: Out parameter is not supported
  * - parameter `accelerator_key`: accelerator_key: Out parameter is not supported
@@ -1078,7 +1080,7 @@ public object Gtk {
     public fun accessiblePropertyInitValue(
         `property`: AccessibleProperty,
         `value`: Value,
-    ): Unit = gtk_accessible_property_init_value(`property`.nativeValue, `value`.gobjectValuePointer)
+    ): Unit = gtk_accessible_property_init_value(`property`.nativeValue, `value`.gobjectValuePointer.reinterpret())
 
     /**
      *
@@ -1089,7 +1091,7 @@ public object Gtk {
     public fun accessibleRelationInitValue(
         relation: AccessibleRelation,
         `value`: Value,
-    ): Unit = gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer)
+    ): Unit = gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer.reinterpret())
 
     /**
      *
@@ -1100,9 +1102,9 @@ public object Gtk {
     public fun accessibleStateInitValue(
         state: AccessibleState,
         `value`: Value,
-    ): Unit = gtk_accessible_state_init_value(state.nativeValue, `value`.gobjectValuePointer)
+    ): Unit = gtk_accessible_state_init_value(state.nativeValue, `value`.gobjectValuePointer.reinterpret())
 
-    public fun builderErrorQuark(): UInt = gtk_builder_error_quark()
+    public fun builderErrorQuark(): Quark = gtk_builder_error_quark()
 
     /**
      * Checks that the GTK library in use is compatible with the
@@ -1143,13 +1145,13 @@ public object Gtk {
         requiredMicro: UInt,
     ): String? = gtk_check_version(requiredMajor, requiredMinor, requiredMicro)?.toKString()
 
-    public fun constraintVflParserErrorQuark(): UInt = gtk_constraint_vfl_parser_error_quark()
+    public fun constraintVflParserErrorQuark(): Quark = gtk_constraint_vfl_parser_error_quark()
 
-    public fun cssParserErrorQuark(): UInt = gtk_css_parser_error_quark()
+    public fun cssParserErrorQuark(): Quark = gtk_css_parser_error_quark()
 
-    public fun cssParserWarningQuark(): UInt = gtk_css_parser_warning_quark()
+    public fun cssParserWarningQuark(): Quark = gtk_css_parser_warning_quark()
 
-    public fun dialogErrorQuark(): UInt = gtk_dialog_error_quark()
+    public fun dialogErrorQuark(): Quark = gtk_dialog_error_quark()
 
     /**
      * Prevents [func@Gtk.init] and [func@Gtk.init_check] from automatically calling
@@ -1185,7 +1187,7 @@ public object Gtk {
         gtk_editable_delegate_get_property(
             `object`.gPointer.reinterpret(),
             propId,
-            `value`.gobjectValuePointer,
+            `value`.gobjectValuePointer.reinterpret(),
             pspec.gPointer.reinterpret()
         ).asBoolean()
 
@@ -1211,7 +1213,7 @@ public object Gtk {
         gtk_editable_delegate_set_property(
             `object`.gPointer.reinterpret(),
             propId,
-            `value`.gobjectValuePointer,
+            `value`.gobjectValuePointer.reinterpret(),
             pspec.gPointer.reinterpret()
         ).asBoolean()
 
@@ -1240,7 +1242,7 @@ public object Gtk {
      *
      * @return The error quark used for `GtkFileChooser` errors.
      */
-    public fun fileChooserErrorQuark(): UInt = gtk_file_chooser_error_quark()
+    public fun fileChooserErrorQuark(): Quark = gtk_file_chooser_error_quark()
 
     /**
      * Returns the binary age as passed to `libtool`.
@@ -1371,7 +1373,7 @@ public object Gtk {
      */
     public fun getMinorVersion(): UInt = gtk_get_minor_version()
 
-    public fun iconThemeErrorQuark(): UInt = gtk_icon_theme_error_quark()
+    public fun iconThemeErrorQuark(): Quark = gtk_icon_theme_error_quark()
 
     /**
      * Call this function before using any other GTK functions in your GUI
@@ -1479,7 +1481,7 @@ public object Gtk {
      *
      * @return The error quark used for `GtkPrintOperation` errors.
      */
-    public fun printErrorQuark(): UInt = gtk_print_error_quark()
+    public fun printErrorQuark(): Quark = gtk_print_error_quark()
 
     /**
      * Runs a page setup dialog, letting the user modify the values from
@@ -1536,7 +1538,7 @@ public object Gtk {
             StableRef.create(doneCb).asCPointer()
         )
 
-    public fun recentManagerErrorQuark(): UInt = gtk_recent_manager_error_quark()
+    public fun recentManagerErrorQuark(): Quark = gtk_recent_manager_error_quark()
 
     /**
      * Sets the GTK debug flags.
@@ -1738,7 +1740,7 @@ public object Gtk {
         treeModel: TreeModel,
         path: TreePath,
     ): ContentProvider =
-        gtk_tree_create_row_drag_content(treeModel.gtkTreeModelPointer, path.gtkTreePathPointer)!!.run {
+        gtk_tree_create_row_drag_content(treeModel.gtkTreeModelPointer, path.gtkTreePathPointer.reinterpret())!!.run {
             ContentProvider(reinterpret())
         }
 
@@ -1753,7 +1755,7 @@ public object Gtk {
     public fun treeRowReferenceDeleted(
         proxy: Object,
         path: TreePath,
-    ): Unit = gtk_tree_row_reference_deleted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer)
+    ): Unit = gtk_tree_row_reference_deleted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Lets a set of row reference created by
@@ -1766,7 +1768,7 @@ public object Gtk {
     public fun treeRowReferenceInserted(
         proxy: Object,
         path: TreePath,
-    ): Unit = gtk_tree_row_reference_inserted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer)
+    ): Unit = gtk_tree_row_reference_inserted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Retrieves the `GtkExpression` stored inside the given `value`, and acquires
@@ -1776,7 +1778,7 @@ public object Gtk {
      * @return a `GtkExpression`
      */
     public fun valueDupExpression(`value`: Value): Expression? =
-        gtk_value_dup_expression(`value`.gobjectValuePointer)?.run {
+        gtk_value_dup_expression(`value`.gobjectValuePointer.reinterpret())?.run {
             Expression(reinterpret())
         }
 
@@ -1787,7 +1789,7 @@ public object Gtk {
      * @return a `GtkExpression`
      */
     public fun valueGetExpression(`value`: Value): Expression? =
-        gtk_value_get_expression(`value`.gobjectValuePointer)?.run {
+        gtk_value_get_expression(`value`.gobjectValuePointer.reinterpret())?.run {
             Expression(reinterpret())
         }
 
@@ -1802,7 +1804,7 @@ public object Gtk {
     public fun valueSetExpression(
         `value`: Value,
         expression: Expression,
-    ): Unit = gtk_value_set_expression(`value`.gobjectValuePointer, expression.gPointer.reinterpret())
+    ): Unit = gtk_value_set_expression(`value`.gobjectValuePointer.reinterpret(), expression.gPointer.reinterpret())
 
     /**
      * Stores the given `GtkExpression` inside `value`.
@@ -1815,7 +1817,7 @@ public object Gtk {
     public fun valueTakeExpression(
         `value`: Value,
         expression: Expression? = null,
-    ): Unit = gtk_value_take_expression(`value`.gobjectValuePointer, expression?.gPointer?.reinterpret())
+    ): Unit = gtk_value_take_expression(`value`.gobjectValuePointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     public fun resolveException(error: Error): GlibException {
         val ex =

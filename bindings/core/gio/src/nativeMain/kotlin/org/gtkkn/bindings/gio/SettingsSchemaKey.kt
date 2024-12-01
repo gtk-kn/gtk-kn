@@ -181,7 +181,7 @@ public class SettingsSchemaKey(
     public fun rangeCheck(`value`: Variant): Boolean =
         g_settings_schema_key_range_check(
             gioSettingsSchemaKeyPointer.reinterpret(),
-            `value`.glibVariantPointer
+            `value`.glibVariantPointer.reinterpret()
         ).asBoolean()
 
     /**

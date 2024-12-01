@@ -145,7 +145,7 @@ import kotlin.Unit
  * - parameter `line`: line: Out parameter is not supported
  * - parameter `new_index`: new_index: Out parameter is not supported
  * - parameter `accel_char`: accel_char: Out parameter is not supported
- * - parameter `index_`: index_: Out parameter is not supported
+ * - parameter `index`: index: Out parameter is not supported
  * - parameter `context`: C Type PangoContext is ignored
  * - parameter `context`: C Type PangoContext is ignored
  */
@@ -248,8 +248,8 @@ public open class Layout(
         pango_layout_get_caret_pos(
             pangoLayoutPointer.reinterpret(),
             index,
-            strongPos?.pangoRectanglePointer,
-            weakPos?.pangoRectanglePointer
+            strongPos?.pangoRectanglePointer?.reinterpret(),
+            weakPos?.pangoRectanglePointer?.reinterpret()
         )
 
     /**
@@ -304,8 +304,8 @@ public open class Layout(
         pango_layout_get_cursor_pos(
             pangoLayoutPointer.reinterpret(),
             index,
-            strongPos?.pangoRectanglePointer,
-            weakPos?.pangoRectanglePointer
+            strongPos?.pangoRectanglePointer?.reinterpret(),
+            weakPos?.pangoRectanglePointer?.reinterpret()
         )
 
     /**
@@ -361,8 +361,8 @@ public open class Layout(
     ): Unit =
         pango_layout_get_extents(
             pangoLayoutPointer.reinterpret(),
-            inkRect?.pangoRectanglePointer,
-            logicalRect?.pangoRectanglePointer
+            inkRect?.pangoRectanglePointer?.reinterpret(),
+            logicalRect?.pangoRectanglePointer?.reinterpret()
         )
 
     /**
@@ -540,8 +540,8 @@ public open class Layout(
     ): Unit =
         pango_layout_get_pixel_extents(
             pangoLayoutPointer.reinterpret(),
-            inkRect?.pangoRectanglePointer,
-            logicalRect?.pangoRectanglePointer
+            inkRect?.pangoRectanglePointer?.reinterpret(),
+            logicalRect?.pangoRectanglePointer?.reinterpret()
         )
 
     /**
@@ -657,7 +657,8 @@ public open class Layout(
     public open fun indexToPos(
         index: Int,
         pos: Rectangle,
-    ): Unit = pango_layout_index_to_pos(pangoLayoutPointer.reinterpret(), index, pos.pangoRectanglePointer)
+    ): Unit =
+        pango_layout_index_to_pos(pangoLayoutPointer.reinterpret(), index, pos.pangoRectanglePointer.reinterpret())
 
     /**
      * Queries whether the layout had to ellipsize any paragraphs.
@@ -728,7 +729,7 @@ public open class Layout(
      * @param attrs a `PangoAttrList`
      */
     public open fun setAttributes(attrs: AttrList? = null): Unit =
-        pango_layout_set_attributes(pangoLayoutPointer.reinterpret(), attrs?.pangoAttrListPointer)
+        pango_layout_set_attributes(pangoLayoutPointer.reinterpret(), attrs?.pangoAttrListPointer?.reinterpret())
 
     /**
      * Sets whether to calculate the base direction
@@ -790,7 +791,10 @@ public open class Layout(
      *   to unset the current font description
      */
     public open fun setFontDescription(desc: FontDescription? = null): Unit =
-        pango_layout_set_font_description(pangoLayoutPointer.reinterpret(), desc?.pangoFontDescriptionPointer)
+        pango_layout_set_font_description(
+            pangoLayoutPointer.reinterpret(),
+            desc?.pangoFontDescriptionPointer?.reinterpret()
+        )
 
     /**
      * Sets the height to which the `PangoLayout` should be ellipsized at.
@@ -981,7 +985,7 @@ public open class Layout(
      * @param tabs a `PangoTabArray`
      */
     public open fun setTabs(tabs: TabArray? = null): Unit =
-        pango_layout_set_tabs(pangoLayoutPointer.reinterpret(), tabs?.pangoTabArrayPointer)
+        pango_layout_set_tabs(pangoLayoutPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
 
     /**
      * Sets the text of the layout.

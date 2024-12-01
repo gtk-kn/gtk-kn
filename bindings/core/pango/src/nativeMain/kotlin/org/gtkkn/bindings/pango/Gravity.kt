@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_26
 import org.gtkkn.extensions.common.asGBoolean
@@ -80,7 +81,7 @@ public enum class Gravity(
          */
         @PangoVersion1_16
         public fun getForMatrix(matrix: Matrix? = null): Gravity =
-            pango_gravity_get_for_matrix(matrix?.pangoMatrixPointer).run {
+            pango_gravity_get_for_matrix(matrix?.pangoMatrixPointer?.reinterpret()).run {
                 Gravity.fromNativeValue(this)
             }
 

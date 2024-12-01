@@ -106,8 +106,7 @@ public open class SnippetManager(
      * The result should be freed with g_free(), and the individual strings are
      * owned by @self and should never be freed by the caller.
      *
-     * @return
-     *   An array of strings which should be freed with g_free().
+     * @return An array of strings which should be freed with g_free().
      */
     public open fun listGroups(): List<String> =
         gtk_source_snippet_manager_list_groups(gtksourceSnippetManagerPointer.reinterpret())?.toKStringList()

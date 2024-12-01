@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.gdkpixbuf
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gdkpixbuf.GdkPixbufError
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_error_quark
-import kotlin.UInt
 
 /**
  * An error code in the `GDK_PIXBUF_ERROR` domain.
@@ -65,7 +65,7 @@ public enum class PixbufError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = gdk_pixbuf_error_quark()
+        public fun quark(): Quark = gdk_pixbuf_error_quark()
 
         public fun fromErrorOrNull(error: Error): PixbufError? =
             if (error.domain != quark()) {

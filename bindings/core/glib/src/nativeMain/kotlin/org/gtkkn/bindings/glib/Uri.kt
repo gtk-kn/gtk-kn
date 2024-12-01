@@ -54,7 +54,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.collections.List
 
 /**
@@ -495,7 +494,7 @@ public class Uri(
                 Uri(reinterpret())
             }
 
-        public fun errorQuark(): UInt = g_uri_error_quark()
+        public fun errorQuark(): Quark = g_uri_error_quark()
 
         /**
          * Escapes a string for use in a URI.
@@ -727,8 +726,7 @@ public class Uri(
          *   anything but ASCII characters. You may pass an empty set, in which case
          *   no splitting will occur.
          * @param flags flags to modify the way the parameters are handled.
-         * @return
-         *     A hash table of attribute/value pairs, with both names and values
+         * @return A hash table of attribute/value pairs, with both names and values
          *     fully-decoded; or null on error.
          * @since 2.66
          */

@@ -40,7 +40,11 @@ public class MessageHeadersIter(
         public fun `init`(
             iter: MessageHeadersIter,
             hdrs: MessageHeaders,
-        ): Unit = soup_message_headers_iter_init(iter.soupMessageHeadersIterPointer, hdrs.soupMessageHeadersPointer)
+        ): Unit =
+            soup_message_headers_iter_init(
+                iter.soupMessageHeadersIterPointer.reinterpret(),
+                hdrs.soupMessageHeadersPointer.reinterpret()
+            )
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): MessageHeadersIter =
             MessageHeadersIter(pointer.reinterpret())

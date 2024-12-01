@@ -73,7 +73,7 @@ public class AttrList(
      * @param attr the attribute to insert
      */
     public fun change(attr: Attribute): Unit =
-        pango_attr_list_change(pangoAttrListPointer.reinterpret(), attr.pangoAttributePointer)
+        pango_attr_list_change(pangoAttrListPointer.reinterpret(), attr.pangoAttributePointer.reinterpret())
 
     /**
      * Copy @list and return an identical new list.
@@ -103,7 +103,10 @@ public class AttrList(
      */
     @PangoVersion1_46
     public fun equal(otherList: AttrList): Boolean =
-        pango_attr_list_equal(pangoAttrListPointer.reinterpret(), otherList.pangoAttrListPointer).asBoolean()
+        pango_attr_list_equal(
+            pangoAttrListPointer.reinterpret(),
+            otherList.pangoAttrListPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Given a `PangoAttrList` and callback function, removes
@@ -130,8 +133,7 @@ public class AttrList(
     /**
      * Gets a list of all attributes in @list.
      *
-     * @return
-     *   a list of all attributes in @list. To free this value,
+     * @return a list of all attributes in @list. To free this value,
      *   call [method@Pango.Attribute.destroy] on each value and
      *   g_slist_free() on the list.
      * @since 1.44
@@ -165,7 +167,7 @@ public class AttrList(
      * @param attr the attribute to insert
      */
     public fun insert(attr: Attribute): Unit =
-        pango_attr_list_insert(pangoAttrListPointer.reinterpret(), attr.pangoAttributePointer)
+        pango_attr_list_insert(pangoAttrListPointer.reinterpret(), attr.pangoAttributePointer.reinterpret())
 
     /**
      * Insert the given attribute into the `PangoAttrList`.
@@ -176,7 +178,7 @@ public class AttrList(
      * @param attr the attribute to insert
      */
     public fun insertBefore(attr: Attribute): Unit =
-        pango_attr_list_insert_before(pangoAttrListPointer.reinterpret(), attr.pangoAttributePointer)
+        pango_attr_list_insert_before(pangoAttrListPointer.reinterpret(), attr.pangoAttributePointer.reinterpret())
 
     /**
      * Increase the reference count of the given attribute
@@ -221,7 +223,8 @@ public class AttrList(
         other: AttrList,
         pos: Int,
         len: Int,
-    ): Unit = pango_attr_list_splice(pangoAttrListPointer.reinterpret(), other.pangoAttrListPointer, pos, len)
+    ): Unit =
+        pango_attr_list_splice(pangoAttrListPointer.reinterpret(), other.pangoAttrListPointer.reinterpret(), pos, len)
 
     /**
      * Decrease the reference count of the given attribute

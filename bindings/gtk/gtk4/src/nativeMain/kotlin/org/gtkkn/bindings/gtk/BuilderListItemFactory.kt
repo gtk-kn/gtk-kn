@@ -103,7 +103,7 @@ public open class BuilderListItemFactory(
     ) : this(
         gtk_builder_list_item_factory_new_from_bytes(
             scope?.gtkBuilderScopePointer,
-            bytes.glibBytesPointer
+            bytes.glibBytesPointer.reinterpret()
         )!!.reinterpret()
     )
 

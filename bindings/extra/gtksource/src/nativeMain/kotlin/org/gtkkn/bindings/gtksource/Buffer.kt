@@ -369,8 +369,8 @@ public open class Buffer(
         gtk_source_buffer_change_case(
             gtksourceBufferPointer.reinterpret(),
             caseType.nativeValue,
-            start.gtkTextIterPointer,
-            end.gtkTextIterPointer
+            start.gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret()
         )
 
     /**
@@ -404,7 +404,7 @@ public open class Buffer(
             gtksourceBufferPointer.reinterpret(),
             name,
             category,
-            `where`.gtkTextIterPointer
+            `where`.gtkTextIterPointer.reinterpret()
         )!!.run {
             Mark(reinterpret())
         }
@@ -427,8 +427,8 @@ public open class Buffer(
     ): Unit =
         gtk_source_buffer_ensure_highlight(
             gtksourceBufferPointer.reinterpret(),
-            start.gtkTextIterPointer,
-            end.gtkTextIterPointer
+            start.gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret()
         )
 
     /**
@@ -444,7 +444,7 @@ public open class Buffer(
     public open fun getContextClassesAtIter(iter: TextIter): List<String> =
         gtk_source_buffer_get_context_classes_at_iter(
             gtksourceBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer
+            iter.gtkTextIterPointer.reinterpret()
         )?.toKStringList()
             ?: error("Expected not null string array")
 
@@ -499,8 +499,7 @@ public open class Buffer(
      *
      * @param iter an iterator.
      * @param category category to search for, or null
-     * @return
-     * a newly allocated #GSList.
+     * @return a newly allocated #GSList.
      */
     public open fun getSourceMarksAtIter(
         iter: TextIter,
@@ -508,7 +507,7 @@ public open class Buffer(
     ): SList =
         gtk_source_buffer_get_source_marks_at_iter(
             gtksourceBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer,
+            iter.gtkTextIterPointer.reinterpret(),
             category
         )!!.run {
             SList(reinterpret())
@@ -521,8 +520,7 @@ public open class Buffer(
      *
      * @param line a line number.
      * @param category category to search for, or null
-     * @return
-     * a newly allocated #GSList.
+     * @return a newly allocated #GSList.
      */
     public open fun getSourceMarksAtLine(
         line: Int,
@@ -561,7 +559,7 @@ public open class Buffer(
     ): Boolean =
         gtk_source_buffer_iter_has_context_class(
             gtksourceBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer,
+            iter.gtkTextIterPointer.reinterpret(),
             contextClass
         ).asBoolean()
 
@@ -577,8 +575,8 @@ public open class Buffer(
     ): Unit =
         gtk_source_buffer_join_lines(
             gtksourceBufferPointer.reinterpret(),
-            start.gtkTextIterPointer,
-            end.gtkTextIterPointer
+            start.gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret()
         )
 
     /**
@@ -597,8 +595,8 @@ public open class Buffer(
     ): Unit =
         gtk_source_buffer_remove_source_marks(
             gtksourceBufferPointer.reinterpret(),
-            start.gtkTextIterPointer,
-            end.gtkTextIterPointer,
+            start.gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret(),
             category
         )
 
@@ -710,8 +708,8 @@ public open class Buffer(
     ): Unit =
         gtk_source_buffer_sort_lines(
             gtksourceBufferPointer.reinterpret(),
-            start.gtkTextIterPointer,
-            end.gtkTextIterPointer,
+            start.gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret(),
             flags.mask,
             column
         )

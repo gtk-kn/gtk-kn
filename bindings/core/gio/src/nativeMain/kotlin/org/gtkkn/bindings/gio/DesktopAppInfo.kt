@@ -117,7 +117,7 @@ public open class DesktopAppInfo(
      */
     public constructor(
         keyFile: KeyFile,
-    ) : this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer)!!.reinterpret())
+    ) : this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the user-visible display name of the "additional application

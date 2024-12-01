@@ -45,7 +45,8 @@ public class Quad(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun bounds(r: Rect): Unit = graphene_quad_bounds(grapheneQuadPointer.reinterpret(), r.grapheneRectPointer)
+    public fun bounds(r: Rect): Unit =
+        graphene_quad_bounds(grapheneQuadPointer.reinterpret(), r.grapheneRectPointer.reinterpret())
 
     /**
      * Checks if the given #graphene_quad_t contains the given #graphene_point_t.
@@ -56,7 +57,7 @@ public class Quad(
      */
     @GrapheneVersion1_0
     public fun contains(p: Point): Boolean =
-        graphene_quad_contains(grapheneQuadPointer.reinterpret(), p.graphenePointPointer)
+        graphene_quad_contains(grapheneQuadPointer.reinterpret(), p.graphenePointPointer.reinterpret())
 
     /**
      * Frees the resources allocated by graphene_quad_alloc()
@@ -98,10 +99,10 @@ public class Quad(
     ): Quad =
         graphene_quad_init(
             grapheneQuadPointer.reinterpret(),
-            p1.graphenePointPointer,
-            p2.graphenePointPointer,
-            p3.graphenePointPointer,
-            p4.graphenePointPointer
+            p1.graphenePointPointer.reinterpret(),
+            p2.graphenePointPointer.reinterpret(),
+            p3.graphenePointPointer.reinterpret(),
+            p4.graphenePointPointer.reinterpret()
         )!!.run {
             Quad(reinterpret())
         }
@@ -116,7 +117,7 @@ public class Quad(
      */
     @GrapheneVersion1_0
     public fun initFromRect(r: Rect): Quad =
-        graphene_quad_init_from_rect(grapheneQuadPointer.reinterpret(), r.grapheneRectPointer)!!.run {
+        graphene_quad_init_from_rect(grapheneQuadPointer.reinterpret(), r.grapheneRectPointer.reinterpret())!!.run {
             Quad(reinterpret())
         }
 

@@ -2974,7 +2974,7 @@ public interface File :
     ): Unit =
         g_file_replace_contents_bytes_async(
             gioFilePointer.reinterpret(),
-            contents.glibBytesPointer,
+            contents.glibBytesPointer.reinterpret(),
             etag,
             makeBackup.asGBoolean(),
             flags.mask,

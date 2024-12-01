@@ -91,7 +91,10 @@ public class PopupLayout(
      *   otherwise false.
      */
     public fun equal(other: PopupLayout): Boolean =
-        gdk_popup_layout_equal(gdkPopupLayoutPointer.reinterpret(), other.gdkPopupLayoutPointer).asBoolean()
+        gdk_popup_layout_equal(
+            gdkPopupLayoutPointer.reinterpret(),
+            other.gdkPopupLayoutPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Get the `GdkAnchorHints`.
@@ -163,7 +166,10 @@ public class PopupLayout(
      * @param anchorRect the new anchor rectangle
      */
     public fun setAnchorRect(anchorRect: Rectangle): Unit =
-        gdk_popup_layout_set_anchor_rect(gdkPopupLayoutPointer.reinterpret(), anchorRect.gdkRectanglePointer)
+        gdk_popup_layout_set_anchor_rect(
+            gdkPopupLayoutPointer.reinterpret(),
+            anchorRect.gdkRectanglePointer.reinterpret()
+        )
 
     /**
      * Offset the position of the anchor rectangle with the given delta.
@@ -245,7 +251,7 @@ public class PopupLayout(
         ): PopupLayout =
             PopupLayout(
                 gdk_popup_layout_new(
-                    anchorRect.gdkRectanglePointer,
+                    anchorRect.gdkRectanglePointer.reinterpret(),
                     rectAnchor.nativeValue,
                     surfaceAnchor.nativeValue
                 )!!.reinterpret()

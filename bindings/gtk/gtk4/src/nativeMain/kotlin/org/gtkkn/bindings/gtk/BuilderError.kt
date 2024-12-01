@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gtk.GtkBuilderError
 import org.gtkkn.native.gtk.gtk_builder_error_quark
-import kotlin.UInt
 
 /**
  * Error codes that identify various errors that can occur while using
@@ -121,7 +121,7 @@ public enum class BuilderError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = gtk_builder_error_quark()
+        public fun quark(): Quark = gtk_builder_error_quark()
 
         public fun fromErrorOrNull(error: Error): BuilderError? =
             if (error.domain != quark()) {

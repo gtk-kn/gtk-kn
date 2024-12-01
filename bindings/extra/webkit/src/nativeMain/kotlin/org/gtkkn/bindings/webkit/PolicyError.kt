@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.webkit.WebKitPolicyError
 import org.gtkkn.native.webkit.webkit_policy_error_quark
-import kotlin.UInt
 
 /**
  * Enum values used to denote the various policy errors.
@@ -56,7 +56,7 @@ public enum class PolicyError(
          *
          * @return policy error domain.
          */
-        public fun quark(): UInt = webkit_policy_error_quark()
+        public fun quark(): Quark = webkit_policy_error_quark()
 
         public fun fromErrorOrNull(error: Error): PolicyError? =
             if (error.domain != quark()) {

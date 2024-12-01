@@ -113,7 +113,7 @@ public class Matrix(
      */
     @PangoVersion1_6
     public fun concat(newMatrix: Matrix): Unit =
-        pango_matrix_concat(pangoMatrixPointer.reinterpret(), newMatrix.pangoMatrixPointer)
+        pango_matrix_concat(pangoMatrixPointer.reinterpret(), newMatrix.pangoMatrixPointer.reinterpret())
 
     /**
      * Copies a `PangoMatrix`.

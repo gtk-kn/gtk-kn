@@ -134,7 +134,7 @@ public open class Tooltip(
      * @param rect a `GdkRectangle`
      */
     public open fun setTipArea(rect: Rectangle): Unit =
-        gtk_tooltip_set_tip_area(gtkTooltipPointer.reinterpret(), rect.gdkRectanglePointer)
+        gtk_tooltip_set_tip_area(gtkTooltipPointer.reinterpret(), rect.gdkRectanglePointer.reinterpret())
 
     public companion object : TypeCompanion<Tooltip> {
         override val type: GeneratedClassKGType<Tooltip> =

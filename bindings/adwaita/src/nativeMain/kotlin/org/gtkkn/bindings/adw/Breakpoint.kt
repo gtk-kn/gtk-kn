@@ -122,7 +122,11 @@ public class Breakpoint(
         @AdwVersion1_4
         set(
             condition
-        ) = adw_breakpoint_set_condition(adwBreakpointPointer.reinterpret(), condition?.adwBreakpointConditionPointer)
+        ) =
+            adw_breakpoint_set_condition(
+                adwBreakpointPointer.reinterpret(),
+                condition?.adwBreakpointConditionPointer?.reinterpret()
+            )
 
     /**
      * Creates a new `AdwBreakpoint` with @condition.
@@ -133,7 +137,7 @@ public class Breakpoint(
      */
     public constructor(
         condition: BreakpointCondition,
-    ) : this(adw_breakpoint_new(condition.adwBreakpointConditionPointer)!!.reinterpret())
+    ) : this(adw_breakpoint_new(condition.adwBreakpointConditionPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds a setter to @self.
@@ -188,7 +192,7 @@ public class Breakpoint(
             adwBreakpointPointer.reinterpret(),
             `object`.gPointer.reinterpret(),
             `property`,
-            `value`.gobjectValuePointer
+            `value`.gobjectValuePointer.reinterpret()
         )
 
     /**
@@ -211,7 +215,10 @@ public class Breakpoint(
      */
     @AdwVersion1_4
     public fun setCondition(condition: BreakpointCondition? = null): Unit =
-        adw_breakpoint_set_condition(adwBreakpointPointer.reinterpret(), condition?.adwBreakpointConditionPointer)
+        adw_breakpoint_set_condition(
+            adwBreakpointPointer.reinterpret(),
+            condition?.adwBreakpointConditionPointer?.reinterpret()
+        )
 
     /**
      * Emitted when the breakpoint is applied.

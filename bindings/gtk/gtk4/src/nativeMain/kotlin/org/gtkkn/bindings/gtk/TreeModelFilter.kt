@@ -143,8 +143,8 @@ public open class TreeModelFilter(
     ): Boolean =
         gtk_tree_model_filter_convert_child_iter_to_iter(
             gtkTreeModelFilterPointer.reinterpret(),
-            filterIter.gtkTreeIterPointer,
-            childIter.gtkTreeIterPointer
+            filterIter.gtkTreeIterPointer.reinterpret(),
+            childIter.gtkTreeIterPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -160,7 +160,7 @@ public open class TreeModelFilter(
     public open fun convertChildPathToPath(childPath: TreePath): TreePath? =
         gtk_tree_model_filter_convert_child_path_to_path(
             gtkTreeModelFilterPointer.reinterpret(),
-            childPath.gtkTreePathPointer
+            childPath.gtkTreePathPointer.reinterpret()
         )?.run {
             TreePath(reinterpret())
         }
@@ -177,8 +177,8 @@ public open class TreeModelFilter(
     ): Unit =
         gtk_tree_model_filter_convert_iter_to_child_iter(
             gtkTreeModelFilterPointer.reinterpret(),
-            childIter.gtkTreeIterPointer,
-            filterIter.gtkTreeIterPointer
+            childIter.gtkTreeIterPointer.reinterpret(),
+            filterIter.gtkTreeIterPointer.reinterpret()
         )
 
     /**
@@ -193,7 +193,7 @@ public open class TreeModelFilter(
     public open fun convertPathToChildPath(filterPath: TreePath): TreePath? =
         gtk_tree_model_filter_convert_path_to_child_path(
             gtkTreeModelFilterPointer.reinterpret(),
-            filterPath.gtkTreePathPointer
+            filterPath.gtkTreePathPointer.reinterpret()
         )?.run {
             TreePath(reinterpret())
         }

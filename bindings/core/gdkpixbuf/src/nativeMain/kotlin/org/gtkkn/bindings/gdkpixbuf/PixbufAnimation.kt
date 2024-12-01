@@ -197,7 +197,7 @@ public open class PixbufAnimation(
     public open fun getIter(startTime: TimeVal? = null): PixbufAnimationIter =
         gdk_pixbuf_animation_get_iter(
             gdkpixbufPixbufAnimationPointer.reinterpret(),
-            startTime?.glibTimeValPointer
+            startTime?.glibTimeValPointer?.reinterpret()
         )!!.run {
             PixbufAnimationIter(reinterpret())
         }

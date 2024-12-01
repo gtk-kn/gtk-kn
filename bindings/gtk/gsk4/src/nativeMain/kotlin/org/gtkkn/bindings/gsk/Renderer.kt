@@ -189,7 +189,7 @@ public open class Renderer(
         gsk_renderer_render_texture(
             gskRendererPointer.reinterpret(),
             root.gPointer.reinterpret(),
-            viewport?.grapheneRectPointer
+            viewport?.grapheneRectPointer?.reinterpret()
         )!!.run {
             Texture(reinterpret())
         }

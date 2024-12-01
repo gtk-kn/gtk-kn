@@ -175,7 +175,7 @@ public interface Scrollable :
      * @return true if @border has been set
      */
     public fun getBorder(border: Border): Boolean =
-        gtk_scrollable_get_border(gtkScrollablePointer.reinterpret(), border.gtkBorderPointer).asBoolean()
+        gtk_scrollable_get_border(gtkScrollablePointer.reinterpret(), border.gtkBorderPointer.reinterpret()).asBoolean()
 
     /**
      * Retrieves the `GtkAdjustment` used for horizontal scrolling.

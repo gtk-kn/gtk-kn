@@ -3,6 +3,7 @@ package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
@@ -24,17 +25,38 @@ import org.gtkkn.native.pango.PangoGlyphGeometry
  * 2. Render the current glyph at (x + x_offset, y + y_offset),
  * 3. Advance the current point to (x + width, y)
  * 4. Render the next glyph
- *
- * ## Skipped during bindings generation
- *
- * - field `width`: GlyphUnit
- * - field `x_offset`: GlyphUnit
- * - field `y_offset`: GlyphUnit
  */
 public class GlyphGeometry(
     pointer: CPointer<PangoGlyphGeometry>,
 ) : Record {
     public val pangoGlyphGeometryPointer: CPointer<PangoGlyphGeometry> = pointer
+
+    /**
+     * the logical width to use for the the character.
+     */
+    public var width: GlyphUnit
+        get() = pangoGlyphGeometryPointer.pointed.width
+        set(`value`) {
+            pangoGlyphGeometryPointer.pointed.width = value
+        }
+
+    /**
+     * horizontal offset from nominal character position.
+     */
+    public var xOffset: GlyphUnit
+        get() = pangoGlyphGeometryPointer.pointed.x_offset
+        set(`value`) {
+            pangoGlyphGeometryPointer.pointed.x_offset = value
+        }
+
+    /**
+     * vertical offset from nominal character position.
+     */
+    public var yOffset: GlyphUnit
+        get() = pangoGlyphGeometryPointer.pointed.y_offset
+        set(`value`) {
+            pangoGlyphGeometryPointer.pointed.y_offset = value
+        }
 
     public companion object : RecordCompanion<GlyphGeometry, PangoGlyphGeometry> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): GlyphGeometry =

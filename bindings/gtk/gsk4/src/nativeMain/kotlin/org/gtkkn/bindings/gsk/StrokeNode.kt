@@ -44,7 +44,11 @@ public open class StrokeNode(
         path: Path,
         stroke: Stroke,
     ) : this(
-        gsk_stroke_node_new(child.gPointer.reinterpret(), path.gskPathPointer, stroke.gskStrokePointer)!!.reinterpret()
+        gsk_stroke_node_new(
+            child.gPointer.reinterpret(),
+            path.gskPathPointer.reinterpret(),
+            stroke.gskStrokePointer.reinterpret()
+        )!!.reinterpret()
     )
 
     /**

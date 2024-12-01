@@ -140,8 +140,7 @@ public open class IconTheme(
          *
          * See [method@Gtk.IconTheme.set_resource_path].
          *
-         * @return
-         *   A list of resource paths
+         * @return A list of resource paths
          */
         get() = gtk_icon_theme_get_resource_path(gtkIconThemePointer.reinterpret())?.toKStringList()
 
@@ -158,8 +157,7 @@ public open class IconTheme(
          * of a subdirectory are also considered as ultimate fallback,
          * but they are treated like unthemed icons.
          *
-         * @param path
-         *   NULL-terminated array of resource paths
+         * @param path NULL-terminated array of resource paths
          *   that are searched for icons
          */
         set(path) =
@@ -182,8 +180,7 @@ public open class IconTheme(
          *
          * See [method@Gtk.IconTheme.set_search_path].
          *
-         * @return
-         *   a list of icon theme path directories
+         * @return a list of icon theme path directories
          */
         get() = gtk_icon_theme_get_search_path(gtkIconThemePointer.reinterpret())?.toKStringList()
 
@@ -275,8 +272,7 @@ public open class IconTheme(
      *
      * See [method@Gtk.IconTheme.set_resource_path].
      *
-     * @return
-     *   A list of resource paths
+     * @return A list of resource paths
      */
     public open fun getResourcePath(): List<String>? =
         gtk_icon_theme_get_resource_path(gtkIconThemePointer.reinterpret())?.toKStringList()
@@ -286,8 +282,7 @@ public open class IconTheme(
      *
      * See [method@Gtk.IconTheme.set_search_path].
      *
-     * @return
-     *   a list of icon theme path directories
+     * @return a list of icon theme path directories
      */
     public open fun getSearchPath(): List<String>? =
         gtk_icon_theme_get_search_path(gtkIconThemePointer.reinterpret())?.toKStringList()
@@ -418,8 +413,7 @@ public open class IconTheme(
      * of a subdirectory are also considered as ultimate fallback,
      * but they are treated like unthemed icons.
      *
-     * @param path
-     *   NULL-terminated array of resource paths
+     * @param path NULL-terminated array of resource paths
      *   that are searched for icons
      */
     public open fun setResourcePath(path: List<String>? = null): Unit =

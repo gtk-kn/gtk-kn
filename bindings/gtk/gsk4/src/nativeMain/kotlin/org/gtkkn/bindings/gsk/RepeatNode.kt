@@ -39,9 +39,9 @@ public open class RepeatNode(
         childBounds: Rect? = null,
     ) : this(
         gsk_repeat_node_new(
-            bounds.grapheneRectPointer,
+            bounds.grapheneRectPointer.reinterpret(),
             child.gPointer.reinterpret(),
-            childBounds?.grapheneRectPointer
+            childBounds?.grapheneRectPointer?.reinterpret()
         )!!.reinterpret()
     )
 

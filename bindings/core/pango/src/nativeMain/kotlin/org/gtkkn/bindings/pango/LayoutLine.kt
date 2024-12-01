@@ -38,7 +38,7 @@ import kotlin.Unit
  * - parameter `height`: height: Out parameter is not supported
  * - parameter `ranges`: ranges: Out parameter is not supported
  * - parameter `x_pos`: x_pos: Out parameter is not supported
- * - parameter `index_`: index_: Out parameter is not supported
+ * - parameter `index`: index: Out parameter is not supported
  */
 public class LayoutLine(
     pointer: CPointer<PangoLayoutLine>,
@@ -121,8 +121,8 @@ public class LayoutLine(
     ): Unit =
         pango_layout_line_get_extents(
             pangoLayoutLinePointer.reinterpret(),
-            inkRect?.pangoRectanglePointer,
-            logicalRect?.pangoRectanglePointer
+            inkRect?.pangoRectanglePointer?.reinterpret(),
+            logicalRect?.pangoRectanglePointer?.reinterpret()
         )
 
     /**
@@ -153,8 +153,8 @@ public class LayoutLine(
     ): Unit =
         pango_layout_line_get_pixel_extents(
             pangoLayoutLinePointer.reinterpret(),
-            inkRect?.pangoRectanglePointer,
-            logicalRect?.pangoRectanglePointer
+            inkRect?.pangoRectanglePointer?.reinterpret(),
+            logicalRect?.pangoRectanglePointer?.reinterpret()
         )
 
     /**

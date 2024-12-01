@@ -349,7 +349,7 @@ public open class ConstraintLayout(
                     nLines,
                     hspacing,
                     vspacing,
-                    views.glibHashTablePointer,
+                    views.glibHashTablePointer.reinterpret(),
                     gError.ptr
                 )?.run {
                     GlibList(reinterpret())

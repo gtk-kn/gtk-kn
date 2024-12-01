@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.gsk
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gsk.GskSerializationError
 import org.gtkkn.native.gsk.gsk_serialization_error_quark
-import kotlin.UInt
 
 /**
  * Errors that can happen during (de)serialization.
@@ -39,7 +39,7 @@ public enum class SerializationError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = gsk_serialization_error_quark()
+        public fun quark(): Quark = gsk_serialization_error_quark()
 
         public fun fromErrorOrNull(error: Error): SerializationError? =
             if (error.domain != quark()) {

@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gtk.GtkFileChooserError
 import org.gtkkn.native.gtk.gtk_file_chooser_error_quark
-import kotlin.UInt
 
 /**
  * These identify the various errors that can occur while calling
@@ -51,7 +51,7 @@ public enum class FileChooserError(
          *
          * @return The error quark used for `GtkFileChooser` errors.
          */
-        public fun quark(): UInt = gtk_file_chooser_error_quark()
+        public fun quark(): Quark = gtk_file_chooser_error_quark()
 
         public fun fromErrorOrNull(error: Error): FileChooserError? =
             if (error.domain != quark()) {

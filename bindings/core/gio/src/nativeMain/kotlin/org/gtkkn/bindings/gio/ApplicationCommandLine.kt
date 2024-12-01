@@ -311,8 +311,7 @@ public open class ApplicationCommandLine(
      * See g_application_command_line_getenv() if you are only interested
      * in the value of a single environment variable.
      *
-     * @return
-     *     the environment strings, or null if they were not sent
+     * @return the environment strings, or null if they were not sent
      * @since 2.28
      */
     @GioVersion2_28

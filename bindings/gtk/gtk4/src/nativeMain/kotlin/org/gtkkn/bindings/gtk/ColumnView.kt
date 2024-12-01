@@ -642,7 +642,7 @@ public open class ColumnView(
             pos,
             column?.gtkColumnViewColumnPointer?.reinterpret(),
             flags.mask,
-            scroll?.gtkScrollInfoPointer
+            scroll?.gtkScrollInfoPointer?.reinterpret()
         )
 
     /**

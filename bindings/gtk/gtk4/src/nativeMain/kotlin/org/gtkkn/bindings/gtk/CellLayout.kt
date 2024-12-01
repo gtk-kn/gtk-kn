@@ -197,8 +197,7 @@ public interface CellLayout :
     /**
      * Returns the cell renderers which have been added to @cell_layout.
      *
-     * @return
-     *   a list of cell renderers. The list, but not the renderers has
+     * @return a list of cell renderers. The list, but not the renderers has
      *   been newly allocated and should be freed with g_list_free()
      *   when no longer needed.
      */

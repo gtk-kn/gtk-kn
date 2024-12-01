@@ -49,7 +49,7 @@ public class AccessibleList(
          * @since 4.14
          */
         public fun newFromList(list: List): AccessibleList =
-            AccessibleList(gtk_accessible_list_new_from_list(list.glibListPointer)!!.reinterpret())
+            AccessibleList(gtk_accessible_list_new_from_list(list.glibListPointer.reinterpret())!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): AccessibleList =
             AccessibleList(pointer.reinterpret())

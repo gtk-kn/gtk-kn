@@ -143,7 +143,12 @@ public interface Popup :
         height: Int,
         layout: PopupLayout,
     ): Boolean =
-        gdk_popup_present(gdkPopupPointer.reinterpret(), width, height, layout.gdkPopupLayoutPointer).asBoolean()
+        gdk_popup_present(
+            gdkPopupPointer.reinterpret(),
+            width,
+            height,
+            layout.gdkPopupLayoutPointer.reinterpret()
+        ).asBoolean()
 
     private data class Wrapper(
         private val pointer: CPointer<GdkPopup>,

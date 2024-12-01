@@ -70,7 +70,10 @@ public class HSTSPolicy(
      * @return whether the policies are equal.
      */
     public fun equal(policy2: HSTSPolicy): Boolean =
-        soup_hsts_policy_equal(soupHSTSPolicyPointer.reinterpret(), policy2.soupHSTSPolicyPointer).asBoolean()
+        soup_hsts_policy_equal(
+            soupHSTSPolicyPointer.reinterpret(),
+            policy2.soupHSTSPolicyPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Frees @policy.
@@ -188,7 +191,7 @@ public class HSTSPolicy(
                 soup_hsts_policy_new_full(
                     domain,
                     maxAge,
-                    expires.glibDateTimePointer,
+                    expires.glibDateTimePointer.reinterpret(),
                     includeSubdomains.asGBoolean()
                 )!!.reinterpret()
             )

@@ -205,7 +205,7 @@ public class SpringAnimation(
         ) =
             adw_spring_animation_set_spring_params(
                 adwSpringAnimationPointer.reinterpret(),
-                springParams.adwSpringParamsPointer
+                springParams.adwSpringParamsPointer.reinterpret()
             )
 
     /**
@@ -291,7 +291,7 @@ public class SpringAnimation(
             widget.gtkWidgetPointer.reinterpret(),
             from,
             to,
-            springParams.adwSpringParamsPointer,
+            springParams.adwSpringParamsPointer.reinterpret(),
             target.adwAnimationTargetPointer.reinterpret()
         )!!.reinterpret()
     )
@@ -442,7 +442,7 @@ public class SpringAnimation(
     public fun setSpringParams(springParams: SpringParams): Unit =
         adw_spring_animation_set_spring_params(
             adwSpringAnimationPointer.reinterpret(),
-            springParams.adwSpringParamsPointer
+            springParams.adwSpringParamsPointer.reinterpret()
         )
 
     /**

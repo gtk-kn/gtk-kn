@@ -312,7 +312,7 @@ public open class PrintDialog(
         gtk_print_dialog_print(
             gtkPrintDialogPointer.reinterpret(),
             parent?.gtkWindowPointer?.reinterpret(),
-            setup?.gtkPrintSetupPointer,
+            setup?.gtkPrintSetupPointer?.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()
@@ -345,7 +345,7 @@ public open class PrintDialog(
         gtk_print_dialog_print_file(
             gtkPrintDialogPointer.reinterpret(),
             parent?.gtkWindowPointer?.reinterpret(),
-            setup?.gtkPrintSetupPointer,
+            setup?.gtkPrintSetupPointer?.reinterpret(),
             `file`.gioFilePointer,
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),

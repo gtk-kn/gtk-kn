@@ -203,7 +203,7 @@ public interface Action :
      */
     @GioVersion2_28
     public fun activate(parameter: Variant? = null): Unit =
-        g_action_activate(gioActionPointer.reinterpret(), parameter?.glibVariantPointer)
+        g_action_activate(gioActionPointer.reinterpret(), parameter?.glibVariantPointer?.reinterpret())
 
     /**
      * Request for the state of @action to be changed to @value.
@@ -222,7 +222,7 @@ public interface Action :
      */
     @GioVersion2_30
     public fun changeState(`value`: Variant): Unit =
-        g_action_change_state(gioActionPointer.reinterpret(), `value`.glibVariantPointer)
+        g_action_change_state(gioActionPointer.reinterpret(), `value`.glibVariantPointer.reinterpret())
 
     /**
      * Checks if @action is currently enabled.
@@ -390,7 +390,7 @@ public interface Action :
             actionName: String,
             targetValue: Variant? = null,
         ): String =
-            g_action_print_detailed_name(actionName, targetValue?.glibVariantPointer)?.toKString()
+            g_action_print_detailed_name(actionName, targetValue?.glibVariantPointer?.reinterpret())?.toKString()
                 ?: error("Expected not null string")
     }
 }

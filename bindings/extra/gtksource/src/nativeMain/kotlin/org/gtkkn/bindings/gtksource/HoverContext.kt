@@ -56,8 +56,8 @@ public open class HoverContext(
     ): Boolean =
         gtk_source_hover_context_get_bounds(
             gtksourceHoverContextPointer.reinterpret(),
-            begin?.gtkTextIterPointer,
-            end?.gtkTextIterPointer
+            begin?.gtkTextIterPointer?.reinterpret(),
+            end?.gtkTextIterPointer?.reinterpret()
         ).asBoolean()
 
     /**
@@ -78,7 +78,7 @@ public open class HoverContext(
     public open fun getIter(iter: TextIter): Boolean =
         gtk_source_hover_context_get_iter(
             gtksourceHoverContextPointer.reinterpret(),
-            iter.gtkTextIterPointer
+            iter.gtkTextIterPointer.reinterpret()
         ).asBoolean()
 
     /**

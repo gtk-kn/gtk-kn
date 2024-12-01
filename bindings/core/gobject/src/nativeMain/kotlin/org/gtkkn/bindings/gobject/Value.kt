@@ -123,7 +123,7 @@ public class Value(
      * @param destValue An initialized #GValue structure of the same type as @src_value.
      */
     public fun copy(destValue: Value): Unit =
-        g_value_copy(gobjectValuePointer.reinterpret(), destValue.gobjectValuePointer)
+        g_value_copy(gobjectValuePointer.reinterpret(), destValue.gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_OBJECT derived #GValue, increasing
@@ -343,7 +343,7 @@ public class Value(
      */
     @GObjectVersion2_42
     public fun initFromInstance(instance: TypeInstance): Unit =
-        g_value_init_from_instance(gobjectValuePointer.reinterpret(), instance.gobjectTypeInstancePointer)
+        g_value_init_from_instance(gobjectValuePointer.reinterpret(), instance.gobjectTypeInstancePointer.reinterpret())
 
     /**
      * Clears the current value in @value and resets it to the default value
@@ -533,7 +533,7 @@ public class Value(
      */
     @GObjectVersion2_26
     public fun setVariant(variant: Variant? = null): Unit =
-        g_value_set_variant(gobjectValuePointer.reinterpret(), variant?.glibVariantPointer)
+        g_value_set_variant(gobjectValuePointer.reinterpret(), variant?.glibVariantPointer?.reinterpret())
 
     /**
      * Steal ownership on contents of a %G_TYPE_STRING #GValue.
@@ -573,7 +573,7 @@ public class Value(
      */
     @GObjectVersion2_26
     public fun takeVariant(variant: Variant? = null): Unit =
-        g_value_take_variant(gobjectValuePointer.reinterpret(), variant?.glibVariantPointer)
+        g_value_take_variant(gobjectValuePointer.reinterpret(), variant?.glibVariantPointer?.reinterpret())
 
     /**
      * Tries to cast the contents of @src_value into a type appropriate
@@ -589,7 +589,7 @@ public class Value(
      *  Upon failing transformations, @dest_value is left untouched.
      */
     public fun transform(destValue: Value): Boolean =
-        g_value_transform(gobjectValuePointer.reinterpret(), destValue.gobjectValuePointer).asBoolean()
+        g_value_transform(gobjectValuePointer.reinterpret(), destValue.gobjectValuePointer.reinterpret()).asBoolean()
 
     /**
      * Clears the current value in @value (if any) and "unsets" the type,

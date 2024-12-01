@@ -299,7 +299,7 @@ public interface AsyncInitable :
             g_async_initable_newv_async(
                 objectType,
                 nParameters,
-                parameters.gobjectParameterPointer,
+                parameters.gobjectParameterPointer.reinterpret(),
                 ioPriority,
                 cancellable?.gioCancellablePointer?.reinterpret(),
                 AsyncReadyCallbackFunc.reinterpret(),

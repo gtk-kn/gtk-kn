@@ -180,7 +180,7 @@ public class PaperSize(
      * represent the same paper size
      */
     public fun isEqual(size2: PaperSize): Boolean =
-        gtk_paper_size_is_equal(gtkPaperSizePointer.reinterpret(), size2.gtkPaperSizePointer).asBoolean()
+        gtk_paper_size_is_equal(gtkPaperSizePointer.reinterpret(), size2.gtkPaperSizePointer.reinterpret()).asBoolean()
 
     /**
      * Returns true if @size is an IPP standard paper size.
@@ -222,7 +222,11 @@ public class PaperSize(
         keyFile: KeyFile,
         groupName: String,
     ): kotlin.Unit =
-        gtk_paper_size_to_key_file(gtkPaperSizePointer.reinterpret(), keyFile.glibKeyFilePointer, groupName)
+        gtk_paper_size_to_key_file(
+            gtkPaperSizePointer.reinterpret(),
+            keyFile.glibKeyFilePointer.reinterpret(),
+            groupName
+        )
 
     public companion object : RecordCompanion<PaperSize, GtkPaperSize> {
         /**
@@ -270,7 +274,7 @@ public class PaperSize(
          * @return a new `GtkPaperSize` object
          */
         public fun newFromGvariant(variant: Variant): PaperSize =
-            PaperSize(gtk_paper_size_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
+            PaperSize(gtk_paper_size_new_from_gvariant(variant.glibVariantPointer.reinterpret())!!.reinterpret())
 
         /**
          * Creates a new `GtkPaperSize` object by using
@@ -307,7 +311,8 @@ public class PaperSize(
         ): Result<PaperSize> {
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult = gtk_paper_size_new_from_key_file(keyFile.glibKeyFilePointer, groupName, gError.ptr)
+                val gResult =
+                    gtk_paper_size_new_from_key_file(keyFile.glibKeyFilePointer.reinterpret(), groupName, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {

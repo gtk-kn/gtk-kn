@@ -114,8 +114,7 @@ public open class Seat(
     /**
      * Returns all `GdkDeviceTools` that are known to the application.
      *
-     * @return
-     *   A list of tools. Free with g_list_free().
+     * @return A list of tools. Free with g_list_free().
      */
     public open fun getTools(): List =
         gdk_seat_get_tools(gdkSeatPointer.reinterpret())!!.run {

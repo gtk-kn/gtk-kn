@@ -595,8 +595,8 @@ public open class DBusConnection(
             objectPath,
             interfaceName,
             methodName,
-            parameters?.glibVariantPointer,
-            replyType?.glibVariantTypePointer,
+            parameters?.glibVariantPointer?.reinterpret(),
+            replyType?.glibVariantTypePointer?.reinterpret(),
             flags.mask,
             timeoutMsec,
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -707,8 +707,8 @@ public open class DBusConnection(
                     objectPath,
                     interfaceName,
                     methodName,
-                    parameters?.glibVariantPointer,
-                    replyType?.glibVariantTypePointer,
+                    parameters?.glibVariantPointer?.reinterpret(),
+                    replyType?.glibVariantTypePointer?.reinterpret(),
                     flags.mask,
                     timeoutMsec,
                     cancellable?.gioCancellablePointer?.reinterpret(),
@@ -779,8 +779,8 @@ public open class DBusConnection(
             objectPath,
             interfaceName,
             methodName,
-            parameters?.glibVariantPointer,
-            replyType?.glibVariantTypePointer,
+            parameters?.glibVariantPointer?.reinterpret(),
+            replyType?.glibVariantTypePointer?.reinterpret(),
             flags.mask,
             timeoutMsec,
             fdList?.gioUnixFDListPointer?.reinterpret(),
@@ -920,7 +920,7 @@ public open class DBusConnection(
                     objectPath,
                     interfaceName,
                     signalName,
-                    parameters?.glibVariantPointer,
+                    parameters?.glibVariantPointer?.reinterpret(),
                     gError.ptr
                 ).asBoolean()
             return if (gError.pointed != null) {
@@ -1260,10 +1260,10 @@ public open class DBusConnection(
                 g_dbus_connection_register_object_with_closures(
                     gioDBusConnectionPointer.reinterpret(),
                     objectPath,
-                    interfaceInfo.gioDBusInterfaceInfoPointer,
-                    methodCallClosure?.gobjectClosurePointer,
-                    getPropertyClosure?.gobjectClosurePointer,
-                    setPropertyClosure?.gobjectClosurePointer,
+                    interfaceInfo.gioDBusInterfaceInfoPointer.reinterpret(),
+                    methodCallClosure?.gobjectClosurePointer?.reinterpret(),
+                    getPropertyClosure?.gobjectClosurePointer?.reinterpret(),
+                    setPropertyClosure?.gobjectClosurePointer?.reinterpret(),
                     gError.ptr
                 )
             return if (gError.pointed != null) {

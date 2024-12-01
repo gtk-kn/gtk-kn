@@ -549,7 +549,7 @@ public open class IconView(
      * @return a newly-allocated `GdkPaintable` of the drag icon.
      */
     public open fun createDragIcon(path: TreePath): Paintable? =
-        gtk_icon_view_create_drag_icon(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer)?.run {
+        gtk_icon_view_create_drag_icon(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())?.run {
             Paintable.wrap(reinterpret())
         }
 
@@ -567,7 +567,7 @@ public open class IconView(
     ): Unit =
         gtk_icon_view_enable_model_drag_dest(
             gtkIconViewPointer.reinterpret(),
-            formats.gdkContentFormatsPointer,
+            formats.gdkContentFormatsPointer.reinterpret(),
             actions.mask
         )
 
@@ -588,7 +588,7 @@ public open class IconView(
         gtk_icon_view_enable_model_drag_source(
             gtkIconViewPointer.reinterpret(),
             startButtonMask.mask,
-            formats.gdkContentFormatsPointer,
+            formats.gdkContentFormatsPointer.reinterpret(),
             actions.mask
         )
 
@@ -618,9 +618,9 @@ public open class IconView(
     ): Boolean =
         gtk_icon_view_get_cell_rect(
             gtkIconViewPointer.reinterpret(),
-            path.gtkTreePathPointer,
+            path.gtkTreePathPointer.reinterpret(),
             cell?.gtkCellRendererPointer?.reinterpret(),
-            rect.gdkRectanglePointer
+            rect.gdkRectanglePointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -645,7 +645,7 @@ public open class IconView(
      * @return The column in which the item is displayed
      */
     public open fun getItemColumn(path: TreePath): Int =
-        gtk_icon_view_get_item_column(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer)
+        gtk_icon_view_get_item_column(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Returns the value of the ::item-orientation property which determines
@@ -673,7 +673,7 @@ public open class IconView(
      * @return The row in which the item is displayed
      */
     public open fun getItemRow(path: TreePath): Int =
-        gtk_icon_view_get_item_row(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer)
+        gtk_icon_view_get_item_row(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Returns the value of the ::item-width property.
@@ -810,7 +810,7 @@ public open class IconView(
      * @param path The `GtkTreePath` to be activated
      */
     public open fun itemActivated(path: TreePath): Unit =
-        gtk_icon_view_item_activated(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer)
+        gtk_icon_view_item_activated(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Returns true if the icon pointed to by @path is currently
@@ -820,7 +820,10 @@ public open class IconView(
      * @return true if @path is selected.
      */
     public open fun pathIsSelected(path: TreePath): Boolean =
-        gtk_icon_view_path_is_selected(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer).asBoolean()
+        gtk_icon_view_path_is_selected(
+            gtkIconViewPointer.reinterpret(),
+            path.gtkTreePathPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Moves the alignments of @icon_view to the position specified by @path.
@@ -851,7 +854,7 @@ public open class IconView(
     ): Unit =
         gtk_icon_view_scroll_to_path(
             gtkIconViewPointer.reinterpret(),
-            path.gtkTreePathPointer,
+            path.gtkTreePathPointer.reinterpret(),
             useAlign.asGBoolean(),
             rowAlign,
             colAlign
@@ -869,7 +872,7 @@ public open class IconView(
      * @param path The `GtkTreePath` to be selected.
      */
     public open fun selectPath(path: TreePath): Unit =
-        gtk_icon_view_select_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer)
+        gtk_icon_view_select_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Calls a function for each selected icon. Note that the model or
@@ -935,7 +938,7 @@ public open class IconView(
     ): Unit =
         gtk_icon_view_set_cursor(
             gtkIconViewPointer.reinterpret(),
-            path.gtkTreePathPointer,
+            path.gtkTreePathPointer.reinterpret(),
             cell?.gtkCellRendererPointer?.reinterpret(),
             startEditing.asGBoolean()
         )
@@ -950,7 +953,11 @@ public open class IconView(
         path: TreePath? = null,
         pos: IconViewDropPosition,
     ): Unit =
-        gtk_icon_view_set_drag_dest_item(gtkIconViewPointer.reinterpret(), path?.gtkTreePathPointer, pos.nativeValue)
+        gtk_icon_view_set_drag_dest_item(
+            gtkIconViewPointer.reinterpret(),
+            path?.gtkTreePathPointer?.reinterpret(),
+            pos.nativeValue
+        )
 
     /**
      * Sets the ::item-orientation property which determines whether the labels
@@ -1093,7 +1100,7 @@ public open class IconView(
         gtk_icon_view_set_tooltip_cell(
             gtkIconViewPointer.reinterpret(),
             tooltip.gtkTooltipPointer.reinterpret(),
-            path.gtkTreePathPointer,
+            path.gtkTreePathPointer.reinterpret(),
             cell?.gtkCellRendererPointer?.reinterpret()
         )
 
@@ -1129,7 +1136,7 @@ public open class IconView(
         gtk_icon_view_set_tooltip_item(
             gtkIconViewPointer.reinterpret(),
             tooltip.gtkTooltipPointer.reinterpret(),
-            path.gtkTreePathPointer
+            path.gtkTreePathPointer.reinterpret()
         )
 
     /**
@@ -1143,7 +1150,7 @@ public open class IconView(
      * @param path The `GtkTreePath` to be unselected.
      */
     public open fun unselectPath(path: TreePath): Unit =
-        gtk_icon_view_unselect_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer)
+        gtk_icon_view_unselect_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Undoes the effect of gtk_icon_view_enable_model_drag_dest(). Calling this

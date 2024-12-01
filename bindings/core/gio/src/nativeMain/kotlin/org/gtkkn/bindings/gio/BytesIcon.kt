@@ -63,7 +63,7 @@ public open class BytesIcon(
      *   @bytes.
      * @since 2.38
      */
-    public constructor(bytes: Bytes) : this(g_bytes_icon_new(bytes.glibBytesPointer)!!.reinterpret())
+    public constructor(bytes: Bytes) : this(g_bytes_icon_new(bytes.glibBytesPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the #GBytes associated with the given @icon.

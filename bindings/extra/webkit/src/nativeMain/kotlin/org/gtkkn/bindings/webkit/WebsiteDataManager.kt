@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gio.AsyncResult
 import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
+import org.gtkkn.bindings.glib.TimeSpan
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.Webkit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_10
@@ -28,6 +29,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.webkit.WebKitWebsiteDataManager
+import org.gtkkn.native.webkit.webkit_website_data_manager_clear
 import org.gtkkn.native.webkit.webkit_website_data_manager_clear_finish
 import org.gtkkn.native.webkit.webkit_website_data_manager_fetch
 import org.gtkkn.native.webkit.webkit_website_data_manager_fetch_finish
@@ -65,7 +67,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `timespan`: GLib.TimeSpan
  * - method `is-ephemeral`: Property has no getter nor setter
  * - method `origin-storage-ratio`: Property has no getter nor setter
  * - method `total-storage-ratio`: Property has no getter nor setter
@@ -117,6 +118,40 @@ public class WebsiteDataManager(
             webkit_website_data_manager_get_base_data_directory(
                 webkitWebsiteDataManagerPointer.reinterpret()
             )?.toKString()
+
+    /**
+     * Asynchronously clear the website data of the given @types modified in the past @timespan.
+     *
+     * If @timespan is 0, all website data will be removed.
+     *
+     * When the operation is finished, @callback will be called. You can then call
+     * webkit_website_data_manager_clear_finish() to get the result of the operation.
+     *
+     * Due to implementation limitations, this function does not currently delete
+     * any stored cookies if @timespan is nonzero. This behavior may change in the
+     * future.
+     *
+     * @param types #WebKitWebsiteDataTypes
+     * @param timespan a #GTimeSpan
+     * @param cancellable a #GCancellable or null to ignore
+     * @param callback a #GAsyncReadyCallback to call when the request is satisfied
+     * @since 2.16
+     */
+    @WebKitVersion2_16
+    public fun clear(
+        types: WebsiteDataTypes,
+        timespan: TimeSpan,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback,
+    ): Unit =
+        webkit_website_data_manager_clear(
+            webkitWebsiteDataManagerPointer.reinterpret(),
+            types.mask,
+            timespan,
+            cancellable?.gioCancellablePointer?.reinterpret(),
+            AsyncReadyCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer()
+        )
 
     /**
      * Finish an asynchronous operation started with webkit_website_data_manager_clear()
@@ -330,7 +365,7 @@ public class WebsiteDataManager(
         webkit_website_data_manager_remove(
             webkitWebsiteDataManagerPointer.reinterpret(),
             types.mask,
-            websiteData.glibListPointer,
+            websiteData.glibListPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()

@@ -13,7 +13,6 @@ import org.gtkkn.native.glib.g_thread_ref
 import org.gtkkn.native.glib.g_thread_self
 import org.gtkkn.native.glib.g_thread_unref
 import org.gtkkn.native.glib.g_thread_yield
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -73,7 +72,7 @@ public class Thread(
     public fun unref(): Unit = g_thread_unref(glibThreadPointer.reinterpret())
 
     public companion object : RecordCompanion<Thread, GThread> {
-        public fun errorQuark(): UInt = g_thread_error_quark()
+        public fun errorQuark(): Quark = g_thread_error_quark()
 
         /**
          * This function returns the #GThread corresponding to the

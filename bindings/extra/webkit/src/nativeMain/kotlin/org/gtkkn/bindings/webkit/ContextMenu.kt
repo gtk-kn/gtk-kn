@@ -81,7 +81,9 @@ public class ContextMenu(
      * @param items a #GList of #WebKitContextMenuItem
      * @return The newly created #WebKitContextMenu object
      */
-    public constructor(items: List) : this(webkit_context_menu_new_with_items(items.glibListPointer)!!.reinterpret())
+    public constructor(
+        items: List,
+    ) : this(webkit_context_menu_new_with_items(items.glibListPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds @item at the end of the @menu.
@@ -270,7 +272,10 @@ public class ContextMenu(
      */
     @WebKitVersion2_8
     public fun setUserData(userData: Variant): Unit =
-        webkit_context_menu_set_user_data(webkitContextMenuPointer.reinterpret(), userData.glibVariantPointer)
+        webkit_context_menu_set_user_data(
+            webkitContextMenuPointer.reinterpret(),
+            userData.glibVariantPointer.reinterpret()
+        )
 
     public companion object : TypeCompanion<ContextMenu> {
         override val type: GeneratedClassKGType<ContextMenu> =

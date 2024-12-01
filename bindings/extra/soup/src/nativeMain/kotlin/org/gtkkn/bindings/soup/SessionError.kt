@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.soup
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.soup.SoupSessionError
 import org.gtkkn.native.soup.soup_session_error_quark
-import kotlin.UInt
 
 /**
  * A #SoupSession error.
@@ -73,7 +73,7 @@ public enum class SessionError(
          *
          * @return Error quark for SoupSession.
          */
-        public fun quark(): UInt = soup_session_error_quark()
+        public fun quark(): Quark = soup_session_error_quark()
 
         public fun fromErrorOrNull(error: Error): SessionError? =
             if (error.domain != quark()) {

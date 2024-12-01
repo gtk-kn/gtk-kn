@@ -378,7 +378,13 @@ public open class GridView(
         pos: UInt,
         flags: ListScrollFlags,
         scroll: ScrollInfo? = null,
-    ): Unit = gtk_grid_view_scroll_to(gtkGridViewPointer.reinterpret(), pos, flags.mask, scroll?.gtkScrollInfoPointer)
+    ): Unit =
+        gtk_grid_view_scroll_to(
+            gtkGridViewPointer.reinterpret(),
+            pos,
+            flags.mask,
+            scroll?.gtkScrollInfoPointer?.reinterpret()
+        )
 
     /**
      * Sets whether selections can be changed by dragging with the mouse.

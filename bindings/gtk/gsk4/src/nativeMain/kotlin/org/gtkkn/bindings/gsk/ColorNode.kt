@@ -34,7 +34,9 @@ public open class ColorNode(
     public constructor(
         rgba: RGBA,
         bounds: Rect,
-    ) : this(gsk_color_node_new(rgba.gdkRGBAPointer, bounds.grapheneRectPointer)!!.reinterpret())
+    ) : this(
+        gsk_color_node_new(rgba.gdkRGBAPointer.reinterpret(), bounds.grapheneRectPointer.reinterpret())!!.reinterpret()
+    )
 
     /**
      * Retrieves the color of the given @node.

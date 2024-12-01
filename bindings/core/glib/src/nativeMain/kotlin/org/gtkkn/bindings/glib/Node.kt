@@ -98,7 +98,7 @@ public class Node(
      * @return the position of @child with respect to its siblings
      */
     public fun childPosition(child: Node): Int =
-        g_node_child_position(glibNodePointer.reinterpret(), child.glibNodePointer)
+        g_node_child_position(glibNodePointer.reinterpret(), child.glibNodePointer.reinterpret())
 
     /**
      * Calls a function for each of the children of a #GNode. Note that it
@@ -145,7 +145,7 @@ public class Node(
      * @return true if @node is an ancestor of @descendant
      */
     public fun isAncestor(descendant: Node): Boolean =
-        g_node_is_ancestor(glibNodePointer.reinterpret(), descendant.glibNodePointer).asBoolean()
+        g_node_is_ancestor(glibNodePointer.reinterpret(), descendant.glibNodePointer.reinterpret()).asBoolean()
 
     /**
      * Gets the maximum height of all branches beneath a #GNode.

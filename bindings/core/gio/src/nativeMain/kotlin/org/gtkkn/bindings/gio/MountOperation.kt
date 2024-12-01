@@ -85,7 +85,7 @@ import kotlin.collections.List
  *
  * ## Skipped during bindings generation
  *
- * - signal `show-processes`: Unsupported parameter `processes` : GLib.Pid
+ * - signal `show-processes`: Unsupported parameter `processes` : Array parameter of type GLib.Pid is not supported
  */
 public open class MountOperation(
     pointer: CPointer<GMountOperation>,

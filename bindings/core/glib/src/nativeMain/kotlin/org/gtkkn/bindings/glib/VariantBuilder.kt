@@ -48,7 +48,7 @@ public class VariantBuilder(
      */
     @GLibVersion2_24
     public fun addValue(`value`: Variant): Unit =
-        g_variant_builder_add_value(glibVariantBuilderPointer.reinterpret(), `value`.glibVariantPointer)
+        g_variant_builder_add_value(glibVariantBuilderPointer.reinterpret(), `value`.glibVariantPointer.reinterpret())
 
     /**
      * Closes the subcontainer inside the given @builder that was opened by
@@ -134,7 +134,7 @@ public class VariantBuilder(
      */
     @GLibVersion2_24
     public fun `open`(type: VariantType): Unit =
-        g_variant_builder_open(glibVariantBuilderPointer.reinterpret(), type.glibVariantTypePointer)
+        g_variant_builder_open(glibVariantBuilderPointer.reinterpret(), type.glibVariantTypePointer.reinterpret())
 
     /**
      * Increases the reference count on @builder.
@@ -182,7 +182,7 @@ public class VariantBuilder(
          * @since 2.24
          */
         public fun new(type: VariantType): VariantBuilder =
-            VariantBuilder(g_variant_builder_new(type.glibVariantTypePointer)!!.reinterpret())
+            VariantBuilder(g_variant_builder_new(type.glibVariantTypePointer.reinterpret())!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): VariantBuilder =
             VariantBuilder(pointer.reinterpret())

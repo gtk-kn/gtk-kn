@@ -144,7 +144,7 @@ public open class CompletionCell(
         gtk_source_completion_cell_set_text_with_attributes(
             gtksourceCompletionCellPointer.reinterpret(),
             text,
-            attrs.pangoAttrListPointer
+            attrs.pangoAttrListPointer.reinterpret()
         )
 
     /**

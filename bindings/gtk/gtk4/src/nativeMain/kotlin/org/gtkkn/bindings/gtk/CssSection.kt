@@ -96,7 +96,7 @@ public class CssSection(
      * @param string a `GString` to print to
      */
     public fun print(string: String): Unit =
-        gtk_css_section_print(gtkCssSectionPointer.reinterpret(), string.glibStringPointer)
+        gtk_css_section_print(gtkCssSectionPointer.reinterpret(), string.glibStringPointer.reinterpret())
 
     /**
      * Increments the reference count on `section`.
@@ -133,8 +133,8 @@ public class CssSection(
             CssSection(
                 gtk_css_section_new(
                     `file`?.gioFilePointer,
-                    start.gtkCssLocationPointer,
-                    end.gtkCssLocationPointer
+                    start.gtkCssLocationPointer.reinterpret(),
+                    end.gtkCssLocationPointer.reinterpret()
                 )!!.reinterpret()
             )
 

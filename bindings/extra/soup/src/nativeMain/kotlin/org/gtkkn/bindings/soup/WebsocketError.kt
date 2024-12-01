@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.soup
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.soup.SoupWebsocketError
 import org.gtkkn.native.soup.soup_websocket_error_quark
-import kotlin.UInt
 
 /**
  * WebSocket-related errors.
@@ -51,7 +51,7 @@ public enum class WebsocketError(
          *
          * @return Error quark for SoupWebsocket.
          */
-        public fun quark(): UInt = soup_websocket_error_quark()
+        public fun quark(): Quark = soup_websocket_error_quark()
 
         public fun fromErrorOrNull(error: Error): WebsocketError? =
             if (error.domain != quark()) {

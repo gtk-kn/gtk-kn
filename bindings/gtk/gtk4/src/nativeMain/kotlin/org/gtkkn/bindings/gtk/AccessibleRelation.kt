@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.native.gtk.GtkAccessibleRelation
 import org.gtkkn.native.gtk.gtk_accessible_relation_init_value
@@ -164,6 +165,6 @@ public enum class AccessibleRelation(
         public fun initValue(
             relation: AccessibleRelation,
             `value`: Value,
-        ): Unit = gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer)
+        ): Unit = gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer.reinterpret())
     }
 }

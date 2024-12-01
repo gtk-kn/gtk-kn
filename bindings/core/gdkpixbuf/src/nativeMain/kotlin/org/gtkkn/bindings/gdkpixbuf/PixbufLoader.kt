@@ -265,7 +265,7 @@ public open class PixbufLoader(
             val gResult =
                 gdk_pixbuf_loader_write_bytes(
                     gdkpixbufPixbufLoaderPointer.reinterpret(),
-                    buffer.glibBytesPointer,
+                    buffer.glibBytesPointer.reinterpret(),
                     gError.ptr
                 ).asBoolean()
             return if (gError.pointed != null) {

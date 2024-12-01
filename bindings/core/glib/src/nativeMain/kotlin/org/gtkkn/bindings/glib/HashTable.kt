@@ -58,7 +58,8 @@ public class HashTable(
          *
          * @param hashTable a #GHashTable
          */
-        public fun destroy(hashTable: HashTable): Unit = g_hash_table_destroy(hashTable.glibHashTablePointer)
+        public fun destroy(hashTable: HashTable): Unit =
+            g_hash_table_destroy(hashTable.glibHashTablePointer.reinterpret())
 
         /**
          * Calls the given function for each of the key/value pairs in the
@@ -82,7 +83,7 @@ public class HashTable(
             func: HFunc,
         ): Unit =
             g_hash_table_foreach(
-                hashTable.glibHashTablePointer,
+                hashTable.glibHashTablePointer.reinterpret(),
                 HFuncFunc.reinterpret(),
                 StableRef.create(func).asCPointer()
             )
@@ -106,7 +107,7 @@ public class HashTable(
             func: HRFunc,
         ): UInt =
             g_hash_table_foreach_remove(
-                hashTable.glibHashTablePointer,
+                hashTable.glibHashTablePointer.reinterpret(),
                 HRFuncFunc.reinterpret(),
                 StableRef.create(func).asCPointer()
             )
@@ -129,7 +130,7 @@ public class HashTable(
             func: HRFunc,
         ): UInt =
             g_hash_table_foreach_steal(
-                hashTable.glibHashTablePointer,
+                hashTable.glibHashTablePointer.reinterpret(),
                 HRFuncFunc.reinterpret(),
                 StableRef.create(func).asCPointer()
             )
@@ -150,7 +151,7 @@ public class HashTable(
          */
         @GLibVersion2_72
         public fun newSimilar(otherHashTable: HashTable): HashTable =
-            g_hash_table_new_similar(otherHashTable.glibHashTablePointer)!!.run {
+            g_hash_table_new_similar(otherHashTable.glibHashTablePointer.reinterpret())!!.run {
                 HashTable(reinterpret())
             }
 
@@ -164,7 +165,7 @@ public class HashTable(
          */
         @GLibVersion2_10
         public fun ref(hashTable: HashTable): HashTable =
-            g_hash_table_ref(hashTable.glibHashTablePointer)!!.run {
+            g_hash_table_ref(hashTable.glibHashTablePointer.reinterpret())!!.run {
                 HashTable(reinterpret())
             }
 
@@ -180,7 +181,8 @@ public class HashTable(
          * @since 2.12
          */
         @GLibVersion2_12
-        public fun removeAll(hashTable: HashTable): Unit = g_hash_table_remove_all(hashTable.glibHashTablePointer)
+        public fun removeAll(hashTable: HashTable): Unit =
+            g_hash_table_remove_all(hashTable.glibHashTablePointer.reinterpret())
 
         /**
          * Returns the number of elements contained in the #GHashTable.
@@ -188,7 +190,7 @@ public class HashTable(
          * @param hashTable a #GHashTable
          * @return the number of key/value pairs in the #GHashTable.
          */
-        public fun size(hashTable: HashTable): UInt = g_hash_table_size(hashTable.glibHashTablePointer)
+        public fun size(hashTable: HashTable): UInt = g_hash_table_size(hashTable.glibHashTablePointer.reinterpret())
 
         /**
          * Removes all keys and their associated values from a #GHashTable
@@ -198,7 +200,8 @@ public class HashTable(
          * @since 2.12
          */
         @GLibVersion2_12
-        public fun stealAll(hashTable: HashTable): Unit = g_hash_table_steal_all(hashTable.glibHashTablePointer)
+        public fun stealAll(hashTable: HashTable): Unit =
+            g_hash_table_steal_all(hashTable.glibHashTablePointer.reinterpret())
 
         /**
          * Atomically decrements the reference count of @hash_table by one.
@@ -210,7 +213,7 @@ public class HashTable(
          * @since 2.10
          */
         @GLibVersion2_10
-        public fun unref(hashTable: HashTable): Unit = g_hash_table_unref(hashTable.glibHashTablePointer)
+        public fun unref(hashTable: HashTable): Unit = g_hash_table_unref(hashTable.glibHashTablePointer.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): HashTable = HashTable(pointer.reinterpret())
     }

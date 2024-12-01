@@ -95,7 +95,7 @@ public class Hook(
      * @return a value <= 0 if the id of @sibling is >= the id of @new_hook
      */
     public fun compareIds(sibling: Hook): Int =
-        g_hook_compare_ids(glibHookPointer.reinterpret(), sibling.glibHookPointer)
+        g_hook_compare_ids(glibHookPointer.reinterpret(), sibling.glibHookPointer.reinterpret())
 
     public companion object : RecordCompanion<Hook, GHook> {
         /**
@@ -108,7 +108,7 @@ public class Hook(
         public fun destroy(
             hookList: HookList,
             hookId: ULong,
-        ): Boolean = g_hook_destroy(hookList.glibHookListPointer, hookId).asBoolean()
+        ): Boolean = g_hook_destroy(hookList.glibHookListPointer.reinterpret(), hookId).asBoolean()
 
         /**
          * Removes one #GHook from a #GHookList, marking it
@@ -120,7 +120,7 @@ public class Hook(
         public fun destroyLink(
             hookList: HookList,
             hook: Hook,
-        ): Unit = g_hook_destroy_link(hookList.glibHookListPointer, hook.glibHookPointer)
+        ): Unit = g_hook_destroy_link(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
         /**
          * Calls the #GHookList @finalize_hook function if it exists,
@@ -132,7 +132,7 @@ public class Hook(
         public fun free(
             hookList: HookList,
             hook: Hook,
-        ): Unit = g_hook_free(hookList.glibHookListPointer, hook.glibHookPointer)
+        ): Unit = g_hook_free(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
         /**
          * Inserts a #GHook into a #GHookList, before a given #GHook.
@@ -145,7 +145,12 @@ public class Hook(
             hookList: HookList,
             sibling: Hook? = null,
             hook: Hook,
-        ): Unit = g_hook_insert_before(hookList.glibHookListPointer, sibling?.glibHookPointer, hook.glibHookPointer)
+        ): Unit =
+            g_hook_insert_before(
+                hookList.glibHookListPointer.reinterpret(),
+                sibling?.glibHookPointer?.reinterpret(),
+                hook.glibHookPointer.reinterpret()
+            )
 
         /**
          * Prepends a #GHook on the start of a #GHookList.
@@ -156,7 +161,7 @@ public class Hook(
         public fun prepend(
             hookList: HookList,
             hook: Hook,
-        ): Unit = g_hook_prepend(hookList.glibHookListPointer, hook.glibHookPointer)
+        ): Unit = g_hook_prepend(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
         /**
          * Decrements the reference count of a #GHook.
@@ -169,7 +174,7 @@ public class Hook(
         public fun unref(
             hookList: HookList,
             hook: Hook,
-        ): Unit = g_hook_unref(hookList.glibHookListPointer, hook.glibHookPointer)
+        ): Unit = g_hook_unref(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Hook = Hook(pointer.reinterpret())
     }

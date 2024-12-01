@@ -369,7 +369,7 @@ public open class FontDialog(
         gtk_font_dialog_choose_font(
             gtkFontDialogPointer.reinterpret(),
             parent?.gtkWindowPointer?.reinterpret(),
-            initialValue?.pangoFontDescriptionPointer,
+            initialValue?.pangoFontDescriptionPointer?.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()
@@ -403,7 +403,7 @@ public open class FontDialog(
         gtk_font_dialog_choose_font_and_features(
             gtkFontDialogPointer.reinterpret(),
             parent?.gtkWindowPointer?.reinterpret(),
-            initialValue?.pangoFontDescriptionPointer,
+            initialValue?.pangoFontDescriptionPointer?.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()
@@ -531,7 +531,7 @@ public open class FontDialog(
      */
     @GtkVersion4_10
     public open fun setLanguage(language: Language): Unit =
-        gtk_font_dialog_set_language(gtkFontDialogPointer.reinterpret(), language.pangoLanguagePointer)
+        gtk_font_dialog_set_language(gtkFontDialogPointer.reinterpret(), language.pangoLanguagePointer.reinterpret())
 
     /**
      * Sets whether the font chooser dialog

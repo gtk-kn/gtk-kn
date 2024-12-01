@@ -82,7 +82,7 @@ public open class ContentProvider(
     public constructor(
         mimeType: String,
         bytes: Bytes,
-    ) : this(gdk_content_provider_new_for_bytes(mimeType, bytes.glibBytesPointer)!!.reinterpret())
+    ) : this(gdk_content_provider_new_for_bytes(mimeType, bytes.glibBytesPointer.reinterpret())!!.reinterpret())
 
     /**
      * Create a content provider that provides the given @value.
@@ -92,7 +92,7 @@ public open class ContentProvider(
      */
     public constructor(
         `value`: Value,
-    ) : this(gdk_content_provider_new_for_value(`value`.gobjectValuePointer)!!.reinterpret())
+    ) : this(gdk_content_provider_new_for_value(`value`.gobjectValuePointer.reinterpret())!!.reinterpret())
 
     /**
      * Emits the ::content-changed signal.
@@ -119,7 +119,7 @@ public open class ContentProvider(
             val gResult =
                 gdk_content_provider_get_value(
                     gdkContentProviderPointer.reinterpret(),
-                    `value`.gobjectValuePointer,
+                    `value`.gobjectValuePointer.reinterpret(),
                     gError.ptr
                 ).asBoolean()
             return if (gError.pointed != null) {

@@ -189,8 +189,8 @@ public open class TreeModelSort(
     ): Boolean =
         gtk_tree_model_sort_convert_child_iter_to_iter(
             gtkTreeModelSortPointer.reinterpret(),
-            sortIter.gtkTreeIterPointer,
-            childIter.gtkTreeIterPointer
+            sortIter.gtkTreeIterPointer.reinterpret(),
+            childIter.gtkTreeIterPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -205,7 +205,7 @@ public open class TreeModelSort(
     public open fun convertChildPathToPath(childPath: TreePath): TreePath? =
         gtk_tree_model_sort_convert_child_path_to_path(
             gtkTreeModelSortPointer.reinterpret(),
-            childPath.gtkTreePathPointer
+            childPath.gtkTreePathPointer.reinterpret()
         )?.run {
             TreePath(reinterpret())
         }
@@ -222,8 +222,8 @@ public open class TreeModelSort(
     ): Unit =
         gtk_tree_model_sort_convert_iter_to_child_iter(
             gtkTreeModelSortPointer.reinterpret(),
-            childIter.gtkTreeIterPointer,
-            sortedIter.gtkTreeIterPointer
+            childIter.gtkTreeIterPointer.reinterpret(),
+            sortedIter.gtkTreeIterPointer.reinterpret()
         )
 
     /**
@@ -239,7 +239,7 @@ public open class TreeModelSort(
     public open fun convertPathToChildPath(sortedPath: TreePath): TreePath? =
         gtk_tree_model_sort_convert_path_to_child_path(
             gtkTreeModelSortPointer.reinterpret(),
-            sortedPath.gtkTreePathPointer
+            sortedPath.gtkTreePathPointer.reinterpret()
         )?.run {
             TreePath(reinterpret())
         }
@@ -264,7 +264,10 @@ public open class TreeModelSort(
      * @return true if the iter is valid, false if the iter is invalid.
      */
     public open fun iterIsValid(iter: TreeIter): Boolean =
-        gtk_tree_model_sort_iter_is_valid(gtkTreeModelSortPointer.reinterpret(), iter.gtkTreeIterPointer).asBoolean()
+        gtk_tree_model_sort_iter_is_valid(
+            gtkTreeModelSortPointer.reinterpret(),
+            iter.gtkTreeIterPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * This resets the default sort function to be in the “unsorted” state.  That

@@ -20,12 +20,14 @@ import org.gtkkn.native.pango.pango_font_describe_with_absolute_size
 import org.gtkkn.native.pango.pango_font_get_coverage
 import org.gtkkn.native.pango.pango_font_get_face
 import org.gtkkn.native.pango.pango_font_get_font_map
+import org.gtkkn.native.pango.pango_font_get_glyph_extents
 import org.gtkkn.native.pango.pango_font_get_metrics
 import org.gtkkn.native.pango.pango_font_get_type
 import org.gtkkn.native.pango.pango_font_has_char
 import org.gtkkn.native.pango.pango_font_serialize
 import kotlin.Boolean
 import kotlin.UInt
+import kotlin.Unit
 
 /**
  * A `PangoFont` is used to represent a font in a
@@ -34,7 +36,6 @@ import kotlin.UInt
  * ## Skipped during bindings generation
  *
  * - method `get_features`: In/Out parameter is not supported
- * - parameter `glyph`: Glyph
  * - method `get_languages`: Array parameter of type Language is not supported
  * - parameter `descs`: Array parameter of type FontDescription is not supported
  * - parameter `context`: C Type PangoContext is ignored
@@ -82,7 +83,7 @@ public open class Font(
      *   object.
      */
     public open fun getCoverage(language: Language): Coverage =
-        pango_font_get_coverage(pangoFontPointer.reinterpret(), language.pangoLanguagePointer)!!.run {
+        pango_font_get_coverage(pangoFontPointer.reinterpret(), language.pangoLanguagePointer.reinterpret())!!.run {
             Coverage(reinterpret())
         }
 
@@ -122,6 +123,35 @@ public open class Font(
         }
 
     /**
+     * Gets the logical and ink extents of a glyph within a font.
+     *
+     * The coordinate system for each rectangle has its origin at the
+     * base line and horizontal origin of the character with increasing
+     * coordinates extending to the right and down. The macros PANGO_ASCENT(),
+     * PANGO_DESCENT(), PANGO_LBEARING(), and PANGO_RBEARING() can be used to convert
+     * from the extents rectangle to more traditional font metrics. The units
+     * of the rectangles are in 1/PANGO_SCALE of a device unit.
+     *
+     * If @font is null, this function gracefully sets some sane values in the
+     * output variables and returns.
+     *
+     * @param glyph the glyph index
+     * @param inkRect rectangle used to store the extents of the glyph as drawn
+     * @param logicalRect rectangle used to store the logical extents of the glyph
+     */
+    public open fun getGlyphExtents(
+        glyph: Glyph,
+        inkRect: Rectangle?,
+        logicalRect: Rectangle?,
+    ): Unit =
+        pango_font_get_glyph_extents(
+            pangoFontPointer.reinterpret(),
+            glyph,
+            inkRect?.pangoRectanglePointer?.reinterpret(),
+            logicalRect?.pangoRectanglePointer?.reinterpret()
+        )
+
+    /**
      * Gets overall metric information for a font.
      *
      * Since the metrics may be substantially different for different scripts,
@@ -138,7 +168,7 @@ public open class Font(
      *   [method@Pango.FontMetrics.unref] when finished using the object.
      */
     public open fun getMetrics(language: Language? = null): FontMetrics =
-        pango_font_get_metrics(pangoFontPointer.reinterpret(), language?.pangoLanguagePointer)!!.run {
+        pango_font_get_metrics(pangoFontPointer.reinterpret(), language?.pangoLanguagePointer?.reinterpret())!!.run {
             FontMetrics(reinterpret())
         }
 

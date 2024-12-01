@@ -274,7 +274,11 @@ public class Leaflet(
          */
         set(
             params
-        ) = adw_leaflet_set_child_transition_params(adwLeafletPointer.reinterpret(), params.adwSpringParamsPointer)
+        ) =
+            adw_leaflet_set_child_transition_params(
+                adwLeafletPointer.reinterpret(),
+                params.adwSpringParamsPointer.reinterpret()
+            )
 
     /**
      * Whether a child transition is currently running.
@@ -752,7 +756,10 @@ public class Leaflet(
      * @param params the new parameters
      */
     public fun setChildTransitionParams(params: SpringParams): Unit =
-        adw_leaflet_set_child_transition_params(adwLeafletPointer.reinterpret(), params.adwSpringParamsPointer)
+        adw_leaflet_set_child_transition_params(
+            adwLeafletPointer.reinterpret(),
+            params.adwSpringParamsPointer.reinterpret()
+        )
 
     /**
      * Sets the fold threshold policy for @self.

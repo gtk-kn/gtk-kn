@@ -169,7 +169,7 @@ public open class Viewport(
         gtk_viewport_scroll_to(
             gtkViewportPointer.reinterpret(),
             descendant.gtkWidgetPointer.reinterpret(),
-            scroll?.gtkScrollInfoPointer
+            scroll?.gtkScrollInfoPointer?.reinterpret()
         )
 
     /**

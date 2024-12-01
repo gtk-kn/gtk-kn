@@ -17,7 +17,6 @@ import org.gtkkn.native.glib.g_error_new_literal
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -37,7 +36,7 @@ public class Error(
     /**
      * error domain, e.g. %G_FILE_ERROR
      */
-    public var domain: UInt
+    public var domain: Quark
         get() = glibErrorPointer.pointed.domain
         set(`value`) {
             glibErrorPointer.pointed.domain = value
@@ -92,7 +91,7 @@ public class Error(
      * @return whether @error has @domain and @code
      */
     public fun matches(
-        domain: UInt,
+        domain: Quark,
         code: Int,
     ): Boolean = g_error_matches(glibErrorPointer.reinterpret(), domain, code).asBoolean()
 
@@ -109,7 +108,7 @@ public class Error(
          * @return a new #GError
          */
         public fun newLiteral(
-            domain: UInt,
+            domain: Quark,
             code: Int,
             message: String,
         ): Error = Error(g_error_new_literal(domain, code, message)!!.reinterpret())

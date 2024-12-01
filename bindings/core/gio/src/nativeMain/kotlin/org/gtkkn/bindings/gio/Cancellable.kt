@@ -211,7 +211,10 @@ public open class Cancellable(
      */
     @GioVersion2_22
     public open fun makePollfd(pollfd: PollFD): Boolean =
-        g_cancellable_make_pollfd(gioCancellablePointer.reinterpret(), pollfd.glibPollFDPointer).asBoolean()
+        g_cancellable_make_pollfd(
+            gioCancellablePointer.reinterpret(),
+            pollfd.glibPollFDPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Pops @cancellable off the cancellable stack (verifying that @cancellable

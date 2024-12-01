@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gtk.GtkIconThemeError
 import org.gtkkn.native.gtk.gtk_icon_theme_error_quark
-import kotlin.UInt
 
 /**
  * Error codes for `GtkIconTheme` operations.
@@ -31,7 +31,7 @@ public enum class IconThemeError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = gtk_icon_theme_error_quark()
+        public fun quark(): Quark = gtk_icon_theme_error_quark()
 
         public fun fromErrorOrNull(error: Error): IconThemeError? =
             if (error.domain != quark()) {

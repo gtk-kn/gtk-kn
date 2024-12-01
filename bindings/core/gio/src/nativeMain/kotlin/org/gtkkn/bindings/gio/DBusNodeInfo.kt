@@ -77,7 +77,11 @@ public class DBusNodeInfo(
         indent: UInt,
         stringBuilder: GlibString,
     ): Unit =
-        g_dbus_node_info_generate_xml(gioDBusNodeInfoPointer.reinterpret(), indent, stringBuilder.glibStringPointer)
+        g_dbus_node_info_generate_xml(
+            gioDBusNodeInfoPointer.reinterpret(),
+            indent,
+            stringBuilder.glibStringPointer.reinterpret()
+        )
 
     /**
      * Looks up information about an interface.

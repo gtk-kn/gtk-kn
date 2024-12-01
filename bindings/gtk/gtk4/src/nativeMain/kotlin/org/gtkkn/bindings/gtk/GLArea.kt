@@ -534,7 +534,7 @@ public open class GLArea(
      * @param error a new `GError`, or null to unset the error
      */
     public open fun setError(error: Error? = null): Unit =
-        gtk_gl_area_set_error(gtkGLAreaPointer.reinterpret(), error?.glibErrorPointer)
+        gtk_gl_area_set_error(gtkGLAreaPointer.reinterpret(), error?.glibErrorPointer?.reinterpret())
 
     /**
      * Sets whether the `GtkGLArea` should use a depth buffer.

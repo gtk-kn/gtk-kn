@@ -748,7 +748,7 @@ public open class View(
      * @return the visual column at @iter.
      */
     public open fun getVisualColumn(iter: TextIter): UInt =
-        gtk_source_view_get_visual_column(gtksourceViewPointer.reinterpret(), iter.gtkTextIterPointer)
+        gtk_source_view_get_visual_column(gtksourceViewPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret())
 
     /**
      * Inserts one indentation level at the beginning of the specified lines. The
@@ -763,8 +763,8 @@ public open class View(
     ): Unit =
         gtk_source_view_indent_lines(
             gtksourceViewPointer.reinterpret(),
-            start.gtkTextIterPointer,
-            end.gtkTextIterPointer
+            start.gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret()
         )
 
     /**
@@ -784,7 +784,7 @@ public open class View(
         gtk_source_view_push_snippet(
             gtksourceViewPointer.reinterpret(),
             snippet.gtksourceSnippetPointer.reinterpret(),
-            location?.gtkTextIterPointer
+            location?.gtkTextIterPointer?.reinterpret()
         )
 
     /**
@@ -988,8 +988,8 @@ public open class View(
     ): Unit =
         gtk_source_view_unindent_lines(
             gtksourceViewPointer.reinterpret(),
-            start.gtkTextIterPointer,
-            end.gtkTextIterPointer
+            start.gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret()
         )
 
     /**

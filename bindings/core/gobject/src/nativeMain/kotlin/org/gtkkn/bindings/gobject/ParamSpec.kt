@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gobject
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_38
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_46
@@ -20,7 +21,6 @@ import org.gtkkn.native.gobject.g_param_spec_is_valid_name
 import org.gtkkn.native.gobject.g_param_spec_sink
 import kotlin.Boolean
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -91,7 +91,7 @@ public open class ParamSpec(
      * @since 2.46
      */
     @GObjectVersion2_46
-    public open fun getNameQuark(): UInt = g_param_spec_get_name_quark(gPointer.reinterpret())
+    public open fun getNameQuark(): Quark = g_param_spec_get_name_quark(gPointer.reinterpret())
 
     /**
      * Get the nickname of a #GParamSpec.

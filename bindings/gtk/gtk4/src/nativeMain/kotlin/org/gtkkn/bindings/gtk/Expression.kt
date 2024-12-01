@@ -242,7 +242,7 @@ public open class Expression(
         gtk_expression_evaluate(
             gPointer.reinterpret(),
             `this`?.gPointer?.reinterpret(),
-            `value`.gobjectValuePointer
+            `value`.gobjectValuePointer.reinterpret()
         ).asBoolean()
 
     /**

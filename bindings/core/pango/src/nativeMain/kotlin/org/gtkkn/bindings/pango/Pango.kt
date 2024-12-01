@@ -10,6 +10,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.MarkupParseContext
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
@@ -113,6 +114,7 @@ import org.gtkkn.bindings.glib.List as GlibList
 /**
  * ## Skipped during bindings generation
  *
+ * - alias `LayoutRun`: GlyphItem
  * - class `Context`: C Type PangoContext is ignored
  * - parameter `attrs`: LogAttr
  * - parameter `data`: gpointer
@@ -139,9 +141,6 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - function `skip_space`: In/Out parameter is not supported
  * - parameter `attrs`: LogAttr
  * - callback `AttrDataCopyFunc`: Return type gpointer is unsupported
- * - constant `GLYPH_EMPTY`: Glyph
- * - constant `GLYPH_INVALID_INPUT`: Glyph
- * - constant `GLYPH_UNKNOWN_FLAG`: Glyph
  * - record `ContextClass`: glib type struct are ignored
  * - record `FontClass`: glib type struct are ignored
  * - record `FontFaceClass`: glib type struct are ignored
@@ -193,6 +192,35 @@ public object Pango {
      * @since 1.24
      */
     public const val ATTR_INDEX_TO_TEXT_END: UInt = UInt.MAX_VALUE
+
+    /**
+     * A `PangoGlyph` value that indicates a zero-width empty glpyh.
+     *
+     * This is useful for example in shaper modules, to use as the glyph for
+     * various zero-width Unicode characters (those passing [func@is_zero_width]).
+     */
+    public const val GLYPH_EMPTY: Glyph = 268435455u
+
+    /**
+     * A `PangoGlyph` value for invalid input.
+     *
+     * `PangoLayout` produces one such glyph per invalid input UTF-8 byte and such
+     * a glyph is rendered as a crossed box.
+     *
+     * Note that this value is defined such that it has the %PANGO_GLYPH_UNKNOWN_FLAG
+     * set.
+     *
+     * @since 1.20
+     */
+    public const val GLYPH_INVALID_INPUT: UInt = UInt.MAX_VALUE
+
+    /**
+     * Flag used in `PangoGlyph` to turn a `gunichar` value of a valid Unicode
+     * character into an unknown-character glyph for that `gunichar`.
+     *
+     * Such unknown-character glyphs may be rendered as a 'hex box'.
+     */
+    public const val GLYPH_UNKNOWN_FLAG: Glyph = 268435456u
 
     /**
      * The scale between dimensions used for Pango distances and device units.
@@ -349,7 +377,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      */
     public fun attrFontDescNew(desc: FontDescription): Attribute =
-        pango_attr_font_desc_new(desc.pangoFontDescriptionPointer)!!.run {
+        pango_attr_font_desc_new(desc.pangoFontDescriptionPointer.reinterpret())!!.run {
             Attribute(reinterpret())
         }
 
@@ -483,7 +511,7 @@ public object Pango {
      *   [method@Pango.Attribute.destroy]
      */
     public fun attrLanguageNew(language: Language): Attribute =
-        pango_attr_language_new(language.pangoLanguagePointer)!!.run {
+        pango_attr_language_new(language.pangoLanguagePointer.reinterpret())!!.run {
             Attribute(reinterpret())
         }
 
@@ -657,7 +685,10 @@ public object Pango {
         inkRect: Rectangle,
         logicalRect: Rectangle,
     ): Attribute =
-        pango_attr_shape_new(inkRect.pangoRectanglePointer, logicalRect.pangoRectanglePointer)!!.run {
+        pango_attr_shape_new(
+            inkRect.pangoRectanglePointer.reinterpret(),
+            logicalRect.pangoRectanglePointer.reinterpret()
+        )!!.run {
             Attribute(reinterpret())
         }
 
@@ -938,7 +969,14 @@ public object Pango {
         analysis: Analysis? = null,
         attrs: LogAttr,
         attrsLen: Int,
-    ): Unit = pango_default_break(text, length, analysis?.pangoAnalysisPointer, attrs.pangoLogAttrPointer, attrsLen)
+    ): Unit =
+        pango_default_break(
+            text,
+            length,
+            analysis?.pangoAnalysisPointer?.reinterpret(),
+            attrs.pangoLogAttrPointer.reinterpret(),
+            attrsLen
+        )
 
     /**
      * Converts extents from Pango units to device units.
@@ -967,7 +1005,11 @@ public object Pango {
     public fun extentsToPixels(
         inclusive: Rectangle? = null,
         nearest: Rectangle? = null,
-    ): Unit = pango_extents_to_pixels(inclusive?.pangoRectanglePointer, nearest?.pangoRectanglePointer)
+    ): Unit =
+        pango_extents_to_pixels(
+            inclusive?.pangoRectanglePointer?.reinterpret(),
+            nearest?.pangoRectanglePointer?.reinterpret()
+        )
 
     /**
      * Searches a string the first character that has a strong
@@ -1053,7 +1095,7 @@ public object Pango {
      */
     @PangoVersion1_16
     public fun gravityGetForMatrix(matrix: Matrix? = null): Gravity =
-        pango_gravity_get_for_matrix(matrix?.pangoMatrixPointer).run {
+        pango_gravity_get_for_matrix(matrix?.pangoMatrixPointer?.reinterpret()).run {
             Gravity.fromNativeValue(this)
         }
 
@@ -1217,7 +1259,7 @@ public object Pango {
             Language(reinterpret())
         }
 
-    public fun layoutDeserializeErrorQuark(): UInt = pango_layout_deserialize_error_quark()
+    public fun layoutDeserializeErrorQuark(): Quark = pango_layout_deserialize_error_quark()
 
     /**
      * Incrementally parses marked-up text to create a plain-text string
@@ -1270,7 +1312,7 @@ public object Pango {
      *   of `PangoItem` structures in visual order.
      */
     public fun reorderItems(items: GlibList): GlibList =
-        pango_reorder_items(items.glibListPointer)!!.run {
+        pango_reorder_items(items.glibListPointer.reinterpret())!!.run {
             GlibList(reinterpret())
         }
 
@@ -1370,7 +1412,13 @@ public object Pango {
         length: Int,
         analysis: Analysis,
         glyphs: GlyphString,
-    ): Unit = pango_shape(text, length, analysis.pangoAnalysisPointer, glyphs.pangoGlyphStringPointer)
+    ): Unit =
+        pango_shape(
+            text,
+            length,
+            analysis.pangoAnalysisPointer.reinterpret(),
+            glyphs.pangoGlyphStringPointer.reinterpret()
+        )
 
     /**
      * Convert the characters in @text into glyphs.
@@ -1417,8 +1465,8 @@ public object Pango {
             itemLength,
             paragraphText,
             paragraphLength,
-            analysis.pangoAnalysisPointer,
-            glyphs.pangoGlyphStringPointer
+            analysis.pangoAnalysisPointer.reinterpret(),
+            glyphs.pangoGlyphStringPointer.reinterpret()
         )
 
     /**
@@ -1455,11 +1503,11 @@ public object Pango {
         flags: ShapeFlags,
     ): Unit =
         pango_shape_item(
-            item.pangoItemPointer,
+            item.pangoItemPointer.reinterpret(),
             paragraphText,
             paragraphLength,
-            logAttrs?.pangoLogAttrPointer,
-            glyphs.pangoGlyphStringPointer,
+            logAttrs?.pangoLogAttrPointer?.reinterpret(),
+            glyphs.pangoGlyphStringPointer.reinterpret(),
             flags.mask
         )
 
@@ -1509,8 +1557,8 @@ public object Pango {
             itemLength,
             paragraphText,
             paragraphLength,
-            analysis.pangoAnalysisPointer,
-            glyphs.pangoGlyphStringPointer,
+            analysis.pangoAnalysisPointer.reinterpret(),
+            glyphs.pangoGlyphStringPointer.reinterpret(),
             flags.mask
         )
 
@@ -1725,3 +1773,23 @@ public typealias AttrFilterFunc = (attribute: Attribute) -> Boolean
  * - return if true, stop iteration and return immediately.
  */
 public typealias FontsetForeachFunc = (fontset: Fontset, font: Font) -> Boolean
+
+/**
+ * A `PangoGlyph` represents a single glyph in the output form of a string.
+ */
+public typealias Glyph = UInt
+
+/**
+ * The `PangoGlyphUnit` type is used to store dimensions within
+ * Pango.
+ *
+ * Dimensions are stored in 1/PANGO_SCALE of a device unit.
+ * (A device unit might be a pixel for screen display, or
+ * a point on a printer.) PANGO_SCALE is currently 1024, and
+ * may change in the future (unlikely though), but you should not
+ * depend on its exact value.
+ *
+ * The PANGO_PIXELS() macro can be used to convert from glyph units
+ * into device units with correct rounding.
+ */
+public typealias GlyphUnit = Int

@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gobject.GSignalInvocationHint
@@ -31,7 +32,7 @@ public class SignalInvocationHint(
     /**
      * The detail passed on for this emission
      */
-    public var detail: UInt
+    public var detail: Quark
         get() = gobjectSignalInvocationHintPointer.pointed.detail
         set(`value`) {
             gobjectSignalInvocationHintPointer.pointed.detail = value

@@ -47,7 +47,7 @@ public class AttrFontDesc(
          *   [method@Pango.Attribute.destroy]
          */
         public fun new(desc: FontDescription): Attribute =
-            pango_attr_font_desc_new(desc.pangoFontDescriptionPointer)!!.run {
+            pango_attr_font_desc_new(desc.pangoFontDescriptionPointer.reinterpret())!!.run {
                 Attribute(reinterpret())
             }
 

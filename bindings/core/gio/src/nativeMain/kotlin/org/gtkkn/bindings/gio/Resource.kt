@@ -378,7 +378,7 @@ public class Resource(
         public fun newFromData(`data`: Bytes): Result<Resource> {
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult = g_resource_new_from_data(`data`.glibBytesPointer, gError.ptr)
+                val gResult = g_resource_new_from_data(`data`.glibBytesPointer.reinterpret(), gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {

@@ -53,8 +53,7 @@ public open class LanguageManager(
         /**
          * Returns the ids of the available languages.
          *
-         * @return
-         * a null-terminated array of strings containing the ids of the available
+         * @return a null-terminated array of strings containing the ids of the available
          * languages or null if no language is available.
          * The array is sorted alphabetically according to the language name.
          * The array is owned by @lm and must not be modified.
@@ -104,8 +103,7 @@ public open class LanguageManager(
     /**
      * Returns the ids of the available languages.
      *
-     * @return
-     * a null-terminated array of strings containing the ids of the available
+     * @return a null-terminated array of strings containing the ids of the available
      * languages or null if no language is available.
      * The array is sorted alphabetically according to the language name.
      * The array is owned by @lm and must not be modified.

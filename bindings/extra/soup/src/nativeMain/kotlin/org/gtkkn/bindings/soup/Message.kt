@@ -154,7 +154,9 @@ public class Message(
          *
          * @param firstParty the #GUri for the @msg's first party
          */
-        set(firstParty) = soup_message_set_first_party(soupMessagePointer.reinterpret(), firstParty.glibUriPointer)
+        set(
+            firstParty
+        ) = soup_message_set_first_party(soupMessagePointer.reinterpret(), firstParty.glibUriPointer.reinterpret())
 
     /**
      * Various message options.
@@ -438,7 +440,7 @@ public class Message(
          *
          * @param uri the new #GUri
          */
-        set(uri) = soup_message_set_uri(soupMessagePointer.reinterpret(), uri.glibUriPointer)
+        set(uri) = soup_message_set_uri(soupMessagePointer.reinterpret(), uri.glibUriPointer.reinterpret())
 
     /**
      * Creates a new empty #SoupMessage, which will connect to @uri.
@@ -462,7 +464,7 @@ public class Message(
     public constructor(
         uriString: String,
         multipart: Multipart,
-    ) : this(soup_message_new_from_multipart(uriString, multipart.soupMultipartPointer)!!.reinterpret())
+    ) : this(soup_message_new_from_multipart(uriString, multipart.soupMultipartPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new empty #SoupMessage, which will connect to @uri.
@@ -474,7 +476,7 @@ public class Message(
     public constructor(
         method: String,
         uri: Uri,
-    ) : this(soup_message_new_from_uri(method, uri.glibUriPointer)!!.reinterpret())
+    ) : this(soup_message_new_from_uri(method, uri.glibUriPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new #SoupMessage to send `OPTIONS *` to a server. The path of
@@ -483,7 +485,9 @@ public class Message(
      * @param baseUri the destination endpoint
      * @return the new #SoupMessage
      */
-    public constructor(baseUri: Uri) : this(soup_message_new_options_ping(baseUri.glibUriPointer)!!.reinterpret())
+    public constructor(
+        baseUri: Uri,
+    ) : this(soup_message_new_options_ping(baseUri.glibUriPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds @flags to the set of @msg's flags.
@@ -774,7 +778,7 @@ public class Message(
      * @param firstParty the #GUri for the @msg's first party
      */
     public fun setFirstParty(firstParty: Uri): Unit =
-        soup_message_set_first_party(soupMessagePointer.reinterpret(), firstParty.glibUriPointer)
+        soup_message_set_first_party(soupMessagePointer.reinterpret(), firstParty.glibUriPointer.reinterpret())
 
     /**
      * Sets the specified flags on @msg.
@@ -884,7 +888,11 @@ public class Message(
         contentType: String? = null,
         bytes: Bytes? = null,
     ): Unit =
-        soup_message_set_request_body_from_bytes(soupMessagePointer.reinterpret(), contentType, bytes?.glibBytesPointer)
+        soup_message_set_request_body_from_bytes(
+            soupMessagePointer.reinterpret(),
+            contentType,
+            bytes?.glibBytesPointer?.reinterpret()
+        )
 
     /**
      * Sets @site_for_cookies as the policy URL for same-site cookies for @msg.
@@ -900,7 +908,10 @@ public class Message(
      * @param siteForCookies the #GUri for the @msg's site for cookies
      */
     public fun setSiteForCookies(siteForCookies: Uri? = null): Unit =
-        soup_message_set_site_for_cookies(soupMessagePointer.reinterpret(), siteForCookies?.glibUriPointer)
+        soup_message_set_site_for_cookies(
+            soupMessagePointer.reinterpret(),
+            siteForCookies?.glibUriPointer?.reinterpret()
+        )
 
     /**
      * Sets the @certificate to be used by @msg's connection when a
@@ -928,7 +939,8 @@ public class Message(
      *
      * @param uri the new #GUri
      */
-    public fun setUri(uri: Uri): Unit = soup_message_set_uri(soupMessagePointer.reinterpret(), uri.glibUriPointer)
+    public fun setUri(uri: Uri): Unit =
+        soup_message_set_uri(soupMessagePointer.reinterpret(), uri.glibUriPointer.reinterpret())
 
     /**
      * Completes a certificate password request.

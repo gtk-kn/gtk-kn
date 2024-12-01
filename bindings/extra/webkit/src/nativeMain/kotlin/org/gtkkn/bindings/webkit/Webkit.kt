@@ -9,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_32
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
@@ -215,14 +216,14 @@ public object Webkit {
      *
      * @return download error domain.
      */
-    public fun downloadErrorQuark(): UInt = webkit_download_error_quark()
+    public fun downloadErrorQuark(): Quark = webkit_download_error_quark()
 
     /**
      * Gets the quark for the domain of favicon database errors.
      *
      * @return favicon database error domain.
      */
-    public fun faviconDatabaseErrorQuark(): UInt = webkit_favicon_database_error_quark()
+    public fun faviconDatabaseErrorQuark(): Quark = webkit_favicon_database_error_quark()
 
     /**
      * Returns the major version number of the WebKit library.
@@ -271,7 +272,7 @@ public object Webkit {
      *
      * @return JavaScript error domain.
      */
-    public fun javascriptErrorQuark(): UInt = webkit_javascript_error_quark()
+    public fun javascriptErrorQuark(): Quark = webkit_javascript_error_quark()
 
     /**
      * Gets the quark for the domain of media errors.
@@ -280,7 +281,7 @@ public object Webkit {
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun mediaErrorQuark(): UInt = webkit_media_error_quark()
+    public fun mediaErrorQuark(): Quark = webkit_media_error_quark()
 
     /**
      * Get the key system for which access permission is being requested.
@@ -301,28 +302,28 @@ public object Webkit {
      *
      * @return network error domain.
      */
-    public fun networkErrorQuark(): UInt = webkit_network_error_quark()
+    public fun networkErrorQuark(): Quark = webkit_network_error_quark()
 
     /**
      * Gets the quark for the domain of policy errors.
      *
      * @return policy error domain.
      */
-    public fun policyErrorQuark(): UInt = webkit_policy_error_quark()
+    public fun policyErrorQuark(): Quark = webkit_policy_error_quark()
 
     /**
      * Gets the quark for the domain of printing errors.
      *
      * @return print error domain.
      */
-    public fun printErrorQuark(): UInt = webkit_print_error_quark()
+    public fun printErrorQuark(): Quark = webkit_print_error_quark()
 
     /**
      * Gets the quark for the domain of page snapshot errors.
      *
      * @return snapshot error domain.
      */
-    public fun snapshotErrorQuark(): UInt = webkit_snapshot_error_quark()
+    public fun snapshotErrorQuark(): Quark = webkit_snapshot_error_quark()
 
     /**
      * Use this function to format a URI for display.
@@ -347,7 +348,7 @@ public object Webkit {
      *
      * @return user content filter error domain.
      */
-    public fun userContentFilterErrorQuark(): UInt = webkit_user_content_filter_error_quark()
+    public fun userContentFilterErrorQuark(): Quark = webkit_user_content_filter_error_quark()
 
     /**
      * Check whether the permission request is for an audio device.
@@ -393,7 +394,7 @@ public object Webkit {
      *
      * @return user message error domain.
      */
-    public fun userMessageErrorQuark(): UInt = webkit_user_message_error_quark()
+    public fun userMessageErrorQuark(): Quark = webkit_user_message_error_quark()
 
     public fun resolveException(error: Error): GlibException {
         val ex =

@@ -162,7 +162,7 @@ public open class RecentManager(
         gtk_recent_manager_add_full(
             gtkRecentManagerPointer.reinterpret(),
             uri,
-            recentData.gtkRecentDataPointer
+            recentData.gtkRecentDataPointer.reinterpret()
         ).asBoolean()
 
     /**

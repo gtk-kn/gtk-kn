@@ -49,8 +49,8 @@ public open class OutsetShadowNode(
         blurRadius: Float,
     ) : this(
         gsk_outset_shadow_node_new(
-            outline.gskRoundedRectPointer,
-            color.gdkRGBAPointer,
+            outline.gskRoundedRectPointer.reinterpret(),
+            color.gdkRGBAPointer.reinterpret(),
             dx,
             dy,
             spread,

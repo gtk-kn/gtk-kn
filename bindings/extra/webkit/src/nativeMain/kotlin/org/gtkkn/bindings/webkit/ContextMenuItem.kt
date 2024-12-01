@@ -70,7 +70,7 @@ public class ContextMenuItem(
         webkit_context_menu_item_new_from_gaction(
             action.gioActionPointer,
             label,
-            target?.glibVariantPointer
+            target?.glibVariantPointer?.reinterpret()
         )!!.reinterpret()
     )
 

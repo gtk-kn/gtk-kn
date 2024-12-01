@@ -388,7 +388,7 @@ import kotlin.collections.List
  * - method `schema`: Property has no getter nor setter
  * - method `schema-id`: Property has no getter nor setter
  * - method `settings-schema`: Property has no getter nor setter
- * - signal `change-event`: Unsupported parameter `keys` : GLib.Quark
+ * - signal `change-event`: Unsupported parameter `keys` : Array parameter of type GLib.Quark is not supported
  */
 public open class Settings(
     pointer: CPointer<GSettings>,
@@ -469,7 +469,7 @@ public open class Settings(
         path: String? = null,
     ) : this(
         g_settings_new_full(
-            schema.gioSettingsSchemaPointer,
+            schema.gioSettingsSchemaPointer.reinterpret(),
             backend?.gioSettingsBackendPointer?.reinterpret(),
             path
         )!!.reinterpret()
@@ -1015,7 +1015,12 @@ public open class Settings(
     public open fun rangeCheck(
         key: String,
         `value`: Variant,
-    ): Boolean = g_settings_range_check(gioSettingsPointer.reinterpret(), key, `value`.glibVariantPointer).asBoolean()
+    ): Boolean =
+        g_settings_range_check(
+            gioSettingsPointer.reinterpret(),
+            key,
+            `value`.glibVariantPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Resets @key to its default value.
@@ -1266,7 +1271,12 @@ public open class Settings(
     public open fun setValue(
         key: String,
         `value`: Variant,
-    ): Boolean = g_settings_set_value(gioSettingsPointer.reinterpret(), key, `value`.glibVariantPointer).asBoolean()
+    ): Boolean =
+        g_settings_set_value(
+            gioSettingsPointer.reinterpret(),
+            key,
+            `value`.glibVariantPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * The "changed" signal is emitted when a key has potentially changed.

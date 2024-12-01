@@ -93,7 +93,10 @@ public class TreeRowReference(
             path: TreePath,
         ): TreeRowReference? =
             TreeRowReference(
-                gtk_tree_row_reference_new(model.gtkTreeModelPointer, path.gtkTreePathPointer)!!.reinterpret()
+                gtk_tree_row_reference_new(
+                    model.gtkTreeModelPointer,
+                    path.gtkTreePathPointer.reinterpret()
+                )!!.reinterpret()
             )
 
         /**
@@ -136,7 +139,7 @@ public class TreeRowReference(
                 gtk_tree_row_reference_new_proxy(
                     proxy.gPointer.reinterpret(),
                     model.gtkTreeModelPointer,
-                    path.gtkTreePathPointer
+                    path.gtkTreePathPointer.reinterpret()
                 )!!.reinterpret()
             )
 
@@ -151,7 +154,7 @@ public class TreeRowReference(
         public fun deleted(
             proxy: Object,
             path: TreePath,
-        ): Unit = gtk_tree_row_reference_deleted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer)
+        ): Unit = gtk_tree_row_reference_deleted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
         /**
          * Lets a set of row reference created by
@@ -164,7 +167,7 @@ public class TreeRowReference(
         public fun inserted(
             proxy: Object,
             path: TreePath,
-        ): Unit = gtk_tree_row_reference_inserted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer)
+        ): Unit = gtk_tree_row_reference_inserted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TreeRowReference =
             TreeRowReference(pointer.reinterpret())

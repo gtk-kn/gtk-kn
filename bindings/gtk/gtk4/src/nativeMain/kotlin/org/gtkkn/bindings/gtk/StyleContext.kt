@@ -168,7 +168,7 @@ public open class StyleContext(
      * @param border return value for the border settings
      */
     public open fun getBorder(border: Border): Unit =
-        gtk_style_context_get_border(gtkStyleContextPointer.reinterpret(), border.gtkBorderPointer)
+        gtk_style_context_get_border(gtkStyleContextPointer.reinterpret(), border.gtkBorderPointer.reinterpret())
 
     /**
      * Gets the foreground color for a given state.
@@ -176,7 +176,7 @@ public open class StyleContext(
      * @param color return value for the foreground color
      */
     public open fun getColor(color: RGBA): Unit =
-        gtk_style_context_get_color(gtkStyleContextPointer.reinterpret(), color.gdkRGBAPointer)
+        gtk_style_context_get_color(gtkStyleContextPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
 
     /**
      * Returns the `GdkDisplay` to which @context is attached.
@@ -194,7 +194,7 @@ public open class StyleContext(
      * @param margin return value for the margin settings
      */
     public open fun getMargin(margin: Border): Unit =
-        gtk_style_context_get_margin(gtkStyleContextPointer.reinterpret(), margin.gtkBorderPointer)
+        gtk_style_context_get_margin(gtkStyleContextPointer.reinterpret(), margin.gtkBorderPointer.reinterpret())
 
     /**
      * Gets the padding for a given state as a `GtkBorder`.
@@ -202,7 +202,7 @@ public open class StyleContext(
      * @param padding return value for the padding settings
      */
     public open fun getPadding(padding: Border): Unit =
-        gtk_style_context_get_padding(gtkStyleContextPointer.reinterpret(), padding.gtkBorderPointer)
+        gtk_style_context_get_padding(gtkStyleContextPointer.reinterpret(), padding.gtkBorderPointer.reinterpret())
 
     /**
      * Returns the scale used for assets.
@@ -251,7 +251,7 @@ public open class StyleContext(
         gtk_style_context_lookup_color(
             gtkStyleContextPointer.reinterpret(),
             colorName,
-            color.gdkRGBAPointer
+            color.gdkRGBAPointer.reinterpret()
         ).asBoolean()
 
     /**

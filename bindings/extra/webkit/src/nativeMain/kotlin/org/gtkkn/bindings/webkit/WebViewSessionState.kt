@@ -74,7 +74,9 @@ public class WebViewSessionState(
          * @since 2.12
          */
         public fun new(`data`: Bytes): WebViewSessionState =
-            WebViewSessionState(webkit_web_view_session_state_new(`data`.glibBytesPointer)!!.reinterpret())
+            WebViewSessionState(
+                webkit_web_view_session_state_new(`data`.glibBytesPointer.reinterpret())!!.reinterpret()
+            )
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): WebViewSessionState =
             WebViewSessionState(pointer.reinterpret())

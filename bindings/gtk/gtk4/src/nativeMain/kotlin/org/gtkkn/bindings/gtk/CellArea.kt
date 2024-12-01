@@ -393,7 +393,7 @@ import kotlin.Unit
  * - parameter `minimum_width`: minimum_width: Out parameter is not supported
  * - parameter `minimum_width`: minimum_width: Out parameter is not supported
  * - parameter `minimum_size`: minimum_size: Out parameter is not supported
- * - parameter `snapshot`: Snapshot
+ * - parameter `snapshot`: missing cType for class Snapshot
  */
 public open class CellArea(
     pointer: CPointer<GtkCellArea>,
@@ -502,7 +502,7 @@ public open class CellArea(
             gtkCellAreaPointer.reinterpret(),
             context.gtkCellAreaContextPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
-            cellArea.gdkRectanglePointer,
+            cellArea.gdkRectanglePointer.reinterpret(),
             flags.mask,
             editOnly.asGBoolean()
         ).asBoolean()
@@ -533,7 +533,7 @@ public open class CellArea(
             widget.gtkWidgetPointer.reinterpret(),
             renderer.gtkCellRendererPointer.reinterpret(),
             event.gPointer.reinterpret(),
-            cellArea.gdkRectanglePointer,
+            cellArea.gdkRectanglePointer.reinterpret(),
             flags.mask
         ).asBoolean()
 
@@ -585,7 +585,7 @@ public open class CellArea(
         gtk_cell_area_apply_attributes(
             gtkCellAreaPointer.reinterpret(),
             treeModel.gtkTreeModelPointer,
-            iter.gtkTreeIterPointer,
+            iter.gtkTreeIterPointer.reinterpret(),
             isExpander.asGBoolean(),
             isExpanded.asGBoolean()
         )
@@ -662,7 +662,7 @@ public open class CellArea(
             gtkCellAreaPointer.reinterpret(),
             renderer.gtkCellRendererPointer.reinterpret(),
             propertyName,
-            `value`.gobjectValuePointer
+            `value`.gobjectValuePointer.reinterpret()
         )
 
     /**
@@ -681,7 +681,7 @@ public open class CellArea(
             gtkCellAreaPointer.reinterpret(),
             renderer.gtkCellRendererPointer.reinterpret(),
             propertyName,
-            `value`.gobjectValuePointer
+            `value`.gobjectValuePointer.reinterpret()
         )
 
     /**
@@ -745,7 +745,7 @@ public open class CellArea(
             context.gtkCellAreaContextPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
             event.gPointer.reinterpret(),
-            cellArea.gdkRectanglePointer,
+            cellArea.gdkRectanglePointer.reinterpret(),
             flags.mask
         )
 
@@ -797,8 +797,8 @@ public open class CellArea(
             gtkCellAreaPointer.reinterpret(),
             context.gtkCellAreaContextPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
-            cellArea.gdkRectanglePointer,
-            backgroundArea.gdkRectanglePointer,
+            cellArea.gdkRectanglePointer.reinterpret(),
+            backgroundArea.gdkRectanglePointer.reinterpret(),
             CellAllocCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()
         )
@@ -826,8 +826,8 @@ public open class CellArea(
             context.gtkCellAreaContextPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
             renderer.gtkCellRendererPointer.reinterpret(),
-            cellArea.gdkRectanglePointer,
-            allocation.gdkRectanglePointer
+            cellArea.gdkRectanglePointer.reinterpret(),
+            allocation.gdkRectanglePointer.reinterpret()
         )
 
     /**
@@ -856,10 +856,10 @@ public open class CellArea(
             gtkCellAreaPointer.reinterpret(),
             context.gtkCellAreaContextPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
-            cellArea.gdkRectanglePointer,
+            cellArea.gdkRectanglePointer.reinterpret(),
             x,
             y,
-            allocArea?.gdkRectanglePointer
+            allocArea?.gdkRectanglePointer?.reinterpret()
         )!!.run {
             CellRenderer(reinterpret())
         }
@@ -988,8 +988,8 @@ public open class CellArea(
         gtk_cell_area_inner_cell_area(
             gtkCellAreaPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
-            cellArea.gdkRectanglePointer,
-            innerArea.gdkRectanglePointer
+            cellArea.gdkRectanglePointer.reinterpret(),
+            innerArea.gdkRectanglePointer.reinterpret()
         )
 
     /**

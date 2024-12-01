@@ -75,7 +75,7 @@ public class HashTableIter(
      */
     @GLibVersion2_16
     public fun `init`(hashTable: HashTable): Unit =
-        g_hash_table_iter_init(glibHashTableIterPointer.reinterpret(), hashTable.glibHashTablePointer)
+        g_hash_table_iter_init(glibHashTableIterPointer.reinterpret(), hashTable.glibHashTablePointer.reinterpret())
 
     /**
      * Removes the key/value pair currently pointed to by the iterator

@@ -69,7 +69,7 @@ public class Box(
      */
     @GrapheneVersion1_2
     public fun containsBox(b: Box): Boolean =
-        graphene_box_contains_box(grapheneBoxPointer.reinterpret(), b.grapheneBoxPointer)
+        graphene_box_contains_box(grapheneBoxPointer.reinterpret(), b.grapheneBoxPointer.reinterpret())
 
     /**
      * Checks whether @box contains the given @point.
@@ -80,7 +80,7 @@ public class Box(
      */
     @GrapheneVersion1_2
     public fun containsPoint(point: Point3D): Boolean =
-        graphene_box_contains_point(grapheneBoxPointer.reinterpret(), point.graphenePoint3DPointer)
+        graphene_box_contains_point(grapheneBoxPointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())
 
     /**
      * Checks whether the two given boxes are equal.
@@ -90,7 +90,8 @@ public class Box(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun equal(b: Box): Boolean = graphene_box_equal(grapheneBoxPointer.reinterpret(), b.grapheneBoxPointer)
+    public fun equal(b: Box): Boolean =
+        graphene_box_equal(grapheneBoxPointer.reinterpret(), b.grapheneBoxPointer.reinterpret())
 
     /**
      * Expands the dimensions of @box to include the coordinates at @point.
@@ -104,7 +105,11 @@ public class Box(
         point: Point3D,
         res: Box,
     ): Unit =
-        graphene_box_expand(grapheneBoxPointer.reinterpret(), point.graphenePoint3DPointer, res.grapheneBoxPointer)
+        graphene_box_expand(
+            grapheneBoxPointer.reinterpret(),
+            point.graphenePoint3DPointer.reinterpret(),
+            res.grapheneBoxPointer.reinterpret()
+        )
 
     /**
      * Expands the dimensions of @box by the given @scalar value.
@@ -120,7 +125,7 @@ public class Box(
     public fun expandScalar(
         scalar: Float,
         res: Box,
-    ): Unit = graphene_box_expand_scalar(grapheneBoxPointer.reinterpret(), scalar, res.grapheneBoxPointer)
+    ): Unit = graphene_box_expand_scalar(grapheneBoxPointer.reinterpret(), scalar, res.grapheneBoxPointer.reinterpret())
 
     /**
      * Expands the dimensions of @box to include the coordinates of the
@@ -135,7 +140,11 @@ public class Box(
         vec: Vec3,
         res: Box,
     ): Unit =
-        graphene_box_expand_vec3(grapheneBoxPointer.reinterpret(), vec.grapheneVec3Pointer, res.grapheneBoxPointer)
+        graphene_box_expand_vec3(
+            grapheneBoxPointer.reinterpret(),
+            vec.grapheneVec3Pointer.reinterpret(),
+            res.grapheneBoxPointer.reinterpret()
+        )
 
     /**
      * Frees the resources allocated by graphene_box_alloc().
@@ -154,7 +163,7 @@ public class Box(
      */
     @GrapheneVersion1_2
     public fun getBoundingSphere(sphere: Sphere): Unit =
-        graphene_box_get_bounding_sphere(grapheneBoxPointer.reinterpret(), sphere.grapheneSpherePointer)
+        graphene_box_get_bounding_sphere(grapheneBoxPointer.reinterpret(), sphere.grapheneSpherePointer.reinterpret())
 
     /**
      * Retrieves the coordinates of the center of a #graphene_box_t.
@@ -165,7 +174,7 @@ public class Box(
      */
     @GrapheneVersion1_2
     public fun getCenter(center: Point3D): Unit =
-        graphene_box_get_center(grapheneBoxPointer.reinterpret(), center.graphenePoint3DPointer)
+        graphene_box_get_center(grapheneBoxPointer.reinterpret(), center.graphenePoint3DPointer.reinterpret())
 
     /**
      * Retrieves the size of the @box on the Z axis.
@@ -194,7 +203,7 @@ public class Box(
      */
     @GrapheneVersion1_2
     public fun getMax(max: Point3D): Unit =
-        graphene_box_get_max(grapheneBoxPointer.reinterpret(), max.graphenePoint3DPointer)
+        graphene_box_get_max(grapheneBoxPointer.reinterpret(), max.graphenePoint3DPointer.reinterpret())
 
     /**
      * Retrieves the coordinates of the minimum point of the given
@@ -205,7 +214,7 @@ public class Box(
      */
     @GrapheneVersion1_2
     public fun getMin(min: Point3D): Unit =
-        graphene_box_get_min(grapheneBoxPointer.reinterpret(), min.graphenePoint3DPointer)
+        graphene_box_get_min(grapheneBoxPointer.reinterpret(), min.graphenePoint3DPointer.reinterpret())
 
     /**
      * Retrieves the size of the box on all three axes, and stores
@@ -216,7 +225,7 @@ public class Box(
      */
     @GrapheneVersion1_2
     public fun getSize(size: Vec3): Unit =
-        graphene_box_get_size(grapheneBoxPointer.reinterpret(), size.grapheneVec3Pointer)
+        graphene_box_get_size(grapheneBoxPointer.reinterpret(), size.grapheneVec3Pointer.reinterpret())
 
     /**
      * Retrieves the size of the @box on the X axis.
@@ -242,8 +251,8 @@ public class Box(
     ): Box =
         graphene_box_init(
             grapheneBoxPointer.reinterpret(),
-            min?.graphenePoint3DPointer,
-            max?.graphenePoint3DPointer
+            min?.graphenePoint3DPointer?.reinterpret(),
+            max?.graphenePoint3DPointer?.reinterpret()
         )!!.run {
             Box(reinterpret())
         }
@@ -258,7 +267,7 @@ public class Box(
      */
     @GrapheneVersion1_2
     public fun initFromBox(src: Box): Box =
-        graphene_box_init_from_box(grapheneBoxPointer.reinterpret(), src.grapheneBoxPointer)!!.run {
+        graphene_box_init_from_box(grapheneBoxPointer.reinterpret(), src.grapheneBoxPointer.reinterpret())!!.run {
             Box(reinterpret())
         }
 
@@ -278,8 +287,8 @@ public class Box(
     ): Box =
         graphene_box_init_from_vec3(
             grapheneBoxPointer.reinterpret(),
-            min?.grapheneVec3Pointer,
-            max?.grapheneVec3Pointer
+            min?.grapheneVec3Pointer?.reinterpret(),
+            max?.grapheneVec3Pointer?.reinterpret()
         )!!.run {
             Box(reinterpret())
         }
@@ -300,7 +309,11 @@ public class Box(
         b: Box,
         res: Box?,
     ): Boolean =
-        graphene_box_intersection(grapheneBoxPointer.reinterpret(), b.grapheneBoxPointer, res?.grapheneBoxPointer)
+        graphene_box_intersection(
+            grapheneBoxPointer.reinterpret(),
+            b.grapheneBoxPointer.reinterpret(),
+            res?.grapheneBoxPointer?.reinterpret()
+        )
 
     /**
      * Unions the two given #graphene_box_t.
@@ -313,7 +326,12 @@ public class Box(
     public fun union(
         b: Box,
         res: Box,
-    ): Unit = graphene_box_union(grapheneBoxPointer.reinterpret(), b.grapheneBoxPointer, res.grapheneBoxPointer)
+    ): Unit =
+        graphene_box_union(
+            grapheneBoxPointer.reinterpret(),
+            b.grapheneBoxPointer.reinterpret(),
+            res.grapheneBoxPointer.reinterpret()
+        )
 
     public companion object : RecordCompanion<Box, graphene_box_t> {
         /**

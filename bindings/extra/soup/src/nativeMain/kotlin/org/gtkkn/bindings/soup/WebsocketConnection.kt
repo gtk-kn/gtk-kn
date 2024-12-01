@@ -262,11 +262,11 @@ public class WebsocketConnection(
     ) : this(
         soup_websocket_connection_new(
             stream.gioIOStreamPointer.reinterpret(),
-            uri.glibUriPointer,
+            uri.glibUriPointer.reinterpret(),
             type.nativeValue,
             origin,
             protocol,
-            extensions.glibListPointer
+            extensions.glibListPointer.reinterpret()
         )!!.reinterpret()
     )
 
@@ -385,7 +385,7 @@ public class WebsocketConnection(
         soup_websocket_connection_send_message(
             soupWebsocketConnectionPointer.reinterpret(),
             type.nativeValue,
-            message.glibBytesPointer
+            message.glibBytesPointer.reinterpret()
         )
 
     /**

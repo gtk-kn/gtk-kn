@@ -789,7 +789,7 @@ public class Variant(
      */
     @GLibVersion2_24
     public fun isOfType(type: VariantType): Boolean =
-        g_variant_is_of_type(glibVariantPointer.reinterpret(), type.glibVariantTypePointer).asBoolean()
+        g_variant_is_of_type(glibVariantPointer.reinterpret(), type.glibVariantTypePointer.reinterpret()).asBoolean()
 
     /**
      * Looks up a value in a dictionary #GVariant.
@@ -824,7 +824,11 @@ public class Variant(
         key: String,
         expectedType: VariantType? = null,
     ): Variant =
-        g_variant_lookup_value(glibVariantPointer.reinterpret(), key, expectedType?.glibVariantTypePointer)!!.run {
+        g_variant_lookup_value(
+            glibVariantPointer.reinterpret(),
+            key,
+            expectedType?.glibVariantTypePointer?.reinterpret()
+        )!!.run {
             Variant(reinterpret())
         }
 
@@ -1016,7 +1020,12 @@ public class Variant(
             key: Variant,
             `value`: Variant,
         ): Variant =
-            Variant(g_variant_new_dict_entry(key.glibVariantPointer, `value`.glibVariantPointer)!!.reinterpret())
+            Variant(
+                g_variant_new_dict_entry(
+                    key.glibVariantPointer.reinterpret(),
+                    `value`.glibVariantPointer.reinterpret()
+                )!!.reinterpret()
+            )
 
         /**
          * Creates a new double #GVariant instance.
@@ -1051,8 +1060,8 @@ public class Variant(
         ): Variant =
             Variant(
                 g_variant_new_from_bytes(
-                    type.glibVariantTypePointer,
-                    bytes.glibBytesPointer,
+                    type.glibVariantTypePointer.reinterpret(),
+                    bytes.glibBytesPointer.reinterpret(),
                     trusted.asGBoolean()
                 )!!.reinterpret()
             )
@@ -1118,7 +1127,12 @@ public class Variant(
             childType: VariantType? = null,
             child: Variant? = null,
         ): Variant =
-            Variant(g_variant_new_maybe(childType?.glibVariantTypePointer, child?.glibVariantPointer)!!.reinterpret())
+            Variant(
+                g_variant_new_maybe(
+                    childType?.glibVariantTypePointer?.reinterpret(),
+                    child?.glibVariantPointer?.reinterpret()
+                )!!.reinterpret()
+            )
 
         /**
          * Creates a D-Bus object path #GVariant with the contents of @object_path.
@@ -1239,7 +1253,7 @@ public class Variant(
          * @since 2.24
          */
         public fun newVariant(`value`: Variant): Variant =
-            Variant(g_variant_new_variant(`value`.glibVariantPointer)!!.reinterpret())
+            Variant(g_variant_new_variant(`value`.glibVariantPointer.reinterpret())!!.reinterpret())
 
         /**
          * Determines if a given string is a valid D-Bus object path.  You
@@ -1314,15 +1328,15 @@ public class Variant(
             error: Error,
             sourceStr: String,
         ): String =
-            g_variant_parse_error_print_context(error.glibErrorPointer, sourceStr)?.toKString()
+            g_variant_parse_error_print_context(error.glibErrorPointer.reinterpret(), sourceStr)?.toKString()
                 ?: error("Expected not null string")
 
-        public fun parseErrorQuark(): UInt = g_variant_parse_error_quark()
+        public fun parseErrorQuark(): Quark = g_variant_parse_error_quark()
 
         /**
          * Same as g_variant_error_quark().
          */
-        public fun parserGetErrorQuark(): UInt = g_variant_parser_get_error_quark()
+        public fun parserGetErrorQuark(): Quark = g_variant_parser_get_error_quark()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Variant = Variant(pointer.reinterpret())
     }

@@ -106,7 +106,10 @@ public class ContentFormats(
      * @return true if a matching format was found.
      */
     public fun match(second: ContentFormats): Boolean =
-        gdk_content_formats_match(gdkContentFormatsPointer.reinterpret(), second.gdkContentFormatsPointer).asBoolean()
+        gdk_content_formats_match(
+            gdkContentFormatsPointer.reinterpret(),
+            second.gdkContentFormatsPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Finds the first `GType` from @first that is also contained
@@ -118,7 +121,10 @@ public class ContentFormats(
      * @return The first common `GType` or %G_TYPE_INVALID if none.
      */
     public fun matchGtype(second: ContentFormats): ULong =
-        gdk_content_formats_match_gtype(gdkContentFormatsPointer.reinterpret(), second.gdkContentFormatsPointer)
+        gdk_content_formats_match_gtype(
+            gdkContentFormatsPointer.reinterpret(),
+            second.gdkContentFormatsPointer.reinterpret()
+        )
 
     /**
      * Finds the first mime type from @first that is also contained
@@ -132,7 +138,7 @@ public class ContentFormats(
     public fun matchMimeType(second: ContentFormats): KotlinString? =
         gdk_content_formats_match_mime_type(
             gdkContentFormatsPointer.reinterpret(),
-            second.gdkContentFormatsPointer
+            second.gdkContentFormatsPointer.reinterpret()
         )?.toKString()
 
     /**
@@ -144,7 +150,7 @@ public class ContentFormats(
      * @param string a `GString` to print into
      */
     public fun print(string: GlibString): Unit =
-        gdk_content_formats_print(gdkContentFormatsPointer.reinterpret(), string.glibStringPointer)
+        gdk_content_formats_print(gdkContentFormatsPointer.reinterpret(), string.glibStringPointer.reinterpret())
 
     /**
      * Increases the reference count of a `GdkContentFormats` by one.
@@ -164,7 +170,10 @@ public class ContentFormats(
      * @return a new `GdkContentFormats`
      */
     public fun union(second: ContentFormats): ContentFormats =
-        gdk_content_formats_union(gdkContentFormatsPointer.reinterpret(), second.gdkContentFormatsPointer)!!.run {
+        gdk_content_formats_union(
+            gdkContentFormatsPointer.reinterpret(),
+            second.gdkContentFormatsPointer.reinterpret()
+        )!!.run {
             ContentFormats(reinterpret())
         }
 

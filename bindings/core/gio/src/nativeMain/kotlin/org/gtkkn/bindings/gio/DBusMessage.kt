@@ -482,7 +482,7 @@ public open class DBusMessage(
      */
     @GioVersion2_26
     public open fun setBody(body: Variant): Unit =
-        g_dbus_message_set_body(gioDBusMessagePointer.reinterpret(), body.glibVariantPointer)
+        g_dbus_message_set_body(gioDBusMessagePointer.reinterpret(), body.glibVariantPointer.reinterpret())
 
     /**
      * Sets the byte order of @message.
@@ -540,7 +540,7 @@ public open class DBusMessage(
         g_dbus_message_set_header(
             gioDBusMessagePointer.reinterpret(),
             headerField.nativeValue,
-            `value`?.glibVariantPointer
+            `value`?.glibVariantPointer?.reinterpret()
         )
 
     /**

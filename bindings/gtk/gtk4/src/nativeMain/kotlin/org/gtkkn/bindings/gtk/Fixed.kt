@@ -152,7 +152,7 @@ public open class Fixed(
         gtk_fixed_set_child_transform(
             gtkFixedPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
-            transform?.gskTransformPointer
+            transform?.gskTransformPointer?.reinterpret()
         )
 
     public companion object : TypeCompanion<Fixed> {

@@ -953,7 +953,7 @@ public open class Builder(
                     gtkBuilderPointer.reinterpret(),
                     pspec.gPointer.reinterpret(),
                     string,
-                    `value`.gobjectValuePointer,
+                    `value`.gobjectValuePointer.reinterpret(),
                     gError.ptr
                 ).asBoolean()
             return if (gError.pointed != null) {
@@ -992,7 +992,7 @@ public open class Builder(
                     gtkBuilderPointer.reinterpret(),
                     type,
                     string,
-                    `value`.gobjectValuePointer,
+                    `value`.gobjectValuePointer.reinterpret(),
                     gError.ptr
                 ).asBoolean()
             return if (gError.pointed != null) {

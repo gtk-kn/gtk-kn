@@ -272,7 +272,7 @@ public open class Monitor(
      * @param geometry a `GdkRectangle` to be filled with the monitor geometry
      */
     public open fun getGeometry(geometry: Rectangle): Unit =
-        gdk_monitor_get_geometry(gdkMonitorPointer.reinterpret(), geometry.gdkRectanglePointer)
+        gdk_monitor_get_geometry(gdkMonitorPointer.reinterpret(), geometry.gdkRectanglePointer.reinterpret())
 
     /**
      * Gets the height in millimeters of the monitor.

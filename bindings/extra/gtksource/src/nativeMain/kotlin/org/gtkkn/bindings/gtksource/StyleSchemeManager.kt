@@ -43,8 +43,7 @@ public open class StyleSchemeManager(
         /**
          * Returns the ids of the available style schemes.
          *
-         * @return
-         * a null-terminated array of strings containing the ids of the available
+         * @return a null-terminated array of strings containing the ids of the available
          * style schemes or null if no style scheme is available.
          * The array is sorted alphabetically according to the scheme name.
          * The array is owned by the @manager and must not be modified.
@@ -99,8 +98,7 @@ public open class StyleSchemeManager(
     /**
      * Returns the ids of the available style schemes.
      *
-     * @return
-     * a null-terminated array of strings containing the ids of the available
+     * @return a null-terminated array of strings containing the ids of the available
      * style schemes or null if no style scheme is available.
      * The array is sorted alphabetically according to the scheme name.
      * The array is owned by the @manager and must not be modified.

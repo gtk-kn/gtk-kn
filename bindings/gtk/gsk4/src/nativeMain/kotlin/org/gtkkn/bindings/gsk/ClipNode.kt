@@ -34,7 +34,7 @@ public open class ClipNode(
     public constructor(
         child: RenderNode,
         clip: Rect,
-    ) : this(gsk_clip_node_new(child.gPointer.reinterpret(), clip.grapheneRectPointer)!!.reinterpret())
+    ) : this(gsk_clip_node_new(child.gPointer.reinterpret(), clip.grapheneRectPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the child node that is getting clipped by the given @node.

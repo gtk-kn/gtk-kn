@@ -342,7 +342,10 @@ public open class FileSaver(
      * @param encoding the new encoding, or null for UTF-8.
      */
     public open fun setEncoding(encoding: Encoding? = null): Unit =
-        gtk_source_file_saver_set_encoding(gtksourceFileSaverPointer.reinterpret(), encoding?.gtksourceEncodingPointer)
+        gtk_source_file_saver_set_encoding(
+            gtksourceFileSaverPointer.reinterpret(),
+            encoding?.gtksourceEncodingPointer?.reinterpret()
+        )
 
     /**
      *

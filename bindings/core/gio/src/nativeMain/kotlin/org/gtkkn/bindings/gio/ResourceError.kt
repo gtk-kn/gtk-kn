@@ -3,9 +3,9 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gio.GResourceError
 import org.gtkkn.native.gio.g_resource_error_quark
-import kotlin.UInt
 
 /**
  * An error code used with %G_RESOURCE_ERROR in a #GError returned
@@ -42,7 +42,7 @@ public enum class ResourceError(
          * @since 2.32
          */
         @GioVersion2_32
-        public fun quark(): UInt = g_resource_error_quark()
+        public fun quark(): Quark = g_resource_error_quark()
 
         public fun fromErrorOrNull(error: Error): ResourceError? =
             if (error.domain != quark()) {

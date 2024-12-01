@@ -137,7 +137,9 @@ public open class ColorButton(
      * @param rgba A `GdkRGBA` to set the current color with
      * @return a new color button
      */
-    public constructor(rgba: RGBA) : this(gtk_color_button_new_with_rgba(rgba.gdkRGBAPointer)!!.reinterpret())
+    public constructor(
+        rgba: RGBA,
+    ) : this(gtk_color_button_new_with_rgba(rgba.gdkRGBAPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets whether the dialog is modal.

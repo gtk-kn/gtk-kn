@@ -57,9 +57,9 @@ public open class TextNode(
     ) : this(
         gsk_text_node_new(
             font.pangoFontPointer.reinterpret(),
-            glyphs.pangoGlyphStringPointer,
-            color.gdkRGBAPointer,
-            offset.graphenePointPointer
+            glyphs.pangoGlyphStringPointer.reinterpret(),
+            color.gdkRGBAPointer.reinterpret(),
+            offset.graphenePointPointer.reinterpret()
         )!!.reinterpret()
     )
 

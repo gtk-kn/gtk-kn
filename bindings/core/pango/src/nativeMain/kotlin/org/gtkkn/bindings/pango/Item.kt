@@ -77,7 +77,7 @@ public class Item(
      */
     @PangoVersion1_44
     public fun applyAttrs(iter: AttrIterator): Unit =
-        pango_item_apply_attrs(pangoItemPointer.reinterpret(), iter.pangoAttrIteratorPointer)
+        pango_item_apply_attrs(pangoItemPointer.reinterpret(), iter.pangoAttrIteratorPointer.reinterpret())
 
     /**
      * Copy an existing `PangoItem` structure.

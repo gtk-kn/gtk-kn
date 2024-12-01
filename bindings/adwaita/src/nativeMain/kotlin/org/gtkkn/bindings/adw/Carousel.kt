@@ -274,7 +274,13 @@ public class Carousel(
          *
          * @param params the new parameters
          */
-        set(params) = adw_carousel_set_scroll_params(adwCarouselPointer.reinterpret(), params.adwSpringParamsPointer)
+        set(
+            params
+        ) =
+            adw_carousel_set_scroll_params(
+                adwCarouselPointer.reinterpret(),
+                params.adwSpringParamsPointer.reinterpret()
+            )
 
     /**
      * Spacing between pages in pixels.
@@ -517,7 +523,7 @@ public class Carousel(
      * @param params the new parameters
      */
     public fun setScrollParams(params: SpringParams): Unit =
-        adw_carousel_set_scroll_params(adwCarouselPointer.reinterpret(), params.adwSpringParamsPointer)
+        adw_carousel_set_scroll_params(adwCarouselPointer.reinterpret(), params.adwSpringParamsPointer.reinterpret())
 
     /**
      * Sets spacing between pages in pixels.

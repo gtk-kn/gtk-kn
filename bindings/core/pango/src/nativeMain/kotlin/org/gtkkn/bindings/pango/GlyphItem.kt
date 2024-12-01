@@ -122,7 +122,11 @@ public class GlyphItem(
         text: String,
         list: AttrList,
     ): SList =
-        pango_glyph_item_apply_attrs(pangoGlyphItemPointer.reinterpret(), text, list.pangoAttrListPointer)!!.run {
+        pango_glyph_item_apply_attrs(
+            pangoGlyphItemPointer.reinterpret(),
+            text,
+            list.pangoAttrListPointer.reinterpret()
+        )!!.run {
             SList(reinterpret())
         }
 

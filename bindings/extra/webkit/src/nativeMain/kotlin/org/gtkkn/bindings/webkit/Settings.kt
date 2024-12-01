@@ -1585,7 +1585,7 @@ public class Settings(
             val gResult =
                 webkit_settings_apply_from_key_file(
                     webkitSettingsPointer.reinterpret(),
-                    keyFile.glibKeyFilePointer,
+                    keyFile.glibKeyFilePointer.reinterpret(),
                     groupName,
                     gError.ptr
                 ).asBoolean()
@@ -1972,7 +1972,7 @@ public class Settings(
     public fun getFeatureEnabled(feature: Feature): Boolean =
         webkit_settings_get_feature_enabled(
             webkitSettingsPointer.reinterpret(),
-            feature.webkitFeaturePointer
+            feature.webkitFeaturePointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -2504,7 +2504,7 @@ public class Settings(
     ): Unit =
         webkit_settings_set_feature_enabled(
             webkitSettingsPointer.reinterpret(),
-            feature.webkitFeaturePointer,
+            feature.webkitFeaturePointer.reinterpret(),
             enabled.asGBoolean()
         )
 

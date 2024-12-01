@@ -120,7 +120,7 @@ public class Path(
      */
     @GskVersion4_14
     public fun getBounds(bounds: Rect): Boolean =
-        gsk_path_get_bounds(gskPathPointer.reinterpret(), bounds.grapheneRectPointer).asBoolean()
+        gsk_path_get_bounds(gskPathPointer.reinterpret(), bounds.grapheneRectPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the end point of the path.
@@ -134,7 +134,7 @@ public class Path(
      */
     @GskVersion4_14
     public fun getEndPoint(result: PathPoint): Boolean =
-        gsk_path_get_end_point(gskPathPointer.reinterpret(), result.gskPathPointPointer).asBoolean()
+        gsk_path_get_end_point(gskPathPointer.reinterpret(), result.gskPathPointPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the start point of the path.
@@ -148,7 +148,7 @@ public class Path(
      */
     @GskVersion4_14
     public fun getStartPoint(result: PathPoint): Boolean =
-        gsk_path_get_start_point(gskPathPointer.reinterpret(), result.gskPathPointPointer).asBoolean()
+        gsk_path_get_start_point(gskPathPointer.reinterpret(), result.gskPathPointPointer.reinterpret()).asBoolean()
 
     /**
      * Computes the bounds for stroking the given path with the
@@ -172,8 +172,8 @@ public class Path(
     ): Boolean =
         gsk_path_get_stroke_bounds(
             gskPathPointer.reinterpret(),
-            stroke.gskStrokePointer,
-            bounds.grapheneRectPointer
+            stroke.gskStrokePointer.reinterpret(),
+            bounds.grapheneRectPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -194,7 +194,11 @@ public class Path(
         point: Point,
         fillRule: FillRule,
     ): Boolean =
-        gsk_path_in_fill(gskPathPointer.reinterpret(), point.graphenePointPointer, fillRule.nativeValue).asBoolean()
+        gsk_path_in_fill(
+            gskPathPointer.reinterpret(),
+            point.graphenePointPointer.reinterpret(),
+            fillRule.nativeValue
+        ).asBoolean()
 
     /**
      * Returns if the path represents a single closed
@@ -227,7 +231,8 @@ public class Path(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun print(string: GlibString): Unit = gsk_path_print(gskPathPointer.reinterpret(), string.glibStringPointer)
+    public fun print(string: GlibString): Unit =
+        gsk_path_print(gskPathPointer.reinterpret(), string.glibStringPointer.reinterpret())
 
     /**
      * Increases the reference count of a `GskPath` by one.

@@ -52,7 +52,10 @@ public class UnixMountPoint(
      * or less than @mount2, respectively.
      */
     public fun compare(mount2: UnixMountPoint): Int =
-        g_unix_mount_point_compare(gioUnixMountPointPointer.reinterpret(), mount2.gioUnixMountPointPointer)
+        g_unix_mount_point_compare(
+            gioUnixMountPointPointer.reinterpret(),
+            mount2.gioUnixMountPointPointer.reinterpret()
+        )
 
     /**
      * Makes a copy of @mount_point.

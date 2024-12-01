@@ -95,7 +95,7 @@ public class UserContentManager(
     public fun addFilter(filter: UserContentFilter): Unit =
         webkit_user_content_manager_add_filter(
             webkitUserContentManagerPointer.reinterpret(),
-            filter.webkitUserContentFilterPointer
+            filter.webkitUserContentFilterPointer.reinterpret()
         )
 
     /**
@@ -111,7 +111,7 @@ public class UserContentManager(
     public fun addScript(script: UserScript): Unit =
         webkit_user_content_manager_add_script(
             webkitUserContentManagerPointer.reinterpret(),
-            script.webkitUserScriptPointer
+            script.webkitUserScriptPointer.reinterpret()
         )
 
     /**
@@ -127,7 +127,7 @@ public class UserContentManager(
     public fun addStyleSheet(stylesheet: UserStyleSheet): Unit =
         webkit_user_content_manager_add_style_sheet(
             webkitUserContentManagerPointer.reinterpret(),
-            stylesheet.webkitUserStyleSheetPointer
+            stylesheet.webkitUserStyleSheetPointer.reinterpret()
         )
 
     /**
@@ -246,7 +246,7 @@ public class UserContentManager(
     public fun removeFilter(filter: UserContentFilter): Unit =
         webkit_user_content_manager_remove_filter(
             webkitUserContentManagerPointer.reinterpret(),
-            filter.webkitUserContentFilterPointer
+            filter.webkitUserContentFilterPointer.reinterpret()
         )
 
     /**
@@ -275,7 +275,7 @@ public class UserContentManager(
     public fun removeScript(script: UserScript): Unit =
         webkit_user_content_manager_remove_script(
             webkitUserContentManagerPointer.reinterpret(),
-            script.webkitUserScriptPointer
+            script.webkitUserScriptPointer.reinterpret()
         )
 
     /**
@@ -290,7 +290,7 @@ public class UserContentManager(
     public fun removeStyleSheet(stylesheet: UserStyleSheet): Unit =
         webkit_user_content_manager_remove_style_sheet(
             webkitUserContentManagerPointer.reinterpret(),
-            stylesheet.webkitUserStyleSheetPointer
+            stylesheet.webkitUserStyleSheetPointer.reinterpret()
         )
 
     /**

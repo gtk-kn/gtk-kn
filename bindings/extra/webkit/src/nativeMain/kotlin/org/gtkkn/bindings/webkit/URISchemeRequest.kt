@@ -76,7 +76,10 @@ public class URISchemeRequest(
      */
     @WebKitVersion2_2
     public fun finishError(error: Error): Unit =
-        webkit_uri_scheme_request_finish_error(webkitURISchemeRequestPointer.reinterpret(), error.glibErrorPointer)
+        webkit_uri_scheme_request_finish_error(
+            webkitURISchemeRequestPointer.reinterpret(),
+            error.glibErrorPointer.reinterpret()
+        )
 
     /**
      * Finish a #WebKitURISchemeRequest by returning a #WebKitURISchemeResponse

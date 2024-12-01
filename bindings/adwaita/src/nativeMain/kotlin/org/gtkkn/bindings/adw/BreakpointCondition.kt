@@ -71,8 +71,8 @@ public class BreakpointCondition(
         ): BreakpointCondition =
             BreakpointCondition(
                 adw_breakpoint_condition_new_and(
-                    condition1.adwBreakpointConditionPointer,
-                    condition2.adwBreakpointConditionPointer
+                    condition1.adwBreakpointConditionPointer.reinterpret(),
+                    condition2.adwBreakpointConditionPointer.reinterpret()
                 )!!.reinterpret()
             )
 
@@ -109,8 +109,8 @@ public class BreakpointCondition(
         ): BreakpointCondition =
             BreakpointCondition(
                 adw_breakpoint_condition_new_or(
-                    condition1.adwBreakpointConditionPointer,
-                    condition2.adwBreakpointConditionPointer
+                    condition1.adwBreakpointConditionPointer.reinterpret(),
+                    condition2.adwBreakpointConditionPointer.reinterpret()
                 )!!.reinterpret()
             )
 

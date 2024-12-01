@@ -86,7 +86,9 @@ public open class Shortcut(
          *
          * @param args arguments to pass when activating @self
          */
-        set(args) = gtk_shortcut_set_arguments(gtkShortcutPointer.reinterpret(), args?.glibVariantPointer)
+        set(
+            args
+        ) = gtk_shortcut_set_arguments(gtkShortcutPointer.reinterpret(), args?.glibVariantPointer?.reinterpret())
 
     /**
      * The trigger that triggers this shortcut.
@@ -180,7 +182,7 @@ public open class Shortcut(
      * @param args arguments to pass when activating @self
      */
     public open fun setArguments(args: Variant? = null): Unit =
-        gtk_shortcut_set_arguments(gtkShortcutPointer.reinterpret(), args?.glibVariantPointer)
+        gtk_shortcut_set_arguments(gtkShortcutPointer.reinterpret(), args?.glibVariantPointer?.reinterpret())
 
     /**
      * Sets the new trigger for @self to be @trigger.

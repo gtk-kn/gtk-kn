@@ -84,7 +84,10 @@ public class ValueArray(
      * @return the #GValueArray passed in as @value_array
      */
     public fun append(`value`: Value? = null): ValueArray =
-        g_value_array_append(gobjectValueArrayPointer.reinterpret(), `value`?.gobjectValuePointer)!!.run {
+        g_value_array_append(
+            gobjectValueArrayPointer.reinterpret(),
+            `value`?.gobjectValuePointer?.reinterpret()
+        )!!.run {
             ValueArray(reinterpret())
         }
 
@@ -122,7 +125,11 @@ public class ValueArray(
         index: UInt,
         `value`: Value? = null,
     ): ValueArray =
-        g_value_array_insert(gobjectValueArrayPointer.reinterpret(), index, `value`?.gobjectValuePointer)!!.run {
+        g_value_array_insert(
+            gobjectValueArrayPointer.reinterpret(),
+            index,
+            `value`?.gobjectValuePointer?.reinterpret()
+        )!!.run {
             ValueArray(reinterpret())
         }
 
@@ -134,7 +141,10 @@ public class ValueArray(
      * @return the #GValueArray passed in as @value_array
      */
     public fun prepend(`value`: Value? = null): ValueArray =
-        g_value_array_prepend(gobjectValueArrayPointer.reinterpret(), `value`?.gobjectValuePointer)!!.run {
+        g_value_array_prepend(
+            gobjectValueArrayPointer.reinterpret(),
+            `value`?.gobjectValuePointer?.reinterpret()
+        )!!.run {
             ValueArray(reinterpret())
         }
 
