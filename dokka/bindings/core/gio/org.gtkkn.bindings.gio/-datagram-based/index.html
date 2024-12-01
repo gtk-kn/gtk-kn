@@ -1,0 +1,119 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>DatagramBased</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gio:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gio::org.gtkkn.bindings.gio/DatagramBased///PointingToDeclaration//-143691045">
+  <div class="breadcrumbs"><a href="../../index.html">gio</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gio</a><span class="delimiter">/</span><span class="current">DatagramBased</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Datagram</span><wbr><span><span>Based</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">DatagramBased</a></div><p class="paragraph">Interface for socket-like objects with datagram semantics.</p><p class="paragraph">A <code class="lang-kotlin">GDatagramBased</code> is a networking interface for representing datagram-based communications. It is a more or less direct mapping of the core parts of the BSD socket API in a portable GObject interface. It is implemented by class@Gio.Socket, which wraps the UNIX socket API on UNIX and winsock2 on Windows.</p><p class="paragraph"><code class="lang-kotlin">GDatagramBased</code> is entirely platform independent, and is intended to be used alongside higher-level networking APIs such as class@Gio.IOStream.</p><p class="paragraph">It uses vectored scatter/gather I/O by default, allowing for many messages to be sent or received in a single call. Where possible, implementations of the interface should take advantage of vectored I/O to minimise processing or system calls. For example, <code class="lang-kotlin">GSocket</code> uses <code class="lang-kotlin">recvmmsg()</code> and <code class="lang-kotlin">sendmmsg()</code> where possible. Callers should take advantage of scatter/gather I/O (the use of multiple buffers per message) to avoid unnecessary copying of data to assemble or disassemble a message.</p><p class="paragraph">Each <code class="lang-kotlin">GDatagramBased</code> operation has a timeout parameter which may be negative for blocking behaviour, zero for non-blocking behaviour, or positive for timeout behaviour. A blocking operation blocks until finished or there is an error. A non-blocking operation will return immediately with a <code class="lang-kotlin">G_IO_ERROR_WOULD_BLOCK</code> error if it cannot make progress. A timeout operation will block until the operation is complete or the timeout expires; if the timeout expires it will return what progress it made, or <code class="lang-kotlin">G_IO_ERROR_TIMED_OUT</code> if no progress was made. To know when a call would successfully run you can call method@Gio.DatagramBased.condition_check or method@Gio.DatagramBased.condition_wait. You can also use method@Gio.DatagramBased.create_source and attach it to a struct@GLib.MainContext to get callbacks when I/O is possible.</p><p class="paragraph">When running a non-blocking operation applications should always be able to handle getting a <code class="lang-kotlin">G_IO_ERROR_WOULD_BLOCK</code> error even when some other function said that I/O was possible. This can easily happen in case of a race condition in the application, but it can also happen for other reasons. For instance, on Windows a socket is always seen as writable until a write returns <code class="lang-kotlin">G_IO_ERROR_WOULD_BLOCK</code>.</p><p class="paragraph">As with <code class="lang-kotlin">GSocket</code>, <code class="lang-kotlin">GDatagramBased</code>s can be either connection oriented (for example, SCTP) or connectionless (for example, UDP). <code class="lang-kotlin">GDatagramBased</code>s must be datagram-based, not stream-based. The interface does not cover connection establishment — use methods on the underlying type to establish a connection before sending and receiving data through the <code class="lang-kotlin">GDatagramBased</code> API. For connectionless socket types the target/source address is specified or received in each I/O operation.</p><p class="paragraph">Like most other APIs in GLib, <code class="lang-kotlin">GDatagramBased</code> is not inherently thread safe. To use a <code class="lang-kotlin">GDatagramBased</code> concurrently from multiple threads, you must implement your own locking.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">condition</code>: C Type GIOCondition is ignored</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">condition</code>: C Type GIOCondition is ignored</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">condition</code>: C Type GIOCondition is ignored</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">messages</code>: InputMessage</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">messages</code>: OutputMessage</p></li></ul><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.48</p></span><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-dtls-client-connection/index.html">DtlsClientConnection</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-dtls-connection/index.html">DtlsConnection</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-dtls-server-connection/index.html">DtlsServerConnection</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-socket/index.html">Socket</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1061183924%2FClasslikes%2F-143691045" anchor-label="Companion" id="-1061183924%2FClasslikes%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1061183924%2FClasslikes%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-942396435%2FProperties%2F-143691045" anchor-label="gioDatagramBasedPointer" id="-942396435%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-datagram-based-pointer.html"><span>gio</span><wbr><span>Datagram</span><wbr><span>Based</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-942396435%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="gio-datagram-based-pointer.html">gioDatagramBasedPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

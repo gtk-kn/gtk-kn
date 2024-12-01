@@ -1,0 +1,412 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SearchSettings</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtksource::org.gtkkn.bindings.gtksource/SearchSettings///PointingToDeclaration//1672315940">
+  <div class="breadcrumbs"><a href="../../index.html">gtksource</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtksource</a><span class="delimiter">/</span><span class="current">SearchSettings</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Search</span><wbr><span><span>Settings</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">SearchSettings</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Search settings.</p><p class="paragraph">A <code class="lang-kotlin">GtkSourceSearchSettings</code> object represents the settings of a search. The search settings can be associated with one or several class@SearchContexts.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-441981200%2FConstructors%2F1672315940" anchor-label="SearchSettings" id="-441981200%2FConstructors%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-search-settings.html"><span>Search</span><wbr><span><span>Settings</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-441981200%2FConstructors%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new search settings object.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-859476375%2FClasslikes%2F1672315940" anchor-label="Companion" id="-859476375%2FClasslikes%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-859476375%2FClasslikes%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1710990931%2FProperties%2F1672315940" anchor-label="atWordBoundaries" id="1710990931%2FProperties%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="at-word-boundaries.html"><span>at</span><wbr><span>Word</span><wbr><span><span>Boundaries</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1710990931%2FProperties%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="at-word-boundaries.html">atWordBoundaries</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">If true, a search match must start and end a word. The match can span multiple words.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1941681180%2FProperties%2F1672315940" anchor-label="caseSensitive" id="1941681180%2FProperties%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="case-sensitive.html"><span>case</span><wbr><span><span>Sensitive</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1941681180%2FProperties%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="case-sensitive.html">caseSensitive</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the search is case sensitive.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1364603649%2FProperties%2F1672315940" anchor-label="gtksourceSearchSettingsPointer" id="-1364603649%2FProperties%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtksource-search-settings-pointer.html"><span>gtksource</span><wbr><span>Search</span><wbr><span>Settings</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1364603649%2FProperties%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gtksource-search-settings-pointer.html">gtksourceSearchSettingsPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1701444734%2FProperties%2F1672315940" anchor-label="regexEnabled" id="1701444734%2FProperties%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="regex-enabled.html"><span>regex</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1701444734%2FProperties%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="regex-enabled.html">regexEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Search by regular expressions with property@SearchSettings:search-text as the pattern.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="335190435%2FProperties%2F1672315940" anchor-label="searchText" id="335190435%2FProperties%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="search-text.html"><span>search</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="335190435%2FProperties%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="search-text.html">searchText</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">A search string, or null if the search is disabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1024696732%2FProperties%2F1672315940" anchor-label="visibleOnly" id="-1024696732%2FProperties%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="visible-only.html"><span>visible</span><wbr><span><span>Only</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1024696732%2FProperties%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="visible-only.html">visibleOnly</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Exclude invisible text from the search. A search match may have invisible text interspersed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="120315937%2FProperties%2F1672315940" anchor-label="wrapAround" id="120315937%2FProperties%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="wrap-around.html"><span>wrap</span><wbr><span><span>Around</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="120315937%2FProperties%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="wrap-around.html">wrapAround</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">For a forward search, continue at the beginning of the buffer if no search occurrence is found. For a backward search, continue at the end of the buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1379800007%2FFunctions%2F1672315940" anchor-label="getAtWordBoundaries" id="1379800007%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-at-word-boundaries.html"><span>get</span><wbr><span>At</span><wbr><span>Word</span><wbr><span><span>Boundaries</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1379800007%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-at-word-boundaries.html"><span class="token function">getAtWordBoundaries</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-330736856%2FFunctions%2F1672315940" anchor-label="getCaseSensitive" id="-330736856%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-case-sensitive.html"><span>get</span><wbr><span>Case</span><wbr><span><span>Sensitive</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-330736856%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-case-sensitive.html"><span class="token function">getCaseSensitive</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1212498930%2FFunctions%2F1672315940" anchor-label="getRegexEnabled" id="1212498930%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-regex-enabled.html"><span>get</span><wbr><span>Regex</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1212498930%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-regex-enabled.html"><span class="token function">getRegexEnabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1210658327%2FFunctions%2F1672315940" anchor-label="getSearchText" id="1210658327%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-search-text.html"><span>get</span><wbr><span>Search</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1210658327%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-search-text.html"><span class="token function">getSearchText</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the text to search.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="345004144%2FFunctions%2F1672315940" anchor-label="getVisibleOnly" id="345004144%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-visible-only.html"><span>get</span><wbr><span>Visible</span><wbr><span><span>Only</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="345004144%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-visible-only.html"><span class="token function">getVisibleOnly</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="995783829%2FFunctions%2F1672315940" anchor-label="getWrapAround" id="995783829%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-wrap-around.html"><span>get</span><wbr><span>Wrap</span><wbr><span><span>Around</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="995783829%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-wrap-around.html"><span class="token function">getWrapAround</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-281450432%2FFunctions%2F1672315940" anchor-label="setAtWordBoundaries" id="-281450432%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-at-word-boundaries.html"><span>set</span><wbr><span>At</span><wbr><span>Word</span><wbr><span><span>Boundaries</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-281450432%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-at-word-boundaries.html"><span class="token function">setAtWordBoundaries</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">atWordBoundaries<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Change whether the search is done at word boundaries.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-713647239%2FFunctions%2F1672315940" anchor-label="setCaseSensitive" id="-713647239%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-case-sensitive.html"><span>set</span><wbr><span>Case</span><wbr><span><span>Sensitive</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-713647239%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-case-sensitive.html"><span class="token function">setCaseSensitive</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">caseSensitive<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Enables or disables the case sensitivity for the search.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="653544235%2FFunctions%2F1672315940" anchor-label="setRegexEnabled" id="653544235%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-regex-enabled.html"><span>set</span><wbr><span>Regex</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="653544235%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-regex-enabled.html"><span class="token function">setRegexEnabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">regexEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Enables or disables whether to search by regular expressions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2085461162%2FFunctions%2F1672315940" anchor-label="setSearchText" id="2085461162%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-search-text.html"><span>set</span><wbr><span>Search</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2085461162%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-search-text.html"><span class="token function">setSearchText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">searchText<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the text to search.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-675213887%2FFunctions%2F1672315940" anchor-label="setVisibleOnly" id="-675213887%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-visible-only.html"><span>set</span><wbr><span>Visible</span><wbr><span><span>Only</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-675213887%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-visible-only.html"><span class="token function">setVisibleOnly</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">visibleOnly<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Enables or disables whether to exclude invisible text from the search.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-658018418%2FFunctions%2F1672315940" anchor-label="setWrapAround" id="-658018418%2FFunctions%2F1672315940" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-wrap-around.html"><span>set</span><wbr><span>Wrap</span><wbr><span><span>Around</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-658018418%2FFunctions%2F1672315940"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-wrap-around.html"><span class="token function">setWrapAround</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">wrapAround<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Enables or disables the wrap around search.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

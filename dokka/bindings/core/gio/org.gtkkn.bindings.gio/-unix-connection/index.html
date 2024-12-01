@@ -1,0 +1,592 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>UnixConnection</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gio:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gio::org.gtkkn.bindings.gio/UnixConnection///PointingToDeclaration//-143691045">
+  <div class="breadcrumbs"><a href="../../index.html">gio</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gio</a><span class="delimiter">/</span><span class="current">UnixConnection</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Unix</span><wbr><span><span>Connection</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">UnixConnection</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-socket-connection/index.html">SocketConnection</a></div><p class="paragraph">This is the subclass of class@Gio.SocketConnection that is created for UNIX domain sockets.</p><p class="paragraph">It contains functions to do some of the UNIX socket specific functionality like passing file descriptors.</p><p class="paragraph">Since GLib 2.72, <code class="lang-kotlin">GUnixConnection</code> is available on all platforms. It requires underlying system support (such as Windows 10 with <code class="lang-kotlin">AF_UNIX</code>) at run time.</p><p class="paragraph">Before GLib 2.72, <code class="lang-kotlin">&lt;gio/gunixconnection.h&gt;</code> belonged to the UNIX-specific GIO interfaces, thus you had to use the <code class="lang-kotlin">gio-unix-2.0.pc</code> pkg-config file when using it. This is no longer necessary since GLib 2.72.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.22</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-385589763%2FConstructors%2F-143691045" anchor-label="UnixConnection" id="-385589763%2FConstructors%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-unix-connection.html"><span>Unix</span><wbr><span><span>Connection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-385589763%2FConstructors%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1769041598%2FClasslikes%2F-143691045" anchor-label="Companion" id="-1769041598%2FClasslikes%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1769041598%2FClasslikes%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1743728971%2FProperties%2F-143691045" anchor-label="gioIOStreamPointer" id="-1743728971%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/gio-i-o-stream-pointer.html"><span>gio</span><wbr><span>IOStream</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1743728971%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-i-o-stream/gio-i-o-stream-pointer.html">gioIOStreamPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="187547211%2FProperties%2F-143691045" anchor-label="gioSocketConnectionPointer" id="187547211%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-connection/gio-socket-connection-pointer.html"><span>gio</span><wbr><span>Socket</span><wbr><span>Connection</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="187547211%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-socket-connection/gio-socket-connection-pointer.html">gioSocketConnectionPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1311549429%2FProperties%2F-143691045" anchor-label="gioUnixConnectionPointer" id="1311549429%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-unix-connection-pointer.html"><span>gio</span><wbr><span>Unix</span><wbr><span>Connection</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1311549429%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gio-unix-connection-pointer.html">gioUnixConnectionPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1922533903%2FProperties%2F-143691045" anchor-label="inputStream" id="-1922533903%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/input-stream.html"><span>input</span><wbr><span><span>Stream</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1922533903%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../-i-o-stream/input-stream.html">inputStream</a><span class="token operator">: </span><a href="../-input-stream/index.html">InputStream</a></div><div class="brief "><p class="paragraph">The class@Gio.InputStream to read from.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="121934814%2FProperties%2F-143691045" anchor-label="outputStream" id="121934814%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/output-stream.html"><span>output</span><wbr><span><span>Stream</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="121934814%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../-i-o-stream/output-stream.html">outputStream</a><span class="token operator">: </span><a href="../-output-stream/index.html">OutputStream</a></div><div class="brief "><p class="paragraph">The class@Gio.OutputStream to write to.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-551546473%2FProperties%2F-143691045" anchor-label="socket" id="-551546473%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-connection/socket.html"><span><span>socket</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-551546473%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../-socket-connection/socket.html">socket</a><span class="token operator">: </span><a href="../-socket/index.html">Socket</a></div><div class="brief "><p class="paragraph">The underlying class@Gio.Socket.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1668589227%2FFunctions%2F-143691045" anchor-label="clearPending" id="-1668589227%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/clear-pending.html"><span>clear</span><wbr><span><span>Pending</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1668589227%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-i-o-stream/clear-pending.html"><span class="token function">clearPending</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Clears the pending flag on @stream.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1061499810%2FFunctions%2F-143691045" anchor-label="close" id="1061499810%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/close.html"><span><span>close</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1061499810%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-i-o-stream/close.html"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Closes the stream, releasing resources related to it. This will also close the individual input and output streams, if they are not already closed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2024149647%2FFunctions%2F-143691045" anchor-label="closeAsync" id="2024149647%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/close-async.html"><span>close</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2024149647%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-i-o-stream/close-async.html"><span class="token function">closeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">ioPriority<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Requests an asynchronous close of the stream, releasing resources related to it. When the operation is finished @callback will be called. You can then call g_io_stream_close_finish() to get the result of the operation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1174943871%2FFunctions%2F-143691045" anchor-label="closeFinish" id="-1174943871%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/close-finish.html"><span>close</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1174943871%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-i-o-stream/close-finish.html"><span class="token function">closeFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Closes a stream.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1565258165%2FFunctions%2F-143691045" anchor-label="connect" id="1565258165%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-connection/connect.html"><span><span>connect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1565258165%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-connection/connect.html"><span class="token function">connect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">address<span class="token operator">: </span><a href="../-socket-address/index.html">SocketAddress</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Connect @connection to the specified remote address.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1920257671%2FFunctions%2F-143691045" anchor-label="connectAsync" id="1920257671%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-connection/connect-async.html"><span>connect</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1920257671%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-connection/connect-async.html"><span class="token function">connectAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">address<span class="token operator">: </span><a href="../-socket-address/index.html">SocketAddress</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronously connect @connection to the specified remote address.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1167802404%2FFunctions%2F-143691045" anchor-label="connectFinish" id="1167802404%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-connection/connect-finish.html"><span>connect</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1167802404%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-connection/connect-finish.html"><span class="token function">connectFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Gets the result of a g_socket_connection_connect_async() call.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2049186795%2FFunctions%2F-143691045" anchor-label="getInputStream" id="2049186795%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/get-input-stream.html"><span>get</span><wbr><span>Input</span><wbr><span><span>Stream</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2049186795%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-i-o-stream/get-input-stream.html"><span class="token function">getInputStream</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-input-stream/index.html">InputStream</a></div><div class="brief "><p class="paragraph">Gets the input stream for this object. This is used for reading.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1143661359%2FFunctions%2F-143691045" anchor-label="getLocalAddress" id="-1143661359%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-connection/get-local-address.html"><span>get</span><wbr><span>Local</span><wbr><span><span>Address</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1143661359%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-connection/get-local-address.html"><span class="token function">getLocalAddress</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-socket-address/index.html">SocketAddress</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Try to get the local address of a socket connection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1308775132%2FFunctions%2F-143691045" anchor-label="getOutputStream" id="-1308775132%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/get-output-stream.html"><span>get</span><wbr><span>Output</span><wbr><span><span>Stream</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1308775132%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-i-o-stream/get-output-stream.html"><span class="token function">getOutputStream</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-output-stream/index.html">OutputStream</a></div><div class="brief "><p class="paragraph">Gets the output stream for this object. This is used for writing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1429707950%2FFunctions%2F-143691045" anchor-label="getRemoteAddress" id="-1429707950%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-connection/get-remote-address.html"><span>get</span><wbr><span>Remote</span><wbr><span><span>Address</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1429707950%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-connection/get-remote-address.html"><span class="token function">getRemoteAddress</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-socket-address/index.html">SocketAddress</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Try to get the remote address of a socket connection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1647968359%2FFunctions%2F-143691045" anchor-label="getSocket" id="1647968359%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-connection/get-socket.html"><span>get</span><wbr><span><span>Socket</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1647968359%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-connection/get-socket.html"><span class="token function">getSocket</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-socket/index.html">Socket</a></div><div class="brief "><p class="paragraph">Gets the underlying #GSocket object of the connection. This can be useful if you want to do something unusual on it not supported by the #GSocketConnection APIs.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1748865570%2FFunctions%2F-143691045" anchor-label="hasPending" id="1748865570%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/has-pending.html"><span>has</span><wbr><span><span>Pending</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1748865570%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-i-o-stream/has-pending.html"><span class="token function">hasPending</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if a stream has pending actions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="698239785%2FFunctions%2F-143691045" anchor-label="isClosed" id="698239785%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/is-closed.html"><span>is</span><wbr><span><span>Closed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="698239785%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-i-o-stream/is-closed.html"><span class="token function">isClosed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if a stream is closed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-923332143%2FFunctions%2F-143691045" anchor-label="isConnected" id="-923332143%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-connection/is-connected.html"><span>is</span><wbr><span><span>Connected</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-923332143%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-connection/is-connected.html"><span class="token function">isConnected</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if @connection is connected. This is equivalent to calling g_socket_is_connected() on @connection's underlying #GSocket.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2031316895%2FFunctions%2F-143691045" anchor-label="receiveCredentials" id="2031316895%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="receive-credentials.html"><span>receive</span><wbr><span><span>Credentials</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2031316895%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="receive-credentials.html"><span class="token function">receiveCredentials</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-credentials/index.html">Credentials</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Receives credentials from the sending end of the connection.  The sending end has to call g_unix_connection_send_credentials() (or similar) for this to work.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="675821185%2FFunctions%2F-143691045" anchor-label="receiveCredentialsAsync" id="675821185%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="receive-credentials-async.html"><span>receive</span><wbr><span>Credentials</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="675821185%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="receive-credentials-async.html"><span class="token function">receiveCredentialsAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronously receive credentials.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-829390428%2FFunctions%2F-143691045" anchor-label="receiveCredentialsFinish" id="-829390428%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="receive-credentials-finish.html"><span>receive</span><wbr><span>Credentials</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-829390428%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="receive-credentials-finish.html"><span class="token function">receiveCredentialsFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-credentials/index.html">Credentials</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finishes an asynchronous receive credentials operation started with g_unix_connection_receive_credentials_async().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1905440181%2FFunctions%2F-143691045" anchor-label="receiveFd" id="-1905440181%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="receive-fd.html"><span>receive</span><wbr><span><span>Fd</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1905440181%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="receive-fd.html"><span class="token function">receiveFd</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Receives a file descriptor from the sending end of the connection. The sending end has to call g_unix_connection_send_fd() for this to work.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="420491678%2FFunctions%2F-143691045" anchor-label="sendCredentials" id="420491678%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-credentials.html"><span>send</span><wbr><span><span>Credentials</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="420491678%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-credentials.html"><span class="token function">sendCredentials</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Passes the credentials of the current user the receiving side of the connection. The receiving end has to call g_unix_connection_receive_credentials() (or similar) to accept the credentials.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1938823552%2FFunctions%2F-143691045" anchor-label="sendCredentialsAsync" id="-1938823552%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-credentials-async.html"><span>send</span><wbr><span>Credentials</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1938823552%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-credentials-async.html"><span class="token function">sendCredentialsAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronously send credentials.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-695720187%2FFunctions%2F-143691045" anchor-label="sendCredentialsFinish" id="-695720187%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-credentials-finish.html"><span>send</span><wbr><span>Credentials</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-695720187%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-credentials-finish.html"><span class="token function">sendCredentialsFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finishes an asynchronous send credentials operation started with g_unix_connection_send_credentials_async().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-831505091%2FFunctions%2F-143691045" anchor-label="sendFd" id="-831505091%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-fd.html"><span>send</span><wbr><span><span>Fd</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-831505091%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-fd.html"><span class="token function">sendFd</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fd<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Passes a file descriptor to the receiving side of the connection. The receiving end has to call g_unix_connection_receive_fd() to accept the file descriptor.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1172610026%2FFunctions%2F-143691045" anchor-label="setPending" id="1172610026%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/set-pending.html"><span>set</span><wbr><span><span>Pending</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1172610026%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-i-o-stream/set-pending.html"><span class="token function">setPending</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Sets @stream to have actions pending. If the pending flag is already set or @stream is closed, it will return false and set</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1562635592%2FFunctions%2F-143691045" anchor-label="spliceAsync" id="-1562635592%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-i-o-stream/splice-async.html"><span>splice</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1562635592%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-i-o-stream/splice-async.html"><span class="token function">spliceAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">stream2<span class="token operator">: </span><a href="../-i-o-stream/index.html">IOStream</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-i-o-stream-splice-flags/index.html">IOStreamSpliceFlags</a><span class="token punctuation">, </span></span><span class="parameter ">ioPriority<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronously splice the output stream of @stream1 to the input stream of</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

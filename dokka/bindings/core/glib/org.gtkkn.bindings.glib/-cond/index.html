@@ -1,0 +1,209 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Cond</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="glib::org.gtkkn.bindings.glib/Cond///PointingToDeclaration//-2101254470">
+  <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><span class="current">Cond</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Cond</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Cond</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../../org.gtkkn.extensions.glib/-record/index.html">Record</a></div><p class="paragraph">The #GCond struct is an opaque data structure that represents a condition. Threads can block on a #GCond if they find a certain condition to be false. If other threads change the state of this condition they signal the #GCond, and that causes the waiting threads to be woken up.</p><p class="paragraph">Consider the following example of a shared variable.  One or more threads can wait for data to be published to the variable and when another thread publishes the data, it can signal one of the waiting threads to wake up to collect the data.</p><p class="paragraph">Here is an example for using GCond to block a thread until a condition is satisfied: |[<!-- language="C" --> gpointer current_data = NULL; GMutex data_mutex; GCond data_cond;</p><p class="paragraph">void push_data (gpointer data) {     g_mutex_lock (&amp;data_mutex);     current_data = data;     g_cond_signal (&amp;data_cond);     g_mutex_unlock (&amp;data_mutex); }</p><p class="paragraph">gpointer pop_data (void) {     gpointer data;</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">g_mutex_lock (&amp;data_mutex);
+while (!current_data)
+  g_cond_wait (&amp;data_cond, &amp;data_mutex);
+data = current_data;
+current_data = NULL;
+g_mutex_unlock (&amp;data_mutex);
+
+return data;</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">} ]| Whenever a thread calls pop_data() now, it will wait until current_data is non-null, i.e. until some other thread has called push_data().</p><p class="paragraph">The example shows that use of a condition variable must always be paired with a mutex.  Without the use of a mutex, there would be a race between the check of @current_data by the while loop in pop_data() and waiting. Specifically, another thread could set</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1550580806%2FConstructors%2F-2101254470" anchor-label="Cond" id="-1550580806%2FConstructors%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-cond.html"><span><span>Cond</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1550580806%2FConstructors%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1173997879%2FClasslikes%2F-2101254470" anchor-label="Companion" id="-1173997879%2FClasslikes%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1173997879%2FClasslikes%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a> : <a href="../../org.gtkkn.extensions.glib/-record-companion/index.html">RecordCompanion</a><span class="token operator">&lt;</span><a href="index.html">Cond</a><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="558603077%2FProperties%2F-2101254470" anchor-label="glibCondPointer" id="558603077%2FProperties%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="glib-cond-pointer.html"><span>glib</span><wbr><span>Cond</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="558603077%2FProperties%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="glib-cond-pointer.html">glibCondPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1386993695%2FFunctions%2F-2101254470" anchor-label="broadcast" id="-1386993695%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="broadcast.html"><span><span>broadcast</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1386993695%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="broadcast.html"><span class="token function">broadcast</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">If threads are waiting for @cond, all of them are unblocked. If no threads are waiting for @cond, this function has no effect. It is good practice to lock the same mutex as the waiting threads while calling this function, though not required.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1362879915%2FFunctions%2F-2101254470" anchor-label="clear" id="-1362879915%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear.html"><span><span>clear</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1362879915%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="clear.html"><span class="token function">clear</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Frees the resources allocated to a #GCond with g_cond_init().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-182810680%2FFunctions%2F-2101254470" anchor-label="init" id="-182810680%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init.html"><span><span>init</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-182810680%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init.html"><span class="token function">init</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Initialises a #GCond so that it can be used.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2054513040%2FFunctions%2F-2101254470" anchor-label="signal" id="-2054513040%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="signal.html"><span><span>signal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2054513040%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="signal.html"><span class="token function">signal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">If threads are waiting for @cond, at least one of them is unblocked. If no threads are waiting for @cond, this function has no effect. It is good practice to hold the same lock as the waiting thread while calling this function, though not required.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

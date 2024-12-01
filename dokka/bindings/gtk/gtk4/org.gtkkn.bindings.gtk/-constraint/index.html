@@ -1,0 +1,427 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Constraint</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk4::org.gtkkn.bindings.gtk/Constraint///PointingToDeclaration//-991561573">
+  <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">Constraint</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Constraint</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">Constraint</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph"><code class="lang-kotlin">GtkConstraint</code> describes a constraint between attributes of two widgets, expressed as a linear equation.</p><p class="paragraph">The typical equation for a constraint is:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">target.target_attr = source.source_attr × multiplier + constant</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Each <code class="lang-kotlin">GtkConstraint</code> is part of a system that will be solved by a class@Gtk.ConstraintLayout in order to allocate and position each child widget or guide.</p><p class="paragraph">The source and target, as well as their attributes, of a <code class="lang-kotlin">GtkConstraint</code> instance are immutable after creation.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1380691541%2FConstructors%2F-991561573" anchor-label="Constraint" id="1380691541%2FConstructors%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-constraint.html"><span><span>Constraint</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1380691541%2FConstructors%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">target<span class="token operator">: </span><a href="../-constraint-target/index.html">ConstraintTarget</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">targetAttribute<span class="token operator">: </span><a href="../-constraint-attribute/index.html">ConstraintAttribute</a><span class="token punctuation">, </span></span><span class="parameter ">relation<span class="token operator">: </span><a href="../-constraint-relation/index.html">ConstraintRelation</a><span class="token punctuation">, </span></span><span class="parameter ">source<span class="token operator">: </span><a href="../-constraint-target/index.html">ConstraintTarget</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">sourceAttribute<span class="token operator">: </span><a href="../-constraint-attribute/index.html">ConstraintAttribute</a><span class="token punctuation">, </span></span><span class="parameter ">multiplier<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">constant<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">strength<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new constraint representing a relation between a layout attribute on a source and a layout attribute on a target.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">target<span class="token operator">: </span><a href="../-constraint-target/index.html">ConstraintTarget</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">targetAttribute<span class="token operator">: </span><a href="../-constraint-attribute/index.html">ConstraintAttribute</a><span class="token punctuation">, </span></span><span class="parameter ">relation<span class="token operator">: </span><a href="../-constraint-relation/index.html">ConstraintRelation</a><span class="token punctuation">, </span></span><span class="parameter ">constant<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">strength<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new constraint representing a relation between a layout attribute on a target and a constant value.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="801528988%2FClasslikes%2F-991561573" anchor-label="Companion" id="801528988%2FClasslikes%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="801528988%2FClasslikes%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="2028283393%2FProperties%2F-991561573" anchor-label="constant" id="2028283393%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="constant.html"><span><span>constant</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2028283393%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="constant.html">constant</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a></div><div class="brief "><p class="paragraph">The constant value to be added to the property@Gtk.Constraint:source-attribute.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1827531587%2FProperties%2F-991561573" anchor-label="gtkConstraintPointer" id="1827531587%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-constraint-pointer.html"><span>gtk</span><wbr><span>Constraint</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1827531587%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gtk-constraint-pointer.html">gtkConstraintPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-745964412%2FProperties%2F-991561573" anchor-label="multiplier" id="-745964412%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="multiplier.html"><span><span>multiplier</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-745964412%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="multiplier.html">multiplier</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a></div><div class="brief "><p class="paragraph">The multiplication factor to be applied to the property@Gtk.Constraint:source-attribute.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="91382441%2FProperties%2F-991561573" anchor-label="relation" id="91382441%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="relation.html"><span><span>relation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="91382441%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="relation.html">relation</a><span class="token operator">: </span><a href="../-constraint-relation/index.html">ConstraintRelation</a></div><div class="brief "><p class="paragraph">The order relation between the terms of the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2103378070%2FProperties%2F-991561573" anchor-label="source" id="-2103378070%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="source.html"><span><span>source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2103378070%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="source.html">source</a><span class="token operator">: </span><a href="../-constraint-target/index.html">ConstraintTarget</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The source of the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1362635852%2FProperties%2F-991561573" anchor-label="sourceAttribute" id="-1362635852%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="source-attribute.html"><span>source</span><wbr><span><span>Attribute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1362635852%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="source-attribute.html">sourceAttribute</a><span class="token operator">: </span><a href="../-constraint-attribute/index.html">ConstraintAttribute</a></div><div class="brief "><p class="paragraph">The attribute of the property@Gtk.Constraint:source read by the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="943797252%2FProperties%2F-991561573" anchor-label="strength" id="943797252%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="strength.html"><span><span>strength</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="943797252%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="strength.html">strength</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The strength of the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1200318132%2FProperties%2F-991561573" anchor-label="target" id="1200318132%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="target.html"><span><span>target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1200318132%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="target.html">target</a><span class="token operator">: </span><a href="../-constraint-target/index.html">ConstraintTarget</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The target of the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-86245462%2FProperties%2F-991561573" anchor-label="targetAttribute" id="-86245462%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="target-attribute.html"><span>target</span><wbr><span><span>Attribute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-86245462%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="target-attribute.html">targetAttribute</a><span class="token operator">: </span><a href="../-constraint-attribute/index.html">ConstraintAttribute</a></div><div class="brief "><p class="paragraph">The attribute of the property@Gtk.Constraint:target set by the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-764054149%2FFunctions%2F-991561573" anchor-label="getConstant" id="-764054149%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-constant.html"><span>get</span><wbr><span><span>Constant</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-764054149%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-constant.html"><span class="token function">getConstant</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a></div><div class="brief "><p class="paragraph">Retrieves the constant factor added to the source attributes' value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="172217726%2FFunctions%2F-991561573" anchor-label="getMultiplier" id="172217726%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-multiplier.html"><span>get</span><wbr><span><span>Multiplier</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="172217726%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-multiplier.html"><span class="token function">getMultiplier</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a></div><div class="brief "><p class="paragraph">Retrieves the multiplication factor applied to the source attribute's value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1594012195%2FFunctions%2F-991561573" anchor-label="getRelation" id="1594012195%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-relation.html"><span>get</span><wbr><span><span>Relation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1594012195%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-relation.html"><span class="token function">getRelation</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-constraint-relation/index.html">ConstraintRelation</a></div><div class="brief "><p class="paragraph">The order relation between the terms of the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1324161692%2FFunctions%2F-991561573" anchor-label="getSource" id="-1324161692%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-source.html"><span>get</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1324161692%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-source.html"><span class="token function">getSource</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-constraint-target/index.html">ConstraintTarget</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Retrieves the iface@Gtk.ConstraintTarget used as the source for the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1902118650%2FFunctions%2F-991561573" anchor-label="getSourceAttribute" id="1902118650%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-source-attribute.html"><span>get</span><wbr><span>Source</span><wbr><span><span>Attribute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1902118650%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-source-attribute.html"><span class="token function">getSourceAttribute</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-constraint-attribute/index.html">ConstraintAttribute</a></div><div class="brief "><p class="paragraph">Retrieves the attribute of the source to be read by the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1848540290%2FFunctions%2F-991561573" anchor-label="getStrength" id="-1848540290%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-strength.html"><span>get</span><wbr><span><span>Strength</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1848540290%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-strength.html"><span class="token function">getStrength</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Retrieves the strength of the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1979534510%2FFunctions%2F-991561573" anchor-label="getTarget" id="1979534510%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-target.html"><span>get</span><wbr><span><span>Target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1979534510%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-target.html"><span class="token function">getTarget</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-constraint-target/index.html">ConstraintTarget</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Retrieves the iface@Gtk.ConstraintTarget used as the target for the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1116458256%2FFunctions%2F-991561573" anchor-label="getTargetAttribute" id="-1116458256%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-target-attribute.html"><span>get</span><wbr><span>Target</span><wbr><span><span>Attribute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1116458256%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-target-attribute.html"><span class="token function">getTargetAttribute</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-constraint-attribute/index.html">ConstraintAttribute</a></div><div class="brief "><p class="paragraph">Retrieves the attribute of the target to be set by the constraint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-133541385%2FFunctions%2F-991561573" anchor-label="isAttached" id="-133541385%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-attached.html"><span>is</span><wbr><span><span>Attached</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-133541385%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-attached.html"><span class="token function">isAttached</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether the constraint is attached to a class@Gtk.ConstraintLayout, and it is contributing to the layout.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="595438583%2FFunctions%2F-991561573" anchor-label="isConstant" id="595438583%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-constant.html"><span>is</span><wbr><span><span>Constant</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="595438583%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-constant.html"><span class="token function">isConstant</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether the constraint describes a relation between an attribute on the property@Gtk.Constraint:target and a constant value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2024356772%2FFunctions%2F-991561573" anchor-label="isRequired" id="-2024356772%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-required.html"><span>is</span><wbr><span><span>Required</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2024356772%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-required.html"><span class="token function">isRequired</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether the constraint is a required relation for solving the constraint layout.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

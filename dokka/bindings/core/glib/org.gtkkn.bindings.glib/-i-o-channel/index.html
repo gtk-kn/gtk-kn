@@ -1,0 +1,457 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>IOChannel</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="glib::org.gtkkn.bindings.glib/IOChannel///PointingToDeclaration//-2101254470">
+  <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><span class="current">IOChannel</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>IOChannel</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">IOChannel</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../../org.gtkkn.extensions.glib/-record/index.html">Record</a></div><p class="paragraph">The <code class="lang-kotlin">GIOChannel</code> data type aims to provide a portable method for using file descriptors, pipes, and sockets, and integrating them into the main event loop (see struct@GLib.MainContext). Currently, full support is available on UNIX platforms; support for Windows is only partially complete.</p><p class="paragraph">To create a new <code class="lang-kotlin">GIOChannel</code> on UNIX systems use ctor@GLib.IOChannel.unix_new. This works for plain file descriptors, pipes and sockets. Alternatively, a channel can be created for a file in a system independent manner using ctor@GLib.IOChannel.new_file.</p><p class="paragraph">Once a <code class="lang-kotlin">GIOChannel</code> has been created, it can be used in a generic manner with the functions method@GLib.IOChannel.read_chars, method@GLib.IOChannel.write_chars, method@GLib.IOChannel.seek_position, and method@GLib.IOChannel.shutdown.</p><p class="paragraph">To add a <code class="lang-kotlin">GIOChannel</code> to the main event loop, use func@GLib.io_add_watch or func@GLib.io_add_watch_full. Here you specify which events you are interested in on the <code class="lang-kotlin">GIOChannel</code>, and provide a function to be called whenever these events occur.</p><p class="paragraph"><code class="lang-kotlin">GIOChannel</code> instances are created with an initial reference count of 1. method@GLib.IOChannel.ref and method@GLib.IOChannel.unref can be used to increment or decrement the reference count respectively. When the reference count falls to 0, the <code class="lang-kotlin">GIOChannel</code> is freed. (Though it isn’t closed automatically, unless it was created using ctor@GLib.IOChannel.new_file.) Using func@GLib.io_add_watch or func@GLib.io_add_watch_full increments a channel’s reference count.</p><p class="paragraph">The new functions method@GLib.IOChannel.read_chars, method@GLib.IOChannel.read_line, method@GLib.IOChannel.read_line_string, method@GLib.IOChannel.read_to_end, method@GLib.IOChannel.write_chars, method@GLib.IOChannel.seek_position, and method@GLib.IOChannel.flush should not be mixed with the deprecated functions method@GLib.IOChannel.read, method@GLib.IOChannel.write, and method@GLib.IOChannel.seek on the same channel.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">get_buffer_condition</code>: C function g_io_channel_get_buffer_condition is ignored</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">length</code>: length: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">bytes_read</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">buf</code>: buf: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">str_return</code>: str_return: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">terminator_pos</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">str_return</code>: str_return: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">thechar</code>: thechar: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">bytes_written</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">buf</code>: Array parameter of type guint8 is not supported</p></li><li><p class="paragraph">field <code class="lang-kotlin">ref_count</code>: Record field ref_count is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">funcs</code>: Record field funcs is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">encoding</code>: Record field encoding is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">read_cd</code>: Record field read_cd is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">write_cd</code>: Record field write_cd is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">line_term</code>: Record field line_term is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">line_term_len</code>: Record field line_term_len is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">buf_size</code>: Record field buf_size is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">read_buf</code>: Record field read_buf is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">encoded_read_buf</code>: Record field encoded_read_buf is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">write_buf</code>: Record field write_buf is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">partial_write_buf</code>: Record field partial_write_buf is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">use_buffer</code>: Record field use_buffer is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">do_encode</code>: Record field do_encode is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">close_on_unref</code>: Record field close_on_unref is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">is_readable</code>: Record field is_readable is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">is_writeable</code>: Record field is_writeable is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">is_seekable</code>: Record field is_seekable is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">reserved1</code>: Record field reserved1 is private</p></li><li><p class="paragraph">field <code class="lang-kotlin">reserved2</code>: Record field reserved2 is private</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="736028232%2FConstructors%2F-2101254470" anchor-label="IOChannel" id="736028232%2FConstructors%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-o-channel.html"><span><span>IOChannel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="736028232%2FConstructors%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1475646850%2FClasslikes%2F-2101254470" anchor-label="Companion" id="-1475646850%2FClasslikes%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1475646850%2FClasslikes%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a> : <a href="../../org.gtkkn.extensions.glib/-record-companion/index.html">RecordCompanion</a><span class="token operator">&lt;</span><a href="index.html">IOChannel</a><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="890932357%2FProperties%2F-2101254470" anchor-label="glibIOChannelPointer" id="890932357%2FProperties%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="glib-i-o-channel-pointer.html"><span>glib</span><wbr><span>IOChannel</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="890932357%2FProperties%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="glib-i-o-channel-pointer.html">glibIOChannelPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="407744319%2FFunctions%2F-2101254470" anchor-label="close" id="407744319%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="close.html"><span><span>close</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="407744319%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="close.html"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Close an IO channel. Any pending data to be written will be flushed, ignoring errors. The channel will not be freed until the last reference is dropped using g_io_channel_unref().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-993667149%2FFunctions%2F-2101254470" anchor-label="flush" id="-993667149%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="flush.html"><span><span>flush</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-993667149%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="flush.html"><span class="token function">flush</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-i-o-status/index.html">IOStatus</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Flushes the write buffer for the GIOChannel.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1045320190%2FFunctions%2F-2101254470" anchor-label="getBuffered" id="-1045320190%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-buffered.html"><span>get</span><wbr><span><span>Buffered</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1045320190%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-buffered.html"><span class="token function">getBuffered</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether @channel is buffered.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="187632576%2FFunctions%2F-2101254470" anchor-label="getBufferSize" id="187632576%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-buffer-size.html"><span>get</span><wbr><span>Buffer</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="187632576%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-buffer-size.html"><span class="token function">getBufferSize</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the buffer size.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-175636034%2FFunctions%2F-2101254470" anchor-label="getCloseOnUnref" id="-175636034%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-close-on-unref.html"><span>get</span><wbr><span>Close</span><wbr><span>On</span><wbr><span><span>Unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-175636034%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-close-on-unref.html"><span class="token function">getCloseOnUnref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether the file/socket/whatever associated with @channel will be closed when @channel receives its final unref and is destroyed. The default value of this is true for channels created by g_io_channel_new_file (), and false for all other channels.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1308935154%2FFunctions%2F-2101254470" anchor-label="getEncoding" id="-1308935154%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-encoding.html"><span>get</span><wbr><span><span>Encoding</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1308935154%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-encoding.html"><span class="token function">getEncoding</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the encoding for the input/output of the channel. The internal encoding is always UTF-8. The encoding null makes the channel safe for binary data.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1639767890%2FFunctions%2F-2101254470" anchor-label="getFlags" id="1639767890%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-flags.html"><span>get</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1639767890%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-flags.html"><span class="token function">getFlags</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-i-o-flags/index.html">IOFlags</a></div><div class="brief "><p class="paragraph">Gets the current flags for a #GIOChannel, including read-only flags such as %G_IO_FLAG_IS_READABLE.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="519509747%2FFunctions%2F-2101254470" anchor-label="init" id="519509747%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init.html"><span><span>init</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="519509747%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init.html"><span class="token function">init</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Initializes a #GIOChannel struct.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="840089476%2FFunctions%2F-2101254470" anchor-label="ref" id="840089476%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ref.html"><span><span>ref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="840089476%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ref.html"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">IOChannel</a></div><div class="brief "><p class="paragraph">Increments the reference count of a #GIOChannel.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1422593480%2FFunctions%2F-2101254470" anchor-label="seek" id="-1422593480%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seek.html"><span><span>seek</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1422593480%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="seek.html"><span class="token function">seek</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">offset<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="../-seek-type/index.html">SeekType</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-i-o-error/index.html">IOError</a></div><div class="brief "><p class="paragraph">Sets the current position in the #GIOChannel, similar to the standard library function fseek().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-841878385%2FFunctions%2F-2101254470" anchor-label="seekPosition" id="-841878385%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seek-position.html"><span>seek</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-841878385%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="seek-position.html"><span class="token function">seekPosition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">offset<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="../-seek-type/index.html">SeekType</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-i-o-status/index.html">IOStatus</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Replacement for g_io_channel_seek() with the new API.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1170191163%2FFunctions%2F-2101254470" anchor-label="setBuffered" id="1170191163%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-buffered.html"><span>set</span><wbr><span><span>Buffered</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1170191163%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-buffered.html"><span class="token function">setBuffered</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">buffered<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The buffering state can only be set if the channel's encoding is null. For any other encoding, the channel must be buffered.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2056356799%2FFunctions%2F-2101254470" anchor-label="setBufferSize" id="-2056356799%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-buffer-size.html"><span>set</span><wbr><span>Buffer</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2056356799%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-buffer-size.html"><span class="token function">setBufferSize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">size<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the buffer size.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="285275127%2FFunctions%2F-2101254470" anchor-label="setCloseOnUnref" id="285275127%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-close-on-unref.html"><span>set</span><wbr><span>Close</span><wbr><span>On</span><wbr><span><span>Unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="285275127%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-close-on-unref.html"><span class="token function">setCloseOnUnref</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">doClose<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Whether to close the channel on the final unref of the #GIOChannel data structure. The default value of this is true for channels created by g_io_channel_new_file (), and false for all other channels.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1401224033%2FFunctions%2F-2101254470" anchor-label="setEncoding" id="1401224033%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-encoding.html"><span>set</span><wbr><span><span>Encoding</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1401224033%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-encoding.html"><span class="token function">setEncoding</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">encoding<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-i-o-status/index.html">IOStatus</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Sets the encoding for the input/output of the channel. The internal encoding is always UTF-8. The default encoding for the external file is UTF-8.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="538723818%2FFunctions%2F-2101254470" anchor-label="setFlags" id="538723818%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-flags.html"><span>set</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="538723818%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-flags.html"><span class="token function">setFlags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flags<span class="token operator">: </span><a href="../-i-o-flags/index.html">IOFlags</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-i-o-status/index.html">IOStatus</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Sets the (writeable) flags in @channel to (@flags &amp; %G_IO_FLAG_SET_MASK).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1842313399%2FFunctions%2F-2101254470" anchor-label="setLineTerm" id="-1842313399%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-line-term.html"><span>set</span><wbr><span>Line</span><wbr><span><span>Term</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1842313399%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-line-term.html"><span class="token function">setLineTerm</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">lineTerm<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">length<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This sets the string that #GIOChannel uses to determine where in the file a line break occurs.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-643489294%2FFunctions%2F-2101254470" anchor-label="shutdown" id="-643489294%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="shutdown.html"><span><span>shutdown</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-643489294%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="shutdown.html"><span class="token function">shutdown</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flush<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-i-o-status/index.html">IOStatus</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Close an IO channel. Any pending data to be written will be flushed if @flush is true. The channel will not be freed until the last reference is dropped using g_io_channel_unref().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-891471701%2FFunctions%2F-2101254470" anchor-label="unixGetFd" id="-891471701%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unix-get-fd.html"><span>unix</span><wbr><span>Get</span><wbr><span><span>Fd</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-891471701%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="unix-get-fd.html"><span class="token function">unixGetFd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Returns the file descriptor of the #GIOChannel.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="686753821%2FFunctions%2F-2101254470" anchor-label="unref" id="686753821%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unref.html"><span><span>unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="686753821%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="unref.html"><span class="token function">unref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Decrements the reference count of a #GIOChannel.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1241408902%2FFunctions%2F-2101254470" anchor-label="writeUnichar" id="-1241408902%2FFunctions%2F-2101254470" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:glib:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="write-unichar.html"><span>write</span><wbr><span><span>Unichar</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1241408902%2FFunctions%2F-2101254470"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="write-unichar.html"><span class="token function">writeUnichar</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">thechar<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-i-o-status/index.html">IOStatus</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Writes a Unicode character to @channel. This function cannot be called on a channel with null encoding.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

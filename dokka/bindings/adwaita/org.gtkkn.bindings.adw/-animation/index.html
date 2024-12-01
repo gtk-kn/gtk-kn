@@ -1,0 +1,412 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Animation</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:adwaita:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="adwaita::org.gtkkn.bindings.adw/Animation///PointingToDeclaration//-170453526">
+  <div class="breadcrumbs"><a href="../../index.html">adwaita</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.adw</a><span class="delimiter">/</span><span class="current">Animation</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Animation</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">Animation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A base class for animations.</p><p class="paragraph"><code class="lang-kotlin">AdwAnimation</code> represents an animation on a widget. It has a target that provides a value to animate, and a state indicating whether the animation hasn't been started yet, is playing, paused or finished.</p><p class="paragraph">Currently there are two concrete animation types: class@TimedAnimation and class@SpringAnimation.</p><p class="paragraph"><code class="lang-kotlin">AdwAnimation</code> will automatically skip the animation if property@Animation:widget is unmapped, or if property@Gtk.Settings:gtk-enable-animations is <code class="lang-kotlin">FALSE</code>.</p><p class="paragraph">The signal@Animation::done signal can be used to perform an action after the animation ends, for example hiding a widget after animating its property@Gtk.Widget:opacity to 0.</p><p class="paragraph"><code class="lang-kotlin">AdwAnimation</code> will be kept alive while the animation is playing. As such, it's safe to create an animation, start it and immediately unref it: A fire-and-forget animation:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">static void<br>animation_cb (double    value,<br>              MyObject *self)<br>{<br>  // Do something with @value<br>}<br><br>static void<br>my_object_animate (MyObject *self)<br>{<br>  AdwAnimationTarget *target =<br>    adw_callback_animation_target_new ((AdwAnimationTargetFunc) animation_cb,<br>                                       self, NULL);<br>  g_autoptr (AdwAnimation) animation =<br>    adw_timed_animation_new (widget, 0, 1, 250, target);<br><br>  adw_animation_play (animation);<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">If there's a chance the previous animation for the same target hasn't yet finished, the previous animation should be stopped first, or the existing <code class="lang-kotlin">AdwAnimation</code> object can be reused.</p><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-spring-animation/index.html">SpringAnimation</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-timed-animation/index.html">TimedAnimation</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="128972226%2FConstructors%2F-170453526" anchor-label="Animation" id="128972226%2FConstructors%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-animation.html"><span><span>Animation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="128972226%2FConstructors%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1596627123%2FClasslikes%2F-170453526" anchor-label="Companion" id="1596627123%2FClasslikes%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1596627123%2FClasslikes%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1165826655%2FProperties%2F-170453526" anchor-label="adwAnimationPointer" id="1165826655%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="adw-animation-pointer.html"><span>adw</span><wbr><span>Animation</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1165826655%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="adw-animation-pointer.html">adwAnimationPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-532542753%2FProperties%2F-170453526" anchor-label="followEnableAnimationsSetting" id="-532542753%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="follow-enable-animations-setting.html"><span>follow</span><wbr><span>Enable</span><wbr><span>Animations</span><wbr><span><span>Setting</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-532542753%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="follow-enable-animations-setting.html">followEnableAnimationsSetting</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether to skip the animation when animations are globally disabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1284847749%2FProperties%2F-170453526" anchor-label="state" id="-1284847749%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="state.html"><span><span>state</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1284847749%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="state.html">state</a><span class="token operator">: </span><a href="../-animation-state/index.html">AnimationState</a></div><div class="brief "><p class="paragraph">The animation state.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1528071683%2FProperties%2F-170453526" anchor-label="target" id="-1528071683%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="target.html"><span><span>target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1528071683%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="target.html">target</a><span class="token operator">: </span><a href="../-animation-target/index.html">AnimationTarget</a></div><div class="brief "><p class="paragraph">The target to animate.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="919549595%2FProperties%2F-170453526" anchor-label="value" id="919549595%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value.html"><span><span>value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="919549595%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="value.html">value</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a></div><div class="brief "><p class="paragraph">The current value of the animation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1498632022%2FProperties%2F-170453526" anchor-label="widget" id="-1498632022%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="widget.html"><span><span>widget</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1498632022%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="widget.html">widget</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The animation widget.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-705901560%2FFunctions%2F-170453526" anchor-label="connectDone" id="-705901560%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-done.html"><span>connect</span><wbr><span><span>Done</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-705901560%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-done.html"><span class="token function">connectDone</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when the animation has been completed, either on its own or via calling <a href="skip.html">method@Animation.skip</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1307321577%2FFunctions%2F-170453526" anchor-label="getFollowEnableAnimationsSetting" id="-1307321577%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-follow-enable-animations-setting.html"><span>get</span><wbr><span>Follow</span><wbr><span>Enable</span><wbr><span>Animations</span><wbr><span><span>Setting</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1307321577%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-follow-enable-animations-setting.html"><span class="token function">getFollowEnableAnimationsSetting</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether @self should be skipped when animations are globally disabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1209253811%2FFunctions%2F-170453526" anchor-label="getState" id="1209253811%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-state.html"><span>get</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1209253811%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-state.html"><span class="token function">getState</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-animation-state/index.html">AnimationState</a></div><div class="brief "><p class="paragraph">Gets the current value of @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1520334651%2FFunctions%2F-170453526" anchor-label="getTarget" id="-1520334651%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-target.html"><span>get</span><wbr><span><span>Target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1520334651%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-target.html"><span class="token function">getTarget</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-animation-target/index.html">AnimationTarget</a></div><div class="brief "><p class="paragraph">Gets the target @self animates.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-881316141%2FFunctions%2F-170453526" anchor-label="getValue" id="-881316141%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-value.html"><span>get</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-881316141%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-value.html"><span class="token function">getValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a></div><div class="brief "><p class="paragraph">Gets the current value of @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1490894990%2FFunctions%2F-170453526" anchor-label="getWidget" id="-1490894990%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-widget.html"><span>get</span><wbr><span><span>Widget</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1490894990%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-widget.html"><span class="token function">getWidget</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the widget @self was created for.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="930763190%2FFunctions%2F-170453526" anchor-label="pause" id="930763190%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pause.html"><span><span>pause</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="930763190%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="pause.html"><span class="token function">pause</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Pauses a playing animation for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1488296454%2FFunctions%2F-170453526" anchor-label="play" id="-1488296454%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="play.html"><span><span>play</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1488296454%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="play.html"><span class="token function">play</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Starts the animation for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-172089219%2FFunctions%2F-170453526" anchor-label="reset" id="-172089219%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reset.html"><span><span>reset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-172089219%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="reset.html"><span class="token function">reset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Resets the animation for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2124969247%2FFunctions%2F-170453526" anchor-label="resume" id="-2124969247%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="resume.html"><span><span>resume</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2124969247%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="resume.html"><span class="token function">resume</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Resumes a paused animation for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="627537192%2FFunctions%2F-170453526" anchor-label="setFollowEnableAnimationsSetting" id="627537192%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-follow-enable-animations-setting.html"><span>set</span><wbr><span>Follow</span><wbr><span>Enable</span><wbr><span>Animations</span><wbr><span><span>Setting</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="627537192%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-follow-enable-animations-setting.html"><span class="token function">setFollowEnableAnimationsSetting</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">setting<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether to skip @self when animations are globally disabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1885728921%2FFunctions%2F-170453526" anchor-label="setTarget" id="-1885728921%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-target.html"><span>set</span><wbr><span><span>Target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1885728921%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-target.html"><span class="token function">setTarget</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">target<span class="token operator">: </span><a href="../-animation-target/index.html">AnimationTarget</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the target @self animates to @target.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-330455537%2FFunctions%2F-170453526" anchor-label="skip" id="-330455537%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="skip.html"><span><span>skip</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-330455537%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="skip.html"><span class="token function">skip</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Skips the animation for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

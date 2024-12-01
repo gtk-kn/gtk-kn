@@ -1,0 +1,76 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>shapeWithFlags</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:pango:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="pango::org.gtkkn.bindings.pango/Pango/shapeWithFlags/#kotlin.String#kotlin.Int#kotlin.String?#kotlin.Int#org.gtkkn.bindings.pango.Analysis#org.gtkkn.bindings.pango.GlyphString#org.gtkkn.bindings.pango.ShapeFlags/PointingToDeclaration//-1053298333">
+  <div class="breadcrumbs"><a href="../../index.html">pango</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.pango</a><span class="delimiter">/</span><a href="index.html">Pango</a><span class="delimiter">/</span><span class="current">shapeWithFlags</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>shape</span><wbr><span>With</span><wbr><span><span>Flags</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="shape-with-flags.html"><span class="token function">shapeWithFlags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">itemText<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">itemLength<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">paragraphText<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">paragraphLength<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">analysis<span class="token operator">: </span><a href="../-analysis/index.html">Analysis</a><span class="token punctuation">, </span></span><span class="parameter ">glyphs<span class="token operator">: </span><a href="../-glyph-string/index.html">GlyphString</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-shape-flags/index.html">ShapeFlags</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">Convert the characters in @text into glyphs.</p><p class="paragraph">Given a segment of text and the corresponding <code class="lang-kotlin">PangoAnalysis</code> structure returned from func@Pango.itemize, convert the characters into glyphs. You may also pass in only a substring of the item from func@Pango.itemize.</p><p class="paragraph">This is similar to func@Pango.shape_full, except it also takes flags that can influence the shaping process.</p><p class="paragraph">Some aspects of hyphen insertion and text transformation (in particular, capitalization) require log attrs, and thus can only be handled by func@Pango.shape_item.</p><p class="paragraph">Note that the extra attributes in the @analyis that is returned from func@Pango.itemize have indices that are relative to the entire paragraph, so you do not pass the full paragraph text as @paragraph_text, you need to subtract the item offset from their indices before calling func@Pango.shape_with_flags.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.44</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:core:pango:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:pango:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>item</span><wbr><span><span>Text</span></span></u></div></span></div><div><div class="title"><p class="paragraph">valid UTF-8 text to shape</p></div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:pango:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:pango:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>item</span><wbr><span><span>Length</span></span></u></div></span></div><div><div class="title"><p class="paragraph">the length (in bytes) of @item_text.     -1 means nul-terminated text.</p></div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:pango:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:pango:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>paragraph</span><wbr><span><span>Text</span></span></u></div></span></div><div><div class="title"><p class="paragraph">text of the paragraph (see details).</p></div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:pango:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:pango:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>paragraph</span><wbr><span><span>Length</span></span></u></div></span></div><div><div class="title"><p class="paragraph">the length (in bytes) of @paragraph_text.     -1 means nul-terminated text.</p></div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:pango:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:pango:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>analysis</span></span></u></div></span></div><div><div class="title"><p class="paragraph"><code class="lang-kotlin">PangoAnalysis</code> structure from func@Pango.itemize</p></div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:pango:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:pango:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>glyphs</span></span></u></div></span></div><div><div class="title"><p class="paragraph">glyph string in which to store results</p></div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:pango:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:pango:dokkaHtmlPartial/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>flags</span></span></u></div></span></div><div><div class="title"><p class="paragraph">flags influencing the shaping process</p></div></div></div></div></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

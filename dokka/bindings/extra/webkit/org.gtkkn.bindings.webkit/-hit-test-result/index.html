@@ -1,0 +1,412 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>HitTestResult</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="webkit::org.gtkkn.bindings.webkit/HitTestResult///PointingToDeclaration//1900325473">
+  <div class="breadcrumbs"><a href="../../index.html">webkit</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.webkit</a><span class="delimiter">/</span><span class="current">HitTestResult</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Hit</span><wbr><span>Test</span><wbr><span><span>Result</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">HitTestResult</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Result of a Hit Test.</p><p class="paragraph">A Hit Test is an operation to get context information about a given point in a #WebKitWebView. #WebKitHitTestResult represents the result of a Hit Test. It provides context information about what is at the coordinates of the Hit Test, such as if there's a link, an image or a media.</p><p class="paragraph">You can get the context of the HitTestResult with webkit_hit_test_result_get_context() that returns a bitmask of #WebKitHitTestResultContext flags. You can also use webkit_hit_test_result_context_is_link(), webkit_hit_test_result_context_is_image() and webkit_hit_test_result_context_is_media() to determine whether there's a link, image or a media element at the coordinates of the Hit Test. Note that it's possible that several #WebKitHitTestResultContext flags are active at the same time, for example if there's a link containing an image.</p><p class="paragraph">When the mouse is moved over a #WebKitWebView a Hit Test is performed for the mouse coordinates and #WebKitWebView::mouse-target-changed signal is emitted with a #WebKitHitTestResult.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-90971952%2FConstructors%2F1900325473" anchor-label="HitTestResult" id="-90971952%2FConstructors%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hit-test-result.html"><span>Hit</span><wbr><span>Test</span><wbr><span><span>Result</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-90971952%2FConstructors%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-287483211%2FClasslikes%2F1900325473" anchor-label="Companion" id="-287483211%2FClasslikes%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-287483211%2FClasslikes%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="117341919%2FProperties%2F1900325473" anchor-label="context" id="117341919%2FProperties%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="context.html"><span><span>context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="117341919%2FProperties%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="context.html">context</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Bitmask of #WebKitHitTestResultContext flags representing the context of the #WebKitHitTestResult.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1903155461%2FProperties%2F1900325473" anchor-label="imageUri" id="-1903155461%2FProperties%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="image-uri.html"><span>image</span><wbr><span><span>Uri</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1903155461%2FProperties%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="image-uri.html">imageUri</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The URI of the image if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_IMAGE is present in #WebKitHitTestResult:context</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2122485652%2FProperties%2F1900325473" anchor-label="linkLabel" id="2122485652%2FProperties%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="link-label.html"><span>link</span><wbr><span><span>Label</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2122485652%2FProperties%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="link-label.html">linkLabel</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The label of the link if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK is present in #WebKitHitTestResult:context</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1096795312%2FProperties%2F1900325473" anchor-label="linkTitle" id="1096795312%2FProperties%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="link-title.html"><span>link</span><wbr><span><span>Title</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1096795312%2FProperties%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="link-title.html">linkTitle</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The title of the link if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK is present in #WebKitHitTestResult:context</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1713346268%2FProperties%2F1900325473" anchor-label="linkUri" id="1713346268%2FProperties%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="link-uri.html"><span>link</span><wbr><span><span>Uri</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1713346268%2FProperties%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="link-uri.html">linkUri</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The URI of the link if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK is present in #WebKitHitTestResult:context</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-549374460%2FProperties%2F1900325473" anchor-label="mediaUri" id="-549374460%2FProperties%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="media-uri.html"><span>media</span><wbr><span><span>Uri</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-549374460%2FProperties%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="media-uri.html">mediaUri</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The URI of the media if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_MEDIA is present in #WebKitHitTestResult:context</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-188997105%2FProperties%2F1900325473" anchor-label="webkitHitTestResultPointer" id="-188997105%2FProperties%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="webkit-hit-test-result-pointer.html"><span>webkit</span><wbr><span>Hit</span><wbr><span>Test</span><wbr><span>Result</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-188997105%2FProperties%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="webkit-hit-test-result-pointer.html">webkitHitTestResultPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1137577553%2FFunctions%2F1900325473" anchor-label="contextIsEditable" id="1137577553%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="context-is-editable.html"><span>context</span><wbr><span>Is</span><wbr><span><span>Editable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1137577553%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="context-is-editable.html"><span class="token function">contextIsEditable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_EDITABLE flag is present in #WebKitHitTestResult:context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1063328074%2FFunctions%2F1900325473" anchor-label="contextIsImage" id="1063328074%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="context-is-image.html"><span>context</span><wbr><span>Is</span><wbr><span><span>Image</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1063328074%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="context-is-image.html"><span class="token function">contextIsImage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_IMAGE flag is present in #WebKitHitTestResult:context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1043128965%2FFunctions%2F1900325473" anchor-label="contextIsLink" id="-1043128965%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="context-is-link.html"><span>context</span><wbr><span>Is</span><wbr><span><span>Link</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1043128965%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="context-is-link.html"><span class="token function">contextIsLink</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK flag is present in #WebKitHitTestResult:context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="893685473%2FFunctions%2F1900325473" anchor-label="contextIsMedia" id="893685473%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="context-is-media.html"><span>context</span><wbr><span>Is</span><wbr><span><span>Media</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="893685473%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="context-is-media.html"><span class="token function">contextIsMedia</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_MEDIA flag is present in #WebKitHitTestResult:context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="597467871%2FFunctions%2F1900325473" anchor-label="contextIsScrollbar" id="597467871%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="context-is-scrollbar.html"><span>context</span><wbr><span>Is</span><wbr><span><span>Scrollbar</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="597467871%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="context-is-scrollbar.html"><span class="token function">contextIsScrollbar</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_SCROLLBAR flag is present in #WebKitHitTestResult:context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="306230841%2FFunctions%2F1900325473" anchor-label="contextIsSelection" id="306230841%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="context-is-selection.html"><span>context</span><wbr><span>Is</span><wbr><span><span>Selection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="306230841%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="context-is-selection.html"><span class="token function">contextIsSelection</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_SELECTION flag is present in #WebKitHitTestResult:context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-506434349%2FFunctions%2F1900325473" anchor-label="getContext" id="-506434349%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-context.html"><span>get</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-506434349%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-context.html"><span class="token function">getContext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the value of the #WebKitHitTestResult:context property.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="234616711%2FFunctions%2F1900325473" anchor-label="getImageUri" id="234616711%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-image-uri.html"><span>get</span><wbr><span>Image</span><wbr><span><span>Uri</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="234616711%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-image-uri.html"><span class="token function">getImageUri</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the value of the #WebKitHitTestResult:image-uri property.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-326053752%2FFunctions%2F1900325473" anchor-label="getLinkLabel" id="-326053752%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-link-label.html"><span>get</span><wbr><span>Link</span><wbr><span><span>Label</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-326053752%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-link-label.html"><span class="token function">getLinkLabel</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the value of the #WebKitHitTestResult:link-label property.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1351744092%2FFunctions%2F1900325473" anchor-label="getLinkTitle" id="-1351744092%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-link-title.html"><span>get</span><wbr><span>Link</span><wbr><span><span>Title</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1351744092%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-link-title.html"><span class="token function">getLinkTitle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the value of the #WebKitHitTestResult:link-title property.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1089570000%2FFunctions%2F1900325473" anchor-label="getLinkUri" id="1089570000%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-link-uri.html"><span>get</span><wbr><span>Link</span><wbr><span><span>Uri</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1089570000%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-link-uri.html"><span class="token function">getLinkUri</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the value of the #WebKitHitTestResult:link-uri property.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1588397712%2FFunctions%2F1900325473" anchor-label="getMediaUri" id="1588397712%2FFunctions%2F1900325473" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-media-uri.html"><span>get</span><wbr><span>Media</span><wbr><span><span>Uri</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1588397712%2FFunctions%2F1900325473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-media-uri.html"><span class="token function">getMediaUri</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the value of the #WebKitHitTestResult:media-uri property.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

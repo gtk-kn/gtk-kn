@@ -1,0 +1,757 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Pixbuf</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gdkpixbuf::org.gtkkn.bindings.gdkpixbuf/Pixbuf///PointingToDeclaration//-425198682">
+  <div class="breadcrumbs"><a href="../../index.html">gdkpixbuf</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gdkpixbuf</a><span class="delimiter">/</span><span class="current">Pixbuf</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Pixbuf</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">Pixbuf</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A pixel buffer.</p><p class="paragraph"><code class="lang-kotlin">GdkPixbuf</code> contains information about an image's pixel data, its color space, bits per sample, width and height, and the rowstride (the number of bytes between the start of one row and the start of the next).</p><h2 class="">Creating new <code class="lang-kotlin">GdkPixbuf</code></h2><p class="paragraph">The most basic way to create a pixbuf is to wrap an existing pixel buffer with a class@GdkPixbuf.Pixbuf instance. You can use the `ctor@GdkPixbuf.Pixbuf.new_from_data` function to do this.</p><p class="paragraph">Every time you create a new <code class="lang-kotlin">GdkPixbuf</code> instance for some data, you will need to specify the destroy notification function that will be called when the data buffer needs to be freed; this will happen when a <code class="lang-kotlin">GdkPixbuf</code> is finalized by the reference counting functions. If you have a chunk of static data compiled into your application, you can pass in <code class="lang-kotlin">NULL</code> as the destroy notification function so that the data will not be freed.</p><p class="paragraph">The `ctor@GdkPixbuf.Pixbuf.new` constructor function can be used as a convenience to create a pixbuf with an empty buffer; this is equivalent to allocating a data buffer using <code class="lang-kotlin">malloc()</code> and then wrapping it with <code class="lang-kotlin">gdk_pixbuf_new_from_data()</code>. The <code class="lang-kotlin">gdk_pixbuf_new()</code> function will compute an optimal rowstride so that rendering can be performed with an efficient algorithm.</p><p class="paragraph">As a special case, you can use the `ctor@GdkPixbuf.Pixbuf.new_from_xpm_data` function to create a pixbuf from inline XPM image data.</p><p class="paragraph">You can also copy an existing pixbuf with the <a href="copy.html">method@Pixbuf.copy</a> function. This is not the same as just acquiring a reference to the old pixbuf instance: the copy function will actually duplicate the pixel data in memory and create a new class@Pixbuf instance for it.</p><h2 class="">Reference counting</h2><p class="paragraph"><code class="lang-kotlin">GdkPixbuf</code> structures are reference counted. This means that an application can share a single pixbuf among many parts of the code. When a piece of the program needs to use a pixbuf, it should acquire a reference to it by calling <code class="lang-kotlin">g_object_ref()</code>; when it no longer needs the pixbuf, it should release the reference it acquired by calling <code class="lang-kotlin">g_object_unref()</code>. The resources associated with a <code class="lang-kotlin">GdkPixbuf</code> will be freed when its reference count drops to zero. Newly-created <code class="lang-kotlin">GdkPixbuf</code> instances start with a reference count of one.</p><h2 class="">Image Data</h2><p class="paragraph">Image data in a pixbuf is stored in memory in an uncompressed, packed format. Rows in the image are stored top to bottom, and in each row pixels are stored from left to right.</p><p class="paragraph">There may be padding at the end of a row.</p><p class="paragraph">The "rowstride" value of a pixbuf, as returned by `method@GdkPixbuf.Pixbuf.get_rowstride`, indicates the number of bytes between rows.</p><p class="paragraph"><strong>NOTE</strong>: If you are copying raw pixbuf data with <code class="lang-kotlin">memcpy()</code> note that the last row in the pixbuf may not be as wide as the full rowstride, but rather just as wide as the pixel data needs to be; that is: it is unsafe to do <code class="lang-kotlin">memcpy (dest, pixels, rowstride * height)</code> to copy a whole pixbuf. Use method@GdkPixbuf.Pixbuf.copy instead, or compute the width in bytes of the last row as:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">last_row = width * ((n_channels * bits_per_sample + 7) / 8);</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">The same rule applies when iterating over each row of a <code class="lang-kotlin">GdkPixbuf</code> pixels array.</p><p class="paragraph">The following code illustrates a simple <code class="lang-kotlin">put_pixel()</code> function for RGB pixbufs with 8 bits per channel with an alpha channel.</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">static void<br>put_pixel (GdkPixbuf *pixbuf,<br>           int x,<br>	   int y,<br>	   guchar red,<br>	   guchar green,<br>	   guchar blue,<br>	   guchar alpha)<br>{<br>  int n_channels = gdk_pixbuf_get_n_channels (pixbuf);<br><br>  // Ensure that the pixbuf is valid<br>  g_assert (gdk_pixbuf_get_colorspace (pixbuf) == GDK_COLORSPACE_RGB);<br>  g_assert (gdk_pixbuf_get_bits_per_sample (pixbuf) == 8);<br>  g_assert (gdk_pixbuf_get_has_alpha (pixbuf));<br>  g_assert (n_channels == 4);<br><br>  int width = gdk_pixbuf_get_width (pixbuf);<br>  int height = gdk_pixbuf_get_height (pixbuf);<br><br>  // Ensure that the coordinates are in a valid range<br>  g_assert (x &gt;= 0 &amp;&amp; x &lt; width);<br>  g_assert (y &gt;= 0 &amp;&amp; y &lt; height);<br><br>  int rowstride = gdk_pixbuf_get_rowstride (pixbuf);<br><br>  // The pixel buffer in the GdkPixbuf instance<br>  guchar *pixels = gdk_pixbuf_get_pixels (pixbuf);<br><br>  // The pixel we wish to modify<br>  guchar *p = pixels + y * rowstride + x * n_channels;<br>  p[0] = red;<br>  p[1] = green;<br>  p[2] = blue;<br>  p[3] = alpha;<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h2 class="">Loading images</h2><p class="paragraph">The <code class="lang-kotlin">GdkPixBuf</code> class provides a simple mechanism for loading an image from a file in synchronous and asynchronous fashion.</p><p class="paragraph">For GUI applications, it is recommended to use the asynchronous stream API to avoid blocking the control flow of the application.</p><p class="paragraph">Additionally, <code class="lang-kotlin">GdkPixbuf</code> provides the class@GdkPixbuf.PixbufLoader` API for progressive image loading.</p><h2 class="">Saving images</h2><p class="paragraph">The <code class="lang-kotlin">GdkPixbuf</code> class provides methods for saving image data in a number of file formats. The formatted data can be written to a file or to a memory buffer. <code class="lang-kotlin">GdkPixbuf</code> can also call a user-defined callback on the data, which allows to e.g. write the image to a socket or store it in a database.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">get_pixels</code>: gdk_pixbuf_get_pixels is shadowedBy get_pixels_with_length</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">length</code>: length: Out parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">read_pixels</code>: Return type guint8 is unsupported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">buffer</code>: buffer: Out parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">pixel-bytes</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">pixels</code>: Property has no getter nor setter</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">data</code>: Array parameter of type guint8 is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">data</code>: Array parameter of type guint8 is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">width</code>: width: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">width</code>: width: Out parameter is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1537664414%2FConstructors%2F-425198682" anchor-label="Pixbuf" id="-1537664414%2FConstructors%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf.html"><span><span>Pixbuf</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1537664414%2FConstructors%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">colorspace<span class="token operator">: </span><a href="../-colorspace/index.html">Colorspace</a><span class="token punctuation">, </span></span><span class="parameter ">hasAlpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">bitsPerSample<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new <code class="lang-kotlin">GdkPixbuf</code> structure and allocates a buffer for it.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">data<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">colorspace<span class="token operator">: </span><a href="../-colorspace/index.html">Colorspace</a><span class="token punctuation">, </span></span><span class="parameter ">hasAlpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">bitsPerSample<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">rowstride<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new #GdkPixbuf out of in-memory readonly image data.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">filename<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new pixbuf by loading an image from a file.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">filename<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">preserveAspectRatio<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new pixbuf by loading an image from a file.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">filename<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new pixbuf by loading an image from a file.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">stream<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new pixbuf by loading an image from an input stream.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">stream<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">preserveAspectRatio<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new pixbuf by loading an image from an input stream.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">asyncResult<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Finishes an asynchronous pixbuf creation operation started with gdk_pixbuf_new_from_stream_async().</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">data<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new pixbuf by parsing XPM data in memory.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="768556905%2FClasslikes%2F-425198682" anchor-label="Companion" id="768556905%2FClasslikes%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="768556905%2FClasslikes%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-138718207%2FProperties%2F-425198682" anchor-label="bitsPerSample" id="-138718207%2FProperties%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="bits-per-sample.html"><span>bits</span><wbr><span>Per</span><wbr><span><span>Sample</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-138718207%2FProperties%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="bits-per-sample.html">bitsPerSample</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The number of bits per sample.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-860444715%2FProperties%2F-425198682" anchor-label="colorspace" id="-860444715%2FProperties%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="colorspace.html"><span><span>colorspace</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-860444715%2FProperties%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="colorspace.html">colorspace</a><span class="token operator">: </span><a href="../-colorspace/index.html">Colorspace</a></div><div class="brief "><p class="paragraph">The color space of the pixbuf.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1397323215%2FProperties%2F-425198682" anchor-label="gdkpixbufPixbufPointer" id="-1397323215%2FProperties%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gdkpixbuf-pixbuf-pointer.html"><span>gdkpixbuf</span><wbr><span>Pixbuf</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1397323215%2FProperties%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gdkpixbuf-pixbuf-pointer.html">gdkpixbufPixbufPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1629200671%2FProperties%2F-425198682" anchor-label="gioIconPointer" id="-1629200671%2FProperties%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-icon-pointer.html"><span>gio</span><wbr><span>Icon</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1629200671%2FProperties%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="gio-icon-pointer.html">gioIconPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="256737857%2FProperties%2F-425198682" anchor-label="gioLoadableIconPointer" id="256737857%2FProperties%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-loadable-icon-pointer.html"><span>gio</span><wbr><span>Loadable</span><wbr><span>Icon</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="256737857%2FProperties%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="gio-loadable-icon-pointer.html">gioLoadableIconPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1105427884%2FProperties%2F-425198682" anchor-label="hasAlpha" id="-1105427884%2FProperties%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-alpha.html"><span>has</span><wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1105427884%2FProperties%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="has-alpha.html">hasAlpha</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the pixbuf has an alpha channel.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1062816719%2FProperties%2F-425198682" anchor-label="height" id="-1062816719%2FProperties%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="height.html"><span><span>height</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1062816719%2FProperties%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="height.html">height</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The number of rows of the pixbuf.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="672004484%2FProperties%2F-425198682" anchor-label="nChannels" id="672004484%2FProperties%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="n-channels.html"><span>n</span><wbr><span><span>Channels</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="672004484%2FProperties%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="n-channels.html">nChannels</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The number of samples per pixel.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1191718833%2FProperties%2F-425198682" anchor-label="rowstride" id="-1191718833%2FProperties%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rowstride.html"><span><span>rowstride</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1191718833%2FProperties%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="rowstride.html">rowstride</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The number of bytes between the start of a row and the start of the next row.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1944987036%2FProperties%2F-425198682" anchor-label="width" id="1944987036%2FProperties%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="width.html"><span><span>width</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1944987036%2FProperties%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="width.html">width</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The number of columns of the pixbuf.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1306905722%2FFunctions%2F-425198682" anchor-label="addAlpha" id="-1306905722%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-alpha.html"><span>add</span><wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1306905722%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-alpha.html"><span class="token function">addAlpha</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">substituteColor<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">r<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">g<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">b<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Pixbuf</a></div><div class="brief "><p class="paragraph">Takes an existing pixbuf and adds an alpha channel to it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1164366624%2FFunctions%2F-425198682" anchor-label="applyEmbeddedOrientation" id="1164366624%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="apply-embedded-orientation.html"><span>apply</span><wbr><span>Embedded</span><wbr><span><span>Orientation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1164366624%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="apply-embedded-orientation.html"><span class="token function">applyEmbeddedOrientation</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Pixbuf</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Takes an existing pixbuf and checks for the presence of an associated "orientation" option.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1808227573%2FFunctions%2F-425198682" anchor-label="composite" id="-1808227573%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="composite.html"><span><span>composite</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1808227573%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="composite.html"><span class="token function">composite</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dest<span class="token operator">: </span><a href="index.html">Pixbuf</a><span class="token punctuation">, </span></span><span class="parameter ">destX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destWidth<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destHeight<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">offsetX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">offsetY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">scaleX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">scaleY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">interpType<span class="token operator">: </span><a href="../-interp-type/index.html">InterpType</a><span class="token punctuation">, </span></span><span class="parameter ">overallAlpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a transformation of the source image @src by scaling by</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1771100529%2FFunctions%2F-425198682" anchor-label="compositeColor" id="1771100529%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="composite-color.html"><span>composite</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1771100529%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="composite-color.html"><span class="token function">compositeColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dest<span class="token operator">: </span><a href="index.html">Pixbuf</a><span class="token punctuation">, </span></span><span class="parameter ">destX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destWidth<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destHeight<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">offsetX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">offsetY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">scaleX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">scaleY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">interpType<span class="token operator">: </span><a href="../-interp-type/index.html">InterpType</a><span class="token punctuation">, </span></span><span class="parameter ">overallAlpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">checkX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">checkY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">checkSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">color1<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">color2<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a transformation of the source image @src by scaling by</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="800927093%2FFunctions%2F-425198682" anchor-label="compositeColorSimple" id="800927093%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="composite-color-simple.html"><span>composite</span><wbr><span>Color</span><wbr><span><span>Simple</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="800927093%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="composite-color-simple.html"><span class="token function">compositeColorSimple</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">destWidth<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destHeight<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">interpType<span class="token operator">: </span><a href="../-interp-type/index.html">InterpType</a><span class="token punctuation">, </span></span><span class="parameter ">overallAlpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">checkSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">color1<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">color2<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Pixbuf</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Creates a new pixbuf by scaling <code class="lang-kotlin">src</code> to <code class="lang-kotlin">dest_width</code> x <code class="lang-kotlin">dest_height</code> and alpha blending the result with a checkboard of colors <code class="lang-kotlin">color1</code> and <code class="lang-kotlin">color2</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1176394851%2FFunctions%2F-425198682" anchor-label="copy" id="1176394851%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy.html"><span><span>copy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1176394851%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Pixbuf</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Creates a new <code class="lang-kotlin">GdkPixbuf</code> with a copy of the information in the specified <code class="lang-kotlin">pixbuf</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1040330269%2FFunctions%2F-425198682" anchor-label="copyArea" id="-1040330269%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy-area.html"><span>copy</span><wbr><span><span>Area</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1040330269%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="copy-area.html"><span class="token function">copyArea</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">srcX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">srcY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destPixbuf<span class="token operator">: </span><a href="index.html">Pixbuf</a><span class="token punctuation">, </span></span><span class="parameter ">destX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Copies a rectangular area from <code class="lang-kotlin">src_pixbuf</code> to <code class="lang-kotlin">dest_pixbuf</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="519937760%2FFunctions%2F-425198682" anchor-label="copyOptions" id="519937760%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy-options.html"><span>copy</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="519937760%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="copy-options.html"><span class="token function">copyOptions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">destPixbuf<span class="token operator">: </span><a href="index.html">Pixbuf</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Copies the key/value pair options attached to a <code class="lang-kotlin">GdkPixbuf</code> to another <code class="lang-kotlin">GdkPixbuf</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-160038061%2FFunctions%2F-425198682" anchor-label="fill" id="-160038061%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="fill.html"><span><span>fill</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-160038061%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="fill.html"><span class="token function">fill</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pixel<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Clears a pixbuf to the given RGBA value, converting the RGBA value into the pixbuf's pixel format.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="683238000%2FFunctions%2F-425198682" anchor-label="flip" id="683238000%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="flip.html"><span><span>flip</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="683238000%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="flip.html"><span class="token function">flip</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">horizontal<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Pixbuf</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Flips a pixbuf horizontally or vertically and returns the result in a new pixbuf.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="587774221%2FFunctions%2F-425198682" anchor-label="getBitsPerSample" id="587774221%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-bits-per-sample.html"><span>get</span><wbr><span>Bits</span><wbr><span>Per</span><wbr><span><span>Sample</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="587774221%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-bits-per-sample.html"><span class="token function">getBitsPerSample</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Queries the number of bits per color sample in a pixbuf.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="300148254%2FFunctions%2F-425198682" anchor-label="getByteLength" id="300148254%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-byte-length.html"><span>get</span><wbr><span>Byte</span><wbr><span><span>Length</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="300148254%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-byte-length.html"><span class="token function">getByteLength</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the length of the pixel data, in bytes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1986936393%2FFunctions%2F-425198682" anchor-label="getColorspace" id="1986936393%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-colorspace.html"><span>get</span><wbr><span><span>Colorspace</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1986936393%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-colorspace.html"><span class="token function">getColorspace</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-colorspace/index.html">Colorspace</a></div><div class="brief "><p class="paragraph">Queries the color space of a pixbuf.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="300885448%2FFunctions%2F-425198682" anchor-label="getHasAlpha" id="300885448%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-has-alpha.html"><span>get</span><wbr><span>Has</span><wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="300885448%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-has-alpha.html"><span class="token function">getHasAlpha</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Queries whether a pixbuf has an alpha channel (opacity information).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1275878235%2FFunctions%2F-425198682" anchor-label="getHeight" id="-1275878235%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-height.html"><span>get</span><wbr><span><span>Height</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1275878235%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-height.html"><span class="token function">getHeight</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Queries the height of a pixbuf.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1318044816%2FFunctions%2F-425198682" anchor-label="getNChannels" id="1318044816%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-n-channels.html"><span>get</span><wbr><span><span>NChannels</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1318044816%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-n-channels.html"><span class="token function">getNChannels</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Queries the number of channels of a pixbuf.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="332524877%2FFunctions%2F-425198682" anchor-label="getOption" id="332524877%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-option.html"><span>get</span><wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="332524877%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-option.html"><span class="token function">getOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Looks up @key in the list of options that may have been attached to the</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1594517648%2FFunctions%2F-425198682" anchor-label="getOptions" id="1594517648%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-options.html"><span>get</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1594517648%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-options.html"><span class="token function">getOptions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns a <code class="lang-kotlin">GHashTable</code> with a list of all the options that may have been attached to the <code class="lang-kotlin">pixbuf</code> when it was loaded, or that may have been attached by another function using method@GdkPixbuf.Pixbuf.set_option.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-545678501%2FFunctions%2F-425198682" anchor-label="getRowstride" id="-545678501%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-rowstride.html"><span>get</span><wbr><span><span>Rowstride</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-545678501%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-rowstride.html"><span class="token function">getRowstride</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Queries the rowstride of a pixbuf, which is the number of bytes between the start of a row and the start of the next row.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2076661416%2FFunctions%2F-425198682" anchor-label="getWidth" id="2076661416%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-width.html"><span>get</span><wbr><span><span>Width</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2076661416%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-width.html"><span class="token function">getWidth</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Queries the width of a pixbuf.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1339288667%2FFunctions%2F-425198682" anchor-label="newSubpixbuf" id="1339288667%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="new-subpixbuf.html"><span>new</span><wbr><span><span>Subpixbuf</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1339288667%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="new-subpixbuf.html"><span class="token function">newSubpixbuf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">srcX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">srcY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Pixbuf</a></div><div class="brief "><p class="paragraph">Creates a new pixbuf which represents a sub-region of <code class="lang-kotlin">src_pixbuf</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1626297629%2FFunctions%2F-425198682" anchor-label="readPixelBytes" id="1626297629%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="read-pixel-bytes.html"><span>read</span><wbr><span>Pixel</span><wbr><span><span>Bytes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1626297629%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="read-pixel-bytes.html"><span class="token function">readPixelBytes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Provides a #GBytes buffer containing the raw pixel data; the data must not be modified.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="647112741%2FFunctions%2F-425198682" anchor-label="removeOption" id="647112741%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-option.html"><span>remove</span><wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="647112741%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="remove-option.html"><span class="token function">removeOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Removes the key/value pair option attached to a <code class="lang-kotlin">GdkPixbuf</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1378320912%2FFunctions%2F-425198682" anchor-label="rotateSimple" id="-1378320912%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotate-simple.html"><span>rotate</span><wbr><span><span>Simple</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1378320912%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="rotate-simple.html"><span class="token function">rotateSimple</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">angle<span class="token operator">: </span><a href="../-pixbuf-rotation/index.html">PixbufRotation</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Pixbuf</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Rotates a pixbuf by a multiple of 90 degrees, and returns the result in a new pixbuf.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="44067967%2FFunctions%2F-425198682" anchor-label="saturateAndPixelate" id="44067967%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="saturate-and-pixelate.html"><span>saturate</span><wbr><span>And</span><wbr><span><span>Pixelate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="44067967%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="saturate-and-pixelate.html"><span class="token function">saturateAndPixelate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dest<span class="token operator">: </span><a href="index.html">Pixbuf</a><span class="token punctuation">, </span></span><span class="parameter ">saturation<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">pixelate<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Modifies saturation and optionally pixelates <code class="lang-kotlin">src</code>, placing the result in <code class="lang-kotlin">dest</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1197121230%2FFunctions%2F-425198682" anchor-label="saveToCallbackv" id="1197121230%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="save-to-callbackv.html"><span>save</span><wbr><span>To</span><wbr><span><span>Callbackv</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1197121230%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="save-to-callbackv.html"><span class="token function">saveToCallbackv</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">saveFunc<span class="token operator">: </span><a href="../-pixbuf-save-func/index.html">PixbufSaveFunc</a><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">optionKeys<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">optionValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Vector version of <code class="lang-kotlin">gdk_pixbuf_save_to_callback()</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="400417744%2FFunctions%2F-425198682" anchor-label="saveToStreamv" id="400417744%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="save-to-streamv.html"><span>save</span><wbr><span>To</span><wbr><span><span>Streamv</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="400417744%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="save-to-streamv.html"><span class="token function">saveToStreamv</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">stream<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">optionKeys<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">optionValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Saves <code class="lang-kotlin">pixbuf</code> to an output stream.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="232604949%2FFunctions%2F-425198682" anchor-label="saveToStreamvAsync" id="232604949%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="save-to-streamv-async.html"><span>save</span><wbr><span>To</span><wbr><span>Streamv</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="232604949%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="save-to-streamv-async.html"><span class="token function">saveToStreamvAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">stream<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">optionKeys<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">optionValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Saves <code class="lang-kotlin">pixbuf</code> to an output stream asynchronously.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-798156524%2FFunctions%2F-425198682" anchor-label="savev" id="-798156524%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="savev.html"><span><span>savev</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-798156524%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="savev.html"><span class="token function">savev</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">filename<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">optionKeys<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">optionValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Vector version of <code class="lang-kotlin">gdk_pixbuf_save()</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="812829781%2FFunctions%2F-425198682" anchor-label="scale" id="812829781%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scale.html"><span><span>scale</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="812829781%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="scale.html"><span class="token function">scale</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dest<span class="token operator">: </span><a href="index.html">Pixbuf</a><span class="token punctuation">, </span></span><span class="parameter ">destX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destWidth<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destHeight<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">offsetX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">offsetY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">scaleX<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">scaleY<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">interpType<span class="token operator">: </span><a href="../-interp-type/index.html">InterpType</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a transformation of the source image @src by scaling by</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-789993095%2FFunctions%2F-425198682" anchor-label="scaleSimple" id="-789993095%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scale-simple.html"><span>scale</span><wbr><span><span>Simple</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-789993095%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="scale-simple.html"><span class="token function">scaleSimple</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">destWidth<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">destHeight<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">interpType<span class="token operator">: </span><a href="../-interp-type/index.html">InterpType</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Pixbuf</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Create a new pixbuf containing a copy of <code class="lang-kotlin">src</code> scaled to <code class="lang-kotlin">dest_width</code> x <code class="lang-kotlin">dest_height</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="147261822%2FFunctions%2F-425198682" anchor-label="setOption" id="147261822%2FFunctions%2F-425198682" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-option.html"><span>set</span><wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="147261822%2FFunctions%2F-425198682"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-option.html"><span class="token function">setOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Attaches a key/value pair as an option to a <code class="lang-kotlin">GdkPixbuf</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

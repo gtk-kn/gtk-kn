@@ -1,0 +1,307 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ColorDialog</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk4::org.gtkkn.bindings.gtk/ColorDialog///PointingToDeclaration//-991561573">
+  <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">ColorDialog</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Color</span><wbr><span><span>Dialog</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">ColorDialog</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A <code class="lang-kotlin">GtkColorDialog</code> object collects the arguments that are needed to present a color chooser dialog to the user, such as a title for the dialog and whether it should be modal.</p><p class="paragraph">The dialog is shown with the method@Gtk.ColorDialog.choose_rgba function. This API follows the GIO async pattern, and the result can be obtained by calling method@Gtk.ColorDialog.choose_rgba_finish.</p><p class="paragraph">See class@Gtk.ColorDialogButton for a convenient control that uses <code class="lang-kotlin">GtkColorDialog</code> and presents the results.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">4.10</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1490725044%2FConstructors%2F-991561573" anchor-label="ColorDialog" id="-1490725044%2FConstructors%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-color-dialog.html"><span>Color</span><wbr><span><span>Dialog</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1490725044%2FConstructors%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new <code class="lang-kotlin">GtkColorDialog</code> object.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-2142647902%2FClasslikes%2F-991561573" anchor-label="Companion" id="-2142647902%2FClasslikes%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2142647902%2FClasslikes%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1905297813%2FProperties%2F-991561573" anchor-label="gtkColorDialogPointer" id="-1905297813%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-color-dialog-pointer.html"><span>gtk</span><wbr><span>Color</span><wbr><span>Dialog</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1905297813%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gtk-color-dialog-pointer.html">gtkColorDialogPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1817024178%2FProperties%2F-991561573" anchor-label="modal" id="-1817024178%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="modal.html"><span><span>modal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1817024178%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="modal.html">modal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the color chooser dialog is modal.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="388409347%2FProperties%2F-991561573" anchor-label="title" id="388409347%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="title.html"><span><span>title</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="388409347%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="title.html">title</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">A title that may be shown on the color chooser dialog that is presented by method@Gtk.ColorDialog.choose_rgba.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="616696611%2FProperties%2F-991561573" anchor-label="withAlpha" id="616696611%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="with-alpha.html"><span>with</span><wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="616696611%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="with-alpha.html">withAlpha</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether colors may have alpha (translucency).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="2144183975%2FFunctions%2F-991561573" anchor-label="chooseRgba" id="2144183975%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="choose-rgba.html"><span>choose</span><wbr><span><span>Rgba</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2144183975%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="choose-rgba.html"><span class="token function">chooseRgba</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">parent<span class="token operator">: </span><a href="../-window/index.html">Window</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">initialColor<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This function initiates a color choice operation by presenting a color chooser dialog to the user.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="537039356%2FFunctions%2F-991561573" anchor-label="chooseRgbaFinish" id="537039356%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="choose-rgba-finish.html"><span>choose</span><wbr><span>Rgba</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="537039356%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="choose-rgba-finish.html"><span class="token function">chooseRgbaFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finishes the method@Gtk.ColorDialog.choose_rgba call and returns the resulting color.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="212325960%2FFunctions%2F-991561573" anchor-label="getModal" id="212325960%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-modal.html"><span>get</span><wbr><span><span>Modal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="212325960%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-modal.html"><span class="token function">getModal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether the color chooser dialog blocks interaction with the parent window while it is presented.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1877207811%2FFunctions%2F-991561573" anchor-label="getTitle" id="-1877207811%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-title.html"><span>get</span><wbr><span><span>Title</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1877207811%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-title.html"><span class="token function">getTitle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns the title that will be shown on the color chooser dialog.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="451177245%2FFunctions%2F-991561573" anchor-label="getWithAlpha" id="451177245%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-with-alpha.html"><span>get</span><wbr><span>With</span><wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="451177245%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-with-alpha.html"><span class="token function">getWithAlpha</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether colors may have alpha.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="848620185%2FFunctions%2F-991561573" anchor-label="setModal" id="848620185%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-modal.html"><span>set</span><wbr><span><span>Modal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="848620185%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-modal.html"><span class="token function">setModal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modal<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether the color chooser dialog blocks interaction with the parent window while it is presented.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1376477851%2FFunctions%2F-991561573" anchor-label="setTitle" id="1376477851%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-title.html"><span>set</span><wbr><span><span>Title</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1376477851%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-title.html"><span class="token function">setTitle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">title<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the title that will be shown on the color chooser dialog.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-308707154%2FFunctions%2F-991561573" anchor-label="setWithAlpha" id="-308707154%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-with-alpha.html"><span>set</span><wbr><span>With</span><wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-308707154%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-with-alpha.html"><span class="token function">setWithAlpha</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">withAlpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether colors may have alpha.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

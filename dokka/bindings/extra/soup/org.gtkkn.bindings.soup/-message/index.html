@@ -1,0 +1,1207 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Message</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="soup::org.gtkkn.bindings.soup/Message///PointingToDeclaration//1275981900">
+  <div class="breadcrumbs"><a href="../../index.html">soup</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.soup</a><span class="delimiter">/</span><span class="current">Message</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Message</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Message</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Represents an HTTP message being sent or received.</p><p class="paragraph">A #SoupMessage represents an HTTP message that is being sent or received.</p><p class="paragraph">You would create a #SoupMessage with ctor@Message.new or ctor@Message.new_from_uri, set up its fields appropriately, and send it.</p><p class="paragraph">property@Message:status-code will normally be a enum@Status value, eg, %SOUP_STATUS_OK, though of course it might actually be an unknown status code. property@Message:reason-phrase is the actual text returned from the server, which may or may not correspond to the "standard" description of</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-367528714%2FConstructors%2F1275981900" anchor-label="Message" id="-367528714%2FConstructors%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-message.html"><span><span>Message</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-367528714%2FConstructors%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">method<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">uriString<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new empty #SoupMessage, which will connect to @uri.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">uriString<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">multipart<span class="token operator">: </span><a href="../-multipart/index.html">Multipart</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new #SoupMessage and sets it up to send @multipart to</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">method<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">uri<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new empty #SoupMessage, which will connect to @uri.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">baseUri<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new #SoupMessage to send <code class="lang-kotlin">OPTIONS *</code> to a server. The path of</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="258715259%2FClasslikes%2F1275981900" anchor-label="Companion" id="258715259%2FClasslikes%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="258715259%2FClasslikes%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1878460464%2FProperties%2F1275981900" anchor-label="firstParty" id="-1878460464%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="first-party.html"><span>first</span><wbr><span><span>Party</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1878460464%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="first-party.html">firstParty</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The struct@GLib.Uri loaded in the application when the message was queued.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1938892787%2FProperties%2F1275981900" anchor-label="flags" id="-1938892787%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="flags.html"><span><span>flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1938892787%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="flags.html">flags</a><span class="token operator">: </span><a href="../-message-flags/index.html">MessageFlags</a></div><div class="brief "><p class="paragraph">Various message options.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2043399748%2FProperties%2F1275981900" anchor-label="httpVersion" id="2043399748%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="http-version.html"><span>http</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2043399748%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="http-version.html">httpVersion</a><span class="token operator">: </span><a href="../-h-t-t-p-version/index.html">HTTPVersion</a></div><div class="brief "><p class="paragraph">The HTTP protocol version to use.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1624197426%2FProperties%2F1275981900" anchor-label="isOptionsPing" id="-1624197426%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-options-ping.html"><span>is</span><wbr><span>Options</span><wbr><span><span>Ping</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1624197426%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="is-options-ping.html">isOptionsPing</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the message is an OPTIONS ping.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="124661017%2FProperties%2F1275981900" anchor-label="isTopLevelNavigation" id="124661017%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-top-level-navigation.html"><span>is</span><wbr><span>Top</span><wbr><span>Level</span><wbr><span><span>Navigation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="124661017%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="is-top-level-navigation.html">isTopLevelNavigation</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Set when the message is navigating between top level domains.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-315952155%2FProperties%2F1275981900" anchor-label="method" id="-315952155%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="method.html"><span><span>method</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-315952155%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="method.html">method</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The message's HTTP method.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-255670718%2FProperties%2F1275981900" anchor-label="priority" id="-255670718%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="priority.html"><span><span>priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-255670718%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="priority.html">priority</a><span class="token operator">: </span><a href="../-message-priority/index.html">MessagePriority</a></div><div class="brief "><p class="paragraph">Sets the priority of the #SoupMessage. See method@Message.set_priority for further details.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1179831447%2FProperties%2F1275981900" anchor-label="reasonPhrase" id="-1179831447%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reason-phrase.html"><span>reason</span><wbr><span><span>Phrase</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1179831447%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="reason-phrase.html">reasonPhrase</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The HTTP response reason phrase.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-749228890%2FProperties%2F1275981900" anchor-label="remoteAddress" id="-749228890%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remote-address.html"><span>remote</span><wbr><span><span>Address</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-749228890%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="remote-address.html">remoteAddress</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The remote class@Gio.SocketAddress of the connection associated with the message.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-164451697%2FProperties%2F1275981900" anchor-label="requestHeaders" id="-164451697%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="request-headers.html"><span>request</span><wbr><span><span>Headers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-164451697%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="request-headers.html">requestHeaders</a><span class="token operator">: </span><a href="../-message-headers/index.html">MessageHeaders</a></div><div class="brief "><p class="paragraph">The HTTP request headers.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1632661391%2FProperties%2F1275981900" anchor-label="responseHeaders" id="1632661391%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="response-headers.html"><span>response</span><wbr><span><span>Headers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1632661391%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="response-headers.html">responseHeaders</a><span class="token operator">: </span><a href="../-message-headers/index.html">MessageHeaders</a></div><div class="brief "><p class="paragraph">The HTTP response headers.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-706903367%2FProperties%2F1275981900" anchor-label="soupMessagePointer" id="-706903367%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="soup-message-pointer.html"><span>soup</span><wbr><span>Message</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-706903367%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="soup-message-pointer.html">soupMessagePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="492082505%2FProperties%2F1275981900" anchor-label="tlsCiphersuiteName" id="492082505%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tls-ciphersuite-name.html"><span>tls</span><wbr><span>Ciphersuite</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="492082505%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tls-ciphersuite-name.html">tlsCiphersuiteName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The Name of TLS ciphersuite negotiated for this message connection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1781903628%2FProperties%2F1275981900" anchor-label="tlsPeerCertificate" id="1781903628%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tls-peer-certificate.html"><span>tls</span><wbr><span>Peer</span><wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1781903628%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tls-peer-certificate.html">tlsPeerCertificate</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The peer's class@Gio.TlsCertificate associated with the message.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1247174817%2FProperties%2F1275981900" anchor-label="tlsPeerCertificateErrors" id="1247174817%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tls-peer-certificate-errors.html"><span>tls</span><wbr><span>Peer</span><wbr><span>Certificate</span><wbr><span><span>Errors</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1247174817%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tls-peer-certificate-errors.html">tlsPeerCertificateErrors</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The verification errors on property@Message:tls-peer-certificate.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-383914360%2FProperties%2F1275981900" anchor-label="uri" id="-383914360%2FProperties%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="uri.html"><span><span>uri</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-383914360%2FProperties%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="uri.html">uri</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The message's Request-URI.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-681498222%2FFunctions%2F1275981900" anchor-label="addFlags" id="-681498222%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-flags.html"><span>add</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-681498222%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-flags.html"><span class="token function">addFlags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flags<span class="token operator">: </span><a href="../-message-flags/index.html">MessageFlags</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @flags to the set of @msg's flags.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="608912986%2FFunctions%2F1275981900" anchor-label="connectAcceptCertificate" id="608912986%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-accept-certificate.html"><span>connect</span><wbr><span>Accept</span><wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="608912986%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-accept-certificate.html"><span class="token function">connectAcceptCertificate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted during the @msg's connection TLS handshake after an unacceptable TLS certificate has been received.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="246241392%2FFunctions%2F1275981900" anchor-label="connectAuthenticate" id="246241392%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-authenticate.html"><span>connect</span><wbr><span><span>Authenticate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="246241392%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-authenticate.html"><span class="token function">connectAuthenticate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>auth<span class="token operator">: </span><a href="../-auth/index.html">Auth</a><span class="token punctuation">, </span>retrying<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when the message requires authentication.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-42967772%2FFunctions%2F1275981900" anchor-label="connectContentSniffed" id="-42967772%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-content-sniffed.html"><span>connect</span><wbr><span>Content</span><wbr><span><span>Sniffed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-42967772%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-content-sniffed.html"><span class="token function">connectContentSniffed</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>type<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted after signal@Message::got-headers.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1045782944%2FFunctions%2F1275981900" anchor-label="connectFinished" id="-1045782944%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-finished.html"><span>connect</span><wbr><span><span>Finished</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1045782944%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-finished.html"><span class="token function">connectFinished</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when all HTTP processing is finished for a message.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="521335946%2FFunctions%2F1275981900" anchor-label="connectGotBody" id="521335946%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-got-body.html"><span>connect</span><wbr><span>Got</span><wbr><span><span>Body</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="521335946%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-got-body.html"><span class="token function">connectGotBody</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted after receiving the complete message response body.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1738777183%2FFunctions%2F1275981900" anchor-label="connectGotBodyData" id="1738777183%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-got-body-data.html"><span>connect</span><wbr><span>Got</span><wbr><span>Body</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1738777183%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-got-body-data.html"><span class="token function">connectGotBodyData</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted after reading a portion of the message body from the network.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-901511368%2FFunctions%2F1275981900" anchor-label="connectGotHeaders" id="-901511368%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-got-headers.html"><span>connect</span><wbr><span>Got</span><wbr><span><span>Headers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-901511368%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-got-headers.html"><span class="token function">connectGotHeaders</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted after receiving the Status-Line and response headers.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-100675513%2FFunctions%2F1275981900" anchor-label="connectGotInformational" id="-100675513%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-got-informational.html"><span>connect</span><wbr><span>Got</span><wbr><span><span>Informational</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-100675513%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-got-informational.html"><span class="token function">connectGotInformational</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted after receiving a 1xx (Informational) response for a (client-side) message.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-390901530%2FFunctions%2F1275981900" anchor-label="connectHstsEnforced" id="-390901530%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-hsts-enforced.html"><span>connect</span><wbr><span>Hsts</span><wbr><span><span>Enforced</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-390901530%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-hsts-enforced.html"><span class="token function">connectHstsEnforced</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when class@HSTSEnforcer has upgraded the protocol for @msg to HTTPS as a result of matching its domain with a HSTS policy.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="861420534%2FFunctions%2F1275981900" anchor-label="connectNetworkEvent" id="861420534%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-network-event.html"><span>connect</span><wbr><span>Network</span><wbr><span><span>Event</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="861420534%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-network-event.html"><span class="token function">connectNetworkEvent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted to indicate that some network-related event related to @msg has occurred.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1531744421%2FFunctions%2F1275981900" anchor-label="connectRequestCertificate" id="-1531744421%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-request-certificate.html"><span>connect</span><wbr><span>Request</span><wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1531744421%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-request-certificate.html"><span class="token function">connectRequestCertificate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted during the @msg's connection TLS handshake when</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="172674152%2FFunctions%2F1275981900" anchor-label="connectRequestCertificatePassword" id="172674152%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-request-certificate-password.html"><span>connect</span><wbr><span>Request</span><wbr><span>Certificate</span><wbr><span><span>Password</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="172674152%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-request-certificate-password.html"><span class="token function">connectRequestCertificatePassword</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted during the @msg's connection TLS handshake when</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1753727702%2FFunctions%2F1275981900" anchor-label="connectRestarted" id="-1753727702%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-restarted.html"><span>connect</span><wbr><span><span>Restarted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1753727702%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-restarted.html"><span class="token function">connectRestarted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when a request that was already sent once is now being sent again.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="599218002%2FFunctions%2F1275981900" anchor-label="connectStarting" id="599218002%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-starting.html"><span>connect</span><wbr><span><span>Starting</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="599218002%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-starting.html"><span class="token function">connectStarting</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted just before a message is sent.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1672972783%2FFunctions%2F1275981900" anchor-label="connectWroteBody" id="-1672972783%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-wrote-body.html"><span>connect</span><wbr><span>Wrote</span><wbr><span><span>Body</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1672972783%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-wrote-body.html"><span class="token function">connectWroteBody</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted immediately after writing the complete body for a message.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2028793224%2FFunctions%2F1275981900" anchor-label="connectWroteBodyData" id="-2028793224%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-wrote-body-data.html"><span>connect</span><wbr><span>Wrote</span><wbr><span>Body</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2028793224%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-wrote-body-data.html"><span class="token function">connectWroteBodyData</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted immediately after writing a portion of the message body to the network.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2144355409%2FFunctions%2F1275981900" anchor-label="connectWroteHeaders" id="2144355409%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-wrote-headers.html"><span>connect</span><wbr><span>Wrote</span><wbr><span><span>Headers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2144355409%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-wrote-headers.html"><span class="token function">connectWroteHeaders</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted immediately after writing the request headers for a message.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="672674173%2FFunctions%2F1275981900" anchor-label="disableFeature" id="672674173%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="disable-feature.html"><span>disable</span><wbr><span><span>Feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="672674173%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="disable-feature.html"><span class="token function">disableFeature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Disables the actions of iface@SessionFeatures with the given @feature_type (or a subclass of that type) on @msg.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-294974523%2FFunctions%2F1275981900" anchor-label="getConnectionId" id="-294974523%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-connection-id.html"><span>get</span><wbr><span>Connection</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-294974523%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-connection-id.html"><span class="token function">getConnectionId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the unique idenfier for the last connection used.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1197887192%2FFunctions%2F1275981900" anchor-label="getFirstParty" id="-1197887192%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-first-party.html"><span>get</span><wbr><span>First</span><wbr><span><span>Party</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1197887192%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-first-party.html"><span class="token function">getFirstParty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets @msg's first-party struct@GLib.Uri.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-243947595%2FFunctions%2F1275981900" anchor-label="getFlags" id="-243947595%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-flags.html"><span>get</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-243947595%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-flags.html"><span class="token function">getFlags</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-message-flags/index.html">MessageFlags</a></div><div class="brief "><p class="paragraph">Gets the flags on @msg.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-310930496%2FFunctions%2F1275981900" anchor-label="getForceHttp1" id="-310930496%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-force-http1.html"><span>get</span><wbr><span>Force</span><wbr><span><span>Http1</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-310930496%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-force-http1.html"><span class="token function">getForceHttp1</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether HTTP/1 version is currently demanded for the @msg send.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1666334700%2FFunctions%2F1275981900" anchor-label="getHttpVersion" id="1666334700%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-http-version.html"><span>get</span><wbr><span>Http</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1666334700%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-http-version.html"><span class="token function">getHttpVersion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-h-t-t-p-version/index.html">HTTPVersion</a></div><div class="brief "><p class="paragraph">Gets the HTTP version of @msg.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1088511606%2FFunctions%2F1275981900" anchor-label="getIsOptionsPing" id="1088511606%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-options-ping.html"><span>get</span><wbr><span>Is</span><wbr><span>Options</span><wbr><span><span>Ping</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1088511606%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-is-options-ping.html"><span class="token function">getIsOptionsPing</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether @msg is intended to be used to send <code class="lang-kotlin">OPTIONS *</code> to a server.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="801708145%2FFunctions%2F1275981900" anchor-label="getIsTopLevelNavigation" id="801708145%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-top-level-navigation.html"><span>get</span><wbr><span>Is</span><wbr><span>Top</span><wbr><span>Level</span><wbr><span><span>Navigation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="801708145%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-is-top-level-navigation.html"><span class="token function">getIsTopLevelNavigation</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns if this message is set as a top level navigation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="687741245%2FFunctions%2F1275981900" anchor-label="getMethod" id="687741245%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-method.html"><span>get</span><wbr><span><span>Method</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="687741245%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-method.html"><span class="token function">getMethod</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns the method of this message.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="319284537%2FFunctions%2F1275981900" anchor-label="getMetrics" id="319284537%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-metrics.html"><span>get</span><wbr><span><span>Metrics</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="319284537%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-metrics.html"><span class="token function">getMetrics</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-message-metrics/index.html">MessageMetrics</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Get the struct@MessageMetrics of @msg.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2073954918%2FFunctions%2F1275981900" anchor-label="getPriority" id="-2073954918%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-priority.html"><span>get</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2073954918%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-priority.html"><span class="token function">getPriority</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-message-priority/index.html">MessagePriority</a></div><div class="brief "><p class="paragraph">Retrieves the enum@MessagePriority.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="16053953%2FFunctions%2F1275981900" anchor-label="getReasonPhrase" id="16053953%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-reason-phrase.html"><span>get</span><wbr><span>Reason</span><wbr><span><span>Phrase</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="16053953%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-reason-phrase.html"><span class="token function">getReasonPhrase</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the reason phrase for the status of this message.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1963480142%2FFunctions%2F1275981900" anchor-label="getRemoteAddress" id="1963480142%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-remote-address.html"><span>get</span><wbr><span>Remote</span><wbr><span><span>Address</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1963480142%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-remote-address.html"><span class="token function">getRemoteAddress</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Get the remote class@Gio.SocketAddress of the connection associated with the message.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1969817625%2FFunctions%2F1275981900" anchor-label="getRequestHeaders" id="-1969817625%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-request-headers.html"><span>get</span><wbr><span>Request</span><wbr><span><span>Headers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1969817625%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-request-headers.html"><span class="token function">getRequestHeaders</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-message-headers/index.html">MessageHeaders</a></div><div class="brief "><p class="paragraph">Returns the headers sent with the request.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1500892471%2FFunctions%2F1275981900" anchor-label="getResponseHeaders" id="1500892471%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-response-headers.html"><span>get</span><wbr><span>Response</span><wbr><span><span>Headers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1500892471%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-response-headers.html"><span class="token function">getResponseHeaders</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-message-headers/index.html">MessageHeaders</a></div><div class="brief "><p class="paragraph">Returns the headers recieved with the response.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1738142095%2FFunctions%2F1275981900" anchor-label="getSiteForCookies" id="-1738142095%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-site-for-cookies.html"><span>get</span><wbr><span>Site</span><wbr><span>For</span><wbr><span><span>Cookies</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1738142095%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-site-for-cookies.html"><span class="token function">getSiteForCookies</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets @msg's site for cookies #GUri.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1561427788%2FFunctions%2F1275981900" anchor-label="getStatus" id="1561427788%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-status.html"><span>get</span><wbr><span><span>Status</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1561427788%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-status.html"><span class="token function">getStatus</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-status/index.html">Status</a></div><div class="brief "><p class="paragraph">Returns the set status of this message.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="564295329%2FFunctions%2F1275981900" anchor-label="getTlsCiphersuiteName" id="564295329%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tls-ciphersuite-name.html"><span>get</span><wbr><span>Tls</span><wbr><span>Ciphersuite</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="564295329%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-tls-ciphersuite-name.html"><span class="token function">getTlsCiphersuiteName</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the name of the TLS ciphersuite negotiated for @msg's connection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1854116452%2FFunctions%2F1275981900" anchor-label="getTlsPeerCertificate" id="1854116452%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tls-peer-certificate.html"><span>get</span><wbr><span>Tls</span><wbr><span>Peer</span><wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1854116452%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-tls-peer-certificate.html"><span class="token function">getTlsPeerCertificate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the peer's class@Gio.TlsCertificate associated with @msg's connection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1441013767%2FFunctions%2F1275981900" anchor-label="getTlsPeerCertificateErrors" id="-1441013767%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tls-peer-certificate-errors.html"><span>get</span><wbr><span>Tls</span><wbr><span>Peer</span><wbr><span>Certificate</span><wbr><span><span>Errors</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1441013767%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-tls-peer-certificate-errors.html"><span class="token function">getTlsPeerCertificateErrors</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the errors associated with validating @msg's TLS peer certificate. Note that this is not set yet during the emission of signal@Message::accept-certificate signal.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1164216368%2FFunctions%2F1275981900" anchor-label="getUri" id="1164216368%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-uri.html"><span>get</span><wbr><span><span>Uri</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1164216368%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-uri.html"><span class="token function">getUri</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets @msg's URI.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1642921545%2FFunctions%2F1275981900" anchor-label="isFeatureDisabled" id="1642921545%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-feature-disabled.html"><span>is</span><wbr><span>Feature</span><wbr><span><span>Disabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1642921545%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-feature-disabled.html"><span class="token function">isFeatureDisabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether iface@SessionFeatures of the given @feature_type (or a subclass of that type) are disabled on @msg.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1986525482%2FFunctions%2F1275981900" anchor-label="isKeepalive" id="-1986525482%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-keepalive.html"><span>is</span><wbr><span><span>Keepalive</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1986525482%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-keepalive.html"><span class="token function">isKeepalive</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determines whether or not @msg's connection can be kept alive for further requests after processing @msg.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1031175609%2FFunctions%2F1275981900" anchor-label="queryFlags" id="1031175609%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="query-flags.html"><span>query</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1031175609%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="query-flags.html"><span class="token function">queryFlags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flags<span class="token operator">: </span><a href="../-message-flags/index.html">MessageFlags</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Queries if @flags are present in the set of @msg's flags.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="473805251%2FFunctions%2F1275981900" anchor-label="removeFlags" id="473805251%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-flags.html"><span>remove</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="473805251%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="remove-flags.html"><span class="token function">removeFlags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flags<span class="token operator">: </span><a href="../-message-flags/index.html">MessageFlags</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes @flags from the set of @msg's flags.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="532052660%2FFunctions%2F1275981900" anchor-label="setFirstParty" id="532052660%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-first-party.html"><span>set</span><wbr><span>First</span><wbr><span><span>Party</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="532052660%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-first-party.html"><span class="token function">setFirstParty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">firstParty<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @first_party as the main document #GUri for @msg.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="664992019%2FFunctions%2F1275981900" anchor-label="setFlags" id="664992019%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-flags.html"><span>set</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="664992019%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-flags.html"><span class="token function">setFlags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flags<span class="token operator">: </span><a href="../-message-flags/index.html">MessageFlags</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the specified flags on @msg.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1109579911%2FFunctions%2F1275981900" anchor-label="setForceHttp1" id="-1109579911%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-force-http1.html"><span>set</span><wbr><span>Force</span><wbr><span><span>Http1</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1109579911%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-force-http1.html"><span class="token function">setForceHttp1</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether HTTP/1 version should be used when sending this message. Some connections can still override it, if needed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="858242631%2FFunctions%2F1275981900" anchor-label="setIsOptionsPing" id="858242631%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-is-options-ping.html"><span>set</span><wbr><span>Is</span><wbr><span>Options</span><wbr><span><span>Ping</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="858242631%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-is-options-ping.html"><span class="token function">setIsOptionsPing</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">isOptionsPing<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set whether @msg is intended to be used to send <code class="lang-kotlin">OPTIONS *</code> to a server.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="783425898%2FFunctions%2F1275981900" anchor-label="setIsTopLevelNavigation" id="783425898%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-is-top-level-navigation.html"><span>set</span><wbr><span>Is</span><wbr><span>Top</span><wbr><span>Level</span><wbr><span><span>Navigation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="783425898%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-is-top-level-navigation.html"><span class="token function">setIsTopLevelNavigation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">isTopLevelNavigation<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether the current request is a top-level navitation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1998679539%2FFunctions%2F1275981900" anchor-label="setMethod" id="1998679539%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-method.html"><span>set</span><wbr><span><span>Method</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1998679539%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-method.html"><span class="token function">setMethod</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">method<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set @msg's HTTP method to @method.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-345113865%2FFunctions%2F1275981900" anchor-label="setPriority" id="-345113865%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-priority.html"><span>set</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-345113865%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-priority.html"><span class="token function">setPriority</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">priority<span class="token operator">: </span><a href="../-message-priority/index.html">MessagePriority</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the priority of a message.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-517690472%2FFunctions%2F1275981900" anchor-label="setRequestBody" id="-517690472%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-request-body.html"><span>set</span><wbr><span>Request</span><wbr><span><span>Body</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-517690472%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-request-body.html"><span class="token function">setRequestBody</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">contentType<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">stream<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">contentLength<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set the request body of a #SoupMessage.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="980820498%2FFunctions%2F1275981900" anchor-label="setRequestBodyFromBytes" id="980820498%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-request-body-from-bytes.html"><span>set</span><wbr><span>Request</span><wbr><span>Body</span><wbr><span>From</span><wbr><span><span>Bytes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="980820498%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-request-body-from-bytes.html"><span class="token function">setRequestBodyFromBytes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">contentType<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">bytes<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set the request body of a #SoupMessage from struct@GLib.Bytes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1260800200%2FFunctions%2F1275981900" anchor-label="setSiteForCookies" id="-1260800200%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-site-for-cookies.html"><span>set</span><wbr><span>Site</span><wbr><span>For</span><wbr><span><span>Cookies</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1260800200%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-site-for-cookies.html"><span class="token function">setSiteForCookies</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">siteForCookies<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @site_for_cookies as the policy URL for same-site cookies for @msg.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2065545246%2FFunctions%2F1275981900" anchor-label="setTlsClientCertificate" id="-2065545246%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-tls-client-certificate.html"><span>set</span><wbr><span>Tls</span><wbr><span>Client</span><wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2065545246%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-tls-client-certificate.html"><span class="token function">setTlsClientCertificate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">certificate<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the @certificate to be used by @msg's connection when a client certificate is requested during the TLS handshake.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-28787692%2FFunctions%2F1275981900" anchor-label="setUri" id="-28787692%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-uri.html"><span>set</span><wbr><span><span>Uri</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-28787692%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-uri.html"><span class="token function">setUri</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">uri<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @msg's URI to @uri.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1038246280%2FFunctions%2F1275981900" anchor-label="tlsClientCertificatePasswordRequestComplete" id="-1038246280%2FFunctions%2F1275981900" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:extra:soup:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tls-client-certificate-password-request-complete.html"><span>tls</span><wbr><span>Client</span><wbr><span>Certificate</span><wbr><span>Password</span><wbr><span>Request</span><wbr><span><span>Complete</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1038246280%2FFunctions%2F1275981900"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="tls-client-certificate-password-request-complete.html"><span class="token function">tlsClientCertificatePasswordRequestComplete</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Completes a certificate password request.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

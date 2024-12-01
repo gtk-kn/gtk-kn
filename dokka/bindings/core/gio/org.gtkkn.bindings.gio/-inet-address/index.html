@@ -1,0 +1,502 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>InetAddress</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gio:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gio::org.gtkkn.bindings.gio/InetAddress///PointingToDeclaration//-143691045">
+  <div class="breadcrumbs"><a href="../../index.html">gio</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gio</a><span class="delimiter">/</span><span class="current">InetAddress</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Inet</span><wbr><span><span>Address</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">InetAddress</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph"><code class="lang-kotlin">GInetAddress</code> represents an IPv4 or IPv6 internet address. Use method@Gio.Resolver.lookup_by_name or method@Gio.Resolver.lookup_by_name_async to look up the <code class="lang-kotlin">GInetAddress</code> for a hostname. Use method@Gio.Resolver.lookup_by_address or method@Gio.Resolver.lookup_by_address_async to look up the hostname for a <code class="lang-kotlin">GInetAddress</code>.</p><p class="paragraph">To actually connect to a remote host, you will need a class@Gio.InetSocketAddress (which includes a <code class="lang-kotlin">GInetAddress</code> as well as a port number).</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">to_string</code>: C function g_inet_address_to_string is ignored</p></li><li><p class="paragraph">method <code class="lang-kotlin">bytes</code>: Property has no getter nor setter</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">bytes</code>: Array parameter of type guint8 is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-927204322%2FConstructors%2F-143691045" anchor-label="InetAddress" id="-927204322%2FConstructors%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-inet-address.html"><span>Inet</span><wbr><span><span>Address</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-927204322%2FConstructors%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">family<span class="token operator">: </span><a href="../-socket-family/index.html">SocketFamily</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a #GInetAddress for the "any" address (unassigned/"don't care") for @family.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">string<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Parses @string as an IP address and creates a new #GInetAddress.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="939270334%2FClasslikes%2F-143691045" anchor-label="Companion" id="939270334%2FClasslikes%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="939270334%2FClasslikes%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1628217183%2FProperties%2F-143691045" anchor-label="family" id="1628217183%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="family.html"><span><span>family</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1628217183%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="family.html">family</a><span class="token operator">: </span><a href="../-socket-family/index.html">SocketFamily</a></div><div class="brief "><p class="paragraph">The address family (IPv4 or IPv6).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1802782803%2FProperties%2F-143691045" anchor-label="gioInetAddressPointer" id="-1802782803%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-inet-address-pointer.html"><span>gio</span><wbr><span>Inet</span><wbr><span>Address</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1802782803%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gio-inet-address-pointer.html">gioInetAddressPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-307977643%2FProperties%2F-143691045" anchor-label="isAny" id="-307977643%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-any.html"><span>is</span><wbr><span><span>Any</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-307977643%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-any.html">isAny</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this is the "any" address for its family. See g_inet_address_get_is_any().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2019274416%2FProperties%2F-143691045" anchor-label="isLinkLocal" id="-2019274416%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-link-local.html"><span>is</span><wbr><span>Link</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2019274416%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-link-local.html">isLinkLocal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this is a link-local address. See g_inet_address_get_is_link_local().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="851122190%2FProperties%2F-143691045" anchor-label="isLoopback" id="851122190%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-loopback.html"><span>is</span><wbr><span><span>Loopback</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="851122190%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-loopback.html">isLoopback</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this is the loopback address for its family. See g_inet_address_get_is_loopback().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1605062528%2FProperties%2F-143691045" anchor-label="isMcGlobal" id="-1605062528%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-mc-global.html"><span>is</span><wbr><span>Mc</span><wbr><span><span>Global</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1605062528%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-mc-global.html">isMcGlobal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this is a global multicast address. See g_inet_address_get_is_mc_global().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="908067974%2FProperties%2F-143691045" anchor-label="isMcLinkLocal" id="908067974%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-mc-link-local.html"><span>is</span><wbr><span>Mc</span><wbr><span>Link</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="908067974%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-mc-link-local.html">isMcLinkLocal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this is a link-local multicast address. See g_inet_address_get_is_mc_link_local().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-736705394%2FProperties%2F-143691045" anchor-label="isMcNodeLocal" id="-736705394%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-mc-node-local.html"><span>is</span><wbr><span>Mc</span><wbr><span>Node</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-736705394%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-mc-node-local.html">isMcNodeLocal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this is a node-local multicast address. See g_inet_address_get_is_mc_node_local().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1452109764%2FProperties%2F-143691045" anchor-label="isMcOrgLocal" id="-1452109764%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-mc-org-local.html"><span>is</span><wbr><span>Mc</span><wbr><span>Org</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1452109764%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-mc-org-local.html">isMcOrgLocal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this is an organization-local multicast address. See g_inet_address_get_is_mc_org_local().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1783943405%2FProperties%2F-143691045" anchor-label="isMcSiteLocal" id="-1783943405%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-mc-site-local.html"><span>is</span><wbr><span>Mc</span><wbr><span>Site</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1783943405%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-mc-site-local.html">isMcSiteLocal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this is a site-local multicast address. See g_inet_address_get_is_mc_site_local().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1352932663%2FProperties%2F-143691045" anchor-label="isMulticast" id="-1352932663%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-multicast.html"><span>is</span><wbr><span><span>Multicast</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1352932663%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-multicast.html">isMulticast</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this is a multicast address. See g_inet_address_get_is_multicast().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-416318499%2FProperties%2F-143691045" anchor-label="isSiteLocal" id="-416318499%2FProperties%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-site-local.html"><span>is</span><wbr><span>Site</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-416318499%2FProperties%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-site-local.html">isSiteLocal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this is a site-local address. See g_inet_address_get_is_loopback().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="185219917%2FFunctions%2F-143691045" anchor-label="equal" id="185219917%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="equal.html"><span><span>equal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="185219917%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="equal.html"><span class="token function">equal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">otherAddress<span class="token operator">: </span><a href="index.html">InetAddress</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if two #GInetAddress instances are equal, e.g. the same address.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="117492317%2FFunctions%2F-143691045" anchor-label="getFamily" id="117492317%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-family.html"><span>get</span><wbr><span><span>Family</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="117492317%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-family.html"><span class="token function">getFamily</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-socket-family/index.html">SocketFamily</a></div><div class="brief "><p class="paragraph">Gets @address's family</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1998593943%2FFunctions%2F-143691045" anchor-label="getIsAny" id="1998593943%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-any.html"><span>get</span><wbr><span>Is</span><wbr><span><span>Any</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1998593943%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-is-any.html"><span class="token function">getIsAny</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether @address is the "any" address for its family.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-685157102%2FFunctions%2F-143691045" anchor-label="getIsLinkLocal" id="-685157102%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-link-local.html"><span>get</span><wbr><span>Is</span><wbr><span>Link</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-685157102%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-is-link-local.html"><span class="token function">getIsLinkLocal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether @address is a link-local address (that is, if it identifies a host on a local network that is not connected to the Internet).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="478516236%2FFunctions%2F-143691045" anchor-label="getIsLoopback" id="478516236%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-loopback.html"><span>get</span><wbr><span>Is</span><wbr><span><span>Loopback</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="478516236%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-is-loopback.html"><span class="token function">getIsLoopback</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether @address is the loopback address for its family.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1977668482%2FFunctions%2F-143691045" anchor-label="getIsMcGlobal" id="-1977668482%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-mc-global.html"><span>get</span><wbr><span>Is</span><wbr><span>Mc</span><wbr><span><span>Global</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1977668482%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-is-mc-global.html"><span class="token function">getIsMcGlobal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether @address is a global multicast address.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1200414776%2FFunctions%2F-143691045" anchor-label="getIsMcLinkLocal" id="-1200414776%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-mc-link-local.html"><span>get</span><wbr><span>Is</span><wbr><span>Mc</span><wbr><span>Link</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1200414776%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-is-mc-link-local.html"><span class="token function">getIsMcLinkLocal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether @address is a link-local multicast address.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1449779152%2FFunctions%2F-143691045" anchor-label="getIsMcNodeLocal" id="1449779152%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-mc-node-local.html"><span>get</span><wbr><span>Is</span><wbr><span>Mc</span><wbr><span>Node</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1449779152%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-is-mc-node-local.html"><span class="token function">getIsMcNodeLocal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether @address is a node-local multicast address.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1250821306%2FFunctions%2F-143691045" anchor-label="getIsMcOrgLocal" id="1250821306%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-mc-org-local.html"><span>get</span><wbr><span>Is</span><wbr><span>Mc</span><wbr><span>Org</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1250821306%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-is-mc-org-local.html"><span class="token function">getIsMcOrgLocal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether @address is an organization-local multicast address.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="402541141%2FFunctions%2F-143691045" anchor-label="getIsMcSiteLocal" id="402541141%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-mc-site-local.html"><span>get</span><wbr><span>Is</span><wbr><span>Mc</span><wbr><span>Site</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="402541141%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-is-mc-site-local.html"><span class="token function">getIsMcSiteLocal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether @address is a site-local multicast address.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-18815349%2FFunctions%2F-143691045" anchor-label="getIsMulticast" id="-18815349%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-multicast.html"><span>get</span><wbr><span>Is</span><wbr><span><span>Multicast</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-18815349%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-is-multicast.html"><span class="token function">getIsMulticast</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether @address is a multicast address.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="917798815%2FFunctions%2F-143691045" anchor-label="getIsSiteLocal" id="917798815%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-is-site-local.html"><span>get</span><wbr><span>Is</span><wbr><span>Site</span><wbr><span><span>Local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="917798815%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-is-site-local.html"><span class="token function">getIsSiteLocal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether @address is a site-local address such as 10.0.0.1 (that is, the address identifies a host on a local network that can not be reached directly from the Internet, but which may have outgoing Internet connectivity via a NAT or firewall).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="202762633%2FFunctions%2F-143691045" anchor-label="getNativeSize" id="202762633%2FFunctions%2F-143691045" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gio:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-native-size.html"><span>get</span><wbr><span>Native</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="202762633%2FFunctions%2F-143691045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-native-size.html"><span class="token function">getNativeSize</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the size of the native raw binary address for @address. This is the size of the data that you get from g_inet_address_to_bytes().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

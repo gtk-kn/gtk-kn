@@ -1,0 +1,697 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>DropTarget</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk4::org.gtkkn.bindings.gtk/DropTarget///PointingToDeclaration//-991561573">
+  <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">DropTarget</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Drop</span><wbr><span><span>Target</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">DropTarget</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-event-controller/index.html">EventController</a></div><p class="paragraph"><code class="lang-kotlin">GtkDropTarget</code> is an event controller to receive Drag-and-Drop operations.</p><p class="paragraph">The most basic way to use a <code class="lang-kotlin">GtkDropTarget</code> to receive drops on a widget is to create it via ctor@Gtk.DropTarget.new, passing in the <code class="lang-kotlin">GType</code> of the data you want to receive and connect to the signal@Gtk.DropTarget::drop signal to receive the data:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">static gboolean<br>on_drop (GtkDropTarget *target,<br>         const GValue  *value,<br>         double         x,<br>         double         y,<br>         gpointer       data)<br>{<br>  MyWidget *self = data;<br><br>  // Call the appropriate setter depending on the type of data<br>  // that we received<br>  if (G_VALUE_HOLDS (value, G_TYPE_FILE))<br>    my_widget_set_file (self, g_value_get_object (value));<br>  else if (G_VALUE_HOLDS (value, GDK_TYPE_PIXBUF))<br>    my_widget_set_pixbuf (self, g_value_get_object (value));<br>  else<br>    return FALSE;<br><br>  return TRUE;<br>}<br><br>static void<br>my_widget_init (MyWidget *self)<br>{<br>  GtkDropTarget *target =<br>    gtk_drop_target_new (G_TYPE_INVALID, GDK_ACTION_COPY);<br><br>  // This widget accepts two types of drop types: GFile objects<br>  // and GdkPixbuf objects<br>  gtk_drop_target_set_gtypes (target, (GType [2]) {<br>    G_TYPE_FILE,<br>    GDK_TYPE_PIXBUF,<br>  }, 2);<br><br>  g_signal_connect (target, "drop", G_CALLBACK (on_drop), self);<br>  gtk_widget_add_controller (GTK_WIDGET (self), GTK_EVENT_CONTROLLER (target));<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph"><code class="lang-kotlin">GtkDropTarget</code> supports more options, such as:</p><ul><li><p class="paragraph">rejecting potential drops via the signal@Gtk.DropTarget::accept signal     and the method@Gtk.DropTarget.reject function to let other drop     targets handle the drop</p></li><li><p class="paragraph">tracking an ongoing drag operation before the drop via the     signal@Gtk.DropTarget::enter, signal@Gtk.DropTarget::motion and     signal@Gtk.DropTarget::leave signals</p></li><li><p class="paragraph">configuring how to receive data by setting the     property@Gtk.DropTarget:preload property and listening for its     availability via the property@Gtk.DropTarget:value property</p></li></ul><p class="paragraph">However, <code class="lang-kotlin">GtkDropTarget</code> is ultimately modeled in a synchronous way and only supports data transferred via <code class="lang-kotlin">GType</code>. If you want full control over an ongoing drop, the class@Gtk.DropTargetAsync object gives you this ability.</p><p class="paragraph">While a pointer is dragged over the drop target's widget and the drop has not been rejected, that widget will receive the %GTK_STATE_FLAG_DROP_ACTIVE state, which can be used to style the widget.</p><p class="paragraph">If you are not interested in receiving the drop, but just want to update UI state during a Drag-and-Drop operation (e.g. switching tabs), you can use class@Gtk.DropControllerMotion.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">n_types</code>: n_types: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">types</code>: Array parameter of type GType is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1856288576%2FConstructors%2F-991561573" anchor-label="DropTarget" id="1856288576%2FConstructors%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-drop-target.html"><span>Drop</span><wbr><span><span>Target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1856288576%2FConstructors%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">type<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">actions<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new <code class="lang-kotlin">GtkDropTarget</code> object.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1791004217%2FClasslikes%2F-991561573" anchor-label="Companion" id="1791004217%2FClasslikes%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1791004217%2FClasslikes%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="769287125%2FProperties%2F-991561573" anchor-label="actions" id="769287125%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="actions.html"><span><span>actions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="769287125%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="actions.html">actions</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The <code class="lang-kotlin">GdkDragActions</code> that this drop target supports.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1808703318%2FProperties%2F-991561573" anchor-label="currentDrop" id="-1808703318%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="current-drop.html"><span>current</span><wbr><span><span>Drop</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1808703318%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="current-drop.html">currentDrop</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The <code class="lang-kotlin">GdkDrop</code> that is currently being performed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1575797162%2FProperties%2F-991561573" anchor-label="formats" id="-1575797162%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="formats.html"><span><span>formats</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1575797162%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="formats.html">formats</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The <code class="lang-kotlin">GdkContentFormats</code> that determine the supported data formats.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="530120969%2FProperties%2F-991561573" anchor-label="gtkDropTargetPointer" id="530120969%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-drop-target-pointer.html"><span>gtk</span><wbr><span>Drop</span><wbr><span>Target</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="530120969%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gtk-drop-target-pointer.html">gtkDropTargetPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1361856629%2FProperties%2F-991561573" anchor-label="gtkEventControllerPointer" id="-1361856629%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/gtk-event-controller-pointer.html"><span>gtk</span><wbr><span>Event</span><wbr><span>Controller</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1361856629%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-event-controller/gtk-event-controller-pointer.html">gtkEventControllerPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1394649919%2FProperties%2F-991561573" anchor-label="name" id="1394649919%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/name.html"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1394649919%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-event-controller/name.html">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The name for this controller, typically used for debugging purposes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-817249207%2FProperties%2F-991561573" anchor-label="preload" id="-817249207%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="preload.html"><span><span>preload</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-817249207%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="preload.html">preload</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the drop data should be preloaded when the pointer is only hovering over the widget but has not been released.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1814101637%2FProperties%2F-991561573" anchor-label="propagationLimit" id="-1814101637%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/propagation-limit.html"><span>propagation</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1814101637%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-event-controller/propagation-limit.html">propagationLimit</a><span class="token operator">: </span><a href="../-propagation-limit/index.html">PropagationLimit</a></div><div class="brief "><p class="paragraph">The limit for which events this controller will handle.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1155808187%2FProperties%2F-991561573" anchor-label="propagationPhase" id="1155808187%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/propagation-phase.html"><span>propagation</span><wbr><span><span>Phase</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1155808187%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-event-controller/propagation-phase.html">propagationPhase</a><span class="token operator">: </span><a href="../-propagation-phase/index.html">PropagationPhase</a></div><div class="brief "><p class="paragraph">The propagation phase at which this controller will handle events.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-937894111%2FProperties%2F-991561573" anchor-label="value" id="-937894111%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value.html"><span><span>value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-937894111%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="value.html">value</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The value for this drop operation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-942045594%2FProperties%2F-991561573" anchor-label="widget" id="-942045594%2FProperties%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/widget.html"><span><span>widget</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-942045594%2FProperties%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../-event-controller/widget.html">widget</a><span class="token operator">: </span><a href="../-widget/index.html">Widget</a></div><div class="brief "><p class="paragraph">The widget receiving the <code class="lang-kotlin">GdkEvents</code> that the controller will handle.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1341227310%2FFunctions%2F-991561573" anchor-label="connectAccept" id="-1341227310%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-accept.html"><span>connect</span><wbr><span><span>Accept</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1341227310%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-accept.html"><span class="token function">connectAccept</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted on the drop site when a drop operation is about to begin.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1566128341%2FFunctions%2F-991561573" anchor-label="connectDrop" id="-1566128341%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-drop.html"><span>connect</span><wbr><span><span>Drop</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1566128341%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-drop.html"><span class="token function">connectDrop</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span>x<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span>y<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted on the drop site when the user drops the data onto the widget.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1073232067%2FFunctions%2F-991561573" anchor-label="connectEnter" id="1073232067%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-enter.html"><span>connect</span><wbr><span><span>Enter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1073232067%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-enter.html"><span class="token function">connectEnter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>x<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span>y<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted on the drop site when the pointer enters the widget.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="967647491%2FFunctions%2F-991561573" anchor-label="connectLeave" id="967647491%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-leave.html"><span>connect</span><wbr><span><span>Leave</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="967647491%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-leave.html"><span class="token function">connectLeave</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted on the drop site when the pointer leaves the widget.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1870392491%2FFunctions%2F-991561573" anchor-label="connectMotion" id="1870392491%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connect-motion.html"><span>connect</span><wbr><span><span>Motion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1870392491%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="connect-motion.html"><span class="token function">connectMotion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>x<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span>y<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted while the pointer is moving over the drop target.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1036864065%2FFunctions%2F-991561573" anchor-label="getActions" id="1036864065%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-actions.html"><span>get</span><wbr><span><span>Actions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1036864065%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-actions.html"><span class="token function">getActions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the actions that this drop target supports.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="171127062%2FFunctions%2F-991561573" anchor-label="getCurrentDrop" id="171127062%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-current-drop.html"><span>get</span><wbr><span>Current</span><wbr><span><span>Drop</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="171127062%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-current-drop.html"><span class="token function">getCurrentDrop</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the currently handled drop operation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="148628153%2FFunctions%2F-991561573" anchor-label="getCurrentEvent" id="148628153%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/get-current-event.html"><span>get</span><wbr><span>Current</span><wbr><span><span>Event</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="148628153%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/get-current-event.html"><span class="token function">getCurrentEvent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the event that is currently being handled by the controller.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="309541891%2FFunctions%2F-991561573" anchor-label="getCurrentEventDevice" id="309541891%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/get-current-event-device.html"><span>get</span><wbr><span>Current</span><wbr><span>Event</span><wbr><span><span>Device</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="309541891%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/get-current-event-device.html"><span class="token function">getCurrentEventDevice</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the device of the event that is currently being handled by the controller.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-626278672%2FFunctions%2F-991561573" anchor-label="getCurrentEventState" id="-626278672%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/get-current-event-state.html"><span>get</span><wbr><span>Current</span><wbr><span>Event</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-626278672%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/get-current-event-state.html"><span class="token function">getCurrentEventState</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the modifier state of the event that is currently being handled by the controller.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-727649684%2FFunctions%2F-991561573" anchor-label="getCurrentEventTime" id="-727649684%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/get-current-event-time.html"><span>get</span><wbr><span>Current</span><wbr><span>Event</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-727649684%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/get-current-event-time.html"><span class="token function">getCurrentEventTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the timestamp of the event that is currently being handled by the controller.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1770415507%2FFunctions%2F-991561573" anchor-label="getDrop" id="-1770415507%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-drop.html"><span>get</span><wbr><span><span>Drop</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1770415507%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-drop.html"><span class="token function">getDrop</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the currently handled drop operation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1308220222%2FFunctions%2F-991561573" anchor-label="getFormats" id="-1308220222%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-formats.html"><span>get</span><wbr><span><span>Formats</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1308220222%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-formats.html"><span class="token function">getFormats</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the data formats that this drop target accepts.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1303025935%2FFunctions%2F-991561573" anchor-label="getName" id="1303025935%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/get-name.html"><span>get</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1303025935%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/get-name.html"><span class="token function">getName</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the name of @controller.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-549672267%2FFunctions%2F-991561573" anchor-label="getPreload" id="-549672267%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-preload.html"><span>get</span><wbr><span><span>Preload</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-549672267%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-preload.html"><span class="token function">getPreload</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether data should be preloaded on hover.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="543340363%2FFunctions%2F-991561573" anchor-label="getPropagationLimit" id="543340363%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/get-propagation-limit.html"><span>get</span><wbr><span>Propagation</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="543340363%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/get-propagation-limit.html"><span class="token function">getPropagationLimit</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-propagation-limit/index.html">PropagationLimit</a></div><div class="brief "><p class="paragraph">Gets the propagation limit of the event controller.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-781717109%2FFunctions%2F-991561573" anchor-label="getPropagationPhase" id="-781717109%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/get-propagation-phase.html"><span>get</span><wbr><span>Propagation</span><wbr><span><span>Phase</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-781717109%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/get-propagation-phase.html"><span class="token function">getPropagationPhase</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-propagation-phase/index.html">PropagationPhase</a></div><div class="brief "><p class="paragraph">Gets the propagation phase at which @controller handles events.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="371880077%2FFunctions%2F-991561573" anchor-label="getValue" id="371880077%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-value.html"><span>get</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="371880077%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-value.html"><span class="token function">getValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the current drop data, as a <code class="lang-kotlin">GValue</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1201618998%2FFunctions%2F-991561573" anchor-label="getWidget" id="1201618998%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/get-widget.html"><span>get</span><wbr><span><span>Widget</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1201618998%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/get-widget.html"><span class="token function">getWidget</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-widget/index.html">Widget</a></div><div class="brief "><p class="paragraph">Returns the <code class="lang-kotlin">GtkWidget</code> this controller relates to.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1995746281%2FFunctions%2F-991561573" anchor-label="reject" id="1995746281%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reject.html"><span><span>reject</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1995746281%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="reject.html"><span class="token function">reject</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Rejects the ongoing drop operation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1123966143%2FFunctions%2F-991561573" anchor-label="reset" id="-1123966143%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/reset.html"><span><span>reset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1123966143%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/reset.html"><span class="token function">reset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Resets the @controller to a clean state.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="227704347%2FFunctions%2F-991561573" anchor-label="setActions" id="227704347%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-actions.html"><span>set</span><wbr><span><span>Actions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="227704347%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-actions.html"><span class="token function">setActions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actions<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the actions that this drop target supports.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1106256734%2FFunctions%2F-991561573" anchor-label="setName" id="-1106256734%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/set-name.html"><span>set</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1106256734%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/set-name.html"><span class="token function">setName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets a name on the controller that can be used for debugging.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1632397638%2FFunctions%2F-991561573" anchor-label="setPreload" id="1632397638%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-preload.html"><span>set</span><wbr><span><span>Preload</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1632397638%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-preload.html"><span class="token function">setPreload</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">preload<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether data should be preloaded on hover.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="932645947%2FFunctions%2F-991561573" anchor-label="setPropagationLimit" id="932645947%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/set-propagation-limit.html"><span>set</span><wbr><span>Propagation</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="932645947%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/set-propagation-limit.html"><span class="token function">setPropagationLimit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">limit<span class="token operator">: </span><a href="../-propagation-limit/index.html">PropagationLimit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the event propagation limit on the event controller.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2070965189%2FFunctions%2F-991561573" anchor-label="setPropagationPhase" id="-2070965189%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/set-propagation-phase.html"><span>set</span><wbr><span>Propagation</span><wbr><span><span>Phase</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2070965189%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/set-propagation-phase.html"><span class="token function">setPropagationPhase</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">phase<span class="token operator">: </span><a href="../-propagation-phase/index.html">PropagationPhase</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the propagation phase at which a controller handles events.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="734041236%2FFunctions%2F-991561573" anchor-label="setStaticName" id="734041236%2FFunctions%2F-991561573" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-event-controller/set-static-name.html"><span>set</span><wbr><span>Static</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="734041236%2FFunctions%2F-991561573"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-event-controller/set-static-name.html"><span class="token function">setStaticName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets a name on the controller that can be used for debugging.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

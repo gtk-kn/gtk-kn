@@ -1,0 +1,760 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ExpanderRow</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:adwaita:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="adwaita::org.gtkkn.bindings.adw/ExpanderRow///PointingToDeclaration//-170453526">
+  <div class="breadcrumbs"><a href="../../index.html">adwaita</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.adw</a><span class="delimiter">/</span><span class="current">ExpanderRow</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Expander</span><wbr><span><span>Row</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">ExpanderRow</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-preferences-row/index.html">PreferencesRow</a></div><p class="paragraph">A class@Gtk.ListBoxRow used to reveal widgets.</p><picture>
+<source srcset="expander-row-dark.png" media="(prefers-color-scheme: dark)">
+<img src="expander-row.png" alt="expander-row">
+</picture><p class="paragraph">The <code class="lang-kotlin">AdwExpanderRow</code> widget allows the user to reveal or hide widgets below it. It also allows the user to enable the expansion of the row, allowing to disable all that the row contains.</p><h2 class="">AdwExpanderRow as GtkBuildable</h2><p class="paragraph">The <code class="lang-kotlin">AdwExpanderRow</code> implementation of the iface@Gtk.Buildable interface supports adding a child as an suffix widget by specifying “suffix” as the “type” attribute of a <child> element.</child></p><p class="paragraph">It also supports adding it as a prefix widget by specifying “prefix” as the “type” attribute of a <child> element.</child></p><h2 class="">CSS nodes</h2><p class="paragraph"><code class="lang-kotlin">AdwExpanderRow</code> has a main CSS node with name <code class="lang-kotlin">row</code> and the <code class="lang-kotlin">.expander</code> style class. It has the <code class="lang-kotlin">.empty</code> style class when it contains no children.</p><p class="paragraph">It contains the subnodes <code class="lang-kotlin">row.header</code> for its main embedded row, <code class="lang-kotlin">list.nested</code> for the list it can expand, and <code class="lang-kotlin">image.expander-row-arrow</code> for its arrow.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">subtitle-lines</code>: Property TypeInfo of getter and setter do not match</p></li><li><p class="paragraph">method <code class="lang-kotlin">title-lines</code>: Property TypeInfo of getter and setter do not match</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-20828632%2FConstructors%2F-170453526" anchor-label="ExpanderRow" id="-20828632%2FConstructors%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-expander-row.html"><span>Expander</span><wbr><span><span>Row</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-20828632%2FConstructors%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new <code class="lang-kotlin">AdwExpanderRow</code>.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-863881916%2FClasslikes%2F-170453526" anchor-label="Companion" id="-863881916%2FClasslikes%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-863881916%2FClasslikes%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1892654783%2FProperties%2F-170453526" anchor-label="adwExpanderRowPointer" id="1892654783%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="adw-expander-row-pointer.html"><span>adw</span><wbr><span>Expander</span><wbr><span>Row</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1892654783%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="adw-expander-row-pointer.html">adwExpanderRowPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1656927245%2FProperties%2F-170453526" anchor-label="adwPreferencesRowPointer" id="1656927245%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/adw-preferences-row-pointer.html"><span>adw</span><wbr><span>Preferences</span><wbr><span>Row</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1656927245%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-preferences-row/adw-preferences-row-pointer.html">adwPreferencesRowPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="311651585%2FProperties%2F-170453526" anchor-label="enableExpansion" id="311651585%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enable-expansion.html"><span>enable</span><wbr><span><span>Expansion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="311651585%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="enable-expansion.html">enableExpansion</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether expansion is enabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="715899108%2FProperties%2F-170453526" anchor-label="expanded" id="715899108%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="expanded.html"><span><span>expanded</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="715899108%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="expanded.html">expanded</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the row is expanded.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1430944628%2FProperties%2F-170453526" anchor-label="gtkAccessiblePointer" id="1430944628%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-accessible-pointer.html"><span>gtk</span><wbr><span>Accessible</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1430944628%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gtk-accessible-pointer.html">gtkAccessiblePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1195376562%2FProperties%2F-170453526" anchor-label="gtkActionablePointer" id="-1195376562%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-actionable-pointer.html"><span>gtk</span><wbr><span>Actionable</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1195376562%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gtk-actionable-pointer.html">gtkActionablePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1527700022%2FProperties%2F-170453526" anchor-label="gtkBuildablePointer" id="-1527700022%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-buildable-pointer.html"><span>gtk</span><wbr><span>Buildable</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1527700022%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gtk-buildable-pointer.html">gtkBuildablePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="165823244%2FProperties%2F-170453526" anchor-label="gtkConstraintTargetPointer" id="165823244%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-constraint-target-pointer.html"><span>gtk</span><wbr><span>Constraint</span><wbr><span>Target</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="165823244%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gtk-constraint-target-pointer.html">gtkConstraintTargetPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1176267431%2FProperties%2F-170453526" anchor-label="iconName" id="-1176267431%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="icon-name.html"><span>icon</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1176267431%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="icon-name.html">iconName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The icon name for this row.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1954858953%2FProperties%2F-170453526" anchor-label="showEnableSwitch" id="1954858953%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-enable-switch.html"><span>show</span><wbr><span>Enable</span><wbr><span><span>Switch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1954858953%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="show-enable-switch.html">showEnableSwitch</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the switch enabling the expansion is visible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="764336741%2FProperties%2F-170453526" anchor-label="subtitle" id="764336741%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="subtitle.html"><span><span>subtitle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="764336741%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="subtitle.html">subtitle</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The subtitle for this row.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1259442062%2FProperties%2F-170453526" anchor-label="title" id="1259442062%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/title.html"><span><span>title</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1259442062%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-preferences-row/title.html">title</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The title of the preference represented by this row.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1023981928%2FProperties%2F-170453526" anchor-label="titleSelectable" id="-1023981928%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/title-selectable.html"><span>title</span><wbr><span><span>Selectable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1023981928%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-preferences-row/title-selectable.html">titleSelectable</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the user can copy the title from the label.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1316058441%2FProperties%2F-170453526" anchor-label="useMarkup" id="-1316058441%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/use-markup.html"><span>use</span><wbr><span><span>Markup</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1316058441%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-preferences-row/use-markup.html">useMarkup</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether to use Pango markup for the title label.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1371238641%2FProperties%2F-170453526" anchor-label="useUnderline" id="-1371238641%2FProperties%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/use-underline.html"><span>use</span><wbr><span><span>Underline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1371238641%2FProperties%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-preferences-row/use-underline.html">useUnderline</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether an embedded underline in the title indicates a mnemonic.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-494062162%2FFunctions%2F-170453526" anchor-label="addAction" id="-494062162%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-action.html"><span>add</span><wbr><span><span>Action</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-494062162%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-action.html"><span class="token function">addAction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">widget<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds an action widget to @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1920766766%2FFunctions%2F-170453526" anchor-label="addPrefix" id="-1920766766%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-prefix.html"><span>add</span><wbr><span><span>Prefix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1920766766%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-prefix.html"><span class="token function">addPrefix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">widget<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a prefix widget to @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-443891156%2FFunctions%2F-170453526" anchor-label="addRow" id="-443891156%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-row.html"><span>add</span><wbr><span><span>Row</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-443891156%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-row.html"><span class="token function">addRow</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">child<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a widget to @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-755419149%2FFunctions%2F-170453526" anchor-label="addSuffix" id="-755419149%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-suffix.html"><span>add</span><wbr><span><span>Suffix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-755419149%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-suffix.html"><span class="token function">addSuffix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">widget<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds an suffix widget to @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-991671817%2FFunctions%2F-170453526" anchor-label="getEnableExpansion" id="-991671817%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-enable-expansion.html"><span>get</span><wbr><span>Enable</span><wbr><span><span>Expansion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-991671817%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-enable-expansion.html"><span class="token function">getEnableExpansion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether the expansion of @self is enabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-875434834%2FFunctions%2F-170453526" anchor-label="getExpanded" id="-875434834%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-expanded.html"><span>get</span><wbr><span><span>Expanded</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-875434834%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-expanded.html"><span class="token function">getExpanded</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether @self is expanded.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1527365923%2FFunctions%2F-170453526" anchor-label="getIconName" id="1527365923%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-icon-name.html"><span>get</span><wbr><span>Icon</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1527365923%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-icon-name.html"><span class="token function">getIconName</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the icon name for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="206539155%2FFunctions%2F-170453526" anchor-label="getShowEnableSwitch" id="206539155%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-show-enable-switch.html"><span>get</span><wbr><span>Show</span><wbr><span>Enable</span><wbr><span><span>Switch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="206539155%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-show-enable-switch.html"><span class="token function">getShowEnableSwitch</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether the switch enabling the expansion of @self is visible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-826997201%2FFunctions%2F-170453526" anchor-label="getSubtitle" id="-826997201%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-subtitle.html"><span>get</span><wbr><span><span>Subtitle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-826997201%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-subtitle.html"><span class="token function">getSubtitle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the subtitle for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2063285620%2FFunctions%2F-170453526" anchor-label="getSubtitleLines" id="-2063285620%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-subtitle-lines.html"><span>get</span><wbr><span>Subtitle</span><wbr><span><span>Lines</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2063285620%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-subtitle-lines.html"><span class="token function">getSubtitleLines</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets the number of lines at the end of which the subtitle label will be ellipsized.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1160969618%2FFunctions%2F-170453526" anchor-label="getTitle" id="1160969618%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/get-title.html"><span>get</span><wbr><span><span>Title</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1160969618%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-preferences-row/get-title.html"><span class="token function">getTitle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the title of the preference represented by @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="743608096%2FFunctions%2F-170453526" anchor-label="getTitleLines" id="743608096%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-title-lines.html"><span>get</span><wbr><span>Title</span><wbr><span><span>Lines</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="743608096%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-title-lines.html"><span class="token function">getTitleLines</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets the number of lines at the end of which the title label will be ellipsized.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-533069924%2FFunctions%2F-170453526" anchor-label="getTitleSelectable" id="-533069924%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/get-title-selectable.html"><span>get</span><wbr><span>Title</span><wbr><span><span>Selectable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-533069924%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-preferences-row/get-title-selectable.html"><span class="token function">getTitleSelectable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether the user can copy the title from the label</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1048488261%2FFunctions%2F-170453526" anchor-label="getUseMarkup" id="-1048488261%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/get-use-markup.html"><span>get</span><wbr><span>Use</span><wbr><span><span>Markup</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1048488261%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-preferences-row/get-use-markup.html"><span class="token function">getUseMarkup</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether to use Pango markup for the title label.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1647307637%2FFunctions%2F-170453526" anchor-label="getUseUnderline" id="-1647307637%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/get-use-underline.html"><span>get</span><wbr><span>Use</span><wbr><span><span>Underline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1647307637%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-preferences-row/get-use-underline.html"><span class="token function">getUseUnderline</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether an embedded underline in the title indicates a mnemonic.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-208110463%2FFunctions%2F-170453526" anchor-label="remove" id="-208110463%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove.html"><span><span>remove</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-208110463%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="remove.html"><span class="token function">remove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">child<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="281043208%2FFunctions%2F-170453526" anchor-label="setEnableExpansion" id="281043208%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-enable-expansion.html"><span>set</span><wbr><span>Enable</span><wbr><span><span>Expansion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="281043208%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-enable-expansion.html"><span class="token function">setEnableExpansion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enableExpansion<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether the expansion of @self is enabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1694051097%2FFunctions%2F-170453526" anchor-label="setExpanded" id="-1694051097%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-expanded.html"><span>set</span><wbr><span><span>Expanded</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1694051097%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-expanded.html"><span class="token function">setExpanded</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expanded<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether @self is expanded.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1766225846%2FFunctions%2F-170453526" anchor-label="setIconName" id="1766225846%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-icon-name.html"><span>set</span><wbr><span>Icon</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1766225846%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-icon-name.html"><span class="token function">setIconName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iconName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the icon name for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="435341580%2FFunctions%2F-170453526" anchor-label="setShowEnableSwitch" id="435341580%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-show-enable-switch.html"><span>set</span><wbr><span>Show</span><wbr><span>Enable</span><wbr><span><span>Switch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="435341580%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-show-enable-switch.html"><span class="token function">setShowEnableSwitch</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">showEnableSwitch<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether the switch enabling the expansion of @self is visible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1150548159%2FFunctions%2F-170453526" anchor-label="setSubtitle" id="-1150548159%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-subtitle.html"><span>set</span><wbr><span><span>Subtitle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1150548159%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-subtitle.html"><span class="token function">setSubtitle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">subtitle<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the subtitle for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1237884362%2FFunctions%2F-170453526" anchor-label="setSubtitleLines" id="-1237884362%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-subtitle-lines.html"><span>set</span><wbr><span>Subtitle</span><wbr><span><span>Lines</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1237884362%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-subtitle-lines.html"><span class="token function">setSubtitleLines</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">subtitleLines<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the number of lines at the end of which the subtitle label will be ellipsized.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2054958042%2FFunctions%2F-170453526" anchor-label="setTitle" id="-2054958042%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/set-title.html"><span>set</span><wbr><span><span>Title</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2054958042%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-preferences-row/set-title.html"><span class="token function">setTitle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">title<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the title of the preference represented by @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1055373106%2FFunctions%2F-170453526" anchor-label="setTitleLines" id="1055373106%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-title-lines.html"><span>set</span><wbr><span>Title</span><wbr><span><span>Lines</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1055373106%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-title-lines.html"><span class="token function">setTitleLines</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">titleLines<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the number of lines at the end of which the title label will be ellipsized.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1071698413%2FFunctions%2F-170453526" anchor-label="setTitleSelectable" id="1071698413%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/set-title-selectable.html"><span>set</span><wbr><span>Title</span><wbr><span><span>Selectable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1071698413%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-preferences-row/set-title-selectable.html"><span class="token function">setTitleSelectable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">titleSelectable<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether the user can copy the title from the label</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1289044020%2FFunctions%2F-170453526" anchor-label="setUseMarkup" id="-1289044020%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/set-use-markup.html"><span>set</span><wbr><span>Use</span><wbr><span><span>Markup</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1289044020%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-preferences-row/set-use-markup.html"><span class="token function">setUseMarkup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">useMarkup<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether to use Pango markup for the title label.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-42623996%2FFunctions%2F-170453526" anchor-label="setUseUnderline" id="-42623996%2FFunctions%2F-170453526" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:adwaita:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-preferences-row/set-use-underline.html"><span>set</span><wbr><span>Use</span><wbr><span><span>Underline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-42623996%2FFunctions%2F-170453526"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-preferences-row/set-use-underline.html"><span class="token function">setUseUnderline</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">useUnderline<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether an embedded underline in the title indicates a mnemonic.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

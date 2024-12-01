@@ -1,0 +1,532 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>BindingGroup</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../../../index.html">
+                            gtk-kn
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">native</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gobject::org.gtkkn.bindings.gobject/BindingGroup///PointingToDeclaration//108448482">
+  <div class="breadcrumbs"><a href="../../index.html">gobject</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gobject</a><span class="delimiter">/</span><span class="current">BindingGroup</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Binding</span><wbr><span><span>Group</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">BindingGroup</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-object/index.html">Object</a>, <a href="../../org.gtkkn.extensions.gobject/-k-g-typed/index.html">KGTyped</a></div><p class="paragraph"><code class="lang-kotlin">GBindingGroup</code> can be used to bind multiple properties from an object collectively.</p><p class="paragraph">Use the various methods to bind properties from a single source object to multiple destination objects. Properties can be bound bidirectionally and are connected when the source object is set with method@GObject.BindingGroup.set_source.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">bind_full</code>: g_binding_group_bind_full is shadowedBy bind_with_closures</p></li><li><p class="paragraph">method <code class="lang-kotlin">source</code>: Property has no getter</p></li></ul><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.72</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="292476016%2FConstructors%2F108448482" anchor-label="BindingGroup" id="292476016%2FConstructors%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-binding-group.html"><span>Binding</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="292476016%2FConstructors%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new #GBindingGroup.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1728292519%2FClasslikes%2F108448482" anchor-label="Companion" id="1728292519%2FClasslikes%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1728292519%2FClasslikes%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a> : <a href="../../org.gtkkn.extensions.gobject/-type-companion/index.html">TypeCompanion</a><span class="token operator">&lt;</span><a href="index.html">BindingGroup</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1852642947%2FProperties%2F108448482" anchor-label="gobjectBindingGroupPointer" id="-1852642947%2FProperties%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gobject-binding-group-pointer.html"><span>gobject</span><wbr><span>Binding</span><wbr><span>Group</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1852642947%2FProperties%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gobject-binding-group-pointer.html">gobjectBindingGroupPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1602576599%2FProperties%2F108448482" anchor-label="gPointer" id="-1602576599%2FProperties%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/g-pointer.html"><span>g</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1602576599%2FProperties%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-object/g-pointer.html">gPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1821369374%2FFunctions%2F108448482" anchor-label="asType" id="1821369374%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.gobject/as-type.html"><span>as</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1821369374%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../org.gtkkn.extensions.gobject/as-type.html">T</a><span class="token operator"> : </span><a href="../../org.gtkkn.extensions.gobject/-k-g-typed/index.html">KGTyped</a><span class="token operator">&gt; </span><a href="../-object/index.html">Object</a><span class="token punctuation">.</span><a href="../../org.gtkkn.extensions.gobject/as-type.html"><span class="token function">asType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../org.gtkkn.extensions.gobject/as-type.html">T</a></div><div class="brief "><p class="paragraph">Convert object into type <a href="../../org.gtkkn.extensions.gobject/as-type.html">T</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-522364049%2FFunctions%2F108448482" anchor-label="bind" id="-522364049%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="bind.html"><span><span>bind</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-522364049%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="bind.html"><span class="token function">bind</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">target<span class="token operator">: </span><a href="../-object/index.html">Object</a><span class="token punctuation">, </span></span><span class="parameter ">targetProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-binding-flags/index.html">BindingFlags</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a binding between @source_property on the source object and @target_property on @target. Whenever the @source_property is changed the @target_property is updated using the same value. The binding flag %G_BINDING_SYNC_CREATE is automatically specified.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="602381306%2FFunctions%2F108448482" anchor-label="bindFull" id="602381306%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="bind-full.html"><span>bind</span><wbr><span><span>Full</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="602381306%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="bind-full.html"><span class="token function">bindFull</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">target<span class="token operator">: </span><a href="../-object/index.html">Object</a><span class="token punctuation">, </span></span><span class="parameter ">targetProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-binding-flags/index.html">BindingFlags</a><span class="token punctuation">, </span></span><span class="parameter ">transformTo<span class="token operator">: </span><a href="../-closure/index.html">Closure</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">transformFrom<span class="token operator">: </span><a href="../-closure/index.html">Closure</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a binding between @source_property on the source object and</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1045459903%2FFunctions%2F108448482" anchor-label="bindProperty" id="1045459903%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/bind-property.html"><span>bind</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1045459903%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/bind-property.html"><span class="token function">bindProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">target<span class="token operator">: </span><a href="../-object/index.html">Object</a><span class="token punctuation">, </span></span><span class="parameter ">targetProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-binding-flags/index.html">BindingFlags</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-binding/index.html">Binding</a></div><div class="brief "><p class="paragraph">Creates a binding between @source_property on @source and @target_property on @target.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="759286670%2FFunctions%2F108448482" anchor-label="bindPropertyFull" id="759286670%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/bind-property-full.html"><span>bind</span><wbr><span>Property</span><wbr><span><span>Full</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="759286670%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/bind-property-full.html"><span class="token function">bindPropertyFull</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">target<span class="token operator">: </span><a href="../-object/index.html">Object</a><span class="token punctuation">, </span></span><span class="parameter ">targetProperty<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-binding-flags/index.html">BindingFlags</a><span class="token punctuation">, </span></span><span class="parameter ">transformTo<span class="token operator">: </span><a href="../-closure/index.html">Closure</a><span class="token punctuation">, </span></span><span class="parameter ">transformFrom<span class="token operator">: </span><a href="../-closure/index.html">Closure</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-binding/index.html">Binding</a></div><div class="brief "><p class="paragraph">Creates a binding between @source_property on @source and @target_property on @target, allowing you to set the transformation functions to be used by the binding.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1634888417%2FFunctions%2F108448482" anchor-label="connectNotify" id="1634888417%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/connect-notify.html"><span>connect</span><wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1634888417%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-object/connect-notify.html"><span class="token function">connectNotify</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><a href="../-connect-flags/index.html">ConnectFlags</a><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>pspec<span class="token operator">: </span><a href="../-param-spec/index.html">ParamSpec</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The notify signal is emitted on an object when one of its properties has its value set through g_object_set_property(), g_object_set(), et al.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-307518554%2FFunctions%2F108448482" anchor-label="dupSource" id="-307518554%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="dup-source.html"><span>dup</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-307518554%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="dup-source.html"><span class="token function">dupSource</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-object/index.html">Object</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the source object used for binding properties.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-886699126%2FFunctions%2F108448482" anchor-label="forceFloating" id="-886699126%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/force-floating.html"><span>force</span><wbr><span><span>Floating</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-886699126%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/force-floating.html"><span class="token function">forceFloating</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This function is intended for #GObject implementations to re-enforce a floating-ref object reference. Doing this is seldom required: all #GInitiallyUnowneds are created with a floating reference which usually just needs to be sunken by calling g_object_ref_sink().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-158614401%2FFunctions%2F108448482" anchor-label="freezeNotify" id="-158614401%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/freeze-notify.html"><span>freeze</span><wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-158614401%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/freeze-notify.html"><span class="token function">freezeNotify</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Increases the freeze count on @object. If the freeze count is non-zero, the emission of "notify" signals on @object is stopped. The signals are queued until the freeze count is decreased to zero. Duplicate notifications are squashed so that at most one #GObject::notify signal is emitted for each property modified while the object is frozen.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="185672811%2FFunctions%2F108448482" anchor-label="getBooleanProperty" id="185672811%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.gobject/get-boolean-property.html"><span>get</span><wbr><span>Boolean</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="185672811%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-object/index.html">Object</a><span class="token punctuation">.</span><a href="../../org.gtkkn.extensions.gobject/get-boolean-property.html"><span class="token function">getBooleanProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-53662908%2FFunctions%2F108448482" anchor-label="getIntProperty" id="-53662908%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.gobject/get-int-property.html"><span>get</span><wbr><span>Int</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-53662908%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-object/index.html">Object</a><span class="token punctuation">.</span><a href="../../org.gtkkn.extensions.gobject/get-int-property.html"><span class="token function">getIntProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1389662645%2FFunctions%2F108448482" anchor-label="getProperty" id="-1389662645%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/get-property.html"><span>get</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1389662645%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/get-property.html"><span class="token function">getProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="../-value/index.html">Value</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Gets a property of an object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-907142820%2FFunctions%2F108448482" anchor-label="getStringProperty" id="-907142820%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.gobject/get-string-property.html"><span>get</span><wbr><span>String</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-907142820%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-object/index.html">Object</a><span class="token punctuation">.</span><a href="../../org.gtkkn.extensions.gobject/get-string-property.html"><span class="token function">getStringProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2036938863%2FFunctions%2F108448482" anchor-label="isFloating" id="2036938863%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/is-floating.html"><span>is</span><wbr><span><span>Floating</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2036938863%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/is-floating.html"><span class="token function">isFloating</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether @object has a floating-ref reference.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2129282770%2FFunctions%2F108448482" anchor-label="notify" id="-2129282770%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/notify.html"><span><span>notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2129282770%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/notify.html"><span class="token function">notify</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits a "notify" signal for the property @property_name on @object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1504086841%2FFunctions%2F108448482" anchor-label="notifyByPspec" id="1504086841%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/notify-by-pspec.html"><span>notify</span><wbr><span>By</span><wbr><span><span>Pspec</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1504086841%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/notify-by-pspec.html"><span class="token function">notifyByPspec</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pspec<span class="token operator">: </span><a href="../-param-spec/index.html">ParamSpec</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits a "notify" signal for the property specified by @pspec on @object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2144232760%2FFunctions%2F108448482" anchor-label="ref" id="-2144232760%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/ref.html"><span><span>ref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2144232760%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/ref.html"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-object/index.html">Object</a></div><div class="brief "><p class="paragraph">Increases the reference count of @object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-699979275%2FFunctions%2F108448482" anchor-label="refSink" id="-699979275%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/ref-sink.html"><span>ref</span><wbr><span><span>Sink</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-699979275%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/ref-sink.html"><span class="token function">refSink</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-object/index.html">Object</a></div><div class="brief "><p class="paragraph">Increase the reference count of @object, and possibly remove the floating-ref reference, if @object has a floating reference.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1666479317%2FFunctions%2F108448482" anchor-label="runDispose" id="-1666479317%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/run-dispose.html"><span>run</span><wbr><span><span>Dispose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1666479317%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/run-dispose.html"><span class="token function">runDispose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Releases all references to other objects. This can be used to break reference cycles.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-579049537%2FFunctions%2F108448482" anchor-label="setProperty" id="-579049537%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/set-property.html"><span>set</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-579049537%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/set-property.html"><span class="token function">setProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="../-value/index.html">Value</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets a property on an object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1576003068%2FFunctions%2F108448482" anchor-label="setProperty" id="-1576003068%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.gobject/set-property.html"><span>set</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1576003068%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-object/index.html">Object</a><span class="token punctuation">.</span><a href="../../org.gtkkn.extensions.gobject/set-property.html"><span class="token function">setProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-object/index.html">Object</a><span class="token punctuation">.</span><a href="../../org.gtkkn.extensions.gobject/set-property.html"><span class="token function">setProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-object/index.html">Object</a><span class="token punctuation">.</span><a href="../../org.gtkkn.extensions.gobject/set-property.html"><span class="token function">setProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1149939476%2FFunctions%2F108448482" anchor-label="setSource" id="1149939476%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-source.html"><span>set</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1149939476%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-source.html"><span class="token function">setSource</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">source<span class="token operator">: </span><a href="../-object/index.html">Object</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @source as the source object used for creating property bindings. If there is already a source object all bindings from it will be removed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="308182924%2FFunctions%2F108448482" anchor-label="thawNotify" id="308182924%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/thaw-notify.html"><span>thaw</span><wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="308182924%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/thaw-notify.html"><span class="token function">thawNotify</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Reverts the effect of a previous call to g_object_freeze_notify(). The freeze count is decreased on @object and when it reaches zero, queued "notify" signals are emitted.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1791238753%2FFunctions%2F108448482" anchor-label="unref" id="1791238753%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/unref.html"><span><span>unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1791238753%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/unref.html"><span class="token function">unref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Decreases the reference count of @object. When its reference count drops to 0, the object is finalized (i.e. its memory is freed).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2008749769%2FFunctions%2F108448482" anchor-label="watchClosure" id="2008749769%2FFunctions%2F108448482" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject:dokkaHtmlPartial/nativeMain" data-filterable-set=":bindings:core:gobject:dokkaHtmlPartial/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-object/watch-closure.html"><span>watch</span><wbr><span><span>Closure</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2008749769%2FFunctions%2F108448482"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject:dokkaHtmlPartial/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-object/watch-closure.html"><span class="token function">watchClosure</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">closure<span class="token operator">: </span><a href="../-closure/index.html">Closure</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This function essentially limits the life time of the @closure to the life time of the object. That is, when the object is finalized, the @closure is invalidated by calling g_closure_invalidate() on it, in order to prevent invocations of the closure with a finalized (nonexisting) object. Also, g_object_ref() and g_object_unref() are added as marshal guards to the @closure, to ensure that an extra reference count is held on @object during invocation of the</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
