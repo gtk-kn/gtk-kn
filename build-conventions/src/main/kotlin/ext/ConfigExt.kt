@@ -30,11 +30,12 @@ interface ConfigExt : ExtensionAware {
  * A container with various versions available to choose from
  */
 interface VersionsExt : ExtensionAware {
+    val adwaita: Property<String>
     val common: Property<String>
     val core: Property<String>
-    val adwaita: Property<String>
-    val gtk4: Property<String>
+    val coroutines: Property<String>
     val gradlePlugin: Property<String>
+    val gtk4: Property<String>
     val gtksource: Property<String>
     val javascriptcore: Property<String>
     val soup: Property<String>

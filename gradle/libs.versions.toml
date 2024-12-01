@@ -1,6 +1,7 @@
 # Sharing dependency versions between projects
 # https://docs.gradle.org/current/userguide/platforms.html
 [versions]
+coroutines = "1.9.0"
 detekt = "1.23.7"
 dokka = "1.9.20"
 gradle = "8.10.2"
@@ -24,8 +25,9 @@ kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", versi
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
 kotlinpoet = "com.squareup:kotlinpoet:2.0.0"
 kotlinx-cli = "org.jetbrains.kotlinx:kotlinx-cli:0.3.6"
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
-kotlinx-coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0"
 ktlint-cli-ruleset-core = { module = "com.pinterest.ktlint:ktlint-cli-ruleset-core", version.ref = "ktlint" }
 ktlint-rule-engine = { module = "com.pinterest.ktlint:ktlint-rule-engine", version.ref = "ktlint" }
 ktlint-rule-engine-core = { module = "com.pinterest.ktlint:ktlint-rule-engine-core", version.ref = "ktlint" }
