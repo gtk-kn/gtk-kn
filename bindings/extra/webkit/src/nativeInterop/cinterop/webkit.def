@@ -53,7 +53,6 @@ linkerOpts.linux = \
     -lgraphene-1.0 \
     -lsoup-3.0 \
     -lgmodule-2.0 \
-    -pthread \
     -lglib-2.0 \
     -lgio-2.0 \
     -ljavascriptcoregtk-6.0 \

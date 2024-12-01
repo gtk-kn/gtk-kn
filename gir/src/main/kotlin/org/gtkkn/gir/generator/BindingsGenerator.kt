@@ -79,7 +79,7 @@ class BindingsGenerator(
                         writeType(
                             optInVersion.typeName,
                             buildOptInAnnotation(optInVersion),
-                            repositorySrcDir(moduleOutputDir),
+                            repositorySrcDir(config.outputDir.resolve("common-annotations")),
                             ktLintFormatter = ktLintFormatter,
                         )
                     }

@@ -15,18 +15,10 @@
  */
 
 plugins {
-    id("native-library-conventions")
-    id("publishing-conventions")
+    id("bindings-library-conventions")
 }
 
 version = config.versions.common.get()
 
 kotlin {
-    sourceSets {
-        nativeMain {
-            dependencies {
-                api(projects.bindings.commonAnnotations)
-            }
-        }
-    }
 }

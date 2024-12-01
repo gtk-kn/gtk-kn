@@ -15,7 +15,6 @@ compilerOpts.linux = \
     -DG_SETTINGS_ENABLE_BACKEND \
     -pthread
 
-
 compilerOpts.linux_x64 = \
     -I/usr/lib64/glib-2.0/include \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
@@ -23,7 +22,6 @@ compilerOpts.linux_x64 = \
 # pkg-config --libs libsoup-3.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \
     -lsoup-3.0 \
-    -pthread \
     -lglib-2.0 \
     -lgio-2.0 \
     -lgobject-2.0 \
