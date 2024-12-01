@@ -674,13 +674,13 @@ class MetadataProcessorTest {
     }
 
     @Test
-    fun `test apply HIDDEN argument to node`() {
+    fun `test apply INTROSPECTABLE argument to node`() {
         // Prepare the XML document
         val xmlContent =
             """
                 <repository>
                     <namespace name="TestNamespace">
-                        <class name="HiddenClass"/>
+                        <class name="IntrospectableClass"/>
                     </namespace>
                 </repository>
             """.trimIndent()
@@ -688,7 +688,7 @@ class MetadataProcessorTest {
         // Prepare the metadata content
         val metadataContent =
             """
-                HiddenClass hidden = true
+                IntrospectableClass introspectable = true
             """.trimIndent()
 
         // Parse the XML document
@@ -703,11 +703,11 @@ class MetadataProcessorTest {
         // Apply the metadata
         processor.apply()
 
-        // Assert that the 'introspectable' attribute is set to 'false' on the HiddenClass node
-        val hiddenClassNode = findNodeByName(document.documentElement, "class", "HiddenClass")
+        // Assert that the 'introspectable' attribute is set to 'true' on the IntrospectableClass node
+        val hiddenClassNode = findNodeByName(document.documentElement, "class", "IntrospectableClass")
         assertNotNull(hiddenClassNode)
         val introspectable = hiddenClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
-        assertFalse(introspectable != false, "The 'introspectable' attribute should be false")
+        assertTrue(introspectable == true, "The 'introspectable' attribute should be true")
     }
 
     @Test
@@ -1948,7 +1948,7 @@ class MetadataProcessorTest {
         val metadataContent =
             """
                 FirstClass skip = true
-                SecondClass hidden = true
+                SecondClass introspectable = false
                 ThirdClass skip = true
             """.trimIndent()
 
@@ -1968,17 +1968,17 @@ class MetadataProcessorTest {
         val firstClassNode = findNodeByName(document.documentElement, "class", "FirstClass")
         assertNotNull(firstClassNode)
         val firstIntrospectable = firstClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
-        assertFalse(firstIntrospectable != false, "FirstClass 'introspectable' should be false")
+        assertTrue(firstIntrospectable == false, "FirstClass 'introspectable' should be false")
 
         val secondClassNode = findNodeByName(document.documentElement, "class", "SecondClass")
         assertNotNull(secondClassNode)
         val secondIntrospectable = secondClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
-        assertFalse(secondIntrospectable != false, "SecondClass 'introspectable' should be false")
+        assertTrue(secondIntrospectable == false, "SecondClass 'introspectable' should be false")
 
         val thirdClassNode = findNodeByName(document.documentElement, "class", "ThirdClass")
         assertNotNull(thirdClassNode)
         val thirdIntrospectable = thirdClassNode.attributes.getNamedItem("introspectable")?.nodeValue?.toBoolean()
-        assertFalse(thirdIntrospectable != false, "ThirdClass 'introspectable' should be false")
+        assertTrue(thirdIntrospectable == false, "ThirdClass 'introspectable' should be false")
     }
 
     @Test

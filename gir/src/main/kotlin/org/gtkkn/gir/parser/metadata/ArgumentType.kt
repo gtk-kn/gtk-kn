@@ -136,14 +136,14 @@ enum class ArgumentType {
     FREE_FUNCTION,
 
     /**
-     * Whether the symbol is hidden.
-     */
-    HIDDEN,
-
-    /**
      * Index of the instance for the symbol.
      */
     INSTANCE_IDX,
+
+    /**
+     * Whether the symbol is introspectable.
+     */
+    INTROSPECTABLE,
 
     /**
      * Symbol name.

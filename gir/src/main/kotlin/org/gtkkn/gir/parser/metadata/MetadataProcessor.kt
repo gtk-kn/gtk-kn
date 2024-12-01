@@ -172,8 +172,8 @@ class MetadataProcessor(
         applyErrorDomain(node, metadata)
         applyFloating(node, metadata)
         applyFreeFunction(node, metadata)
-        applyHidden(node, metadata)
         applyInstanceIdx(node, metadata)
+        applyIntrospectable(node, metadata)
         applyName(node, metadata)
         applyNoAccessorMethod(node, metadata)
         applyNullable(node, tag, metadata)
@@ -351,17 +351,17 @@ class MetadataProcessor(
         }
     }
 
-    private fun applyHidden(node: Node, metadata: Metadata) {
-        if (metadata.hasArgument(ArgumentType.HIDDEN)) {
-            val hidden = metadata.getBool(ArgumentType.HIDDEN)
-            setBooleanAttribute(node, "introspectable", !hidden)
-        }
-    }
-
     private fun applyInstanceIdx(node: Node, metadata: Metadata) {
         if (metadata.hasArgument(ArgumentType.INSTANCE_IDX)) {
             val instanceIdx = metadata.getInteger(ArgumentType.INSTANCE_IDX)
             node.setAttribute("instance-idx", instanceIdx.toString())
+        }
+    }
+
+    private fun applyIntrospectable(node: Node, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.INTROSPECTABLE)) {
+            val introspectable = metadata.getBool(ArgumentType.INTROSPECTABLE)
+            setBooleanAttribute(node, "introspectable", introspectable)
         }
     }
 

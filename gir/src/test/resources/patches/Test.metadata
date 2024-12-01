@@ -4,8 +4,8 @@
 // Skipping a symbol
 MySymbol skip
 
-// Hiding a symbol
-HiddenSymbol hidden
+// Marking a symbol as not introspectable
+IntrospectableSymbol introspectable=false
 
 // Marking a symbol as new
 NewSymbol new

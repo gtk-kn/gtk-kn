@@ -29,7 +29,7 @@ class MetadataParserTest {
 
     @Test
     fun `test hiding a symbol`() {
-        assertArgument("HiddenSymbol", ArgumentType.HIDDEN, BooleanLiteral(true))
+        assertArgument("IntrospectableSymbol", ArgumentType.INTROSPECTABLE, BooleanLiteral(false))
     }
 
     @Test
