@@ -15,31 +15,10 @@
  */
 
 plugins {
-    kotlin("multiplatform") version "2.0.21"
+    id("bindings-library-conventions")
 }
 
+version = config.versions.common.get()
+
 kotlin {
-    linuxX64 {
-        binaries {
-            executable {
-                entryPoint = "main"
-            }
-        }
-    }
-    sourceSets {
-        nativeMain {
-            dependencies {
-                // Import from project
-                implementation(projects.bindings.gtk.gtk4)
-                // Import from mavenLocal
-                // implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
-            }
-        }
-        configureEach {
-            languageSettings {
-                // Opt in to the required annotations
-                optIn("org.gtkkn.bindings.gio.annotations.GioVersion2_28")
-            }
-        }
-    }
 }

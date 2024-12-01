@@ -22,4 +22,11 @@ plugins {
 version = config.versions.common.get()
 
 kotlin {
+    sourceSets {
+        nativeMain {
+            dependencies {
+                api(projects.bindings.commonAnnotations)
+            }
+        }
+    }
 }
