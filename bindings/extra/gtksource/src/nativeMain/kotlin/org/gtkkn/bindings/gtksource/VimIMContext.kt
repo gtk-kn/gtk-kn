@@ -164,7 +164,7 @@ public open class VimIMContext(
     @GtkSourceVersion5_4
     public fun connectEdit(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (view: View, path: String) -> Unit,
+        handler: (view: View, path: String?) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -235,7 +235,7 @@ public open class VimIMContext(
     @GtkSourceVersion5_4
     public fun connectWrite(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (view: View, path: String) -> Unit,
+        handler: (view: View, path: String?) -> Unit,
     ): ULong =
         g_signal_connect_data(
             gPointer.reinterpret(),
@@ -257,18 +257,18 @@ public open class VimIMContext(
 }
 
 private val connectEditFunc:
-    CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>) -> Unit>> =
+    CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>?) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             view: CPointer<GtkSourceView>?,
             path: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(view: View, path: String) -> Unit>().get().invoke(
+        userData.asStableRef<(view: View, path: String?) -> Unit>().get().invoke(
             view!!.run {
                 View(reinterpret())
             },
-            path?.toKString() ?: error("Expected not null string")
+            path?.toKString()
         )
     }.reinterpret()
 
@@ -305,17 +305,17 @@ private val connectFormatTextFunc:
     }.reinterpret()
 
 private val connectWriteFunc:
-    CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>) -> Unit>> =
+    CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>?) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             view: CPointer<GtkSourceView>?,
             path: CPointer<ByteVar>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(view: View, path: String) -> Unit>().get().invoke(
+        userData.asStableRef<(view: View, path: String?) -> Unit>().get().invoke(
             view!!.run {
                 View(reinterpret())
             },
-            path?.toKString() ?: error("Expected not null string")
+            path?.toKString()
         )
     }.reinterpret()

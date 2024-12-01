@@ -33,7 +33,6 @@ import org.gtkkn.native.gobject.g_object_class_install_property
  * This class holds the metadata for registered properties on custom types registered on the Kotlin side.
  */
 internal class ClassProperties internal constructor() {
-
     private var nProps: UInt = 1u // property index starts at 1
     private val properties = mutableMapOf<UInt, Property<*, *>>()
     private var sealed = false
@@ -65,5 +64,4 @@ internal class ClassProperties internal constructor() {
      * This happens once for each instance when the instance is created by GObject.
      */
     internal fun newInstanceProperties(): InstanceProperties = InstanceProperties(properties)
-
 }

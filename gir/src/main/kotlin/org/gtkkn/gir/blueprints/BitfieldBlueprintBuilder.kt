@@ -46,7 +46,7 @@ class BitfieldBlueprintBuilder(
     override fun buildInternal(): BitfieldBlueprint {
         context.checkIgnoredType(girBitfield.cType)
 
-        if (girBitfield.info.introspectable == false) {
+        if (!girBitfield.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girBitfield.cType)
         }
 

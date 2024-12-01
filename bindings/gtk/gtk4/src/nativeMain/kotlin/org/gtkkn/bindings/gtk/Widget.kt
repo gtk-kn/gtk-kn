@@ -1551,7 +1551,7 @@ public open class Widget(
      * @return true if the action was activated, false if the
      *   action does not exist.
      */
-    public open fun activateAction(
+    public open fun activateActionIfExists(
         name: String,
         args: Variant? = null,
     ): Boolean =

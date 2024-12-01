@@ -8,6 +8,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
@@ -67,6 +68,14 @@ import org.gtkkn.native.glib.GScanner
 import org.gtkkn.native.glib.GSource
 import org.gtkkn.native.glib.GString
 import org.gtkkn.native.glib.g_access
+import org.gtkkn.native.glib.g_ascii_digit_value
+import org.gtkkn.native.glib.g_ascii_strcasecmp
+import org.gtkkn.native.glib.g_ascii_strdown
+import org.gtkkn.native.glib.g_ascii_strncasecmp
+import org.gtkkn.native.glib.g_ascii_strup
+import org.gtkkn.native.glib.g_ascii_tolower
+import org.gtkkn.native.glib.g_ascii_toupper
+import org.gtkkn.native.glib.g_ascii_xdigit_value
 import org.gtkkn.native.glib.g_assert_warning
 import org.gtkkn.native.glib.g_assertion_message
 import org.gtkkn.native.glib.g_assertion_message_cmpint
@@ -223,9 +232,12 @@ import org.gtkkn.native.glib.g_random_double_range
 import org.gtkkn.native.glib.g_random_int
 import org.gtkkn.native.glib.g_random_int_range
 import org.gtkkn.native.glib.g_random_set_seed
+import org.gtkkn.native.glib.g_ref_string_acquire
+import org.gtkkn.native.glib.g_ref_string_length
 import org.gtkkn.native.glib.g_ref_string_new
 import org.gtkkn.native.glib.g_ref_string_new_intern
 import org.gtkkn.native.glib.g_ref_string_new_len
+import org.gtkkn.native.glib.g_ref_string_release
 import org.gtkkn.native.glib.g_regex_error_quark
 import org.gtkkn.native.glib.g_regex_escape_nul
 import org.gtkkn.native.glib.g_regex_escape_string
@@ -380,21 +392,11 @@ import kotlin.collections.List
  * - function `aligned_alloc0`: Return type gpointer is unsupported
  * - parameter `mem`: gpointer
  * - parameter `mem`: gpointer
- * - function `ascii_digit_value`: C function g_ascii_digit_value is ignored
- * - function `ascii_dtostr`: C function g_ascii_dtostr is ignored
- * - function `ascii_formatd`: C function g_ascii_formatd is ignored
- * - function `ascii_strcasecmp`: C function g_ascii_strcasecmp is ignored
- * - function `ascii_strdown`: C function g_ascii_strdown is ignored
- * - function `ascii_string_to_signed`: C function g_ascii_string_to_signed is ignored
- * - function `ascii_string_to_unsigned`: C function g_ascii_string_to_unsigned is ignored
- * - function `ascii_strncasecmp`: C function g_ascii_strncasecmp is ignored
- * - function `ascii_strtod`: C function g_ascii_strtod is ignored
- * - function `ascii_strtoll`: C function g_ascii_strtoll is ignored
- * - function `ascii_strtoull`: C function g_ascii_strtoull is ignored
- * - function `ascii_strup`: C function g_ascii_strup is ignored
- * - function `ascii_tolower`: C function g_ascii_tolower is ignored
- * - function `ascii_toupper`: C function g_ascii_toupper is ignored
- * - function `ascii_xdigit_value`: C function g_ascii_xdigit_value is ignored
+ * - parameter `out_num`: out_num: Out parameter is not supported
+ * - parameter `out_num`: out_num: Out parameter is not supported
+ * - parameter `endptr`: endptr: Out parameter is not supported
+ * - parameter `endptr`: endptr: Out parameter is not supported
+ * - parameter `endptr`: endptr: Out parameter is not supported
  * - parameter `arg1`: Unsupported string with cType const char* const*
  * - parameter `func`: VoidFunc
  * - parameter `atomic`: Unsupported pointer to primitive type
@@ -562,9 +564,6 @@ import kotlin.collections.List
  * - parameter `rc`: Unsupported pointer to primitive type
  * - parameter `rc`: Unsupported pointer to primitive type
  * - parameter `rc`: Unsupported pointer to primitive type
- * - parameter `str`: Unsupported string type with cType: char*
- * - parameter `str`: Unsupported string type with cType: char*
- * - parameter `str`: Unsupported string type with cType: char*
  * - parameter `has_references`: has_references: Out parameter is not supported
  * - function `remove`: C function g_remove is ignored
  * - function `rename`: C function g_rename is ignored
@@ -1184,7 +1183,7 @@ public object Glib {
      */
     public const val MAJOR_VERSION: Int = 2
 
-    public const val MAXINT16: Short = 32767
+    public const val MAXINT16: Short = Short.MAX_VALUE
 
     public const val MAXINT32: Int = Int.MAX_VALUE
 
@@ -1214,7 +1213,7 @@ public object Glib {
      *
      * @since 2.4
      */
-    public const val MININT16: Short = -32768
+    public const val MININT16: Short = Short.MIN_VALUE
 
     /**
      * The minimum value which can be held in a #gint32.
@@ -1543,6 +1542,152 @@ public object Glib {
         filename: kotlin.String,
         mode: Int,
     ): Int = g_access(filename, mode)
+
+    /**
+     * Determines the numeric value of a character as a decimal digit. If the
+     * character is not a decimal digit according to [func@GLib.ascii_isdigit],
+     * `-1` is returned.
+     *
+     * Differs from [func@GLib.unichar_digit_value] because it takes a char, so
+     * there's no worry about sign extension if characters are signed.
+     *
+     * @param c an ASCII character
+     * @return the numerical value of @c if it is a decimal digit, `-1` otherwise
+     */
+    public fun asciiDigitValue(c: Char): Int = g_ascii_digit_value(c.code.toByte())
+
+    /**
+     * Compare two strings, ignoring the case of ASCII characters.
+     *
+     * Unlike the BSD `strcasecmp()` function, this only recognizes standard
+     * ASCII letters and ignores the locale, treating all non-ASCII
+     * bytes as if they are not letters.
+     *
+     * This function should be used only on strings that are known to be
+     * in encodings where the bytes corresponding to ASCII letters always
+     * represent themselves. This includes UTF-8 and the ISO-8859-*
+     * charsets, but not for instance double-byte encodings like the
+     * Windows Codepage 932, where the trailing bytes of double-byte
+     * characters include all ASCII letters. If you compare two CP932
+     * strings using this function, you will get false matches.
+     *
+     * Both @s1 and @s2 must be non-`NULL`.
+     *
+     * @param s1 string to compare with @s2
+     * @param s2 string to compare with @s1
+     * @return 0 if the strings match, a negative value if @s1 < @s2,
+     *   or a positive value if @s1 > @s2
+     */
+    public fun asciiStrcasecmp(
+        s1: kotlin.String,
+        s2: kotlin.String,
+    ): Int = g_ascii_strcasecmp(s1, s2)
+
+    /**
+     * Converts all upper case ASCII letters to lower case ASCII letters, with
+     * semantics that exactly match [func@GLib.ascii_tolower].
+     *
+     * @param str a string
+     * @param len length of @str in bytes, or `-1` if @str is nul-terminated
+     * @return a newly-allocated string, with all the upper case characters in
+     *   @str converted to lower case. (Note that this is unlike the old
+     *   [func@GLib.strdown], which modified the string in place.)
+     */
+    public fun asciiStrdown(
+        str: kotlin.String,
+        len: Long,
+    ): kotlin.String = g_ascii_strdown(str, len)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Compare @s1 and @s2, ignoring the case of ASCII characters and any
+     * characters after the first @n in each string. If either string is
+     * less than @n bytes long, comparison will stop at the first nul byte
+     * encountered.
+     *
+     * Unlike the BSD `strncasecmp()` function, this only recognizes standard
+     * ASCII letters and ignores the locale, treating all non-ASCII
+     * characters as if they are not letters.
+     *
+     * The same warning as in [func@GLib.ascii_strcasecmp] applies: Use this
+     * function only on strings known to be in encodings where bytes
+     * corresponding to ASCII letters always represent themselves.
+     *
+     * @param s1 string to compare with @s2
+     * @param s2 string to compare with @s1
+     * @param n number of characters to compare
+     * @return 0 if the strings match, a negative value if @s1 < @s2,
+     *   or a positive value if @s1 > @s2
+     */
+    public fun asciiStrncasecmp(
+        s1: kotlin.String,
+        s2: kotlin.String,
+        n: ULong,
+    ): Int = g_ascii_strncasecmp(s1, s2, n)
+
+    /**
+     * Converts all lower case ASCII letters to upper case ASCII letters, with
+     * semantics that exactly match [func@GLib.ascii_toupper].
+     *
+     * @param str a string
+     * @param len length of @str in bytes, or `-1` if @str is nul-terminated
+     * @return a newly-allocated string, with all the lower case characters
+     *   in @str converted to upper case. (Note that this is unlike the old
+     *   [func@GLib.strup], which modified the string in place.)
+     */
+    public fun asciiStrup(
+        str: kotlin.String,
+        len: Long,
+    ): kotlin.String = g_ascii_strup(str, len)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Convert a character to ASCII lower case. If the character is not an
+     * ASCII upper case letter, it is returned unchanged.
+     *
+     * Unlike the standard C library `tolower()` function, this only
+     * recognizes standard ASCII letters and ignores the locale, returning
+     * all non-ASCII characters unchanged, even if they are lower case
+     * letters in a particular character set. Also unlike the standard
+     * library function, this takes and returns a char, not an int, so
+     * don't call it on `EOF` but no need to worry about casting to `guchar`
+     * before passing a possibly non-ASCII character in.
+     *
+     * @param c any character
+     * @return the result of the conversion
+     */
+    public fun asciiTolower(c: Char): Char = g_ascii_tolower(c.code.toByte()).toInt().toChar()
+
+    /**
+     * Convert a character to ASCII upper case. If the character is not an
+     * ASCII lower case letter, it is returned unchanged.
+     *
+     * Unlike the standard C library `toupper()` function, this only
+     * recognizes standard ASCII letters and ignores the locale, returning
+     * all non-ASCII characters unchanged, even if they are upper case
+     * letters in a particular character set. Also unlike the standard
+     * library function, this takes and returns a char, not an int, so
+     * don't call it on `EOF` but no need to worry about casting to `guchar`
+     * before passing a possibly non-ASCII character in.
+     *
+     * @param c any character
+     * @return the result of the conversion
+     */
+    public fun asciiToupper(c: Char): Char = g_ascii_toupper(c.code.toByte()).toInt().toChar()
+
+    /**
+     * Determines the numeric value of a character as a hexadecimal digit. If the
+     * character is not a hex digit according to [func@GLib.ascii_isxdigit],
+     * `-1` is returned.
+     *
+     * Differs from [func@GLib.unichar_xdigit_value] because it takes a char, so
+     * there's no worry about sign extension if characters are signed.
+     *
+     * Differs from [func@GLib.unichar_xdigit_value] because it takes a char, so
+     * there's no worry about sign extension if characters are signed.
+     *
+     * @param c an ASCII character
+     * @return the numerical value of @c if it is a hex digit, `-1` otherwise
+     */
+    public fun asciiXdigitValue(c: Char): Int = g_ascii_xdigit_value(c.code.toByte())
 
     /**
      *
@@ -2049,9 +2194,8 @@ public object Glib {
     public fun computeChecksumForBytes(
         checksumType: ChecksumType,
         `data`: Bytes,
-    ): kotlin.String =
+    ): kotlin.String? =
         g_compute_checksum_for_bytes(checksumType.nativeValue, `data`.glibBytesPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Computes the checksum of a string.
@@ -2071,9 +2215,7 @@ public object Glib {
         checksumType: ChecksumType,
         str: kotlin.String,
         length: Long,
-    ): kotlin.String =
-        g_compute_checksum_for_string(checksumType.nativeValue, str, length)?.toKString()
-            ?: error("Expected not null string")
+    ): kotlin.String? = g_compute_checksum_for_string(checksumType.nativeValue, str, length)?.toKString()
 
     /**
      * Computes the HMAC for a binary @data. This is a
@@ -2741,8 +2883,7 @@ public object Glib {
      * @return a newly-allocated
      *   string with the absolute path, or null
      */
-    public fun findProgramInPath(program: kotlin.String): kotlin.String =
-        g_find_program_in_path(program)?.toKString() ?: error("Expected not null string")
+    public fun findProgramInPath(program: kotlin.String): kotlin.String? = g_find_program_in_path(program)?.toKString()
 
     /**
      * Formats a size (for example the size of a file) into a human readable
@@ -3038,8 +3179,7 @@ public object Glib {
      * @since 2.64
      */
     @GLibVersion2_64
-    public fun getOsInfo(keyName: kotlin.String): kotlin.String =
-        g_get_os_info(keyName)?.toKString() ?: error("Expected not null string")
+    public fun getOsInfo(keyName: kotlin.String): kotlin.String? = g_get_os_info(keyName)?.toKString()
 
     /**
      * Gets the name of the program. This name should not be localized,
@@ -3663,8 +3803,7 @@ public object Glib {
      * @since 2.22
      */
     @GLibVersion2_22
-    public fun hostnameToAscii(hostname: kotlin.String): kotlin.String =
-        g_hostname_to_ascii(hostname)?.toKString() ?: error("Expected not null string")
+    public fun hostnameToAscii(hostname: kotlin.String): kotlin.String? = g_hostname_to_ascii(hostname)?.toKString()
 
     /**
      * Converts @hostname to its canonical presentation form; a UTF-8
@@ -3681,8 +3820,7 @@ public object Glib {
      * @since 2.22
      */
     @GLibVersion2_22
-    public fun hostnameToUnicode(hostname: kotlin.String): kotlin.String =
-        g_hostname_to_unicode(hostname)?.toKString() ?: error("Expected not null string")
+    public fun hostnameToUnicode(hostname: kotlin.String): kotlin.String? = g_hostname_to_unicode(hostname)?.toKString()
 
     /**
      * Adds a function to be called whenever there are no higher priority
@@ -4637,6 +4775,27 @@ public object Glib {
     public fun randomSetSeed(seed: UInt): Unit = g_random_set_seed(seed)
 
     /**
+     * Acquires a reference on a string.
+     *
+     * @param str a reference counted string
+     * @return the given string, with its reference count increased
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun refStringAcquire(str: kotlin.String): kotlin.String =
+        g_ref_string_acquire(str.cstr)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Retrieves the length of @str.
+     *
+     * @param str a reference counted string
+     * @return the length of the given string, in bytes
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun refStringLength(str: kotlin.String): ULong = g_ref_string_length(str.cstr)
+
+    /**
      * Creates a new reference counted string and copies the contents of @str
      * into it.
      *
@@ -4682,6 +4841,16 @@ public object Glib {
         str: kotlin.String,
         len: Long,
     ): kotlin.String = g_ref_string_new_len(str, len)?.toKString() ?: error("Expected not null string")
+
+    /**
+     * Releases a reference on a string; if it was the last reference, the
+     * resources allocated by the string are freed as well.
+     *
+     * @param str a reference counted string
+     * @since 2.58
+     */
+    @GLibVersion2_58
+    public fun refStringRelease(str: kotlin.String): Unit = g_ref_string_release(str.cstr)
 
     public fun regexErrorQuark(): Quark = g_regex_error_quark()
 

@@ -90,7 +90,7 @@ class InterfaceBlueprintBuilder(
     override fun buildInternal(): InterfaceBlueprint {
         checkNotNull(girInterface.name)
         checkNotNull(girNamespace.name)
-        if (girInterface.info.introspectable == false) {
+        if (!girInterface.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girInterface.cType ?: girInterface.name)
         }
 

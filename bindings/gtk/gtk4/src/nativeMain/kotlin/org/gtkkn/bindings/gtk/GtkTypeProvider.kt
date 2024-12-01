@@ -73,7 +73,6 @@ public object GtkTypeProvider : TypeProvider {
             ConstraintLayoutChild::class to ConstraintLayoutChild.type,
             CssProvider::class to CssProvider.type,
             CustomFilter::class to CustomFilter.type,
-            CustomLayout::class to CustomLayout.type,
             CustomSorter::class to CustomSorter.type,
             Dialog::class to Dialog.type,
             DirectoryList::class to DirectoryList.type,

@@ -119,16 +119,14 @@ public open class TlsCertificate(
      * @since 2.70
      */
     @GioVersion2_70
-    public open val issuerName: String
+    public open val issuerName: String?
         /**
          * Returns the issuer name from the certificate.
          *
          * @return The issuer name, or null if it's not available.
          * @since 2.70
          */
-        get() =
-            g_tls_certificate_get_issuer_name(gioTlsCertificatePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_tls_certificate_get_issuer_name(gioTlsCertificatePointer.reinterpret())?.toKString()
 
     /**
      * The time at which this cert is no longer valid,
@@ -175,16 +173,14 @@ public open class TlsCertificate(
      * @since 2.70
      */
     @GioVersion2_70
-    public open val subjectName: String
+    public open val subjectName: String?
         /**
          * Returns the subject name from the certificate.
          *
          * @return The subject name, or null if it's not available.
          * @since 2.70
          */
-        get() =
-            g_tls_certificate_get_subject_name(gioTlsCertificatePointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_tls_certificate_get_subject_name(gioTlsCertificatePointer.reinterpret())?.toKString()
 
     /**
      * Creates a #GTlsCertificate from the data in @file.
@@ -345,9 +341,8 @@ public open class TlsCertificate(
      * @since 2.70
      */
     @GioVersion2_70
-    public open fun getIssuerName(): String =
+    public open fun getIssuerName(): String? =
         g_tls_certificate_get_issuer_name(gioTlsCertificatePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Returns the time at which the certificate became or will become invalid.
@@ -380,9 +375,8 @@ public open class TlsCertificate(
      * @since 2.70
      */
     @GioVersion2_70
-    public open fun getSubjectName(): String =
+    public open fun getSubjectName(): String? =
         g_tls_certificate_get_subject_name(gioTlsCertificatePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Check if two #GTlsCertificate objects represent the same certificate.

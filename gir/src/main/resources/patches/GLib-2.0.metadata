@@ -2,3 +2,9 @@
 *#function name="(.+)_$"
 *.*#parameter name="(.+)_$"
 *.*#function name="(.+)_$"
+*.*.*#parameter name="(.+)_$"
+
+// Functions that are broken and useless in Kotlin
+ascii_dtostr ignore
+ascii_formatd ignore
+

@@ -415,8 +415,8 @@ public class DateTime(
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun format(format: String): String =
-        g_date_time_format(glibDateTimePointer.reinterpret(), format)?.toKString() ?: error("Expected not null string")
+    public fun format(format: String): String? =
+        g_date_time_format(glibDateTimePointer.reinterpret(), format)?.toKString()
 
     /**
      * Format @datetime in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601),
@@ -431,8 +431,7 @@ public class DateTime(
      * @since 2.62
      */
     @GLibVersion2_62
-    public fun formatIso8601(): String =
-        g_date_time_format_iso8601(glibDateTimePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun formatIso8601(): String? = g_date_time_format_iso8601(glibDateTimePointer.reinterpret())?.toKString()
 
     /**
      * Retrieves the day of the month represented by @datetime in the gregorian

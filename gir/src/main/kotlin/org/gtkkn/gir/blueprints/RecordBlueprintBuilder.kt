@@ -75,7 +75,9 @@ class RecordBlueprintBuilder(
     }
 
     override fun buildInternal(): RecordBlueprint {
-        if (girRecord.info.introspectable == false) throw NotIntrospectableException(girRecord.name)
+        if (!girRecord.info.shouldBeGenerated()) {
+            throw NotIntrospectableException(girRecord.name)
+        }
 
         girRecord.cType?.let { context.checkIgnoredType(it) }
 

@@ -340,8 +340,7 @@ public object Webkit {
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun uriForDisplay(uri: String): String =
-        webkit_uri_for_display(uri)?.toKString() ?: error("Expected not null string")
+    public fun uriForDisplay(uri: String): String? = webkit_uri_for_display(uri)?.toKString()
 
     /**
      * Gets the quark for the domain of user content filter errors.

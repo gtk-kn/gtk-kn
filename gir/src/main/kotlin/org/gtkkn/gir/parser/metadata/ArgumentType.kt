@@ -136,6 +136,11 @@ enum class ArgumentType {
     FREE_FUNCTION,
 
     /**
+     * Ignore the symbol.
+     */
+    IGNORE,
+
+    /**
      * Index of the instance for the symbol.
      */
     INSTANCE_IDX,
@@ -214,12 +219,12 @@ enum class ArgumentType {
     /**
      * Indicates the version since the symbol is available.
      */
-    SINCE,
+    SHADOWS,
 
     /**
-     * Skip processing the symbol.
+     * Indicates the version since the symbol is available.
      */
-    SKIP,
+    SINCE,
 
     /**
      * Type of exception the method throws.

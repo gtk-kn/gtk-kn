@@ -172,6 +172,7 @@ class MetadataProcessor(
         applyErrorDomain(node, metadata)
         applyFloating(node, metadata)
         applyFreeFunction(node, metadata)
+        applyIgnore(node, metadata)
         applyInstanceIdx(node, metadata)
         applyIntrospectable(node, metadata)
         applyName(node, metadata)
@@ -188,7 +189,7 @@ class MetadataProcessor(
         applyScope(node, metadata)
         applySealed(node, metadata)
         applySince(node, metadata)
-        applySkip(node, metadata)
+        applyShadows(node, metadata)
         applyThrows(node, metadata)
         applyTypeId(node, metadata)
         applyUnowned(node, tag, metadata)
@@ -351,6 +352,13 @@ class MetadataProcessor(
         }
     }
 
+    private fun applyIgnore(node: Node, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.IGNORE)) {
+            val ignore = metadata.getBool(ArgumentType.IGNORE)
+            setBooleanAttribute(node, "gtk-kn-ignore", ignore)
+        }
+    }
+
     private fun applyInstanceIdx(node: Node, metadata: Metadata) {
         if (metadata.hasArgument(ArgumentType.INSTANCE_IDX)) {
             val instanceIdx = metadata.getInteger(ArgumentType.INSTANCE_IDX)
@@ -482,10 +490,10 @@ class MetadataProcessor(
         }
     }
 
-    private fun applySkip(node: Node, metadata: Metadata) {
-        if (metadata.hasArgument(ArgumentType.SKIP)) {
-            val skip = metadata.getBool(ArgumentType.SKIP)
-            setBooleanAttribute(node, "introspectable", !skip)
+    private fun applyShadows(node: Node, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.SHADOWS)) {
+            val shadows = metadata.getString(ArgumentType.SHADOWS)
+            node.setAttribute("shadows", shadows)
         }
     }
 

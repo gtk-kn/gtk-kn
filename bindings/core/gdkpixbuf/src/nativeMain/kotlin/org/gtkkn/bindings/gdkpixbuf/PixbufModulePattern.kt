@@ -5,11 +5,13 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModulePattern
 import kotlin.Int
+import kotlin.String
 
 /**
  * The signature prefix for a module.
@@ -42,12 +44,6 @@ import kotlin.Int
  *
  * In the example above, the signature matches e.g. "auud\0" with
  * relevance 100, and "blau" with relevance 90.
- *
- * ## Skipped during bindings generation
- *
- * - field `prefix`: Unsupported string type with cType: char*
- * - field `mask`: Unsupported string type with cType: char*
- *
  * @since 2.2
  */
 @GdkPixbufVersion2_2
@@ -55,6 +51,23 @@ public class PixbufModulePattern(
     pointer: CPointer<GdkPixbufModulePattern>,
 ) : Record {
     public val gdkpixbufPixbufModulePatternPointer: CPointer<GdkPixbufModulePattern> = pointer
+
+    /**
+     * the prefix for this pattern
+     *
+     * Note: this property is writeable but the setter binding is not supported yet.
+     */
+    public val prefix: String?
+        get() = gdkpixbufPixbufModulePatternPointer.pointed.prefix?.toKString()
+
+    /**
+     * mask containing bytes which modify how the prefix is matched against
+     *  test data
+     *
+     * Note: this property is writeable but the setter binding is not supported yet.
+     */
+    public val mask: String?
+        get() = gdkpixbufPixbufModulePatternPointer.pointed.mask?.toKString()
 
     /**
      * relevance of this pattern

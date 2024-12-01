@@ -83,7 +83,7 @@ class EnumBlueprintBuilder(
     }
 
     override fun buildInternal(): EnumBlueprint {
-        if (girEnum.info.introspectable == false) {
+        if (!girEnum.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girEnum.cType)
         }
 

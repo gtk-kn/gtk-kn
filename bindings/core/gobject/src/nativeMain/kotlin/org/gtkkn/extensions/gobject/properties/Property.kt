@@ -62,10 +62,9 @@ public open class Property<OBJECT : Object, VALUE : Any?>(
 internal class StringProperty<OBJECT : Object>(
     paramSpec: ParamSpec
 ) : Property<OBJECT, String>(paramSpec, ::storeInValue, ::extractFromValue, ::initValueFunc) {
-
     companion object {
         private fun storeInValue(value: Value, any: Any?) {
-            value.setString(any as String?)
+            value.setString(any as? String)
         }
 
         private fun extractFromValue(value: Value): String? = value.getString()
@@ -77,7 +76,6 @@ internal class StringProperty<OBJECT : Object>(
 internal class IntProperty<OBJECT : Object>(
     paramSpec: ParamSpec
 ) : Property<OBJECT, Int>(paramSpec, ::storeInValue, ::extractFromValue, ::initValueFunc) {
-
     companion object {
         private fun storeInValue(value: Value, any: Any?) {
             value.setInt(any as Int)
@@ -92,7 +90,6 @@ internal class IntProperty<OBJECT : Object>(
 internal class BooleanProperty<OBJECT : Object>(
     paramSpec: ParamSpec
 ) : Property<OBJECT, Boolean>(paramSpec, ::storeInValue, ::extractFromValue, ::initValueFunc) {
-
     companion object {
         private fun storeInValue(value: Value, any: Any?) {
             value.setBoolean(any as Boolean)

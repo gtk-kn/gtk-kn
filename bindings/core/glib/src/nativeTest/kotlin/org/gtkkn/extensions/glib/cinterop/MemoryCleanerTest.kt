@@ -65,7 +65,6 @@ import kotlin.test.assertNull
  *   cleaner execution.
  */
 class MemoryCleanerTest {
-
     /**
      * Tests that `g_free` is called exactly once when the memory is owned
      * and the object is garbage-collected.

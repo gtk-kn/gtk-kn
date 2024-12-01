@@ -103,8 +103,7 @@ public class TimeVal(
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun toIso8601(): String =
-        g_time_val_to_iso8601(glibTimeValPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun toIso8601(): String? = g_time_val_to_iso8601(glibTimeValPointer.reinterpret())?.toKString()
 
     public companion object : RecordCompanion<TimeVal, GTimeVal> {
         /**

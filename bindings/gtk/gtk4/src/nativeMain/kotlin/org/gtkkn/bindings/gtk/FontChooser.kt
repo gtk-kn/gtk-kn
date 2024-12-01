@@ -256,7 +256,7 @@ public interface FontChooser :
      *
      * @return a `PangoFontMap`
      */
-    public fun getFontMap_(): FontMap? =
+    public fun getFontChooserFontMap(): FontMap? =
         gtk_font_chooser_get_font_map(gtkFontChooserPointer.reinterpret())?.run {
             FontMap(reinterpret())
         }
@@ -367,7 +367,7 @@ public interface FontChooser :
      *
      * @param fontmap a `PangoFontMap`
      */
-    public fun setFontMap_(fontmap: FontMap? = null): Unit =
+    public fun setFontChooserFontMap(fontmap: FontMap? = null): Unit =
         gtk_font_chooser_set_font_map(gtkFontChooserPointer.reinterpret(), fontmap?.pangoFontMapPointer?.reinterpret())
 
     /**

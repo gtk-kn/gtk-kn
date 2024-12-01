@@ -76,7 +76,7 @@ public class MatchInfo(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun expandReferences(stringToExpand: String): Result<String> =
+    public fun expandReferences(stringToExpand: String): Result<String?> =
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult =
@@ -88,7 +88,7 @@ public class MatchInfo(
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
-                Result.success(checkNotNull(gResult))
+                Result.success(gResult)
             }
         }
 
@@ -116,9 +116,8 @@ public class MatchInfo(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun fetch(matchNum: Int): String =
+    public fun fetch(matchNum: Int): String? =
         g_match_info_fetch(glibMatchInfoPointer.reinterpret(), matchNum)?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Bundles up pointers to each of the matching substrings from a match
@@ -164,9 +163,8 @@ public class MatchInfo(
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun fetchNamed(name: String): String =
+    public fun fetchNamed(name: String): String? =
         g_match_info_fetch_named(glibMatchInfoPointer.reinterpret(), name)?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * If @match_info is not null, calls g_match_info_unref(); otherwise does

@@ -33,7 +33,7 @@ class AliasBlueprintBuilder(
     override fun buildInternal(): AliasBlueprint {
         context.checkIgnoredType(girAlias.cType)
 
-        if (girAlias.info.introspectable == false) {
+        if (!girAlias.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girAlias.cType)
         }
 

@@ -16,6 +16,7 @@
 
 package org.gtkkn.gir.parser.gir
 
+import me.tatarka.inject.annotations.Inject
 import org.gtkkn.gir.ext.attributeBooleanValueOrNull
 import org.gtkkn.gir.ext.attributeValue
 import org.gtkkn.gir.ext.attributeValueOrNull
@@ -81,6 +82,7 @@ import java.io.File
 import java.io.StringReader
 import javax.xml.parsers.DocumentBuilderFactory
 
+@Inject
 class GirParser(
     private val metadataParser: MetadataParser
 ) {
@@ -446,7 +448,8 @@ class GirParser(
         deprecated = node.attributeBooleanValueOrNull("deprecated"),
         deprecatedVersion = node.attributeValueOrNull("deprecated-version"),
         version = node.attributeValueOrNull("version"),
-        stability = node.attributeValueOrNull("stability"),
+        stability = node.attributeValueOrNull("stability")?.let { GirInfo.Stability.fromString(it) },
+        gtkKnIgnore = node.attributeBooleanValueOrNull("gtk-kn-ignore"),
     )
 
     private fun parseGirCallable(node: Node): GirCallable = GirCallable(

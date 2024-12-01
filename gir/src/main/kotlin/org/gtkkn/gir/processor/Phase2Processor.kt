@@ -16,12 +16,14 @@
 
 package org.gtkkn.gir.processor
 
+import me.tatarka.inject.annotations.Inject
 import org.gtkkn.gir.blueprints.BlueprintResult
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprintBuilder
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.model.GirRepository
 
+@Inject
 class Phase2Processor(private val config: Config) {
     /**
      * Process a list of [GirRepository] into [RepositoryBlueprint]

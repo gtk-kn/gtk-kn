@@ -77,12 +77,11 @@ public open class TlsDatabase(
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun createCertificateHandle(certificate: TlsCertificate): String =
+    public open fun createCertificateHandle(certificate: TlsCertificate): String? =
         g_tls_database_create_certificate_handle(
             gioTlsDatabasePointer.reinterpret(),
             certificate.gioTlsCertificatePointer.reinterpret()
         )?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Look up a certificate by its handle.

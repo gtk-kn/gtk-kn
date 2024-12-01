@@ -7,6 +7,7 @@ import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
@@ -66,6 +67,7 @@ import org.gtkkn.native.soup.soup_message_get_uri
 import org.gtkkn.native.soup.soup_message_is_feature_disabled
 import org.gtkkn.native.soup.soup_message_is_keepalive
 import org.gtkkn.native.soup.soup_message_new
+import org.gtkkn.native.soup.soup_message_new_from_encoded_form
 import org.gtkkn.native.soup.soup_message_new_from_multipart
 import org.gtkkn.native.soup.soup_message_new_from_uri
 import org.gtkkn.native.soup.soup_message_new_options_ping
@@ -122,7 +124,6 @@ import kotlin.Unit
  * - method `site-for-cookies`: Property TypeInfo of getter and setter do not match
  * - method `status-code`: Property has no getter nor setter
  * - method `tls-protocol-version`: Property has no getter nor setter
- * - parameter `encoded_form`: Unsupported string type with cType: char*
  */
 public class Message(
     pointer: CPointer<SoupMessage>,
@@ -451,6 +452,28 @@ public class Message(
      *   could not be parsed).
      */
     public constructor(method: String, uriString: String) : this(soup_message_new(method, uriString)!!.reinterpret())
+
+    /**
+     * Creates a new #SoupMessage and sets it up to send the given @encoded_form
+     * to @uri via @method. If @method is "GET", it will include the form data
+     * into @uri's query field, and if @method is "POST" or "PUT", it will be set as
+     * request body.
+     *
+     * This function takes the ownership of @encoded_form, that will be released
+     * with [func@GLib.free] when no longer in use. See also [func@form_encode],
+     * [func@form_encode_hash] and [func@form_encode_datalist].
+     *
+     * @param method the HTTP method for the created request (GET, POST or PUT)
+     * @param uriString the destination endpoint (as a string)
+     * @param encodedForm a encoded form
+     * @return the new #SoupMessage, or null if
+     *   @uri_string could not be parsed or @method is not "GET, "POST" or "PUT"
+     */
+    public constructor(
+        method: String,
+        uriString: String,
+        encodedForm: String,
+    ) : this(soup_message_new_from_encoded_form(method, uriString, encodedForm.cstr)!!.reinterpret())
 
     /**
      * Creates a new #SoupMessage and sets it up to send @multipart to

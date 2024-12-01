@@ -622,8 +622,8 @@ public open class DBusProxy(
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getNameOwner(): String =
-        g_dbus_proxy_get_name_owner(gioDBusProxyPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public open fun getNameOwner(): String? =
+        g_dbus_proxy_get_name_owner(gioDBusProxyPointer.reinterpret())?.toKString()
 
     /**
      * Gets the object path @proxy is for.
@@ -763,7 +763,7 @@ public open class DBusProxy(
     public fun connectGSignal(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
-            senderName: String,
+            senderName: String?,
             signalName: String,
             parameters: Variant,
         ) -> Unit,
@@ -956,7 +956,7 @@ private val connectGPropertiesChangedFunc:
 private val connectGSignalFunc: CPointer<
     CFunction<
         (
-            CPointer<ByteVar>,
+            CPointer<ByteVar>?,
             CPointer<ByteVar>,
             CPointer<GVariant>,
         ) -> Unit
@@ -972,14 +972,14 @@ private val connectGSignalFunc: CPointer<
         userData
             .asStableRef<
                 (
-                    senderName: String,
+                    senderName: String?,
                     signalName: String,
                     parameters: Variant,
                 ) -> Unit
             >()
             .get()
             .invoke(
-                senderName?.toKString() ?: error("Expected not null string"),
+                senderName?.toKString(),
                 signalName?.toKString() ?: error("Expected not null string"),
                 parameters!!.run {
                     Variant(reinterpret())

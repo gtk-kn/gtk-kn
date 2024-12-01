@@ -33,7 +33,7 @@ class ConstantBlueprintBuilder(
     override fun blueprintObjectName(): String = girConstant.name
 
     override fun buildInternal(): ConstantBlueprint {
-        if (girConstant.info.introspectable == false) {
+        if (!girConstant.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girConstant.name)
         }
 

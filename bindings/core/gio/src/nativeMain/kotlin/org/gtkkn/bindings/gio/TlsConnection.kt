@@ -95,7 +95,7 @@ public open class TlsConnection(
      * @since 2.70
      */
     @GioVersion2_70
-    public open val ciphersuiteName: String
+    public open val ciphersuiteName: String?
         /**
          * Returns the name of the current TLS ciphersuite, or null if the
          * connection has not handshaked or has been closed. Beware that the TLS
@@ -109,9 +109,7 @@ public open class TlsConnection(
          * @return The name of the current TLS ciphersuite, or null
          * @since 2.70
          */
-        get() =
-            g_tls_connection_get_ciphersuite_name(gioTlsConnectionPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+        get() = g_tls_connection_get_ciphersuite_name(gioTlsConnectionPointer.reinterpret())?.toKString()
 
     /**
      * The certificate database to use when verifying this TLS connection.
@@ -486,9 +484,8 @@ public open class TlsConnection(
      * @since 2.70
      */
     @GioVersion2_70
-    public open fun getCiphersuiteName(): String =
+    public open fun getCiphersuiteName(): String? =
         g_tls_connection_get_ciphersuite_name(gioTlsConnectionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Gets the certificate database that @conn uses to verify

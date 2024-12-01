@@ -36,7 +36,7 @@ class FunctionBlueprintBuilder(
     override fun blueprintObjectName(): String = girFunction.callable.name
 
     override fun buildInternal(): FunctionBlueprint {
-        if (girFunction.callable.info.introspectable == false) {
+        if (!girFunction.callable.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girFunction.callable.cIdentifier ?: girFunction.callable.name)
         }
 
@@ -64,7 +64,7 @@ class FunctionBlueprintBuilder(
             is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             is GirType -> {
                 try {
-                    context.resolveTypeInfo(girNamespace, type, returnValue.isNullable(), isReturnType = true)
+                    context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
                 } catch (ex: BlueprintException) {
                     throw UnresolvableTypeException("Return type ${type.name} is unsupported")
                 }

@@ -14,20 +14,16 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-package org.gtkkn.gir
+package org.gtkkn.gir.di
 
-import kotlinx.coroutines.runBlocking
-import org.gtkkn.gir.cli.parseConfig
-import org.gtkkn.gir.di.AppComponent
-import org.gtkkn.gir.di.create
-import org.gtkkn.gir.log.configureLog4j
+import me.tatarka.inject.annotations.Component
+import me.tatarka.inject.annotations.Provides
+import org.gtkkn.gir.Application
+import org.gtkkn.gir.config.Config
 
-fun main(args: Array<String>): Unit = runBlocking {
-    val config = parseConfig(args)
-    configureLog4j(config.logLevel)
-
-    val appComponent = AppComponent::class.create(config)
-
-    val application: Application = appComponent.application
-    application.run()
+@Component
+abstract class AppComponent(
+    @get:Provides protected val config: Config
+) {
+    abstract val application: Application
 }

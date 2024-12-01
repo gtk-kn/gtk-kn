@@ -231,7 +231,7 @@ public open class DBusObjectManagerClient(
      * @since 2.30
      */
     @GioVersion2_30
-    public open val nameOwner: String
+    public open val nameOwner: String?
         /**
          * The unique name that owns the name that @manager is for or null if
          * no-one currently owns that name. You can connect to the
@@ -243,8 +243,9 @@ public open class DBusObjectManagerClient(
          * @since 2.30
          */
         get() =
-            g_dbus_object_manager_client_get_name_owner(gioDBusObjectManagerClientPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+            g_dbus_object_manager_client_get_name_owner(
+                gioDBusObjectManagerClientPointer.reinterpret()
+            )?.toKString()
 
     /**
      * Finishes an operation started with g_dbus_object_manager_client_new().
@@ -317,9 +318,8 @@ public open class DBusObjectManagerClient(
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun getNameOwner(): String =
+    public open fun getNameOwner(): String? =
         g_dbus_object_manager_client_get_name_owner(gioDBusObjectManagerClientPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Emitted when one or more D-Bus properties on proxy changes. The

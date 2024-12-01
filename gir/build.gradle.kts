@@ -17,6 +17,7 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     application
+    alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinx.serialization)
     id("detekt-conventions")
 }
@@ -78,10 +79,11 @@ gradle.projectsEvaluated {
 dependencies {
     implementation(libs.bundles.kotlin.logging.jvm)
     implementation(libs.bundles.ktlint)
-    implementation(libs.kodein)
+    implementation(libs.kotlin.inject.runtime)
     implementation(libs.kotlinpoet)
     implementation(libs.kotlinx.cli)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.serialization.json)
+    ksp(libs.kotlin.inject.compiler)
     testImplementation(libs.kotlin.test.junit5)
 }

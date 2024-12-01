@@ -31,7 +31,6 @@ import kotlin.reflect.KProperty
 public class ClassPropertyDelegate<OBJECT_TYPE : Object, VALUE : Any?> internal constructor(
     private val gProperty: Property<OBJECT_TYPE, VALUE>
 ) : ReadOnlyProperty<ObjectType<OBJECT_TYPE>, Property<OBJECT_TYPE, VALUE>> {
-
     override fun getValue(
         thisRef: ObjectType<OBJECT_TYPE>,
         property: KProperty<*>
@@ -41,7 +40,6 @@ public class ClassPropertyDelegate<OBJECT_TYPE : Object, VALUE : Any?> internal 
 public class ClassPropertyDelegateProvider<OBJECT_TYPE : Object, VALUE : Any?>(
     private val buildPropertyFunc: (propertyName: String) -> Property<OBJECT_TYPE, VALUE>,
 ) : PropertyDelegateProvider<ObjectType<OBJECT_TYPE>, ClassPropertyDelegate<OBJECT_TYPE, VALUE>> {
-
     override fun provideDelegate(
         thisRef: ObjectType<OBJECT_TYPE>,
         property: KProperty<*>

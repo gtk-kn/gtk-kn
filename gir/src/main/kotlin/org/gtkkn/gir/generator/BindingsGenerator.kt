@@ -29,12 +29,14 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import me.tatarka.inject.annotations.Inject
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.log.logger
 import java.io.File
 
+@Inject
 class BindingsGenerator(
     private val config: Config,
 ) : ClassGenerator,
@@ -347,6 +349,7 @@ class BindingsGenerator(
         // cinterop helper function members
         internal val ALLOC_POINTER_TO = MemberName("kotlinx.cinterop", "allocPointerTo")
         internal val AS_STABLE_REF_FUNC = MemberName("kotlinx.cinterop", "asStableRef")
+        internal val CSTR_FUNC = MemberName("kotlinx.cinterop", "cstr")
         internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
         internal val NATIVE_HEAP_OBJECT = ClassName("kotlinx.cinterop", "nativeHeap")
         internal val NATIVE_PLACEMENT_ALLOC = ClassName("kotlinx.cinterop", "alloc")

@@ -78,7 +78,6 @@ public fun Object.getStringProperty(propertyName: String): String? = memScoped {
     return gValue.getString().also { gValue.unset() }
 }
 
-
 public fun Object.getIntProperty(propertyName: String): Int = memScoped {
     val gValue = Value.allocate(this)
     getProperty(propertyName, gValue)

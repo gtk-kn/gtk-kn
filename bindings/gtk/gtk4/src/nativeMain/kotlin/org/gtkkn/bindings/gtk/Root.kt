@@ -45,7 +45,7 @@ public interface Root :
      *
      * @return the display of @root
      */
-    public fun getDisplay_(): Display =
+    public fun getRootDisplay(): Display =
         gtk_root_get_display(gtkRootPointer.reinterpret())!!.run {
             Display(reinterpret())
         }

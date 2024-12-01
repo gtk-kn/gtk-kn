@@ -48,8 +48,7 @@ class MethodBlueprintBuilder(
     override fun buildInternal(): MethodBlueprint {
         checkSkippedMethod()
 
-        val kotlinName = getFixedKotlinNameOrNull()
-            ?: context.kotlinizeMethodName(girMethod.callable.shadows ?: girMethod.callable.name)
+        val kotlinName = context.kotlinizeMethodName(girMethod.callable.shadows ?: girMethod.callable.name)
 
         // parameters
         girMethod.parameters?.let { addParameters(it) }
@@ -61,18 +60,17 @@ class MethodBlueprintBuilder(
             is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             is GirType -> {
                 try {
-                    context.resolveTypeInfo(girNamespace, type, returnValue.isNullable(), isReturnType = true)
+                    context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
                 } catch (ex: BlueprintException) {
                     throw UnresolvableTypeException("Return type ${type.name} is unsupported")
                 }
             }
-        }.applyMissingReturnValueAnnotations()
+        }
 
         // check for overrides
         val superMethods = superClasses.flatMap { it.methods } + superInterfaces.flatMap { it.methods }
-        val nameMatchingSuperMethods = superMethods
-            .filterNot { it.callable.info.introspectable == false }
-            .filter { it.callable.name == girMethod.callable.name }
+        val nameMatchingSuperMethods =
+            superMethods.filter { it.callable.info.shouldBeGenerated() && it.callable.name == girMethod.callable.name }
 
         val isOverride = nameMatchingSuperMethods.any {
             it.debugParameterSignature() == girMethod.debugParameterSignature()
@@ -120,7 +118,7 @@ class MethodBlueprintBuilder(
     }
 
     private fun checkSkippedMethod() {
-        if (girMethod.callable.info.introspectable == false) {
+        if (!girMethod.callable.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girMethod.callable.cIdentifier ?: girMethod.callable.name)
         }
 
@@ -134,45 +132,12 @@ class MethodBlueprintBuilder(
         girMethod.callable.cIdentifier?.let { context.checkIgnoredFunction(it) }
 
         if (girMethod.parameters == null) {
-            throw UnresolvableTypeException("Method has no parameters object")
+            throw UnresolvableTypeException("Method has no parameters object") // TODO
         }
 
         if (girMethod.parameters.instanceParameter == null) {
             throw UnresolvableTypeException("Method has no instance parameter")
         }
-    }
-
-    private fun TypeInfo.applyMissingReturnValueAnnotations(): TypeInfo = when (girMethod.callable.cIdentifier) {
-        // add missing nullable annotations for g_value in older gobject gir files
-        // https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3301
-        "g_value_get_boxed" -> this.withNullable(true)
-        "g_value_dup_boxed" -> this.withNullable(true)
-        "g_value_get_string" -> this.withNullable(true)
-        "g_value_dup_string" -> this.withNullable(true)
-        "g_value_get_object" -> this.withNullable(true)
-        "g_value_dup_object" -> this.withNullable(true)
-        else -> this
-    }
-
-    /**
-     * Some methods need special casing logic in order to avoid conflicting methods when multiple implementations
-     * of a similar method name is inherited from interfaces or parent classes.
-     *
-     * For example classes extending Gtk.Widget and implementing Gio.ActionGroup will have a name clash on
-     * `activateAction` since the Widget method `activate_action` is more commonly used, we rename the interface method
-     *
-     * This method applies the renames for those cases.
-     *
-     * @return the fixed kotlinName for the method or null if no special casing applies
-     */
-    private fun getFixedKotlinNameOrNull(): String? = when (girMethod.callable.cIdentifier) {
-        "g_action_group_activate_action" -> "activateAction_"
-        "gtk_root_get_display" -> "getDisplay_"
-        "gtk_native_realize" -> "realize_"
-        "gtk_native_unrealize" -> "unrealize_"
-        "gtk_font_chooser_get_font_map" -> "getFontMap_"
-        "gtk_font_chooser_set_font_map" -> "setFontMap_"
-        else -> null
     }
 }
 

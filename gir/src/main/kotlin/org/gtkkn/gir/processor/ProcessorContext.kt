@@ -183,7 +183,7 @@ class ProcessorContext(
      */
     fun resolveAliasTypeInfo(targetNamespace: GirNamespace, nativeAliasName: String): TypeInfo.Alias? {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeAliasName)
-        val alias = namespace.aliases.find { it.name == simpleName && it.info.introspectable != false }
+        val alias = namespace.aliases.find { it.name == simpleName && it.info.shouldBeGenerated() }
         return alias?.run {
             TypeInfo.Alias(
                 nativeTypeName = ClassName(namespaceNativePackageName(namespace), cType),
@@ -273,15 +273,13 @@ class ProcessorContext(
         girNamespace: GirNamespace,
         type: GirType,
         nullable: Boolean,
-        isArray: Boolean = false,
-        isReturnType: Boolean = false,
     ): TypeInfo {
         if (type.name == null) {
             throw UnresolvableTypeException("type name is null")
         }
 
         // first basic types
-        getPrimitiveTypeInfo(type.name)?.let { typeInfo ->
+        getPrimitiveTypeInfo(type)?.let { typeInfo ->
             if (type.cType != null && type.cType.endsWith("*")) {
                 logger.error { "Skipping primitive with pointer type" }
                 throw UnresolvableTypeException("Unsupported pointer to primitive type")
@@ -289,27 +287,16 @@ class ProcessorContext(
             return typeInfo.withNullable(nullable)
         }
 
-//        // GType
-//        if (type.name == "GType") {
-//            resolveAliasTypeInfo(girNamespace, type.name)?.let { return it }
-//        }
-
         // strings
         if (type.name == "utf8" || type.name == "filename") {
             return when (type.cType) {
-                "const char*" -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
-                "const gchar*" -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
-                "char*" -> {
-                    if (isArray || isReturnType) {
-                        TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
-                    } else {
-                        throw UnresolvableTypeException("Unsupported string type with cType: ${type.cType}")
-                    }
-                }
+                "const char*",
+                "const gchar*",
+                null -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING, true)
 
-                "gchar*" -> return TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
+                "char*",
+                "gchar*" -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING, false)
 
-                null -> TypeInfo.KString(NativeTypes.cpointerOf(NativeTypes.KP_BYTEVAR), STRING)
                 else -> {
                     logger.error { "Skipping string type with cType: ${type.cType}" }
                     throw UnresolvableTypeException("Unsupported string with cType ${type.cType}")
@@ -317,16 +304,8 @@ class ProcessorContext(
             }.withNullable(nullable)
         }
 
-        // booleans
-        if (type.name == "gboolean") {
-            return when (type.cType) {
-                null -> error("gboolean with null cType")
-                "gboolean" -> TypeInfo.GBoolean(INT, BOOLEAN)
-                "const gboolean" -> TypeInfo.GBoolean(INT, BOOLEAN)
-                "_Bool" -> TypeInfo.Primitive(BOOLEAN)
-                else -> throw UnresolvableTypeException("Unsupported gboolean with cType: ${type.cType}")
-            }
-        }
+        // aliases
+        resolveAliasTypeInfo(girNamespace, type.name)?.let { return it.withNullable(nullable) }
 
         // aliases
         resolveAliasTypeInfo(girNamespace, type.name)?.let { return it.withNullable(nullable) }
@@ -414,14 +393,11 @@ class ProcessorContext(
 
     fun resolveTypeInfo(
         girNamespace: GirNamespace,
-        type: GirAnyType?,
+        type: GirAnyType,
         nullable: Boolean,
-        isArray: Boolean = false,
-        isReturnType: Boolean = false,
     ) = when (type) {
         is GirArrayType -> resolveTypeInfo(girNamespace, type, nullable)
-        is GirType -> resolveTypeInfo(girNamespace, type, nullable, isArray, isReturnType)
-        null -> error("type must not be null")
+        is GirType -> resolveTypeInfo(girNamespace, type, nullable)
     }
 
     /**
@@ -432,7 +408,7 @@ class ProcessorContext(
         when (array.type) {
             is GirArrayType -> throw UnresolvableTypeException("Nested array types are not supported")
             is GirType -> {
-                val arrayTypeInfo = resolveTypeInfo(girNamespace, array.type, false, true)
+                val arrayTypeInfo = resolveTypeInfo(girNamespace, array.type, false)
                 if (arrayTypeInfo is TypeInfo.KString) {
                     val nullTerminated = array.zeroTerminated == null || array.zeroTerminated == true
                     TypeInfo.StringList(
@@ -562,9 +538,6 @@ class ProcessorContext(
         if (cFunctionName.startsWith("g_str")) {
             throw IgnoredFunctionException(cFunctionName)
         }
-        if (cFunctionName.startsWith("g_ascii")) {
-            throw IgnoredFunctionException(cFunctionName)
-        }
         if (cFunctionName.startsWith("g_utf8")) {
             throw IgnoredFunctionException(cFunctionName)
         }
@@ -616,8 +589,8 @@ class ProcessorContext(
     fun getOptInVersionsBlueprints(namespace: GirNamespace): Set<OptInVersionBlueprint> =
         optInVersionBlueprintsMap[namespace]?.toSet().orEmpty()
 
-    private fun getPrimitiveTypeInfo(typeName: String): TypeInfo? =
-        when (typeName) {
+    private fun getPrimitiveTypeInfo(type: GirType): TypeInfo? =
+        when (type.name) {
             "none" -> TypeInfo.Primitive(UNIT)
             "GType", "gsize", "guint64", "gulong" -> TypeInfo.Primitive(U_LONG)
             "gchar" -> TypeInfo.GChar(BYTE, CHAR)
@@ -630,6 +603,14 @@ class ProcessorContext(
             "guint", "guint32", "gunichar" -> TypeInfo.Primitive(U_INT)
             "guint16" -> TypeInfo.Primitive(U_SHORT)
             "guint8" -> TypeInfo.Primitive(U_BYTE)
+            "gboolean" -> when (type.cType) {
+                "gboolean" -> TypeInfo.GBoolean(INT, BOOLEAN)
+                "const gboolean" -> TypeInfo.GBoolean(INT, BOOLEAN)
+                "_Bool" -> TypeInfo.Primitive(BOOLEAN)
+                null -> error("gboolean with null cType")
+                else -> null
+            }
+
             else -> null
         }
 

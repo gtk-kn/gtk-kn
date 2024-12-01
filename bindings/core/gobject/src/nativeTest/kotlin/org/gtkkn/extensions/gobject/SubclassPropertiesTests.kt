@@ -26,7 +26,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class SubclassPropertiesTests {
-
     /**
      * Test setting and getting a string property via direct access and `setProperty`.
      */

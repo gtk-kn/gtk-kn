@@ -2476,8 +2476,7 @@ public object Gio {
      * @since 2.18
      */
     @GioVersion2_18
-    public fun contentTypeFromMimeType(mimeType: String): String =
-        g_content_type_from_mime_type(mimeType)?.toKString() ?: error("Expected not null string")
+    public fun contentTypeFromMimeType(mimeType: String): String? = g_content_type_from_mime_type(mimeType)?.toKString()
 
     /**
      * Gets the human readable description of the content type.
@@ -2502,8 +2501,8 @@ public object Gio {
      * @since 2.34
      */
     @GioVersion2_34
-    public fun contentTypeGetGenericIconName(type: String): String =
-        g_content_type_get_generic_icon_name(type)?.toKString() ?: error("Expected not null string")
+    public fun contentTypeGetGenericIconName(type: String): String? =
+        g_content_type_get_generic_icon_name(type)?.toKString()
 
     /**
      * Gets the icon for a content type.
@@ -2537,8 +2536,7 @@ public object Gio {
      * @return the registered mime type for the
      *     given @type, or null if unknown; free with g_free().
      */
-    public fun contentTypeGetMimeType(type: String): String =
-        g_content_type_get_mime_type(type)?.toKString() ?: error("Expected not null string")
+    public fun contentTypeGetMimeType(type: String): String? = g_content_type_get_mime_type(type)?.toKString()
 
     /**
      * Gets the symbolic icon for a content type.
@@ -2790,9 +2788,8 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun dbusErrorGetRemoteError(error: Error): String =
+    public fun dbusErrorGetRemoteError(error: Error): String? =
         g_dbus_error_get_remote_error(error.glibErrorPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
 
     /**
      * Checks if @error represents an error received via D-Bus from a remote peer. If so,

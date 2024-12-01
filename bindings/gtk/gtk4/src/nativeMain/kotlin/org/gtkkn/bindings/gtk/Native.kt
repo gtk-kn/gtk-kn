@@ -69,14 +69,14 @@ public interface Native :
      *
      * This should only be used by subclasses.
      */
-    public fun realize_(): Unit = gtk_native_realize(gtkNativePointer.reinterpret())
+    public fun nativeRealize(): Unit = gtk_native_realize(gtkNativePointer.reinterpret())
 
     /**
      * Unrealizes a `GtkNative`.
      *
      * This should only be used by subclasses.
      */
-    public fun unrealize_(): Unit = gtk_native_unrealize(gtkNativePointer.reinterpret())
+    public fun nativeUnrealize(): Unit = gtk_native_unrealize(gtkNativePointer.reinterpret())
 
     private data class Wrapper(
         private val pointer: CPointer<GtkNative>,

@@ -551,8 +551,7 @@ public class Value(
      * @since 2.80
      */
     @GObjectVersion2_80
-    public fun stealString(): String =
-        g_value_steal_string(gobjectValuePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun stealString(): String? = g_value_steal_string(gobjectValuePointer.reinterpret())?.toKString()
 
     /**
      * Set the contents of a variant #GValue to @variant, and takes over

@@ -201,7 +201,7 @@ public interface ActionGroup :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun activateAction_(
+    public fun activateAction(
         actionName: String,
         parameter: Variant? = null,
     ): Unit =

@@ -137,7 +137,7 @@ class ClassBlueprintBuilder(
     }
 
     override fun buildInternal(): ClassBlueprint {
-        if (girClass.info.introspectable == false) {
+        if (!girClass.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girClass.cType ?: girClass.name)
         }
 

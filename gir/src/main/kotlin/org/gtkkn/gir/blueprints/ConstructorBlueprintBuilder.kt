@@ -39,7 +39,7 @@ class ConstructorBlueprintBuilder(
     override fun buildInternal(): ConstructorBlueprint {
         girConstructor.callable.cIdentifier?.let { context.checkIgnoredFunction(it) }
 
-        if (girConstructor.callable.info.introspectable == false) {
+        if (!girConstructor.callable.info.shouldBeGenerated()) {
             throw NotIntrospectableException(girConstructor.callable.cIdentifier ?: girConstructor.callable.name)
         }
 
@@ -65,7 +65,7 @@ class ConstructorBlueprintBuilder(
         val returnTypeInfo = try {
             when (val type = returnValue.type) {
                 is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
-                is GirType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable(), isReturnType = true)
+                is GirType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             }
         } catch (ex: UnresolvableTypeException) {
             throw UnresolvableTypeException("Constructor return type ${returnValue.type} could not be resolved")

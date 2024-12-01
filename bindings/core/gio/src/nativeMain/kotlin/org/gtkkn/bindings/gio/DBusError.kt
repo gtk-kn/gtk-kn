@@ -352,9 +352,8 @@ public enum class DBusError(
          * @since 2.26
          */
         @GioVersion2_26
-        public fun getRemoteError(error: Error): String =
+        public fun getRemoteError(error: Error): String? =
             g_dbus_error_get_remote_error(error.glibErrorPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
 
         /**
          * Checks if @error represents an error received via D-Bus from a remote peer. If so,

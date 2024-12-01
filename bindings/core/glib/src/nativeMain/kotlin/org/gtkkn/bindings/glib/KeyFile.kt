@@ -405,9 +405,7 @@ public class KeyFile(
         groupName: String,
         key: String,
         locale: String? = null,
-    ): String =
-        g_key_file_get_locale_for_key(glibKeyFilePointer.reinterpret(), groupName, key, locale)?.toKString()
-            ?: error("Expected not null string")
+    ): String? = g_key_file_get_locale_for_key(glibKeyFilePointer.reinterpret(), groupName, key, locale)?.toKString()
 
     /**
      * Returns the value associated with @key under @group_name
@@ -460,8 +458,7 @@ public class KeyFile(
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getStartGroup(): String =
-        g_key_file_get_start_group(glibKeyFilePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getStartGroup(): String? = g_key_file_get_start_group(glibKeyFilePointer.reinterpret())?.toKString()
 
     /**
      * Returns the string value associated with @key under @group_name.

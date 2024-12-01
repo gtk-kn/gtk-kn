@@ -57,11 +57,9 @@ import org.gtkkn.native.gtk.GtkIconView
 import org.gtkkn.native.gtk.GtkListBox
 import org.gtkkn.native.gtk.GtkListBoxRow
 import org.gtkkn.native.gtk.GtkMenuButton
-import org.gtkkn.native.gtk.GtkOrientation
 import org.gtkkn.native.gtk.GtkPageSetup
 import org.gtkkn.native.gtk.GtkPrintJob
 import org.gtkkn.native.gtk.GtkPrinter
-import org.gtkkn.native.gtk.GtkSizeRequestMode
 import org.gtkkn.native.gtk.GtkTextTag
 import org.gtkkn.native.gtk.GtkTreeIter
 import org.gtkkn.native.gtk.GtkTreeModel
@@ -222,7 +220,6 @@ import kotlin.Unit
  * - record `CssProviderPrivate`: Disguised records are ignored
  * - record `CssStyleChange`: Disguised records are ignored
  * - record `CustomFilterClass`: glib type struct are ignored
- * - record `CustomLayoutClass`: glib type struct are ignored
  * - record `CustomSorterClass`: glib type struct are ignored
  * - record `DialogClass`: glib type struct are ignored
  * - record `DirectoryListClass`: glib type struct are ignored
@@ -1979,43 +1976,6 @@ public val CellLayoutDataFuncFunc: CPointer<
             )
     }.reinterpret()
 
-public val CustomAllocateFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkWidget>,
-            Int,
-            Int,
-            Int,
-        ) -> Unit
-    >
-> =
-    staticCFunction {
-            widget: CPointer<GtkWidget>?,
-            width: Int,
-            height: Int,
-            baseline: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    widget: Widget,
-                    width: Int,
-                    height: Int,
-                    baseline: Int,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                widget!!.run {
-                    Widget(reinterpret())
-                },
-                width,
-                height,
-                baseline
-            )
-    }.reinterpret()
-
 public val CustomFilterFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Int>> =
     staticCFunction {
             item: CPointer<GObject>?,
@@ -2029,57 +1989,6 @@ public val CustomFilterFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Int>>
                     Object(reinterpret())
                 }
             ).asGBoolean()
-    }.reinterpret()
-
-public val CustomMeasureFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkWidget>,
-            GtkOrientation,
-            Int,
-        ) -> Unit
-    >
-> =
-    staticCFunction {
-            widget: CPointer<GtkWidget>?,
-            orientation: GtkOrientation,
-            forSize: Int,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<
-                (
-                    widget: Widget,
-                    orientation: Orientation,
-                    forSize: Int,
-                ) -> Unit
-            >()
-            .get()
-            .invoke(
-                widget!!.run {
-                    Widget(reinterpret())
-                },
-                orientation.run {
-                    Orientation.fromNativeValue(this)
-                },
-                forSize
-            )
-    }.reinterpret()
-
-public val CustomRequestModeFuncFunc:
-    CPointer<CFunction<(CPointer<GtkWidget>) -> GtkSizeRequestMode>> =
-    staticCFunction {
-            widget: CPointer<GtkWidget>?,
-            userData: COpaquePointer,
-        ->
-        userData
-            .asStableRef<(widget: Widget) -> SizeRequestMode>()
-            .get()
-            .invoke(
-                widget!!.run {
-                    Widget(reinterpret())
-                }
-            ).nativeValue
     }.reinterpret()
 
 public val DrawingAreaDrawFuncFunc: CPointer<
@@ -2969,21 +2878,6 @@ public typealias CellLayoutDataFunc = (
 ) -> Unit
 
 /**
- * A function to be used by `GtkCustomLayout` to allocate a widget.
- *
- * - param `widget` the widget to allocate
- * - param `width` the new width of the widget
- * - param `height` the new height of the widget
- * - param `baseline` the new baseline of the widget, or -1
- */
-public typealias CustomAllocateFunc = (
-    widget: Widget,
-    width: Int,
-    height: Int,
-    baseline: Int,
-) -> Unit
-
-/**
  * User function that is called to determine if the @item should be matched.
  *
  * If the filter matches the item, this function must return true. If the
@@ -2993,27 +2887,6 @@ public typealias CustomAllocateFunc = (
  * - return true to keep the item around
  */
 public typealias CustomFilterFunc = (item: Object) -> Boolean
-
-/**
- * A function to be used by `GtkCustomLayout` to measure a widget.
- *
- * - param `widget` the widget to be measured
- * - param `orientation` the direction to be measured
- * - param `forSize` the size to be measured for
- */
-public typealias CustomMeasureFunc = (
-    widget: Widget,
-    orientation: Orientation,
-    forSize: Int,
-) -> Unit
-
-/**
- * Queries a widget for its preferred size request mode.
- *
- * - param `widget` the widget to be queried
- * - return the size request mode
- */
-public typealias CustomRequestModeFunc = (widget: Widget) -> SizeRequestMode
 
 /**
  * Whenever @drawing_area needs to redraw, this function will be called.

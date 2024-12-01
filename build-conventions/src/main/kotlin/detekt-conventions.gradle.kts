@@ -44,4 +44,7 @@ tasks {
     named("check") {
         dependsOn(withType<Detekt>())
     }
+    withType<Detekt>().configureEach {
+        exclude { it.file.path.startsWith("${projectDir}/build") }
+    }
 }

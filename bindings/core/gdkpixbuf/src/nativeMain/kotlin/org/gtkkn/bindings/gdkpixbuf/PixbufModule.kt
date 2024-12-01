@@ -5,9 +5,11 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModule
+import kotlin.String
 
 /**
  * A `GdkPixbufModule` contains the necessary functions to load and save
@@ -58,8 +60,6 @@ import org.gtkkn.native.gdkpixbuf.GdkPixbufModule
  *
  * ## Skipped during bindings generation
  *
- * - field `module_name`: Unsupported string type with cType: char*
- * - field `module_path`: Unsupported string type with cType: char*
  * - field `module`: GModule.Module
  * - field `load`: PixbufModuleLoadFunc
  * - field `load_xpm_data`: PixbufModuleLoadXpmDataFunc
@@ -79,6 +79,23 @@ public class PixbufModule(
     pointer: CPointer<GdkPixbufModule>,
 ) : Record {
     public val gdkpixbufPixbufModulePointer: CPointer<GdkPixbufModule> = pointer
+
+    /**
+     * the name of the module, usually the same as the
+     *  usual file extension for images of this type, eg. "xpm", "jpeg" or "png".
+     *
+     * Note: this property is writeable but the setter binding is not supported yet.
+     */
+    public val moduleName: String?
+        get() = gdkpixbufPixbufModulePointer.pointed.module_name?.toKString()
+
+    /**
+     * the path from which the module is loaded.
+     *
+     * Note: this property is writeable but the setter binding is not supported yet.
+     */
+    public val modulePath: String?
+        get() = gdkpixbufPixbufModulePointer.pointed.module_path?.toKString()
 
     /**
      * a `GdkPixbufFormat` holding information about the module.

@@ -2,5 +2,5 @@
 *.*.*#parameter name="(.+)_$"
 
 // Alias to non primitive types are currently not supported
-SignalCMarshaller skip
-SignalCVaMarshaller skip
+SignalCMarshaller ignore
+SignalCVaMarshaller ignore

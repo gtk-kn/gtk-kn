@@ -20,6 +20,7 @@ plugins {
     kotlin("multiplatform")
     id("config-conventions")
     id("org.jetbrains.dokka")
+    id("detekt-conventions")
 }
 
 kotlin {

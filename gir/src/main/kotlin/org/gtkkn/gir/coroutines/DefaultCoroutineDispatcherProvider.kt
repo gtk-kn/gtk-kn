@@ -18,8 +18,10 @@ package org.gtkkn.gir.coroutines
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import me.tatarka.inject.annotations.Inject
 
 @Suppress("InjectDispatcher")
+@Inject
 class DefaultCoroutineDispatcherProvider : CoroutineDispatcherProvider {
     override val default: CoroutineDispatcher = Dispatchers.Default
     override val io: CoroutineDispatcher = Dispatchers.IO

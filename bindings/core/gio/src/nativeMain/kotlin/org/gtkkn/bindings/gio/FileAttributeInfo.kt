@@ -5,21 +5,27 @@ import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.gio.GFileAttributeInfo
+import kotlin.String
 
 /**
  * Information about a specific attribute.
- *
- * ## Skipped during bindings generation
- *
- * - field `name`: Unsupported string type with cType: char*
  */
 public class FileAttributeInfo(
     pointer: CPointer<GFileAttributeInfo>,
 ) : Record {
     public val gioFileAttributeInfoPointer: CPointer<GFileAttributeInfo> = pointer
+
+    /**
+     * the name of the attribute.
+     *
+     * Note: this property is writeable but the setter binding is not supported yet.
+     */
+    public val name: String?
+        get() = gioFileAttributeInfoPointer.pointed.name?.toKString()
 
     /**
      * the #GFileAttributeType type of the attribute.

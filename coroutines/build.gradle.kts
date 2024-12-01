@@ -17,7 +17,6 @@
 plugins {
     id("native-library-conventions")
     id("publishing-conventions")
-    id("detekt-conventions")
 }
 
 version = config.versions.coroutines.get()

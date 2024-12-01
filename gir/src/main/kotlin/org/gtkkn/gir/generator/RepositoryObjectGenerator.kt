@@ -125,6 +125,8 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
             "2147483647" -> ValueReplacement(listOf("Int.MAX_VALUE"))
             "-2147483648" -> ValueReplacement(listOf("Int.MIN_VALUE"))
             "4294967295" -> ValueReplacement(listOf("UInt.MAX_VALUE"), U_INT)
+            "32767" -> ValueReplacement(listOf("Short.MAX_VALUE"))
+            "-32768" -> ValueReplacement(listOf("Short.MIN_VALUE"))
             "255" -> ValueReplacement(listOf("UByte.MAX_VALUE"), U_BYTE)
             "127" -> ValueReplacement(listOf("Byte.MAX_VALUE"), BYTE)
             "-128" -> ValueReplacement(listOf("Byte.MIN_VALUE"), BYTE)

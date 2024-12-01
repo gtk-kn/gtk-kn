@@ -165,7 +165,10 @@ public open class ObjectType<T : Object>(
         StringProperty(
             Gobject.paramSpecString(
                 name ?: propertyName,
-                nick, blurb, defaultValue, flags,
+                nick,
+                blurb,
+                defaultValue,
+                flags,
             ),
         )
     }
@@ -189,8 +192,13 @@ public open class ObjectType<T : Object>(
     ): ClassPropertyDelegateProvider<T, Int> = ClassPropertyDelegateProvider { propertyName ->
         IntProperty(
             Gobject.paramSpecInt(
-                name ?: propertyName,
-                nick, blurb, minimum, maximum, defaultValue, flags,
+                name = name ?: propertyName,
+                nick = nick,
+                blurb = blurb,
+                minimum = minimum,
+                maximum = maximum,
+                defaultValue = defaultValue,
+                flags = flags,
             ),
         )
     }
@@ -212,8 +220,11 @@ public open class ObjectType<T : Object>(
     ): ClassPropertyDelegateProvider<T, Boolean> = ClassPropertyDelegateProvider { propertyName ->
         BooleanProperty(
             Gobject.paramSpecBoolean(
-                name ?: propertyName,
-                nick, blurb, defaultValue, flags,
+                name = name ?: propertyName,
+                nick = nick,
+                blurb = blurb,
+                defaultValue = defaultValue,
+                flags = flags,
             ),
         )
     }
@@ -244,7 +255,7 @@ public open class ObjectType<T : Object>(
         return TypeRegistry.getInstanceData(pointer).data as T
     }
 
-    public open fun classInit(objectClass: CPointer<GObjectClass>): Unit {}
+    public open fun classInit(objectClass: CPointer<GObjectClass>) {}
 
     private fun registerType(): GType = memScoped {
         val typeQueryResult = TypeQuery.allocate(this)

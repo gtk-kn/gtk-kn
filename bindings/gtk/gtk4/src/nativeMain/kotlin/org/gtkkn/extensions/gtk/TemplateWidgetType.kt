@@ -36,7 +36,6 @@ import org.gtkkn.native.gtk.gtk_widget_class_set_template_from_resource
 import org.gtkkn.native.gtk.gtk_widget_init_template
 import kotlin.reflect.KClass
 
-
 /**
  * Companion object base class used for deriving [Widget] subclasses that make use of
  * widget templates.
