@@ -16,6 +16,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.HashTable
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.extensions.common.asBoolean
@@ -252,7 +253,7 @@ public object Soup {
         `header`: KotlinString,
         origin: Uri? = null,
     ): Cookie? =
-        soup_cookie_parse(`header`, origin?.glibUriPointer)?.run {
+        soup_cookie_parse(`header`, origin?.glibUriPointer?.reinterpret())?.run {
             Cookie(reinterpret())
         }
 
@@ -298,7 +299,8 @@ public object Soup {
      * @return the serialization of @cookies
      */
     public fun cookiesToCookieHeader(cookies: SList): KotlinString =
-        soup_cookies_to_cookie_header(cookies.glibSListPointer)?.toKString() ?: error("Expected not null string")
+        soup_cookies_to_cookie_header(cookies.glibSListPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Adds the name and value of each cookie in @cookies to @msg's
@@ -314,7 +316,7 @@ public object Soup {
     public fun cookiesToRequest(
         cookies: SList,
         msg: Message,
-    ): Unit = soup_cookies_to_request(cookies.glibSListPointer, msg.soupMessagePointer.reinterpret())
+    ): Unit = soup_cookies_to_request(cookies.glibSListPointer.reinterpret(), msg.soupMessagePointer.reinterpret())
 
     /**
      * Appends a "Set-Cookie" response header to @msg for each cookie in
@@ -329,7 +331,7 @@ public object Soup {
     public fun cookiesToResponse(
         cookies: SList,
         msg: Message,
-    ): Unit = soup_cookies_to_response(cookies.glibSListPointer, msg.soupMessagePointer.reinterpret())
+    ): Unit = soup_cookies_to_response(cookies.glibSListPointer.reinterpret(), msg.soupMessagePointer.reinterpret())
 
     /**
      * Parses @date_string and tries to extract a date from it.
@@ -380,7 +382,8 @@ public object Soup {
      * @return the encoded form
      */
     public fun formEncodeHash(formDataSet: HashTable): KotlinString =
-        soup_form_encode_hash(formDataSet.glibHashTablePointer)?.toKString() ?: error("Expected not null string")
+        soup_form_encode_hash(formDataSet.glibHashTablePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Returns the major version number of the libsoup library.
@@ -447,7 +450,7 @@ public object Soup {
      *   [func@header_parse_param_list] or [func@header_parse_semi_param_list]
      */
     public fun headerFreeParamList(paramList: HashTable): Unit =
-        soup_header_free_param_list(paramList.glibHashTablePointer)
+        soup_header_free_param_list(paramList.glibHashTablePointer.reinterpret())
 
     /**
      * Appends something like `name=value` to @string, taking care to quote @value
@@ -469,7 +472,7 @@ public object Soup {
         string: GlibString,
         name: KotlinString,
         `value`: KotlinString? = null,
-    ): Unit = soup_header_g_string_append_param(string.glibStringPointer, name, `value`)
+    ): Unit = soup_header_g_string_append_param(string.glibStringPointer.reinterpret(), name, `value`)
 
     /**
      * Appends something like `name="value"` to
@@ -486,7 +489,7 @@ public object Soup {
         string: GlibString,
         name: KotlinString,
         `value`: KotlinString,
-    ): Unit = soup_header_g_string_append_param_quoted(string.glibStringPointer, name, `value`)
+    ): Unit = soup_header_g_string_append_param_quoted(string.glibStringPointer.reinterpret(), name, `value`)
 
     /**
      * Parses a header whose content is described by RFC2616 as `#something`.
@@ -534,8 +537,7 @@ public object Soup {
      * [func@header_parse_param_list] instead.
      *
      * @param header a header value
-     * @return
-     *   a #GHashTable of list elements, which can be freed with
+     * @return a #GHashTable of list elements, which can be freed with
      *   [func@header_free_param_list] or null if there are duplicate
      *   elements.
      */
@@ -576,8 +578,7 @@ public object Soup {
      * [func@header_parse_semi_param_list] instead.
      *
      * @param header a header value
-     * @return
-     *   a #GHashTable of list elements, which can be freed with
+     * @return a #GHashTable of list elements, which can be freed with
      *   [func@header_free_param_list] or null if there are duplicate
      *   elements.
      */
@@ -605,7 +606,7 @@ public object Soup {
         str: KotlinString,
         len: Int,
         dest: MessageHeaders,
-    ): Boolean = soup_headers_parse(str, len, dest.soupMessageHeadersPointer).asBoolean()
+    ): Boolean = soup_headers_parse(str, len, dest.soupMessageHeadersPointer.reinterpret()).asBoolean()
 
     /**
      * Initializes @iter for iterating @hdrs.
@@ -617,14 +618,18 @@ public object Soup {
     public fun messageHeadersIterInit(
         iter: MessageHeadersIter,
         hdrs: MessageHeaders,
-    ): Unit = soup_message_headers_iter_init(iter.soupMessageHeadersIterPointer, hdrs.soupMessageHeadersPointer)
+    ): Unit =
+        soup_message_headers_iter_init(
+            iter.soupMessageHeadersIterPointer.reinterpret(),
+            hdrs.soupMessageHeadersPointer.reinterpret()
+        )
 
     /**
      * Registers error quark for SoupSession if needed.
      *
      * @return Error quark for SoupSession.
      */
-    public fun sessionErrorQuark(): UInt = soup_session_error_quark()
+    public fun sessionErrorQuark(): Quark = soup_session_error_quark()
 
     /**
      * Looks up the stock HTTP description of @status_code.
@@ -664,7 +669,7 @@ public object Soup {
      *
      * @return Error quark for Soup TLD functions.
      */
-    public fun tldErrorQuark(): UInt = soup_tld_error_quark()
+    public fun tldErrorQuark(): Quark = soup_tld_error_quark()
 
     /**
      * Finds the base domain for a given @hostname
@@ -710,14 +715,14 @@ public object Soup {
     public fun uriEqual(
         uri1: Uri,
         uri2: Uri,
-    ): Boolean = soup_uri_equal(uri1.glibUriPointer, uri2.glibUriPointer).asBoolean()
+    ): Boolean = soup_uri_equal(uri1.glibUriPointer.reinterpret(), uri2.glibUriPointer.reinterpret()).asBoolean()
 
     /**
      * Registers error quark for SoupWebsocket if needed.
      *
      * @return Error quark for SoupWebsocket.
      */
-    public fun websocketErrorQuark(): UInt = soup_websocket_error_quark()
+    public fun websocketErrorQuark(): Quark = soup_websocket_error_quark()
 
     public fun resolveException(error: Error): GlibException {
         val ex =

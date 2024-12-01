@@ -17,14 +17,19 @@
 package org.gtkkn.gir.model
 
 /**
- * Dependant namespace to include with the current namespace.
+ * Dependent namespace to include with the current namespace. For example, Gtk will need the namespace GLib.
  *
- * For example, Gtk will need the namespace GLib.
- *
- * @property name name of the dependant namespace to include.
- * @property version version of the dependant namespace to use.
+ * @property name Name of the dependent namespace to include.
+ * @property version Version of the dependent namespace to use.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirInclude(
     val name: String,
-    val version: String?,
-)
+    val version: String? = null,
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        // No children
+    }
+}

@@ -17,43 +17,53 @@
 package org.gtkkn.gir.model
 
 /**
- * Parameters element of a callable, that is in general parameters of a function or similar.
+ * An individual parameter of a callable.
  *
- * @param name name of the parameter.
- * @param nullable true if the parameter can have a null value.
- * @param allowNone deprecated. Replaced by nullable and optional.
- * @param introspectable true if the element is introspectable. It doesn't exist in the bindings, due in general to
- *                          missing information in the annotations in the original C code.
- * @param closure the parameter is a user_data for callbacks. The value points to a different parameter that is the
- *                   actual callback.
- * @param destroy the parameter is a destroy_data for callbacks. The value points to a different parameter that is
- *                   the actual callback.
- * @param scope indicates the lifetime of the call.
- * @param direction direction of the parameter.
- * @param callerAllocates true if the caller should allocate the parameter before calling the callable.
- * @param optional true if the parameter is optional.
- * @param skip true if the parameter can be omitted from the introspected output.
- * @param transferOwnership an [GirTransferOwnership].
- * @param docs a [GirDocElements].
- * @param type a [GirAnyTypeOrVarargs].
+ * @constructor Creates a GirParameter.
+ * @param nullable Indicates if the parameter can have a null value.
+ * @param allowNone Deprecated. Indicates if the parameter allows a `None` value (replaced by nullable).
+ * @param optional Indicates if the parameter is optional.
+ * @property name Name of the parameter.
+ * @property introspectable Indicates if the parameter is introspectable.
+ * @property closure Indicates that this parameter is user_data for a callback.
+ * @property destroy Indicates that this parameter is destroy_data for a callback.
+ * @property scope Specifies the lifetime of the callback.
+ * @property direction Indicates the direction of the parameter ("in", "out", or "inout").
+ * @property callerAllocates Indicates if the caller should allocate the parameter before calling the callable.
+ * @property skip Indicates if the parameter should be omitted from introspected output.
+ * @property transferOwnership Specifies ownership transfer for the parameter.
+ * @property doc Documentation elements.
+ * @property annotations Annotations associated with the parameter.
+ * @property type The type of the parameter.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirParameter(
-    val name: String,
-    private val nullable: Boolean?,
-    private val allowNone: Boolean?,
-    val introspectable: Boolean?,
-    val closure: Int?,
-    val destroy: Int?,
-    val scope: GirScope?,
-    val direction: GirDirection?,
-    val callerAllocates: Boolean?,
-    private val optional: Boolean?,
-    val skip: Boolean?,
-    val transferOwnership: GirTransferOwnership?,
-    val docs: GirDocElements,
+    private val nullable: Boolean? = null,
+    private val allowNone: Boolean? = null,
+    private val optional: Boolean? = null,
+    val name: String? = null,
+    val introspectable: Boolean? = null,
+    val closure: Int? = null,
+    val destroy: Int? = null,
+    val scope: String? = null,
+    val direction: GirDirection? = null,
+    val callerAllocates: Boolean? = null,
+    val skip: Boolean? = null,
+    val transferOwnership: GirTransferOwnership? = null,
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
     val type: GirAnyTypeOrVarargs,
-) {
-    fun isNullable(): Boolean = nullable == true || allowNone == true || optional == true
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        if (type is GirNode) {
+            type.initialize(this, namespace)
+        }
+    }
 
+    fun isNullable(): Boolean = nullable == true || allowNone == true || optional == true
     fun isDefaultNull(): Boolean = nullable == true && optional == true || nullable == true && allowNone == true
 }

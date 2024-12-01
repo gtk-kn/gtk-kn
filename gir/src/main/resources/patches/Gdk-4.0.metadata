@@ -1,0 +1,2 @@
+// Remove underscore prefix
+Event.* name="^_(.+)"

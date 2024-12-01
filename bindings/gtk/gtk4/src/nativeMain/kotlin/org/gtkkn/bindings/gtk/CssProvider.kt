@@ -100,7 +100,7 @@ public open class CssProvider(
      */
     @GtkVersion4_12
     public open fun loadFromBytes(`data`: Bytes): Unit =
-        gtk_css_provider_load_from_bytes(gtkCssProviderPointer.reinterpret(), `data`.glibBytesPointer)
+        gtk_css_provider_load_from_bytes(gtkCssProviderPointer.reinterpret(), `data`.glibBytesPointer.reinterpret())
 
     /**
      * Loads @data into @css_provider.

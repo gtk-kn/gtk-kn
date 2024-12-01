@@ -239,7 +239,7 @@ public class Value(
     ) : this(
         jsc_value_new_string_from_bytes(
             context.javascriptcoreContextPointer.reinterpret(),
-            bytes?.glibBytesPointer
+            bytes?.glibBytesPointer?.reinterpret()
         )!!.reinterpret()
     )
 

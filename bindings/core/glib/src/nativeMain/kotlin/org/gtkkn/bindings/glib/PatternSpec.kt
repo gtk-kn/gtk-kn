@@ -63,7 +63,10 @@ public class PatternSpec(
      * @return Whether the compiled patterns are equal
      */
     public fun equal(pspec2: PatternSpec): Boolean =
-        g_pattern_spec_equal(glibPatternSpecPointer.reinterpret(), pspec2.glibPatternSpecPointer).asBoolean()
+        g_pattern_spec_equal(
+            glibPatternSpecPointer.reinterpret(),
+            pspec2.glibPatternSpecPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Frees the memory allocated for the #GPatternSpec.

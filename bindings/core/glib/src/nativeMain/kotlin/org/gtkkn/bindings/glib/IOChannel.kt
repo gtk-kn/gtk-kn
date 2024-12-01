@@ -548,7 +548,7 @@ public class IOChannel(
                 IOChannelError.fromNativeValue(this)
             }
 
-        public fun errorQuark(): UInt = g_io_channel_error_quark()
+        public fun errorQuark(): Quark = g_io_channel_error_quark()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): IOChannel = IOChannel(pointer.reinterpret())
     }

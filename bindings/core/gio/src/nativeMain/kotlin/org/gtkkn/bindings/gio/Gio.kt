@@ -43,6 +43,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.FileError
+import org.gtkkn.bindings.glib.Pid
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
@@ -202,6 +204,7 @@ import org.gtkkn.native.gio.g_unix_mount_is_system_internal
 import org.gtkkn.native.gio.g_unix_mount_points_changed_since
 import org.gtkkn.native.gio.g_unix_mounts_changed_since
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.GPid
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.glib.GVariantType
 import org.gtkkn.native.gobject.GObject
@@ -220,7 +223,6 @@ import org.gtkkn.bindings.glib.List as GlibList
 /**
  * ## Skipped during bindings generation
  *
- * - class `ThreadedResolver`: C Type GThreadedResolver is ignored
  * - parameter `action_name`: action_name: Out parameter is not supported
  * - function `bus_own_name`: g_bus_own_name is shadowedBy bus_own_name_with_closures
  * - function `bus_own_name_on_connection`: g_bus_own_name_on_connection is shadowedBy bus_own_name_on_connection_with_closures
@@ -1777,7 +1779,7 @@ public object Gio {
         actionName: String,
         targetValue: Variant? = null,
     ): String =
-        g_action_print_detailed_name(actionName, targetValue?.glibVariantPointer)?.toKString()
+        g_action_print_detailed_name(actionName, targetValue?.glibVariantPointer?.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -2157,7 +2159,7 @@ public object Gio {
         g_async_initable_newv_async(
             objectType,
             nParameters,
-            parameters.gobjectParameterPointer,
+            parameters.gobjectParameterPointer.reinterpret(),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
@@ -2309,8 +2311,8 @@ public object Gio {
             connection.gioDBusConnectionPointer.reinterpret(),
             name,
             flags.mask,
-            nameAcquiredClosure?.gobjectClosurePointer,
-            nameLostClosure?.gobjectClosurePointer
+            nameAcquiredClosure?.gobjectClosurePointer?.reinterpret(),
+            nameLostClosure?.gobjectClosurePointer?.reinterpret()
         )
 
     /**
@@ -2343,9 +2345,9 @@ public object Gio {
             busType.nativeValue,
             name,
             flags.mask,
-            busAcquiredClosure?.gobjectClosurePointer,
-            nameAcquiredClosure?.gobjectClosurePointer,
-            nameLostClosure?.gobjectClosurePointer
+            busAcquiredClosure?.gobjectClosurePointer?.reinterpret(),
+            nameAcquiredClosure?.gobjectClosurePointer?.reinterpret(),
+            nameLostClosure?.gobjectClosurePointer?.reinterpret()
         )
 
     /**
@@ -2407,8 +2409,8 @@ public object Gio {
             connection.gioDBusConnectionPointer.reinterpret(),
             name,
             flags.mask,
-            nameAppearedClosure?.gobjectClosurePointer,
-            nameVanishedClosure?.gobjectClosurePointer
+            nameAppearedClosure?.gobjectClosurePointer?.reinterpret(),
+            nameVanishedClosure?.gobjectClosurePointer?.reinterpret()
         )
 
     /**
@@ -2438,8 +2440,8 @@ public object Gio {
             busType.nativeValue,
             name,
             flags.mask,
-            nameAppearedClosure?.gobjectClosurePointer,
-            nameVanishedClosure?.gobjectClosurePointer
+            nameAppearedClosure?.gobjectClosurePointer?.reinterpret(),
+            nameVanishedClosure?.gobjectClosurePointer?.reinterpret()
         )
 
     /**
@@ -2771,7 +2773,8 @@ public object Gio {
      */
     @GioVersion2_26
     public fun dbusErrorEncodeGerror(error: Error): String =
-        g_dbus_error_encode_gerror(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
+        g_dbus_error_encode_gerror(error.glibErrorPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Gets the D-Bus error name used for @error, if any.
@@ -2788,7 +2791,8 @@ public object Gio {
      */
     @GioVersion2_26
     public fun dbusErrorGetRemoteError(error: Error): String =
-        g_dbus_error_get_remote_error(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
+        g_dbus_error_get_remote_error(error.glibErrorPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Checks if @error represents an error received via D-Bus from a remote peer. If so,
@@ -2801,7 +2805,7 @@ public object Gio {
      */
     @GioVersion2_26
     public fun dbusErrorIsRemoteError(error: Error): Boolean =
-        g_dbus_error_is_remote_error(error.glibErrorPointer).asBoolean()
+        g_dbus_error_is_remote_error(error.glibErrorPointer.reinterpret()).asBoolean()
 
     /**
      * Creates a #GError based on the contents of @dbus_error_name and
@@ -2845,7 +2849,7 @@ public object Gio {
             Error(reinterpret())
         }
 
-    public fun dbusErrorQuark(): UInt = g_dbus_error_quark()
+    public fun dbusErrorQuark(): Quark = g_dbus_error_quark()
 
     /**
      * Creates an association to map between @dbus_error_name and
@@ -2863,7 +2867,7 @@ public object Gio {
      */
     @GioVersion2_26
     public fun dbusErrorRegisterError(
-        errorDomain: UInt,
+        errorDomain: Quark,
         errorCode: Int,
         dbusErrorName: String,
     ): Boolean = g_dbus_error_register_error(errorDomain, errorCode, dbusErrorName).asBoolean()
@@ -2882,7 +2886,7 @@ public object Gio {
      */
     @GioVersion2_26
     public fun dbusErrorStripRemoteError(error: Error): Boolean =
-        g_dbus_error_strip_remote_error(error.glibErrorPointer).asBoolean()
+        g_dbus_error_strip_remote_error(error.glibErrorPointer.reinterpret()).asBoolean()
 
     /**
      * Destroys an association previously set up with g_dbus_error_register_error().
@@ -2895,7 +2899,7 @@ public object Gio {
      */
     @GioVersion2_26
     public fun dbusErrorUnregisterError(
-        errorDomain: UInt,
+        errorDomain: Quark,
         errorCode: Int,
         dbusErrorName: String,
     ): Boolean = g_dbus_error_unregister_error(errorDomain, errorCode, dbusErrorName).asBoolean()
@@ -2972,7 +2976,10 @@ public object Gio {
         gvalue: Value,
         type: VariantType,
     ): Variant =
-        g_dbus_gvalue_to_gvariant(gvalue.gobjectValuePointer, type.glibVariantTypePointer)!!.run {
+        g_dbus_gvalue_to_gvariant(
+            gvalue.gobjectValuePointer.reinterpret(),
+            type.glibVariantTypePointer.reinterpret()
+        )!!.run {
             Variant(reinterpret())
         }
 
@@ -2997,7 +3004,8 @@ public object Gio {
     public fun dbusGvariantToGvalue(
         `value`: Variant,
         outGvalue: Value,
-    ): Unit = g_dbus_gvariant_to_gvalue(`value`.glibVariantPointer, outGvalue.gobjectValuePointer)
+    ): Unit =
+        g_dbus_gvariant_to_gvalue(`value`.glibVariantPointer.reinterpret(), outGvalue.gobjectValuePointer.reinterpret())
 
     /**
      * Checks if @string is a
@@ -3391,7 +3399,7 @@ public object Gio {
      */
     @GioVersion2_38
     public fun iconDeserialize(`value`: Variant): Icon? =
-        g_icon_deserialize(`value`.glibVariantPointer)?.run {
+        g_icon_deserialize(`value`.glibVariantPointer.reinterpret())?.run {
             Icon.wrap(reinterpret())
         }
 
@@ -3474,7 +3482,7 @@ public object Gio {
      *
      * @return a #GQuark.
      */
-    public fun ioErrorQuark(): UInt = g_io_error_quark()
+    public fun ioErrorQuark(): Quark = g_io_error_quark()
 
     /**
      * Loads all the modules in the specified directory.
@@ -3713,7 +3721,7 @@ public object Gio {
     ): Source =
         g_pollable_source_new_full(
             pollableStream.gPointer.reinterpret(),
-            childSource?.glibSourcePointer,
+            childSource?.glibSourcePointer?.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret()
         )!!.run {
             Source(reinterpret())
@@ -3766,7 +3774,7 @@ public object Gio {
      * @since 2.22
      */
     @GioVersion2_22
-    public fun resolverErrorQuark(): UInt = g_resolver_error_quark()
+    public fun resolverErrorQuark(): Quark = g_resolver_error_quark()
 
     /**
      * Gets the #GResource Error Quark.
@@ -3775,7 +3783,7 @@ public object Gio {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun resourceErrorQuark(): UInt = g_resource_error_quark()
+    public fun resourceErrorQuark(): Quark = g_resource_error_quark()
 
     /**
      * Loads a binary resource bundle and creates a #GResource representation of it, allowing
@@ -3931,7 +3939,8 @@ public object Gio {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun resourcesRegister(resource: Resource): Unit = g_resources_register(resource.gioResourcePointer)
+    public fun resourcesRegister(resource: Resource): Unit =
+        g_resources_register(resource.gioResourcePointer.reinterpret())
 
     /**
      * Unregisters the resource from the process-global set of resources.
@@ -3940,7 +3949,8 @@ public object Gio {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun resourcesUnregister(resource: Resource): Unit = g_resources_unregister(resource.gioResourcePointer)
+    public fun resourcesUnregister(resource: Resource): Unit =
+        g_resources_unregister(resource.gioResourcePointer.reinterpret())
 
     /**
      * Gets the default system schema source.
@@ -3984,7 +3994,7 @@ public object Gio {
             `object`?.gPointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer(),
-            error.glibErrorPointer
+            error.glibErrorPointer.reinterpret()
         )
 
     /**
@@ -4007,7 +4017,7 @@ public object Gio {
      * @since 2.66
      */
     @GioVersion2_66
-    public fun tlsChannelBindingErrorQuark(): UInt = g_tls_channel_binding_error_quark()
+    public fun tlsChannelBindingErrorQuark(): Quark = g_tls_channel_binding_error_quark()
 
     /**
      * Creates a new #GTlsClientConnection wrapping @base_io_stream (which
@@ -4057,7 +4067,7 @@ public object Gio {
      * @since 2.28
      */
     @GioVersion2_28
-    public fun tlsErrorQuark(): UInt = g_tls_error_quark()
+    public fun tlsErrorQuark(): Quark = g_tls_error_quark()
 
     /**
      * Creates a new #GTlsFileDatabase which uses anchor certificate authorities
@@ -4187,7 +4197,11 @@ public object Gio {
     public fun unixMountCompare(
         mount1: UnixMountEntry,
         mount2: UnixMountEntry,
-    ): Int = g_unix_mount_compare(mount1.gioUnixMountEntryPointer, mount2.gioUnixMountEntryPointer)
+    ): Int =
+        g_unix_mount_compare(
+            mount1.gioUnixMountEntryPointer.reinterpret(),
+            mount2.gioUnixMountEntryPointer.reinterpret()
+        )
 
     /**
      * Makes a copy of @mount_entry.
@@ -4198,7 +4212,7 @@ public object Gio {
      */
     @GioVersion2_54
     public fun unixMountCopy(mountEntry: UnixMountEntry): UnixMountEntry =
-        g_unix_mount_copy(mountEntry.gioUnixMountEntryPointer)!!.run {
+        g_unix_mount_copy(mountEntry.gioUnixMountEntryPointer.reinterpret())!!.run {
             UnixMountEntry(reinterpret())
         }
 
@@ -4207,7 +4221,8 @@ public object Gio {
      *
      * @param mountEntry a #GUnixMountEntry.
      */
-    public fun unixMountFree(mountEntry: UnixMountEntry): Unit = g_unix_mount_free(mountEntry.gioUnixMountEntryPointer)
+    public fun unixMountFree(mountEntry: UnixMountEntry): Unit =
+        g_unix_mount_free(mountEntry.gioUnixMountEntryPointer.reinterpret())
 
     /**
      * Gets the device path for a unix mount.
@@ -4216,7 +4231,7 @@ public object Gio {
      * @return a string containing the device path.
      */
     public fun unixMountGetDevicePath(mountEntry: UnixMountEntry): String =
-        g_unix_mount_get_device_path(mountEntry.gioUnixMountEntryPointer)?.toKString()
+        g_unix_mount_get_device_path(mountEntry.gioUnixMountEntryPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -4226,7 +4241,8 @@ public object Gio {
      * @return a string containing the file system type.
      */
     public fun unixMountGetFsType(mountEntry: UnixMountEntry): String =
-        g_unix_mount_get_fs_type(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
+        g_unix_mount_get_fs_type(mountEntry.gioUnixMountEntryPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Gets the mount path for a unix mount.
@@ -4235,7 +4251,7 @@ public object Gio {
      * @return the mount path for @mount_entry.
      */
     public fun unixMountGetMountPath(mountEntry: UnixMountEntry): String =
-        g_unix_mount_get_mount_path(mountEntry.gioUnixMountEntryPointer)?.toKString()
+        g_unix_mount_get_mount_path(mountEntry.gioUnixMountEntryPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -4252,7 +4268,7 @@ public object Gio {
      */
     @GioVersion2_58
     public fun unixMountGetOptions(mountEntry: UnixMountEntry): String? =
-        g_unix_mount_get_options(mountEntry.gioUnixMountEntryPointer)?.toKString()
+        g_unix_mount_get_options(mountEntry.gioUnixMountEntryPointer.reinterpret())?.toKString()
 
     /**
      * Gets the root of the mount within the filesystem. This is useful e.g. for
@@ -4268,7 +4284,7 @@ public object Gio {
      */
     @GioVersion2_60
     public fun unixMountGetRootPath(mountEntry: UnixMountEntry): String? =
-        g_unix_mount_get_root_path(mountEntry.gioUnixMountEntryPointer)?.toKString()
+        g_unix_mount_get_root_path(mountEntry.gioUnixMountEntryPointer.reinterpret())?.toKString()
 
     /**
      * Guesses whether a Unix mount can be ejected.
@@ -4277,7 +4293,7 @@ public object Gio {
      * @return true if @mount_entry is deemed to be ejectable.
      */
     public fun unixMountGuessCanEject(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_guess_can_eject(mountEntry.gioUnixMountEntryPointer).asBoolean()
+        g_unix_mount_guess_can_eject(mountEntry.gioUnixMountEntryPointer.reinterpret()).asBoolean()
 
     /**
      * Guesses the icon of a Unix mount.
@@ -4286,7 +4302,7 @@ public object Gio {
      * @return a #GIcon
      */
     public fun unixMountGuessIcon(mountEntry: UnixMountEntry): Icon =
-        g_unix_mount_guess_icon(mountEntry.gioUnixMountEntryPointer)!!.run {
+        g_unix_mount_guess_icon(mountEntry.gioUnixMountEntryPointer.reinterpret())!!.run {
             Icon.wrap(reinterpret())
         }
 
@@ -4299,7 +4315,8 @@ public object Gio {
      *     be freed with g_free()
      */
     public fun unixMountGuessName(mountEntry: UnixMountEntry): String =
-        g_unix_mount_guess_name(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
+        g_unix_mount_guess_name(mountEntry.gioUnixMountEntryPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Guesses whether a Unix mount should be displayed in the UI.
@@ -4308,7 +4325,7 @@ public object Gio {
      * @return true if @mount_entry is deemed to be displayable.
      */
     public fun unixMountGuessShouldDisplay(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_guess_should_display(mountEntry.gioUnixMountEntryPointer).asBoolean()
+        g_unix_mount_guess_should_display(mountEntry.gioUnixMountEntryPointer.reinterpret()).asBoolean()
 
     /**
      * Guesses the symbolic icon of a Unix mount.
@@ -4319,7 +4336,7 @@ public object Gio {
      */
     @GioVersion2_34
     public fun unixMountGuessSymbolicIcon(mountEntry: UnixMountEntry): Icon =
-        g_unix_mount_guess_symbolic_icon(mountEntry.gioUnixMountEntryPointer)!!.run {
+        g_unix_mount_guess_symbolic_icon(mountEntry.gioUnixMountEntryPointer.reinterpret())!!.run {
             Icon.wrap(reinterpret())
         }
 
@@ -4330,7 +4347,7 @@ public object Gio {
      * @return true if @mount_entry is read only.
      */
     public fun unixMountIsReadonly(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_is_readonly(mountEntry.gioUnixMountEntryPointer).asBoolean()
+        g_unix_mount_is_readonly(mountEntry.gioUnixMountEntryPointer.reinterpret()).asBoolean()
 
     /**
      * Checks if a Unix mount is a system mount. This is the Boolean OR of
@@ -4344,7 +4361,7 @@ public object Gio {
      * @return true if the unix mount is for a system path.
      */
     public fun unixMountIsSystemInternal(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_is_system_internal(mountEntry.gioUnixMountEntryPointer).asBoolean()
+        g_unix_mount_is_system_internal(mountEntry.gioUnixMountEntryPointer.reinterpret()).asBoolean()
 
     /**
      * Checks if the unix mount points have changed since a given unix time.
@@ -4891,15 +4908,18 @@ public val DatagramBasedSourceFuncFunc: CPointer<CFunction<(CPointer<GDatagramBa
             ).asGBoolean()
     }.reinterpret()
 
-public val DesktopAppLaunchCallbackFunc: CPointer<CFunction<(CPointer<GDesktopAppInfo>) -> Unit>> =
+public val DesktopAppLaunchCallbackFunc:
+    CPointer<CFunction<(CPointer<GDesktopAppInfo>, GPid) -> Unit>> =
     staticCFunction {
             appinfo: CPointer<GDesktopAppInfo>?,
+            pid: GPid,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(appinfo: DesktopAppInfo) -> Unit>().get().invoke(
+        userData.asStableRef<(appinfo: DesktopAppInfo, pid: Pid) -> Unit>().get().invoke(
             appinfo!!.run {
                 DesktopAppInfo(reinterpret())
-            }
+            },
+            pid
         )
     }.reinterpret()
 
@@ -5479,8 +5499,9 @@ public typealias DatagramBasedSourceFunc = (datagramBased: DatagramBased) -> Boo
  * for each, providing the process ID.
  *
  * - param `appinfo` a #GDesktopAppInfo
+ * - param `pid` Process identifier
  */
-public typealias DesktopAppLaunchCallback = (appinfo: DesktopAppInfo) -> Unit
+public typealias DesktopAppLaunchCallback = (appinfo: DesktopAppInfo, pid: Pid) -> Unit
 
 /**
  * This callback type is used by g_file_measure_disk_usage() to make

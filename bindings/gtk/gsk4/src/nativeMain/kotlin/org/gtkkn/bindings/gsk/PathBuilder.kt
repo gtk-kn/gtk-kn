@@ -113,7 +113,12 @@ public class PathBuilder(
     public fun addCircle(
         center: Point,
         radius: Float,
-    ): Unit = gsk_path_builder_add_circle(gskPathBuilderPointer.reinterpret(), center.graphenePointPointer, radius)
+    ): Unit =
+        gsk_path_builder_add_circle(
+            gskPathBuilderPointer.reinterpret(),
+            center.graphenePointPointer.reinterpret(),
+            radius
+        )
 
     /**
      * Adds the outlines for the glyphs in @layout to the builder.
@@ -133,7 +138,7 @@ public class PathBuilder(
      */
     @GskVersion4_14
     public fun addPath(path: Path): Unit =
-        gsk_path_builder_add_path(gskPathBuilderPointer.reinterpret(), path.gskPathPointer)
+        gsk_path_builder_add_path(gskPathBuilderPointer.reinterpret(), path.gskPathPointer.reinterpret())
 
     /**
      * Adds @rect as a new contour to the path built by the builder.
@@ -148,7 +153,7 @@ public class PathBuilder(
      */
     @GskVersion4_14
     public fun addRect(rect: Rect): Unit =
-        gsk_path_builder_add_rect(gskPathBuilderPointer.reinterpret(), rect.grapheneRectPointer)
+        gsk_path_builder_add_rect(gskPathBuilderPointer.reinterpret(), rect.grapheneRectPointer.reinterpret())
 
     /**
      * Appends all of @path to the builder, in reverse order.
@@ -158,7 +163,7 @@ public class PathBuilder(
      */
     @GskVersion4_14
     public fun addReversePath(path: Path): Unit =
-        gsk_path_builder_add_reverse_path(gskPathBuilderPointer.reinterpret(), path.gskPathPointer)
+        gsk_path_builder_add_reverse_path(gskPathBuilderPointer.reinterpret(), path.gskPathPointer.reinterpret())
 
     /**
      * Adds @rect as a new contour to the path built in @self.
@@ -170,7 +175,7 @@ public class PathBuilder(
      */
     @GskVersion4_14
     public fun addRoundedRect(rect: RoundedRect): Unit =
-        gsk_path_builder_add_rounded_rect(gskPathBuilderPointer.reinterpret(), rect.gskRoundedRectPointer)
+        gsk_path_builder_add_rounded_rect(gskPathBuilderPointer.reinterpret(), rect.gskRoundedRectPointer.reinterpret())
 
     /**
      * Adds to @self the segment of @path from @start to @end.
@@ -196,9 +201,9 @@ public class PathBuilder(
     ): Unit =
         gsk_path_builder_add_segment(
             gskPathBuilderPointer.reinterpret(),
-            path.gskPathPointer,
-            start.gskPathPointPointer,
-            end.gskPathPointPointer
+            path.gskPathPointer.reinterpret(),
+            start.gskPathPointPointer.reinterpret(),
+            end.gskPathPointPointer.reinterpret()
         )
 
     /**

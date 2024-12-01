@@ -58,7 +58,7 @@ public class PathPoint(
      */
     @GskVersion4_14
     public fun compare(point2: PathPoint): Int =
-        gsk_path_point_compare(gskPathPointPointer.reinterpret(), point2.gskPathPointPointer)
+        gsk_path_point_compare(gskPathPointPointer.reinterpret(), point2.gskPathPointPointer.reinterpret())
 
     public fun copy(): PathPoint =
         gsk_path_point_copy(gskPathPointPointer.reinterpret())!!.run {
@@ -81,7 +81,7 @@ public class PathPoint(
      */
     @GskVersion4_14
     public fun equal(point2: PathPoint): Boolean =
-        gsk_path_point_equal(gskPathPointPointer.reinterpret(), point2.gskPathPointPointer).asBoolean()
+        gsk_path_point_equal(gskPathPointPointer.reinterpret(), point2.gskPathPointPointer.reinterpret()).asBoolean()
 
     public fun free(): Unit = gsk_path_point_free(gskPathPointPointer.reinterpret())
 
@@ -122,9 +122,9 @@ public class PathPoint(
     ): Float =
         gsk_path_point_get_curvature(
             gskPathPointPointer.reinterpret(),
-            path.gskPathPointer,
+            path.gskPathPointer.reinterpret(),
             direction.nativeValue,
-            center?.graphenePointPointer
+            center?.graphenePointPointer?.reinterpret()
         )
 
     /**
@@ -137,7 +137,7 @@ public class PathPoint(
      */
     @GskVersion4_14
     public fun getDistance(measure: PathMeasure): Float =
-        gsk_path_point_get_distance(gskPathPointPointer.reinterpret(), measure.gskPathMeasurePointer)
+        gsk_path_point_get_distance(gskPathPointPointer.reinterpret(), measure.gskPathMeasurePointer.reinterpret())
 
     /**
      * Gets the position of the point.
@@ -154,8 +154,8 @@ public class PathPoint(
     ): Unit =
         gsk_path_point_get_position(
             gskPathPointPointer.reinterpret(),
-            path.gskPathPointer,
-            position.graphenePointPointer
+            path.gskPathPointer.reinterpret(),
+            position.graphenePointPointer.reinterpret()
         )
 
     /**
@@ -176,7 +176,11 @@ public class PathPoint(
         path: Path,
         direction: PathDirection,
     ): Float =
-        gsk_path_point_get_rotation(gskPathPointPointer.reinterpret(), path.gskPathPointer, direction.nativeValue)
+        gsk_path_point_get_rotation(
+            gskPathPointPointer.reinterpret(),
+            path.gskPathPointer.reinterpret(),
+            direction.nativeValue
+        )
 
     /**
      * Gets the tangent of the path at the point.
@@ -208,9 +212,9 @@ public class PathPoint(
     ): Unit =
         gsk_path_point_get_tangent(
             gskPathPointPointer.reinterpret(),
-            path.gskPathPointer,
+            path.gskPathPointer.reinterpret(),
             direction.nativeValue,
-            tangent.grapheneVec2Pointer
+            tangent.grapheneVec2Pointer.reinterpret()
         )
 
     public companion object : RecordCompanion<PathPoint, GskPathPoint> {

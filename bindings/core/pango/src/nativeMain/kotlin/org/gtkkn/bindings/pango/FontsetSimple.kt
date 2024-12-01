@@ -36,7 +36,7 @@ public open class FontsetSimple(
      */
     public constructor(
         language: Language,
-    ) : this(pango_fontset_simple_new(language.pangoLanguagePointer)!!.reinterpret())
+    ) : this(pango_fontset_simple_new(language.pangoLanguagePointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds a font to the fontset.

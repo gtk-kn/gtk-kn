@@ -315,7 +315,12 @@ public open class Display(
     public open fun getSetting(
         name: String,
         `value`: Value,
-    ): Boolean = gdk_display_get_setting(gdkDisplayPointer.reinterpret(), name, `value`.gobjectValuePointer).asBoolean()
+    ): Boolean =
+        gdk_display_get_setting(
+            gdkDisplayPointer.reinterpret(),
+            name,
+            `value`.gobjectValuePointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Gets the startup notification ID for a Wayland display, or null

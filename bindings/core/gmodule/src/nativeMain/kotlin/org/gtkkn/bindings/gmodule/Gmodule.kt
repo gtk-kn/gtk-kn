@@ -9,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.GlibException
 import org.gtkkn.native.gmodule.g_module_build_path
@@ -18,7 +19,6 @@ import org.gtkkn.native.gmodule.g_module_supported
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -70,7 +70,7 @@ public object Gmodule {
      */
     public fun moduleError(): String = g_module_error()?.toKString() ?: error("Expected not null string")
 
-    public fun moduleErrorQuark(): UInt = g_module_error_quark()
+    public fun moduleErrorQuark(): Quark = g_module_error_quark()
 
     /**
      * Checks if modules are supported on the current platform.

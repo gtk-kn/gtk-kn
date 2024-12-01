@@ -94,7 +94,7 @@ public class Rectangle(
      * @return true if the rectangles are equal.
      */
     public fun equal(rect2: Rectangle): Boolean =
-        gdk_rectangle_equal(gdkRectanglePointer.reinterpret(), rect2.gdkRectanglePointer).asBoolean()
+        gdk_rectangle_equal(gdkRectanglePointer.reinterpret(), rect2.gdkRectanglePointer.reinterpret()).asBoolean()
 
     /**
      * Calculates the intersection of two rectangles.
@@ -116,8 +116,8 @@ public class Rectangle(
     ): Boolean =
         gdk_rectangle_intersect(
             gdkRectanglePointer.reinterpret(),
-            src2.gdkRectanglePointer,
-            dest?.gdkRectanglePointer
+            src2.gdkRectanglePointer.reinterpret(),
+            dest?.gdkRectanglePointer?.reinterpret()
         ).asBoolean()
 
     /**
@@ -136,7 +136,12 @@ public class Rectangle(
     public fun union(
         src2: Rectangle,
         dest: Rectangle,
-    ): Unit = gdk_rectangle_union(gdkRectanglePointer.reinterpret(), src2.gdkRectanglePointer, dest.gdkRectanglePointer)
+    ): Unit =
+        gdk_rectangle_union(
+            gdkRectanglePointer.reinterpret(),
+            src2.gdkRectanglePointer.reinterpret(),
+            dest.gdkRectanglePointer.reinterpret()
+        )
 
     public companion object : RecordCompanion<Rectangle, GdkRectangle> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Rectangle = Rectangle(pointer.reinterpret())

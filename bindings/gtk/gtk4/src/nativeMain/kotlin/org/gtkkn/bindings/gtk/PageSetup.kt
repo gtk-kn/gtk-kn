@@ -144,7 +144,7 @@ public open class PageSetup(
      */
     public constructor(
         variant: Variant,
-    ) : this(gtk_page_setup_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
+    ) : this(gtk_page_setup_new_from_gvariant(variant.glibVariantPointer.reinterpret())!!.reinterpret())
 
     /**
      * Reads the page setup from the group @group_name in the key file
@@ -162,7 +162,8 @@ public open class PageSetup(
     public constructor(keyFile: KeyFile, groupName: String? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = gtk_page_setup_new_from_key_file(keyFile.glibKeyFilePointer, groupName, gError.ptr)
+            val gResult =
+                gtk_page_setup_new_from_key_file(keyFile.glibKeyFilePointer.reinterpret(), groupName, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -325,7 +326,7 @@ public open class PageSetup(
             val gResult =
                 gtk_page_setup_load_key_file(
                     gtkPageSetupPointer.reinterpret(),
-                    keyFile.glibKeyFilePointer,
+                    keyFile.glibKeyFilePointer.reinterpret(),
                     groupName,
                     gError.ptr
                 ).asBoolean()
@@ -375,7 +376,7 @@ public open class PageSetup(
      * @param size a `GtkPaperSize`
      */
     public open fun setPaperSize(size: PaperSize): kotlin.Unit =
-        gtk_page_setup_set_paper_size(gtkPageSetupPointer.reinterpret(), size.gtkPaperSizePointer)
+        gtk_page_setup_set_paper_size(gtkPageSetupPointer.reinterpret(), size.gtkPaperSizePointer.reinterpret())
 
     /**
      * Sets the paper size of the `GtkPageSetup` and modifies
@@ -384,7 +385,10 @@ public open class PageSetup(
      * @param size a `GtkPaperSize`
      */
     public open fun setPaperSizeAndDefaultMargins(size: PaperSize): kotlin.Unit =
-        gtk_page_setup_set_paper_size_and_default_margins(gtkPageSetupPointer.reinterpret(), size.gtkPaperSizePointer)
+        gtk_page_setup_set_paper_size_and_default_margins(
+            gtkPageSetupPointer.reinterpret(),
+            size.gtkPaperSizePointer.reinterpret()
+        )
 
     /**
      * Sets the right margin of the `GtkPageSetup`.
@@ -446,7 +450,11 @@ public open class PageSetup(
         keyFile: KeyFile,
         groupName: String? = null,
     ): kotlin.Unit =
-        gtk_page_setup_to_key_file(gtkPageSetupPointer.reinterpret(), keyFile.glibKeyFilePointer, groupName)
+        gtk_page_setup_to_key_file(
+            gtkPageSetupPointer.reinterpret(),
+            keyFile.glibKeyFilePointer.reinterpret(),
+            groupName
+        )
 
     public companion object : TypeCompanion<PageSetup> {
         override val type: GeneratedClassKGType<PageSetup> =

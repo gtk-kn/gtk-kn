@@ -2,10 +2,10 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.native.webkit.WebKitUserContentFilterError
 import org.gtkkn.native.webkit.webkit_user_content_filter_error_quark
-import kotlin.UInt
 
 /**
  * Errors that can occur while compiling content filters.
@@ -39,7 +39,7 @@ public enum class UserContentFilterError(
          *
          * @return user content filter error domain.
          */
-        public fun quark(): UInt = webkit_user_content_filter_error_quark()
+        public fun quark(): Quark = webkit_user_content_filter_error_quark()
 
         public fun fromErrorOrNull(error: Error): UserContentFilterError? =
             if (error.domain != quark()) {

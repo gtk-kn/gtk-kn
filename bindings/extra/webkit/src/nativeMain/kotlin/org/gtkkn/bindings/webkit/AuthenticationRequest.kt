@@ -81,7 +81,7 @@ public class AuthenticationRequest(
     public fun authenticate(credential: Credential? = null): Unit =
         webkit_authentication_request_authenticate(
             webkitAuthenticationRequestPointer.reinterpret(),
-            credential?.webkitCredentialPointer
+            credential?.webkitCredentialPointer?.reinterpret()
         )
 
     /**
@@ -258,7 +258,7 @@ public class AuthenticationRequest(
     public fun setProposedCredential(credential: Credential): Unit =
         webkit_authentication_request_set_proposed_credential(
             webkitAuthenticationRequestPointer.reinterpret(),
-            credential.webkitCredentialPointer
+            credential.webkitCredentialPointer.reinterpret()
         )
 
     /**

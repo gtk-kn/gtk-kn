@@ -172,7 +172,11 @@ public open class EntryRow(
         @AdwVersion1_2
         set(
             attributes
-        ) = adw_entry_row_set_attributes(adwEntryRowPointer.reinterpret(), attributes?.pangoAttrListPointer)
+        ) =
+            adw_entry_row_set_attributes(
+                adwEntryRowPointer.reinterpret(),
+                attributes?.pangoAttrListPointer?.reinterpret()
+            )
 
     /**
      * Whether to suggest emoji replacements on the entry row.
@@ -477,7 +481,7 @@ public open class EntryRow(
      */
     @AdwVersion1_2
     public open fun setAttributes(attributes: AttrList? = null): Unit =
-        adw_entry_row_set_attributes(adwEntryRowPointer.reinterpret(), attributes?.pangoAttrListPointer)
+        adw_entry_row_set_attributes(adwEntryRowPointer.reinterpret(), attributes?.pangoAttrListPointer?.reinterpret())
 
     /**
      * Sets whether to suggest emoji replacements on @self.

@@ -338,7 +338,7 @@ public class NetworkSession(
         webkit_network_session_set_proxy_settings(
             webkitNetworkSessionPointer.reinterpret(),
             proxyMode.nativeValue,
-            proxySettings?.webkitNetworkProxySettingsPointer
+            proxySettings?.webkitNetworkProxySettingsPointer?.reinterpret()
         )
 
     /**
@@ -413,7 +413,9 @@ public class NetworkSession(
          */
         @WebKitVersion2_40
         public fun setMemoryPressureSettings(settings: MemoryPressureSettings): Unit =
-            webkit_network_session_set_memory_pressure_settings(settings.webkitMemoryPressureSettingsPointer)
+            webkit_network_session_set_memory_pressure_settings(
+                settings.webkitMemoryPressureSettingsPointer.reinterpret()
+            )
     }
 }
 

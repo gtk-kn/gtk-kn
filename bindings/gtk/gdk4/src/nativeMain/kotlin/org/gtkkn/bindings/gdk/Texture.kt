@@ -143,7 +143,7 @@ public open class Texture(
     public constructor(bytes: Bytes) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = gdk_texture_new_from_bytes(bytes.glibBytesPointer, gError.ptr)
+            val gResult = gdk_texture_new_from_bytes(bytes.glibBytesPointer.reinterpret(), gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }

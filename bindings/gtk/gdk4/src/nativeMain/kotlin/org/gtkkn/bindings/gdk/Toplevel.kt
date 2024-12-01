@@ -223,7 +223,7 @@ public interface Toplevel :
      * @param layout the `GdkToplevelLayout` object used to layout
      */
     public fun present(layout: ToplevelLayout): Unit =
-        gdk_toplevel_present(gdkToplevelPointer.reinterpret(), layout.gdkToplevelLayoutPointer)
+        gdk_toplevel_present(gdkToplevelPointer.reinterpret(), layout.gdkToplevelLayoutPointer.reinterpret())
 
     /**
      * Restore default system keyboard shortcuts which were previously
@@ -267,11 +267,10 @@ public interface Toplevel :
      *
      * Note that some platforms don't support surface icons.
      *
-     * @param surfaces
-     *   A list of textures to use as icon, of different sizes
+     * @param surfaces A list of textures to use as icon, of different sizes
      */
     public fun setIconList(surfaces: List): Unit =
-        gdk_toplevel_set_icon_list(gdkToplevelPointer.reinterpret(), surfaces.glibListPointer)
+        gdk_toplevel_set_icon_list(gdkToplevelPointer.reinterpret(), surfaces.glibListPointer.reinterpret())
 
     /**
      * Sets the toplevel to be modal.

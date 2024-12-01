@@ -44,8 +44,8 @@ public class RegionIter(
     ): Boolean =
         gtk_source_region_iter_get_subregion(
             gtksourceRegionIterPointer.reinterpret(),
-            start?.gtkTextIterPointer,
-            end?.gtkTextIterPointer
+            start?.gtkTextIterPointer?.reinterpret(),
+            end?.gtkTextIterPointer?.reinterpret()
         ).asBoolean()
 
     /**

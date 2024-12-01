@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.webkit.WebKitFaviconDatabaseError
 import org.gtkkn.native.webkit.webkit_favicon_database_error_quark
-import kotlin.UInt
 
 /**
  * Enum values used to denote the various errors related to the #WebKitFaviconDatabase.
@@ -42,7 +42,7 @@ public enum class FaviconDatabaseError(
          *
          * @return favicon database error domain.
          */
-        public fun quark(): UInt = webkit_favicon_database_error_quark()
+        public fun quark(): Quark = webkit_favicon_database_error_quark()
 
         public fun fromErrorOrNull(error: Error): FaviconDatabaseError? =
             if (error.domain != quark()) {

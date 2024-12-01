@@ -127,7 +127,10 @@ public open class ContentDeserializer(
      * @param error a `GError`
      */
     public open fun returnError(error: Error): Unit =
-        gdk_content_deserializer_return_error(gdkContentDeserializerPointer.reinterpret(), error.glibErrorPointer)
+        gdk_content_deserializer_return_error(
+            gdkContentDeserializerPointer.reinterpret(),
+            error.glibErrorPointer.reinterpret()
+        )
 
     /**
      * Indicate that the deserialization has been successfully completed.

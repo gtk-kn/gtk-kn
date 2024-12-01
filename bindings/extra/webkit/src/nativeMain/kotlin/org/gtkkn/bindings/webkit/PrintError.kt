@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.webkit.WebKitPrintError
 import org.gtkkn.native.webkit.webkit_print_error_quark
-import kotlin.UInt
 
 /**
  * Enum values used to denote the various print errors.
@@ -42,7 +42,7 @@ public enum class PrintError(
          *
          * @return print error domain.
          */
-        public fun quark(): UInt = webkit_print_error_quark()
+        public fun quark(): Quark = webkit_print_error_quark()
 
         public fun fromErrorOrNull(error: Error): PrintError? =
             if (error.domain != quark()) {

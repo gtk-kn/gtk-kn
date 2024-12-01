@@ -107,7 +107,7 @@ public class UserMessage(
     public constructor(
         name: String,
         parameters: Variant? = null,
-    ) : this(webkit_user_message_new(name, parameters?.glibVariantPointer)!!.reinterpret())
+    ) : this(webkit_user_message_new(name, parameters?.glibVariantPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Create a new #WebKitUserMessage including also a list of UNIX file descriptors to be sent.
@@ -125,7 +125,7 @@ public class UserMessage(
     ) : this(
         webkit_user_message_new_with_fd_list(
             name,
-            parameters?.glibVariantPointer,
+            parameters?.glibVariantPointer?.reinterpret(),
             fdList?.gioUnixFDListPointer?.reinterpret()
         )!!.reinterpret()
     )

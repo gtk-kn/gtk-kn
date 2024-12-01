@@ -3,9 +3,9 @@ package org.gtkkn.bindings.gdk
 
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gdk.GdkDmabufError
 import org.gtkkn.native.gdk.gdk_dmabuf_error_quark
-import kotlin.UInt
 
 /**
  * Error enumeration for `GdkDmabufTexture`.
@@ -42,7 +42,7 @@ public enum class DmabufError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = gdk_dmabuf_error_quark()
+        public fun quark(): Quark = gdk_dmabuf_error_quark()
 
         public fun fromErrorOrNull(error: Error): DmabufError? =
             if (error.domain != quark()) {

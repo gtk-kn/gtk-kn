@@ -206,7 +206,7 @@ public open class GLShader(
      */
     public constructor(
         sourcecode: Bytes,
-    ) : this(gsk_gl_shader_new_from_bytes(sourcecode.glibBytesPointer)!!.reinterpret())
+    ) : this(gsk_gl_shader_new_from_bytes(sourcecode.glibBytesPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a `GskGLShader` that will render pixels using the specified code.
@@ -272,7 +272,12 @@ public open class GLShader(
     public open fun getArgBool(
         args: Bytes,
         idx: Int,
-    ): Boolean = gsk_gl_shader_get_arg_bool(gskGLShaderPointer.reinterpret(), args.glibBytesPointer, idx).asBoolean()
+    ): Boolean =
+        gsk_gl_shader_get_arg_bool(
+            gskGLShaderPointer.reinterpret(),
+            args.glibBytesPointer.reinterpret(),
+            idx
+        ).asBoolean()
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -286,7 +291,7 @@ public open class GLShader(
     public open fun getArgFloat(
         args: Bytes,
         idx: Int,
-    ): Float = gsk_gl_shader_get_arg_float(gskGLShaderPointer.reinterpret(), args.glibBytesPointer, idx)
+    ): Float = gsk_gl_shader_get_arg_float(gskGLShaderPointer.reinterpret(), args.glibBytesPointer.reinterpret(), idx)
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -300,7 +305,7 @@ public open class GLShader(
     public open fun getArgInt(
         args: Bytes,
         idx: Int,
-    ): Int = gsk_gl_shader_get_arg_int(gskGLShaderPointer.reinterpret(), args.glibBytesPointer, idx)
+    ): Int = gsk_gl_shader_get_arg_int(gskGLShaderPointer.reinterpret(), args.glibBytesPointer.reinterpret(), idx)
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -314,7 +319,7 @@ public open class GLShader(
     public open fun getArgUint(
         args: Bytes,
         idx: Int,
-    ): UInt = gsk_gl_shader_get_arg_uint(gskGLShaderPointer.reinterpret(), args.glibBytesPointer, idx)
+    ): UInt = gsk_gl_shader_get_arg_uint(gskGLShaderPointer.reinterpret(), args.glibBytesPointer.reinterpret(), idx)
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -332,9 +337,9 @@ public open class GLShader(
     ): Unit =
         gsk_gl_shader_get_arg_vec2(
             gskGLShaderPointer.reinterpret(),
-            args.glibBytesPointer,
+            args.glibBytesPointer.reinterpret(),
             idx,
-            outValue.grapheneVec2Pointer
+            outValue.grapheneVec2Pointer.reinterpret()
         )
 
     /**
@@ -353,9 +358,9 @@ public open class GLShader(
     ): Unit =
         gsk_gl_shader_get_arg_vec3(
             gskGLShaderPointer.reinterpret(),
-            args.glibBytesPointer,
+            args.glibBytesPointer.reinterpret(),
             idx,
-            outValue.grapheneVec3Pointer
+            outValue.grapheneVec3Pointer.reinterpret()
         )
 
     /**
@@ -374,9 +379,9 @@ public open class GLShader(
     ): Unit =
         gsk_gl_shader_get_arg_vec4(
             gskGLShaderPointer.reinterpret(),
-            args.glibBytesPointer,
+            args.glibBytesPointer.reinterpret(),
             idx,
-            outValue.grapheneVec4Pointer
+            outValue.grapheneVec4Pointer.reinterpret()
         )
 
     /**

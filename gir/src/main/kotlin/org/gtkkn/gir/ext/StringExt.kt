@@ -1,25 +1,93 @@
 /*
  * Copyright (c) 2024 gtk-kn
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * This file is part of gtk-kn.
+ * gtk-kn is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * gtk-kn is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
 package org.gtkkn.gir.ext
 
+import java.util.Locale
+
+fun String.toCamelCase(): String {
+    if (isCamelCase()) {
+        return this
+    }
+    if (isSnakeCase()) {
+        return snakeToCamelCase()
+    }
+    if (isPascalCase()) {
+        return replaceFirstChar { it.lowercase(Locale.ROOT) }
+    }
+    error("Unrecognized case '$this'")
+}
+
+fun String.toPascalCase(): String {
+    if (isPascalCase()) {
+        return this
+    }
+    if (isSnakeCase()) {
+        return snakeToPascalCase()
+    }
+    if (isCamelCase()) {
+        return replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+    }
+    error("Unrecognized case '$this'")
+}
+
+fun String.isCamelCase(): Boolean = matches(Regex("^[a-z]+(?:[A-Z][a-z0-9]*)*\$"))
+
+fun String.isPascalCase(): Boolean = matches(Regex("^[A-Z][a-zA-Z0-9]*\$"))
+
+fun String.isSnakeCase(): Boolean = matches(Regex("[a-z0-9]+(_[a-z0-9]+)*"))
+
+private fun String.snakeToPascalCase(): String {
+    val words = this.split("_").map { str ->
+        str.replaceFirstChar { char ->
+            if (char.isLowerCase()) char.titlecase(Locale.ROOT) else char.toString()
+        }
+    }
+    return words.joinToString("")
+}
+
+private fun String.snakeToCamelCase(): String {
+    val words = this.split("_").mapIndexed { index, str ->
+        if (index > 0) {
+            str.replaceFirstChar { char ->
+                if (char.isLowerCase()) {
+                    char.titlecase(Locale.ROOT)
+                } else {
+                    char.toString()
+                }
+            }
+        } else {
+            str
+        }
+    }
+    return words.joinToString("")
+}
+
 fun String.capitalized() = replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+
+/**
+ * Escapes the string by doubling every backslash.
+ *
+ * @return A new string with all backslashes doubled.
+ */
+fun String.escape(): String = this.replace("\\", "\\\\")
+
+/**
+ * Compresses the string by converting doubled backslashes back to single backslashes.
+ *
+ * @return A new string with doubled backslashes replaced by single backslashes.
+ */
+fun String.compress(): String = this.replace("\\\\", "\\")

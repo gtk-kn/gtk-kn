@@ -111,7 +111,7 @@ public class TypeInterface(
             instanceClass: TypeClass,
             ifaceType: ULong,
         ): TypeInterface =
-            g_type_interface_peek(instanceClass.gobjectTypeClassPointer, ifaceType)!!.run {
+            g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
                 TypeInterface(reinterpret())
             }
 

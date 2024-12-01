@@ -19,31 +19,39 @@ package org.gtkkn.gir.model
 /**
  * Return value of a callable.
  *
- * @param introspectable true if the element is introspectable. It doesn't exist in the bindings, due in general to
- *                          missing information in the annotations in the original C code.
- * @param nullable true if the parameter can have a null value.
- * @param closure the parameter is a user_data for callbacks. The value points to a different parameter that is the
- *                   actual callback.
- * @param scope indicates the lifetime of the call.
- * @param destroy the parameter is a destroy_data for callbacks. The value points to a different parameter that is
- *                   the actual callback.
- * @param skip true if the parameter can be omitted from the introspected output.
- * @param allowNone deprecated. Replaced by nullable and optional.
- * @param transferOwnership an [GirTransferOwnership].
- * @param type a [GirAnyType].
- * @param docs a [GirDocElements].
+ * @constructor Creates a GirReturnValue.
+ * @param nullable Indicates if the return value can be null.
+ * @param allowNone Deprecated. Indicates if the return value allows a `None` value (replaced by nullable).
+ * @property introspectable Indicates if the return value is introspectable.
+ * @property closure Indicates that this value is user_data for a callback.
+ * @property scope Specifies the lifetime of the callback associated with the return value.
+ * @property destroy Indicates that this value is destroy_data for a callback.
+ * @property skip Indicates if the return value should be omitted from introspected output.
+ * @property transferOwnership Specifies ownership transfer for the return value.
+ * @property doc Documentation elements.
+ * @property annotations Annotations associated with the return value.
+ * @property type The type of the return value.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirReturnValue(
-    val introspectable: Boolean?,
-    private val nullable: Boolean?,
-    val closure: Int?,
-    val scope: GirScope?,
-    val destroy: Int?,
-    val skip: Boolean?,
-    private val allowNone: Boolean?,
-    val transferOwnership: GirTransferOwnership?,
+    private val nullable: Boolean? = null,
+    private val allowNone: Boolean? = null,
+    val introspectable: Boolean? = null,
+    val closure: Int? = null,
+    val scope: String? = null,
+    val destroy: Int? = null,
+    val skip: Boolean? = null,
+    val transferOwnership: GirTransferOwnership? = null,
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
     val type: GirAnyType,
-    val docs: GirDocElements,
-) {
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
     fun isNullable(): Boolean = nullable == true || allowNone == true
+    override fun initializeChildren(namespace: GirNamespace) {
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        type.initialize(this, namespace)
+    }
 }

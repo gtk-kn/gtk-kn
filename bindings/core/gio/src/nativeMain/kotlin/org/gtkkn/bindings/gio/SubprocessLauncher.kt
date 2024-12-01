@@ -148,8 +148,7 @@ public open class SubprocessLauncher(
      * On UNIX, all strings in this array can be arbitrary byte strings.
      * On Windows, they should be in UTF-8.
      *
-     * @param env
-     *     the replacement environment
+     * @param env the replacement environment
      * @since 2.40
      */
     @GioVersion2_40

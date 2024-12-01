@@ -241,8 +241,8 @@ public interface SelectionModel :
     ): Boolean =
         gtk_selection_model_set_selection(
             gtkSelectionModelPointer.reinterpret(),
-            selected.gtkBitsetPointer,
-            mask.gtkBitsetPointer
+            selected.gtkBitsetPointer.reinterpret(),
+            mask.gtkBitsetPointer.reinterpret()
         ).asBoolean()
 
     /**

@@ -72,7 +72,7 @@ public class AuthManager(
     ): Unit =
         soup_auth_manager_use_auth(
             soupAuthManagerPointer.reinterpret(),
-            uri.glibUriPointer,
+            uri.glibUriPointer.reinterpret(),
             auth.soupAuthPointer.reinterpret()
         )
 

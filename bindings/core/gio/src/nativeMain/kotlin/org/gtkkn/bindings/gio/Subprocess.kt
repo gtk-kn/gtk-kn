@@ -173,7 +173,7 @@ public open class Subprocess(
     ): Unit =
         g_subprocess_communicate_async(
             gioSubprocessPointer.reinterpret(),
-            stdinBuf?.glibBytesPointer,
+            stdinBuf?.glibBytesPointer?.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()

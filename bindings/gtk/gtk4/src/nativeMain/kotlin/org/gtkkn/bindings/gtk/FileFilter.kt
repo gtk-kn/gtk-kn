@@ -150,7 +150,7 @@ public open class FileFilter(
      */
     public constructor(
         variant: Variant,
-    ) : this(gtk_file_filter_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
+    ) : this(gtk_file_filter_new_from_gvariant(variant.glibVariantPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds a rule allowing a given mime type to @filter.

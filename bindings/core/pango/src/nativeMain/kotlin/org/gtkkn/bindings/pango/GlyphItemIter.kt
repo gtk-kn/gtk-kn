@@ -164,7 +164,7 @@ public class GlyphItemIter(
     ): Boolean =
         pango_glyph_item_iter_init_end(
             pangoGlyphItemIterPointer.reinterpret(),
-            glyphItem.pangoGlyphItemPointer,
+            glyphItem.pangoGlyphItemPointer.reinterpret(),
             text
         ).asBoolean()
 
@@ -186,7 +186,7 @@ public class GlyphItemIter(
     ): Boolean =
         pango_glyph_item_iter_init_start(
             pangoGlyphItemIterPointer.reinterpret(),
-            glyphItem.pangoGlyphItemPointer,
+            glyphItem.pangoGlyphItemPointer.reinterpret(),
             text
         ).asBoolean()
 

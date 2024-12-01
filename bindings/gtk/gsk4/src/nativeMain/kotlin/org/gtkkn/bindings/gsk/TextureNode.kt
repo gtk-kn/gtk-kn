@@ -38,7 +38,12 @@ public open class TextureNode(
     public constructor(
         texture: Texture,
         bounds: Rect,
-    ) : this(gsk_texture_node_new(texture.gdkTexturePointer.reinterpret(), bounds.grapheneRectPointer)!!.reinterpret())
+    ) : this(
+        gsk_texture_node_new(
+            texture.gdkTexturePointer.reinterpret(),
+            bounds.grapheneRectPointer.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Retrieves the `GdkTexture` used when creating this `GskRenderNode`.

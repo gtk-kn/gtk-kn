@@ -43,7 +43,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `y0_`: y0_: Out parameter is not supported
+ * - parameter `y0`: y0: Out parameter is not supported
  * - method `get_run`: Return type LayoutRun is unsupported
  * - method `get_run_readonly`: Return type LayoutRun is unsupported
  */
@@ -98,7 +98,10 @@ public class LayoutIter(
      *   logical extents
      */
     public fun getCharExtents(logicalRect: Rectangle): Unit =
-        pango_layout_iter_get_char_extents(pangoLayoutIterPointer.reinterpret(), logicalRect.pangoRectanglePointer)
+        pango_layout_iter_get_char_extents(
+            pangoLayoutIterPointer.reinterpret(),
+            logicalRect.pangoRectanglePointer.reinterpret()
+        )
 
     /**
      * Gets the extents of the current cluster, in layout coordinates.
@@ -114,8 +117,8 @@ public class LayoutIter(
     ): Unit =
         pango_layout_iter_get_cluster_extents(
             pangoLayoutIterPointer.reinterpret(),
-            inkRect?.pangoRectanglePointer,
-            logicalRect?.pangoRectanglePointer
+            inkRect?.pangoRectanglePointer?.reinterpret(),
+            logicalRect?.pangoRectanglePointer?.reinterpret()
         )
 
     /**
@@ -154,8 +157,8 @@ public class LayoutIter(
     ): Unit =
         pango_layout_iter_get_layout_extents(
             pangoLayoutIterPointer.reinterpret(),
-            inkRect?.pangoRectanglePointer,
-            logicalRect?.pangoRectanglePointer
+            inkRect?.pangoRectanglePointer?.reinterpret(),
+            logicalRect?.pangoRectanglePointer?.reinterpret()
         )
 
     /**
@@ -189,8 +192,8 @@ public class LayoutIter(
     ): Unit =
         pango_layout_iter_get_line_extents(
             pangoLayoutIterPointer.reinterpret(),
-            inkRect?.pangoRectanglePointer,
-            logicalRect?.pangoRectanglePointer
+            inkRect?.pangoRectanglePointer?.reinterpret(),
+            logicalRect?.pangoRectanglePointer?.reinterpret()
         )
 
     /**
@@ -238,8 +241,8 @@ public class LayoutIter(
     ): Unit =
         pango_layout_iter_get_run_extents(
             pangoLayoutIterPointer.reinterpret(),
-            inkRect?.pangoRectanglePointer,
-            logicalRect?.pangoRectanglePointer
+            inkRect?.pangoRectanglePointer?.reinterpret(),
+            logicalRect?.pangoRectanglePointer?.reinterpret()
         )
 
     /**

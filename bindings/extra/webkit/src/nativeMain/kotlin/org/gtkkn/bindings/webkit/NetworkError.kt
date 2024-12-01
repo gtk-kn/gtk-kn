@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.webkit.WebKitNetworkError
 import org.gtkkn.native.webkit.webkit_network_error_quark
-import kotlin.UInt
 
 /**
  * Enum values used to denote the various network errors.
@@ -54,7 +54,7 @@ public enum class NetworkError(
          *
          * @return network error domain.
          */
-        public fun quark(): UInt = webkit_network_error_quark()
+        public fun quark(): Quark = webkit_network_error_quark()
 
         public fun fromErrorOrNull(error: Error): NetworkError? =
             if (error.domain != quark()) {

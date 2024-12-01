@@ -127,7 +127,10 @@ public open class ContentSerializer(
      * @param error a `GError`
      */
     public open fun returnError(error: Error): Unit =
-        gdk_content_serializer_return_error(gdkContentSerializerPointer.reinterpret(), error.glibErrorPointer)
+        gdk_content_serializer_return_error(
+            gdkContentSerializerPointer.reinterpret(),
+            error.glibErrorPointer.reinterpret()
+        )
 
     /**
      * Indicate that the serialization has been successfully completed.

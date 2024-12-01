@@ -55,7 +55,7 @@ public class Plane(
      */
     @GrapheneVersion1_2
     public fun distance(point: Point3D): Float =
-        graphene_plane_distance(graphenePlanePointer.reinterpret(), point.graphenePoint3DPointer)
+        graphene_plane_distance(graphenePlanePointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())
 
     /**
      * Checks whether the two given #graphene_plane_t are equal.
@@ -66,7 +66,7 @@ public class Plane(
      */
     @GrapheneVersion1_2
     public fun equal(b: Plane): Boolean =
-        graphene_plane_equal(graphenePlanePointer.reinterpret(), b.graphenePlanePointer)
+        graphene_plane_equal(graphenePlanePointer.reinterpret(), b.graphenePlanePointer.reinterpret())
 
     /**
      * Frees the resources allocated by graphene_plane_alloc().
@@ -95,7 +95,7 @@ public class Plane(
      */
     @GrapheneVersion1_2
     public fun getNormal(normal: Vec3): Unit =
-        graphene_plane_get_normal(graphenePlanePointer.reinterpret(), normal.grapheneVec3Pointer)
+        graphene_plane_get_normal(graphenePlanePointer.reinterpret(), normal.grapheneVec3Pointer.reinterpret())
 
     /**
      * Initializes the given #graphene_plane_t using the given @normal vector
@@ -114,7 +114,11 @@ public class Plane(
         normal: Vec3? = null,
         constant: Float,
     ): Plane =
-        graphene_plane_init(graphenePlanePointer.reinterpret(), normal?.grapheneVec3Pointer, constant)!!.run {
+        graphene_plane_init(
+            graphenePlanePointer.reinterpret(),
+            normal?.grapheneVec3Pointer?.reinterpret(),
+            constant
+        )!!.run {
             Plane(reinterpret())
         }
 
@@ -128,7 +132,10 @@ public class Plane(
      */
     @GrapheneVersion1_2
     public fun initFromPlane(src: Plane): Plane =
-        graphene_plane_init_from_plane(graphenePlanePointer.reinterpret(), src.graphenePlanePointer)!!.run {
+        graphene_plane_init_from_plane(
+            graphenePlanePointer.reinterpret(),
+            src.graphenePlanePointer.reinterpret()
+        )!!.run {
             Plane(reinterpret())
         }
 
@@ -148,8 +155,8 @@ public class Plane(
     ): Plane =
         graphene_plane_init_from_point(
             graphenePlanePointer.reinterpret(),
-            normal.grapheneVec3Pointer,
-            point.graphenePoint3DPointer
+            normal.grapheneVec3Pointer.reinterpret(),
+            point.graphenePoint3DPointer.reinterpret()
         )!!.run {
             Plane(reinterpret())
         }
@@ -175,9 +182,9 @@ public class Plane(
     ): Plane =
         graphene_plane_init_from_points(
             graphenePlanePointer.reinterpret(),
-            a.graphenePoint3DPointer,
-            b.graphenePoint3DPointer,
-            c.graphenePoint3DPointer
+            a.graphenePoint3DPointer.reinterpret(),
+            b.graphenePoint3DPointer.reinterpret(),
+            c.graphenePoint3DPointer.reinterpret()
         )!!.run {
             Plane(reinterpret())
         }
@@ -193,7 +200,7 @@ public class Plane(
      */
     @GrapheneVersion1_2
     public fun initFromVec4(src: Vec4): Plane =
-        graphene_plane_init_from_vec4(graphenePlanePointer.reinterpret(), src.grapheneVec4Pointer)!!.run {
+        graphene_plane_init_from_vec4(graphenePlanePointer.reinterpret(), src.grapheneVec4Pointer.reinterpret())!!.run {
             Plane(reinterpret())
         }
 
@@ -206,7 +213,7 @@ public class Plane(
      */
     @GrapheneVersion1_2
     public fun negate(res: Plane): Unit =
-        graphene_plane_negate(graphenePlanePointer.reinterpret(), res.graphenePlanePointer)
+        graphene_plane_negate(graphenePlanePointer.reinterpret(), res.graphenePlanePointer.reinterpret())
 
     /**
      * Normalizes the vector of the given #graphene_plane_t,
@@ -217,7 +224,7 @@ public class Plane(
      */
     @GrapheneVersion1_2
     public fun normalize(res: Plane): Unit =
-        graphene_plane_normalize(graphenePlanePointer.reinterpret(), res.graphenePlanePointer)
+        graphene_plane_normalize(graphenePlanePointer.reinterpret(), res.graphenePlanePointer.reinterpret())
 
     /**
      * Transforms a #graphene_plane_t @p using the given @matrix
@@ -242,9 +249,9 @@ public class Plane(
     ): Unit =
         graphene_plane_transform(
             graphenePlanePointer.reinterpret(),
-            matrix.grapheneMatrixPointer,
-            normalMatrix?.grapheneMatrixPointer,
-            res.graphenePlanePointer
+            matrix.grapheneMatrixPointer.reinterpret(),
+            normalMatrix?.grapheneMatrixPointer?.reinterpret(),
+            res.graphenePlanePointer.reinterpret()
         )
 
     public companion object : RecordCompanion<Plane, graphene_plane_t> {

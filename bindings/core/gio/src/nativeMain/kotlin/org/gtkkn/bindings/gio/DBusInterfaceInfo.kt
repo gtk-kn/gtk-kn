@@ -107,7 +107,7 @@ public class DBusInterfaceInfo(
         g_dbus_interface_info_generate_xml(
             gioDBusInterfaceInfoPointer.reinterpret(),
             indent,
-            stringBuilder.glibStringPointer
+            stringBuilder.glibStringPointer.reinterpret()
         )
 
     /**

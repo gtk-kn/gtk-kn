@@ -81,7 +81,7 @@ public interface Indenter :
         gtk_source_indenter_is_trigger(
             gtksourceIndenterPointer.reinterpret(),
             view.gtksourceViewPointer.reinterpret(),
-            location.gtkTextIterPointer,
+            location.gtkTextIterPointer.reinterpret(),
             state.mask,
             keyval
         ).asBoolean()

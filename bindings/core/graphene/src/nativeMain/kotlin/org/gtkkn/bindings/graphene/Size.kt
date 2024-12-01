@@ -58,7 +58,8 @@ public class Size(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun equal(b: Size): Boolean = graphene_size_equal(grapheneSizePointer.reinterpret(), b.grapheneSizePointer)
+    public fun equal(b: Size): Boolean =
+        graphene_size_equal(grapheneSizePointer.reinterpret(), b.grapheneSizePointer.reinterpret())
 
     /**
      * Frees the resources allocated by graphene_size_alloc().
@@ -95,7 +96,7 @@ public class Size(
      */
     @GrapheneVersion1_0
     public fun initFromSize(src: Size): Size =
-        graphene_size_init_from_size(grapheneSizePointer.reinterpret(), src.grapheneSizePointer)!!.run {
+        graphene_size_init_from_size(grapheneSizePointer.reinterpret(), src.grapheneSizePointer.reinterpret())!!.run {
             Size(reinterpret())
         }
 
@@ -116,9 +117,9 @@ public class Size(
     ): Unit =
         graphene_size_interpolate(
             grapheneSizePointer.reinterpret(),
-            b.grapheneSizePointer,
+            b.grapheneSizePointer.reinterpret(),
             factor,
-            res.grapheneSizePointer
+            res.grapheneSizePointer.reinterpret()
         )
 
     /**
@@ -132,7 +133,7 @@ public class Size(
     public fun scale(
         factor: Float,
         res: Size,
-    ): Unit = graphene_size_scale(grapheneSizePointer.reinterpret(), factor, res.grapheneSizePointer)
+    ): Unit = graphene_size_scale(grapheneSizePointer.reinterpret(), factor, res.grapheneSizePointer.reinterpret())
 
     public companion object : RecordCompanion<Size, graphene_size_t> {
         /**

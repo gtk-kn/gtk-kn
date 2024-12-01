@@ -104,10 +104,10 @@ class ClassBlueprintBuilder(
             ).build()) {
             is BlueprintResult.Ok -> {
                 methodBluePrints.add(result.blueprint)
-                if (method.name.startsWith("get") && result.blueprint.parameters.isEmpty() ||
-                    method.name.startsWith("set") && result.blueprint.parameters.size == 1
+                if (method.callable.name.startsWith("get") && result.blueprint.parameters.isEmpty() ||
+                    method.callable.name.startsWith("set") && result.blueprint.parameters.size == 1
                 ) {
-                    propertyMethodBluePrintMap[method.name] = result.blueprint
+                    propertyMethodBluePrintMap[method.callable.name] = result.blueprint
                 }
             }
 
@@ -144,9 +144,8 @@ class ClassBlueprintBuilder(
         girClass.cType?.let { context.checkIgnoredType(it) }
 
         if (girClass.parent != null) {
-            try {
-                parentTypeName = context.resolveClassTypeName(girNamespace, girClass.parent)
-            } catch (ex: UnresolvableTypeException) {
+            parentTypeName = context.resolveClassTypeName(girNamespace, girClass.parent)
+            if (parentTypeName == null) {
                 throw UnresolvableTypeException("Parent type ${girClass.parent} could not be resolved.")
             }
         }
@@ -161,7 +160,7 @@ class ClassBlueprintBuilder(
         girClass.functions.forEach { addFunction(it) }
 
         val kotlinClassName = context.kotlinizeClassName(girClass.name)
-        val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
+        val kotlinPackageName = context.kotlinizePackageName(checkNotNull(girNamespace.name))
 
         val objectPointerName = if (girClass.parent != null) {
             "${context.namespacePrefix(girNamespace)}${girClass.name}Pointer"
@@ -196,9 +195,9 @@ class ClassBlueprintBuilder(
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(
                 context,
                 girNamespace,
-                girClass.info
+                girClass.info,
             ).build().getOrNull(),
-            kdoc = context.processKdoc(girClass.info.docs.doc?.text),
+            kdoc = context.processKdoc(girClass.doc?.doc?.text),
         )
     }
 
@@ -220,7 +219,9 @@ class ClassBlueprintBuilder(
 
         classUniqueInterfaces.forEach { ifacePair ->
             val interfacePointerName = "${context.namespacePrefix(ifacePair.first)}${ifacePair.second.name}Pointer"
-            val interfaceTypeName = context.resolveInterfaceTypeName(ifacePair.first, ifacePair.second.name)
+            val interfaceTypeName =
+                context.resolveInterfaceTypeName(ifacePair.first, checkNotNull(ifacePair.second.name))
+                    ?: throw UnresolvableTypeException("interface ${ifacePair.second.name} not found")
             val interfacePointerTypeName =
                 context.resolveInterfaceObjectPointerTypeName(ifacePair.first, ifacePair.second)
             implementsInterfaces.add(
@@ -247,8 +248,8 @@ class ClassBlueprintBuilder(
         allImplementingInterfaces.forEach { pair ->
             val namespace = pair.first
             val iface = pair.second
-            val kotlinInterfaceName = context.kotlinizeClassName(iface.name)
-            val kotlinPackageName = context.kotlinizePackageName(namespace.name)
+            val kotlinInterfaceName = context.kotlinizeClassName(checkNotNull(iface.name))
+            val kotlinPackageName = context.kotlinizePackageName(checkNotNull(namespace.name))
 
             val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
             val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name}Pointer"

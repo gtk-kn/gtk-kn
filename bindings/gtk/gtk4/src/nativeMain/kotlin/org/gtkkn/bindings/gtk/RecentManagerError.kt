@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.gtk
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gtk.GtkRecentManagerError
 import org.gtkkn.native.gtk.gtk_recent_manager_error_quark
-import kotlin.UInt
 
 /**
  * Error codes for `GtkRecentManager` operations
@@ -66,7 +66,7 @@ public enum class RecentManagerError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = gtk_recent_manager_error_quark()
+        public fun quark(): Quark = gtk_recent_manager_error_quark()
 
         public fun fromErrorOrNull(error: Error): RecentManagerError? =
             if (error.domain != quark()) {

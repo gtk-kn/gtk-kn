@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 /*
  * Copyright (c) 2024 gtk-kn
  *
@@ -16,12 +18,26 @@
 
 plugins {
     id("bindings-library-conventions")
+    alias(libs.plugins.kotlinx.atomicfu)
 }
 
 version = config.versions.core.get()
 
 kotlin {
+    targets.withType<KotlinNativeTarget> {
+        compilations["main"].apply {
+            cinterops.create("gobject")
+        }
+    }
     sourceSets {
+        configureEach {
+            languageSettings {
+                optIn("kotlin.experimental.ExperimentalNativeApi")
+                optIn("kotlin.native.internal.InternalForKotlinNative")
+                optIn("kotlin.native.runtime.NativeRuntimeApi")
+                optIn("kotlinx.cinterop.ExperimentalForeignApi")
+            }
+        }
         nativeMain {
             dependencies {
                 api(projects.bindings.common)

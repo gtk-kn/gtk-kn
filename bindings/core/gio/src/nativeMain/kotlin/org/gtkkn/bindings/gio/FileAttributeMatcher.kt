@@ -105,7 +105,7 @@ public class FileAttributeMatcher(
     public fun subtract(subtract: FileAttributeMatcher? = null): FileAttributeMatcher? =
         g_file_attribute_matcher_subtract(
             gioFileAttributeMatcherPointer.reinterpret(),
-            subtract?.gioFileAttributeMatcherPointer
+            subtract?.gioFileAttributeMatcherPointer?.reinterpret()
         )?.run {
             FileAttributeMatcher(reinterpret())
         }

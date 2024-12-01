@@ -295,8 +295,7 @@ public interface AppInfo :
      * g_app_info_add_supports_type(), but only those exported directly by
      * the application.
      *
-     * @return
-     *    a list of content types.
+     * @return a list of content types.
      * @since 2.34
      */
     @GioVersion2_34
@@ -346,7 +345,7 @@ public interface AppInfo :
             val gResult =
                 g_app_info_launch(
                     gioAppInfoPointer.reinterpret(),
-                    files?.glibListPointer,
+                    files?.glibListPointer?.reinterpret(),
                     context?.gioAppLaunchContextPointer?.reinterpret(),
                     gError.ptr
                 ).asBoolean()
@@ -384,7 +383,7 @@ public interface AppInfo :
             val gResult =
                 g_app_info_launch_uris(
                     gioAppInfoPointer.reinterpret(),
-                    uris?.glibListPointer,
+                    uris?.glibListPointer?.reinterpret(),
                     context?.gioAppLaunchContextPointer?.reinterpret(),
                     gError.ptr
                 ).asBoolean()
@@ -418,7 +417,7 @@ public interface AppInfo :
     ): Unit =
         g_app_info_launch_uris_async(
             gioAppInfoPointer.reinterpret(),
-            uris?.glibListPointer,
+            uris?.glibListPointer?.reinterpret(),
             context?.gioAppLaunchContextPointer?.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),

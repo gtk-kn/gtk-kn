@@ -140,7 +140,7 @@ public class SettingsSchemaSource(
                 val gResult =
                     g_settings_schema_source_new_from_directory(
                         directory,
-                        parent?.gioSettingsSchemaSourcePointer,
+                        parent?.gioSettingsSchemaSourcePointer?.reinterpret(),
                         trusted.asGBoolean(),
                         gError.ptr
                     )

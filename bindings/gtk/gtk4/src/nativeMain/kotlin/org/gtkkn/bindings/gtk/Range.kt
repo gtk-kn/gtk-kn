@@ -298,7 +298,7 @@ public open class Range(
      * @param rangeRect return location for the range rectangle
      */
     public open fun getRangeRect(rangeRect: Rectangle): Unit =
-        gtk_range_get_range_rect(gtkRangePointer.reinterpret(), rangeRect.gdkRectanglePointer)
+        gtk_range_get_range_rect(gtkRangePointer.reinterpret(), rangeRect.gdkRectanglePointer.reinterpret())
 
     /**
      * Gets whether the range is restricted to the fill level.

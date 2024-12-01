@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gtksource.GtkSourceFileSaverError
 import org.gtkkn.native.gtksource.gtk_source_file_saver_error_quark
-import kotlin.UInt
 
 /**
  * An error code used with the %GTK_SOURCE_FILE_SAVER_ERROR domain.
@@ -33,7 +33,7 @@ public enum class FileSaverError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = gtk_source_file_saver_error_quark()
+        public fun quark(): Quark = gtk_source_file_saver_error_quark()
 
         public fun fromErrorOrNull(error: Error): FileSaverError? =
             if (error.domain != quark()) {

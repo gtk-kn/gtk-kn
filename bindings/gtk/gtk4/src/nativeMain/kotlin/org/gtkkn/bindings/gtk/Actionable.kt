@@ -131,7 +131,10 @@ public interface Actionable :
      * @param targetValue a [struct@GLib.Variant] to set as the target value
      */
     public fun setActionTargetValue(targetValue: Variant? = null): Unit =
-        gtk_actionable_set_action_target_value(gtkActionablePointer.reinterpret(), targetValue?.glibVariantPointer)
+        gtk_actionable_set_action_target_value(
+            gtkActionablePointer.reinterpret(),
+            targetValue?.glibVariantPointer?.reinterpret()
+        )
 
     /**
      * Sets the action-name and associated string target value of an

@@ -22,6 +22,7 @@ import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.gio.OutputStream
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.GlibException
@@ -4760,7 +4761,7 @@ public object Gdk {
             val gResult =
                 gdk_content_deserialize_finish(
                     result.gioAsyncResultPointer,
-                    `value`.gobjectValuePointer,
+                    `value`.gobjectValuePointer.reinterpret(),
                     gError.ptr
                 ).asBoolean()
             return if (gError.pointed != null) {
@@ -4860,7 +4861,7 @@ public object Gdk {
         gdk_content_serialize_async(
             stream.gioOutputStreamPointer.reinterpret(),
             mimeType,
-            `value`.gobjectValuePointer,
+            `value`.gobjectValuePointer.reinterpret(),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
@@ -4888,7 +4889,7 @@ public object Gdk {
             }
         }
 
-    public fun dmabufErrorQuark(): UInt = gdk_dmabuf_error_quark()
+    public fun dmabufErrorQuark(): Quark = gdk_dmabuf_error_quark()
 
     /**
      * Checks if @action represents a single action or includes
@@ -4904,7 +4905,7 @@ public object Gdk {
 
     public fun dragSurfaceSizeGetType(): ULong = gdk_drag_surface_size_get_type()
 
-    public fun glErrorQuark(): UInt = gdk_gl_error_quark()
+    public fun glErrorQuark(): Quark = gdk_gl_error_quark()
 
     /**
      * Canonicalizes the given mime type and interns the result.
@@ -5069,7 +5070,7 @@ public object Gdk {
      */
     public fun setAllowedBackends(backends: String): Unit = gdk_set_allowed_backends(backends)
 
-    public fun textureErrorQuark(): UInt = gdk_texture_error_quark()
+    public fun textureErrorQuark(): Quark = gdk_texture_error_quark()
 
     public fun toplevelSizeGetType(): ULong = gdk_toplevel_size_get_type()
 
@@ -5082,7 +5083,7 @@ public object Gdk {
      */
     public fun unicodeToKeyval(wc: UInt): UInt = gdk_unicode_to_keyval(wc)
 
-    public fun vulkanErrorQuark(): UInt = gdk_vulkan_error_quark()
+    public fun vulkanErrorQuark(): Quark = gdk_vulkan_error_quark()
 
     public fun resolveException(error: Error): GlibException {
         val ex =

@@ -68,7 +68,7 @@ public class MessageBody(
      * @param buffer a #GBytes
      */
     public fun appendBytes(buffer: Bytes): Unit =
-        soup_message_body_append_bytes(soupMessageBodyPointer.reinterpret(), buffer.glibBytesPointer)
+        soup_message_body_append_bytes(soupMessageBodyPointer.reinterpret(), buffer.glibBytesPointer.reinterpret())
 
     /**
      * Tags @body as being complete.
@@ -142,7 +142,7 @@ public class MessageBody(
      * @param chunk a #GBytes received from the network
      */
     public fun gotChunk(chunk: Bytes): Unit =
-        soup_message_body_got_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer)
+        soup_message_body_got_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer.reinterpret())
 
     /**
      * Atomically increments the reference count of @body by one.
@@ -201,7 +201,7 @@ public class MessageBody(
      * @param chunk a #GBytes returned from [method@MessageBody.get_chunk]
      */
     public fun wroteChunk(chunk: Bytes): Unit =
-        soup_message_body_wrote_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer)
+        soup_message_body_wrote_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer.reinterpret())
 
     public companion object : RecordCompanion<MessageBody, SoupMessageBody> {
         /**

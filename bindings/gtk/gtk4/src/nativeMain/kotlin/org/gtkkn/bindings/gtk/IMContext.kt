@@ -232,7 +232,7 @@ public open class IMContext(
      * @param area new location
      */
     public open fun setCursorLocation(area: Rectangle): Unit =
-        gtk_im_context_set_cursor_location(gtkIMContextPointer.reinterpret(), area.gdkRectanglePointer)
+        gtk_im_context_set_cursor_location(gtkIMContextPointer.reinterpret(), area.gdkRectanglePointer.reinterpret())
 
     /**
      * Sets surrounding context around the insertion point and preedit

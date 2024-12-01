@@ -260,8 +260,7 @@ public open class Drop(
      * Asynchronously read the dropped data from a `GdkDrop`
      * in a format that complies with one of the mime types.
      *
-     * @param mimeTypes
-     *   pointer to an array of mime types
+     * @param mimeTypes pointer to an array of mime types
      * @param ioPriority the I/O priority for the read operation
      * @param cancellable optional `GCancellable` object
      * @param callback a `GAsyncReadyCallback` to call when

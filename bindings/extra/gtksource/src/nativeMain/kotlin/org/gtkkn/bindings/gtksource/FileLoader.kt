@@ -290,7 +290,7 @@ public open class FileLoader(
     public open fun setCandidateEncodings(candidateEncodings: SList): Unit =
         gtk_source_file_loader_set_candidate_encodings(
             gtksourceFileLoaderPointer.reinterpret(),
-            candidateEncodings.glibSListPointer
+            candidateEncodings.glibSListPointer.reinterpret()
         )
 
     public companion object : TypeCompanion<FileLoader> {

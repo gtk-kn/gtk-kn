@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.native.gtk.GtkAccessibleState
 import org.gtkkn.native.gtk.gtk_accessible_state_init_value
@@ -97,6 +98,6 @@ public enum class AccessibleState(
         public fun initValue(
             state: AccessibleState,
             `value`: Value,
-        ): Unit = gtk_accessible_state_init_value(state.nativeValue, `value`.gobjectValuePointer)
+        ): Unit = gtk_accessible_state_init_value(state.nativeValue, `value`.gobjectValuePointer.reinterpret())
     }
 }

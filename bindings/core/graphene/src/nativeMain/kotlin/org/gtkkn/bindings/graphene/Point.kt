@@ -72,7 +72,7 @@ public class Point(
      */
     @GrapheneVersion1_0
     public fun equal(b: Point): Boolean =
-        graphene_point_equal(graphenePointPointer.reinterpret(), b.graphenePointPointer)
+        graphene_point_equal(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret())
 
     /**
      * Frees the resources allocated by graphene_point_alloc().
@@ -110,7 +110,10 @@ public class Point(
      */
     @GrapheneVersion1_0
     public fun initFromPoint(src: Point): Point =
-        graphene_point_init_from_point(graphenePointPointer.reinterpret(), src.graphenePointPointer)!!.run {
+        graphene_point_init_from_point(
+            graphenePointPointer.reinterpret(),
+            src.graphenePointPointer.reinterpret()
+        )!!.run {
             Point(reinterpret())
         }
 
@@ -123,7 +126,7 @@ public class Point(
      */
     @GrapheneVersion1_4
     public fun initFromVec2(src: Vec2): Point =
-        graphene_point_init_from_vec2(graphenePointPointer.reinterpret(), src.grapheneVec2Pointer)!!.run {
+        graphene_point_init_from_vec2(graphenePointPointer.reinterpret(), src.grapheneVec2Pointer.reinterpret())!!.run {
             Point(reinterpret())
         }
 
@@ -145,9 +148,9 @@ public class Point(
     ): Unit =
         graphene_point_interpolate(
             graphenePointPointer.reinterpret(),
-            b.graphenePointPointer,
+            b.graphenePointPointer.reinterpret(),
             factor,
-            res.graphenePointPointer
+            res.graphenePointPointer.reinterpret()
         )
 
     /**
@@ -163,7 +166,7 @@ public class Point(
     public fun near(
         b: Point,
         epsilon: Float,
-    ): Boolean = graphene_point_near(graphenePointPointer.reinterpret(), b.graphenePointPointer, epsilon)
+    ): Boolean = graphene_point_near(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret(), epsilon)
 
     /**
      * Stores the coordinates of the given #graphene_point_t into a
@@ -173,7 +176,8 @@ public class Point(
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun toVec2(v: Vec2): Unit = graphene_point_to_vec2(graphenePointPointer.reinterpret(), v.grapheneVec2Pointer)
+    public fun toVec2(v: Vec2): Unit =
+        graphene_point_to_vec2(graphenePointPointer.reinterpret(), v.grapheneVec2Pointer.reinterpret())
 
     public companion object : RecordCompanion<Point, graphene_point_t> {
         /**

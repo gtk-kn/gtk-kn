@@ -668,7 +668,10 @@ public open class TextView(
      * @return true if @iter was moved and is not on the end iterator
      */
     public open fun backwardDisplayLine(iter: TextIter): Boolean =
-        gtk_text_view_backward_display_line(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer).asBoolean()
+        gtk_text_view_backward_display_line(
+            gtkTextViewPointer.reinterpret(),
+            iter.gtkTextIterPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Moves the given @iter backward to the next display line start.
@@ -685,7 +688,10 @@ public open class TextView(
      * @return true if @iter was moved and is not on the end iterator
      */
     public open fun backwardDisplayLineStart(iter: TextIter): Boolean =
-        gtk_text_view_backward_display_line_start(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer).asBoolean()
+        gtk_text_view_backward_display_line_start(
+            gtkTextViewPointer.reinterpret(),
+            iter.gtkTextIterPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Moves the given @iter forward by one display (wrapped) line.
@@ -702,7 +708,10 @@ public open class TextView(
      * @return true if @iter was moved and is not on the end iterator
      */
     public open fun forwardDisplayLine(iter: TextIter): Boolean =
-        gtk_text_view_forward_display_line(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer).asBoolean()
+        gtk_text_view_forward_display_line(
+            gtkTextViewPointer.reinterpret(),
+            iter.gtkTextIterPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Moves the given @iter forward to the next display line end.
@@ -719,7 +728,10 @@ public open class TextView(
      * @return true if @iter was moved and is not on the end iterator
      */
     public open fun forwardDisplayLineEnd(iter: TextIter): Boolean =
-        gtk_text_view_forward_display_line_end(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer).asBoolean()
+        gtk_text_view_forward_display_line_end(
+            gtkTextViewPointer.reinterpret(),
+            iter.gtkTextIterPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Returns whether pressing the <kbd>Tab</kbd> key inserts a tab characters.
@@ -785,9 +797,9 @@ public open class TextView(
     ): Unit =
         gtk_text_view_get_cursor_locations(
             gtkTextViewPointer.reinterpret(),
-            iter?.gtkTextIterPointer,
-            strong?.gdkRectanglePointer,
-            weak?.gdkRectanglePointer
+            iter?.gtkTextIterPointer?.reinterpret(),
+            strong?.gdkRectanglePointer?.reinterpret(),
+            weak?.gdkRectanglePointer?.reinterpret()
         )
 
     /**
@@ -878,7 +890,12 @@ public open class TextView(
         x: Int,
         y: Int,
     ): Boolean =
-        gtk_text_view_get_iter_at_location(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer, x, y).asBoolean()
+        gtk_text_view_get_iter_at_location(
+            gtkTextViewPointer.reinterpret(),
+            iter.gtkTextIterPointer.reinterpret(),
+            x,
+            y
+        ).asBoolean()
 
     /**
      * Gets a rectangle which roughly contains the character at @iter.
@@ -896,8 +913,8 @@ public open class TextView(
     ): Unit =
         gtk_text_view_get_iter_location(
             gtkTextViewPointer.reinterpret(),
-            iter.gtkTextIterPointer,
-            location.gdkRectanglePointer
+            iter.gtkTextIterPointer.reinterpret(),
+            location.gdkRectanglePointer.reinterpret()
         )
 
     /**
@@ -1005,7 +1022,7 @@ public open class TextView(
      * @param visibleRect rectangle to fill
      */
     public open fun getVisibleRect(visibleRect: Rectangle): Unit =
-        gtk_text_view_get_visible_rect(gtkTextViewPointer.reinterpret(), visibleRect.gdkRectanglePointer)
+        gtk_text_view_get_visible_rect(gtkTextViewPointer.reinterpret(), visibleRect.gdkRectanglePointer.reinterpret())
 
     /**
      * Gets the line wrapping for the view.
@@ -1111,7 +1128,11 @@ public open class TextView(
         iter: TextIter,
         count: Int,
     ): Boolean =
-        gtk_text_view_move_visually(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer, count).asBoolean()
+        gtk_text_view_move_visually(
+            gtkTextViewPointer.reinterpret(),
+            iter.gtkTextIterPointer.reinterpret(),
+            count
+        ).asBoolean()
 
     /**
      * Moves the cursor to the currently visible region of the
@@ -1193,7 +1214,7 @@ public open class TextView(
     ): Boolean =
         gtk_text_view_scroll_to_iter(
             gtkTextViewPointer.reinterpret(),
-            iter.gtkTextIterPointer,
+            iter.gtkTextIterPointer.reinterpret(),
             withinMargin,
             useAlign.asGBoolean(),
             xalign,
@@ -1452,7 +1473,7 @@ public open class TextView(
      * @param tabs tabs as a `PangoTabArray`
      */
     public open fun setTabs(tabs: TabArray): Unit =
-        gtk_text_view_set_tabs(gtkTextViewPointer.reinterpret(), tabs.pangoTabArrayPointer)
+        gtk_text_view_set_tabs(gtkTextViewPointer.reinterpret(), tabs.pangoTabArrayPointer.reinterpret())
 
     /**
      * Sets the top margin for text in @text_view.
@@ -1483,7 +1504,10 @@ public open class TextView(
      * @return true if @iter begins a wrapped line
      */
     public open fun startsDisplayLine(iter: TextIter): Boolean =
-        gtk_text_view_starts_display_line(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer).asBoolean()
+        gtk_text_view_starts_display_line(
+            gtkTextViewPointer.reinterpret(),
+            iter.gtkTextIterPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Gets emitted when the user asks for it.

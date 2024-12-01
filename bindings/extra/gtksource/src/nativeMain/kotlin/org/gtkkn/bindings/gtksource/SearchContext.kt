@@ -246,7 +246,7 @@ public open class SearchContext(
     ): Unit =
         gtk_source_search_context_backward_async(
             gtksourceSearchContextPointer.reinterpret(),
-            iter.gtkTextIterPointer,
+            iter.gtkTextIterPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()
@@ -272,7 +272,7 @@ public open class SearchContext(
     ): Unit =
         gtk_source_search_context_forward_async(
             gtksourceSearchContextPointer.reinterpret(),
-            iter.gtkTextIterPointer,
+            iter.gtkTextIterPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()
@@ -325,8 +325,8 @@ public open class SearchContext(
     ): Int =
         gtk_source_search_context_get_occurrence_position(
             gtksourceSearchContextPointer.reinterpret(),
-            matchStart.gtkTextIterPointer,
-            matchEnd.gtkTextIterPointer
+            matchStart.gtkTextIterPointer.reinterpret(),
+            matchEnd.gtkTextIterPointer.reinterpret()
         )
 
     /**
@@ -395,8 +395,8 @@ public open class SearchContext(
             val gResult =
                 gtk_source_search_context_replace(
                     gtksourceSearchContextPointer.reinterpret(),
-                    matchStart.gtkTextIterPointer,
-                    matchEnd.gtkTextIterPointer,
+                    matchStart.gtkTextIterPointer.reinterpret(),
+                    matchEnd.gtkTextIterPointer.reinterpret(),
                     replace,
                     replaceLength,
                     gError.ptr

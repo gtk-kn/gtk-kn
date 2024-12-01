@@ -42,7 +42,6 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -293,7 +292,7 @@ public class Regex(
             }
         }
 
-        public fun errorQuark(): UInt = g_regex_error_quark()
+        public fun errorQuark(): Quark = g_regex_error_quark()
 
         /**
          * Escapes the nul characters in @string to "\x00".  It can be used

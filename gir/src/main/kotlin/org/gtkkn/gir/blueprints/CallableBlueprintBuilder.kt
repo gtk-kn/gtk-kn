@@ -47,19 +47,20 @@ abstract class CallableBlueprintBuilder<T : Any>(
             when (callbackParam) {
                 is SimpleParam -> addParameter(callbackParam.param)
                 is CallbackParam -> {
+                    val kotlinTypeName = context.resolveCallbackTypeName(
+                        girNamespace,
+                        callbackParam.callbackType.name ?: error("unknown callback type name"),
+                    ) ?: throw UnresolvableTypeException("callback ${callbackParam.callbackType.name} not found")
                     val cbTypeInfo = TypeInfo.CallbackWithDestroy(
-                        kotlinTypeName = context.resolveCallbackTypeName(
-                            girNamespace,
-                            callbackParam.callbackType.name ?: error("unknown callback type name"),
-                        ),
+                        kotlinTypeName = kotlinTypeName,
                         hasDestroyParam = callbackParam.destroyParam != null,
                     )
                     val cbParamBluePrint = ParameterBlueprint(
-                        kotlinName = context.kotlinizeParameterName(callbackParam.callbackParam.name),
+                        kotlinName = context.kotlinizeParameterName(checkNotNull(callbackParam.callbackParam.name)),
                         nativeName = callbackParam.callbackParam.name,
                         typeInfo = cbTypeInfo,
                         defaultNull = false,
-                        kdoc = context.processKdoc(callbackParam.callbackParam.docs.doc?.text),
+                        kdoc = context.processKdoc(callbackParam.callbackParam.doc?.doc?.text),
                     )
                     parameterBlueprints.add(cbParamBluePrint)
                 }
@@ -135,7 +136,7 @@ abstract class CallableBlueprintBuilder<T : Any>(
 
     protected fun exceptionResolvingFunction() =
         MemberName(
-            context.namespaceBindingsPackageName(girNamespace) + "." + girNamespace.name.lowercase()
+            context.namespaceBindingsPackageName(girNamespace) + "." + checkNotNull(girNamespace.name).lowercase()
                 .capitalizeAsciiOnly(),
             "resolveException",
         )

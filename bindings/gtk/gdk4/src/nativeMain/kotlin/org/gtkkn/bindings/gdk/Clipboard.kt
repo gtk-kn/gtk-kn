@@ -399,7 +399,7 @@ public open class Clipboard(
      * @param value a `GValue` to set
      */
     public open fun `set`(`value`: Value): Unit =
-        gdk_clipboard_set_value(gdkClipboardPointer.reinterpret(), `value`.gobjectValuePointer)
+        gdk_clipboard_set_value(gdkClipboardPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret())
 
     /**
      * Asynchronously instructs the @clipboard to store its contents remotely.

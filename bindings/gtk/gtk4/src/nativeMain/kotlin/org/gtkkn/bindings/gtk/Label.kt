@@ -331,7 +331,7 @@ public open class Label(
          *
          * @param attrs a [struct@Pango.AttrList]
          */
-        set(attrs) = gtk_label_set_attributes(gtkLabelPointer.reinterpret(), attrs?.pangoAttrListPointer)
+        set(attrs) = gtk_label_set_attributes(gtkLabelPointer.reinterpret(), attrs?.pangoAttrListPointer?.reinterpret())
 
     /**
      * The preferred place to ellipsize the string, if the label does
@@ -687,7 +687,7 @@ public open class Label(
          * @since 4.8
          */
         @GtkVersion4_8
-        set(tabs) = gtk_label_set_tabs(gtkLabelPointer.reinterpret(), tabs?.pangoTabArrayPointer)
+        set(tabs) = gtk_label_set_tabs(gtkLabelPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
 
     /**
      * true if the text of the label includes Pango markup.
@@ -1181,7 +1181,7 @@ public open class Label(
      * @param attrs a [struct@Pango.AttrList]
      */
     public open fun setAttributes(attrs: AttrList? = null): Unit =
-        gtk_label_set_attributes(gtkLabelPointer.reinterpret(), attrs?.pangoAttrListPointer)
+        gtk_label_set_attributes(gtkLabelPointer.reinterpret(), attrs?.pangoAttrListPointer?.reinterpret())
 
     /**
      * Sets the mode used to ellipsize the text.
@@ -1361,7 +1361,7 @@ public open class Label(
      */
     @GtkVersion4_8
     public open fun setTabs(tabs: TabArray? = null): Unit =
-        gtk_label_set_tabs(gtkLabelPointer.reinterpret(), tabs?.pangoTabArrayPointer)
+        gtk_label_set_tabs(gtkLabelPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
 
     /**
      * Sets the text within the `GtkLabel` widget.

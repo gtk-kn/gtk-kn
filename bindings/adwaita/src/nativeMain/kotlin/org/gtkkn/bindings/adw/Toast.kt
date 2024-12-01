@@ -485,7 +485,10 @@ public class Toast(
      * @param actionTarget the action target
      */
     public fun setActionTargetValue(actionTarget: Variant? = null): Unit =
-        adw_toast_set_action_target_value(adwToastPointer.reinterpret(), actionTarget?.glibVariantPointer)
+        adw_toast_set_action_target_value(
+            adwToastPointer.reinterpret(),
+            actionTarget?.glibVariantPointer?.reinterpret()
+        )
 
     /**
      * Sets the label to show on the button.

@@ -416,7 +416,10 @@ public class VariantType(
      * Since 2.24
      */
     public fun isSubtypeOf(supertype: VariantType): Boolean =
-        g_variant_type_is_subtype_of(glibVariantTypePointer.reinterpret(), supertype.glibVariantTypePointer).asBoolean()
+        g_variant_type_is_subtype_of(
+            glibVariantTypePointer.reinterpret(),
+            supertype.glibVariantTypePointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Determines if the given @type is a tuple type.  This is true if the
@@ -538,7 +541,7 @@ public class VariantType(
          * Since 2.24
          */
         public fun newArray(element: VariantType): VariantType =
-            VariantType(g_variant_type_new_array(element.glibVariantTypePointer)!!.reinterpret())
+            VariantType(g_variant_type_new_array(element.glibVariantTypePointer.reinterpret())!!.reinterpret())
 
         /**
          * Constructs the type corresponding to a dictionary entry with a key
@@ -558,8 +561,8 @@ public class VariantType(
         ): VariantType =
             VariantType(
                 g_variant_type_new_dict_entry(
-                    key.glibVariantTypePointer,
-                    `value`.glibVariantTypePointer
+                    key.glibVariantTypePointer.reinterpret(),
+                    `value`.glibVariantTypePointer.reinterpret()
                 )!!.reinterpret()
             )
 
@@ -575,7 +578,7 @@ public class VariantType(
          * Since 2.24
          */
         public fun newMaybe(element: VariantType): VariantType =
-            VariantType(g_variant_type_new_maybe(element.glibVariantTypePointer)!!.reinterpret())
+            VariantType(g_variant_type_new_maybe(element.glibVariantTypePointer.reinterpret())!!.reinterpret())
 
         /**
          *

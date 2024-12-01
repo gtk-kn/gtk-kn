@@ -21,16 +21,6 @@ plugins {
     id("detekt-conventions")
 }
 
-dependencies {
-    implementation(libs.bundles.kotlin.logging.jvm)
-    implementation(libs.bundles.ktlint)
-    implementation(libs.kotlinpoet)
-    implementation(libs.kotlinx.cli)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.serialization.json)
-    testImplementation(libs.kotlin.test.junit5)
-}
-
 kotlin {
     jvmToolchain(libs.versions.java.get().toInt())
 }
@@ -83,4 +73,15 @@ gradle.projectsEvaluated {
             rootProject.tasks.getByPath(":gir:run").dependsOn(cleanTask)
         }
     }
+}
+
+dependencies {
+    implementation(libs.bundles.kotlin.logging.jvm)
+    implementation(libs.bundles.ktlint)
+    implementation(libs.kodein)
+    implementation(libs.kotlinpoet)
+    implementation(libs.kotlinx.cli)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.serialization.json)
+    testImplementation(libs.kotlin.test.junit5)
 }

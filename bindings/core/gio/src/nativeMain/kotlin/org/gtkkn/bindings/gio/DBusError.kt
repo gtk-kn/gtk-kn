@@ -5,6 +5,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.native.gio.GDBusError
 import org.gtkkn.native.gio.g_dbus_error_encode_gerror
@@ -18,7 +19,6 @@ import org.gtkkn.native.gio.g_dbus_error_unregister_error
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 
 /**
  * Error codes for the %G_DBUS_ERROR error domain.
@@ -335,7 +335,8 @@ public enum class DBusError(
          */
         @GioVersion2_26
         public fun encodeGerror(error: Error): String =
-            g_dbus_error_encode_gerror(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
+            g_dbus_error_encode_gerror(error.glibErrorPointer.reinterpret())?.toKString()
+                ?: error("Expected not null string")
 
         /**
          * Gets the D-Bus error name used for @error, if any.
@@ -352,7 +353,8 @@ public enum class DBusError(
          */
         @GioVersion2_26
         public fun getRemoteError(error: Error): String =
-            g_dbus_error_get_remote_error(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
+            g_dbus_error_get_remote_error(error.glibErrorPointer.reinterpret())?.toKString()
+                ?: error("Expected not null string")
 
         /**
          * Checks if @error represents an error received via D-Bus from a remote peer. If so,
@@ -365,7 +367,7 @@ public enum class DBusError(
          */
         @GioVersion2_26
         public fun isRemoteError(error: Error): Boolean =
-            g_dbus_error_is_remote_error(error.glibErrorPointer).asBoolean()
+            g_dbus_error_is_remote_error(error.glibErrorPointer.reinterpret()).asBoolean()
 
         /**
          * Creates a #GError based on the contents of @dbus_error_name and
@@ -409,7 +411,7 @@ public enum class DBusError(
                 Error(reinterpret())
             }
 
-        public fun quark(): UInt = g_dbus_error_quark()
+        public fun quark(): Quark = g_dbus_error_quark()
 
         /**
          * Creates an association to map between @dbus_error_name and
@@ -427,7 +429,7 @@ public enum class DBusError(
          */
         @GioVersion2_26
         public fun registerError(
-            errorDomain: UInt,
+            errorDomain: Quark,
             errorCode: Int,
             dbusErrorName: String,
         ): Boolean = g_dbus_error_register_error(errorDomain, errorCode, dbusErrorName).asBoolean()
@@ -446,7 +448,7 @@ public enum class DBusError(
          */
         @GioVersion2_26
         public fun stripRemoteError(error: Error): Boolean =
-            g_dbus_error_strip_remote_error(error.glibErrorPointer).asBoolean()
+            g_dbus_error_strip_remote_error(error.glibErrorPointer.reinterpret()).asBoolean()
 
         /**
          * Destroys an association previously set up with g_dbus_error_register_error().
@@ -459,7 +461,7 @@ public enum class DBusError(
          */
         @GioVersion2_26
         public fun unregisterError(
-            errorDomain: UInt,
+            errorDomain: Quark,
             errorCode: Int,
             dbusErrorName: String,
         ): Boolean = g_dbus_error_unregister_error(errorDomain, errorCode, dbusErrorName).asBoolean()

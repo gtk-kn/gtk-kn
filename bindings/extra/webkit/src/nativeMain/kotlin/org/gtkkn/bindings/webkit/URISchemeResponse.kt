@@ -85,7 +85,7 @@ public class URISchemeResponse(
     public fun setHttpHeaders(headers: MessageHeaders): Unit =
         webkit_uri_scheme_response_set_http_headers(
             webkitURISchemeResponsePointer.reinterpret(),
-            headers.soupMessageHeadersPointer
+            headers.soupMessageHeadersPointer.reinterpret()
         )
 
     /**

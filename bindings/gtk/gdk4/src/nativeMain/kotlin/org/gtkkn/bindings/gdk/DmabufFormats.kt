@@ -78,7 +78,10 @@ public class DmabufFormats(
      */
     @GdkVersion4_14
     public fun equal(formats2: DmabufFormats? = null): Boolean =
-        gdk_dmabuf_formats_equal(gdkDmabufFormatsPointer.reinterpret(), formats2?.gdkDmabufFormatsPointer).asBoolean()
+        gdk_dmabuf_formats_equal(
+            gdkDmabufFormatsPointer.reinterpret(),
+            formats2?.gdkDmabufFormatsPointer?.reinterpret()
+        ).asBoolean()
 
     /**
      * Returns the number of formats that the @formats object

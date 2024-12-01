@@ -174,7 +174,7 @@ public open class MarkAttributes(
     public open fun getBackground(background: RGBA): Boolean =
         gtk_source_mark_attributes_get_background(
             gtksourceMarkAttributesPointer.reinterpret(),
-            background.gdkRGBAPointer
+            background.gdkRGBAPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -283,7 +283,7 @@ public open class MarkAttributes(
     public open fun setBackground(background: RGBA): Unit =
         gtk_source_mark_attributes_set_background(
             gtksourceMarkAttributesPointer.reinterpret(),
-            background.gdkRGBAPointer
+            background.gdkRGBAPointer.reinterpret()
         )
 
     /**

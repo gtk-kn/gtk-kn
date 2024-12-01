@@ -111,7 +111,13 @@ public open class Inscription(
          * @since 4.8
          */
         @GtkVersion4_8
-        set(attrs) = gtk_inscription_set_attributes(gtkInscriptionPointer.reinterpret(), attrs?.pangoAttrListPointer)
+        set(
+            attrs
+        ) =
+            gtk_inscription_set_attributes(
+                gtkInscriptionPointer.reinterpret(),
+                attrs?.pangoAttrListPointer?.reinterpret()
+            )
 
     /**
      * The number of characters that should fit into the inscription at minimum.
@@ -534,7 +540,7 @@ public open class Inscription(
      */
     @GtkVersion4_8
     public open fun setAttributes(attrs: AttrList? = null): Unit =
-        gtk_inscription_set_attributes(gtkInscriptionPointer.reinterpret(), attrs?.pangoAttrListPointer)
+        gtk_inscription_set_attributes(gtkInscriptionPointer.reinterpret(), attrs?.pangoAttrListPointer?.reinterpret())
 
     /**
      * Utility function to set the text and attributes to be displayed.

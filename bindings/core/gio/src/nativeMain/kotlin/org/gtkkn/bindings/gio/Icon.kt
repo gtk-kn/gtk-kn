@@ -129,7 +129,7 @@ public interface Icon :
          */
         @GioVersion2_38
         public fun deserialize(`value`: Variant): Icon? =
-            g_icon_deserialize(`value`.glibVariantPointer)?.run {
+            g_icon_deserialize(`value`.glibVariantPointer.reinterpret())?.run {
                 Icon.wrap(reinterpret())
             }
 

@@ -615,7 +615,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `width`: width: Out parameter is not supported
  * - parameter `minimum`: minimum: Out parameter is not supported
  * - parameter `options`: cairo.FontOptions
- * - parameter `allocation`: Allocation
+ * - parameter `allocation`: Gdk.Rectangle
  * - method `snapshot_child`: C function gtk_widget_snapshot_child is ignored
  * - parameter `dest_x`: dest_x: Out parameter is not supported
  * - method `has-default`: Property has no getter nor setter
@@ -719,8 +719,7 @@ public open class Widget(
          * Clear all style classes applied to @widget
          * and replace them with @classes.
          *
-         * @param classes
-         *   null-terminated list of style classes to apply to @widget.
+         * @param classes null-terminated list of style classes to apply to @widget.
          */
         set(classes) =
             memScoped {
@@ -1556,7 +1555,11 @@ public open class Widget(
         name: String,
         args: Variant? = null,
     ): Boolean =
-        gtk_widget_activate_action_variant(gtkWidgetPointer.reinterpret(), name, args?.glibVariantPointer).asBoolean()
+        gtk_widget_activate_action_variant(
+            gtkWidgetPointer.reinterpret(),
+            name,
+            args?.glibVariantPointer?.reinterpret()
+        ).asBoolean()
 
     /**
      * Activates the `default.activate` action from @widget.
@@ -1663,7 +1666,13 @@ public open class Widget(
         baseline: Int,
         transform: Transform? = null,
     ): Unit =
-        gtk_widget_allocate(gtkWidgetPointer.reinterpret(), width, height, baseline, transform?.gskTransformPointer)
+        gtk_widget_allocate(
+            gtkWidgetPointer.reinterpret(),
+            width,
+            height,
+            baseline,
+            transform?.gskTransformPointer?.reinterpret()
+        )
 
     /**
      * Called by widgets as the user moves around the window using
@@ -1718,7 +1727,7 @@ public open class Widget(
         gtk_widget_compute_bounds(
             gtkWidgetPointer.reinterpret(),
             target.gtkWidgetPointer.reinterpret(),
-            outBounds.grapheneRectPointer
+            outBounds.grapheneRectPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -1764,8 +1773,8 @@ public open class Widget(
         gtk_widget_compute_point(
             gtkWidgetPointer.reinterpret(),
             target.gtkWidgetPointer.reinterpret(),
-            point.graphenePointPointer,
-            outPoint.graphenePointPointer
+            point.graphenePointPointer.reinterpret(),
+            outPoint.graphenePointPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -1791,7 +1800,7 @@ public open class Widget(
         gtk_widget_compute_transform(
             gtkWidgetPointer.reinterpret(),
             target.gtkWidgetPointer.reinterpret(),
-            outTransform.grapheneMatrixPointer
+            outTransform.grapheneMatrixPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -2013,7 +2022,7 @@ public open class Widget(
      */
     @GtkVersion4_10
     public open fun getColor(color: RGBA): Unit =
-        gtk_widget_get_color(gtkWidgetPointer.reinterpret(), color.gdkRGBAPointer)
+        gtk_widget_get_color(gtkWidgetPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
 
     /**
      * Returns the list of style classes applied to @widget.
@@ -2393,8 +2402,8 @@ public open class Widget(
     ): Unit =
         gtk_widget_get_preferred_size(
             gtkWidgetPointer.reinterpret(),
-            minimumSize?.gtkRequisitionPointer,
-            naturalSize?.gtkRequisitionPointer
+            minimumSize?.gtkRequisitionPointer?.reinterpret(),
+            naturalSize?.gtkRequisitionPointer?.reinterpret()
         )
 
     /**
@@ -3006,8 +3015,7 @@ public open class Widget(
      * Applications should try hard to avoid calling this function
      * because of the slowdowns.
      *
-     * @return
-     *   a `GListModel` tracking @widget's children
+     * @return a `GListModel` tracking @widget's children
      */
     public open fun observeChildren(): ListModel =
         gtk_widget_observe_children(gtkWidgetPointer.reinterpret())!!.run {
@@ -3025,8 +3033,7 @@ public open class Widget(
      * Applications should try hard to avoid calling this function
      * because of the slowdowns.
      *
-     * @return
-     *   a `GListModel` tracking @widget's controllers
+     * @return a `GListModel` tracking @widget's controllers
      */
     public open fun observeControllers(): ListModel =
         gtk_widget_observe_controllers(gtkWidgetPointer.reinterpret())!!.run {
@@ -3230,8 +3237,7 @@ public open class Widget(
      * Clear all style classes applied to @widget
      * and replace them with @classes.
      *
-     * @param classes
-     *   null-terminated list of style classes to apply to @widget.
+     * @param classes null-terminated list of style classes to apply to @widget.
      */
     public open fun setCssClasses(classes: CollectionsList<String>): Unit =
         memScoped {

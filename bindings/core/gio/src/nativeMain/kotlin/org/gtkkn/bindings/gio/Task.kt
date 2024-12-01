@@ -18,6 +18,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_76
 import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.MainContext
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.common.asBoolean
@@ -59,7 +60,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -852,7 +852,7 @@ public open class Task(
             val gResult =
                 g_task_propagate_value(
                     gioTaskPointer.reinterpret(),
-                    `value`.gobjectValuePointer,
+                    `value`.gobjectValuePointer.reinterpret(),
                     gError.ptr
                 ).asBoolean()
             return if (gError.pointed != null) {
@@ -893,7 +893,7 @@ public open class Task(
      */
     @GioVersion2_36
     public open fun returnError(error: Error): Unit =
-        g_task_return_error(gioTaskPointer.reinterpret(), error.glibErrorPointer)
+        g_task_return_error(gioTaskPointer.reinterpret(), error.glibErrorPointer.reinterpret())
 
     /**
      * Checks if @task's #GCancellable has been cancelled, and if so, sets
@@ -935,7 +935,7 @@ public open class Task(
      */
     @GioVersion2_80
     public open fun returnNewErrorLiteral(
-        domain: UInt,
+        domain: Quark,
         code: Int,
         message: String,
     ): Unit = g_task_return_new_error_literal(gioTaskPointer.reinterpret(), domain, code, message)
@@ -956,7 +956,7 @@ public open class Task(
      */
     @GioVersion2_64
     public open fun returnValue(result: Value? = null): Unit =
-        g_task_return_value(gioTaskPointer.reinterpret(), result?.gobjectValuePointer)
+        g_task_return_value(gioTaskPointer.reinterpret(), result?.gobjectValuePointer?.reinterpret())
 
     /**
      * Sets or clears @task's check-cancellable flag. If this is true

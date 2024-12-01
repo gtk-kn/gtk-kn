@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.gtksource
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gtksource.GtkSourceFileLoaderError
 import org.gtkkn.native.gtksource.gtk_source_file_loader_error_quark
-import kotlin.UInt
 
 /**
  * An error code used with the %GTK_SOURCE_FILE_LOADER_ERROR domain.
@@ -41,7 +41,7 @@ public enum class FileLoaderError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = gtk_source_file_loader_error_quark()
+        public fun quark(): Quark = gtk_source_file_loader_error_quark()
 
         public fun fromErrorOrNull(error: Error): FileLoaderError? =
             if (error.domain != quark()) {

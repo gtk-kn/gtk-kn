@@ -157,7 +157,7 @@ public interface CompletionProvider :
     ): Boolean =
         gtk_source_completion_provider_is_trigger(
             gtksourceCompletionProviderPointer.reinterpret(),
-            iter.gtkTextIterPointer,
+            iter.gtkTextIterPointer.reinterpret(),
             ch
         ).asBoolean()
 

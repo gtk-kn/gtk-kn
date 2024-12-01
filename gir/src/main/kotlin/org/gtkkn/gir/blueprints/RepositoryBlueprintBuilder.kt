@@ -17,11 +17,12 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
-import org.gtkkn.gir.model.GirBitField
+import org.gtkkn.gir.model.GirAlias
+import org.gtkkn.gir.model.GirBitfield
 import org.gtkkn.gir.model.GirCallback
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstant
-import org.gtkkn.gir.model.GirEnum
+import org.gtkkn.gir.model.GirEnumeration
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
@@ -34,8 +35,10 @@ class RepositoryBlueprintBuilder(
     context: ProcessorContext,
     private val girRepository: GirRepository,
 ) : BlueprintBuilder<RepositoryBlueprint>(context) {
-    private val namespace: GirNamespace get() = girRepository.namespace
+    private val namespace: GirNamespace
+        get() = girRepository.namespaces.first()
 
+    private val aliasBlueprints = mutableListOf<AliasBlueprint>()
     private val classBlueprints = mutableListOf<ClassBlueprint>()
     private val interfaceBlueprints = mutableListOf<InterfaceBlueprint>()
     private val enumBlueprints = mutableListOf<EnumBlueprint>()
@@ -44,6 +47,13 @@ class RepositoryBlueprintBuilder(
     private val bitfieldBlueprints = mutableListOf<BitfieldBlueprint>()
     private val constantBlueprints = mutableListOf<ConstantBlueprint>()
     private val recordBlueprints = mutableListOf<RecordBlueprint>()
+
+    private fun addAlias(girAlias: GirAlias) {
+        when (val result = AliasBlueprintBuilder(context, namespace, girAlias).build()) {
+            is BlueprintResult.Ok -> aliasBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
 
     private fun addClass(girClass: GirClass) {
         when (val result = ClassBlueprintBuilder(context, namespace, girClass).build()) {
@@ -59,7 +69,7 @@ class RepositoryBlueprintBuilder(
         }
     }
 
-    private fun addEnum(girEnum: GirEnum) {
+    private fun addEnum(girEnum: GirEnumeration) {
         when (val result = EnumBlueprintBuilder(context, namespace, girEnum).build()) {
             is BlueprintResult.Ok -> enumBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
@@ -80,7 +90,7 @@ class RepositoryBlueprintBuilder(
         }
     }
 
-    private fun addBitfield(girBitfield: GirBitField) {
+    private fun addBitfield(girBitfield: GirBitfield) {
         when (val result = BitfieldBlueprintBuilder(context, namespace, girBitfield).build()) {
             is BlueprintResult.Ok -> bitfieldBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
@@ -102,12 +112,13 @@ class RepositoryBlueprintBuilder(
     }
 
     override fun blueprintObjectType(): String = "repository"
-    override fun blueprintObjectName(): String = girRepository.namespace.name
+    override fun blueprintObjectName(): String = checkNotNull(girRepository.namespaces.first().name)
 
     override fun buildInternal(): RepositoryBlueprint {
+        namespace.aliases.forEach { addAlias(it) }
         namespace.classes.forEach { addClass(it) }
         namespace.interfaces.forEach { addInterface(it) }
-        namespace.enums.forEach { addEnum(it) }
+        namespace.enumerations.forEach { addEnum(it) }
         namespace.functions.forEach { addFunction(it) }
         namespace.callbacks.forEach { addCallback(it) }
         namespace.bitfields.forEach { addBitfield(it) }
@@ -120,7 +131,7 @@ class RepositoryBlueprintBuilder(
             }
         }
 
-        val kotlinModuleName = girRepository.namespace.name.lowercase()
+        val kotlinModuleName = checkNotNull(girRepository.namespaces.first().name).lowercase()
         val repositoryObjectName = ClassName(
             context.namespaceBindingsPackageName(namespace),
             kotlinModuleName.capitalizeAsciiOnly(),
@@ -135,8 +146,9 @@ class RepositoryBlueprintBuilder(
         )
 
         return RepositoryBlueprint(
-            name = girRepository.namespace.name,
+            name = checkNotNull(girRepository.namespaces.first().name),
             kotlinModuleName = kotlinModuleName,
+            aliasBlueprints = aliasBlueprints,
             classBlueprints = classBlueprints,
             interfaceBlueprints = interfaceBlueprints,
             enumBlueprints = enumBlueprints,
@@ -149,7 +161,7 @@ class RepositoryBlueprintBuilder(
             repositoryObjectName = repositoryObjectName,
             repositoryCallbacksName = repositoryCallbacksName,
             repositoryTypeProviderTypeName = repositoryTypeProviderTypeName,
-            optInVersionBlueprints = context.getOptInVersionsBlueprints(girRepository.namespace),
+            optInVersionBlueprints = context.getOptInVersionsBlueprints(girRepository.namespaces.first()),
         )
     }
 }

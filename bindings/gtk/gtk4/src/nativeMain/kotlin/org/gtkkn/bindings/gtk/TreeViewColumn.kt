@@ -529,7 +529,7 @@ public open class TreeViewColumn(
         gtk_tree_view_column_cell_set_cell_data(
             gtkTreeViewColumnPointer.reinterpret(),
             treeModel.gtkTreeModelPointer,
-            iter.gtkTreeIterPointer,
+            iter.gtkTreeIterPointer.reinterpret(),
             isExpander.asGBoolean(),
             isExpanded.asGBoolean()
         )

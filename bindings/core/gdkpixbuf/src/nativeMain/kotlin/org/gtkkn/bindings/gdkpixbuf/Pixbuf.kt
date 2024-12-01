@@ -418,7 +418,7 @@ public open class Pixbuf(
         rowstride: Int,
     ) : this(
         gdk_pixbuf_new_from_bytes(
-            `data`.glibBytesPointer,
+            `data`.glibBytesPointer.reinterpret(),
             colorspace.nativeValue,
             hasAlpha.asGBoolean(),
             bitsPerSample,

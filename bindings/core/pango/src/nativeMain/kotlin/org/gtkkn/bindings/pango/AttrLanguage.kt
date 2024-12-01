@@ -44,7 +44,7 @@ public class AttrLanguage(
          *   [method@Pango.Attribute.destroy]
          */
         public fun new(language: Language): Attribute =
-            pango_attr_language_new(language.pangoLanguagePointer)!!.run {
+            pango_attr_language_new(language.pangoLanguagePointer.reinterpret())!!.run {
                 Attribute(reinterpret())
             }
 

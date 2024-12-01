@@ -255,8 +255,7 @@ public open class Application(
      *
      * @param detailedActionName a detailed action name, specifying an action
      *   and target to obtain accelerators for
-     * @return
-     *   accelerators for `detailed_action_name`
+     * @return accelerators for `detailed_action_name`
      */
     public open fun getAccelsForAction(detailedActionName: String): CollectionsList<String> =
         gtk_application_get_accels_for_action(gtkApplicationPointer.reinterpret(), detailedActionName)?.toKStringList()

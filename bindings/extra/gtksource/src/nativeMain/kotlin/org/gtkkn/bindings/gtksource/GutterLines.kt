@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gtksource
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextBuffer
 import org.gtkkn.bindings.gtk.TextIter
@@ -86,7 +87,7 @@ public open class GutterLines(
      */
     public open fun addQclass(
         line: UInt,
-        qname: UInt,
+        qname: Quark,
     ): Unit = gtk_source_gutter_lines_add_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname)
 
     /**
@@ -119,7 +120,7 @@ public open class GutterLines(
     ): Unit =
         gtk_source_gutter_lines_get_iter_at_line(
             gtksourceGutterLinesPointer.reinterpret(),
-            iter.gtkTextIterPointer,
+            iter.gtkTextIterPointer.reinterpret(),
             line
         )
 
@@ -181,7 +182,7 @@ public open class GutterLines(
      */
     public open fun hasQclass(
         line: UInt,
-        qname: UInt,
+        qname: Quark,
     ): Boolean = gtk_source_gutter_lines_has_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname).asBoolean()
 
     /**
@@ -237,7 +238,7 @@ public open class GutterLines(
      */
     public open fun removeQclass(
         line: UInt,
-        qname: UInt,
+        qname: Quark,
     ): Unit = gtk_source_gutter_lines_remove_qclass(gtksourceGutterLinesPointer.reinterpret(), line, qname)
 
     public companion object : TypeCompanion<GutterLines> {

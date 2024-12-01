@@ -136,7 +136,7 @@ public open class HSTSEnforcer(
      * @param policy the policy of the HSTS host
      */
     public open fun setPolicy(policy: HSTSPolicy): Unit =
-        soup_hsts_enforcer_set_policy(soupHSTSEnforcerPointer.reinterpret(), policy.soupHSTSPolicyPointer)
+        soup_hsts_enforcer_set_policy(soupHSTSEnforcerPointer.reinterpret(), policy.soupHSTSPolicyPointer.reinterpret())
 
     /**
      * Sets a session policy for @domain.

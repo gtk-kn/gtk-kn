@@ -236,7 +236,10 @@ public class Attribute(
      * @return true if the two attributes have the same value
      */
     public fun equal(attr2: Attribute): Boolean =
-        pango_attribute_equal(pangoAttributePointer.reinterpret(), attr2.pangoAttributePointer).asBoolean()
+        pango_attribute_equal(
+            pangoAttributePointer.reinterpret(),
+            attr2.pangoAttributePointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Initializes @attr's klass to @klass, it's start_index to
@@ -249,7 +252,7 @@ public class Attribute(
      */
     @PangoVersion1_20
     public fun `init`(klass: AttrClass): Unit =
-        pango_attribute_init(pangoAttributePointer.reinterpret(), klass.pangoAttrClassPointer)
+        pango_attribute_init(pangoAttributePointer.reinterpret(), klass.pangoAttrClassPointer.reinterpret())
 
     public companion object : RecordCompanion<Attribute, PangoAttribute> {
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Attribute = Attribute(pointer.reinterpret())

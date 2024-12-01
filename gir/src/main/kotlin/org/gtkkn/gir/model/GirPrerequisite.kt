@@ -17,12 +17,17 @@
 package org.gtkkn.gir.model
 
 /**
- * Interface which is pre-required to implement another interface.
+ * Element defining a prerequisite interface, required to implement another interface.
  *
- * This node is generally using within an interface element.
- *
- * @property name name of the required prerequisite class or interface.
+ * @property name Name of the required interface.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirPrerequisite(
     val name: String,
-)
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        // No children
+    }
+}

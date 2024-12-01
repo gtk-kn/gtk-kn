@@ -32,13 +32,13 @@ class ParameterBlueprintBuilder(
 ) : BlueprintBuilder<ParameterBlueprint>(context) {
     override fun blueprintObjectType(): String = "parameter"
 
-    override fun blueprintObjectName(): String = girParam.name
+    override fun blueprintObjectName(): String = checkNotNull(girParam.name)
 
     override fun buildInternal(): ParameterBlueprint {
         val paramCType = when (girParam.type) {
             is GirArrayType -> girParam.type.cType
             is GirType -> girParam.type.cType
-            GirVarArgs -> null
+            is GirVarArgs -> null
         }
         if (paramCType != null) {
             context.checkIgnoredType(paramCType)
@@ -50,7 +50,7 @@ class ParameterBlueprintBuilder(
             girParam.direction == GirDirection.OUT -> {
                 // support OUT parameters if the param is a record and callerAllocates
                 val record = if (girParam.type is GirType) {
-                        context.findRecordByNameOrNull(girNamespace, girParam.type.name ?: error("unknown type name"))
+                    context.findRecordByNameOrNull(girNamespace, girParam.type.name ?: error("unknown type name"))
                 } else {
                     null
                 }
@@ -68,7 +68,7 @@ class ParameterBlueprintBuilder(
             }
         }
 
-        val paramKotlinName = context.kotlinizeParameterName(girParam.name)
+        val paramKotlinName = context.kotlinizeParameterName(checkNotNull(girParam.name))
 
         val typeInfo = when (girParam.type) {
             is GirArrayType -> context.resolveTypeInfo(girNamespace, girParam.type, girParam.isNullable())
@@ -81,7 +81,7 @@ class ParameterBlueprintBuilder(
             nativeName = girParam.name,
             typeInfo = typeInfo,
             defaultNull = girParam.isDefaultNull(),
-            kdoc = context.processKdoc(girParam.docs.doc?.text),
+            kdoc = context.processKdoc(girParam.doc?.doc?.text),
         )
     }
 }

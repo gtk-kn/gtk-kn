@@ -17,20 +17,34 @@
 package org.gtkkn.gir.model
 
 /**
- * A constant entity, similar to const variable in C.
+ * A constant entity, similar to a `const` variable in C.
  *
- * @property info info attributes of a constant (see [GirInfo]).
- * @property name name of the constant.
- * @property value value of the constant.
- * @property cType corresponding C type of the constant in C.
- * @property cIdentifier corresponding C identifier in the source code.
- * @property type a [GirType] that a const can contain.
+ * @property info Common attributes for GIR elements.
+ * @property name Name of the constant.
+ * @property value Value of the constant.
+ * @property cType Corresponding C type of the constant.
+ * @property cIdentifier Corresponding C identifier in the source code.
+ * @property doc Documentation elements.
+ * @property annotations Annotations associated with the constant.
+ * @property type The type of the constant.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirConstant(
     val info: GirInfo,
     val name: String,
     val value: String,
-    val cType: String?,
-    val cIdentifier: String?,
-    val type: GirAnyType?,
-)
+    val cType: String? = null,
+    val cIdentifier: String? = null,
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
+    val type: GirAnyType? = null,
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        info.initialize(this, namespace)
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        type?.initialize(this, namespace)
+    }
+}

@@ -586,7 +586,7 @@ public open class Entry(
          *
          * @param tabs a `PangoTabArray`
          */
-        set(tabs) = gtk_entry_set_tabs(gtkEntryPointer.reinterpret(), tabs?.pangoTabArrayPointer)
+        set(tabs) = gtk_entry_set_tabs(gtkEntryPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
 
     /**
      * The length of the text in the `GtkEntry`.
@@ -759,7 +759,12 @@ public open class Entry(
     public open fun getIconArea(
         iconPos: EntryIconPosition,
         iconArea: Rectangle,
-    ): Unit = gtk_entry_get_icon_area(gtkEntryPointer.reinterpret(), iconPos.nativeValue, iconArea.gdkRectanglePointer)
+    ): Unit =
+        gtk_entry_get_icon_area(
+            gtkEntryPointer.reinterpret(),
+            iconPos.nativeValue,
+            iconArea.gdkRectanglePointer.reinterpret()
+        )
 
     /**
      * Finds the icon at the given position and return its index.
@@ -1042,7 +1047,7 @@ public open class Entry(
      * @param attrs a `PangoAttrList`
      */
     public open fun setAttributes(attrs: AttrList): Unit =
-        gtk_entry_set_attributes(gtkEntryPointer.reinterpret(), attrs.pangoAttrListPointer)
+        gtk_entry_set_attributes(gtkEntryPointer.reinterpret(), attrs.pangoAttrListPointer.reinterpret())
 
     /**
      * Set the `GtkEntryBuffer` object which holds the text for
@@ -1328,7 +1333,7 @@ public open class Entry(
      * @param tabs a `PangoTabArray`
      */
     public open fun setTabs(tabs: TabArray? = null): Unit =
-        gtk_entry_set_tabs(gtkEntryPointer.reinterpret(), tabs?.pangoTabArrayPointer)
+        gtk_entry_set_tabs(gtkEntryPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
 
     /**
      * Sets whether the contents of the entry are visible or not.

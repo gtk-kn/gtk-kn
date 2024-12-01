@@ -261,8 +261,8 @@ public open class GutterRenderer(
     ): Unit =
         gtk_source_gutter_renderer_activate(
             gtksourceGutterRendererPointer.reinterpret(),
-            iter.gtkTextIterPointer,
-            area.gdkRectanglePointer,
+            iter.gtkTextIterPointer.reinterpret(),
+            area.gdkRectanglePointer.reinterpret(),
             button,
             state.mask,
             nPresses
@@ -347,8 +347,8 @@ public open class GutterRenderer(
     ): Boolean =
         gtk_source_gutter_renderer_query_activatable(
             gtksourceGutterRendererPointer.reinterpret(),
-            iter.gtkTextIterPointer,
-            area.gdkRectanglePointer
+            iter.gtkTextIterPointer.reinterpret(),
+            area.gdkRectanglePointer.reinterpret()
         ).asBoolean()
 
     /**

@@ -53,7 +53,7 @@ public class FileList(
          * @since 4.8
          */
         public fun newFromList(files: SList): FileList =
-            FileList(gdk_file_list_new_from_list(files.glibSListPointer)!!.reinterpret())
+            FileList(gdk_file_list_new_from_list(files.glibSListPointer.reinterpret())!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): FileList = FileList(pointer.reinterpret())
     }

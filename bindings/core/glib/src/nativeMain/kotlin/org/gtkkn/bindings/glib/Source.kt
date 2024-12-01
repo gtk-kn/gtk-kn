@@ -107,7 +107,7 @@ public class Source(
      */
     @GLibVersion2_28
     public fun addChildSource(childSource: Source): Unit =
-        g_source_add_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer)
+        g_source_add_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer.reinterpret())
 
     /**
      * Adds a file descriptor to the set of file descriptors polled for
@@ -126,7 +126,8 @@ public class Source(
      * @param fd a #GPollFD structure holding information about a file
      *      descriptor to watch.
      */
-    public fun addPoll(fd: PollFD): Unit = g_source_add_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer)
+    public fun addPoll(fd: PollFD): Unit =
+        g_source_add_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
 
     /**
      * Adds a #GSource to a @context so that it will be executed within
@@ -141,7 +142,7 @@ public class Source(
      *   #GMainContext.
      */
     public fun attach(context: MainContext? = null): UInt =
-        g_source_attach(glibSourcePointer.reinterpret(), context?.glibMainContextPointer)
+        g_source_attach(glibSourcePointer.reinterpret(), context?.glibMainContextPointer?.reinterpret())
 
     /**
      * Removes a source from its #GMainContext, if any, and mark it as
@@ -195,7 +196,7 @@ public class Source(
      * @param timeval #GTimeVal structure in which to store current time.
      */
     public fun getCurrentTime(timeval: TimeVal): Unit =
-        g_source_get_current_time(glibSourcePointer.reinterpret(), timeval.glibTimeValPointer)
+        g_source_get_current_time(glibSourcePointer.reinterpret(), timeval.glibTimeValPointer.reinterpret())
 
     /**
      * Returns the numeric ID for a particular source. The ID of a source
@@ -363,7 +364,7 @@ public class Source(
      */
     @GLibVersion2_28
     public fun removeChildSource(childSource: Source): Unit =
-        g_source_remove_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer)
+        g_source_remove_child_source(glibSourcePointer.reinterpret(), childSource.glibSourcePointer.reinterpret())
 
     /**
      * Removes a file descriptor from the set of file descriptors polled for
@@ -375,7 +376,7 @@ public class Source(
      * @param fd a #GPollFD structure previously passed to g_source_add_poll().
      */
     public fun removePoll(fd: PollFD): Unit =
-        g_source_remove_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer)
+        g_source_remove_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
 
     /**
      * Sets the callback function for a source. The callback for a source is
@@ -429,7 +430,7 @@ public class Source(
      */
     @GLibVersion2_12
     public fun setFuncs(funcs: SourceFuncs): Unit =
-        g_source_set_funcs(glibSourcePointer.reinterpret(), funcs.glibSourceFuncsPointer)
+        g_source_set_funcs(glibSourcePointer.reinterpret(), funcs.glibSourceFuncsPointer.reinterpret())
 
     /**
      * Sets a name for the source, used in debugging and profiling.
@@ -539,7 +540,7 @@ public class Source(
         public fun new(
             sourceFuncs: SourceFuncs,
             structSize: UInt,
-        ): Source = Source(g_source_new(sourceFuncs.glibSourceFuncsPointer, structSize)!!.reinterpret())
+        ): Source = Source(g_source_new(sourceFuncs.glibSourceFuncsPointer.reinterpret(), structSize)!!.reinterpret())
 
         /**
          * Removes the source with the given ID from the default main context. You must

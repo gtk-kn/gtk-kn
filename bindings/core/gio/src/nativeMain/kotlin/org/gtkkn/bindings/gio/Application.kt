@@ -567,7 +567,7 @@ public open class Application(
      */
     @GioVersion2_40
     public open fun addOptionGroup(group: OptionGroup): Unit =
-        g_application_add_option_group(gioApplicationPointer.reinterpret(), group.glibOptionGroupPointer)
+        g_application_add_option_group(gioApplicationPointer.reinterpret(), group.glibOptionGroupPointer.reinterpret())
 
     /**
      * Marks @application as busy (see g_application_mark_busy()) while
@@ -930,8 +930,7 @@ public open class Application(
      * what their exit status will be.
      *
      * @param argc the argc from main() (or 0 if @argv is null)
-     * @param argv
-     *     the argv from main(), or null
+     * @param argv the argv from main(), or null
      * @return the exit status
      * @since 2.28
      */

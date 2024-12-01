@@ -32,9 +32,10 @@ class FieldBlueprintBuilder(
 ) : BlueprintBuilder<FieldBlueprint>(context) {
     override fun blueprintObjectType(): String = "field"
 
-    override fun blueprintObjectName(): String = girField.name
+    override fun blueprintObjectName(): String = checkNotNull(girField.name)
 
     override fun buildInternal(): FieldBlueprint {
+        checkNotNull(girField.name)
         if (girField.private == true) {
             throw IgnoredFieldException(girField.name, "private")
         }
@@ -59,7 +60,7 @@ class FieldBlueprintBuilder(
             nativeName = girField.name,
             typeInfo = typeInfo,
             writeable = girField.writable == true,
-            kdoc = context.processKdoc(girField.info.docs.doc?.text),
+            kdoc = context.processKdoc(girField.doc?.doc?.text),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girField.info)
                 .build()
                 .getOrNull(),

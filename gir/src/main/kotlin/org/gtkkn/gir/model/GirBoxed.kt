@@ -19,18 +19,35 @@ package org.gtkkn.gir.model
 /**
  * Boxed type (wrapper to opaque C structures registered by the type system).
  *
- * @property info attributes of a Boxed type (see [GirInfo]).
- * @property glibName GObject compatible type name of the boxed type.
- * @property cSymbolPrefix prefix to filter out from C functions. For example, gtk_window_new will lose gtk_.
+ * @property info Common attributes for GIR elements.
+ * @property glibName GObject compatible name of the boxed type.
+ * @property cSymbolPrefix Prefix to filter out from C functions.
  * @property glibTypeName GObject compatible type name of the boxed type.
- * @property glibGetType function to get the GObject compatible type of the boxed type.
- * @property functions a list of [GirFunction] that a Boxed type can contain.
+ * @property glibGetType Function to get the GObject compatible type of the boxed type.
+ * @property doc Documentation elements.
+ * @property annotations Annotations associated with the boxed type.
+ * @property functions Functions within the boxed type.
+ * @property functionInlines Inline functions within the boxed type.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirBoxed(
     val info: GirInfo,
     val glibName: String,
-    val cSymbolPrefix: String?,
-    val glibTypeName: String?,
-    val glibGetType: String?,
-    val functions: List<GirFunction>,
-)
+    val cSymbolPrefix: String? = null,
+    val glibTypeName: String? = null,
+    val glibGetType: String? = null,
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
+    val functions: List<GirFunction> = emptyList(),
+    val functionInlines: List<GirFunctionInline> = emptyList(),
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        info.initialize(this, namespace)
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        functions.forEach { it.initialize(this, namespace) }
+        functionInlines.forEach { it.initialize(this, namespace) }
+    }
+}

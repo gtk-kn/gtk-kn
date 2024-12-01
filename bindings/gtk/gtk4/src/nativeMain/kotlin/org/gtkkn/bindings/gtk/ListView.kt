@@ -456,7 +456,13 @@ public open class ListView(
         pos: UInt,
         flags: ListScrollFlags,
         scroll: ScrollInfo? = null,
-    ): Unit = gtk_list_view_scroll_to(gtkListViewPointer.reinterpret(), pos, flags.mask, scroll?.gtkScrollInfoPointer)
+    ): Unit =
+        gtk_list_view_scroll_to(
+            gtkListViewPointer.reinterpret(),
+            pos,
+            flags.mask,
+            scroll?.gtkScrollInfoPointer?.reinterpret()
+        )
 
     /**
      * Sets whether selections can be changed by dragging with the mouse.

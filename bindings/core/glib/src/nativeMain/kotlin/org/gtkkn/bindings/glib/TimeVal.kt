@@ -135,7 +135,7 @@ public class TimeVal(
         public fun fromIso8601(
             isoDate: String,
             time: TimeVal,
-        ): Boolean = g_time_val_from_iso8601(isoDate, time.glibTimeValPointer).asBoolean()
+        ): Boolean = g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): TimeVal = TimeVal(pointer.reinterpret())
     }

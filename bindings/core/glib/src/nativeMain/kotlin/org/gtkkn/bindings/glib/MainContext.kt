@@ -50,7 +50,7 @@ import kotlin.Unit
  * - parameter `user_data`: gpointer
  * - parameter `user_data`: gpointer
  * - parameter `priority`: priority: Out parameter is not supported
- * - parameter `timeout_`: timeout_: Out parameter is not supported
+ * - parameter `timeout`: timeout: Out parameter is not supported
  * - parameter `mutex`: Mutex
  */
 public class MainContext(
@@ -92,7 +92,8 @@ public class MainContext(
     public fun addPoll(
         fd: PollFD,
         priority: Int,
-    ): Unit = g_main_context_add_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer, priority)
+    ): Unit =
+        g_main_context_add_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret(), priority)
 
     /**
      * Dispatches all pending sources.
@@ -276,7 +277,7 @@ public class MainContext(
      * @param fd a #GPollFD descriptor previously added with g_main_context_add_poll()
      */
     public fun removePoll(fd: PollFD): Unit =
-        g_main_context_remove_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer)
+        g_main_context_remove_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
 
     /**
      * Decreases the reference count on a #GMainContext object by one. If

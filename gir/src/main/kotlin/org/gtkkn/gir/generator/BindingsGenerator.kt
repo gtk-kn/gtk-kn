@@ -180,11 +180,15 @@ class BindingsGenerator(
 
         // Write repository object (can be done synchronously if needed)
         val ktLintFormatter = KtLintFormatter(config.outputDir)
+        val additionalTypeAliases = buildList {
+            addAll(repository.callbackBlueprints.map { buildCallbackTypeAlias(it) })
+            addAll(repository.aliasBlueprints.map { buildAliasTypeAlias(it) })
+        }
         writeType(
             repository.repositoryObjectName,
             buildRepositoryObject(repository),
             repositorySrcDir(moduleOutputDir),
-            additionalTypeAliases = repository.callbackBlueprints.map { buildCallbackTypeAlias(it) },
+            additionalTypeAliases = additionalTypeAliases,
             additionalProperties = repository.callbackBlueprints.map { buildStaticCallbackProperty(it) },
             ktLintFormatter = ktLintFormatter,
         )

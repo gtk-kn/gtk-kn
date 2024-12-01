@@ -124,7 +124,7 @@ public open class DropTargetAsync(
         ) =
             gtk_drop_target_async_set_formats(
                 gtkDropTargetAsyncPointer.reinterpret(),
-                formats?.gdkContentFormatsPointer
+                formats?.gdkContentFormatsPointer?.reinterpret()
             )
 
     /**
@@ -137,7 +137,7 @@ public open class DropTargetAsync(
     public constructor(
         formats: ContentFormats? = null,
         actions: DragAction,
-    ) : this(gtk_drop_target_async_new(formats?.gdkContentFormatsPointer, actions.mask)!!.reinterpret())
+    ) : this(gtk_drop_target_async_new(formats?.gdkContentFormatsPointer?.reinterpret(), actions.mask)!!.reinterpret())
 
     /**
      * Gets the actions that this drop target supports.
@@ -187,7 +187,10 @@ public open class DropTargetAsync(
      * @param formats the supported data formats or null for any format
      */
     public open fun setFormats(formats: ContentFormats? = null): Unit =
-        gtk_drop_target_async_set_formats(gtkDropTargetAsyncPointer.reinterpret(), formats?.gdkContentFormatsPointer)
+        gtk_drop_target_async_set_formats(
+            gtkDropTargetAsyncPointer.reinterpret(),
+            formats?.gdkContentFormatsPointer?.reinterpret()
+        )
 
     /**
      * Emitted on the drop site when a drop operation is about to begin.

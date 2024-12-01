@@ -134,7 +134,7 @@ public open class ShortcutTrigger(
      * @param string a `GString` to print into
      */
     public open fun print(string: GlibString): Unit =
-        gtk_shortcut_trigger_print(gtkShortcutTriggerPointer.reinterpret(), string.glibStringPointer)
+        gtk_shortcut_trigger_print(gtkShortcutTriggerPointer.reinterpret(), string.glibStringPointer.reinterpret())
 
     /**
      * Prints the given trigger into a string.
@@ -162,7 +162,7 @@ public open class ShortcutTrigger(
         gtk_shortcut_trigger_print_label(
             gtkShortcutTriggerPointer.reinterpret(),
             display.gdkDisplayPointer.reinterpret(),
-            string.glibStringPointer
+            string.glibStringPointer.reinterpret()
         ).asBoolean()
 
     /**

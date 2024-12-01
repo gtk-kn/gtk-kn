@@ -116,7 +116,7 @@ public class MessageHeaders(
      * @param ranges an array of #SoupRange
      */
     public fun freeRanges(ranges: Range): Unit =
-        soup_message_headers_free_ranges(soupMessageHeadersPointer.reinterpret(), ranges.soupRangePointer)
+        soup_message_headers_free_ranges(soupMessageHeadersPointer.reinterpret(), ranges.soupRangePointer.reinterpret())
 
     /**
      * Gets the message body length that @hdrs declare.
@@ -288,7 +288,7 @@ public class MessageHeaders(
         soup_message_headers_set_content_disposition(
             soupMessageHeadersPointer.reinterpret(),
             disposition,
-            params?.glibHashTablePointer
+            params?.glibHashTablePointer?.reinterpret()
         )
 
     /**
@@ -344,7 +344,7 @@ public class MessageHeaders(
         soup_message_headers_set_content_type(
             soupMessageHeadersPointer.reinterpret(),
             contentType,
-            params?.glibHashTablePointer
+            params?.glibHashTablePointer?.reinterpret()
         )
 
     /**
@@ -403,7 +403,12 @@ public class MessageHeaders(
     public fun setRanges(
         ranges: Range,
         length: Int,
-    ): Unit = soup_message_headers_set_ranges(soupMessageHeadersPointer.reinterpret(), ranges.soupRangePointer, length)
+    ): Unit =
+        soup_message_headers_set_ranges(
+            soupMessageHeadersPointer.reinterpret(),
+            ranges.soupRangePointer.reinterpret(),
+            length
+        )
 
     /**
      * Atomically decrements the reference count of @hdrs by one.

@@ -151,7 +151,7 @@ public class TextIter(
      * @param other another `GtkTextIter`
      */
     public fun assign(other: TextIter): Unit =
-        gtk_text_iter_assign(gtkTextIterPointer.reinterpret(), other.gtkTextIterPointer)
+        gtk_text_iter_assign(gtkTextIterPointer.reinterpret(), other.gtkTextIterPointer.reinterpret())
 
     /**
      * Moves backward by one character offset.
@@ -216,7 +216,7 @@ public class TextIter(
             gtkTextIterPointer.reinterpret(),
             TextCharPredicateFunc.reinterpret(),
             StableRef.create(pred).asCPointer(),
-            limit?.gtkTextIterPointer
+            limit?.gtkTextIterPointer?.reinterpret()
         ).asBoolean()
 
     /**
@@ -276,9 +276,9 @@ public class TextIter(
             gtkTextIterPointer.reinterpret(),
             str,
             flags.mask,
-            matchStart?.gtkTextIterPointer,
-            matchEnd?.gtkTextIterPointer,
-            limit?.gtkTextIterPointer
+            matchStart?.gtkTextIterPointer?.reinterpret(),
+            matchEnd?.gtkTextIterPointer?.reinterpret(),
+            limit?.gtkTextIterPointer?.reinterpret()
         ).asBoolean()
 
     /**
@@ -454,7 +454,7 @@ public class TextIter(
      * @return -1 if @lhs is less than @rhs, 1 if @lhs is greater, 0 if they are equal
      */
     public fun compare(rhs: TextIter): Int =
-        gtk_text_iter_compare(gtkTextIterPointer.reinterpret(), rhs.gtkTextIterPointer)
+        gtk_text_iter_compare(gtkTextIterPointer.reinterpret(), rhs.gtkTextIterPointer.reinterpret())
 
     /**
      * Creates a dynamically-allocated copy of an iterator.
@@ -561,7 +561,7 @@ public class TextIter(
      * @return true if the iterators point to the same place in the buffer
      */
     public fun equal(rhs: TextIter): Boolean =
-        gtk_text_iter_equal(gtkTextIterPointer.reinterpret(), rhs.gtkTextIterPointer).asBoolean()
+        gtk_text_iter_equal(gtkTextIterPointer.reinterpret(), rhs.gtkTextIterPointer.reinterpret()).asBoolean()
 
     /**
      * Moves @iter forward by one character offset.
@@ -645,7 +645,7 @@ public class TextIter(
             gtkTextIterPointer.reinterpret(),
             TextCharPredicateFunc.reinterpret(),
             StableRef.create(pred).asCPointer(),
-            limit?.gtkTextIterPointer
+            limit?.gtkTextIterPointer?.reinterpret()
         ).asBoolean()
 
     /**
@@ -708,9 +708,9 @@ public class TextIter(
             gtkTextIterPointer.reinterpret(),
             str,
             flags.mask,
-            matchStart?.gtkTextIterPointer,
-            matchEnd?.gtkTextIterPointer,
-            limit?.gtkTextIterPointer
+            matchStart?.gtkTextIterPointer?.reinterpret(),
+            matchEnd?.gtkTextIterPointer?.reinterpret(),
+            limit?.gtkTextIterPointer?.reinterpret()
         ).asBoolean()
 
     /**
@@ -999,8 +999,7 @@ public class TextIter(
      *
      * The returned list is not in any meaningful order.
      *
-     * @return
-     *   list of `GtkTextMark`
+     * @return list of `GtkTextMark`
      */
     public fun getMarks(): SList =
         gtk_text_iter_get_marks(gtkTextIterPointer.reinterpret())!!.run {
@@ -1047,7 +1046,7 @@ public class TextIter(
      * @return slice of text from the buffer
      */
     public fun getSlice(end: TextIter): String =
-        gtk_text_iter_get_slice(gtkTextIterPointer.reinterpret(), end.gtkTextIterPointer)?.toKString()
+        gtk_text_iter_get_slice(gtkTextIterPointer.reinterpret(), end.gtkTextIterPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -1080,7 +1079,7 @@ public class TextIter(
      * @return array of characters from the buffer
      */
     public fun getText(end: TextIter): String =
-        gtk_text_iter_get_text(gtkTextIterPointer.reinterpret(), end.gtkTextIterPointer)?.toKString()
+        gtk_text_iter_get_text(gtkTextIterPointer.reinterpret(), end.gtkTextIterPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -1134,7 +1133,10 @@ public class TextIter(
      * @return slice of text from the buffer
      */
     public fun getVisibleSlice(end: TextIter): String =
-        gtk_text_iter_get_visible_slice(gtkTextIterPointer.reinterpret(), end.gtkTextIterPointer)?.toKString()
+        gtk_text_iter_get_visible_slice(
+            gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret()
+        )?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -1150,7 +1152,10 @@ public class TextIter(
      * range
      */
     public fun getVisibleText(end: TextIter): String =
-        gtk_text_iter_get_visible_text(gtkTextIterPointer.reinterpret(), end.gtkTextIterPointer)?.toKString()
+        gtk_text_iter_get_visible_text(
+            gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret()
+        )?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -1181,8 +1186,8 @@ public class TextIter(
     ): Boolean =
         gtk_text_iter_in_range(
             gtkTextIterPointer.reinterpret(),
-            start.gtkTextIterPointer,
-            end.gtkTextIterPointer
+            start.gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -1256,7 +1261,7 @@ public class TextIter(
      * @param second another `GtkTextIter`
      */
     public fun order(second: TextIter): Unit =
-        gtk_text_iter_order(gtkTextIterPointer.reinterpret(), second.gtkTextIterPointer)
+        gtk_text_iter_order(gtkTextIterPointer.reinterpret(), second.gtkTextIterPointer.reinterpret())
 
     /**
      * Moves iterator @iter to the start of the line @line_number.

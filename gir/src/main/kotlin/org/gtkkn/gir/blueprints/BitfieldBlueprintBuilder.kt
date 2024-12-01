@@ -18,7 +18,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
-import org.gtkkn.gir.model.GirBitField
+import org.gtkkn.gir.model.GirBitfield
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.NotIntrospectableException
@@ -27,7 +27,7 @@ import org.gtkkn.gir.processor.ProcessorContext
 class BitfieldBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girBitfield: GirBitField,
+    private val girBitfield: GirBitfield,
 ) : BlueprintBuilder<BitfieldBlueprint>(context) {
     private val members = mutableListOf<BitfieldMemberBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
@@ -51,7 +51,7 @@ class BitfieldBlueprintBuilder(
         }
 
         val kotlinName = context.kotlinizeBitfieldName(girBitfield.name)
-        val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
+        val kotlinPackageName = context.kotlinizePackageName(checkNotNull(girNamespace.name))
         val kotlinTypeName = ClassName(kotlinPackageName, kotlinName)
 
         val nativePackageName = context.namespaceNativePackageName(girNamespace)
@@ -67,7 +67,7 @@ class BitfieldBlueprintBuilder(
                     optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, member.info)
                         .build()
                         .getOrNull(),
-                    kdoc = context.processKdoc(member.info.docs.doc?.text),
+                    kdoc = context.processKdoc(member.doc?.doc?.text),
                 ),
             )
         }
@@ -83,7 +83,7 @@ class BitfieldBlueprintBuilder(
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girBitfield.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girBitfield.info.docs.doc?.text),
+            kdoc = context.processKdoc(girBitfield.doc?.doc?.text),
         )
     }
 }

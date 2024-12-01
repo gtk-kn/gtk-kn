@@ -91,7 +91,7 @@ public open class TypeModule(
             gobjectTypeModulePointer.reinterpret(),
             instanceType,
             interfaceType,
-            interfaceInfo.gobjectInterfaceInfoPointer
+            interfaceInfo.gobjectInterfaceInfoPointer.reinterpret()
         )
 
     /**
@@ -122,7 +122,7 @@ public open class TypeModule(
         g_type_module_register_enum(
             gobjectTypeModulePointer.reinterpret(),
             name,
-            constStaticValues.gobjectEnumValuePointer
+            constStaticValues.gobjectEnumValuePointer.reinterpret()
         )
 
     /**
@@ -153,7 +153,7 @@ public open class TypeModule(
         g_type_module_register_flags(
             gobjectTypeModulePointer.reinterpret(),
             name,
-            constStaticValues.gobjectFlagsValuePointer
+            constStaticValues.gobjectFlagsValuePointer.reinterpret()
         )
 
     /**
@@ -188,7 +188,7 @@ public open class TypeModule(
             gobjectTypeModulePointer.reinterpret(),
             parentType,
             typeName,
-            typeInfo.gobjectTypeInfoPointer,
+            typeInfo.gobjectTypeInfoPointer.reinterpret(),
             flags.mask
         )
 

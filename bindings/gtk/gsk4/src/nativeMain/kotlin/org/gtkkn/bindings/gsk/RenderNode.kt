@@ -67,7 +67,7 @@ public open class RenderNode(
      * @param bounds return location for the boundaries
      */
     public open fun getBounds(bounds: Rect): Unit =
-        gsk_render_node_get_bounds(gPointer.reinterpret(), bounds.grapheneRectPointer)
+        gsk_render_node_get_bounds(gPointer.reinterpret(), bounds.grapheneRectPointer.reinterpret())
 
     /**
      * Returns the type of the @node.
@@ -160,7 +160,7 @@ public open class RenderNode(
             errorFunc: ParseErrorFunc,
         ): RenderNode? =
             gsk_render_node_deserialize(
-                bytes.glibBytesPointer,
+                bytes.glibBytesPointer.reinterpret(),
                 ParseErrorFuncFunc.reinterpret(),
                 StableRef.create(errorFunc).asCPointer()
             )?.run {

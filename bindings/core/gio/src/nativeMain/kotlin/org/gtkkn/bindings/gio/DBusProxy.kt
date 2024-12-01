@@ -206,7 +206,7 @@ public open class DBusProxy(
                 g_dbus_proxy_new_for_bus_sync(
                     busType.nativeValue,
                     flags.mask,
-                    info?.gioDBusInterfaceInfoPointer,
+                    info?.gioDBusInterfaceInfoPointer?.reinterpret(),
                     name,
                     objectPath,
                     interfaceName,
@@ -271,7 +271,7 @@ public open class DBusProxy(
                 g_dbus_proxy_new_sync(
                     connection.gioDBusConnectionPointer.reinterpret(),
                     flags.mask,
-                    info?.gioDBusInterfaceInfoPointer,
+                    info?.gioDBusInterfaceInfoPointer?.reinterpret(),
                     name,
                     objectPath,
                     interfaceName,
@@ -351,7 +351,7 @@ public open class DBusProxy(
         g_dbus_proxy_call(
             gioDBusProxyPointer.reinterpret(),
             methodName,
-            parameters?.glibVariantPointer,
+            parameters?.glibVariantPointer?.reinterpret(),
             flags.mask,
             timeoutMsec,
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -448,7 +448,7 @@ public open class DBusProxy(
                 g_dbus_proxy_call_sync(
                     gioDBusProxyPointer.reinterpret(),
                     methodName,
-                    parameters?.glibVariantPointer,
+                    parameters?.glibVariantPointer?.reinterpret(),
                     flags.mask,
                     timeoutMsec,
                     cancellable?.gioCancellablePointer?.reinterpret(),
@@ -493,7 +493,7 @@ public open class DBusProxy(
         g_dbus_proxy_call_with_unix_fd_list(
             gioDBusProxyPointer.reinterpret(),
             methodName,
-            parameters?.glibVariantPointer,
+            parameters?.glibVariantPointer?.reinterpret(),
             flags.mask,
             timeoutMsec,
             fdList?.gioUnixFDListPointer?.reinterpret(),
@@ -680,7 +680,11 @@ public open class DBusProxy(
         propertyName: String,
         `value`: Variant? = null,
     ): Unit =
-        g_dbus_proxy_set_cached_property(gioDBusProxyPointer.reinterpret(), propertyName, `value`?.glibVariantPointer)
+        g_dbus_proxy_set_cached_property(
+            gioDBusProxyPointer.reinterpret(),
+            propertyName,
+            `value`?.glibVariantPointer?.reinterpret()
+        )
 
     /**
      * Sets the timeout to use if -1 (specifying default timeout) is
@@ -707,7 +711,10 @@ public open class DBusProxy(
      */
     @GioVersion2_26
     public open fun setInterfaceInfo(info: DBusInterfaceInfo? = null): Unit =
-        g_dbus_proxy_set_interface_info(gioDBusProxyPointer.reinterpret(), info?.gioDBusInterfaceInfoPointer)
+        g_dbus_proxy_set_interface_info(
+            gioDBusProxyPointer.reinterpret(),
+            info?.gioDBusInterfaceInfoPointer?.reinterpret()
+        )
 
     /**
      * Emitted when one or more D-Bus properties on @proxy changes. The
@@ -871,7 +878,7 @@ public open class DBusProxy(
             g_dbus_proxy_new(
                 connection.gioDBusConnectionPointer.reinterpret(),
                 flags.mask,
-                info?.gioDBusInterfaceInfoPointer,
+                info?.gioDBusInterfaceInfoPointer?.reinterpret(),
                 name,
                 objectPath,
                 interfaceName,
@@ -909,7 +916,7 @@ public open class DBusProxy(
             g_dbus_proxy_new_for_bus(
                 busType.nativeValue,
                 flags.mask,
-                info?.gioDBusInterfaceInfoPointer,
+                info?.gioDBusInterfaceInfoPointer?.reinterpret(),
                 name,
                 objectPath,
                 interfaceName,

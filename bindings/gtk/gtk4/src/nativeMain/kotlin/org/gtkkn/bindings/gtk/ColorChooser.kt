@@ -81,7 +81,7 @@ public interface ColorChooser :
      * @param color a `GdkRGBA` to fill in with the current color
      */
     public fun getRgba(color: RGBA): Unit =
-        gtk_color_chooser_get_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer)
+        gtk_color_chooser_get_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
 
     /**
      * Returns whether the color chooser shows the alpha channel.
@@ -98,7 +98,7 @@ public interface ColorChooser :
      * @param color the new color
      */
     public fun setRgba(color: RGBA): Unit =
-        gtk_color_chooser_set_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer)
+        gtk_color_chooser_set_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
 
     /**
      * Sets whether or not the color chooser should use the alpha channel.

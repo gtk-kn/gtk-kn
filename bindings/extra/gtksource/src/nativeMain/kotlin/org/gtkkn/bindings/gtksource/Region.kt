@@ -131,8 +131,8 @@ public open class Region(
     ): Unit =
         gtk_source_region_add_subregion(
             gtksourceRegionPointer.reinterpret(),
-            start.gtkTextIterPointer,
-            end.gtkTextIterPointer
+            start.gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret()
         )
 
     /**
@@ -151,8 +151,8 @@ public open class Region(
     ): Boolean =
         gtk_source_region_get_bounds(
             gtksourceRegionPointer.reinterpret(),
-            start?.gtkTextIterPointer,
-            end?.gtkTextIterPointer
+            start?.gtkTextIterPointer?.reinterpret(),
+            end?.gtkTextIterPointer?.reinterpret()
         ).asBoolean()
 
     /**
@@ -173,7 +173,10 @@ public open class Region(
      * @param iter iterator to initialize to the first subregion.
      */
     public open fun getStartRegionIter(iter: RegionIter): Unit =
-        gtk_source_region_get_start_region_iter(gtksourceRegionPointer.reinterpret(), iter.gtksourceRegionIterPointer)
+        gtk_source_region_get_start_region_iter(
+            gtksourceRegionPointer.reinterpret(),
+            iter.gtksourceRegionIterPointer.reinterpret()
+        )
 
     /**
      * Returns the intersection between @region1 and @region2.
@@ -209,8 +212,8 @@ public open class Region(
     ): Region? =
         gtk_source_region_intersect_subregion(
             gtksourceRegionPointer.reinterpret(),
-            start.gtkTextIterPointer,
-            end.gtkTextIterPointer
+            start.gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret()
         )?.run {
             Region(reinterpret())
         }
@@ -250,8 +253,8 @@ public open class Region(
     ): Unit =
         gtk_source_region_subtract_subregion(
             gtksourceRegionPointer.reinterpret(),
-            start.gtkTextIterPointer,
-            end.gtkTextIterPointer
+            start.gtkTextIterPointer.reinterpret(),
+            end.gtkTextIterPointer.reinterpret()
         )
 
     public companion object : TypeCompanion<Region> {

@@ -402,7 +402,9 @@ public class Flap(
          *
          * @param params the new parameters
          */
-        set(params) = adw_flap_set_reveal_params(adwFlapPointer.reinterpret(), params.adwSpringParamsPointer)
+        set(
+            params
+        ) = adw_flap_set_reveal_params(adwFlapPointer.reinterpret(), params.adwSpringParamsPointer.reinterpret())
 
     /**
      * The current reveal transition progress.
@@ -784,7 +786,7 @@ public class Flap(
      * @param params the new parameters
      */
     public fun setRevealParams(params: SpringParams): Unit =
-        adw_flap_set_reveal_params(adwFlapPointer.reinterpret(), params.adwSpringParamsPointer)
+        adw_flap_set_reveal_params(adwFlapPointer.reinterpret(), params.adwSpringParamsPointer.reinterpret())
 
     /**
      * Sets the separator widget for @self.

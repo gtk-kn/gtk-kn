@@ -68,7 +68,7 @@ class PropertyBlueprintBuilder(
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girProperty.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girProperty.info.docs.doc?.text),
+            kdoc = context.processKdoc(girProperty.doc?.doc?.text),
         )
     }
 

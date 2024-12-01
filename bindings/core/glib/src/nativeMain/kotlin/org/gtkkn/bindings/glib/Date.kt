@@ -21,32 +21,47 @@ import org.gtkkn.native.glib.g_date_compare
 import org.gtkkn.native.glib.g_date_copy
 import org.gtkkn.native.glib.g_date_days_between
 import org.gtkkn.native.glib.g_date_free
+import org.gtkkn.native.glib.g_date_get_day
 import org.gtkkn.native.glib.g_date_get_day_of_year
+import org.gtkkn.native.glib.g_date_get_days_in_month
 import org.gtkkn.native.glib.g_date_get_iso8601_week_of_year
 import org.gtkkn.native.glib.g_date_get_julian
 import org.gtkkn.native.glib.g_date_get_monday_week_of_year
+import org.gtkkn.native.glib.g_date_get_monday_weeks_in_year
 import org.gtkkn.native.glib.g_date_get_month
 import org.gtkkn.native.glib.g_date_get_sunday_week_of_year
+import org.gtkkn.native.glib.g_date_get_sunday_weeks_in_year
 import org.gtkkn.native.glib.g_date_get_weekday
+import org.gtkkn.native.glib.g_date_get_year
 import org.gtkkn.native.glib.g_date_is_first_of_month
 import org.gtkkn.native.glib.g_date_is_last_of_month
+import org.gtkkn.native.glib.g_date_is_leap_year
 import org.gtkkn.native.glib.g_date_new
+import org.gtkkn.native.glib.g_date_new_dmy
 import org.gtkkn.native.glib.g_date_new_julian
 import org.gtkkn.native.glib.g_date_order
+import org.gtkkn.native.glib.g_date_set_day
+import org.gtkkn.native.glib.g_date_set_dmy
 import org.gtkkn.native.glib.g_date_set_julian
 import org.gtkkn.native.glib.g_date_set_month
 import org.gtkkn.native.glib.g_date_set_parse
+import org.gtkkn.native.glib.g_date_set_time
 import org.gtkkn.native.glib.g_date_set_time_val
+import org.gtkkn.native.glib.g_date_set_year
 import org.gtkkn.native.glib.g_date_subtract_days
 import org.gtkkn.native.glib.g_date_subtract_months
 import org.gtkkn.native.glib.g_date_subtract_years
 import org.gtkkn.native.glib.g_date_valid
+import org.gtkkn.native.glib.g_date_valid_day
+import org.gtkkn.native.glib.g_date_valid_dmy
 import org.gtkkn.native.glib.g_date_valid_julian
 import org.gtkkn.native.glib.g_date_valid_month
 import org.gtkkn.native.glib.g_date_valid_weekday
+import org.gtkkn.native.glib.g_date_valid_year
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlin.UByte
 import kotlin.UInt
 import kotlin.Unit
 
@@ -93,23 +108,9 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `get_day`: Return type DateDay is unsupported
- * - method `get_year`: Return type DateYear is unsupported
- * - parameter `day`: DateDay
- * - parameter `day`: DateDay
- * - parameter `time_`: Time
  * - parameter `timet`: time_t
- * - parameter `year`: DateYear
  * - parameter `tm`: gpointer
- * - parameter `day`: DateDay
- * - parameter `year`: DateYear
- * - parameter `year`: DateYear
- * - parameter `year`: DateYear
- * - parameter `year`: DateYear
  * - function `strftime`: C function g_date_strftime is ignored
- * - parameter `day`: DateDay
- * - parameter `day`: DateDay
- * - parameter `year`: DateYear
  */
 public class Date(
     pointer: CPointer<GDate>,
@@ -215,7 +216,12 @@ public class Date(
     public fun clamp(
         minDate: Date,
         maxDate: Date,
-    ): Unit = g_date_clamp(glibDatePointer.reinterpret(), minDate.glibDatePointer, maxDate.glibDatePointer)
+    ): Unit =
+        g_date_clamp(
+            glibDatePointer.reinterpret(),
+            minDate.glibDatePointer.reinterpret(),
+            maxDate.glibDatePointer.reinterpret()
+        )
 
     /**
      * Initializes one or more #GDate structs to a safe but invalid
@@ -235,7 +241,8 @@ public class Date(
      * @return 0 for equal, less than zero if @lhs is less than @rhs,
      *     greater than zero if @lhs is greater than @rhs
      */
-    public fun compare(rhs: Date): Int = g_date_compare(glibDatePointer.reinterpret(), rhs.glibDatePointer)
+    public fun compare(rhs: Date): Int =
+        g_date_compare(glibDatePointer.reinterpret(), rhs.glibDatePointer.reinterpret())
 
     /**
      * Copies a GDate to a newly-allocated GDate. If the input was invalid
@@ -259,12 +266,20 @@ public class Date(
      * @param date2 the second date
      * @return the number of days between @date1 and @date2
      */
-    public fun daysBetween(date2: Date): Int = g_date_days_between(glibDatePointer.reinterpret(), date2.glibDatePointer)
+    public fun daysBetween(date2: Date): Int =
+        g_date_days_between(glibDatePointer.reinterpret(), date2.glibDatePointer.reinterpret())
 
     /**
      * Frees a #GDate returned from g_date_new().
      */
     public fun free(): Unit = g_date_free(glibDatePointer.reinterpret())
+
+    /**
+     * Returns the day of the month. The date must be valid.
+     *
+     * @return day of the month
+     */
+    public fun getDay(): DateDay = g_date_get_day(glibDatePointer.reinterpret())
 
     /**
      * Returns the day of the year, where Jan 1 is the first day of the
@@ -333,6 +348,13 @@ public class Date(
         }
 
     /**
+     * Returns the year of a #GDate. The date must be valid.
+     *
+     * @return year in which the date falls
+     */
+    public fun getYear(): DateYear = g_date_get_year(glibDatePointer.reinterpret())
+
+    /**
      * Returns true if the date is on the first of a month.
      * The date must be valid.
      *
@@ -354,7 +376,32 @@ public class Date(
      *
      * @param date2 the second date
      */
-    public fun order(date2: Date): Unit = g_date_order(glibDatePointer.reinterpret(), date2.glibDatePointer)
+    public fun order(date2: Date): Unit =
+        g_date_order(glibDatePointer.reinterpret(), date2.glibDatePointer.reinterpret())
+
+    /**
+     * Sets the day of the month for a #GDate. If the resulting
+     * day-month-year triplet is invalid, the date will be invalid.
+     *
+     * @param day day to set
+     */
+    public fun setDay(day: DateDay): Unit = g_date_set_day(glibDatePointer.reinterpret(), day)
+
+    /**
+     * Sets the value of a #GDate from a day, month, and year.
+     * The day-month-year triplet must be valid; if you aren't
+     * sure it is, call g_date_valid_dmy() to check before you
+     * set it.
+     *
+     * @param day day
+     * @param month month
+     * @param y year
+     */
+    public fun setDmy(
+        day: DateDay,
+        month: DateMonth,
+        y: DateYear,
+    ): Unit = g_date_set_dmy(glibDatePointer.reinterpret(), day, month.nativeValue, y)
 
     /**
      * Sets the value of a #GDate from a Julian day number.
@@ -389,6 +436,14 @@ public class Date(
     public fun setParse(str: String): Unit = g_date_set_parse(glibDatePointer.reinterpret(), str)
 
     /**
+     * Sets the value of a date from a #GTime value.
+     * The time to date conversion is done using the user's current timezone.
+     *
+     * @param time #GTime value to set.
+     */
+    public fun setTime(time: Time): Unit = g_date_set_time(glibDatePointer.reinterpret(), time)
+
+    /**
      * Sets the value of a date from a #GTimeVal value.  Note that the
      * @tv_usec member is ignored, because #GDate can't make use of the
      * additional precision.
@@ -400,7 +455,15 @@ public class Date(
      */
     @GLibVersion2_10
     public fun setTimeVal(timeval: TimeVal): Unit =
-        g_date_set_time_val(glibDatePointer.reinterpret(), timeval.glibTimeValPointer)
+        g_date_set_time_val(glibDatePointer.reinterpret(), timeval.glibTimeValPointer.reinterpret())
+
+    /**
+     * Sets the year for a #GDate. If the resulting day-month-year
+     * triplet is invalid, the date will be invalid.
+     *
+     * @param year year to set
+     */
+    public fun setYear(year: DateYear): Unit = g_date_set_year(glibDatePointer.reinterpret(), year)
 
     /**
      * Moves a date some number of days into the past.
@@ -453,6 +516,25 @@ public class Date(
         public fun new(): Date = Date(g_date_new()!!.reinterpret())
 
         /**
+         * Create a new #GDate representing the given day-month-year triplet.
+         *
+         * The triplet you pass in must represent a valid date. Use g_date_valid_dmy()
+         * if needed to validate it. The returned #GDate is guaranteed to be non-null
+         * and valid.
+         *
+         * @param day day of the month
+         * @param month month of the year
+         * @param year year
+         * @return a newly-allocated #GDate
+         *   initialized with @day, @month, and @year
+         */
+        public fun newDmy(
+            day: DateDay,
+            month: DateMonth,
+            year: DateYear,
+        ): Date = Date(g_date_new_dmy(day, month.nativeValue, year)!!.reinterpret())
+
+        /**
          * Create a new #GDate representing the given Julian date.
          *
          * The @julian_day you pass in must be valid. Use g_date_valid_julian() if
@@ -464,6 +546,85 @@ public class Date(
          *   with @julian_day
          */
         public fun newJulian(julianDay: UInt): Date = Date(g_date_new_julian(julianDay)!!.reinterpret())
+
+        /**
+         * Returns the number of days in a month, taking leap
+         * years into account.
+         *
+         * @param month month
+         * @param year year
+         * @return number of days in @month during the @year
+         */
+        public fun getDaysInMonth(
+            month: DateMonth,
+            year: DateYear,
+        ): UByte = g_date_get_days_in_month(month.nativeValue, year)
+
+        /**
+         * Returns the number of weeks in the year, where weeks
+         * are taken to start on Monday. Will be 52 or 53. The
+         * date must be valid. (Years always have 52 7-day periods,
+         * plus 1 or 2 extra days depending on whether it's a leap
+         * year. This function is basically telling you how many
+         * Mondays are in the year, i.e. there are 53 Mondays if
+         * one of the extra days happens to be a Monday.)
+         *
+         * @param year a year
+         * @return number of Mondays in the year
+         */
+        public fun getMondayWeeksInYear(year: DateYear): UByte = g_date_get_monday_weeks_in_year(year)
+
+        /**
+         * Returns the number of weeks in the year, where weeks
+         * are taken to start on Sunday. Will be 52 or 53. The
+         * date must be valid. (Years always have 52 7-day periods,
+         * plus 1 or 2 extra days depending on whether it's a leap
+         * year. This function is basically telling you how many
+         * Sundays are in the year, i.e. there are 53 Sundays if
+         * one of the extra days happens to be a Sunday.)
+         *
+         * @param year year to count weeks in
+         * @return the number of weeks in @year
+         */
+        public fun getSundayWeeksInYear(year: DateYear): UByte = g_date_get_sunday_weeks_in_year(year)
+
+        /**
+         * Returns true if the year is a leap year.
+         *
+         * For the purposes of this function, leap year is every year
+         * divisible by 4 unless that year is divisible by 100. If it
+         * is divisible by 100 it would be a leap year only if that year
+         * is also divisible by 400.
+         *
+         * @param year year to check
+         * @return true if the year is a leap year
+         */
+        public fun isLeapYear(year: DateYear): Boolean = g_date_is_leap_year(year).asBoolean()
+
+        /**
+         * Returns true if the day of the month is valid (a day is valid if it's
+         * between 1 and 31 inclusive).
+         *
+         * @param day day to check
+         * @return true if the day is valid
+         */
+        public fun validDay(day: DateDay): Boolean = g_date_valid_day(day).asBoolean()
+
+        /**
+         * Returns true if the day-month-year triplet forms a valid, existing day
+         * in the range of days #GDate understands (Year 1 or later, no more than
+         * a few thousand years in the future).
+         *
+         * @param day day
+         * @param month month
+         * @param year year
+         * @return true if the date is a valid one
+         */
+        public fun validDmy(
+            day: DateDay,
+            month: DateMonth,
+            year: DateYear,
+        ): Boolean = g_date_valid_dmy(day, month.nativeValue, year).asBoolean()
 
         /**
          * Returns true if the Julian day is valid. Anything greater than zero
@@ -491,6 +652,15 @@ public class Date(
          * @return true if the weekday is valid
          */
         public fun validWeekday(weekday: DateWeekday): Boolean = g_date_valid_weekday(weekday.nativeValue).asBoolean()
+
+        /**
+         * Returns true if the year is valid. Any year greater than 0 is valid,
+         * though there is a 16-bit limit to what #GDate will understand.
+         *
+         * @param year year
+         * @return true if the year is valid
+         */
+        public fun validYear(year: DateYear): Boolean = g_date_valid_year(year).asBoolean()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): Date = Date(pointer.reinterpret())
     }

@@ -143,8 +143,8 @@ public open class CompletionContext(
     ): Boolean =
         gtk_source_completion_context_get_bounds(
             gtksourceCompletionContextPointer.reinterpret(),
-            begin?.gtkTextIterPointer,
-            end?.gtkTextIterPointer
+            begin?.gtkTextIterPointer?.reinterpret(),
+            end?.gtkTextIterPointer?.reinterpret()
         ).asBoolean()
 
     /**

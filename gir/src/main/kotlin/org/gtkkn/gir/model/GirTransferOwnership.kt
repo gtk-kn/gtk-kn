@@ -17,7 +17,7 @@
 package org.gtkkn.gir.model
 
 /**
- * Enum used by many elements for the transfer of ownership, with for example, a returned value.
+ * Transfer of ownership attribute used by many elements.
  */
 enum class GirTransferOwnership {
     /**
@@ -34,8 +34,7 @@ enum class GirTransferOwnership {
      * Te recipient owns the entire value. For details, see
      * https://gi.readthedocs.io/en/latest/annotations/giannotations.html#memory-and-lifecycle-management.
      */
-    FULL,
-    ;
+    FULL;
 
     companion object {
         fun fromString(str: String): GirTransferOwnership = when (str) {

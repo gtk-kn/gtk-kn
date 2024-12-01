@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
@@ -217,7 +218,6 @@ import kotlin.Unit
  * - callback `TypeValueLCopyFunc`: Callback with String return value is not supported
  * - callback `TypeValuePeekPointerFunc`: Return type gpointer is unsupported
  * - bitfield `IOCondition`: C Type GIOCondition is ignored
- * - constant `TYPE_FLAG_RESERVED_ID_BIT`: Type
  * - record `InitiallyUnownedClass`: glib type struct are ignored
  * - record `ParamSpecClass`: glib type struct are ignored
  * - record `ParamSpecPool`: Disguised records are ignored
@@ -257,6 +257,11 @@ public object Gobject {
      * A mask for all #GSignalMatchType bits.
      */
     public const val SIGNAL_MATCH_MASK: Int = 63
+
+    /**
+     * A bit in the type number that's supposed to be left untouched.
+     */
+    public const val TYPE_FLAG_RESERVED_ID_BIT: Type = 1u
 
     /**
      * An integer constant that represents the number of identifiers reserved
@@ -331,7 +336,7 @@ public object Gobject {
         enumClass: EnumClass,
         `value`: Int,
     ): EnumValue? =
-        g_enum_get_value(enumClass.gobjectEnumClassPointer, `value`)?.run {
+        g_enum_get_value(enumClass.gobjectEnumClassPointer.reinterpret(), `value`)?.run {
             EnumValue(reinterpret())
         }
 
@@ -348,7 +353,7 @@ public object Gobject {
         enumClass: EnumClass,
         name: String,
     ): EnumValue? =
-        g_enum_get_value_by_name(enumClass.gobjectEnumClassPointer, name)?.run {
+        g_enum_get_value_by_name(enumClass.gobjectEnumClassPointer.reinterpret(), name)?.run {
             EnumValue(reinterpret())
         }
 
@@ -365,7 +370,7 @@ public object Gobject {
         enumClass: EnumClass,
         nick: String,
     ): EnumValue? =
-        g_enum_get_value_by_nick(enumClass.gobjectEnumClassPointer, nick)?.run {
+        g_enum_get_value_by_nick(enumClass.gobjectEnumClassPointer.reinterpret(), nick)?.run {
             EnumValue(reinterpret())
         }
 
@@ -386,7 +391,7 @@ public object Gobject {
     public fun enumRegisterStatic(
         name: String,
         constStaticValues: EnumValue,
-    ): ULong = g_enum_register_static(name, constStaticValues.gobjectEnumValuePointer)
+    ): ULong = g_enum_register_static(name, constStaticValues.gobjectEnumValuePointer.reinterpret())
 
     /**
      * Returns the first #GFlagsValue which is set in @value.
@@ -400,7 +405,7 @@ public object Gobject {
         flagsClass: FlagsClass,
         `value`: UInt,
     ): FlagsValue? =
-        g_flags_get_first_value(flagsClass.gobjectFlagsClassPointer, `value`)?.run {
+        g_flags_get_first_value(flagsClass.gobjectFlagsClassPointer.reinterpret(), `value`)?.run {
             FlagsValue(reinterpret())
         }
 
@@ -416,7 +421,7 @@ public object Gobject {
         flagsClass: FlagsClass,
         name: String,
     ): FlagsValue? =
-        g_flags_get_value_by_name(flagsClass.gobjectFlagsClassPointer, name)?.run {
+        g_flags_get_value_by_name(flagsClass.gobjectFlagsClassPointer.reinterpret(), name)?.run {
             FlagsValue(reinterpret())
         }
 
@@ -432,7 +437,7 @@ public object Gobject {
         flagsClass: FlagsClass,
         nick: String,
     ): FlagsValue? =
-        g_flags_get_value_by_nick(flagsClass.gobjectFlagsClassPointer, nick)?.run {
+        g_flags_get_value_by_nick(flagsClass.gobjectFlagsClassPointer.reinterpret(), nick)?.run {
             FlagsValue(reinterpret())
         }
 
@@ -452,7 +457,7 @@ public object Gobject {
     public fun flagsRegisterStatic(
         name: String,
         constStaticValues: FlagsValue,
-    ): ULong = g_flags_register_static(name, constStaticValues.gobjectFlagsValuePointer)
+    ): ULong = g_flags_register_static(name, constStaticValues.gobjectFlagsValuePointer.reinterpret())
 
     public fun gtypeGetType(): ULong = g_gtype_get_type()
 
@@ -1005,8 +1010,8 @@ public object Gobject {
             name,
             nick,
             blurb,
-            type.glibVariantTypePointer,
-            defaultValue?.glibVariantPointer,
+            type.glibVariantTypePointer.reinterpret(),
+            defaultValue?.glibVariantPointer?.reinterpret(),
             flags.mask
         )!!.run {
             ParamSpec(reinterpret())
@@ -1027,7 +1032,7 @@ public object Gobject {
     public fun paramTypeRegisterStatic(
         name: String,
         pspecInfo: ParamSpecTypeInfo,
-    ): ULong = g_param_type_register_static(name, pspecInfo.gobjectParamSpecTypeInfoPointer)
+    ): ULong = g_param_type_register_static(name, pspecInfo.gobjectParamSpecTypeInfoPointer.reinterpret())
 
     /**
      * Transforms @src_value into @dest_value if possible, and then
@@ -1054,8 +1059,8 @@ public object Gobject {
     ): Boolean =
         g_param_value_convert(
             pspec.gPointer.reinterpret(),
-            srcValue.gobjectValuePointer,
-            destValue.gobjectValuePointer,
+            srcValue.gobjectValuePointer.reinterpret(),
+            destValue.gobjectValuePointer.reinterpret(),
             strictValidation.asGBoolean()
         ).asBoolean()
 
@@ -1069,7 +1074,8 @@ public object Gobject {
     public fun paramValueDefaults(
         pspec: ParamSpec,
         `value`: Value,
-    ): Boolean = g_param_value_defaults(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer).asBoolean()
+    ): Boolean =
+        g_param_value_defaults(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret()).asBoolean()
 
     /**
      * Return whether the contents of @value comply with the specifications
@@ -1085,7 +1091,8 @@ public object Gobject {
     public fun paramValueIsValid(
         pspec: ParamSpec,
         `value`: Value,
-    ): Boolean = g_param_value_is_valid(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer).asBoolean()
+    ): Boolean =
+        g_param_value_is_valid(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret()).asBoolean()
 
     /**
      * Sets @value to its default value as specified in @pspec.
@@ -1097,7 +1104,7 @@ public object Gobject {
     public fun paramValueSetDefault(
         pspec: ParamSpec,
         `value`: Value,
-    ): Unit = g_param_value_set_default(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer)
+    ): Unit = g_param_value_set_default(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret())
 
     /**
      * Ensures that the contents of @value comply with the specifications
@@ -1114,7 +1121,8 @@ public object Gobject {
     public fun paramValueValidate(
         pspec: ParamSpec,
         `value`: Value,
-    ): Boolean = g_param_value_validate(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer).asBoolean()
+    ): Boolean =
+        g_param_value_validate(pspec.gPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret()).asBoolean()
 
     /**
      * Compares @value1 with @value2 according to @pspec, and return -1, 0 or +1,
@@ -1130,7 +1138,12 @@ public object Gobject {
         pspec: ParamSpec,
         value1: Value,
         value2: Value,
-    ): Int = g_param_values_cmp(pspec.gPointer.reinterpret(), value1.gobjectValuePointer, value2.gobjectValuePointer)
+    ): Int =
+        g_param_values_cmp(
+            pspec.gPointer.reinterpret(),
+            value1.gobjectValuePointer.reinterpret(),
+            value2.gobjectValuePointer.reinterpret()
+        )
 
     /**
      * Creates a new %G_TYPE_POINTER derived type id for a new
@@ -1153,7 +1166,7 @@ public object Gobject {
      */
     public fun signalAddEmissionHook(
         signalId: UInt,
-        detail: UInt,
+        detail: Quark,
         hookFunc: SignalEmissionHook,
     ): ULong =
         g_signal_add_emission_hook(
@@ -1189,7 +1202,7 @@ public object Gobject {
         g_signal_connect_closure(
             instance.gPointer.reinterpret(),
             detailedSignal,
-            closure.gobjectClosurePointer,
+            closure.gobjectClosurePointer.reinterpret(),
             after.asGBoolean()
         )
 
@@ -1213,7 +1226,7 @@ public object Gobject {
     public fun signalConnectClosureById(
         instance: Object,
         signalId: UInt,
-        detail: UInt,
+        detail: Quark,
         closure: Closure,
         after: Boolean,
     ): ULong =
@@ -1221,7 +1234,7 @@ public object Gobject {
             instance.gPointer.reinterpret(),
             signalId,
             detail,
-            closure.gobjectClosurePointer,
+            closure.gobjectClosurePointer.reinterpret(),
             after.asGBoolean()
         )
 
@@ -1344,7 +1357,7 @@ public object Gobject {
     public fun signalHasHandlerPending(
         instance: Object,
         signalId: UInt,
-        detail: UInt,
+        detail: Quark,
         mayBeBlocked: Boolean,
     ): Boolean =
         g_signal_has_handler_pending(
@@ -1419,7 +1432,7 @@ public object Gobject {
         signalId: UInt,
         instanceType: ULong,
         classClosure: Closure,
-    ): Unit = g_signal_override_class_closure(signalId, instanceType, classClosure.gobjectClosurePointer)
+    ): Unit = g_signal_override_class_closure(signalId, instanceType, classClosure.gobjectClosurePointer.reinterpret())
 
     /**
      * Queries the signal system for in-depth information about a
@@ -1436,7 +1449,7 @@ public object Gobject {
     public fun signalQuery(
         signalId: UInt,
         query: SignalQuery,
-    ): Unit = g_signal_query(signalId, query.gobjectSignalQueryPointer)
+    ): Unit = g_signal_query(signalId, query.gobjectSignalQueryPointer.reinterpret())
 
     /**
      * Deletes an emission hook.
@@ -1466,7 +1479,7 @@ public object Gobject {
     public fun signalStopEmission(
         instance: Object,
         signalId: UInt,
-        detail: UInt,
+        detail: Quark,
     ): Unit = g_signal_stop_emission(instance.gPointer.reinterpret(), signalId, detail)
 
     /**
@@ -1514,7 +1527,7 @@ public object Gobject {
     public fun sourceSetClosure(
         source: Source,
         closure: Closure,
-    ): Unit = g_source_set_closure(source.glibSourcePointer, closure.gobjectClosurePointer)
+    ): Unit = g_source_set_closure(source.glibSourcePointer.reinterpret(), closure.gobjectClosurePointer.reinterpret())
 
     /**
      * Sets a dummy callback for @source. The callback will do nothing, and
@@ -1530,7 +1543,8 @@ public object Gobject {
      *
      * @param source the source
      */
-    public fun sourceSetDummyCallback(source: Source): Unit = g_source_set_dummy_callback(source.glibSourcePointer)
+    public fun sourceSetDummyCallback(source: Source): Unit =
+        g_source_set_dummy_callback(source.glibSourcePointer.reinterpret())
 
     /**
      * Registers a private class structure for a classed type;
@@ -1594,7 +1608,7 @@ public object Gobject {
         instanceType: ULong,
         interfaceType: ULong,
         info: InterfaceInfo,
-    ): Unit = g_type_add_interface_static(instanceType, interfaceType, info.gobjectInterfaceInfoPointer)
+    ): Unit = g_type_add_interface_static(instanceType, interfaceType, info.gobjectInterfaceInfoPointer.reinterpret())
 
     /**
      *
@@ -1605,7 +1619,7 @@ public object Gobject {
     public fun typeCheckClassIsA(
         gClass: TypeClass,
         isAType: ULong,
-    ): Boolean = g_type_check_class_is_a(gClass.gobjectTypeClassPointer, isAType).asBoolean()
+    ): Boolean = g_type_check_class_is_a(gClass.gobjectTypeClassPointer.reinterpret(), isAType).asBoolean()
 
     /**
      * Private helper function to aid implementation of the
@@ -1615,7 +1629,7 @@ public object Gobject {
      * @return true if @instance is valid, false otherwise
      */
     public fun typeCheckInstance(instance: TypeInstance): Boolean =
-        g_type_check_instance(instance.gobjectTypeInstancePointer).asBoolean()
+        g_type_check_instance(instance.gobjectTypeInstancePointer.reinterpret()).asBoolean()
 
     /**
      *
@@ -1626,7 +1640,7 @@ public object Gobject {
     public fun typeCheckInstanceIsA(
         instance: TypeInstance,
         ifaceType: ULong,
-    ): Boolean = g_type_check_instance_is_a(instance.gobjectTypeInstancePointer, ifaceType).asBoolean()
+    ): Boolean = g_type_check_instance_is_a(instance.gobjectTypeInstancePointer.reinterpret(), ifaceType).asBoolean()
 
     /**
      *
@@ -1638,7 +1652,10 @@ public object Gobject {
         instance: TypeInstance,
         fundamentalType: ULong,
     ): Boolean =
-        g_type_check_instance_is_fundamentally_a(instance.gobjectTypeInstancePointer, fundamentalType).asBoolean()
+        g_type_check_instance_is_fundamentally_a(
+            instance.gobjectTypeInstancePointer.reinterpret(),
+            fundamentalType
+        ).asBoolean()
 
     /**
      *
@@ -1652,7 +1669,8 @@ public object Gobject {
      *
      * @param value
      */
-    public fun typeCheckValue(`value`: Value): Boolean = g_type_check_value(`value`.gobjectValuePointer).asBoolean()
+    public fun typeCheckValue(`value`: Value): Boolean =
+        g_type_check_value(`value`.gobjectValuePointer.reinterpret()).asBoolean()
 
     /**
      *
@@ -1663,7 +1681,7 @@ public object Gobject {
     public fun typeCheckValueHolds(
         `value`: Value,
         type: ULong,
-    ): Boolean = g_type_check_value_holds(`value`.gobjectValuePointer, type).asBoolean()
+    ): Boolean = g_type_check_value_holds(`value`.gobjectValuePointer.reinterpret(), type).asBoolean()
 
     /**
      * This function is essentially the same as g_type_class_ref(),
@@ -1765,7 +1783,7 @@ public object Gobject {
      */
     @GObjectVersion2_4
     public fun typeDefaultInterfaceUnref(gIface: TypeInterface): Unit =
-        g_type_default_interface_unref(gIface.gobjectTypeInterfacePointer)
+        g_type_default_interface_unref(gIface.gobjectTypeInterfacePointer.reinterpret())
 
     /**
      * Returns the length of the ancestry of the passed in type. This
@@ -1806,7 +1824,7 @@ public object Gobject {
      * @param instance an instance of a type
      */
     public fun typeFreeInstance(instance: TypeInstance): Unit =
-        g_type_free_instance(instance.gobjectTypeInstancePointer)
+        g_type_free_instance(instance.gobjectTypeInstancePointer.reinterpret())
 
     /**
      * Look up the type ID from a given type name, returning 0 if no type
@@ -1962,7 +1980,7 @@ public object Gobject {
         instanceClass: TypeClass,
         ifaceType: ULong,
     ): TypeInterface =
-        g_type_interface_peek(instanceClass.gobjectTypeClassPointer, ifaceType)!!.run {
+        g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
             TypeInterface(reinterpret())
         }
 
@@ -1999,7 +2017,8 @@ public object Gobject {
      * @param gClass
      */
     public fun typeNameFromClass(gClass: TypeClass): String =
-        g_type_name_from_class(gClass.gobjectTypeClassPointer)?.toKString() ?: error("Expected not null string")
+        g_type_name_from_class(gClass.gobjectTypeClassPointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      *
@@ -2007,7 +2026,8 @@ public object Gobject {
      * @param instance
      */
     public fun typeNameFromInstance(instance: TypeInstance): String =
-        g_type_name_from_instance(instance.gobjectTypeInstancePointer)?.toKString() ?: error("Expected not null string")
+        g_type_name_from_instance(instance.gobjectTypeInstancePointer.reinterpret())?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Given a @leaf_type and a @root_type which is contained in its
@@ -2042,7 +2062,7 @@ public object Gobject {
      * @param type type to return quark of type name for
      * @return the type names quark or 0
      */
-    public fun typeQname(type: ULong): UInt = g_type_qname(type)
+    public fun typeQname(type: ULong): Quark = g_type_qname(type)
 
     /**
      * Queries the type system for information about a specific type.
@@ -2063,7 +2083,7 @@ public object Gobject {
     public fun typeQuery(
         type: ULong,
         query: TypeQuery,
-    ): Unit = g_type_query(type, query.gobjectTypeQueryPointer)
+    ): Unit = g_type_query(type, query.gobjectTypeQueryPointer.reinterpret())
 
     /**
      * Registers @type_name as the name of a new dynamic type derived from
@@ -2111,8 +2131,8 @@ public object Gobject {
         g_type_register_fundamental(
             typeId,
             typeName,
-            info.gobjectTypeInfoPointer,
-            finfo.gobjectTypeFundamentalInfoPointer,
+            info.gobjectTypeInfoPointer.reinterpret(),
+            finfo.gobjectTypeFundamentalInfoPointer.reinterpret(),
             flags.mask
         )
 
@@ -2134,7 +2154,7 @@ public object Gobject {
         typeName: String,
         info: TypeInfo,
         flags: TypeFlags,
-    ): ULong = g_type_register_static(parentType, typeName, info.gobjectTypeInfoPointer, flags.mask)
+    ): ULong = g_type_register_static(parentType, typeName, info.gobjectTypeInfoPointer.reinterpret(), flags.mask)
 
     /**
      *
@@ -3236,3 +3256,9 @@ public typealias ValueTransform = (srcValue: Value, destValue: Value) -> Unit
  * - param `whereTheObjectWas` the object being disposed
  */
 public typealias WeakNotify = (whereTheObjectWas: Object) -> Unit
+
+/**
+ * A numerical value which represents the unique identifier of a registered
+ * type.
+ */
+public typealias Type = ULong

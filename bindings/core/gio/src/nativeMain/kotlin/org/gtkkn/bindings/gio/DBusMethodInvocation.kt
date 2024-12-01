@@ -8,6 +8,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -31,7 +32,6 @@ import org.gtkkn.native.gio.g_dbus_method_invocation_return_value
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_value_with_unix_fd_list
 import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.Unit
 
 /**
@@ -221,7 +221,7 @@ public open class DBusMethodInvocation(
      */
     @GioVersion2_26
     public open fun returnErrorLiteral(
-        domain: UInt,
+        domain: Quark,
         code: Int,
         message: String,
     ): Unit =
@@ -245,7 +245,10 @@ public open class DBusMethodInvocation(
      */
     @GioVersion2_26
     public open fun returnGerror(error: Error): Unit =
-        g_dbus_method_invocation_return_gerror(gioDBusMethodInvocationPointer.reinterpret(), error.glibErrorPointer)
+        g_dbus_method_invocation_return_gerror(
+            gioDBusMethodInvocationPointer.reinterpret(),
+            error.glibErrorPointer.reinterpret()
+        )
 
     /**
      * Finishes handling a D-Bus method call by returning @parameters.
@@ -288,7 +291,7 @@ public open class DBusMethodInvocation(
     public open fun returnValue(parameters: Variant? = null): Unit =
         g_dbus_method_invocation_return_value(
             gioDBusMethodInvocationPointer.reinterpret(),
-            parameters?.glibVariantPointer
+            parameters?.glibVariantPointer?.reinterpret()
         )
 
     /**
@@ -311,7 +314,7 @@ public open class DBusMethodInvocation(
     ): Unit =
         g_dbus_method_invocation_return_value_with_unix_fd_list(
             gioDBusMethodInvocationPointer.reinterpret(),
-            parameters?.glibVariantPointer,
+            parameters?.glibVariantPointer?.reinterpret(),
             fdList?.gioUnixFDListPointer?.reinterpret()
         )
 

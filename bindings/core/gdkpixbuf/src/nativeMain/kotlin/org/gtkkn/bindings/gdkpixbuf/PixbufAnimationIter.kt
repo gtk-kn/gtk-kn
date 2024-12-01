@@ -58,7 +58,7 @@ public open class PixbufAnimationIter(
     public open fun advance(currentTime: TimeVal? = null): Boolean =
         gdk_pixbuf_animation_iter_advance(
             gdkpixbufPixbufAnimationIterPointer.reinterpret(),
-            currentTime?.glibTimeValPointer
+            currentTime?.glibTimeValPointer?.reinterpret()
         ).asBoolean()
 
     /**

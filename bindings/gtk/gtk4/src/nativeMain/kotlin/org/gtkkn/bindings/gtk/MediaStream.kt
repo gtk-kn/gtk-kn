@@ -261,7 +261,7 @@ public open class MediaStream(
      * @param error the `GError` to set
      */
     public open fun gerror(error: Error): Unit =
-        gtk_media_stream_gerror(gtkMediaStreamPointer.reinterpret(), error.glibErrorPointer)
+        gtk_media_stream_gerror(gtkMediaStreamPointer.reinterpret(), error.glibErrorPointer.reinterpret())
 
     /**
      * Gets the duration of the stream.

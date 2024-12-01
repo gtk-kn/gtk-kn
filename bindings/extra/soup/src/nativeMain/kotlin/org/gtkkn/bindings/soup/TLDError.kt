@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.soup
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.soup.SoupTLDError
 import org.gtkkn.native.soup.soup_tld_error_quark
-import kotlin.UInt
 
 /**
  * Error codes for %SOUP_TLD_ERROR.
@@ -61,7 +61,7 @@ public enum class TLDError(
          *
          * @return Error quark for Soup TLD functions.
          */
-        public fun quark(): UInt = soup_tld_error_quark()
+        public fun quark(): Quark = soup_tld_error_quark()
 
         public fun fromErrorOrNull(error: Error): TLDError? =
             if (error.domain != quark()) {

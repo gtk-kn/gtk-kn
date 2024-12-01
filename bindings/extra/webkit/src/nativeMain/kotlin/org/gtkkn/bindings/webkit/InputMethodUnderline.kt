@@ -57,7 +57,10 @@ public class InputMethodUnderline(
      */
     @WebKitVersion2_28
     public fun setColor(rgba: RGBA? = null): Unit =
-        webkit_input_method_underline_set_color(webkitInputMethodUnderlinePointer.reinterpret(), rgba?.gdkRGBAPointer)
+        webkit_input_method_underline_set_color(
+            webkitInputMethodUnderlinePointer.reinterpret(),
+            rgba?.gdkRGBAPointer?.reinterpret()
+        )
 
     public companion object : RecordCompanion<InputMethodUnderline, WebKitInputMethodUnderline> {
         /**

@@ -3,9 +3,9 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_66
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gio.GTlsChannelBindingError
 import org.gtkkn.native.gio.g_tls_channel_binding_error_quark
-import kotlin.UInt
 
 /**
  * An error code used with %G_TLS_CHANNEL_BINDING_ERROR in a #GError to
@@ -71,7 +71,7 @@ public enum class TlsChannelBindingError(
          * @since 2.66
          */
         @GioVersion2_66
-        public fun quark(): UInt = g_tls_channel_binding_error_quark()
+        public fun quark(): Quark = g_tls_channel_binding_error_quark()
 
         public fun fromErrorOrNull(error: Error): TlsChannelBindingError? =
             if (error.domain != quark()) {

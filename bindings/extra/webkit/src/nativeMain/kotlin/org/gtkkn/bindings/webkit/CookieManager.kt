@@ -88,7 +88,7 @@ public class CookieManager(
     ): Unit =
         webkit_cookie_manager_add_cookie(
             webkitCookieManagerPointer.reinterpret(),
-            cookie.soupCookiePointer,
+            cookie.soupCookiePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()
@@ -137,7 +137,7 @@ public class CookieManager(
     ): Unit =
         webkit_cookie_manager_delete_cookie(
             webkitCookieManagerPointer.reinterpret(),
-            cookie.soupCookiePointer,
+            cookie.soupCookiePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()
@@ -345,7 +345,7 @@ public class CookieManager(
     ): Unit =
         webkit_cookie_manager_replace_cookies(
             webkitCookieManagerPointer.reinterpret(),
-            cookies.glibListPointer,
+            cookies.glibListPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()

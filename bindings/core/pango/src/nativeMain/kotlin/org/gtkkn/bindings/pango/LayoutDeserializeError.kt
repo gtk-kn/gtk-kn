@@ -2,10 +2,10 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.native.pango.PangoLayoutDeserializeError
 import org.gtkkn.native.pango.pango_layout_deserialize_error_quark
-import kotlin.UInt
 
 /**
  * Errors that can be returned by [func@Pango.Layout.deserialize].
@@ -42,7 +42,7 @@ public enum class LayoutDeserializeError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = pango_layout_deserialize_error_quark()
+        public fun quark(): Quark = pango_layout_deserialize_error_quark()
 
         public fun fromErrorOrNull(error: Error): LayoutDeserializeError? =
             if (error.domain != quark()) {

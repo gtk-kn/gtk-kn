@@ -64,7 +64,7 @@ public class Multipart(
             controlName,
             filename,
             contentType,
-            body.glibBytesPointer
+            body.glibBytesPointer.reinterpret()
         )
 
     /**
@@ -96,8 +96,8 @@ public class Multipart(
     ): Unit =
         soup_multipart_append_part(
             soupMultipartPointer.reinterpret(),
-            headers.soupMessageHeadersPointer,
-            body.glibBytesPointer
+            headers.soupMessageHeadersPointer.reinterpret(),
+            body.glibBytesPointer.reinterpret()
         )
 
     /**
@@ -140,8 +140,8 @@ public class Multipart(
         ): Multipart? =
             Multipart(
                 soup_multipart_new_from_message(
-                    headers.soupMessageHeadersPointer,
-                    body.glibBytesPointer
+                    headers.soupMessageHeadersPointer.reinterpret(),
+                    body.glibBytesPointer.reinterpret()
                 )!!.reinterpret()
             )
 

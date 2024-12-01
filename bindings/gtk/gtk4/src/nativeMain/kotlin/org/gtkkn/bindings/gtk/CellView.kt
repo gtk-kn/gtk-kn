@@ -270,7 +270,7 @@ public open class CellView(
      * @param path a `GtkTreePath` or null to unset.
      */
     public open fun setDisplayedRow(path: TreePath? = null): Unit =
-        gtk_cell_view_set_displayed_row(gtkCellViewPointer.reinterpret(), path?.gtkTreePathPointer)
+        gtk_cell_view_set_displayed_row(gtkCellViewPointer.reinterpret(), path?.gtkTreePathPointer?.reinterpret())
 
     /**
      * Sets whether @cell_view should draw all of its

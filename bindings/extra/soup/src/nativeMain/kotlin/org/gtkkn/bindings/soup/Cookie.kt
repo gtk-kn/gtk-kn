@@ -85,7 +85,7 @@ public class Cookie(
      * @return true if @cookie should be sent to @uri, false if not
      */
     public fun appliesToUri(uri: Uri): Boolean =
-        soup_cookie_applies_to_uri(soupCookiePointer.reinterpret(), uri.glibUriPointer).asBoolean()
+        soup_cookie_applies_to_uri(soupCookiePointer.reinterpret(), uri.glibUriPointer.reinterpret()).asBoolean()
 
     /**
      * Copies @cookie.
@@ -119,7 +119,7 @@ public class Cookie(
      * @return whether the cookies are equal.
      */
     public fun equal(cookie2: Cookie): Boolean =
-        soup_cookie_equal(soupCookiePointer.reinterpret(), cookie2.soupCookiePointer).asBoolean()
+        soup_cookie_equal(soupCookiePointer.reinterpret(), cookie2.soupCookiePointer.reinterpret()).asBoolean()
 
     /**
      * Frees @cookie.
@@ -211,7 +211,7 @@ public class Cookie(
      * @param expires the new expiration time, or null
      */
     public fun setExpires(expires: DateTime): Unit =
-        soup_cookie_set_expires(soupCookiePointer.reinterpret(), expires.glibDateTimePointer)
+        soup_cookie_set_expires(soupCookiePointer.reinterpret(), expires.glibDateTimePointer.reinterpret())
 
     /**
      * Sets @cookie's HttpOnly attribute to @http_only.
@@ -367,7 +367,7 @@ public class Cookie(
             `header`: String,
             origin: Uri? = null,
         ): Cookie? =
-            soup_cookie_parse(`header`, origin?.glibUriPointer)?.run {
+            soup_cookie_parse(`header`, origin?.glibUriPointer?.reinterpret())?.run {
                 Cookie(reinterpret())
             }
 

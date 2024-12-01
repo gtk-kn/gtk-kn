@@ -98,7 +98,7 @@ public class GeolocationManager(
     public fun updatePosition(position: GeolocationPosition): Unit =
         webkit_geolocation_manager_update_position(
             webkitGeolocationManagerPointer.reinterpret(),
-            position.webkitGeolocationPositionPointer
+            position.webkitGeolocationPositionPointer.reinterpret()
         )
 
     /**

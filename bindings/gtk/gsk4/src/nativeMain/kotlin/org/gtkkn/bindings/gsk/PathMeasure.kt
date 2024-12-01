@@ -81,7 +81,7 @@ public class PathMeasure(
         gsk_path_measure_get_point(
             gskPathMeasurePointer.reinterpret(),
             distance,
-            result.gskPathPointPointer
+            result.gskPathPointPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -124,7 +124,8 @@ public class PathMeasure(
          * @return a new `GskPathMeasure` representing @path
          * @since 4.14
          */
-        public fun new(path: Path): PathMeasure = PathMeasure(gsk_path_measure_new(path.gskPathPointer)!!.reinterpret())
+        public fun new(path: Path): PathMeasure =
+            PathMeasure(gsk_path_measure_new(path.gskPathPointer.reinterpret())!!.reinterpret())
 
         /**
          * Creates a measure object for the given @path and @tolerance.
@@ -138,7 +139,9 @@ public class PathMeasure(
             path: Path,
             tolerance: Float,
         ): PathMeasure =
-            PathMeasure(gsk_path_measure_new_with_tolerance(path.gskPathPointer, tolerance)!!.reinterpret())
+            PathMeasure(
+                gsk_path_measure_new_with_tolerance(path.gskPathPointer.reinterpret(), tolerance)!!.reinterpret()
+            )
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): PathMeasure =
             PathMeasure(pointer.reinterpret())

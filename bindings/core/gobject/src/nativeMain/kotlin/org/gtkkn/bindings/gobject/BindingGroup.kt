@@ -117,8 +117,8 @@ public open class BindingGroup(
             target.gPointer.reinterpret(),
             targetProperty,
             flags.mask,
-            transformTo?.gobjectClosurePointer,
-            transformFrom?.gobjectClosurePointer
+            transformTo?.gobjectClosurePointer?.reinterpret(),
+            transformFrom?.gobjectClosurePointer?.reinterpret()
         )
 
     /**

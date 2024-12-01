@@ -3,9 +3,9 @@ package org.gtkkn.bindings.gio
 
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gio.GResolverError
 import org.gtkkn.native.gio.g_resolver_error_quark
-import kotlin.UInt
 
 /**
  * An error code used with %G_RESOLVER_ERROR in a #GError returned
@@ -50,7 +50,7 @@ public enum class ResolverError(
          * @since 2.22
          */
         @GioVersion2_22
-        public fun quark(): UInt = g_resolver_error_quark()
+        public fun quark(): Quark = g_resolver_error_quark()
 
         public fun fromErrorOrNull(error: Error): ResolverError? =
             if (error.domain != quark()) {

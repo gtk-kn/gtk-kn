@@ -125,7 +125,7 @@ public open class DragIcon(
          *   for displaying @value as a drag icon.
          */
         public fun createWidgetForValue(`value`: Value): Widget? =
-            gtk_drag_icon_create_widget_for_value(`value`.gobjectValuePointer)?.run {
+            gtk_drag_icon_create_widget_for_value(`value`.gobjectValuePointer.reinterpret())?.run {
                 Widget(reinterpret())
             }
 

@@ -193,7 +193,7 @@ public open class Auth(
      *   paths, which can be freed with [method@Auth.free_protection_space].
      */
     public open fun getProtectionSpace(sourceUri: Uri): SList =
-        soup_auth_get_protection_space(soupAuthPointer.reinterpret(), sourceUri.glibUriPointer)!!.run {
+        soup_auth_get_protection_space(soupAuthPointer.reinterpret(), sourceUri.glibUriPointer.reinterpret())!!.run {
             SList(reinterpret())
         }
 

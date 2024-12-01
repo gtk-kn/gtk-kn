@@ -164,7 +164,10 @@ public open class Gesture(
      * @return true if there are active touches, false otherwise
      */
     public open fun getBoundingBox(rect: Rectangle): Boolean =
-        gtk_gesture_get_bounding_box(gtkGesturePointer.reinterpret(), rect.gdkRectanglePointer).asBoolean()
+        gtk_gesture_get_bounding_box(
+            gtkGesturePointer.reinterpret(),
+            rect.gdkRectanglePointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Returns the logical `GdkDevice` that is currently operating
@@ -201,7 +204,10 @@ public open class Gesture(
      * @return The last event from @sequence
      */
     public open fun getLastEvent(sequence: EventSequence? = null): Event? =
-        gtk_gesture_get_last_event(gtkGesturePointer.reinterpret(), sequence?.gdkEventSequencePointer)?.run {
+        gtk_gesture_get_last_event(
+            gtkGesturePointer.reinterpret(),
+            sequence?.gdkEventSequencePointer?.reinterpret()
+        )?.run {
             Event(reinterpret())
         }
 
@@ -222,7 +228,10 @@ public open class Gesture(
      * @return The sequence state in @gesture
      */
     public open fun getSequenceState(sequence: EventSequence): EventSequenceState =
-        gtk_gesture_get_sequence_state(gtkGesturePointer.reinterpret(), sequence.gdkEventSequencePointer).run {
+        gtk_gesture_get_sequence_state(
+            gtkGesturePointer.reinterpret(),
+            sequence.gdkEventSequencePointer.reinterpret()
+        ).run {
             EventSequenceState.fromNativeValue(this)
         }
 
@@ -272,7 +281,10 @@ public open class Gesture(
      * @return true if @gesture is handling @sequence, false otherwise
      */
     public open fun handlesSequence(sequence: EventSequence? = null): Boolean =
-        gtk_gesture_handles_sequence(gtkGesturePointer.reinterpret(), sequence?.gdkEventSequencePointer).asBoolean()
+        gtk_gesture_handles_sequence(
+            gtkGesturePointer.reinterpret(),
+            sequence?.gdkEventSequencePointer?.reinterpret()
+        ).asBoolean()
 
     /**
      * Returns true if the gesture is currently active.
@@ -358,7 +370,7 @@ public open class Gesture(
     ): Boolean =
         gtk_gesture_set_sequence_state(
             gtkGesturePointer.reinterpret(),
-            sequence.gdkEventSequencePointer,
+            sequence.gdkEventSequencePointer.reinterpret(),
             state.nativeValue
         ).asBoolean()
 

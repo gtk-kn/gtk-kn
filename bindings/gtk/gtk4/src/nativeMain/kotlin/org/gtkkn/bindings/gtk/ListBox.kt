@@ -336,8 +336,7 @@ public open class ListBox(
     /**
      * Creates a list of all selected children.
      *
-     * @return
-     *   A `GList` containing the `GtkWidget` for each selected child.
+     * @return A `GList` containing the `GtkWidget` for each selected child.
      *   Free with g_list_free() when done.
      */
     public open fun getSelectedRows(): List =

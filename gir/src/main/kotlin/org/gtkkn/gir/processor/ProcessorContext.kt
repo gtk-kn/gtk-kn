@@ -37,18 +37,19 @@ import com.squareup.kotlinpoet.U_SHORT
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
+import org.gtkkn.gir.ext.toCamelCase
+import org.gtkkn.gir.ext.toPascalCase
 import org.gtkkn.gir.log.logger
+import org.gtkkn.gir.model.GirAnyType
 import org.gtkkn.gir.model.GirArrayType
-import org.gtkkn.gir.model.GirBitField
+import org.gtkkn.gir.model.GirBitfield
 import org.gtkkn.gir.model.GirClass
-import org.gtkkn.gir.model.GirEnum
+import org.gtkkn.gir.model.GirEnumeration
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirRecord
 import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.model.GirType
-import org.gtkkn.gir.util.toCamelCase
-import org.gtkkn.gir.util.toPascalCase
 
 /**
  * A context object that has all the Gir information available so any phase 2 processing
@@ -61,59 +62,41 @@ class ProcessorContext(
     private val optInVersionBlueprintsMap = mutableMapOf<GirNamespace, MutableSet<OptInVersionBlueprint>>()
 
     // object lookups methods
-    fun findRepositoryByNameOrNull(name: String): GirRepository? = repositories.find { it.namespace.name == name }
-
-    fun findNamespaceByNameOrNull(name: String) = findRepositoryByNameOrNull(name)?.namespace
+    fun findRepositoryByNameOrNull(name: String): GirRepository? =
+        repositories.find { it.namespaces.first().name == name }
 
     @Throws(UnresolvableTypeException::class)
     fun findNamespaceByName(name: String) =
-        findRepositoryByNameOrNull(name)?.namespace ?: throw UnresolvableTypeException("Namespace $name not found")
+        findRepositoryByNameOrNull(name)?.namespaces?.first()
+            ?: throw UnresolvableTypeException("Namespace $name not found")
 
     // kotlin names
     fun kotlinizeMethodName(nativeMethodName: String): String =
         nativeMethodName
             .replace("-", "_")
-            .removeSuffix("_")
-            .removePrefix("_")
             .toCamelCase()
 
-    fun kotlinizeClassName(nativeClassName: String): String =
-        nativeClassName
-            .removeSuffix("_t")
-            .toPascalCase()
+    fun kotlinizeClassName(nativeClassName: String): String = nativeClassName.toPascalCase()
 
     fun kotlinizeInterfaceName(nativeInterfaceName: String): String = nativeInterfaceName.toPascalCase()
 
-    fun kotlinizeRecordName(nativeClassName: String): String =
-        nativeClassName
-            .removeSuffix("_t")
-            .toPascalCase()
+    fun kotlinizeRecordName(nativeClassName: String): String = nativeClassName.toPascalCase()
 
-    fun kotlinizeEnumName(nativeEnumName: String): String =
-        nativeEnumName
-            .removeSuffix("_t")
-            .toPascalCase()
+    fun kotlinizeEnumName(nativeEnumName: String): String = nativeEnumName.toPascalCase()
 
     fun kotlinzeEnumMemberName(nativeEnumMemberName: String): String = nativeEnumMemberName.uppercase()
 
     fun kotlinizePackageName(nativePackageName: String): String = "org.gtkkn.bindings.${nativePackageName.lowercase()}"
 
-    fun kotlinizeParameterName(nativeParameterName: String): String =
-        nativeParameterName
-            .removePrefix("_")
-            .removeSuffix("_")
-            .toCamelCase()
+    fun kotlinizeParameterName(nativeParameterName: String): String = nativeParameterName.toCamelCase()
 
     fun kotlinizeFieldName(nativeParameterName: String): String =
         nativeParameterName
             .replace("NULL", "null")
-            .removeSuffix("_")
             .toCamelCase()
 
     fun kotlinizeBitfieldName(nativeBitfieldName: String): String =
-        nativeBitfieldName
-            .removeSuffix("_t")
-            .toPascalCase()
+        nativeBitfieldName.toPascalCase()
 
     fun kotlinizeBitfieldMemberName(nativeMemberName: String): String = nativeMemberName.uppercase()
 
@@ -121,7 +104,7 @@ class ProcessorContext(
         "connect${nativeSignalName.replace("-", "_").toPascalCase()}"
 
     // namespace naming
-    fun namespacePrefix(namespace: GirNamespace): String = namespace.name.lowercase()
+    fun namespacePrefix(namespace: GirNamespace): String = checkNotNull(namespace.name).lowercase()
 
     fun namespaceNativePackageName(namespace: GirNamespace): String = "org.gtkkn.native.${namespacePrefix(namespace)}"
 
@@ -188,6 +171,29 @@ class ProcessorContext(
     }
 
     /**
+     * Resolve a native Alias name to a [TypeName] object.
+     *
+     * If the given [nativeClassName] contains a separator dot, the prefix is used to resolve the interface
+     * from another namespace.
+     * Otherwise the [targetNamespace] is used.
+     *
+     * @param targetNamespace target namespace for which we are resolving.
+     * @param nativeAliasName name of the interface.
+     * @return fully qualified [TypeInfo.Alias] object for the alias, or null if the alias cannot be resolved.
+     */
+    fun resolveAliasTypeInfo(targetNamespace: GirNamespace, nativeAliasName: String): TypeInfo.Alias? {
+        val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeAliasName)
+        val alias = namespace.aliases.find { it.name == simpleName && it.info.introspectable != false }
+        return alias?.run {
+            TypeInfo.Alias(
+                nativeTypeName = ClassName(namespaceNativePackageName(namespace), cType),
+                kotlinTypeName = ClassName(namespaceBindingsPackageName(namespace), kotlinizeBitfieldName(name)),
+                baseTypeInfo = resolveTypeInfo(type.namespace, type, false),
+            )
+        }
+    }
+
+    /**
      * Resolve a native class name to a [TypeName] object.
      *
      * If the given [nativeClassName] contains a separator dot, the prefix is used to resolve the interface
@@ -196,23 +202,18 @@ class ProcessorContext(
      *
      * @param targetNamespace target namespace for which we are resolving.
      * @param nativeClassName name of the interface.
-     * @throws UnresolvableTypeException if the type cannot be resolved
-     * @return fully qualified [TypeName] for the interface
+     * @return fully qualified [TypeName] for the interface, null if the type cannot be resolved
      */
-    @Throws(UnresolvableTypeException::class)
-    fun resolveClassTypeName(targetNamespace: GirNamespace, nativeClassName: String): TypeName {
+    fun resolveClassTypeName(targetNamespace: GirNamespace, nativeClassName: String): TypeName? {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeClassName)
         val clazz = namespace.classes.find { it.name == simpleName }
-            ?: throw UnresolvableTypeException("class $nativeClassName not found")
-        return ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(clazz.name))
+        return clazz?.let { ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(it.name)) }
     }
 
-    @Throws(UnresolvableTypeException::class)
-    fun resolveCallbackTypeName(targetNamespace: GirNamespace, nativeCallbackName: String): ClassName {
+    fun resolveCallbackTypeName(targetNamespace: GirNamespace, nativeCallbackName: String): ClassName? {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeCallbackName)
-        val clazz = namespace.callbacks.find { it.name == simpleName }
-            ?: throw UnresolvableTypeException("callback $nativeCallbackName not found")
-        return ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(clazz.name))
+        val callback = namespace.callbacks.find { it.name == simpleName }
+        return callback?.let { ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(callback.name)) }
     }
 
     /**
@@ -224,56 +225,43 @@ class ProcessorContext(
      *
      * @param targetNamespace target namespace for which we are resolving.
      * @param nativeInterfaceName name of the interface.
-     * @throws UnresolvableTypeException if the type cannot be resolved
-     * @return fully qualified [TypeName] for the interface
+     * @return fully qualified [TypeName] for the interface, null if the type cannot be resolved
      */
-    @Throws(UnresolvableTypeException::class)
-    fun resolveInterfaceTypeName(targetNamespace: GirNamespace, nativeInterfaceName: String): TypeName {
+    fun resolveInterfaceTypeName(targetNamespace: GirNamespace, nativeInterfaceName: String): TypeName? {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeInterfaceName)
         val iface = namespace.interfaces.find { it.name == simpleName }
-            ?: throw UnresolvableTypeException("interface $nativeInterfaceName not found")
-        return ClassName(namespaceBindingsPackageName(namespace), kotlinizeInterfaceName(iface.name))
+        return iface?.let {
+            ClassName(namespaceBindingsPackageName(namespace), kotlinizeInterfaceName(checkNotNull(iface.name)))
+        }
     }
 
-    @Throws(UnresolvableTypeException::class)
-    fun resolveEnumTypeNames(targetNamespace: GirNamespace, nativeEnumName: String): Pair<TypeName, TypeName> {
+    fun resolveEnumTypeName(targetNamespace: GirNamespace, nativeEnumName: String): Pair<TypeName, TypeName>? {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeEnumName)
-        val enum = namespace.enums.find { it.name == simpleName }
-            ?: throw UnresolvableTypeException("enum $nativeEnumName not found")
-
-        return Pair(
-            ClassName(
-                namespaceNativePackageName(namespace),
-                enum.cType,
-            ),
-            ClassName(namespaceBindingsPackageName(namespace), kotlinizeEnumName(enum.name)),
-        )
+        val enum = namespace.enumerations.find { it.name == simpleName }
+        return enum?.let {
+            Pair(
+                ClassName(namespaceNativePackageName(namespace), enum.cType),
+                ClassName(namespaceBindingsPackageName(namespace), kotlinizeEnumName(enum.name)),
+            )
+        }
     }
 
-    @Throws(UnresolvableTypeException::class)
-    fun resolveBitfieldTypeNames(targetNamespace: GirNamespace, nativeBitfieldName: String): Pair<TypeName, TypeName> {
+    fun resolveBitfieldTypeName(targetNamespace: GirNamespace, nativeBitfieldName: String): Pair<TypeName, TypeName>? {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeBitfieldName)
         val bitfield = namespace.bitfields.find { it.name == simpleName }
-            ?: throw UnresolvableTypeException("enum $nativeBitfieldName not found")
 
-        return Pair(
-            ClassName(
-                namespaceNativePackageName(namespace),
-                bitfield.cType,
-            ),
-            ClassName(namespaceBindingsPackageName(namespace), kotlinizeBitfieldName(bitfield.name)),
-        )
+        return bitfield?.let {
+            Pair(
+                ClassName(namespaceNativePackageName(namespace), bitfield.cType),
+                ClassName(namespaceBindingsPackageName(namespace), kotlinizeBitfieldName(bitfield.name)),
+            )
+        }
     }
 
-    @Throws(UnresolvableTypeException::class)
-    fun resolveRecordTypeName(targetNamespace: GirNamespace, nativeRecordName: String): TypeName {
+    fun resolveRecordTypeName(targetNamespace: GirNamespace, nativeRecordName: String): TypeName? {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeRecordName)
         val clazz = namespace.records.find { it.name == simpleName }
-            ?: throw UnresolvableTypeException("record $nativeRecordName not found")
-        return ClassName(
-            namespaceBindingsPackageName(namespace),
-            kotlinizeRecordName(clazz.name),
-        )
+        return clazz?.let { ClassName(namespaceBindingsPackageName(namespace), kotlinizeRecordName(it.name)) }
     }
 
     /**
@@ -293,7 +281,7 @@ class ProcessorContext(
         }
 
         // first basic types
-        typeInfoTable[type.name]?.let { typeInfo ->
+        getPrimitiveTypeInfo(type.name)?.let { typeInfo ->
             if (type.cType != null && type.cType.endsWith("*")) {
                 logger.error { "Skipping primitive with pointer type" }
                 throw UnresolvableTypeException("Unsupported pointer to primitive type")
@@ -301,10 +289,10 @@ class ProcessorContext(
             return typeInfo.withNullable(nullable)
         }
 
-        // quarks
-        if (type.cType == "GQuark") {
-            return TypeInfo.Primitive(U_INT)
-        }
+//        // GType
+//        if (type.name == "GType") {
+//            resolveAliasTypeInfo(girNamespace, type.name)?.let { return it }
+//        }
 
         // strings
         if (type.name == "utf8" || type.name == "filename") {
@@ -340,9 +328,12 @@ class ProcessorContext(
             }
         }
 
+        // aliases
+        resolveAliasTypeInfo(girNamespace, type.name)?.let { return it.withNullable(nullable) }
+
         // classes
-        try {
-            val kotlinClassTypeName = resolveClassTypeName(girNamespace, type.name)
+        val kotlinClassTypeName = resolveClassTypeName(girNamespace, type.name)
+        if (kotlinClassTypeName != null) {
             val (namespace, girClass) = findClassByName(girNamespace, type.name)
             val objectPointerName = if (girClass.parent != null) {
                 "${namespacePrefix(namespace)}${girClass.name}Pointer"
@@ -354,13 +345,11 @@ class ProcessorContext(
                 kotlinClassTypeName,
                 objectPointerName,
             ).withNullable(nullable)
-        } catch (ignored: UnresolvableTypeException) {
-            // fallthrough
         }
 
         // interfaces
-        try {
-            val kotlinInterfaceTypeName = resolveInterfaceTypeName(girNamespace, type.name)
+        val kotlinInterfaceTypeName = resolveInterfaceTypeName(girNamespace, type.name)
+        if (kotlinInterfaceTypeName != null) {
             val (namespace, girInterface) = findInterfaceByName(girNamespace, type.name)
             val objectPointerName = "${namespacePrefix(namespace)}${girInterface.name}Pointer"
             return TypeInfo.InterfacePointer(
@@ -368,36 +357,31 @@ class ProcessorContext(
                 kotlinInterfaceTypeName,
                 objectPointerName,
             ).withNullable(nullable)
-        } catch (ignored: UnresolvableTypeException) {
-            // fallthrough
         }
 
         // enums
-        try {
-            val (nativeTypeName, kotlinTypeName) = resolveEnumTypeNames(girNamespace, type.name)
+        resolveEnumTypeName(girNamespace, type.name)?.let { pair ->
+            val (nativeTypeName, kotlinTypeName) = pair
             return TypeInfo.Enumeration(
                 nativeTypeName = nativeTypeName,
                 kotlinTypeName = kotlinTypeName,
             ).withNullable(nullable)
-        } catch (ignored: UnresolvableTypeException) {
-            // fallthrough
         }
 
         // bitfields
-        try {
-            val (nativeBitfieldTypeName, kotlinBitfieldTypeName) = resolveBitfieldTypeNames(girNamespace, type.name)
+        resolveBitfieldTypeName(girNamespace, type.name)?.let { pair ->
+            val (nativeBitfieldTypeName, kotlinBitfieldTypeName) = pair
 
             return TypeInfo.Bitfield(
                 nativeTypeName = nativeBitfieldTypeName,
                 kotlinTypeName = kotlinBitfieldTypeName,
             ).withNullable(nullable)
-        } catch (ignored: UnresolvableTypeException) {
-            // fallthrough
         }
 
         // records
         try {
             val kotlinRecordTypeName = resolveRecordTypeName(girNamespace, type.name)
+                ?: throw UnresolvableTypeException("record ${type.name} not found")
             val (namespace, girRecord) = findRecordByName(girNamespace, type.name)
             if (girRecord.foreign == true) {
                 throw UnresolvableTypeException("Foreign record ${girRecord.name} is ignored")
@@ -426,6 +410,18 @@ class ProcessorContext(
 
         logger.warn { "Could not resolve type for type with name: ${type.name} and cType: ${type.cType}" }
         throw UnresolvableTypeException(type.name)
+    }
+
+    fun resolveTypeInfo(
+        girNamespace: GirNamespace,
+        type: GirAnyType?,
+        nullable: Boolean,
+        isArray: Boolean = false,
+        isReturnType: Boolean = false,
+    ) = when (type) {
+        is GirArrayType -> resolveTypeInfo(girNamespace, type, nullable)
+        is GirType -> resolveTypeInfo(girNamespace, type, nullable, isArray, isReturnType)
+        null -> error("type must not be null")
     }
 
     /**
@@ -522,7 +518,7 @@ class ProcessorContext(
     fun findBitfieldByName(
         targetNamespace: GirNamespace,
         fullyQualifiedName: String,
-    ): Pair<GirNamespace, GirBitField> {
+    ): Pair<GirNamespace, GirBitfield> {
         val (namespace, simpleBitfieldName) = extractFullyQualifiedName(targetNamespace, fullyQualifiedName)
         val clazz = namespace.bitfields.find { it.name == simpleBitfieldName }
             ?: throw UnresolvableTypeException(
@@ -595,7 +591,8 @@ class ProcessorContext(
      *
      * @return true when the package import needs to be applied, false otherwise.
      */
-    fun needsEnumMemberPackageImport(girEnum: GirEnum): Boolean = enumsWithDirectImportOverride.contains(girEnum.cType)
+    fun needsEnumMemberPackageImport(girEnumeration: GirEnumeration): Boolean =
+        enumsWithDirectImportOverride.contains(girEnumeration.cType)
 
     fun processKdoc(doc: String?): String? = if (config.bindingLicense == Config.License.LGPL) {
         doc.sanitizeKDoc()
@@ -619,30 +616,24 @@ class ProcessorContext(
     fun getOptInVersionsBlueprints(namespace: GirNamespace): Set<OptInVersionBlueprint> =
         optInVersionBlueprintsMap[namespace]?.toSet().orEmpty()
 
-    companion object {
-        private val typeInfoTable: Map<String, TypeInfo> = mapOf(
-            "none" to TypeInfo.Primitive(UNIT),
-            "GType" to TypeInfo.Primitive(U_LONG),
-            "gchar" to TypeInfo.GChar(BYTE, CHAR),
-            "gdouble" to TypeInfo.Primitive(DOUBLE),
-            "gfloat" to TypeInfo.Primitive(FLOAT),
-            "gint" to TypeInfo.Primitive(INT),
-            "gint16" to TypeInfo.Primitive(SHORT),
-            "gint32" to TypeInfo.Primitive(INT),
-            "gint64" to TypeInfo.Primitive(LONG),
-            "gint8" to TypeInfo.Primitive(BYTE),
-            "glong" to TypeInfo.Primitive(LONG),
-            "gsize" to TypeInfo.Primitive(U_LONG),
-            "gssize" to TypeInfo.Primitive(LONG),
-            "guint" to TypeInfo.Primitive(U_INT),
-            "guint16" to TypeInfo.Primitive(U_SHORT),
-            "guint32" to TypeInfo.Primitive(U_INT),
-            "guint64" to TypeInfo.Primitive(U_LONG),
-            "guint8" to TypeInfo.Primitive(U_BYTE),
-            "gulong" to TypeInfo.Primitive(U_LONG),
-            "gunichar" to TypeInfo.Primitive(U_INT),
-        )
+    private fun getPrimitiveTypeInfo(typeName: String): TypeInfo? =
+        when (typeName) {
+            "none" -> TypeInfo.Primitive(UNIT)
+            "GType", "gsize", "guint64", "gulong" -> TypeInfo.Primitive(U_LONG)
+            "gchar" -> TypeInfo.GChar(BYTE, CHAR)
+            "gdouble" -> TypeInfo.Primitive(DOUBLE)
+            "gfloat" -> TypeInfo.Primitive(FLOAT)
+            "gint", "gint32" -> TypeInfo.Primitive(INT)
+            "gint16" -> TypeInfo.Primitive(SHORT)
+            "gint64", "glong", "gssize" -> TypeInfo.Primitive(LONG)
+            "gint8" -> TypeInfo.Primitive(BYTE)
+            "guint", "guint32", "gunichar" -> TypeInfo.Primitive(U_INT)
+            "guint16" -> TypeInfo.Primitive(U_SHORT)
+            "guint8" -> TypeInfo.Primitive(U_BYTE)
+            else -> null
+        }
 
+    companion object {
         /**
          * A set of C identifiers for gir objects that should not be generated.
          */
@@ -664,7 +655,6 @@ class ProcessorContext(
             "graphene_simd4f_t",
 
             // Can't find it in Ubuntu 24.04
-            "GThreadedResolver",
         )
 
         /**

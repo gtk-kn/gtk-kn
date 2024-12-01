@@ -80,7 +80,7 @@ class RecordBlueprintBuilder(
         girRecord.cType?.let { context.checkIgnoredType(it) }
 
         if (girRecord.foreign == true) throw UnresolvableTypeException("foreign records are ignored")
-        if (girRecord.glibIsGtypeStructFor != null && girRecord.glibIsGtypeStructFor != "Object") {
+        if (girRecord.glibIsGTypeStructFor != null && girRecord.glibIsGTypeStructFor != "Object") {
             throw UnresolvableTypeException("glib type struct are ignored")
         }
         if (girRecord.disguised == true) throw UnresolvableTypeException("Disguised records are ignored")
@@ -108,7 +108,7 @@ class RecordBlueprintBuilder(
                 girRecord.cType ?: error("unknown cType"),
             ),
             isOpaque = girRecord.opaque == true,
-            kdoc = context.processKdoc(girRecord.info.docs.doc?.text),
+            kdoc = context.processKdoc(girRecord.doc?.doc?.text),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girRecord.info)
                 .build()
                 .getOrNull(),

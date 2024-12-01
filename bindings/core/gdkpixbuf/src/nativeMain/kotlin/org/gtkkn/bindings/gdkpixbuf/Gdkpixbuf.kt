@@ -13,6 +13,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.GlibException
@@ -24,7 +25,6 @@ import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_error_quark
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -72,7 +72,7 @@ public object Gdkpixbuf {
      */
     public const val PIXBUF_VERSION: String = "2.42.10"
 
-    public fun pixbufErrorQuark(): UInt = gdk_pixbuf_error_quark()
+    public fun pixbufErrorQuark(): Quark = gdk_pixbuf_error_quark()
 
     public fun resolveException(error: Error): GlibException {
         val ex =

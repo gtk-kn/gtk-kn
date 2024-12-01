@@ -222,7 +222,7 @@ public open class Text(
          *
          * @param attrs a `PangoAttrList`
          */
-        set(attrs) = gtk_text_set_attributes(gtkTextPointer.reinterpret(), attrs?.pangoAttrListPointer)
+        set(attrs) = gtk_text_set_attributes(gtkTextPointer.reinterpret(), attrs?.pangoAttrListPointer?.reinterpret())
 
     /**
      * The `GtkEntryBuffer` object which stores the text.
@@ -498,7 +498,7 @@ public open class Text(
          *
          * @param tabs a `PangoTabArray`
          */
-        set(tabs) = gtk_text_set_tabs(gtkTextPointer.reinterpret(), tabs?.pangoTabArrayPointer)
+        set(tabs) = gtk_text_set_tabs(gtkTextPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
 
     /**
      * When true, pasted multi-line text is truncated to the first line.
@@ -597,8 +597,8 @@ public open class Text(
         gtk_text_compute_cursor_extents(
             gtkTextPointer.reinterpret(),
             position,
-            strong?.grapheneRectPointer,
-            weak?.grapheneRectPointer
+            strong?.grapheneRectPointer?.reinterpret(),
+            weak?.grapheneRectPointer?.reinterpret()
         )
 
     /**
@@ -798,7 +798,7 @@ public open class Text(
      * @param attrs a `PangoAttrList`
      */
     public open fun setAttributes(attrs: AttrList? = null): Unit =
-        gtk_text_set_attributes(gtkTextPointer.reinterpret(), attrs?.pangoAttrListPointer)
+        gtk_text_set_attributes(gtkTextPointer.reinterpret(), attrs?.pangoAttrListPointer?.reinterpret())
 
     /**
      * Set the `GtkEntryBuffer` object which holds the text for
@@ -912,7 +912,7 @@ public open class Text(
      * @param tabs a `PangoTabArray`
      */
     public open fun setTabs(tabs: TabArray? = null): Unit =
-        gtk_text_set_tabs(gtkTextPointer.reinterpret(), tabs?.pangoTabArrayPointer)
+        gtk_text_set_tabs(gtkTextPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
 
     /**
      * Sets whether the `GtkText` should truncate multi-line text

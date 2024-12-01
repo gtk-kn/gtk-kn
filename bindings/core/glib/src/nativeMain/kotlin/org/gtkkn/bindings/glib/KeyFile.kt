@@ -65,7 +65,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Result
 import kotlin.String
-import kotlin.UInt
 import kotlin.ULong
 import kotlin.Unit
 import kotlin.collections.List
@@ -594,7 +593,7 @@ public class KeyFile(
             val gResult =
                 g_key_file_load_from_bytes(
                     glibKeyFilePointer.reinterpret(),
-                    bytes.glibBytesPointer,
+                    bytes.glibBytesPointer.reinterpret(),
                     flags.mask,
                     gError.ptr
                 ).asBoolean()
@@ -1048,7 +1047,7 @@ public class KeyFile(
          */
         public fun new(): KeyFile = KeyFile(g_key_file_new()!!.reinterpret())
 
-        public fun errorQuark(): UInt = g_key_file_error_quark()
+        public fun errorQuark(): Quark = g_key_file_error_quark()
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): KeyFile = KeyFile(pointer.reinterpret())
     }

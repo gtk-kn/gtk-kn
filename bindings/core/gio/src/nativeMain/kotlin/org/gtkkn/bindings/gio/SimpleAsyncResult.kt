@@ -238,7 +238,7 @@ public open class SimpleAsyncResult(
             sourceObject?.gPointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer(),
-            error.glibErrorPointer
+            error.glibErrorPointer.reinterpret()
         )!!.reinterpret()
     )
 
@@ -340,7 +340,10 @@ public open class SimpleAsyncResult(
      * @param error #GError.
      */
     public open fun setFromError(error: Error): Unit =
-        g_simple_async_result_set_from_error(gioSimpleAsyncResultPointer.reinterpret(), error.glibErrorPointer)
+        g_simple_async_result_set_from_error(
+            gioSimpleAsyncResultPointer.reinterpret(),
+            error.glibErrorPointer.reinterpret()
+        )
 
     /**
      * Sets whether to handle cancellation within the asynchronous operation.

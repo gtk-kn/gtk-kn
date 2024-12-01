@@ -265,8 +265,8 @@ public class WebContext(
     ): Unit =
         webkit_web_context_initialize_notification_permissions(
             webkitWebContextPointer.reinterpret(),
-            allowedOrigins.glibListPointer,
-            disallowedOrigins.glibListPointer
+            allowedOrigins.glibListPointer.reinterpret(),
+            disallowedOrigins.glibListPointer.reinterpret()
         )
 
     /**
@@ -479,7 +479,7 @@ public class WebContext(
     public fun setWebProcessExtensionsInitializationUserData(userData: Variant): Unit =
         webkit_web_context_set_web_process_extensions_initialization_user_data(
             webkitWebContextPointer.reinterpret(),
-            userData.glibVariantPointer
+            userData.glibVariantPointer.reinterpret()
         )
 
     /**

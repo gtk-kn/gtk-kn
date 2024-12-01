@@ -33,7 +33,12 @@ public open class TransformNode(
     public constructor(
         child: RenderNode,
         transform: Transform,
-    ) : this(gsk_transform_node_new(child.gPointer.reinterpret(), transform.gskTransformPointer)!!.reinterpret())
+    ) : this(
+        gsk_transform_node_new(
+            child.gPointer.reinterpret(),
+            transform.gskTransformPointer.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Gets the child node that is getting transformed by the given @node.

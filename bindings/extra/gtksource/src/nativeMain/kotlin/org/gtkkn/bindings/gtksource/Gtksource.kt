@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2
 import org.gtkkn.extensions.common.asBoolean
@@ -194,9 +195,9 @@ public object Gtksource {
             Encoding(reinterpret())
         }
 
-    public fun fileLoaderErrorQuark(): UInt = gtk_source_file_loader_error_quark()
+    public fun fileLoaderErrorQuark(): Quark = gtk_source_file_loader_error_quark()
 
-    public fun fileSaverErrorQuark(): UInt = gtk_source_file_saver_error_quark()
+    public fun fileSaverErrorQuark(): Quark = gtk_source_file_saver_error_quark()
 
     /**
      * Free the resources allocated by GtkSourceView. For example it unrefs the

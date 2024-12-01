@@ -61,7 +61,10 @@ public class ToplevelLayout(
      *   otherwise false.
      */
     public fun equal(other: ToplevelLayout): Boolean =
-        gdk_toplevel_layout_equal(gdkToplevelLayoutPointer.reinterpret(), other.gdkToplevelLayoutPointer).asBoolean()
+        gdk_toplevel_layout_equal(
+            gdkToplevelLayoutPointer.reinterpret(),
+            other.gdkToplevelLayoutPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Returns the monitor that the layout is fullscreening

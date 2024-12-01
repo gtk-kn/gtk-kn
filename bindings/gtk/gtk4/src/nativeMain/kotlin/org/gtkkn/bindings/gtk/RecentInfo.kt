@@ -278,7 +278,7 @@ public class RecentInfo(
      *   resource, false otherwise
      */
     public fun match(infoB: RecentInfo): Boolean =
-        gtk_recent_info_match(gtkRecentInfoPointer.reinterpret(), infoB.gtkRecentInfoPointer).asBoolean()
+        gtk_recent_info_match(gtkRecentInfoPointer.reinterpret(), infoB.gtkRecentInfoPointer.reinterpret()).asBoolean()
 
     /**
      * Increases the reference count of @recent_info by one.

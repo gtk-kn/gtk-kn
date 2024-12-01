@@ -17,20 +17,35 @@
 package org.gtkkn.gir.model
 
 /**
- * A callback closure, that is a function called when a signal is emitted (as an answer to that signal).
+ * A callback closure, that is, a function called when a signal is emitted.
  *
- * @property info a [GirInfo] that a callback can contain.
- * @property name name of the callback.
- * @property cType the C type returned by the callback closure (i.e. function).
- * @property throws true if the callback can throw an error.
- * @property parameters a [GirParameters] that a callback can contain.
- * @property returnValue a [GirReturnValue] that a callback can contain.
+ * @property info Common attributes for GIR elements.
+ * @property name Name of the callback.
+ * @property cType The C type returned by the callback closure.
+ * @property throws Indicates if the callback can throw an error.
+ * @property doc Documentation elements.
+ * @property annotations Annotations associated with the callback.
+ * @property parameters Parameters for the callback.
+ * @property returnValue Return value of the callback.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirCallback(
     val info: GirInfo,
     val name: String,
-    val cType: String?,
-    val throws: Boolean?,
-    val parameters: GirParameters?,
-    val returnValue: GirReturnValue?,
-) : GirCallbackOrAnyType
+    val cType: String? = null,
+    val throws: Boolean? = null,
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
+    val parameters: GirParameters? = null,
+    val returnValue: GirReturnValue? = null,
+) : GirFieldType {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        info.initialize(this, namespace)
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        parameters?.initialize(this, namespace)
+        returnValue?.initialize(this, namespace)
+    }
+}

@@ -179,7 +179,7 @@ public open class ColorDialog(
         gtk_color_dialog_choose_rgba(
             gtkColorDialogPointer.reinterpret(),
             parent?.gtkWindowPointer?.reinterpret(),
-            initialColor?.gdkRGBAPointer,
+            initialColor?.gdkRGBAPointer?.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()

@@ -93,8 +93,8 @@ public class FontDescription(
     ): Boolean =
         pango_font_description_better_match(
             pangoFontDescriptionPointer.reinterpret(),
-            oldMatch?.pangoFontDescriptionPointer,
-            newMatch.pangoFontDescriptionPointer
+            oldMatch?.pangoFontDescriptionPointer?.reinterpret(),
+            newMatch.pangoFontDescriptionPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -142,7 +142,7 @@ public class FontDescription(
     public fun equal(desc2: FontDescription): Boolean =
         pango_font_description_equal(
             pangoFontDescriptionPointer.reinterpret(),
-            desc2.pangoFontDescriptionPointer
+            desc2.pangoFontDescriptionPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -323,7 +323,7 @@ public class FontDescription(
     ): Unit =
         pango_font_description_merge(
             pangoFontDescriptionPointer.reinterpret(),
-            descToMerge?.pangoFontDescriptionPointer,
+            descToMerge?.pangoFontDescriptionPointer?.reinterpret(),
             replaceExisting.asGBoolean()
         )
 
@@ -347,7 +347,7 @@ public class FontDescription(
     ): Unit =
         pango_font_description_merge_static(
             pangoFontDescriptionPointer.reinterpret(),
-            descToMerge.pangoFontDescriptionPointer,
+            descToMerge.pangoFontDescriptionPointer.reinterpret(),
             replaceExisting.asGBoolean()
         )
 

@@ -19,18 +19,28 @@ package org.gtkkn.gir.model
 /**
  * Element defining a member of a bit field or an enumeration.
  *
- * @property info attributes of a member (see [GirInfo]).
- * @property name name of the member.
- * @property value value of the member.
- * @property cIdentifier corresponding C type of the member.
- * @property glibNick short nickname of the member (from GEnumValue/GFlagsValue).
- * @property glibName name of the member (from GEnumValue/GFlagsValue).
+ * @property info Common attributes for GIR elements.
+ * @property name Name of the member.
+ * @property value Value of the member.
+ * @property cIdentifier Corresponding C identifier in the source code.
+ * @property glibNick Short nickname of the member (from GEnumValue/GFlagsValue).
+ * @property glibName Name of the member (from GEnumValue/GFlagsValue).
+ * @property doc Documentation elements.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirMember(
     val info: GirInfo,
     val name: String,
     val value: String,
     val cIdentifier: String,
-    val glibNick: String?,
-    val glibName: String?,
-)
+    val glibNick: String? = null,
+    val glibName: String? = null,
+    val doc: GirDoc? = null,
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        info.initialize(this, namespace)
+        doc?.initialize(this, namespace)
+    }
+}

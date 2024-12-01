@@ -41,7 +41,13 @@ public open class FillNode(
         child: RenderNode,
         path: Path,
         fillRule: FillRule,
-    ) : this(gsk_fill_node_new(child.gPointer.reinterpret(), path.gskPathPointer, fillRule.nativeValue)!!.reinterpret())
+    ) : this(
+        gsk_fill_node_new(
+            child.gPointer.reinterpret(),
+            path.gskPathPointer.reinterpret(),
+            fillRule.nativeValue
+        )!!.reinterpret()
+    )
 
     /**
      * Gets the child node that is getting drawn by the given @node.

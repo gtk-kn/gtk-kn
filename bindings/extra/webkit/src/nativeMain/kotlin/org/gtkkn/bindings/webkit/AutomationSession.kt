@@ -106,7 +106,7 @@ public class AutomationSession(
     public fun setApplicationInfo(info: ApplicationInfo): Unit =
         webkit_automation_session_set_application_info(
             webkitAutomationSessionPointer.reinterpret(),
-            info.webkitApplicationInfoPointer
+            info.webkitApplicationInfoPointer.reinterpret()
         )
 
     /**

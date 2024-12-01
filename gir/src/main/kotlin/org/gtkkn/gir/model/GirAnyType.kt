@@ -17,6 +17,8 @@
 package org.gtkkn.gir.model
 
 /**
- * A sealed interface to represent either a [GirType] or a  [GirArrayType]
+ * A generic type representing either a simple type or an array type.
+ *
+ * This sealed interface can be extended by `GirType` for simple types or `GirArrayType` for arrays.
  */
-sealed interface GirAnyType : GirAnyTypeOrVarargs, GirCallbackOrAnyType
+sealed interface GirAnyType : GirAnyTypeOrVarargs, GirFieldType, GirNode

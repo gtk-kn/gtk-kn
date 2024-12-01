@@ -333,7 +333,10 @@ public interface FontChooser :
      * @param fontDesc a `PangoFontDescription`
      */
     public fun setFontDesc(fontDesc: FontDescription): Unit =
-        gtk_font_chooser_set_font_desc(gtkFontChooserPointer.reinterpret(), fontDesc.pangoFontDescriptionPointer)
+        gtk_font_chooser_set_font_desc(
+            gtkFontChooserPointer.reinterpret(),
+            fontDesc.pangoFontDescriptionPointer.reinterpret()
+        )
 
     /**
      * Sets a custom font map to use for this font chooser widget.

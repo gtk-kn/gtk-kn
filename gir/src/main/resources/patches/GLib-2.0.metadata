@@ -1,0 +1,4 @@
+// Remove underscore suffix
+*#function name="(.+)_$"
+*.*#parameter name="(.+)_$"
+*.*#function name="(.+)_$"

@@ -93,7 +93,7 @@ public class ColorChooserRequest(
     public fun getElementRectangle(rect: Rectangle): Unit =
         webkit_color_chooser_request_get_element_rectangle(
             webkitColorChooserRequestPointer.reinterpret(),
-            rect.gdkRectanglePointer
+            rect.gdkRectanglePointer.reinterpret()
         )
 
     /**
@@ -104,7 +104,10 @@ public class ColorChooserRequest(
      */
     @WebKitVersion2_8
     public fun getRgba(rgba: RGBA): Unit =
-        webkit_color_chooser_request_get_rgba(webkitColorChooserRequestPointer.reinterpret(), rgba.gdkRGBAPointer)
+        webkit_color_chooser_request_get_rgba(
+            webkitColorChooserRequestPointer.reinterpret(),
+            rgba.gdkRGBAPointer.reinterpret()
+        )
 
     /**
      * Sets the current #GdkRGBA color of @request
@@ -114,7 +117,10 @@ public class ColorChooserRequest(
      */
     @WebKitVersion2_8
     public fun setRgba(rgba: RGBA): Unit =
-        webkit_color_chooser_request_set_rgba(webkitColorChooserRequestPointer.reinterpret(), rgba.gdkRGBAPointer)
+        webkit_color_chooser_request_set_rgba(
+            webkitColorChooserRequestPointer.reinterpret(),
+            rgba.gdkRGBAPointer.reinterpret()
+        )
 
     /**
      * Emitted when the @request finishes. This signal can be emitted because the

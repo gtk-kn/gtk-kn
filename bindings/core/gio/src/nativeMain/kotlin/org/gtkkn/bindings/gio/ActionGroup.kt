@@ -155,7 +155,11 @@ public interface ActionGroup :
         actionName: String,
         state: Variant,
     ): Unit =
-        g_action_group_action_state_changed(gioActionGroupPointer.reinterpret(), actionName, state.glibVariantPointer)
+        g_action_group_action_state_changed(
+            gioActionGroupPointer.reinterpret(),
+            actionName,
+            state.glibVariantPointer.reinterpret()
+        )
 
     /**
      * Activate the named action within @action_group.
@@ -201,7 +205,11 @@ public interface ActionGroup :
         actionName: String,
         parameter: Variant? = null,
     ): Unit =
-        g_action_group_activate_action(gioActionGroupPointer.reinterpret(), actionName, parameter?.glibVariantPointer)
+        g_action_group_activate_action(
+            gioActionGroupPointer.reinterpret(),
+            actionName,
+            parameter?.glibVariantPointer?.reinterpret()
+        )
 
     /**
      * Request for the state of the named action within @action_group to be
@@ -225,7 +233,11 @@ public interface ActionGroup :
         actionName: String,
         `value`: Variant,
     ): Unit =
-        g_action_group_change_action_state(gioActionGroupPointer.reinterpret(), actionName, `value`.glibVariantPointer)
+        g_action_group_change_action_state(
+            gioActionGroupPointer.reinterpret(),
+            actionName,
+            `value`.glibVariantPointer.reinterpret()
+        )
 
     /**
      * Checks if the named action within @action_group is currently enabled.

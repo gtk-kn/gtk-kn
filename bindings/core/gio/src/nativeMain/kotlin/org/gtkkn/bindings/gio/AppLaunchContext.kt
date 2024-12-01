@@ -75,7 +75,7 @@ public open class AppLaunchContext(
         g_app_launch_context_get_display(
             gioAppLaunchContextPointer.reinterpret(),
             info.gioAppInfoPointer,
-            files.glibListPointer
+            files.glibListPointer.reinterpret()
         )?.toKString()
 
     /**
@@ -84,8 +84,7 @@ public open class AppLaunchContext(
      * This is a null-terminated array of strings, where each string has
      * the form `KEY=VALUE`.
      *
-     * @return
-     *     the child's environment
+     * @return the child's environment
      * @since 2.32
      */
     @GioVersion2_32
@@ -120,7 +119,7 @@ public open class AppLaunchContext(
         g_app_launch_context_get_startup_notify_id(
             gioAppLaunchContextPointer.reinterpret(),
             info.gioAppInfoPointer,
-            files.glibListPointer
+            files.glibListPointer.reinterpret()
         )?.toKString()
 
     /**

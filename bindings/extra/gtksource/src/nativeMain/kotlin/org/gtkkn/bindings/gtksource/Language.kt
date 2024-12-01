@@ -97,8 +97,7 @@ public open class Language(
      * This is just an utility wrapper around [method@Language.get_metadata] to
      * retrieve the "globs" metadata property and split it into an array.
      *
-     * @return
-     * a newly-allocated null terminated array containing the globs or null
+     * @return a newly-allocated null terminated array containing the globs or null
      * if no globs are found.
      * The returned array must be freed with g_strfreev().
      */
@@ -145,8 +144,7 @@ public open class Language(
      * retrieve the "mimetypes" metadata property and split it into an
      * array.
      *
-     * @return
-     * a newly-allocated null terminated array containing the mime types
+     * @return a newly-allocated null terminated array containing the mime types
      * or null if no mime types are found.
      * The returned array must be freed with g_strfreev().
      */
@@ -195,8 +193,7 @@ public open class Language(
     /**
      * Returns the ids of the styles defined by this @language.
      *
-     * @return
-     * a newly-allocated null terminated array containing ids of the
+     * @return a newly-allocated null terminated array containing ids of the
      * styles defined by this @language or null if no style is defined.
      * The returned array must be freed with g_strfreev().
      */

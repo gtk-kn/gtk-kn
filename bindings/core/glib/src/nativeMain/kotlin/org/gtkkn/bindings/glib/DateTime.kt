@@ -13,6 +13,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Record
 import org.gtkkn.extensions.glib.RecordCompanion
 import org.gtkkn.native.glib.GDateTime
+import org.gtkkn.native.glib.g_date_time_add
 import org.gtkkn.native.glib.g_date_time_add_days
 import org.gtkkn.native.glib.g_date_time_add_full
 import org.gtkkn.native.glib.g_date_time_add_hours
@@ -21,6 +22,7 @@ import org.gtkkn.native.glib.g_date_time_add_months
 import org.gtkkn.native.glib.g_date_time_add_seconds
 import org.gtkkn.native.glib.g_date_time_add_weeks
 import org.gtkkn.native.glib.g_date_time_add_years
+import org.gtkkn.native.glib.g_date_time_difference
 import org.gtkkn.native.glib.g_date_time_format
 import org.gtkkn.native.glib.g_date_time_format_iso8601
 import org.gtkkn.native.glib.g_date_time_get_day_of_month
@@ -34,6 +36,7 @@ import org.gtkkn.native.glib.g_date_time_get_second
 import org.gtkkn.native.glib.g_date_time_get_seconds
 import org.gtkkn.native.glib.g_date_time_get_timezone
 import org.gtkkn.native.glib.g_date_time_get_timezone_abbreviation
+import org.gtkkn.native.glib.g_date_time_get_utc_offset
 import org.gtkkn.native.glib.g_date_time_get_week_numbering_year
 import org.gtkkn.native.glib.g_date_time_get_week_of_year
 import org.gtkkn.native.glib.g_date_time_get_year
@@ -97,11 +100,8 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `timespan`: TimeSpan
  * - parameter `dt2`: DateTime
- * - method `difference`: Return type TimeSpan is unsupported
  * - parameter `dt2`: DateTime
- * - method `get_utc_offset`: Return type TimeSpan is unsupported
  * - parameter `year`: year: Out parameter is not supported
  *
  * @since 2.26
@@ -111,6 +111,20 @@ public class DateTime(
     pointer: CPointer<GDateTime>,
 ) : Record {
     public val glibDateTimePointer: CPointer<GDateTime> = pointer
+
+    /**
+     * Creates a copy of @datetime and adds the specified timespan to the copy.
+     *
+     * @param timespan a #GTimeSpan
+     * @return the newly created #GDateTime which
+     *   should be freed with g_date_time_unref(), or null
+     * @since 2.26
+     */
+    @GLibVersion2_26
+    public fun add(timespan: TimeSpan): DateTime? =
+        g_date_time_add(glibDateTimePointer.reinterpret(), timespan)?.run {
+            DateTime(reinterpret())
+        }
 
     /**
      * Creates a copy of @datetime and adds the specified number of days to the
@@ -251,6 +265,20 @@ public class DateTime(
         g_date_time_add_years(glibDateTimePointer.reinterpret(), years)?.run {
             DateTime(reinterpret())
         }
+
+    /**
+     * Calculates the difference in time between @end and @begin.  The
+     * #GTimeSpan that is returned is effectively @end - @begin (ie:
+     * positive if the first parameter is larger).
+     *
+     * @param begin a #GDateTime
+     * @return the difference between the two #GDateTime, as a time
+     *   span expressed in microseconds.
+     * @since 2.26
+     */
+    @GLibVersion2_26
+    public fun difference(begin: DateTime): TimeSpan =
+        g_date_time_difference(glibDateTimePointer.reinterpret(), begin.glibDateTimePointer.reinterpret())
 
     /**
      * Creates a newly allocated string representing the requested @format.
@@ -523,6 +551,23 @@ public class DateTime(
             ?: error("Expected not null string")
 
     /**
+     * Determines the offset to UTC in effect at the time and in the time
+     * zone of @datetime.
+     *
+     * The offset is the number of microseconds that you add to UTC time to
+     * arrive at local time for the time zone (ie: negative numbers for time
+     * zones west of GMT, positive numbers for east).
+     *
+     * If @datetime represents UTC time, then the offset is always zero.
+     *
+     * @return the number of microseconds that should be added to UTC to
+     *          get the local time
+     * @since 2.26
+     */
+    @GLibVersion2_26
+    public fun getUtcOffset(): TimeSpan = g_date_time_get_utc_offset(glibDateTimePointer.reinterpret())
+
+    /**
      * Returns the ISO 8601 week-numbering year in which the week containing
      * @datetime falls.
      *
@@ -663,7 +708,7 @@ public class DateTime(
      */
     @GLibVersion2_26
     public fun toTimeval(tv: TimeVal): Boolean =
-        g_date_time_to_timeval(glibDateTimePointer.reinterpret(), tv.glibTimeValPointer).asBoolean()
+        g_date_time_to_timeval(glibDateTimePointer.reinterpret(), tv.glibTimeValPointer.reinterpret()).asBoolean()
 
     /**
      * Create a new #GDateTime corresponding to the same instant in time as
@@ -680,7 +725,7 @@ public class DateTime(
      */
     @GLibVersion2_26
     public fun toTimezone(tz: TimeZone): DateTime? =
-        g_date_time_to_timezone(glibDateTimePointer.reinterpret(), tz.glibTimeZonePointer)?.run {
+        g_date_time_to_timezone(glibDateTimePointer.reinterpret(), tz.glibTimeZonePointer.reinterpret())?.run {
             DateTime(reinterpret())
         }
 
@@ -787,7 +832,17 @@ public class DateTime(
             minute: Int,
             seconds: Double,
         ): DateTime? =
-            DateTime(g_date_time_new(tz.glibTimeZonePointer, year, month, day, hour, minute, seconds)!!.reinterpret())
+            DateTime(
+                g_date_time_new(
+                    tz.glibTimeZonePointer.reinterpret(),
+                    year,
+                    month,
+                    day,
+                    hour,
+                    minute,
+                    seconds
+                )!!.reinterpret()
+            )
 
         /**
          * Creates a #GDateTime corresponding to the given
@@ -843,7 +898,8 @@ public class DateTime(
         public fun newFromIso8601(
             text: String,
             defaultTz: TimeZone? = null,
-        ): DateTime? = DateTime(g_date_time_new_from_iso8601(text, defaultTz?.glibTimeZonePointer)!!.reinterpret())
+        ): DateTime? =
+            DateTime(g_date_time_new_from_iso8601(text, defaultTz?.glibTimeZonePointer?.reinterpret())!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to the given #GTimeVal @tv in the
@@ -864,7 +920,7 @@ public class DateTime(
          * @since 2.26
          */
         public fun newFromTimevalLocal(tv: TimeVal): DateTime? =
-            DateTime(g_date_time_new_from_timeval_local(tv.glibTimeValPointer)!!.reinterpret())
+            DateTime(g_date_time_new_from_timeval_local(tv.glibTimeValPointer.reinterpret())!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to the given #GTimeVal @tv in UTC.
@@ -883,7 +939,7 @@ public class DateTime(
          * @since 2.26
          */
         public fun newFromTimevalUtc(tv: TimeVal): DateTime? =
-            DateTime(g_date_time_new_from_timeval_utc(tv.glibTimeValPointer)!!.reinterpret())
+            DateTime(g_date_time_new_from_timeval_utc(tv.glibTimeValPointer.reinterpret())!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to the given Unix time @t in the
@@ -1002,7 +1058,7 @@ public class DateTime(
          * @since 2.26
          */
         public fun newNow(tz: TimeZone): DateTime? =
-            DateTime(g_date_time_new_now(tz.glibTimeZonePointer)!!.reinterpret())
+            DateTime(g_date_time_new_now(tz.glibTimeZonePointer.reinterpret())!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to this exact instant in the local

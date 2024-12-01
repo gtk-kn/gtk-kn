@@ -17,14 +17,27 @@
 package org.gtkkn.gir.model
 
 /**
- * Deprecated documentation of an element. Kept for historical reasons in general.
+ * Deprecated documentation of an element.
  *
- * @property preserveSpace preserve the original formatting of the documentation from the source code.
- * @property preserveWhitespace keep the whitespace as they were in the source code.
- * @property text text of the deprecated documentation.
+ * @constructor Creates a GirDocVersion.
+ * @param xmlSpace Preserve the original formatting of the documentation from the source code.
+ * @param xmlWhitespace Preserve the original formatting of the documentation from the source code.
+ * @property text Text of the deprecated documentation.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirDocDeprecated(
-    val preserveSpace: Boolean,
-    val preserveWhitespace: Boolean,
-    val text: String,
-)
+    /** Preserve the original formatting of the documentation from the source code */
+    private val xmlSpace: String? = null,
+    /** Preserve the original formatting of the documentation from the source code */
+    private val xmlWhitespace: String? = null,
+    /** The text of the deprecated documentation */
+    override val text: String,
+) : GirDocumentation {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    val preserveSpace = xmlSpace == "preserve"
+    val preserveWhitespace = xmlWhitespace == "preserve"
+    override fun initializeChildren(namespace: GirNamespace) {
+        // No children
+    }
+}

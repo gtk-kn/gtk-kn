@@ -183,7 +183,8 @@ public class VariantDict(
     public fun insertValue(
         key: String,
         `value`: Variant,
-    ): Unit = g_variant_dict_insert_value(glibVariantDictPointer.reinterpret(), key, `value`.glibVariantPointer)
+    ): Unit =
+        g_variant_dict_insert_value(glibVariantDictPointer.reinterpret(), key, `value`.glibVariantPointer.reinterpret())
 
     /**
      * Looks up a value in a #GVariantDict.
@@ -211,7 +212,7 @@ public class VariantDict(
         g_variant_dict_lookup_value(
             glibVariantDictPointer.reinterpret(),
             key,
-            expectedType?.glibVariantTypePointer
+            expectedType?.glibVariantTypePointer?.reinterpret()
         )?.run {
             Variant(reinterpret())
         }
@@ -275,7 +276,7 @@ public class VariantDict(
          * @since 2.40
          */
         public fun new(fromAsv: Variant? = null): VariantDict =
-            VariantDict(g_variant_dict_new(fromAsv?.glibVariantPointer)!!.reinterpret())
+            VariantDict(g_variant_dict_new(fromAsv?.glibVariantPointer?.reinterpret())!!.reinterpret())
 
         override fun wrapRecordPointer(pointer: CPointer<out CPointed>): VariantDict =
             VariantDict(pointer.reinterpret())

@@ -366,7 +366,7 @@ public open class Popover(
      * @return true if a rectangle to point to was set.
      */
     public open fun getPointingTo(rect: Rectangle): Boolean =
-        gtk_popover_get_pointing_to(gtkPopoverPointer.reinterpret(), rect.gdkRectanglePointer).asBoolean()
+        gtk_popover_get_pointing_to(gtkPopoverPointer.reinterpret(), rect.gdkRectanglePointer.reinterpret()).asBoolean()
 
     /**
      * Returns the preferred position of @popover.
@@ -490,7 +490,7 @@ public open class Popover(
      * @param rect rectangle to point to
      */
     public open fun setPointingTo(rect: Rectangle? = null): Unit =
-        gtk_popover_set_pointing_to(gtkPopoverPointer.reinterpret(), rect?.gdkRectanglePointer)
+        gtk_popover_set_pointing_to(gtkPopoverPointer.reinterpret(), rect?.gdkRectanglePointer?.reinterpret())
 
     /**
      * Sets the preferred position for @popover to appear.

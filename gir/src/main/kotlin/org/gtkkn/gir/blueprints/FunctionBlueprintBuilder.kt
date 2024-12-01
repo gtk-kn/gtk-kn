@@ -33,25 +33,28 @@ class FunctionBlueprintBuilder(
     private val girFunction: GirFunction,
 ) : CallableBlueprintBuilder<FunctionBlueprint>(context, girNamespace) {
     override fun blueprintObjectType(): String = "function"
-    override fun blueprintObjectName(): String = girFunction.name
+    override fun blueprintObjectName(): String = girFunction.callable.name
 
     override fun buildInternal(): FunctionBlueprint {
-        if (girFunction.info.introspectable == false) {
-            throw NotIntrospectableException(girFunction.cIdentifier ?: girFunction.name)
+        if (girFunction.callable.info.introspectable == false) {
+            throw NotIntrospectableException(girFunction.callable.cIdentifier ?: girFunction.callable.name)
         }
 
-        if (girFunction.shadowedBy != null) {
-            throw ShadowedFunctionException(girFunction.cIdentifier ?: girFunction.name, girFunction.shadowedBy)
+        if (girFunction.callable.shadowedBy != null) {
+            throw ShadowedFunctionException(
+                girFunction.callable.cIdentifier ?: girFunction.callable.name,
+                girFunction.callable.shadowedBy,
+            )
         }
 
-        if (girFunction.cIdentifier == null) {
-            throw UnresolvableTypeException("Function ${girFunction.name} does not have cIdentifier")
+        if (girFunction.callable.cIdentifier == null) {
+            throw UnresolvableTypeException("Function ${girFunction.callable.name} does not have cIdentifier")
         }
         if (girFunction.parameters?.instanceParameter != null) {
             throw UnresolvableTypeException("Function with instance parameter is not supported yet")
         }
 
-        context.checkIgnoredFunction(girFunction.cIdentifier)
+        context.checkIgnoredFunction(girFunction.callable.cIdentifier)
 
         girFunction.parameters?.let { addParameters(it) }
 
@@ -68,9 +71,9 @@ class FunctionBlueprintBuilder(
             }
         }
 
-        val nativeName = girFunction.cIdentifier
+        val nativeName = girFunction.callable.cIdentifier
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeName)
-        val kotlinName = context.kotlinizeMethodName(girFunction.shadows ?: girFunction.name)
+        val kotlinName = context.kotlinizeMethodName(girFunction.callable.shadows ?: girFunction.callable.name)
 
         return FunctionBlueprint(
             kotlinName = kotlinName,
@@ -78,15 +81,15 @@ class FunctionBlueprintBuilder(
             nativeMemberName = nativeMemberName,
             parameters = sanitizeParameters(parameterBlueprints),
             returnTypeInfo = returnTypeInfo,
-            throws = girFunction.throws,
+            throws = girFunction.callable.throws == true,
             exceptionResolvingFunctionMember = exceptionResolvingFunction(),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(
                 context,
                 girNamespace,
-                girFunction.info
+                girFunction.callable.info,
             ).build().getOrNull(),
-            kdoc = context.processKdoc(girFunction.info.docs.doc?.text),
-            returnTypeKDoc = context.processKdoc(girFunction.returnValue.docs.doc?.text),
+            kdoc = context.processKdoc(girFunction.doc?.doc?.text),
+            returnTypeKDoc = context.processKdoc(girFunction.returnValue.doc?.doc?.text),
         )
     }
 
@@ -101,7 +104,7 @@ class FunctionBlueprintBuilder(
         }
 
     private fun needsNickBlurbFix(params: List<ParameterBlueprint>): Boolean =
-        girFunction.cIdentifier.orEmpty().startsWith("g_param_spec_") &&
+        girFunction.callable.cIdentifier.orEmpty().startsWith("g_param_spec_") &&
             params.size >= 3 &&
             params[0].nativeName == "name" &&
             params[1].nativeName == "nick" &&

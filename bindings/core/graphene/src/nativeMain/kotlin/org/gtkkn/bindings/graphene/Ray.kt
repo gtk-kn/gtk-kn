@@ -58,7 +58,8 @@ public class Ray(
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun equal(b: Ray): Boolean = graphene_ray_equal(grapheneRayPointer.reinterpret(), b.grapheneRayPointer)
+    public fun equal(b: Ray): Boolean =
+        graphene_ray_equal(grapheneRayPointer.reinterpret(), b.grapheneRayPointer.reinterpret())
 
     /**
      * Frees the resources allocated by graphene_ray_alloc().
@@ -83,8 +84,8 @@ public class Ray(
     ): Unit =
         graphene_ray_get_closest_point_to_point(
             grapheneRayPointer.reinterpret(),
-            p.graphenePoint3DPointer,
-            res.graphenePoint3DPointer
+            p.graphenePoint3DPointer.reinterpret(),
+            res.graphenePoint3DPointer.reinterpret()
         )
 
     /**
@@ -95,7 +96,7 @@ public class Ray(
      */
     @GrapheneVersion1_4
     public fun getDirection(direction: Vec3): Unit =
-        graphene_ray_get_direction(grapheneRayPointer.reinterpret(), direction.grapheneVec3Pointer)
+        graphene_ray_get_direction(grapheneRayPointer.reinterpret(), direction.grapheneVec3Pointer.reinterpret())
 
     /**
      * Computes the distance of the origin of the given #graphene_ray_t from the
@@ -109,7 +110,7 @@ public class Ray(
      */
     @GrapheneVersion1_4
     public fun getDistanceToPlane(p: Plane): Float =
-        graphene_ray_get_distance_to_plane(grapheneRayPointer.reinterpret(), p.graphenePlanePointer)
+        graphene_ray_get_distance_to_plane(grapheneRayPointer.reinterpret(), p.graphenePlanePointer.reinterpret())
 
     /**
      * Computes the distance of the closest approach between the
@@ -125,7 +126,7 @@ public class Ray(
      */
     @GrapheneVersion1_4
     public fun getDistanceToPoint(p: Point3D): Float =
-        graphene_ray_get_distance_to_point(grapheneRayPointer.reinterpret(), p.graphenePoint3DPointer)
+        graphene_ray_get_distance_to_point(grapheneRayPointer.reinterpret(), p.graphenePoint3DPointer.reinterpret())
 
     /**
      * Retrieves the origin of the given #graphene_ray_t.
@@ -135,7 +136,7 @@ public class Ray(
      */
     @GrapheneVersion1_4
     public fun getOrigin(origin: Point3D): Unit =
-        graphene_ray_get_origin(grapheneRayPointer.reinterpret(), origin.graphenePoint3DPointer)
+        graphene_ray_get_origin(grapheneRayPointer.reinterpret(), origin.graphenePoint3DPointer.reinterpret())
 
     /**
      * Retrieves the coordinates of a point at the distance @t along the
@@ -149,7 +150,8 @@ public class Ray(
     public fun getPositionAt(
         t: Float,
         position: Point3D,
-    ): Unit = graphene_ray_get_position_at(grapheneRayPointer.reinterpret(), t, position.graphenePoint3DPointer)
+    ): Unit =
+        graphene_ray_get_position_at(grapheneRayPointer.reinterpret(), t, position.graphenePoint3DPointer.reinterpret())
 
     /**
      * Initializes the given #graphene_ray_t using the given @origin
@@ -167,8 +169,8 @@ public class Ray(
     ): Ray =
         graphene_ray_init(
             grapheneRayPointer.reinterpret(),
-            origin?.graphenePoint3DPointer,
-            direction?.grapheneVec3Pointer
+            origin?.graphenePoint3DPointer?.reinterpret(),
+            direction?.grapheneVec3Pointer?.reinterpret()
         )!!.run {
             Ray(reinterpret())
         }
@@ -183,7 +185,7 @@ public class Ray(
      */
     @GrapheneVersion1_4
     public fun initFromRay(src: Ray): Ray =
-        graphene_ray_init_from_ray(grapheneRayPointer.reinterpret(), src.grapheneRayPointer)!!.run {
+        graphene_ray_init_from_ray(grapheneRayPointer.reinterpret(), src.grapheneRayPointer.reinterpret())!!.run {
             Ray(reinterpret())
         }
 
@@ -202,8 +204,8 @@ public class Ray(
     ): Ray =
         graphene_ray_init_from_vec3(
             grapheneRayPointer.reinterpret(),
-            origin?.grapheneVec3Pointer,
-            direction?.grapheneVec3Pointer
+            origin?.grapheneVec3Pointer?.reinterpret(),
+            direction?.grapheneVec3Pointer?.reinterpret()
         )!!.run {
             Ray(reinterpret())
         }
@@ -220,7 +222,7 @@ public class Ray(
      */
     @GrapheneVersion1_10
     public fun intersectsBox(b: Box): Boolean =
-        graphene_ray_intersects_box(grapheneRayPointer.reinterpret(), b.grapheneBoxPointer)
+        graphene_ray_intersects_box(grapheneRayPointer.reinterpret(), b.grapheneBoxPointer.reinterpret())
 
     /**
      * Checks if the given #graphene_ray_t @r intersects the
@@ -234,7 +236,7 @@ public class Ray(
      */
     @GrapheneVersion1_10
     public fun intersectsSphere(s: Sphere): Boolean =
-        graphene_ray_intersects_sphere(grapheneRayPointer.reinterpret(), s.grapheneSpherePointer)
+        graphene_ray_intersects_sphere(grapheneRayPointer.reinterpret(), s.grapheneSpherePointer.reinterpret())
 
     /**
      * Checks whether the given #graphene_ray_t @r intersects the
@@ -248,7 +250,7 @@ public class Ray(
      */
     @GrapheneVersion1_10
     public fun intersectsTriangle(t: Triangle): Boolean =
-        graphene_ray_intersects_triangle(grapheneRayPointer.reinterpret(), t.grapheneTrianglePointer)
+        graphene_ray_intersects_triangle(grapheneRayPointer.reinterpret(), t.grapheneTrianglePointer.reinterpret())
 
     public companion object : RecordCompanion<Ray, graphene_ray_t> {
         /**

@@ -15,6 +15,7 @@ import org.gtkkn.native.pango.PangoRenderer
 import org.gtkkn.native.pango.pango_renderer_activate
 import org.gtkkn.native.pango.pango_renderer_deactivate
 import org.gtkkn.native.pango.pango_renderer_draw_error_underline
+import org.gtkkn.native.pango.pango_renderer_draw_glyph
 import org.gtkkn.native.pango.pango_renderer_draw_glyph_item
 import org.gtkkn.native.pango.pango_renderer_draw_glyphs
 import org.gtkkn.native.pango.pango_renderer_draw_layout
@@ -44,11 +45,6 @@ import kotlin.Unit
  * By subclassing `PangoRenderer` and overriding operations such as
  * @draw_glyphs and @draw_rectangle, renderers for particular font
  * backends and destinations can be created.
- *
- * ## Skipped during bindings generation
- *
- * - parameter `glyph`: Glyph
- *
  * @since 1.8
  */
 @PangoVersion1_8
@@ -111,6 +107,24 @@ public open class Renderer(
     ): Unit = pango_renderer_draw_error_underline(pangoRendererPointer.reinterpret(), x, y, width, height)
 
     /**
+     * Draws a single glyph with coordinates in device space.
+     *
+     * @param font a `PangoFont`
+     * @param glyph the glyph index of a single glyph
+     * @param x X coordinate of left edge of baseline of glyph
+     * @param y Y coordinate of left edge of baseline of glyph
+     * @since 1.8
+     */
+    @PangoVersion1_8
+    public open fun drawGlyph(
+        font: Font,
+        glyph: Glyph,
+        x: Double,
+        y: Double,
+    ): Unit =
+        pango_renderer_draw_glyph(pangoRendererPointer.reinterpret(), font.pangoFontPointer.reinterpret(), glyph, x, y)
+
+    /**
      * Draws the glyphs in @glyph_item with the specified `PangoRenderer`,
      * embedding the text associated with the glyphs in the output if the
      * output format supports it.
@@ -145,7 +159,13 @@ public open class Renderer(
         x: Int,
         y: Int,
     ): Unit =
-        pango_renderer_draw_glyph_item(pangoRendererPointer.reinterpret(), text, glyphItem.pangoGlyphItemPointer, x, y)
+        pango_renderer_draw_glyph_item(
+            pangoRendererPointer.reinterpret(),
+            text,
+            glyphItem.pangoGlyphItemPointer.reinterpret(),
+            x,
+            y
+        )
 
     /**
      * Draws the glyphs in @glyphs with the specified `PangoRenderer`.
@@ -168,7 +188,7 @@ public open class Renderer(
         pango_renderer_draw_glyphs(
             pangoRendererPointer.reinterpret(),
             font.pangoFontPointer.reinterpret(),
-            glyphs.pangoGlyphStringPointer,
+            glyphs.pangoGlyphStringPointer.reinterpret(),
             x,
             y
         )
@@ -213,7 +233,13 @@ public open class Renderer(
         line: LayoutLine,
         x: Int,
         y: Int,
-    ): Unit = pango_renderer_draw_layout_line(pangoRendererPointer.reinterpret(), line.pangoLayoutLinePointer, x, y)
+    ): Unit =
+        pango_renderer_draw_layout_line(
+            pangoRendererPointer.reinterpret(),
+            line.pangoLayoutLinePointer.reinterpret(),
+            x,
+            y
+        )
 
     /**
      * Draws an axis-aligned rectangle in user space coordinates with the
@@ -401,7 +427,12 @@ public open class Renderer(
     public open fun setColor(
         part: RenderPart,
         color: Color? = null,
-    ): Unit = pango_renderer_set_color(pangoRendererPointer.reinterpret(), part.nativeValue, color?.pangoColorPointer)
+    ): Unit =
+        pango_renderer_set_color(
+            pangoRendererPointer.reinterpret(),
+            part.nativeValue,
+            color?.pangoColorPointer?.reinterpret()
+        )
 
     /**
      * Sets the transformation matrix that will be applied when rendering.
@@ -412,7 +443,7 @@ public open class Renderer(
      */
     @PangoVersion1_8
     public open fun setMatrix(matrix: Matrix? = null): Unit =
-        pango_renderer_set_matrix(pangoRendererPointer.reinterpret(), matrix?.pangoMatrixPointer)
+        pango_renderer_set_matrix(pangoRendererPointer.reinterpret(), matrix?.pangoMatrixPointer?.reinterpret())
 
     public companion object : TypeCompanion<Renderer> {
         override val type: GeneratedClassKGType<Renderer> =

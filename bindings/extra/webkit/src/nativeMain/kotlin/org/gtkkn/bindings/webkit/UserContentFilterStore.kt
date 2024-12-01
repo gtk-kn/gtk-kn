@@ -288,7 +288,7 @@ public class UserContentFilterStore(
         webkit_user_content_filter_store_save(
             webkitUserContentFilterStorePointer.reinterpret(),
             identifier,
-            source.glibBytesPointer,
+            source.glibBytesPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             AsyncReadyCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer()

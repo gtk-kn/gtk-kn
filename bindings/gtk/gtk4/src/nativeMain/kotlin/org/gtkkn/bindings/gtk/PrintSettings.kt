@@ -172,7 +172,7 @@ public open class PrintSettings(
      */
     public constructor(
         variant: Variant,
-    ) : this(gtk_print_settings_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
+    ) : this(gtk_print_settings_new_from_gvariant(variant.glibVariantPointer.reinterpret())!!.reinterpret())
 
     /**
      * Reads the print settings from the group @group_name in @key_file.
@@ -190,7 +190,8 @@ public open class PrintSettings(
     public constructor(keyFile: KeyFile, groupName: String? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = gtk_print_settings_new_from_key_file(keyFile.glibKeyFilePointer, groupName, gError.ptr)
+            val gResult =
+                gtk_print_settings_new_from_key_file(keyFile.glibKeyFilePointer.reinterpret(), groupName, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -575,7 +576,7 @@ public open class PrintSettings(
             val gResult =
                 gtk_print_settings_load_key_file(
                     gtkPrintSettingsPointer.reinterpret(),
-                    keyFile.glibKeyFilePointer,
+                    keyFile.glibKeyFilePointer.reinterpret(),
                     groupName,
                     gError.ptr
                 ).asBoolean()
@@ -762,7 +763,10 @@ public open class PrintSettings(
      * @param paperSize a paper size
      */
     public open fun setPaperSize(paperSize: PaperSize): kotlin.Unit =
-        gtk_print_settings_set_paper_size(gtkPrintSettingsPointer.reinterpret(), paperSize.gtkPaperSizePointer)
+        gtk_print_settings_set_paper_size(
+            gtkPrintSettingsPointer.reinterpret(),
+            paperSize.gtkPaperSizePointer.reinterpret()
+        )
 
     /**
      * Sets the value of %GTK_PRINT_SETTINGS_PAPER_WIDTH.
@@ -902,7 +906,11 @@ public open class PrintSettings(
         keyFile: KeyFile,
         groupName: String? = null,
     ): kotlin.Unit =
-        gtk_print_settings_to_key_file(gtkPrintSettingsPointer.reinterpret(), keyFile.glibKeyFilePointer, groupName)
+        gtk_print_settings_to_key_file(
+            gtkPrintSettingsPointer.reinterpret(),
+            keyFile.glibKeyFilePointer.reinterpret(),
+            groupName
+        )
 
     /**
      * Removes any value associated with @key.

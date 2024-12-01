@@ -409,7 +409,10 @@ public open class ComboBox(
      * @return true if @iter was set, false otherwise
      */
     public open fun getActiveIter(iter: TreeIter): Boolean =
-        gtk_combo_box_get_active_iter(gtkComboBoxPointer.reinterpret(), iter.gtkTreeIterPointer).asBoolean()
+        gtk_combo_box_get_active_iter(
+            gtkComboBoxPointer.reinterpret(),
+            iter.gtkTreeIterPointer.reinterpret()
+        ).asBoolean()
 
     /**
      * Returns whether the combo box sets the dropdown button
@@ -544,7 +547,7 @@ public open class ComboBox(
      * @param iter The `GtkTreeIter`
      */
     public open fun setActiveIter(iter: TreeIter? = null): Unit =
-        gtk_combo_box_set_active_iter(gtkComboBoxPointer.reinterpret(), iter?.gtkTreeIterPointer)
+        gtk_combo_box_set_active_iter(gtkComboBoxPointer.reinterpret(), iter?.gtkTreeIterPointer?.reinterpret())
 
     /**
      * Sets whether the dropdown button of the combo box should update

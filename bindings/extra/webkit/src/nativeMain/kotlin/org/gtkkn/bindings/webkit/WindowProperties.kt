@@ -183,7 +183,10 @@ public class WindowProperties(
      * @param geometry return location for the window geometry
      */
     public fun getGeometry(geometry: Rectangle): Unit =
-        webkit_window_properties_get_geometry(webkitWindowPropertiesPointer.reinterpret(), geometry.gdkRectanglePointer)
+        webkit_window_properties_get_geometry(
+            webkitWindowPropertiesPointer.reinterpret(),
+            geometry.gdkRectanglePointer.reinterpret()
+        )
 
     /**
      * Get whether the window should have the locationbar visible or not.

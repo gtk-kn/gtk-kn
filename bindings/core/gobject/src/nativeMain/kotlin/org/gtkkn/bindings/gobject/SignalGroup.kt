@@ -109,7 +109,7 @@ public open class SignalGroup(
         g_signal_group_connect_closure(
             gobjectSignalGroupPointer.reinterpret(),
             detailedSignal,
-            closure.gobjectClosurePointer,
+            closure.gobjectClosurePointer.reinterpret(),
             after.asGBoolean()
         )
 

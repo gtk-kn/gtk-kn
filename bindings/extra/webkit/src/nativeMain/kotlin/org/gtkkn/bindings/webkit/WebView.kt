@@ -769,7 +769,7 @@ public open class WebView(
             webkitWebViewPointer.reinterpret(),
             body,
             length,
-            arguments?.glibVariantPointer,
+            arguments?.glibVariantPointer?.reinterpret(),
             worldName,
             sourceUri,
             cancellable?.gioCancellablePointer?.reinterpret(),
@@ -1063,7 +1063,7 @@ public open class WebView(
      */
     @WebKitVersion2_8
     public open fun getBackgroundColor(rgba: RGBA): Unit =
-        webkit_web_view_get_background_color(webkitWebViewPointer.reinterpret(), rgba.gdkRGBAPointer)
+        webkit_web_view_get_background_color(webkitWebViewPointer.reinterpret(), rgba.gdkRGBAPointer.reinterpret())
 
     /**
      * Get the camera capture state of a #WebKitWebView.
@@ -1613,7 +1613,7 @@ public open class WebView(
     ): Unit =
         webkit_web_view_load_bytes(
             webkitWebViewPointer.reinterpret(),
-            bytes.glibBytesPointer,
+            bytes.glibBytesPointer.reinterpret(),
             mimeType,
             encoding,
             baseUri
@@ -1694,7 +1694,7 @@ public open class WebView(
     public open fun restoreSessionState(state: WebViewSessionState): Unit =
         webkit_web_view_restore_session_state(
             webkitWebViewPointer.reinterpret(),
-            state.webkitWebViewSessionStatePointer
+            state.webkitWebViewSessionStatePointer.reinterpret()
         )
 
     /**
@@ -1871,7 +1871,7 @@ public open class WebView(
      */
     @WebKitVersion2_8
     public open fun setBackgroundColor(rgba: RGBA): Unit =
-        webkit_web_view_set_background_color(webkitWebViewPointer.reinterpret(), rgba.gdkRGBAPointer)
+        webkit_web_view_set_background_color(webkitWebViewPointer.reinterpret(), rgba.gdkRGBAPointer.reinterpret())
 
     /**
      * Set the camera capture state of a #WebKitWebView.

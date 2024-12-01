@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.gdk
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.gdk.GdkVulkanError
 import org.gtkkn.native.gdk.gdk_vulkan_error_quark
-import kotlin.UInt
 
 /**
  * Error enumeration for `GdkVulkanContext`.
@@ -32,7 +32,7 @@ public enum class VulkanError(
                 else -> error("invalid nativeValue")
             }
 
-        public fun quark(): UInt = gdk_vulkan_error_quark()
+        public fun quark(): Quark = gdk_vulkan_error_quark()
 
         public fun fromErrorOrNull(error: Error): VulkanError? =
             if (error.domain != quark()) {

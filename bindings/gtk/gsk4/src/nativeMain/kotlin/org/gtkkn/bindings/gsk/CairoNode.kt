@@ -35,7 +35,9 @@ public open class CairoNode(
      * @param bounds the rectangle to render to
      * @return A new `GskRenderNode`
      */
-    public constructor(bounds: Rect) : this(gsk_cairo_node_new(bounds.grapheneRectPointer)!!.reinterpret())
+    public constructor(
+        bounds: Rect,
+    ) : this(gsk_cairo_node_new(bounds.grapheneRectPointer.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<CairoNode> {
         override val type: GeneratedClassKGType<CairoNode> =

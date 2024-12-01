@@ -189,7 +189,7 @@ public open class MenuModel(
             gioMenuModelPointer.reinterpret(),
             itemIndex,
             attribute,
-            expectedType?.glibVariantTypePointer
+            expectedType?.glibVariantTypePointer?.reinterpret()
         )?.run {
             Variant(reinterpret())
         }

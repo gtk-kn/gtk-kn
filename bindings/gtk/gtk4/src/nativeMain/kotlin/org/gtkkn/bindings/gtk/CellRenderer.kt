@@ -98,7 +98,7 @@ import kotlin.Unit
  * - parameter `minimum_height`: minimum_height: Out parameter is not supported
  * - parameter `minimum_size`: minimum_size: Out parameter is not supported
  * - parameter `minimum_width`: minimum_width: Out parameter is not supported
- * - parameter `snapshot`: Snapshot
+ * - parameter `snapshot`: missing cType for class Snapshot
  * - method `cell-background`: Property has no getter nor setter
  * - method `cell-background-rgba`: Property has no getter nor setter
  * - method `cell-background-set`: Property has no getter nor setter
@@ -209,8 +209,8 @@ public open class CellRenderer(
             event.gPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
             path,
-            backgroundArea.gdkRectanglePointer,
-            cellArea.gdkRectanglePointer,
+            backgroundArea.gdkRectanglePointer.reinterpret(),
+            cellArea.gdkRectanglePointer.reinterpret(),
             flags.mask
         ).asBoolean()
 
@@ -234,8 +234,8 @@ public open class CellRenderer(
             gtkCellRendererPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
             flags.mask,
-            cellArea.gdkRectanglePointer,
-            alignedArea.gdkRectanglePointer
+            cellArea.gdkRectanglePointer.reinterpret(),
+            alignedArea.gdkRectanglePointer.reinterpret()
         )
 
     /**
@@ -270,8 +270,8 @@ public open class CellRenderer(
         gtk_cell_renderer_get_preferred_size(
             gtkCellRendererPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
-            minimumSize?.gtkRequisitionPointer,
-            naturalSize?.gtkRequisitionPointer
+            minimumSize?.gtkRequisitionPointer?.reinterpret(),
+            naturalSize?.gtkRequisitionPointer?.reinterpret()
         )
 
     /**
@@ -422,8 +422,8 @@ public open class CellRenderer(
             event?.gPointer?.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
             path,
-            backgroundArea.gdkRectanglePointer,
-            cellArea.gdkRectanglePointer,
+            backgroundArea.gdkRectanglePointer.reinterpret(),
+            cellArea.gdkRectanglePointer.reinterpret(),
             flags.mask
         )?.run {
             CellEditable.wrap(reinterpret())

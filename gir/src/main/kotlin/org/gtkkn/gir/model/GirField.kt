@@ -17,22 +17,36 @@
 package org.gtkkn.gir.model
 
 /**
- * A field of struct of union structure, that is a C bit field, that is a fixed length in bits variable.
+ * A field of a struct or union structure, such as a C bit field.
  *
- * @property info a [GirInfo] that a field can contain.
- * @property name name of the field.
- * @property writable true if the field is writeable.
- * @property readable true if the field is readable.
- * @property private true if the field is private to the structure or has public (false) visibility.
- * @property bits number of bits of the field.
- * @property type a [GirCallbackOrAnyType] that a field can contain.
+ * @property info Common attributes for GIR elements.
+ * @property name Name of the field.
+ * @property writable Indicates if the field is writable.
+ * @property readable Indicates if the field is readable.
+ * @property private Indicates if the field is private to the structure.
+ * @property bits Number of bits for the field.
+ * @property doc Documentation elements.
+ * @property annotations Annotations associated with the field.
+ * @property type The type of the field.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirField(
     val info: GirInfo,
-    val name: String,
-    val writable: Boolean?,
-    val readable: Boolean?,
-    val private: Boolean?,
-    val bits: Int?,
-    val type: GirCallbackOrAnyType,
-)
+    val name: String? = null,
+    val writable: Boolean? = null,
+    val readable: Boolean? = null,
+    val private: Boolean? = null,
+    val bits: Int? = null,
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
+    val type: GirFieldType,
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        info.initialize(this, namespace)
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        type.initialize(this, namespace)
+    }
+}

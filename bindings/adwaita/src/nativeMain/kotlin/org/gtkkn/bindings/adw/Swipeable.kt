@@ -82,7 +82,7 @@ public interface Swipeable :
             adwSwipeablePointer.reinterpret(),
             navigationDirection.nativeValue,
             isDrag.asGBoolean(),
-            rect.gdkRectanglePointer
+            rect.gdkRectanglePointer.reinterpret()
         )
 
     private data class Wrapper(

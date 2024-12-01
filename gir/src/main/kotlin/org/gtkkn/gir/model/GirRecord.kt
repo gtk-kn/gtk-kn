@@ -19,47 +19,68 @@ package org.gtkkn.gir.model
 /**
  * Record definition, equivalent to a C struct, that is a simple structure, not a class.
  *
- * @property info a [GirInfo] that a record can contain.
- * @property name name of the record.
- * @property cType corresponding C type of the record.
- * @property disguised deprecated. Binary attribute to tell if the record is disguised, i.e. whether the c:type is a
- *                     typedef that doesn't look like a pointer, but is one internally. Its second meaning is "private"
- *                     and is set when any typedef struct is parsed which doesn't also include a full struct with fields
- *                     (https://gitlab.gnome.org/GNOME/gobject-introspection/issues/101).
- *                     Replaced by "opaque" and "pointer".
- * @property opaque true for a typedef struct that does not have a corresponding public structure definition.
- * @property pointer true for a typedef struct pointer, e.g. `typedef struct Foo* FooPtr`.
- * @property glibTypeName GObject compatible C type of the record.
- * @property glibGetType function to get the GObject compatible type of the record.
- * @property cSymbolPrefix prefix to filter out from C functions. For example, gtk_window_new will lose gtk_.
- * @property foreign true if the record is foreign, that it is not available in a g-i supported library.
- * @property glibIsGtypeStructFor name of the GObject compatible gtype this record represents. If empty, this record
- *                                will be hidden from generated public APIs.
- * @property copyFunction name of the function used to copy the record.
- * @property freeFunction name of the function used to free the record.
- * @property fields a list of [GirField] that a record can contain.
- * @property functions a list of [GirFunction] that a record can contain.
- * @property unions a list of [GirUnion] that a record can contain.
- * @property methods a list of [GirMethod] that a record can contain.
- * @property constructors a list of [GirConstructor] that a record can contain.
+ * @property info Common attributes for GIR elements.
+ * @property name Name of the record.
+ * @property cType Corresponding C type of the record.
+ * @property disguised Indicates if the record is disguised (typedef that doesn't look like a pointer
+ *                     but is internally).
+ * @property opaque Indicates if the record lacks a public structure definition.
+ * @property pointer Indicates if the record is a typedef struct pointer.
+ * @property glibTypeName GObject compatible type name of the record.
+ * @property glibGetType Function to get the GObject compatible type of the record.
+ * @property cSymbolPrefix Prefix to filter out from C functions.
+ * @property foreign Indicates if the record is foreign (not in a supported library).
+ * @property glibIsGTypeStructFor GObject compatible gtype this record represents.
+ * @property copyFunction Name of the function used to copy the record.
+ * @property freeFunction Name of the function used to free the record.
+ * @property doc Documentation elements.
+ * @property annotations Annotations associated with the record.
+ * @property fields Fields within the record.
+ * @property functions Functions within the record.
+ * @property functionInlines Inline functions within the record.
+ * @property unions Unions within the record.
+ * @property methods Methods within the record.
+ * @property methodInlines Inline methods within the record.
+ * @property constructors Constructors for the record.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirRecord(
     val info: GirInfo,
     val name: String,
-    val cType: String?,
-    val disguised: Boolean?,
-    val opaque: Boolean?,
-    val pointer: Boolean?,
-    val glibTypeName: String?,
-    val glibGetType: String?,
-    val cSymbolPrefix: String?,
-    val foreign: Boolean?,
-    val glibIsGtypeStructFor: String?,
-    val copyFunction: String?,
-    val freeFunction: String?,
-    val fields: List<GirField>,
-    val functions: List<GirFunction>,
-    val unions: List<GirUnion>,
-    val methods: List<GirMethod>,
-    val constructors: List<GirConstructor>,
-)
+    val cType: String? = null,
+    val disguised: Boolean? = null,
+    val opaque: Boolean? = null,
+    val pointer: Boolean? = null,
+    val glibTypeName: String? = null,
+    val glibGetType: String? = null,
+    val cSymbolPrefix: String? = null,
+    val foreign: Boolean? = null,
+    val glibIsGTypeStructFor: String? = null,
+    val copyFunction: String? = null,
+    val freeFunction: String? = null,
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
+    val fields: List<GirField> = emptyList(),
+    val functions: List<GirFunction> = emptyList(),
+    val functionInlines: List<GirFunctionInline> = emptyList(),
+    val unions: List<GirUnion> = emptyList(),
+    val methods: List<GirMethod> = emptyList(),
+    val methodInlines: List<GirMethodInline> = emptyList(),
+    val constructors: List<GirConstructor> = emptyList(),
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        info.initialize(this, namespace)
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        fields.forEach { it.initialize(this, namespace) }
+        constructors.forEach { it.initialize(this, namespace) }
+        functions.forEach { it.initialize(this, namespace) }
+        functionInlines.forEach { it.initialize(this, namespace) }
+        unions.forEach { it.initialize(this, namespace) }
+        methods.forEach { it.initialize(this, namespace) }
+        methodInlines.forEach { it.initialize(this, namespace) }
+        constructors.forEach { it.initialize(this, namespace) }
+    }
+}

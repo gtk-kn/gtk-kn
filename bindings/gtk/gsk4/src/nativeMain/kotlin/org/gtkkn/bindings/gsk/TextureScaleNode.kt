@@ -54,7 +54,7 @@ public open class TextureScaleNode(
     ) : this(
         gsk_texture_scale_node_new(
             texture.gdkTexturePointer.reinterpret(),
-            bounds.grapheneRectPointer,
+            bounds.grapheneRectPointer.reinterpret(),
             filter.nativeValue
         )!!.reinterpret()
     )

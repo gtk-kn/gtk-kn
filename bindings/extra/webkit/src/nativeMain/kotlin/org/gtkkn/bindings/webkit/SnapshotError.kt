@@ -2,9 +2,9 @@
 package org.gtkkn.bindings.webkit
 
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.native.webkit.WebKitSnapshotError
 import org.gtkkn.native.webkit.webkit_snapshot_error_quark
-import kotlin.UInt
 
 /**
  * Enum values used to denote errors happening when creating snapshots of #WebKitWebView
@@ -30,7 +30,7 @@ public enum class SnapshotError(
          *
          * @return snapshot error domain.
          */
-        public fun quark(): UInt = webkit_snapshot_error_quark()
+        public fun quark(): Quark = webkit_snapshot_error_quark()
 
         public fun fromErrorOrNull(error: Error): SnapshotError? =
             if (error.domain != quark()) {

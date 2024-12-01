@@ -42,7 +42,7 @@ class InterfaceBlueprintBuilder(
 
     override fun blueprintObjectType(): String = "interface"
 
-    override fun blueprintObjectName(): String = girInterface.name
+    override fun blueprintObjectName(): String = checkNotNull(girInterface.name)
 
     private fun addProperty(property: GirProperty) {
         when (val result =
@@ -62,10 +62,10 @@ class InterfaceBlueprintBuilder(
         when (val result = MethodBlueprintBuilder(context, girNamespace, method).build()) {
             is BlueprintResult.Ok -> {
                 methodBluePrints.add(result.blueprint)
-                if (method.name.startsWith("get") && result.blueprint.parameters.isEmpty() ||
-                    method.name.startsWith("set") && result.blueprint.parameters.size == 1
+                if (method.callable.name.startsWith("get") && result.blueprint.parameters.isEmpty() ||
+                    method.callable.name.startsWith("set") && result.blueprint.parameters.size == 1
                 ) {
-                    propertyMethodBluePrintMap[method.name] = result.blueprint
+                    propertyMethodBluePrintMap[method.callable.name] = result.blueprint
                 }
             }
 
@@ -88,6 +88,8 @@ class InterfaceBlueprintBuilder(
     }
 
     override fun buildInternal(): InterfaceBlueprint {
+        checkNotNull(girInterface.name)
+        checkNotNull(girNamespace.name)
         if (girInterface.info.introspectable == false) {
             throw NotIntrospectableException(girInterface.cType ?: girInterface.name)
         }
@@ -128,7 +130,7 @@ class InterfaceBlueprintBuilder(
             glibGetTypeFunc = glibGetTypeMember,
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girInterface.info).build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girInterface.info.docs.doc?.text),
+            kdoc = context.processKdoc(girInterface.doc?.doc?.text),
         )
     }
 
@@ -140,8 +142,8 @@ class InterfaceBlueprintBuilder(
                 null
             }
         }.map { (namespace, iface) ->
-            val kotlinInterfaceName = context.kotlinizeClassName(iface.name)
-            val kotlinPackageName = context.kotlinizePackageName(namespace.name)
+            val kotlinInterfaceName = context.kotlinizeClassName(checkNotNull(iface.name))
+            val kotlinPackageName = context.kotlinizePackageName(checkNotNull(namespace.name))
 
             val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
             val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name}Pointer"
