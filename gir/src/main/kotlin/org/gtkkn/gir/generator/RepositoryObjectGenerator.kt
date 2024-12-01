@@ -27,6 +27,7 @@ import com.squareup.kotlinpoet.LONG
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.STRING
+import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.U_BYTE
 import com.squareup.kotlinpoet.U_INT
@@ -47,59 +48,97 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
             addKdoc(buildTypeKDoc(null, null, repository.skippedObjects))
         }.build()
 
-    @Suppress("SpreadOperator", "CyclomaticComplexMethod")
     private fun buildConstant(constant: ConstantBlueprint): PropertySpec {
-        var format = "%L"
-        val value: Any = constant.constantValue
-        var values = listOf(value)
-        var type = constant.typeInfo.kotlinTypeName
-        val modifiers = mutableListOf(KModifier.CONST)
-        when {
-            value == "9223372036854775807" -> values = listOf("Long.MAX_VALUE")
-            value == "-9223372036854775808" -> values = listOf("Long.MIN_VALUE")
-            value == "18446744073709551615" -> values = listOf("ULong.MAX_VALUE")
-            value == "2147483647" -> values = listOf("Int.MAX_VALUE")
-            value == "-2147483648" -> values = listOf("Int.MIN_VALUE")
-            value == "4294967295" -> {
-                values = listOf("UInt.MAX_VALUE")
-                type = U_INT
-            }
-
-            value == "255" -> {
-                values = listOf("UByte.MAX_VALUE")
-                type = U_BYTE
-            }
-
-            value == "127" -> {
-                values = listOf("Byte.MAX_VALUE")
-                type = BYTE
-            }
-
-            value == "-128" -> {
-                values = listOf("Byte.MIN_VALUE")
-                type = BYTE
-            }
-
-            type == BYTE -> format = "%L.toByte()"
-            type == U_BYTE -> format = "%L.toUByte()"
-            type == CHAR -> format = "'$format'"
-            type == SHORT || type == INT || type == LONG || type == DOUBLE -> Unit
-            type == U_SHORT || type == U_INT || type == U_LONG -> format = "${format}u"
-            type == BOOLEAN -> values = listOf(value.toString().toBoolean())
-            type == STRING -> format = "%S"
-
-            constant.typeInfo is TypeInfo.Bitfield -> {
-                modifiers.remove(KModifier.CONST)
-                values = listOf(type, value)
-                format = "%T(%Lu)"
-            }
-
-            else -> error("Mapping for constant with type $type missing!")
-        }
-        return PropertySpec.builder(constant.kotlinName, type, modifiers).apply {
+        val data = computeConstantPropertyData(constant)
+        return PropertySpec.builder(constant.kotlinName, data.typeName, data.modifiers).apply {
             addKdoc(buildPropertyKDoc(constant.kdoc, constant.optInVersionBlueprint))
-            initializer(format, *values.toTypedArray())
+            @Suppress("SpreadOperator")
+            initializer(data.format, *data.values.toTypedArray())
         }.build()
+    }
+
+    private fun computeConstantPropertyData(constant: ConstantBlueprint): ConstantPropertyData {
+        val value: Any = constant.constantValue
+        val initialTypeName = constant.typeInfo.kotlinTypeName
+        val modifiers = mutableListOf(KModifier.CONST)
+        val defaultFormat = "%L"
+
+        // Handle special value replacements
+        getSpecialValueReplacement(value.toString())?.let { replacement ->
+            return ConstantPropertyData(
+                typeName = replacement.typeName ?: initialTypeName,
+                format = defaultFormat,
+                values = replacement.values,
+                modifiers = modifiers,
+            )
+        }
+
+        // Handle boolean values
+        if (initialTypeName == BOOLEAN) {
+            return ConstantPropertyData(
+                typeName = initialTypeName,
+                format = defaultFormat,
+                values = listOf(value.toString().toBoolean()),
+                modifiers = modifiers,
+            )
+        }
+
+        // Handle bitfield types
+        if (constant.typeInfo is TypeInfo.Bitfield) {
+            modifiers.remove(KModifier.CONST)
+            return ConstantPropertyData(
+                typeName = initialTypeName,
+                format = "%T(%Lu)",
+                values = listOf(initialTypeName, value),
+                modifiers = modifiers,
+            )
+        }
+
+        // Handle alias types
+        if (constant.typeInfo is TypeInfo.Alias) {
+            val format = getFormatForType(constant.typeInfo.baseTypeInfo.nativeTypeName, defaultFormat) ?: defaultFormat
+            return ConstantPropertyData(
+                typeName = initialTypeName,
+                format = format,
+                values = listOf(value),
+                modifiers = modifiers,
+            )
+        }
+
+        // Handle format based on type
+        val format = getFormatForType(initialTypeName, defaultFormat)
+            ?: error("Mapping for constant with type $initialTypeName missing!")
+
+        return ConstantPropertyData(
+            typeName = initialTypeName,
+            format = format,
+            values = listOf(value),
+            modifiers = modifiers,
+        )
+    }
+
+    private fun getSpecialValueReplacement(value: String): ValueReplacement? =
+        when (value) {
+            "9223372036854775807" -> ValueReplacement(listOf("Long.MAX_VALUE"))
+            "-9223372036854775808" -> ValueReplacement(listOf("Long.MIN_VALUE"))
+            "18446744073709551615" -> ValueReplacement(listOf("ULong.MAX_VALUE"))
+            "2147483647" -> ValueReplacement(listOf("Int.MAX_VALUE"))
+            "-2147483648" -> ValueReplacement(listOf("Int.MIN_VALUE"))
+            "4294967295" -> ValueReplacement(listOf("UInt.MAX_VALUE"), U_INT)
+            "255" -> ValueReplacement(listOf("UByte.MAX_VALUE"), U_BYTE)
+            "127" -> ValueReplacement(listOf("Byte.MAX_VALUE"), BYTE)
+            "-128" -> ValueReplacement(listOf("Byte.MIN_VALUE"), BYTE)
+            else -> null
+        }
+
+    private fun getFormatForType(typeName: TypeName, currentFormat: String): String? = when (typeName) {
+        BYTE -> "%L.toByte()"
+        U_BYTE -> "%L.toUByte()"
+        CHAR -> "'$currentFormat'"
+        SHORT, INT, LONG, DOUBLE -> currentFormat
+        U_SHORT, U_INT, U_LONG -> "${currentFormat}u"
+        STRING -> "%S"
+        else -> null
     }
 
     private fun buildExceptionResolverFunction(
@@ -125,4 +164,13 @@ interface RepositoryObjectGenerator : MiscGenerator, KDocGenerator {
 
         addStatement("return·ex ?: %T(error)", BindingsGenerator.GLIB_EXCEPTION_TYPE)
     }.build()
+
+    private data class ConstantPropertyData(
+        val typeName: TypeName,
+        val format: String,
+        val values: List<Any>,
+        val modifiers: List<KModifier>
+    )
+
+    private data class ValueReplacement(val values: List<Any>, val typeName: TypeName? = null)
 }

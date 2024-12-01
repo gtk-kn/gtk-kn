@@ -19,22 +19,27 @@ package org.gtkkn.gir.model
 /**
  * An array type of data where each element is of the same type.
  *
- * @property name name of the array type.
- * @property zeroTerminated true if the last element of the array is zero. For example, in an array of pointers,
- *                          the last pointer would be NULL.
- * @property fixedSize size of an array of predetermined fixed size. For example a C array declared as char arr[5].
- * @property introspectable true if the element is introspectable. It doesn't exist in the bindings, due in general to
- *                          missing information in the annotations in the original C code.
- * @property length 0-based index of parameter element that specifies the length of the array.
- * @property cType the C representation of the array type.
- * @property type a [GirAnyType] that an array type can contain.
+ * @property name Name of the array type.
+ * @property zeroTerminated Indicates if the last element of the array is zero.
+ * @property fixedSize Fixed size of the array, if predetermined.
+ * @property introspectable Indicates if the array type is introspectable.
+ * @property length Index of the parameter element specifying the array's length.
+ * @property cType C representation of the array type.
+ * @property type The type of the values contained in the array.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirArrayType(
-    val name: String?,
-    val zeroTerminated: Boolean?,
-    val fixedSize: Int?,
-    val introspectable: Boolean?,
-    val length: Int?,
-    val cType: String?,
+    val name: String? = null,
+    val zeroTerminated: Boolean? = null,
+    val fixedSize: Int? = null,
+    val introspectable: Boolean? = null,
+    val length: Int? = null,
+    val cType: String? = null,
     val type: GirAnyType,
-) : GirAnyType
+) : GirAnyType {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        type.initialize(this, namespace)
+    }
+}

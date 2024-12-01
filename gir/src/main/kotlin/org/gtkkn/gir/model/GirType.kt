@@ -17,19 +17,29 @@
 package org.gtkkn.gir.model
 
 /**
- * A simple type of data (as opposed to an array).
+ * A simple type of data (as opposed to an array type).
  *
- * @property name name of the type.
- * @property cType the C representation of the type.
- * @property introspectable true if the element is introspectable. It doesn't exist in the bindings, due in general to
- *                          missing information in the annotations in the original C code.
- * @property types a list of [GirAnyType] that a simple type can contain.
- * @property docs a [GirDocElements].
+ * @property name Name of the type.
+ * @property cType C representation of the type.
+ * @property introspectable Indicates if the type is introspectable.
+ * @property doc Documentation elements.
+ * @property annotations Annotations associated with the type.
+ * @property types Nested types contained within this type.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirType(
-    val name: String?,
-    val cType: String?,
-    val introspectable: Boolean?,
-    val types: List<GirAnyType>,
-    val docs: GirDocElements,
-) : GirAnyType
+    val name: String? = null,
+    val cType: String? = null,
+    val introspectable: Boolean? = null,
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
+    val types: List<GirAnyType> = emptyList(),
+) : GirAnyType {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        types.forEach { it.initialize(this, namespace) }
+    }
+}

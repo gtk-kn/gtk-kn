@@ -19,8 +19,15 @@ package org.gtkkn.gir.model
 /**
  * Deprecated: package name containing the library.
  *
- * @property name name of the package.
+ * @property name Name of the package.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirPackage(
     val name: String,
-)
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        // No children
+    }
+}

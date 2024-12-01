@@ -17,47 +17,75 @@
 package org.gtkkn.gir.model
 
 /**
- * Namespace which maps metadata entries to C functionality.
+ * Namespace which maps metadata entries to C functionality. This is a similar concept to namespace in C++,
+ * but for GObject-based C libraries.
  *
- * This a similar concept to namespace in C++, but for GObject-based C libraries.
- *
- * @property name name of the namespace. For example, 'Gtk'.
- * @property version version number of the namespace.
- * @property cIdentifierPrefixes prefixes to filter out from C identifiers for data structures and types. For example,
- *                               GtkWindow will be Window. If c:symbol-prefixes is not used, then this element is used
- *                               for both.
- * @property cSymbolPrefixes prefixes to filter out from C functions. For example, gtk_window_new will lose gtk_.
- * @property cPrefix deprecated: the same as c:identifier-prefixes. Only used for backward compatibility.
- * @property sharedLibrary path to the shared library implementing the namespace. It can be a comma-separated list,
+ * @property name Name of the namespace. For example, 'Gtk'.
+ * @property version Version number of the namespace.
+ * @property cIdentifierPrefixes Prefixes to filter out from C identifiers for data structures and types.
+ *                               For example, GtkWindow will be Window.
+ * @property cSymbolPrefixes Prefixes to filter out from C functions. For example, gtk_window_new will lose gtk_.
+ * @property cPrefix Deprecated: the same as c:identifier-prefixes. Only used for backward compatibility.
+ * @property sharedLibrary Path to the shared library implementing the namespace. It can be a comma-separated list,
  *                         with relative path only.
- * @property aliases a list of [GirAlias] that a namespace can contain.
- * @property interfaces a list of [GirAlias] that a namespace can contain.
- * @property classes a list of [GirClass] that a namespace can contain.
- * @property unions a list of [GirUnion] that a namespace can contain.
- * @property records a list of [GirRecord] that a namespace can contain.
- * @property functions a list of [GirFunction] that a namespace can contain.
- * @property callbacks a list of [GirCallback] that a namespace can contain.
- * @property constants a list of [GirConstant] that a namespace can contain.
- * @property enums a list of [GirEnum] that a namespace can contain.
- * @property bitfields a list of [GirBitField] that a namespace can contain.
- * @property boxes a list of [GirBoxed] that a namespace can contain.
+ * @property aliases Aliases (type's name substitutions, representing typedefs in C).
+ * @property classes Classes (GObject inherited class definitions).
+ * @property interfaces Interfaces (abstract interfaces to other classes).
+ * @property records Records (equivalent to C structs, simple structures not classes).
+ * @property enumerations Enumerations (defining enumeration types similar to enum in C/C++).
+ * @property functions Functions (standalone functions).
+ * @property functionInlines Inline functions.
+ * @property functionMacros Function macros (pre-processor macros that behave like functions).
+ * @property unions Unions (types of data being a union of types, similar to union in C).
+ * @property bitfields Bitfields (defining bit fields as in C).
+ * @property callbacks Callbacks (callback closures).
+ * @property constants Constants (similar to const variables in C).
+ * @property annotations Annotations (defining annotations from the source code).
+ * @property boxeds Boxed types (wrappers to opaque C structures registered by the type system).
+ * @property docSections Documentation sections.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirNamespace(
-    val name: String,
-    val version: String,
-    val cIdentifierPrefixes: String?,
-    val cSymbolPrefixes: String?,
-    val cPrefix: String?,
-    val sharedLibrary: String?,
-    val aliases: List<GirAlias>,
-    val interfaces: List<GirInterface>,
-    val classes: List<GirClass>,
-    val unions: List<GirUnion>,
-    val records: List<GirRecord>,
-    val functions: List<GirFunction>,
-    val callbacks: List<GirCallback>,
-    val constants: List<GirConstant>,
-    val enums: List<GirEnum>,
-    val bitfields: List<GirBitField>,
-    val boxes: List<GirBoxed>,
-)
+    val name: String? = null,
+    val version: String? = null,
+    val cIdentifierPrefixes: String? = null,
+    val cSymbolPrefixes: String? = null,
+    val cPrefix: String? = null,
+    val sharedLibrary: String? = null,
+    val aliases: List<GirAlias> = emptyList(),
+    val classes: List<GirClass> = emptyList(),
+    val interfaces: List<GirInterface> = emptyList(),
+    val records: List<GirRecord> = emptyList(),
+    val enumerations: List<GirEnumeration> = emptyList(),
+    val functions: List<GirFunction> = emptyList(),
+    val functionInlines: List<GirFunctionInline> = emptyList(),
+    val functionMacros: List<GirFunctionMacro> = emptyList(),
+    val unions: List<GirUnion> = emptyList(),
+    val bitfields: List<GirBitfield> = emptyList(),
+    val callbacks: List<GirCallback> = emptyList(),
+    val constants: List<GirConstant> = emptyList(),
+    val annotations: List<GirAnnotation> = emptyList(),
+    val boxeds: List<GirBoxed> = emptyList(),
+    val docSections: List<GirDocSection> = emptyList(),
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override var namespace: GirNamespace = this
+
+    override fun initializeChildren(namespace: GirNamespace) {
+        aliases.forEach { it.initialize(this, this) }
+        classes.forEach { it.initialize(this, this) }
+        interfaces.forEach { it.initialize(this, this) }
+        records.forEach { it.initialize(this, this) }
+        enumerations.forEach { it.initialize(this, this) }
+        functions.forEach { it.initialize(this, this) }
+        functionInlines.forEach { it.initialize(this, this) }
+        functionMacros.forEach { it.initialize(this, this) }
+        unions.forEach { it.initialize(this, this) }
+        bitfields.forEach { it.initialize(this, this) }
+        callbacks.forEach { it.initialize(this, this) }
+        constants.forEach { it.initialize(this, this) }
+        annotations.forEach { it.initialize(this, this) }
+        boxeds.forEach { it.initialize(this, this) }
+        docSections.forEach { it.initialize(this, this) }
+    }
+}

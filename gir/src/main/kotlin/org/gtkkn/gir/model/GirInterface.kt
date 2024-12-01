@@ -19,42 +19,72 @@ package org.gtkkn.gir.model
 /**
  * Abstract interface to other classes.
  *
- * @property info attributes of an Interface (see [GirInfo]).
- * @property name name of the interface.
- * @property glibTypeName type name compatible with the GObject type system.
- * @property glibGetType function to get the GObject compatible type of the interface.
- * @property cSymbolPrefix prefix to filter out from C functions. For example, gtk_window_new will lose gtk_.
- * @property cType corresponding C type.
- * @property glibTypeStruct GObject compatible C structure defining the Interface.
- * @property prerequisites a list of [GirPrerequisite] that an interface can contain.
- * @property implements a list of [GirImplements] that an interface can contain.
- * @property functions a list of [GirFunction] that an interface can contain.
- * @property constructor a list of [GirConstructor] that an interface can contain.
- * @property methods a list of [GirMethod] that an interface can contain.
- * @property virtualMethods a list of [GirVirtualMethod] that an interface can contain.
- * @property fields a list of [GirField] that an interface can contain.
- * @property properties a list of [GirProperty] that an interface can contain.
- * @property signals a list of [GirSignal] that an interface can contain.
- * @property constants a list of [GirConstant] that an interface can contain.
- * @property callbacks a list of [GirCallback] that an interface can contain.
+ * @property info Common attributes for GIR elements.
+ * @property name Name of the interface.
+ * @property glibTypeName Type name compatible with the GObject type system.
+ * @property glibGetType Function to get the GObject compatible type of the interface.
+ * @property cSymbolPrefix Prefix to filter out from C functions.
+ * @property cType Corresponding C type.
+ * @property glibTypeStruct GObject compatible C structure defining the interface.
+ * @property doc Documentation elements.
+ * @property annotations Annotations associated with the interface.
+ * @property prerequisites Interfaces required to implement this interface.
+ * @property implements Implemented interfaces.
+ * @property functions Functions defined in the interface.
+ * @property functionInlines Inline functions defined in the interface.
+ * @property constructor Constructor for the interface.
+ * @property methods Methods defined in the interface.
+ * @property methodInlines Inline methods defined in the interface.
+ * @property virtualMethods Virtual methods defined in the interface.
+ * @property fields Fields associated with the interface.
+ * @property properties Properties of the interface.
+ * @property signals Signals associated with the interface.
+ * @property callbacks Callbacks defined in the interface.
+ * @property constants Constants defined in the interface.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirInterface(
     val info: GirInfo,
-    val name: String,
+    val name: String? = null,
     val glibTypeName: String,
     val glibGetType: String,
-    val cSymbolPrefix: String,
-    val cType: String?,
-    val glibTypeStruct: String?,
-    val prerequisites: List<GirPrerequisite>,
-    val implements: List<GirImplements>,
-    val functions: List<GirFunction>,
-    val constructor: GirConstructor?,
-    val methods: List<GirMethod>,
-    val virtualMethods: List<GirVirtualMethod>,
-    val fields: List<GirField>,
-    val properties: List<GirProperty>,
-    val signals: List<GirSignal>,
-    val constants: List<GirConstant>,
-    val callbacks: List<GirCallback>,
-)
+    val cSymbolPrefix: String? = null,
+    val cType: String? = null,
+    val glibTypeStruct: String? = null,
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
+    val prerequisites: List<GirPrerequisite> = emptyList(),
+    val implements: List<GirImplements> = emptyList(),
+    val functions: List<GirFunction> = emptyList(),
+    val functionInlines: List<GirFunctionInline> = emptyList(),
+    val constructor: GirConstructor? = null,
+    val methods: List<GirMethod> = emptyList(),
+    val methodInlines: List<GirMethodInline> = emptyList(),
+    val virtualMethods: List<GirVirtualMethod> = emptyList(),
+    val fields: List<GirField> = emptyList(),
+    val properties: List<GirProperty> = emptyList(),
+    val signals: List<GirSignal> = emptyList(),
+    val callbacks: List<GirCallback> = emptyList(),
+    val constants: List<GirConstant> = emptyList(),
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        info.initialize(this, namespace)
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        prerequisites.forEach { it.initialize(this, namespace) }
+        implements.forEach { it.initialize(this, namespace) }
+        functions.forEach { it.initialize(this, namespace) }
+        functionInlines.forEach { it.initialize(this, namespace) }
+        constructor?.initialize(this, namespace)
+        methods.forEach { it.initialize(this, namespace) }
+        methodInlines.forEach { it.initialize(this, namespace) }
+        virtualMethods.forEach { it.initialize(this, namespace) }
+        fields.forEach { it.initialize(this, namespace) }
+        properties.forEach { it.initialize(this, namespace) }
+        signals.forEach { it.initialize(this, namespace) }
+        callbacks.forEach { it.initialize(this, namespace) }
+        constants.forEach { it.initialize(this, namespace) }
+    }
+}

@@ -1,0 +1,65 @@
+abstract { "0" | "1" }
+action { "0" | "1" }
+allow-none { "0" | "1" }
+bits { xsd:integer }
+c:identifier-prefixes { xsd:string }
+c:identifier { xsd:string }
+closure { xsd:integer }
+column { xsd:string }
+construct { "0" | "1" }
+construct-only { "0" | "1" }
+copy-function { xsd:string }
+c:prefix { xsd:string }
+c:symbol-prefixes { xsd:string }
+c:symbol-prefix { xsd:string }
+c:type { xsd:string }
+default-value { xsd:string }
+destroy { xsd:integer }
+detailed { "0" | "1" }
+disguised { "0" | "1" }
+emitter { xsd:string }
+filename { xsd:string }
+final { "0" | "1" }
+fixed-size { xsd:integer }
+foreign { "0" | "1" }
+free-function { xsd:string }
+getter { xsd:string }
+glib:error-domain { xsd:string }
+glib:fundamental { "0" | "1" }
+glib:get-property { xsd:string }
+glib:get-type { xsd:string }
+glib:get-value-func { xsd:string }
+glib:is-gtype-struct-for { xsd:string }
+glib:name { xsd:string }
+glib:nick { xsd:string }
+glib:ref-func { xsd:string }
+glib:set-property { xsd:string }
+glib:set-value-func { xsd:string }
+glib:type-name { xsd:string }
+glib:type-struct { xsd:string }
+glib:unref-func { xsd:string }
+introspectable { "0" | "1" }
+invoker { xsd:string }
+length { xsd:integer }
+line { xsd:string }
+name { xsd:string }
+no-hooks { "0" | "1" }
+no-recurse { "0" | "1" }
+nullable { "0" | "1" }
+opaque { "0" | "1" }
+parent { xsd:string }
+pointer { "0" | "1" }
+private { "0" | "1" }
+readable { "0" | "1" }
+scope { "notified" | "async" | "call" | "forever" }
+setter { xsd:string }
+shared-library { xsd:string }
+skip { "0" | "1" }
+throws { "0" | "1" }
+value { xsd:string }
+version { xsd:string }
+when { "first" | "last" | "cleanup" }
+writable { "0" | "1" }
+xml:space { "preserve" }
+xml:whitespace { "preserve" }
+zero-terminated { "0" | "1" }

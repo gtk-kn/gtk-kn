@@ -19,7 +19,7 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeName
-import org.gtkkn.gir.model.GirEnum
+import org.gtkkn.gir.model.GirEnumeration
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirMember
 import org.gtkkn.gir.model.GirNamespace
@@ -29,7 +29,7 @@ import org.gtkkn.gir.processor.ProcessorContext
 class EnumBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girEnum: GirEnum,
+    private val girEnum: GirEnumeration,
 ) : BlueprintBuilder<EnumBlueprint>(context) {
     private val members = mutableListOf<EnumMemberBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
@@ -57,7 +57,7 @@ class EnumBlueprintBuilder(
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girMember.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girMember.info.docs.doc?.text),
+            kdoc = context.processKdoc(girMember.doc?.doc?.text),
         )
 
         if (members.any { it.nativeValue == nativeValue }) {
@@ -113,7 +113,7 @@ class EnumBlueprintBuilder(
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girEnum.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girEnum.info.docs.doc?.text),
+            kdoc = context.processKdoc(girEnum.doc?.doc?.text),
         )
     }
 

@@ -49,7 +49,7 @@ public fun List<String>.toCStringList(scope: MemScope): CArrayPointer<CPointerVa
 public fun CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>.toKStringList(): List<String> = buildList {
     var i = 0
     while (this@toKStringList[i] != null) {
-        add(this@toKStringList[i]!!.toKString())
+        add(checkNotNull(this@toKStringList[i]).toKString())
         i++
     }
 }

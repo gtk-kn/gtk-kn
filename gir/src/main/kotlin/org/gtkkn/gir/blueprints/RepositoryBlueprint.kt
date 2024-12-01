@@ -21,6 +21,7 @@ import com.squareup.kotlinpoet.ClassName
 data class RepositoryBlueprint(
     val name: String,
     val kotlinModuleName: String,
+    val aliasBlueprints: List<AliasBlueprint>,
     val classBlueprints: List<ClassBlueprint>,
     val interfaceBlueprints: List<InterfaceBlueprint>,
     val enumBlueprints: List<EnumBlueprint>,

@@ -17,14 +17,21 @@
 package org.gtkkn.gir.model
 
 /**
- * Position of the documentation in the original source code.
+ * Source position of the documentation in the original source code.
  *
- * @property filename file name of the source of the documentation.
- * @property line the first line of the documentation in the source code.
- * @property column the first column of the documentation in the source code.
+ * @property filename Name of the file containing the source code.
+ * @property line Line number where the documentation starts.
+ * @property column Column number where the documentation starts.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirSourcePosition(
     val filename: String,
     val line: String,
-    val column: String?,
-)
+    val column: String? = null,
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        // No children
+    }
+}

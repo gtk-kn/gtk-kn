@@ -17,16 +17,27 @@
 package org.gtkkn.gir.model
 
 /**
- * Give the stability of the documentation.
+ * Stability information of a documentation section.
  *
- * @property preserveSpace preserve the original formatting of the documentation from the source code.
- * @property preserveWhitespace preserve the original formatting of the documentation from the source code.
- *                              Recommended to use this instead of xml:space.
- * @property text a text value about the stability of the documentation. Usually a simple description like stable or
- *                unstable.
+ * @constructor Creates a GirDocVersion.
+ * @param xmlSpace Preserve the original formatting of the documentation from the source code.
+ * @param xmlWhitespace Preserve the original formatting of the documentation from the source code.
+ * @property text Text describing the stability of the documentation (e.g., "Stable" or "Unstable").
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirDocStability(
-    val preserveSpace: Boolean,
-    val preserveWhitespace: Boolean,
-    val text: String,
-)
+    /** Preserve the original formatting of the documentation from the source code */
+    private val xmlSpace: String? = null,
+    /** Preserve the original formatting of the documentation from the source code */
+    private val xmlWhitespace: String? = null,
+    /** Text about the stability of the documentation */
+    override val text: String,
+) : GirDocumentation {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    val preserveSpace = xmlSpace == "preserve"
+    val preserveWhitespace = xmlWhitespace == "preserve"
+    override fun initializeChildren(namespace: GirNamespace) {
+        // No children
+    }
+}

@@ -33,8 +33,7 @@ enum class GirDirection {
     /**
      * For both (like a pre-allocated structure which will be filled-in by the callable).
      */
-    IN_OUT,
-    ;
+    IN_OUT;
 
     companion object {
         fun fromString(str: String): GirDirection = when (str) {

@@ -16,65 +16,23 @@
 
 package org.gtkkn.gir
 
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
 import org.gtkkn.gir.cli.parseConfig
-import org.gtkkn.gir.config.Config
-import org.gtkkn.gir.coroutines.DefaultCoroutineDispatcherProvider
-import org.gtkkn.gir.generator.BindingsGenerator
-import org.gtkkn.gir.gradleplugin.generateRepositoryAnnotationsFile
+import org.gtkkn.gir.di.appModule
 import org.gtkkn.gir.log.configureLog4j
-import org.gtkkn.gir.log.logger
-import org.gtkkn.gir.parser.GirParser
-import org.gtkkn.gir.processor.Phase2Processor
-import java.io.File
-import kotlin.system.exitProcess
+import org.kodein.di.DI
+import org.kodein.di.instance
+import org.kodein.di.with
 
 fun main(args: Array<String>): Unit = runBlocking {
     val config = parseConfig(args)
-
     configureLog4j(config.logLevel)
 
-    if (!config.girBaseDir.exists()) {
-        logger.error { "Error: the specified directory does not exist." }
-        exitProcess(2)
+    val di = DI {
+        constant(tag = "config") with config
+        import(appModule)
     }
 
-    logger.info { "girBaseDir: ${config.girBaseDir}" }
-
-    val girParser = GirParser()
-    val repositories = config.girBaseDir.listFiles().orEmpty()
-        .filter { file -> config.matchesGirFile(file) }
-        .map { girParser.parse(it) }
-
-    logger.info { "Parsed ${repositories.count()} gir files" }
-
-    val phase2 = Phase2Processor()
-    val repositoryBlueprints = phase2.process(repositories, config)
-
-    logger.info { "Processed ${repositoryBlueprints.count()} blueprints" }
-
-    val generator = BindingsGenerator(config)
-
-    val dispatcherProvider = DefaultCoroutineDispatcherProvider()
-    // Launch coroutines for each repository blueprint
-    val deferreds = repositoryBlueprints.map { blueprint ->
-        async(dispatcherProvider.default) {
-            generator.generate(blueprint, getRepositoryOutputPath(blueprint.kotlinModuleName, config))
-        }
-    }
-    deferreds.awaitAll()
-
-    val optInAnnotationsFile = File(config.outputDir, "optInAnnotations.txt")
-    if (optInAnnotationsFile.exists()) {
-        generateRepositoryAnnotationsFile(optInAnnotationsFile, config.gradlePluginDir)
-    }
-}
-
-private fun getRepositoryOutputPath(repositoryName: String, config: Config): File {
-    val library = config.libraries.find { it.name == repositoryName }
-        ?: error("Library $repositoryName is not present in configuration")
-    val modulePath = library.module.replace(":", "/")
-    return config.outputDir.resolve(modulePath)
+    val application: Application by di.instance()
+    application.run()
 }

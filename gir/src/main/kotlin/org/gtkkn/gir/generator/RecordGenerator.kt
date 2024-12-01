@@ -249,6 +249,7 @@ interface RecordGenerator : MiscGenerator, KDocGenerator {
      * so we do the additional filtering here.
      */
     private fun isFieldSetterSupported(field: FieldBlueprint): Boolean = when (field.typeInfo) {
+        is TypeInfo.Alias,
         is TypeInfo.Bitfield,
         is TypeInfo.Enumeration,
         is TypeInfo.GBoolean,

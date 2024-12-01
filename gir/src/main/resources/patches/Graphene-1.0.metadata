@@ -1,0 +1,2 @@
+// Remove underscore suffix from parameter name
+*.*.*#parameter name="(.+)_$"

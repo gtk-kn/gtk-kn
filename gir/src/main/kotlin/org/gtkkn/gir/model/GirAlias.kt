@@ -19,14 +19,28 @@ package org.gtkkn.gir.model
 /**
  * Type's name substitution, representing a typedef in C.
  *
- * @property name the new name or typedef'd name.
- * @property cType the corresponding C type's name.
- * @property type a [GirType] that an alias can contain.
- * @property info a [GirInfo] that an alias can contain.
+ * @property info Common attributes for GIR elements.
+ * @property name The new name or typedef'd name.
+ * @property cType The corresponding C type's name.
+ * @property doc Documentation elements.
+ * @property annotations Annotations.
+ * @property type The type represented by the alias.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirAlias(
+    val info: GirInfo,
     val name: String,
     val cType: String,
-    val type: GirType,
-    val info: GirInfo,
-)
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
+    val type: GirAnyType,
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        info.initialize(this, namespace)
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        type.initialize(this, namespace)
+    }
+}

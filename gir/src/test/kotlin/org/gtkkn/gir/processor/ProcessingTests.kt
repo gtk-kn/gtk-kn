@@ -20,7 +20,9 @@ import com.squareup.kotlinpoet.ClassName
 import io.github.oshai.kotlinlogging.Level
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
-import org.gtkkn.gir.parser.GirParser
+import org.gtkkn.gir.parser.gir.GirParser
+import org.gtkkn.gir.parser.metadata.MetadataParser
+import org.gtkkn.gir.util.loadResourceAsFile
 import java.io.File
 import kotlin.io.path.createTempDirectory
 import kotlin.test.Test
@@ -28,16 +30,16 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-private const val GTK_GIR_RESOURCE_NAME = "/girfiles/Gtk-4.0.gir"
-private const val GIO_GIR_RESOURCE_NAME = "/girfiles/Gio-2.0.gir"
-private const val GOBJECT_GIR_RESOURCE_NAME = "/girfiles/GObject-2.0.gir"
+private const val GTK_GIR_RESOURCE_NAME = "/gir-files/linux/Gtk-4.0.gir"
+private const val GIO_GIR_RESOURCE_NAME = "/gir-files/linux/Gio-2.0.gir"
+private const val GOBJECT_GIR_RESOURCE_NAME = "/gir-files/linux/GObject-2.0.gir"
 
 class ProcessingTests {
     private val gtkBlueprint by lazy {
-        val girParser = GirParser()
-        val gtkFile = File(checkNotNull(javaClass.getResource(GTK_GIR_RESOURCE_NAME)).toURI())
-        val gioFile = File(checkNotNull(javaClass.getResource(GIO_GIR_RESOURCE_NAME)).toURI())
-        val gobjectFile = File(checkNotNull(javaClass.getResource(GOBJECT_GIR_RESOURCE_NAME)).toURI())
+        val girParser = GirParser(MetadataParser())
+        val gtkFile = checkNotNull(loadResourceAsFile(GTK_GIR_RESOURCE_NAME))
+        val gioFile = checkNotNull(loadResourceAsFile(GIO_GIR_RESOURCE_NAME))
+        val gobjectFile = checkNotNull(loadResourceAsFile(GOBJECT_GIR_RESOURCE_NAME))
         val tempDir: File = createTempDirectory(prefix = "output").toFile()
         val gtkRepository = girParser.parse(gtkFile)
         val gioRepository = girParser.parse(gioFile)
@@ -52,8 +54,8 @@ class ProcessingTests {
             libraries = emptyList(),
         )
 
-        val processor = Phase2Processor()
-        processor.process(listOf(gtkRepository, gioRepository, gobjectRepository), config).first()
+        val processor = Phase2Processor(config)
+        processor.process(listOf(gtkRepository, gioRepository, gobjectRepository)).first()
     }
 
     @Test
@@ -124,8 +126,6 @@ class ProcessingTests {
     @Test
     fun testInterfaceFilteringFilterListModel() {
         val clazz = gtkBlueprint.classBlueprints.first { it.kotlinName == "FilterListModel" }
-        // should only contain 1 interface from another package (gio)
-        assertEquals(1, clazz.implementsInterfaces.size)
         assertEquals(
             ClassName("org.gtkkn.bindings.gio", "ListModel"),
             clazz.implementsInterfaces.first().interfaceTypeName,

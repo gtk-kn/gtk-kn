@@ -17,31 +17,44 @@
 package org.gtkkn.gir.model
 
 /**
- * Property, that is a variable or members with getter and setter functions.
+ * Element defining a property, that is, a variable or member with getter and setter functions.
  *
- * @property info info attributes of a Property (see [GirInfo]).
- * @property name name of the property.
- * @property writable true if the property is writeable and has a setter function.
- * @property readable true if the property is readable and has a getter function.
- * @property construct true if the property will be set upon construction.
- * @property constructOnly true if the property can only be set upon construction.
- * @property setter the setter function for this property.
- * @property getter the getter function for this property.
- * @property defaultValue the default value of the property, as a string; if missing, the default value is zero for
- *                        integer types, and null for pointer types.
- * @property transferOwnership define the transfer of ownership of the property element.
- * @property type a [GirType] that a property can contain.
+ * @property info Common attributes for GIR elements.
+ * @property name Name of the property.
+ * @property writable Binary attribute, true if the property is writable.
+ * @property readable Binary attribute, true if the property is readable.
+ * @property construct Binary attribute, true if the property will be set upon construction.
+ * @property constructOnly Binary attribute, true if the property can only be set upon construction.
+ * @property setter The setter function for this property.
+ * @property getter The getter function for this property.
+ * @property defaultValue The default value of the property, as a string.
+ * @property transferOwnership Transfer of ownership.
+ * @property doc Documentation elements.
+ * @property annotations Annotations associated with the property.
+ * @property type The type of the property.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirProperty(
     val info: GirInfo,
     val name: String,
-    val writable: Boolean?,
-    val readable: Boolean?,
-    val construct: Boolean?,
-    val constructOnly: Boolean?,
-    val setter: String?,
-    val getter: String?,
-    val defaultValue: String?,
-    val transferOwnership: GirTransferOwnership?,
+    val writable: Boolean? = null,
+    val readable: Boolean? = null,
+    val construct: Boolean? = null,
+    val constructOnly: Boolean? = null,
+    val setter: String? = null,
+    val getter: String? = null,
+    val defaultValue: String? = null,
+    val transferOwnership: GirTransferOwnership? = null,
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
     val type: GirAnyType,
-)
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        info.initialize(this, namespace)
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        type.initialize(this, namespace)
+    }
+}

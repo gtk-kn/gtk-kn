@@ -17,50 +17,43 @@
 package org.gtkkn.gir.model
 
 /**
- * A signal as defined in the  GObject system (https://docs.gtk.org/gobject/concepts.html#signals).
+ * Element defining a signal as defined in the GObject system.
  *
- * @property info a [GirInfo] that a signal can contain.
- * @property name name of the signal.
- * @property detailed true if the signal has a detailed parameter
- *                    (https://docs.gtk.org/gobject/concepts.html#the-detail-argument and
- *                    https://docs.gtk.org/gobject/flags.SignalFlags.html).
- * @property when when to run the signal during the 5 steps of signal emission
- *                (https://docs.gtk.org/gobject/concepts.html#signal-emission and
- *                https://docs.gtk.org/gobject/flags.SignalFlags.html).
- * @property action true if the signal can be freely emitted on alive objects from user code.
- * @property noHooks true if no emission hooks are supported for this signal.
- * @property noRecurse true if signals emitted for an object while currently being in emission for this very object
- *                     will not be emitted recursively, but instead cause the first emission to be restarted
- *                     (https://docs.gtk.org/gobject/flags.SignalFlags.html).
- * @property emitter the emitter method for the signal.
- * @property parameters a [GirParameters] that a signal can contain.
- * @property returnValue a [GirReturnValue] that a signal can contain.
+ * @property info Common attributes for GIR elements.
+ * @property name Name of the signal.
+ * @property detailed Indicates if the signal has a detailed parameter.
+ * @property whenEmitted Specifies when to run the signal during the 5 steps of signal emission.
+ * @property action Indicates if the signal can be freely emitted from user code.
+ * @property noHooks Indicates if no emission hooks are supported for this signal.
+ * @property noRecurse Indicates if the signal avoids recursive emission for the same object.
+ * @property emitter The emitter method for the signal.
+ * @property doc Documentation elements.
+ * @property annotations Annotations associated with the signal.
+ * @property parameters Parameters for the signal.
+ * @property returnValue Return value of the signal.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirSignal(
     val info: GirInfo,
     val name: String,
-    val detailed: Boolean?,
-    val `when`: When?,
-    val action: Boolean?,
-    val noHooks: Boolean?,
-    val noRecurse: Boolean?,
-    val emitter: String?,
-    val parameters: GirParameters?,
-    val returnValue: GirReturnValue?,
-) {
-    enum class When {
-        FIRST,
-        LAST,
-        CLEANUP,
-        ;
-
-        companion object {
-            fun fromString(str: String): When = when (str) {
-                "first" -> FIRST
-                "last" -> LAST
-                "cleanup" -> CLEANUP
-                else -> error("String '$str' is not a valid Signal When value")
-            }
-        }
+    val detailed: Boolean? = null,
+    val whenEmitted: String? = null,
+    val action: Boolean? = null,
+    val noHooks: Boolean? = null,
+    val noRecurse: Boolean? = null,
+    val emitter: String? = null,
+    val doc: GirDoc? = null,
+    val annotations: List<GirAnnotation> = emptyList(),
+    val parameters: GirParameters? = null,
+    val returnValue: GirReturnValue? = null,
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        info.initialize(this, namespace)
+        doc?.initialize(this, namespace)
+        annotations.forEach { it.initialize(this, namespace) }
+        parameters?.initialize(this, namespace)
+        returnValue?.initialize(this, namespace)
     }
 }

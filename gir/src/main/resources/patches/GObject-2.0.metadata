@@ -1,0 +1,6 @@
+// Remove underscore suffix from parameter name
+*.*.*#parameter name="(.+)_$"
+
+// Alias to non primitive types are currently not supported
+SignalCMarshaller skip
+SignalCVaMarshaller skip

@@ -17,20 +17,29 @@
 package org.gtkkn.gir.model
 
 /**
- * Documentation of an element.
+ * Documentation elements for GIR elements.
  *
- * @property preserveSpace preserve the original formatting of the documentation from the source code.
- * @property preserveWhitespace keep the whitespace as they were in the source code.
- * @property filename the file containing this documentation.
- * @property line the first line of the documentation in the source code.
- * @property column the first column of the documentation in the source code.
- * @property text the text of the documentation.
+ * @property docVersion Version of the documentation.
+ * @property docStability Stability of the documentation.
+ * @property doc Documentation text.
+ * @property docDeprecated Deprecated documentation text.
+ * @property sourcePosition Source position of the documentation in the original source code.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirDoc(
-    val preserveSpace: Boolean,
-    val preserveWhitespace: Boolean,
-    val filename: String?,
-    val line: String?,
-    val column: String?,
-    val text: String,
-)
+    val docVersion: GirDocVersion? = null,
+    val docStability: GirDocStability? = null,
+    val doc: GirDocText? = null,
+    val docDeprecated: GirDocDeprecated? = null,
+    val sourcePosition: GirSourcePosition? = null,
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        docVersion?.initialize(this, namespace)
+        docStability?.initialize(this, namespace)
+        doc?.initialize(this, namespace)
+        docDeprecated?.initialize(this, namespace)
+        sourcePosition?.initialize(this, namespace)
+    }
+}

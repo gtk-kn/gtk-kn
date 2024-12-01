@@ -34,19 +34,19 @@ class ConstructorBlueprintBuilder(
 ) : CallableBlueprintBuilder<ConstructorBlueprint>(context, girNamespace) {
     override fun blueprintObjectType(): String = "constructor"
 
-    override fun blueprintObjectName(): String = girConstructor.name
+    override fun blueprintObjectName(): String = girConstructor.callable.name
 
     override fun buildInternal(): ConstructorBlueprint {
-        girConstructor.cIdentifier?.let { context.checkIgnoredFunction(it) }
+        girConstructor.callable.cIdentifier?.let { context.checkIgnoredFunction(it) }
 
-        if (girConstructor.info.introspectable == false) {
-            throw NotIntrospectableException(girConstructor.cIdentifier ?: girConstructor.name)
+        if (girConstructor.callable.info.introspectable == false) {
+            throw NotIntrospectableException(girConstructor.callable.cIdentifier ?: girConstructor.callable.name)
         }
 
-        if (girConstructor.shadowedBy != null) {
+        if (girConstructor.callable.shadowedBy != null) {
             throw ShadowedFunctionException(
-                girConstructor.cIdentifier ?: girConstructor.name,
-                girConstructor.shadowedBy,
+                girConstructor.callable.cIdentifier ?: girConstructor.callable.name,
+                girConstructor.callable.shadowedBy,
             )
         }
 
@@ -56,7 +56,8 @@ class ConstructorBlueprintBuilder(
         val returnValue = girConstructor.returnValue
         if (returnValue == null) {
             logger.error {
-                "Constructor ${girNamespace.name}.${blueprintObjectName()}.${girConstructor.name} has no return value"
+                "Constructor ${girNamespace.name}.${blueprintObjectName()}.${girConstructor.callable.name} " +
+                    "has no return value"
             }
             throw UnresolvableTypeException("Constructor has no return value")
         }
@@ -71,25 +72,25 @@ class ConstructorBlueprintBuilder(
         }
 
         // method name
-        val nativeMethodName = girConstructor.cIdentifier ?: throw UnresolvableTypeException(
-            "Constructor ${girConstructor.name} for ${blueprintObjectName()} does not have cIdentifier",
+        val nativeMethodName = girConstructor.callable.cIdentifier ?: throw UnresolvableTypeException(
+            "Constructor ${girConstructor.callable.name} for ${blueprintObjectName()} does not have cIdentifier",
         )
 
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)
 
         return ConstructorBlueprint(
-            kotlinName = context.kotlinizeMethodName(girConstructor.name),
+            kotlinName = context.kotlinizeMethodName(girConstructor.callable.name),
             nativeName = nativeMethodName,
             nativeMemberName = nativeMemberName,
             returnTypeInfo = returnTypeInfo,
             parameters = parameterBlueprints,
-            throws = girConstructor.throws == true,
+            throws = girConstructor.callable.throws == true,
             exceptionResolvingFunctionMember = exceptionResolvingFunction(),
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girConstructor.info)
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girConstructor.callable.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girConstructor.info.docs.doc?.text),
-            returnTypeKDoc = context.processKdoc(girConstructor.returnValue?.docs?.doc?.text),
+            kdoc = context.processKdoc(girConstructor.doc?.doc?.text),
+            returnTypeKDoc = context.processKdoc(girConstructor.returnValue?.doc?.doc?.text),
         )
     }
 }

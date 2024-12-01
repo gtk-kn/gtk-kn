@@ -86,8 +86,8 @@ class SignalBlueprintBuilder(
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girSignal.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girSignal.info.docs.doc?.text),
-            returnTypeKDoc = context.processKdoc(girSignal.returnValue.docs.doc?.text),
+            kdoc = context.processKdoc(girSignal.doc?.doc?.text),
+            returnTypeKDoc = context.processKdoc(girSignal.returnValue.doc?.doc?.text),
         )
     }
 }

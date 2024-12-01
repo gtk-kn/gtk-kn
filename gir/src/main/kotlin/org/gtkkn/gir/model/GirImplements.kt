@@ -17,10 +17,17 @@
 package org.gtkkn.gir.model
 
 /**
- * Give the name of the interface it implements. This element is generally used within a class element.
+ * Element defining an implementation, specifying the name of the interface it implements.
  *
- * @property name name of the interface implemented by a class.
+ * @property name Name of the interface implemented by a class.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirImplements(
     val name: String,
-)
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        // No children
+    }
+}

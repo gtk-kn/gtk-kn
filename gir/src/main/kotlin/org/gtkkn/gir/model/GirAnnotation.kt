@@ -17,14 +17,20 @@
 package org.gtkkn.gir.model
 
 /**
- * Element defining an annotation from the source code.
+ * Annotation defining an attribute from the source code, usually a user-defined annotation associated to a parameter
+ * or a return value.
  *
- * Usually a user-defined annotation associated to a parameter or a return value.
- *
- * @property name name of the attribute.
- * @property value value of the attribute.
+ * @property name Name of the annotation.
+ * @property value Value of the annotation.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirAnnotation(
     val name: String,
-    val value: String,
-)
+    val value: String
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        // NO-OP
+    }
+}

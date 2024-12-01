@@ -59,7 +59,7 @@ class ConstantBlueprintBuilder(
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girConstant.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girConstant.info.docs.doc?.text),
+            kdoc = context.processKdoc(girConstant.doc?.doc?.text),
         )
     }
 }

@@ -43,13 +43,13 @@ class MethodBlueprintBuilder(
 ) : CallableBlueprintBuilder<MethodBlueprint>(context, girNamespace) {
     override fun blueprintObjectType(): String = "method"
 
-    override fun blueprintObjectName(): String = girMethod.name
+    override fun blueprintObjectName(): String = girMethod.callable.name
 
     override fun buildInternal(): MethodBlueprint {
         checkSkippedMethod()
 
         val kotlinName = getFixedKotlinNameOrNull()
-            ?: context.kotlinizeMethodName(girMethod.shadows ?: girMethod.name)
+            ?: context.kotlinizeMethodName(girMethod.callable.shadows ?: girMethod.callable.name)
 
         // parameters
         girMethod.parameters?.let { addParameters(it) }
@@ -71,14 +71,14 @@ class MethodBlueprintBuilder(
         // check for overrides
         val superMethods = superClasses.flatMap { it.methods } + superInterfaces.flatMap { it.methods }
         val nameMatchingSuperMethods = superMethods
-            .filterNot { it.info.introspectable == false }
-            .filter { it.name == girMethod.name }
+            .filterNot { it.callable.info.introspectable == false }
+            .filter { it.callable.name == girMethod.callable.name }
 
         val isOverride = nameMatchingSuperMethods.any {
             it.debugParameterSignature() == girMethod.debugParameterSignature()
         }
         if (isOverride) {
-            logger.warn { "Detected method override: ${girMethod.name}" }
+            logger.warn { "Detected method override: ${girMethod.callable.name}" }
         }
 
         val isNameClash = nameMatchingSuperMethods.any {
@@ -86,8 +86,8 @@ class MethodBlueprintBuilder(
         }
 
         // method name
-        val nativeMethodName = girMethod.cIdentifier
-            ?: throw UnresolvableTypeException("native method ${girMethod.name} does not have cIdentifier")
+        val nativeMethodName = girMethod.callable.cIdentifier
+            ?: throw UnresolvableTypeException("native method ${girMethod.callable.name} does not have cIdentifier")
 
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)
 
@@ -103,13 +103,13 @@ class MethodBlueprintBuilder(
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
             isOpen = isOpen,
-            throws = girMethod.throws,
+            throws = girMethod.callable.throws == true,
             exceptionResolvingFunctionMember = exceptionResolvingFunction(),
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girMethod.info)
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girMethod.callable.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girMethod.info.docs.doc?.text),
-            returnTypeKDoc = context.processKdoc(girMethod.returnValue.docs.doc?.text),
+            kdoc = context.processKdoc(girMethod.doc?.doc?.text),
+            returnTypeKDoc = context.processKdoc(girMethod.returnValue.doc?.doc?.text),
         )
     }
 
@@ -120,15 +120,18 @@ class MethodBlueprintBuilder(
     }
 
     private fun checkSkippedMethod() {
-        if (girMethod.info.introspectable == false) {
-            throw NotIntrospectableException(girMethod.cIdentifier ?: girMethod.name)
+        if (girMethod.callable.info.introspectable == false) {
+            throw NotIntrospectableException(girMethod.callable.cIdentifier ?: girMethod.callable.name)
         }
 
-        if (girMethod.shadowedBy != null) {
-            throw ShadowedFunctionException(girMethod.cIdentifier ?: girMethod.name, girMethod.shadowedBy)
+        if (girMethod.callable.shadowedBy != null) {
+            throw ShadowedFunctionException(
+                girMethod.callable.cIdentifier ?: girMethod.callable.name,
+                girMethod.callable.shadowedBy,
+            )
         }
 
-        girMethod.cIdentifier?.let { context.checkIgnoredFunction(it) }
+        girMethod.callable.cIdentifier?.let { context.checkIgnoredFunction(it) }
 
         if (girMethod.parameters == null) {
             throw UnresolvableTypeException("Method has no parameters object")
@@ -139,7 +142,7 @@ class MethodBlueprintBuilder(
         }
     }
 
-    private fun TypeInfo.applyMissingReturnValueAnnotations(): TypeInfo = when (girMethod.cIdentifier) {
+    private fun TypeInfo.applyMissingReturnValueAnnotations(): TypeInfo = when (girMethod.callable.cIdentifier) {
         // add missing nullable annotations for g_value in older gobject gir files
         // https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3301
         "g_value_get_boxed" -> this.withNullable(true)
@@ -162,7 +165,7 @@ class MethodBlueprintBuilder(
      *
      * @return the fixed kotlinName for the method or null if no special casing applies
      */
-    private fun getFixedKotlinNameOrNull(): String? = when (girMethod.cIdentifier) {
+    private fun getFixedKotlinNameOrNull(): String? = when (girMethod.callable.cIdentifier) {
         "g_action_group_activate_action" -> "activateAction_"
         "gtk_root_get_display" -> "getDisplay_"
         "gtk_native_realize" -> "realize_"
@@ -177,7 +180,7 @@ class MethodBlueprintBuilder(
  * A debug string containing parameter details for comparing methods for override purposes.
  */
 private fun GirMethod.debugParameterSignature(): String {
-    val paramsSignature = parameters?.parameters.orEmpty().map { it.debugSignature() }.joinToString(",")
+    val paramsSignature = parameters?.parameters.orEmpty().joinToString(",") { it.debugSignature() }
     val returnSignature = checkNotNull(returnValue).type.debugSignature()
     return "$paramsSignature -> $returnSignature"
 }

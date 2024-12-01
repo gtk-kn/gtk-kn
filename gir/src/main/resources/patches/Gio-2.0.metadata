@@ -1,0 +1,8 @@
+// Remove underscore prefix
+Resource.* name="^_(.+)"
+
+// Remove underscore suffix
+*.*.* name="(.+)_$"
+
+// Can't find it in Ubuntu 24.04
+ThreadedResolver skip

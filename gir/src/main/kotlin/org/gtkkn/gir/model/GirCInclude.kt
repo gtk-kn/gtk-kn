@@ -17,10 +17,17 @@
 package org.gtkkn.gir.model
 
 /**
- * Dependant C header file which should be included in C programs.
+ * Dependent C header file which should be included in C programs.
  *
- * @property name file name of the C header file. The path can be relative.
+ * @property name File name of the C header file. The path can be relative.
  */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirCInclude(
     val name: String,
-)
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        // No children
+    }
+}

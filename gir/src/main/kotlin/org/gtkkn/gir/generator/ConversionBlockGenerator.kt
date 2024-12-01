@@ -57,12 +57,14 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.RecordPointer -> {
                     add(
-                        "%N$safeCall.%N",
+                        "%N$safeCall.%N$safeCall.%M()",
                         param.kotlinName,
                         param.typeInfo.objectPointerName,
+                        BindingsGenerator.REINTERPRET_FUNC,
                     )
                 }
 
+                is TypeInfo.Alias,
                 is TypeInfo.Primitive -> add("%N", param.kotlinName)
                 is TypeInfo.GBoolean -> add("%N$safeCall.%M()", param.kotlinName, BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.GChar -> add("%N$safeCall.code.toByte()", param.kotlinName)
@@ -122,6 +124,7 @@ interface ConversionBlockGenerator {
                     )
                 }
 
+                is TypeInfo.Alias,
                 is TypeInfo.Primitive -> Unit
                 is TypeInfo.GBoolean -> add("$safeCall.%M()", BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.GChar -> add("$safeCall.code.toByte()")
@@ -155,7 +158,9 @@ interface ConversionBlockGenerator {
                     returnTypeInfo,
                 )
 
+                is TypeInfo.Alias,
                 is TypeInfo.Primitive -> Unit
+
                 is TypeInfo.GBoolean -> NativeToKotlinConversions.buildGBoolean(this)
                 is TypeInfo.GChar -> NativeToKotlinConversions.buildGChar(this)
                 is TypeInfo.KString -> NativeToKotlinConversions.buildKString(isNullable, this)

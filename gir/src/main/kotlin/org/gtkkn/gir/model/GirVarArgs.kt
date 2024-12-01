@@ -17,6 +17,8 @@
 package org.gtkkn.gir.model
 
 /**
- * An element, usually found in a parameter element for variadic parameter in a function or callable.
+ * Represents a variadic parameter in a function or callable.
+ *
+ * This is used to signify that a parameter is a variable-length argument (varargs).
  */
-object GirVarArgs : GirAnyTypeOrVarargs
+data object GirVarArgs : GirAnyTypeOrVarargs

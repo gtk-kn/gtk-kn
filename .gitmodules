@@ -1,0 +1,3 @@
+[submodule "gir/src/test/resources/gir-files"]
+	path = gir/src/test/resources/gir-files
+	url = https://github.com/gircore/gir-files

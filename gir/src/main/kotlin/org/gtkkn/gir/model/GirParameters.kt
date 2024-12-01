@@ -16,7 +16,21 @@
 
 package org.gtkkn.gir.model
 
+/**
+ * Parameters element of a callable, usually for functions or similar constructs.
+ *
+ * @property parameters List of individual parameters for the callable.
+ * @property instanceParameter Instance parameter pointing to the object instance for methods.
+ */
+@Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirParameters(
-    val parameters: List<GirParameter>,
-    val instanceParameter: GirInstanceParameter?,
-)
+    val parameters: List<GirParameter> = emptyList(),
+    val instanceParameter: GirInstanceParameter? = null,
+) : GirNode {
+    override lateinit var parentNode: GirNode
+    override lateinit var namespace: GirNamespace
+    override fun initializeChildren(namespace: GirNamespace) {
+        parameters.forEach { it.initialize(this, namespace) }
+        instanceParameter?.initialize(this, namespace)
+    }
+}

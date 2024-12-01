@@ -28,6 +28,7 @@ import com.squareup.kotlinpoet.TypeAliasSpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.U_LONG
+import org.gtkkn.gir.blueprints.AliasBlueprint
 import org.gtkkn.gir.blueprints.CallbackBlueprint
 import org.gtkkn.gir.blueprints.ClosureBlueprint
 import org.gtkkn.gir.blueprints.FunctionBlueprint
@@ -409,6 +410,11 @@ interface MiscGenerator : ConversionBlockGenerator, KDocGenerator {
             addParameter(paramSpecBuilder.build())
         }
     }
+
+    fun buildAliasTypeAlias(alias: AliasBlueprint) =
+        TypeAliasSpec.builder(alias.kotlinName, alias.parentTypeName)
+            .addKdoc(buildTypeKDoc(alias.kdoc, alias.optInVersionBlueprint))
+            .build()
 
     fun buildCallbackTypeAlias(callback: CallbackBlueprint) =
         TypeAliasSpec.builder(callback.kotlinName, callback.lambdaTypeName)

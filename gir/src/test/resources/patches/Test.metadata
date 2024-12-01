@@ -1,0 +1,151 @@
+// Test.metadata
+// This file covers various use cases for GIR metadata
+
+// Skipping a symbol
+MySymbol skip
+
+// Hiding a symbol
+HiddenSymbol hidden
+
+// Marking a symbol as new
+NewSymbol new
+
+// Specifying C header filenames
+MyNamespace.cheader_filename="my_header.h"
+
+// Specifying a custom name
+CustomNamedSymbol name="CustomSymbol"
+
+// Ownership
+OwnedParameter owned
+UnownedMethod unowned=true
+
+// Specifying parent
+ChildSymbol parent="ParentClass"
+
+// Nullable attributes
+NullableField nullable=true
+
+// Deprecation
+DeprecatedMethod deprecated
+DeprecatedMethodWithReplacement replacement="NewMethod"
+DeprecatedMethodWithVersion deprecated_since="2.0"
+
+// Adding version information
+VersionedSymbol since="3.0"
+
+// Array attributes
+ArrayField array=true
+ArrayFieldWithLength array_length_idx=2
+ArrayFieldNullTerminated array_null_terminated=true
+
+// Default values
+DefaultParameter default=42
+DefaultWithoutValue default
+
+// Out and Ref attributes
+OutParameter out
+RefParameter ref
+
+// Abstract and sealed attributes
+AbstractClass abstract=true
+SealedClass sealed=true
+// Exceptions
+ThrowsExceptionMethod throws="CustomException"
+
+// Closure attributes
+ClosureMethod closure=3
+
+// Destroy-related attributes
+DestroyMethod destroy=true
+DestroysInstanceMethod destroys_instance=true
+
+// Error domain
+ErrorEnum errordomain=true
+
+// Base type attributes
+BaseTypedSymbol base_type="BaseClass"
+
+// Finish functions
+FinishFunction finish_name="finish_method"
+
+// Finish instance
+FinishInstanceMethod finish_instance=true
+
+// Instance index
+InstanceIndexedMethod instance_idx=1
+
+// Feature test macros
+FeatureTestedSymbol feature_test_macro="FEATURE_MACRO"
+
+// Floating references
+FloatingReferenceMethod floating=true
+
+// Type ID
+TypeIdMethod type_id="CustomTypeId"
+
+// Copy, free, ref, and unref functions
+CopyFunctionMethod copy_function="copy_func"
+FreeFunctionMethod free_function="free_func"
+RefFunctionMethod ref_function="ref_func"
+RefSinkFunctionMethod ref_sink_function="ref_sink_func"
+UnrefFunctionMethod unref_function="unref_func"
+
+// Return-related attributes
+ReturnVoidMethod owned
+ReturnsModifiedPointerMethod returns_modified_pointer=true
+
+// Delegate-related attributes
+DelegateTargetCname delegate_target_cname="delegate_cname"
+DelegateTargetMethod delegate_target="delegate_target"
+DestroyNotifyMethod destroy_notify_cname="destroy_notify"
+
+// No accessor method
+NoAccessorMethod no_accessor_method=true
+
+// C Type
+CTypeSymbol ctype="CustomCType"
+
+// Using relative rules
+FooBar
+    .baz_method deprecated_since="1.0" replacement="new_baz_method"
+
+// Using selectors
+FooBar.baz_method#method virtual=true
+
+// Using arguments with expressions
+SomeClass.some_method array_length_idx=2 nullable=false
+
+// Using a symbol in an expression
+YetAnotherClass.some_property default=SomeOtherClass.DEFAULT_VALUE
+
+// Using multiple arguments
+ClassName.method_name deprecated_since="2.0" deprecated=true replacement="new_method"
+
+// Using relative rules relative to absolute rule
+BaseClass
+    .SubClass skip
+    .AnotherSubClass unowned=true
+
+// Using complex patterns
+*#function skip
+
+// Using nullable and array arguments
+ExampleClass.example_method nullable=true array=true
+
+// Using closure and scope
+AsyncClass.async_method closure=1 scope="async"
+
+// Using default without expression (treated as true)
+ParameterlessMethod default
+
+// Using different selectors
+SelectorTest.method#constructor skip
+SelectorTest.property#property nullable=false
+
+// Overriding namespace attributes
+MyNamespace cheader_filename="my_header.h"
+
+//
+DBus*VTable
+  .*#field delegate_target=false

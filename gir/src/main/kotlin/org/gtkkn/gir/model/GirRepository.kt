@@ -17,26 +17,23 @@
 package org.gtkkn.gir.model
 
 /**
- * Root node of a GIR repository.
+ * Root node of a GIR repository. It contains namespaces, which can in turn be implemented in several libraries.
  *
- * It contains  namespaces, which can in turn be implemented in several libraries.
- *
- * @property version version number of the repository.
- * @property cIdentifierPrefixes prefixes to filter out from C identifiers for data structures and types. For example,
- *                               GtkWindow will be Window. If c:symbol-prefixes is not used, then this element is used
- *                               for both.
- * @property cSymbolPrefixes prefixes to filter out from C functions. For example, gtk_window_new will lose gtk_.
- * @property includes a list of [GirInclude] that a repository can contain.
- * @property cIncludes a list of [GirCInclude] that a repository can contain.
- * @property packages a list of [GirPackage] that a repository can contain.
- * @property namespace a list of [GirNamespace] that a repository can contain.
+ * @property version Version number of the repository.
+ * @property cIdentifierPrefixes Prefixes to filter out from C identifiers for data structures and types.
+ * For example, GtkWindow will be Window. If c:symbol-prefixes is not used, then this element is used for both.
+ * @property cSymbolPrefixes Prefixes to filter out from C functions. For example, gtk_window_new will lose gtk_.
+ * @property includes Dependent namespaces to include with the current namespace.
+ * @property cIncludes Dependent C header files which should be included in C programs.
+ * @property packages Deprecated: package names containing the library.
+ * @property namespaces Namespaces which map metadata entries to C functionality.
  */
 data class GirRepository(
-    val version: String,
-    val cIdentifierPrefixes: String?,
-    val cSymbolPrefixes: String?,
-    val includes: List<GirInclude>,
-    val cIncludes: List<GirCInclude>,
-    val packages: List<GirPackage>,
-    val namespace: GirNamespace,
+    val version: String? = null,
+    val cIdentifierPrefixes: String? = null,
+    val cSymbolPrefixes: String? = null,
+    val includes: List<GirInclude> = emptyList(),
+    val cIncludes: List<GirCInclude> = emptyList(),
+    val packages: List<GirPackage> = emptyList(),
+    val namespaces: List<GirNamespace> = emptyList()
 )
