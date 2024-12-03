@@ -624,9 +624,6 @@ class ProcessorContext(
             "g_prefix_error_literal",
             "g_trash_stack_height",
 
-            "pango_font_map_create_context",
-            "pango_layout_get_context",
-
             // problem because it needs a GObjectClass struct
             "gtk_editable_install_properties",
 

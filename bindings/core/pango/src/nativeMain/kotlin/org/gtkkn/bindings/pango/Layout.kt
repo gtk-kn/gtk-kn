@@ -47,6 +47,7 @@ import org.gtkkn.native.pango.pango_layout_get_auto_dir
 import org.gtkkn.native.pango.pango_layout_get_baseline
 import org.gtkkn.native.pango.pango_layout_get_caret_pos
 import org.gtkkn.native.pango.pango_layout_get_character_count
+import org.gtkkn.native.pango.pango_layout_get_context
 import org.gtkkn.native.pango.pango_layout_get_cursor_pos
 import org.gtkkn.native.pango.pango_layout_get_direction
 import org.gtkkn.native.pango.pango_layout_get_ellipsize
@@ -139,7 +140,6 @@ import org.gtkkn.native.pango.pango_layout_write_to_file
  *
  * ## Skipped during bindings generation
  *
- * - method `get_context`: C function pango_layout_get_context is ignored
  * - parameter `attrs`: attrs: Out parameter is not supported
  * - parameter `n_attrs`: n_attrs: Out parameter is not supported
  * - parameter `width`: width: Out parameter is not supported
@@ -259,6 +259,14 @@ public open class Layout(
      */
     @PangoVersion1_30
     public open fun getCharacterCount(): Int = pango_layout_get_character_count(pangoLayoutPointer.reinterpret())
+
+    /**
+     * Retrieves the `PangoContext` used for this layout.
+     *
+     * @return the `PangoContext` for the layout
+     */
+    public open fun getContext(): Context = pango_layout_get_context(pangoLayoutPointer.reinterpret())!!.run {
+        Context(reinterpret())}
 
     /**
      * Given an index within a layout, determines the positions that of the

@@ -9,6 +9,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_32_4
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_34
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
@@ -19,6 +20,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.pango.PangoFontMap
 import org.gtkkn.native.pango.pango_font_map_changed
+import org.gtkkn.native.pango.pango_font_map_create_context
 import org.gtkkn.native.pango.pango_font_map_get_family
 import org.gtkkn.native.pango.pango_font_map_get_serial
 import org.gtkkn.native.pango.pango_font_map_get_type
@@ -35,7 +37,6 @@ import org.gtkkn.native.pango.pango_font_map_reload_font
  *
  * ## Skipped during bindings generation
  *
- * - method `create_context`: C function pango_font_map_create_context is ignored
  * - parameter `families`: families: Out parameter is not supported
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
@@ -64,6 +65,25 @@ public open class FontMap(
      */
     @PangoVersion1_34
     public open fun changed(): Unit = pango_font_map_changed(pangoFontMapPointer.reinterpret())
+
+    /**
+     * Creates a `PangoContext` connected to @fontmap.
+     *
+     * This is equivalent to [ctor@Pango.Context.new] followed by
+     * [method@Pango.Context.set_font_map].
+     *
+     * If you are using Pango as part of a higher-level system,
+     * that system may have it's own way of create a `PangoContext`.
+     * For instance, the GTK toolkit has, among others,
+     * gtk_widget_get_pango_context(). Use those instead.
+     *
+     * @return the newly allocated `PangoContext`,
+     *   which should be freed with g_object_unref().
+     * @since 1.22
+     */
+    @PangoVersion1_22
+    public open fun createContext(): Context = pango_font_map_create_context(pangoFontMapPointer.reinterpret())!!.run {
+        Context(reinterpret())}
 
     /**
      * Gets a font family by name.
