@@ -5,12 +5,14 @@ import kotlin.Double
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gtk.GtkPrintContext
+import org.gtkkn.native.gtk.gtk_print_context_create_pango_context
 import org.gtkkn.native.gtk.gtk_print_context_create_pango_layout
 import org.gtkkn.native.gtk.gtk_print_context_get_dpi_x
 import org.gtkkn.native.gtk.gtk_print_context_get_dpi_y
@@ -93,8 +95,7 @@ import org.gtkkn.native.gtk.gtk_print_context_get_width
  *
  * ## Skipped during bindings generation
  *
- * - method `create_pango_context`: C function gtk_print_context_create_pango_context is ignored
- * - method `get_cairo_context`: C function gtk_print_context_get_cairo_context is ignored
+ * - method `get_cairo_context`: Return type cairo.Context is unsupported
  * - parameter `top`: top: Out parameter is not supported
  * - parameter `cr`: cairo.Context
  */
@@ -104,6 +105,15 @@ public open class PrintContext(
     KGTyped {
     public val gtkPrintContextPointer: CPointer<GtkPrintContext>
         get() = gPointer.reinterpret()
+
+    /**
+     * Creates a new `PangoContext` that can be used with the
+     * `GtkPrintContext`.
+     *
+     * @return a new Pango context for @context
+     */
+    public open fun createPangoContext(): Context = gtk_print_context_create_pango_context(gtkPrintContextPointer.reinterpret())!!.run {
+        Context(reinterpret())}
 
     /**
      * Creates a new `PangoLayout` that is suitable for use

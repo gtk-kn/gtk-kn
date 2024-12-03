@@ -35,6 +35,7 @@ import org.gtkkn.bindings.gsk.Transform
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
+import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.extensions.common.asBoolean
@@ -70,6 +71,7 @@ import org.gtkkn.native.gtk.gtk_widget_compute_expand
 import org.gtkkn.native.gtk.gtk_widget_compute_point
 import org.gtkkn.native.gtk.gtk_widget_compute_transform
 import org.gtkkn.native.gtk.gtk_widget_contains
+import org.gtkkn.native.gtk.gtk_widget_create_pango_context
 import org.gtkkn.native.gtk.gtk_widget_create_pango_layout
 import org.gtkkn.native.gtk.gtk_widget_dispose_template
 import org.gtkkn.native.gtk.gtk_widget_error_bell
@@ -112,6 +114,7 @@ import org.gtkkn.native.gtk.gtk_widget_get_native
 import org.gtkkn.native.gtk.gtk_widget_get_next_sibling
 import org.gtkkn.native.gtk.gtk_widget_get_opacity
 import org.gtkkn.native.gtk.gtk_widget_get_overflow
+import org.gtkkn.native.gtk.gtk_widget_get_pango_context
 import org.gtkkn.native.gtk.gtk_widget_get_parent
 import org.gtkkn.native.gtk.gtk_widget_get_preferred_size
 import org.gtkkn.native.gtk.gtk_widget_get_prev_sibling
@@ -608,10 +611,8 @@ import org.gtkkn.bindings.glib.List as GlibList
  *
  * ## Skipped during bindings generation
  *
- * - method `create_pango_context`: C function gtk_widget_create_pango_context is ignored
  * - parameter `allocation`: allocation: Out parameter is not supported
  * - method `get_font_options`: Return type cairo.FontOptions is unsupported
- * - method `get_pango_context`: C function gtk_widget_get_pango_context is ignored
  * - parameter `width`: width: Out parameter is not supported
  * - parameter `minimum`: minimum: Out parameter is not supported
  * - parameter `options`: cairo.FontOptions
@@ -1711,6 +1712,18 @@ public open class Widget(
     public open fun contains(x: Double, y: Double): Boolean = gtk_widget_contains(gtkWidgetPointer.reinterpret(), x, y).asBoolean()
 
     /**
+     * Creates a new `PangoContext` with the appropriate font map,
+     * font options, font description, and base direction for drawing
+     * text for this widget.
+     *
+     * See also [method@Gtk.Widget.get_pango_context].
+     *
+     * @return the new `PangoContext`
+     */
+    public open fun createPangoContext(): Context = gtk_widget_create_pango_context(gtkWidgetPointer.reinterpret())!!.run {
+        Context(reinterpret())}
+
+    /**
      * Creates a new `PangoLayout` with the appropriate font map,
      * font description, and base direction for drawing text for
      * this widget.
@@ -2029,6 +2042,22 @@ public open class Widget(
      */
     public open fun getNextSibling(): Widget? = gtk_widget_get_next_sibling(gtkWidgetPointer.reinterpret())?.run {
         Widget(reinterpret())}
+
+    /**
+     * Gets a `PangoContext` with the appropriate font map, font description,
+     * and base direction for this widget.
+     *
+     * Unlike the context returned by [method@Gtk.Widget.create_pango_context],
+     * this context is owned by the widget (it can be used until the screen
+     * for the widget changes or the widget is removed from its toplevel),
+     * and will be updated to match any changes to the widget’s attributes.
+     * This can be tracked by listening to changes of the
+     * [property@Gtk.Widget:root] property on the widget.
+     *
+     * @return the `PangoContext` for the widget.
+     */
+    public open fun getPangoContext(): Context = gtk_widget_get_pango_context(gtkWidgetPointer.reinterpret())!!.run {
+        Context(reinterpret())}
 
     /**
      * Retrieves the minimum and natural size of a widget, taking

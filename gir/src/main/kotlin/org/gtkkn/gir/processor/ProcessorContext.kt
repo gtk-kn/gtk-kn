@@ -627,13 +627,6 @@ class ProcessorContext(
             "pango_font_map_create_context",
             "pango_layout_get_context",
 
-            "gtk_print_context_create_pango_context",
-            "gtk_print_context_get_cairo_context",
-            "gtk_text_view_get_ltr_context",
-            "gtk_text_view_get_rtl_context",
-            "gtk_widget_create_pango_context",
-            "gtk_widget_get_pango_context",
-
             // problem because it needs a GObjectClass struct
             "gtk_editable_install_properties",
 

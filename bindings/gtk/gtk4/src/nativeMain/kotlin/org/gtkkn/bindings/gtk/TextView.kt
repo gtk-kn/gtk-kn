@@ -20,6 +20,8 @@ import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
+import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.TabArray
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
@@ -60,12 +62,14 @@ import org.gtkkn.native.gtk.gtk_text_view_get_iter_at_location
 import org.gtkkn.native.gtk.gtk_text_view_get_iter_location
 import org.gtkkn.native.gtk.gtk_text_view_get_justification
 import org.gtkkn.native.gtk.gtk_text_view_get_left_margin
+import org.gtkkn.native.gtk.gtk_text_view_get_ltr_context
 import org.gtkkn.native.gtk.gtk_text_view_get_monospace
 import org.gtkkn.native.gtk.gtk_text_view_get_overwrite
 import org.gtkkn.native.gtk.gtk_text_view_get_pixels_above_lines
 import org.gtkkn.native.gtk.gtk_text_view_get_pixels_below_lines
 import org.gtkkn.native.gtk.gtk_text_view_get_pixels_inside_wrap
 import org.gtkkn.native.gtk.gtk_text_view_get_right_margin
+import org.gtkkn.native.gtk.gtk_text_view_get_rtl_context
 import org.gtkkn.native.gtk.gtk_text_view_get_tabs
 import org.gtkkn.native.gtk.gtk_text_view_get_top_margin
 import org.gtkkn.native.gtk.gtk_text_view_get_type
@@ -149,8 +153,6 @@ import org.gtkkn.native.gtk.gtk_text_view_starts_display_line
  * - parameter `trailing`: trailing: Out parameter is not supported
  * - parameter `line_top`: line_top: Out parameter is not supported
  * - parameter `y`: y: Out parameter is not supported
- * - method `get_ltr_context`: C function gtk_text_view_get_ltr_context is ignored
- * - method `get_rtl_context`: C function gtk_text_view_get_rtl_context is ignored
  * - parameter `buffer_x`: buffer_x: Out parameter is not supported
  * - method `buffer`: Property TypeInfo of getter and setter do not match
  * - method `extra-menu`: Property TypeInfo of getter and setter do not match
@@ -775,6 +777,32 @@ public open class TextView(
      * @param location bounds of the character at @iter
      */
     public open fun getIterLocation(iter: TextIter, location: Rectangle): Unit = gtk_text_view_get_iter_location(gtkTextViewPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret(), location.gdkRectanglePointer.reinterpret())
+
+    /**
+     * Gets the `PangoContext` that is used for rendering LTR directed
+     * text layouts.
+     *
+     * The context may be replaced when CSS changes occur.
+     *
+     * @return a `PangoContext`
+     * @since 4.4
+     */
+    @GtkVersion4_4
+    public open fun getLtrContext(): Context = gtk_text_view_get_ltr_context(gtkTextViewPointer.reinterpret())!!.run {
+        Context(reinterpret())}
+
+    /**
+     * Gets the `PangoContext` that is used for rendering RTL directed
+     * text layouts.
+     *
+     * The context may be replaced when CSS changes occur.
+     *
+     * @return a `PangoContext`
+     * @since 4.4
+     */
+    @GtkVersion4_4
+    public open fun getRtlContext(): Context = gtk_text_view_get_rtl_context(gtkTextViewPointer.reinterpret())!!.run {
+        Context(reinterpret())}
 
     /**
      * Gets the default tabs for @text_view.
