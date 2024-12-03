@@ -28,6 +28,7 @@ import org.gtkkn.native.glib.g_io_channel_close
 import org.gtkkn.native.glib.g_io_channel_error_from_errno
 import org.gtkkn.native.glib.g_io_channel_error_quark
 import org.gtkkn.native.glib.g_io_channel_flush
+import org.gtkkn.native.glib.g_io_channel_get_buffer_condition
 import org.gtkkn.native.glib.g_io_channel_get_buffer_size
 import org.gtkkn.native.glib.g_io_channel_get_buffered
 import org.gtkkn.native.glib.g_io_channel_get_close_on_unref
@@ -91,7 +92,6 @@ import kotlinx.cinterop.alloc as nativePlacementAlloc
  *
  * ## Skipped during bindings generation
  *
- * - method `get_buffer_condition`: C function g_io_channel_get_buffer_condition is ignored
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `bytes_read`: Unsupported pointer to primitive type
  * - parameter `buf`: buf: Out parameter is not supported
@@ -153,6 +153,16 @@ public class IOChannel(
             Result.success(gResult)
         }
     }
+
+    /**
+     * This function returns a #GIOCondition depending on whether there
+     * is data to be read/space to write data in the internal buffers in
+     * the #GIOChannel. Only the flags %G_IO_IN and %G_IO_OUT may be set.
+     *
+     * @return A #GIOCondition
+     */
+    public fun getBufferCondition(): IOCondition = g_io_channel_get_buffer_condition(glibIOChannelPointer.reinterpret()).run {
+        IOCondition(this)}
 
     /**
      * Gets the buffer size.

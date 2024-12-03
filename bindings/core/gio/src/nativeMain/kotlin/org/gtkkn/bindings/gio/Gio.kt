@@ -170,6 +170,7 @@ import org.gtkkn.native.gio.g_keyfile_settings_backend_new
 import org.gtkkn.native.gio.g_memory_monitor_dup_default
 import org.gtkkn.native.gio.g_memory_settings_backend_new
 import org.gtkkn.native.gio.g_network_monitor_get_default
+import org.gtkkn.native.gio.g_networking_init
 import org.gtkkn.native.gio.g_null_settings_backend_new
 import org.gtkkn.native.gio.g_pollable_source_new
 import org.gtkkn.native.gio.g_pollable_source_new_full
@@ -245,7 +246,6 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - function `io_extension_point_register`: Return type IOExtensionPoint is unsupported
  * - parameter `scope`: IOModuleScope
  * - parameter `scope`: IOModuleScope
- * - function `networking_init`: C function g_networking_init is ignored
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
@@ -3385,6 +3385,17 @@ public object Gio {
     @GioVersion2_32
     public fun networkMonitorGetDefault(): NetworkMonitor = g_network_monitor_get_default()!!.run {
         NetworkMonitor.wrap(reinterpret())}
+
+    /**
+     * Initializes the platform networking libraries (eg, on Windows, this
+     * calls WSAStartup()). GLib will call this itself if it is needed, so
+     * you only need to call it if you directly call system networking
+     * functions (without calling any GLib networking functions first).
+     *
+     * @since 2.36
+     */
+    @GioVersion2_36
+    public fun networkingInit(): Unit = g_networking_init()
 
     /**
      * Creates a readonly #GSettingsBackend.

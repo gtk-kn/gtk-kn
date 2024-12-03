@@ -620,10 +620,6 @@ class ProcessorContext(
             // problems with mismatched return type
             "cairo_image_surface_create",
 
-            // which def file should include this (gio or glib)?
-            "g_networking_init",
-            "g_io_channel_get_buffer_condition",
-
             // error pointer argument
             "g_prefix_error_literal",
             "g_trash_stack_height",
